@@ -1,0 +1,9 @@
+nav:
+    - Concepts: concepts.md
+    - Log Search: logs
+    - Organizations: organizations.md
+    - Users: users.md
+    - Streams: streams.md
+    - Ingestion: ingestion.md
+    - Alerts: alerts
+    - Functions: functions

@@ -1,0 +1,5 @@
+nav:
+    - Search: search.md
+    - Search Types: types.md
+    - Aggregations: aggregation.md
+    - Highlight: highlight.md

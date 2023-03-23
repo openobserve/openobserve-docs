@@ -1,0 +1,78 @@
+site_name: ZincObserve
+
+# https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
+plugins:
+  - search
+  - awesome-pages
+# nav:
+#   - index.md
+#   - getting-started.md
+#   - installation.md
+#   - ...
+#   - monitoring.md
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin 
+      link: https://www.linkedin.com/company/zinclabsinc
+    - icon: fontawesome/brands/github 
+      link: https://github.com/zinclabs/zincobserve
+    - icon: fontawesome/brands/docker 
+      link: https://gallery.ecr.aws/zinclabs/zinc
+    - icon: fontawesome/brands/slack 
+      link: https://join.slack.com/t/zincobserve/shared_invite/zt-11r96hv2b-UwxUILuSJ1duzl_6mhJwVg
+  alternate:
+    # - name: English
+    #   link: /en/ 
+    #   lang: en
+    # - name: Chinese
+    #   link: /cn/
+    #   lang: zh
+  generator: false
+  version:
+    provider: mike
+  analytics:
+    provider: google
+    property: G-ZM6P0XB94J
+theme:
+  logo: images/zinc.png
+  favicon: images/zinc.png
+  name: material
+  custom_dir: overrides
+  features:
+    # - navigation.expand
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+    - content.code.select
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate 
+      primary: black
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+repo_url: https://github.com/zinclabs/zincobserve
+repo_name: zinclabs/zincobserve
+edit_uri: https://github.com/zinclabs/zincsearch-docs/edit/main/docs/
+markdown_extensions:
+  - tables
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+

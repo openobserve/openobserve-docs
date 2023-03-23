@@ -1,0 +1,5 @@
+nav:
+    - Create: create.md
+    - Delete: delete.md
+    - List: list.md
+    - Examples: examples.md

@@ -1,0 +1,29 @@
+
+[data-md-color-scheme="zinc"] {
+  --md-primary-fg-color:        #ffffff;
+  --md-primary-fg-color--light: #ECB7B7;
+  --md-primary-fg-color--dark:  #90030C;
+}
+
+@media only screen and (min-width: 76.25em) {
+    .md-main__inner {
+      max-width: none;
+    }
+    .md-sidebar--primary {
+      left: 0;
+    }
+    .md-sidebar--secondary {
+      right: 0;
+      margin-left: 0;
+      -webkit-transform: none;
+      transform: none;   
+    }
+  }
+
+.md-typeset code {
+  color: #ef5552;
+}
+
+html {
+  font-size: 125%;
+}

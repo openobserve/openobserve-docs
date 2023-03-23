@@ -1,0 +1,4 @@
+nav:
+    - Create / Update: create.md
+    - Delete: delete.md
+    - List: list.md
