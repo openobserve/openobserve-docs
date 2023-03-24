@@ -1,6 +1,47 @@
 # Alerts - templates
 
+Templates are used when notification is sent for an alert , templates forms body of request being sent to destination , for eg. for slack one can create template like :
 
+```json
+{
+  	"text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"	
+}
+
+```
+When a notification is being sent , ZincObserve will replace placeholders like {stream_name} ,{org_name} etc with actual values of stream , alert , organization.
+
+Variables which can be used in templates are:
+
+| Variable                      | Value                     | Description                               |
+| ----------------------------- | ------------------------- |------------------------------------------ | 
+| stream_name                   |   Stream name             | Name of the stream for alert is created   | 
+| org_name                      | Organization name         | Name of the organization                  |
+| alert_name                    | Alert name                | Name of the alert                         |
+| alert_type                    | Alert type                | Possible values are : real time or scheduled           |
+
+
+## Slack
+```json
+{
+  	"text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"	
+}
+```
+
+## Alert Manager
+```json
+{  
+    "labels": {
+        "alertname": {alert_name},
+        "stream": {stream_name},
+        "organization": {org_name},
+        "alerttype":{alert_type},
+        "severity":"critical" // static fields if any
+        },
+    "annotations": {
+        "timestamp": {timestamp}
+        }
+}
+```
 ## Feishu
 
 Webhook URL, eg:

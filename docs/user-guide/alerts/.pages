@@ -1,4 +1,4 @@
 nav:
-    - Alerts: Alerts.md
+    - Alerts: alerts.md
     - Destinations: destinations.md
     - Templates: templates.md
