@@ -65,7 +65,7 @@ theme:
         name: Switch to light mode
 repo_url: https://github.com/zinclabs/zincobserve
 repo_name: zinclabs/zincobserve
-edit_uri: https://github.com/zinclabs/zincsearch-docs/edit/main/docs/
+edit_uri: https://github.com/zinclabs/zincobserve-docs/edit/main/docs/
 markdown_extensions:
   - tables
   - pymdownx.tabbed:
