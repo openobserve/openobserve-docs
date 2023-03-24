@@ -63,6 +63,16 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
+### Docker tags
+
+- `public.ecr.aws/zinclabs/zincobserve:latest`
+
+    Used for most users
+
+- `public.ecr.aws/zinclabs/zincobserve:latest-simd`
+
+    If your CPU is Intel and supports the `AVX512` feature, or if your ARM CPU supports the `NEON` feature, you can use this tag. This will provide you with increased performance.
+
 ## Load sample data
 
 We will use JSON API to load sample log data.
