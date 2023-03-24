@@ -21,7 +21,7 @@ extra:
     - icon: fontawesome/brands/github 
       link: https://github.com/zinclabs/zincobserve
     - icon: fontawesome/brands/docker 
-      link: https://gallery.ecr.aws/zinclabs/zinc
+      link: https://gallery.ecr.aws/zinclabs/zincobserve
     - icon: fontawesome/brands/slack 
       link: https://join.slack.com/t/zincobserve/shared_invite/zt-11r96hv2b-UwxUILuSJ1duzl_6mhJwVg
   alternate:
@@ -44,7 +44,7 @@ theme:
   custom_dir: overrides
   features:
     # - navigation.expand
-    - navigation.tabs
+    # - navigation.tabs
     - navigation.tabs.sticky
     - navigation.instant
     - navigation.tracking

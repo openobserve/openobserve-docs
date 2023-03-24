@@ -1,7 +1,0 @@
-nav:
-    - Index: index
-    - Document: document
-    - Search: search
-    - User: user
-    - Version: version.md
-    - Metrics: metrics.md

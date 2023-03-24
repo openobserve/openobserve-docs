@@ -1,7 +1,0 @@
-nav:
-    - _info: _info.md
-    - _license: _license.md
-    - _xpack: _xpack.md
-    - Index: index
-    - Document: document
-    - Search: search

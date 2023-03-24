@@ -1,7 +1,0 @@
-nav:
-    - Single Record: single-record.md
-    - Bulk Ingestion: bulk-ingestion.md
-    - Filebeat: filebeat.md
-    - Fluent-bit: fluent-bit.md
-    - Fluentd: fluentd.md
-    - Syslog-ng: syslog-ng.md
