@@ -28,18 +28,20 @@ Variables which can be used in templates are:
 
 ## Alert Manager
 ```json
-{  
-    "labels": {
-        "alertname": {alert_name},
-        "stream": {stream_name},
-        "organization": {org_name},
-        "alerttype":{alert_type},
-        "severity":"critical" // static fields if any
+[
+    {
+        "labels": {
+            "alertname": "{alert_name}",
+            "stream": "{stream_name}",
+            "organization": "{org_name}",
+            "alerttype": "{alert_type}",
+            "severity": "critical"
         },
-    "annotations": {
-        "timestamp": {timestamp}
+        "annotations": {
+            "timestamp": "{timestamp}"
         }
-}
+    }
+]
 ```
 
 
