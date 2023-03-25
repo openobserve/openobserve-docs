@@ -14,13 +14,16 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
 - To search for all log entries that have log entries where `code is 200` . code is a numeric field
     - `code=200`
 - To search for all log entries where code field does not contain any value
-    - `code is null` . code=' ' will not yield right results
+    - ✅ `code is null` 
+    - ❌ code=' ' will not yield right results
 - To search for all log entries where code field has some value
-    - `code is not null` . code!=' ' will not yield right results
+    - ✅ `code is not null` 
+    - ❌ code!=' ' will not yield right results
 - code > 399
     - `code>399`
 - code >= 400
-    - `code >= 400` code=>400 will not work.
+    - ✅ `code >= 400` 
+    - ❌ code=>400 will not work
 - query to draw line chart of http_status codes on a timeline
     - <pre> `SELECT histogram(_timestamp) as ts_histogram, 
 count(case when code=200 then 1 end) as code_200_count, 
