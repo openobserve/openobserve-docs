@@ -6,7 +6,8 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
 
 1. To search for all the fields containing the word `error`. This is a case sensitive search:
     - `match_all('error')`
-- Search only logs field for error
+    - match_all searches only the fields that are configured for full text search. Default set of fields are `msg, message, log, logs`. If you want more fields to be scanned during full text search, you can configure them under stream settings. You should use `str_match` for full text search in specific fields.
+- Search only `log` field for error. This is much more efficient than `match_all` as it search in a single field.
     - `str_match(log, 'error')`
 -  To do a case insensitive search for `error`
     - `match_all_ignore_case('error')`
