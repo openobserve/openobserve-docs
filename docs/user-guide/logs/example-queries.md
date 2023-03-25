@@ -4,7 +4,7 @@
 We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip) to demonstrate the sample queries that you can use.
 
 
-1. To search for all the fields containing the word `error`. This is a case snesitive search:
+1. To search for all the fields containing the word `error`. This is a case sensitive search:
     - `match_all('error')`
 -  To do a case insensitive search for `error`
     - `match_all_ignore_case('error')`
