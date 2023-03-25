@@ -21,3 +21,5 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
     - `code>399`
 - code >= 400
     - `code >= 400` code=>400 will not work.
+- query to draw line chart of http_status codes on a timeline
+    - `SELECT histogram(_timestamp) as ts_histogram, count(case when code=200 then 1 end) as code_200_count, count(case when code=401 then 1 end) as code_401_count, count(case when code=500 then 1 end) as code_500_count FROM quickstart1 GROUP BY ts_histogram`
