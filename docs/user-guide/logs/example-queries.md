@@ -6,6 +6,8 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
 
 1. To search for all the fields containing the word `error`. This is a case sensitive search:
     - `match_all('error')`
+- Search only logs field for error
+    - `str_match(log, 'error')`
 -  To do a case insensitive search for `error`
     - `match_all_ignore_case('error')`
 - To search for all log entries that have log entries where `code is 200` . code is a numeric field
@@ -14,4 +16,7 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
     - `code is null` . code=' ' will not yield right results
 - To search for all log entries where code field has some value
     - `code is not null` . code!=' ' will not yield right results
-
+- code > 399
+    - `code>399`
+- code >= 400
+    - `code >= 400` code=>400 will not work.
