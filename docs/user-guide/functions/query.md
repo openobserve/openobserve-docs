@@ -10,6 +10,7 @@ While defining query function, one has to :
 1. specify function name
 1. provide script defining behaviour of function with appropriate number of parameters as input, as mentioned above during query time the columns/fields of stream should be used as input to the function being defined.
 
+Let's define a function which takes three params , col1 , col2 , col3 and returns concatenated value of three , when using this function during query on a stream please pass appropriate field/column names from stream.
 
 <kbd>
 ![Query Functions](../../images/Query_function.jpg)
