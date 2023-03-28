@@ -63,7 +63,7 @@ The data query flow is:
 1. `LEADER` fetch querier nodes from cluster metadata.
 1. `LEADER` partitions list of files to be queried by each querier. e.g. If 100 files need to be queried and there are 5 nodes, then each querier gets to query 20 files `LEADER` works on 20 files, `WORKERS` work on 20 files each.
 1. `LEADER` calls gRPC service running on each `WORKER` querier to dispatch search query to the querier node. Inter querier communication happens using gRPC.
-1. `LEADDER` collects, merges and sends the result back to the user.
+1. `LEADER` collects, merges and sends the result back to the user.
 
 Tips:
 
