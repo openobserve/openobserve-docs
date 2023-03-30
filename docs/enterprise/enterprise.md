@@ -7,4 +7,4 @@ Currently following features are part of enterprise offering:
 1. Elasticsearch API compatibility
 1. SSO (on Roadmap)
 1. Cross cluster search (on Roadmap)
-1. Priority support (on Roadmap)
+1. Priority support

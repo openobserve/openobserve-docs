@@ -1,6 +1,6 @@
 > Applicable to enterprise version 
 
-⚠️ zPlane being enterprise feature is licensed software , please contact us at [hello@zinclabs.io](mailto:hello@zinclabs.io) for for trial or enterprise license.
+⚠️ zPlane being enterprise feature is licensed software , please contact us at [hello@zinclabs.io](mailto:hello@zinclabs.io) for trial or enterprise license.
 
 # zPlane
 
