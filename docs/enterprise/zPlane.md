@@ -66,12 +66,12 @@ Query DSL will translate to Where in SQL, please refer below table for same:
 | terms               | GROUP BY field                      |
 | range               | select case                         |
 | date_range          | select case                         |
-| histogram           | --                                  |
+| histogram           | Not supported                       |
 | date_histogram      | select histogram(field, interval)   |
 | auto_date_histogram | select histogram(field, bucket_num) |
-| agg->children       | --                                  |
+| agg->children       | Work in progress                    |
 
-> `--` means it doesn't support.
+
 ## Limitations 
 
 1. Must provider organization & stream name in URL
