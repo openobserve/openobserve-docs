@@ -15,3 +15,4 @@ nav:
 - SQL functions reference: functions.md
 - Telemetry: telemetry.md
 - Open API Specifications: api_specs.md
+- Enterprise: enterprise
