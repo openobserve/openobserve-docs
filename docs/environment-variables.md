@@ -54,6 +54,7 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_PROMETHEUS_ENABLED	        | false         | No            | Enables prometheus metrics on /metrics endpoint              |
 | RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 | ZO_COLS_PER_RECORD_LIMIT      | 1000          | No            | number of fields allowed per records during ingestion , records having more fields than configured value will be discarded |
+| ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
 
 
 > For local mode, ZincObserve use sled db as the metadata store.
