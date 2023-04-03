@@ -98,6 +98,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "https://storage.googleapis.com"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_PROVIDER:	"gcs"	
     ```
 
 You can generate  keys for GCS bucket using following steps:
@@ -105,6 +106,22 @@ You can generate  keys for GCS bucket using following steps:
 1. Go to [Google cloud console > Cloud Storage > Settings > Interoperability](https://console.cloud.google.com/storage/settings;tab=interoperability) 
 1. Make sure you are in the right project.
 1. Access keys for your user account > Click "CREATE A KEY"
+
+
+### Any Kubernetes + Openstack swift
+
+Add/Modify following to values.yaml
+
+1. swift bucket where data will be stored
+    ```yaml
+    auth:
+      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    config:
+      ZO_S3_SERVER_URL: "swift url"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_PROVIDER:	"swift"	
+    ```
 
 ## Setup
 
