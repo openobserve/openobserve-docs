@@ -36,29 +36,45 @@ To use S3 for storing stream data following needs to be done:
 
 ZincObserve can use MinIO for storing stream data , following environment variables needs to be setup:
 
-| Environment Variable        | Default Value | Mandatory     | Description                                                               |
-| --------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL            | -             | No            | minIO server address |
-| ZO_S3_REGION_NAME           | -             | No            | region name, can be anything, like: `us-west-1` |
-| ZO_S3_ACCESS_KEY            | -             | No            | access key |
-| ZO_S3_SECRET_KEY            | -             | No            | secret key |
-| ZO_S3_BUCKET_NAME           | -             | No            | bucket name |
-| ZO_S3_PROVIDER              | minio         | Yes           | used to specify settings like force_style=true |
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL            | -        | minIO server address                            |
+| ZO_S3_REGION_NAME           | -        | region name, can be anything, like: `us-west-1` |
+| ZO_S3_ACCESS_KEY            | -        | access key                                      |
+| ZO_S3_SECRET_KEY            | -        | secret key                                      |
+| ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
+| ZO_S3_PROVIDER              | minio    | used to specify settings like force_style=true  |
 
 > You need to create the bucket in MinIO first.
+
+## Swift
+
+ZincObserve can use MinIO for storing stream data , following environment variables needs to be setup:
+
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL            | -        | swift server address                            |
+| ZO_S3_REGION_NAME           | -        | region name, can be anything, like: `us-west-1` |
+| ZO_S3_ACCESS_KEY            | -        | access key                                      |
+| ZO_S3_SECRET_KEY            | -        | secret key                                      |
+| ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
+| ZO_S3_PROVIDER              | swift    | used to specify settings like force_style=true  |
+| AWS_EC2_METADATA_DISABLED   | true     | swift doesn't support ec2 metadata              |
+
+> You need to create the bucket in swift first.
 
 ## Google GCS
 
 ZincObserve can use google cloud storage for storing stream data , following environment variables needs to be setup:
 
-| Environment Variable        | Default Value | Mandatory     | Description                                                               |
-| --------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL            | -             | No            | gcs server address. should be: `https://storage.googleapis.com` |
-| ZO_S3_REGION_NAME           | -             | No            | region name, gcs region name, or: `auto` |
-| ZO_S3_ACCESS_KEY            | -             | No            | access key |
-| ZO_S3_SECRET_KEY            | -             | No            | secret key |
-| ZO_S3_BUCKET_NAME           | -             | No            | bucket name |
-| ZO_S3_PROVIDER              | gcs         | Yes           | GCS does not support DeleteObjects API. Compactor needs to use DeleteObject API|
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL            | -        | gcs server address. should be: `https://storage.googleapis.com` |
+| ZO_S3_REGION_NAME           | -        | region name, gcs region name, or: `auto` |
+| ZO_S3_ACCESS_KEY            | -        | access key                                      |
+| ZO_S3_SECRET_KEY            | -        | secret key                                      |
+| ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
+| ZO_S3_PROVIDER              | gcs      | GCS does not support `DeleteObjects` API.       |
 
 You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](https://cloud.google.com/storage/docs/aws-simple-migration)
 
@@ -66,13 +82,13 @@ You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](h
 
 ZincObserve can use Alibaba(aliyun) OSS for storing stream data , following environment variables needs to be setup:
 
-| Environment Variable        | Default Value | Mandatory     | Description                                                               |
-| --------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL            | -             | No            | oss endpoint address, eg: `https://oss-cn-beijing.aliyuncs.com` |
-| ZO_S3_REGION_NAME           | -             | No            | region name, oss region name, eg: `oss-cn-beijing` |
-| ZO_S3_ACCESS_KEY            | -             | No            | access key |
-| ZO_S3_SECRET_KEY            | -             | No            | secret key |
-| ZO_S3_BUCKET_NAME           | -             | No            | bucket name |
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL            | -        | oss endpoint address, eg: `https://oss-cn-beijing.aliyuncs.com` |
+| ZO_S3_REGION_NAME           | -        | region name, oss region name, eg: `oss-cn-beijing` |
+| ZO_S3_ACCESS_KEY            | -        | access key                                      |
+| ZO_S3_SECRET_KEY            | -        | secret key                                      |
+| ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
 
 You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://help.aliyun.com/document_detail/64919.html)
 
@@ -80,12 +96,12 @@ You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://h
 
 ZincObserve can use tencent cloud storage for storing stream data , following environment variables needs to be setup:
 
-| Environment Variable        | Default Value | Mandatory     | Description                                                               |
-| --------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL            | -             | No            | cos endpoint address |
-| ZO_S3_REGION_NAME           | -             | No            | region name, cos region name |
-| ZO_S3_ACCESS_KEY            | -             | No            | access key |
-| ZO_S3_SECRET_KEY            | -             | No            | secret key |
-| ZO_S3_BUCKET_NAME           | -             | No            | bucket name |
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL            | -        | cos endpoint address |
+| ZO_S3_REGION_NAME           | -        | region name, cos region name |
+| ZO_S3_ACCESS_KEY            | -        | access key                                      |
+| ZO_S3_SECRET_KEY            | -        | secret key                                      |
+| ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
 
 You can refer to: [https://cloud.tencent.com/document/product/436/37421](https://cloud.tencent.com/document/product/436/37421)
