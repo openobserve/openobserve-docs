@@ -6,7 +6,7 @@ In order to send logs from [**`tasks`**](## "An `ECS task` is a collection of on
 
 If you have existing ECS tasks from which you need to send logs to ZincObserve, then you will need to modify their task definition to add fluentbit sidecar. Let's take a look at how to accomplish this.
 
-# Prerequisites
+## Prerequisites
 
 1. A Zinc cloud account or a ZincObserve self hosted setup.
 1. A running ECS cluster that supports fargate. If you don't already have one, create one by following the [documentation](https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-cluster-console-v2.html).
