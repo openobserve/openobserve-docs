@@ -27,7 +27,7 @@ Below are the steps that you can follow:
 
 1. Create an IAM policy by going to IAM > Policies > Create policy
 
-```json
+```json linenums="1"
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -49,7 +49,7 @@ Below are the steps that you can follow:
 2. Create an IAM Role by going to IAM > Roles > Create role
 3. Select Custom trust policy and paste the following:
 
-```json
+```json linenums="1"
 {
     "Version": "2012-10-17",
     "Statement": [

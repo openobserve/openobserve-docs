@@ -1,0 +1,61 @@
+{
+  "family": "nginx_firelens_zo1",
+  "taskRoleArn": "arn:aws:iam::058694856476:role/ecsTaskBasicRole",
+  "executionRoleArn": "arn:aws:iam::058694856476:role/ecsTaskExecutionRole",
+  "cpu": "512",
+  "memory": "1024",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "log_router",
+      "image": "docker.io/amazon/aws-for-fluent-bit:latest",
+      "essential": true,
+      "firelensConfiguration": {
+        "type": "fluentbit",
+        "options": {
+          "enable-ecs-log-metadata": "true"
+        }
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "firelens-container",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "firelens"
+        }
+      }
+    },
+    {
+      "name": "nginx",
+      "image": "nginx",
+      "portMappings": [
+        {
+          "containerPort": 80
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "logConfiguration": {
+        "logDriver": "awsfirelens",
+        "secretOptions": [],
+        "options": {
+          "Name": "http",
+          "Match": "*",
+          "uri": "/api/Prabhat_organization_31/default/_json",
+          "host": "api.zinc.dev",
+          "Port": "443",
+          "Format": "json",
+          "tls": "on",
+          "Json_date_key": "_timestamp",
+          "Json_date_format": "iso8601",
+          "http_User": "userid@domain.com",
+          "http_Passwd": "67qlgdw673R2905"
+        }
+      }
+    }
+  ]
+}
