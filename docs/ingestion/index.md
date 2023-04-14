@@ -5,8 +5,10 @@ You can ingest data using one of the below tools or something similar. Check sam
 1. [Vector](vector)
 1. [Fluent-bit](fluent-bit)
 1. [Fluentd](fluentd)
+1. [Amazon Kinesis Firehose](kinesis_firehose)
 
-Data can also be ingested into ZincObserve through one of the 3 HTTP APIs.
+
+Data can also be ingested into Zinc Cloud / ZincObserve through one of the 3 HTTP APIs.
 
 1. [_json](/ZincObserve/api/ingestion/json)
 1. [_multi](/ZincObserve/api/ingestion/multi)
