@@ -17,7 +17,7 @@ We will run our tasks using fargate for this demonstration.
 
 Before you can start with setting up the configuration of your ECS task you will need the details of your ZincObserve where you will send the logs. 
 
-> You can either use a self hosted ZincObserve or [Zinc Cloud](https://observe.zinc.dev) for this guide. You can get started with [Zinc Cloud](https://observe.zinc.dev) for free at [https://observe.zinc.dev](https://observe.zinc.dev) that has a generous free tier.
+> You can either use a self hosted ZincObserve or [Zinc Cloud](https://observe.zinc.dev) for following this guide. You can get started with [Zinc Cloud](https://observe.zinc.dev) for free at [https://observe.zinc.dev](https://observe.zinc.dev) that has a generous free tier.
 
 You can find the config details under ingestion/fluentbit
 
