@@ -1,6 +1,13 @@
 # Quickstart
 
-You can either get started with Zinc Cloud of a self hosted installation. Recommended for most users.
+You can get started with [Zinc Cloud](https://observe.zinc.dev) or a self hosted installation. 
+
+Zinc Cloud is recommended for most users due to following benefits:
+
+1. No effort in setting up a `Highly Available` installation and maintaining it.
+1. Zinc cloud with its generous free tier is sufficient for most hobby users and smaller companies.
+1. Newer features and bug fixes are launched earlier in Zinc Cloud. 
+1. And more...
 
 ## Zinc Cloud
 
@@ -118,7 +125,7 @@ curl http://localhost:5080/api/default/default/_json -i -u root@example.com:Comp
 
 ## Search for data
 
-Point your browser to [http://localhost:5080](http://localhost:5080) and login
+Point your browser to [http://observe.zinc.dev](http://observe.zinc.dev) (for Zinc cloud) / [http://localhost:5080](http://localhost:5080) (for self hosted) and login
 
 1. Visit `logs` page
 1. Select the index `default` from drop down in the left
