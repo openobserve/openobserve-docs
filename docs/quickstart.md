@@ -29,6 +29,12 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
+    **Getting glibc error running binary**
+
+    ./zincobserve: `/lib/libm.so.6`: version `GLIBC_2.27` not found (required by ./zincobserve)
+
+    > Download the `musl` binary instead of regular binary from releases page.
+
 === "Docker"
 
     Docker images are available at [https://gallery.ecr.aws/zinclabs/zincobserve](https://gallery.ecr.aws/zinclabs/zincobserve)
@@ -71,7 +77,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
 - `public.ecr.aws/zinclabs/zincobserve:latest-simd`
 
-    If your CPU is Intel and supports the `AVX512` feature, or if your ARM CPU supports the `NEON` feature, you can use this tag. This will provide you with increased performance.
+    If your CPU is Intel and supports the `AVX512` feature, or if your ARM CPU supports the `NEON` feature, you can use this tag. This will provide you with improved performance.
 
 ## Load sample data
 
