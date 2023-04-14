@@ -8,12 +8,13 @@ ZincObserve can be utilized to analyze and search Cloudwatch logs which are used
 
 Below are the steps that you can follow:
 
+1. Get Zinc Cloud / ZincObserve credentials
 1. Configure Kinesis Firehose
 1. Set up IAM policy and role for Cloudwatch to send logs to Kinesis Firehose
 1. Set up Cloudwatch subscription filter to send logs to Kinesis Firehose
 1. Monitor and Analyze Cloudwatch Logs in ZincObserve
 
-# Step 1: Get ZincObserve credentials
+## Step 1: Get Zinc Cloud / ZincObserve credentials
 
 Navigate to `Ingestion > Kinesis Firehose`
 
