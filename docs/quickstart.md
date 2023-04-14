@@ -13,6 +13,8 @@ Zinc Cloud is recommended for most users due to following benefits:
 
 Zinc Cloud is offered as a hosted service backed by open source ZincObserve. It has the same features as that of ZincObserve with generous free tier with no effort on maintaining infrastructure for your own cluster.
 
+Let's go through it.
+
 1. Navigate to [https://observe.zinc.dev](https://observe.zinc.dev)
 2. Use a social login or create an account using email / password
 ![Sign in page](./images/quickstart/signin.png)
