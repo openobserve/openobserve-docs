@@ -33,7 +33,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     ./zincobserve: `/lib/libm.so.6`: version `GLIBC_2.27` not found (required by ./zincobserve)
 
-    > Download the `musl` binary instead of regular binary from releases page.
+    > Download the `musl` binary instead of regular binary from [releases](https://github.com/zinclabs/zincobserve/releases) page.
 
 === "Docker"
 
