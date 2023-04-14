@@ -1,11 +1,21 @@
 # Quickstart
 
-We will do 2 things as part of the quickstart:
+You can either get started with Zinc Cloud of a self hosted installation. Recommended for most users.
 
-1. Install ZincObserve
-1. Load sample data and perform search operations on it.
+## Zinc Cloud
 
-## Installation
+Zinc Cloud is offered as a hosted service backed by open source ZincObserve. It has the same features as that of ZincObserve with generous free tier and no effort and infrastructure of maintaining your own cluster.
+
+1. Navigate to [https://observe.zinc.dev](https://observe.zinc.dev)
+2. Use a social login or create an account using email / password
+![Sign in page](./images/quickstart/signin.png)
+3. Now head over to `Ingestion` section and grab `CURL` command
+![Ingestion](./images/quickstart/ingestion_credentials.png)
+
+Now head over to [Load sample data](#load-sample-data) section
+
+
+## Self hosted Installation
 
 You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variables when you start ZincObserve for the first time. You don't need them on subsequent runs of ZincObserve.
 
@@ -53,6 +63,17 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 
+    
+    *** Docker tags ***
+
+    - `public.ecr.aws/zinclabs/zincobserve:latest`
+
+        Compatible with environments of most users
+
+    - `public.ecr.aws/zinclabs/zincobserve:latest-simd`
+
+        If you want to leverage ZincObserve's support for vectorization then you should use this image. ZincObserve supports `AVX512` on intel CPUs, or `NEON` on ARM CPUs. This will help you get higher performance.
+
 === "Kubernetes - Manifest"
 
     Create a namespace:
@@ -69,45 +90,40 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
-### Docker tags
-
-- `public.ecr.aws/zinclabs/zincobserve:latest`
-
-    Used for most users
-
-- `public.ecr.aws/zinclabs/zincobserve:latest-simd`
-
-    If your CPU is Intel and supports the `AVX512` feature, or if your ARM CPU supports the `NEON` feature, you can use this tag. This will provide you with improved performance.
-
 ## Load sample data
 
 We will use JSON API to load sample log data.
 
 Below commands will download a sample file of real life log data, unzip it and load it in ZincObserve using the JSON ingestion API.
 
+**Download sample data**
+
 ```shell
 curl -L https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip -o k8slog_json.json.zip
 unzip k8slog_json.json.zip
-curl http://localhost:5080/api/default/quickstart1/_json -i -u root@example.com:Complexpass#123  --data-binary "@k8slog_json.json"
 ```
+
+**Load sample data**
+
+*Note*: Replace the URL you got from Zinc Cloud and append it with `@k8slog_json.json`
+
+```shell title="For Zinc Cloud"
+curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.zinc.dev/api/User_organization_435345/default/_json -d "@k8slog_json.json"
+```
+
+```shell title="For self hosted installation"
+curl http://localhost:5080/api/default/default/_json -i -u root@example.com:Complexpass#123  -d "@k8slog_json.json"
+```
+
 
 ## Search for data
 
 Point your browser to [http://localhost:5080](http://localhost:5080) and login
 
-1. Select the index quickstart1 from drop down in the left
-1. Search for match_all('error') in search bar and click the search button on right.
+1. Visit `logs` page
+1. Select the index `default` from drop down in the left
+![Logs page](./images/quickstart/logs_page.png)
+1. Type `match_all('error')` in search bar and click the search button on right.
 
 Click on the "syntax guide" button next to the search bar to see examples on how to search.
 
-## Load 5.5 GB of data
-
-We will try to ingest a lot more data in a loop.
-
-```shell
-for i in {1..100}; do; curl http://localhost:5080/api/default/quickstart1/_json -i -u root@example.com:Complexpass#123  --data-binary "@k8slog_json.json"; done
-```
-
-The above command will ingest 5.5 GB of data in ZincObserve. This could take a couple minutes depending on how fast your machine is. So be little patient.
-
-Once the ingestion is complete, feel free to search through the data again and be amazed at the simplicity.
