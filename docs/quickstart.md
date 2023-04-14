@@ -5,13 +5,13 @@ You can get started with [Zinc Cloud](https://observe.zinc.dev) or a self hosted
 Zinc Cloud is recommended for most users due to following benefits:
 
 1. No effort in setting up a `Highly Available` installation and maintaining it.
-1. Zinc cloud with its generous free tier is sufficient for most hobby users and smaller companies.
-1. Newer features and bug fixes are launched earlier in Zinc Cloud. 
+1. Zinc cloud with its generous free tier is quite a lot for most hobby users / smaller companies / startups.
+1. Newer features and bug fixes are available earlier in Zinc Cloud. 
 1. And more...
 
 ## Zinc Cloud
 
-Zinc Cloud is offered as a hosted service backed by open source ZincObserve. It has the same features as that of ZincObserve with generous free tier and no effort and infrastructure of maintaining your own cluster.
+Zinc Cloud is offered as a hosted service backed by open source ZincObserve. It has the same features as that of ZincObserve with generous free tier with no effort on maintaining infrastructure for your own cluster.
 
 1. Navigate to [https://observe.zinc.dev](https://observe.zinc.dev)
 2. Use a social login or create an account using email / password
@@ -23,6 +23,8 @@ Now head over to [Load sample data](#load-sample-data) section
 
 
 ## Self hosted Installation
+
+**Note**: Installation directions on this page is for single node installations. If you are looking for a `Highly Available` installation then head over to [HA deployment](/ha_deployment) section.
 
 You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variables when you start ZincObserve for the first time. You don't need them on subsequent runs of ZincObserve.
 
@@ -48,9 +50,11 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     **Getting glibc error running binary**
 
+    ```shell
     ./zincobserve: `/lib/libm.so.6`: version `GLIBC_2.27` not found (required by ./zincobserve)
+    ```
 
-    > Download the `musl` binary instead of regular binary from [releases](https://github.com/zinclabs/zincobserve/releases) page.
+    > Download the `musl` binary instead of regular binary from [releases](https://github.com/zinclabs/zincobserve/releases) page that has no external dependencies. This binary is not as performant as other binaries though. We recommend running the containerized version if performance is a concern for you and are unable to make the dependencies work.
 
 === "Docker"
 
