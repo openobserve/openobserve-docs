@@ -3,6 +3,7 @@ nav:
     - Vector: vector.md
     - Fluent-bit: fluent-bit.md
     - Fluentd: fluentd.md
+    - Kinesis Firehose: kinesis_firehose.md
     - Telegraf: telegraf.md
     - Python: python.md
     - Go: go.md
