@@ -3,7 +3,6 @@ nav:
 - Getting started: getting-started.md
 - Screenshots: screenshots.md
 - Quickstart: quickstart.md
-- How to : howto
 - Example Queries: example-queries.md
 - Architecture: architecture.md
 - HA Deployment: ha_deployment.md
