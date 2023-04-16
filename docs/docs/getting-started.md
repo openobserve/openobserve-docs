@@ -6,4 +6,4 @@ Check the below video for a quick demo/getting started of ZincObserve.
 
 ## ZincObserve introduction video
 
-[![ZincObserve Youtube](./images/zo_intro_youtube.png)](https://www.youtube.com/watch?v=cPMH1Am2_zM)
+[![ZincObserve Youtube](./images/zo_intro_youtube.webp)](https://www.youtube.com/watch?v=cPMH1Am2_zM)
