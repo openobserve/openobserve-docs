@@ -13,7 +13,7 @@ nav:
 - API Reference: api
 - Ingestion: ingestion
 - SQL functions reference: functions.md
-- Expose metrics: expose-metrics.md
+- Monitoring ZincObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - Open API Specifications: api_specs.md
-- Enterprise: enterprise
+- zPlane: zplane.md

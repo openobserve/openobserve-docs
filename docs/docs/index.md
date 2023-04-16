@@ -1,6 +1,6 @@
 # ZincObserve: Introduction
 
-‘ZincObserve’ is a cloud native observability platform (Logs, Metrics, Traces) that provides ~140x (YMMV. Could be higher or lower based on data entropy) lower storage costs (compared to Elasticsearch) for real life log data, significantly lower operational cost and ease of use. It can scale to petabytes of data, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces do evaluate ZincObserve and how its approach towards observability could help you build better software, save money on observability costs, and sleep better.
+`ZincObserve` is a cloud native observability platform (`Logs`, `Metrics`, `Traces`) that provides `~140x lower storage costs` (compared to Elasticsearch. YMMV. Could be higher or lower based on data entropy) for real life log data, significantly lower operational cost and ease of use. It can scale to petabytes of data, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate ZincObserve and how its approach towards observability could help you build better software, save money on observability costs, and sleep better.
 
 
 ## Project Status, Features and Roadmap
@@ -23,7 +23,7 @@ Following is the list of available features and roadmap.
 | 10 | User defined Ingest and Query functions (Lua based)          | Available           |
 | 11 | Multi-tenancy                                                | Available           |
 | 12 | Ingestion API compatibility with Elasticsearch               | Available           |
-| 13 | Search and aggregation API compatibility with Elasticsearch  | Available (Enterprise edition)   |
+| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/docs/enterprise/zplane)    |
 | 14 | Scheduled Alerts (Based on logs)                             | Available           |
 | 15 | Real time Alerts (Based on logs)                             | Available           |
 | 16 | High Availability (HA) and clustering                        | Available           |
@@ -81,20 +81,25 @@ Below is the result when we sent real life log data from our kubernetes cluster 
 
 ![ZincObserve Vs Elasticsearch storage](./images/zo_vs_es.png)
 
-ZincObserve enjoys 140x lower storage costs compared to Elasticsearch in the above scenario (YMMV, you could get higher or lower values based on entropy of data). That does not even consider additional unused EBS volume capacity that needs to be available in order to not run out of disk space and the effort that it requires to keep monitoring disk usage so it is not filled.
-
-ZincObserve is built in rust and enjoys its fast performance with no challenges of JVM.
+ZincObserve offers significant advantage of 140x lower storage costs compared to Elasticsearch in the above scenario (YMMV, you could get higher or lower values based on entropy of data). That does not even consider additional unused EBS volume capacity that needs to be available in order to not run out of disk space and the effort that it requires to keep monitoring disk usage so it is not filled.
 
 Stateless node architecture allows ZincObserve to scale horizontally without worrying about data replication or corruption challenges.
 
-ZincObserve does not have any index mapping or challenges associated with it.
+ZincObserve's lack of index mapping and associated challenges provides a hassle-free experience in managing clusters.
 
 You will typically see much lower operational effort and cost in managing ZincObserve clusters compared to Elasticsearch.
 
-Embedded GUI of ZincObserve frees you from setting one more component (kibana) in your architecture.
+The platform's built-in GUI eliminates the need for another component like Kibana, and has awesome performance, thanks to Rust, without the challenges of JVM. 
 
-Elasticsearch was built as a general purpose search engine and has done a fine job as an observability tool. ZincObserve has been from ground up as an observability tool and enjoys the high focus.
+In contrast to Elasticsearch, which is a general-purpose search engine that doubles as an observability tool, ZincObserve was built from the ground up as an observability tool, with high focus on delivering exceptional observability.
 
+## Elasticsearch compatibility
+
+ZincObserve `_bulk` API endpoint is elasticsearch compatible and can be used by log forwarders like fluentbit, fluentd and vector. Filebeat is supported through zPlane.
+
+Search and aggregation API compatibility with Elasticsearch is provided through zPlane.
+
+zPlane is the enterprise product offered by Zinc Labs that among other things provides Elasticsearch search and aggregation compatibility. Learn more about it at [zPlane docs](zplane)
 ## Are there any benchmarks?
 ZincObserve is currently in alpha. We will do benchmarking as we get closer to GA.
 

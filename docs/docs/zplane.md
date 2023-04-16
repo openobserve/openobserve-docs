@@ -1,17 +1,24 @@
 > Applicable to enterprise version 
 
-⚠️ zPlane being enterprise feature is licensed software , please contact us at [hello@zinclabs.io](mailto:hello@zinclabs.io) for trial or enterprise license.
+# Enterprise features
+
+There are certain features of ZincObserve that are available only in the enterprise version. All these additional features are provided using zPlane.
+
+Currently following features are part of enterprise offering through zPlane:
+
+1. Elasticsearch API compatibility
+1. SSO (on Roadmap)
+1. Cross cluster search (on Roadmap)
+1. Priority support with SLAs
 
 # zPlane
 
-zPlane is collection of adapters & utilities to be used with ZincObserve ,augmenting functionalities of ZincObserve.
+⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. You can get zPlane from <https://gallery.ecr.aws/zinclabs/zplane> for evaluation purposes. Please contact us at [hello@zinclabs.io](mailto:hello@zinclabs.io) for enquiries or enterprise license.
 
-zPlane in current release provides following features:
-
-1. Bridge to elasticsearch for compatibility with elasticsearch
+zPlane is collection of adapters & utilities to be used with ZincObserve, augmenting functionalities of ZincObserve.
 
 ## Installation
-zPlane needs to be run separately , to set up zPlane, please make sure below env variables are set:
+zPlane needs to be run as a container. To set up zPlane, please make sure below environment variables are set:
 
 | Environment Variable          | Value                     | Description                               |
 | ----------------------------- | ------------------------- |------------------------------------------ | 
@@ -20,7 +27,7 @@ zPlane needs to be run separately , to set up zPlane, please make sure below env
 | ZPLANE_ZO_USERNAME            | root@example.com          | ZincObserve username                      |
 | ZPLANE_ZO_PASSWORD            | Complexpass#123           | ZincObserve password                      |
 
-## ES compatible query support
+## Elasticsearch compatible query support
 Query DSL will translate to Where in SQL, please refer below table for same:
 
 | ES DSL                    | SQL                                      |
@@ -74,5 +81,4 @@ Query DSL will translate to Where in SQL, please refer below table for same:
 
 ## Limitations 
 
-1. Must provider organization & stream name in URL
-2. No support for analyze, fuzzy,  widlcard search , all of those are string match.
+1. No support for analyze, fuzzy, wildcard search, all of those are treated as string match.

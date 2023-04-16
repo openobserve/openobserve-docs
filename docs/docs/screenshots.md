@@ -1,9 +1,31 @@
 # Screenshots
 
-## Search screen
+## Home
 
-![Search screen](/images/search_screen.jpg)
+![Home screen](images/screenshots/zo_home.webp)
+## Search
+![Log Search screen](images/screenshots/search_screen.webp)
 
-## User management screen
-![Users screen](/images/users_screen.jpg)
+## Alerts
+
+### Realtime alerts
+
+![Realtime alert](images/screenshots/alert_realtime.webp)
+
+### Scheduled alerts
+
+![Scheduled Alerts](images/screenshots/alert_scheduled.webp)
+
+## Dashboards
+
+![Dashboards](images/screenshots/dashboard.webp)
+
+## Streams
+
+![Streams](images/screenshots/zo_streams.webp)
+
+## Users
+
+![Users](images/screenshots/zo_add_user.webp)
+
 

@@ -1,0 +1,4 @@
+nav:
+- Welcome: index.md
+- Documentation: docs
+- How To: howto

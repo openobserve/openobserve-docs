@@ -1,4 +1,6 @@
-# Expose metrics
+# Monitoring ZincObserve
+
+ZincObserve exposes prometheus metrics aout itself that allows you to monitor ZincObserve.
 
 endpoint: `/metrics`
 
