@@ -74,7 +74,7 @@ ZincObserve can use google cloud storage for storing stream data , following env
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
-| ZO_S3_PROVIDER              | gcs      | GCS does not support `DeleteObjects` API.       |
+| ZO_S3_PROVIDER              | gcs_s3   | Use s3 compatible API for gcp                   |
 
 You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](https://cloud.google.com/storage/docs/aws-simple-migration)
 

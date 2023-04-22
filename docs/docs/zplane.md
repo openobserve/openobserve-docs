@@ -22,8 +22,9 @@ zPlane needs to be run as a container. To set up zPlane, please make sure below 
 
 | Environment Variable          | Value                     | Description                               |
 | ----------------------------- | ------------------------- |------------------------------------------ | 
-| ZPLANE_SERVER_PORT            | 4080                      | zPlane server listen http port            | 
+| ZPLANE_SERVER_PORT            | 9200                      | zPlane server listen http port            | 
 | ZPLANE_ZO_ENDPOINT            | http://localhost:5080     | ZincObserve url                           |
+| ZPLANE_ZO_ORGANIZATION        | default                   | ZincObserve default organization          |
 | ZPLANE_ZO_USERNAME            | root@example.com          | ZincObserve username                      |
 | ZPLANE_ZO_PASSWORD            | Complexpass#123           | ZincObserve password                      |
 
@@ -52,7 +53,7 @@ Query DSL will translate to Where in SQL, please refer below table for same:
 | match                     | match_all / match_str(field) value       |
 | multi_match               | AND (match_all / match_str(field) value) |
 | prefix                    | match_all / match_str(field) value       |
-| query_string              | match_all / match_str(field) value       |
+| query_string              | will parse AST and convert to SQL        |
 | range                     | field >= a AND field < b                 |
 | regexp                    | re_match(field, value)                   |
 | simple_query_string       | match_all / match_str(field) value       |
@@ -82,3 +83,31 @@ Query DSL will translate to Where in SQL, please refer below table for same:
 ## Limitations 
 
 1. No support for analyze, fuzzy, wildcard search, all of those are treated as string match.
+
+## APIs
+
+You can configure zPlane as an Elasticsearch server: `http://localhost:9200`
+
+| Method     | API                      |  Description   |
+|------------|--------------------------|----------------|
+| HEAD, GET  | /                        | --             |
+| GET        | /_license                | --             |
+| GET        | /_xpack                  | --             |
+| GET        | /_nodes                  | --             |
+| POST       | /:index/_search          | --             |
+| POST       | /_msearch                | --             |
+| POST       | /_bulk                   | --             |
+| POST       | /:index/_doc             | --             |
+| PUT        | /:index/_doc/:id         | --             |
+| PUT        | /:index/_create/:id      | --             |
+| GET        | /:index/_mapping         | --             |
+| PUT        | /:index/_mapping         | empty API      |
+| GET        | /_index_template         | empty API      |
+| POST       | /_index_template         | empty API      |
+| GET        | /_index_template/:index  | empty API      |
+| HEAD       | /_index_template/:index  | empty API      |
+| POST       | /_index_template/:index  | empty API      |
+| DELETE     | /_index_template/:index  | empty API      |
+| HEAD       | /_data_stream/:stream    | empty API      |
+| GET        | /_data_stream/:stream    | empty API      |
+| PUT        | /_data_stream/:stream    | empty API      |
