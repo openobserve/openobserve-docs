@@ -23,10 +23,13 @@ Variables which can be used in templates are:
 ## Slack
 
 ```json
-{"text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"}
+{
+  "text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"
+}
+
 ```
 
-## Alert Manager
+## Prometheus Alert Manager
 ```json
 [
     {
@@ -48,7 +51,12 @@ Variables which can be used in templates are:
 ## WeCom
 
 ```json
-{"msgtype": "text", "text": {"content": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"}}
+{
+  "msgtype": "text",
+  "text": {
+    "content": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"
+  }
+}
 ```
 
 Message usage:
@@ -63,7 +71,12 @@ Webhook URL, eg:
 ## Feishu
 
 ```json
-{"msg_type": "text", "content": {"text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"}}
+{
+  "msg_type": "text",
+  "content": {
+    "text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"
+  }
+}
 ```
 
 Message usage:
@@ -73,4 +86,17 @@ https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN?lang=zh-CN#383
 Webhook URL, eg:
 
 `POST https://open.feishu.cn/open-apis/bot/v2/hook/d91b7e97-1234-1234-1234-dfb0b9cc54d0`
+
+
+## Matrix
+
+```json
+{
+    "msgtype": "m.text",
+    "format": "org.matrix.custom.html",
+    "body": "{org_name}/{stream_name}: {alert_name}<br><a href=https://yourZincObserveURL.example.com/web/logs?org_identifier={org_name}>Recent logs</a>",
+    "formatted_body": "{org_name}/{stream_name}: {alert_name}<br><a href=https://yourZincObserveURL.example.com/web/logs?org_identifier={org_name}>Recent logs</a>"
+
+}
+```
 

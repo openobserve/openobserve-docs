@@ -4,7 +4,7 @@ Amazon Cloudwatch and [many other AWS services](https://docs.aws.amazon.com/Amaz
 
 Some of the AWS logs that can be sent to Kinesis firehose are: Amazon Cloudwatch, Amazon Virtual Private Cloud flow logs, AWS Network Firewall logs, AWS WAF logs.
 
-You can configure Kinesis firehose to send logs to Zinc Cloud / Zinc Observe using below details.
+You can configure Kinesis firehose to send logs to Zinc Cloud / ZincObserve using below details.
 
 ```yaml
 HTTP endpoint: https://api.zinc.dev/aws/org_name/stream_name/_kinesis_firehose
