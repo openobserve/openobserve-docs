@@ -1,0 +1,10 @@
+{
+  "cSpell.words": [
+    "alertmanager",
+    "etcdctl",
+    "ingester",
+    "serviceaccount",
+    "statefulset",
+    "zincobserve"
+  ]
+}

@@ -1,12 +1,10 @@
 # High Availability (HA) Deployment
 
-While ZincObserve can be installed and run in HA mode on bare metal servers, VMs, Kubernetes and possibly other platforms, we currently provide installation using helm charts officially. We may provide additinal installers like terraform in future. Local disk storage is not supported in HA mode and as such configuring an object store is mandatory.
+While ZincObserve can be installed and run in HA mode on bare metal servers, VMs, Kubernetes and possibly other platforms, we currently provide installation using helm charts officially. We may provide additional installers like terraform in future. Local disk storage is not supported in HA mode and as such configuring an object store is mandatory.
 
 ## Helm charts
 
-
-
-For accessing the object store we recommend th best security practice of using IAM roles whereever possible. In case of Amaozn EKS you can use IAM roles for Service Accounts (IRSA).
+For accessing the object store we recommend the best security practice of using IAM roles wherever possible. In case of Amazon EKS you can use IAM roles for Service Accounts (IRSA).
 
 You must download the [values.yaml](https://github.com/zinclabs/zincobserve-helm-chart/blob/main/values.yaml) file and make required changes. At a minimum you must provide the details of bucket to be used for data storage and credentials (IAM role or keys) to access it. You can download the file using following command:
 

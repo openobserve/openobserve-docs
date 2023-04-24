@@ -9,12 +9,12 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_ROOT_USER_EMAIL            | -             | On first run  | Email of first/super admin user  |
 | ZO_ROOT_USER_PASSWORD         | -             | On first run  | Password for first/super admin user |
 | ZO_LOCAL_MODE                 | true          | No            | If local mode is set to true ,ZincObserve becomes single node deployment, false indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure `sled db`, for cluster mode one needs to config `etcd`. |
-| ZO_LOCAL_MODE_STORAGE         | disk          | No            | `disk` or `s3`, Applicable only for local mode , by default local disk is used as stoarge, we also support s3 in local mode. |
-| ZO_NODE_ROLE                  | all           | No            | Possible values are : all, ingester, quierier, compactor, router, alertmanager. A single node can have multiple roles id desired. Specify roles sperated by comma. e.g. compactor,alertmanager |
+| ZO_LOCAL_MODE_STORAGE         | disk          | No            | `disk` or `s3`, Applicable only for local mode , by default local disk is used as storage, we also support s3 in local mode. |
+| ZO_NODE_ROLE                  | all           | No            | Possible values are : all, ingester, querier, compactor, router, alertmanager. A single node can have multiple roles id desired. Specify roles separated by comma. e.g. compactor,alertmanager |
 | ZO_HTTP_PORT                  | 5080          | No            | zinc server listen http port |
 | ZO_GRPC_PORT                  | 5081          | No            | zinc server listen grpc port |
 | ZO_GRPC_TIMEOUT               | 600           | No            | grpc query timeout, default is 500 seconds | 
-| ZO_GRPC_ORG_HEADER_KEY        | zinc-org-id   | No            | header key for sending orgnization information for `traces` using OTLP over grpc |
+| ZO_GRPC_ORG_HEADER_KEY        | zinc-org-id   | No            | header key for sending organization information for `traces` using OTLP over grpc |
 | ZO_ROUTE_TIMEOUT              | 600           | No            | timeout for router node.             |
 | ZO_INSTANCE_NAME              | -             | No            | in the cluster mode, each node has a instance name, default is instance hostname. |
 | ZO_BASE_URI                   | -             | No            | if you set ZincObserve with a prefix in k8s nginx ingress, you can set the prefix path. |
@@ -25,14 +25,14 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_WIDENING_SCHEMA_EVOLUTION  | false         | No            | if set to false user can add new columns to data being ingested but changes to existing data for data type are not supported . |
 | ZO_FEATURE_PER_THREAD_LOCK    | false         | No            | default we share a lock for each thread for WAL, enable this option to create one lock for per thread, it improves ingest performance, but results in more small data files, which will be merged by compactor to create larger merged files. This is particularly helpful when you are ingesting high speed data in a  single stream. |
 | ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS | false     | No            | default full text search uses `log`, `message`, `data` or selected stream fields. Enabling this option will perform full text search on each field, may hamper full text search performance |
-| ZO_UI_ENABLED                 | true          | No            | default we enable emebed UI, one can disable it. |
-| ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-dupliction for metrics |
+| ZO_UI_ENABLED                 | true          | No            | default we enable embed UI, one can disable it. |
+| ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-duplication for metrics |
 | ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
 | OTEL_OTLP_HTTP_ENDPOINT       | -             | No            | remote trace server endpoint. |
 | ZO_TRACING_HEADER_KEY         | Authorization | No            | remote trace server endpoint authentication header key. |
 | ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
-| ZO_JSON_LIMIT                 | 209715200     | No            | The max playload size of json limit. |
-| ZO_PAYLOAD_LIMIT              | 209715200     | No            | The max playload size of http request body limit. |
+| ZO_JSON_LIMIT                 | 209715200     | No            | The max payload size of json. |
+| ZO_PAYLOAD_LIMIT              | 209715200     | No            | The max payload size of http request body. |
 | ZO_MAX_FILE_SIZE_ON_DISK      | 10            | No            | max WAL file size before moving it to storage, default is 10MB, unit: MB |
 | ZO_MAX_FILE_RETENTION_TIME    | 600           | No            | max WAL file retention ttl, default is 600s, unit: second |
 | ZO_FILE_PUSH_INTERVAL         | 10            | No            | interval at which job moves files from WAL to storage, default 10s, unit: second |
@@ -70,7 +70,7 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_ETCD_CONNECT_TIMEOUT       | 2             | No            | endpoint connection timeout, unit: seconds |
 | ZO_ETCD_COMMAND_TIMEOUT       | 5             | No            | command execute timeout, unit: seconds |
 | ZO_ETCD_LOCK_WAIT_TIMEOUT     | 60            | No            | max ttl for a lock, the lock will report timeout above this limit. |
-| ZO_ETCD_LOAD_PAGE_SIZE        | 10000         | No            | set/change this to detect pagenation size for loading data from etcd. |
+| ZO_ETCD_LOAD_PAGE_SIZE        | 10000         | No            | set/change this to detect pagination size for loading data from etcd. |
 | ZO_ETCD_USER                  | -             | No            | authentication, username, refer: https://etcd.io/docs/v3.5/op-guide/authentication/rbac/ |
 | ZO_ETCD_PASSWORD              | -             | No            | authentication, password |
 | ZO_ETCD_CLIENT_CERT_AUTH      | false         | No            | authentication with TLS, default is disabled, refer: https://etcd.io/docs/v3.5/op-guide/security/ |

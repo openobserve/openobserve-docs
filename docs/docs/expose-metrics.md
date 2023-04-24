@@ -1,6 +1,6 @@
 # Monitoring ZincObserve
 
-ZincObserve exposes prometheus metrics aout itself that allows you to monitor ZincObserve.
+ZincObserve exposes prometheus metrics about itself that allows you to monitor ZincObserve.
 
 endpoint: `/metrics`
 
@@ -18,7 +18,7 @@ endpoint: `/metrics`
 | -         | http_response_time      | endpoint, status, organization, stream, stream_type  | Histogram | endpoint: /_bulk, /_json, /_multi, /_search, /_around |
 | grpc      | grpc_incoming_requests  | endpoint, status, organization, stream, stream_type | Counter   | endpoint: search, event |
 | -         | grpc_response_time      | endpoint, status, organization, stream, stream_type | Histogram | endpoint: search, event |
-| ingestor  | ingest_records          | organization, stream, stream_type | Gauge   | - |
+| ingester  | ingest_records          | organization, stream, stream_type | Gauge   | - |
 | -         | ingest_bytes            | organization, stream, stream_type | Gauge   | - |
 | -         | ingest_wal_used_bytes   | organization, stream, stream_type | Gauge   | currently WAL total size |
 | -         | ingest_wal_write_bytes  | organization, stream, stream_type | Counter   | WAL write latency |

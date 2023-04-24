@@ -40,7 +40,7 @@ Query DSL will translate to Where in SQL, please refer below table for same:
 | bool.filter               | where AND                                |
 | bool.minimum_should_match | --                                       |
 | boosting                  | --                                       |
-| combined_fields           | where CONTACT(feild1, field2) LIKE value |
+| combined_fields           | where CONTACT(field1, field2) LIKE value |
 | exists                    | --                                       |
 | fuzzy                     | --                                       |
 | geo                       | --                                       |

@@ -14,11 +14,11 @@ filter the keyword in the field with case_insensitive. it can match `KeyWord` or
 
 ### match_all('v')
 
-filter the kekyword in multiple fields. default will search in fields: `log`, `msg`, `message`, `content`, `data`. you can set the full text search fields in the UI or through `index.setting` API.
+filter the keyword in multiple fields. default will search in fields: `log`, `msg`, `message`, `content`, `data`. you can set the full text search fields in the UI or through `index.setting` API.
 
 ### match_all_ignore_case('v')
 
-filter the kekyword in multiple fields with case_insensitive.
+filter the keyword in multiple fields with case_insensitive.
 
 ### re_match(field, 'pattern')
 
@@ -236,7 +236,7 @@ Note that `CAST(.. AS Timestamp)` converts to Timestamps with Nanosecond resolut
 
 `to_timestamp_seconds()` does conversions to type `Timestamp(Seconds, None)`, from:
 
-- Timestamp strings, the same as supported by the regular timestamp() function (except the output is a timestamp of secondseconds resolution)
+- Timestamp strings, the same as supported by the regular timestamp() function (except the output is a timestamp of seconds resolution)
     - `1997-01-31T09:26:56.123Z` # RCF3339
     - `1997-01-31T09:26:56.123-05:00` # RCF3339
     - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T

@@ -2,7 +2,7 @@
 
 Endpoint: `POST /api/{organization}/{stream}/functions/{name}`
 
-Ingestion function used to modify data what you input. you can use it to drop some feilds, convert some fileds data type, or drop some records.
+Ingestion function can be used to modify input data. You can use it to drop some fields, convert some field's data type, or drop some records.
 
 ## Request
 

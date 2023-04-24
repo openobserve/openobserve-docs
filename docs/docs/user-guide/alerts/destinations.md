@@ -1,6 +1,6 @@
 # Alerts - destinations
 
-Alert destinations help user configure destinations for alerts. A dstination can be used in multiple alerts.
+Alert destinations help user configure destinations for alerts. Once created, a destination can be used in multiple alerts.
 
 To navigate to destinations in ZincObserve , select preferred organization using organization selection control, then click on ![Alerts](../../images/alert_menu.jpg) menu , which will take one to alerts module , click on Destinations menu in left sub-navigation. The screen lists all destinations for selected organization. 
 
