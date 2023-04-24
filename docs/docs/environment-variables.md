@@ -55,6 +55,7 @@ ZincObserve is configure through the use of below environment variables.
 | RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 | ZO_COLS_PER_RECORD_LIMIT      | 1000          | No            | number of fields allowed per records during ingestion , records having more fields than configured value will be discarded |
 | ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
+| ZO_LUA_FN_ENABLED           | false         | No            | Enable Lua functions for ingestion and query. Do not enable this in untrusted environments due to security considerations. Use default VRL functions if unsure. |
 
 
 > For local mode, ZincObserve use sled db as the metadata store.
