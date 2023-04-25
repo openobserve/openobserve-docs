@@ -25,8 +25,7 @@ zPlane needs to be run as a container. To set up zPlane, please make sure below 
 | ZPLANE_SERVER_PORT            | 9200                      | zPlane server listen http port            | 
 | ZPLANE_ZO_ENDPOINT            | http://localhost:5080     | ZincObserve url                           |
 | ZPLANE_ZO_ORGANIZATION        | default                   | ZincObserve default organization          |
-| ZPLANE_ZO_USERNAME            | root@example.com          | ZincObserve username                      |
-| ZPLANE_ZO_PASSWORD            | Complexpass#123           | ZincObserve password                      |
+
 
 ## Elasticsearch compatible query support
 Query DSL will translate to Where in SQL, please refer below table for same:
