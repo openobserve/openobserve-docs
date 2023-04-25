@@ -47,9 +47,9 @@ ZincObserve can use MinIO for storing stream data , following environment variab
 
 > You need to create the bucket in MinIO first.
 
-## Swift
+## Openstack Swift
 
-ZincObserve can use MinIO for storing stream data , following environment variables needs to be setup:
+ZincObserve can use Openstack swift for storing stream data , following environment variables needs to be setup:
 
 | Environment Variable        | Value    | Description                                     |
 | --------------------------- | -------- | ----------------------------------------------- |
@@ -58,7 +58,7 @@ ZincObserve can use MinIO for storing stream data , following environment variab
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
-| ZO_S3_PROVIDER              | swift    | used to specify settings like force_style=true  |
+| ZO_S3_PROVIDER              | swift_s3 | used to specify settings like force_style=true  |
 | AWS_EC2_METADATA_DISABLED   | true     | swift doesn't support ec2 metadata              |
 
 > You need to create the bucket in swift first.
