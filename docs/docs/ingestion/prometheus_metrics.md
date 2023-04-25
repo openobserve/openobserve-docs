@@ -1,6 +1,6 @@
 # Prometheus Metrics
 
-You can ingest prometheus metrics using prometheus [remote write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) to ZincObserve.
+You can ingest prometheus metrics using prometheus [remote write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) in ZincObserve.
 
 You will then be able to explore the metrics in metrics explorer and build dashboards by querying using SQL. PromQL support for querying metrics is under development.
 
