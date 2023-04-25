@@ -16,13 +16,19 @@ You can enable some inputs first
   report_active = false
 ```
 
-Output to ZincObserve
+Output to ZincObserve using prometheus remote write
 
 ```toml
-[[outputs.elasticsearch]]
-urls = ["http://localhost:5080/api/default"]
-username = "root@example.com"
-password = "Complexpass#123"
-index_name = "default"
-health_check_interval = 0
+[[outputs.http]]
+  ## URL is the address to send metrics to
+  url = "http://localhost:5080/api/default/prometheus/write"
+  ## Data format to output.
+  data_format = "prometheusremotewrite"
+
+  [outputs.http.headers]
+     Content-Type = "application/x-protobuf"
+     Content-Encoding = "snappy"
+     X-Prometheus-Remote-Write-Version = "0.1.0"
+     Authorization = "Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM="
+
 ```
