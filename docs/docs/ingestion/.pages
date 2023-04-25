@@ -5,6 +5,7 @@ nav:
     - Fluentd: fluentd.md
     - Kinesis Firehose: kinesis_firehose.md
     - Telegraf: telegraf.md
+    - Prometheus/OTEL Collector (Metrics): prometheus_metrics.md
     - Python: python.md
     - Go: go.md
     - curl: curl.md
