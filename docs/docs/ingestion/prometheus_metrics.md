@@ -6,7 +6,7 @@ You will then be able to explore the metrics in metrics explorer and build dashb
 
 You could use below configuration for collecting metrics
 
-# Prometheus 
+## Prometheus 
 
 ```yaml
 url: https://domain.com/api/org_name/prometheus/write
