@@ -58,7 +58,7 @@ ZincObserve can use Openstack swift for storing stream data , following environm
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
-| ZO_S3_PROVIDER              | swift_s3 | used to specify settings like force_style=true  |
+| ZO_S3_PROVIDER              | swift_s3 | Use s3 compatible API                           |
 | AWS_EC2_METADATA_DISABLED   | true     | swift doesn't support ec2 metadata              |
 
 > You need to create the bucket in swift first.
