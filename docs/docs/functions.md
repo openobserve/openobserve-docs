@@ -182,7 +182,41 @@ truncate toward zero
 
 ### upper
 
-## Temporal Functions
+## Time and Date Functions
+
+### time_range
+
+`time_range(field, start, end)`
+
+eg: 
+
+```sql
+time_range(_timestamp, 1682506648678743, 1682506648678743)
+```
+
+or
+
+```sql
+time_range(_timestamp, '2023-04-05T18:00:00Z',  '2023-04-05T18:10:00Z')
+```
+
+### date_format
+
+`date_format(field, format, timezone)`
+
+`format` please refer to: https://docs.rs/chrono/latest/chrono/format/strftime/index.html
+
+eg: 
+
+```sql
+date_format(_timestamp, '%Y-%m-%d', 'UTC')
+```
+
+or
+
+```sql
+date_format(_timestamp, '%H:%M:%S', '+08:00')
+```
 
 ### to_timestamp
 
