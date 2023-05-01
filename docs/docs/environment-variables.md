@@ -26,6 +26,7 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_FEATURE_PER_THREAD_LOCK    | false         | No            | default we share a lock for each thread for WAL, enable this option to create one lock for per thread, it improves ingest performance, but results in more small data files, which will be merged by compactor to create larger merged files. This is particularly helpful when you are ingesting high speed data in a  single stream. |
 | ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS | false     | No            | default full text search uses `log`, `message`, `data` or selected stream fields. Enabling this option will perform full text search on each field, may hamper full text search performance |
 | ZO_UI_ENABLED                 | true          | No            | default we enable embed UI, one can disable it. |
+| ZO_UI_SQL_BASE64_ENABLED      | false         | No            | Enable base64 encoding for SQL in UI. |
 | ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-duplication for metrics |
 | ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
 | OTEL_OTLP_HTTP_ENDPOINT       | -             | No            | remote trace server endpoint. |
