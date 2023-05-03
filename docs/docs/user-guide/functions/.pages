@@ -1,4 +1,3 @@
 nav:
     - Functions: index.md
-    - Ingestion: ingestion.md
-    - Query: query.md
+    - Stream Association: stream-association.md
