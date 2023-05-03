@@ -6,7 +6,7 @@ Functions in ZincObserve are defined using Vector Remap Language ([vrl](https://
 
 There are also inbuilt query functions like match_all, match_all_ignore_case which can be used for full text search based on users settings for stream or default settings.Please refer [SQL functions reference](../../functions.md) for complete list of inbuilt functions.
 
-To navigate to functions in ZincObserve , select preferred organization using organization selection control, then click on `Functions` menu , which will take one to  functions list screen. The screen lists all (ingest time & query type) the functions for selected organization.  
+To navigate to functions in ZincObserve , select preferred organization using organization selection control, then click on `Functions` menu , which will take one to  functions list screen. The screen lists all the functions for selected organization.  
 
 <kbd>
 ![Functions](./images/functions_list.jpg)
@@ -17,7 +17,7 @@ List screen details :
 - Search in listed functions
 - Create new function
 - Name of existing function
-- Action - update & delete
+- Action - update & delete function
 
 One can use function during query in two ways :
 
@@ -28,7 +28,7 @@ To use functions during data ingestion please refer section :[Stream Association
 
 ## Function with row as input
 
-On logs search page , one can select existing function or write new function to using vrl function editor to apply function on row , the results returned would be based on function being applied.
+On logs search page , one can select existing function or write new function using vrl function editor to apply function on row , the results returned would be based on function being applied.
 
 Please note functions on rows help one experience result of a function on rows of specific stream , however applying functions at query time is costly operation .Hence if applicable , after exploration & desired outcome of function during query time , we encourage users to apply such function at ingest time by [associating function with stream](./stream-association.md).
 
@@ -37,7 +37,7 @@ Please note functions on rows help one experience result of a function on rows o
 </kbd>
 
 ## Function with specified input columns/fields
-These are like sql functions, but are defined by user , which act on specified input columns/fields.
+These are like sql functions, which are defined by user & act on specified input columns/fields.
 
 ## Example
 Let's try a function on logs page to parse vpc flow logs ,mentioned below is sample vpc flow log record in ZincObserve.
