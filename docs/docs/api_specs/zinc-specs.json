@@ -111,8 +111,8 @@
                 "tags": [
                     "Search"
                 ],
-                "summary": "Search stream data using SQL",
-                "description": "Search stream data using SQL",
+                "summary": "SearchStreamData",
+                "description": "SearchStreamData",
                 "operationId": "SearchSQL",
                 "parameters": [
                     {
@@ -229,8 +229,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "listAlerts",
-                "description": "listAlerts",
+                "summary": "ListAlerts",
+                "description": "ListAlerts",
                 "operationId": "ListAlerts",
                 "parameters": [
                     {
@@ -267,8 +267,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "listDestinations",
-                "description": "listDestinations",
+                "summary": "ListDestinations",
+                "description": "ListDestinations",
                 "operationId": "ListDestinations",
                 "parameters": [
                     {
@@ -308,8 +308,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "getDestination",
-                "description": "getDestination",
+                "summary": "GetDestination",
+                "description": "GetDestination",
                 "operationId": "GetDestination",
                 "parameters": [
                     {
@@ -363,8 +363,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "createDestination",
-                "description": "createDestination",
+                "summary": "CreateDestination",
+                "description": "CreateDestination",
                 "operationId": "CreateDestination",
                 "parameters": [
                     {
@@ -419,8 +419,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "deleteDestination",
-                "description": "deleteDestination",
+                "summary": "DeleteDestination",
+                "description": "DeleteDestination",
                 "operationId": "DeleteAlertDestination",
                 "parameters": [
                     {
@@ -476,8 +476,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "listTemplates",
-                "description": "listTemplates",
+                "summary": "ListTemplates",
+                "description": "ListTemplates",
                 "operationId": "ListTemplates",
                 "parameters": [
                     {
@@ -517,8 +517,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "getTemplateByName",
-                "description": "getTemplateByName",
+                "summary": "GetTemplateByName",
+                "description": "GetTemplateByName",
                 "operationId": "GetTemplate",
                 "parameters": [
                     {
@@ -572,8 +572,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "createTemplate",
-                "description": "createTemplate",
+                "summary": "CreateTemplate",
+                "description": "CreateTemplate",
                 "operationId": "CreateTemplate",
                 "parameters": [
                     {
@@ -628,8 +628,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "deleteTemplate",
-                "description": "deleteTemplate",
+                "summary": "DeleteTemplate",
+                "description": "DeleteTemplate",
                 "operationId": "DeleteAlertTemplate",
                 "parameters": [
                     {
@@ -685,8 +685,8 @@
                 "tags": [
                     "Dashboards"
                 ],
-                "summary": "listDashboards",
-                "description": "listDashboards",
+                "summary": "ListDashboards",
+                "description": "ListDashboards",
                 "operationId": "ListDashboards",
                 "parameters": [
                     {
@@ -721,8 +721,8 @@
                 "tags": [
                     "Dashboards"
                 ],
-                "summary": "createDashboard",
-                "description": "createDashboard",
+                "summary": "CreateDashboard",
+                "description": "CreateDashboard",
                 "operationId": "CreateDashboard",
                 "parameters": [
                     {
@@ -784,8 +784,8 @@
                 "tags": [
                     "Dashboards"
                 ],
-                "summary": "getDashboard",
-                "description": "getDashboard",
+                "summary": "GetDashboard",
+                "description": "GetDashboard",
                 "operationId": "GetDashboard",
                 "parameters": [
                     {
@@ -850,8 +850,8 @@
                 "tags": [
                     "Dashboards"
                 ],
-                "summary": "updateDashboard",
-                "description": "updateDashboard",
+                "summary": "UpdateDashboard",
+                "description": "UpdateDashboard",
                 "operationId": "UpdateDashboard",
                 "parameters": [
                     {
@@ -926,8 +926,8 @@
                 "tags": [
                     "Dashboards"
                 ],
-                "summary": "deleteDashboard",
-                "description": "deleteDashboard",
+                "summary": "DeleteDashboard",
+                "description": "DeleteDashboard",
                 "operationId": "DeleteDashboard",
                 "parameters": [
                     {
@@ -983,8 +983,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "listFunctions",
-                "description": "listFunctions",
+                "summary": "ListFunctions",
+                "description": "ListFunctions",
                 "operationId": "listFunctions",
                 "parameters": [
                     {
@@ -1019,8 +1019,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "createFunction",
-                "description": "createFunction",
+                "summary": "CreateFunction",
+                "description": "CreateFunction",
                 "operationId": "createFunction",
                 "parameters": [
                     {
@@ -1078,8 +1078,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "updateFunction",
-                "description": "updateFunction",
+                "summary": "UpdateFunction",
+                "description": "UpdateFunction",
                 "operationId": "updateFunction",
                 "parameters": [
                     {
@@ -1144,8 +1144,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "deleteFunction",
-                "description": "deleteFunction",
+                "summary": "DeleteFunction",
+                "description": "DeleteFunction",
                 "operationId": "deleteFunction",
                 "parameters": [
                     {
@@ -1201,8 +1201,8 @@
                 "tags": [
                     "KV"
                 ],
-                "summary": "listKeys",
-                "description": "listKeys",
+                "summary": "ListKeys",
+                "description": "ListKeys",
                 "operationId": "ListKVKeys",
                 "parameters": [
                     {
@@ -1252,8 +1252,8 @@
                 "tags": [
                     "KV"
                 ],
-                "summary": "getValue",
-                "description": "getValue",
+                "summary": "GetValue",
+                "description": "GetValue",
                 "operationId": "GetKVValue",
                 "parameters": [
                     {
@@ -1307,8 +1307,8 @@
                 "tags": [
                     "KV"
                 ],
-                "summary": "setValue",
-                "description": "setValue",
+                "summary": "SetValue",
+                "description": "SetValue",
                 "operationId": "SetKVValue",
                 "parameters": [
                     {
@@ -1373,8 +1373,8 @@
                 "tags": [
                     "KV"
                 ],
-                "summary": "removeValue",
-                "description": "removeValue",
+                "summary": "RemoveValue",
+                "description": "RemoveValue",
                 "operationId": "RemoveKVValue",
                 "parameters": [
                     {
@@ -1430,8 +1430,8 @@
                 "tags": [
                     "Organizations"
                 ],
-                "summary": "getOrganizations",
-                "description": "getOrganizations",
+                "summary": "GetOrganizations",
+                "description": "GetOrganizations",
                 "operationId": "GetUserOrganizations",
                 "parameters": [
                     {
@@ -1468,8 +1468,8 @@
                 "tags": [
                     "Organizations"
                 ],
-                "summary": "getIngestToken",
-                "description": "getIngestToken",
+                "summary": "GetIngestToken",
+                "description": "GetIngestToken",
                 "operationId": "GetOrganizationUserIngestToken",
                 "parameters": [
                     {
@@ -1504,8 +1504,8 @@
                 "tags": [
                     "Organizations"
                 ],
-                "summary": "updateIngestToken",
-                "description": "updateIngestToken",
+                "summary": "UpdateIngestToken",
+                "description": "UpdateIngestToken",
                 "operationId": "UpdateOrganizationUserIngestToken",
                 "parameters": [
                     {
@@ -1598,8 +1598,8 @@
                 "tags": [
                     "Streams"
                 ],
-                "summary": "listStreams",
-                "description": "listStreams",
+                "summary": "ListStreams",
+                "description": "ListStreams",
                 "operationId": "StreamList",
                 "parameters": [
                     {
@@ -1646,8 +1646,8 @@
                 "tags": [
                     "Organizations"
                 ],
-                "summary": "getOrganizationSummary",
-                "description": "getOrganizationSummary",
+                "summary": "GetOrganizationSummary",
+                "description": "GetOrganizationSummary",
                 "operationId": "GetOrganizationSummary",
                 "parameters": [
                     {
@@ -1684,8 +1684,8 @@
                 "tags": [
                     "Traces"
                 ],
-                "summary": "ingest traces",
-                "description": "ingest traces",
+                "summary": "TracesIngest",
+                "description": "TracesIngest",
                 "operationId": "PostTraces",
                 "parameters": [
                     {
@@ -1740,8 +1740,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "listUsers",
-                "description": "listUsers",
+                "summary": "ListUsers",
+                "description": "ListUsers",
                 "operationId": "UserList",
                 "parameters": [
                     {
@@ -1776,8 +1776,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "createUser",
-                "description": "createUser",
+                "summary": "CreateUser",
+                "description": "CreateUser",
                 "operationId": "UserSave",
                 "parameters": [
                     {
@@ -1825,8 +1825,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "addUserToOrganization",
-                "description": "addUserToOrganization",
+                "summary": "AddUserToOrganization",
+                "description": "AddUserToOrganization",
                 "operationId": "AddUserToOrg",
                 "parameters": [
                     {
@@ -1881,8 +1881,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "updateUser",
-                "description": "updateUser",
+                "summary": "UpdateUser",
+                "description": "UpdateUser",
                 "operationId": "UserUpdate",
                 "parameters": [
                     {
@@ -1937,8 +1937,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "removeUserFromOrganization",
-                "description": "removeUserFromOrganization",
+                "summary": "RemoveUserFromOrganization",
+                "description": "RemoveUserFromOrganization",
                 "operationId": "RemoveUserFromOrg",
                 "parameters": [
                     {
@@ -1994,8 +1994,8 @@
                 "tags": [
                     "Streams"
                 ],
-                "summary": "deleteStream",
-                "description": "deleteStream",
+                "summary": "DeleteStream",
+                "description": "DeleteStream",
                 "operationId": "StreamDelete",
                 "parameters": [
                     {
@@ -2051,8 +2051,8 @@
                 "tags": [
                     "Search"
                 ],
-                "summary": "Search around a record",
-                "description": "Search around a record",
+                "summary": "SearchAround",
+                "description": "SearchAround",
                 "operationId": "SearchAround",
                 "parameters": [
                     {
@@ -2404,8 +2404,8 @@
                 "tags": [
                     "Search"
                 ],
-                "summary": "Search topN keys for fields",
-                "description": "Search topN keys for fields",
+                "summary": "SearchTopNValues",
+                "description": "SearchTopNValues",
                 "operationId": "SearchValues",
                 "parameters": [
                     {
@@ -2522,8 +2522,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "listStreamAlerts",
-                "description": "listStreamAlerts",
+                "summary": "ListStreamAlerts",
+                "description": "ListStreamAlerts",
                 "operationId": "ListStreamAlerts",
                 "parameters": [
                     {
@@ -2569,8 +2569,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "getAlertByName",
-                "description": "getAlertByName",
+                "summary": "GetAlertByName",
+                "description": "GetAlertByName",
                 "operationId": "GetAlert",
                 "parameters": [
                     {
@@ -2633,8 +2633,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "createAlert",
-                "description": "createAlert",
+                "summary": "CreateAlert",
+                "description": "CreateAlert",
                 "operationId": "SaveAlert",
                 "parameters": [
                     {
@@ -2698,8 +2698,8 @@
                 "tags": [
                     "Alerts"
                 ],
-                "summary": "deleteAlert",
-                "description": "deleteAlert",
+                "summary": "DeleteAlert",
+                "description": "DeleteAlert",
                 "operationId": "DeleteAlert",
                 "parameters": [
                     {
@@ -2764,8 +2764,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "listStreamFunctions",
-                "description": "listStreamFunctions",
+                "summary": "ListStreamFunctions",
+                "description": "ListStreamFunctions",
                 "operationId": "listStreamFunctions",
                 "parameters": [
                     {
@@ -2811,8 +2811,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "applyFunctionToStream",
-                "description": "applyFunctionToStream",
+                "summary": "ApplyFunctionToStream",
+                "description": "ApplyFunctionToStream",
                 "operationId": "applyFunctionToStream",
                 "parameters": [
                     {
@@ -2886,8 +2886,8 @@
                 "tags": [
                     "Functions"
                 ],
-                "summary": "removeStreamFunction",
-                "description": "removeStreamFunction",
+                "summary": "RemoveStreamFunction",
+                "description": "RemoveStreamFunction",
                 "operationId": "removeStreamFunction",
                 "parameters": [
                     {
@@ -2952,8 +2952,8 @@
                 "tags": [
                     "Streams"
                 ],
-                "summary": "getSchema",
-                "description": "getSchema",
+                "summary": "GetSchema",
+                "description": "GetSchema",
                 "operationId": "StreamSchema",
                 "parameters": [
                     {
@@ -3009,8 +3009,8 @@
                 "tags": [
                     "Streams"
                 ],
-                "summary": "updateStreamSettings",
-                "description": "updateStreamSettings",
+                "summary": "UpdateStreamSettings",
+                "description": "UpdateStreamSettings",
                 "operationId": "StreamSettings",
                 "parameters": [
                     {
@@ -3077,8 +3077,8 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "authenticateUser",
-                "description": "authenticateUser",
+                "summary": "AuthenticateUser",
+                "description": "AuthenticateUser",
                 "operationId": "UserLoginCheck",
                 "requestBody": {
                     "description": "User login",
@@ -3110,8 +3110,8 @@
                 "tags": [
                     "Meta"
                 ],
-                "summary": "healthz",
-                "description": "healthz",
+                "summary": "Healthz",
+                "description": "Healthz",
                 "operationId": "healthz",
                 "responses": {
                     "200": {
@@ -4048,6 +4048,10 @@
                         "type": "integer",
                         "minimum": 0.0
                     },
+                    "query_context": {
+                        "type": "string",
+                        "nullable": true
+                    },
                     "query_fn": {
                         "type": "string",
                         "nullable": true
@@ -4070,6 +4074,9 @@
                         "format": "int64"
                     },
                     "track_total_hits": {
+                        "type": "boolean"
+                    },
+                    "uses_zo_fn": {
                         "type": "boolean"
                     }
                 }
@@ -4291,6 +4298,9 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "schema_validation": {
+                        "type": "boolean"
                     }
                 }
             },
