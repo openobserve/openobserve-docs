@@ -1,0 +1,5 @@
+nav:
+    - Telegraf: telegraf.md
+    - Prometheus/OTEL Collector: prometheus_metrics.md
+
+    

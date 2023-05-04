@@ -1,11 +1,4 @@
 nav:
-    - Index: index.md
-    - Vector: vector.md
-    - Fluent-bit: fluent-bit.md
-    - Fluentd: fluentd.md
-    - Kinesis Firehose: kinesis_firehose.md
-    - Telegraf (Metrics): telegraf.md
-    - Prometheus/OTEL Collector (Metrics): prometheus_metrics.md
-    - Python: python.md
-    - Go: go.md
-    - curl: curl.md
+    - Logs: logs
+    - Metrics: metrics
+    - Traces: traces
