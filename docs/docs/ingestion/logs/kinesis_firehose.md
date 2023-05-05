@@ -11,3 +11,13 @@ HTTP endpoint: https://api.zinc.dev/aws/org_name/stream_name/_kinesis_firehose
 Access key: vhgjleGFtcGxlLmNvbTo2eUNsSW1HZXV4S3hZanJi
 ```
 
+Access key is base64 encoded value of `userid:password`. e.g. If your user id is root@example.com and password is Complexpass#123 then the base64 encoded value is 
+
+```bash
+echo -n root@example.com:Complexpass#123 | base64
+```
+ which will give you
+
+ `cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`
+
+ 
