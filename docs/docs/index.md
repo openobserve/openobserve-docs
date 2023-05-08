@@ -15,15 +15,15 @@ Following is the list of available features and roadmap.
 | 2 | Highly compressed storage of data                             | Available           |
 | 3 | Dynamic evolution of schema                                   | Available           |
 | 4 | Out of the box authentication                                 | Available           |
-| 5 | Support of S3, MinIO and GCS for data storage                 | Available           |
+| 5 | Support of S3, MinIO, GCS, Azure blob for data storage        | Available           |
 | 6 | Advanced GUI                                                  | Available           |
 | 7 | SQL based query language                                      | Available           |
 | 8 | Support for very high cardinality data                        | Available           |
 | 9 | Search-around logs data                                       | Available           |
-| 10 | User defined Ingest and Query functions (Lua based)          | Available           |
+| 10 | User defined Ingest and Query functions (VRL based)          | Available           |
 | 11 | Multi-tenancy                                                | Available           |
 | 12 | Ingestion API compatibility with Elasticsearch               | Available           |
-| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/docs/enterprise/zplane)    |
+| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/docs/zplane)    |
 | 14 | Scheduled Alerts (Based on logs)                             | Available           |
 | 15 | Real time Alerts (Based on logs)                             | Available           |
 | 16 | High Availability (HA) and clustering                        | Available           |
@@ -31,16 +31,17 @@ Following is the list of available features and roadmap.
 | 18 | Localization for multiple languages                          | Available           |
 | 19 | Prebuilt binaries for multiple platforms                     | Available           |
 | 20 | Prebuilt container images for multiple platforms             | Available           |
-| 22 | Prebuilt container images for with SIMD acceleration         | Available           |
-| 23 | SIMD support for vectorized processing (AVX512 and Neon)     | Available           |
-| 24 | Dashboards                                                   | Under development   |
-| 25 | Metrics                                                      | Under development   |
-| 26 | Traces                                                       | Under development   |
-| 27 | WASM based ingest and query functions                        | To Start            |
-| 28 | Alerts (Based on metrics)                                    | To Start            |
-| 29 | Alerts (Based on metrics)                                    | To Start            |
-| 30 | Template based alert target (Allows alerting to slack, teams and many more)  | Available  |
-| 31 | Send alerts to Prometheus alertmanager                       | Available           |
+| 21 | Prebuilt container images for with SIMD acceleration         | Available           |
+| 22 | SIMD support for vectorized processing (AVX512 and Neon)     | Available           |
+| 23 | Dashboards                                                   | Available   |
+| 24 | Metrics                                                      | Available   |
+| 25 | PromQL support for metrics                                   | Under development   |
+| 26 | Traces                                                       | Available   |
+| 27 | Scheduled Alerts (Based on metrics)                          | Available            |
+| 28 | Real time Alerts (Based on metrics)                          | Available            |
+| 29 | Template based alert target (Allows alerting to slack, teams and many more)  | Available  |
+| 30 | Send alerts to Prometheus alertmanager                       | Available           |
+| 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose| Available           |
 
 
 Please raise any new feature requests via [github issue tracker](https://github.com/zinclabs/zincobserve/issues).
