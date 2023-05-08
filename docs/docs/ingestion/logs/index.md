@@ -3,6 +3,7 @@
 You can ingest Logs/Metrics using one of the below tools or something similar. Check sample configuration on how to use these tools by following the links.
 
 1. [Vector](vector)
+1. [Filebeat](filebeat)
 1. [Fluent-bit](fluent-bit)
 1. [Fluentd](fluentd)
 1. [Amazon Kinesis Firehose](kinesis_firehose)

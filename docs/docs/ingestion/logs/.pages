@@ -1,10 +1,10 @@
 nav:
     - Index: index.md
     - Vector: vector.md
+    - Filebeat: filebeat.md
     - Fluent-bit: fluent-bit.md
     - Fluentd: fluentd.md
     - Kinesis Firehose: kinesis_firehose.md
     - Python: python.md
     - Go: go.md
     - curl: curl.md
-    

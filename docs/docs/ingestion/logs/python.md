@@ -40,5 +40,5 @@ stream = "quickstart1"
 zinc_host = "http://localhost:5080"
 zinc_url = zinc_host + "/api/" + org + "/" + stream + "/_json"
 
-res = requests.put(zinc_url, headers=headers, data=json.dumps(data))
+res = requests.post(zinc_url, headers=headers, data=json.dumps(data))
 ```

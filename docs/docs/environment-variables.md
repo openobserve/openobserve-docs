@@ -40,12 +40,13 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_FILE_MOVE_THREAD_NUM       | -             | No            | number of threads for job to move WAL to storage, default equal to cpu_num. |
 | ZO_QUERY_THREAD_NUM           | -             | No            | number of threads for searching in data files. |
 | ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours  |
-| ZO_DATA_LIFECYCLE             | 0             | No            | Data lifecycle, unit: day, default is 0 means disable. you can set it to 30, it means will auto delete data older than 30 days. |
+| ZO_DATA_LIFECYCLE             | 0             | No            | (deprecated! aviable <= v0.4.2) Data lifecycle, unit: day, default is 0 means disable. |
 | ZO_METRICS_LEADER_PUSH_INTERVAL | 15          | No            | interval at which current leader information is updated to metadata store , default 15s, unit: second |
 | ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second  |
 | ZO_COMPACT_ENABLED            | true          | No            | enable compact for small files. |
 | ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is 60s, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
+| ZO_COMPACT_DATA_RETENTION     | 0             | No            | Data retention, unit: day, default is 0 means disable. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. |
 | ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
 | ZO_MEMORY_CACHE_CACHE_LATEST_FILES | false    | No            | by default we just cache files required by data being queried, enable this option to cache all the latest generated files.Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size. |
 | ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory as used for in-memory cache , one can set it to desired amount unit: MB |
