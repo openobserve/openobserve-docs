@@ -7,9 +7,9 @@ Endpoint for sending traces to ZincObserve is
 
 ### Zinc Cloud
 
-> `https://api.zincobserve.com/api/<orgname>/traces`
+> `https://api.zinc.dev/api/<orgname>/traces`
 
-e.g. `https://api.zincobserve.com/api/default/traces`
+e.g. `https://api.zinc.dev/api/default/traces`
 
 ### Self hosted ZincObserve
 > `https://url:5080/api/<orgname>/traces`
