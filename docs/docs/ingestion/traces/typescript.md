@@ -1,6 +1,6 @@
 # Typescript
 
-You can setup tracing for your Node.js Typescript application. Check sample configuration on how to use these tools by following the links.
+You can setup tracing for your Node.js Typescript application. Check sample configuration on how to use setup traces.
 
 ##Clone </br>
 ```
@@ -26,9 +26,9 @@ diag.setLogger(new  DiagConsoleLogger(), DiagLogLevel.INFO);
 const  sdk = new  opentelemetry.NodeSDK({
     // traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
     traceExporter:  new  OTLPTraceExporter({
-        url: "https://observe.zinc.dev/api/default/traces",
+        url: "https://api.zinc.dev/api/default/traces",
         headers: {
-            Authorization: "Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=",
+            Authorization: "Authorization",
         },
     }),
     instrumentations: [getNodeAutoInstrumentations()],
@@ -40,8 +40,13 @@ sdk.start();
 </br>
 ##Setup up credentials </br>
 
-`url: https://observe.zinc.dev/api/default/traces`  is where traces will be exported.</br>
-Replace `Authorization` value if you have changed default password. Check `Credentials` section from [Traces](./index.md#credentials) page.
+You will get `url` and `Authorization` key on below link
+```
+http://observe.zinc.dev/ingestion/traces/
+
+```
+
+Replace the `url` and `Authorization` key in the `tracing.js` file
 
 ##Setup Service/Application </br>
 Run commands
@@ -66,11 +71,11 @@ Refresh page couple of times to get more traces exported.
 Navigate to `https://observe.zinc.dev/web/traces`
 </br>
 
-![Traces Page](../../images/ingestion/traces/traces_page.png)
+![Traces Page](../../images/ingestion/traces/traces.png)
 </br>
 </br>
 
 Filter traces with your current service name `nodejs-typescript-service`
 </br>
 
-![Filter traces with service name](../../images/ingestion/traces/traces_with_service_name.png)
+![Filter traces with service name](../../images/ingestion/traces/filter_traces.png)

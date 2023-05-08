@@ -3,3 +3,5 @@ nav:
     - OpenTelemetry: opentelemetry.md
     - Typescript: typescript.md
     - Node.js: node.js.md
+    - Python: python.md
+
