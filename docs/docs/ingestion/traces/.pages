@@ -1,3 +1,9 @@
 nav:
     - Index: index.md
     - OpenTelemetry: opentelemetry.md
+    - Typescript: typescript.md
+    - Node.js: node.js.md
+    - Python: python.md
+    - Go: go.md
+
+
