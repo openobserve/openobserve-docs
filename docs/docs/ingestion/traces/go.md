@@ -43,16 +43,16 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 		OTEL_OTLP_HTTP_ENDPOINT = "<host>:<port>" //without trailing slash
 	}
 
-	OTEL_OTLP_HTTP_ENDPOINT = "otel.dev2.zinclabs.dev"
+	OTEL_OTLP_HTTP_ENDPOINT = "api.zinc.dev"
 
 	otlptracehttp.NewClient()
 
 	otlpHTTPExporter, err := otlptracehttp.New(context.TODO(),
 		// otlptracehttp.WithInsecure(), // use http & not https
 		otlptracehttp.WithEndpoint(OTEL_OTLP_HTTP_ENDPOINT),
-		otlptracehttp.WithURLPath("/v1/traces"),
+		otlptracehttp.WithURLPath("/api/default/traces"),
 		otlptracehttp.WithHeaders(map[string]string{
-			"Authorization": "Basic YWRtaW46Q29tcGxleHBhc3MjMTIz",
+			"Authorization": "Basic b21rYXJAemluY2xhYnMuaW86NFlvMHViVE0yN1cap5sIOVozNmk=",
 		}),
 	)
 
@@ -72,6 +72,7 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 		sdktrace.WithSampler(sdktrace.AlwaysSample()),
 		sdktrace.WithResource(res),
 		sdktrace.WithBatcher(otlpHTTPExporter),
+		// sdktrace.WithBatcher(stdExporter),
 	)
 	otel.SetTracerProvider(tp)
 
@@ -81,11 +82,7 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 ```
 ##Setup up credentials 
 
-You will get `url` and `Authorization` key on below link
-```
-http://observe.zinc.dev/ingestion/traces/
-
-```
+You will get `url` and `Authorization` key here [http://observe.zinc.dev/ingestion/traces/](http://observe.zinc.dev/ingestion/traces/)
 
 Replace the `url` and `Authorization` key in the `pkg/tel/otel_helper_http.go` file
 
@@ -107,6 +104,6 @@ Traces are captured, you can check these captured traces here [https://observe.z
 
 ![Traces Page](../../images/ingestion/traces/traces_go.png)
 
-Filter traces with your current service name `otel1-gin-gonic`
+Filter traces with your service name `otel1-gin-gonic`
 
 ![Filter traces with service name](../../images/ingestion/traces/filter_traces_go.png)

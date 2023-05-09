@@ -1,6 +1,6 @@
 # Typescript
 
-You can setup tracing for your Node.js Typescript application. Check sample configuration on how to use setup traces.
+You can setup tracing for your Node.js Typescript application. Check sample configuration on how to setup traces.
 
 ##Clone </br>
 ```
@@ -40,27 +40,17 @@ sdk.start();
 </br>
 ##Setup up credentials </br>
 
-You will get `url` and `Authorization` key on below link
-```
-http://observe.zinc.dev/ingestion/traces/
-
-```
+You will get `url` and `Authorization` key here [http://observe.zinc.dev/ingestion/traces/](http://observe.zinc.dev/ingestion/traces/)
 
 Replace the `url` and `Authorization` key in the `tracing.js` file
 
 ##Setup Service/Application </br>
-Run commands
-```
 
-npm install
+Follow the steps given in the sample-tracing-nodejs-typescript readme and then start server
 
 ```
+    node --require './tracing.js' app.js
 ```
-
-node --require './tracing.js' app.js
-
-```
-
 The server is now running on 8080, navigate to [http://localhost:8080](http://localhost:8080) </br>
 Refresh page couple of times to get more traces exported.
 
@@ -68,14 +58,14 @@ Refresh page couple of times to get more traces exported.
 </br>
 </br>
 
-Navigate to `https://observe.zinc.dev/web/traces`
+Traces are captured, you can check these captured traces here [https://observe.zinc.dev/traces](https://observe.zinc.dev/traces)
 </br>
 
 ![Traces Page](../../images/ingestion/traces/traces.png)
 </br>
 </br>
 
-Filter traces with your current service name `nodejs-typescript-service`
+Filter traces with your service name `nodejs-typescript-service`
 </br>
 
 ![Filter traces with service name](../../images/ingestion/traces/filter_traces.png)

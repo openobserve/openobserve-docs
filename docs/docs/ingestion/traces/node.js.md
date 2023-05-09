@@ -1,6 +1,6 @@
 # Typescript
 
-You can setup tracing for your Node.js application. Check sample configuration on how to use setup traces.
+You can setup tracing for your Node.js application. Check sample configuration on how to setup traces.
 
 ##Clone </br>
 ```
@@ -44,11 +44,7 @@ sdk.start();
 </br>
 ##Setup up credentials </br>
 
-You will get `url` and `Authorization` key on below link
-```
-http://observe.zinc.dev/ingestion/traces/
-
-```
+You will get `url` and `Authorization` key here [http://observe.zinc.dev/ingestion/traces/](http://observe.zinc.dev/ingestion/traces/)
 
 Replace the `url` and `Authorization` key in the `tracing.js` file
 
@@ -72,14 +68,14 @@ Refresh page couple of times to get more traces exported.
 </br>
 </br>
 
-Navigate to `https://observe.zinc.dev/web/traces`
+Traces are captured, you can check these captured traces here [https://observe.zinc.dev/traces](https://observe.zinc.dev/traces)
 </br>
 
 ![Traces Page](../../images/ingestion/traces/traces_js.png)
 </br>
 </br>
 
-Filter traces with your current service name `nodejs-javascript-service`
+Filter traces with your service name `nodejs-javascript-service`
 </br>
 
 ![Filter traces with service name](../../images/ingestion/traces/filter_traces_js.png)
