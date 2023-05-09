@@ -12,7 +12,7 @@ git clone https://github.com/zinclabs/sample-tracing-python
 
 If you don't have Python3 installed, please install it and then follow below steps.
 
-Open tracing.js file from that repository.
+Open `tracing.py` file from that repository.
 ```python linenums="1" hl_lines="17 18"
 
 from opentelemetry import trace

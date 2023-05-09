@@ -11,7 +11,7 @@ git clone https://github.com/zinclabs/sample-tracing-nodejs-typescript
 
 If you don't have node.js installed, please install it and then follow below steps.
 
-Open tracing.js file from that repository.
+Open `tracing.ts` file from that repository.
 ```typescript linenums="1" hl_lines="13 15"
 
 import  *  as  opentelemetry  from  "@opentelemetry/sdk-node";

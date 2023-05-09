@@ -11,7 +11,7 @@ git clone https://github.com/zinclabs/sample-tracing-nodejs-javascript
 
 If you don't have node.js installed, please install it and then follow below steps.
 
-Open tracing.js file from that repository.
+Open `tracing.js` file from that repository.
 ```javascript linenums="1" hl_lines="17 19"
 
 const opentelemetry = require("@opentelemetry/sdk-node");
