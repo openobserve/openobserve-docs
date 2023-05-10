@@ -12,7 +12,7 @@ git clone https://github.com/zinclabs/sample-tracing-golang
 
 If you don't have Go installed, please install it and then follow below steps.
 
-Open `pkg/tel/otel_helper_http.go` file from that repository.
+Open `pkg/tel/otel_helper_http.go` file from that repository. and make changes to the highlighted lines below
 ```go linenums="1" hl_lines="29 38 36"
 
 package tel
