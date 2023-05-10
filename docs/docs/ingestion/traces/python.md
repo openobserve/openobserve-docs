@@ -72,3 +72,11 @@ Traces are captured, you can check these captured traces here [https://observe.z
 Filter traces with your service name `python-service`
 
 ![Filter traces with service name](../../images/ingestion/traces/filter_traces_python.png)
+
+Click on any trace to check trace data
+
+![Trace details](../../images/ingestion/traces/trace_details_1.png)
+
+Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
+
+![Trace details](../../images/ingestion/traces/trace_details_2.png)
