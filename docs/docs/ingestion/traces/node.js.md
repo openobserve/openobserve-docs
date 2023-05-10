@@ -79,3 +79,11 @@ Filter traces with your service name `nodejs-javascript-service`
 </br>
 
 ![Filter traces with service name](../../images/ingestion/traces/filter_traces_js.png)
+
+Click on any trace to check trace data
+
+![Trace details](../../images/ingestion/traces/trace_details_1.png)
+
+Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
+
+![Trace details](../../images/ingestion/traces/trace_details_2.png)
