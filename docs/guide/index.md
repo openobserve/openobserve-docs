@@ -23,7 +23,7 @@ Following is the list of available features and roadmap.
 | 10 | User defined Ingest and Query functions (VRL based)          | Available           |
 | 11 | Multi-tenancy                                                | Available           |
 | 12 | Ingestion API compatibility with Elasticsearch               | Available           |
-| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/docs/zplane)    |
+| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/guide/zplane)    |
 | 14 | Scheduled Alerts (Based on logs)                             | Available           |
 | 15 | Real time Alerts (Based on logs)                             | Available           |
 | 16 | High Availability (HA) and clustering                        | Available           |
