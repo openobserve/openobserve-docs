@@ -41,15 +41,14 @@ ZincObserve is configure through the use of below environment variables.
 | ZO_QUERY_THREAD_NUM           | -             | No            | number of threads for searching in data files. |
 | ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours  |
 | ZO_DATA_LIFECYCLE             | 0             | No            | (deprecated! aviable <= v0.4.2) Data lifecycle, unit: day, default is 0 means disable. |
-| ZO_METRICS_LEADER_PUSH_INTERVAL | 15          | No            | interval at which current leader information is updated to metadata store , default 15s, unit: second |
-| ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second  |
 | ZO_COMPACT_ENABLED            | true          | No            | enable compact for small files. |
 | ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is 60s, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
-| ZO_COMPACT_DATA_RETENTION     | 0             | No            | Data retention, unit: day, default is 0 means disable. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. |
+| ZO_COMPACT_DATA_RETENTION_ENABLED | false     | No            | Data retention default is disable |
+| ZO_COMPACT_DATA_RETENTION_DAYS | 0            | No            | Default data retention days, default is 0 means nothing to do. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream by setting in the UI. |
 | ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
 | ZO_MEMORY_CACHE_CACHE_LATEST_FILES | false    | No            | by default we just cache files required by data being queried, enable this option to cache all the latest generated files.Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size. |
-| ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory as used for in-memory cache , one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 30% of the total memory as used for in-memory cache , one can set it to desired amount unit: MB |
 | ZO_MEMORY_CACHE_RELEASE_SIZE  | -             | No            | default drop 1% entries from in-memory cache as cache is full, one can set it to desired amount unit: MB |
 | ZO_TELEMETRY                  | true          | No            | Send anonymous telemetry info for improving ZincObserve. You can disable by set it to `false` |
 | ZO_TELEMETRY_URL              | https://e1.zinclabs.dev | No  | OpenTelemetry report URL. You can report to your own server. |
@@ -57,8 +56,11 @@ ZincObserve is configure through the use of below environment variables.
 | RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 | ZO_COLS_PER_RECORD_LIMIT      | 1000          | No            | number of fields allowed per records during ingestion , records having more fields than configured value will be discarded |
 | ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
-| ZO_LUA_FN_ENABLED           | false         | No            | Enable Lua functions for ingestion and query. Do not enable this in untrusted environments due to security considerations. Use default VRL functions if unsure. |
-
+| ZO_LUA_FN_ENABLED             | false         | No            | Enable Lua functions for ingestion and query. Do not enable this in untrusted environments due to security considerations. Use default VRL functions if unsure. |
+| ZO_METRICS_LEADER_PUSH_INTERVAL | 15          | No            | interval at which current leader information is updated to metadata store , default 15s, unit: second |
+| ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second  |
+| ZO_PROMETHEUS_HA_CLUSTER | cluster |          | No            | for Prometheus cluster deduplication |
+| ZO_PROMETHEUS_HA_REPLICA | `__replica__`      | No            | for Prometheus cluster deduplication |
 
 > For local mode, ZincObserve use sled db as the metadata store.
 > For cluster mode, ZincObserve use etcd as the metadata store.
