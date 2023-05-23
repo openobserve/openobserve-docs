@@ -3,3 +3,4 @@ nav:
     - Systemd: systemd.md
     - SIMD: simd.md
     - Mimalloc: mimalloc.md
+    - Grafana plugin: grafana_plugin.md

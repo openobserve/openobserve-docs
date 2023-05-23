@@ -10,7 +10,7 @@ nav:
 - Environment Variables: environment-variables.md
 - Storage: storage.md
 - User Guide: user-guide
-- Operator Guide: op-guide
+- Operator Guide: operator-guide
 - API Reference: api
 - Ingestion: ingestion
 - SQL functions reference: functions.md
