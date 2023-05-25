@@ -8,5 +8,5 @@ You can find the examples of how to instrument your code to send traces to ZincO
 1. [Go](./go.md)
 
 
-You can also follow the [documentation](https://opentelemetry.io/docs/instrumentation/) for more info.
+You can also follow the [Opentelemetry documentation](https://opentelemetry.io/docs/instrumentation/) for more info.
 
