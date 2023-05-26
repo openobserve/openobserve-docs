@@ -58,6 +58,3 @@ Modift the file with the appropriate IP address.
 ./generate_logs.sh
 ```
 
-
-
-
