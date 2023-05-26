@@ -40,7 +40,6 @@ Steps:
 git clone https://github.com/zinclabs/syslog_log_generator
 cd syslog_log_generator
 ```
-
 ### Modify the script 
 
 file `generate_logs.sh`
@@ -50,11 +49,10 @@ file `generate_logs.sh`
 python syslog_gen.py --host 127.0.0.1 --port 5514 --file sample_logs.txt --count 100000
 ```
 
-Modift the file with the appropriate IP address.
+Modify the file with the appropriate IP address.
 
 ### Start generating test syslog data
 
 ```shell
 ./generate_logs.sh
 ```
-
