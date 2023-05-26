@@ -1,11 +1,11 @@
-# ZincObserve: Introduction
+# OpenObserve: Introduction
 
-`ZincObserve` is a cloud native observability platform (`Logs`, `Metrics`, `Traces`) that provides `~140x lower storage costs` (compared to Elasticsearch. YMMV. Could be higher or lower based on data entropy) for real life log data, significantly lower operational cost and ease of use. It can scale to petabytes of data, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate ZincObserve and how its approach towards observability could help you build better software, save money on observability costs, and sleep better.
+`OpenObserve` is a cloud native observability platform (`Logs`, `Metrics`, `Traces`) that provides `~140x lower storage costs` (compared to Elasticsearch. YMMV. Could be higher or lower based on data entropy) for real life log data, significantly lower operational cost and ease of use. It can scale to petabytes of data, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate OpenObserve and how its approach towards observability could help you build better software, save money on observability costs, and sleep better.
 
 
 ## Project Status, Features and Roadmap
 
-ZincObserve is currently in alpha, but don't let that stop you from trying it out. We have done extensive internal testing, but are looking for external feedback before we put the label of GA (Generally Available).
+OpenObserve is currently in alpha, but don't let that stop you from trying it out. We have done extensive internal testing, but are looking for external feedback before we put the label of GA (Generally Available).
 
 Following is the list of available features and roadmap.
 
@@ -44,9 +44,9 @@ Following is the list of available features and roadmap.
 | 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose| Available           |
 
 
-Please raise any new feature requests via [github issue tracker](https://github.com/zinclabs/zincobserve/issues).
+Please raise any new feature requests via [github issue tracker](https://github.com/zinclabs/openobserve/issues).
 
-You can use either the open source version or [Zinc Cloud](https://observe.zinc.dev). [Zinc Cloud](https://observe.zinc.dev) is built on top of open source ZincObserve but has minor differences to account for its SaaS nature. We will highlight the differences in the documentation whenever needed.
+You can use either the open source version or [OpenObserve Cloud](https://observe.openobserve.ai). [OpenObserve Cloud](https://observe.openobserve.ai) is built on top of open source OpenObserve but has minor differences to account for its SaaS nature. We will highlight the differences in the documentation whenever needed.
 
 ## Guiding principles
 
@@ -72,37 +72,37 @@ We want to build the best software in the observability category in the world, a
     1. System should be highly performant for most of the use cases in the real world.
     1. Many a times performance requires a tradeoff. In situations of tradeoffs, it should be generally acceptable to the majority of the users for the use case with excellent tradeoff value in return.
 
-## How does ZincObserve compare to Elasticsearch
+## How does OpenObserve compare to Elasticsearch
 
-Elasticsearch is a general purpose search engine which can be used app search or log search. ZincObserve is built specifically for log search. If you are looking for a lightweight alternative of Elasticsearch then you should take a look at ZincSearch.
+Elasticsearch is a general purpose search engine which can be used app search or log search. OpenObserve is built specifically for log search. If you are looking for a lightweight alternative of Elasticsearch then you should take a look at ZincSearch.
 
-ZincObserve does not rely on indexing of the data. It stores un-indexed data in compressed format in local disk or object store in parquet columnar format. This allows for much lower compute requirement during data ingestion and very high compression rates resulting in ~140x lower storage cost. No indexing of data means that full scan searches may be slower than Elasticsearch but should still be fast due to multiple other techniques like partitioning and caching. [Uber found 80% of queries in their production environment to be aggregation queries](https://www.uber.com/en-IN/blog/logging/) and columnar data storage of ZincObserve means that aggregation queries will typically be much faster than Elasticsearch.
+OpenObserve does not rely on indexing of the data. It stores un-indexed data in compressed format in local disk or object store in parquet columnar format. This allows for much lower compute requirement during data ingestion and very high compression rates resulting in ~140x lower storage cost. No indexing of data means that full scan searches may be slower than Elasticsearch but should still be fast due to multiple other techniques like partitioning and caching. [Uber found 80% of queries in their production environment to be aggregation queries](https://www.uber.com/en-IN/blog/logging/) and columnar data storage of OpenObserve means that aggregation queries will typically be much faster than Elasticsearch.
 
-Below is the result when we sent real life log data from our kubernetes cluster to both Elasticsearch and ZincObserve using fluentbit. This only pertains to storage. Cost of EBS volume is [8 cents/GB/Month (GP3)](https://aws.amazon.com/ebs/pricing/), cost of s3 is [2.3 cents/GB/month](https://aws.amazon.com/s3/pricing/). In HA mode in Elasticsearch you generally have 1 primary node and 2 replicas. You don't need to replicate s3 for data durability/availability as [AWS redundantly stores your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region](https://aws.amazon.com/s3/faqs/).
+Below is the result when we sent real life log data from our kubernetes cluster to both Elasticsearch and OpenObserve using fluentbit. This only pertains to storage. Cost of EBS volume is [8 cents/GB/Month (GP3)](https://aws.amazon.com/ebs/pricing/), cost of s3 is [2.3 cents/GB/month](https://aws.amazon.com/s3/pricing/). In HA mode in Elasticsearch you generally have 1 primary node and 2 replicas. You don't need to replicate s3 for data durability/availability as [AWS redundantly stores your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region](https://aws.amazon.com/s3/faqs/).
 
-![ZincObserve Vs Elasticsearch storage](./images/zo_vs_es.png)
+![OpenObserve Vs Elasticsearch storage](./images/zo_vs_es.png)
 
-ZincObserve offers significant advantage of 140x lower storage costs compared to Elasticsearch in the above scenario (YMMV, you could get higher or lower values based on entropy of data). That does not even consider additional unused EBS volume capacity that needs to be available in order to not run out of disk space and the effort that it requires to keep monitoring disk usage so it is not filled.
+OpenObserve offers significant advantage of 140x lower storage costs compared to Elasticsearch in the above scenario (YMMV, you could get higher or lower values based on entropy of data). That does not even consider additional unused EBS volume capacity that needs to be available in order to not run out of disk space and the effort that it requires to keep monitoring disk usage so it is not filled.
 
-Stateless node architecture allows ZincObserve to scale horizontally without worrying about data replication or corruption challenges.
+Stateless node architecture allows OpenObserve to scale horizontally without worrying about data replication or corruption challenges.
 
-ZincObserve's lack of index mapping and associated challenges provides a hassle-free experience in managing clusters.
+OpenObserve's lack of index mapping and associated challenges provides a hassle-free experience in managing clusters.
 
-You will typically see much lower operational effort and cost in managing ZincObserve clusters compared to Elasticsearch.
+You will typically see much lower operational effort and cost in managing OpenObserve clusters compared to Elasticsearch.
 
 The platform's built-in GUI eliminates the need for another component like Kibana, and has awesome performance, thanks to Rust, without the challenges of JVM. 
 
-In contrast to Elasticsearch, which is a general-purpose search engine that doubles as an observability tool, ZincObserve was built from the ground up as an observability tool, with high focus on delivering exceptional observability.
+In contrast to Elasticsearch, which is a general-purpose search engine that doubles as an observability tool, OpenObserve was built from the ground up as an observability tool, with high focus on delivering exceptional observability.
 
 ## Elasticsearch compatibility
 
-ZincObserve `_bulk` API endpoint is elasticsearch compatible and can be used by log forwarders like fluentbit, fluentd and vector. Filebeat is supported through zPlane.
+OpenObserve `_bulk` API endpoint is elasticsearch compatible and can be used by log forwarders like fluentbit, fluentd and vector. Filebeat is supported through zPlane.
 
 Search and aggregation API compatibility with Elasticsearch is provided through zPlane.
 
 zPlane is the enterprise product offered by Zinc Labs that among other things provides Elasticsearch search and aggregation compatibility. Learn more about it at [zPlane docs](zplane)
 ## Are there any benchmarks?
-ZincObserve is currently in alpha. We will do benchmarking as we get closer to GA.
+OpenObserve is currently in alpha. We will do benchmarking as we get closer to GA.
 
 
 

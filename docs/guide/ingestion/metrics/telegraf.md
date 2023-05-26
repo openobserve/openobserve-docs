@@ -16,7 +16,7 @@ You can enable some inputs first
   report_active = false
 ```
 
-Output to ZincObserve using prometheus remote write
+Output to OpenObserve using prometheus remote write
 
 ```toml
 [[outputs.http]]

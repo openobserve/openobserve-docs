@@ -37,8 +37,8 @@ data = [{
 headers = {"Content-type": "application/json", "Authorization": "Basic " + bas64encoded_creds}
 org = "org1"
 stream = "quickstart1"
-zinc_host = "http://localhost:5080"
-zinc_url = zinc_host + "/api/" + org + "/" + stream + "/_json"
+openobserve_host = "http://localhost:5080"
+openobserve_url = openobserve_host + "/api/" + org + "/" + stream + "/_json"
 
-res = requests.post(zinc_url, headers=headers, data=json.dumps(data))
+res = requests.post(openobserve_url, headers=headers, data=json.dumps(data))
 ```

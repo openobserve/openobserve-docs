@@ -8,7 +8,7 @@ Templates are used when notification is sent for an alert , templates forms body
 }
 
 ```
-When a notification is being sent , ZincObserve will replace placeholders like {stream_name} ,{org_name} etc with actual values of stream , alert , organization.
+When a notification is being sent , OpenObserve will replace placeholders like {stream_name} ,{org_name} etc with actual values of stream , alert , organization.
 
 Variables which can be used in templates are:
 

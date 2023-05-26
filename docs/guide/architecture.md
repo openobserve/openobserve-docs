@@ -1,15 +1,15 @@
 > Applicable to open source & enterprise version
 # Architecture and deployment modes
 
-ZincObserve can be run in single node or in HA mode in a cluster. 
+OpenObserve can be run in single node or in HA mode in a cluster. 
 
 ## Single Node
 
-Please refer to [quickstart](/ZincObserve/quickstart) for single node deployments.
+Please refer to [quickstart](/OpenObserve/quickstart) for single node deployments.
 
 ### Sled and Local disk
 
-Use this mode for light usage and testing or if HA is not a requirement for you. (You could still ingest and search over 2 TB on a single machine per day. On a mac M2 in our tests, you can ingest at ~31 MB/Second or 1.8 GB/Min or 2.6 TB/Day with default configuration). This is the default mode for running ZincObserve. Check [Quickstart](/ZincObserve/quickstart) to find various ways to get this setup done.
+Use this mode for light usage and testing or if HA is not a requirement for you. (You could still ingest and search over 2 TB on a single machine per day. On a mac M2 in our tests, you can ingest at ~31 MB/Second or 1.8 GB/Min or 2.6 TB/Day with default configuration). This is the default mode for running OpenObserve. Check [Quickstart](/OpenObserve/quickstart) to find various ways to get this setup done.
 
 ![Single node architecture using Sled and local disk](./images/arch-sled-local.png)
 
@@ -23,7 +23,7 @@ Use this mode for light usage and testing or if HA is not a requirement for you.
 
 ## High Availability (HA) mode
 
-Local disk storage is not supported in HA mode. Please refer to [HA Deployment](/ZincObserve/ha_deployment) for cluster mode deployment.
+Local disk storage is not supported in HA mode. Please refer to [HA Deployment](/OpenObserve/ha_deployment) for cluster mode deployment.
 
 ### etcd and object storage
 ![Single node architecture using etcd and s3](./images/arch-ha.png)
@@ -67,7 +67,7 @@ The data query flow is:
 
 Tips:
 
-1. The querier will cache parquet files in memory by default. You can configure the amount of memory used by querier for caching through environment variable `ZO_MEMORY_CACHE_MAX_SIZE`.  Default caching is done through 50% of the memory available to the particular querier.
+1. The querier will cache parquet files in memory by default. You can configure the amount of memory used by querier for caching through environment variable `OO_MEMORY_CACHE_MAX_SIZE`.  Default caching is done through 50% of the memory available to the particular querier.
 1. In distributed environment each querier node will just cache a part of the data.
 1. We also have an option to enable caching latest parquet files in memory. The ingester will send a notice to queriers to cache the files when ingester generates a new parquet file and sends it to object storage.
 

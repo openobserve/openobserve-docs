@@ -1,4 +1,4 @@
-# ZincSearch documentation
+# OpenObserve documentation
 
 Documentation is built using [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 

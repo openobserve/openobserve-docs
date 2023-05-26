@@ -1,9 +1,9 @@
 # Getting Started
 
-Check [quickstart](./quickstart.md) to experience the power and simplicity of ZincObserve. 
+Check [quickstart](./quickstart.md) to experience the power and simplicity of OpenObserve. 
 
-Check the below video for a quick demo/getting started of ZincObserve.
+Check the below video for a quick demo/getting started of OpenObserve.
 
-## ZincObserve introduction video
+## OpenObserve introduction video
 
-[![ZincObserve Youtube](./images/zo_intro_youtube.webp)](https://www.youtube.com/watch?v=cPMH1Am2_zM)
+[![OpenObserve Youtube](./images/zo_intro_youtube.webp)](https://www.youtube.com/watch?v=cPMH1Am2_zM)

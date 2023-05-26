@@ -46,7 +46,7 @@
           "Name": "http",
           "Match": "*",
           "uri": "/api/Prabhat_organization_31/default/_json",
-          "host": "api.zinc.dev",
+          "host": "api.openobserve.ai",
           "Port": "443",
           "Format": "json",
           "tls": "on",

@@ -1,12 +1,12 @@
 # Users
-Users are individuals using ZincObserve by logging in with appropriate credentials. 
+Users are individuals using OpenObserve by logging in with appropriate credentials. 
 
 > Applicable to cloud version
 
 For cloud version we support google as social account for login ,one can also sign up by providing valid email. 
 A user will always access all the entities & associated data in context of an organization, one user can also belong to multiple organizations. By default for every user default organization is created, additionally user can be invited to other organizations by admin & owner of the organization.
 
-To navigate to users in ZincObserve , select preferred organization using organization selection control, then click on ![Users](../images/users_menu.jpg) menu , which will take one to users list screen. The screen lists all users for selected organization.  
+To navigate to users in OpenObserve , select preferred organization using organization selection control, then click on ![Users](../images/users_menu.jpg) menu , which will take one to users list screen. The screen lists all users for selected organization.  
 
 
 <kbd>
@@ -56,7 +56,7 @@ To update user click on update user control on users page , only role of the use
 
 For open source version user with role admin or root can add new users to organization , a user will always access all the entities & associated data in context of an organization. 
 
-To navigate to users in ZincObserve , select preferred organization using organization selection control, then click on ![Users](../images/users_menu.jpg) menu , which will take one to users list screen. The screen lists all users for selected organization.  
+To navigate to users in OpenObserve , select preferred organization using organization selection control, then click on ![Users](../images/users_menu.jpg) menu , which will take one to users list screen. The screen lists all users for selected organization.  
 
 
 <kbd>

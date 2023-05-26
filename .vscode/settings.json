@@ -5,6 +5,6 @@
     "ingester",
     "serviceaccount",
     "statefulset",
-    "zincobserve"
+    "openobserve"
   ]
 }

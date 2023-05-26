@@ -1,14 +1,14 @@
-# Monitoring ZincObserve
+# Monitoring OpenObserve
 
-ZincObserve exposes prometheus metrics about itself that allows you to monitor ZincObserve.
+OpenObserve exposes prometheus metrics about itself that allows you to monitor OpenObserve.
 
 endpoint: `/metrics`
 
 ## Global labels
 
-- cluster: `ZO_CLUSTER_NAME`
-- instance: `ZO_INSTANCE_NAME`
-- role: `ZO_NODE_ROLE`
+- cluster: `OO_CLUSTER_NAME`
+- instance: `OO_INSTANCE_NAME`
+- role: `OO_NODE_ROLE`
 
 ## Metrics
 

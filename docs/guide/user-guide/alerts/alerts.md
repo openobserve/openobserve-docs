@@ -5,7 +5,7 @@ We support two kinds of alerts , which are evaluated for specified stream :
 1. Scheduled alerts
 1. Real time alerts
 
-To navigate to alerts in ZincObserve , select preferred organization using organization selection control, then click on ![Alerts](../../images/alert_menu.jpg) menu , which will take one to alerts list screen. The screen lists all alerts for selected organization.  
+To navigate to alerts in OpenObserve , select preferred organization using organization selection control, then click on ![Alerts](../../images/alert_menu.jpg) menu , which will take one to alerts list screen. The screen lists all alerts for selected organization.  
 
 
 <kbd>

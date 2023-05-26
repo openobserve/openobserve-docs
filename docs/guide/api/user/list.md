@@ -12,7 +12,7 @@ None
 {
 	"list": [
 		{
-			"email": "admin@zinc.dev",
+			"email": "admin@openobserve.ai",
 			"fist_name": "ming",
 			"last_name": "xing",
 			"role": "admin"

@@ -2,11 +2,11 @@
 
 ## Organizations
 
-An organization is logical entity which groups various streams, users, functions in ZincObserve. An organization can represent an enterprize, a department of an enterprize, or an application. All streams, users, functions, etc. are scoped to an organization.
+An organization is logical entity which groups various streams, users, functions in OpenObserve. An organization can represent an enterprize, a department of an enterprize, or an application. All streams, users, functions, etc. are scoped to an organization.
 
 ## Streams
 
-A stream in ZincObserve is sequence of events (logs/metrics/traces) that share the same source, e.g. logs from a specific application or logs from an enterprize.
+A stream in OpenObserve is sequence of events (logs/metrics/traces) that share the same source, e.g. logs from a specific application or logs from an enterprize.
 
 ## Data Ingestion
 
@@ -26,17 +26,17 @@ Users are indiviuals using application by logging in with appropriate credential
 
 ### User Roles
 
-A user in ZincObserve can have role `admin` or `member`.
+A user in OpenObserve can have role `admin` or `member`.
 
 Users with `admin` role have greater priviledges as compared to users with `member` role, e.g., inviting other users by email to an organization.
 
 ## Functions
 
-Functions in ZincObserve can used during ingestion & query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. A function is defined in Lua script.
+Functions in OpenObserve can used during ingestion & query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. A function is defined in Lua script.
 
 ## Timestamp
 
-`_timestamp` is considered as timestamp column in ZincObserve, if `_timestamp` or `@timestamp` isn't present in data being ingested, we add `_timestamp` to each record with the value of `NOW` upto microseconds precision.
+`_timestamp` is considered as timestamp column in OpenObserve, if `_timestamp` or `@timestamp` isn't present in data being ingested, we add `_timestamp` to each record with the value of `NOW` upto microseconds precision.
 
 For input data with key as `_timestamp`/`@timestamp`, for the value we support the following data types/format:
 
@@ -47,7 +47,7 @@ For input data with key as `_timestamp`/`@timestamp`, for the value we support t
 
 > Applicable only to open source version
 
-If user wants support for key other than `_timestamp`/`@timestamp` user can use `ZO_TIME_STAMP_COL` configuation to specify timestamp key.
+If user wants support for key other than `_timestamp`/`@timestamp` user can use `OO_TIME_STAMP_COL` configuation to specify timestamp key.
 
 ## Searching
 

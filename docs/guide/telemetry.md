@@ -1,9 +1,9 @@
 # Telemetry
 
 ## Why do you collect telemetry data?
-We collects anonymized data from users in order to understand ZincObserve's usage and improve ZincObserve. This can be deactivated at any time, and any data that has already been collected can be deleted on request. Please send an email to admin+privacy@zinclabs.io to request deletion of the anonymized data. 
+We collects anonymized data from users in order to understand OpenObserve's usage and improve OpenObserve. This can be deactivated at any time, and any data that has already been collected can be deleted on request. Please send an email to admin+privacy@zinclabs.io to request deletion of the anonymized data. 
 
-## What tools do ZincObserve uses to collect and visualize data?
+## What tools do OpenObserve uses to collect and visualize data?
 We use Segment, a platform for data collection and management, to collect usage data. We then feed that data into Amplitude, a tool for graphing and highlighting data, so that we can build visualizations according to our needs.
 
 ## What Telemetry data is being collected?
@@ -26,7 +26,7 @@ We use Segment, a platform for data collection and management, to collect usage 
 | number_of_nodes           | Count of node is HA deployment        | 4                     |
 | os                        | Running operating system              | Linux                 |
 | os_release                | OS release                            | 5.10.161+             |
-| zo_version                | Version of ZincObserve being used     | 0.1.7                 |
+| zo_version                | Version of OpenObserve being used     | 0.1.7                 |
 | cpu_count                 | Total count of CPUs                   | 4                     |
 | total_memory              | Total memory                          | 32882744              |
 | free_memory               | Free memory                           | 26867176              |
@@ -39,7 +39,7 @@ Note: This list may change upon new releases as new features are added.
 
 ## How do I disable telemetry collection
 
-You can set environment variable ZO_TELEMETRY=false to disable telemetry collection
+You can set environment variable OO_TELEMETRY=false to disable telemetry collection
 
 ## Do I need to know anything else?
 

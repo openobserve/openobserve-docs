@@ -2,22 +2,22 @@
 
 ## Introduction
 
-In order to send logs from [**`tasks`**](## "An `ECS task` is a collection of on or more containers running as a single unit in ECS. If you are from a kubernetes background then an ECS task is equivalent to a pod") running in ECS (on fargate and ec2 for linux) to ZincObserve, AWS firelens is the recommended mechanism. AWS firelens is a log router for Amazon ECS that sends log data from containers running in ECS tasks to fluentbit (or fluentd) sidecar container which can then send data to wherever fluentbit supports sending data. A sidecar container is simply an additional container running along side the main container in a task that performs some ancillary services - e.g. collecting logs, keep configuration up to date, etc. We recommend that you use fluentbit instead of fluentd due to its much lower resource requirements.
+In order to send logs from [**`tasks`**](## "An `ECS task` is a collection of on or more containers running as a single unit in ECS. If you are from a kubernetes background then an ECS task is equivalent to a pod") running in ECS (on fargate and ec2 for linux) to OpenObserve, AWS firelens is the recommended mechanism. AWS firelens is a log router for Amazon ECS that sends log data from containers running in ECS tasks to fluentbit (or fluentd) sidecar container which can then send data to wherever fluentbit supports sending data. A sidecar container is simply an additional container running along side the main container in a task that performs some ancillary services - e.g. collecting logs, keep configuration up to date, etc. We recommend that you use fluentbit instead of fluentd due to its much lower resource requirements.
 
-If you have existing ECS tasks from which you need to send logs to ZincObserve, then you will need to modify their task definition to add fluentbit sidecar. Let's take a look at how to accomplish this.
+If you have existing ECS tasks from which you need to send logs to OpenObserve, then you will need to modify their task definition to add fluentbit sidecar. Let's take a look at how to accomplish this.
 
 ## Prerequisites
 
-1. A Zinc cloud account or a ZincObserve self hosted setup.
+1. A OpenObserve Cloud account or a OpenObserve self hosted setup.
 1. A running ECS cluster that supports fargate. If you don't already have one, create one by following the [documentation](https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-cluster-console-v2.html).
 
 We will run our tasks using fargate for this demonstration.
 
-## Get Zinc Cloud / ZincObserve Configuration
+## Get OpenObserve Cloud / OpenObserve Configuration
 
-Before you can start with setting up the configuration of your ECS task you will need the details of your ZincObserve where you will send the logs.
+Before you can start with setting up the configuration of your ECS task you will need the details of your OpenObserve where you will send the logs.
 
-> You can either use a self hosted ZincObserve or [Zinc Cloud](https://observe.zinc.dev) for following this guide. You can get started with [Zinc Cloud](https://observe.zinc.dev) for free at [https://observe.zinc.dev](https://observe.zinc.dev) that has a generous free tier.
+> You can either use a self hosted OpenObserve or [OpenObserve Cloud](https://observe.openobserve.ai) for following this guide. You can get started with [OpenObserve Cloud](https://observe.openobserve.ai) for free at [https://observe.openobserve.ai](https://observe.openobserve.ai) that has a generous free tier.
 
 You can find the config details under ingestion/fluentbit
 
@@ -76,7 +76,7 @@ Create the following file and save it as "nginx_firelens_zo_task_def.json"
           "Name": "http",
           "Match": "*",
           "uri": "/api/default/ecs_firelens1/_json",
-          "host": "api.zinc.dev",
+          "host": "api.openobserve.ai",
           "Port": "443",
           "Format": "json",
           "tls": "on",
@@ -93,7 +93,7 @@ Create the following file and save it as "nginx_firelens_zo_task_def.json"
 
 `logDriver` in this case is `awsfirelens`. All the logs for nginx container will be sent to fluentbit using `awsfirelens`.
 
-`options` section has [http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) configuration for fluentbit. Configure this section with the values you got from ZincObserve.
+`options` section has [http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) configuration for fluentbit. Configure this section with the values you got from OpenObserve.
 
 Register the task definition using the below command:
 
@@ -150,10 +150,10 @@ Click `open address`. You should see the following page:
 
 ![Nginx page](./images/firelens/nginx.png)
 
-Now head on the ZincObserve / Zinc Cloud and see the logs flowing in there.
+Now head on the OpenObserve / OpenObserve Cloud and see the logs flowing in there.
 
-![ECS logs in ZincObserve](./images/firelens/zo_logs.png)
+![ECS logs in OpenObserve](./images/firelens/zo_logs.png)
 
 ## Conclusion
 
-AWS firelens provides an easy way to send ECS container logs to ZincObserve. We configured AWS firelens in few steps to send logs to ZincObserve / Zinc cloud. to easily view and analyze logs.
+AWS firelens provides an easy way to send ECS container logs to OpenObserve. We configured AWS firelens in few steps to send logs to OpenObserve / OpenObserve Cloud. to easily view and analyze logs.

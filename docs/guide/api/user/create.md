@@ -6,7 +6,7 @@ Endpoint: `POST /api/{organization}/users`
 
 ```json
 {
-	"email": "admin@zinc.dev",
+	"email": "admin@openobserve.ai",
 	"first_name": "ming",
 	"last_name": "xing",
 	"password": "complex#pass",

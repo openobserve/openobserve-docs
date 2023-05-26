@@ -1,6 +1,6 @@
 # Ingestion
 
-Logs metrics and traces can be ingested into ZincObserve from a variety of sources. This section describes how to ingest data from the following sources:
+Logs metrics and traces can be ingested into OpenObserve from a variety of sources. This section describes how to ingest data from the following sources:
 
 ## Logs
 
@@ -14,7 +14,7 @@ Logs metrics and traces can be ingested into ZincObserve from a variety of sourc
 
 ### APIs
 
-Logs can also be ingested into Zinc Cloud / ZincObserve through one of the 3 HTTP APIs.
+Logs can also be ingested into OpenObserve Cloud / OpenObserve through one of the 3 HTTP APIs.
 
 1. [_json](/guide/api/ingestion/json)
 1. [_multi](/guide/api/ingestion/multi)
@@ -46,7 +46,7 @@ You can also use curl command to ingest logs:
 
 1. [OpenTelemetry](traces/opentelemetry)
 1. [Typescript](traces/typescript)
-1. [Node.js](traces/node.js)
+1. [Node.js](traces/nodejs)
 1. [Python](traces/python)
 1. [Go](traces/go)
 

@@ -1,10 +1,10 @@
 # Grafana plugin
 
-> `Note`: Grafana plugin for ZincObserve is a commercial enterprise feature. Please contact us at hello@zinclabs.io if you are interested in using this feature.
+> `Note`: Grafana plugin for OpenObserve is a commercial enterprise feature. Please contact us at hello@zinclabs.io if you are interested in using this feature.
 
 Grafana is a dashboarding and graphing application, intially built for time series data, but has evolved into a tool that can pull data from multiple sources and visualize it in a single dashboard for logs and traces too. It is a popular tool for monitoring and observability.
 
-You **`DO NOT`** need grafana for visualizing logs and metrics data from ZincObserve by maintaining one more app. ZincObserve has a very advanced GUI for that, which you can use for logs, metrics and traces. You could however use grafana if you are already using it for some of your needs e.g. monitoring metrics using prometheus and are comfortable using it and don't want to change. In this case you can use ZincObserve grafana plugin to visualize logs and metrics data from ZincObserve in your grafana dashboard. You can also use grafana exlpore tool to query adhoc logs and metrics data from ZincObserve.
+You **`DO NOT`** need grafana for visualizing logs and metrics data from OpenObserve by maintaining one more app. OpenObserve has a very advanced GUI for that, which you can use for logs, metrics and traces. You could however use grafana if you are already using it for some of your needs e.g. monitoring metrics using prometheus and are comfortable using it and don't want to change. In this case you can use OpenObserve grafana plugin to visualize logs and metrics data from OpenObserve in your grafana dashboard. You can also use grafana exlpore tool to query adhoc logs and metrics data from OpenObserve.
 
 Below are the steps to install and configure the plugin. We will provide guide on how to set up grafana in a kubernetes environment. You can adapt these steps to set up grafana in a non-kubernetes environment.
 
@@ -28,12 +28,12 @@ root_url = https://grafana.yourdomain.com
 [plugins]
 enable_alpha = true
 app_tls_skip_verify_insecure = false
-allow_loading_unsigned_plugins = zinclabs_zincobserve
+allow_loading_unsigned_plugins = zinclabs_openobserve
 ```
 
 `Line 4` should be updated with the root url of your grafana installation. This is the url that you will use to access grafana. e.g. `https://grafana.yourdomain.com`
 
-`Line 9` is the one that is important where we specify that grafana should use the unsigned plugin `zinclabs_zincobserve`. This is the plugin that we will install using the init container in the statefulset.
+`Line 9` is the one that is important where we specify that grafana should use the unsigned plugin `zinclabs_openobserve`. This is the plugin that we will install using the init container in the statefulset.
 
 Once you have created the file, you can create a kubernetes secret using the below command.
 
@@ -68,7 +68,7 @@ spec:
         runAsUser: 10000
         runAsGroup: 3000
       initContainers:
-        - name: zincobserve-plugin-loader
+        - name: openobserve-plugin-loader
           image: wbitt/network-multitool
           imagePullPolicy: IfNotPresent
           command:
@@ -135,7 +135,7 @@ spec:
 
 ```
 
-We are using an `init container` in this case to download and configure zincobserve plugin for the grafana container.
+We are using an `init container` in this case to download and configure openobserve plugin for the grafana container.
 
 
 Now let's install the statefulset using the below command.
@@ -149,11 +149,11 @@ kubectl apply -f grafana_statefulset.yaml
 
 ### Set up data source
 
-Once grafana starts you could go to the data sources section and search for `ZincObserve`
+Once grafana starts you could go to the data sources section and search for `OpenObserve`
 
 <img src="../images/grafana_1.png" width="50%" />
 
-Next let's add ZincObserve data source server details.
+Next let's add OpenObserve data source server details.
 
 You need to do following:
 
@@ -168,7 +168,7 @@ Once you have updated the above, click on `Save and Test` button. If everything 
 
 ### Explore logs
 
-Now let's explore some logs. Click on Explore menu item on the left and select ZincObserve as the data source.
+Now let's explore some logs. Click on Explore menu item on the left and select OpenObserve as the data source.
 
 <img src="../images/explore_1.png" width="50%" />
 
@@ -187,7 +187,7 @@ You should now be able to see the results.
 
 <img src="../images/explore_4.png" width="100%" />
 
-If you want to explore metrics from ZincObserve in ZincObserve you can setup grafana as a standard prometheus data source and explore metrics. You do not need the plugin for that as grafana supports prometheus data source out of the box.
+If you want to explore metrics from OpenObserve in OpenObserve you can setup grafana as a standard prometheus data source and explore metrics. You do not need the plugin for that as grafana supports prometheus data source out of the box.
 
 
 

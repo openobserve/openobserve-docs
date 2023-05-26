@@ -55,7 +55,7 @@ Please note only records having 200 or less fields/columns will be considered fo
 
 > Applicable to open source version
 
-One can configure ZO_COLS_PER_RECORD_LIMIT to set desired value for allowed number of fields/columns per record.
+One can configure OO_COLS_PER_RECORD_LIMIT to set desired value for allowed number of fields/columns per record.
 
 
 ## Timestamp

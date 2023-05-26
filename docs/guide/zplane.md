@@ -2,7 +2,7 @@
 
 # Enterprise features
 
-There are certain features of ZincObserve that are available only in the enterprise version. All these additional features are provided using zPlane.
+There are certain features of OpenObserve that are available only in the enterprise version. All these additional features are provided using zPlane.
 
 Currently following features are part of enterprise offering through zPlane:
 
@@ -15,7 +15,7 @@ Currently following features are part of enterprise offering through zPlane:
 
 ⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. You can get zPlane from <https://gallery.ecr.aws/zinclabs/zplane> for evaluation purposes. Please contact us at [hello@zinclabs.io](mailto:hello@zinclabs.io) for enquiries or enterprise license.
 
-zPlane is collection of adapters & utilities to be used with ZincObserve, augmenting functionalities of ZincObserve.
+zPlane is collection of adapters & utilities to be used with OpenObserve, augmenting functionalities of OpenObserve.
 
 ## Installation
 zPlane needs to be run as a container. To set up zPlane, please make sure below environment variables are set:
@@ -23,8 +23,8 @@ zPlane needs to be run as a container. To set up zPlane, please make sure below 
 | Environment Variable          | Value                     | Description                               |
 | ----------------------------- | ------------------------- |------------------------------------------ | 
 | ZPLANE_SERVER_PORT            | 9200                      | zPlane server listen http port            | 
-| ZPLANE_ZO_ENDPOINT            | http://localhost:5080     | ZincObserve url                           |
-| ZPLANE_ZO_ORGANIZATION        | default                   | ZincObserve default organization          |
+| ZPLANE_OO_ENDPOINT            | http://localhost:5080     | OpenObserve url                           |
+| ZPLANE_OO_ORGANIZATION        | default                   | OpenObserve default organization          |
 
 
 ## Elasticsearch compatible query support

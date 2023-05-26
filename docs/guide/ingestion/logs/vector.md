@@ -3,7 +3,7 @@
 ( .toml format)
 
 ```toml
-[sinks.zinc]
+[sinks.openobserve]
 type = "http"
 inputs = [ source or transform id ]
 uri = "http://localhost:5080/api/{organization}/{stream}/_json"

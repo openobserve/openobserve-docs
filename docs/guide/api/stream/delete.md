@@ -22,7 +22,7 @@ The data delete is an asynchronous operation. it will delete by `Compactor`.
 You can change the `compactor` run interval by an environment:
 
 ```
-ZO_COMPACT_INTERVAL=600
+OO_COMPACT_INTERVAL=600
 ```
 
 Unit is second. default is `10 minutes`.
@@ -35,7 +35,7 @@ You can configure data life cycle to auto delete old data. it is a awesome featu
 To enable this feature, you just need to add an environment:
 
 ```
-ZO_DATA_LIFECYCLE=0
+OO_DATA_LIFECYCLE=0
 ```
 
 The value is how many days you want to keep data. it will auto delete the data older than `N` days.

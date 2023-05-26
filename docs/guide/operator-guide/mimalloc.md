@@ -1,6 +1,6 @@
 # Mimalloc
 
-ZincObserve has a feature to use [Mimalloc](https://github.com/microsoft/mimalloc) as memory management for Rust.
+OpenObserve has a feature to use [Mimalloc](https://github.com/microsoft/mimalloc) as memory management for Rust.
 
 But default we didn't enable it, if you want enable should add cargo flags like this:
 

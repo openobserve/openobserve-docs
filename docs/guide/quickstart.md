@@ -1,21 +1,21 @@
 # Quickstart
 
-You can get started with [Zinc Cloud](https://observe.zinc.dev) or a self hosted installation. 
+You can get started with [OpenObserve Cloud](https://observe.openobserve.ai) or a self hosted installation. 
 
-Zinc Cloud is recommended for most users due to following benefits:
+OpenObserve Cloud is recommended for most users due to following benefits:
 
 1. No effort in setting up a `Highly Available` installation and maintaining it.
-1. Zinc cloud with its generous free tier is quite a lot for most hobby users / smaller companies / startups.
-1. Newer features and bug fixes are available earlier in Zinc Cloud. 
+1. OpenObserve Cloud with its generous free tier is quite a lot for most hobby users / smaller companies / startups.
+1. Newer features and bug fixes are available earlier in OpenObserve Cloud. 
 1. And more...
 
-## Zinc Cloud
+## OpenObserve Cloud
 
-Zinc Cloud is offered as a hosted service backed by open source ZincObserve. It has the same features as that of ZincObserve with generous free tier with no effort on maintaining infrastructure for your own cluster.
+OpenObserve Cloud is offered as a hosted service backed by open source OpenObserve. It has the same features as that of OpenObserve with generous free tier with no effort on maintaining infrastructure for your own cluster.
 
 Let's go through it.
 
-1. Navigate to [https://observe.zinc.dev](https://observe.zinc.dev)
+1. Navigate to [https://observe.openobserve.ai](https://observe.openobserve.ai)
 2. Use a social login or create an account using email / password
 ![Sign in page](./images/quickstart/signin.png)
 3. Now head over to `Ingestion` section and grab `CURL` command
@@ -28,24 +28,24 @@ Now head over to [Load sample data](#load-sample-data) section
 
 **Note**: Installation directions on this page is for single node installations. If you are looking for a `Highly Available` installation then head over to [HA deployment](/ha_deployment) section.
 
-You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variables when you start ZincObserve for the first time. You don't need them on subsequent runs of ZincObserve.
+You would need OO_ROOT_USER_EMAIL and OO_ROOT_USER_PASSWORD environment variables when you start OpenObserve for the first time. You don't need them on subsequent runs of OpenObserve.
 
 === "Windows"
 
-    Binaries can be downloaded from [releases](https://github.com/zinclabs/zincobserve/releases) page for appropriate platform.
+    Binaries can be downloaded from [releases](https://github.com/zinclabs/openobserve/releases) page for appropriate platform.
 
 
-        set ZO_ROOT_USER_EMAIL=root@example.com
-        set ZO_ROOT_USER_PASSWORD=Complexpass#123
-        zincobserve.exe
+        set OO_ROOT_USER_EMAIL=root@example.com
+        set OO_ROOT_USER_PASSWORD=Complexpass#123
+        openobserve.exe
 
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
 === "MacOS/Linux Binaries"
-    Binaries can be downloaded from [releases](https://github.com/zinclabs/zincobserve/releases) page for appropriate platform.
+    Binaries can be downloaded from [releases](https://github.com/zinclabs/openobserve/releases) page for appropriate platform.
 
-        ZO_ROOT_USER_EMAIL=root@example.com ZO_ROOT_USER_PASSWORD=Complexpass#123 ./zincobserve
+        OO_ROOT_USER_EMAIL=root@example.com OO_ROOT_USER_PASSWORD=Complexpass#123 ./openobserve
 
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
@@ -53,19 +53,19 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     **Getting glibc error running binary**
 
     ```shell
-    ./zincobserve: `/lib/libm.so.6`: version `GLIBC_2.27` not found (required by ./zincobserve)
+    ./openobserve: `/lib/libm.so.6`: version `GLIBC_2.27` not found (required by ./openobserve)
     ```
 
-    > Download the `musl` binary instead of regular binary from [releases](https://github.com/zinclabs/zincobserve/releases) page that has no external dependencies. This binary is not as performant as other binaries though. We recommend running the containerized version if performance is a concern for you and are unable to make the dependencies work.
+    > Download the `musl` binary instead of regular binary from [releases](https://github.com/zinclabs/openobserve/releases) page that has no external dependencies. This binary is not as performant as other binaries though. We recommend running the containerized version if performance is a concern for you and are unable to make the dependencies work.
 
 === "Docker"
 
-    Docker images are available at [https://gallery.ecr.aws/zinclabs/zincobserve](https://gallery.ecr.aws/zinclabs/zincobserve)
+    Docker images are available at [https://gallery.ecr.aws/zinclabs/openobserve](https://gallery.ecr.aws/zinclabs/openobserve)
 
         mkdir data
-        docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
-            -e ZO_ROOT_USER_EMAIL=root@example.com -e ZO_ROOT_USER_PASSWORD=Complexpass#123 \
-            public.ecr.aws/zinclabs/zincobserve:latest
+        docker run -v $PWD/data:/data -e OO_DATA_DIR="/data" -p 5080:5080 \
+            -e OO_ROOT_USER_EMAIL=root@example.com -e OO_ROOT_USER_PASSWORD=Complexpass#123 \
+            public.ecr.aws/zinclabs/openobserve:latest
 
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
@@ -79,27 +79,27 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     
     *** Docker tags ***
 
-    - `public.ecr.aws/zinclabs/zincobserve:latest`
+    - `public.ecr.aws/zinclabs/openobserve:latest`
 
         Compatible with environments of most users
 
-    - `public.ecr.aws/zinclabs/zincobserve:latest-simd`
+    - `public.ecr.aws/zinclabs/openobserve:latest-simd`
 
-        If you want to leverage ZincObserve's support for vectorization then you should use this image. ZincObserve supports `AVX512` on intel CPUs, or `NEON` on ARM CPUs. This will help you get higher performance.
+        If you want to leverage OpenObserve's support for vectorization then you should use this image. OpenObserve supports `AVX512` on intel CPUs, or `NEON` on ARM CPUs. This will help you get higher performance.
 
 === "Kubernetes - Manifest"
 
     Create a namespace:
 
-        kubectl create ns zincobserve
+        kubectl create ns openobserve
 
     Create the deployment and port forward:
 
-        kubectl apply -f https://raw.githubusercontent.com/zinclabs/zincobserve/main/deploy/k8s/statefulset.yaml
+        kubectl apply -f https://raw.githubusercontent.com/zinclabs/openobserve/main/deploy/k8s/statefulset.yaml
 
-    Expose the zinc service by port-forwarding:
+    Expose the openobserve service by port-forwarding:
 
-        kubectl -n zincobserve port-forward svc/zincobserve 5080:5080
+        kubectl -n openobserve port-forward svc/openobserve 5080:5080
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
@@ -107,7 +107,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
 We will use JSON API to load sample log data.
 
-Below commands will download a sample file of real life log data, unzip it and load it in ZincObserve using the JSON ingestion API.
+Below commands will download a sample file of real life log data, unzip it and load it in OpenObserve using the JSON ingestion API.
 
 **Download sample data**
 
@@ -118,10 +118,10 @@ unzip k8slog_json.json.zip
 
 **Load sample data**
 
-*Note*: Replace the URL you got from Zinc Cloud and append it with `@k8slog_json.json`
+*Note*: Replace the URL you got from OpenObserve Cloud and append it with `@k8slog_json.json`
 
-```shell title="For Zinc Cloud"
-curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.zinc.dev/api/User_organization_435345/default/_json -d "@k8slog_json.json"
+```shell title="For OpenObserve Cloud"
+curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.openobserve.ai/api/User_organization_435345/default/_json -d "@k8slog_json.json"
 ```
 
 ```shell title="For self hosted installation"
@@ -131,7 +131,7 @@ curl http://localhost:5080/api/default/default/_json -i -u root@example.com:Comp
 
 ## Search for data
 
-Point your browser to [http://observe.zinc.dev](http://observe.zinc.dev) (for Zinc cloud) / [http://localhost:5080](http://localhost:5080) (for self hosted) and login
+Point your browser to [http://observe.openobserve.ai](http://observe.openobserve.ai) (for OpenObserve Cloud) / [http://localhost:5080](http://localhost:5080) (for self hosted) and login
 
 1. Visit `logs` page
 1. Select the index `default` from drop down in the left

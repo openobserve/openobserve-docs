@@ -1,17 +1,17 @@
 # Index
 
-ZincObserve follows opentelemtry standards for traces. You can send traces to ZincObserve using code instrumented via opentelemtry SDKs or via auto-instrumentation to send traces to ZincObserve.
+OpenObserve follows opentelemtry standards for traces. You can send traces to OpenObserve using code instrumented via opentelemtry SDKs or via auto-instrumentation to send traces to OpenObserve.
 
 
-Endpoint for sending traces to ZincObserve is 
+Endpoint for sending traces to OpenObserve is 
 
-### Zinc Cloud
+### OpenObserve Cloud
 
-> `https://api.zinc.dev/api/<orgname>/traces`
+> `https://api.openobserve.ai/api/<orgname>/traces`
 
-e.g. `https://api.zinc.dev/api/default/traces`
+e.g. `https://api.openobserve.ai/api/default/traces`
 
-### Self hosted ZincObserve
+### Self hosted OpenObserve
 > `https://url:5080/api/<orgname>/traces`
 
 ### Credentials

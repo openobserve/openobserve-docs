@@ -26,7 +26,7 @@ diag.setLogger(new  DiagConsoleLogger(), DiagLogLevel.INFO);
 const  sdk = new  opentelemetry.NodeSDK({
     // traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
     traceExporter:  new  OTLPTraceExporter({
-        url: "https://api.zinc.dev/api/default/traces",
+        url: "https://api.openobserve.ai/api/default/traces",
         headers: {
             Authorization: "Authorization",
         },
@@ -40,7 +40,7 @@ sdk.start();
 </br>
 ##Setup up credentials </br>
 
-You will get `url` and `Authorization` key here [http://observe.zinc.dev/ingestion/traces/](http://observe.zinc.dev/ingestion/traces/)
+You will get `url` and `Authorization` key here [http://observe.openobserve.ai/ingestion/traces/](http://observe.openobserve.ai/ingestion/traces/)
 
 Replace the `url` and `Authorization` key in the `tracing.js` file
 
@@ -58,7 +58,7 @@ Refresh page couple of times to get more traces exported.
 </br>
 </br>
 
-Traces are captured, you can check these captured traces here [https://observe.zinc.dev/traces](https://observe.zinc.dev/traces)
+Traces are captured, you can check these captured traces here [https://observe.openobserve.ai/traces](https://observe.openobserve.ai/traces)
 </br>
 
 ![Traces Page](../../images/ingestion/traces/traces.png)

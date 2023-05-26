@@ -1,32 +1,32 @@
 # Systemd
 
-Install ZincObserve as a system service use systemd.
+Install OpenObserve as a system service use systemd.
 
 ## Create env file
 
-`/etc/zincobserve.env`
+`/etc/openobserve.env`
 
 ```toml
-ZO_ROOT_USER_EMAIL = "root@example.com"
-ZO_ROOT_USER_PASSWORD = "Complexpass#123"
-ZO_DATA_DIR = "/data/zincobserve"
+OO_ROOT_USER_EMAIL = "root@example.com"
+OO_ROOT_USER_PASSWORD = "Complexpass#123"
+OO_DATA_DIR = "/data/openobserve"
 ```
 
 ## Create systemd service file
 
-`/usr/lib/systemd/system/zincobserve.service`
+`/usr/lib/systemd/system/openobserve.service`
 
 ```toml
 [Unit]
-Description=The ZincObserve server
+Description=The OpenObserve server
 After=syslog.target network-online.target remote-fs.target nss-lookup.target
 Wants=network-online.target
 
 [Service]
 Type=simple
 LimitNOFILE=65535
-EnvironmentFile=/etc/zincobserve.env
-ExecStart=/usr/local/bin/zincobserve
+EnvironmentFile=/etc/openobserve.env
+ExecStart=/usr/local/bin/openobserve
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
 
@@ -36,35 +36,35 @@ WantedBy=multi-user.target
 
 Tips:
 
-> `EnvironmentFile` and `ExecStart` should be the config file and zincobserve binary path.
+> `EnvironmentFile` and `ExecStart` should be the config file and openobserve binary path.
 
 ## Enable service
 
-After create env file and service file, you can reload systemed and enable ZincObserve service: 
+After create env file and service file, you can reload systemed and enable OpenObserve service: 
 
 ```shell
 systemctl daemon-reload
-systemctl enable zincobserve
+systemctl enable openobserve
 ```
 
-Then, you can use systemctl control ZincObserve as a system service.
+Then, you can use systemctl control OpenObserve as a system service.
 
-#### Start ZincObserve
+#### Start OpenObserve
 
 ```shell
-systemctl start zincobserve
+systemctl start openobserve
 ```
 
-#### Stop ZincObserve
+#### Stop OpenObserve
 
 ```shell
-systemctl stop zincobserve
+systemctl stop openobserve
 ```
 
-#### Status of ZincObserve
+#### Status of OpenObserve
 
 ```shell
-systemctl status zincobserve
+systemctl status openobserve
 ```
 
 #### Test service
