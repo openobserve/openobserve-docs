@@ -1,3 +1,4 @@
 nav:
     - Functions: index.md
+    - Enrichment: enrichment.md
     - Stream Association: stream-association.md
