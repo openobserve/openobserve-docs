@@ -1,6 +1,7 @@
 # Enrichment
 
-Enrichment refers to the rpocess of adding mre context to the data. This can be done by adding new fields to the data or by modifying existing fields.
+## Introduction 
+Enrichment refers to the process of adding mre context to the data. This can be done by adding new fields to the data or by modifying existing fields.
 
 You can create a VRL function that can do enrichment at the time of ingestion or at the time of query.
 
@@ -13,7 +14,13 @@ Some of the examples of enrichment are:
     - You have an IP address and you want to get the geolocation of the IP address.
     - protocol number to protocol name
   
-In order to do enrichment you will need to create a enrichment table. A enrichment table is a CSV file that has the reference data that you want to use to enrich the actual data. For example, you have AWS VPC flow logs. You can find more details about VPC flow logs on [AWS docs page](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html).
+In order to do enrichment you will need to create a enrichment table. A enrichment table is a CSV file that has the reference data that you want to use to enrich the actual data. 
+
+
+## Example
+
+### Source data (Log stream)
+For example, you have AWS VPC flow logs. You can find more details about VPC flow logs on [AWS docs page](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html).
 
 It might look like (I have removed many fields here to simplify things):
 
@@ -26,7 +33,11 @@ It might look like (I have removed many fields here to simplify things):
 ]
 ```
 
-You will notice that protocol number. Looking at it immediately does not tell you what the protocol is. You will need to look up the protocol number in a enrichment table to get the protocol name. The enrichment table will look like this:
+You will notice that protocol number. Looking at it immediately does not tell you what the protocol is. You will need to look up the protocol number in a enrichment table to get the protocol name. 
+
+### Enrichment table
+
+The enrichment table will look like this:
 
 ```csv linenums="1" title="protocols.csv"
 protocol_number,keyword,protocol_description
@@ -49,6 +60,7 @@ protocol_number,keyword,protocol_description
 
 ```
 
+### Desired output
 Our goal would be be to get the logs to look like:
 
 ```json
@@ -62,7 +74,11 @@ Our goal would be be to get the logs to look like:
 protocol `6` and `17` have been replaced with `TCP` and `UDP` respectively.
 
 
+## Hands on exercise
+
 Let's do a hands on exercise in order to understand how to do enrichment.
+
+### Upload sample data
 
 Download sample data for VPC flow log and ingest it into your ZincObserve instance.
 
@@ -102,9 +118,13 @@ access-control-max-age: 1728000
 {"code":200,"status":[{"name":"vpc_flow_log","successful":9071,"failed":0}]}%      
 ```
 
+### Upload enrichment table
+
 Now let's setup our enrichment table. Go to the ZincObserve UI and click on the `Functions > enrichment tables`. Click on `Add enrichment table` button. Give it a name `protocols`, upload the CSV file and click on `Save`. You should see the following screen:
 
 ![enrichment table](./images/add_lookup_table.png)
+
+### Enrich the log stream
 
 Now that you have the data and the enrichment table set, lets head  over to logs page.
 
