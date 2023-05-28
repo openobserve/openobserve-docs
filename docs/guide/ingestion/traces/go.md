@@ -52,7 +52,7 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 		otlptracehttp.WithEndpoint(OTEL_OTLP_HTTP_ENDPOINT),
 		otlptracehttp.WithURLPath("/api/default/traces"),
 		otlptracehttp.WithHeaders(map[string]string{
-			"Authorization": "Basic b21rYXJAemluY2xhYnMuaW86NFlvMHViVE0yN1cap5sIOVozNmk=",
+			"Authorization": "Authorization",
 		}),
 	)
 
