@@ -122,7 +122,11 @@ access-control-max-age: 1728000
 
 Now let's setup our enrichment table. Go to the ZincObserve UI and click on the `Functions > enrichment tables`. Click on `Add enrichment table` button. Give it a name `protocols`, upload the CSV file and click on `Save`. You should see the following screen:
 
-![enrichment table](./images/add_lookup_table.png)
+![Add enrichment table](./images/add_lookup_table.png)
+
+You could see the contents in logs page.
+
+![Enrichment table details](./images/enrichment_table.webp)
 
 ### Enrich the log stream
 
