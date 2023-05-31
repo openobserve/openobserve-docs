@@ -21,7 +21,7 @@ You must set a minimum of 2 values:
 1. S3 bucket where data will be stored
     ```yaml
     config:
-      OO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
     ```
 1. IAM role for the serviceAccount to gain AWS IAM credentials to access s3
     ```yaml
@@ -63,10 +63,10 @@ Add/Modify following to values.yaml
 1. S3 bucket where data will be stored
     ```yaml
     auth:
-      OO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      OO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     config:
-      OO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
     ```
 
 ### Any Kubernetes + minio
@@ -76,12 +76,12 @@ Add/Modify following to values.yaml
 1. S3 bucket where data will be stored
     ```yaml
     auth:
-      OO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      OO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     config:
-      OO_S3_SERVER_URL: "https://minio-server-url"
-      OO_S3_BUCKET_NAME: "mysuperduperbucket"
-      OO_S3_PROVIDER:	"minio"	
+      ZO_S3_SERVER_URL: "https://minio-server-url"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_PROVIDER:	"minio"	
     ```
 
 ### Any Kubernetes + GCS
@@ -91,12 +91,12 @@ Add/Modify following to values.yaml
 1. S3 bucket where data will be stored
     ```yaml
     auth:
-      OO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      OO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     config:
-      OO_S3_SERVER_URL: "https://storage.googleapis.com"
-      OO_S3_BUCKET_NAME: "mysuperduperbucket"
-      OO_S3_PROVIDER:	"gcs"	
+      ZO_S3_SERVER_URL: "https://storage.googleapis.com"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_PROVIDER:	"gcs"	
     ```
 
 You can generate  keys for GCS bucket using following steps:
@@ -113,12 +113,12 @@ Add/Modify following to values.yaml
 1. swift bucket where data will be stored
     ```yaml
     auth:
-      OO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      OO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     config:
-      OO_S3_SERVER_URL: "swift url"
-      OO_S3_BUCKET_NAME: "mysuperduperbucket"
-      OO_S3_PROVIDER:	"swift"	
+      ZO_S3_SERVER_URL: "swift url"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_PROVIDER:	"swift"	
     ```
 
 ## Setup

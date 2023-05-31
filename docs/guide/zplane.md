@@ -23,8 +23,8 @@ zPlane needs to be run as a container. To set up zPlane, please make sure below 
 | Environment Variable          | Value                     | Description                               |
 | ----------------------------- | ------------------------- |------------------------------------------ | 
 | ZPLANE_SERVER_PORT            | 9200                      | zPlane server listen http port            | 
-| ZPLANE_OO_ENDPOINT            | http://localhost:5080     | OpenObserve url                           |
-| ZPLANE_OO_ORGANIZATION        | default                   | OpenObserve default organization          |
+| ZPLANE_ZO_ENDPOINT            | http://localhost:5080     | OpenObserve url                           |
+| ZPLANE_ZO_ORGANIZATION        | default                   | OpenObserve default organization          |
 
 
 ## Elasticsearch compatible query support

@@ -6,9 +6,9 @@ endpoint: `/metrics`
 
 ## Global labels
 
-- cluster: `OO_CLUSTER_NAME`
-- instance: `OO_INSTANCE_NAME`
-- role: `OO_NODE_ROLE`
+- cluster: `ZO_CLUSTER_NAME`
+- instance: `ZO_INSTANCE_NAME`
+- role: `ZO_NODE_ROLE`
 
 ## Metrics
 

@@ -39,7 +39,7 @@ Note: This list may change upon new releases as new features are added.
 
 ## How do I disable telemetry collection
 
-You can set environment variable OO_TELEMETRY=false to disable telemetry collection
+You can set environment variable ZO_TELEMETRY=false to disable telemetry collection
 
 ## Do I need to know anything else?
 

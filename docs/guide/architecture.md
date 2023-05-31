@@ -67,7 +67,7 @@ The data query flow is:
 
 Tips:
 
-1. The querier will cache parquet files in memory by default. You can configure the amount of memory used by querier for caching through environment variable `OO_MEMORY_CACHE_MAX_SIZE`.  Default caching is done through 50% of the memory available to the particular querier.
+1. The querier will cache parquet files in memory by default. You can configure the amount of memory used by querier for caching through environment variable `ZO_MEMORY_CACHE_MAX_SIZE`.  Default caching is done through 50% of the memory available to the particular querier.
 1. In distributed environment each querier node will just cache a part of the data.
 1. We also have an option to enable caching latest parquet files in memory. The ingester will send a notice to queriers to cache the files when ingester generates a new parquet file and sends it to object storage.
 

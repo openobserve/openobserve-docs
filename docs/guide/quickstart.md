@@ -28,15 +28,15 @@ Now head over to [Load sample data](#load-sample-data) section
 
 **Note**: Installation directions on this page is for single node installations. If you are looking for a `Highly Available` installation then head over to [HA deployment](/ha_deployment) section.
 
-You would need OO_ROOT_USER_EMAIL and OO_ROOT_USER_PASSWORD environment variables when you start OpenObserve for the first time. You don't need them on subsequent runs of OpenObserve.
+You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variables when you start OpenObserve for the first time. You don't need them on subsequent runs of OpenObserve.
 
 === "Windows"
 
     Binaries can be downloaded from [releases](https://github.com/zinclabs/openobserve/releases) page for appropriate platform.
 
 
-        set OO_ROOT_USER_EMAIL=root@example.com
-        set OO_ROOT_USER_PASSWORD=Complexpass#123
+        set ZO_ROOT_USER_EMAIL=root@example.com
+        set ZO_ROOT_USER_PASSWORD=Complexpass#123
         openobserve.exe
 
 
@@ -45,7 +45,7 @@ You would need OO_ROOT_USER_EMAIL and OO_ROOT_USER_PASSWORD environment variable
 === "MacOS/Linux Binaries"
     Binaries can be downloaded from [releases](https://github.com/zinclabs/openobserve/releases) page for appropriate platform.
 
-        OO_ROOT_USER_EMAIL=root@example.com OO_ROOT_USER_PASSWORD=Complexpass#123 ./openobserve
+        ZO_ROOT_USER_EMAIL=root@example.com ZO_ROOT_USER_PASSWORD=Complexpass#123 ./openobserve
 
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
@@ -63,8 +63,8 @@ You would need OO_ROOT_USER_EMAIL and OO_ROOT_USER_PASSWORD environment variable
     Docker images are available at [https://gallery.ecr.aws/zinclabs/openobserve](https://gallery.ecr.aws/zinclabs/openobserve)
 
         mkdir data
-        docker run -v $PWD/data:/data -e OO_DATA_DIR="/data" -p 5080:5080 \
-            -e OO_ROOT_USER_EMAIL=root@example.com -e OO_ROOT_USER_PASSWORD=Complexpass#123 \
+        docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
+            -e ZO_ROOT_USER_EMAIL=root@example.com -e ZO_ROOT_USER_PASSWORD=Complexpass#123 \
             public.ecr.aws/zinclabs/openobserve:latest
 
 
