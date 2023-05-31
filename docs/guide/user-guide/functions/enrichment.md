@@ -80,7 +80,7 @@ Let's do a hands on exercise in order to understand how to do enrichment.
 
 ### Upload sample data
 
-Download sample data for VPC flow log and ingest it into your ZincObserve instance.
+Download sample data for VPC flow log and ingest it into your OpenObserve instance.
 
 ```shell
 curl -L https://github.com/zinclabs/zincobserve/releases/download/v0.4.4/vpc_flow_log.json.gz -o vpc_flow_log.json.gz
@@ -88,7 +88,7 @@ curl -L https://github.com/zinclabs/zincobserve/releases/download/v0.4.4/protoco
 gunzip vpc_flow_log.json.gz
 ```
 
-The above commands will download the sample data and unzip it. It will also download teh enrichment table. Now, let's ingest the data into ZincObserve.
+The above commands will download the sample data and unzip it. It will also download teh enrichment table. Now, let's ingest the data into OpenObserve.
 
 
 ```shell title="For Zinc Cloud"
@@ -120,7 +120,7 @@ access-control-max-age: 1728000
 
 ### Upload enrichment table
 
-Now let's setup our enrichment table. Go to the ZincObserve UI and click on the `Functions > enrichment tables`. Click on `Add enrichment table` button. Give it a name `protocols`, upload the CSV file and click on `Save`. You should see the following screen:
+Now let's setup our enrichment table. Go to the OpenObserve UI and click on the `Functions > enrichment tables`. Click on `Add enrichment table` button. Give it a name `protocols`, upload the CSV file and click on `Save`. You should see the following screen:
 
 ![Add enrichment table](./images/add_lookup_table.png)
 
@@ -159,5 +159,5 @@ So, the overall purpose of this script is to enrich event data by adding a `prot
 
 ## Conclusion
 
-You can add enrichment tables to your ZincObserve instance and you can use the VRL functions to enrich your data with the data from the enrichment tables.
+You can add enrichment tables to your OpenObserve instance and you can use the VRL functions to enrich your data with the data from the enrichment tables.
 

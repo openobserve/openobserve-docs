@@ -94,8 +94,8 @@ Webhook URL, eg:
 {
     "msgtype": "m.text",
     "format": "org.matrix.custom.html",
-    "body": "{org_name}/{stream_name}: {alert_name}<br><a href=https://yourZincObserveURL.example.com/web/logs?org_identifier={org_name}>Recent logs</a>",
-    "formatted_body": "{org_name}/{stream_name}: {alert_name}<br><a href=https://yourZincObserveURL.example.com/web/logs?org_identifier={org_name}>Recent logs</a>"
+    "body": "{org_name}/{stream_name}: {alert_name}<br><a href=https://yourOpenObserveURL.example.com/web/logs?org_identifier={org_name}>Recent logs</a>",
+    "formatted_body": "{org_name}/{stream_name}: {alert_name}<br><a href=https://yourOpenObserveURL.example.com/web/logs?org_identifier={org_name}>Recent logs</a>"
 
 }
 ```
