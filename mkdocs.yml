@@ -23,7 +23,7 @@ extra:
     - icon: fontawesome/brands/docker 
       link: https://gallery.ecr.aws/zinclabs/openobserve
     - icon: fontawesome/brands/slack 
-      link: https://join.slack.com/t/openobserve/shared_invite/zt-11r96hv2b-UwxUILuSJ1duzl_6mhJwVg
+      link: https://join.slack.com/t/zincobserve/shared_invite/zt-11r96hv2b-UwxUILuSJ1duzl_6mhJwVg
   alternate:
     # - name: English
     #   link: /en/ 
@@ -44,7 +44,7 @@ theme:
   custom_dir: overrides
   features:
     # - navigation.expand
-    - navigation.tabs
+    # - navigation.tabs
     - navigation.tabs.sticky
     - navigation.instant
     - navigation.tracking
@@ -75,4 +75,3 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-

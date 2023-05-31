@@ -91,8 +91,8 @@ gunzip vpc_flow_log.json.gz
 The above commands will download the sample data and unzip it. It will also download teh enrichment table. Now, let's ingest the data into OpenObserve.
 
 
-```shell title="For Zinc Cloud"
-curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.zinc.dev/api/User_organization_435345/vpc_flow_log/_json -d "@vpc_flow_log.json"
+```shell title="For OpenObserve Cloud"
+curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.openobserve.ai/api/User_organization_435345/vpc_flow_log/_json -d "@vpc_flow_log.json"
 ```
 
 For Zinc On-Prem, you can use the following command:
