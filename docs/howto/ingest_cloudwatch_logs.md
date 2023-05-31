@@ -4,7 +4,7 @@
 
 OpenObserve can be utilized to analyze and search Cloudwatch logs which are used by most AWS services. If you wish to send your log data to OpenObserve, we recommend that you use Cloudwatch subscription filters together with Kinesis Firehose. Rest of this guide takes you through a step-by-step process on how to do it.
 
-> You can either use a self hosted OpenObserve or [OpenObserve Cloud](https://observe.openobserve.ai) for following this guide. You can get started with [OpenObserve Cloud](https://observe.openobserve.ai) for free at [https://observe.openobserve.ai](https://observe.openobserve.ai) that has a generous free tier.
+> You can either use a self hosted OpenObserve or [OpenObserve Cloud](https://cloud.openobserve.ai) for following this guide. You can get started with [OpenObserve Cloud](https://cloud.openobserve.ai) for free at [https://cloud.openobserve.ai](https://cloud.openobserve.ai) that has a generous free tier.
 
 Below are the steps that you can follow:
 

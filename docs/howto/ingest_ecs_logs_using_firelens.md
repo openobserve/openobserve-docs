@@ -17,7 +17,7 @@ We will run our tasks using fargate for this demonstration.
 
 Before you can start with setting up the configuration of your ECS task you will need the details of your OpenObserve where you will send the logs.
 
-> You can either use a self hosted OpenObserve or [OpenObserve Cloud](https://observe.openobserve.ai) for following this guide. You can get started with [OpenObserve Cloud](https://observe.openobserve.ai) for free at [https://observe.openobserve.ai](https://observe.openobserve.ai) that has a generous free tier.
+> You can either use a self hosted OpenObserve or [OpenObserve Cloud](https://cloud.openobserve.ai) for following this guide. You can get started with [OpenObserve Cloud](https://cloud.openobserve.ai) for free at [https://cloud.openobserve.ai](https://cloud.openobserve.ai) that has a generous free tier.
 
 You can find the config details under ingestion/fluentbit
 

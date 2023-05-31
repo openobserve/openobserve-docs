@@ -46,7 +46,7 @@ Following is the list of available features and roadmap.
 
 Please raise any new feature requests via [github issue tracker](https://github.com/zinclabs/openobserve/issues).
 
-You can use either the open source version or [OpenObserve Cloud](https://observe.openobserve.ai). [OpenObserve Cloud](https://observe.openobserve.ai) is built on top of open source OpenObserve but has minor differences to account for its SaaS nature. We will highlight the differences in the documentation whenever needed.
+You can use either the open source version or [OpenObserve Cloud](https://cloud.openobserve.ai). [OpenObserve Cloud](https://cloud.openobserve.ai) is built on top of open source OpenObserve but has minor differences to account for its SaaS nature. We will highlight the differences in the documentation whenever needed.
 
 ## Guiding principles
 

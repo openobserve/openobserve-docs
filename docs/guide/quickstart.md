@@ -1,6 +1,6 @@
 # Quickstart
 
-You can get started with [OpenObserve Cloud](https://observe.openobserve.ai) or a self hosted installation. 
+You can get started with [OpenObserve Cloud](https://cloud.openobserve.ai) or a self hosted installation. 
 
 OpenObserve Cloud is recommended for most users due to following benefits:
 
@@ -15,7 +15,7 @@ OpenObserve Cloud is offered as a hosted service backed by open source OpenObser
 
 Let's go through it.
 
-1. Navigate to [https://observe.openobserve.ai](https://observe.openobserve.ai)
+1. Navigate to [https://cloud.openobserve.ai](https://cloud.openobserve.ai)
 2. Use a social login or create an account using email / password
 ![Sign in page](./images/quickstart/signin.png)
 3. Now head over to `Ingestion` section and grab `CURL` command
@@ -131,7 +131,7 @@ curl http://localhost:5080/api/default/default/_json -i -u root@example.com:Comp
 
 ## Search for data
 
-Point your browser to [http://observe.openobserve.ai](http://observe.openobserve.ai) (for OpenObserve Cloud) / [http://localhost:5080](http://localhost:5080) (for self hosted) and login
+Point your browser to [http://cloud.openobserve.ai](http://cloud.openobserve.ai) (for OpenObserve Cloud) / [http://localhost:5080](http://localhost:5080) (for self hosted) and login
 
 1. Visit `logs` page
 1. Select the index `default` from drop down in the left
