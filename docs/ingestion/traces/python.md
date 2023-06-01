@@ -61,22 +61,22 @@ The server is now running, navigate to [http://127.0.0.1:5000](http://127.0.0.1:
 
 Refresh page couple of times to get more traces exported.
 
-![Traces Sample Configration](../../images/ingestion/traces/python_app.png)
+![Traces Sample Configration](./images/python_app.png)
 
 
 
 Traces are captured, you can check these captured traces here [https://cloud.openobserve.ai/traces](https://cloud.openobserve.ai/traces)
 
-![Traces Page](../../images/ingestion/traces/traces_python.png)
+![Traces Page](./images/traces_python.png)
 
 Filter traces with your service name `python-service`
 
-![Filter traces with service name](../../images/ingestion/traces/filter_traces_python.png)
+![Filter traces with service name](./images/filter_traces_python.png)
 
 Click on any trace to check trace data
 
-![Trace details](../../images/ingestion/traces/trace_details_1.png)
+![Trace details](./images/trace_details_1.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](../../images/ingestion/traces/trace_details_2.png)
+![Trace details](./images/trace_details_2.png)

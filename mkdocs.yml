@@ -64,7 +64,7 @@ theme:
         icon: material/weather-night
         name: Switch to light mode
 repo_url: https://github.com/openobserve/openobserve
-repo_name: zinclabs/openobserve
+repo_name: openobserve/openobserve
 edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
 markdown_extensions:
   - tables

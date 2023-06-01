@@ -64,26 +64,26 @@ node --require './tracing.js' app.js
 The server is now running on 8080, navigate to [http://localhost:8080](http://localhost:8080) </br>
 Refresh page couple of times to get more traces exported.
 
-![Traces Sample Configration](../../images/ingestion/traces/sample_configuration.png)
+![Traces Sample Configration](./images/sample_configuration.png)
 </br>
 </br>
 
 Traces are captured, you can check these captured traces here [https://cloud.openobserve.ai/traces](https://cloud.openobserve.ai/traces)
 </br>
 
-![Traces Page](../../images/ingestion/traces/traces_js.png)
+![Traces Page](./images/traces_js.png)
 </br>
 </br>
 
 Filter traces with your service name `nodejs-javascript-service`
 </br>
 
-![Filter traces with service name](../../images/ingestion/traces/filter_traces_js.png)
+![Filter traces with service name](./images/filter_traces_js.png)
 
 Click on any trace to check trace data
 
-![Trace details](../../images/ingestion/traces/trace_details_1.png)
+![Trace details](./images/trace_details_1.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](../../images/ingestion/traces/trace_details_2.png)
+![Trace details](./images/trace_details_2.png)
