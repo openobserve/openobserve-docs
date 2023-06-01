@@ -7,4 +7,4 @@ nav:
     - Syslog: syslog.md
     - Python: python.md
     - Go: go.md
-    - curl: curl.md
+    - Curl: curl.md
