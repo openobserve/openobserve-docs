@@ -5,7 +5,7 @@ You can setup tracing for your Node.js application. Check sample configuration o
 ##Clone </br>
 ```
 
-git clone https://github.com/zinclabs/sample-tracing-nodejs-javascript
+git clone https://github.com/openobserve/sample-tracing-nodejs-javascript
 
 ```
 

@@ -5,7 +5,7 @@ You can setup tracing for your Node.js Typescript application. Check sample conf
 ##Clone </br>
 ```
 
-git clone https://github.com/zinclabs/sample-tracing-nodejs-typescript
+git clone https://github.com/openobserve/sample-tracing-nodejs-typescript
 
 ```
 

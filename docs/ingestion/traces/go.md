@@ -6,7 +6,7 @@ You can setup tracing for your Go application. Check sample configuration on how
 
 ```
 
-git clone https://github.com/zinclabs/sample-tracing-golang
+git clone https://github.com/openobserve/sample-tracing-golang
 
 ```
 

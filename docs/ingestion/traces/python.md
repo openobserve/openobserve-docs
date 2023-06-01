@@ -6,7 +6,7 @@ You can setup tracing for your Python application. Check sample configuration on
 
 ```
 
-git clone https://github.com/zinclabs/sample-tracing-python
+git clone https://github.com/openobserve/sample-tracing-python
 
 ```
 
