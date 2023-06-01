@@ -44,7 +44,7 @@ Following is the list of available features and roadmap.
 | 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose| Available           |
 
 
-Please raise any new feature requests via [github issue tracker](https://github.com/zinclabs/openobserve/issues).
+Please raise any new feature requests via [github issue tracker](https://github.com/openobserve/openobserve/issues).
 
 You can use either the open source version or [OpenObserve Cloud](https://cloud.openobserve.ai). [OpenObserve Cloud](https://cloud.openobserve.ai) is built on top of open source OpenObserve but has minor differences to account for its SaaS nature. We will highlight the differences in the documentation whenever needed.
 

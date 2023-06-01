@@ -32,7 +32,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
 === "Windows"
 
-    Binaries can be downloaded from [releases](https://github.com/zinclabs/openobserve/releases) page for appropriate platform.
+    Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
 
 
         set ZO_ROOT_USER_EMAIL=root@example.com
@@ -43,7 +43,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
 === "MacOS/Linux Binaries"
-    Binaries can be downloaded from [releases](https://github.com/zinclabs/openobserve/releases) page for appropriate platform.
+    Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
 
         ZO_ROOT_USER_EMAIL=root@example.com ZO_ROOT_USER_PASSWORD=Complexpass#123 ./openobserve
 
@@ -56,7 +56,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     ./openobserve: `/lib/libm.so.6`: version `GLIBC_2.27` not found (required by ./openobserve)
     ```
 
-    > Download the `musl` binary instead of regular binary from [releases](https://github.com/zinclabs/openobserve/releases) page that has no external dependencies. This binary is not as performant as other binaries though. We recommend running the containerized version if performance is a concern for you and are unable to make the dependencies work.
+    > Download the `musl` binary instead of regular binary from [releases](https://github.com/openobserve/openobserve/releases) page that has no external dependencies. This binary is not as performant as other binaries though. We recommend running the containerized version if performance is a concern for you and are unable to make the dependencies work.
 
 === "Docker"
 

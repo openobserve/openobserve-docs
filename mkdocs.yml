@@ -19,7 +19,7 @@ extra:
     - icon: fontawesome/brands/linkedin 
       link: https://www.linkedin.com/company/zinclabsinc
     - icon: fontawesome/brands/github 
-      link: https://github.com/zinclabs/openobserve
+      link: https://github.com/openobserve/openobserve
     - icon: fontawesome/brands/docker 
       link: https://gallery.ecr.aws/zinclabs/openobserve
     - icon: fontawesome/brands/slack 
@@ -63,9 +63,9 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
-repo_url: https://github.com/zinclabs/openobserve
+repo_url: https://github.com/openobserve/openobserve
 repo_name: zinclabs/openobserve
-edit_uri: https://github.com/zinclabs/openobserve-docs/edit/main/docs/
+edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
 markdown_extensions:
   - tables
   - pymdownx.tabbed:
