@@ -19,6 +19,7 @@ Logs can also be ingested into OpenObserve Cloud / OpenObserve through one of th
 1. [_json](/guide/api/ingestion/json)
 1. [_multi](/guide/api/ingestion/multi)
 1. [_bulk](/guide/api/ingestion/bulk)
+1. [syslog](./logs/syslog)
 
 You can call the above APIs directly in your code to ingest data. 
 

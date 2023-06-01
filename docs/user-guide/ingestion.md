@@ -1,5 +1,5 @@
 Please refer:
 
 - [Metrics ingestion](../../ingestion/metrics/prometheus)
-- [Logs ingestion](../../ingestion/logs)
+- [Logs ingestion](../../ingestion)
 - [Traces ingestion](../../ingestion/traces)
