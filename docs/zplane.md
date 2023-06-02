@@ -7,7 +7,7 @@ There are certain features of OpenObserve that are available only in the enterpr
 Currently following features are part of enterprise offering through zPlane:
 
 1. Elasticsearch API compatibility
-1. SSO (on Roadmap)
+1. SAML (on Roadmap)
 1. Cross cluster search (on Roadmap)
 1. Priority support with SLAs
 

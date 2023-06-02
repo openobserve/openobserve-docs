@@ -23,7 +23,7 @@ Following is the list of available features and roadmap.
 | 10 | User defined Ingest and Query functions (VRL based)          | Available           |
 | 11 | Multi-tenancy                                                | Available           |
 | 12 | Ingestion API compatibility with Elasticsearch               | Available           |
-| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/guide/zplane)    |
+| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](/zplane)    |
 | 14 | Scheduled Alerts (Based on logs)                             | Available           |
 | 15 | Real time Alerts (Based on logs)                             | Available           |
 | 16 | High Availability (HA) and clustering                        | Available           |
@@ -42,6 +42,7 @@ Following is the list of available features and roadmap.
 | 29 | Template based alert target (Allows alerting to slack, teams and many more)  | Available  |
 | 30 | Send alerts to Prometheus alertmanager                       | Available           |
 | 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose| Available           |
+| 32 | Single Sign On(SSO) | To start           |
 
 
 Please raise any new feature requests via [github issue tracker](https://github.com/openobserve/openobserve/issues).
