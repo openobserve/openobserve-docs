@@ -16,9 +16,9 @@ Logs metrics and traces can be ingested into OpenObserve from a variety of sourc
 
 Logs can also be ingested into OpenObserve Cloud / OpenObserve through one of the 3 HTTP APIs.
 
-1. [_json](/api/ingestion/json)
-1. [_multi](/api/ingestion/multi)
-1. [_bulk](/api/ingestion/bulk)
+1. [_json](../api/ingestion/json)
+1. [_multi](../api/ingestion/multi)
+1. [_bulk](../api/ingestion/bulk)
 1. [syslog](./logs/syslog)
 
 You can call the above APIs directly in your code to ingest data. 
