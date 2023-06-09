@@ -23,7 +23,7 @@ Use this mode for light usage and testing or if HA is not a requirement for you.
 
 ## High Availability (HA) mode
 
-Local disk storage is not supported in HA mode. Please refer to [HA Deployment](/OpenObserve/ha_deployment) for cluster mode deployment.
+Local disk storage is not supported in HA mode. Please refer to [HA Deployment](./ha_deployment.md) for cluster mode deployment.
 
 ### etcd and object storage
 ![Single node architecture using etcd and s3](./images/arch-ha.png)
