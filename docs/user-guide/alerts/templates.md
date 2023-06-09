@@ -22,6 +22,9 @@ Variables which can be used in templates are:
 
 ## Slack
 
+Official slack docs at: https://api.slack.com/messaging/webhooks
+
+
 ```json
 {
   "text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"
@@ -90,6 +93,13 @@ Webhook URL, eg:
 
 ## Matrix
 
+```shell
+URL: https://[your matrix domain]/_matrix/client/r0/rooms/[roomID]/send/m.room.message
+Method: POST
+Headers: Authorization
+Value: Bearer [Your token]
+```
+
 ```json
 {
     "msgtype": "m.text",
@@ -99,4 +109,26 @@ Webhook URL, eg:
 
 }
 ```
+
+## Opsgenie
+
+Official docs at: https://docs.opsgenie.com/docs/alert-api#create-alert
+
+```shell
+URL: https://api.opsgenie.com/v2/alerts
+Method: POST
+Headers:
+
+Authorization: GenieKey __YOUR_API_KEY__
+```
+
+```json
+{
+    "message": "{alert_name} is active",
+    "alias": "{alert_name}",
+    "description":"{stream_name}",
+    "priority":"P3"
+}
+```
+
 
