@@ -22,7 +22,7 @@ Variables which can be used in templates are:
 
 ## Slack
 
-Official slack docs at: https://api.slack.com/messaging/webhooks
+Official slack docs at: [https://api.slack.com/messaging/webhooks](https://api.slack.com/messaging/webhooks)
 
 
 ```json
@@ -112,7 +112,7 @@ Value: Bearer [Your token]
 
 ## Opsgenie
 
-Official docs at: https://docs.opsgenie.com/docs/alert-api#create-alert
+Official docs at: [https://docs.opsgenie.com/docs/alert-api#create-alert](https://docs.opsgenie.com/docs/alert-api#create-alert)
 
 ```shell
 URL: https://api.opsgenie.com/v2/alerts
