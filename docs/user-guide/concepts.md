@@ -12,7 +12,7 @@ A stream in OpenObserve is sequence of events (logs/metrics/traces) that share t
 
 ### Data Partitioning
 
-Data ingested to ZincOberserve is partioned by default based on year month day & hour, users can additionally specify partioning key/keys which will be used to patition data. 
+Data ingested to OpenObserve is partioned by default based on year month day & hour, users can additionally specify partioning key/keys which will be used to patition data. 
 
 ## Logs
 

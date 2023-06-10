@@ -101,7 +101,7 @@ OpenObserve `_bulk` API endpoint is elasticsearch compatible and can be used by 
 
 Search and aggregation API compatibility with Elasticsearch is provided through zPlane.
 
-zPlane is the enterprise product offered by Zinc Labs that among other things provides Elasticsearch search and aggregation compatibility. Learn more about it at [zPlane docs](zplane)
+zPlane is the enterprise product offered by ZincLabs that among other things provides Elasticsearch search and aggregation compatibility. Learn more about it at [zPlane docs](zplane)
 ## Are there any benchmarks?
 OpenObserve is currently in alpha. We will do benchmarking as we get closer to GA.
 
