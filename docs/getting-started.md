@@ -6,4 +6,4 @@ Check the below video for a quick demo/getting started of OpenObserve.
 
 ## OpenObserve introduction video
 
-[![OpenObserve Youtube](./images/zo_intro_youtube.webp)](https://www.youtube.com/watch?v=cPMH1Am2_zM)
+[![OpenObserve Youtube](./images/zo_intro_youtube.webp)](https://www.youtube.com/watch?v=fZ-ErfMdF-o)
