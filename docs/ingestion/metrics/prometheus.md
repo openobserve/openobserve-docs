@@ -7,7 +7,7 @@ You will then be able to explore the metrics in metrics explorer and build dashb
 You could use below configuration for collecting metrics
 
 ```yaml
-url: https://api.openobserve.ai/api/org_name/prometheus/write
+url: https://api.openobserve.ai/api/org_name/prometheus/api/v1/write
 basic_auth:
   username: root@example.com
   password: password

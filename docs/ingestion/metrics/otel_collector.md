@@ -11,7 +11,7 @@ You could use below configuration for collecting metrics
 ```yaml
 exporters:
   prometheusremotewrite:
-    endpoint: "https://api.openobserve.ai/api/org_name/prometheus/write"
+    endpoint: "https://api.openobserve.ai/api/org_name/prometheus/api/v1/write"
     headers:
       Authorization: Basic base64_encoded_data_of(userid:password).e.g. Basic cm9vdEBleGFtcGxlLmNvbTo2eUNsSW1HZXV4S3hZanJiCg==
 ```
