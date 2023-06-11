@@ -2,8 +2,6 @@
 
 A stream in OpenObserve is sequence of events(logs/metrics/traces) ,sharing the same source for eg: logs from a specific application or from an enterprize.
 
-Currently OpenObserve support steams of type logs , in future streams types metrics & traces will be supported.
-
 To navigate to streams in OpenObserve , select preferred organization using organization selection control, then click on ![Streams](../images/streams_menu.jpg) menu , which will take one to stream list screen. The screen lists all streams for selected organization.  
 
 <kbd>
