@@ -26,7 +26,7 @@ Now head over to [Load sample data](#load-sample-data) section
 
 ## Self hosted Installation
 
-**Note**: Installation directions on this page is for single node installations. If you are looking for a `Highly Available` installation then head over to [HA deployment](/ha_deployment) section.
+**Note**: Installation directions on this page is for single node installations. If you are looking for a `Highly Available` installation then head over to [HA deployment](./ha_deployment) section.
 
 You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variables when you start OpenObserve for the first time. You don't need them on subsequent runs of OpenObserve.
 
