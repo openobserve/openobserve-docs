@@ -1,5 +1,4 @@
 nav:
-    - Etcd: etcd.md
     - Systemd: systemd.md
     - SIMD: simd.md
     - Mimalloc: mimalloc.md

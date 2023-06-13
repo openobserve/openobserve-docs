@@ -1,6 +1,5 @@
 # Operations Guide
 
-1. [Etcd](etcd)
-2. [Systemd](systemd)
-2. [SIMD](simd)
-2. [Mimalloc](mimalloc)
+1. [Systemd](systemd)
+1. [SIMD](simd)
+1. [Mimalloc](mimalloc)
