@@ -35,7 +35,7 @@ Following is the list of available features and roadmap.
 | 22 | SIMD support for vectorized processing (AVX512 and Neon)     | Available           |
 | 23 | Dashboards                                                   | Available   |
 | 24 | Metrics                                                      | Available   |
-| 25 | PromQL support for metrics                                   | Available   |
+| 25 | PromQL support for metrics                                   | Available (Partial - In progress)  |
 | 26 | Traces                                                       | Available   |
 | 27 | Scheduled Alerts (Based on metrics)                          | Available            |
 | 28 | Real time Alerts (Based on metrics)                          | Available            |
