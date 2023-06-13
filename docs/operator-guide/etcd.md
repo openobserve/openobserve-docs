@@ -4,6 +4,8 @@ weight: 4450
 description: Periodic etcd cluster maintenance guide
 ---
 
+# Etcd Maintenance
+
 ## Overview
 
 An etcd cluster needs periodic maintenance to remain reliable. Depending on an etcd application's needs, this maintenance can usually be automated and performed without downtime or significantly degraded performance.
@@ -173,7 +175,7 @@ $ etcdctl --write-out=table snapshot status backup.db
 +----------+----------+------------+------------+
 ```
 
-## Kubernets maintainability
+## Kubernets Maintenance
 
 first deploy etcd with auto-compaction
 
