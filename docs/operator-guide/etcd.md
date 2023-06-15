@@ -1,5 +1,5 @@
 ---
-title: Maintenance
+title: Etcd Maintenance
 weight: 4450
 description: Periodic etcd cluster maintenance guide
 ---
