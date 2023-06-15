@@ -3,3 +3,4 @@ nav:
     - SIMD: simd.md
     - Mimalloc: mimalloc.md
     - Grafana plugin: grafana_plugin.md
+    - Etcd maintenance: etcd.md
