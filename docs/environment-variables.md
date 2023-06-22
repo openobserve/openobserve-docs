@@ -46,7 +46,8 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_COMPACT_DATA_RETENTION_DAYS | 0            | No            | Data retention days, default is 0 means nothing to do. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
 | ZO_MEMORY_CACHE_CACHE_LATEST_FILES | false    | No            | by default we just cache files required by data being queried, enable this option to cache all the latest generated files.Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size. |
-| ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 30% of the total memory as used for in-memory cache , one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_SKIP_SIZE     | -             | No            | default 80% of the total memory cache size, A query will skip memory cache if it need more than this value. one can set it to desired amount unit: MB |
 | ZO_MEMORY_CACHE_RELEASE_SIZE  | -             | No            | default drop 1% entries from in-memory cache as cache is full, one can set it to desired amount unit: MB |
 | ZO_TELEMETRY                  | true          | No            | Send anonymous telemetry info for improving OpenObserve. You can disable by set it to `false` |
 | ZO_TELEMETRY_URL              | https://e1.zinclabs.dev | No  | OpenTelemetry report URL. You can report to your own server. |
