@@ -1,4 +1,4 @@
-# Ingestion - JSON
+# Logs Ingestion - JSON
 
 Endpoint: `POST /api/{organization}/{stream}/_json`
 

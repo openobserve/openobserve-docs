@@ -1,0 +1,3 @@
+nav:
+    - Prometheus: prometheus.md
+    - JSON: json.md
