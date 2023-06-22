@@ -98,7 +98,7 @@ curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.openobserve.ai/api
 For self hosted, you can use the following command:
 
 ```shell title="For self hosted installation"
-curl http://localhost:5080/api/default/vpc_flow_log/_json -i -u root@example.com:Complexpass#123  -d "@vpc_flow_log.json"
+curl http://localhost:5080/api/default/vpc_flow_log/_json -i -u "root@example.com:Complexpass#123"  -d "@vpc_flow_log.json"
 ```
 
 Output

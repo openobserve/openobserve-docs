@@ -35,8 +35,8 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
 
 
-        set ZO_ROOT_USER_EMAIL=root@example.com
-        set ZO_ROOT_USER_PASSWORD=Complexpass#123
+        set ZO_ROOT_USER_EMAIL="root@example.com"
+        set ZO_ROOT_USER_PASSWORD="Complexpass#123"
         openobserve.exe
 
 
@@ -45,7 +45,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 === "MacOS/Linux Binaries"
     Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
 
-        ZO_ROOT_USER_EMAIL=root@example.com ZO_ROOT_USER_PASSWORD=Complexpass#123 ./openobserve
+        ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
 
 
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
@@ -64,7 +64,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
         mkdir data
         docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
-            -e ZO_ROOT_USER_EMAIL=root@example.com -e ZO_ROOT_USER_PASSWORD=Complexpass#123 \
+            -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
             public.ecr.aws/zinclabs/openobserve:latest
 
 
@@ -125,7 +125,7 @@ curl -u user@domain.com:abqlg4b673465w46hR2905 -k https://api.openobserve.ai/api
 ```
 
 ```shell title="For self hosted installation"
-curl http://localhost:5080/api/default/default/_json -i -u root@example.com:Complexpass#123  -d "@k8slog_json.json"
+curl http://localhost:5080/api/default/default/_json -i -u "root@example.com:Complexpass#123"  -d "@k8slog_json.json"
 ```
 
 

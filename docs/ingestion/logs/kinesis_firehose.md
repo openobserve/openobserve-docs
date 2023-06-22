@@ -14,7 +14,7 @@ Access key: vhgjleGFtcGxlLmNvbTo2eUNsSW1HZXV4S3hZanJi
 Access key is base64 encoded value of `userid:password`. e.g. If your user id is root@example.com and password is Complexpass#123 then the base64 encoded value is 
 
 ```bash
-echo -n root@example.com:Complexpass#123 | base64
+echo -n 'root@example.com:Complexpass#123' | base64
 ```
  which will give you
 

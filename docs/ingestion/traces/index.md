@@ -27,7 +27,7 @@ password: Complexpass#123
 ```
 
 ```shell
-echo -n root@example.com:Complexpass#123 | base64
+echo -n 'root@example.com:Complexpass#123' | base64
 ```
 
 `cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`
