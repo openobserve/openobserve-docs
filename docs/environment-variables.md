@@ -43,7 +43,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_COMPACT_ENABLED            | true          | No            | enable compact for small files. |
 | ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is 60s, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
-| ZO_COMPACT_DATA_RETENTION_DAYS | 0            | No            | Data retention days, default is 0 means nothing to do. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
+| ZO_COMPACT_DATA_RETENTION_DAYS | 3650         | No            | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
 | ZO_MEMORY_CACHE_CACHE_LATEST_FILES | false    | No            | by default we just cache files required by data being queried, enable this option to cache all the latest generated files.Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size. |
 | ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
