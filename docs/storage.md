@@ -43,7 +43,7 @@ OpenObserve can use MinIO for storing stream data , following environment variab
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
-| ZO_S3_PROVIDER              | minio    | used to specify settings like force_style=true  |
+| ZO_S3_PROVIDER              | s3       | used to specify settings like force_style=true  |
 
 > You need to create the bucket in MinIO first.
 
@@ -58,7 +58,7 @@ OpenObserve can use Openstack swift for storing stream data , following environm
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
-| ZO_S3_PROVIDER              | swift_s3 | Use s3 compatible API                           |
+| ZO_S3_PROVIDER              | s3       | Use s3 compatible API                           |
 | AWS_EC2_METADATA_DISABLED   | true     | swift doesn't support ec2 metadata              |
 
 > You need to create the bucket in swift first.
@@ -74,7 +74,7 @@ OpenObserve can use google cloud storage for storing stream data , following env
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
-| ZO_S3_PROVIDER              | gcs_s3   | Use s3 compatible API for gcp                   |
+| ZO_S3_PROVIDER              | s3       | Use s3 compatible API for gcp                   |
 
 You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](https://cloud.google.com/storage/docs/aws-simple-migration)
 

@@ -81,7 +81,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "https://minio-server-url"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_PROVIDER:	"minio"	
+      ZO_S3_PROVIDER:	"s3"	
     ```
 
 ### Any Kubernetes + GCS
@@ -96,7 +96,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "https://storage.googleapis.com"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_PROVIDER:	"gcs"	
+      ZO_S3_PROVIDER:	"s3"	
     ```
 
 You can generate  keys for GCS bucket using following steps:
@@ -118,7 +118,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "swift url"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_PROVIDER:	"swift"	
+      ZO_S3_PROVIDER:	"s3"	
     ```
 
 ## Setup
