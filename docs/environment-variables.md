@@ -11,7 +11,8 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_LOCAL_MODE                 | true          | No            | If local mode is set to true ,OpenObserve becomes single node deployment, false indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure `sled db`, for cluster mode one needs to config `etcd`. |
 | ZO_LOCAL_MODE_STORAGE         | disk          | No            | `disk` or `s3`, Applicable only for local mode , by default local disk is used as storage, we also support s3 in local mode. |
 | ZO_NODE_ROLE                  | all           | No            | Possible values are : all, ingester, querier, compactor, router, alertmanager. A single node can have multiple roles id desired. Specify roles separated by comma. e.g. compactor,alertmanager |
-| ZO_HTTP_PORT                  | 5080          | No            | openobserve server listen http port |
+| ZO_HTTP_PORT                  | 5080          | No            | openobserve server listen HTTP port |
+| ZO_HTTP_IPV6_ENABLED          | false         | No            | enable ipv6 support for HTTP |
 | ZO_GRPC_PORT                  | 5081          | No            | openobserve server listen grpc port |
 | ZO_GRPC_TIMEOUT               | 600           | No            | grpc query timeout, default is 500 seconds | 
 | ZO_GRPC_ORG_HEADER_KEY        | openobserve-org-id   | No            | header key for sending organization information for `traces` using OTLP over grpc |
