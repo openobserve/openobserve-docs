@@ -35,8 +35,8 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
 
 
-        set ZO_ROOT_USER_EMAIL="root@example.com"
-        set ZO_ROOT_USER_PASSWORD="Complexpass#123"
+        set ZO_ROOT_USER_EMAIL=root@example.com
+        set ZO_ROOT_USER_PASSWORD=Complexpass#123
         openobserve.exe
 
 
