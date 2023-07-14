@@ -34,7 +34,7 @@ To use S3 for storing stream data following needs to be done:
 
 ## MinIO
 
-OpenObserve can use MinIO for storing stream data , following environment variables needs to be setup:
+OpenObserve can use MinIO for storing stream data, following environment variables needs to be setup:
 
 | Environment Variable        | Value    | Description                                     |
 | --------------------------- | -------- | ----------------------------------------------- |
@@ -49,7 +49,7 @@ OpenObserve can use MinIO for storing stream data , following environment variab
 
 ## Openstack Swift
 
-OpenObserve can use Openstack swift for storing stream data , following environment variables needs to be setup:
+OpenObserve can use Openstack swift for storing stream data, following environment variables needs to be setup:
 
 | Environment Variable        | Value    | Description                                     |
 | --------------------------- | -------- | ----------------------------------------------- |
@@ -65,7 +65,7 @@ OpenObserve can use Openstack swift for storing stream data , following environm
 
 ## Google GCS
 
-OpenObserve can use google cloud storage for storing stream data , following environment variables needs to be setup:
+OpenObserve can use google cloud storage for storing stream data, following environment variables needs to be setup:
 
 | Environment Variable        | Value    | Description                                     |
 | --------------------------- | -------- | ----------------------------------------------- |
@@ -80,7 +80,7 @@ You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](h
 
 ## Alibaba OSS (aliyun)
 
-OpenObserve can use Alibaba(aliyun) OSS for storing stream data , following environment variables needs to be setup:
+OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following environment variables needs to be setup:
 
 | Environment Variable        | Value    | Description                                     |
 | --------------------------- | -------- | ----------------------------------------------- |
@@ -94,14 +94,28 @@ You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://h
 
 ## Tencent COS
 
-OpenObserve can use tencent cloud storage for storing stream data , following environment variables needs to be setup:
+OpenObserve can use tencent cloud storage for storing stream data, following environment variables needs to be setup:
 
 | Environment Variable        | Value    | Description                                     |
 | --------------------------- | -------- | ----------------------------------------------- |
-| ZO_S3_SERVER_URL            | -        | cos endpoint address |
-| ZO_S3_REGION_NAME           | -        | region name, cos region name |
+| ZO_S3_SERVER_URL            | -        | cos endpoint address                            |
+| ZO_S3_REGION_NAME           | -        | region name, cos region name                    |
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
 
 You can refer to: [https://cloud.tencent.com/document/product/436/37421](https://cloud.tencent.com/document/product/436/37421)
+
+## Baidu BOS
+
+OpenObserve can use baidu cloud storage for storing stream data, following environment variables needs to be setup:
+
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL            | -        | bos endpoint address, eg: `https://s3.bj.bcebos.com` |
+| ZO_S3_REGION_NAME           | -        | region name, bos region name, eg: `bj`          |
+| ZO_S3_ACCESS_KEY            | -        | access key                                      |
+| ZO_S3_SECRET_KEY            | -        | secret key                                      |
+| ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
+
+You can refer to: [https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4](https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4)
