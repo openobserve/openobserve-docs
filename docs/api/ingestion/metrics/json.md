@@ -121,3 +121,81 @@ use microseconds
 	"_timestamp": 1674789786006000
 }]
 ```
+
+## Examples
+
+### Counter
+
+```json
+[
+    {
+        "__name__": "zo_incoming_requests",
+        "__type__": "counter",
+        "endpoint": "/api/config",
+        "method": "get",
+		"status": "200",
+		"instance": "zo1-openobserve-router-5d9f7d67c6-296wj",
+        "_timestamp": 1690129406888,
+        "value": 6.0
+    }
+]
+```
+
+### Gauge
+
+```json
+[
+    {
+        "__name__": "ingest_wal_used_bytes",
+        "__type__": "gauge",
+        "organization": "default",
+        "stream_type": "logs",
+		"stream": "default",
+		"instance": "zo1-openobserve-router-5d9f7d67c6-296wj",
+        "_timestamp": 1690129406888,
+        "value": 180567.1
+    }
+]
+```
+
+### Histogram
+
+Histogram is a complex metrics type, need 4 types data values.
+
+1. The `Histogram` type row of the metrics name.
+1. The `Counter` type rows of the `_bucket` values.
+1. The `Counter` type row of the `_count` value.
+1. The `Counter` type row of the `_sum` value.
+
+```json
+[
+	{"__name__": "http_response_time", "__type__": "histogram"},
+    {"__name__": "http_response_time_bucket", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "le": "0.001", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_response_time_bucket", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "le": "0.01", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_response_time_bucket", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "le": "0.1", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_response_time_bucket", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "le": "+Inf", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_response_time_count", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_response_time_sum", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "_timestamp": 1690129406888, "value": 0.003}
+]
+```
+
+### Summary
+
+Summary is a complex metrics type, need 4 types data values.
+
+1. The `Summary` type row of the metrics name.
+1. The `Counter` type rows of the metrics values.
+1. The `Counter` type row of the `_count` value.
+1. The `Counter` type row of the `_sum` value.
+
+```json
+[
+    {"__name__": "http_request_time", "__type__": "summary"},
+    {"__name__": "http_request_time", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "quantile": "0.001", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_request_time", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "quantile": "0.01", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_request_time", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "quantile": "0.1", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_request_time", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "quantile": "+Inf", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_request_time_count", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "_timestamp": 1690129406888, "value": 18.0},
+    {"__name__": "http_request_time_sum", "__type__": "counter", "endpoint": "/api/default/default/_json", "method": "get", "_timestamp": 1690129406888, "value": 0.003}
+]
+```
