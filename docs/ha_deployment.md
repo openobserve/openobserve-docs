@@ -67,6 +67,7 @@ Add/Modify following to values.yaml
       ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     config:
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_REGION_NAME: "us-west-1"
     ```
 
 ### Any Kubernetes + minio
@@ -81,6 +82,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "https://minio-server-url"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_REGION_NAME: "us-west-1"
       ZO_S3_PROVIDER:	"s3"	
     ```
 
@@ -96,6 +98,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "https://storage.googleapis.com"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_REGION_NAME: "auto"
       ZO_S3_PROVIDER:	"s3"	
     ```
 
@@ -118,6 +121,7 @@ Add/Modify following to values.yaml
     config:
       ZO_S3_SERVER_URL: "swift url"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_REGION_NAME: "us-west-1"
       ZO_S3_PROVIDER:	"s3"	
     ```
 
