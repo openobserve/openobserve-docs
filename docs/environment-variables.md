@@ -35,9 +35,9 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
 | ZO_JSON_LIMIT                 | 209715200     | No            | The max payload size of json. |
 | ZO_PAYLOAD_LIMIT              | 209715200     | No            | The max payload size of http request body. |
-| ZO_MAX_FILE_SIZE_ON_DISK      | 32            | No            | max WAL file size before moving it to storage, default is 10MB, unit: MB |
+| ZO_MAX_FILE_SIZE_ON_DISK      | 32            | No            | max WAL file size before moving it to storage, default is 32MB, unit: MB |
 | ZO_MAX_FILE_RETENTION_TIME    | 600           | No            | max WAL file retention ttl, default is 600s, unit: second |
-| ZO_FILE_PUSH_INTERVAL         | 10            | No            | interval at which job moves files from WAL to storage, default 10s, unit: second |
+| ZO_FILE_PUSH_INTERVAL         | 60            | No            | interval at which job moves files from WAL to storage, default 60s, unit: second |
 | ZO_FILE_MOVE_THREAD_NUM       | -             | No            | number of threads for job to move WAL to storage, default equal to cpu_num. |
 | ZO_QUERY_THREAD_NUM           | -             | No            | number of threads for searching in data files. |
 | ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours  |
