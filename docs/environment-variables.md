@@ -12,8 +12,10 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_LOCAL_MODE_STORAGE         | disk          | No            | `disk` or `s3`, Applicable only for local mode , by default local disk is used as storage, we also support s3 in local mode. |
 | ZO_NODE_ROLE                  | all           | No            | Possible values are : all, ingester, querier, compactor, router, alertmanager. A single node can have multiple roles id desired. Specify roles separated by comma. e.g. compactor,alertmanager |
 | ZO_HTTP_PORT                  | 5080          | No            | openobserve server listen HTTP port |
+| ZO_HTTP_ADDR                  |               | No            | openobserve server listen HTTP ip address |
 | ZO_HTTP_IPV6_ENABLED          | false         | No            | enable ipv6 support for HTTP |
-| ZO_GRPC_PORT                  | 5081          | No            | openobserve server listen grpc port |
+| ZO_GRPC_PORT                  | 5081          | No            | openobserve server listen gRPC port |
+| ZO_GRPC_ADDR                  |               | No            | openobserve server listen gRPC ip address |
 | ZO_GRPC_TIMEOUT               | 600           | No            | grpc query timeout, default is 500 seconds | 
 | ZO_GRPC_ORG_HEADER_KEY        | openobserve-org-id   | No            | header key for sending organization information for `traces` using OTLP over grpc |
 | ZO_ROUTE_TIMEOUT              | 600           | No            | timeout for router node.             |
@@ -28,7 +30,6 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS | false     | No            | default full text search uses `log`, `message`, `data` or selected stream fields. Enabling this option will perform full text search on each field, may hamper full text search performance |
 | ZO_UI_ENABLED                 | true          | No            | default we enable embed UI, one can disable it. |
 | ZO_UI_SQL_BASE64_ENABLED      | false         | No            | Enable base64 encoding for SQL in UI. |
-| ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-duplication for metrics |
 | ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
 | OTEL_OTLP_HTTP_ENDPOINT       | -             | No            | remote trace server endpoint. |
 | ZO_TRACING_HEADER_KEY         | Authorization | No            | remote trace server endpoint authentication header key. |
@@ -56,7 +57,8 @@ OpenObserve is configure through the use of below environment variables.
 | RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 | ZO_COLS_PER_RECORD_LIMIT      | 1000          | No            | number of fields allowed per records during ingestion , records having more fields than configured value will be discarded |
 | ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
-| ZO_LUA_FN_ENABLED             | false         | No            | Enable Lua functions for ingestion and query. Do not enable this in untrusted environments due to security considerations. Use default VRL functions if unsure. |
+| ZO_PRINT_KEY_SQL              | false         | No            | Print key sql in logs |
+| ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-duplication for metrics |
 | ZO_METRICS_LEADER_PUSH_INTERVAL | 15          | No            | interval at which current leader information is updated to metadata store , default 15s, unit: second |
 | ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second  |
 | ZO_PROMETHEUS_HA_CLUSTER | cluster |          | No            | for Prometheus cluster deduplication |
@@ -71,8 +73,8 @@ OpenObserve is configure through the use of below environment variables.
 | ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
 | ZO_ETCD_ADDR                  | localhost:2379 | No           | default etcd endpoint |
 | ZO_ETCD_PREFIX                | /openobserve/oxide/  | No            | etcd keys prefix      |
-| ZO_ETCD_CONNECT_TIMEOUT       | 2             | No            | endpoint connection timeout, unit: seconds |
-| ZO_ETCD_COMMAND_TIMEOUT       | 5             | No            | command execute timeout, unit: seconds |
+| ZO_ETCD_CONNECT_TIMEOUT       | 5             | No            | endpoint connection timeout, unit: seconds |
+| ZO_ETCD_COMMAND_TIMEOUT       | 10             | No            | command execute timeout, unit: seconds |
 | ZO_ETCD_LOCK_WAIT_TIMEOUT     | 60            | No            | max ttl for a lock, the lock will report timeout above this limit. |
 | ZO_ETCD_LOAD_PAGE_SIZE        | 10000         | No            | set/change this to detect pagination size for loading data from etcd. |
 | ZO_ETCD_USER                  | -             | No            | authentication, username, refer: https://etcd.io/docs/v3.5/op-guide/authentication/rbac/ |
