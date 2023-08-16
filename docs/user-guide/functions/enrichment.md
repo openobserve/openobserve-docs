@@ -83,8 +83,8 @@ Let's do a hands on exercise in order to understand how to do enrichment.
 Download sample data for VPC flow log and ingest it into your OpenObserve instance.
 
 ```shell
-curl -L https://github.com/openobserve/zincobserve/releases/download/v0.4.4/vpc_flow_log.json.gz -o vpc_flow_log.json.gz
-curl -L https://github.com/openobserve/zincobserve/releases/download/v0.4.4/protocols.csv -o protocols.csv
+curl -L https://github.com/openobserve/openobserve/releases/download/v0.4.4/vpc_flow_log.json.gz -o vpc_flow_log.json.gz
+curl -L https://github.com/openobserve/openobserve/releases/download/v0.4.4/protocols.csv -o protocols.csv
 gunzip vpc_flow_log.json.gz
 ```
 

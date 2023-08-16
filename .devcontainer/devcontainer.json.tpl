@@ -9,7 +9,7 @@
 		"args": { "VARIANT": "ubuntu-22.04" }
 	},
 	"mounts": [
-		"source=/Users/prabhatsharma/.aws/credentials,target=/home/vscode/.aws/credentials,type=bind,consistency=cached"
+		"source=/Users/prabhatsharma/.aws,target=/home/vscode/.aws,type=bind,consistency=cached"
 	],
 
 	// Set *default* container specific settings.json values on container create.
