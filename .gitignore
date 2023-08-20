@@ -1,3 +1,11 @@
 site
 .DS_Store
 .idea
+
+venv
+
+# .gitognore for python
+*.py[cod]
+*$py.class
+__pycache__/
+

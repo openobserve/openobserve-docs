@@ -13,7 +13,7 @@ Currently following features are part of enterprise offering through zPlane:
 
 # zPlane
 
-⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. You can get zPlane from <https://gallery.ecr.aws/zinclabs/zplane> for evaluation purposes. Please contact us at [hello@zinclabs.io](mailto:hello@zinclabs.io) for enquiries or enterprise license.
+⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. You can get zPlane from <https://gallery.ecr.aws/zinclabs/zplane> for evaluation purposes. Please contact us at [hello@openobserve.ai](mailto:hello@openobserve.ai) for enquiries or enterprise license. zPlane can be used freely for personal and non-commercial usage.
 
 zPlane is collection of adapters & utilities to be used with OpenObserve, augmenting functionalities of OpenObserve.
 
