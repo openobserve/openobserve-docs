@@ -205,7 +205,7 @@ spec:
             kubernetes.io/arch: amd64
           containers:
           - name: etcd
-            image: bitnami/etcd:3.5.5-debian-11-r17
+            image: bitnami/etcd:3.5.8-debian-11-r4
             args:
             - /bin/sh
             - -c
