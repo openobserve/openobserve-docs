@@ -13,12 +13,27 @@ Currently following features are part of enterprise offering through zPlane:
 
 # zPlane
 
-⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. You can get zPlane from <https://gallery.ecr.aws/zinclabs/zplane> for evaluation purposes. Please contact us at [hello@openobserve.ai](mailto:hello@openobserve.ai) for enquiries or enterprise license. zPlane can be used freely for personal and non-commercial usage.
+⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. Please contact us at [hello@openobserve.ai](mailto:hello@openobserve.ai) for enquiries or enterprise license. zPlane can be used freely for personal and non-commercial usage.
 
 zPlane is collection of adapters & utilities to be used with OpenObserve, augmenting functionalities of OpenObserve.
 
+## Download zPlane
+1. Container: <https://gallery.ecr.aws/zinclabs/zplane> 
+1. Binaries:
+    1. Linux
+        1. [arm64](https://zinc-public-data.s3.us-west-2.amazonaws.com/zplane/0.1.6/zplane_0.1.6_Linux_arm64.tar.gz)
+        1. [amd64](https://zinc-public-data.s3.us-west-2.amazonaws.com/zplane/0.1.6/zplane_0.1.6_Linux_x86_64.tar.gz)
+    1. MacOS
+        1. [amd64](https://zinc-public-data.s3.us-west-2.amazonaws.com/zplane/0.1.6/zplane_0.1.6_Darwin_x86_64.tar.gz)
+        1. [arm64](https://zinc-public-data.s3.us-west-2.amazonaws.com/zplane/0.1.6/zplane_0.1.6_Darwin_arm64.tar.gz)
+    1. Windows
+        1. [amd64](https://zinc-public-data.s3.us-west-2.amazonaws.com/zplane/0.1.6/zplane_0.1.6_Windows_x86_64.tar.gz)
+        1. [arm64](https://zinc-public-data.s3.us-west-2.amazonaws.com/zplane/0.1.6/zplane_0.1.6_Windows_arm64.tar.gz)
+
+
+
 ## Installation
-zPlane needs to be run as a container. To set up zPlane, please make sure below environment variables are set:
+To set up zPlane, please make sure below environment variables are set:
 
 | Environment Variable          | Value                     | Description                               |
 | ----------------------------- | ------------------------- |------------------------------------------ | 
