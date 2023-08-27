@@ -125,6 +125,23 @@ Add/Modify following to values.yaml
       ZO_S3_PROVIDER:	"s3"	
     ```
 
+### Any Kubernetes + civo object store
+
+Add/Modify following to values.yaml
+
+1. civo object store will store the data
+    ```yaml
+    auth:
+      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    config:
+      ZO_S3_SERVER_URL: "civo object store url"
+      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+      ZO_S3_REGION_NAME: "us-west-1"
+      ZO_S3_PROVIDER:	"s3"	
+      ZO_S3_FEATURE_FORCE_PATH_STYLE: "true"
+    ```
+
 ## Setup
 
 ### Installation
