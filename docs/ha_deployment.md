@@ -90,7 +90,7 @@ Add/Modify following to values.yaml
 
 Add/Modify following to values.yaml
 
-1. S3 bucket where data will be stored
+1. GCS bucket where data will be stored
     ```yaml
     auth:
       ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
@@ -99,7 +99,8 @@ Add/Modify following to values.yaml
       ZO_S3_SERVER_URL: "https://storage.googleapis.com"
       ZO_S3_BUCKET_NAME: "mysuperduperbucket"
       ZO_S3_REGION_NAME: "auto"
-      ZO_S3_PROVIDER:	"s3"	
+      ZO_S3_PROVIDER:	"s3"
+      ZO_S3_FEATURE_HTTP1_ONLY: "true"
     ```
 
 You can generate  keys for GCS bucket using following steps:
