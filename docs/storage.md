@@ -74,6 +74,7 @@ OpenObserve can use google cloud storage for storing stream data, following envi
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
+| ZO_S3_FEATURE_HTTP1_ONLY    | true     | --                                              |
 | ZO_S3_PROVIDER              | s3       | Use s3 compatible API for gcp                   |
 
 You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](https://cloud.google.com/storage/docs/aws-simple-migration)
@@ -89,6 +90,7 @@ OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following envir
 | ZO_S3_ACCESS_KEY            | -        | access key                                      |
 | ZO_S3_SECRET_KEY            | -        | secret key                                      |
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
+| ZO_S3_FEATURE_FORCE_PATH_STYLE | true  | --                                              |
 
 You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://help.aliyun.com/document_detail/64919.html)
 
