@@ -7,3 +7,4 @@ nav:
     - Ingestion: ingestion.md
     - Alerts: alerts
     - Functions: functions
+    - Migration: migration
