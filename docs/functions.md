@@ -14,7 +14,7 @@ filter the keyword in the field with case_insensitive. it can match `KeyWord` or
 
 ### match_all('v')
 
-filter the keyword in multiple fields. default will search in fields: `log`, `msg`, `message`, `content`, `data`. you can set the full text search fields in the UI or through `index.setting` API.
+filter the keyword in multiple fields. default will search in fields: `log`, `message`, `msg`, `content`, `data`, `events`, `json`. you can set the full text search fields in the UI or through `index.setting` API.
 
 ### match_all_ignore_case('v')
 

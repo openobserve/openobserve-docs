@@ -63,4 +63,4 @@ Description
 | schema.type | string   | -             | field data type: Utf8 / Int64 / Float64 / Timestamp / Boolean |
 | settings   | object    | -             | settings of the stream |
 | settings.partition_keys | object | -   | custom partition keys for the stream. By default OpenObserve uses timestamp as the first level partition key |
-| settings.full_text_search_keys | array[string] | - | full text search fields, default OpenObserve uses `log`, `message`, `content`, `data`, if there is no those fields in your stream, will report error: `you should set the full text search fields`. |
+| settings.full_text_search_keys | array[string] | - | full text search fields, default OpenObserve uses `log`, `message`, `msg`, `content`, `data`, `events`, `json`, if there is no those fields in your stream, will report error: `you should set the full text search fields`. |
