@@ -65,7 +65,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
 | ZO_MEMORY_CACHE_SKIP_SIZE     | -             | No            | default 80% of the total memory cache size, A query will skip memory cache if it need more than this value. one can set it to desired amount unit: MB |
 | ZO_MEMORY_CACHE_RELEASE_SIZE  | -             | No            | default drop 1% entries from in-memory cache as cache is full, one can set it to desired amount unit: MB |
-| ZO_MEMORY_CACHE_DATAFUSION_MEMORY_POOL  | -   | No            | memory pool for datafusion, you can choose from: https://docs.rs/datafusion/latest/datafusion/execution/memory_pool/index.html |
+| ZO_MEMORY_CACHE_DATAFUSION_MEMORY_POOL  | -   | No            | memory pool for datafusion, supported: `greedy`, `fair`, `none`, default is: `fair`, you can choose from: https://docs.rs/datafusion/latest/datafusion/execution/memory_pool/index.html |
 | ZO_MEMORY_CACHE_DATAFUSION_MAX_SIZE  | -      | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
 | ZO_DISK_CACHE_ENABLED         | true          | No            | enable in-disk caching for files, default is true, the latest files are cached for accelerated queries. when the memory cache is not enough will try to cache in local disk, you can consider the memory cache is first level, disk cache is second level. |
 | ZO_DISK_CACHE_MAX_SIZE        | -             | No            | default 50% of the total free disk for in-disk cache, one can set it to desired amount unit: MB |
