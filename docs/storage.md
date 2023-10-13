@@ -121,3 +121,15 @@ OpenObserve can use baidu cloud storage for storing stream data, following envir
 | ZO_S3_BUCKET_NAME           | -        | bucket name                                     |
 
 You can refer to: [https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4](https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4)
+
+## Azure Blob
+
+OpenObserve can use azure blob for storing stream data, following environment variables needs to be setup:
+
+| Environment Variable        | Value    | Description                                     |
+| --------------------------- | -------- | ----------------------------------------------- |
+| ZO_S3_PROVIDER            | azure        | Azure blob strage provider |
+| ZO_LOCAL_MODE_STORAGE            | s3        | Required only if running in single node mode |
+| AZURE_STORAGE_ACCOUNT_NAME            | <strage account name></strage>        | Need to provide mandatorily |
+| AZURE_STORAGE_ACCESS_KEY            | <Access key></Access>        | Need to provide mandatorily |
+| ZO_S3_BUCKET_NAME            | <Blob Container name>       | Need to provide mandatorily |
