@@ -4,4 +4,5 @@ nav:
     - Mimalloc: mimalloc.md
     - Grafana plugin: grafana_plugin.md
     - Etcd maintenance: etcd.md
+    - Etcd restore: etcd_restore.md
     - Nginx proxy: nginx_proxy.md
