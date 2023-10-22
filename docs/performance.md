@@ -2,15 +2,11 @@
 
 ## Introduction
 
-Architecture of an application is designed for a specific purpose - to solve a specific set of problems - and it involves certain trade-offs. In the case of OpenObserve the specific set of problems is to provide a scalable, fault tolerant, high performance, low latency, cost effective, real time observability platform (Logs, Metrics, Traces, Front end monitoring).
+Performance can be divided primarily into 2 areas:
 
-Let's visit some of the challenges and the design decisions that were made to achieve the above goals. 
+- WRITE (Ingestion)
+- READ (Log search, aggregation, dashboards)
 
-### Challenges
-
-- **High speed data ingestion**
-- **High search and aggregation performance - Logs** 
-- **Data storage cost**
 
 ## Ingestion
 
@@ -21,7 +17,7 @@ OpenObserve does not do full-text indexing of data unlike Elasticsearch which is
 There are things that you can do to optimize the ingestion performance of OpenObserve additionally:
 
 1. Ensure you have enough CPU cores available for ingestion. OpenObserve uses all available CPU cores for ingestion. If you have 16 CPU cores available for ingestion, you can expect to ingest 4 times more data than if you had 4 CPU cores available for ingestion.
-1. Using VRL functions at ingest time will use additional CPU during ingestion and can reduce your throughput. Impact can var based on complexity of your functions. Test and plan accordingly.
+1. Using VRL functions at ingest time will use additional CPU during ingestion and can reduce your throughput. Impact can vary based on complexity of your functions. Test and plan accordingly.
 1. CPU to memory ratio of 2x is found to be a good ratio for ingestion. For example, if you have 4 CPU cores available for ingestion, you should have 8 GB of RAM available for ingestion. on AWS that means c6i or c7g instances (As of 2023) are recommended for ingestion.
 1. On AWS we we recommend c7g instances which are typically 20% faster for ingestion and cost approximately 20% less than c6i instances.
 1. Use SIMD version of containers/binaries for ingestion. They are able to leverage latest CPU instructions both on Intel and ARM CPUs and can help in calculating hashes for bloom filters faster.
@@ -29,7 +25,7 @@ There are things that you can do to optimize the ingestion performance of OpenOb
 
 OpenObserve is designed to handle 100s of thousands of events per second per node. Mostly this will result in 7-15 MB/sec ingestion per vCPU core (varies on various factors). 
 
-##  Log search
+## Log search
 
 Openobserve does not do full-text indexing like Elasticsearch. This results in very high compression ratio of ingested data. coupled with object storage this can give you~140x lower storage cost. However, this also means that search performance for full text queries in absence of full-text indexes might suffer. However log data has some unique properties that can be leveraged to improve search performance significantly. OpenObserve uses following techniques to improve search performance:
 
