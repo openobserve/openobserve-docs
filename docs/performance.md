@@ -27,7 +27,7 @@ OpenObserve is designed to handle 100s of thousands of events per second per nod
 
 ## Log search
 
-Openobserve does not do full-text indexing like Elasticsearch. This results in very high compression ratio of ingested data. coupled with object storage this can give you ~140x lower storage cost. However, this also means that search performance for full text queries in absence of full-text indexes might suffer. However log data has some unique properties that can be leveraged to improve search performance significantly. OpenObserve uses following techniques to improve search performance:
+OpenObserve does not do full-text indexing like Elasticsearch. This results in very high compression ratio of ingested data. coupled with object storage this can give you ~140x lower storage cost. However, this also means that search performance for full text queries in absence of full-text indexes might suffer. However log data has some unique properties that can be leveraged to improve search performance significantly. OpenObserve uses following techniques to improve search performance:
 
 ### ***Column pruning*** 
 OpenObserve uses columnar storage format (parquet) which allows it to read only the columns that are required for a query. This reduces the amount of data that needs to be read from disk and improves search performance. This technique is called column pruning. It reduces the amount of data that needs to be read from disk. You must switch to SQL query mode for this and specify only the columns that you want to be returned.
