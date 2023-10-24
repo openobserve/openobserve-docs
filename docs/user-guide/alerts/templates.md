@@ -131,4 +131,42 @@ Authorization: GenieKey __YOUR_API_KEY__
 }
 ```
 
+## Microsoft Teams
 
+Official docs at: [https://learn.microsoft.com/en-us/graph/api/chatmessage-post](https://learn.microsoft.com/en-us/graph/api/chatmessage-post)
+
+```shell
+
+URL: /teams/{team-id}/channels/{channel-id}/messages
+Method: POST
+
+Headers:
+  Authorization: Bearer {code}
+```
+
+```json
+
+
+{
+  "body": {
+    "content": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"	
+  }
+}
+```
+
+e.g.
+
+```shell
+POST https://graph.microsoft.com/v1.0/teams/fbe2bf47-16c8-47cf-b4a5-4b9b187c508b/channels/19:4a95f7d8db4c4e7fae857bcebe0623e6@thread.tacv2/messages
+
+Headers:
+  Content-type: application/json
+  Authorization: Bearer {code}
+
+Body:
+{
+  "body": {
+    "content": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"	
+  }
+}
+```
