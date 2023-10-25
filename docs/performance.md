@@ -18,8 +18,8 @@ There are things that you can do to optimize the ingestion performance of OpenOb
 
 1. Ensure you have enough CPU cores available for ingestion. OpenObserve uses all available CPU cores for ingestion. If you have 16 CPU cores available for ingestion, you can expect to ingest 4 times more data than if you had 4 CPU cores available for ingestion.
 1. Using VRL functions at ingest time will use additional CPU during ingestion and can reduce your throughput. Impact can vary based on complexity of your functions. Test and plan accordingly.
-1. CPU to memory ratio of 2x is a good ratio for ingester nodes. For example, if you have 4 CPU cores available for ingestion, you should have 8 GB of RAM available for ingestion. on AWS that means c6i or c7g instances (As of 2023) are recommended for ingestion.
-1. On AWS we we recommend c7g instances which are typically 20% faster for ingestion and cost approximately 20% less than c6i instances.
+1. CPU to memory ratio of 2x is a good ratio for ingester nodes. For example, if you have 4 CPU cores available for ingestion, you should have 16 GB of RAM available for ingestion. on AWS that means m6i or m6g instances (As of 2023) are recommended for ingestion.
+1. On AWS we we recommend m6g instances which are typically 20% faster for ingestion and cost approximately 20% less than m6i instances.
 1. Use SIMD version of containers/binaries for ingestion. They are able to leverage latest CPU instructions both on Intel and ARM CPUs and can help in calculating hashes for bloom filters faster.
 1. OpenObserve uses local disk on ingesters for temporary storage before batching and pushing data to object storage. This requires high IOPS. 3000 IOPS for most workloads should be good enough but test, measure and size it appropriately for your workload.
 
