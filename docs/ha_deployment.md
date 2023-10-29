@@ -9,7 +9,7 @@ For accessing the object store we recommend the best security practice of using 
 You must download the [values.yaml](https://github.com/openobserve/openobserve-helm-chart/blob/main/values.yaml) file and make required changes. At a minimum you must provide the details of bucket to be used for data storage and credentials (IAM role or keys) to access it. You can download the file using following command:
 
 ```shell
-curl https://raw.githubusercontent.com/zinclabs/openobserve-helm-chart/main/values.yaml -o values.yaml
+curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/charts/openobserve/values.yaml -o values.yaml
 ```
 
 ## Configuration
