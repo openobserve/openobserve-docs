@@ -14,11 +14,15 @@ curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/c
 
 ## Metadata store
 
-You can use `etcd` or `PostgreSQL` or `DynamoDB` as metadata store. but even enable `PostgreSQL` or `DynamoDB` as metadata store, we still need `etcd` as the cluster coordinator. **but the `etcd` has no data, you can delete and reinstall etcd cluster when it broken. no need to recover `etcd` cluster**.
+You can use `etcd` or `PostgreSQL` or `DynamoDB` as metadata store. 
+
+but even enable `PostgreSQL` or `DynamoDB` as metadata store, we still need `etcd` as the cluster coordinator. 
+
+**The `etcd` has no data With `PostgreSQL` or `DynamoDB` as metadata store, you can delete and reinstall etcd cluster when it broken. no need to recover `etcd` cluster**.
 
 ### Etcd
 
-Default we enabeld `etcd` for the cluster no need special configure, but if you want to use external `etcd` cluster, you can configure like this:
+Default we enabeld `etcd` for the cluster no need special configure, if you want to use external `etcd` cluster, you can configure like this:
 
 ```yaml
 config:

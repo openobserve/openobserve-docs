@@ -36,6 +36,8 @@ endpoint: `/metrics`
 | -         | storage_compressed_bytes | organization, stream, stream_type | Gauge  | - |
 | -         | storage_files           | organization, stream, stream_type | Gauge   | - |
 | -         | storage_records         | organization, stream, stream_type | Gauge   | - |
+| -         | storage_read_requests   | organization, stream, stream_type | Counter   | - |
+| -         | storage_write_requests   | organization, stream, stream_type | Counter   | - |
 | -         | storage_write_bytes     | organization, stream, stream_type | Counter   | - |
 | -         | storage_read_bytes      | organization, stream, stream_type | Counter   | - |
 | -         | storage_time            | organization, stream, stream_type, method | Counter   | method: get, put, delete |
