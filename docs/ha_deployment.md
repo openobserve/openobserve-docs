@@ -12,6 +12,54 @@ You must download the [values.yaml](https://github.com/openobserve/openobserve-h
 curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/charts/openobserve/values.yaml -o values.yaml
 ```
 
+## Metadata store
+
+You can use `etcd` or `PostgreSQL` or `DynamoDB` as metadata store. but even enable `PostgreSQL` or `DynamoDB` as metadata store, we still need `etcd` as the cluster coordinator. **but the `etcd` has no data, you can delete and reinstall etcd cluster when it broken. no need to recover `etcd` cluster**.
+
+### Etcd
+
+Default we enabeld `etcd` for the cluster no need special configure, but if you want to use external `etcd` cluster, you can configure like this:
+
+```yaml
+config:
+  ZO_ETCD_PREFIX: "/zinc/observe/"
+  ZO_ETCD_USER: ""
+  ZO_ETCD_PASSWORD: ""
+etcd:
+  enabled: false # disable emebed etcd
+  externalUrl: "my_custom_host.com:2379" # if bundled is false then this is required
+```
+
+### PostgreSQL
+
+You need create the database first, in the example we use `openobserve` as database name.
+
+```yaml
+config:
+  ZO_META_STORE: "postgres"
+  ZO_META_POSTGRES_DSN: "postgres://postgres:12345678@localhost:5432/openobserve"
+```
+
+### DynamoDB
+
+You need create the database first, in the example we use `openobserve` as database name.
+
+Enable `dynamo` as metadata store
+
+```yaml
+config:
+  ZO_META_STORE: "dynamo"
+```
+
+IAM role for the serviceAccount to gain AWS IAM credentials to access s3
+
+```yaml
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/zinc-s3-eks
+```
+
 ## Configuration
 
 ### Amazon EKS + S3

@@ -12,6 +12,8 @@ Then the cluster was broken, Only one pod can works.
 
 Let's help the cluster back to work.
 
+> If you only have one pod can't work, just delete the PVC of the pod and delete the pod, then it should be work.
+
 ### 1. Start the etcd cluster with bash
 
 Because the etcd can't start, we need to start to etcd pod with `bash`. like this:
@@ -117,7 +119,7 @@ Earlier we add `etcd-0` to the cluster, so we need restore it first, Let's login
 First, Delete the old data of this node.
 
 ```shell
-rm -fR cd /bitnami/etcd/data/*
+rm -fR /bitnami/etcd/data/*
 ```
 
 Second, change the evironment for the cluster:
