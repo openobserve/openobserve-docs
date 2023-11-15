@@ -54,7 +54,7 @@ data/stream/files/default/logs/optimized/2023/10/20/03/k8s_container_name=app
 ```
 You can now specify partition keys in your query. e.g. `k8s_container_name=app and k8s_namespace_name='p1' and k8s_pod_name='k1-6cf68b7dfb-t4hbb' and match_all('error')`. This will improve search performance and will utilize predicate pushdown. You should enable partitioning for low cardinality (Relatively not too many possible values for a field - e.g. namespace, host) data.
 
-### ***Bloom filter (available starting v0.7.0)*** 
+### ***Bloom filter (available starting v0.7.2)*** 
 A bloom filters is a space efficient probabilistic data structure that allow you to check if a value exists in a set. It solves proverbial `needle in a haystack` problem. OpenObserve uses bloom filters to check if a value exists in a column. This allows OpenObserve to skip reading the data from disk if the value does not exist in the column. This improves search performance by reducing `search space`. You must specify bloom filter for the specific fields that you want to search.  Fields that are well suited for bloom filter are of very high cardinality .e.g. UUID, request_id, trace_id, device_id, etc. You can specify bloom filter for a field by going to stream settings. You can specify multiple fields for bloom filter. e.g. `request_id` and `trace_id`. You can then use the fields in your query that will utilize bloom filter. e.g. `request_id='abc' and trace_id='xyz'`. Enabling bloom filter on a field with low cardinality will not result in any performance improvement. `DO NOT enable bloom filter for all fields as it may not result in any performance improvement and may reduce ingestion performance`. 
 
 ### ***In memory caching*** 

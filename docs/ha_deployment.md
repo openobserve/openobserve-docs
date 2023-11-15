@@ -14,11 +14,11 @@ curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/c
 
 ## Metadata store
 
-You can use `etcd` or `PostgreSQL` or `DynamoDB` as metadata store. 
+You can use `etcd` or `PostgreSQL` or `DynamoDB` as metadata store.
 
-but even enable `PostgreSQL` or `DynamoDB` as metadata store, we still need `etcd` as the cluster coordinator. 
+While using `PostgreSQL` or `DynamoDB` as metadata store, `etcd` is still needed for cluster coordination.
 
-**The `etcd` has no data With `PostgreSQL` or `DynamoDB` as metadata store, you can delete and reinstall etcd cluster when it broken. no need to recover `etcd` cluster**.
+** `etcd` will store no data with `PostgreSQL` or `DynamoDB` as metadata store. You can delete and reinstall etcd cluster if something goes wrong with it.**.
 
 ### Etcd
 
@@ -71,16 +71,16 @@ serviceAccount:
 You must set a minimum of 2 values:
 
 1. S3 bucket where data will be stored
-    ```yaml
-    config:
-      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-    ```
+   ```yaml
+   config:
+     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+   ```
 1. IAM role for the serviceAccount to gain AWS IAM credentials to access s3
-    ```yaml
-    serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/zo-s3-eks
-    ```
+   ```yaml
+   serviceAccount:
+     annotations:
+       eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/zo-s3-eks
+   ```
 
 Once you have configured the above in your values.yaml file, you can run the below commands to install OpenObserve.
 
@@ -113,87 +113,86 @@ Sample IAM policy.
 Add/Modify following to values.yaml
 
 1. S3 bucket where data will be stored
-    ```yaml
-    auth:
-      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-    config:
-      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_REGION_NAME: "us-west-1"
-    ```
+   ```yaml
+   auth:
+     ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+     ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+   config:
+     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_REGION_NAME: "us-west-1"
+   ```
 
 ### Any Kubernetes + minio
 
 Add/Modify following to values.yaml
 
 1. S3 bucket where data will be stored
-    ```yaml
-    auth:
-      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-    config:
-      ZO_S3_SERVER_URL: "https://minio-server-url"
-      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_REGION_NAME: "us-west-1"
-      ZO_S3_PROVIDER:	"s3"	
-    ```
+   ```yaml
+   auth:
+     ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+     ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+   config:
+     ZO_S3_SERVER_URL: "https://minio-server-url"
+     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_REGION_NAME: "us-west-1"
+     ZO_S3_PROVIDER: "s3"
+   ```
 
 ### Any Kubernetes + GCS
 
 Add/Modify following to values.yaml
 
 1. GCS bucket where data will be stored
-    ```yaml
-    auth:
-      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-    config:
-      ZO_S3_SERVER_URL: "https://storage.googleapis.com"
-      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_REGION_NAME: "auto"
-      ZO_S3_PROVIDER:	"s3"
-      ZO_S3_FEATURE_HTTP1_ONLY: "true"
-    ```
+   ```yaml
+   auth:
+     ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+     ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+   config:
+     ZO_S3_SERVER_URL: "https://storage.googleapis.com"
+     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_REGION_NAME: "auto"
+     ZO_S3_PROVIDER: "s3"
+     ZO_S3_FEATURE_HTTP1_ONLY: "true"
+   ```
 
-You can generate  keys for GCS bucket using following steps:
+You can generate keys for GCS bucket using following steps:
 
-1. Go to [Google cloud console > Cloud Storage > Settings > Interoperability](https://console.cloud.google.com/storage/settings;tab=interoperability) 
+1. Go to [Google cloud console > Cloud Storage > Settings > Interoperability](https://console.cloud.google.com/storage/settings;tab=interoperability)
 1. Make sure you are in the right project.
 1. Access keys for your user account > Click "CREATE A KEY"
-
 
 ### Any Kubernetes + Openstack swift
 
 Add/Modify following to values.yaml
 
 1. swift bucket where data will be stored
-    ```yaml
-    auth:
-      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-    config:
-      ZO_S3_SERVER_URL: "swift url"
-      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_REGION_NAME: "us-west-1"
-      ZO_S3_PROVIDER:	"s3"	
-    ```
+   ```yaml
+   auth:
+     ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+     ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+   config:
+     ZO_S3_SERVER_URL: "swift url"
+     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_REGION_NAME: "us-west-1"
+     ZO_S3_PROVIDER: "s3"
+   ```
 
 ### Any Kubernetes + civo object store
 
 Add/Modify following to values.yaml
 
 1. civo object store will store the data
-    ```yaml
-    auth:
-      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
-      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-    config:
-      ZO_S3_SERVER_URL: "civo object store url"
-      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
-      ZO_S3_REGION_NAME: "us-west-1"
-      ZO_S3_PROVIDER:	"s3"	
-      ZO_S3_FEATURE_FORCE_PATH_STYLE: "true"
-    ```
+   ```yaml
+   auth:
+     ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+     ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+   config:
+     ZO_S3_SERVER_URL: "civo object store url"
+     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_REGION_NAME: "us-west-1"
+     ZO_S3_PROVIDER: "s3"
+     ZO_S3_FEATURE_FORCE_PATH_STYLE: "true"
+   ```
 
 ## Setup
 
@@ -213,6 +212,3 @@ helm --namespace openobserve -f values.yaml install zo1 openobserve/openobserve
 ```shell
 helm delete zo1
 ```
-
-
-
