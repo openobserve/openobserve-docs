@@ -22,7 +22,7 @@ While using `PostgreSQL` or `DynamoDB` as metadata store, `etcd` is still needed
 
 ### Etcd
 
-Default we enabeld `etcd` for the cluster no need special configure, if you want to use external `etcd` cluster, you can configure like this:
+While using official helm chart, `etcd` for the cluster is already configured for you. You don't need additional configuration. if you want to use external `etcd` cluster, you can configure as below:
 
 ```yaml
 config:
@@ -36,7 +36,7 @@ etcd:
 
 ### PostgreSQL
 
-You need create the database first, in the example we use `openobserve` as database name.
+You need to create the database first, in the example we use `openobserve` as database name.
 
 ```yaml
 config:
@@ -46,7 +46,7 @@ config:
 
 ### DynamoDB
 
-You need create the database first, in the example we use `openobserve` as database name.
+Tables will be automatically created if they don't exist.
 
 Enable `dynamo` as metadata store
 
@@ -61,7 +61,42 @@ IAM role for the serviceAccount to gain AWS IAM credentials to access s3
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/zinc-s3-eks
+    eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/openobserve-s3-dynamo
+```
+
+Sample IAM policy
+```json
+{
+  "Id": "Policy1678319681097",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1678319677242",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:DeleteObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::mysuperduperbucket/*"
+    },
+    {
+      "Sid": "DynamoDBPolicy",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:CreateTable",
+        "dynamodb:DeleteItem",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
 ```
 
 ## Configuration
