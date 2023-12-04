@@ -8,7 +8,7 @@ You can create a VRL function that can do enrichment at the time of ingestion or
 Some of the examples of enrichment are:
 
 - Add a new field to the data. e.g.
-    - You have a country code field and you wnat the full country name.
+    - You have a country code field and you want the full country name.
     - You have a status code 1, 2, 3 and you want to add a new field that says if the status is success or failure or unknown.
     - You have an IP address and you want to add a new field that says if the IP address is internal or external.
     - You have an IP address and you want to get the geolocation of the IP address.
