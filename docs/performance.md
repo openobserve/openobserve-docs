@@ -18,12 +18,12 @@ There are things that you can do to optimize the ingestion performance of OpenOb
 
 1. Ensure you have enough CPU cores available for ingestion. OpenObserve uses all available CPU cores for ingestion. If you have 16 CPU cores available for ingestion, you can expect to ingest 4 times more data than if you had 4 CPU cores available for ingestion.
 1. Using VRL functions at ingest time will use additional CPU during ingestion and can reduce your throughput. Impact can vary based on complexity of your functions. Test and plan accordingly.
-1. CPU to memory ratio of 2x is a good ratio for ingester nodes. For example, if you have 4 CPU cores available for ingestion, you should have 16 GB of RAM available for ingestion. on AWS that means m6i or m6g instances (As of 2023) are recommended for ingestion.
-1. On AWS we we recommend m6g instances which are typically 20% faster for ingestion and cost approximately 20% less than m6i instances.
-1. Use SIMD version of containers/binaries for ingestion. They are able to leverage latest CPU instructions both on Intel and ARM CPUs and can help in calculating hashes for bloom filters faster.
+1. CPU to memory ratio of 2x is a good ratio for ingester nodes. For example, if you have 4 CPU cores available for ingestion, you should have 16 GB of RAM available for ingestion. on AWS that means m6i or `m7g` instances (As of 2023) are recommended for ingestion.
+1. On AWS we we recommend `m7g` instances which are typically 40% faster and cost approximately 15% less than m6i instances.
+1. Use SIMD version of containers/binaries for ingestion. They are able to leverage latest CPU instructions both on Intel and ARM CPUs and can help in calculating hashes for bloom filters faster. Additionally this improves aggregation performance significantly. 
 1. OpenObserve uses local disk on ingesters for temporary storage before batching and pushing data to object storage. This requires high IOPS. 3000 IOPS for most workloads should be good enough but test, measure and size it appropriately for your workload.
 
-OpenObserve is designed to handle 100s of thousands of events per second per node. Mostly this will result in 7-15 MB/sec ingestion per vCPU core (varies on various factors). 
+OpenObserve is designed to handle 100s of thousands of events per second per node. Mostly this will result in 7-30 MB/sec ingestion per vCPU core (varies on various factors). 
 
 ## Log search
 
@@ -66,3 +66,9 @@ OpenObserve can use RAM to cache the data that is read from disk/s3. This reduce
     | ZO_MEMORY_CACHE_DATAFUSION_MAX_SIZE     | 4096  | This will limit the query engine memory pool to 4GB           |
 
   You want to have at least 8 GB of memory with the above settings.
+
+### Full text search
+Log search involves full text search. OpenObserve does not yet have a full text search index and when you try to do a full text search it essentially does an equivalent of `grep` and scans all the data in particular fields that have full text search enabled. This is facilitated by `match_all` function. This can be slow for large amount of data. In order to be able to do full text search efficiently you should reduce the search space where you are doing full text search. There are 2 things you can do to improve full text search:
+
+1. Do not use `match_all` directly on full data set, but always use it in combination with one or more filters which can themselves be optimized by partitions or bloom filters. e.g. `host='host1' and match_all('error') ` or `k8s_namespace_name='ns1' and match_all('error')` or `bank_account_number='653456-54654-65' and match_all('error')`. In all of these examples using the filter reduces search space for `match_all`. Additionally if `host` and `k8s_namespace_name` fields are partitioned then you have reduced search space very well and will gain the improvements in full text search. `bank_account_number`, `request_id`, `trace_id`, `device_id` are good candidates for bloom filter and should be used together with `match_all` to improve full text search performance.
+1. Enable full text search only on the fields that you need. e.g. body, log, mesage etc. Fields like hostname, ip address, etc. are not good candidates for full text search and you should nott enable full text search on these fields. You can enable full text search on a field by going to stream settings. You can specify multiple fields for full text search. e.g. `body` and `message`. You can then use the fields in your query that will utilize full text search. e.g. `host='host1' and match_all('error')`. 
