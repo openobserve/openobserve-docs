@@ -96,12 +96,12 @@ Sample IAM policy
       "Effect": "Allow",
       "Action": [
         "dynamodb:CreateTable",
-        "dynamodb:DeleteItem",
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
+        "dynamodb:ListTables",
         "dynamodb:Query",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem",
         "dynamodb:Scan",
-        "dynamodb:UpdateItem"
+        "dynamodb:DescribeTable"
       ],
       "Resource": "*"
     }
