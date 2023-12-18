@@ -23,10 +23,12 @@ endpoint: `/metrics`
 | -         | ingest_wal_used_bytes   | organization, stream, stream_type | Gauge   | currently WAL total size |
 | -         | ingest_wal_write_bytes  | organization, stream, stream_type | Counter   | WAL write latency |
 | -         | ingest_wal_read_bytes   | organization, stream, stream_type | Counter   | WAL read latency |
-| querier   | query_cache_limit_bytes | - | Gauge   | - |
-| -         | query_cache_used_bytes  | organization, stream, stream_type | Gauge   | - |
-| -         | query_cache_files       | organization, stream, stream_type | Gauge   | - |
-| -         | query_cache_records     | organization, stream, stream_type | Gauge   | TODO |
+| querier   | query_memory_cache_limit_bytes | - | Gauge   | - |
+| -         | query_memory_cache_used_bytes  | organization, stream, stream_type | Gauge   | - |
+| -         | query_memory_cache_files       | organization, stream, stream_type | Gauge   | - |
+| -         | query_disk_cache_limit_bytes | - | Gauge   | - |
+| -         | query_disk_cache_used_bytes  | organization, stream, stream_type | Gauge   | - |
+| -         | query_disk_cache_files       | organization, stream, stream_type | Gauge   | - |
 | compactor | compact_used_time       | organization, stream, stream_type | Counter | - |
 | -         | compact_merged_files    | organization, stream, stream_type | Counter | - |
 | -         | compact_merged_bytes    | organization, stream, stream_type | Counter | - |
