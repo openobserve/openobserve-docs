@@ -1,4 +1,5 @@
 nav:
+    - otel-collector: otlp.md
     - Vector: vector.md
     - Filebeat: filebeat.md
     - Fluent-bit: fluent-bit.md

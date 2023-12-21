@@ -26,7 +26,7 @@ diag.setLogger(new  DiagConsoleLogger(), DiagLogLevel.INFO);
 const  sdk = new  opentelemetry.NodeSDK({
     // traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
     traceExporter:  new  OTLPTraceExporter({
-        url: "https://api.openobserve.ai/api/default/traces",
+        url: "https://api.openobserve.ai/api/default/v1/traces",
         headers: {
             Authorization: "Authorization",
         },

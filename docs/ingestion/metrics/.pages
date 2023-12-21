@@ -1,4 +1,5 @@
 nav:
+    - Index: index.md
     - Prometheus: prometheus.md
     - OTEL Collector: otel_collector.md
     - Telegraf: telegraf.md

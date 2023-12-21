@@ -1,5 +1,6 @@
 # Ingestion - Logs
 
+1. [otel-collector](otlp)
 1. [Vector](vector)
 1. [Filebeat](filebeat)
 1. [Fluent-bit](fluent-bit)

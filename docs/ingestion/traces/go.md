@@ -50,7 +50,7 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 	otlpHTTPExporter, err := otlptracehttp.New(context.TODO(),
 		// otlptracehttp.WithInsecure(), // use http & not https
 		otlptracehttp.WithEndpoint(OTEL_OTLP_HTTP_ENDPOINT),
-		otlptracehttp.WithURLPath("/api/default/traces"),
+		otlptracehttp.WithURLPath("/api/default/v1/traces"),
 		otlptracehttp.WithHeaders(map[string]string{
 			"Authorization": "Authorization",
 		}),

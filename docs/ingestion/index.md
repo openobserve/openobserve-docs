@@ -6,6 +6,7 @@ Logs metrics and traces can be ingested into OpenObserve from a variety of sourc
 
 ### Log forwarders
 
+1. [OTL Collector](logs/otlp)
 1. [Vector](logs/vector)
 1. [Filebeat](logs/filebeat)
 1. [Fluent-bit](logs/fluent-bit)
@@ -38,13 +39,14 @@ You can also use curl command to ingest logs:
 
 ## Metrics
 
-1. [OTEL COllector](metrics/otel_collector)
+1. [OTEL Collector](logs/otlp)
 1. [Prometheus](metrics/prometheus)
 1. [Telegraf](metrics/telegraf)
 
 
 ## Traces
 
+1. [OTEL Collector](logs/otlp)
 1. [OpenTelemetry](traces/opentelemetry)
 1. [Typescript](traces/typescript)
 1. [Node.js](traces/nodejs)

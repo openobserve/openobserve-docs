@@ -7,12 +7,12 @@ Endpoint for sending traces to OpenObserve is
 
 ### OpenObserve Cloud
 
-> `https://api.openobserve.ai/api/<orgname>/traces`
+> `https://api.openobserve.ai/api/<orgname>/v1/traces`
 
-e.g. `https://api.openobserve.ai/api/default/traces`
+e.g. `https://api.openobserve.ai/api/default/v1/traces`
 
 ### Self hosted OpenObserve
-> `https://url:5080/api/<orgname>/traces`
+> `https://url:5080/api/<orgname>/v1/traces`
 
 ### Credentials
 You must send credentials via Authorization Header.
