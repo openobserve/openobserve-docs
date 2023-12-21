@@ -6,7 +6,7 @@ Logs metrics and traces can be ingested into OpenObserve from a variety of sourc
 
 ### Log forwarders
 
-1. [OTL Collector](logs/otlp)
+1. [OTEL Collector](logs/otlp)
 1. [Vector](logs/vector)
 1. [Filebeat](logs/filebeat)
 1. [Fluent-bit](logs/fluent-bit)
