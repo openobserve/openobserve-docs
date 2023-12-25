@@ -157,7 +157,44 @@ Let's break down each line in the VRL function:
 
 So, the overall purpose of this script is to enrich event data by adding a `protocol_keyword` field, which is retrieved from an enrichment table named "protocols". The table lookup key is derived from the protocol field of the event data. If the protocol field is not present, or if the lookup fails, an error will be generated.
 
-## Conclusion
+## GeoIP enrichment using MaxMind GeoIP lite database
 
-You can add enrichment tables to your OpenObserve instance and you can use the VRL functions to enrich your data with the data from the enrichment tables.
+OpenObserve supports GeoIP enrichment (IP address to location) using the Maxmind GeoIP lite database. OpenObserve downloads the GeoIP database from Maxmind and stores it locally. This way Maxmind tables are available to you as part of the OpenObserve installation and you do not need to upload any enrichment table. You can use the VRL function `get_enrichment_table_record` to enrich your data with the GeoIP data. 
+
+### v0.7.2
+
+e.g.
+```javascript
+.geo = get_enrichment_table_record!("geoip", {"ip": .ip })
+.
+```
+
+This returns the following fields (example):
+
+```json
+{
+  "geo_city_name": "London",
+  "geo_continent_code": "EU",
+  "geo_country_code": "GB",
+  "geo_country_name": "United Kingdom",
+  "geo_latitude": 51.5088,
+  "geo_longitude": -0.093,
+  "geo_postal_code": "EC4R",
+  "geo_region_code": "ENG",
+  "geo_region_name": "England",
+  "geo_timezone": "Europe/London",
+}
+```
+
+### v0.7.2+
+
+`geoip` reference table will be renamed to `maxmind_city` after v0.7.2. Additionally `ASN` data will also be available in `maxmind_asn` table.
+
+e.g.
+```javascript
+.geo_city = get_enrichment_table_record!("maxmind_city", {"ip": .ip })
+.geo_asn = get_enrichment_table_record!("maxmind_asn", {"ip": .ip })
+.
+```
+
 
