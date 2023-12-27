@@ -4,11 +4,13 @@
 
 Grafana is a dashboarding and graphing application, initially built for time series data, but has evolved into a tool that can pull data from multiple sources and visualize it in a single dashboard for logs and traces too. It is a popular tool for monitoring and observability.
 
-You **`DO NOT`** need grafana for visualizing logs and metrics data from OpenObserve by maintaining one more app. OpenObserve has a very advanced GUI for that, which you can use for logs, metrics and traces. You could however use grafana if you are already using it for some of your needs e.g. monitoring metrics using prometheus and are comfortable using it and don't want to change. In this case you can use OpenObserve grafana plugin to visualize logs and metrics data from OpenObserve in your grafana dashboard. You can also use grafana explore tool to query adhoc logs and metrics data from OpenObserve.
+You **`DO NOT`** need grafana for visualizing logs and metrics data from OpenObserve by maintaining one more app. OpenObserve has a very advanced GUI for that, which you can use for logs, metrics, traces, front end monitoring, dashboards and alerting. You could however use grafana if you are already using it for some of your needs e.g. monitoring metrics using prometheus and are comfortable using it and don't want to change. In this case you can use OpenObserve grafana plugin to visualize logs and metrics data from OpenObserve in your grafana dashboard. You can also use grafana explore tool to query adhoc logs and metrics data from OpenObserve. You could also use OpenObserve as a prometheus source in grafana and use grafana to visualize metrics data from OpenObserve.
 
 Below are the steps to install and configure the plugin. We will provide guide on how to set up grafana in a kubernetes environment. You can adapt these steps to set up grafana in a non-kubernetes environment.
 
 If you are already familiar with grafana plugin installation, you can download the plugin from [here](https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz) and get started or follow the below steps.
+
+In order to download the grafana plugin please contact us at hello@openobserve.ai
 
 ## Install Grafana
 
@@ -49,7 +51,7 @@ kubectl create secret generic grafana-config --from-file=grafana.ini
 
 Now let's install grafana.
 
-```yaml title="grafana_statefulset.yaml" linenums="1" hl_lines="20-34"
+```yaml title="grafana_statefulset.yaml" linenums="1"
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -77,7 +79,7 @@ spec:
             [
               "sh",
               "-c",
-              "curl -o /var/lib/grafana/plugins/zo_gp.tar.gz https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz && cd /var/lib/grafana/plugins &&  tar -zxvf zo_gp.tar.gz",
+              "curl -o /var/lib/grafana/plugins/zo_gp.tar.gz https://url-provided-to-you-by-openobserve-team/zo_gp.tar.gz && cd /var/lib/grafana/plugins &&  tar -zxvf zo_gp.tar.gz",
             ]
           volumeMounts:
             - name: grafana-base
