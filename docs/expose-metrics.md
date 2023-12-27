@@ -20,15 +20,17 @@ endpoint: `/metrics`
 | -         | grpc_response_time      | endpoint, status, organization, stream, stream_type | Histogram | endpoint: search, event |
 | ingester  | ingest_records          | organization, stream, stream_type | Counter   | - |
 | -         | ingest_bytes            | organization, stream, stream_type | Counter   | - |
-| -         | ingest_wal_used_bytes   | organization, stream, stream_type | Gauge   | currently WAL total size |
+| -         | ingest_wal_used_bytes   | organization, stream, stream_type | Gauge     | currently WAL total size |
 | -         | ingest_wal_write_bytes  | organization, stream, stream_type | Counter   | WAL write latency |
 | -         | ingest_wal_read_bytes   | organization, stream, stream_type | Counter   | WAL read latency |
-| querier   | query_memory_cache_limit_bytes | - | Gauge   | - |
+| -         | ingest_memtable_bytes   | -                                 | Gauge     | Ingestor in memory bytes |
+| -         | ingest_memtable_files   | -                                 | Gauge     | Ingestor in memory files |
+| querier   | query_memory_cache_limit_bytes | -                                 | Gauge   | - |
 | -         | query_memory_cache_used_bytes  | organization, stream, stream_type | Gauge   | - |
 | -         | query_memory_cache_files       | organization, stream, stream_type | Gauge   | - |
-| -         | query_disk_cache_limit_bytes | - | Gauge   | - |
-| -         | query_disk_cache_used_bytes  | organization, stream, stream_type | Gauge   | - |
-| -         | query_disk_cache_files       | organization, stream, stream_type | Gauge   | - |
+| -         | query_disk_cache_limit_bytes   | -                                 | Gauge   | - |
+| -         | query_disk_cache_used_bytes    | organization, stream, stream_type | Gauge   | - |
+| -         | query_disk_cache_files         | organization, stream, stream_type | Gauge   | - |
 | compactor | compact_used_time       | organization, stream, stream_type | Counter | - |
 | -         | compact_merged_files    | organization, stream, stream_type | Counter | - |
 | -         | compact_merged_bytes    | organization, stream, stream_type | Counter | - |
