@@ -64,13 +64,26 @@ A bloom filters is a space efficient probabilistic data structure that allow you
 ### ***In memory caching*** 
 OpenObserve can use RAM to cache the data that is read from disk/s3. This reduces the amount of data that needs to be read from disk during search and improves search performance. OpenObserve by default will try to use all the available RAM to improve performance. This can also mean high memory utilization. You can use following environment variables to configure the cache:
 
-    | Environment Variable                    | Value | Description                                                   |
-    | --------------------------------------- | ----- | ------------------------------------------------------------- |
-    | ZO_MEMORY_CACHE_MAX_SIZE                | 4096  | This will limit the query cache to 4GB                        |
-    | ZO_MEMORY_CACHE_DATAFUSION_MAX_SIZE     | 4096  | This will limit the query engine memory pool to 4GB           |
+| Environment Variable                    | Value | Description                                                   |
+| --------------------------------------- | ----- | ------------------------------------------------------------- |
+| ZO_MEMORY_CACHE_MAX_SIZE                | 4096  | This will limit the query cache to 4GB (value in MB)                        |
+| ZO_MEMORY_CACHE_DATAFUSION_MAX_SIZE     | 4096  | This will limit the query engine memory pool to 4GB     (value in MB)       |
 
   You want to have at least 8 GB of memory with the above settings.
 
+### ***On disk caching***
+
+OpenObserve can use disk on queriers to cache the data that is read from s3. This reduces the amount of data that needs to be read from s3 during search and improves search performance. You can use following environment variables to configure the cache:
+
+| Environment Variable        | Default Value | Description                                                           |
+| --------------------------- | ----- | ----------------------------------------------------------------------------- |
+| ZO_DISK_CACHE_ENABLED       | true  | enable on-disk caching for files. Latest files are cached for accelerating queries. when the memory cache is not enough OpenObserve will try to cache in local disk, you can consider the memory cache to be first level cache and disk cache to be second level.              |
+| ZO_DISK_CACHE_MAX_SIZE      | -  | default 50% of the total free disk, one can set it to desired amount unit: MB    |
+| ZO_DISK_CACHE_SKIP_SIZE     | -  | default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB   |
+| ZO_DISK_CACHE_MAX_SIZE      | -  | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB   |
+
+RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
+  
 ### Full text search
 Log search involves full text search. OpenObserve does not yet have a full text search index and when you try to do a full text search it essentially does an equivalent of `grep` and scans all the data in particular fields that have full text search enabled. This is facilitated by `match_all` function. This can be slow for large amount of data. In order to be able to do full text search efficiently you should reduce the search space where you are doing full text search. There are 2 things you can do to improve full text search:
 
