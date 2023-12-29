@@ -35,14 +35,21 @@ Following is the list of available features and roadmap.
 | 22 | SIMD support for vectorized processing (AVX512 and Neon)     | Available           |
 | 23 | Dashboards                                                   | Available   |
 | 24 | Metrics                                                      | Available   |
-| 25 | PromQL support for metrics                                   | Available (Partial - In progress)  |
+| 25 | PromQL support for metrics                                   | Available (97% PromQL compliant)  |
 | 26 | Traces                                                       | Available   |
 | 27 | Scheduled Alerts (Based on metrics)                          | Available            |
 | 28 | Real time Alerts (Based on metrics)                          | Available            |
 | 29 | Template based alert target (Allows alerting to slack, teams and many more)  | Available  |
 | 30 | Send alerts to Prometheus alertmanager                       | Available           |
 | 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose| Available           |
-| 32 | Single Sign On(SSO) | To start           |
+| 32 | Single Sign On(SSO)                                          | WIP           |
+| 33 | RBAC (Role Based Access Control)                             | WIP           |
+| 34 | Front end - Performance analytics                            | Available           |
+| 35 | Front end - Session Replay                                   | Available           |
+| 36 | Front end - Error tracking                                   | Available           |
+| 37 | Log patterns                                                 | To start           |
+| 38 | Anomaly detection                                            | To start           |
+| 39 | Correlation between logs, metrics and traces                 | To start           |
 
 
 Please raise any new feature requests via [github issue tracker](https://github.com/openobserve/openobserve/issues).
