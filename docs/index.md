@@ -71,7 +71,7 @@ We want to build the best software in the observability category in the world, a
     1. Fear of upgrades should not make you lose your sleep
 3. Features and Usability: It should have good features and functionality to do the job efficiently
     1. System should be highly usable from the get go - providing excellent ROI on the invested time. A great UI and API are important to achieve it.
-    1. Logs themselves do not provide you visibility into your application. You need metrics and traces as well amd the ability to correlate them.
+    1. Logs themselves do not provide you visibility into your application. You need metrics and traces as well and the ability to correlate them.
 4. Cost: It should be cost effective
     1. You should not have to mortgage your house or company assets in order to run the system either in self hosted mode (with or without licensing cost) or for SaaS platform.
 5. Learning curve: It should allow beginners to do a lot of tasks easily and advanced users should be able to use most of their existing skills
