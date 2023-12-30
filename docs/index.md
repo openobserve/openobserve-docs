@@ -110,8 +110,11 @@ Search and aggregation API compatibility with Elasticsearch is provided through 
 
 zPlane is the enterprise product offered by ZincLabs that among other things provides Elasticsearch search and aggregation compatibility. Learn more about it at [zPlane docs](zplane)
 ## Are there any benchmarks?
-OpenObserve is currently in alpha. We will do benchmarking as we get closer to GA.
+OpenObserve is currently under heavy development with many changes still happening to the core engine. We will do benchmarking soon as we complete implementation of some of the items at hand. 
 
+In the meanwhile, there are hundreds of production installations of OpenObserve globally at small, mid tier and very large scale being used by startups and enterprises alike. Many have reported that OpenObserve is highly performant. Some of them have replaced 5-7 node Elasticsearch clusters with a single node of OpenObserve. 
+
+Here is a [case study of Jidu](https://openobserve.ai/blog/jidu-journey-to-100-tracing-fidelity) that increased their throughput and query performance by 10x and reduced their storage costs by 10x by switching from Elasticsearch to OpenObserve, ingesting 10TB of data everyday. Jidu is a large EV manufacturer in China.
 
 
 
