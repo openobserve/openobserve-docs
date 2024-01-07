@@ -9,7 +9,7 @@ OpenObserve supports OTLP for `logs`, `metrics` and `traces` ingestion. followin
 ### OTLP HTTP
 
 ```shell
-HTTP Endpoint: https://monitor.dev.zinclabs.dev/api/<your-org>/v1/traces
+HTTP Endpoint: https://monitor.dev.zinclabs.dev/api/<your-org>/v1/logs
 
 Header:
   Authorization: Basic cm9v****************************************Ng==
