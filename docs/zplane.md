@@ -1,4 +1,4 @@
-> Applicable to enterprise version 
+> `Applicable to enterprise version` 
 
 # Enterprise features
 

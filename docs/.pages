@@ -20,3 +20,4 @@ nav:
 - Telemetry: telemetry.md
 - Open API Specifications: api_specs.md
 - zPlane: zplane.md
+- SSO using dex-idp: SSO.md 
