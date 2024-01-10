@@ -125,6 +125,7 @@
         referrerDomain: referrerDomain,
         anonymousId: uuid,
         os: browserAndOS.os,
+        browser: browserAndOS.browser,
         screenResolution: screenResolution
       }
     };
