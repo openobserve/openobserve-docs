@@ -35,37 +35,44 @@
     return null;
   }
 
-  // Check if UUID cookie exists, if not, set it
-  var uuid = getCookie("uuid");
-  if (!uuid) {
-    uuid = generateUUID();
-    setCookie("uuid", uuid, 365); // set cookie to expire in 365 days
+  // Function to handle the tracking logic
+  function handleTracking() {
+    var uuid = getCookie("uuid");
+    if (!uuid) {
+      uuid = generateUUID();
+      setCookie("uuid", uuid, 365); // set cookie to expire in 365 days
+    }
+    
+    var domain = window.location.hostname;
+    var pageUrl = window.location.href;
+    var referrerUrl = document.referrer || '';
+
+    var data = {
+      "type": "track",
+      "event": "pageView",
+      "properties": {
+        "domain": domain,
+        "pageUrl": pageUrl,
+        "referer": referrerUrl,
+        "anonymousId": uuid
+      }
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://e1.zinclabs.dev/v1/track", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
   }
 
-  // Capture domain
-  var domain = window.location.hostname;
-
-  // Capture page URL
-  var pageUrl = window.location.href;
-
-  // Capture referrer URL
-  var referrerUrl = document.referrer || '';
-
-  // Prepare data object
-  var data = {
-    "type": "track",
-    "event": "pageView",
-    "properties": {
-      "domain": domain,
-      "pageUrl": pageUrl,
-      "referer": referrerUrl,
-      "anonymousId": uuid // Include the UUID in the properties
-    }
+  // Track on history changes
+  var originalPushState = history.pushState;
+  history.pushState = function() {
+    originalPushState.apply(history, arguments);
+    handleTracking(); // Call the tracking function when pushState is called
   };
 
-  // Send POST request
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://e1.zinclabs.dev/v1/track", true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify(data));
+  window.addEventListener('popstate', handleTracking); // Call the tracking function on popstate events
+
+  // Initial track when the script loads
+  handleTracking();
 })();
