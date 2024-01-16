@@ -1,10 +1,8 @@
 > `Applicable to enterprise version`
 
-# SSO using Dex & Ldap with OpenObserve 
+OpenObserve, integrates Single Sign-On (SSO) capabilities using Dex, an OpenID Connect Identity (OIDC) and OAuth 2.0 provider. Dex does not have a user database and instead uses external identity providers like LDAP, Google, GitHub, etc. for authentication.
 
-OpenObserve, in its enterprise version, integrates Single Sign-On (SSO) capabilities using Dex, an OpenID Connect Identity (OIDC) and OAuth 2.0 provider. This feature is exclusive to the enterprise version of OpenObserve.
-
-## Setup dex with ldap
+## Setup dex with LDAP
 This guide outlines configuring Dex with LDAP as an authentication backend within a Kubernetes cluster.
 
 ### Prerequisites
@@ -14,9 +12,10 @@ This guide outlines configuring Dex with LDAP as an authentication backend withi
 
 
 ### Dex Configuration
+
 1. Issuer URL
-    - issuer: issuer url of Dex ,this is used by clients to discover OIDC endpoints.
-    - Example: https://{dex-host}/dex
+    - issuer: issuer url of Dex. this is used by clients to discover OIDC endpoints.
+    - Example: https://{dex-host}/dex . https://auth.example.com/dex
 1. Storage Backend
     - Dex supports various storage backends. In this configuration, Kubernetes custom resources are used.
     - type: kubernetes

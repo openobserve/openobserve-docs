@@ -1,21 +1,13 @@
 > `Applicable to enterprise version` 
 
-# Enterprise features
+# Elasticsearch query DSL API compatibility
 
-There are certain features of OpenObserve that are available only in the enterprise version. All these additional features are provided using zPlane.
+OpenObserve natively supports Elasticsearch ingestion API compatibility. You don't need zPlane for ingestion API compatibility.
 
-Currently following features are part of enterprise offering through zPlane:
+For Elasticsearch API compatibility for query & aggregation you can use zPlane.
 
-1. Elasticsearch API compatibility
-1. SAML (on Roadmap)
-1. Cross cluster search (on Roadmap)
-1. Priority support with SLAs
+⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. Please contact us at [hello@openobserve.ai](mailto:hello@openobserve.ai) for enquiries or enterprise license.
 
-# zPlane
-
-⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. Please contact us at [hello@openobserve.ai](mailto:hello@openobserve.ai) for enquiries or enterprise license. zPlane can be used freely for personal and non-commercial usage.
-
-zPlane is collection of adapters & utilities to be used with OpenObserve, augmenting functionalities of OpenObserve.
 
 ## Download zPlane
 
@@ -31,7 +23,7 @@ To set up zPlane, please make sure below environment variables are set:
 | ZPLANE_ZO_ORGANIZATION        | default                   | OpenObserve default organization          |
 
 
-## Elasticsearch compatible query support
+## Elasticsearch compatible query API support
 Query DSL will translate to Where in SQL, please refer below table for same:
 
 | ES DSL                    | SQL                                      |
