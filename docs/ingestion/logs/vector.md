@@ -26,10 +26,10 @@ healthcheck.enabled = false
 type = "elasticsearch"
 inputs = [ source or transform id ]
 endpoints = ["http://localhost:5080/api/{organization}/"]
+bulk.index = "default"
 auth.strategy = "basic"
 auth.user = "root@example.com"
 auth.password = "password"
 compression = "gzip"
-encoding.timestamp_format = "rfc3339"
 healthcheck.enabled = false
 ```
