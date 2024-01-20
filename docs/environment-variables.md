@@ -6,9 +6,9 @@ OpenObserve is configure through the use of below environment variables.
 
 | Environment Variable          | Default Value | Mandatory     | Description                                                               |
 | ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
-| ZO_ROOT_USER_EMAIL            | -             | On first run  | Email of first/super admin user  |
-| ZO_ROOT_USER_PASSWORD         | -             | On first run  | Password for first/super admin user |
-| ZO_LOCAL_MODE                 | true          | No            | If local mode is set to true ,OpenObserve becomes single node deployment, false indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure `sled db`, for cluster mode one needs to config `etcd`. |
+| ZO_ROOT_USER_EMAIL            | -             | On first run  | Email of first/root user  |
+| ZO_ROOT_USER_PASSWORD         | -             | On first run  | Password for first/root user |
+| ZO_LOCAL_MODE                 | true          | No            | If local mode is set to true ,OpenObserve becomes single node deployment, false indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure `sqlite db`, for cluster mode one needs to config `etcd`. |
 | ZO_LOCAL_MODE_STORAGE         | disk          | No            | `disk` or `s3`, Applicable only for local mode , by default local disk is used as storage, we also support s3 in local mode. |
 | ZO_NODE_ROLE                  | all           | No            | Possible values are : `all`, `ingester`, `querier`, `router`, `compactor`, `alertmanager`, A single node can have multiple roles id desired. Specify roles separated by comma. e.g. compactor,alertmanager |
 | ZO_HTTP_PORT                  | 5080          | No            | openobserve server listen HTTP port |
@@ -86,6 +86,9 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_PROMETHEUS_HA_REPLICA | `__replica__`      | No            | for Prometheus cluster deduplication |
 | ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
 | ZO_PRINT_KEY_SQL              | false         | No            | Print key sql in logs |
+| ZO_USAGE_REPORTING_ENABLED              | false         | No            | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable chargeback for internal teams. |
+| ZO_USAGE_ORG                            | _meta_         | No            | To which org the usage data should be sent |
+| ZO_USAGE_BATCH_SIZE                     | 2000         | No            | How many requests should be batched before flushing the usage data tfrom memory to disk |
 | RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 
 > For local mode, OpenObserve use sqlite as the metadata store.
@@ -99,7 +102,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_ETCD_ADDR                  | localhost:2379 | No           | default etcd endpoint |
 | ZO_ETCD_PREFIX                | /openobserve/oxide/  | No            | etcd keys prefix      |
 | ZO_ETCD_CONNECT_TIMEOUT       | 5             | No            | endpoint connection timeout, unit: seconds |
-| ZO_ETCD_COMMAND_TIMEOUT       | 10             | No            | command execute timeout, unit: seconds |
+| ZO_ETCD_COMMAND_TIMEOUT       | 10            | No            | command execute timeout, unit: seconds |
 | ZO_ETCD_LOCK_WAIT_TIMEOUT     | 60            | No            | max ttl for a lock, the lock will report timeout above this limit. |
 | ZO_ETCD_LOAD_PAGE_SIZE        | 1000          | No            | set/change this to detect pagination size for loading data from etcd. |
 | ZO_ETCD_USER                  | -             | No            | authentication, username, refer: https://etcd.io/docs/v3.5/op-guide/authentication/rbac/ |
