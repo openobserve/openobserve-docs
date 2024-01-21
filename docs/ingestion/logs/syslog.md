@@ -28,7 +28,7 @@ You can change the default port number using the following environment variables
 
 ## Testing
 
-Select an organization and stream. Then set the subnet to `0.0.0.0.0/0`. This config allows accepting syslog data from any IP address.
+Select an organization and stream. Then set the subnet to `0.0.0.0/0`. This config allows accepting syslog data from any IP address.
 
 You can then use the syslog generator script from [this repo](https://github.com/openobserve/syslog_log_generator) to test if you are able to accept syslog data in OpenObserve.
 
