@@ -101,7 +101,10 @@ Sample IAM policy
         "dynamodb:PutItem",
         "dynamodb:DeleteItem",
         "dynamodb:Scan",
-        "dynamodb:DescribeTable"
+        "dynamodb:DescribeTable",
+        "dynamodb:BatchWriteItem", 
+        "dynamodb:UpdateItem", 
+        "dynamodb:UpdateTable"
       ],
       "Resource": "*"
     }
