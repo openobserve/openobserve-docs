@@ -20,6 +20,8 @@ Following chart types are supported:
 1. Metric text / Single stat
 1. Table
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kjUvXQdL798?si=guA2AK3COvYJolIr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Dashboard variables
 
 Dashboard variables are used to make dashboards interactive. They can be used to filter data based on certain aspects e.g. host name, kubernetes namespace, etc. 
