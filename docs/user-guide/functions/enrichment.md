@@ -1,7 +1,7 @@
 # Enrichment
 
 ## Introduction 
-Enrichment refers to the process of adding mre context to the data. This can be done by adding new fields to the data or by modifying existing fields.
+Enrichment refers to the process of adding new context to the data. This can be done by adding new fields to the data or by modifying existing fields.
 
 You can create a VRL function that can do enrichment at the time of ingestion or at the time of query.
 
