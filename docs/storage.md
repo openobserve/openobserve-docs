@@ -124,11 +124,11 @@ You can refer to: [https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4](https://cloud.ba
 
 ## Azure Blob
 
-OpenObserve can use azure blob for storing stream data, following environment variables needs to be setup:
+OpenObserve can use azure blob for storing stream data. Following environment variables needs to be setup:
 
 | Environment Variable       | Value                | Description                                  |
 | -------------------------- | -------------------- | -------------------------------------------- |
-| ZO_S3_PROVIDER             | azure                | Azure blob strage provider                   |
+| ZO_S3_PROVIDER             | azure                | Azure blob storage provider                   |
 | ZO_LOCAL_MODE_STORAGE      | s3                   | Required only if running in single node mode |
 | AZURE_STORAGE_ACCOUNT_NAME | Storage account name | Need to provide mandatorily                  |
 | AZURE_STORAGE_ACCESS_KEY   | Access key           | Need to provide mandatorily                  |
