@@ -8,6 +8,7 @@ OpenObserve, integrates Single Sign-On (SSO) capabilities using Dex, an OpenID C
 
 You must set following environment variables to enable SSO in OpenObserve.
 
+values.yaml
 ```yaml
 config:
   O2_DEX_CLIENT_ID: "o2-client"	# Client id of static client
@@ -90,6 +91,7 @@ In addition to that you would also want to use ingress to expose dex external to
 
 A sample configuration detailing server connection, bind credentials, user and group search settings.
 
+values.yaml
 ```yaml
 	connectors:
         - type: ldap
