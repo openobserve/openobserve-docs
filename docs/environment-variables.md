@@ -89,6 +89,16 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_USAGE_REPORTING_ENABLED              | false         | No            | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable chargeback for internal teams. |
 | ZO_USAGE_ORG                            | _meta_         | No            | To which org the usage data should be sent |
 | ZO_USAGE_BATCH_SIZE                     | 2000         | No            | How many requests should be batched before flushing the usage data tfrom memory to disk |
+| O2_DEX_ENABLED                | false         | Yes           | Enables SSO in OpenObserve using Dex. |
+| O2_DEX_CLIENT_ID              | -             | Yes           | Client id of static client |
+| O2_DEX_CLIENT_SECRET          | -             | Yes           | Client secret of static client |
+| O2_DEX_BASE_URL               | -             | Yes           | URL of the Dex identity provider |
+| O2_CALLBACK_URL               | -             | Yes           | Set this value to `<openobserve base url>/web/cb`, after sucessful token received from dex, user will be redirected to this page   |
+| O2_DEX_REDIRECT_URL           | -             | Yes           | Set this value to `<openobserve base url>/config/callback`, Should match to redirect uri specified in dex |
+| O2_DEX_SCOPES                 | openid profile email groups offline_access | No            | scopes to be fetched from dex   |
+| O2_DEX_GROUP_ATTRIBUTE        | ou            | No            | Maps user to OpenObserve organization. |
+| O2_DEX_ROLE_ATTRIBUTE         | cn            | No            | User's role in the organization.|
+| O2_DEX_DEFAULT_ORG            | default       | No            | Default organization for users not belonging to any group in ldap|
 | RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 
 > For local mode, OpenObserve use sqlite as the metadata store.
