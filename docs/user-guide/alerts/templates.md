@@ -1,23 +1,94 @@
 # Alerts - templates
 
-Templates are used when notification is sent for an alert , templates forms body of request being sent to destination , for eg. for slack one can create template like :
+Templates are used when notification is sent for an alert, templates forms body of request being sent to destination, for eg. for slack one can create template like:
 
 ```json
 {
-  	"text": "For stream {stream_name} of organization {org_name} alert {alert_name} of type {alert_type} is active"	
+  	"text": "For stream {stream_name} alert {alert_name} of type {alert_type} is active"	
 }
 
 ```
-When a notification is being sent , OpenObserve will replace placeholders like {stream_name} ,{org_name} etc with actual values of stream , alert , organization.
+
+When a notification is being sent, OpenObserve will replace placeholders like {stream_name}, {alert_name} etc with actual values of stream name, alert name.
 
 Variables which can be used in templates are:
 
 | Variable                      | Value                     | Description                               |
-| ----------------------------- | ------------------------- |------------------------------------------ | 
-| stream_name                   |   Stream name             | Name of the stream for alert is created   | 
-| org_name                      | Organization name         | Name of the organization                  |
-| alert_name                    | Alert name                | Name of the alert                         |
-| alert_type                    | Alert type                | Possible values are : real time or scheduled           |
+| ------------------------ | ------------------------- |------------------------------------------ | 
+| org_name                 | Organization name         | Name of the organization                  |
+| stream_type              | Stream type               | Type of the stream                        | 
+| stream_name              | Stream name               | Name of the stream for alert is created   | 
+| alert_name               | Alert name                | Name of the alert                         |
+| alert_type               | Alert type                | Possible values are : real time or scheduled |
+| alert_period             | Alert period              | Limited 5 minutes, 10 minutes, set for alert |
+| alert_operator           | Alert trigger operator    | Like `>`, `>=`, set for alert trigger |
+| alert_threshold          | Alert trigger threshold   | Like, `5`, the threshold for trigger alert, it will compare to `alert_count` or `alert_agg_value`. |
+| alert_count              | Alert records number      | The records numuber when we query the alert condition. |
+| alert_agg_value          | Alert aggregation value   | The value of the aggregation function if you enable it. and will use this value to compare with `alert_threshold` |
+| alert_start_time         | _timestamp                | Alert matched the min _timestamp of the rows and formated by `%Y-%m-%dT%H:%M:%S` |
+| alert_end_time           | _timestamp                | Alert matched the max _timestamp of the rows and formated by `%Y-%m-%dT%H:%M:%S` |
+| alert_url                | URL                       | A link can back to the UI and check the detail data. |
+| rows                     | mutiple lines of row template values | based on `row template` in alert page |
+| all of the stream fields | the field value                      | Default we `select * from stream` if you custom sql then it will be only the fields that you selected. |
+
+## Variable length
+
+You can use `{rows:N}` to limit only top N matched records will be in the actual value.
+
+You also can use `{log:N}` to limit the length of a actual value.
+
+## Row templates
+
+When your alert notification data have multiple objects you will want the notification has multiple line and each line is the data of one object. for example:
+
+```sql
+select k8s_pod_name, count(*) AS cnt FROM stram WHERE str_match(log, 'panic') GROUP BY k8s_pod_name ORDER BY cnt LIMIT 10
+```
+
+This sql for Alert will trigger when we find `panic` in logs, and we want to known which `pod` generate the panic log with the error count.
+
+without `row template` we can define the alert template like this:
+
+```json
+{
+  	"text": "{k8s_pod_name} got {cnt} panic logs"	
+}
+```
+
+I need to join the multiple values of `k8s_pod_name` with a `,` if there are multiple pods. then the notification message like this:
+
+```json
+{
+  	"text": "pod1,pod2,pod3 got 1,2,3 panic logs"	
+}
+```
+
+Actually we want it shows line by line like this:
+
+
+```
+pod1 got 1 panic logs
+pod2 got 2 panic logs
+pod3 got 1 panic logs
+```
+
+That is the `row template`, with `tow template` we can define the alert template like this:
+
+```json
+{
+  	"text": "alert for {alert_name}\n{rows}"	
+}
+```
+
+Just define the template with `rows`, it will replace by actual values of all rows.
+
+And we define the `row template` in alert page:
+
+```
+{k8s_pod_name} got {cnt} panic logs
+```
+
+After these, the notification message will be what we expect.
 
 
 ## Slack
