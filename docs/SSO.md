@@ -205,7 +205,53 @@ The LDAP configuration outlined above demonstrates a structured approach to orga
 
 #### OIDC
 
-TODO
+This section demonstrates how to configure Dex to authenticate users using Google as an OpenID Connect (OIDC) provider. The configuration involves specifying various parameters that establish a secure connection between Dex, Google, and your application.
+
+OIDC Server Connection Configuration
+
+1. Connector Details
+    - `type: oidc`
+    - `id: google` -  This sets a unique identifier for this specific connector. Here, google is used as the ID.
+    - `name: Google` -  human-readable name for the connector
+
+1. Configuration Parameters
+
+    - `issuer: https://accounts.google.com` - issuer is the URL of the OpenID provider. It tells Dex where to send authentication requests. For Google, this is always https://accounts.google.com.
+    - `clientID: <YOUR-CLIENT-ID>` - clientID is the OAuth 2.0 Client ID you obtain from your Google Cloud Console when you set up your OAuth credentials. This ID uniquely identifies your application to Google.
+    - `clientSecret: <YOUR-CLIENT-SECRET>` - clientSecret is a secret key you obtain along with the Client ID from Google. It's used to authenticate the identity of the application to Google when Dex exchanges the authorization code for an access token.
+    - `redirectURI: http://<DEX-SERVER>/callback` - redirectURI is the URL where users will be sent after they authenticate with Google. This must match one of the Authorized redirect URIs you specified in the Google Cloud Console. It usually points to a URI on your Dex server that will handle the OAuth2 callback.
+    - `scopes:` list of the scopes (permissions) that Dex will request from OIDC provider.
+        - email 
+        - profile
+        - openid
+    - `getUserInfo: true` - Tells Dex to make an additional request to Google's UserInfo endpoint to get more detailed user information (like the user's full profile). This is often necessary when the ID token does not contain all the information your application needs.
+
+    - `claimMapping:`
+        - email: email -  Map 'email' claim from Google to 'email' claim in Dex
+        - name: name -  Map 'name' claim from Google to 'name' claim in Dex
+
+values.yaml
+```yaml
+connectors:
+- type: oidc
+  id: google
+  name: Google
+  config:
+    issuer: https://accounts.google.com
+    clientID: <APP-CLIENT-ID>
+    clientSecret: <APP-CLIENT-SECRET>
+    redirectURI: https://dex.example.com/dex/callback
+    scopes:
+      - email
+      - profile
+      - openid
+    getUserInfo: true
+    claimMapping:
+      email: email
+      name: name
+
+```     
+
 
 #### OAuth2
 
