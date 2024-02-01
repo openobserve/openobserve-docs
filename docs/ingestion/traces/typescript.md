@@ -29,6 +29,7 @@ const  sdk = new  opentelemetry.NodeSDK({
         url: "https://api.openobserve.ai/api/default/v1/traces",
         headers: {
             Authorization: "Authorization",
+            "stream-name": "default"
         },
     }),
     instrumentations: [getNodeAutoInstrumentations()],
@@ -49,7 +50,8 @@ Replace the `url` and `Authorization` key in the `tracing.js` file
 Follow the steps given in the sample-tracing-nodejs-typescript readme and then start server
 
 ```
-    node --require './tracing.js' app.js
+npm install
+ts-node --require './tracing.ts' app.ts
 ```
 The server is now running on 8080, navigate to [http://localhost:8080](http://localhost:8080) </br>
 Refresh page couple of times to get more traces exported.
