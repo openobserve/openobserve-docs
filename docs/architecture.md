@@ -26,7 +26,7 @@ Use this mode for light usage and testing or if HA is not a requirement for you.
 Local disk storage is not supported in HA mode. Please refer to [HA Deployment](./ha_deployment.md) for cluster mode deployment.
 
 ### etcd and object storage
-![Single node architecture using etcd and s3](./images/architecture-ha2.png)
+![Single node architecture using etcd and s3](./images/architecture-ha2.jpg)
 
 Router, Querier and Ingester nodes can be horizontally scaled to accomodate for higher traffic.
 
