@@ -28,7 +28,7 @@ Local disk storage is not supported in HA mode. Please refer to [HA Deployment](
 ### etcd and object storage
 ![Single node architecture using etcd and s3](./images/architecture-ha2.jpg)
 
-Router, Querier and Ingester nodes can be horizontally scaled to accomodate for higher traffic.
+Router, Querier and Ingester nodes can be horizontally scaled to accommodate for higher traffic.
 
 Etcd is used to store metadata like organization, users, functions, alert rules and cluster node information.
 
