@@ -48,8 +48,9 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
 | ZO_JSON_LIMIT                 | 209715200     | No            | The max payload size of json. |
 | ZO_PAYLOAD_LIMIT              | 209715200     | No            | The max payload size of http request body. |
-| ZO_MAX_FILE_SIZE_ON_DISK      | 32            | No            | max WAL file size before moving it to storage, default is 32MB, unit: MB |
-| ZO_MAX_FILE_RETENTION_TIME    | 600           | No            | max WAL file retention ttl, default is 600s, unit: second |
+| ZO_MAX_FILE_SIZE_ON_DISK      | 64            | No            | max WAL log file size before creating a new log file, default is 64MB, unit: MB, we created WAL log file by `organization/stream_type` |
+| ZO_MAX_FILE_SIZE_IN_MEMORY    | 256           | No            | max memtable size before moving to immutable and then write to disk, default is 256MB, unit: MB |
+| ZO_MAX_FILE_RETENTION_TIME    | 600           | No            | max retention time for WAL log and memtable, default is 600s, unit: second, Whether it's the log file or the corresponding memtable that reaches this time limit, a new log file will be created and the memtable will be written to disk. |
 | ZO_FILE_PUSH_INTERVAL         | 60            | No            | interval at which job moves files from WAL to storage, default 60s, unit: second |
 | ZO_FILE_MOVE_THREAD_NUM       | -             | No            | number of threads for job to move WAL to storage, default equal to cpu_num. |
 | ZO_QUERY_THREAD_NUM           | -             | No            | number of threads for searching in data files. |
