@@ -48,18 +48,20 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
 | ZO_JSON_LIMIT                 | 209715200     | No            | The max payload size of json. |
 | ZO_PAYLOAD_LIMIT              | 209715200     | No            | The max payload size of http request body. |
-| ZO_MAX_FILE_SIZE_ON_DISK      | 64            | No            | max WAL log file size before creating a new log file, default is 64MB, unit: MB, we created WAL log file by `organization/stream_type` |
-| ZO_MAX_FILE_SIZE_IN_MEMORY    | 256           | No            | max memtable size before moving to immutable and then write to disk, default is 256MB, unit: MB |
-| ZO_MAX_FILE_RETENTION_TIME    | 600           | No            | max retention time for WAL log and memtable, default is 600s, unit: second, Whether it's the log file or the corresponding memtable that reaches this time limit, a new log file will be created and the memtable will be written to disk. |
-| ZO_FILE_PUSH_INTERVAL         | 60            | No            | interval at which job moves files from WAL to storage, default 60s, unit: second |
+| ZO_MAX_FILE_SIZE_ON_DISK      | 64            | No            | max WAL log file size before creating a new log file, default is `64MB`, unit: MB, we created WAL log file by `organization/stream_type` |
+| ZO_MAX_FILE_SIZE_IN_MEMORY    | 256           | No            | max memtable size before moving to immutable and then write to disk, default is `256MB`, unit: MB |
+| ZO_MAX_FILE_RETENTION_TIME    | 600           | No            | max retention time for WAL log and memtable, default is `600s` (10m), unit: second, Whether it's the log file or the corresponding memtable that reaches this time limit, a new log file will be created and the memtable will be written to disk. |
+| ZO_FILE_PUSH_INTERVAL         | 60            | No            | interval at which job moves files from WAL to storage, default `60s`, unit: second |
 | ZO_FILE_MOVE_THREAD_NUM       | -             | No            | number of threads for job to move WAL to storage, default equal to cpu_num. |
+| ZO_MEM_TABLE_MAX_SIZE         | -             | No            | The total size limit of memory tables, we have multiple memtable for different `organization/stream_types`. The maximum value of each memtable is `ZO_MAX_FILE_SIZE_IN_MEMORY`, but the sum of all memtable cannot exceed this limit. Otherwise, an error will be returned: `MemoryTableOverflowError` to protect the system from OOM. default `50%` of the total memory. |
+| ZO_MEM_PERSIST_INTERVAL       | 5             | No            | interval at which job persist immutable from memory to disk, default `5s`, unit: second |
 | ZO_QUERY_THREAD_NUM           | -             | No            | number of threads for searching in data files. |
 | ZO_QUERY_TIMEOUT              | 600           | No            | Default timeout of query, unit: seconds |
 | ZO_HTTP_WORKER_NUM            | 0             | No            | number of threads for http services, default equal to cpu_num. |
 | ZO_HTTP_WORKER_MAX_BLOCKING   | 1024          | No            | number of per http thread blocking connection in queue |
 | ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours  |
 | ZO_COMPACT_ENABLED            | true          | No            | enable compact for small files. |
-| ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is 60s, unit: second |
+| ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is `60s`, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
 | ZO_COMPACT_DATA_RETENTION_DAYS | 3650         | No            | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
