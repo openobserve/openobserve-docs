@@ -14,11 +14,11 @@ curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/c
 
 ## Metadata store
 
-You can use `etcd` or `PostgreSQL` or `MySQL` or `DynamoDB` as metadata store.
+You can use `etcd`, `PostgreSQL` or `MySQL` as metadata storage.
 
-While using `PostgreSQL` or `MySQL` or `DynamoDB` as metadata store, `etcd` is still needed for cluster coordination.
+When using `PostgreSQL` or `MySQL` as metadata storage, `etcd` is still needed for cluster coordination.
 
-** `etcd` will store no data with `PostgreSQL` or `MySQL` or `DynamoDB` as metadata store. You can delete and reinstall etcd cluster if something goes wrong with it.**.
+**If you use `PostgreSQL` or `MySQL` as metadata storage, `etcd` will not store any data. If there are problems, you can delete and reinstall the etcd cluster.**
 
 ### Etcd
 
@@ -54,11 +54,11 @@ config:
   ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
 ```
 
-### DynamoDB
+### ~~DynamoDB~~
 
-Tables will be automatically created if they don't exist.
+~~Tables will be automatically created if they don't exist.~~
 
-Enable `dynamo` as metadata store
+~~Enable `dynamo` as metadata store~~
 
 ```yaml
 config:
