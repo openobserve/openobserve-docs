@@ -18,7 +18,7 @@ Description
 |------------|-----------|---------------|-------------|
 | function   | string    | -             | function body |
 
-> Currently, we only support `Lua` as a functional language. `JavaScript` and `WebAssembly` are under development and will be supported soon.
+> Currently, we only support `VRL` as a functional language.
 
 ## Response
 

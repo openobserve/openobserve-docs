@@ -32,7 +32,7 @@ Users with `admin` role have greater priviledges as compared to users with `memb
 
 ## Functions
 
-Functions in OpenObserve can used during ingestion & query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. A function is defined in Lua script.
+Functions in OpenObserve can be used during ingestion & query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. A function is defined using VRL script.
 
 ## Timestamp
 

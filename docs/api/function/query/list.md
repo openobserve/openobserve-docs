@@ -28,4 +28,4 @@ Description
 | name       | string    | -             | the function name |
 | function   | string    | -             | function body |
 | num_args   | int64     | -             | the params num of the function |
-| trans_type | int64     | 0             | Lua function is 0, JavaScript function is 1 |
+| trans_type | int64     | 0             |  |

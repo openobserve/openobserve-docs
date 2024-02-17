@@ -32,4 +32,4 @@ Description
 | function   | string    | -             | function body |
 | order      | int64     | 0             | execute order, minimum will execute first. |
 | num_args   | int64     | -             | the params num of the function |
-| trans_type | int64     | 0             | Lua function is 0, JavaScript function is 1 |
+| trans_type | int64     | 0             |  |
