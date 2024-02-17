@@ -2,17 +2,17 @@
 
 ## Organizations
 
-An organization is logical entity which groups various streams, users, functions in OpenObserve. An organization can represent an enterprize, a department of an enterprize, or an application. All streams, users, functions, etc. are scoped to an organization.
+An organization is logical entity which groups various streams, users, functions in OpenObserve. An organization can represent an enterprise, a department of an enterprise, or an application. All streams, users, functions, etc. are scoped to an organization.
 
 ## Streams
 
-A stream in OpenObserve is sequence of events (logs/metrics/traces) that share the same source, e.g. logs from a specific application or logs from an enterprize.
+A stream in OpenObserve is sequence of events (logs/metrics/traces) that share the same source, e.g. logs from a specific application or logs from an enterprise.
 
 ## Data Ingestion
 
 ### Data Partitioning
 
-Data ingested to OpenObserve is partioned by default based on year month day & hour, users can additionally specify partioning key/keys which will be used to patition data. 
+Data ingested in OpenObserve is partitioned by default based on year month day & hour. You can additionally specify partitioning keys which will be used to partition data. 
 
 ## Logs
 
@@ -28,7 +28,7 @@ Users are indiviuals using application by logging in with appropriate credential
 
 A user in OpenObserve can have role `admin` or `member`.
 
-Users with `admin` role have greater priviledges as compared to users with `member` role, e.g., inviting other users by email to an organization.
+Users with `admin` role have greater privileges as compared to users with `member` role, e.g., Other users can be added to an organization by users with `admin` role.
 
 ## Functions
 
@@ -36,7 +36,7 @@ Functions in OpenObserve can be used during ingestion & query to aid advanced ca
 
 ## Timestamp
 
-`_timestamp` is considered as timestamp column in OpenObserve, if `_timestamp` or `@timestamp` isn't present in data being ingested, we add `_timestamp` to each record with the value of `NOW` upto microseconds precision.
+`_timestamp` is considered as timestamp column in OpenObserve, if `_timestamp` or `@timestamp` isn't present in data being ingested, we add `_timestamp` to each record with the value of `NOW` up to microsecond precision.
 
 For input data with key as `_timestamp`/`@timestamp`, for the value we support the following data types/format:
 
