@@ -27,7 +27,7 @@ Variables which can be used in templates are:
 | alert_agg_value          | Alert aggregation value   | The value of the aggregation function if you enable it. and will use this value to compare with `alert_threshold` |
 | alert_start_time         | _timestamp                | Alert matched the min _timestamp of the rows and formated by `%Y-%m-%dT%H:%M:%S` |
 | alert_end_time           | _timestamp                | Alert matched the max _timestamp of the rows and formated by `%Y-%m-%dT%H:%M:%S` |
-| alert_url                | URL                       | A link can back to the UI and check the detail data. |
+| alert_url                | URL                       | A link can back to the UI and check the detail data. need configure `ZO_WEB_URL` |
 | rows                     | mutiple lines of row template values | based on `row template` in alert page |
 | all of the stream fields | the field value                      | Default we `select * from stream` if you custom sql then it will be only the fields that you selected. |
 

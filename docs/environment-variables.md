@@ -39,7 +39,8 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_PARQUET_COMPRESSION        | zstd          | No            | Default we use `zstd` as the parquet file compress algorithm. but you can choose: `snappy`, `gzip`, `brotli`, `lz4`, `zstd`. |
 | ZO_UI_ENABLED                 | true          | No            | default we enable embed UI, one can disable it. |
 | ZO_UI_SQL_BASE64_ENABLED      | false         | No            | Enable base64 encoding for SQL in UI. |
-| ZO_BASE_URI                   | -             | No            | if you set OpenObserve with a prefix in k8s nginx ingress, you can set the prefix path. |
+| ZO_WEB_URL                    | -             | No            | UI access URL, eg: `http://localhost:5080`, used for redirect url and alert url. |
+| ZO_BASE_URI                   | -             | No            | If you set OpenObserve with a prefix in k8s nginx ingress, you can set the prefix path. |
 | ZO_BLOOM_FILTER_ENABLED       | true          | No            | Enable by default, but only enabled for trace_id field |
 | ZO_BLOOM_FILTER_DEFAULT_FIELDS | -            | No            | Add more fields support by bloomfilter, will add UI setting later |
 | ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
