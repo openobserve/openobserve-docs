@@ -15,11 +15,15 @@ Tips:
 1. In `Local mode` it also can use `s3` as storage, you can set `ZO_LOCAL_MODE_STORAGE=s3` to storage data in s3.
 1. For GCS, OSS they all supports `s3` SDK, so you can think they are all of s3, just configure different s3 environments.
 
-## Disk
+## Data
+
+Data is stored in parquet format, which is columnar storage format, it is efficient for query and storage. 
+
+### Disk
 
 Disk is default storage place for stream data, make sure you have enough storage available on your disk for stream data storage. During data ingestion the stream name that you provide may not be present, in that case a new folder for stream will be created automatically for storing the stream data.
 
-## S3
+### S3
 
 To use S3 for storing stream data following needs to be done:
 
@@ -32,7 +36,7 @@ To use S3 for storing stream data following needs to be done:
 
 > You need to create the bucket in S3 first.
 
-## MinIO
+### MinIO
 
 OpenObserve can use MinIO for storing stream data, following environment variables needs to be setup:
 
@@ -47,7 +51,7 @@ OpenObserve can use MinIO for storing stream data, following environment variabl
 
 > You need to create the bucket in MinIO first.
 
-## Openstack Swift
+### Openstack Swift
 
 OpenObserve can use Openstack swift for storing stream data, following environment variables needs to be setup:
 
@@ -63,7 +67,7 @@ OpenObserve can use Openstack swift for storing stream data, following environme
 
 > You need to create the bucket in swift first.
 
-## Google GCS
+### Google GCS
 
 OpenObserve can use google cloud storage for storing stream data, following environment variables needs to be setup:
 
@@ -79,7 +83,7 @@ OpenObserve can use google cloud storage for storing stream data, following envi
 
 You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](https://cloud.google.com/storage/docs/aws-simple-migration)
 
-## Alibaba OSS (aliyun)
+### Alibaba OSS (aliyun)
 
 OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following environment variables needs to be setup:
 
@@ -94,7 +98,7 @@ OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following envir
 
 You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://help.aliyun.com/document_detail/64919.html)
 
-## Tencent COS
+### Tencent COS
 
 OpenObserve can use tencent cloud storage for storing stream data, following environment variables needs to be setup:
 
@@ -108,7 +112,7 @@ OpenObserve can use tencent cloud storage for storing stream data, following env
 
 You can refer to: [https://cloud.tencent.com/document/product/436/37421](https://cloud.tencent.com/document/product/436/37421)
 
-## Baidu BOS
+### Baidu BOS
 
 OpenObserve can use baidu cloud storage for storing stream data, following environment variables needs to be setup:
 
@@ -122,7 +126,7 @@ OpenObserve can use baidu cloud storage for storing stream data, following envir
 
 You can refer to: [https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4](https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4)
 
-## Azure Blob
+### Azure Blob
 
 OpenObserve can use azure blob for storing stream data. Following environment variables needs to be setup:
 
@@ -133,3 +137,125 @@ OpenObserve can use azure blob for storing stream data. Following environment va
 | AZURE_STORAGE_ACCOUNT_NAME | Storage account name | Need to provide mandatorily                  |
 | AZURE_STORAGE_ACCESS_KEY   | Access key           | Need to provide mandatorily                  |
 | ZO_S3_BUCKET_NAME          | Blob Container name  | Need to provide mandatorily                  |
+
+
+## Metadata
+
+Default meta store is SQLite and can be changed by using `ZO_META_STORE` environment variable.
+
+### etcd
+
+`ZO_META_STORE=etcd`
+
+While etcd is used as the cluster coordinator it is also set as the default meta store by the older helm charts. Newer helm charts released after Feb 23 2024 use postgres as the metastore.
+
+### SQLite
+
+`ZO_META_STORE=sqlite`
+
+Installations running on a single node can use SQLite as metadata store. You do not need to take any extra steps to use SQLite. This is generally not recommended as losing the SQLite data will causing OpenObserve to not operate.
+
+### PostgreSQL
+
+`ZO_META_STORE=postgres`
+
+This is the recommended metastore as it is more reliable and scalable. A lot of service providers provide managed postgres service that you can rely upon.
+
+Default helm chart released after Feb 23, 2024 use [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the metastore. these instances provide great HA capability and backup and restore is much easier too in case its required.
+
+### DynamoDB
+
+`ZO_META_STORE=dynamodb`
+
+If you are in AWS and want to have a great managed service for metadata store, you can use DynamoDB. 
+
+### MySQL
+
+`ZO_META_STORE=mysql`
+
+Use this if you prefer MySQL for any reason.
+
+## Migration of metadata store
+
+Migration can be done using OpenObserve binary as a CLI.
+
+```
+./openobserve -h
+OpenObserve is an observability platform that allows you to capture, search, and analyze your logs, metrics, and traces.
+
+Usage: openobserve [COMMAND]
+
+Commands:
+  reset               reset openobserve data
+  import              import openobserve data
+  export              export openobserve data
+  view                view openobserve data
+  init-dir            init openobserve data dir
+  migrate-file-list   migrate file-list
+  migrate-meta        migrate meta
+  migrate-dashboards  migrate-dashboards
+  delete-parquet      delete parquet files from s3 and file_list
+  help                Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help
+```
+
+You must use the `migrate-meta` command to migrate metastore.
+
+```shell
+./openobserve migrate-meta  -h
+migrate meta
+
+Usage: openobserve migrate-meta --from <from> --to <to>
+
+Options:
+  -f, --from <from>  migrate from: sled, sqlite, etcd, mysql, postgresql
+  -t, --to <to>      migrate to: sqlite, etcd, mysql, postgresql
+  -h, --help         Print help
+```
+
+You must use `migrate-file-list` command to migrate the parquet file list
+```shell
+./openobserve   migrate-file-list -h                         
+migrate file-list
+
+Usage: openobserve migrate-file-list [OPTIONS] --from <from> --to <to>
+
+Options:
+  -p, --prefix <prefix>  only migrate specified prefix, default is all
+  -f, --from <from>      migrate from: sled, sqlite, etcd, mysql, postgresql
+  -t, --to <to>          migrate to: sqlite, mysql, postgresql
+  -h, --help             Print help
+```
+
+### SQLite to postgres
+
+All the commands must be run from the server where OpenObserve is installed.
+
+1. Download latest version of openobserve binary
+1. Set following environment variables
+  ```shell
+  $ export ZO_META_STORE=postgres
+  $ export ZO_META_POSTGRES_DSN=postgresql://user:password@server-address/app
+  ```
+1. Make sure that OpenObserve server is not running and ingesting logs.
+
+Now run the command 
+
+```shell
+./openobserve migrate-meta -f sqlite -t postgresql     
+```
+
+This will migrate metadata.
+
+Now we will need to migrate the file list from sqlite to postgres. File list is the list of parquet files and acts as the file list index.:
+
+```shell
+./openobserve migrate-file-list --from sqlite --to postgres
+```
+
+This will migrate the file list. 
+
+
+
