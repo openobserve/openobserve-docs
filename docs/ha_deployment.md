@@ -16,9 +16,30 @@ curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/c
 
 You can use `etcd`, `PostgreSQL` or `MySQL` as metadata storage.
 
+The official helm chart (starting Feb 23rd 2024) uses `PostgreSQL` as metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you. cloudnative-pg operator is used to install/manage the PostgreSQL cluster.
+
 When using `PostgreSQL` or `MySQL` as metadata storage, `etcd` is still needed for cluster coordination.
 
-**If you use `PostgreSQL` or `MySQL` as metadata storage, `etcd` will not store any data. If there are problems, you can delete and reinstall the etcd cluster.**
+**If you use `PostgreSQL` or `MySQL` as metadata store, `etcd` will not store any data. If there are problems with etcd cluster, you can delete and reinstall the etcd cluster.**
+
+### PostgreSQL
+
+You don't need to do anything if you are using the official helm chart and want to use bundled PostgreSQL. 
+
+If you want to use external PostgreSQL, you can configure as below. You need to create the database first. In this example we use `openobserve` as database name.
+
+```yaml
+config:
+  ZO_META_STORE: "postgres"
+  ZO_META_POSTGRES_DSN: "postgres://postgres:12345678@localhost:5432/openobserve"
+```
+
+Also disable bundled PostgreSQL
+
+```yaml
+postgres:
+  enabled: false # disable bundled PostgreSQL
+```
 
 ### Etcd
 
@@ -34,16 +55,6 @@ etcd:
   externalUrl: "my_custom_host.com:2379" # if bundled is false then this is required
 ```
 
-### PostgreSQL
-
-You need to create the database first, in the example we use `openobserve` as database name.
-
-```yaml
-config:
-  ZO_META_STORE: "postgres"
-  ZO_META_POSTGRES_DSN: "postgres://postgres:12345678@localhost:5432/openobserve"
-```
-
 ### MySQL
 
 You need create the database first, in the example we use `openobserve` as database name.
@@ -54,11 +65,14 @@ config:
   ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
 ```
 
-### ~~DynamoDB~~
+###  <s>DynamoDB</s>
 
-~~Tables will be automatically created if they don't exist.~~
+DynamoDB support for storing OpenObserve metadata is deprecated and will be removed in future releases.
+<s>
 
-~~Enable `dynamo` as metadata store~~
+Tables will be automatically created if they don't exist.
+
+Enable `dynamo` as metadata store
 
 ```yaml
 config:
@@ -111,6 +125,8 @@ Sample IAM policy
   ]
 }
 ```
+
+</s>
 
 ## Configuration
 
@@ -246,17 +262,25 @@ Add/Modify following to values.yaml
 
 ### Installation
 
+Install the Cloud Native PostgreSQL Operator. This is a prerequisite for openobserve helm chart. This helm chart sets up a postgres database cluster (1 primary + 1 replica) and uses it as metadata store of OpenObserve.
+```shell
+kubectl apply -f \
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.1.yaml
+```
+
+Install OpenObserve using the helm chart.
+
 ```shell
 helm repo add openobserve https://charts.openobserve.ai
 helm repo update
 
 kubectl create ns openobserve
 
-helm --namespace openobserve -f values.yaml install zo1 openobserve/openobserve
+helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
 ```
 
 ### Uninstallation
 
 ```shell
-helm delete zo1
+helm delete o2
 ```
