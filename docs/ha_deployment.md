@@ -282,5 +282,5 @@ helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
 ### Uninstallation
 
 ```shell
-helm delete o2
+helm --namespace openobserve delete o2
 ```
