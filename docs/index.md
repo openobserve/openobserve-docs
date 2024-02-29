@@ -5,8 +5,6 @@
 
 ## Project Status, Features and Roadmap
 
-OpenObserve is currently in alpha, but don't let that stop you from trying it out. We have done extensive internal testing, but are looking for external feedback before we put the label of GA (Generally Available).
-
 Following is the list of available features and roadmap.
 
 | # | Feature                                                       | Status              |
