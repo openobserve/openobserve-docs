@@ -90,7 +90,7 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 | ZO_DISK_CACHE_ENABLED       | true  | enable on-disk caching for files. Latest files are cached for accelerating queries. when the memory cache is not enough OpenObserve will try to cache in local disk, you can consider the memory cache to be first level cache and disk cache to be second level.              |
 | ZO_DISK_CACHE_MAX_SIZE      | -  | default 50% of the total free disk, one can set it to desired amount unit: MB    |
 | ZO_DISK_CACHE_SKIP_SIZE     | -  | default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB   |
-| ZO_DISK_CACHE_MAX_SIZE      | -  | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB   |
+| ZO_DISK_CACHE_RELEASE_SIZE  | -  | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB   |
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
   
