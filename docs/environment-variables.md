@@ -17,6 +17,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_GRPC_PORT                  | 5081          | No            | openobserve server listen gRPC port |
 | ZO_GRPC_ADDR                  |               | No            | openobserve server listen gRPC ip address |
 | ZO_GRPC_ORG_HEADER_KEY        | openobserve-org-id   | No            | header key for sending organization information for `traces` using OTLP over grpc |
+| ZO_GRPC_STREAM_HEADER_KEY    |  stream-name   | No            | header key for sending stream-name information for `traces` using OTLP over grpc |
 | ZO_ROUTE_TIMEOUT              | 600           | No            | timeout for router node.             |
 | ZO_INSTANCE_NAME              | -             | No            | in the cluster mode, each node has a instance name, default is instance hostname. |
 | ZO_DATA_DIR                   | ./data/openobserve/        | No         | Defaults to "data" folder in current working directory if not provided.   |
@@ -60,7 +61,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_QUERY_TIMEOUT              | 600           | No            | Default timeout of query, unit: seconds |
 | ZO_HTTP_WORKER_NUM            | 0             | No            | number of threads for http services, default equal to cpu_num. |
 | ZO_HTTP_WORKER_MAX_BLOCKING   | 1024          | No            | number of per http thread blocking connection in queue |
-| ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours  |
+| ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours |
 | ZO_COMPACT_ENABLED            | true          | No            | enable compact for small files. |
 | ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is `60s`, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
@@ -85,7 +86,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_METRICS_FILE_RETENTION     | daily         | No            | metrics streams default time partiton level: daily, supported: hourly, daily |
 | ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-duplication for metrics |
 | ZO_METRICS_LEADER_PUSH_INTERVAL | 15          | No            | interval at which current leader information is updated to metadata store , default 15s, unit: second |
-| ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second  |
+| ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second |
 | ZO_PROMETHEUS_HA_CLUSTER | cluster |          | No            | for Prometheus cluster deduplication |
 | ZO_PROMETHEUS_HA_REPLICA | `__replica__`      | No            | for Prometheus cluster deduplication |
 | ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
@@ -97,7 +98,7 @@ OpenObserve is configure through the use of below environment variables.
 | O2_DEX_CLIENT_ID              | -             | Yes           | Client id of static client |
 | O2_DEX_CLIENT_SECRET          | -             | Yes           | Client secret of static client |
 | O2_DEX_BASE_URL               | -             | Yes           | URL of the Dex identity provider |
-| O2_CALLBACK_URL               | -             | Yes           | Set this value to `<openobserve base url>/web/cb`, after sucessful token received from dex, user will be redirected to this page   |
+| O2_CALLBACK_URL               | -             | Yes           | Set this value to `<openobserve base url>/web/cb`, after sucessful token received from dex, user will be redirected to this page  |
 | O2_DEX_REDIRECT_URL           | -             | Yes           | Set this value to `<openobserve base url>/config/callback`, Should match to redirect uri specified in dex |
 | O2_DEX_SCOPES                 | openid profile email groups offline_access | No            | scopes to be fetched from dex   |
 | O2_DEX_GROUP_ATTRIBUTE        | ou            | No            | Maps user to OpenObserve organization. |

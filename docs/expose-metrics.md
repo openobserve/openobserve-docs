@@ -21,8 +21,8 @@ endpoint: `/metrics`
 | ingester  | ingest_records                 | organization, stream, stream_type   | Counter   | - |
 | -         | ingest_bytes                   | organization, stream, stream_type   | Counter   | - |
 | -         | ingest_wal_used_bytes          | organization, stream_type           | Gauge     | currently WAL total size |
-| -         | ingest_wal_write_bytes         | organization, stream_type           | Counter   | WAL write latency        |
-| -         | ingest_wal_read_bytes          | organization, stream_type           | Counter   | WAL read latency         |
+| -         | ingest_wal_write_bytes         | organization, stream_type           | Counter   | Ingestor WAL write bytes        |
+| -         | ingest_wal_read_bytes          | organization, stream_type           | Counter   | Ingestor WAL read bytes         |
 | -         | ingest_memtable_arrow_bytes    | -                                   | Gauge     | Ingestor in memory bytes of arrow format |
 | -         | ingest_memtable_bytes          | -                                   | Gauge     | Ingestor in memory bytes of json format  |
 | -         | ingest_memtable_files          | -                                   | Gauge     | Ingestor in memory files |
