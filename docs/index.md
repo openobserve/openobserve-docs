@@ -22,7 +22,7 @@ Following is the list of available features and roadmap.
 | 11 | Multi-tenancy                                                | Available           |
 | 12 | Ingestion API compatibility with Elasticsearch               | Available           |
 | 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](zplane)    |
-| 14 | Scheduled Alerts (Based on logs)                             | Available           |
+| 14 | Standar alerts (Based on logs)                             | Available           |
 | 15 | Real time Alerts (Based on logs)                             | Available           |
 | 16 | High Availability (HA) and clustering                        | Available           |
 | 17 | Stateless nodes                                              | Available           |
@@ -35,7 +35,7 @@ Following is the list of available features and roadmap.
 | 24 | Metrics                                                      | Available   |
 | 25 | PromQL support for metrics                                   | Available (97% PromQL compliant)  |
 | 26 | Traces                                                       | Available   |
-| 27 | Scheduled Alerts (Based on metrics)                          | Available            |
+| 27 | Standar alerts (Based on metrics)                          | Available            |
 | 28 | Real time Alerts (Based on metrics)                          | Available            |
 | 29 | Template based alert target (Allows alerting to slack, teams and many more)  | Available  |
 | 30 | Send alerts to Prometheus alertmanager                       | Available           |

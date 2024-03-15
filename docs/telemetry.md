@@ -19,7 +19,7 @@ We use Segment, a platform for data collection and management, to collect usage 
 | num_ingest_functions      | Count of ingest functions             | 5                     |
 | num_query_functions       | Count of query functions              | 10                    |
 | real_time_alerts          | Count of real time alerts             | 3                     |      
-| scheduled_alerts          | Count of scheduled alerts             | 2                     |
+| scheduled_alerts          | Count of Standar alerts             | 2                     |
 | is_local_mode             | Is local mode deployment              | true/false            |
 | local_mode_storage        | Storage type used for local mode      | disk/s3               |
 | is_HA_mode                | Is Highly available deployment        | true/false            |

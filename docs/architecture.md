@@ -91,4 +91,4 @@ Router dispatches requests to ingester or querier. It also responds with the GUI
 
 ### AlertManager
 
-AlertManager runs the scheduled alert queries and sends notification.
+AlertManager runs the Standar alert queries and sends notification.
