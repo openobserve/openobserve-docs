@@ -64,10 +64,10 @@ Use any tools or directory use `kubectl -n openobserve exec etcd-N -- bash` logi
 You can use the command `env | grep ETCD_INITIAL_CLUSTER` to check current config for initial cluster.
 
 ```shell
-!@zo1-etcd-2:/opt/bitnami/etcd$ env | grep ETCD_INITIAL_CLUSTER
+!@openobserve-etcd-2:/opt/bitnami/etcd$ env | grep ETCD_INITIAL_CLUSTER
 ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-k8s
 ETCD_INITIAL_CLUSTER_STATE=existing
-ETCD_INITIAL_CLUSTER=zo1-etcd-0=http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380,zo1-etcd-1=http://zo1-etcd-1.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380,zo1-etcd-2=http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380
+ETCD_INITIAL_CLUSTER=openobserve-etcd-0=http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380,openobserve-etcd-1=http://openobserve-etcd-1.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380,openobserve-etcd-2=http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380
 ```
 
 The result tell us the etcd cluster starting needs to wait 3 node, but we known it can't, so we change the environment only use current node to start.
@@ -77,7 +77,7 @@ Through the command line we can known current pod is `etcd-2`, so we change it l
 > Please note the pod can work for you maybe is `etcd-1` you need to check it first.
 
 ```shell
-ETCD_INITIAL_CLUSTER=zo1-etcd-2=http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380
+ETCD_INITIAL_CLUSTER=openobserve-etcd-2=http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380
 ```
 
 Then start the etcd of this node:
@@ -100,17 +100,17 @@ You need create a new shell for this pod, in our case it is `etcd-2`.
 
 Check current member of this cluster, it should only it self.
 ```shell
-!@zo1-etcd-2:/opt/bitnami/etcd$ etcdctl member list
-3f59fc06477e49f8, started, zo1-etcd-2, http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380, http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2379,http://zo1-etcd.ziox-dev.svc.cluster.local:2379, false
+!@openobserve-etcd-2:/opt/bitnami/etcd$ etcdctl member list
+3f59fc06477e49f8, started, openobserve-etcd-2, http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380, http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2379,http://openobserve-etcd.ziox-dev.svc.cluster.local:2379, false
 ```
 
 Let's add a new member to this cluster:
 
 ```shell
-!@zo1-etcd-2:/opt/bitnami/etcd$ etcdctl member add zo1-etcd-0 http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380
+!@openobserve-etcd-2:/opt/bitnami/etcd$ etcdctl member add openobserve-etcd-0 --peer-urls=http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380
 ```
 
-We use the information from `ENV`. Here we add the member `zo1-etcd-0`. of course you can choose `etcd-1`, it doesn't matter, but the next you need restore this node first.
+We use the information from `ENV`. Here we add the member `openobserve-etcd-0`. of course you can choose `etcd-1`, it doesn't matter, but the next you need restore this node first.
 
 ### 3. Start other pods which can't work
 
@@ -125,7 +125,8 @@ rm -fR /bitnami/etcd/data/*
 Second, change the evironment for the cluster:
 
 ```shell
-ETCD_INITIAL_CLUSTER=zo1-etcd-0=http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380,zo1-etcd-2=http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380
+ETCD_INITIAL_CLUSTER=openobserve-etcd-0=http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380,openobserve-etcd-2=http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380
+ETCD_INITIAL_CLUSTER_STATE=existing
 ```
 
 > Please notice it include 2 pods, `etcd-0` and `etcd-2`.
@@ -145,9 +146,9 @@ Waiting for seconds, you can see the `etcd` is working.
 You can create a new shell and login into this pod to check it:
 
 ```shell
-!@zo1-etcd-2:/opt/bitnami/etcd$ etcdctl member list
-3f59fc06477e49f8, started, zo1-etcd-2, http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380, http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2379,http://zo1-etcd.ziox-dev.svc.cluster.local:2379, false
-51daebb86180a114, started, zo1-etcd-0, http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380, http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2379,http://zo1-etcd.ziox-dev.svc.cluster.local:2379, false
+!@openobserve-etcd-2:/opt/bitnami/etcd$ etcdctl member list
+3f59fc06477e49f8, started, openobserve-etcd-2, http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380, http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2379,http://openobserve-etcd.ziox-dev.svc.cluster.local:2379, false
+51daebb86180a114, started, openobserve-etcd-0, http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380, http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2379,http://openobserve-etcd.ziox-dev.svc.cluster.local:2379, false
 ```
 
 It should list 2 members.
@@ -157,7 +158,7 @@ Let's add the last member, same steps do again:
 First, add `etcd-1` to the cluster:
 
 ```shell
-!@zo1-etcd-2:/opt/bitnami/etcd$ etcdctl member add zo1-etcd-1 http://zo1-etcd-1.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380
+!@openobserve-etcd-2:/opt/bitnami/etcd$ etcdctl member add openobserve-etcd-1 http://openobserve-etcd-1.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380
 ```
 
 Second, login into the pod `etcd-1`, delete old data and start etcd.
@@ -165,10 +166,10 @@ Second, login into the pod `etcd-1`, delete old data and start etcd.
 Finnaly, it should list 3 members:
 
 ```shell
-!@zo1-etcd-2:/opt/bitnami/etcd$ etcdctl member list
-3f59fc06477e49f8, started, zo1-etcd-2, http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380, http://zo1-etcd-2.zo1-etcd-headless.ziox-dev.svc.cluster.local:2379,http://zo1-etcd.ziox-dev.svc.cluster.local:2379, false
-51daebb86180a114, started, zo1-etcd-0, http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380, http://zo1-etcd-0.zo1-etcd-headless.ziox-dev.svc.cluster.local:2379,http://zo1-etcd.ziox-dev.svc.cluster.local:2379, false
-8f96db53130680d4, started, zo1-etcd-1, http://zo1-etcd-1.zo1-etcd-headless.ziox-dev.svc.cluster.local:2380, http://zo1-etcd-1.zo1-etcd-headless.ziox-dev.svc.cluster.local:2379,http://zo1-etcd.ziox-dev.svc.cluster.local:2379, false
+!@openobserve-etcd-2:/opt/bitnami/etcd$ etcdctl member list
+3f59fc06477e49f8, started, openobserve-etcd-2, http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380, http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2379,http://openobserve-etcd.ziox-dev.svc.cluster.local:2379, false
+51daebb86180a114, started, openobserve-etcd-0, http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380, http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2379,http://openobserve-etcd.ziox-dev.svc.cluster.local:2379, false
+8f96db53130680d4, started, openobserve-etcd-1, http://openobserve-etcd-1.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380, http://openobserve-etcd-1.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2379,http://openobserve-etcd.ziox-dev.svc.cluster.local:2379, false
 ```
 
 Okay, the cluster restored.
