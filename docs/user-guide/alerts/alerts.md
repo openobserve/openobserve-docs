@@ -42,7 +42,7 @@ We can configure the alert like this:
 
 **Threshold** is measured against the number of records returned by the SQL query
 
-![Standar alert](../../images/alerts/standard_alert.png)
+![Standard alert](../../images/alerts/standard_alert.png)
 
 The above alert configuration will result in the following SQL query (It's simplified for understanding):
 
@@ -56,7 +56,7 @@ The above query will be run every 1 minute for the last 2 minutes data. If count
 
 We fire when record count > 0
 
-![Standar alert](../../images/alerts/aggregation_alert.png)
+![Standard alert](../../images/alerts/aggregation_alert.png)
 
 
 ### Scheduled - with SQL
