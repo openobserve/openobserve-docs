@@ -8,8 +8,6 @@ You **`DO NOT`** need grafana for visualizing logs and metrics data from OpenObs
 
 Below are the steps to install and configure the plugin. We will provide guide on how to set up grafana in a kubernetes environment. You can adapt these steps to set up grafana in a non-kubernetes environment.
 
-If you are already familiar with grafana plugin installation, you can download the plugin from [here](https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz) and get started or follow the below steps.
-
 In order to download the grafana plugin please contact us at hello@openobserve.ai
 
 ## Install Grafana
