@@ -35,7 +35,7 @@ You can configure data life cycle to auto delete old data. it is a awesome featu
 To enable this feature, you just need to add an environment:
 
 ```
-ZO_DATA_LIFECYCLE=0
+ZO_COMPACT_DATA_RETENTION_DAYS=30
 ```
 
-The value is how many days you want to keep data. it will auto delete the data older than `N` days.
+The value have to greater than `0`, and it is means how many days you want to keep data. it will auto delete the data older than `N` days.
