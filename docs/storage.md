@@ -163,12 +163,6 @@ This is the recommended metastore as it is more reliable and scalable. A lot of 
 
 Default helm chart released after Feb 23, 2024 use [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the metastore. these instances provide great HA capability and backup and restore is much easier too in case its required.
 
-### DynamoDB
-
-`ZO_META_STORE=dynamodb`
-
-If you are in AWS and want to have a great managed service for metadata store, you can use DynamoDB. 
-
 ### MySQL
 
 `ZO_META_STORE=mysql`

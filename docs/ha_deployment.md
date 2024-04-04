@@ -14,7 +14,7 @@ curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/c
 
 ## Metadata store
 
-You can use `etcd`, `PostgreSQL` or `MySQL` as metadata storage.
+You can use `PostgreSQL` or `MySQL` as metadata storage.
 
 The official helm chart (starting Feb 23rd 2024) uses `PostgreSQL` as metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you. cloudnative-pg operator is used to install/manage the PostgreSQL cluster.
 
@@ -37,6 +37,16 @@ postgres:
   enabled: false # disable bundled PostgreSQL
 ```
 
+### MySQL
+
+You need create the database first, in the example we use `openobserve` as database name.
+
+```yaml
+config:
+  ZO_META_STORE: "mysql"
+  ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
+```
+
 ### Etcd
 
 While using official helm chart, `etcd` for the cluster is already configured for you. You don't need additional configuration. if you want to use external `etcd` cluster, you can configure as below:
@@ -50,79 +60,6 @@ etcd:
   enabled: false # disable emebed etcd
   externalUrl: "my_custom_host.com:2379" # if bundled is false then this is required
 ```
-
-### MySQL
-
-You need create the database first, in the example we use `openobserve` as database name.
-
-```yaml
-config:
-  ZO_META_STORE: "mysql"
-  ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
-```
-
-###  <s>DynamoDB</s>
-
-DynamoDB support for storing OpenObserve metadata is deprecated and will be removed in future releases.
-<s>
-
-Tables will be automatically created if they don't exist.
-
-Enable `dynamo` as metadata store
-
-```yaml
-config:
-  ZO_META_STORE: "dynamo"
-```
-
-IAM role for the serviceAccount to gain AWS IAM credentials to access s3
-
-```yaml
-serviceAccount:
-  create: true
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/openobserve-s3-dynamo
-```
-
-Sample IAM policy
-```json
-{
-  "Id": "Policy1678319681097",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Stmt1678319677242",
-      "Action": [
-        "s3:PutObject",
-        "s3:GetObject",
-        "s3:ListBucket",
-        "s3:DeleteObject"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::mysuperduperbucket/*"
-    },
-    {
-      "Sid": "DynamoDBPolicy",
-      "Effect": "Allow",
-      "Action": [
-        "dynamodb:CreateTable",
-        "dynamodb:ListTables",
-        "dynamodb:Query",
-        "dynamodb:PutItem",
-        "dynamodb:DeleteItem",
-        "dynamodb:Scan",
-        "dynamodb:DescribeTable",
-        "dynamodb:BatchWriteItem", 
-        "dynamodb:UpdateItem", 
-        "dynamodb:UpdateTable"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-</s>
 
 ## Configuration
 

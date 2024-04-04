@@ -7,32 +7,29 @@ OpenObserve can be run in single node or in HA mode in a cluster.
 
 Please refer to [quickstart](./quickstart.md) for single node deployments.
 
-### Sled and Local disk
+### SQLite and Local disk
 
 Use this mode for light usage and testing or if HA is not a requirement for you. (You could still ingest and search over 2 TB on a single machine per day. On a mac M2 in our tests, you can ingest at ~31 MB/Second or 1.8 GB/Min or 2.6 TB/Day with default configuration). This is the default mode for running OpenObserve. Check [Quickstart](./quickstart.md) to find various ways to get this setup done.
 
-![Single node architecture using Sled and local disk](./images/arch-sled-local.png)
+<img src="../images/arch-single-local.jpg" alt="Single node architecture using SQLite and local disk" width="60%"/>
 
-### Sled and Object storage
+### SQLite and Object storage
 
-![Single node architecture using sled and s3](./images/arch-sled-s3.png)
-
-### etcd and object storage
-
-![Single node architecture using etcd and s3](./images/arch-etcd-s3.png)
+<img src="../images/arch-single-s3.jpg" alt="Single node architecture using SQLite and s3" width="60%"/>
 
 ## High Availability (HA) mode
 
 Local disk storage is not supported in HA mode. Please refer to [HA Deployment](./ha_deployment.md) for cluster mode deployment.
 
-### etcd and object storage
-![Single node architecture using etcd and s3](./images/architecture-ha2.jpg)
+<img src="../images/arch-ha.jpg" alt="HA architecture using etcd / NATS and s3" width="80%"/>
 
-Router, Querier and Ingester nodes can be horizontally scaled to accommodate for higher traffic.
+Router, Querier, Ingester, Compactor and AlertManager nodes both can be horizontally scaled to accommodate for higher traffic.
 
-Etcd is used to store metadata like organization, users, functions, alert rules and cluster node information.
+Etcd or NATS is used as cluster coordinator and store the nodes information. it also used for cluster events.
 
-Object Storage (e.g. s3, minio, gcs, etc...) stores all the data of parquet files and file list index.
+MySQL / PostgreSQL is used to store metadata like organization, users, functions, alert rules, stream schema and file list (a index of parquet files).
+
+Object Storage (e.g. s3, minio, gcs, etc...) stores all the data of parquet files.
 
 ## Durability
 
@@ -52,14 +49,28 @@ Ingester is used to receive ingest request and convert data into parquet format 
 
 The data ingestion flow is:
 
-1. receive data from http API request.
-1. parse line by line.
-1. check if there are some functions (ingest time functions) used to transform data. will call each ingest function by the function order. like `func(row)` and will expect to return a row. if empty row is returned then it will drop the record.
+1. receive data from HTTP / gRPC API request.
+1. parse data line by line.
+1. check if there are some functions (ingest functions) used to transform data. will call each ingest function by the function order. like `func(row)` and will expect to return a row. if empty row is returned then it will drop the record.
 1. check timestamp field, convert timestamp, and set current timestamp if there is no time field.
-1. check stream schema to identify if schema needs to be evolved.
-1. write to WAL file by timestamp in hourly buckets.
-1. when max file size or the time is reached, it will convert WAL file to parquet file and move to storage(local or s3). e.g max_file_size=10MB, max_time=10 minutes, then if the file size reaches 10 MB or elapsed time is 10 minutes whichever occurs first, the file will be moved to object storage.
-1. Ingester also does the work of evaluating any real time alerts that have been defined.
+1. check stream schema to identify if schema needs to be evolved. Here if we found the schema need to be update like add new fields or some fields data type changed, we will use `lock` to update schema.
+1. evaluate real time alerts that have been defined for the stream.
+1. write to WAL file by timestamp in hourly buckets and then convert the records by stream in a request to Arrow RecordBatch and write into Memtable. 
+
+    1. Here we create Memtable by `organization/stream_type`, if you only use `logs` it means we only create one Memtable.
+    1. The WAL file and Metable is created by pair. it means one WAL file has one Memtable. the WAL file path is `data/wal/logs`.
+
+1. When the Memtable size reached `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reached `ZO_MAX_FILE_SIZE_ON_DISK=128` MB will move the Memtable to Immutable and create a new Memtable & WAL file for writting data.
+1. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds will dump Immutable to local disk. Here you need to know one Immutable will create multiple parquet files because it might contains multiple streams and multiple partitions. the parquet file path is `data/wal/files`.
+1. Every `ZO_FILE_PUSH_INTERVAL=10` seconds will check local parquet files if each partition total size over than `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file created over than `ZO_MAX_FILE_RETENTION_TIME=600` seconds then will merge all the small files in this partition into big file (each big file will not over `ZO_COMPACT_MAX_FILE_SIZE=256` MB) and then move to object storage.
+
+**Ingester has three parts of data:**
+
+1. data in Memtable
+1. data in Immutable
+1. parquet files in `wal` haven't upload to object storage.
+
+All of these need to be queried.
 
 ### Querier
 
@@ -81,6 +92,16 @@ Tips:
 1. In distributed environment each querier node will just cache a part of the data.
 1. We also have an option to enable caching latest parquet files in memory. The ingester will send a notice to queriers to cache the files when ingester generates a new parquet file and sends it to object storage.
 
+#### Federated Search
+
+The federated search just add a layer over cluster:
+
+1. receive search request from one of the clusters. The node that receives the query request is called `LEADER cluster for the query`. Other clusers are called `WORKER clusters for that query`.
+1. `LEADER clsuter` finds all the clusters from super cluster metadata.
+1. `LEADER cluster` calls gRPC service on each `WORKER cluster` given the same query payload.
+1. `WORKER cluster` do the internal logic described in the above. one of the node will become a `LEADER querier` in the cluster and call other `WORKER queriers` and then merge the result back to `LEADER cluser`.
+1. `LEADER cluster` collects, merges and sends the result back to the usuer.
+
 ### Compactor
 
 Compactor will merge small files into a big file to make the search more efficient. Compactor also handles the data retention policy, full stream deletion and update of file list index.
@@ -91,4 +112,4 @@ Router dispatches requests to ingester or querier. It also responds with the GUI
 
 ### AlertManager
 
-AlertManager runs the Standar alert queries and sends notification.
+AlertManager runs the Standard alert queries, report jobs and sends notification.

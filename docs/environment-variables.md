@@ -25,9 +25,8 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_DATA_WAL_DIR               | ./data/openobserve/wal/    | No         | local WAL data directory. |
 | ZO_DATA_STREAM_DIR            | ./data/openobserve/stream/ | No         | streams local data storage directory ,applicable only for local mode. |
 | ZO_DATA_CACHE_DIR             | ./data/openobserve/cache/ | No         | local query cache storage directory, applicable only for cluster mode. |
-| ZO_META_STORE                 | -             | No         | Default is `sqlite` for local mode, `etcd` for cluster mode. and supported values are: `sqlite`, `etcd`, `postgres`, `dynamodb`, the `sqlite` only support for local mode. |
+| ZO_META_STORE                 | -             | No         | Default is `sqlite` for local mode, `etcd` for cluster mode. and supported values are: `sqlite`, `etcd`, `postgres`, the `sqlite` only support for local mode. |
 | ZO_META_POSTGRES_DSN    | -             | No         | If you enable `postgres` as meta store, you need configure the database source address, like this: `postgres://postgres:12345678@localhost:5432/openobserve` |
-| ZO_META_DYNAMO_PREFIX         | -             | No         | If you enable `dynamodb` as meta store, you need configure DynamoDB table prefix, default use s3 bucket name. |
 | ZO_META_CONNECTION_POOL_MIN_SIZE         | -             | No         | Minimum number of connections created in the connection pool size for `postgres`, `sqlite`, and `mysql`. Defaults to `cpu_limits` |
 | ZO_META_CONNECTION_POOL_MAX_SIZE         | -             | No         | Maximum number of connections created in the connection pool size for `postgres`, `sqlite`, and `mysql`. Defaults to `cpu_limits * 2` |
 | ZO_COLUMN_TIMESTAMP           | _timestamp    | No            | for each log line, if not present with this key , we add a timestamp with this key, used for queries with time range. |
@@ -129,14 +128,6 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_ETCD_CERT_FILE             | -             | No            | authentication with TLS, cert file path |
 | ZO_ETCD_KEY_FILE              | -             | No            | authentication with TLS, key file path |
 | ZO_ETCD_DOMAIN_NAME           | -             | No            | authentication with TLS, cert domain name, default is empty, OpenObserve uses the domain in the cert |
-
-
-## sled db
-
-| Environment Variable          | Default Value | Mandatory     | Description                                                               |
-| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
-| ZO_SLED_DATA_DIR              | ./data/openobserve/db/  | No  | sled db data directory. |
-| ZO_SLED_PREFIX                | /openobserve/oxide/  | No            | sled db keys prefix . |
 
 
 ## S3
