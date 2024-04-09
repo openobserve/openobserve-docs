@@ -49,7 +49,7 @@ Ingester is used to receive ingest request and convert data into parquet format 
 
 The data ingestion flow is:
 
-<img src="../images/Ingester_final.jpeg" alt="Data Ingestion Flow" width="90%"/>
+<img src="../images/arch-sequence-ingester.svg" alt="Data Ingestion Flow" width="90%"/>
 
 1. receive data from HTTP / gRPC API request.
 1. parse data line by line.
@@ -80,7 +80,7 @@ Querier is used to query data. Queriers nodes are fully stateless.
 
 The data query flow is:
 
-<img src="../images/Querier_flow.jpeg" alt="Query Flow" width="90%"/>
+<img src="../images/arch-sequence-querier.svg" alt="Query Flow" width="90%"/>
 
 1. receive search request using http API. The node receiving the query request becomes `LEADER querier for the query`. Other queriers are `WORKER queriers for query`.
 1. `LEADER` parses and verifies SQL.
