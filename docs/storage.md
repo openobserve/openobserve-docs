@@ -223,14 +223,13 @@ Options:
   -h, --help             Print help
 ```
 
-### SQLite to postgres
+### SQLite to PostgreSQL
 
 All the commands must be run from the server where OpenObserve is installed.
 
 1. Download latest version of openobserve binary
 1. Set following environment variables
   ```shell
-  $ export ZO_META_STORE=postgres
   $ export ZO_META_POSTGRES_DSN=postgresql://user:password@server-address/app
   ```
 1. Make sure that OpenObserve server is not running and ingesting logs.
@@ -238,7 +237,7 @@ All the commands must be run from the server where OpenObserve is installed.
 Now run the command 
 
 ```shell
-./openobserve migrate-meta -f sqlite -t postgresql     
+./openobserve migrate-meta --from sqlite --to postgres
 ```
 
 This will migrate metadata.
@@ -251,5 +250,10 @@ Now we will need to migrate the file list from sqlite to postgres. File list is 
 
 This will migrate the file list. 
 
+Then change the metadata store:
 
+```shell
+  $ export ZO_META_STORE=postgres
+```
 
+Restart OpenObserve, it should working with PostgreSQL now.
