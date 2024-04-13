@@ -198,7 +198,7 @@ Options:
 You must use the `migrate-meta` command to migrate metastore.
 
 ```shell
-./openobserve migrate-meta  -h
+./openobserve migrate-meta -h
 migrate meta
 
 Usage: openobserve migrate-meta --from <from> --to <to>
@@ -211,7 +211,7 @@ Options:
 
 You must use `migrate-file-list` command to migrate the parquet file list
 ```shell
-./openobserve   migrate-file-list -h                         
+./openobserve migrate-file-list -h                         
 migrate file-list
 
 Usage: openobserve migrate-file-list [OPTIONS] --from <from> --to <to>
@@ -229,10 +229,16 @@ All the commands must be run from the server where OpenObserve is installed.
 
 1. Download latest version of openobserve binary
 1. Set following environment variables
+
   ```shell
-  $ export ZO_META_POSTGRES_DSN=postgresql://user:password@server-address/app
+  $ export ZO_META_POSTGRES_DSN="postgresql://user:password@server-address/app"
   ```
-1. Make sure that OpenObserve server is not running and ingesting logs.
+  or add this environment to your `.env` or kubernets config
+  ```yaml
+  ZO_META_POSTGRES_DSN: "postgresql://user:password@server-address/app"
+  ```
+
+1. Make sure that OpenObserve server is not running and ingesting logs. If you are running in cluser mode please scaling `ingester` to zero. and login into a `compactor` pod run this command.
 
 Now run the command 
 
@@ -242,6 +248,10 @@ Now run the command
 
 This will migrate metadata.
 
+If you are using kubernets please change the image tag to `debug` version, like `v0.10.0` the debug tag is: `public.ecr.aws/zinclabs/openobserve:v0.10.0-debug`
+
+Then you can login into the pod and run the command.
+
 Now we will need to migrate the file list from sqlite to postgres. File list is the list of parquet files and acts as the file list index.:
 
 ```shell
@@ -250,10 +260,18 @@ Now we will need to migrate the file list from sqlite to postgres. File list is 
 
 This will migrate the file list. 
 
-Then change the metadata store:
+If you are using kubernets please change the image tag to `debug` version, like `v0.10.0` the debug tag is: `public.ecr.aws/zinclabs/openobserve:v0.10.0-debug`
 
-```shell
+Then you can login into the pod and run the command.
+
+The last step is changing the metadata store:
+
+  ```shell
   $ export ZO_META_STORE=postgres
-```
+  ```
+  or add this environment to your `.env` or kubernets config
+  ```yaml
+  ZO_META_STORE: "postgres"
+  ```
 
 Restart OpenObserve, it should working with PostgreSQL now.
