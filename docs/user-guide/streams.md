@@ -11,7 +11,7 @@ To navigate to streams in OpenObserve , select preferred organization using orga
 Streams screen details :
 
 1. Search in listed streams
-1. Refresh stats for listed streams , stats assocaited with streams include number of documents , ingested data size etc.
+1. Refresh stats for listed streams , stats associated with streams include number of documents , ingested data size etc.
 1. Name of the stream
 1. Type of stream , only logs are supported currently, metrics & traces will be supported in further releases
 1. Number of documents/row belonging to the stream
@@ -30,6 +30,6 @@ Streams details screen:
 1. Name of the stream
 1. Start & end time for steam, these are based timestamps on log records in stream
 1. Name of property/field belonging to the stream
-1. Inferred type of the property, openobserve obsever infers schema for data being ingested
+1. Inferred type of the property, openobserve infers schema for data being ingested
 1. Checkbox to select/deselect a property of the stream as full text search keys, full text search keys are used to search a term when using match_all, match_all_ignore_case
 1. Checkbox to select/deselect a property of the stream as partitioning key, data ingested after updating the setting will be partitioned using updated keys

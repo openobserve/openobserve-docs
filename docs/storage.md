@@ -147,7 +147,7 @@ Default meta store is SQLite and can be changed by using `ZO_META_STORE` environ
 
 `ZO_META_STORE=etcd`
 
-While etcd is used as the cluster coordinator it is also set as the default meta store by the older helm charts. Newer helm charts released after Feb 23 2024 use postgres as the metastore.
+While etcd is used as the cluster coordinator it is also set as the default meta store by the older helm charts. Newer helm charts released after Feb 23 2024 use postgres as the meta store.
 
 ### SQLite
 
@@ -159,9 +159,9 @@ Installations running on a single node can use SQLite as metadata store. You do 
 
 `ZO_META_STORE=postgres`
 
-This is the recommended metastore as it is more reliable and scalable. A lot of service providers provide managed postgres service that you can rely upon.
+This is the recommended meta store as it is more reliable and scalable. A lot of service providers provide managed postgres service that you can rely upon.
 
-Default helm chart released after Feb 23, 2024 use [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the metastore. these instances provide great HA capability and backup and restore is much easier too in case its required.
+Default helm chart released after Feb 23, 2024 use [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the meta store. these instances provide great HA capability and backup and restore is much easier too in case its required.
 
 ### MySQL
 
@@ -195,7 +195,7 @@ Options:
   -h, --help     Print help
 ```
 
-You must use the `migrate-meta` command to migrate metastore.
+You must use the `migrate-meta` command to migrate meta store.
 
 ```shell
 ./openobserve migrate-meta -h
@@ -233,12 +233,12 @@ All the commands must be run from the server where OpenObserve is installed.
   ```shell
   $ export ZO_META_POSTGRES_DSN="postgresql://user:password@server-address/app"
   ```
-  or add this environment to your `.env` or kubernets config
+  or add this environment to your `.env` or kubernetes config
   ```yaml
   ZO_META_POSTGRES_DSN: "postgresql://user:password@server-address/app"
   ```
 
-1. Make sure that OpenObserve server is not running and ingesting logs. If you are running in cluser mode please scaling `ingester` to zero. and login into a `compactor` pod run this command.
+1. Make sure that OpenObserve server is not running and ingesting logs. If you are running in cluster mode please scaling `ingester` to zero. and login into a `compactor` pod run this command.
 
 Now run the command 
 
@@ -248,7 +248,7 @@ Now run the command
 
 This will migrate metadata.
 
-If you are using kubernets please change the image tag to `debug` version, like `v0.10.0` the debug tag is: `public.ecr.aws/zinclabs/openobserve:v0.10.0-debug`
+If you are using kubernetes please change the image tag to `debug` version, like `v0.10.0` the debug tag is: `public.ecr.aws/zinclabs/openobserve:v0.10.0-debug`
 
 Then you can login into the pod and run the command.
 
@@ -260,7 +260,7 @@ Now we will need to migrate the file list from sqlite to postgres. File list is 
 
 This will migrate the file list. 
 
-If you are using kubernets please change the image tag to `debug` version, like `v0.10.0` the debug tag is: `public.ecr.aws/zinclabs/openobserve:v0.10.0-debug`
+If you are using kubernetes please change the image tag to `debug` version, like `v0.10.0` the debug tag is: `public.ecr.aws/zinclabs/openobserve:v0.10.0-debug`
 
 Then you can login into the pod and run the command.
 
@@ -269,7 +269,7 @@ The last step is changing the metadata store:
   ```shell
   $ export ZO_META_STORE=postgres
   ```
-  or add this environment to your `.env` or kubernets config
+  or add this environment to your `.env` or kubernetes config
   ```yaml
   ZO_META_STORE: "postgres"
   ```

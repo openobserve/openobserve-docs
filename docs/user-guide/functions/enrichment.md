@@ -11,7 +11,7 @@ Some of the examples of enrichment are:
     - You have a country code field and you want the full country name.
     - You have a status code 1, 2, 3 and you want to add a new field that says if the status is success or failure or unknown.
     - You have an IP address and you want to add a new field that says if the IP address is internal or external.
-    - You have an IP address and you want to get the geolocation of the IP address.
+    - You have an IP address and you want to get the geo location of the IP address.
     - protocol number to protocol name
   
 In order to do enrichment you will need to create a enrichment table. A enrichment table is a CSV file that has the reference data that you want to use to enrich the actual data. 

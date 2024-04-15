@@ -8,7 +8,7 @@ But default we didn't enable it, if you want enable should add cargo flags like 
 RUSTFLAGS='-C target-cpu=native' cargo build --release --features mimalloc
 ```
 
-if you want better control to release memory quickly, you can set some evironments
+if you want better control to release memory quickly, you can set some environments
 
 ```
 export MIMALLOC_VERBOSE=1
