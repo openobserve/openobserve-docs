@@ -47,7 +47,7 @@ OpenObserve can use MinIO for storing stream data, following environment variabl
 | ZO_S3_ACCESS_KEY     | -     | access key                                      |
 | ZO_S3_SECRET_KEY     | -     | secret key                                      |
 | ZO_S3_BUCKET_NAME    | -     | bucket name                                     |
-| ZO_S3_PROVIDER       | s3    | used to specify settings like force_style=true  |
+| ZO_S3_PROVIDER       | minio    | used to specify settings like force_style=true  |
 
 > You need to create the bucket in MinIO first.
 
