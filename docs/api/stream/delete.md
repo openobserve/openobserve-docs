@@ -1,6 +1,6 @@
 # Delete stream
 
-Endpoint: `DELETE /api/{organization}/{stream}`
+Endpoint: `DELETE /api/{organization}/streams/{stream}`
 
 ## Request
 
