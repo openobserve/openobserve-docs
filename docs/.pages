@@ -15,6 +15,7 @@ nav:
 - How To: howto
 - API Reference: api
 - Ingestion: ingestion
+- Migration: migration
 - SQL functions reference: functions.md
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
