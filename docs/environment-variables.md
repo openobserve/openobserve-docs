@@ -36,7 +36,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_FEATURE_PER_THREAD_LOCK    | false         | No            | default we share a lock for each thread for WAL, enable this option to create one lock for per thread, it improves ingest performance, but results in more small data files, which will be merged by compactor to create larger merged files. This is particularly helpful when you are ingesting high speed data in a  single stream. |
 | ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS | false     | No            | default full text search uses `log`, `message`, `msg`, `content`, `data`, `events`, `json` or selected stream fields. Enabling this option will perform full text search on each field, may hamper full text search performance |
 | ZO_FEATURE_FULLTEXT_EXTRA_FIELDS | -          | No            | default full text search uses `log`, `message`, `msg`, `content`, `data`, `events`, `json` as global setting, but you can add more fields as global full text search fields. eg: `field1,field2` |
-| ZO_WAL_MEMORY_MODE_ENABLED    | false         | No            | For performance, we can write WAL file into memory instead of write into disk, this will increase ingestion performance, but it has dast lose risk when the system crashed. |
+| ZO_WAL_MEMORY_MODE_ENABLED    | false         | No            | For performance, we can write WAL file into memory instead of write into disk, this will increase ingestion performance, but it has data lose risk when the system crashed. |
 | ZO_WAL_LINE_MODE_ENABLED      | true          | No            | Default we write WAL file line by line, it is a bit slow but it safety, you can disable it to increase a bit performance, but it increase WAL file incorrect risk. |
 | ZO_PARQUET_COMPRESSION        | zstd          | No            | Default we use `zstd` as the parquet file compress algorithm. but you can choose: `snappy`, `gzip`, `brotli`, `lz4`, `zstd`. |
 | ZO_UI_ENABLED                 | true          | No            | default we enable embed UI, one can disable it. |
@@ -46,6 +46,8 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_BLOOM_FILTER_ENABLED       | true          | No            | Enable by default, but only enabled for trace_id field |
 | ZO_BLOOM_FILTER_DEFAULT_FIELDS | -            | No            | Add more fields support by bloomfilter, will add UI setting later |
 | ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
+| ZO_FEATURE_INGEST_BUFFER_ENABLED | false      | No            | enable it to enqueue ingestion requests for background processing, used to improve responsiveness of ingestion endpoitns |
+| ZO_INGEST_BUFFER_QUEUE_NUM    | 5             | No            | number of queues to buffer ingestion requests. `ZO_FEATURE_INGEST_BUFFER_ENABLED` must be true |
 | OTEL_OTLP_HTTP_ENDPOINT       | -             | No            | remote trace server endpoint. |
 | ZO_TRACING_HEADER_KEY         | Authorization | No            | remote trace server endpoint authentication header key. |
 | ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
@@ -62,7 +64,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_QUERY_TIMEOUT              | 600           | No            | Default timeout of query, unit: seconds |
 | ZO_HTTP_WORKER_NUM            | 0             | No            | number of threads for http services, default equal to cpu_num. |
 | ZO_HTTP_WORKER_MAX_BLOCKING   | 1024          | No            | number of per http thread blocking connection in queue |
-| ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest upto `now - 5 hours` data, default 5 hours, unit: hours |
+| ZO_INGEST_ALLOWED_UPTO        | 5             | No            | allow historical data ingest up to `now - 5 hours` data, default 5 hours, unit: hours |
 | ZO_COMPACT_ENABLED            | true          | No            | enable compact for small files. |
 | ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is `60s`, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
@@ -80,26 +82,26 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_DISK_CACHE_RELEASE_SIZE    | -             | No            | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB |
 | ZO_TELEMETRY                  | true          | No            | Send anonymous telemetry info for improving OpenObserve. You can disable by set it to `false` |
 | ZO_TELEMETRY_URL              | https://e1.zinclabs.dev | No  | OpenTelemetry report URL. You can report to your own server. |
-| ZO_HEARTBEAT_INTERVAL         | 30            | No            | OpenTelemetry report frequncy. unit is: minutes, default is 30m |
+| ZO_HEARTBEAT_INTERVAL         | 30            | No            | OpenTelemetry report frequency. unit is: minutes, default is 30m |
 | ZO_PROMETHEUS_ENABLED	        | false         | No            | Enables prometheus metrics on /metrics endpoint              |
-| ZO_LOGS_FILE_RETENTION        | hourly        | No            | log streams default time partiton level: hourly, supported: hourly, daily |
-| ZO_TRACES_FILE_RETENTION      | hourly        | No            | traces streams default time partiton level: hourly, supported: hourly, daily |
-| ZO_METRICS_FILE_RETENTION     | daily         | No            | metrics streams default time partiton level: daily, supported: hourly, daily |
+| ZO_LOGS_FILE_RETENTION        | hourly        | No            | log streams default time partition level: hourly, supported: hourly, daily |
+| ZO_TRACES_FILE_RETENTION      | hourly        | No            | traces streams default time partition level: hourly, supported: hourly, daily |
+| ZO_METRICS_FILE_RETENTION     | daily         | No            | metrics streams default time partition level: daily, supported: hourly, daily |
 | ZO_METRICS_DEDUP_ENABLED      | true          | No            | enable de-duplication for metrics |
 | ZO_METRICS_LEADER_PUSH_INTERVAL | 15          | No            | interval at which current leader information is updated to metadata store , default 15s, unit: second |
-| ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isnt received from current leader, default 30s, unit: second |
+| ZO_METRICS_LEADER_ELECTION_INTERVAL | 30      | No            | interval after which new leader for metrics will be elected , when data isn't received from current leader, default 30s, unit: second |
 | ZO_PROMETHEUS_HA_CLUSTER | cluster |          | No            | for Prometheus cluster deduplication |
 | ZO_PROMETHEUS_HA_REPLICA | `__replica__`      | No            | for Prometheus cluster deduplication |
 | ZO_PRINT_KEY_CONFIG           | false         | No            | Print key config information in logs |
 | ZO_PRINT_KEY_SQL              | false         | No            | Print key sql in logs |
-| ZO_USAGE_REPORTING_ENABLED              | false         | No            | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable chargeback for internal teams. |
+| ZO_USAGE_REPORTING_ENABLED              | false         | No            | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable charge back for internal teams. |
 | ZO_USAGE_ORG                            | _meta_         | No            | To which org the usage data should be sent |
-| ZO_USAGE_BATCH_SIZE                     | 2000         | No            | How many requests should be batched before flushing the usage data tfrom memory to disk |
+| ZO_USAGE_BATCH_SIZE                     | 2000         | No            | How many requests should be batched before flushing the usage data from memory to disk |
 | O2_DEX_ENABLED                | false         | Yes           | Enables SSO in OpenObserve using Dex. |
 | O2_DEX_CLIENT_ID              | -             | Yes           | Client id of static client |
 | O2_DEX_CLIENT_SECRET          | -             | Yes           | Client secret of static client |
 | O2_DEX_BASE_URL               | -             | Yes           | URL of the Dex identity provider |
-| O2_CALLBACK_URL               | -             | Yes           | Set this value to `<openobserve base url>/web/cb`, after sucessful token received from dex, user will be redirected to this page  |
+| O2_CALLBACK_URL               | -             | Yes           | Set this value to `<openobserve base url>/web/cb`, after successful token received from dex, user will be redirected to this page  |
 | O2_DEX_REDIRECT_URL           | -             | Yes           | Set this value to `<openobserve base url>/config/callback`, Should match to redirect uri specified in dex |
 | O2_DEX_SCOPES                 | openid profile email groups offline_access | No            | scopes to be fetched from dex   |
 | O2_DEX_GROUP_ATTRIBUTE        | ou            | No            | Maps user to OpenObserve organization. |

@@ -94,7 +94,7 @@ Waiting for seconds, you can see the `etcd` is working.
 
 Then let's restore other nodes.
 
-Before swich to other pod, we need to add a new member to this cluster.
+Before switch to other pod, we need to add a new member to this cluster.
 
 You need create a new shell for this pod, in our case it is `etcd-2`.
 
@@ -122,7 +122,7 @@ First, Delete the old data of this node.
 rm -fR /bitnami/etcd/data/*
 ```
 
-Second, change the evironment for the cluster:
+Second, change the environment for the cluster:
 
 ```shell
 ETCD_INITIAL_CLUSTER=openobserve-etcd-0=http://openobserve-etcd-0.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380,openobserve-etcd-2=http://openobserve-etcd-2.openobserve-etcd-headless.ziox-dev.svc.cluster.local:2380
@@ -163,7 +163,7 @@ First, add `etcd-1` to the cluster:
 
 Second, login into the pod `etcd-1`, delete old data and start etcd.
 
-Finnaly, it should list 3 members:
+Finally, it should list 3 members:
 
 ```shell
 !@openobserve-etcd-2:/opt/bitnami/etcd$ etcdctl member list
@@ -174,7 +174,7 @@ Finnaly, it should list 3 members:
 
 Okay, the cluster restored.
 
-Now, we need restore the configiure of helm. 
+Now, we need restore the configuration of helm. 
 
 ```yaml
 etcd:

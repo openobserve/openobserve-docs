@@ -1,6 +1,6 @@
 # Alerts
 
-Alerting provides mechanism to notify users when certain conditions are met. OpenObserve supports both scheduled and real time alerts. For the most part you should use Standar alerts as they are more efficient and can be used for most use cases.
+Alerting provides mechanism to notify users when certain conditions are met. OpenObserve supports both scheduled and real time alerts. For the most part you should use Standard alerts as they are more efficient and can be used for most use cases.
 
 Real time alerts are useful when you want to be notified of a condition as soon as it occurs. Realtime alerts are suited primarily in the scenarios like "panic" in log or known malicious ip address in logs. Realtime alerts are evaluated at ingestion time based on condition specified, they are evaluated per record and can be computationally expensive.
 
@@ -26,9 +26,9 @@ Following is the definition of the fields in alerts:
 
 OpenObserve supports following kinds of alerts:
 
-## Standar alerts
+## Standard alerts
 
-Standar alerts are evaluated at frequency (every 1 minute by default ) for the condition of the alert, over duration specified as part of alert. If the condition evaluates to true a notification is sent to alert destination. Additionally user can delay notification after a notification is generated once for specified time duration.
+Standard alerts are evaluated at frequency (every 1 minute by default ) for the condition of the alert, over duration specified as part of alert. If the condition evaluates to true a notification is sent to alert destination. Additionally user can delay notification after a notification is generated once for specified time duration.
 
 For example: 
 

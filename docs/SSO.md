@@ -87,7 +87,7 @@ In addition to that you would also want to use ingress to expose dex external to
     - baseDN: Base DN for group searches.
     - filter: LDAP filter for group searches.
     - userMatchers: Configuration for matching users to groups.
-    - nameAttr: Attribute for the group name , this would map to orgnisation in openobserve , optionally this can be used to convey role information as well
+    - nameAttr: Attribute for the group name , this would map to organization in openobserve , optionally this can be used to convey role information as well
 
 A sample configuration detailing server connection, bind credentials, user and group search settings.
 

@@ -59,11 +59,11 @@ The data ingestion flow is:
 1. evaluate real time alerts if any defined for the stream.
 1. write to WAL file by timestamp in hourly buckets and then convert records in a request to Arrow RecordBatch and write into Memtable. 
 
-    1. Create Memtable per `organization/stream_type`, if data is being inegsted for `logs` only there would be only one Memtable.
+    1. Create Memtable per `organization/stream_type`, if data is being ingested for `logs` only there would be only one Memtable.
     1. The WAL file and Metable are created in pair , one WAL file has one Memtable.WAL files are located at `data/wal/logs`.
 
-1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reached `ZO_MAX_FILE_SIZE_ON_DISK=128` MB ,we will move the Memtable to Immutable and create a new Memtable & WAL file for writting data.
-1. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds will dump Immutable to local disk. One Immutable will result in multiple parquet files as it may contain multiple streams and multiple partitions, the parquet files are locted at `data/wal/files`.
+1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reached `ZO_MAX_FILE_SIZE_ON_DISK=128` MB ,we will move the Memtable to Immutable and create a new Memtable & WAL file for writing data.
+1. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds will dump Immutable to local disk. One Immutable will result in multiple parquet files as it may contain multiple streams and multiple partitions, the parquet files are located at `data/wal/files`.
 2. Every `ZO_FILE_PUSH_INTERVAL=10` seconds we check local parquet files if any partition total size is above  `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file has been `ZO_MAX_FILE_RETENTION_TIME=600` seconds ago all such small files in a partition will be merged into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=256` MB) , which will be moved to object storage.
 
 **Ingester has three parts of data:**

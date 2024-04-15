@@ -1,6 +1,6 @@
 # API Index
 
-These APIs can be used to programatically interact with OpenObserve.
+These APIs can be used to programmatically interact with OpenObserve.
 
 All APIs must have an authorization header. Authorization header can be created using base64 encoded values of user id and password. For the sake of simplicity it is HTTP basic authentication mechanism.
 
