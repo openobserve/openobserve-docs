@@ -63,13 +63,13 @@ I need to join the multiple values of `k8s_pod_name` with a `,` if there are mul
 }
 ```
 
-Actually we want it shows line by line like this:
+Actually we want it to show line by line like this:
 
 
 ```
-pod1 got 1 panic logs
-pod2 got 2 panic logs
-pod3 got 1 panic logs
+pod1 got 1 panic log
+pod2 got 2 panic log
+pod3 got 1 panic log
 ```
 
 That is the `row template`, with `tow template` we can define the alert template like this:
@@ -200,6 +200,49 @@ Authorization: GenieKey __YOUR_API_KEY__
     "description":"{stream_name}",
     "priority":"P3"
 }
+```
+
+## Pagerduty
+
+OpenObserve alert will create an incident in pagerduty
+
+Official docs at: [https://developer.pagerduty.com/api-reference/a7d81b0e9200f-create-an-incident](https://developer.pagerduty.com/api-reference/a7d81b0e9200f-create-an-incident)
+
+```shell
+URL: https://api.pagerduty.com/incidents
+Method: POST
+Headers:
+
+Authorization: Token token=y_NbAkKc66ryYTWUXYEu
+Content-Type: application/json
+From: <The email address of a valid user associated with the account making the request >
+```
+
+```json
+{
+  "incident": {
+    "type": "incident",
+    "title": "The server is on fire.",
+    "service": {
+      "id": "PWIXJZS",
+      "type": "service_reference"
+    },
+    "priority": {
+      "id": "P53ZZH5",
+      "type": "priority_reference"
+    },
+    "urgency": "high",
+    "body": {
+      "type": "incident_body",
+      "details": "A disk is getting full on this machine. You should investigate what is causing the disk to fill, and ensure that there is an automated process in place for ensuring data is rotated (eg. logs should have logrotate around them). If data is expected to stay on this disk forever, you should start planning to scale up to a larger disk."
+    },
+    "escalation_policy": {
+      "id": "PT20YPA",
+      "type": "escalation_policy_reference"
+    }
+  }
+}
+
 ```
 
 ## Microsoft Teams
