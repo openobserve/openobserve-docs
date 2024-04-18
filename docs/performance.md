@@ -42,7 +42,11 @@ OpenObserve does not do full-text indexing like Elasticsearch. This results in v
 ### ***Column pruning*** 
 OpenObserve uses columnar storage format (parquet) which allows it to read only the columns that are required for a query. This reduces the amount of data that needs to be read from disk and improves search performance. This technique is called column pruning. It reduces the amount of data that needs to be read from disk. You must switch to SQL query mode for this and specify only the columns that you want to be returned.
 
-### ***Predicate pushdown: Partitioning*** 
+### Predicate pushdown: 
+
+#### *** Standard Partitioning (KeyValue partitions) *** 
+>Note: Use For low cardinality fields
+
 OpenObserve uses a technique called predicate pushdown to further reduce the amount of data that needs to be read from disk. This is done by pushing down the filters to the storage layer. By default OpenObserve will partition data by `org/stream/year/month/day/hour`. So when searching, if you know the time range for which you are searching for data you should specify it and OpenObserve will skip data not following in date range and will search across much less data. This will improve search performance and will utilize predicate pushdown. You can also enable additional partitioning for fields on any stream by going to stream settings. Some good candidates for partition keys are host and kubernetes namespace. You can have multiple partition keys for a stream. You can then specify partition keys in your query. e.g. `host='xyz' and kubernetes_namespace='abc'`. This will improve search performance and will utilize predicate pushdown.*** `DO NOT enable partitioning on all/many fields as it may result in many small underlying parquet files which will result in low compression, extremely poor search performance and high s3 storage costs` ***. As a rule of thumb you would want the size of each stored parquet file to be above 5 MB. Order of partitions does not matter. You can partition by `namespace, pod` or `pod, namespace`. 
 
 This is how the underlying disk structure will look like if you have partitioned by `k8s_container_name, k8s_namespace_name, k8s_pod_name`:
@@ -64,14 +68,83 @@ data/stream/files/default/logs/optimized/2023/10/20/03/k8s_container_name=app
 ```
 You can now specify partition keys in your query. e.g. `k8s_container_name=app and k8s_namespace_name='p1' and k8s_pod_name='k1-6cf68b7dfb-t4hbb' and match_all('error')`. This will improve search performance and will utilize predicate pushdown. You should enable partitioning for low cardinality (Relatively not too many possible values for a field - e.g. namespace, host) data.
 
-### Time range partition by default
+#### ***Hash partition***
+>Note: Use For low cardinality fields
+
+Standard `KeyValue` partitions are a good way to partition data. However, if data in a particular field is not divided evenly then you may end up with some partitions having more data than others. 
+
+e.g. For a namespace based partitioning if you have 10 million log records with following number of log entries for each namespace:
+
+1. namespace01: 4 million
+1. namespace02: 2 million
+1. namespace03: 1 million
+1. namespace04: 500 thousand
+1. namespace05: 450 thousand
+1. namespace06: 25 thousand
+1. namespace07: 15 thousand
+1. namespace08: 5 thousand
+1. namespace09: 2 thousand
+1. namespace10: 1 thousand
+1. namespace11: 500
+1. namespace12: 200
+1. namespace13: 100
+1. namespace14: 100
+1. namespace15: 100
+1. namespace16: 50
+1. namespace17: 50
+1. namespace18: 50
+1. namespace19: 50
+1. namespace20: 50
+1. namespace21: 50
+1. namespace22: 50
+1. namespace23: 50
+1. namespace24: 30
+1. namespace25: 20
+
+If you set KeyValue partition on the `namespace` field, you will have 25 partitions. However, the data is not evenly distributed across these partitions. For example, one partition may contain 4 million records while another may have only 2 million. This uneven distribution can lead to some partitions being slow to search while others are fast. Additionally, smaller partitions may result in small parquet files with low compression and high storage costs in S3.
+
+In such cases you should enable hash partitioning. Hash partitioning is a way to divide data across partitions based on defined number of hash buckets. You can enable hash partitioning for a field by going to stream settings. 
+
+For the above scenario, you can enable hash partitioning on namespace field with 8 buckets. This will divide the data across 8 partitions instead of 25. Distribution of records in each partition will be a lot less skewed than in case of standard partitioning resulting in better performance for majority of the queries based on the values in this field and will result in better compression and lower s3 storage costs.
+
+You can specify the number of buckets (8, 16, 32, 64, 128) in the index in stream setting when setting up hash partitioning for a particular field.
+
+#### ***Time range partition***
+>Note: Enabled by default and cannot be disabled
 
 OpenObserve partitions all data by time range by default in addition to any other partitions that you may have defined. It always makes sense to specify the shortest time range to search for. e.g. if you know that you are looking for data for last 15 minutes, you should specify that in your query by selecting it from the top right corner. This will improve search performance and will utilize predicate pushdown.
 
-### ***Bloom filter (available starting v0.8.0)*** 
-A bloom filters is a space efficient probabilistic data structure that allow you to check if a value exists in a set. It solves proverbial `needle in a haystack` problem. OpenObserve uses bloom filters to check if a value exists in a column. This allows OpenObserve to skip reading the data from disk if the value does not exist in the column. This improves search performance by reducing `search space`. You must specify bloom filter for the specific fields that you want to search.  Fields that are well suited for bloom filter are of very high cardinality .e.g. UUID, request_id, trace_id, device_id, etc. You can specify bloom filter for a field by going to stream settings. You can specify multiple fields for bloom filter. e.g. `request_id` and `trace_id`. You can then use the fields in your query that will utilize bloom filter. e.g. `request_id='abc' and trace_id='xyz'`. Enabling bloom filter on a field with low cardinality will not result in any performance improvement. `DO NOT enable bloom filter for all fields as it may not result in any performance improvement and may reduce ingestion performance`. 
+### ***Bloom filter (available starting v0.8.0)*** (For high cardinality fields)
+>Note: Use For high cardinality fields
 
-### ***In memory caching*** 
+A bloom filter is a space efficient probabilistic data structure that allow you to check if a value exists in a set. It solves proverbial `needle in a haystack` problem. OpenObserve uses bloom filters to check if a value exists in a column. This allows OpenObserve to skip reading the data from disk if the value does not exist in the column. This improves search performance by reducing `search space`. You must specify bloom filter for the specific fields that you want to search.  Fields that are well suited for bloom filter are of very high cardinality .e.g. UUID, request_id, trace_id, device_id, etc. You can specify bloom filter for a field by going to stream settings. You can specify multiple fields for bloom filter. e.g. `request_id` and `trace_id`. You can then use the fields in your query that will utilize bloom filter. e.g. `request_id='abc' and trace_id='xyz'`. Enabling bloom filter on a field with low cardinality will not result in any performance improvement. You can enable bloom filter for all fields by setting `ZO_BLOOM_FILTER_ON_ALL_FIELDS` to `true`. This will result in ~5% extra compute required during ingestion but may result in significant faster searches for many fields.
+
+Bloom filters have negligible storage overhead.
+
+### Full text search
+Log search involves full text search. When you try to do a full text search it essentially does an equivalent of [grep](https://www.gnu.org/software/grep/manual/grep.html) and scans all the data in particular fields that have full text search enabled. This is facilitated by `match_all` function. This can be slow for large amount of data. In order to be able to do full text search efficiently you should reduce the search space where you are doing full text search. There are 2 things you can do to improve full text search:
+
+1. Do not use `match_all` directly on full data set, but always use it in combination with one or more filters which can themselves be optimized by partitions or bloom filters. e.g. `host='host1' and match_all('error') ` or `k8s_namespace_name='ns1' and match_all('error')` or `bank_account_number='653456-54654-65' and match_all('error')`. In all of these examples using the filter reduces search space for `match_all`. Additionally if `host` and `k8s_namespace_name` fields are partitioned then you have reduced search space very well and will gain the improvements in full text search. `bank_account_number`, `request_id`, `trace_id`, `device_id` are good candidates for bloom filter and should be used together with `match_all` to improve full text search performance.
+1. Enable full text search only on the fields that you need. e.g. body, log, message etc. Fields like hostname, ip address, etc. are not good candidates for full text search and you should not enable full text search on these fields. You can enable full text search on a field by going to stream settings. You can specify multiple fields for full text search. e.g. `body` and `message`. You can then use the fields in your query that will utilize full text search. e.g. `host='host1' and match_all('error')`. 
+
+### *** Inverted Index (available starting v0.10.0)***
+
+Above mentioned partitioning schemes and bloom filters are good for fields where you are doing equality based searches. e.g. `request_id='abc'`. For full text search in fields that contain longer log lines, OpenObserve in its earlier releases relied on brute force search (how [grep](https://www.gnu.org/software/grep/manual/grep.html) works) which works well for most of the scenarios. However, for very large data sets this can be slow. You can enable inverted index to improve full text search performance for such fields. Do not enable inverted index for fields that are not used for full text search but are used for equality based searches. Bloom filters and hash partitions are better suited for equality based searches.
+
+Inverted index is a data structure that maps content to its location in a document. It is used to optimize full text search. OpenObserve uses inverted index to optimize full text search. You must specify inverted index for the specific fields that you want to search. Fields that are well suited for inverted index have long amount of text and has many words. e.g. body, log, message, etc. 
+
+e.g. log line:
+
+```shell
+setup.go:202] cert-manager/issuers "msg"="skipping re-verifying ACME account as cached registration details look sufficient"
+```
+and are used for full text search.
+
+You can specify inverted index for a field by going to stream settings. You can specify multiple fields for inverted index. e.g. `body` and `message`. You can then use the fields in your query that will utilize inverted index. e.g. `match_all_indexed("searchterm")`. 
+
+Based on our tests, inverted index can improve full text search performance by up to 1000x. Enabling inverted index will lead to approximately 25% storage overhead for the stream and may vary based on data entropy.
+
+## ***In memory caching*** 
 OpenObserve can use RAM to cache the data that is read from disk/s3. This reduces the amount of data that needs to be read from disk during search and improves search performance. OpenObserve by default will try to use all the available RAM to improve performance. This can also mean high memory utilization. You can use following environment variables to configure the cache:
 
 | Environment Variable                    | Value | Description                                                   |
@@ -81,7 +154,7 @@ OpenObserve can use RAM to cache the data that is read from disk/s3. This reduce
 
   You want to have at least 8 GB of memory with the above settings.
 
-### ***On disk caching***
+## ***On disk caching***
 
 OpenObserve can use disk on queriers to cache the data that is read from s3. This reduces the amount of data that needs to be read from s3 during search and improves search performance. You can use following environment variables to configure the cache:
 
@@ -94,8 +167,3 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
   
-### Full text search
-Log search involves full text search. OpenObserve does not yet have a full text search index and when you try to do a full text search it essentially does an equivalent of `grep` and scans all the data in particular fields that have full text search enabled. This is facilitated by `match_all` function. This can be slow for large amount of data. In order to be able to do full text search efficiently you should reduce the search space where you are doing full text search. There are 2 things you can do to improve full text search:
-
-1. Do not use `match_all` directly on full data set, but always use it in combination with one or more filters which can themselves be optimized by partitions or bloom filters. e.g. `host='host1' and match_all('error') ` or `k8s_namespace_name='ns1' and match_all('error')` or `bank_account_number='653456-54654-65' and match_all('error')`. In all of these examples using the filter reduces search space for `match_all`. Additionally if `host` and `k8s_namespace_name` fields are partitioned then you have reduced search space very well and will gain the improvements in full text search. `bank_account_number`, `request_id`, `trace_id`, `device_id` are good candidates for bloom filter and should be used together with `match_all` to improve full text search performance.
-1. Enable full text search only on the fields that you need. e.g. body, log, message etc. Fields like hostname, ip address, etc. are not good candidates for full text search and you should not enable full text search on these fields. You can enable full text search on a field by going to stream settings. You can specify multiple fields for full text search. e.g. `body` and `message`. You can then use the fields in your query that will utilize full text search. e.g. `host='host1' and match_all('error')`. 
