@@ -3,7 +3,9 @@
 OpenObserve follows opentelemtry standards for traces. You can send traces to OpenObserve using code instrumented via opentelemtry SDKs or via auto-instrumentation to send traces to OpenObserve.
 
 
-Endpoint for sending traces to OpenObserve is 
+## HTTP
+
+The HTTP Endpoint for sending traces to OpenObserve is 
 
 ### OpenObserve Cloud
 
@@ -37,5 +39,9 @@ Header should be:
 ```
 Authorization: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
 ```
+
+## GRPC
+
+OpenObserve also supports sending traces with gRPC as explained [here](../logs/otlp.md).
 
 
