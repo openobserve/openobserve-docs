@@ -57,13 +57,14 @@ OpenObserve can use Openstack swift for storing stream data, following environme
 
 | Environment Variable      | Value | Description                                     |
 | ------------------------- | ----- | ----------------------------------------------- |
-| ZO_S3_SERVER_URL          | -     | swift server address                            |
+| ZO_S3_SERVER_URL          | -     | swift server address, like: `https://us-west-1.xxx.com`   |
 | ZO_S3_REGION_NAME         | -     | region name, can be anything, like: `us-west-1` |
 | ZO_S3_ACCESS_KEY          | -     | access key                                      |
 | ZO_S3_SECRET_KEY          | -     | secret key                                      |
 | ZO_S3_BUCKET_NAME         | -     | bucket name                                     |
+| ZO_S3_FEATURE_HTTP1_ONLY  | true  | --                                              |
 | ZO_S3_PROVIDER            | s3    | Use s3 compatible API                           |
-| AWS_EC2_METADATA_DISABLED | true  | swift doesn't support ec2 metadata              |
+| AWS_EC2_METADATA_DISABLED | true  | swift doesn't support ec2 metadata, **Usually you don't need this**   |
 
 > You need to create the bucket in swift first.
 
