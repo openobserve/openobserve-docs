@@ -197,4 +197,26 @@ e.g.
 .
 ```
 
+**maxmind_city** table record example:
+```json
+{
+  "city_name": "Bengaluru",
+  "continent_code": "AS",
+  "country_code": "IN",
+  "country_name": "India",
+  "latitude": "12.9634",
+  "longitude": "77.5855",
+  "postal_code": "560002",
+  "region_code": "KA",
+  "region_name": "Karnataka",
+  "timezone": "Asia/Kolkata"
+}
+``` 
 
+**maxmind_asn** table record example:
+```json
+{
+  "utonomous_system_number": "132787",
+  "utonomous_system_organization": "Helios IT Infrasolutions Pvt Ltd"
+}
+```
