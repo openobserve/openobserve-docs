@@ -1,6 +1,7 @@
 nav:
     - Concepts: concepts.md
     - Log Search: logs
+    - Real User Monitoring (RUM): rum.md
     - Organizations: organizations.md
     - Users: users.md
     - Streams: streams.md
