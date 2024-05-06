@@ -28,10 +28,10 @@ Description
 |------------|-----------|---------------|-------------|
 | query      | object    | -             | query params |
 | query.sql  | string    | -             | use SQL query data, and filter data by `start_time` and `end_time`, and default order by _timestamp, you can use order by override order, and fetch offset limit by `form` and `size` |
-| query.start_time | int64 | 0           | unit: microseconds, filter data by time range, without it, will scan data from first record to `end_time` |
-| query.end_time   | int64 | 0           | unit: microseconds, filter data by time range, without it, will scan data from `start_time` to `NOW`    |
+| query.start_time | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
+| query.end_time   | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
 | query.from | int64     | 0             | offset in SQL |
-| query.size | int64     | 0             | limit in SQL |
+| query.size | int64     | 0             | limit in SQL  |
 | query.track_total_hits | bool  | false | response real total of the query SQL, you can set it to true for response total. when you have aggs, this value will auto set to true. |
 | query.sql_mode | string | context      | mode: context / full, default is `context` mode, you cann't use `limit` `group by` in query.sql, and will use the SQL result as a context of aggregations. aggregation will get result from context. You you set it to `full`, in full mode, you can write a full SQL in query.sql, it supports `limit` `group by` and keywords, but it doesn't support aggregation. |
 | aggs       | object    | -             | aggregation params, you can ignore it if you have no aggregations. |
