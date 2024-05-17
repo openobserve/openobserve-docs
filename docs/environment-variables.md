@@ -2,7 +2,7 @@
 
 OpenObserve is configure through the use of below environment variables.
 
-## common
+## Common
 
 | Environment Variable          | Default Value | Mandatory     | Description                                                               |
 | ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
@@ -24,8 +24,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_DATA_DB_DIR                | ./data/openobserve/db/      | No         | metadata database local storage directory. |
 | ZO_DATA_WAL_DIR               | ./data/openobserve/wal/    | No         | local WAL data directory. |
 | ZO_DATA_STREAM_DIR            | ./data/openobserve/stream/ | No         | streams local data storage directory ,applicable only for local mode. |
-| ZO_DATA_CACHE_DIR             | ./data/openobserve/cache/ | No         | local query cache storage directory, applicable only for cluster mode. |
-| ZO_META_STORE                 | -             | No         | Default is `sqlite` for local mode, `etcd` for cluster mode. and supported values are: `sqlite`, `etcd`, `postgres`, the `sqlite` only support for local mode. |
+| ZO_META_STORE                 | -             | No         | Default is `sqlite` for local mode, `etcd` for cluster mode. and supported values are: `sqlite`, `etcd`, `postgres`, `mysql`. `sqlite` only supports for local mode. etcd is deprecated. |
 | ZO_META_POSTGRES_DSN    | -             | No         | If you enable `postgres` as meta store, you need configure the database source address, like this: `postgres://postgres:12345678@localhost:5432/openobserve` |
 | ZO_META_CONNECTION_POOL_MIN_SIZE         | -             | No         | Minimum number of connections created in the connection pool size for `postgres`, `sqlite`, and `mysql`. Defaults to `cpu_limits` |
 | ZO_META_CONNECTION_POOL_MAX_SIZE         | -             | No         | Maximum number of connections created in the connection pool size for `postgres`, `sqlite`, and `mysql`. Defaults to `cpu_limits * 2` |
@@ -45,12 +44,8 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_BASE_URI                   | -             | No            | If you set OpenObserve with a prefix in k8s nginx ingress, you can set the prefix path. |
 | ZO_BLOOM_FILTER_ENABLED       | true          | No            | Enable by default, but only enabled for trace_id field |
 | ZO_BLOOM_FILTER_DEFAULT_FIELDS | -            | No            | Add more fields support by bloomfilter, will add UI setting later |
-| ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
 | ZO_FEATURE_INGEST_BUFFER_ENABLED | false      | No            | enable it to enqueue ingestion requests for background processing, used to improve responsiveness of ingestion endpoitns |
 | ZO_INGEST_BUFFER_QUEUE_NUM    | 5             | No            | number of queues to buffer ingestion requests. `ZO_FEATURE_INGEST_BUFFER_ENABLED` must be true |
-| OTEL_OTLP_HTTP_ENDPOINT       | -             | No            | remote trace server endpoint. |
-| ZO_TRACING_HEADER_KEY         | Authorization | No            | remote trace server endpoint authentication header key. |
-| ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
 | ZO_JSON_LIMIT                 | 209715200     | No            | The max payload size of json. |
 | ZO_PAYLOAD_LIMIT              | 209715200     | No            | The max payload size of http request body. |
 | ZO_MAX_FILE_SIZE_ON_DISK      | 64            | No            | max WAL log file size before creating a new log file, default is `64MB`, unit: MB, we created WAL log file by `organization/stream_type` |
@@ -69,17 +64,6 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_COMPACT_INTERVAL           | 60            | No            | interval at which job compacts small files into larger files. default is `60s`, unit: second |
 | ZO_COMPACT_MAX_FILE_SIZE      | 256           | No            | max file size for a single compacted file, after compaction all files will be below this value. default is 256MB, unit: MB |
 | ZO_COMPACT_DATA_RETENTION_DAYS | 3650         | No            | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
-| ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
-| ZO_MEMORY_CACHE_CACHE_LATEST_FILES | false    | No            | by default we just cache files required by data being queried, enable this option to cache all the latest generated files.Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size. |
-| ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
-| ZO_MEMORY_CACHE_SKIP_SIZE     | -             | No            | default 80% of the total memory cache size, A query will skip memory cache if it need more than this value. one can set it to desired amount unit: MB |
-| ZO_MEMORY_CACHE_RELEASE_SIZE  | -             | No            | default drop 1% entries from in-memory cache as cache is full, one can set it to desired amount unit: MB |
-| ZO_MEMORY_CACHE_DATAFUSION_MEMORY_POOL  | -   | No            | memory pool for datafusion, supported: `greedy`, `fair`, `none`, default is: `fair`, you can choose from: https://docs.rs/datafusion/latest/datafusion/execution/memory_pool/index.html |
-| ZO_MEMORY_CACHE_DATAFUSION_MAX_SIZE  | -      | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
-| ZO_DISK_CACHE_ENABLED         | true          | No            | enable in-disk caching for files, default is true, the latest files are cached for accelerated queries. when the memory cache is not enough will try to cache in local disk, you can consider the memory cache is first level, disk cache is second level. |
-| ZO_DISK_CACHE_MAX_SIZE        | -             | No            | default 50% of the total free disk for in-disk cache, one can set it to desired amount unit: MB |
-| ZO_DISK_CACHE_SKIP_SIZE       | -             | No            | default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB |
-| ZO_DISK_CACHE_RELEASE_SIZE    | -             | No            | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB |
 | ZO_TELEMETRY                  | true          | No            | Send anonymous telemetry info for improving OpenObserve. You can disable by set it to `false` |
 | ZO_TELEMETRY_URL              | https://e1.zinclabs.dev | No  | OpenTelemetry report URL. You can report to your own server. |
 | ZO_HEARTBEAT_INTERVAL         | 30            | No            | OpenTelemetry report frequency. unit is: minutes, default is 30m |
@@ -97,6 +81,94 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_USAGE_REPORTING_ENABLED              | false         | No            | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable charge back for internal teams. |
 | ZO_USAGE_ORG                            | _meta_         | No            | To which org the usage data should be sent |
 | ZO_USAGE_BATCH_SIZE                     | 2000         | No            | How many requests should be batched before flushing the usage data from memory to disk |
+| RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
+| ZO_INSTANCE_NAME                         | ""                                                       | no        |                                                                                                 |
+| ZO_BASE_URI                              | ""                                                       | no        |                                                                                                 |
+| ZO_BULK_RESPONSE_INCLUDE_ERRORS_ONLY     | false                                                    | no        |                                                                                                 |
+| ZO_ALLOW_USER_DEFINED_SCHEMAS            | false                                                    | no        |                                                                                                 |
+| ZO_SKIP_FORMAT_BULK_STREAM_NAME          | false                                                    | no        |                                                                                                 |
+| ZO_GRPC_CONNECT_TIMEOUT                  | 5 (seconds)                                              | no        |                                                                                                 |
+| ZO_SKIP_FORMAT_BULK_STREAM_NAME          | false                                                    | no        |                                                                                                 |
+| ZO_COMPACT_DATA_RETENTION_HISTORY        | false                                                    | no        |                                                                                                 |
+| ZO_COMPACT_BLOCKED_ORGS                  | ""                                                       | no        | Use comma to split multiple orgs                                                                |
+| ZO_CONCATENATED_SCHEMA_FIELD_NAME        | _all                                                     | no        |                                                                                                 |
+| ZO_STARTING_EXPECT_QUERIER_NUM           | 0                                                        | no        |                                                                                                 |
+| ZO_QUERY_OPTIMIZATION_NUM_FIELDS         | 1000                                                     | no        |                                                                                                 |
+| ZO_USAGE_REPORTING_COMPRESSED_SIZE       | false                                                    | no        |                                                                                                 |
+| ZO_QUERY_FULL_MODE_LIMIT                 | 1000                                                     | no        |                                                                                                 |
+| ZO_QUERY_PARTITION_BY_SECS               | 10 (seconds)                                             | no        |                                                                                                 |
+| ZO_QUERY_PARTITION_MIN_SECS              | 600 (seconds)                                            | no        |                                                                                                 |
+| ZO_QUERY_GROUP_BASE_SPEED                |                                                          | no        |                                                                                                 |
+| ZO_FILE_PUSH_LIMIT                       | 0                                                        | no        |                                                                                                 |
+| ZO_FILE_MOVE_FIELDS_LIMIT                | 2000                                                     | no        |                                                                                                 |
+| ZO_FILE_MOVE_THREAD_NUM                  | 0                                                        | no        |                                                                                                 |
+| ZO_QUERY_THREAD_NUM                      | 0                                                        | no        |                                                                                                 |
+| ZO_INVERTED_INDEX_SPLIT_CHARS            | ".,;:|/#_ =-+*^&%$@!~`"                                  | no        |                                                                                                 |
+| ZO_META_TRANSACTION_RETRIES              |                                                          | no        |                                                                                                 |
+| ZO_INGEST_FLATTEN_LEVEL                  |                                                          | no        |                                                                                                 |
+| ZO_IGNORE_FILE_RETENTION_BY_STREAM       |                                                          | no        |                                                                                                 |
+| ZO_ACTIX_REQ_TIMEOUT                     |                                                          | no        |                                                                                                 |
+| ZO_ACTIX_KEEP_ALIVE                      |                                                          | no        |                                                                                                 |
+| ZO_COOKIE_SAME_SITE_LAX                  |                                                          | no        |                                                                                                 |
+| ZO_COOKIE_SECURE_ONLY                    |                                                          | no        |                                                                                                 |
+| ZO_USAGE_REPORTING_MODE                  |                                                          | no        |                                                                                                 |
+| ZO_USAGE_REPORTING_URL                   |                                                          | no        |                                                                                                 |
+| ZO_USAGE_REPORTING_CREDS                 |                                                          | no        |                                                                                                 |
+| ZO_USAGE_BATCH_SIZE                      |                                                          | no        |                                                                                                 |
+| ZO_QUERY_ON_STREAM_SELECTION             |                                                          | no        |                                                                                                 |
+| ZO_META_TRANSACTION_RETRIES              |                                                          | no        |                                                                                                 |
+| ZO_META_TRANSACTION_LOCK_TIMEOUT         |                                                          | no        |                                                                                                 |
+| ZO_DISTINCT_VALUES_INTERVAL              |                                                          | no        |                                                                                                 |
+| ZO_DISTINCT_VALUES_HOURLY                |                                                          | no        |                                                                                                 |
+| ZO_ROUTE_MAX_CONNECTIONS                 |                                                          | no        |                                                                                                 |
+| ZO_INGESTER_SERVICE_URL                  |                                                          | no        |                                                                                                 |
+| ZO_INGEST_BLOCKED_STREAMS                |                                                          | no        |                                                                                                 |
+| ZO_INGEST_INFER_SCHEMA_PER_REQUEST       |                                                          | no        |                                                                                                 |
+| ZO_FILE_PUSH_LIMIT                       |                                                          | no        |                                                                                                 |
+| ZO_ACTIX_SHUTDOWN_TIMEOUT                |                                                          | no        |                                                                                                 |
+| ZO_ENTRY_PER_SCHEMA_VERSION_ENABLED      |                                                          | no        |                                                                                                 |
+| ZO_FEATURE_DISTINCT_EXTRA_FIELDS         |                                                          | no        |                                                                                                 |
+| ZO_FEATURE_QUICK_MODE_FIELDS             |                                                          | no        |                                                                                                 |
+| ZO_FEATURE_FILELIST_DEDUP_ENABLED        |                                                          | no        |                                                                                                 |
+| ZO_FEATURE_QUERY_QUEUE_ENABLED           |                                                          | no        |                                                                                                 |
+| ZO_CLUSTER_COORDINATOR                   | etcd                                                     | no        |                                                                                                 |
+| ZO_QUEUE_STORE                           |                                                          | no        |                                                                                                 |
+| ZO_GRPC_MAX_MESSAGE_SIZE                 |                                                          | no        |                                                                                                 |
+| ZO_NODE_HEARTBEAT_TTL                    |                                                          | no        |                                                                                                 |
+| ZO_SHOW_STREAM_DATES_DOCS_NUM            |                                                          | no        |                                                                                                 |
+| ZO_PARQUET_MAX_ROW_GROUP_SIZE            |                                                          | no        |                                                                                                 |
+| ZO_DATA_IDX_DIR                          |                                                          | no        |                                                                                                 |
+| ZO_ENABLE_INVERTED_INDEX                 | false                                                         | no        |                                                                                                 |
+| ZO_FEATURE_QUERY_INFER_SCHEMA            |                                                          | no        |                                                                                                 |
+| ZO_FEATURE_QUERY_INFER_SCHEMA_IF_FIELDS_MORE_THAN |                                                | no        |                                                                                                 |
+| ZO_FEATURE_QUERY_PARTITION_STRATEGY      |                                                          | no        |                                                                                                 |
+| ZO_RESTRICTED_ROUTES_ON_EMPTY_DATA       |                                                          | no        |                                                                                                 |
+| ZO_BLOOM_FILTER_DISABLED_ON_SEARCH       |                                                          | no        |                                                                                                 |
+| ZO_BLOOM_FILTER_ON_ALL_FIELDS            |                                                          | no        |                                                                                                 |
+| ZO_BLOOM_FILTER_FORCE_DISABLED           |                                                          | no        |                                                                                                 |
+| ZO_ALERT_SCHEDULE_INTERVAL               |                                                          | no        |                                                                                                 |
+| ZO_COMPACT_SYNC_TO_DB_INTERVAL           |                                                          | no        |                                                                                                 |
+| ZO_COMPACT_DELETE_FILES_DELAY_HOURS      |                                                          | no        |                                                                                                 |
+| ZO_NODE_QUERY_ALLOCATION_STRATEGY        |                                                          | no        |                                                                                                 |
+| ZO_TCP_PORT                              |                                                          | no        |                                                                                                 |
+| ZO_UDP_PORT                              |                                                          | no        |                                                                                                 |
+| ZO_APP_NAME                              |                                                          | no        |                                                                                                 |
+| ZO_META_MYSQL_DSN                        |                                                          | no        |                                                                                                 |
+| ZO_DEFAULT_SCRAPE_INTERVAL               |                                                          | no        |                                                                                                 |
+| ZO_CIRCUIT_BREAKER_ENABLE                |                                                          | no        |                                                                                                 |
+| ZO_CIRCUIT_BREAKER_RATIO                 |                                                          | no        |                                                                                                 |
+| ZO_CALCULATE_STATS_INTERVAL              |                                                          | no        |                                                                                                 |
+| ZO_ENRICHMENT_TABLE_LIMIT                |                                                          | no        |                                                                                                 |
+
+
+> For local mode, OpenObserve use sqlite as the metadata store.
+> 
+> For cluster mode, OpenObserve use postgres(recommended)/mysql as the metadata store.
+
+## Enterprise
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
 | O2_DEX_ENABLED                | false         | Yes           | Enables SSO in OpenObserve using Dex. |
 | O2_DEX_CLIENT_ID              | -             | Yes           | Client id of static client |
 | O2_DEX_CLIENT_SECRET          | -             | Yes           | Client secret of static client |
@@ -107,13 +179,144 @@ OpenObserve is configure through the use of below environment variables.
 | O2_DEX_GROUP_ATTRIBUTE        | ou            | No            | Maps user to OpenObserve organization. |
 | O2_DEX_ROLE_ATTRIBUTE         | cn            | No            | User's role in the organization.|
 | O2_DEX_DEFAULT_ORG            | default       | No            | Default organization for users not belonging to any group in ldap|
-| RUST_LOG                      | info          | No            | log level, default is info, supports: error, warn, info, debug, trace |
 
-> For local mode, OpenObserve use sqlite as the metadata store.
-> 
-> For cluster mode, OpenObserve use etcd as the metadata store.
+## Reporting and Alerting
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_CHROME_ENABLED                        |                                                          | no        |                                                                                                 |
+| ZO_CHROME_PATH                           |                                                          | no        |                                                                                                 |
+| ZO_CHROME_CHECK_DEFAULT_PATH             |                                                          | no        |                                                                                                 |
+| ZO_CHROME_NO_SANDBOX                     |                                                          | no        |                                                                                                 |
+| ZO_CHROME_SLEEP_SECS                     |                                                          | no        |                                                                                                 |
+| ZO_ALERT_SCHEDULE_CONCURRENCY            |                                                          | no        |                                                                                                 |
+| ZO_ALERT_SCHEDULE_TIMEOUT                |                                                          | no        |                                                                                                 |
+| ZO_REPORT_SCHEDULE_TIMEOUT               |                                                          | no        |                                                                                                 |
+| ZO_SCHEDULER_MAX_RETRIES                 |                                                          | no        |                                                                                                 |
+| ZO_SCHEDULER_CLEAN_INTERVAL              |                                                          | no        |                                                                                                 |
+| ZO_SCHEDULER_WATCH_INTERVAL              |                                                          | no        |                                                                                                 |
+| ZO_REPORT_USER_NAME                      |                                                          | no        |                                                                                                 |
+| ZO_REPORT_USER_PASSWORD                  | ""                                                       | no        |                                                                                                 |
+| ZO_CHROME_WITH_HEAD                      | false                                                    | no        |                                                                                                 |
+| ZO_CHROME_WINDOW_WIDTH                   | 1370                                                     | no        |                                                                                                 |
+
+
+## Caching
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_DATA_CACHE_DIR             | ./data/openobserve/cache/ | No         | local query cache storage directory, applicable only for cluster mode. |
+| ZO_MEMORY_CACHE_ENABLED       | true          | No            | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries. |
+| ZO_MEMORY_CACHE_CACHE_LATEST_FILES | false    | No            | by default we just cache files required by data being queried, enable this option to cache all the latest generated files.Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size. |
+| ZO_MEMORY_CACHE_MAX_SIZE      | -             | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_SKIP_SIZE     | -             | No            | default 80% of the total memory cache size, A query will skip memory cache if it need more than this value. one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_RELEASE_SIZE  | -             | No            | default drop 1% entries from in-memory cache as cache is full, one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_DATAFUSION_MEMORY_POOL  | -   | No            | memory pool for datafusion, supported: `greedy`, `fair`, `none`, default is: `fair`, you can choose from: https://docs.rs/datafusion/latest/datafusion/execution/memory_pool/index.html |
+| ZO_MEMORY_CACHE_DATAFUSION_MAX_SIZE  | -      | No            | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB |
+| ZO_MEMORY_CACHE_STRATEGY                 | lru                                                      | no        | Memory data cache strategy, default is lru, other value is fifo                                 |
+| ZO_MEMORY_CACHE_BUCKET_NUM               | 0                                                        | no        | Memory data cache bucket num, multiple bucket means multiple locker, default is 0               |
+| ZO_MEMORY_CACHE_GC_SIZE                  | 50 (MB)                                                  | no        |                                                                                                 |
+| ZO_DISK_CACHE_ENABLED         | true          | No            | enable in-disk caching for files, default is true, the latest files are cached for accelerated queries. when the memory cache is not enough will try to cache in local disk, you can consider the memory cache is first level, disk cache is second level. |
+| ZO_DISK_CACHE_MAX_SIZE        | -             | No            | default 50% of the total free disk for in-disk cache, one can set it to desired amount unit: MB |
+| ZO_DISK_CACHE_SKIP_SIZE       | -             | No            | default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB |
+| ZO_DISK_CACHE_RELEASE_SIZE    | -             | No            | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB |
+| ZO_DISK_CACHE_STRATEGY                   | lru                                                      | no        | Disk data cache strategy, default is lru, other value is fifo                                   |
+| ZO_DISK_CACHE_BUCKET_NUM                 | 0                                                        | no        | Disk data cache bucket num, multiple bucket means multiple locker, default is 0                 |
+| ZO_DISK_CACHE_MULTI_DIR                  |                                                          | no        |                                                                                                 |
+| ZO_DISK_CACHE_GC_SIZE                    | 100 (MB)                                                 | no        |                                                                                                 |
+| ZO_DISK_CACHE_GC_INTERVAL                | 0 (seconds)                                              | no        |                                                                                                 |
+| ZO_SCHEMA_CACHE_COMPRESS_ENABLED         | false                                                    | no        |                                                                                                 |
+
+
+## Maxmind GeoIP 
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_MMDB_DATA_DIR                         |                                                          | no        |                                                                                                 |
+| ZO_MMDB_GEOLITE_CITYDB_URL               |                                                          | no        |                                                                                                 |
+| ZO_MMDB_GEOLITE_ASNDB_URL                |                                                          | no        |                                                                                                 |
+| ZO_MMDB_GEOLITE_CITYDB_SHA256_URL        |                                                          | no        |                                                                                                 |
+| ZO_MMDB_GEOLITE_CITYDB_SHA256_URL        |                                                          | no        |                                                                                                 |
+
+
+## OpenObserve self introspection and debugging
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_TOKIO_CONSOLE_SERVER_ADDR             | "0.0.0.0"                                                | no        |                                                                                                 |
+| ZO_TOKIO_CONSOLE_SERVER_PORT             | 6699                                                     | no        |                                                                                                 |
+| ZO_TOKIO_CONSOLE_RETENTION               | 60                                                       | no        |                                                                                                 |
+| ZO_PROF_PYROSCOPE_ENABLED                |                                                          | no        |                                                                                                 |
+| ZO_PROF_PYROSCOPE_SERVER_URL             |                                                          | no        |                                                                                                 |
+| ZO_PROF_PYROSCOPE_PROJECT_NAME           |                                                          | no        |                                                                                                 |
+| OTEL_OTLP_HTTP_ENDPOINT       | -             | No            | remote trace server endpoint. |
+| ZO_TRACING_ENABLED            | false         | No            | enable it to send traces to remote trace server. |
+| ZO_TRACING_HEADER_KEY         | Authorization | No            | remote trace server endpoint authentication header key. |
+| ZO_TRACING_HEADER_VALUE       | -             | No            | remote trace server endpoint authentication header value. |
+| ZO_TRACING_SEARCH_ENABLED                |                                                          | no        |                                                                                                 |
+
+
+
+## Quick mode
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_QUICK_MODE_ENABLED                    | false                                                    | no        |                                                                                                 |
+| ZO_QUICK_MODE_NUM_FIELDS                 | 500                                                      | no        |                                                                                                 |
+| ZO_QUICK_MODE_STRATEGY                   | ""                                                       | no        |                                                                                                 |
+| ZO_QUICK_MODE_FILE_LIST_ENABLED          |                                                          | no        |                                                                                                 |
+| ZO_QUICK_MODE_FILE_LIST_INTERVAL         |                                                          | no        |                                                                                                 |
+
+<!-- ## RUM 
+
+OpenObserve supports Real User Monitoring (RUM) for web application and can be enabled to send its own data to another OpenObserve instance for analysis. Most people don't need this.
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_RUM_ENABLED                           |                                                          | no        |                                                                                                 |
+| ZO_RUM_CLIENT_TOKEN                      | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_APPLICATION_ID                    | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_SITE                              | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_SERVICE                           | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_ENV                               | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_VERSION                           | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_ORGANIZATION_IDENTIFIER           | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_API_VERSION                       | ""                                                       | no        |                                                                                                 |
+| ZO_RUM_INSECURE_HTTP                     | false                                                    | no        |                                                                                                 | -->
+
+## SMTP
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_SMTP_ENABLED                          |                                                          | no        |                                                                                                 |
+| ZO_SMTP_HOST                             |                                                          | no        |                                                                                                 |
+| ZO_SMTP_PORT                             |                                                          | no        |                                                                                                 |
+| ZO_SMTP_USER_NAME                        |                                                          | no        |                                                                                                 |
+| ZO_SMTP_PASSWORD                         |                                                          | no        |                                                                                                 |
+| ZO_SMTP_REPLY_TO                         |                                                          | no        |                                                                                                 |
+| ZO_SMTP_FROM_EMAIL                       |                                                          | no        |                                                                                                 |
+| ZO_SMTP_ENCRYPTION                       |                                                          | no        |                                                                                                 |
+
+
+## NATS
+
+| Environment Variable          | Default Value | Mandatory     | Description                                                               |
+| ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
+| ZO_NATS_PREFIX                           |                                                          | no        |                                                                                                 |
+| ZO_NATS_USER                             |                                                          | no        |                                                                                                 |
+| ZO_NATS_PASSWORD                         |                                                          | no        |                                                                                                 |
+| ZO_NATS_REPLICAS                         |                                                          | no        |                                                                                                 |
+| ZO_NATS_CONNECT_TIMEOUT                  |                                                          | no        |                                                                                                 |
+| ZO_NATS_COMMAND_TIMEOUT                  |                                                          | no        |                                                                                                 |
+| ZO_NATS_LOCK_WAIT_TIMEOUT                |                                                          | no        |                                                                                                 |
+| ZO_NATS_QUEUE_MAX_AGE                    |                                                          | no        |                                                                                                 |
+| ZO_NATS_LOAD_PAGE_SIZE                   |                                                          | no        |                                                                                                 |
 
 ## Etcd
+
+Using etcd is discouraged. Please use NATS as cluster coordinator and postgres/mysql as metastore.
+
+For backward compatibility, we still support etcd but most of you should be able to migrate to NATS and postgres/mysql.
 
 | Environment Variable          | Default Value | Mandatory     | Description                                                               |
 | ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
@@ -132,7 +335,7 @@ OpenObserve is configure through the use of below environment variables.
 | ZO_ETCD_DOMAIN_NAME           | -             | No            | authentication with TLS, cert domain name, default is empty, OpenObserve uses the domain in the cert |
 
 
-## S3
+## S3 / Object store
 
 | Environment Variable          | Default Value | Mandatory     | Description                                                               |
 | ----------------------------- | ------------- |-------------- | ------------------------------------------------------------------------- |
