@@ -1,11 +1,11 @@
 > Applicable to open source & enterprise version
 
-OpenObserve is configure through the use of below environment variables.
+OpenObserve is configured through the use of below environment variables.
 
 ## Common
 
-| Environment Variable                              | Default Value              | Mandatory           | Description                                                                                                                                                                                                                                                                                                                                                               |
-| ------------------------------------------------- | -------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Environment Variable   | Default Value       | Mandatory           | Description      |
+| -------------- | -------------------------- | ------------------- | ----------------------------------------------------------------------------------- | 
 | ZO_ROOT_USER_EMAIL                                | -                          | On first run        | Email of first/root user                                                                                                                                                                                                                                                                                                                                                  |
 | ZO_ROOT_USER_PASSWORD                             | -                          | On first run        | Password for first/root user                                                                                                                                                                                                                                                                                                                                              |
 | ZO_LOCAL_MODE                                     | true                       | No                  | If local mode is set to true ,OpenObserve becomes single node deployment, false indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure `sqlite db`, for cluster mode one needs to config `etcd`.                                                                                                     |
