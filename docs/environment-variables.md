@@ -343,9 +343,9 @@ For backward compatibility, we still support etcd but most of you should be able
 
 ## Enterprise
 
-Below are the Environment variables only available in the enterprise edition.
+Below environment variables are applicable to the enterprise edition.
 
-## Misc
+### Misc
 
 | Environment Variable      | Default Value | Mandatory | Description |
 | ------------------------- | ------------- | --------- | ----------- |
@@ -356,7 +356,7 @@ Below are the Environment variables only available in the enterprise edition.
 | O2_CUSTOM_DOCS_URL        | ""            | No        | Custom docs URL that will be used by the `docs` tab on the openobserve UI. |
 | O2_CUSTOM_HIDE_MENUS      | ""            | No        | comma(',') separated menu items that should not be shown in the menu on openobserve UI. E.g. - `metrics,traces` |
 
-## Super-Cluster
+### Super-Cluster
 
 | Environment Variable         | Default Value | Mandatory | Description |
 | ---------------------------- | ------------- | --------- | ----------- |
@@ -366,7 +366,7 @@ Below are the Environment variables only available in the enterprise edition.
 | O2_SUPER_CLUSTER_PUBLIC_PORT | ""            | No        | Public port of super cluster (in case of gRPC). |
 | O2_SUPER_CLUSTER_GRPC_TOKEN  | ""            | No        | gRPC token. |
 
-## Search-Group
+### Search-Group
 
 | Environment Variable                    | Default Value | Mandatory | Description |
 | --------------------------------------- | ------------- | --------- | ----------- |
@@ -379,7 +379,7 @@ Below are the Environment variables only available in the enterprise edition.
 | O2_SEARCH_GROUP_BASE_SPEED              | `1024`        | No        | Base speed in MB. |
 | O2_SEARCH_GROUP_BASE_SECS               | `10   `       | No        | Base speed in secs. |
 
-## OpenFGA
+### OpenFGA
 
 | Environment Variable               | Default Value                  | Mandatory | Description |
 | ---------------------------------- | ------------------------------ | --------- | ----------- |
@@ -391,7 +391,7 @@ Below are the Environment variables only available in the enterprise edition.
 | O2_OPENFGA_LIST_ONLY_PERMITTED     | `false`                        | No        | If `true`, openobserve only lists resources that have `GET` permission. |
 | O2_MAP_GROUP_TO_ROLE_SKIP_CREATION | `true`                         | No        | Used with `O2_MAP_GROUP_TO_ROLE`. Skips creating the roles mapped from group claims assuming they already exists. |
 
-## DEX
+### DEX
 
 | Environment Variable        | Default Value                              | Mandatory | Description                                                                                                                       |
 | --------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
