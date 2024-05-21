@@ -344,15 +344,71 @@ For backward compatibility, we still support etcd but most of you should be able
 
 ## Enterprise
 
-| Environment Variable   | Default Value                              | Mandatory | Description                                                                                                                       |
-| ---------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| O2_DEX_ENABLED         | false                                      | Yes       | Enables SSO in OpenObserve using Dex.                                                                                             |
-| O2_DEX_CLIENT_ID       | -                                          | Yes       | Client id of static client                                                                                                        |
-| O2_DEX_CLIENT_SECRET   | -                                          | Yes       | Client secret of static client                                                                                                    |
-| O2_DEX_BASE_URL        | -                                          | Yes       | URL of the Dex identity provider                                                                                                  |
-| O2_CALLBACK_URL        | -                                          | Yes       | Set this value to `<openobserve base url>/web/cb`, after successful token received from dex, user will be redirected to this page |
-| O2_DEX_REDIRECT_URL    | -                                          | Yes       | Set this value to `<openobserve base url>/config/callback`, Should match to redirect uri specified in dex                         |
-| O2_DEX_SCOPES          | openid profile email groups offline_access | No        | scopes to be fetched from dex                                                                                                     |
-| O2_DEX_GROUP_ATTRIBUTE | ou                                         | No        | Maps user to OpenObserve organization.                                                                                            |
-| O2_DEX_ROLE_ATTRIBUTE  | cn                                         | No        | User's role in the organization.                                                                                                  |
-| O2_DEX_DEFAULT_ORG     | default                                    | No        | Default organization for users not belonging to any group in ldap                                                                 |
+Below are the Environment variables only available in the enterprise edition.
+
+## Misc
+
+| Environment Variable      | Default Value | Mandatory | Description |
+| ------------------------- | ------------- | --------- | ----------- |
+| O2_AUDIT_ENABLED          | `false`       | No        | Indicates if audit reporting is enabled. |
+| O2_AUDIT_BATCH_SIZE       | 500           | No        | How many requests should be batched before flushing the audit data from memory to disk. |
+| O2_CUSTOM_LOGO_TEXT       | ""            | No        | Custom logo text that will appear along with the openobserve logo. |
+| O2_CUSTOM_SLACK_URL       | ""            | No        | Custom slack URL that will be used by the `Slack` menu on the openobserve UI. |
+| O2_CUSTOM_DOCS_URL        | ""            | No        | Custom docs URL that will be used by the `docs` tab on the openobserve UI. |
+| O2_CUSTOM_HIDE_MENUS      | ""            | No        | comma(',') separated menu items that should not be shown in the menu on openobserve UI. E.g. - `metrics,traces` |
+
+## Super-Cluster
+
+| Environment Variable         | Default Value | Mandatory | Description |
+| ---------------------------- | ------------- | --------- | ----------- |
+| O2_SUPER_CLUSTER_ENABLED     | `false`       | No        | Indicates if super cluster is enabled. |
+| O2_SUPER_CLUSTER_REGION      | default       | No        | Region of super cluster. |
+| O2_SUPER_CLUSTER_PUBLIC_ADDR | ""            | No        | Public address of super cluster. |
+| O2_SUPER_CLUSTER_PUBLIC_PORT | ""            | No        | Public port of super cluster (in case of gRPC). |
+| O2_SUPER_CLUSTER_GRPC_TOKEN  | ""            | No        | gRPC token. |
+
+## Search-Group
+
+| Environment Variable                    | Default Value | Mandatory | Description |
+| --------------------------------------- | ------------- | --------- | ----------- |
+| O2_SEARCH_GROUP_LONG_MAX_CPU            | `80%`         | No        |             |
+| O2_SEARCH_GROUP_LONG_MAX_MEMORY         | `80%`         | No        |             |
+| O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY    | `2`           | No        |             |
+| O2_SEARCH_GROUP_SHORT_MAX_CPU           | `20%`         | No        |             |
+| O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY   | `4`           | No        |             |
+| O2_SEARCH_GROUP_SHORT_MAX_MEMORY        | `20%`         | No        |             |
+| O2_SEARCH_GROUP_BASE_SPEED              | `1024`        | No        | Base speed in MB. |
+| O2_SEARCH_GROUP_BASE_SECS               | `10   `       | No        | Base speed in secs. |
+
+## OpenFGA
+
+| Environment Variable               | Default Value                  | Mandatory | Description |
+| ---------------------------------- | ------------------------------ | --------- | ----------- |
+| O2_OPENFGA_ENABLED                 | `false`                        | No        | Indicates if openfga is enabled. |
+| O2_OPENFGA_BASE_URL                | `http://127.0.0.1:8080/stores` | No        | The base URL of openfga stores server. **Required** when openfga is enabled. |
+| O2_OPENFGA_STORE_NAME              | `openobserve`                  | No        | OpenFGA store name. **Required** when openfga is enabled. |
+| O2_MAP_GROUP_TO_ROLE               | `false`                        | No        | If true, the group claims are mapped into roles in the default org. |
+| O2_OPENFGA_PAGE_SIZE               | `100`                          | No        | The page size used for openfga queries. |
+| O2_OPENFGA_LIST_ONLY_PERMITTED     | `false`                        | No        | If `true`, openobserve only lists resources that have `GET` permission. |
+| O2_MAP_GROUP_TO_ROLE_SKIP_CREATION | `true`                         | No        | Used with `O2_MAP_GROUP_TO_ROLE`. Skips creating the roles mapped from group claims assuming they already exists. |
+
+## DEX
+
+| Environment Variable        | Default Value                              | Mandatory | Description                                                                                                                       |
+| --------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| O2_DEX_ENABLED              | false                                      | No        | Enables SSO in OpenObserve using Dex. |
+| O2_DEX_CLIENT_ID            | -                                          | No        | Client id of static client. **Required** when dex is enabled. |
+| O2_DEX_CLIENT_SECRET        | -                                          | No        | Client secret of static client. **Required** when dex is enabled. |
+| O2_DEX_BASE_URL             | `http://127.0.0.1:5556/dex`                | No        | URL of the Dex identity provider. **Required** when dex is enabled. |
+| O2_CALLBACK_URL             | -                                          | No        | Set this value to `<openobserve base url>/web/cb`, after successful token received from dex, user will be redirected to this page. **Required** when dex is enabled. |
+| O2_DEX_REDIRECT_URL         | -                                          | No        | Set this value to `<openobserve base url>/config/callback`, Should match to redirect uri specified in dex. **Required** when dex is enabled. |
+| O2_DEX_SCOPES               | openid profile email groups offline_access | No        | scopes to be fetched from dex. |
+| O2_DEX_GROUP_ATTRIBUTE      | ou                                         | No        | Maps user to OpenObserve organization. |
+| O2_DEX_ROLE_ATTRIBUTE       | cn                                         | No        | User's role in the organization. |
+| O2_DEX_DEFAULT_ORG          | default                                    | No        | Default organization for users not belonging to any group in ldap |
+| O2_DEX_AUTH_EP_SUFFIX       | `/auth`                                    | No        | Suffix for dex authentication endpoint |
+| O2_DEX_TOKEN_EP_SUFFIX      | `/token`                                   | No        | Suffix for dex token endpoint |
+| O2_DEX_KEYS_EP_SUFFIX       | `/keys`                                    | No        | Suffix for dex keys endpoint |
+| O2_DEX_AUTH_EP_SUFFIX       | `/auth`                                    | No        | Suffix for dex authentication endpoint |
+| O2_DEX_NATIVE_LOGIN_ENABLED | `true`                                     | No        | Indicates if native dex login is enabled. |
+
