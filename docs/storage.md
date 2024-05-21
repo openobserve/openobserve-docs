@@ -6,6 +6,7 @@ There are 2 primary items that need to be stored in OpenObserve.
 1. Metadata of ingested stream data
 
 Metadata for stream data is always stored:
+
 1. on disk for `Local mode` in `sqlite` 
 1. in `etcd/mysql/postgres` for `Cluster mode`. etcd is highly discouraged and `postgres` is recommended.
 
