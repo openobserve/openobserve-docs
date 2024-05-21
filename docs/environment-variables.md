@@ -254,11 +254,11 @@ OpenObserve is configured through the use of below environment variables.
 
 | Environment Variable             | Default Value | Mandatory | Description |
 | -------------------------------- | ------------- | --------- | ----------- |
-| ZO_QUICK_MODE_ENABLED            | false         | No        |             |
-| ZO_QUICK_MODE_NUM_FIELDS         | 500           | No        |             |
-| ZO_QUICK_MODE_STRATEGY           | ""            | No        |             |
-| ZO_QUICK_MODE_FILE_LIST_ENABLED  |               | No        |             |
-| ZO_QUICK_MODE_FILE_LIST_INTERVAL |               | No        |             |
+| ZO_QUICK_MODE_ENABLED            | false         | No        | Indicates if quick mode is enabled. |
+| ZO_QUICK_MODE_NUM_FIELDS         | 500           | No        | The number of fields to consider for quick mode. |
+| ZO_QUICK_MODE_STRATEGY           | ""            | No        | Possible values - `first`, `last`, `both` |
+| ZO_QUICK_MODE_FILE_LIST_ENABLED  | false         | No        | Indicates if file list is enabled for quick mode |
+| ZO_QUICK_MODE_FILE_LIST_INTERVAL | 300           | No        | File list interval in seconds. |
 
 <!-- ## RUM
 
@@ -294,15 +294,14 @@ OpenObserve supports Real User Monitoring (RUM) for web application and can be e
 
 | Environment Variable      | Default Value | Mandatory | Description |
 | ------------------------- | ------------- | --------- | ----------- |
-| ZO_NATS_PREFIX            |               | No        |             |
-| ZO_NATS_USER              |               | No        |             |
-| ZO_NATS_PASSWORD          |               | No        |             |
-| ZO_NATS_REPLICAS          |               | No        |             |
-| ZO_NATS_CONNECT_TIMEOUT   |               | No        |             |
-| ZO_NATS_COMMAND_TIMEOUT   |               | No        |             |
-| ZO_NATS_LOCK_WAIT_TIMEOUT |               | No        |             |
-| ZO_NATS_QUEUE_MAX_AGE     |               | No        |             |
-| ZO_NATS_LOAD_PAGE_SIZE    |               | No        |             |
+| ZO_NATS_PREFIX            | `o2_`         | No        | NATS prefix for openobserve. |
+| ZO_NATS_USER              | ""            | No        | NATS user name. |
+| ZO_NATS_PASSWORD          | ""            | No        | NATS user password. |
+| ZO_NATS_REPLICAS          | 3             | No        | Number of replicas for NATS. |
+| ZO_NATS_CONNECT_TIMEOUT   | 5             | No        | NATS connection timeout in seconds. |
+| ZO_NATS_COMMAND_TIMEOUT   | 10            | No        | NATS command timeout in seconds. |
+| ZO_NATS_LOCK_WAIT_TIMEOUT | 3600          | No        | NATS lock wait timeout in seconds. |
+| ZO_NATS_QUEUE_MAX_AGE     | 60            | No        | NATS queue maximum age in days. |
 
 ## Etcd
 
