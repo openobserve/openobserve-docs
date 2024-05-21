@@ -171,33 +171,32 @@ OpenObserve is configured through the use of below environment variables.
 | Environment Variable               | Default Value | Mandatory | Description                                                                                                                                                               |
 | ---------------------------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ZO_USAGE_REPORTING_ENABLED         | false         | No        | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable charge back for internal teams. |
-| ZO_USAGE_ORG                       | _meta_        | No        | To which org the usage data should be sent                                                                                                                                |
-| ZO_USAGE_BATCH_SIZE                | 2000          | No        | How many requests should be batched before flushing the usage data from memory to disk                                                                                    |
-| ZO_USAGE_REPORTING_MODE            |               | No        |                                                                                                                                                                           |
-| ZO_USAGE_REPORTING_URL             |               | No        |                                                                                                                                                                           |
-| ZO_USAGE_REPORTING_CREDS           |               | No        |                                                                                                                                                                           |
-| ZO_USAGE_BATCH_SIZE                |               | No        |                                                                                                                                                                           |
-| ZO_USAGE_REPORTING_COMPRESSED_SIZE | false         | No        |                                                                                                                                                                           |
+| ZO_USAGE_ORG                       | _meta_        | No        | To which org the usage data should be sent. |
+| ZO_USAGE_BATCH_SIZE                | 2000          | No        | How many requests should be batched before flushing the usage data from memory to disk |
+| ZO_USAGE_REPORTING_MODE            | `local`       | No        | `local` mode means the usage will be reported only in the internal cluster of `ZO_USAGE_ORG`. `remote` mode means that the usage reporting will be ingested to the remote target. `both` ingests the usage reports both to internal and remote target. |
+| ZO_USAGE_REPORTING_URL             | `http://localhost:5080/api/_meta/usage/_json` | No        | In case of `remote` or `both` value of `ZO_USAGE_REPORTING_MODE`, this URL is used to post the usage reports to remote target. |
+| ZO_USAGE_REPORTING_CREDS           |       ""       | No        | The credentials required to send along with the post request to the `ZO_USAGE_REPORTING_URL`. E.g. - `Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=`. |
 
 ## Reports and Alerts
 
 | Environment Variable          | Default Value | Mandatory | Description |
 | ----------------------------- | ------------- | --------- | ----------- |
-| ZO_CHROME_ENABLED             |               | No        |             |
-| ZO_CHROME_PATH                |               | No        |             |
-| ZO_CHROME_CHECK_DEFAULT_PATH  |               | No        |             |
-| ZO_CHROME_NO_SANDBOX          |               | No        |             |
-| ZO_CHROME_SLEEP_SECS          |               | No        |             |
-| ZO_ALERT_SCHEDULE_CONCURRENCY |               | No        |             |
-| ZO_ALERT_SCHEDULE_TIMEOUT     |               | No        |             |
-| ZO_REPORT_SCHEDULE_TIMEOUT    |               | No        |             |
-| ZO_SCHEDULER_MAX_RETRIES      |               | No        |             |
-| ZO_SCHEDULER_CLEAN_INTERVAL   |               | No        |             |
-| ZO_SCHEDULER_WATCH_INTERVAL   |               | No        |             |
-| ZO_REPORT_USER_NAME           |               | No        |             |
-| ZO_REPORT_USER_PASSWORD       | ""            | No        |             |
-| ZO_CHROME_WITH_HEAD           | false         | No        |             |
-| ZO_CHROME_WINDOW_WIDTH        | 1370          | No        |             |
+| ZO_CHROME_ENABLED             | `false`       | No        | When `true`, it looks for chromium executable. Required for dashboard reports. |
+| ZO_CHROME_PATH                | -             | No        | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
+| ZO_CHROME_CHECK_DEFAULT_PATH  | `true`        | No        | If `false`, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
+| ZO_CHROME_NO_SANDBOX          | `false`       | No        | If true, it launches chromium in no-sandbox environment. |
+| ZO_CHROME_SLEEP_SECS          | 20            | No        | Specify the number of timeout seconds the headless chrome will wait until all the dashboard data is loaded. |
+| ZO_CHROME_WITH_HEAD           | `false`       | No        | If `true`, it launches the chromium browser in non-headless mode. |
+| ZO_CHROME_WINDOW_WIDTH        | 1370          | No        | Specifies the width of the headless chromium browser. |
+| ZO_CHROME_WINDOW_HEIGHT       | 730           | No        | Specifies the height of the headless chromium browser. |
+| ZO_ALERT_SCHEDULE_CONCURRENCY | 5             | No        | The number of scheduled jobs the the alert manager will pull at a time from the scheduler for processing |
+| ZO_ALERT_SCHEDULE_TIMEOUT     | 90            | No        | The maximum expected time duration in seconds within which the processing of alert by the alert manager should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other alert managers to pick. |
+| ZO_REPORT_SCHEDULE_TIMEOUT    | 300           | No        | The maximum expected time duration in seconds within which the processing of report by the alert manager should be complete. If the processing of the report is not complete within the timeframe, the report will become available again for other alert managers to pick. |
+| ZO_SCHEDULER_MAX_RETRIES      | 3             | No        | The maximum number of times the scheduler will retry processing the alert/report. If exceeded, the scheduler will skip to the next trigger time of the alert/report. |
+| ZO_SCHEDULER_CLEAN_INTERVAL   | 30 | No        | The interval in seconds after which the scheduler will clean up the completed scheduled jobs. |
+| ZO_SCHEDULER_WATCH_INTERVAL   | 30 | No        | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by alert managers. |
+| ZO_REPORT_USER_NAME           | ""            | No        | The username that will be used by the headless chromium to login into openobserve and generate report. |
+| ZO_REPORT_USER_PASSWORD       | ""            | No        | The password that will be used by the headless chromium to login into openobserve and generate report. |
 
 ## Caching
 
@@ -282,14 +281,14 @@ OpenObserve supports Real User Monitoring (RUM) for web application and can be e
 
 | Environment Variable | Default Value | Mandatory | Description |
 | -------------------- | ------------- | --------- | ----------- |
-| ZO_SMTP_ENABLED      |               | No        |             |
-| ZO_SMTP_HOST         |               | No        |             |
-| ZO_SMTP_PORT         |               | No        |             |
-| ZO_SMTP_USER_NAME    |               | No        |             |
-| ZO_SMTP_PASSWORD     |               | No        |             |
-| ZO_SMTP_REPLY_TO     |               | No        |             |
-| ZO_SMTP_FROM_EMAIL   |               | No        |             |
-| ZO_SMTP_ENCRYPTION   |               | No        |             |
+| ZO_SMTP_ENABLED      | `false`       | No        | Indicates if smtp configuration is present. |
+| ZO_SMTP_HOST         | `localhost`   | No        | The SMTP host to connect to. |
+| ZO_SMTP_PORT         | 25            | No        | The SMTP port to connect to. |
+| ZO_SMTP_USER_NAME    | ""            | No        | SMTP user name. `Required` when using smtp. |
+| ZO_SMTP_PASSWORD     | ""            | No        | SMTP user password. `Required` when using smtp. |
+| ZO_SMTP_REPLY_TO     | ""            | No        | The user email whom people can reply to. |
+| ZO_SMTP_FROM_EMAIL   | ""            | No        | The user email that is going to send the email. `Required` when using smtp. |
+| ZO_SMTP_ENCRYPTION   | ""            | No        | Smtp encryption method. Possible values - `ssltls`, `starttls` and "" (in case of localhost smtp). |
 
 ## NATS
 
