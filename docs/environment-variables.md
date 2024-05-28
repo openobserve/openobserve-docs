@@ -179,24 +179,32 @@ OpenObserve is configured through the use of below environment variables.
 
 ## Reports and Alerts
 
-| Environment Variable          | Default Value | Mandatory | Description |
-| ----------------------------- | ------------- | --------- | ----------- |
-| ZO_CHROME_ENABLED             | `false`       | No        | When `true`, it looks for chromium executable. Required for dashboard reports. |
-| ZO_CHROME_PATH                | -             | No        | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
-| ZO_CHROME_CHECK_DEFAULT_PATH  | `true`        | No        | If `false`, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
-| ZO_CHROME_NO_SANDBOX          | `false`       | No        | If true, it launches chromium in no-sandbox environment. |
-| ZO_CHROME_SLEEP_SECS          | 20            | No        | Specify the number of timeout seconds the headless chrome will wait until all the dashboard data is loaded. |
-| ZO_CHROME_WITH_HEAD           | `false`       | No        | If `true`, it launches the chromium browser in non-headless mode. |
-| ZO_CHROME_WINDOW_WIDTH        | 1370          | No        | Specifies the width of the headless chromium browser. |
-| ZO_CHROME_WINDOW_HEIGHT       | 730           | No        | Specifies the height of the headless chromium browser. |
-| ZO_ALERT_SCHEDULE_CONCURRENCY | 5             | No        | The number of scheduled jobs the the alert manager will pull at a time from the scheduler for processing |
-| ZO_ALERT_SCHEDULE_TIMEOUT     | 90            | No        | The maximum expected time duration in seconds within which the processing of alert by the alert manager should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other alert managers to pick. |
-| ZO_REPORT_SCHEDULE_TIMEOUT    | 300           | No        | The maximum expected time duration in seconds within which the processing of report by the alert manager should be complete. If the processing of the report is not complete within the timeframe, the report will become available again for other alert managers to pick. |
-| ZO_SCHEDULER_MAX_RETRIES      | 3             | No        | The maximum number of times the scheduler will retry processing the alert/report. If exceeded, the scheduler will skip to the next trigger time of the alert/report. |
-| ZO_SCHEDULER_CLEAN_INTERVAL   | 30 | No        | The interval in seconds after which the scheduler will clean up the completed scheduled jobs. |
-| ZO_SCHEDULER_WATCH_INTERVAL   | 30 | No        | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by alert managers. |
-| ZO_REPORT_USER_NAME           | ""            | No        | The username that will be used by the headless chromium to login into openobserve and generate report. |
-| ZO_REPORT_USER_PASSWORD       | ""            | No        | The password that will be used by the headless chromium to login into openobserve and generate report. |
+| Environment Variable                | Default Value     | Mandatory | Description |
+| ----------------------------------- | ----------------- | --------- | ----------- |
+| ZO_CHROME_ENABLED                   | `false`           | No        | When `true`, it looks for chromium executable. Required for dashboard reports. |
+| ZO_CHROME_PATH                      | -                 | No        | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
+| ZO_CHROME_CHECK_DEFAULT_PATH        | `true`            | No        | If `false`, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
+| ZO_CHROME_NO_SANDBOX                | `false`           | No        | If true, it launches chromium in no-sandbox environment. |
+| ZO_CHROME_SLEEP_SECS                | 20                | No        | Specify the number of timeout seconds the headless chrome will wait until all the dashboard data is loaded. |
+| ZO_CHROME_WITH_HEAD                 | `false`           | No        | If `true`, it launches the chromium browser in non-headless mode. |
+| ZO_CHROME_WINDOW_WIDTH              | 1370              | No        | Specifies the width of the headless chromium browser. |
+| ZO_CHROME_WINDOW_HEIGHT             | 730               | No        | Specifies the height of the headless chromium browser. |
+| ZO_CHROME_AUTO_DOWNLOAD             | `false`           | No        | Only used by the report-server. If `true`, the report-server automatically downloads a good known version of chromium if chromium is not found in the system. **Note:** If auto download of chromium is desired, make sure that the system has all the required dependency libraries of chromium already installed. |
+| ZO_ALERT_SCHEDULE_CONCURRENCY       | 5                 | No        | The number of scheduled jobs the the alert manager will pull at a time from the scheduler for processing |
+| ZO_ALERT_SCHEDULE_TIMEOUT           | 90                | No        | The maximum expected time duration in seconds within which the processing of alert by the alert manager should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other alert managers to pick. |
+| ZO_REPORT_SCHEDULE_TIMEOUT          | 300               | No        | The maximum expected time duration in seconds within which the processing of report by the alert manager should be complete. If the processing of the report is not complete within the timeframe, the report will become available again for other alert managers to pick. |
+| ZO_SCHEDULER_MAX_RETRIES            | 3                 | No        | The maximum number of times the scheduler will retry processing the alert/report. If exceeded, the scheduler will skip to the next trigger time of the alert/report. |
+| ZO_SCHEDULER_CLEAN_INTERVAL         | 30                | No        | The interval in seconds after which the scheduler will clean up the completed scheduled jobs. |
+| ZO_SCHEDULER_WATCH_INTERVAL         | 30                | No        | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by alert managers. |
+| ZO_REPORT_USER_NAME                 | ""                | No        | The username that will be used by the headless chromium to login into openobserve and generate report. |
+| ZO_REPORT_USER_PASSWORD             | ""                | No        | The password that will be used by the headless chromium to login into openobserve and generate report. |
+| ZO_ENABLE_EMBEDDED_REPORT_SERVER    | `false`           | No        | If true, the alert manager (for which this ENV is enabled) spawns a new report-server running on PORT `5082` (default, can be changed through `ZO_REPORT_SERVER_HTTP_PORT`). |
+| ZO_REPORT_SERVER_HTTP_PORT          | `5082`            | No        | The port used by the newly spawned report-server. |
+| ZO_REPORT_SERVER_HTTP_ADDR          | `127.0.0.1`       | No        | The ip address used by the newly spawned report-server. |
+| ZO_REPORT_SERVER_URL                | `localhost:5082`  | No        | The report server server URL. E.g. - `https://report-server.example.com/api`. |
+| ZO_REPORT_SERVER_SKIP_TLS_VERIFY    | `false`           | No        | If `true`, it will skip tls verification while making request to report-server from alert manager. |
+
+**NOTE:** For report-server to work correctly, `ZO_WEB_URL`, `ZO_BASE_URI` (if any) and `ZO_REPORT_SERVER_URL` must be specified for every alert managers.
 
 ## Caching
 
@@ -343,9 +351,9 @@ For backward compatibility, we still support etcd but most of you should be able
 
 ## Enterprise
 
-Below environment variables are applicable to the enterprise edition.
+Below are the Environment variables only available in the enterprise edition.
 
-### Misc
+## Misc
 
 | Environment Variable      | Default Value | Mandatory | Description |
 | ------------------------- | ------------- | --------- | ----------- |
@@ -356,7 +364,7 @@ Below environment variables are applicable to the enterprise edition.
 | O2_CUSTOM_DOCS_URL        | ""            | No        | Custom docs URL that will be used by the `docs` tab on the openobserve UI. |
 | O2_CUSTOM_HIDE_MENUS      | ""            | No        | comma(',') separated menu items that should not be shown in the menu on openobserve UI. E.g. - `metrics,traces` |
 
-### Super-Cluster
+## Super-Cluster
 
 | Environment Variable         | Default Value | Mandatory | Description |
 | ---------------------------- | ------------- | --------- | ----------- |
@@ -366,7 +374,7 @@ Below environment variables are applicable to the enterprise edition.
 | O2_SUPER_CLUSTER_PUBLIC_PORT | ""            | No        | Public port of super cluster (in case of gRPC). |
 | O2_SUPER_CLUSTER_GRPC_TOKEN  | ""            | No        | gRPC token. |
 
-### Search-Group
+## Search-Group
 
 | Environment Variable                    | Default Value | Mandatory | Description |
 | --------------------------------------- | ------------- | --------- | ----------- |
@@ -379,7 +387,7 @@ Below environment variables are applicable to the enterprise edition.
 | O2_SEARCH_GROUP_BASE_SPEED              | `1024`        | No        | Base speed in MB. |
 | O2_SEARCH_GROUP_BASE_SECS               | `10   `       | No        | Base speed in secs. |
 
-### OpenFGA
+## OpenFGA
 
 | Environment Variable               | Default Value                  | Mandatory | Description |
 | ---------------------------------- | ------------------------------ | --------- | ----------- |
@@ -391,7 +399,7 @@ Below environment variables are applicable to the enterprise edition.
 | O2_OPENFGA_LIST_ONLY_PERMITTED     | `false`                        | No        | If `true`, openobserve only lists resources that have `GET` permission. |
 | O2_MAP_GROUP_TO_ROLE_SKIP_CREATION | `true`                         | No        | Used with `O2_MAP_GROUP_TO_ROLE`. Skips creating the roles mapped from group claims assuming they already exists. |
 
-### DEX
+## DEX
 
 | Environment Variable        | Default Value                              | Mandatory | Description                                                                                                                       |
 | --------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
