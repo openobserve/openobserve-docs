@@ -1,6 +1,4 @@
-
 # Functions
-
 
 ## Query Functions
 
@@ -12,13 +10,22 @@ filter the keyword in the field.
 
 filter the keyword in the field with case_insensitive. it can match `KeyWord` or `keyWord`.
 
-### match_all('v')
+### match_all_raw('v')
 
 filter the keyword in multiple fields. default will search in fields: `log`, `message`, `msg`, `content`, `data`, `events`, `json`. you can set the full text search fields in the UI or through `index.setting` API.
 
-### match_all_ignore_case('v')
+### match_all_raw_ignore_case('v')
 
 filter the keyword in multiple fields with case_insensitive.
+
+### match_all('v')
+
+filter the keyword in multiple fields, whose Index Type is set to `Inverted Index`. To utilize Inverted Index, you must set environment variable `ZO_ENABLE_INVERTED_INDEX` to `true` first,
+then you can specify Index Type for one or multiple fields (e.g. `body`, `message`) to `Inverted Index` by going to stream settings.
+
+### match_all_ignore_case('v')
+
+filter the keyword in multiple inverted indexed fields with case_insensitive.
 
 ### re_match(field, 'pattern')
 
@@ -29,13 +36,13 @@ eg:
 find `err` or `panic` in log field.
 
 ```sql
-SELECT * FROM {stream} WHERE re_match(log, '(err|panic)') 
+SELECT * FROM {stream} WHERE re_match(log, '(err|panic)')
 ```
 
 find `err` with case case_insensitive in log field.
 
 ```sql
-SELECT * FROM {stream} WHERE re_match(log, '(?i)err') 
+SELECT * FROM {stream} WHERE re_match(log, '(?i)err')
 ```
 
 ### re_not_match(field, 'pattern')
@@ -188,7 +195,7 @@ truncate toward zero
 
 `time_range(field, start, end)`
 
-eg: 
+eg:
 
 ```sql
 time_range(_timestamp, 1682506648678743, 1682506648678743)
@@ -206,7 +213,7 @@ time_range(_timestamp, '2023-04-05T18:00:00Z',  '2023-04-05T18:10:00Z')
 
 `format` please refer to: https://docs.rs/chrono/latest/chrono/format/strftime/index.html
 
-eg: 
+eg:
 
 ```sql
 date_format(_timestamp, '%Y-%m-%d', 'UTC')
@@ -223,12 +230,12 @@ date_format(_timestamp, '%H:%M:%S', '+08:00')
 `to_timestamp()` is similar to the standard SQL function. It performs conversions to type `Timestamp(Nanoseconds, None)`, from:
 
 - Timestamp strings
-    - `1997-01-31T09:26:56.123Z` # RCF3339
-    - `1997-01-31T09:26:56.123-05:00` # RCF3339
-    - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
-    - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
-    - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
-    - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
+  - `1997-01-31T09:26:56.123Z` # RCF3339
+  - `1997-01-31T09:26:56.123-05:00` # RCF3339
+  - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
+  - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
+  - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
+  - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
 - An Int64 array/column, values are nanoseconds since Epoch UTC
 - Other Timestamp() columns or values
 
@@ -239,12 +246,12 @@ Note that conversions from other Timestamp and Int64 types can also be performed
 `to_timestamp_millis()` does conversions to type `Timestamp(Milliseconds, None)`, from:
 
 - Timestamp strings, the same as supported by the regular timestamp() function (except the output is a timestamp of Milliseconds resolution)
-    - `1997-01-31T09:26:56.123Z` # RCF3339
-    - `1997-01-31T09:26:56.123-05:00` # RCF3339
-    - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
-    - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
-    - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
-    - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
+  - `1997-01-31T09:26:56.123Z` # RCF3339
+  - `1997-01-31T09:26:56.123-05:00` # RCF3339
+  - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
+  - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
+  - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
+  - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
 - An Int64 array/column, values are milliseconds since Epoch UTC
 - Other Timestamp() columns or values
 
@@ -255,12 +262,12 @@ Note that `CAST(.. AS Timestamp)` converts to Timestamps with Nanosecond resolut
 `to_timestamp_micros()` does conversions to type `Timestamp(Microseconds, None)`, from:
 
 - Timestamp strings, the same as supported by the regular timestamp() function (except the output is a timestamp of microseconds resolution)
-    - `1997-01-31T09:26:56.123Z` # RCF3339
-    - `1997-01-31T09:26:56.123-05:00` # RCF3339
-    - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
-    - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
-    - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
-    - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
+  - `1997-01-31T09:26:56.123Z` # RCF3339
+  - `1997-01-31T09:26:56.123-05:00` # RCF3339
+  - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
+  - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
+  - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
+  - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
 - An Int64 array/column, values are microseconds since Epoch UTC
 - Other Timestamp() columns or values
 
@@ -271,12 +278,12 @@ Note that `CAST(.. AS Timestamp)` converts to Timestamps with Nanosecond resolut
 `to_timestamp_seconds()` does conversions to type `Timestamp(Seconds, None)`, from:
 
 - Timestamp strings, the same as supported by the regular timestamp() function (except the output is a timestamp of seconds resolution)
-    - `1997-01-31T09:26:56.123Z` # RCF3339
-    - `1997-01-31T09:26:56.123-05:00` # RCF3339
-    - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
-    - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
-    - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
-    - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
+  - `1997-01-31T09:26:56.123Z` # RCF3339
+  - `1997-01-31T09:26:56.123-05:00` # RCF3339
+  - `1997-01-31 09:26:56.123-05:00` # close to RCF3339 but with a space er than T
+  - `1997-01-31T09:26:56.123` # close to RCF3339 but no timezone et specified
+  - `1997-01-31 09:26:56.123` # close to RCF3339 but uses a space and timezone offset
+  - `1997-01-31 09:26:56` # close to RCF3339, no fractional seconds
 - An Int64 array/column, values are seconds since Epoch UTC
 - Other Timestamp() columns or values
 
@@ -314,14 +321,13 @@ The `date_part` function is modeled on the postgres equivalent to the SQL-standa
 
 Returns current time as `Timestamp(Nanoseconds, UTC)`. Returns same value for the function wherever it appears in the statement, using a value chosen at planning time.
 
-
 ## Aggregate Functions
 
 Aggregate functions operate on a set of values to compute a single result. Please refer to PostgreSQL for usage of standard SQL functions.
 
 ### histogram
 
-`histogram(field, 'interval')` or  `histogram(field, num)`
+`histogram(field, 'interval')` or `histogram(field, num)`
 
 histogram of the field values
 
@@ -349,18 +355,18 @@ response:
 
 ```json
 [
-    {
-        "key": "2023-01-15 14:00:00",
-        "num": 345940
-    },
-    {
-        "key": "2023-01-15 14:00:30",
-        "num": 384026
-    },
-    {
-        "key": "2023-01-20 14:01:00",
-        "num": 731871
-    }
+  {
+    "key": "2023-01-15 14:00:00",
+    "num": 345940
+  },
+  {
+    "key": "2023-01-15 14:00:30",
+    "num": 384026
+  },
+  {
+    "key": "2023-01-20 14:01:00",
+    "num": 731871
+  }
 ]
 ```
 
