@@ -17,15 +17,15 @@ then you can specify Index Type for one or multiple fields (e.g. `body`, `messag
 
 ### match_all_ignore_case('v')
 
-filter the keyword in multiple inverted indexed fields with case_insensitive.
+same as `match_all` but with case_insensitive.
 
 ### match_all_raw('v')
 
-filter the keyword in multiple fields. default will search in fields: `log`, `message`, `msg`, `content`, `data`, `events`, `json`. you can set the full text search fields in the UI or through `index.setting` API.
+filter the keyword in multiple fields. Unlike `match_all`, `match_all_raw` does not utilize `Inverted Index` and filters across the entire original data. 
 
 ### match_all_raw_ignore_case('v')
 
-filter the keyword in multiple fields with case_insensitive.
+same as `match_all_raw` but with case_insensitive.
 
 ### re_match(field, 'pattern')
 
