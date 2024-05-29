@@ -85,14 +85,20 @@ Please choose the version you are using and add suffix `-debug` to the tag, If y
     ```
 1. Run the command depends on you want to use MySQL or PostgreSQL
 
+    If there is no `wal` directory please create it.
     ```shell
-    ./openobserve migrate-meta --from sqlite --to mysql
-    ./openobserve migrate-meta --from sqlite --to postgres
+    mkdir -p data/openobserve/wal/
+    ```
+    > Remember change the `data/openobserve/` to your real data directory.
+
+    ```shell
+    ./openobserve migrate-meta --from etcd --to mysql
+    ./openobserve migrate-meta --from etcd --to postgres
     ```
     This will migrate metadata.
     ```shell
-    ./openobserve migrate-file-list --from sqlite --to mysql
-    ./openobserve migrate-file-list --from sqlite --to postgres
+    ./openobserve migrate-file-list --from etcd --to mysql
+    ./openobserve migrate-file-list --from etcd --to postgres
     ```
     This will migrate the file list. 
 
@@ -144,6 +150,12 @@ Please choose the version you are using and add suffix `-debug` to the tag, If y
     $ export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/app"
     ```
 1. Run the command depends on you want to use MySQL or PostgreSQL
+
+    If there is no `wal` directory please create it.
+    ```shell
+    mkdir -p data/openobserve/wal/
+    ```
+    > Remember change the `data/openobserve/` to your real data directory.
 
     ```shell
     ./openobserve migrate-meta --from sqlite --to mysql
