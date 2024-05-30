@@ -296,16 +296,17 @@ OpenObserve supports Real User Monitoring (RUM) for web application and can be e
 
 ## NATS
 
-| Environment Variable      | Default Value | Mandatory | Description |
-| ------------------------- | ------------- | --------- | ----------- |
-| ZO_NATS_PREFIX            | `o2_`         | No        | NATS prefix for openobserve. |
-| ZO_NATS_USER              | ""            | No        | NATS user name. |
-| ZO_NATS_PASSWORD          | ""            | No        | NATS user password. |
-| ZO_NATS_REPLICAS          | 3             | No        | Number of replicas for NATS. |
-| ZO_NATS_CONNECT_TIMEOUT   | 5             | No        | NATS connection timeout in seconds. |
-| ZO_NATS_COMMAND_TIMEOUT   | 10            | No        | NATS command timeout in seconds. |
-| ZO_NATS_LOCK_WAIT_TIMEOUT | 3600          | No        | NATS lock wait timeout in seconds. |
-| ZO_NATS_QUEUE_MAX_AGE     | 60            | No        | NATS queue maximum age in days. |
+| Environment Variable      | Default Value    | Mandatory | Description |
+| ------------------------- | -------------    | --------- | ----------- |
+| ZO_NATS_ADDR              | `localhost:4222` | No        | NATS server address - If not stated explicitly the `nats://` schema and port `4222` is assumed.|
+| ZO_NATS_PREFIX            | `o2_`            | No        | NATS prefix for openobserve. |
+| ZO_NATS_USER              | ""               | No        | NATS user name. |
+| ZO_NATS_PASSWORD          | ""               | No        | NATS user password. |
+| ZO_NATS_REPLICAS          | 3                | No        | Number of replicas for NATS. |
+| ZO_NATS_CONNECT_TIMEOUT   | 5                | No        | NATS connection timeout in seconds. |
+| ZO_NATS_COMMAND_TIMEOUT   | 10               | No        | NATS command timeout in seconds. |
+| ZO_NATS_LOCK_WAIT_TIMEOUT | 3600             | No        | NATS lock wait timeout in seconds. |
+| ZO_NATS_QUEUE_MAX_AGE     | 60               | No        | NATS queue maximum age in days. |
 
 ## Etcd
 
