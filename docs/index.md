@@ -48,6 +48,7 @@ Following is the list of available features and roadmap.
 | 37 | Log patterns                                                 | To start            |
 | 38 | Anomaly detection                                            | To start            |
 | 39 | Correlation between logs, metrics and traces                 | To start            |
+| 40 | Dashboard migration from Splunk, Kibana and Grafana | beta. [https://dc.openobserve.ai](https://dc.openobserve.ai) [https://github.com/openobserve/dashboard_converter](https://github.com/openobserve/dashboard_converter) |
 
 
 Please raise any new feature requests via [github issue tracker](https://github.com/openobserve/openobserve/issues).
