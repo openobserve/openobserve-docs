@@ -44,6 +44,11 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
 === "MacOS/Linux Binaries"
     Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
+    Run this script to download OpenObserve:
+
+        curl -L https://raw.githubusercontent.com/openobserve/openobserve/main/download.sh | sh
+    
+    Once downloaded run using below command:
 
         ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
 
@@ -62,7 +67,6 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     Docker images are available at [https://gallery.ecr.aws/zinclabs/openobserve](https://gallery.ecr.aws/zinclabs/openobserve)
 
-        mkdir data
         docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
             -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
             public.ecr.aws/zinclabs/openobserve:latest
