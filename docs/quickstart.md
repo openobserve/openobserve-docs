@@ -43,12 +43,11 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
     Now point your browser to [http://localhost:5080](http://localhost:5080) and login
 
 === "MacOS/Linux Binaries"
-    Binaries can be downloaded from [releases](https://github.com/openobserve/openobserve/releases) page for appropriate platform.
-    Run this script to download OpenObserve:
+    You could run the below command to download latest version of OpenObserve for your platform. Alternatively you could download the binary from [releases](https://github.com/openobserve/openobserve/releases) page manually:
 
         curl -L https://raw.githubusercontent.com/openobserve/openobserve/main/download.sh | sh
     
-    Once downloaded run using below command:
+    Once downloaded run it using below command:
 
         ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
 
