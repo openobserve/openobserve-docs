@@ -172,6 +172,7 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_USAGE_REPORTING_MODE            | `local`       | No        | `local` mode means the usage will be reported only in the internal cluster of `ZO_USAGE_ORG`. `remote` mode means that the usage reporting will be ingested to the remote target. `both` ingests the usage reports both to internal and remote target. |
 | ZO_USAGE_REPORTING_URL             | `http://localhost:5080/api/_meta/usage/_json` | No        | In case of `remote` or `both` value of `ZO_USAGE_REPORTING_MODE`, this URL is used to post the usage reports to remote target. |
 | ZO_USAGE_REPORTING_CREDS           |       ""       | No        | The credentials required to send along with the post request to the `ZO_USAGE_REPORTING_URL`. E.g. - `Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=`. |
+| ZO_USAGE_PUBLISH_INTERVAL          |      600       | No        | Duration in seconds after the last reporting usage will be published. |
 
 ## Reports and Alerts
 
