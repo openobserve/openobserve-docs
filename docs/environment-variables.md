@@ -236,6 +236,8 @@ OpenObserve is configured through the use of below environment variables.
 
 | Environment Variable              | Default Value | Mandatory | Description |
 | --------------------------------- | ------------- | --------- | ----------- |
+| ZO_MMDB_DISABLE_DOWNLOAD          | false         | No        |             |
+| ZO_MMDB_UPDATE_DURATION           |  86400        | No        |             |
 | ZO_MMDB_DATA_DIR                  |               | No        |             |
 | ZO_MMDB_GEOLITE_CITYDB_URL        |               | No        |             |
 | ZO_MMDB_GEOLITE_ASNDB_URL         |               | No        |             |
