@@ -31,6 +31,8 @@ If you want to use external PostgreSQL, you can configure as below. You need to 
 ```yaml
 config:
   ZO_META_STORE: "postgres"
+
+auth:
   ZO_META_POSTGRES_DSN: "postgres://postgres:12345678@localhost:5432/openobserve"
 
 postgres:
