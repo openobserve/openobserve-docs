@@ -2,11 +2,11 @@
 
 ## What are functions?
 
-Functions in OpenObserve are defined using Vector Remap Language ([vrl](https://vector.dev/doc([:,])/\1/greference/vrl/functions/)) and can be used during ingestion or query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. 
+Functions in OpenObserve are defined using Vector Remap Language ([vrl](https://vrl.dev)) and can be used during ingestion or query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. 
 
 There are also inbuilt query functions like `match_all` and `match_all_ignore_case` etc which can be used for full text search based on user's settings for stream or default settings. Please refer [SQL functions reference](../../functions.md) for complete list of inbuilt functions.
 
-To navigate to functions in OpenObserve, select preferred organization using organization selection control, then click on `Functions` menu, which will take one to  functions list screen. The screen lists all the functions for selected organization.  
+To navigate to functions in OpenObserve, select preferred organization using organization selection control, then click on `Pipelines > Functions` menu, which will take you to functions list screen. This screen lists all the functions for selected organization.  
 
 <kbd>
 ![Functions](./images/functions_list.jpg)
