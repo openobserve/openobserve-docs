@@ -21,7 +21,7 @@ e.g. otel-collector configuration
 ```yaml
 exporters:
   otlphttp/openobserve:
-    endpoint: http://example.com/api/your-org/
+    endpoint: http://example.com/api/<your-org>  # Endpoint cannot have a trailing slash
     headers:
       Authorization: Basic cm9v****************************************Ng==
       stream-name: default
