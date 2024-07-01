@@ -16,7 +16,7 @@ Tips:
 
 1. Default OpenObserve runs as `Local mode`, you can set `LOCAL_MODE=false` to enable `Cluster mode`.
 1. In `Local mode` it also can use `s3` as storage, you can set `ZO_LOCAL_MODE_STORAGE=s3` to storage data in s3.
-1. For GCS, OSS they all support `s3` SDK, so you can think of them as s3 for all practical purposes. GCS is also supported if s3 is not suitable for your. Azure blob is also supported.
+1. For GCS, OSS they all support `s3` SDK, so you can think of them as s3 for all practical purposes. GCS is also supported if s3 is not suitable for you. Azure blob is also supported.
 
 ## Data
 
