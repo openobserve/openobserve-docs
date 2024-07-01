@@ -16,7 +16,7 @@ Tips:
 
 1. Default OpenObserve runs as `Local mode`, you can set `LOCAL_MODE=false` to enable `Cluster mode`.
 1. In `Local mode` it also can use `s3` as storage, you can set `ZO_LOCAL_MODE_STORAGE=s3` to storage data in s3.
-1. For GCS, OSS they all support `s3` SDK, so you can think of them as s3 for all practical purposes. Azure blob is also supported.
+1. For GCS, OSS they all support `s3` SDK, so you can think of them as s3 for all practical purposes. GCS is also supported if s3 is not suitable for you. Azure blob is also supported.
 
 ## Data
 
@@ -74,18 +74,32 @@ OpenObserve can use Openstack swift for storing stream data, following environme
 ### Google GCS
 
 OpenObserve can use google cloud storage for storing stream data, following environment variables needs to be setup:
+Using S3 api:
 
-| Environment Variable     | Value | Description                                                     |
-| ------------------------ | ----- | --------------------------------------------------------------- |
-| ZO_S3_SERVER_URL         | -     | gcs server address. should be: `https://storage.googleapis.com` |
-| ZO_S3_REGION_NAME        | -     | region name, gcs region name, or: `auto`                        |
-| ZO_S3_ACCESS_KEY         | -     | access key                                                      |
-| ZO_S3_SECRET_KEY         | -     | secret key                                                      |
-| ZO_S3_BUCKET_NAME        | -     | bucket name                                                     |
-| ZO_S3_FEATURE_HTTP1_ONLY | true  | --                                                              |
-| ZO_S3_PROVIDER           | s3    | Use s3 compatible API for gcp                                   |
+| Environment Variable     | Value  | Description                                                     |
+| ------------------------ | -------| --------------------------------------------------------------- |
+| ZO_S3_SERVER_URL         | -      | gcs server address. should be: `https://storage.googleapis.com` |
+| ZO_S3_REGION_NAME        | -      | region name, gcs region name, or: `auto`                        |
+| ZO_S3_ACCESS_KEY         | -      | access key                                                      |
+| ZO_S3_SECRET_KEY         | -      | secret key                                                      |
+| ZO_S3_BUCKET_NAME        | -      | bucket name                                                     |
+| ZO_S3_FEATURE_HTTP1_ONLY | true   | --                                                              |
+| ZO_S3_PROVIDER           | s3     | Use s3 compatible API                                           |
+
 
 You can refer to: [https://cloud.google.com/storage/docs/aws-simple-migration](https://cloud.google.com/storage/docs/aws-simple-migration)
+
+Or you can use gcs directly:
+
+| Environment Variable     | Value  | Description                                                             |
+| ------------------------ | -------| ----------------------------------------------------------------------- |
+| ZO_S3_SERVER_URL         | -      | gcs server address. should be: `https://storage.googleapis.com`         |
+| ZO_S3_REGION_NAME        | -      | region name, gcs region name, or: `auto`                                |
+| ZO_S3_ACCESS_KEY         | -      | Path to gcp json private key if not available through instance metadata |
+| ZO_S3_BUCKET_NAME        | -      | bucket name                                                             |
+| ZO_S3_PROVIDER           | gcs    | Use gcs api                                                             |
+
+Under the hood [object_store crate](https://docs.rs/object_store/0.10.1/object_store/gcp/struct.GoogleCloudStorageBuilder.html) is used through `with_env()` function and if `ZO_S3_ACCESS_KEY` is set also with `with_service_account_path()` function
 
 ### Alibaba OSS (aliyun)
 
