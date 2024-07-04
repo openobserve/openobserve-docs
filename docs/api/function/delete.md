@@ -1,4 +1,4 @@
-# Delete query function
+# Delete function
 
 Endpoint: `DELETE /api/{organization}/functions/{name}`
 

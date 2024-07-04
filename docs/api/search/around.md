@@ -9,8 +9,8 @@ Description
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
 | stream     | string    | -             | stream name |
-| key        | int64 | 0           | the `_timestamp` of the record what you want to search around |
-| size | int64     | 0             | how many records do you want to response around the record, we will search the record forward & backward 5 minutes |
+| key        | int64     | 0             | the `_timestamp` of the record what you want to search around |
+| size       | int64     | 0             | how many records do you want to response around the record, we will search the record forward & backward 5 minutes |
 
 ## Response
 

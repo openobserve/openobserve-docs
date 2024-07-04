@@ -18,7 +18,8 @@ Endpoint: `POST /api/{organization}/_search`
     "aggs": {
         "agg1": "SELECT histogram(_timestamp, '5 minute') AS key, COUNT(*) AS num FROM query GROUP BY key ORDER BY key",
         "agg2": "SELECT kubernetes.namespace_name AS namespace, COUNT(*) AS num FROM query GROUP BY namespace ORDER BY namespace",
-    }
+    },
+    "timeout": 0
 }
 ```
 
@@ -35,8 +36,8 @@ Description
 | query.track_total_hits | bool  | false | response real total of the query SQL, you can set it to true for response total. when you have aggs, this value will auto set to true. |
 | query.sql_mode | string | context      | mode: context / full, default is `context` mode, you cann't use `limit` `group by` in query.sql, and will use the SQL result as a context of aggregations. aggregation will get result from context. You you set it to `full`, in full mode, you can write a full SQL in query.sql, it supports `limit` `group by` and keywords, but it doesn't support aggregation. |
 | aggs       | object    | -             | aggregation params, you can ignore it if you have no aggregations. |
-| aggs.{name} | string | -           | SQL for each aggregation, it must `SELECT FROMM query`, the table `query` is a context from `query.sql`. |
-
+| aggs.{name} | string   | -             | SQL for each aggregation, it must `SELECT FROMM query`, the table `query` is a context from `query.sql`. |
+| timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
 
 ## Response
 

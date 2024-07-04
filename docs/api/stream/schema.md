@@ -1,6 +1,6 @@
 # Get schema for stream
 
-Endpoint: `GET /api/{organization}/{stream}/schema`
+Endpoint: `GET /api/{organization}/streams/{stream}/schema`
 
 ## Request
 
