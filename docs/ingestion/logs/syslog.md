@@ -23,7 +23,7 @@ Default port: `5514`
 You can change the default port number using the following environment variables:
 
 * `ZO_TCP_PORT` - TCP port number to listen on. Default: `5514`
-* `ZO_UDP_PORT` - TCP port number to listen on. Default: `5514`
+* `ZO_UDP_PORT` - UDP port number to listen on. Default: `5514`
 
 
 ## Testing
