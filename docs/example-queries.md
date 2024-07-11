@@ -31,3 +31,12 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
     count(case when code=500 then 1 end) as code_500_count FROM quickstart1 GROUP BY ts_histogram`</pre>
     - If you are looking to draw complex charts based on values in the logs (e.g. status code), you should use standard drag and drop charting functionality of OpenObserve which is very powerful and you do not have to write any SQL queries manually. Most users will be able to build 99% + of their required dashboards without writing any SQL.
 
+- Percentile P95 P99
+    
+    ```sql
+    SELECT histogram(_timestamp) as x_axis_1,  
+        approx_percentile_cont(duration, 0.95) as percentile_95, 
+        approx_percentile_cont(duration, 0.99) as percentile_99 
+    FROM default 
+        where service_name='$service' 
+        GROUP BY x_axis_1 ORDER BY x_axis_1
