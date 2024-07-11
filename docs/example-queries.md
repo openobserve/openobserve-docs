@@ -40,3 +40,4 @@ We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.ama
     FROM default 
         where service_name='$service' 
         GROUP BY x_axis_1 ORDER BY x_axis_1
+    ```
