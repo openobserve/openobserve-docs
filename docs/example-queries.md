@@ -4,13 +4,15 @@
 We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip) to demonstrate the sample queries that you can use.
 
 
-1. To search for all the fields containing the word `error`. This is a case sensitive search:
-    - `match_all_raw('error')`
-    - match_all searches only the fields that are configured for full text search. Default set of fields are `msg, message, log, logs`. If you want more fields to be scanned during full text search, you can configure them under stream settings. You should use `str_match` for full text search in specific fields.
+- To search for all the fields containing the word `error` using `Inverted Index`:
+    - `match_all('error')`
+    - - match_all searches only the fields that are configured for full text search. Default set of fields are `log`, `message`, `msg`, `content`, `data`, `events`, `json`. If you want more fields to be scanned during full text search, you can configure them under stream settings. You should use `str_match` for full text search in specific fields.
+- To search for all the fields containing the word `error` without `Inverted Index`:
+    - `match_all_raw('error')`, This is case sensitive.
+    - `match_all_raw_ignore_case(error)`, this is case insensitive.
+    - match_all_raw searches only the fields that are configured for full text search. Default set of fields are `log`, `message`, `msg`, `content`, `data`, `events`, `json`. If you want more fields to be scanned during full text search, you can configure them under stream settings. You should use `str_match` for full text search in specific fields.
 - Search only `log` field for error. This is much more efficient than `match_all_raw` as it search in a single field.
     - `str_match(log, 'error')`
--  To do a case insensitive search for `error`
-    - `match_all_raw_ignore_case('error')`
 - To search for all log entries that have log entries where `code is 200` . code is a numeric field
     - `code=200`
 - To search for all log entries where code field does not contain any value

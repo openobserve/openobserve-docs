@@ -57,4 +57,4 @@ For full text search user can use query in-built query functions like `match_all
 
 ### Inverted index search
 
-Similar to full text search, user can enabled inverted index feature and select appropriate fields to be indexed during ingestion. For such fields, user can query function `match_all` for case-insensitive search for all the fields that have Inverted Index set as the `Index Type`.
+Similar to full text search, user can enabled inverted index feature and select appropriate fields to be indexed during ingestion. For such fields, user can query function `match_all` for case-insensitive search for all the fields that have Inverted Index set as the `Full text search`.
