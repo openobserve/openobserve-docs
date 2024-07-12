@@ -12,7 +12,7 @@ A stream in OpenObserve is sequence of events (logs/metrics/traces) that share t
 
 ### Data Partitioning
 
-Data ingested in OpenObserve is partitioned by default based on year month day & hour. You can additionally specify partitioning keys which will be used to partition data. 
+Data ingested in OpenObserve is partitioned by default based on year month day & hour. You can additionally specify partitioning keys which will be used to partition data.
 
 ## Logs
 
@@ -22,7 +22,7 @@ Log is a type of stream, which caters to log events from applications.
 
 > Applicable to cloud version
 
-Users are indiviuals using application by logging in with appropriate credentials. As of today we support Google as social account for login. One can also sign up by providing valid email. 
+Users are indiviuals using application by logging in with appropriate credentials. As of today we support Google as social account for login. One can also sign up by providing valid email.
 
 ### User Roles
 
@@ -53,4 +53,8 @@ If user wants support for key other than `_timestamp`/`@timestamp` user can use 
 
 ### Full text search
 
-For full text search user can use query in-built query functions like `match_all`, `match_all_ignore_case`, please note user can restrict full text search to specific fields/columns in log stream by selecting fields/columns from stream in stream details screen.
+For full text search user can use query in-built query functions like `match_all_raw`, `match_all_raw_ignore_case`, please note user can restrict full text search to specific fields/columns in log stream by selecting fields/columns from stream in stream details screen.
+
+### Inverted index search
+
+Similar to full text search, user can enabled inverted index feature and select appropriate fields to be indexed during ingestion. For such fields, user can query function `match_all` for case-insensitive search for all the fields that have Inverted Index set as the `Index Type`.

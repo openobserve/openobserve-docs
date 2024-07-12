@@ -139,7 +139,7 @@ Point your browser to [http://cloud.openobserve.ai](http://cloud.openobserve.ai)
 1. Visit `logs` page
 1. Select the index `default` from drop down in the left
 ![Logs page](./images/quickstart/logs_page.png)
-1. Type `match_all('error')` in search bar and click the search button on right.
+1. Type `match_all_raw('error')` in search bar and click the search button on right.
 
 Click on the "syntax guide" button next to the search bar to see examples on how to search.
 
