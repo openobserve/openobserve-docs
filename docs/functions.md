@@ -12,18 +12,20 @@ filter the keyword in the field with case_insensitive. it can match `KeyWord` or
 
 ### match_all('v')
 
-filter the keyword in multiple fields, whose Index Type is set to `Inverted Index`. To utilize Inverted Index, you must set environment variable `ZO_ENABLE_INVERTED_INDEX` to `true` first,
+filter the keyword in the fields, whose **Index Type** is set to `Inverted Index` in streams settings. To utilize Inverted Index, you must set environment variable `ZO_ENABLE_INVERTED_INDEX` to `true` first,
 then you can specify Index Type for one or multiple fields (e.g. `body`, `message`) to `Inverted Index` by going to stream settings.
 
 > We have default fields: `log`, `message`, `msg`, `content`, `data`, `events`, `json`. you can set the full text search fields in the UI or through `index.setting` API.
 
+_Please note: `match_all` searches through the inverted indexed terms, which are all indexed in lowercase internally. Therefore, search keywords for `match_all` are case-insensitive. For case-sensitive searches, please use `match_all_raw` and `match_all_raw_ignore_case` described below accordingly._
+
 ### match_all_raw('v')
 
-filter the keyword in multiple fields. Unlike `match_all`, `match_all_raw` does not utilize `Inverted Index` and filters across the entire original data.
+filter the keyword in multiple fields. Unlike `match_all`, `match_all_raw` does not utilize `Inverted Index`, instead searches through entire original data. This function is case-sensitive.
 
 ### match_all_raw_ignore_case('v')
 
-same as `match_all_raw` but with case_insensitive.
+same as `match_all_raw` but with case-insensitive.
 
 ### re_match(field, 'pattern')
 

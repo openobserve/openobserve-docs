@@ -31,5 +31,5 @@ Streams details screen:
 1. Start & end time for steam, these are based timestamps on log records in stream
 1. Name of property/field belonging to the stream
 1. Inferred type of the property, openobserve infers schema for data being ingested
-1. Checkbox to select/deselect a property of the stream as full text search keys, full text search keys are used to search a term when using match_all, match_all_ignore_case
+1. Checkbox to select/deselect a property of the stream as full text search keys, full text search keys are used to search a term when using match_all_raw, match_all_raw_ignore_case
 1. Checkbox to select/deselect a property of the stream as partitioning key, data ingested after updating the setting will be partitioned using updated keys
