@@ -1,18 +1,25 @@
 # Set Settings for stream
 
-Endpoint: `PUT /api/{organization}/streams/{stream}/settings?type=logs`
+Endpoint: `PUT /api/{organization}/streams/{stream}/settings?type={StreamType}`
 
 ## Request
 
-```json
-{
-	"partition_keys": ["namespace"],
-	"full_text_search_keys": ["logs", "body"],
-	"index_fields": ["k8s_namespace_name", "k8s_pod_name"],
-	"bloom_filter_fields": [],
-	"data_retention": 15
-}
-```
+
+- type: logs / metrics / traces
+
+	default is `logs`.
+
+- JSON Body
+
+	```json
+	{
+		"partition_keys": ["namespace"],
+		"full_text_search_keys": ["logs", "body"],
+		"index_fields": ["k8s_namespace_name", "k8s_pod_name"],
+		"bloom_filter_fields": [],
+		"data_retention": 15
+	}
+	```
 
 Description
 

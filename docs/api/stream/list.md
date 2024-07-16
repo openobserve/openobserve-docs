@@ -1,12 +1,16 @@
 # List streams
 
-Endpoint: `GET /api/{organization}/streams?fetchSchema=false`
+Endpoint: `GET /api/{organization}/streams?fetchSchema=false&type={StreamType}`
 
 ## Request
 
 - fetchSchema: true / false
 
-fetchSchema set to `true` will response the schema for each stream or without schema.
+	fetchSchema set to `true` will response the schema for each stream or without schema.
+
+- type: logs / metrics / traces
+
+	default is `logs`.
 
 ## Response
 

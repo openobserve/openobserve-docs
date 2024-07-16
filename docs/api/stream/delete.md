@@ -1,10 +1,12 @@
 # Delete stream
 
-Endpoint: `DELETE /api/{organization}/streams/{stream}`
+Endpoint: `DELETE /api/{organization}/streams/{stream}?type={StreamType}`
 
 ## Request
 
-None
+- type: logs / metrics / traces
+
+	default is `logs`.
 
 ## Response
 

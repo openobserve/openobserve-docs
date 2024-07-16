@@ -1,10 +1,12 @@
 # Get schema for stream
 
-Endpoint: `GET /api/{organization}/streams/{stream}/schema`
+Endpoint: `GET /api/{organization}/streams/{stream}/schema?type={StreamType}`
 
 ## Request
 
-None
+- type: logs / metrics / traces
+
+    default is `logs`.
 
 ## Response
 
