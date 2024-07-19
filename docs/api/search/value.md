@@ -13,6 +13,8 @@ Description
 | size       | int64     | 0             | how many values do you want to response, order by values num |
 | start_time | int64     | 0             | Only list the values in the time range |
 | end_time   | int64     | 0             | Only list the values in the time range |
+| keyword    | string    | -             | search for the values |
+| no_count   | bool      | false         | set to `true` will not response count and order by the value |
 
 ## Response
 
