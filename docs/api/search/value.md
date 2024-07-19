@@ -1,6 +1,6 @@
 # Search around
 
-Endpoint: `GET /api/{organization}/{stream}/_values?fields={fields}&start_time={start_time}&end_time={end_time}&size=10`
+Endpoint: `GET /api/{organization}/{stream}/_values?fields={fields}&start_time={start_time}&end_time={end_time}&size=10&keyword=&no_count=false`
 
 ## Request
 
