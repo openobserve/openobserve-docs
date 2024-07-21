@@ -18,9 +18,6 @@ You can use `PostgreSQL` or `MySQL` as metadata storage.
 
 The official helm chart (starting Feb 23rd 2024) uses `PostgreSQL` as metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you. cloudnative-pg operator is used to install/manage the PostgreSQL cluster.
 
-When using `PostgreSQL` or `MySQL` as metadata storage, `etcd` is still needed for cluster coordination.
-
-**If you use `PostgreSQL` or `MySQL` as metadata store, `etcd` will not store any data. If there are problems with etcd cluster, you can delete and reinstall the etcd cluster.**
 
 ### PostgreSQL
 
@@ -49,19 +46,11 @@ config:
   ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
 ```
 
-### Etcd
+## NATS Cluster coordinator
 
-While using official helm chart, `etcd` for the cluster is already configured for you. You don't need additional configuration. if you want to use external `etcd` cluster, you can configure as below:
+NATS is used as cluster coordinator by OpenObserve
 
-```yaml
-config:
-  ZO_ETCD_PREFIX: "/zinc/observe/"
-  ZO_ETCD_USER: ""
-  ZO_ETCD_PASSWORD: ""
-etcd:
-  enabled: false # disable emebed etcd
-  externalUrl: "my_custom_host.com:2379" # if bundled is false then this is required
-```
+While using official helm chart, `NATS` for the cluster is already configured for you. You don't need additional configuration. 
 
 ## Configuration
 
@@ -159,6 +148,10 @@ You can generate keys for GCS bucket using following steps:
 1. Go to [Google cloud console > Cloud Storage > Settings > Interoperability](https://console.cloud.google.com/storage/settings;tab=interoperability)
 1. Make sure you are in the right project.
 1. Access keys for your user account > Click "CREATE A KEY"
+
+Watch this video on how to do it:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q7F9MT3KbvQ?si=kbpBWJRzx_xgZCor" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Any Kubernetes + Openstack swift
 
