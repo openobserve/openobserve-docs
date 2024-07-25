@@ -52,7 +52,8 @@ We will be creating an IAM policy and role to be used by Cloudwatch to send logs
             "Effect": "Allow",
             "Action": [
                 "firehose:DescribeDeliveryStream",
-                "firehose:PutRecordBatch"
+                "firehose:PutRecordBatch",
+                "firehose:PutRecord"
             ],
             "Resource": "*"
         }
