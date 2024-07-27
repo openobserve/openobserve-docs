@@ -37,7 +37,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_SKIP_SCHEMA_VALIDATION            | false                      | No           | Default we check ingested every record for schema validation, but if your schema is fixed, you can skip it, this will increase 2x ingestion performance.  |
 | ZO_FEATURE_INGEST_BUFFER_ENABLED     | false                      | No           | enable it to enqueue ingestion requests for background processing, used to improve responsiveness of ingestion endpoints     |
 | ZO_FEATURE_PER_THREAD_LOCK           | false                      | No           | default we share a lock for each thread for WAL, enable this option to create one lock for per thread, it improves ingest performance, but results in more small data files, which will be merged by compactor to create larger merged files. This is particularly helpful when you are ingesting high speed data in a single stream.     |
-| ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS    | false                      | No           | default full text search uses `log`, `message`, `msg`, `content`, `data`, `events`, `json` or selected stream fields. Enabling this option will perform full text search on each field, may hamper full text search performance   |
 | ZO_FEATURE_FULLTEXT_EXTRA_FIELDS     | -                          | No           | default full text search uses `log`, `message`, `msg`, `content`, `data`, `events`, `json` as global setting, but you can add more fields as global full text search fields. eg: `field1,field2`  |
 | ZO_FEATURE_DISTINCT_EXTRA_FIELDS     | ""                         | No           |  |
 | ZO_FEATURE_QUICK_MODE_FIELDS         | ""                         | No           |  |
@@ -162,7 +161,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_BLOOM_FILTER_ENABLED            | true          | No        | Enable by default, but only enabled for trace_id field.             |
 | ZO_BLOOM_FILTER_DEFAULT_FIELDS     | -             | No        | Add more fields support by bloom filter, will add UI setting later. |
 | ZO_BLOOM_FILTER_DISABLED_ON_SEARCH | false         | No        | Disable bloom filter for search queries.                            |
-| ZO_BLOOM_FILTER_ON_ALL_FIELDS      | false         | No        | Enables bloom filter on all fields for faster searches at the expense of additional compute at ingestion time. |
 
 
 ## Usage reporting
