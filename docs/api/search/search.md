@@ -12,12 +12,7 @@ Endpoint: `POST /api/{organization}/_search`
         "end_time": 1674789786006000,
         "from": 0,
         "size": 0,
-        "track_total_hits": false,
-        "sql_mode":"context"
-    },
-    "aggs": {
-        "agg1": "SELECT histogram(_timestamp, '5 minute') AS key, COUNT(*) AS num FROM query GROUP BY key ORDER BY key",
-        "agg2": "SELECT kubernetes.namespace_name AS namespace, COUNT(*) AS num FROM query GROUP BY namespace ORDER BY namespace",
+        "track_total_hits": false
     },
     "timeout": 0
 }
@@ -33,10 +28,7 @@ Description
 | query.end_time   | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
 | query.from | int64     | 0             | offset in SQL |
 | query.size | int64     | 0             | limit in SQL  |
-| query.track_total_hits | bool  | false | response real total of the query SQL, you can set it to true for response total. when you have aggs, this value will auto set to true. |
-| query.sql_mode | string | context      | mode: context / full, default is `context` mode, you cann't use `limit` `group by` in query.sql, and will use the SQL result as a context of aggregations. aggregation will get result from context. You you set it to `full`, in full mode, you can write a full SQL in query.sql, it supports `limit` `group by` and keywords, but it doesn't support aggregation. |
-| aggs       | object    | -             | aggregation params, you can ignore it if you have no aggregations. |
-| aggs.{name} | string   | -             | SQL for each aggregation, it must `SELECT FROMM query`, the table `query` is a context from `query.sql`. |
+| query.track_total_hits | bool  | false | response real total of the query SQL, you can set it to true for response total. |
 | timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
 
 ## Response
@@ -78,28 +70,6 @@ Description
 			"stream": "stderr"
 		}
 	],
-	"aggs": {
-		"agg1": [
-			{
-				"key": "2023-01-15 14:00:00",
-				"num": 345940
-			},
-			{
-				"key": "2023-01-15 19:00:00",
-				"num": 384026
-			},
-			{
-				"key": "2023-01-20 09:00:00",
-				"num": 731871
-			}
-		],
-        "agg2": [
-            {
-                "namespace": "default",
-                "num": 1234
-            }
-        ]
-	},
 	"total": 27179431,
 	"from": 0,
 	"size": 1,
@@ -119,8 +89,6 @@ Description
 | size       | int64     | 0             | value from `query.size` |
 | scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
 | hits       | array     | -             | records for query, each record is a log row what you ingested. |
-| aggs       | object    | -             | values for aggregations |
-| aggs.{name} | array    | -             | records for the aggregation, the fields are selected by your aggregation SQL. |
 
 
 ## SQL Syntax
@@ -155,9 +123,6 @@ Here list some common examples, if you want more example please create a issue t
         "end_time": 1674789786006000,
         "from": 0,
         "size": 10
-    },
-    "aggs": {
-        "histogram": "SELECT histogram(_timestamp, '5 minute') AS key, COUNT(*) AS num FROM query GROUP BY key ORDER BY key"
     }
 }
 ```
@@ -225,8 +190,7 @@ Here list some common examples, if you want more example please create a issue t
     "query": {
        "sql": "SELECT histogram(_timestamp, '5 minute') AS key, COUNT(*) AS num FROM {stream} GROUP BY key ORDER BY key LIMIT 10 OFFSET 1",
         "start_time": 1674789786006000,
-        "end_time": 1674789786006000,
-        "sql_mode": "full"
+        "end_time": 1674789786006000
     }
 }
 ```
@@ -238,8 +202,7 @@ Here list some common examples, if you want more example please create a issue t
     "query": {
        "sql": "SELECT kubernetes.namespace_name AS namespace, COUNT(*) AS num FROM {stream} GROUP BY namespace ORDER BY namespace",
         "start_time": 1674789786006000,
-        "end_time": 1674789786006000,
-        "sql_mode": "full"
+        "end_time": 1674789786006000
     }
 }
 ```
