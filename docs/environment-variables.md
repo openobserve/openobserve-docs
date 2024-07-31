@@ -120,7 +120,7 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_INGESTER_SERVICE_URL              |                            | No           |  |
 | ZO_INGEST_BLOCKED_STREAMS            |                            | No           |  |
 | ZO_INGEST_INFER_SCHEMA_PER_REQUEST   |                            | No           |  |
-| ZO_INGEST_FLATTEN_LEVEL              | 5                          | No           | The level of flatten ingestion json data, if you want flatten everything you can simple set it to `0`, or you can set it to `N` to limit the flatten level.   |
+| ZO_INGEST_FLATTEN_LEVEL              | 3                          | No           | The level of flatten ingestion json data, if you want flatten everything you can simple set it to `0`, or you can set it to `N` to limit the flatten level.   |
 | ZO_ENTRY_PER_SCHEMA_VERSION_ENABLED  |                            | No           |  |
 | ZO_CLUSTER_COORDINATOR               | etcd                       | No           | How the nodes in the cluster find each other. Options are etcd and nats. nats is preferred. |
 | ZO_QUEUE_STORE                       |                            | No           |  |
