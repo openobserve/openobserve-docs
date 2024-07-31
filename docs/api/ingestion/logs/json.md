@@ -93,6 +93,48 @@ Please note only records having 200 or less fields/columns will be considered fo
 
 One can configure ZO_COLS_PER_RECORD_LIMIT to set desired value for allowed number of fields/columns per record.
 
+## Flattening of the JSON structure
+
+OpenObserve flattens deep JSON logs. Below is an example log before and after being flattened.
+
+#### Before
+
+```json
+{
+	"actor": {
+		"ip": "[redacted]",
+		"id": 558875,
+		"parent" : {
+			"id": 45516,
+			"active": true
+		}
+	}
+	"response": {
+		"error_occured": false,
+		"status_code": 200
+	}
+	
+}
+```
+
+#### After
+
+```json
+{
+	"actor_ip": "[redacted]",
+	"actor_id": 558875,
+	"actor_parent_id": 45516,
+	"actor_parent_active": true,
+	"response_error_occured": false,
+	"response_status_code": 200
+}
+```
+
+### Restriction on flattening depth
+
+⚠️ For performance reasons, OpenObserve limits the depth at which the JSON structure gets flattened. Past that limit, the generated field will contain unparsed JSON as a string.
+The default depth is `3`, but this limit can be configured via the `ZO_INGEST_FLATTEN_LEVEL` environment variable. `ZO_INGEST_FLATTEN_LEVEL` can either be `0`, which disables the flattening limit, or any positive number, to change the depth at which the flattening stops.
+
 ## Timestamp
 
 By default we add a field `_timestamp` for each record with the value of `NOW` in microseconds (unix epoch value). 
