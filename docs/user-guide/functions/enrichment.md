@@ -88,7 +88,7 @@ curl -L https://github.com/openobserve/openobserve/releases/download/v0.4.4/prot
 gunzip vpc_flow_log.json.gz
 ```
 
-The above commands will download the sample data and unzip it. It will also download teh enrichment table. Now, let's ingest the data into OpenObserve.
+The above commands will download the sample data and unzip it. It will also download the enrichment table. Now, let's ingest the data into OpenObserve.
 
 
 ```shell title="For OpenObserve Cloud"
