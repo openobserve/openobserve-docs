@@ -93,8 +93,7 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_BASE_URI                          | ""                         | No           | Change it in case you are hosting at a subpath e.g. www.example.com/openobserve               |
 | ZO_BULK_RESPONSE_INCLUDE_ERRORS_ONLY | false                      | No           | When using \_bulk API which is compatible with Elasticsearch do not respond with records that succeeded. This allows for higher performance by returing smaller amount of data.  |
 | ZO_ALLOW_USER_DEFINED_SCHEMAS        | false                      | No           | If `true`, it allows user defined schemas for a stream.                                       |
-| ZO_SKIP_FORMAT_BULK_STREAM_NAME      | false                      | No           | If `true`, it enables formatting of bulk stream name while ingestion.                         |
-| ZO_SKIP_FORMAT_BULK_STREAM_NAME      | false                      | No           | do not rename stream by changing hyphen to underscore.                                        |
+| ZO_SKIP_FORMAT_STREAM_NAME           | false                      | No           | If `true`, it skip formatting stream name while ingestion.                                    |
 | ZO_CONCATENATED_SCHEMA_FIELD_NAME    | \_all                      | No           |  |
 | ZO_STARTING_EXPECT_QUERIER_NUM       | 0                          | No           | The number of queriers expected to be running while caching enrichment tables.                |
 | ZO_QUERY_OPTIMIZATION_NUM_FIELDS     | 1000                       | No           |  |
@@ -265,8 +264,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_QUICK_MODE_ENABLED            | false         | No        | Indicates if quick mode is enabled.                     |
 | ZO_QUICK_MODE_NUM_FIELDS         | 500           | No        | The number of fields to consider for quick mode.        |
 | ZO_QUICK_MODE_STRATEGY           | ""            | No        | Possible values - `first`, `last`, `both`               |
-| ZO_QUICK_MODE_FILE_LIST_ENABLED  | false         | No        | Indicates if file list is enabled for quick mode        |
-| ZO_QUICK_MODE_FILE_LIST_INTERVAL | 300           | No        | File list interval in seconds.                          |
 
 ## SMTP
 
