@@ -44,7 +44,7 @@ OpenObserve uses columnar storage format (parquet) which allows it to read only 
 
 ### Predicate pushdown: 
 
-#### *** Standard Partitioning (KeyValue partitions) *** 
+#### ***Standard Partitioning (KeyValue partitions)*** 
 >Note: Use For low cardinality fields
 
 OpenObserve uses a technique called predicate pushdown to further reduce the amount of data that needs to be read from disk. This is done by pushing down the filters to the storage layer. By default OpenObserve will partition data by `org/stream/year/month/day/hour`. So when searching, if you know the time range for which you are searching for data you should specify it and OpenObserve will skip data not following in date range and will search across much less data. This will improve search performance and will utilize predicate pushdown. You can also enable additional partitioning for fields on any stream by going to stream settings. Some good candidates for partition keys are host and kubernetes namespace. You can have multiple partition keys for a stream. You can then specify partition keys in your query. e.g. `host='xyz' and kubernetes_namespace='abc'`. This will improve search performance and will utilize predicate pushdown.*** `DO NOT enable partitioning on all/many fields as it may result in many small underlying parquet files which will result in low compression, extremely poor search performance and high s3 storage costs` ***. As a rule of thumb you would want the size of each stored parquet file to be above 5 MB. Order of partitions does not matter. You can partition by `namespace, pod` or `pod, namespace`. 
