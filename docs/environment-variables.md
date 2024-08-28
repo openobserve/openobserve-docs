@@ -63,7 +63,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_FILE_MERGE_THREAD_NUM             | -                          | No           | number of threads for job to merge files on compactor WAL to storage, default equal to cpu_num. |
 | ZO_FILE_PUSH_LIMIT                   | 0                          | No           |  |
 | ZO_FILE_MOVE_FIELDS_LIMIT            | 2000                       | No           | Over this limit will skip merging on ingester. |
-| ZO_FILE_MOVE_THREAD_NUM              | 0                          | No           | Number of threads to use for perquet file move. If `0`, the number of threads will be equal to the number of CPU cores. |
 | ZO_MEM_TABLE_MAX_SIZE                | -                          | No           | The total size limit of memory tables, we have multiple memtable for different `organization/stream_types`. The maximum value of each memtable is `ZO_MAX_FILE_SIZE_IN_MEMORY`, but the sum of all memtable cannot exceed this limit. Otherwise, an error will be returned: `MemoryTableOverflowError` to protect the system from OOM. default `50%` of the total memory. |
 | ZO_MEM_PERSIST_INTERVAL              | 5                          | No           | interval at which job persist immutable from memory to disk, default `5s`, unit: second       |
 | ZO_COMPACT_ENABLED                   | true                       | No           | enable compact for small files.                                                               |
