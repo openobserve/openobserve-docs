@@ -31,7 +31,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_DATA_WAL_DIR                      | ./data/openobserve/wal/    | No           | local WAL data directory.                                                         |
 | ZO_DATA_STREAM_DIR                   | ./data/openobserve/stream/ | No           | streams local data storage directory ,applicable only for local mode.             |
 | ZO_DATA_IDX_DIR                      | ""                         | No           | Local WAL Idx directory.                                                          |
-| ZO_COLUMN_TIMESTAMP                  | \_timestamp                | No           | for each log line, if not present with this key , we add a timestamp with this key, used for queries with time range.  |
 | ZO_COLS_PER_RECORD_LIMIT             | 1000                       | No           | number of fields allowed per records during ingestion , records having more fields than configured value will be discarded  |
 | ZO_WIDENING_SCHEMA_EVOLUTION         | true                       | No           | if set to false user can add new columns to data being ingested but changes to existing data for data type are not supported .  |
 | ZO_SKIP_SCHEMA_VALIDATION            | false                      | No           | Default we check ingested every record for schema validation, but if your schema is fixed, you can skip it, this will increase 2x ingestion performance.  |

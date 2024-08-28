@@ -47,8 +47,6 @@ For input data with key as `_timestamp`/`@timestamp`, for the value we support t
 
 > Applicable only to open source version
 
-If user wants support for key other than `_timestamp`/`@timestamp` user can use `ZO_COLUMN_TIMESTAMP` configuration to specify timestamp key.
-
 ## Searching
 
 ### Full text search
