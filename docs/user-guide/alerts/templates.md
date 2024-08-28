@@ -72,7 +72,7 @@ pod2 got 2 panic log
 pod3 got 1 panic log
 ```
 
-That is the `row template`, with `tow template` we can define the alert template like this:
+That is the `row template`, with `row template` we can define the alert template like this:
 
 ```json
 {
