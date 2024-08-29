@@ -17,6 +17,7 @@ extra_javascript:
   - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
   - js/ms-clarity.js
   - js/zinc.js
+  - js/rb2b.js
 extra:
   social:
     - icon: fontawesome/brands/linkedin 
