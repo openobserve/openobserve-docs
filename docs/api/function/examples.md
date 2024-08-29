@@ -2,12 +2,23 @@
 
 ## add new field
 
-TODO
+```
+.new_field = "abc"
+.
+```
 
 ## change field value
 
-TODO
+```
+.old_field = "new_value"
+.
+```
 
 ## drop records
 
-TODO
+```
+del(.old_field)
+.
+```
+
+Playground: https://playground.vrl.dev/
