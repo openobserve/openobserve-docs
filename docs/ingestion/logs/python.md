@@ -1,5 +1,7 @@
 ## Python
 
+Here is an example using requests within a script:
+
 ```py
 import base64, json
 import requests
@@ -42,3 +44,45 @@ openobserve_url = openobserve_host + "/api/" + org + "/" + stream + "/_json"
 
 res = requests.post(openobserve_url, headers=headers, data=json.dumps(data))
 ```
+
+Here is a community package built to support OpenObserve log ingestion in a manner familiar with Python's logging library.
+
+```shell
+pip install logoo
+```
+
+With an example usage in `main.py` looking like the following:
+```python
+import asyncio
+
+from logoo import PrimaryLogger
+
+
+async def main():
+    logger: PrimaryLogger = PrimaryLogger(
+        __name__,
+        base_url="",
+        org="",
+        stream="",
+        username="",
+        password="",
+    )
+    await logger.start_consumer()
+
+    logger.info("Hello world!")
+    logger.critical("Something went wrong!")
+    await asyncio.sleep(10)
+
+
+asyncio.run(main())
+```
+
+And any subsequent files only requiring a logger like so:
+```python
+from logoo import Logger
+
+logger = Logger(__name__)
+logger.info("This comes from another file.")
+```
+
+The source code and any further information can be found [here](https://github.com/Skelmis/logoo).
