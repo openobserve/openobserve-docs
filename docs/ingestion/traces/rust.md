@@ -1,6 +1,6 @@
 # Rust
 
-The OpenTelemetry Rust project has several [examples](https://github.com/open-telemetry/opentelemetry-rust/tree/main/examples) for tracing. 
+The OpenTelemetry Rust project has several [examples](https://github.com/open-telemetry/opentelemetry-rust/tree/main/examples) for tracing.
 
 There are several crates worth mentioning for Rust developers:
 
@@ -13,9 +13,10 @@ There are several crates worth mentioning for Rust developers:
 This example is based on the one provided by [tracing_opentelemetry](https://github.com/tokio-rs/tracing-opentelemetry/blob/v0.1.x/examples/opentelemetry-otlp.rs), with all the necessary configuration to make it work with OpenObserve.
 
 ```rust
-use anyhow::Result;
-use data_encoding::BASE64;
-use opentelemetry::{global, Key, KeyValue};
+use std::io::Error;
+
+use opentelemetry::{global, trace::TracerProvider, Key, KeyValue};
+use opentelemetry_otlp::WithExportConfig;
 use opentelemetry_sdk::{
     metrics::{
         reader::{DefaultAggregationSelector, DefaultTemporalitySelector},
@@ -29,25 +30,10 @@ use opentelemetry_semantic_conventions::{
     resource::{DEPLOYMENT_ENVIRONMENT, SERVICE_NAME, SERVICE_VERSION},
     SCHEMA_URL,
 };
+use tonic::metadata::*;
 use tracing_core::Level;
 use tracing_opentelemetry::{MetricsLayer, OpenTelemetryLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-
-// Create the required Metadata headers for OpenObserve
-fn otl_metadata(kind: MetadataKind, config: &DisruptorOtlConfig) -> Result<MetadataMap> {
-    let mut map = MetadataMap::with_capacity(3);
-    let authorization_value = BASE64.encode(
-        b'root@example.com:Complexpass#123'
-    );
-    map.insert(
-        "authorization",
-        format!("Basic {authorization_value}").parse()?,
-    );
-    map.insert("organization", "default".parse()?);
-    map.insert("stream-name", "default".parse()?);
-
-    Ok(map)
-}
 
 // Create a Resource that captures information about the entity for which telemetry is recorded.
 fn resource() -> Resource {
@@ -61,14 +47,28 @@ fn resource() -> Resource {
     )
 }
 
+// Create the required Metadata headers for OpenObserve
+fn otl_metadata() -> Result<MetadataMap, Error> {
+    let mut map = MetadataMap::with_capacity(3);
+
+    map.insert(
+        "authorization",
+        format!("Basic cm9vdEBleGFtcGxlLmNvbTo3a2xCT052cHhTd09DZ09u") // This is picked from the Ingestion tab openobserve
+            .parse()
+            .unwrap(),
+    );
+    map.insert("organization", "default".parse().unwrap());
+    map.insert("stream-name", "default".parse().unwrap());
+    Ok(map)
+}
+
 // Construct MeterProvider for MetricsLayer
 fn init_meter_provider() -> SdkMeterProvider {
     let exporter = opentelemetry_otlp::new_exporter()
         .tonic()
-        // NOTE: The default endpoint of OpenObserve is on port 5081
-        // whereas OTL default is http://localhost:4317
-        .with_endpoint("http://localhost:5081")
-        .with_metadata(otl_metadata()?)
+        .with_endpoint("http://localhost:5081/api/development")
+        .with_protocol(opentelemetry_otlp::Protocol::Grpc)
+        .with_metadata(otl_metadata().unwrap())
         .build_metrics_exporter(
             Box::new(DefaultAggregationSelector::new()),
             Box::new(DefaultTemporalitySelector::new()),
@@ -130,7 +130,7 @@ fn init_meter_provider() -> SdkMeterProvider {
 
 // Construct Tracer for OpenTelemetryLayer
 fn init_tracer() -> Tracer {
-    opentelemetry_otlp::new_pipeline()
+    let provider = opentelemetry_otlp::new_pipeline()
         .tracing()
         .with_trace_config(
             opentelemetry_sdk::trace::Config::default()
@@ -144,20 +144,22 @@ fn init_tracer() -> Tracer {
         )
         .with_batch_config(BatchConfig::default())
         .with_exporter(
-          opentelemetry_otlp::new_exporter()
-            .tonic()
-            // NOTE: The default endpoint of OpenObserve is on port 5081
-            // whereas OTL default is http://localhost:4317
-            .with_endpoint("http://localhost:5081")
-            .with_metadata(otl_metadata()?)
+            opentelemetry_otlp::new_exporter()
+                .tonic()
+                .with_endpoint("http://localhost:5081/api/development")
+                .with_metadata(otl_metadata().unwrap()),
         )
         .install_batch(runtime::Tokio)
-        .unwrap()
+        .unwrap();
+
+    global::set_tracer_provider(provider.clone());
+    provider.tracer("tracing-otel-subscriber")
 }
 
 // Initialize tracing-subscriber and return OtelGuard for opentelemetry-related termination processing
 fn init_tracing_subscriber() -> OtelGuard {
     let meter_provider = init_meter_provider();
+    let tracer = init_tracer();
 
     tracing_subscriber::registry()
         .with(tracing_subscriber::filter::LevelFilter::from_level(
@@ -165,7 +167,7 @@ fn init_tracing_subscriber() -> OtelGuard {
         ))
         .with(tracing_subscriber::fmt::layer())
         .with(MetricsLayer::new(meter_provider.clone()))
-        .with(OpenTelemetryLayer::new(init_tracer()))
+        .with(OpenTelemetryLayer::new(tracer))
         .init();
 
     OtelGuard { meter_provider }
@@ -202,4 +204,20 @@ async fn foo() {
 
     tracing::info!(histogram.baz = 10, "histogram example",);
 }
+```
+
+Dependencies required by the above example
+
+```toml
+opentelemetry = "0.24.0"
+opentelemetry-otlp = "0.17.0"
+opentelemetry-semantic-conventions = "0.16.0"
+opentelemetry-stdout = "0.5.0"
+opentelemetry_sdk = { version = "0.24.1", features = ["rt-tokio"] }
+tokio = { version = "1.39.2", features = ["full"] }
+tonic = "0.12.1"
+tracing = "0.1.40"
+tracing-core = "0.1.32"
+tracing-opentelemetry = "0.25.0"
+tracing-subscriber = { version = "0.3.18" }
 ```
