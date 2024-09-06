@@ -21,4 +21,4 @@ del(.old_field)
 .
 ```
 
-Playground: https://playground.vrl.dev/
+Playground: [https://playground.vrl.dev/](https://playground.vrl.dev/)

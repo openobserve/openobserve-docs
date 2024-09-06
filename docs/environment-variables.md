@@ -35,7 +35,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_WIDENING_SCHEMA_EVOLUTION         | true                       | No           | if set to false user can add new columns to data being ingested but changes to existing data for data type are not supported .  |
 | ZO_SKIP_SCHEMA_VALIDATION            | false                      | No           | Default we check ingested every record for schema validation, but if your schema is fixed, you can skip it, this will increase 2x ingestion performance.  |
 | ZO_FEATURE_INGEST_BUFFER_ENABLED     | false                      | No           | enable it to enqueue ingestion requests for background processing, used to improve responsiveness of ingestion endpoints     |
-| ZO_FEATURE_PER_THREAD_LOCK           | false                      | No           | default we share a lock for each thread for WAL, enable this option to create one lock for per thread, it improves ingest performance, but results in more small data files, which will be merged by compactor to create larger merged files. This is particularly helpful when you are ingesting high speed data in a single stream.     |
 | ZO_FEATURE_FULLTEXT_EXTRA_FIELDS     | -                          | No           | default full text search uses `log`, `message`, `msg`, `content`, `data`, `events`, `json` as global setting, but you can add more fields as global full text search fields. eg: `field1,field2`  |
 | ZO_FEATURE_DISTINCT_EXTRA_FIELDS     | ""                         | No           |  |
 | ZO_FEATURE_QUICK_MODE_FIELDS         | ""                         | No           |  |
@@ -43,9 +42,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_FEATURE_QUERY_QUEUE_ENABLED       | true                       | No           |  |
 | ZO_FEATURE_QUERY_INFER_SCHEMA        | false                      | No           |  |
 | ZO_FEATURE_QUERY_PARTITION_STRATEGY  | file_num                   | No           | Query partition strategy. Possible values - `file_num`, `file_size`, `file_hash`.       |
-| ZO_WAL_MEMORY_MODE_ENABLED           | false                      | No           | For performance, we can write WAL file into memory instead of write into disk, this will increase ingestion performance, but it has data lose risk when the system crashed.  |
-| ZO_WAL_LINE_MODE_ENABLED             | true                       | No           | Default we write WAL file line by line, it is a bit slow but it safety, you can disable it to increase a bit performance, but it increase WAL file incorrect risk.  |
-| ZO_PARQUET_COMPRESSION               | zstd                       | No           | Default we use `zstd` as the parquet file compress algorithm. but you can choose: `snappy`, `gzip`, `brotli`, `lz4`, `zstd`. |
 | ZO_PARQUET_MAX_ROW_GROUP_SIZE        |                            | No           |                                                                                         |
 | ZO_UI_ENABLED                        | true                       | No           | default we enable embed UI, one can disable it.                                         |
 | ZO_UI_SQL_BASE64_ENABLED             | false                      | No           | Enable base64 encoding for SQL in UI.                                                   |
