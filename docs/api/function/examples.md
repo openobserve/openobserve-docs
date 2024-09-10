@@ -14,7 +14,7 @@
 .
 ```
 
-## drop records
+## drop field
 
 ```
 del(.old_field)
