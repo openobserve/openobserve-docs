@@ -8,10 +8,11 @@
 		// Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
 		"args": { "VARIANT": "ubuntu-22.04" }
 	},
+	
 	"mounts": [
 		"source=/Users/prabhatsharma/.aws,target=/home/vscode/.aws,type=bind,consistency=cached"
 	],
-
+    
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
 
