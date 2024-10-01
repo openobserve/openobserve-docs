@@ -46,7 +46,6 @@ Description
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
 | took       | int64     | -             | unit: milliseconds, query execute time |
-| total      | int64     | 0             | it will response zero if `query.track_total_hits` is false or there is no aggregations or it will response the total record the `query.sql` can matched. |
 | from       | int64     | 0             | value from `query.from` |
 | size       | int64     | 0             | value from `query.size` |
 | scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
