@@ -11,8 +11,7 @@ Endpoint: `POST /api/{organization}/_search`
         "start_time": 1674789786006000,
         "end_time": 1674789786006000,
         "from": 0,
-        "size": 0,
-        "track_total_hits": false
+        "size": 0
     },
     "timeout": 0
 }
@@ -28,7 +27,6 @@ Description
 | query.end_time   | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
 | query.from | int64     | 0             | offset in SQL |
 | query.size | int64     | 0             | limit in SQL  |
-| query.track_total_hits | bool  | false | response real total of the query SQL, you can set it to true for response total. |
 | timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
 
 ## Response
@@ -84,7 +82,6 @@ Description
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
 | took       | int64     | -             | unit: milliseconds, query execute time |
-| total      | int64     | 0             | it will response zero if `query.track_total_hits` is false or there is no aggregations or it will response the total record the `query.sql` can matched. |
 | from       | int64     | 0             | value from `query.from` |
 | size       | int64     | 0             | value from `query.size` |
 | scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
