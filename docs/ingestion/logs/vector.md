@@ -4,6 +4,8 @@
 
 ## HTTP output
 
+### NOTE: To ensure that Vector checks the health of the OpenObserve service specifically, set both `healthcheck.enabled = true` and provide a `healthcheck.uri` that points to the OpenObserve health check endpoint.
+
 ```toml
 [sinks.openobserve]
 type = "http"
@@ -16,7 +18,11 @@ auth.password = "password"
 compression = "gzip"
 encoding.codec = "json"
 encoding.timestamp_format = "rfc3339"
-healthcheck.enabled = false
+# healthcheck.enabled = false
+
+# Enable healthcheck
+healthcheck.enabled = true
+healthcheck.uri = "http://localhost:5080/healthz"
 ```
 
 ## Elasticsearch output
