@@ -12,9 +12,9 @@
 
 ![Realtime alert](images/screenshots/alert_realtime.webp)
 
-### Standar alerts
+### Standard alerts
 
-![Standar alerts](images/screenshots/alert_scheduled.webp)
+![Standard alerts](images/screenshots/alert_scheduled.webp)
 
 ## Dashboards
 
