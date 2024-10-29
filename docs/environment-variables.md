@@ -128,6 +128,7 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_CIRCUIT_BREAKER_RATIO             |                            | No           |  |
 | ZO_CALCULATE_STATS_INTERVAL          | 600                        | No           | In seconds. How often stream stats (total size) is calculated  |
 | ZO_ENRICHMENT_TABLE_LIMIT            |                            | No           |  |
+| ZO_SWAGGER_ENABLED                   | true                       | No           | Generate SWAGGER API documentation by default. (since v0.10.8) |
 
 > For local mode, OpenObserve use sqlite as the metadata store.
 >
