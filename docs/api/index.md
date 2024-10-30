@@ -29,8 +29,6 @@ Make sure that you are sending the requests over HTTPS.
     1. [Search](search/search)
     1. [Functions](search/functions)
 1. [Function](function/)
-    1. [Ingestion](function/ingestion)
-    1. [Query](function/query)
 1. [User](user/)
     1. [Create](user/create)
     1. [Delete](user/delete)
