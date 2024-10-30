@@ -26,8 +26,6 @@ Make sure that you are sending the requests over HTTPS.
     1. [Json](ingestion/json)
     1. [Multi](ingestion/multi)
 1. [Search](search/)
-    1. [Search](search/search)
-    1. [Functions](search/functions)
 1. [Function](function/)
 1. [User](user/)
     1. [Create](user/create)
