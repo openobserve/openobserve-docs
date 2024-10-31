@@ -13,6 +13,7 @@ Endpoint: `POST /api/{organization}/_search`
         "from": 0,
         "size": 0
     },
+    "search_type": "ui",
     "timeout": 0
 }
 ```
@@ -27,6 +28,7 @@ Description
 | query.end_time   | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
 | query.from | int64     | 0             | offset in SQL |
 | query.size | int64     | 0             | limit in SQL  |
+| search_type | string   | -             | default is empty, support: `ui`, `dashboards`, `reports`, `alerts` |
 | timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
 
 ## Response
