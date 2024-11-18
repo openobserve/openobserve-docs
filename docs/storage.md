@@ -116,6 +116,21 @@ OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following envir
 
 You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://help.aliyun.com/document_detail/64919.html)
 
+### Alibaba OSS (aliyun)
+
+OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following environment variables needs to be setup:
+
+| Environment Variable           | Value | Description                                                     |
+| ------------------------------ | ----- | --------------------------------------------------------------- |
+| ZO_S3_SERVER_URL               | -     | oss endpoint address, eg: `https://oss-cn-beijing.aliyuncs.com` or `https://bucketname.oss-ap-southeast-1.aliyuncs.com` |
+| ZO_S3_REGION_NAME              | -     | region name, oss region name, eg: `oss-cn-beijing`. If ZO_S3_SERVER_URL contains a bucket name, Please comment on this option. |
+| ZO_S3_ACCESS_KEY               | -     | access key                                                      |
+| ZO_S3_SECRET_KEY               | -     | secret key                                                      |
+| ZO_S3_BUCKET_NAME              | -     | bucket name                                                     |
+| ZO_S3_FEATURE_FORCE_PATH_STYLE | true  | --                                                              |
+
+You can refer to: [https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints](https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints)
+
 ### Tencent COS
 
 OpenObserve can use tencent cloud storage for storing stream data, following environment variables needs to be setup:
@@ -129,6 +144,20 @@ OpenObserve can use tencent cloud storage for storing stream data, following env
 | ZO_S3_BUCKET_NAME    | -     | bucket name                  |
 
 You can refer to: [https://cloud.tencent.com/document/product/436/37421](https://cloud.tencent.com/document/product/436/37421)
+
+### UCloud US3
+
+OpenObserve can use ucloud cloud storage for storing stream data, following environment variables needs to be setup:
+
+| Environment Variable | Value | Description                                          |
+| -------------------- | ----- | ---------------------------------------------------- |
+| ZO_S3_SERVER_URL     | -     | us3 endpoint address, eg: `http://internal.s3-sg.ufileos.com` |
+| ZO_S3_ACCESS_KEY     | -     | access key                                           |
+| ZO_S3_SECRET_KEY     | -     | secret key                                           |
+| ZO_S3_BUCKET_NAME    | -     | bucket name                                          |
+| ZO_S3_FEATURE_HTTP1_ONLY    | true     | --                                          |
+
+You can refer to: [https://docs.ucloud.cn/ufile/s3/s3_introduction](https://docs.ucloud.cn/ufile/s3/s3_introduction)
 
 ### Baidu BOS
 
