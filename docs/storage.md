@@ -107,21 +107,6 @@ OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following envir
 
 | Environment Variable           | Value | Description                                                     |
 | ------------------------------ | ----- | --------------------------------------------------------------- |
-| ZO_S3_SERVER_URL               | -     | oss endpoint address, eg: `https://oss-cn-beijing.aliyuncs.com` |
-| ZO_S3_REGION_NAME              | -     | region name, oss region name, eg: `oss-cn-beijing`              |
-| ZO_S3_ACCESS_KEY               | -     | access key                                                      |
-| ZO_S3_SECRET_KEY               | -     | secret key                                                      |
-| ZO_S3_BUCKET_NAME              | -     | bucket name                                                     |
-| ZO_S3_FEATURE_FORCE_PATH_STYLE | true  | --                                                              |
-
-You can refer to: [https://help.aliyun.com/document_detail/64919.html](https://help.aliyun.com/document_detail/64919.html)
-
-### Alibaba OSS (aliyun)
-
-OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following environment variables needs to be setup:
-
-| Environment Variable           | Value | Description                                                     |
-| ------------------------------ | ----- | --------------------------------------------------------------- |
 | ZO_S3_SERVER_URL               | -     | oss endpoint address, eg: `https://oss-cn-beijing.aliyuncs.com` or `https://bucketname.oss-ap-southeast-1.aliyuncs.com` |
 | ZO_S3_REGION_NAME              | -     | region name, oss region name, eg: `oss-cn-beijing`. If ZO_S3_SERVER_URL contains a bucket name, Please comment on this option. |
 | ZO_S3_ACCESS_KEY               | -     | access key                                                      |
