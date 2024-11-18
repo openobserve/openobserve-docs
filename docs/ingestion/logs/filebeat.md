@@ -2,10 +2,7 @@
 
 ```toml
 setup.ilm.enabled: false
-setup.template.enabled: true
-setup.template.name: "nginx-log"
-setup.template.pattern: "nginx-log-*"
-setup.template.overwrite: true
+setup.template.enabled: false
 
 filebeat.inputs:
 - type: log
