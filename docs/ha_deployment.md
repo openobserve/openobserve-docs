@@ -96,6 +96,10 @@ Sample IAM policy.
 }
 ```
 
+Watch this video on how to do it:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YZNgi3fIAbY?si=fMnDlTHDGplynOzu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ### Any Kubernetes + s3
 
 Add/Modify following to values.yaml
