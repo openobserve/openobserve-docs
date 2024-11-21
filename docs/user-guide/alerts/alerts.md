@@ -34,6 +34,10 @@ For example:
 
 > A user wants to be notified of condition if error code 500 occurs more than 15 time for duration of 2 mins & wants such evaluation to happen at every 1 minute frequency.
 
+Watch this video to understand more.
+
+<iframe width="760" height="315" src="https://www.youtube.com/embed/9F0jZ_mZSlo?si=Yrlr4E6tFbD50g3h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ### Scheduled - Standard
 
 You can configure the condition which will be converted to SQL query and executed at specified frequency.
@@ -65,6 +69,7 @@ Threshold = number of records returned
 
 ### Scheduled - with PromQL
 
+TODO
 
 
 ## Real time alerts
@@ -80,3 +85,7 @@ For example:
 </kbd>
 
 Please note we selected `Slack` destination for demo, but you can add others in `Alert destination`.
+
+Watch this video to understand more.
+
+<iframe width="760" height="315" src="https://www.youtube.com/embed/QvgyHU3_wME?si=xv03MHM6KoQo8pCm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

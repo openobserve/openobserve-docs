@@ -90,6 +90,9 @@ And we define the `row template` in alert page:
 
 After these, the notification message will be what we expect.
 
+Check this video to understand more
+
+<iframe width="760" height="315" src="https://www.youtube.com/embed/tW8VnNnfZBg?si=9bXSzGXgPER2Gbaw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Slack
 
@@ -102,6 +105,10 @@ Official slack docs at: [https://api.slack.com/messaging/webhooks](https://api.s
 }
 
 ```
+
+Check the video to understand more.
+
+<iframe width="760" height="315" src="https://www.youtube.com/embed/EVHgLUTImC4?si=Qsy9N-Uxis7qFDAx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Prometheus Alert Manager
 ```json
