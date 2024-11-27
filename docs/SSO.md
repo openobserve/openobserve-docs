@@ -14,7 +14,7 @@ config:
   O2_DEX_CLIENT_ID: "o2-client"	# Client id of static client
   O2_DEX_CLIENT_SECRET: "ZXhhbXBsZS1hcHAtc2VjcmV0"	 # This should be base64 encoded value of client secret 
   O2_DEX_BASE_URL: "https://dex.example.com/dex"	# URL of the Dex identity provider
-  O2_DEX_REDIRECT_URL: "https://openobserve.example.com/config/callback"	# Should match to redirect uri specified in dex
+  O2_DEX_REDIRECT_URL: "https://openobserve.example.com/config/redirect"	# Should match to redirect uri specified in dex
   O2_CALLBACK_URL: "https://openobserve.example.com/web/cb"	# after sucessful token received from dex, user will be redirected to this page
   O2_DEX_SCOPES: "openid profile email groups offline_access"	# scopes to be fetched from dex
   O2_DEX_GROUP_ATTRIBUTE: "ou"	# Maps user to OpenObserve organization.
@@ -48,7 +48,7 @@ enterprise:
       staticClients:	# Define static clients that are allowed to authenticate with Dex.
       - id: o2-client
         redirectURIs:
-        - https://openobserve.example.com/config/callback
+        - https://openobserve.example.com/config/redirect
         name: o2-client
         secret: ZXhhbXBsZS1hcHAtc2VjcmV0 # This should be base64 encoded value of client secret and must be same that you set in config.O2_DEX_CLIENT_SECRET
       oauth2:	# OAuth2 Client Configuration
