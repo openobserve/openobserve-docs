@@ -2,6 +2,7 @@
 In OpenObserve (O2), **Destinations** enables users to set up notification channels for alert messages. These destinations define where and how notifications will be delivered when alerts are triggered. Destinations are reusable, allowing them to be associated with multiple alerts for efficient management.
 
 The **Destinations** section provides two configuration options:
+
 1. **Webhook**: Used for sending notifications to third-party systems via HTTP requests.
 2. **Email**: Used for delivering notifications directly to email addresses.
 
