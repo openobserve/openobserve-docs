@@ -291,3 +291,21 @@ Body:
   }
 }
 ```
+## Email 
+**Subject**
+```shell
+[Alert: {alert_name}] - Severity: {alert_type}
+```
+**Body**
+```shell
+An alert has been triggered:
+
+- Alert Name: {alert_name}
+- Severity: {alert_type}
+- Stream Name: {stream_name}
+- Condition: {alert_operator} {alert_threshold}
+- Triggered Count: {alert_count}
+- Start Time: {alert_start_time}
+- End Time: {alert_end_time}
+For more details, visit: {alert_url}
+```
