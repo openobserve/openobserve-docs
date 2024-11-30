@@ -238,19 +238,19 @@ OpenObserve is configured through the use of below environment variables.
 
 ## OpenObserve self introspection and debugging
 
-| Environment Variable           | Default Value | Mandatory | Description                                               |
+| Environment Variable           | Default Value / Example | Mandatory | Description                                               |
 | ------------------------------ | ------------- | --------- | --------------------------------------------------------- |
 | ZO_TOKIO_CONSOLE_SERVER_ADDR   | "0.0.0.0"     | No        |                                                           |
 | ZO_TOKIO_CONSOLE_SERVER_PORT   | 6699          | No        |                                                           |
 | ZO_TOKIO_CONSOLE_RETENTION     | 60            | No        |                                                           |
-| ZO_PROF_PYROSCOPE_ENABLED      |               | No        |                                                           |
-| ZO_PROF_PYROSCOPE_SERVER_URL   |               | No        |                                                           |
-| ZO_PROF_PYROSCOPE_PROJECT_NAME |               | No        |                                                           |
-| OTEL_OTLP_HTTP_ENDPOINT        | -             | No        | remote trace server endpoint.                             |
+| ZO_PROF_PYROSCOPE_ENABLED      | false              | No        |                                                           |
+| ZO_PROF_PYROSCOPE_SERVER_URL   | http://localhost:4040              | No        |                                                           |
+| ZO_PROF_PYROSCOPE_PROJECT_NAME | openobserve              | No        |                                                           |
+| OTEL_OTLP_HTTP_ENDPOINT        | - / e.g. https://api.openobserve.ai/api/default            | No        | remote trace server endpoint.                             |
 | ZO_TRACING_ENABLED             | false         | No        | enable it to send traces to remote trace server.          |
 | ZO_TRACING_HEADER_KEY          | Authorization | No        | remote trace server endpoint authentication header key.   |
-| ZO_TRACING_HEADER_VALUE        | -             | No        | remote trace server endpoint authentication header value. |
-| ZO_TRACING_SEARCH_ENABLED      |               | No        |                                                           |
+| ZO_TRACING_HEADER_VALUE        | - / e.g. Basic gjdsgfksgkfjgdskfgsdlfglsjdg             | No        | remote trace server endpoint authentication header value. |
+| ZO_TRACING_SEARCH_ENABLED      | false              | No        |                                                           |
 
 ## Quick mode
 
