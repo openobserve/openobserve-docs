@@ -384,7 +384,7 @@ Below are the Environment variables only available in the enterprise edition.
 | O2_DEX_CLIENT_SECRET        | -                           | No        | Client secret of static client. **Required** when dex is enabled.   |
 | O2_DEX_BASE_URL             | `http://127.0.0.1:5556/dex` | No        | URL of the Dex identity provider. **Required** when dex is enabled. |
 | O2_CALLBACK_URL             | -                           | No        | Set this value to `<openobserve base url>/web/cb`, after successful token received from dex, user will be redirected to this page. **Required** when dex is enabled. |
-| O2_DEX_REDIRECT_URL         | -                           | No        | Set this value to `<openobserve base url>/config/callback`, Should match to redirect uri specified in dex. **Required** when dex is enabled. |
+| O2_DEX_REDIRECT_URL         | -                           | No        | Set this value to `<openobserve base url>/config/redirect`, Should match to redirect uri specified in dex. **Required** when dex is enabled. |
 | O2_DEX_SCOPES               | openid profile email groups offline_access | No        | scopes to be fetched from dex.                       |
 | O2_DEX_GROUP_ATTRIBUTE      | ou                          | No        | Maps user to OpenObserve organization.                              |
 | O2_DEX_ROLE_ATTRIBUTE       | cn                          | No        | User's role in the organization.                                    |
