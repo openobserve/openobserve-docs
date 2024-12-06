@@ -167,7 +167,7 @@ OpenObserve can use azure blob for storing stream data. Following environment va
 | ZO_S3_PROVIDER             | azure                | Azure blob storage provider                   |
 | ZO_LOCAL_MODE_STORAGE      | s3                   | Required only if running in single node mode |
 | AZURE_STORAGE_ACCOUNT_NAME | Storage account name | Need to provide mandatorily                  |
-| AZURE_STORAGE_ACCESS_KEY   | Access key           | Need to provide mandatorily                  |
+| AZURE_STORAGE_ACCOUNT_KEY  | Access key           | Need to provide mandatorily                  |
 | ZO_S3_BUCKET_NAME          | Blob Container name  | Need to provide mandatorily                  |
 
 
