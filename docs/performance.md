@@ -127,7 +127,7 @@ Log search involves full text search. When you try to do a full text search it e
 1. Do not use `match_all` directly on full data set, but always use it in combination with one or more filters which can themselves be optimized by partitions or bloom filters. e.g. `host='host1' and match_all('error') ` or `k8s_namespace_name='ns1' and match_all('error')` or `bank_account_number='653456-54654-65' and match_all('error')`. In all of these examples using the filter reduces search space for `match_all`. Additionally if `host` and `k8s_namespace_name` fields are partitioned then you have reduced search space very well and will gain the improvements in full text search. `bank_account_number`, `request_id`, `trace_id`, `device_id` are good candidates for bloom filter and should be used together with `match_all` to improve full text search performance.
 1. Enable full text search only on the fields that you need. e.g. body, log, message etc. Fields like hostname, ip address, etc. are not good candidates for full text search and you should not enable full text search on these fields. You can enable full text search on a field by going to stream settings. You can specify multiple fields for full text search. e.g. `body` and `message`. You can then use the fields in your query that will utilize full text search. e.g. `host='host1' and match_all('error')`. 
 
-### *** Inverted Index (available starting v0.10.0)***
+### ***Inverted Index (available starting v0.10.0)***
 
 Above mentioned partitioning schemes and bloom filters are good for fields where you are doing equality based searches. e.g. `request_id='abc'`. For full text search in fields that contain longer log lines, OpenObserve in its earlier releases relied on brute force search (how [grep](https://www.gnu.org/software/grep/manual/grep.html) works) which works well for most of the scenarios. However, for very large data sets this can be slow. You can enable inverted index to improve full text search performance for such fields. Do not enable inverted index for fields that are not used for full text search but are used for equality based searches. Bloom filters and hash partitions are better suited for equality based searches.
 
@@ -167,3 +167,45 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
   
+## Large Number of Fields
+
+Each log entry may contain anywhere from a minimum of 1 field (e.g. `_timestamp`) up to thousands of fields. By default, the **Logs UI** runs a query like:
+
+```sql
+SELECT * FROM stream1
+```
+
+The table below shows the approximate storage required for each record as the number of fields increases:
+
+| Number of Fields | Size per Record | Size of 100 Records | Size of 1 Million Records |
+|------------------|-----------------|---------------------|--------------------------|
+| 100              | 3 KB            | 30 KB              | 2.86 GB                  |
+| 1,000            | 30 KB           | 300 KB             | 28.6 GB                    |
+| 10,000           | 300 KB          | 2.92 MB            | 286 GB                   |
+
+**OpenObserve** provides various optimizations for querying. However, having a large number of fields in your log entries can lead to the following issues:
+
+1. **Increased Storage Requirements**  
+   - **Solution:** Reduce the number of fields. Typically, for troubleshooting, you don’t need hundreds of fields per record. Aim for fewer than 50 fields to keep data sizes manageable. You can use pipelines to reduce and filter out unnecessary fields.
+
+2. **Slower Queries**  
+   Each query that uses `SELECT *` must process all fields, which can be slow.
+   
+   - **Solution 1: Quick Mode**  
+     Instead of using:
+     ```sql
+     SELECT * FROM stream1
+     ```
+     Try specifying only the required fields:
+     ```sql
+     SELECT field1, field2 FROM stream1
+     ```
+     This allows OpenObserve to perform column projection, making queries faster. You can manually write queries this way or enable `Quick Mode` in the Logs UI and select only the needed fields. However, this approach must be done manually for each query, and users may forget.
+
+   - **Solution 2: User-Defined Schema (UDS)**  
+     By enabling User-Defined Schemas (via `ZO_ALLOW_USER_DEFINED_SCHEMAS=true`), you can define a set of important fields for a stream in its settings.  
+     
+     **Example:** If you have 5,000 fields and select only 50 as part of the UDS, queries will now only consider these 50 fields directly, greatly improving performance. The remaining 4,950 fields will be combined into a single `_raw` field (a string), which won’t be searchable.  
+     
+     If you later need one of the fields from the `_raw` data to be searchable, simply add it to the UDS in the stream’s settings. After doing so, this field will become searchable going forward.
+
