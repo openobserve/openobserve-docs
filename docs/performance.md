@@ -179,9 +179,9 @@ The table below shows the approximate storage required for each record as the nu
 
 | Number of Fields | Size per Record | Size of 100 Records | Size of 1 Million Records |
 |------------------|-----------------|---------------------|--------------------------|
-| 100              | 3 KB            | 30 KB              | 2.86 GB                  |
-| 1,000            | 30 KB           | 300 KB             | 28.6 GB                    |
-| 10,000           | 300 KB          | 2.92 MB            | 286 GB                   |
+| 100              | 3 KB            | 0.29 MB              | 2.86 GB                  |
+| 1,000            | 30 KB           | 2.92 MB             | 28.6 GB                    |
+| 10,000           | 300 KB          | 29.2 MB            | 286 GB                   |
 
 **OpenObserve** provides various optimizations for querying. However, having a large number of fields in your log entries can lead to the following issues:
 
