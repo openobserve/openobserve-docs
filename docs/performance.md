@@ -185,27 +185,30 @@ The table below shows the approximate storage required for each record as the nu
 
 **OpenObserve** provides various optimizations for querying. However, having a large number of fields in your log entries can lead to the following issues:
 
-1. **Increased Storage Requirements**  
-   - **Solution:** Reduce the number of fields. Typically, for troubleshooting, you don’t need hundreds of fields per record. Aim for fewer than 50 fields to keep data sizes manageable. You can use pipelines to reduce and filter out unnecessary fields.
+### 1. Increased Storage Requirements
 
-2. **Slower Queries**  
-   Each query that uses `SELECT *` must process all fields, which can be slow.
-   
-   - **Solution 1: Quick Mode**  
-     Instead of using:
-     ```sql
-     SELECT * FROM stream1
-     ```
-     Try specifying only the required fields:
-     ```sql
-     SELECT field1, field2 FROM stream1
-     ```
-     This allows OpenObserve to perform column projection, making queries faster. You can manually write queries this way or enable `Quick Mode` in the Logs UI and select only the needed fields. However, this approach must be done manually for each query, and users may forget.
+**Solution:** Reduce the number of fields. Typically, for troubleshooting, you don’t need hundreds of fields per record. Aim for fewer than 50 fields to keep data sizes manageable. You can use pipelines to reduce and filter out unnecessary fields.
 
-   - **Solution 2: User-Defined Schema (UDS)**  
-     By enabling User-Defined Schemas (via `ZO_ALLOW_USER_DEFINED_SCHEMAS=true`), you can define a set of important fields for a stream in its settings.  
-     
-     **Example:** If you have 5,000 fields and select only 50 as part of the UDS, queries will now only consider these 50 fields directly, greatly improving performance. The remaining 4,950 fields will be combined into a single `_raw` field (a string), which won’t be searchable.  
-     
-     If you later need one of the fields from the `_raw` data to be searchable, simply add it to the UDS in the stream’s settings. After doing so, this field will become searchable going forward.
+### 2. Slower Queries
+
+Each query that uses `SELECT *` must process all fields, which can be slow.
+
+
+#### 2.1 Solution 1: Quick Mode
+Instead of using:
+```sql
+SELECT * FROM stream1
+```
+Try specifying only the required fields:
+```sql
+SELECT field1, field2 FROM stream1
+```
+This allows OpenObserve to perform column projection, making queries faster. You can manually write queries this way or enable `Quick Mode` in the Logs UI and select only the needed fields. However, this approach must be done manually for each query, and users may forget.
+
+#### 2.2 Solution 2: User-Defined Schema (UDS)
+By enabling User-Defined Schemas (via `ZO_ALLOW_USER_DEFINED_SCHEMAS=true`), you can define a set of important fields for a stream in its settings.  
+
+**Example:** If you have 5,000 fields and select only 50 as part of the UDS, queries will now only consider these 50 fields directly, greatly improving performance. The remaining 4,950 fields will be combined into a single `_raw` field (a string), which won’t be searchable.  
+
+If you later need one of the fields from the `_raw` data to be searchable, simply add it to the UDS in the stream’s settings. After doing so, this field will become searchable going forward.
 
