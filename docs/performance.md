@@ -187,10 +187,26 @@ You have built a dashboard with x-axis as timestamp and y-axis as count of reque
 If you started ingesting data on Jan 1st and ran query for 7 days, you would process all the raw data and calculate the output. On Jan 2nd you want to get the data again, you could by default calculate data for Jan 1st and Jan 2nd, however when result caching is enabled, you would have the result for Jan 1st cached. This will prevent processing of raw data for Jan 1st and you would get results much faster. If your colleagues try to view the same dashboard after you have visited the dashboard then it will be pretty instantaneous for them as the result has been cached already. 
 
 What happens when you visited the dashboard on Jan 3rd at 10:00 AM and your colleague visited the dashboard at 11:00 AM. Time range for the dashbboard is 2 days. In this case:
-  - you would get data from Jan 1st 10:00 AM to Jan 3rd 10:00 AM
-  - your colleague would get data from Jan 1st 11:00 AM to Jan 3rd 11:00 AM
+
+- you would get data from Jan 1st 10:00 AM to Jan 3rd 10:00 AM
+- your colleague would get data from Jan 1st 11:00 AM to Jan 3rd 11:00 AM
 
 Result caching, while fetching the data for your colleague will discard the cached data from Jan 1st 10:00 AM to Jan 1st 11:00 AM. Result caching will also calculate data from Jan 3rd 10:00 AM to Jan 3rd 11:00 AM and add it to the totals for your colleague to get the right results. OpenObserve had to crunch data only for 1 hour for your colleague instead of 48 hours in order to display the data. This results in huge performance gains.
+
+Result caching is implemented for 2 kinds of queries:
+
+1. Time series based queries 
+    1. e.g. 
+    ```sql 
+    select histogram(_timestamp) as x_axis1, count(body_status) from default group by x_axis1
+    ```
+    1. In these kind of queries x-axis is always time. This allows for result caching based on time and discard old cached data that is not required for the new query. e.g. You have 3 days of cached result and then you run another query for just 1 day. In this case 2 days of cached result will be discarded and only 1 day of cached data is used which provides performance gain. This is also dependent on the histogram interval of the query. If the histogram interval of query was 5 minutes earlier in query 1 and you chose (or auto selected a different interval) then result cache will not get hit. You might experience this when seraching across wide raneg fo queries. e.g. 30 minutes query might have 10 seconds auto interval set, while 1 month duration query might have 6 hours of auto interval set.
+2. Aggregation based queries with no time series - To be implemented
+    1. e.g. 
+    ```sql
+    select count(*) from default group by body_status
+    ```
+    2. To be implemented
 
 To enable result caching, set these environment variables:
 
@@ -249,6 +265,11 @@ The table below shows the approximate storage required for each record as the nu
 | 1,000            | 30 KB           | 2.92 MB             | 28.6 GB                    |
 | 10,000           | 300 KB          | 29.2 MB            | 286 GB                   |
 
+### Common causes for large number of fields
+
+1. Logs from multiple applications of diffferent types being ingested in the same stream. If app1 has 50 fields and app2 has 75 fields with no fields that have the same name in both apps and logs from both applications are being ingested in the same stream then the stream will have 125 fields. Ideally you should send logs from both of these application to 2 different streams. You can do this by configguring your log forwarder (fluentbit, vector, otel-collector, etc) or you can use OpenObserve pipelines to do it.
+2. Large number of nested fields in the JSON record that is being sent. OpenObserve falttens the JSON that it receives and if there are too many levels then the number of fields can be huge. You can avoid having large number of fields due to high nested levels is by setting the `ZO_INGEST_FLATTEN_LEVEL` environment variable to say `2` or `3` .
+
 **OpenObserve** provides various optimizations for querying. However, having a large number of fields in your log entries can lead to the following issues:
 
 ### 1. Increased Storage Requirements
@@ -259,8 +280,15 @@ The table below shows the approximate storage required for each record as the nu
 
 Each query that uses `SELECT *` must process all fields, which can be slow.
 
+#### 2.1 Solution 1: Control how many fields you are sending to OpenObserve (Recommended)
 
-#### 2.1 Solution 1: Quick Mode
+Try not to send more than 100 fields to OpenObserve. For most use cases humans cannot process more than 100 fields anyway.
+
+#### 2.2 Solution 2: Delete the fields that you don't need from the stream setting
+
+Deleting the fields (in stream settings in OpenObserve) that you don't need will allow for faster queries. This may be desirabe in scenarios where at some point in time you had a large number of fields as you were pulling logs from multiple applications but not anymore.
+
+#### 2.3 Solution 3: Quick Mode
 Instead of using:
 ```sql
 SELECT * FROM stream1
@@ -271,7 +299,7 @@ SELECT field1, field2 FROM stream1
 ```
 This allows OpenObserve to perform column projection, making queries faster. You can manually write queries this way or enable `Quick Mode` in the Logs UI and select only the needed fields. However, this approach must be done manually for each query, and users may forget.
 
-#### 2.2 Solution 2: User-Defined Schema (UDS)
+#### 2.4 Solution 4: User-Defined Schema (UDS)
 By enabling User-Defined Schemas (via `ZO_ALLOW_USER_DEFINED_SCHEMAS=true`), you can define a set of important fields for a stream in its settings.  
 
 **Example:** If you have 5,000 fields and select only 50 as part of the UDS, queries will now only consider these 50 fields directly, greatly improving performance. The remaining 4,950 fields will be combined into a single `_raw` field (a string), which won’t be searchable.  
