@@ -167,6 +167,38 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
   
+## ***Result caching***
+
+Result caching is incredibly powerful mechanism to speed up repetitive or similar queries.
+
+Let's take an example.
+
+You have built a dashboard with x-axis as timestamp and y-axis as count of requests. You and your colleagues check this dashboard every day. Below is the output table (It could be anything - table, histogram, line chart, etc) :
+
+| Date      | Request Count  |
+|------------|----------------|
+| 1-Jan-2025 | 10  |
+| 2-Jan-2025 | 15  |
+| 3-Jan-2025 | 25  |
+| 4-Jan-2025 | 20  |
+| 5-Jan-2025 | 17  |
+| 6-Jan-2025 | 18  |
+
+If you started ingesting data on Jan 1st and ran query for 7 days, you would process all the raw data and calculate the output. On Jan 2nd you want to get the data again, you could by default calculate data for Jan 1st and Jan 2nd, however when result caching is enabled, you would have the result for Jan 1st cached. This will prevent processing of raw data for Jan 1st and you would get results much faster. If your colleagues try to view the same dashboard after you have visited the dashboard then it will be pretty instantaneous for them as the result has been cached already. 
+
+What happens when you visited the dashboard on Jan 3rd at 10:00 AM and your colleague visited the dashboard at 11:00 AM. Time range for the dashbboard is 2 days. In this case:
+  - you would get data from Jan 1st 10:00 AM to Jan 3rd 10:00 AM
+  - your colleague would get data from Jan 1st 11:00 AM to Jan 3rd 11:00 AM
+
+Result caching, while fetching the data for your colleague will discard the cached data from Jan 1st 10:00 AM to Jan 1st 11:00 AM. Result caching will also calculate data from Jan 3rd 10:00 AM to Jan 3rd 11:00 AM and add it to the totals for your colleague to get the right results. OpenObserve had to crunch data only for 1 hour for your colleague instead of 48 hours in order to display the data. This results in huge performance gains.
+
+To enable result caching, set these environment variables:
+
+```shell
+ZO_RESULT_CACHE_ENABLED: "true" # Enable result cache for query results
+ZO_USE_MULTIPLE_RESULT_CACHE: "true" # Enable to use mulple result caches for query results
+```
+
 ## Large Number of Fields
 
 Each log entry may contain anywhere from a minimum of 1 field (e.g. `_timestamp`) up to thousands of fields. By default, the **Logs UI** runs a query like:
