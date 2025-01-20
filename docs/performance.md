@@ -39,12 +39,12 @@ If you have very high ingestion speed requirements (e.g. 100s of thousands of ev
 
 OpenObserve does not do full-text indexing like Elasticsearch. This results in very high compression ratio of ingested data. Coupled with object storage this can give you ~140x lower storage cost. However, this also means that search performance for full text queries in absence of full-text indexes might suffer. However log data has some unique properties that can be leveraged to improve search performance significantly. OpenObserve uses following techniques to improve search performance:
 
-### ***Column pruning*** 
+### Column pruning 
 OpenObserve uses columnar storage format (parquet) which allows it to read only the columns that are required for a query. This reduces the amount of data that needs to be read from disk and improves search performance. This technique is called column pruning. It reduces the amount of data that needs to be read from disk. You must switch to SQL query mode for this and specify only the columns that you want to be returned.
 
 ### Predicate pushdown: 
 
-#### ***Standard Partitioning (KeyValue partitions)*** 
+#### Standard Partitioning (KeyValue partitions) 
 >Note: Use For low cardinality fields
 
 OpenObserve uses a technique called predicate pushdown to further reduce the amount of data that needs to be read from disk. This is done by pushing down the filters to the storage layer. By default OpenObserve will partition data by `org/stream/year/month/day/hour`. So when searching, if you know the time range for which you are searching for data you should specify it and OpenObserve will skip data not following in date range and will search across much less data. This will improve search performance and will utilize predicate pushdown. You can also enable additional partitioning for fields on any stream by going to stream settings. Some good candidates for partition keys are host and kubernetes namespace. You can have multiple partition keys for a stream. You can then specify partition keys in your query. e.g. `host='xyz' and kubernetes_namespace='abc'`. This will improve search performance and will utilize predicate pushdown.*** `DO NOT enable partitioning on all/many fields as it may result in many small underlying parquet files which will result in low compression, extremely poor search performance and high s3 storage costs` ***. As a rule of thumb you would want the size of each stored parquet file to be above 5 MB. Order of partitions does not matter. You can partition by `namespace, pod` or `pod, namespace`. 
@@ -68,7 +68,7 @@ data/stream/files/default/logs/optimized/2023/10/20/03/k8s_container_name=app
 ```
 You can now specify partition keys in your query. e.g. `k8s_container_name=app and k8s_namespace_name='p1' and k8s_pod_name='k1-6cf68b7dfb-t4hbb' and match_all('error')`. This will improve search performance and will utilize predicate pushdown. You should enable partitioning for low cardinality (Relatively not too many possible values for a field - e.g. namespace, host) data.
 
-#### ***Hash partition***
+#### Hash partition
 >Note: Use For low cardinality fields
 
 Standard `KeyValue` partitions are a good way to partition data. However, if data in a particular field is not divided evenly then you may end up with some partitions having more data than others. 
@@ -109,12 +109,12 @@ For the above scenario, you can enable hash partitioning on namespace field with
 
 You can specify the number of buckets (8, 16, 32, 64, 128) in the index in stream setting when setting up hash partitioning for a particular field.
 
-#### ***Time range partition***
+#### Time range partition
 >Note: Enabled by default and cannot be disabled
 
 OpenObserve partitions all data by time range by default in addition to any other partitions that you may have defined. It always makes sense to specify the shortest time range to search for. e.g. if you know that you are looking for data for last 15 minutes, you should specify that in your query by selecting it from the top right corner. This will improve search performance and will utilize predicate pushdown.
 
-### ***Bloom filter (available starting v0.8.0)*** (For high cardinality fields)
+### Bloom filter (available starting v0.8.0) (For high cardinality fields)
 >Note: Use For high cardinality fields
 
 A bloom filter is a space efficient probabilistic data structure that allow you to check if a value exists in a set. It solves proverbial `needle in a haystack` problem. OpenObserve uses bloom filters to check if a value exists in a column. This allows OpenObserve to skip reading the data from disk if the value does not exist in the column. This improves search performance by reducing `search space`. You must specify bloom filter for the specific fields that you want to search.  Fields that are well suited for bloom filter are of very high cardinality .e.g. UUID, request_id, trace_id, device_id, etc. You can specify bloom filter for a field by going to stream settings. You can specify multiple fields for bloom filter. e.g. `request_id` and `trace_id`. You can then use the fields in your query that will utilize bloom filter. e.g. `request_id='abc' and trace_id='xyz'`. Enabling bloom filter on a field with low cardinality will not result in any performance improvement. 
@@ -127,7 +127,7 @@ Log search involves full text search. When you try to do a full text search it e
 1. Do not use `match_all` directly on full data set, but always use it in combination with one or more filters which can themselves be optimized by partitions or bloom filters. e.g. `host='host1' and match_all('error') ` or `k8s_namespace_name='ns1' and match_all('error')` or `bank_account_number='653456-54654-65' and match_all('error')`. In all of these examples using the filter reduces search space for `match_all`. Additionally if `host` and `k8s_namespace_name` fields are partitioned then you have reduced search space very well and will gain the improvements in full text search. `bank_account_number`, `request_id`, `trace_id`, `device_id` are good candidates for bloom filter and should be used together with `match_all` to improve full text search performance.
 1. Enable full text search only on the fields that you need. e.g. body, log, message etc. Fields like hostname, ip address, etc. are not good candidates for full text search and you should not enable full text search on these fields. You can enable full text search on a field by going to stream settings. You can specify multiple fields for full text search. e.g. `body` and `message`. You can then use the fields in your query that will utilize full text search. e.g. `host='host1' and match_all('error')`. 
 
-### ***Inverted Index (available starting v0.10.0)***
+### Inverted Index (available starting v0.10.0)
 
 Above mentioned partitioning schemes and bloom filters are good for fields where you are doing equality based searches. e.g. `request_id='abc'`. For full text search in fields that contain longer log lines, OpenObserve in its earlier releases relied on brute force search (how [grep](https://www.gnu.org/software/grep/manual/grep.html) works) which works well for most of the scenarios. However, for very large data sets this can be slow. You can enable inverted index to improve full text search performance for such fields. Do not enable inverted index for fields that are not used for full text search but are used for equality based searches. Bloom filters and hash partitions are better suited for equality based searches.
 
@@ -144,7 +144,7 @@ You can specify inverted index for a field by going to stream settings. You can 
 
 Based on our tests, inverted index can improve full text search performance by up to 1000x. Enabling inverted index will lead to approximately 25% storage overhead for the stream and may vary based on data entropy.
 
-## ***In memory caching*** 
+## In memory caching 
 OpenObserve can use RAM to cache the data that is read from disk/s3. This reduces the amount of data that needs to be read from disk during search and improves search performance. OpenObserve by default will try to use all the available RAM to improve performance. This can also mean high memory utilization. You can use following environment variables to configure the cache:
 
 | Environment Variable                    | Value | Description                                                   |
@@ -154,7 +154,7 @@ OpenObserve can use RAM to cache the data that is read from disk/s3. This reduce
 
   You want to have at least 8 GB of memory with the above settings.
 
-## ***On disk caching***
+## On disk caching
 
 OpenObserve can use disk on queriers to cache the data that is read from s3. This reduces the amount of data that needs to be read from s3 during search and improves search performance. You can use following environment variables to configure the cache:
 
@@ -167,7 +167,7 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
   
-## ***Result caching***
+## Result caching
 
 Result caching is incredibly powerful mechanism to speed up repetitive or similar queries.
 
@@ -198,6 +198,40 @@ To enable result caching, set these environment variables:
 ZO_RESULT_CACHE_ENABLED: "true" # Enable result cache for query results
 ZO_USE_MULTIPLE_RESULT_CACHE: "true" # Enable to use mulple result caches for query results
 ```
+
+## Query partitioning
+
+Query performance UX is not always about delivering query results faster. Imagine if you woudn't have to wait for the results of the query but could keep getting the results of the query incrementally as they are processed. This would be similar (but slighly better) to knowing the status of where your uber driver is and how long s/he is going to take to reach you even if it takes the same time without knowing it.
+
+In the case of a query result on log search page or getting the results on dashboard panel, OpenObserve can partition the query to get results incrementally. 
+
+e.g. A query for 1 day may be broken into 4 queries of 6 hours each (UI would automatically do this for you) and you would see the results of first 6 hours and then incrementally get all the results. All the requests are made incrementally by the UI. By default UI uses AJAX requests for each qyery partition.
+
+While query partitioning can improve user experience greatly, it can also reduce the overall speed of getting the result. e.g. One day query was broken into 48 individual queries. Now this query without partition may have gitten completed in 6 seconds. Howver making 48 separate HTTP requests sequentially may take 24 seconds to get the results (HTTP requests have overhead). In order to tackle this you can enable websockets. You can enable websockets using:
+
+```shell
+ZO_WEBSOCKET_ENABLED: "true"
+```
+
+Enabling websockets would also require you to setup more things if you are using a reverse proxy like nginx.
+
+Official helm chart has all of this setup for you so you don't have to worry about it. However if you are setting it up yourself or using another environment make sure that these (or it's equivalents) are configured:
+
+Add nginx annotations:
+
+```yaml
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1" # Enable HTTP/1.1 for WebSockets
+    nginx.ingress.kubernetes.io/enable-websocket: "true"
+    # nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive # disable keep alive to use websockets
+    nginx.ingress.kubernetes.io/proxy-set-headers: |
+      Upgrade $http_upgrade;
+      Connection "Upgrade";
+```
+
+Websockets as of 0.14.1 is an experimental feature and you must enable it from the UI as well. `Settings > General settings > Enable Websocket Search`
+
+Result caching + Query partition + Websockets = Huge performance gains and great UX.
+
 
 ## Large Number of Fields
 
