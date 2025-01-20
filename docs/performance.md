@@ -267,8 +267,8 @@ The table below shows the approximate storage required for each record as the nu
 
 ### Common causes for large number of fields
 
-1. Logs from multiple applications of diffferent types being ingested in the same stream. If app1 has 50 fields and app2 has 75 fields with no fields that have the same name in both apps and logs from both applications are being ingested in the same stream then the stream will have 125 fields. Ideally you should send logs from both of these application to 2 different streams. You can do this by configguring your log forwarder (fluentbit, vector, otel-collector, etc) or you can use OpenObserve pipelines to do it.
-2. Large number of nested fields in the JSON record that is being sent. OpenObserve falttens the JSON that it receives and if there are too many levels then the number of fields can be huge. You can avoid having large number of fields due to high nested levels is by setting the `ZO_INGEST_FLATTEN_LEVEL` environment variable to say `2` or `3` .
+1. Logs from multiple applications of diffferent types being ingested in the same stream. If app1 has 50 fields and app2 has 75 fields with no fields that have the same name in both apps and logs from both applications are being ingested in the same stream then the stream will have 125 fields. Ideally you should send logs from both of these application to 2 different streams. You can do this by configuring your log forwarder (fluentbit, vector, otel-collector, etc) or you can use OpenObserve pipelines to do it.
+2. Large number of nested fields in the JSON record that is being sent. OpenObserve flattens the JSON that it receives and if there are too many levels then the number of fields can be huge. You can avoid having large number of fields due to high nested levels is by setting the `ZO_INGEST_FLATTEN_LEVEL` environment variable to say `2` or `3` .
 
 **OpenObserve** provides various optimizations for querying. However, having a large number of fields in your log entries can lead to the following issues:
 
@@ -276,19 +276,21 @@ The table below shows the approximate storage required for each record as the nu
 
 **Solution:** Reduce the number of fields. Typically, for troubleshooting, you don’t need hundreds of fields per record. Aim for fewer than 50 fields to keep data sizes manageable. You can use pipelines to reduce and filter out unnecessary fields.
 
-### 2. Slower Queries
+### 2. Slower Queries and solutions
 
 Each query that uses `SELECT *` must process all fields, which can be slow.
 
-#### 2.1 Solution 1: Control how many fields you are sending to OpenObserve (Recommended)
+Solutions:
+
+#### 2.1 Control how many fields you are sending to OpenObserve (Recommended)
 
 Try not to send more than 100 fields to OpenObserve. For most use cases humans cannot process more than 100 fields anyway.
 
-#### 2.2 Solution 2: Delete the fields that you don't need from the stream setting
+#### 2.2 Delete the fields that you don't need from the stream setting
 
 Deleting the fields (in stream settings in OpenObserve) that you don't need will allow for faster queries. This may be desirabe in scenarios where at some point in time you had a large number of fields as you were pulling logs from multiple applications but not anymore.
 
-#### 2.3 Solution 3: Quick Mode
+#### 2.3 Quick Mode
 Instead of using:
 ```sql
 SELECT * FROM stream1
@@ -299,7 +301,7 @@ SELECT field1, field2 FROM stream1
 ```
 This allows OpenObserve to perform column projection, making queries faster. You can manually write queries this way or enable `Quick Mode` in the Logs UI and select only the needed fields. However, this approach must be done manually for each query, and users may forget.
 
-#### 2.4 Solution 4: User-Defined Schema (UDS)
+#### 2.4 User-Defined Schema (UDS)
 By enabling User-Defined Schemas (via `ZO_ALLOW_USER_DEFINED_SCHEMAS=true`), you can define a set of important fields for a stream in its settings.  
 
 **Example:** If you have 5,000 fields and select only 50 as part of the UDS, queries will now only consider these 50 fields directly, greatly improving performance. The remaining 4,950 fields will be combined into a single `_raw` field (a string), which won’t be searchable.  
