@@ -6,6 +6,7 @@ nav:
 - Quickstart: quickstart.md
 - Releases: releases.md
 - Example Queries: example-queries.md
+- SQL reference: sql_reference.md
 - Architecture: architecture.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md
@@ -17,7 +18,6 @@ nav:
 - API Reference: api
 - Ingestion: ingestion
 - Migration: migration
-- SQL functions reference: functions.md
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - Open API Specifications: api_specs.md
