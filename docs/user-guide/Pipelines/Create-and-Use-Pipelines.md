@@ -26,7 +26,7 @@ This opens up the pipeline editor.
     - Select **Stream Type**:
     - **If you selected Stream in the previous step**: Use the drop-down menu under **Stream Name** to select the source stream. Ensure that the source stream is active and receiving data. 
     ![source stream realtime](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline1-%20Source%20stream.png)
-    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](#). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 2 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 2-minute interval.
+    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 2 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 2-minute interval.
     ![Query node](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline2-%20Source%20query.png)
      
 3. Click **Save** to confirm the source node.
@@ -117,4 +117,4 @@ Your pipeline has successfully transformed the ingested data and sent them to th
     - Check the **Transform** node for errors.
 
 ## Next Step
-- [Manage Pipelines](#) 
+- [Manage Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md) 
