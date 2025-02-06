@@ -66,8 +66,8 @@ This opens up the pipeline editor.
 ![destination stream](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline6-%20destination%20stream.png)
 ### Step 6: Connect the Source, Transform, and Destination nodes to complete the data flow order
 
-- Use the **remove icon** (![remove icon](https://github.com/debashisborgohain/Project2025/blob/main/images/icon%201.png)) to remove any incorrect connection.
-- Use the **connection icon** (![connection icon](https://github.com/debashisborgohain/Project2025/blob/main/images/icon%202.png)) to build a connection between two nodes.
+- Use the **remove icon** (![remove icon](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/pipelines10-%20remove.png)) to remove any incorrect connection.
+- Use the **connection icon** (![connection icon](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/pipelines11-%20connect%20icon.png)) to build a connection between two nodes.
 
 ![realtime pipeline node connection](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline7-%20connect%20nodes.png)
 ### Step 7: Save the pipeline
