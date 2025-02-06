@@ -42,5 +42,5 @@ Users define how frequently the query runs and fetches data using the following 
 Use scheduled pipelines for tasks that require processing at fixed intervals instead of continuously, such as generating periodic reports and processing historical data in batches.
 
 ## Next Steps
-- [Create and Use Pipelines](#)
-- [Manage Pipelines](#)
+- [Create and Use Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Create-and-Use-Pipelines.md)
+- [Manage Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md)
