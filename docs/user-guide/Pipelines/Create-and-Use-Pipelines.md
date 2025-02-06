@@ -12,7 +12,7 @@ This guide shows you how to create and use real-time and scheduled pipelines in 
 3. In the **Pipelines** tab, click the **Add Pipeline** button in the top-right corner. 
 This opens up the pipeline editor.
 
-![Pipeline Editor in OpenObserve](https://github.com/debashisborgohain/Project2025/blob/main/images/realtime%20pipeline%202.png)
+![Pipeline Editor in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines%20in%20O2.png)
 ### Step 2: Enter a unique pipeline name
 
 ### Step 3: Configure the Source node based on the pipeline type
