@@ -23,6 +23,12 @@ Real-time pipelines process incoming data instantly.
 Use real-time pipelines when you need immediate processing, such as monitoring live data and cleaning logs in real-time.
 
 ### Scheduled Pipelines
+<!-- I think this section needs some more work. -->
+<!-- The main difference is that the source here is an existing stream's historical data  -->
+<!-- The sql query does a log search request with time range defined by the Period on an existing stream, the search request results are then passed through Transformation and eventually Destination(s) -->
+<!-- This flow is executed once every x mins, with x being defined by Frequency -->
+<!-- Data is historical data and processing is mainly aggregating, the purpose is to pre-aggregate data to downstream analytics -->
+<!-- I know scheduled pipeline can be confusing at first. Please lmk if this is not helpful and you'd like to discuss more -->
 Scheduled pipelines process data at defined intervals.
 
 #### How they work
