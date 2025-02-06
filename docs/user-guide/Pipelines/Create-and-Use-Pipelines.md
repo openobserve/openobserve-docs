@@ -26,7 +26,8 @@ This opens up the pipeline editor.
     - Select **Stream Type**:
     - **If you selected Stream in the previous step**: Use the drop-down menu under **Stream Name** to select the source stream. Ensure that the source stream is active and receiving data. 
     ![source stream realtime](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline1-%20Source%20stream.png)
-    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 2 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 2-minute interval.
+    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. ~~The query runs every 2 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 2-minute interval.~~
+    <!-- This needs to be updated. On UI, the `Frequency` and `Period` have been restricted to be at least 5 -->
     ![Query node](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline2-%20Source%20query.png)
      
 3. Click **Save** to confirm the source node.
@@ -102,6 +103,8 @@ Use `curl` or other [data ingestion options in OpenObserve](https://openobserve.
 
 Your pipeline has successfully transformed the ingested data and sent them to the destination stream. <br>
 
+<!-- This is great to demonstrate how to construct a simple straightforward pipeline. I would suggest to include a few screenshots of more comprehensive or complicated pipelines as examples to showcase its capabilities -->
+
 ## Troubleshoot
 
 1. **Unable to view the field names while configuring Transform Condition node?**  
@@ -115,6 +118,13 @@ Your pipeline has successfully transformed the ingested data and sent them to th
 
     - Ensure the pipeline is active.
     - Check the **Transform** node for errors.
+
+<!-- I would call out another important character to watch out about pipeline  -->
+<!-- The pipeline is implemented explicitly here, meaning, however a user configures a pipeline, the data flows as it shows on the UI. -->
+<!-- This could be problematic if a user creates a pipeline with source stream `default` -> condition/function -> destination stream `default1` -->
+<!-- With this setup, the user won't see any data in `default` anymore once this pipeline is enabled, which might not be user's intension -->
+<!-- So, in the latest UI, when a source stream is added, a default destination stream to the same stream is added as well, so that the data is always going to be there, unless the user explicitly deletes this connection -->
+
 
 ## Next Step
 - [Manage Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md) 
