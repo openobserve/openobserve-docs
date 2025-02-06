@@ -1,7 +1,6 @@
 This page describes the features designed to help you manage your pipelines in OpenObserve.
 
-![pipeline management](https://github.com/debashisborgohain/Project2025/blob/main/images/pipeline%20management.png)
-_Screen Path: `Pipelines > Pipelines`_
+![pipeline management](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/pipeline12-%20manage%20pipelines.png)
 
 
 ## Filter Options
