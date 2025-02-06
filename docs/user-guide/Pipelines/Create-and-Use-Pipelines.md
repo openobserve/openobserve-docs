@@ -117,4 +117,4 @@ Your pipeline has successfully transformed the ingested data and sent them to th
     - Check the **Transform** node for errors.
 
 ## Next Step
-- [Manage Pipelines](#)
+- [Manage Pipelines](#) 
