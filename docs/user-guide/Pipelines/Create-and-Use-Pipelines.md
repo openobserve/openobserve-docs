@@ -108,7 +108,8 @@ Your pipeline has successfully transformed the ingested data and sent them to th
 
 <!-- This is great to demonstrate how to construct a simple straightforward pipeline. I would suggest to include a few screenshots of more comprehensive or complicated pipelines as examples to showcase its capabilities -->
 
-> **Note**: The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below: 
+### Example of a Complex Pipeline
+The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below: 
 
 ![Complex Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines13-complex%20pipeline.png)  
 
@@ -126,10 +127,9 @@ Your pipeline has successfully transformed the ingested data and sent them to th
     - Ensure the pipeline is active.
     - Check the **Transform** node for errors.
 
-3. **No data in the stream where the data is being ingested?**
-<br>
-When you select a source stream in the pipeline, OpenObserve automatically assigns a default destination stream that connects to the same source stream. To ensure the data remains in the source stream, do not remove this default connection. <br>
-If you need to transform data, add new **Transform** and **Destination** nodes as required. This ensures that the transformed data flows to the new destination. 
+3. **No data in the stream where the data is being ingested?** 
+    When you select a source stream in the pipeline, OpenObserve automatically assigns a default destination stream that connects to the same source stream. To ensure the data remains in the source stream, do not remove this default connection. <br>
+    If you need to transform data, add new **Transform** and **Destination** nodes as required. This ensures that the transformed data flows to the new destination. 
 
 
 <br>
