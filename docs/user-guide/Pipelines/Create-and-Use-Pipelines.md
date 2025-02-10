@@ -29,6 +29,7 @@ This opens up the pipeline editor.
     - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 5 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 5-minute interval.
     <!-- This needs to be updated. On UI, the `Frequency` and `Period` have been restricted to be at least 5 -->
     <!--Updated the screenshot and the above sentence-->
+    
     ![Query node](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline2-%20Source%20query.png)
      
 3. Click **Save** to confirm the source node.
@@ -128,7 +129,7 @@ The above example illustrates a basic pipeline setup. However, pipelines can bec
     - Check the **Transform** node for errors.
 
 3. **No data in the stream where the data is being ingested?** 
-    When you select a source stream in the pipeline, OpenObserve automatically assigns a default destination stream that connects to the same source stream. To ensure the data remains in the source stream, do not remove this default connection. <br>
+    <br>When you select a source stream in the pipeline, OpenObserve automatically assigns a default destination stream that connects to the same source stream. To ensure the data remains in the source stream, do not remove this default connection. <br>
     If you need to transform data, add new **Transform** and **Destination** nodes as required. This ensures that the transformed data flows to the new destination. 
 
 
