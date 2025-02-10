@@ -109,7 +109,7 @@ Your pipeline has successfully transformed the ingested data and sent them to th
 
 **Note**: The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below. 
 
-![Complex Pipelines](#)  
+![Complex Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines13-complex%20pipeline.png)  
 
 ## Troubleshoot
 
