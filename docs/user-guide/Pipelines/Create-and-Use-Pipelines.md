@@ -29,7 +29,7 @@ This opens up the pipeline editor.
     - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 5 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 5-minute interval.
     <!-- This needs to be updated. On UI, the `Frequency` and `Period` have been restricted to be at least 5 -->
     <!--Updated the screenshot and the above sentence-->
-    ![Query node](#)
+    ![Query node](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline2-%20Source%20query.png)
      
 3. Click **Save** to confirm the source node.
 
@@ -75,7 +75,7 @@ This opens up the pipeline editor.
 ![realtime pipeline node connection](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline7-%20connect%20nodes.png)
 ### Step 7: Save the pipeline
 
-After you click Save, it gets activated automatically. Learn how to [manage pipelines](#).
+After you click Save, it gets activated automatically. Learn how to [manage pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md).
 
 ![active pipeline](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline8-%20Save%20pipeline.png)
 
