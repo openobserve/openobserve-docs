@@ -38,7 +38,8 @@ This opens up the pipeline editor.
 1. From the **Transform** section, drag a **Function** or **Condition** node into the pipeline editor.
 2. Click the edit icon to configure the selected node.
 
-    - **For a Condition node**: In the **Associate Condition** form, add one or more conditions to refine the data. Select the field name from the drop-down menu. <br>**Note**: If the selected source stream is active, the drop-down list shows all the field names from the ingested data.
+    - **For a Condition node**: In the **Associate Condition** form, add one or more conditions to refine the data. Select the field name from the drop-down menu. <br>
+        > **Note**: If the selected source stream is active, the drop-down list shows all the field names from the ingested data.
 
     ![condition in realtime pipeline](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline3%20-%20Transform%20using%20condition.png)  
     
@@ -107,7 +108,7 @@ Your pipeline has successfully transformed the ingested data and sent them to th
 
 <!-- This is great to demonstrate how to construct a simple straightforward pipeline. I would suggest to include a few screenshots of more comprehensive or complicated pipelines as examples to showcase its capabilities -->
 
-**Note**: The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below. 
+> **Note**: The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below: 
 
 ![Complex Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines13-complex%20pipeline.png)  
 
