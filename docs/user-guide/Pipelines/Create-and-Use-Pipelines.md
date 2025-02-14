@@ -12,7 +12,7 @@ This guide shows you how to create and use real-time and scheduled pipelines in 
 3. In the **Pipelines** tab, click the **Add Pipeline** button in the top-right corner. 
 This opens up the pipeline editor.
 
-![Pipeline Editor in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines%20in%20O2.png)
+![Pipeline Editor in OpenObserve](../../images/Pipelines%20in%20O2.png)
 ### Step 2: Enter a unique pipeline name
 
 ### Step 3: Configure the Source node based on the pipeline type
@@ -25,12 +25,12 @@ This opens up the pipeline editor.
 
     - Select **Stream Type**:
     - **If you selected Stream in the previous step**: Use the drop-down menu under **Stream Name** to select the source stream. Ensure that the source stream is active and receiving data. 
-    ![source stream realtime](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline1-%20Source%20stream.png)
-    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 5 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 5-minute interval.
+    ![source stream realtime](../../images/pipeline1_source_stream.png)
+    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 5 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 5-minute interval.
     <!-- This needs to be updated. On UI, the `Frequency` and `Period` have been restricted to be at least 5 -->
     <!--Updated the screenshot and the above sentence-->
     
-    ![Query node](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline2-%20Source%20query.png)
+    ![Query node](../../images/pipeline2_source_query.png)
      
 3. Click **Save** to confirm the source node.
 
@@ -42,15 +42,15 @@ This opens up the pipeline editor.
     - **For a Condition node**: In the **Associate Condition** form, add one or more conditions to refine the data. Select the field name from the drop-down menu. <br>
         > **Note**: If the selected source stream is active, the drop-down list shows all the field names from the ingested data.
 
-    ![condition in realtime pipeline](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline3%20-%20Transform%20using%20condition.png)  
+    ![condition in realtime pipeline](../../images/pipeline3_transform_using_condition.png)  
     
     - **For a Function node**: In the **Associate Function** form, select an existing function or create a new function to associate with the pipeline. 
 
-    ![function in realtime pipeline](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline4-%20Transform%20using%20functions.png)
+    ![function in realtime pipeline](../../images/pipeline4-transform_using_functions.png)
     <br>
     In the above example, the associated function, **del_message_field**, deletes the **message** field from the ingested data. 
     
-    ![del function](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline5-%20Function%20to%20delete%20the%20message%20field.png)
+    ![del function](../../images/pipeline5_function_to_delete_the_message_field.png)
     <br>
     For more details, see the [Functions Guide](https://openobserve.ai/docs/user-guide/functions/).
 
@@ -67,18 +67,18 @@ This opens up the pipeline editor.
 
 4. Click **Save** to confirm the destination node.
 
-![destination stream](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline6-%20destination%20stream.png)
+![destination stream](../../images/pipeline6_destination_stream.png)
 ### Step 6: Connect the Source, Transform, and Destination nodes to complete the data flow order
 
-- Use the **remove icon** (![remove icon](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/pipelines10-%20remove.png)) to remove any incorrect connection.
-- Use the **connection icon** (![connection icon](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/pipelines11-%20connect%20icon.png)) to build a connection between two nodes.
+- Use the **remove icon** (![remove icon](../../images/pipeline10_remove.png)) to remove any incorrect connection.
+- Use the **connection icon** (![connection icon](../../images/pipelines11_connect_icon.png)) to build a connection between two nodes.
 
-![realtime pipeline node connection](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline7-%20connect%20nodes.png)
+![realtime pipeline node connection](../../images/pipeline7_connect_nodes.png)
 ### Step 7: Save the pipeline
 
-After you click Save, it gets activated automatically. Learn how to [manage pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md).
+After you click Save, it gets activated automatically. Learn how to [manage pipelines](Manage-Pipelines.md).
 
-![active pipeline](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline8-%20Save%20pipeline.png)
+![active pipeline](../../images/pipeline8_save_pipeline.png)
 
 
 ## Use the Pipeline
@@ -102,7 +102,7 @@ Use `curl` or other [data ingestion options in OpenObserve](https://openobserve.
 1. Click **Streams** in the navigation panel.
 2. Select the destination stream and click the **Stream Details** icon to verify that the transformed data is present.  
 
-![verify output](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipeline9-%20output%20verification.png)
+![verify output](../../images/pipeline9_output_verification.png)
 
 Your pipeline has successfully transformed the ingested data and sent them to the destination stream. <br>
 
@@ -112,7 +112,7 @@ Your pipeline has successfully transformed the ingested data and sent them to th
 ### Example of a Complex Pipeline
 The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below: 
 
-![Complex Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines13-complex%20pipeline.png)  
+![Complex Pipelines](../../images/pipelines13-complex_pipeline.png)  
 
 ## Troubleshoot
 
@@ -142,4 +142,4 @@ The above example illustrates a basic pipeline setup. However, pipelines can bec
 
 
 ## Next Step
-- [Manage Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md) 
+- [Manage Pipelines](Manage-Pipelines.md) 

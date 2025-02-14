@@ -3,7 +3,7 @@ This page provides an overview of pipelines, their types, and how they work.<br>
 ## What are Pipelines?
 Pipelines enable seamless data ingestion and transformation using an intuitive drag-and-drop interface.
 
-![Pipelines in OpenObserve](../../images/pipeline1_source_stream.png)
+![Pipelines in OpenObserve](../../images/Pipelines%20in%20O2.png)
 
 ## Types of Pipelines
 OpenObserve supports two types of pipelines to cater to different data processing needs: 
@@ -50,5 +50,5 @@ Based on the time range defined by the **Period**, the SQL query performs a sear
 Use scheduled pipelines for tasks that require processing at fixed intervals instead of continuously, such as generating periodic reports and processing historical data in batches.
 
 ## Next Steps
-- [Create and Use Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Create-and-Use-Pipelines.md)
-- [Manage Pipelines](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/user-guide/Pipelines/Manage-Pipelines.md)
+- [Create and Use Pipelines](Create-and-Use-Pipelines.md)
+- [Manage Pipelines](Manage-Pipelines.md)

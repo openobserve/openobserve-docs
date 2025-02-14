@@ -1,6 +1,6 @@
 This page describes the features designed to help you manage your pipelines in OpenObserve.
 
-![pipeline management](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/pipeline12-%20manage%20pipelines.png)
+![pipeline management](../../images/pipeline12_manage_pipelines.png)
 
 
 ## Filter Options
