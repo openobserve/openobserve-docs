@@ -6,7 +6,9 @@ nav:
     - Users: users.md
     - Streams: streams.md
     - Ingestion: ingestion.md
+    - Pipelines: Pipelines
     - Alerts: alerts
     - Dashboards: dashboards
     - Functions: functions
     - Migration: migration
+
