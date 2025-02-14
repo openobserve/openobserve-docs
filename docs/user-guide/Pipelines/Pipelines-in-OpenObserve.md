@@ -3,7 +3,7 @@ This page provides an overview of pipelines, their types, and how they work.<br>
 ## What are Pipelines?
 Pipelines enable seamless data ingestion and transformation using an intuitive drag-and-drop interface.
 
-![Pipelines in OpenObserve](https://github.com/openobserve/openobserve-docs/blob/new-docs/docs/images/Pipelines%20in%20O2.png)
+![Pipelines in OpenObserve](../../images/pipeline1_source_stream.png)
 
 ## Types of Pipelines
 OpenObserve supports two types of pipelines to cater to different data processing needs: 
