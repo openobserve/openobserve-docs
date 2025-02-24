@@ -40,7 +40,7 @@ This opens up the pipeline editor.
 2. Click the edit icon to configure the selected node.
 
     - **For a Condition node**: In the **Associate Condition** form, add one or more conditions to refine the data. Select the field name from the drop-down menu. <br>
-        > **Note**: If the selected source stream is active, the drop-down list shows all the field names from the ingested data.
+        **Note**: If the selected source stream is active, the drop-down list shows all the field names from the ingested data.
 
     ![condition in realtime pipeline](../../images/pipeline3_transform_using_condition.png)  
     
