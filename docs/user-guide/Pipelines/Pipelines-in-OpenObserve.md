@@ -16,7 +16,7 @@ Real-time pipeline processes incoming raw data instantly.
 
 #### How they work
 As soon as the raw data gets ingested into the source stream, the pipeline applies conditions or functions to filter and transform the data in real-time. The transformed data is sent to the destination stream for further use or storage. <br>
-> **Note**: Each source stream can be associated with only one real-time pipeline.
+**Note**: Each source stream can be associated with only one real-time pipeline.
 
 
 #### When to use
@@ -38,7 +38,7 @@ Based on the time range defined by the **Period**, the SQL query performs a sear
 - **Frequency**: Defines how often the query should be executed. <br> **Example**: **Frequency**: 5 minutes<br>It ensures the query runs every 5 minutes.
 
 - **Period**: Defines the period for which the query fetches the data. <br> 
-    > **Note**: The period should be the same as frequency, and both must be greater than 4. <br> 
+    **Note**: The period should be the same as frequency, and both must be greater than 4. <br> 
     
     **Example**: **Period**: 5 minutes<br>It ensures the query fetches the data that was ingested in the last 5 minutes. 
 
