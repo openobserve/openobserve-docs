@@ -31,27 +31,29 @@ Ensure you have **Kubernetes** and the **OpenObserve Helm Chart** installed.
 
 1. Set `openfga.enabled: true` in `values.yaml` file.
 
-   Navigate to the `values.yaml` file in the OpenObserve Helm chart repository and update this configuration as follows:
+  Navigate to the `values.yaml` file in the OpenObserve Helm chart repository and update this configuration as follows:
 
-   ```yaml
-   openfga:
-       enabled: true
-       parameters:
-         O2_OPENFGA_LIST_ONLY_PERMITTED: "false"
-         O2_MAP_GROUP_TO_ROLE: "true"
-         O2_MAP_GROUP_TO_ROLE_SKIP_CREATION: "false"
-         O2_OPENFGA_PAGE_SIZE: "100"
-       image:
-         repository: openfga/openfga
-         tag: latest
-         pullPolicy: IfNotPresent
+    ```yaml
+    openfga:
+        enabled: true
+        parameters:
+          O2_OPENFGA_LIST_ONLY_PERMITTED: "false"
+          O2_MAP_GROUP_TO_ROLE: "true"
+          O2_MAP_GROUP_TO_ROLE_SKIP_CREATION: "false"
+          O2_OPENFGA_PAGE_SIZE: "100"
+        image:
+          repository: openfga/openfga
+          tag: latest
+          pullPolicy: IfNotPresent
     ```
+
 2. Run the following commands to update Helm:
 
 ```sh
 helm repo update
 kubectl get namespaces
 ```
+
 - If the output shows **openobserve**, run the `helm upgrade` command.
 
 - If the output does not show **openobserve**, run the `kubectl create` command before executing the `helm upgrade` command: 
@@ -61,6 +63,7 @@ kubectl get namespaces
 ```sh
 helm upgrade --namespace openobserve -f values.yaml o2 openobserve/openobserve
 ```
+
 
 3. After deployment, verify if all the pods are in a running state:
 
@@ -81,12 +84,10 @@ If you prefer not to use Helm, OpenFGA can be installed and run using other meth
 5. [Building from Scratch](https://github.com/openfga/openfga?tab=readme-ov-file#building-from-source)
 
 **Impportant Note:** 
-- When installing OpenFGA, you must run the OpenFGA and OpenObserve servers separately.
 
-    - Refer to the respective installation links for instructions on running the OpenFGA server. Ensure that you run the `openfga migrate` command before running the `openfga run` command.
-    - Check the [Quickstart guide](https://openobserve.ai/docs/quickstart/#openobserve-cloud) for steps to run the OpenObserve server.
+When installing OpenFGA using the alternative methods, you must run the OpenFGA and OpenObserve servers separately. Refer to the respective installation links for instructions on running the OpenFGA server. Ensure that you run the `openfga migrate` command before running the `openfga run` command. Check the [Quickstart guide](https://openobserve.ai/docs/quickstart/#openobserve-cloud) for steps to run the OpenObserve server.
 
-- For Helm chart installations, deploying the Helm chart is sufficient.
+<br>If you are installing OpenFGA with Helm charts, deploying the Helm chart is sufficient.
 
 ## Step 2: Configure OpenFGA Environment Variables
 
@@ -96,30 +97,16 @@ After the OpenFGA server is up and running, update the following environment var
 
 ### Required Environment Variables
 
-- **`O2_OPENFGA_ENABLED` (Required)**
-  - **Default:** `false`
-  - Determines whether OpenFGA is enabled. Set this value to `true` to enable OpenFGA.
+- **`O2_OPENFGA_ENABLED` (Required)**: **Default:** `false`. Determines whether OpenFGA is enabled. Set this value to `true` to enable OpenFGA.
 
-- **`O2_OPENFGA_BASE_URL` (Required)**
-  - Enter the URL of the OpenFGA server.  
-    **Example:** If the OpenFGA server is running locally on port `8080`, set this to:
-    ```
-    http://localhost:8080
-    ```
+- **`O2_OPENFGA_BASE_URL` (Required)**: Enter the URL of the OpenFGA server. 
+  **Example:** If the OpenFGA server is running locally on port `8080`, set this to: ```http://localhost:8080```
 
 ### Optional Environment Variables
 
-- **`O2_OPENFGA_STORE_NAME`**
-  - **Default:** `openobserve`
-  - Specifies the name of the OpenFGA store. Default value is sufficient.
-
-- **`O2_OPENFGA_PAGE_SIZE`**
-  - **Default:** `100`
-  - Defines the number of records inserted into the OpenFGA database at a time.
-
-- **`O2_OPENFGA_LIST_ONLY_PERMITTED`**
-  - **Default:** `false`
-  - If `O2_OPENFGA_LIST_ONLY_PERMITTED` is set to `true`, assigning only the `List` permission to a resource (such as Alerts) will not allow users to see its contents.  
-    **Example**: If a user has the `List` permission for alerts, the **Alerts** page will appear empty, but no error will be shown. To allow users to see alerts, you must also assign them the `Get` permission.
+- **`O2_OPENFGA_STORE_NAME`**: **Default:** `openobserve`. Specifies the name of the OpenFGA store. Default value is sufficient.
+- **`O2_OPENFGA_PAGE_SIZE`**: **Default:** `100`. Defines the number of records inserted into the OpenFGA database at a time.
+- **`O2_OPENFGA_LIST_ONLY_PERMITTED`**: **Default:** `false`. If `O2_OPENFGA_LIST_ONLY_PERMITTED` is set to `true`, assigning only the `List` permission to a resource (such as Alerts) will not allow users to see its contents.
+  **Example**: If a user has the `List` permission for alerts, the **Alerts** page will appear empty, but no error will be shown. To allow users to see alerts, you must also assign them the `Get` permission.
 
 
