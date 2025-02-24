@@ -1,0 +1,3 @@
+nav:
+    - Role-Based Access Control (RBAC): role-based-access-control.md
+    - Enable RBAC in OpenObserve Enterprise: enable-rbac-in-openobserve-enterprise.md
