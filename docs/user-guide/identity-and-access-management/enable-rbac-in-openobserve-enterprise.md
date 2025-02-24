@@ -1,4 +1,4 @@
-This guide provides instructions for enabling Role-Based Access Control (RBAC) in OpenObserve Enterprise edition. OpenObserve uses OpenFGA to manage RBAC.
+This guide provides instructions for enabling Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition. OpenObserve uses OpenFGA to manage RBAC.
 
 #### Before You Begin
 

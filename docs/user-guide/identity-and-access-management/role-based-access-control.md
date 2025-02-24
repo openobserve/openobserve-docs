@@ -1,8 +1,8 @@
-This guide provides an overview of role-based access control (RBAC), its features, and how it is implemented in OpenObserve.
+This guide provides an overview of Role-Based Access Control (RBAC), its features, and how it is implemented in OpenObserve.
 
 ## Overview
 
-OpenObserve uses role-based access control (RBAC) to manage what actions users can perform based on their assigned roles. Instead of giving all users the same level of access, RBAC ensures that each user can only access the features and data relevant to their role.
+OpenObserve uses RBAC to manage what actions users can perform based on their assigned roles. Instead of giving all users the same level of access, RBAC ensures that each user can only access the features and data relevant to their role.
 
 RBAC is available in **OpenObserve Enterprise** and **Cloud** versions but is not supported in the open-source version:
 
