@@ -123,4 +123,4 @@ Users are organization members with assigned roles that determine their access a
 
 **Note:** In the **Cloud version**, any user can invite new users by entering their email addresses, separated by commas or semicolons, selecting a role, and clicking **Send Invite**.
 
-![invite_users_o2cloud](../../images/rbac6-invite-users-o2cloud.png)
+![invite_users_o2cloud](../../images/rbac-invite-users-o2cloud.png)
