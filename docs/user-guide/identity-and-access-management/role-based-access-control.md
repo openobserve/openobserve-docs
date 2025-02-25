@@ -20,8 +20,8 @@ OpenObserve uses OpenFGA, an authorization system, to manage role-based access c
 2. The OpenFGA server maintains role relationships and permissions in a database.
 3. When a user attempts to perform an action, OpenObserve queries OpenFGA to check whether the action is allowed.
 4. OpenFGA evaluates the role relationships and returns a **true** or **false** response:
-   - **True**: The user can perform the action.
-   - **False**: The user cannot perform the action.
+<br> **True**: The user can perform the action.
+<br> **False**: The user cannot perform the action.
 
 ## RBAC in OpenObserve  
 
@@ -115,6 +115,7 @@ Users are organization members with assigned roles that determine their access a
 1. From the IAM panel, select the **Users** section.
 2. Click the **Add User** button.
 3. Select an existing user by using the toggle or create a new one as shown below:
+
    - Enter the **Email Address, Password, First Name,** and **Last Name**.
    - Select the **Role**. Here, you can select a role from the predefined user roles.
    - Select the **Organization**.
