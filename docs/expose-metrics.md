@@ -26,16 +26,20 @@ endpoint: `/metrics`
 | -         | ingest_memtable_arrow_bytes    | -                                   | Gauge     | Ingestor in memory bytes of arrow format |
 | -         | ingest_memtable_bytes          | -                                   | Gauge     | Ingestor in memory bytes of json format  |
 | -         | ingest_memtable_files          | -                                   | Gauge     | Ingestor in memory files |
+| -         | ingest_memtable_lock_time      | -                                   | Histogram | Ingestor memtable lock time |
+| -         | ingest_wal_lock_time           | -                                   | Histogram | Ingestor wal lock time |
 | querier   | query_memory_cache_limit_bytes | -                                   | Gauge     | - |
 | -         | query_memory_cache_used_bytes  | organization, stream_type           | Gauge     | - |
 | -         | query_memory_cache_files       | organization, stream_type           | Gauge     | - |
 | -         | query_disk_cache_limit_bytes   | -                                   | Gauge     | - |
 | -         | query_disk_cache_used_bytes    | organization, stream_type           | Gauge     | - |
 | -         | query_disk_cache_files         | organization, stream_type           | Gauge     | - |
+| -         | query_metrics_cache_requests   | -                                   | Counter   | Querier metrics cache requests. |
+| -         | query_metrics_cache_hits       | -                                   | Counter   | Querier metrics cache hits. |
 | compactor | compact_used_time              | organization, stream_type           | Counter   | - |
 | -         | compact_merged_files           | organization, stream_type           | Counter   | - |
 | -         | compact_merged_bytes           | organization, stream_type           | Counter   | - |
-| -         | compact_delay_hours            | organization, stream, stream_type   | Gauge     | - |
+| -         | compact_pending_jobs           | organizationream, stream_type       | Gauge     | Compactor pending jobs count | 
 | -         | deletion / archiving           | -                                   | -         | TODO |
 | storage   | storage_original_bytes         | organization, stream, stream_type   | Gauge     | Storage metrics will be updated regularly. |
 | -         | storage_compressed_bytes       | organization, stream, stream_type   | Gauge     | - |
