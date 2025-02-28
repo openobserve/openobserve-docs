@@ -87,6 +87,7 @@ Verify that the following tools are installed:
 
 ### Configure Environment Variables
 Set up the following environment variables:
+
 - `ENV`: The environment you are targeting (e.g., `dev`, `staging`, or `prod`).
 - `CUSTOMER_NAME`: The name of the customer for whom the infrastructure is managed.
 - `AWS_PROFILE`: The AWS profile to use for authentication.
