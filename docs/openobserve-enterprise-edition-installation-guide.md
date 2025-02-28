@@ -94,6 +94,7 @@ Set up the following environment variables:
 
 ### Step 1. Configure Variables in `terraform.tfvars` (init)
 Navigate to the terraform.tfvars file and update as required:
+
 - `root_user_email`    = "`example@openobserve.ai`" 
 - `root_user_password` = "`CustomSecurePassword123`" 
 - `o2_domain` = "`example.openobserve.ai`" 
