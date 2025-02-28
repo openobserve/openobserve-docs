@@ -76,7 +76,7 @@ kubectl get pods -n openobserve
 ## Option 2: Terraform 
 
 Use this method if you do not have an existing Amazon EKS cluster. This workflow sets up the infrastructure required to deploy OpenObserve Enterprise Edition on an EKS cluster. <br>
-**Note:** The [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac/tree/main) includes Terraform configuration files and other resources that automate the setup. The following setup process handles nearly all tasks automatically, with only one manual step required: [Configuring your DNS in Amazon Route 53 using the Network Load Balancer (NLB).](#)
+**Note:** The [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac/tree/main) includes Terraform configuration files and other resources that automate the setup. The following setup process handles nearly all tasks automatically, with only one manual step required: Configuring your DNS in Amazon Route 53 using the Network Load Balancer (NLB).
 
 ### Prerequisites
 Verify that the following tools are installed:
@@ -149,9 +149,6 @@ make o2_deployment ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_p
 ```yaml
 make o2_deployment ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
-
-### Step 7: Verify the Installation
-
 
 **Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). 
 <br>Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
