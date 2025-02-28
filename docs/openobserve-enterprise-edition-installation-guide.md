@@ -153,7 +153,6 @@ The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab
 
 **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).**
 
-**Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). 
-<br>Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
+**Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
 
 
