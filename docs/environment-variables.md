@@ -99,7 +99,6 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_QUERY_TIMEOUT                     | 600                        | No           | Default timeout of query, unit: seconds         |
 | ZO_QUERY_ON_STREAM_SELECTION         |                            | No           |  |
 | ZO_ENABLE_INVERTED_INDEX             | false                      | No           |  |
-| ZO_INVERTED_INDEX_SPLIT_CHARS        | .,;:\|/#_ =-+*^&%$@!~\`     | No           | These are the default characters used for splitting the text for creating the inverted index. |
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM   |                            | No           |  |
 | ZO_ACTIX_REQ_TIMEOUT                 | 30                         | No           | Sets actix server client timeout in seconds for first request. |
 | ZO_ACTIX_KEEP_ALIVE                  | 30                         | No           | Sets actix server keep-alive preference in seconds.            |
