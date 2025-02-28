@@ -11,5 +11,5 @@ nav:
     - Dashboards: dashboards
     - Functions: functions
     - Migration: migration
-    - IAM: identity-and-access-management
+    - Identity and Access Management (IAM): identity-and-access-management
 

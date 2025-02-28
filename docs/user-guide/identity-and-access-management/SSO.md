@@ -2,8 +2,6 @@
 
 OpenObserve, integrates Single Sign-On (SSO) capabilities using Dex, an OpenID Connect Identity (OIDC) and OAuth 2.0 provider. Dex does not have a user database and instead uses external identity providers like LDAP, Google, GitHub, etc. for authentication.
 
-
-
 ## Setup OpenObserve
 
 You must set following environment variables to enable SSO in OpenObserve.

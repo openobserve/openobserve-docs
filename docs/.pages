@@ -4,6 +4,7 @@ nav:
 - Getting started: getting-started.md
 - Screenshots: screenshots.md
 - Quickstart: quickstart.md
+- Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
 - Example Queries: example-queries.md
 - SQL reference: sql_reference.md
@@ -21,5 +22,4 @@ nav:
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - zPlane: zplane.md
-- SSO (Single Sign On): SSO.md 
 - Work Group: work_group.md 
