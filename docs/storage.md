@@ -112,7 +112,7 @@ OpenObserve can use Alibaba(aliyun) OSS for storing stream data, following envir
 | ZO_S3_BUCKET_NAME              | -     | bucket name                                                     |
 | ZO_S3_ACCESS_KEY               | -     | access key                                                      |
 | ZO_S3_SECRET_KEY               | -     | secret key                                                      |
-| ZO_S3_FEATURE_FORCE_PATH_STYLE | true  | --                                                              |
+| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | true  | --                                                              |
 
 You can refer to: [https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints](https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints)
 

@@ -320,7 +320,7 @@ For backward compatibility, we still support etcd but most of you should be able
 | ZO_S3_BUCKET_NAME              | -             | No        | bucket name                                                                          |
 | ZO_S3_BUCKET_PREFIX            | -             | No        | you can store data in a sub directory, like: `openobserve/`                          |
 | ZO_S3_PROVIDER                 | s3            | No        | s3 provider name, like: aws, gcs, gcp, oss, minio, swift                             |
-| ZO_S3_FEATURE_FORCE_PATH_STYLE | false         | No        | feature: `force_path_style`, default enable for provider `minio` and `swift`.        |
+| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | No        | feature: `force_hosted_style`, default enable for provider `minio` and `swift`.        |
 | AWS_EC2_METADATA_DISABLED      | false         | No        | feature, default enable for `swift`.                                                 |
 | ZO_S3_FEATURE_HTTP1_ONLY       | false         | No        | feature                                                                              |
 | ZO_S3_FEATURE_HTTP2_ONLY       | false         | No        | feature                                                                              |
