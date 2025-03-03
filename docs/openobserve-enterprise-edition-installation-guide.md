@@ -17,7 +17,7 @@ Before you begin, verify that:
 
 ### Step 1: Configure the `values.yaml` File
 
-Navigate to the enterprise section in the `values.yaml` file and set the `enterprise.enabled` parameter to `true` as shown below:
+Navigate to the `enterprise` section in the `values.yaml` file and set the `enterprise.enabled` parameter to `true` as shown below:
 
 ```yaml
 enterprise:
@@ -41,7 +41,7 @@ Update the Helm repository:
 helm repo update
 ```
 
-Verify if the openobserve namespace exists:
+Verify if the `openobserve` namespace exists:
 
 ```yaml
 kubectl get namespaces
@@ -53,7 +53,7 @@ If the output shows the `openobserve` namespace, run the following command:
 helm upgrade --namespace openobserve -f values.yaml o2 openobserve/openobserve
 ```
 
-If the output does not show the openobserve namespace, create the namespace first and then run the helm upgrade command:
+If the output does not show the `openobserve` namespace, create the namespace first and then run the `helm upgrade` command:
 
 ```yaml
 kubectl create ns openobserve 
@@ -71,7 +71,7 @@ kubectl get pods -n openobserve
 
 **Expected Output**: All pods should be listed with a status of `Running`. 
 
-**For support, reach out in the [Slack channel](https://short.openobserve.ai/community).** 
+> **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).** 
 
 ## Option 2: Terraform 
 
@@ -102,7 +102,7 @@ Navigate to the terraform.tfvars file and update as required:
 - `secret_name`  = "`example`" 
 
 ### Step 2: Initialize Terraform (init)
-Run the following command to download all necessary Terraform modules and providers, and initialize the working directory containing your configuration files:
+Run the following command to download all necessary [Terraform modules and providers](https://github.com/openobserve/openobserve-eks-iac/blob/main/README.md#terraform-overview), and initialize the working directory containing your configuration files:
 ```yaml
 make init ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
@@ -112,7 +112,7 @@ make init ENV=dev CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
 ### Step 3: Plan Terraform Changes (plan)
-The following command shows the proposed changes Terraform will apply to the infrastructure without making any actual changes. 
+The following command shows the proposed changes Terraform will apply to the infrastructure: 
 ```yaml
 make plan ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
@@ -152,9 +152,9 @@ make o2_deployment ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_p
 make o2_deployment ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
-The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab=readme-ov-file#5-output-and-state-management) file in the configuration verifies whether your workflow ran successfully. After successfully executing these steps, you can access **OpenObserve Enterprise Edition** with all features enabled.
+The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab=readme-ov-file#5-output-and-state-management) file in the configuration verifies whether your workflow ran successfully. After successfully executing the above steps, you can access **OpenObserve Enterprise Edition** with all features enabled.
 
-**For support, reach out in the [Slack channel](https://short.openobserve.ai/community).**
+> **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).**
 
 **Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
 
