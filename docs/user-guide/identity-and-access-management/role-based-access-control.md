@@ -54,7 +54,7 @@ OpenObserve provides the following predefined roles:
 
 Admins can create custom user roles in OpenObserve to define more granular access policies.
 
-#### To create a custom role:
+**To create a custom role**:
 
 1. Go to the **IAM** panel and select the **Roles** section.
 2. Click the **Add Role** button.
@@ -73,7 +73,7 @@ A service account in OpenObserve is a non-human account used for API access, aut
 - **Open-source version**: Service accounts have full access by default.
 - **Cloud version**: Service accounts are not supported.
 
-#### To add a service account:
+**To add a service account**:
 
 1. From the **IAM** panel, select **Service Accounts**.
 2. Click **Add Service Account**.
@@ -92,7 +92,7 @@ A service account in OpenObserve is a non-human account used for API access, aut
 
 User groups allow admins to manage permissions collectively.
 
-#### To add user groups:
+**To add user groups**:
 
 1. From the **IAM** panel, select the **User Groups** section.
 2. Click the **Add Group** button, add a group **Name**, and click **Save**.
@@ -110,7 +110,7 @@ Users are organization members with assigned roles that determine their access a
 
 ![users](../../images/rbac4-add-users-enterprise.png)
 
-#### To add users:
+**To add users**:
 
 1. From the IAM panel, select the **Users** section.
 2. Click the **Add User** button.

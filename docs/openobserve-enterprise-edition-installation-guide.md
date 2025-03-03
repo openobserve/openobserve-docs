@@ -6,13 +6,13 @@
 - [Terraform](#option-2-terraform): Use this method if you do not have an existing EKS cluster.
 
 ## Option 1: Helm Chart
-This workflow shows how to Install OpenObserve Enterprise Edition in an existing EKS Cluster using OpenObserve Helm Chart.
+This workflow shows how to install the OpenObserve Enterprise Edition in an existing EKS Cluster using OpenObserve Helm Chart.
 
 ### Prerequisites
 
 Before you begin, verify that:
 
-- Your Kubernetes cluster is running.
+- Your EKS cluster is running.
 - The OpenObserve Helm Chart is installed. Refer to the [OpenObserve Helm Chart Installation Guide](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/README.md).
 
 ### Step 1: Configure the `values.yaml` File
