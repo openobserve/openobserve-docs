@@ -151,10 +151,12 @@ make o2_deployment ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_p
 ```yaml
 make o2_deployment ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
+
 The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab=readme-ov-file#5-output-and-state-management) file in the configuration verifies whether your workflow ran successfully. After successfully executing these steps, you can access **OpenObserve Enterprise Edition** with all features enabled.
 
 **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).**
 
 **Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
+
 
 
