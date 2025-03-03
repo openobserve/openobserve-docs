@@ -6,7 +6,7 @@
 - [Terraform](#option-2-terraform): Use this method if you do not have an existing EKS cluster.
 
 ## Option 1: Helm Chart
-This workflow shows how to Install OpenObserve Enterprise Edition in an Existing Amazon Elastic Kubernetes Service (EKS) Cluster using OpenObserve Helm Chart.
+This workflow shows how to Install OpenObserve Enterprise Edition in an existing EKS Cluster using OpenObserve Helm Chart.
 
 ### Prerequisites
 
