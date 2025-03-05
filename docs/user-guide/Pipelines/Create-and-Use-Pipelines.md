@@ -12,25 +12,29 @@ This guide shows you how to create and use real-time and scheduled pipelines in 
 3. In the **Pipelines** tab, click the **Add Pipeline** button in the top-right corner. 
 This opens up the pipeline editor.
 
-![Pipeline Editor in OpenObserve](../../images/Pipelines%20in%20O2.png)
+![Pipeline Editor in OpenObserve](../../images/pipeline-new-editor.png)
 ### Step 2: Enter a unique pipeline name
 
-### Step 3: Configure the Source node based on the pipeline type
+### Step 3: Configure the Source node based on the pipeline type (real-time or scheduled)
 1. From the **Source** section, drag a **Stream** or **Query** node into the editor based on the following requirement:
 
-    - To set up a real-time pipeline: Select **Stream**.
-    - To set up a scheduled pipeline: Select **Query**.
+    - **To set up a real-time pipeline**: Select **Stream**.
+    - **To set up a scheduled pipeline**: Select **Query**.
 
 2. Edit the source node:
 
     - Select **Stream Type**:
-    - **If you selected Stream in the previous step**: Use the drop-down menu under **Stream Name** to select the source stream. Ensure that the source stream is active and receiving data. 
+    - **If you selected Stream in the previous step to create a real-time pipeline**: Use the drop-down menu under **Stream Name** to select the source stream. Ensure that the source stream is active and receiving data. 
     ![source stream realtime](../../images/pipeline1_source_stream.png)
-    - **If you selected Query in the previous step**: Under **SQL**, write a query to fetch data from a source. Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md). <br>In the following example, data is ingested periodically into the stream **k8s_logs**. The query runs every 5 minutes and fetches all data that was ingested into the stream **k8s_logs** in the preceding 5-minute interval.
-    <!-- This needs to be updated. On UI, the `Frequency` and `Period` have been restricted to be at least 5 -->
-    <!--Updated the screenshot and the above sentence-->
-    
-    ![Query node](../../images/pipeline2_source_query.png)
+    - **If you selected Query in the previous step to create a scheduled pipeline**: 
+        - In the **Build Query** section, select the **Stream Type** (Logs, Metrics, or Traces) and **Stream Name**. Use the seach bar to search for the desired field in the source stream. 
+        - In the **SQL Query** section, write a query to fetch data from a source. For **Metrics**, you also have the option to write **PromQL**.
+        ![scheduled pipeline](../../images/create-pipeline-sch-query.png)
+        - Under **Set Veriables**, Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md).
+        - Adjust the time filter and click **Run Query** to view the output.
+        ![scheduled pipeline](../../images/create-pipeline-sch-output.png) 
+        <br>In the above example, data is ingested periodically into the stream **default**. The query runs every 6 minutes and fetches all data that was ingested into the stream **default** in the preceding 6-minute interval.
+        ![Query node](../../images/pipeline2_source_query.png)
      
 3. Click **Save** to confirm the source node.
 
@@ -106,8 +110,6 @@ Use `curl` or other [data ingestion options in OpenObserve](https://openobserve.
 
 Your pipeline has successfully transformed the ingested data and sent them to the destination stream. <br>
 
-
-<!-- This is great to demonstrate how to construct a simple straightforward pipeline. I would suggest to include a few screenshots of more comprehensive or complicated pipelines as examples to showcase its capabilities -->
 
 ### Example of a Complex Pipeline
 The above example illustrates a basic pipeline setup. However, pipelines can become more complex depending on speficic requirements, as shown in the example below: 
