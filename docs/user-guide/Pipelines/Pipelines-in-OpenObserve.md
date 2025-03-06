@@ -31,22 +31,22 @@ Use real-time pipelines when you need immediate processing, such as monitoring l
 
 ### Scheduled Pipelines
 
-A Scheduled Pipeline automates the processing of historical data from an existing stream at predefined intervals. This is useful when you need to extract, transform, and load (ETL) data at regular intervals without manual intervention. 
+A scheduled pipeline automates the processing of historical data from an existing stream at user-defined intervals. This is useful when you need to extract, transform, and load (ETL) data at regular intervals without manual intervention. 
 ![Scheduled Pipelines in OpenObserve](../../images/pipelines-new-%20scheduled.png)
 
 #### How they work
 
 1. **Source**: To create a scheduled pipeline, you need an existing stream, which serves as the source stream. 
     - The supported source stream types are Logs, Metrics, or Traces. 
-2. **Query**: You write a SQL query to fetch historical data from the existing stream. When defining the query, you also set the Frequency and Period to control the scheduling. 
+2. **Query**: You write a SQL query to fetch historical data from the source stream. When defining the query, you also set the [**Frequency** and **Period**](#the-scheduled-pipeline-runs-based-on-the-user-defined-frequency-and-period) to control the scheduling. 
 ![Scheduled Pipelines Query in OpenObserve](../../images/create-pipeline-sch-query.png)
-3. **Transform**: The retrieved data is transformed by applying functions or conditions.
+3. **Transform**: The fetched data is transformed by applying functions or conditions.
 ![Scheduled Pipelines Transform in OpenObserve](../../images/pipeline-new-scheduled-condition.png)
 4. **Destination**: The transformed data is sent to the following destination(s) for storage or further processing: 
     - **Stream**: The supported destination stream types are Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
     - **Remote**: Select **Remote** if you wish to send data to [external destination](#external-pipeline-destinations).
 
-The scheduled pipeline runs based on the user-defined **Frequency** and **Period**. 
+### The scheduled pipeline runs based on the user-defined **Frequency** and **Period**. 
 
 - **Frequency**: Defines how often the query should be executed. <br> **Example**: **Frequency**: 5 minutes<br>It ensures the query runs every 5 minutes.
 - **Period**: Defines the period for which the query fetches the data. <br> 
@@ -64,12 +64,12 @@ OpenObserve allows you to route pipeline data to external destinations.
 
 To configure an external destination for pipelines: 
 
-1. Navigate to the external Pipeline Destination configuration page. You can access the configuration page while setting up the remote pipeline destination from the pipeline eitor or directly from **Management** (Settings icon in the navigation menu) > **Pipeline Destinations.**
-2. Enter a **Name**. Provide a descriptive name for the external destination.
+1. Navigate to the **Pipeline Destination** configuration page. You can access the configuration page while setting up the remote pipeline destination from the pipeline eitor or directly from **Management** (Settings icon in the navigation menu) > **Pipeline Destinations** > **Add Destination**.
+2. In the **Add Destination** form, provide a descriptive name for the external destination.
 3. Under **URL**, specify the endpoint where the data should be sent.
-4. Select the HTTP method based on the destination's requirements.
+4. Select the HTTP method based on your requirement.
 5. Add headers for authentication. In the **Header** field, enter authentication-related details (e.g., Authorization). In the **Value** field, provide the corresponding authentication token.
-6. Use the toggle **Skip TLS Verify** to enable or disable TLS verification. 
+6. Use the toggle **Skip TLS Verify** to enable or disable Transport Layer Security (TLS) verification. <br>
 **Note**: Enable the **Skip TLS Verify** toggle to bypass security and certificate verification checks for the selected destination. Use with caution, as disabling verification may expose data to security risks. You may enable the toggle for development or testing environments but is not recommended for production unless absolutely necessary.
 ![Remote Destination](../../images/pipeline-new-remote-destination.png)
 

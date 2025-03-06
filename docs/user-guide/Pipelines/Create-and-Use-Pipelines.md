@@ -4,7 +4,7 @@ This guide shows you how to create and use real-time and scheduled pipelines in 
 ### Prerequisites
 
 - Your OpenObserve Cloud or the self-hosted instance is up and running.
-- You have a functioning [Stream](https://openobserve.ai/docs/user-guide/streams/) where data gets ingested. This Stream will be used as a source stream in the pipeline.
+- You have a functioning [**Stream**](https://openobserve.ai/docs/user-guide/streams/) where data gets ingested. This **Stream** will be used as a source stream in the pipeline.
 
 ### Step 1: Open the pipeline editor
 1. Log in to OpenObserve.
@@ -30,12 +30,13 @@ This opens up the pipeline editor.
         - In the **Build Query** section, select the **Stream Type** (Logs, Metrics, or Traces) and **Stream Name**. Use the seach bar to search for the desired field in the source stream. 
         - In the **SQL Query** section, write a query to fetch data from a source. For **Metrics**, you also have the option to write **PromQL**.
         ![scheduled pipeline](../../images/create-pipeline-sch-query.png)
-        - Under **Set Veriables**, Schedule the query execution by setting the **Frequency** and **Period**. For details, visit [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md).
+        - Under **Set Variables**, schedule the query execution by setting the **Frequency** and **Period**. For more details, visit [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md).
         - Adjust the time filter and click **Run Query** to view the output.
         ![scheduled pipeline](../../images/create-pipeline-sch-output.png) 
-        <br>In the above example, data is ingested periodically into the stream **default**. The query runs every 6 minutes and fetches all data that was ingested into the stream **default** in the preceding 6-minute interval.
-        ![Query node](../../images/pipeline2_source_query.png)
-     
+        <br>In the above example, data is ingested periodically into the stream `default`. The query runs every 6 minutes and fetches all data that was ingested into the stream `default` in the preceding 6-minute interval.
+        **Note**: You can configure the source query in full screen mode. Click the full screen icon next to the **Run Query** button at the top right corner.
+
+ 
 3. Click **Save** to confirm the source node.
 
 
@@ -48,15 +49,29 @@ This opens up the pipeline editor.
 
     ![condition in realtime pipeline](../../images/pipeline3_transform_using_condition.png)  
     
-    - **For a Function node**: In the **Associate Function** form, select an existing function or create a new function to associate with the pipeline. 
+    - **For a Function node**: In the **Associate Function** form, select an existing function or create a new function to associate with the pipeline.
+    ![function in realtime pipeline](../../images/pipeline-new1-associate-function.png)
+    <br>To create a new function:
 
-    ![function in realtime pipeline](../../images/pipeline4-transform_using_functions.png)
-    <br>
-    In the above example, the associated function, **del_message_field**, deletes the **message** field from the ingested data. 
-    
-    ![del function](../../images/pipeline5_function_to_delete_the_message_field.png)
-    <br>
-    For more details, see the [Functions Guide](https://openobserve.ai/docs/user-guide/functions/).
+        1. In the **Associate Function** form, enable the **Create new function** toggle.
+        ![function in realtime pipeline](../../images/Pipeline-new1-add-function.png)
+        2. In the **Query** tab:
+
+            - Select the **Stream Type**. Enter the **Stream Name** from where data will be fetched. Select the appropriate **Duration**.  
+            - In the **Query** to fetch the data as per requirement.
+            - Use the **Run Query** button to view the query result. The query result is shown in the **Event** tab.
+
+        3. In the **Function** tab: 
+        
+            - Write the **Vector Remap Language (VRL)** function. 
+            - Click the **Test Function** button and see the output in the **Output** tab.
+            - If the output displays desired result, click **Save**.   
+            After saving, you can associate the function with pipelines in the **Associate Function** form. 
+        ![new function in realtime pipeline](../../images/Pipeline-new1-add-function2.png)
+
+    **Note**: In the **Associate Function** fom, the **After Flattening** toggle is enabled by default. Disable it only if necessary.
+    <br>The **After Flattening** toggle determines whether the function processes data after it has been transformed into a simpler, flat structure. When enabled (default), the function operates on pre-processed, structured data, making it easier to analyze. Disabling it allows the function to work with the original data.
+    <br>For more details, see the [Functions Guide](https://openobserve.ai/docs/user-guide/functions/).
 
 3. Click **Save** to confirm the transform node.
 
@@ -77,7 +92,8 @@ This opens up the pipeline editor.
 - Use the **remove icon** (![remove icon](../../images/pipeline10_remove.png)) to remove any incorrect connection.
 - Use the **connection icon** (![connection icon](../../images/pipelines11_connect_icon.png)) to build a connection between two nodes.
 
-![realtime pipeline node connection](../../images/pipeline7_connect_nodes.png)
+![realtime pipeline node connection](../../images/pipeline-new1-connect-nodes.png) 
+
 ### Step 7: Save the pipeline
 
 After you click Save, it gets activated automatically. Learn how to [manage pipelines](Manage-Pipelines.md).
@@ -94,13 +110,13 @@ Ensure that the pipeline is active.
 
 Use `curl` or other [data ingestion options in OpenObserve](https://openobserve.ai/docs/user-guide/ingestion/).
 
-**Example**: Ingesting new data from the **k8slog_json.json** file into the **k8s_logs** stream, which is under the **default** organization:
+**Example**: Ingesting new data from the `k8slog_json.json` file into the `k8s_logs` stream, which is under the `default` organization:
 > `curl http://localhost:5080/api/default/k8s_logs/_json -i -u 'root@example.com:Complexpass#123' --data-binary "@k8slog_json.json"`
 
 ### Step 2: Execute Pipeline 
 
 - **For real-time pipelines**: As soon as you ingest data into the source stream, the pipeline gets executed, and starts fetching and processing the data in real time.
-- **For scheduled pipelines**: The pipeline executes according to its predefined schedule, fetching and processing data from the source stream at the specified intervals.
+- **For scheduled pipelines**: The pipeline executes according to the user-defined schedule, fetching and processing data from the source stream at the specified intervals.
 
 ### Step 3: Verify Output 
 1. Click **Streams** in the navigation panel.
