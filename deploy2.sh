@@ -10,5 +10,5 @@ mkdocs build
 aws s3 sync ./site s3://openobserve-prod-website/docs  --exclude=".git/*" --profile=o2-prod
 
 # invalidate cloudfront cache so that latest files can be served
-aws cloudfront create-invalidation --distribution-id E3KB2JN7JA8U38 --paths="/docs/*" --profile=o2-prod
+aws cloudfront create-invalidation --distribution-id E2GZJM0TJIDFRM --paths="/docs/*" --profile=o2-prod
 
