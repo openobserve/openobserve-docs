@@ -175,7 +175,7 @@ OpenObserve can use azure blob for storing stream data. Following environment va
 
 Default meta store is SQLite and can be changed by using `ZO_META_STORE` environment variable.
 
-### etcd
+### etcd - Deprecated
 
 `ZO_META_STORE=etcd`
 
@@ -191,11 +191,9 @@ Installations running on a single node can use SQLite as metadata store. You do 
 
 `ZO_META_STORE=postgres`
 
-This is the recommended meta store as it is more reliable and scalable. A lot of service providers provide managed postgres service that you can rely upon.
+This is the recommended meta store as it is more reliable and scalable. A lot of service providers provide managed postgres service that you can rely upon. Default helm chart released after Feb 23, 2024 uses [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the meta store. These instances provide great HA capability and backup and restore is much easier too in case its required.
 
-Default helm chart released after Feb 23, 2024 use [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the meta store. these instances provide great HA capability and backup and restore is much easier too in case its required.
-
-### MySQL
+### MySQL - Deprecated
 
 `ZO_META_STORE=mysql`
 
