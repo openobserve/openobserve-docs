@@ -64,7 +64,7 @@ OpenObserve allows you to route pipeline data to external destinations.
 
 To configure an external destination for pipelines: 
 
-1. Navigate to the **Pipeline Destination** configuration page. You can access the configuration page while setting up the remote pipeline destination from the pipeline eitor or directly from **Management** (Settings icon in the navigation menu) > **Pipeline Destinations** > **Add Destination**.
+1. Navigate to the **Pipeline Destination** configuration page. You can access the configuration page while setting up the remote pipeline destination from the pipeline editor or directly from **Management** (Settings icon in the navigation menu) > **Pipeline Destinations** > **Add Destination**.
 2. In the **Add Destination** form, provide a descriptive name for the external destination.
 3. Under **URL**, specify the endpoint where the data should be sent.
 4. Select the HTTP method based on your requirement.

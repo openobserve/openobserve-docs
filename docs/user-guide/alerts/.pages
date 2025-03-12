@@ -2,3 +2,4 @@ nav:
     - Alerts: alerts.md
     - Destinations: destinations.md
     - Templates: templates.md
+    - Import and Export Alerts: import-export-alerts.md

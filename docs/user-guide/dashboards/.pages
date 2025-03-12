@@ -1,0 +1,4 @@
+nav:
+    - Index: index.md
+    - Variables: variables.md
+    - Custom Charts: custom-charts.md
