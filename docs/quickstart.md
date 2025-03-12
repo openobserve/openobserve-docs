@@ -16,9 +16,12 @@ OpenObserve Cloud is offered as a hosted service backed by open source OpenObser
 Let's go through it.
 
 1. Navigate to [https://cloud.openobserve.ai](https://cloud.openobserve.ai)
-2. Use a social login or create an account using email / password
-![Sign in page](./images/quickstart/signin.png)
+2. Use a social login to create an account or login
+    
+    ![Sign in page](./images/quickstart/signin.png)
+
 3. Now head over to `Ingestion` section and grab `CURL` command
+
 ![Ingestion](./images/quickstart/ingestion_credentials.png)
 
 Now head over to [Load sample data](#load-sample-data) section

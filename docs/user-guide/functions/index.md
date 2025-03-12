@@ -9,7 +9,7 @@ There are also inbuilt query functions like `match_all`, `match_all_raw` and `ma
 To navigate to functions in OpenObserve, select preferred organization using organization selection control, then click on `Pipelines > Functions` menu, which will take you to functions list screen. This screen lists all the functions for selected organization.  
 
 <kbd>
-![Functions](./images/functions_list.jpg)
+![Functions](./images/functions_list.webp)
 </kbd>
 
 List screen details:
@@ -33,7 +33,7 @@ On logs search page, you can select existing function or write new function usin
 Please note that functions on rows can be used to experiment with result of function application on a specific stream , however applying functions at query time is costly operation .Hence if applicable, after exploration and desired outcome of function during query time , we encourage users to apply such function at ingest time by [associating function with stream](./stream-association.md).
 
 <kbd>
-![Functions](./images/functions_logs.jpg)
+![Functions](./images/functions_logs.webp)
 </kbd>
 
 ## Function with specified input columns/fields
