@@ -81,7 +81,7 @@ We want to build the best software in the observability category in the world, a
 
 ## How does OpenObserve compare to Elasticsearch
 
-Elasticsearch is a general purpose search engine which can be used app search or log search. OpenObserve is built specifically for log search. If you are looking for a lightweight alternative of Elasticsearch then you should take a look at ZincSearch.
+Elasticsearch is a general purpose search engine which can be used for app search or log search. OpenObserve is built specifically for log search. If you are looking for a lightweight alternative to Elasticsearch then you should take a look at ZincSearch.
 
 OpenObserve provides ability to index data in multiple ways to make it faster yet keep storage size low. It uses a combination of partitioning, bloom filters, inverted indexes, caching and columnar storage to make search and aggregation queries faster. You can combine these to find the right balance between storage and performance. [Uber found 80% of queries in their production environment to be aggregation queries](https://www.uber.com/en-IN/blog/logging/) and columnar data storage of OpenObserve means that aggregation queries will typically be much faster than Elasticsearch.
 
