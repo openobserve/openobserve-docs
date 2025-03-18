@@ -12,27 +12,34 @@ You can import alerts individually or in bulk using pre-defined templates. The i
 - URL   
 - JSON object or array
 
+![import-alerts](../../images/import-alert1.png)
+
 ### Steps to Import an Alert
 
 1. From the left-hand navigation, select **Alerts**.  
-2. Click the **Import** button*. 
+2. Click the **Import** button. 
 3. Choose one of the supported import methods: 
 
     - **Upload JSON File:** Select a local JSON file containing alert configurations.  
     - **Enter URL:** Provide a URL to fetch the alert configuration.  
     - **Paste JSON Object:** Copy and paste the JSON alert definition in the JSON editor.
 
-4. Click **Import**. 
+**Note**: To import alerts in bulk, choose multiple JSON files, as shown below: 
+![import-alerts-in -bulk](../../images/import-alerts3-in-bulk.png)
+4. Click **Import**. <br>
 5. If validation errors occur, resolve issues based on the prompts:
 
-    - **If the alert name already exists:** Enter a new alert name.  
-    - **If the destination is missing:** Select a destination from the dropdown.  
-    - **If the timezone is missing for the cron job:** Select the appropriate timezone from the dropdown.  
-    - **If the stream name and stream type does not exist:** Select existing stream name and stream type.
+- **If the alert name already exists:** Enter a new alert name.  
+- **If the destination is missing:** Select a destination from the dropdown.  
+- **If the timezone is missing for the cron job:** Select the appropriate timezone from the dropdown.  
+- **If the stream name and stream type does not exist:** Select existing stream name and stream type. 
+
+![import-alerts-validation-errors](../../images/import-alert2-error-validation-handling.png)
 
 ## Export Alerts
 
 Alert export allows users to download an alert configuration as a JSON file. This file contains all the alert's settings. 
+![export-alerts](../../images/import-alerts4-export.png)
 
 ### Steps to Export an Alert
 
