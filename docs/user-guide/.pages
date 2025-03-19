@@ -12,4 +12,5 @@ nav:
     - Functions: functions
     - Migration: migration
     - Identity and Access Management (IAM): identity-and-access-management
+    - Management: management
 
