@@ -1,4 +1,7 @@
 nav:
+    - Dashboards in OpenObserve: dashboards-in-openobserve.md
+    - Manage Dashboards: manage-dashboards.md
     - Index: index.md
     - Variables: variables.md
     - Custom Charts: custom-charts.md
+    
