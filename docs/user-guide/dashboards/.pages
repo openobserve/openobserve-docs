@@ -3,5 +3,6 @@ nav:
     - Manage Dashboards: manage-dashboards.md
     - Index: index.md
     - Variables: variables.md
+    - Variable Dependencies in Dashboards: variable-dependencies.md
     - Custom Charts: custom-charts.md
     
