@@ -1,5 +1,6 @@
-You can use environment variables to pass information into your script, without writing it directly in the Python script.  
-The following example shows how environment variables can be used to dynamically adjust the minimum distinct threshold value. 
+If your Action script is designed to use environment variables (e.g., for thresholds or other dynamic values), OpenObserve gives you the option to define those variables while [configuring the Action](create-and-use-real-time-actions.md).
+
+> You can use environment variables to pass information into your script, without writing it directly in the Python script.  
 
 ## Example 
 The following Python script processes a list of log records and returns the **distinct Kubernetes pod names** and **Docker IDs**, **but only if the number of distinct pod names meets a minimum threshold set by an environment variable**.
@@ -41,6 +42,6 @@ def main(data: List[Dict[str, Any]], logger: logging.Logger) -> List[Dict[str, A
     }]  
 ```  
 While creating or editing the Action, in the Environment Variables section, you can set:  
-**MIN_DISTINCT_THRESHOLD = 3**  
-![image]
+`MIN_DISTINCT_THRESHOLD = 3` <br>
+![env var](../../images/actions-env-var.png)
 This ensures that your script only returns results if at least 3 distinct pod names are found.

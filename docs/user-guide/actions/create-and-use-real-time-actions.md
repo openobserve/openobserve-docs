@@ -116,7 +116,7 @@ If you are using external libraries, list them in the `dependencies` section.
 - `pyproject.toml` File
 - `dependencies` Folder
 
-Learn more about [declaring Python dependencies in Actions](declaring-python-dependencies-in-O2-actions.md).
+Learn more about [declaring Python dependencies in Actions](declare-python-dependencies-in-O2-actions.md).
 
 ## Step 2: Compress the Script Folder into a ZIP File
 - All Python scripts, including the dependency declaration file must be packaged into a ZIP file before uploading. The ZIP file structure may look like the following:
@@ -157,7 +157,7 @@ Under **Select Service Account**, select a service account that the Action shoul
 
 ## Step 5: Add Environment Variables (optional)
 
-You can use environment variables to pass information into your script, without writing it directly in the Python script. [Learn how to use environment variables in Actions.](eenvironment-variables-in-actions.md)
+You can use environment variables to pass information into your script, without writing it directly in the Python script. [Learn how to use environment variables in Actions.](environment-variables-in-actions.md)
 
 ## Step 6: Click Save
 
