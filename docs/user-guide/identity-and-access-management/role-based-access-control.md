@@ -80,13 +80,14 @@ A service account in OpenObserve is a non-human account used for API access, aut
 3. Enter the **Email, First Name,** and **Last Name**.
 4. Click **Save**.
 5. A **token** is generated for the service account.
+6. After the service account is created, assign the necessary **roles** and **permissions**. This step is required for the service account to make API calls and access specific services in OpenObserve.
 
 ![service_account](../../images/rbac2-service-account.png)
 
 **Note:**
 
-- After assigning roles to define access permission to the service account, you can use the token for API authentication.
-- Click the refresh icon to generate a new token.
+- You can generate a new token at any time by selecting the appropriate service account from the Service Accounts page and clicking the refresh icon next to it.
+- Ensure that the assigned roles provide only the minimum required access based on the use case.
 
 ## User Groups
 

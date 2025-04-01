@@ -12,7 +12,7 @@ OpenObserve supports two types of pipelines to cater to different data processin
 - **Scheduled pipelines**
 
 ### Real-Time Pipelines
-A Real-Time Pipeline processes incoming raw data instantly, enabling immediate transformations and routing without delays.
+A real-time Pipeline processes incoming raw data instantly, enabling immediate transformations and routing without delays.
 
 #### How they work
 

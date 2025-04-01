@@ -1,0 +1,6 @@
+nav:
+    - Actions in OpenObserve: actions-in-openobserve.md 
+    - Create and Use Real-time Actions: create-real-time-actions.md
+    - Declare Python Dependencies in Actions: declare-python-dependencies-in-O2-actions.md
+    - Environment Variables in Actions: environment-variables-in-actions.md
+    

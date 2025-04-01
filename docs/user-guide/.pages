@@ -9,6 +9,7 @@ nav:
     - Pipelines: Pipelines
     - Alerts: alerts
     - Dashboards: dashboards
+    - Actions: actions
     - Functions: functions
     - Migration: migration
     - Identity and Access Management (IAM): identity-and-access-management
