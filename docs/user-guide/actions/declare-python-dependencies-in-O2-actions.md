@@ -1,4 +1,4 @@
-OpenObserve supports two ways to manage dependencies for your Action scripts:
+Declaring dependencies is an important aspect when creating your Action script in Python. If your script relies on external libraries, you must specify them using one of the supported methods outlined below:
 
 - `pyproject.toml` File
 - `dependencies` Folder
