@@ -6,6 +6,14 @@ This guide explains what Actions are, their types, and use cases.
 - Previously, OpenObserve supported log transformations only through VRL (Vector Remap Language). Python scripts written for Actions expand the capabilities of log transformations in OpenObserve.  
 - Additionally, earlier, when an alert gets triggered, users used to get notified via email or webhook. But, with Actions as alert destinations, users can take an immediate action by adding an automation workflow using Actions. 
 
+## How to access Actions in OpenObserve
+To access the Actions page in OpenObserve:
+
+1. Sign in to your OpenObserve account.
+2. Select the desired organization from the top navigation bar (if applicable).
+3. In the left navigation menu, click Actions.
+![Access Actions in OpenObserve](../../images/actions-go-to-actions-menu.png)
+
 ## Types of Actions  
 OpenObserve supports two types of Actions:
 
