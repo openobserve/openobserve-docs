@@ -29,13 +29,13 @@ If you select the time range of 15 minutes, OpenObserve runs:
    ![add panel](../../images/dashboards-comparison-against-2.png)
 3. Select a chart [where the **Comparison Against** feature is available](#where-to-find-this-feature).  
    ![chart selection](../../images/dashboards-comparison-against-3.png)  
-4. Under **Fields**, add **Stream Type** and **Stream**. These define the data source for your SQL query. Select fields that you want to set as x-axis and y-axis of the chart. Assign fields for the x-axis (for example, timestamp) and y-axis (for example, error).
+4. Under **Fields**, add **Stream Type** and **Stream**. These define the data source for your SQL query. Select fields that you want to set as x-axis (for example, timestamp) and y-axis (for example, error) of the chart.<br>
    ![stream selection](../../images/dashboards-comparison-against-4.png) 
    <br>**Note**: You may use the Query editor to further customize your query. 
    ![query editor](../../images/dashboards-comparison-against-5.png)  
 5. Choose a time range. For instance, **Past 15 Minutes**. This becomes the period, the time range the system will use for both your current data and comparison data. 
    ![time range selection](../../images/dashboards-comparison-against-6.png)
-6. Open the **Config** menu and scroll to **Comparison Against**. 
+6. Open the **Config** menu and scroll to **Comparison Against**.<br> 
    ![config menu](../../images/dashboards-comparison-against-7.png) 
 7. By default, **0 Minutes ago** is selected. This represents your current data time.
 8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **1 day ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.  
