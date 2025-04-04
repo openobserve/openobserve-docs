@@ -12,8 +12,8 @@ The **Comparison Against** feature is available for the following chart types in
 - Horizontal Stacked
 
 ### How it Works?
-In **Compare Against**, you write your SQL query and select the time range (such as 15 minutes) you want to analyze for the current data.
-Then, you select one or more past points in time (such as 1 day) to run the same query for the same time range. OpenObserve runs the query twice and shows both results on the selected chart, so you can easily compare changes between current and past data.
+After you write your SQL query and select the time range (such as 15 minutes) for your current data, **Compare Against** lets you select past points in time (like 1 day ago) to run the same query for the same time range.
+OpenObserve runs the query for both the current time and each past time, and shows the results side by side on your selected chart.
 
 If you select the time range of 15 minutes, OpenObserve runs:
 
