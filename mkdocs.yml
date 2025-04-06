@@ -39,7 +39,8 @@ extra:
   version:
     provider: mike
   analytics:
-    provider: plausible
+    provider: google
+    property: G-3383ZJ2HH7
     domain: openobserve.ai
     # feedback:
     #   title: Was this page helpful?
