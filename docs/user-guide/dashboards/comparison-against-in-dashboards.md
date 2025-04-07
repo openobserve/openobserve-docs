@@ -1,3 +1,5 @@
+The **Comparison Against** feature in OpenObserve **Dashboards** allows you to visually compare your **current data** with **data from a selected point in time in the past**.
+It is useful for trend analysis and identifying patterns over time.
 
 ### Where to Find This Feature
 The **Comparison Against** feature is available for the following chart types in **Dashboards**:
@@ -11,39 +13,49 @@ The **Comparison Against** feature is available for the following chart types in
 - Stacked  
 - Horizontal Stacked
 
-### How it Works?
-After you write your SQL query and select the time range (such as 15 minutes) for your current data, **Compare Against** lets you select past points in time (like 1 day ago) to run the same query for the same time range.
-OpenObserve runs the query for both the current time and each past time, and shows the results side by side on your selected chart.
+### How it Works
 
-If you select the time range of 15 minutes, OpenObserve runs:
+| Step | Without Comparison Against | With Comparison Against |
+|------|------------------------|---------------------|
+| **SQL Query** | You write SQL query for the current time frame (default). | Same SQL query is used for both current and past time frames. |
+| **Period (Time Range)** | You select a time range (e.g., last 30 mins). | Same time range is applied to both current and past queries. |
+| **Query Execution** | Query runs at the current time for the selected time range. | If you select one time frame in the past, the same query runs twice:<br>• Query 1: Runs at the current time for the selected time range.<br>• Query 2: Runs at the past time for the selected time range. |
+| **Query Results** | Single result: current data only. | Two result sets:<br>• Query 1: Current data<br>• Query 2: Past data |
+| **Visualization** | Chart shows current data only. | Chart shows both current and past data side by side for comparison. |
 
-- Your query for the selected time range at the current time (e.g., 3:00 PM → 3:15 PM).
-- The same query for the same time range at the past time you selected (e.g., 1 day ago -> yesterday, 3:00 PM → 3:15 PM).
 
+### How to Use the Compare Against Feature
+For example, you want to compare **the error trends for the last 15 mins today** with **the error trends for the same time period, 2 days ago**. 
 
-#### To access the feature
+Let's say,
+
+- You want to view the error trend for the past 15 mins today (for example, from 3:45 PM - 4:00 PM, today). 
+- Now, you want to compare the error trend for the same time period (from 3:45 PM - 4:00 PM), 2 days ago. 
+
+The following steps provides step-by-step instructions on how to use the **Comparison Against** for this scenario:
 
 1. Go to **Dashboards** > **New Dashboard**.  
    ![dashboards](../../images/dashboards-comparison-against-1.png)  
 2. Click **Add Panel.**  
    ![add panel](../../images/dashboards-comparison-against-2.png)
-3. Select a chart [where the **Comparison Against** feature is available](#where-to-find-this-feature).  
+3. Select a chart [where the **Comparison Against** feature is available](#where-to-find-this-feature).<br>  
    ![chart selection](../../images/dashboards-comparison-against-3.png)  
 4. Under **Fields**, add **Stream Type** and **Stream**. These define the data source for your SQL query. Select fields that you want to set as x-axis (for example, timestamp) and y-axis (for example, error) of the chart.<br>
    ![stream selection](../../images/dashboards-comparison-against-4.png) 
    <br>**Note**: You may use the Query editor to further customize your query. 
    ![query editor](../../images/dashboards-comparison-against-5.png)  
-5. Choose a time range. For instance, **Past 15 Minutes**. This becomes the period, the time range the system will use for both your current data and comparison data. 
+5. Choose a time range. For instance, **Past 15 Minutes**. This becomes the period, the time range the system will use for both your current data and comparison data.<br> 
    ![time range selection](../../images/dashboards-comparison-against-6.png)
 6. Open the **Config** menu and scroll to **Comparison Against**.<br> 
    ![config menu](../../images/dashboards-comparison-against-7.png) 
-7. By default, **0 Minutes ago** is selected. This represents your current data time.
-8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **1 day ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.  
+7. By default, **0 Minutes ago** is selected. This represents your current time.
+8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **2 days ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.<br>  
    ![add past time](../../images/dashboards-comparison-against-8.png)  
 9. (Optional) Select a **Color Palette** to differentiate charts.  
 10. Click **Apply** to run the query and update the chart.   
     **Note**: You must click **Apply** after adding or changing any comparison values.
 
-**Result:**  
+**Result:** <br> 
+The results of both queries are shown side by side on your chart, making it easy to visually compare your current data with historical data.
 ![result of comparison against](../../images/dashboards-comparison-against-9.png)
 
