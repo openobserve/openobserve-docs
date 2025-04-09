@@ -63,12 +63,12 @@ Specify the time range for which you want to evaluate the data (for example, the
 
 In the **Multi-window Selector**, select the historical time window you want to compare against the current time window.
 
-For example, if you want to compare the current 30-minute window with the same window 1 day ago, select **1 day ago**.
+For example, if you want to compare the current 30-minute window with the same window from yesterday, select **1 day ago**.
 
-At runtime, the alert manager will run **two SQL queries**:
+In this case, the alert manager will run **two SQL queries** at runtime:
 
-1. One for the **current time window** (for example, 9:30 AM – 10:00 AM).  
-2. One for the **selected past time window** (for example, 9:30 AM – 10:00 AM, previous day).
+1. One for the **current time window** (for example, 9:30 AM – 10:00 AM, today).  
+2. One for the **selected past time window** (for example, 9:30 AM – 10:00 AM, yesterday).
 
 **​​Understand SQL Query Output Before Writing VRL**
 
@@ -205,7 +205,9 @@ if length(result) >= 2 {
 The VRL function outputs:
 
 - **Empty array** ([ ]): If the increase is **not** more than 5%.  
-- **Non-empty array**: If the increase **exceeds** 5%. Example:
+- **Non-empty array**: If the increase **exceeds** 5%. 
+
+Example:
 
 ```
 [
@@ -245,7 +247,7 @@ Specify where you want to receive the alert notification- email or webhook.
 
 Design the row template to customize the alert content.
 
-For example:
+Example:
 
 Include fields from your VRL output such as:
 
