@@ -113,7 +113,6 @@ This ensures that your VRL function receives a **multi-dimensional array** input
 
     - `result[0]` = current time window data  
     - `result[1]` = past time window data
-Without `#ResultArray#`, the input is a flat array, and it becomes unreliable to distinguish current vs. past data.
 
 2. The **special variable `.` (dot)** holds this input. It contains the entire query result. To make this input easier to work with, we **assign it to a variable called `result`** and ensure it is treated as an array: <br>
 `result = array!(.)` <br>
