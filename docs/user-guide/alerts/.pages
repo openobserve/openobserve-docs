@@ -3,3 +3,4 @@ nav:
     - Destinations: destinations.md
     - Templates: templates.md
     - Import and Export Alerts: import-export-alerts.md
+    - Multi-window Selector in Scheduled Alerts (SQL Mode): multi-window-selector-scheduled-alerts.md

@@ -32,7 +32,7 @@ Let's say,
 - You want to view the error trend for the past 15 mins today (for example, from 3:45 PM - 4:00 PM, today). 
 - Now, you want to compare the error trend for the same time period (from 3:45 PM - 4:00 PM), 2 days ago. 
 
-The following steps provides step-by-step instructions on how to use the **Comparison Against** for this scenario:
+The following steps explain how to use the **Comparison Against** feature for this scenario:
 
 1. Go to **Dashboards** > **New Dashboard**.  
    ![dashboards](../../images/dashboards-comparison-against-1.png)  
