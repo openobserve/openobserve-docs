@@ -1,4 +1,4 @@
-The **Multi-window selector** feature in OpenObserve enables users to **define multiple time windows in a scheduled alert (SQL mode)**, **compare log, metrics, or traces across those time windows**, and **determine whether to send an alert notification based on the comparison results**.
+The **Multi-window Selector** feature in OpenObserve enables users to **define multiple time windows in a scheduled alert (SQL mode)**, **compare log, metrics, or traces across those time windows**, and **determine whether to send an alert notification based on the comparison results**.
 
 ## How to Access The Multi-window Selector
 
@@ -292,8 +292,34 @@ At 10:30 AM, OpenObserve alert manager executes SQL for:
 
 ### FAQ
 
-**What happens if I forget to include #ResultArray# in my VRL function?**
+**What is a window in the Multi-window Selector?** <br>
+A *window* is a specific time range of data. It depends on the period you set in the alert.
+If you set the period to 4 hours, each window will cover exactly 4 hours of data.
 
+- The **current window** is simply the most recent 4-hour block of time before the evaluation. If the current time is **April 10th at 4:00 PM**, then the current window covers **April 10th from 12:00 PM to 4:00 PM**.
+- If you select **1 day ago** in the Multi-window selector, that window will cover the same 4-hour block, but from exactly one day earlier - **April 9th from 12:00 PM to 4:00 PM**.
+- If you select **4 days ago,** it will cover the same 4-hour block, but from 4 days earlier - **April 6th from 12:00 PM to 4:00 PM**.
+Every window you select is just a copy of the same time range (defined by the period), shifted back by the amount of time you choose.
+<br>
+
+**Does the period control the window length?**<br>
+Yes. The period defines the duration of each window. If you set the period to 4 hours, then every window — whether it's the current window or any past window — will be exactly 4 hours long.
+
+**Does the alert manager run multiple queries inside one window?** <br>
+No. For each evaluation, the alert manager runs:
+
+- One query for the current window
+- One separate query for each additional past window you select
+
+The alert manager does not run multiple queries within a single window. Each window is queried once at the time of evaluation.<br>
+**Note that the time of evaluation is decided by the frequency you set in the alert settings.**
+For example:
+
+- If you set frequency to every 60 minutes, the alert manager runs these queries once every 60 minutes.
+- If you set frequency to every 12 hours, it runs the queries every 12 hours.
+So, frequency controls when the alert manager checks, and period controls what time range is checked at each evaluation.
+
+**What happens if I forget to include `#ResultArray#` in my VRL function?** <br>
 If you do not include `#ResultArray#`, your VRL function will receive a flat array:**  
 
 ```
