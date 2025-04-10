@@ -4,7 +4,7 @@ The **Multi-window selector** feature in OpenObserve enables users to **define m
 
 You can apply the multi-window selector feature to both new and existing scheduled alerts in SQL mode. 
 
-#### For new alerts: 
+#### To access multi-window selector in new alerts: 
 
 1. Select **Alerts**.   
 2. Select the folder or create a new folder as per requirement.  
@@ -13,7 +13,7 @@ You can apply the multi-window selector feature to both new and existing schedul
 5. Select **SQL**.   
 6. Navigate to the **Multi-window Selector** section.
 
-#### For existing alerts: 
+#### To access multi-window selector in existing alerts: 
 
 1. Select the existing alert from the **Alerts** page (the selected alert must be scheduled and created in the SQL mode).   
 2. Click the edit icon.  
@@ -61,7 +61,7 @@ Specify the time range for which you want to evaluate the data (for example, the
 
 #### Step 3: Select Multi-window
 
-In the **Multi-window Selector**, select the historical time window you want to compare against the current time window.
+In the **Multi-window Selector** section, select the historical time window you want to compare against the current time window.
 
 For example, if you want to compare the current 30-minute window with the same window from yesterday, select **1 day ago**.
 
@@ -70,8 +70,9 @@ In this case, the alert manager will run **two SQL queries** at runtime:
 1. One for the **current time window** (for example, 9:30 AM – 10:00 AM, today).  
 2. One for the **selected past time window** (for example, 9:30 AM – 10:00 AM, yesterday).
 
-**​​Understand SQL Query Output Before Writing VRL**
+#### Step 4: Write the VRL Function 
 
+**​Before Writing the VRL ​function, Understand SQL Query Output**<br>
 When **Multi-window Selector** is used, OpenObserve passes the results of your SQL queries to your VRL function as an **array of arrays**.
 
 Example input to your VRL function:
@@ -102,9 +103,7 @@ Inside the VRL function, you can access:
 - `result[0]`: Current time window data  
 - `result[1]`: Past time window data
 
-#### Step 4: Write the VRL Function 
-
-Create a VRL function to process the SQL query results and perform the desired comparison.
+Now, create the VRL function to process the SQL query results and perform the desired comparison.
 
 **Key points:**  
 
