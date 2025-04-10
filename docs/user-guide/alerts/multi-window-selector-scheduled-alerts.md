@@ -1,6 +1,6 @@
 The **Multi-window selector** feature in OpenObserve enables users to **define multiple time windows in a scheduled alert (SQL mode)**, **compare log, metrics, or traces across those time windows**, and **determine whether to send an alert notification based on the comparison results**.
 
-## Access The Multi-window Selector
+## How to Access The Multi-window Selector
 
 You can apply the multi-window selector feature to both new and existing scheduled alerts in SQL mode. 
 
@@ -19,7 +19,7 @@ You can apply the multi-window selector feature to both new and existing schedul
 2. Click the edit icon.  
 3. In the **Update Alert** page, navigate to the **Multi-window Selector** section.
 
-### How to Use Multi-window Selector 
+## How to Use Multi-window Selector 
 
 > **Use Case**: You want to monitor **purchase events where users had to retry the action (retry count > 0)**. Specifically, you want to check if the number of such purchase events has **increased by more than 5% in the last 30 minutes**, compared to the same 30-minute period yesterday. If yes, you want to receive an **alert by email** that clearly states the percentage increase, so you can take necessary actions.
 
