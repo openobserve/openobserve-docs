@@ -105,7 +105,7 @@ In this case, the alert manager will run **two SQL queries** at runtime:
 > - `result[0]`: Current time window data  
 > - `result[1]`: Past time window data
 
-To create the VRL function to process the SQL query results and perform the desired comparison, click the function toggle at the top of the SQL query editor.
+To start writing the VRL function for processing your SQL query results and performing the comparison, click the function toggle at the top of the SQL query editor.<br>
 
 **Key points to know before writing the VRL function:**  
 
