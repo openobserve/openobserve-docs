@@ -72,40 +72,42 @@ In this case, the alert manager will run **two SQL queries** at runtime:
 
 #### Step 4: Write the VRL Function 
 
-**​Before Writing the VRL ​function, Understand SQL Query Output**<br>
-When **Multi-window Selector** is used, OpenObserve passes the results of your SQL queries to your VRL function as an **array of arrays**.
+> **What input does the VRL function receive?**<br>
+> ​The output of your SQL query is the input to your VRL function.<br>
+> When **Multi-window Selector** is used, OpenObserve passes the results of your SQL queries to your > VRL function as an **array of arrays**.
+>
+> Example: Let us say for the above two queries, we get the following query output:
+>
+>```
+>[
+>
+>  [ // Current time window result (result[0])
+>
+>    { "time_s": "10:00", "cnt": 20 },
+>
+>    { "time_s": "10:15", "cnt": 23 }
+>
+>  ],
+>
+>  [ // Past time window result (result[1])
+>
+>    { "time_s": "10:00", "cnt": 40 },
+>
+>    { "time_s": "10:15", "cnt": 91 }
+>
+>  ]
+>
+>]
+>```
+> This query output becomes the input for the VRL function you will write. 
+> Inside the VRL function, you can access:
+>
+> - `result[0]`: Current time window data  
+> - `result[1]`: Past time window data
 
-Example input to your VRL function:
+To create the VRL function to process the SQL query results and perform the desired comparison, click the function toggle at the top of the SQL query editor.
 
-```
-[
-
-  [ // Current time window result (result[0])
-
-    { "time_s": "10:00", "cnt": 20 },
-
-    { "time_s": "10:15", "cnt": 23 }
-
-  ],
-
-  [ // Past time window result (result[1])
-
-    { "time_s": "10:00", "cnt": 40 },
-
-    { "time_s": "10:15", "cnt": 91 }
-
-  ]
-
-]
-```
-Inside the VRL function, you can access:
-
-- `result[0]`: Current time window data  
-- `result[1]`: Past time window data
-
-Now, create the VRL function to process the SQL query results and perform the desired comparison.
-
-**Key points:**  
+**Key points to know before writing the VRL function:**  
 
 1. Always start your VRL function with `#ResultArray#` when using the **Multi-window Selector**.  
 This ensures that your VRL function receives a **multi-dimensional array** input, where:
@@ -117,7 +119,7 @@ This ensures that your VRL function receives a **multi-dimensional array** input
 `result = array!(.)` <br>
 Note that `array!(.)` tells VRL to ensure the input is treated as an array. If the input is not an array, VRL will throw an error to alert you. Always use `array!(.)` for clarity and safety.
 
-**Tip**: Write and test your VRL function using the VRL playground in Logs page or [Vector.dev Playground](https://playground.vrl.dev/).
+**Tip**: Write and test your VRL function using the VRL playground in Logs page or [Vector.dev Playground](https://playground.vrl.dev/). 
 
 **VRL function example**:
 ```
