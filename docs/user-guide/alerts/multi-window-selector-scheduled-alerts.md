@@ -1,4 +1,6 @@
-This guide will explain how the [Multi-window Selector](multi-window-selector-scheduled-alerts-concept.md) works and show you how to configure it step by step.
+This guide provides step-by-step instructions for using the [Multi-window Selector](multi-window-selector-scheduled-alerts-concept.md) feature in Scheduled Alerts.
+
+
 
 ## How to Access The Multi-window Selector
 
