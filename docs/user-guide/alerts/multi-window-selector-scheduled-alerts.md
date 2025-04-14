@@ -1,10 +1,4 @@
-When you monitor logs, metrics, or traces, numbers alone do not tell the full story. Knowing how many events happened in the last few minutes or hours is helpful, but it is not enough. What matters more is understanding how these numbers compare to similar periods in the past.
-
-For example, if you see 200 purchase retries in the last 30 minutes, is this normal? If your system typically has around 100 retries in that period, this means there is a 100% increase and likely requires immediate attention.
-
-The Multi-window Selector in OpenObserve helps you compare the current period with one or more past periods. By making these comparisons, you can detect meaningful changes and avoid unnecessary noise in your alerts.
-
-This guide will explain how the Multi-window Selector works and show you how to configure it step by step.
+This guide will explain how the [Multi-window Selector](multi-window-selector-scheduled-alerts-concept.md) works and show you how to configure it step by step.
 
 ## How to Access The Multi-window Selector
 
