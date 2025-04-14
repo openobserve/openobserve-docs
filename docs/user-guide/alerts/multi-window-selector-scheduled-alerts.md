@@ -19,11 +19,15 @@ You can apply the multi-window selector feature to both new and existing schedul
 5. Select **SQL**.   
 6. Navigate to the **Multi-window Selector** section.
 
+![access multi-window](../../images/multi-window-0.png)
+
 #### To access multi-window selector in existing alerts: 
 
-1. Select the existing alert from the **Alerts** page (the selected alert must be scheduled and created in the SQL mode).   
+1. Select the existing alert from the **Alerts** page (the selected alert must be scheduled and created in the SQL mode). Apply the **Scheduled** filter to view all the Scheduled alerts. 
 2. Click the edit icon.  
 3. In the **Update Alert** page, navigate to the **Multi-window Selector** section.
+
+![access multi-window in existing alerts](../../images/multi-window-01.png)
 
 ## How to Use Multi-window Selector 
 
@@ -209,6 +213,7 @@ if length(result) >= 2 {
 
 .
 ```
+![vrl editor](../../images/multi-window-5.png)
 
 **Understand the VRL Function Output**
 
@@ -253,7 +258,7 @@ Set the **Threshold** as **>= 1**
 
 Determines how often the alert manager runs the query throughout the day (e.g., every 30 minutes).
 
-![frequency](../../images/multi-window-3.png)
+![frequency](../../images/multi-window-6.png)
 
 **Important:**
 

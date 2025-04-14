@@ -1,4 +1,4 @@
-This page explains the importance of the Multi-window Selector in OpenObserve, how it works, and the key concepts of period, window, and frequency. It also describes how OpenObserve processes alerts when the Multi-window Selector is applied.
+This page explains the importance of the Multi-window Selector in OpenObserve, how it works, and the key concepts of period, window, and frequency. It also describes how OpenObserve processes scheduled alerts when the Multi-window Selector is applied.
 
 ## Why You Need Multi-window Selector
 When you want to set up alerts that detect unusual behaviour over time, you need to compare your current data with historical data. This helps you understand whether the current numbers fall within normal patterns or if they signal a potential issue.
@@ -82,5 +82,5 @@ When you create a Scheduled Alert in SQL mode and apply the Multi-window Selecto
 **Important**: In addition to sending alerts, OpenObserve also allows you to automate actions based on alert triggers. You can use Actions to perform automated responses when alerts are triggered. [Learn more about Actions in OpenObserve](https://openobserve.ai/docs/user-guide/actions/actions-in-openobserve/).
 
 ### Next Step
-Learn how to use the Multi-window Selector in Scheduled Alerts.
+[Learn how to use the Multi-window Selector in Scheduled Alerts](multi-window-selector-scheduled-alerts.md).
 
