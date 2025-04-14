@@ -1,4 +1,10 @@
-The **Multi-window Selector** feature in OpenObserve enables users to **define multiple time windows in a scheduled alert (SQL mode)**, **compare log, metrics, or traces across those time windows**, and **determine whether to send an alert notification based on the comparison results**.
+When you monitor logs, metrics, or traces, numbers alone do not tell the full story. Knowing how many events happened in the last few minutes or hours is helpful, but it is not enough. What matters more is understanding how these numbers compare to similar periods in the past.
+
+For example, if you see 200 purchase retries in the last 30 minutes, is this normal? If your system typically has around 100 retries in that period, this means there is a 100% increase and likely requires immediate attention.
+
+The Multi-window Selector in OpenObserve helps you compare the current period with one or more past periods. By making these comparisons, you can detect meaningful changes and avoid unnecessary noise in your alerts.
+
+This guide will explain how the Multi-window Selector works and show you how to configure it step by step.
 
 ## How to Access The Multi-window Selector
 
@@ -239,31 +245,7 @@ Set the threshold as:
 
 Set the **Threshold** as **>= 1**
 
-#### Step 6: Select Destination
-
-Specify where you want to receive the alert notification- email or webhook. 
-
-#### Step 7: Create Row Template
-
-Design the row template to customize the alert content.
-
-Example:
-
-Include fields from your VRL output such as:
-
-- `diff` (difference in counts)  
-- `diff_percentage` (percentage increase)
-
-This ensures your email notification is informative and actionable.
-
-Example row template:
-
-```
-Alert: Purchase events with retries increased by {{ diff_percentage }}%*
-Details: Count difference: {{ diff }}
-```
-
-#### Step 8: Define the Frequency
+#### Step 6: Define the Frequency
 
 Determines how often the alert manager runs the query throughout the day (e.g., every 30 minutes).
 
@@ -287,6 +269,30 @@ At 10:30 AM, OpenObserve alert manager executes SQL for:
 
 - Current window: 10:00 AM – 10:30 AM, today
 - Past window: 10:00 AM – 10:30 AM, one day ago
+
+#### Step 7: Select Destination
+
+Specify where you want to receive the alert notification- email or webhook. 
+
+#### Step 8: Create Row Template
+
+Design the row template to customize the alert content.
+
+Example:
+
+Include fields from your VRL output such as:
+
+- `diff` (difference in counts)  
+- `diff_percentage` (percentage increase)
+
+This ensures your email notification is informative and actionable.
+
+Example row template:
+
+```
+Alert: Purchase events with retries increased by {{ diff_percentage }}%*
+Details: Count difference: {{ diff }}
+```
 
 #### Step 9: Save the Alert
 
