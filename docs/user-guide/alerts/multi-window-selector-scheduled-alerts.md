@@ -61,9 +61,13 @@ Explanation of the above SQL query:
 - **Filters**: Only include events of type `purchase` that have retry count greater than zero.  
 - **Group by**: Each time bucket.
 
+![sql editor](../../images/multi-window-1.png)
+
 #### Step 2: Define the Period
 
 Specify the time range for which you want to evaluate the data (for example, the last 30 minutes).
+
+![period](../../images/multi-window-2.png)
 
 #### Step 3: Select Multi-window
 
@@ -249,6 +253,8 @@ Set the **Threshold** as **>= 1**
 
 Determines how often the alert manager runs the query throughout the day (e.g., every 30 minutes).
 
+![frequency](../../images/multi-window-3.png)
+
 **Important:**
 
 - Frequency determines **how often** the alert manager runs your queries.  
@@ -273,6 +279,8 @@ At 10:30 AM, OpenObserve alert manager executes SQL for:
 #### Step 7: Select Destination
 
 Specify where you want to receive the alert notification- email or webhook. 
+
+![add destination](../../images/multi-window-4.png)
 
 #### Step 8: Create Row Template
 
