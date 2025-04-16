@@ -2,7 +2,7 @@
 
 > **Note:** This feature is available aplicable to Enterprise Edition.
 
-Audit trail is available in enterprise edition and can be enabled by setting the environment variable `O2_AUDIT_ENABLED=true` . This will capture details of all the APIs made and push it to audit stream in `_meta` org.
+Audit trail is available in enterprise edition and can be enabled by setting the environment variable `O2_AUDIT_ENABLED=true` . This will capture details of all the API calls made and push it to audit stream in `_meta` org.
 
 ![audit trail screenshot](../../images/audit.webp)
 
