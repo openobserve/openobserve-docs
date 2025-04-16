@@ -331,6 +331,7 @@ if __name__ == "__main__":
 
 1. From the left navigation menu, select **Actions**.  
 2. Click **Add Action**.
+![actions page](../../images/scheduled-actions-0.png)
 
 #### Step 2: Enter Name, Description, and Type
 
@@ -342,7 +343,7 @@ if __name__ == "__main__":
 
 Ensure that the zip file has `main.py`, optional helper functions, and the `pyproject.toml` file or `dependencies` folder with necessary dependencies. [Learn more about declaring dependencies when creating Action script in Python.](declare-python-dependencies-in-O2-actions.md)
 
-![image1]()
+![upload action script](../../images/scheduled-actions-1.png)
 
 #### Step 4: Set the Schedule 
 
@@ -351,7 +352,7 @@ Choose either:
 - **Once**: Script runs one time only 
 - **Cron Job**: Recurring runs based on a cron expression
 
-![image2]()
+![set the schedule](../../images/scheduled-actions-2.png)
 
 Cron Expression Examples:
 
@@ -366,7 +367,7 @@ Cron Expression Examples:
 
 #### Step 5: Select a Service Account
 
-![image3]()
+![select service account](../../images/scheduled-actions-3.png)
 
 #### Step 6: Add Environment Variables (optional)
 
@@ -383,7 +384,7 @@ For the periodic log pusher action script, we can use the environment variables 
 ```
 Since `ORIGIN_CLUSTER_URL` and `ORIGIN_CLUSTER_TOKEN` are available by default, define other variables in the **Environment Variables** section.   
 
-![image4]()
+![add env vars](../../images/scheduled-actions-4.png)
 
 #### Step 7: Click Save
 
@@ -402,4 +403,4 @@ In the above example, when the schedule hits and the script executes successfull
 }
 
 ```  
-![image5]()
+![result of scheduled action](../../images/scheduled-actions-5.png)
