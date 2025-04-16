@@ -6,9 +6,17 @@ Scheduled Actions run based on time, making them suitable for:
 - Routine or periodic tasks. For instance, hourly, daily, weekly.  
 - Background jobs that interact with OpenObserve. For instance, ingest logs.
 
+>The following example demonstrates a periodic log pusher. <br>
+>The action script:
+>
+>- Establishes a connection to OpenObserve using environment variables.
+>- Pushes a test log event to the `default` organization and `default` stream.
+>- Runs at a scheduled time defined by the cron expression.
+
+
 ### Prerequisites
 
-Before you can create a Scheduled Action, ensure the following are in place:
+Before you create a Scheduled Action, ensure the following are in place:
 
 1. **Service Account with Necessary Permissions**
 
@@ -16,12 +24,12 @@ Before you can create a Scheduled Action, ensure the following are in place:
     - Ensure the service account is associated with a role that grants permission to perform the specific actions required by your script. The role must include:  
 
         - **Actions**: `GET` permission (mandatory)  
-        - Other permissions based on your script's requirements. For example, if the script interacts with log streams, the role must include permission to access and manage **Streams**.
+        - Other permissions based on your script's requirements. In this example, the script interacts with log streams, the role must include permission to access and manage **Streams**.
 
 2. **Python Script Requirements**
 
     - Must contain a `main()` function.  
-    - **Important:** `main()` must **not** accept any arguments. **Scheduled actions do not take input at runtime.**  
+    - **Important:** `main()` must **not** accept any arguments. **Scheduled Actions do not take input at runtime.**  
     - Use environment variables to fetch values such as:  
 
         - Base URL of OpenObserve  
@@ -37,9 +45,9 @@ Before you can create a Scheduled Action, ensure the following are in place:
     ```
 
     However, other variables (like `OPENOBSERVE_ORG`, `OPENOBSERVE_STREAM`) are not provided by default.  
-    If the script needs them, you can define them in the script or in the Environment Variables section when creating or editing an Action.
+    If the script needs them, you can define them in the script or in the **Environment Variables** section when creating or editing an Action.
 
-#### Example: `main.py`
+The following `main.py` builds a connection to OpenObserve, then pushes a test log to the `default` organization and `default`.
 
 ```python
 import os
@@ -327,6 +335,8 @@ if __name__ == "__main__":
 
 ### Create a Scheduled Action in OpenObserve
 
+Now, let's set up the Scheduled Action using the above action script: 
+
 #### Step 1: Go to Actions
 
 1. From the left navigation menu, select **Actions**.  
@@ -351,10 +361,12 @@ Choose either:
 
 - **Once**: Script runs one time only 
 - **Cron Job**: Recurring runs based on a cron expression
+ 
+Let's say, you want the action runner to execute this action at 12:30 PM on the 1st day of every month. In this case, select **Cron Job** and enter the cron expression as: `30 12 1 * *`
 
 ![set the schedule](../../images/scheduled-actions-2.png)
 
-Cron Expression Examples:
+Other Cron Expression Examples:
 
 - 0 * * * *: Every hour at minute 0  
 - 10 7 * * *: At 07:10 AM UTC every day  
@@ -392,7 +404,7 @@ After the scheduled action gets saved, it remains `Ready` until the scheduled ti
 
 #### Result
 
-In the above example, when the schedule hits and the script executes successfully, it will connect to OpenObserve using the environment variables and push a log like:
+In the above example, when the schedule hits and the script executes successfully, it connects to OpenObserve using the environment variables and push a log at the scheduled time. The output looks like this:
 
 ```json  
 {  
