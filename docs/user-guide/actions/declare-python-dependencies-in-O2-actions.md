@@ -8,7 +8,7 @@ Click the following tabs to know more.
 === "`pyproject.toml` File" 
 
     Add your dependencies inside the `pyproject.toml` file. The Action Runner will install these packages on the fly when running your action.  
-    ```  
+    ```  linenums="1"
     [build-system]  
     requires = ["hatchling"]  
     build-backend = "hatchling.build"

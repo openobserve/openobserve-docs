@@ -5,7 +5,7 @@ If your Action script is designed to use environment variables (e.g., for thresh
 ## Example 
 The following Python script processes a list of log records and returns the **distinct Kubernetes pod names** and **Docker IDs**, **but only if the number of distinct pod names meets a minimum threshold set by an environment variable**.
 
-```python  
+```python  linenums="1"
 import os  
 import logging  
 from typing import List, Dict, Any  

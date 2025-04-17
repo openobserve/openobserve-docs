@@ -17,7 +17,7 @@ The first step to using Actions is to ensure that there is a service account tha
 **To create and assign Service Accounts for Actions:**
 
 1. From the left navigation bar, go to **IAM** > **Service Accounts** > **Add Service Account**.  
-2. Creates a Service Account with an email ID. Example: `action_script@gmail.com`. 
+2. Creates a Service Account with an email ID. Example: `action_script@gmail.com`. <br>
 ![create service account](../../images/create-real-time-action-1.png)
 3. Go to **IAM** > **Roles** and assign a role to the Service Account. This can either be:  
 
@@ -63,7 +63,7 @@ Additionally, you can break the logic of the script into reusable components and
 **File 1: `main.py`** <br> 
 This script converts the strings from lowercase to uppercase and calculates the distinct elements in the list and appends the result into the stream data.  
 
-```python
+```python linenums="1"
 import logging  
 from typing import List, Dict, Any  
 from distinct import distinct  # helper function in another file
@@ -133,14 +133,14 @@ real_time_action_script/
 ![configure the action](../../images/create-real-time-action-4.png)
 
 1. Go to **Actions** in the OpenObserve UI.  
-2. Click **Add Action**.
+2. Click **Add Action**.<br>
 ![add action](../../images/create-real-time-action-5.png)
 
 3. In the **Add Action** page:  
 
     - **Name**: Provide a name for your Action. Note that characters like :, ?, /, #, and spaces are not allowed.  
     - **Description**: Enter an appropriate description.   
-    - **Type**: Select **Real-time**.
+    - **Type**: Select **Real-time**.<br>
 ![add action screen](../../images/create-real-time-action-6.png)
 
 4. In the **Upload Script Zip** section, upload the Action script package in `.zip` format and click **Continue**. OpenObserve stores the ZIP file in object storage.<br> 

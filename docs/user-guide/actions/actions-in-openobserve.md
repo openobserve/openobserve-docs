@@ -38,7 +38,8 @@ These are ideal for recurring tasks such as:
 
 ## Next Steps
 
-- [Create and Use Real-time Actions](create-and-use-real-time-actions.md)  
+- [Create and Use Real-time Actions](create-and-use-real-time-actions.md) 
+- [Create and Use Scheduled Actions](create-and-use-scheduled-actions.md)   
 
 ## Related Links
 

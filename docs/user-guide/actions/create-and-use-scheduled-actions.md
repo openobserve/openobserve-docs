@@ -49,7 +49,7 @@ Before you create a Scheduled Action, ensure the following are in place:
 
 The following `main.py` builds a connection to OpenObserve, then pushes a test log to the `default` organization and `default`.
 
-```python
+```python linenums="1"
 import os
 
 import sys
@@ -386,7 +386,7 @@ Other Cron Expression Examples:
 You can use environment variables to pass information into your script, without writing it directly in the Python script. [Learn how to use environment variables in Actions](environment-variables-in-actions.md).
 
 For the periodic log pusher action script, we can use the environment variables and values while configuring the actions.  
-```python
+```python 
  def __init__(self):  
         # Get values from environment variables with defaults  
         self.base_url = os.environ.get("ORIGIN_CLUSTER_URL")  
