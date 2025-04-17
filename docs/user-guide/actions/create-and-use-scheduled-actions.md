@@ -51,285 +51,126 @@ The following `main.py` builds a connection to OpenObserve, then pushes a test l
 
 ```python linenums="1"
 import os
-
 import sys
-
 import json
-
 import logging
-
 import requests
-
 import base64
-
 from typing import Dict, Any, Optional, Tuple
-
 # Configure logging
-
 logging.basicConfig(
-
     level=logging.INFO,
-
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-
 )
-
 logger = logging.getLogger(__name__)
-
 class OpenObserveClient:
-
     def __init__(self):
-
         # Get values from environment variables with defaults
-
         self.base_url = os.environ.get("ORIGIN_CLUSTER_URL", "http://localhost:5080")
-
         self.token = os.environ.get("ORIGIN_CLUSTER_TOKEN", "openobserve:openobserve")
-
         self.org = os.environ.get("OPENOBSERVE_ORG")
-
-        self.stream = os.environ.get("OPENOBSERVE_STREAM")
-
-       
-
+        self.stream = os.environ.get("OPENOBSERVE_STREAM")       
         # Ensure base_url doesn't end with a slash
-
         self.base_url = self.base_url.rstrip('/')
-
-       
-
         # Parse the token to get username and password
-
         try:
-
             # Decode base64 token
-
             decoded = base64.b64decode(self.token).decode('utf-8')
-
             self.username, self.password = decoded.split(':', 1)
-
             self.auth = (self.username, self.password)
-
             logger.info(f"Initialized OpenObserve client for org: {self.org}, stream: {self.stream}")
-
         except Exception as e:
-
             error_msg = f"Failed to parse base64 encoded token: {str(e)}"
-
             logger.error(error_msg)
-
             raise ValueError(error_msg)
-
-   
-
     def ingest_data(self, data: Dict[str, Any]) -> bool:
-
         """
-
         Ingest data to OpenObserve stream
-
-       
-
         Args:
-
             data: Dictionary containing the data to be ingested
-
-           
-
         Returns:
-
             bool: True if ingestion was successful, False otherwise
-
         """
-
         try:
-
             # Endpoint for ingesting JSON data
-
             url = f"{self.base_url}/api/{self.org}/{self.stream}/_json"
-
-           
-
             # Make POST request to ingest data
-
             response = requests.post(
-
                 url,
-
                 json=data,
-
                 auth=self.auth,
-
                 headers={"Content-Type": "application/json"}
-
             )
-
-           
-
             # Check if request was successful
-
             if response.status_code in (200, 201, 204):
-
                 logger.info(f"Successfully ingested data to {self.stream}")
-
                 return True
-
             else:
-
                 logger.error(f"Failed to ingest data: {response.status_code} - {response.text}")
-
-                return False
-
-               
-
+                return False               
         except Exception as e:
-
             logger.error(f"Error while ingesting data: {str(e)}")
-
-            return False
-
-   
-
+            return False   
     def ingest_batch(self, data_list: list) -> bool:
-
         """
-
         Ingest a batch of data to OpenObserve stream
-
-       
-
         Args:
-
-            data_list: List of dictionaries containing data to be ingested
-
-           
-
+            data_list: List of dictionaries containing data to be ingested          
         Returns:
-
             bool: True if ingestion was successful, False otherwise
-
         """
-
         try:
-
             # Endpoint for ingesting multiple records
-
             url = f"{self.base_url}/api/{self.org}/{self.stream}/_json"
-
-           
-
             # Make POST request to ingest batch data
-
             response = requests.post(
-
                 url,
-
                 json=data_list,
-
                 auth=self.auth,
-
                 headers={"Content-Type": "application/json"}
-
-            )
-
-           
-
+            )         
             # Check if request was successful
-
             if response.status_code in (200, 201, 204):
-
                 logger.info(f"Successfully ingested {len(data_list)} records to {self.stream}")
-
                 return True
-
             else:
-
                 logger.error(f"Failed to ingest batch data: {response.status_code} - {response.text}")
-
-                return False
-
-               
-
+                return False             
         except Exception as e:
-
             logger.error(f"Error while ingesting batch data: {str(e)}")
-
             return False
-
 def main():
-
     try:
-
         # Initialize OpenObserve client
-
-        client = OpenObserveClient()
-
-       
-
+        client = OpenObserveClient()      
         # Sample data to ingest
-
         sample_data = {
-
             "message": "Hello, world!",
-
             "level": "info",
-
             "timestamp": "2023-01-01T00:00:00Z",
-
             "service": "sample-service",
-
             "metadata": {
-
                 "hostname": "sample-host",
-
                 "version": "1.0.0"
-
             }
-
-        }
-
-       
-
+        }       
         # Ingest single data point
-
-        success = client.ingest_data(sample_data)
-
-       
-
+        success = client.ingest_data(sample_data)      
         if success:
-
             # Sample batch data
-
             batch_data = [
-
                 {"message": "Line 1", "level": "info", "service": "sample-service"},
-
                 {"message": "Line 2", "level": "info", "service": "sample-service"},
-
                 {"message": "Line 3", "level": "info", "service": "sample-service"},
-
                 {"message": "Line 4", "level": "info", "service": "sample-service"},
-
                 {"message": "Line 5", "level": "info", "service": "sample-service"},
-
                 {"message": "Line 6", "level": "info", "service": "sample-service"}
-
             ]
-
-           
-
             # Ingest batch data
-
             client.ingest_batch(batch_data)
-
-           
-
     except Exception as e:
-
         logger.error(f"Error in main function: {str(e)}")
-
 if __name__ == "__main__":
-
     main()
 ```
 
@@ -386,7 +227,7 @@ Other Cron Expression Examples:
 You can use environment variables to pass information into your script, without writing it directly in the Python script. [Learn how to use environment variables in Actions](environment-variables-in-actions.md).
 
 For the periodic log pusher action script, we can use the environment variables and values while configuring the actions.  
-```python 
+```python linenums="15"
  def __init__(self):  
         # Get values from environment variables with defaults  
         self.base_url = os.environ.get("ORIGIN_CLUSTER_URL")  
