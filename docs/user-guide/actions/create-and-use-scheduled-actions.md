@@ -57,11 +57,13 @@ import logging
 import requests
 import base64
 from typing import Dict, Any, Optional, Tuple
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
 logger = logging.getLogger(__name__)
 class OpenObserveClient:
     def __init__(self):
@@ -69,9 +71,11 @@ class OpenObserveClient:
         self.base_url = os.environ.get("ORIGIN_CLUSTER_URL", "http://localhost:5080")
         self.token = os.environ.get("ORIGIN_CLUSTER_TOKEN", "openobserve:openobserve")
         self.org = os.environ.get("OPENOBSERVE_ORG")
-        self.stream = os.environ.get("OPENOBSERVE_STREAM")       
+        self.stream = os.environ.get("OPENOBSERVE_STREAM") 
+
         # Ensure base_url doesn't end with a slash
         self.base_url = self.base_url.rstrip('/')
+
         # Parse the token to get username and password
         try:
             # Decode base64 token
@@ -83,6 +87,7 @@ class OpenObserveClient:
             error_msg = f"Failed to parse base64 encoded token: {str(e)}"
             logger.error(error_msg)
             raise ValueError(error_msg)
+
     def ingest_data(self, data: Dict[str, Any]) -> bool:
         """
         Ingest data to OpenObserve stream
@@ -94,6 +99,7 @@ class OpenObserveClient:
         try:
             # Endpoint for ingesting JSON data
             url = f"{self.base_url}/api/{self.org}/{self.stream}/_json"
+
             # Make POST request to ingest data
             response = requests.post(
                 url,
@@ -101,6 +107,7 @@ class OpenObserveClient:
                 auth=self.auth,
                 headers={"Content-Type": "application/json"}
             )
+
             # Check if request was successful
             if response.status_code in (200, 201, 204):
                 logger.info(f"Successfully ingested data to {self.stream}")
@@ -110,8 +117,10 @@ class OpenObserveClient:
                 return False               
         except Exception as e:
             logger.error(f"Error while ingesting data: {str(e)}")
-            return False   
+            return False  
+ 
     def ingest_batch(self, data_list: list) -> bool:
+
         """
         Ingest a batch of data to OpenObserve stream
         Args:
@@ -122,13 +131,15 @@ class OpenObserveClient:
         try:
             # Endpoint for ingesting multiple records
             url = f"{self.base_url}/api/{self.org}/{self.stream}/_json"
+            
             # Make POST request to ingest batch data
             response = requests.post(
                 url,
                 json=data_list,
                 auth=self.auth,
                 headers={"Content-Type": "application/json"}
-            )         
+            ) 
+
             # Check if request was successful
             if response.status_code in (200, 201, 204):
                 logger.info(f"Successfully ingested {len(data_list)} records to {self.stream}")
@@ -142,7 +153,8 @@ class OpenObserveClient:
 def main():
     try:
         # Initialize OpenObserve client
-        client = OpenObserveClient()      
+        client = OpenObserveClient()
+
         # Sample data to ingest
         sample_data = {
             "message": "Hello, world!",
@@ -153,7 +165,8 @@ def main():
                 "hostname": "sample-host",
                 "version": "1.0.0"
             }
-        }       
+        }
+
         # Ingest single data point
         success = client.ingest_data(sample_data)      
         if success:
@@ -166,10 +179,12 @@ def main():
                 {"message": "Line 5", "level": "info", "service": "sample-service"},
                 {"message": "Line 6", "level": "info", "service": "sample-service"}
             ]
+
             # Ingest batch data
             client.ingest_batch(batch_data)
     except Exception as e:
         logger.error(f"Error in main function: {str(e)}")
+
 if __name__ == "__main__":
     main()
 ```
