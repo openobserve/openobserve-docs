@@ -47,7 +47,7 @@ Before you create a Scheduled Action, ensure the following are in place:
     However, other variables (like `OPENOBSERVE_ORG`, `OPENOBSERVE_STREAM`) are not provided by default.  
     If the script needs them, you can define them in the script or in the **Environment Variables** section when creating or editing an Action.
 
-The following `main.py` builds a connection to OpenObserve, then pushes a test log to the `default` organization and `default`.
+The following `main.py` builds a connection to OpenObserve, then pushes a test log to the `default` organization and `default` stream.
 
 ```python linenums="1"
 import os
