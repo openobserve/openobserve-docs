@@ -21,7 +21,7 @@ Output to OpenObserve using prometheus remote write
 ```toml
 [[outputs.http]]
   ## URL is the address to send metrics to
-  url = "http://localhost:5080/api/default/prometheus/write"
+  url = "http://localhost:5080/api/default/prometheus/api/v1/write"
   ## Data format to output.
   data_format = "prometheusremotewrite"
 
