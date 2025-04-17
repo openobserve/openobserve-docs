@@ -26,7 +26,7 @@ enterprise:
 ### Step 2: Enable Role-Based Access Control (RBAC) and Single Sign-On (SSO)
 This configuration is necessary to enable [RBAC](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/) and [SSO](https://openobserve.ai/docs/SSO/) features in the OpenObserve Enterprise Edition. In the `values.yaml` file, enable OpenFGA and Dex by setting their values to `true`:
 
-```yaml
+```yaml 
 openfga:
   enabled: true
 ```

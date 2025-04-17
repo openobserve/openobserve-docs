@@ -88,7 +88,7 @@ In this case, the alert manager will run **two SQL queries** at runtime:
 >
 > Example: Let us say for the above two queries, we get the following query output:
 >
->```
+>``` 
 >[
 >
 >  [ // Current time window result (result[0])
@@ -132,7 +132,7 @@ Note that `array!(.)` tells VRL to ensure the input is treated as an array. If t
 **Tip**: Write and test your VRL function using the VRL playground in Logs page or [Vector.dev Playground](https://playground.vrl.dev/). 
 
 **VRL function example**:
-```
+``` linenums="1"
 #ResultArray#
 
 # Initialize variables
@@ -220,7 +220,7 @@ The VRL function outputs:
 
 Example:
 
-```
+``` linenums="1"
 [
 
   [
