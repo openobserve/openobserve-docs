@@ -88,7 +88,7 @@ In this case, the alert manager will run **two SQL queries** at runtime:
 >
 > Example: Let us say for the above two queries, we get the following query output:
 >
->``` 
+>``` linenums="1"
 >[
 >
 >  [ // Current time window result (result[0])
@@ -337,7 +337,7 @@ So, frequency controls when the alert manager checks, and period controls what t
 **What happens if I forget to include `#ResultArray#` in my VRL function?** <br>
 If you do not include `#ResultArray#`, your VRL function will receive a flat array:**  
 
-```
+``` linenums="1"
 [
 
   { "timestamp": "10:00", "cnt": 20 },

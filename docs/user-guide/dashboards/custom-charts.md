@@ -64,7 +64,7 @@ Users can define event handlers (e.g., `click`, `mousemove`, `mouseout`, `legend
 
 **Example: Adding Click and Mouse Move Events**
 
-```javascript
+```javascript linenums="1"
 option = {
     xAxis: { type: "category", data: ["A", "B", "C"] },
     yAxis: { type: "value" },
@@ -91,7 +91,7 @@ Users can define reusable functions that can be accessed at runtime for event ha
 
 **Example: Formatting Data Using `customFn`**
 
-``` javascript
+``` javascript linenums="1"
 option = {
     xAxis: { type: "category", data: ["A", "B", "C"] },
     yAxis: { type: "value" },

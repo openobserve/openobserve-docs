@@ -31,7 +31,7 @@ Ensure you have **Kubernetes** and the **OpenObserve Helm Chart** installed.
 <br><br>1. Set `openfga.enabled: true` in `values.yaml` file.<br> 
 Navigate to the `values.yaml` file in the OpenObserve Helm chart repository and update this configuration as follows:
 
-```yml 
+```yml linenums="1"
 openfga:
     enabled: true
     parameters:
