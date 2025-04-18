@@ -216,7 +216,7 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_DISK_CACHE_MAX_SIZE                 | -                         | No        | default 50% of the total free disk for in-disk cache, one can set it to desired amount unit: MB   |
 | ZO_DISK_CACHE_SKIP_SIZE                | -                         | No        | default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB |
 | ZO_DISK_CACHE_RELEASE_SIZE             | -                         | No        | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB |
-| ZO_DISK_CACHE_STRATEGY                 | lru                       | No        | Disk data cache strategy, default is lru, other value is fifo |
+| ZO_DISK_CACHE_STRATEGY                 | lru                       | No        | Disk data cache strategy, values are lru, time_lru, fifo |
 | ZO_DISK_CACHE_BUCKET_NUM               | 0                         | No        | Disk data cache bucket num, multiple bucket means multiple locker, default is 0 |
 | ZO_DISK_CACHE_MULTI_DIR                |                           | No        |   |
 | ZO_DISK_CACHE_GC_SIZE                  | 100 (MB)                  | No        |   |
