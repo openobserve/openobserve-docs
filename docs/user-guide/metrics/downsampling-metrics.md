@@ -137,20 +137,20 @@ Downsample data older than 30 days to retain one average for every 2-minute time
 #### Downsampling Job Runs and Outputs
 
 **Job 1 runs at 00:03:00**
-
+**Output**:
 ```json  
 { "timestamp": "2024-03-01 00:00:00", "cpu_avg": 20.55 }  
 ```  
 **Job 2 runs at 00:06:00**  
 Processes Time Block 2 and Time Block 3
-
+**Output**:
 ```json  
 { "timestamp": "2024-03-01 00:02:00", "cpu_avg": 21.75 }  
 { "timestamp": "2024-03-01 00:04:00", "cpu_avg": 20.66 }  
 ```  
 **Job runs at 00:09:00**  
 Processes Time Block 4
-
+**Output**:
 ```json  
 { "timestamp": "2024-03-01 00:06:00", "cpu_avg": 21.65 }  
 ```  
