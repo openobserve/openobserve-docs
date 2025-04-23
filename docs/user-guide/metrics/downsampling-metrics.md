@@ -1,6 +1,4 @@
-This guide provides an overview of downsampling, including its configuration, rule format, and an example. 
-
-## Overview
+This guide provides an overview of downsampling, including its configuration, rule format, and an example.
 
 > **Downsampling is an enterprise feature in OpenObserve. It applies only to metrics data.**
 
@@ -13,7 +11,7 @@ Downsampling is configured using the following environment variables.:
 - `O2_COMPACT_DOWNSAMPLING_INTERVAL`: Defines how often the downsampling job runs (interval), in seconds. <br>**Example:** `O2_COMPACT_DOWNSAMPLING_INTERVAL`: "300" (this downsampling job runs every 5 minutes)  
 - `O2_METRICS_DOWNSAMPLING_RULES`: Specifies which data streams to target and how they should be downsampled using defined rules. You can add a comma-separated list of rules.<br>**Example:** `O2_METRICS_DOWNSAMPLING_RULES`: "o2_cpu_usage:avg:30d:5m", “app_analytics:last:10d:10m"
 
-> Refer to the [Downsampling Rule](#downsampling-rule) section. 
+> Refer to the [Downsampling Rule](#downsampling-rule) section. <br> 
 
 #### Downsampling Configuration For Helm Chart Users
 
@@ -33,6 +31,8 @@ Set the same variables in your `terraform.tfvars` file:
 `O2_COMPACT_DOWNSAMPLING_INTERVAL` = "60"  
 `O2_METRICS_DOWNSAMPLING_RULES`    = "up:avg:30d:5m"  
 ```
+> **Note**: **After setting the environment variables, make sure to redeploy the OpenObserve instance for the changes to apply.**
+
 
 ### Downsampling Rule
 
@@ -43,26 +43,50 @@ Each rule must follow the format: `pattern:function:offset:step`.
 Here:
 
 - **pattern**: It is a regular expression that specifies the data streams the rule applies to. For example, `o2_.*`.  
-- **function**: The aggregation function used to summarize values. For example, avg, sum, last, count, etc.  
+- **function**: The aggregation function used to summarize values. 
+> You may apply one of the supported function based on your requirement:
+>
+>   - **avg**: Calculates the average of all values in the time block.
+>   - **sum**: Returns the total (sum) of all values in the time block.
+>   - **count**: Returns the number of data points in the time block.
+>   - **min**: Returns the smallest value in the time block.
+>   - **max**: Returns the largest value in the time block.
+>   - **last**: Retains the last recorded value in the time block.
+>   - **first**: Retains the first recorded value in the time block.  
 - **offset**: It defines the age of data eligible for downsampling. For example, 15d for applying downsampling on data older than 15 days.  
 - **step**: The time block used to group data points. For example, 30m for applying downsampling to retain one value every 30 minutes.
 
+#### Sample Downsampling Rules
+
+**Single Rule**
+```yaml
+O2_METRICS_DOWNSAMPLING_RULES: "o2_cpu_metrics:avg:30d:5m"
+```
+Retains one average value every 5 minutes for `o2_cpu_metrics` data older than 30 days.<br>
+**Multiple Rules**
+```yaml
+O2_METRICS_DOWNSAMPLING_RULES: "o2_cpu_metrics:avg:30d:5m, o2_app_logs:last:10d:10m"
+```
+Applies two rules: the first rule averages `o2_cpu_metrics` every 5 minutes after 30 days, and the second rule keeps the last value for `o2_app_logs` every 10 minutes after 10 days. <br>
+**Rule with Regular Expression Pattern**
+```yaml
+O2_METRICS_DOWNSAMPLING_RULES: "o2_cpu_.*:sum:10d:60m"
+```
+Targets all streams starting with `o2_cpu_`, and for each matching stream, retains one hourly sum for data older than 10 days.
+
 ### Downsampling Example
 
-#### Scenario
-
+**Scenario**<br>
 A system is recording CPU usage data every 10 seconds to the stream `o2_cpu_usage`, generating a large volume of high-resolution metrics. Over time, this data becomes too granular and expensive to store or query efficiently for historical analysis.
-
-#### Goal
-
+<br>
+**Goal**<br>
 Downsample data older than 30 days to retain one average for every 2-minute time block. Run the downsampling job every 3 minutes.
 
-#### Configuration
-
+**Configuration**<br>
 `O2_COMPACT_DOWNSAMPLING_INTERVAL` = "180"     
 `O2_METRICS_DOWNSAMPLING_RULES` = "o2_cpu_usage:avg:30d:2m"  
 
-#### Input Metrics
+**Input Metrics**<br>
 
 ```json
 
@@ -126,7 +150,7 @@ Downsample data older than 30 days to retain one average for every 2-minute time
 { "timestamp": "2024-03-01 00:08:50", "cpu": 20.2 }  
 ```
 
-#### Downsampling Time Blocks (Step = 2m) and Average CPU Usage
+**Downsampling Time Blocks (Step = 2m) and Average CPU Usage**
 
 - Time Block 1: From 00:00:00 to 00:01:59, average CPU usage is 20.55  
 - Time Block 2: From 00:02:00 to 00:03:59, average CPU usage is 21.75  
@@ -134,23 +158,21 @@ Downsample data older than 30 days to retain one average for every 2-minute time
 - Time Block 4: From 00:06:00 to 00:07:59, average CPU usage is 21.65  
 - Time Block 5: From 00:08:00 to 00:09:59, average CPU usage is 20.88 (not processed yet)
 
-#### Downsampling Job Runs and Outputs
+**Downsampling Job Runs and Outputs**
 
-**Job 1 runs at 00:03:00**
-**Output**:
+Job 1 runs at 00:03:00 and processes Time Block 1 <br>
+Output:
 ```json  
 { "timestamp": "2024-03-01 00:00:00", "cpu_avg": 20.55 }  
 ```  
-**Job 2 runs at 00:06:00**  
-Processes Time Block 2 and Time Block 3
-**Output**:
+Job 2 runs at 00:06:00 and processes Time Block 2 and Time Block 3<br>
+Output:
 ```json  
 { "timestamp": "2024-03-01 00:02:00", "cpu_avg": 21.75 }  
 { "timestamp": "2024-03-01 00:04:00", "cpu_avg": 20.66 }  
 ```  
-**Job runs at 00:09:00**  
-Processes Time Block 4
-**Output**:
+Job 3 runs at 00:09:00 and processes Time Block 4 <br>
+Output:
 ```json  
 { "timestamp": "2024-03-01 00:06:00", "cpu_avg": 21.65 }  
 ```  

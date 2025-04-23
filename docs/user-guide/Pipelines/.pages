@@ -1,5 +1,6 @@
 nav:
     - Pipelines in OpenObserve: Pipelines-in-OpenObserve.md
     - Create and Use Pipelines: Create-and-Use-Pipelines.md
+    - Import and Export Pipelines: import-and-export-pipelines.md
     - Manage Pipelines: Manage-Pipelines.md
     
