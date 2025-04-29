@@ -35,4 +35,4 @@ You can use python virtual environment to do development as well
 source setup_env.sh
 mkdocs serve
 ```
-
+![analytics](https://www.google-analytics.com/collect?v=1&cid=555&t=pageview&ec=repo&ea=open&dp=openobserve&dt=docs&tid=G-1Y09FGSXSY)
