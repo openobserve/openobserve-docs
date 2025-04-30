@@ -46,7 +46,8 @@ A scheduled pipeline automates the processing of historical data from an existin
     - **Stream**: The supported destination stream types are Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
     - **Remote**: Select **Remote** if you wish to send data to [external destination](#external-pipeline-destinations).
 
-### The scheduled pipeline runs based on the user-defined **Frequency** and **Period**. 
+#### Frequency and Period
+The scheduled pipeline runs based on the user-defined **Frequency** and **Period**. 
 
 - **Frequency**: Defines how often the query should be executed. <br> **Example**: **Frequency**: 5 minutes<br>It ensures the query runs every 5 minutes.
 - **Period**: Defines the period for which the query fetches the data. <br> 
