@@ -166,6 +166,31 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 | ZO_DISK_CACHE_RELEASE_SIZE  | -  | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB   |
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
+
+## Pre-cache Files for Faster Query Execution
+Set `ZO_CACHE_LATEST_FILES_ENABLED` to `true` to improve query performance.
+
+**How It Works**:
+
+1. **File Creation**: The ingester or compactor node (the source node) creates a new `.parquet` or `.ttv` file.
+2. **Event Notification**: The system performs a hashing operation to select one of the querier nodes (the receiving node) to receive a notification about the new file.
+3. **File Download and Caching**: The querier node downloads the file from S3 and stores it in its local cache.
+4. **Subsequent Queries**: The next time a query for this file is made, the system retrieves the file from the local cache on the querier node, rather than fetching it again from S3.
+**Note:**
+
+- **When disabled (default)**: Files are cached only when queried. More storage-efficient, but may cause slower query times if the files are not already cached.
+- **When enabled**: Files are pre-cached when created, making queries faster, but may waste storage if the files are never needed for queries.
+
+## Node-Based File Sharing to Optimize S3 Load
+Set `ZO_CACHE_LATEST_FILES_DOWNLOAD_FROM_NODE` to `true` to optimize file downloads and reduce S3 load.
+
+**How It Works**:
+
+1. **File Request**: When a querier node (the receiving node) needs a file, it first checks if the ingester node (the source node) has the file cached.
+2. **Cache Check**:
+
+    - **If the ingester node has the file cached**, the querier node will download it from the ingester node.
+    - **If the ingester node does not have the file cached**, the querier node will then fetch the file from S3.
   
 ## Result caching
 
