@@ -21,11 +21,11 @@ Use this mode for light usage and testing or if HA is not a requirement for you.
 
 Local disk storage is not supported in HA mode. Please refer to [HA Deployment](./ha_deployment.md) for cluster mode deployment.
 
-<img src="../images/arch-ha.webp" alt="HA architecture using etcd / NATS and s3" width="80%"/>
+<img src="../images/arch-ha.webp" alt="HA architecture using NATS and s3" width="80%"/>
 
 Router, Querier, Ingester, Compactor and AlertManager nodes both can be horizontally scaled to accommodate for higher traffic.
 
-Etcd or NATS is used as cluster coordinator and store the nodes information. it also used for cluster events.
+NATS is used as cluster coordinator and store the nodes information. it also used for cluster events.
 
 MySQL / PostgreSQL is used to store metadata like organization, users, functions, alert rules, stream schema and file list (a index of parquet files).
 

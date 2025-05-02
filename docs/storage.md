@@ -8,7 +8,7 @@ There are 2 primary items that need to be stored in OpenObserve.
 Metadata for stream data is always stored:
 
 1. on disk for `Local mode` in `sqlite` 
-1. in `etcd/mysql/postgres` for `Cluster mode`. etcd is highly discouraged and `postgres` is recommended.
+1. in `postgres` for `Cluster mode`.
 
 Stream data can be stored on disk, s3, minIO and other compatible s3 API object storages, like: Google GCS, Alibaba OSS, Tencent COS.
 
