@@ -171,7 +171,7 @@ option = {
 };
 ```
 
-**Note**: Further, you can enhance the chart with [event handlers and reusable functions)](custom-charts-event-handlers-and-custom-functions.md).
+**Note**: Further, you can enhance the chart with [event handlers and reusable functions](custom-charts-event-handlers-and-custom-functions.md).
 
 ## Step 7: View Results
 
