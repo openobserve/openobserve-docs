@@ -1,7 +1,7 @@
 Custom charts in OpenObserve let you create visualizations by using SQL to query the data and JavaScript to define how the chart appears. 
 Custom charts are useful when other built-in chart types do not meet your needs.
 
-## How to access custom charts
+## How to Access Custom Charts
 
 1. Go to **Dashboards** from the left-hand navigation menu.  
 2. Do one of the following:   
@@ -23,18 +23,18 @@ After selecting **Custom Chart**, the screen displays:
 
 Use these options to write your query, define how the chart should be displayed, and preview the output.
 
-## What data do we have
+## What Data Do We Have
 
 OpenObserve stores ingested data in a flat structure.   
 Use the **Logs** page to view the ingested data for a selected time range. 
 
-## What data does the chart expect
+## What Data Does the Chart Expect
 
 Using custom charts, you can create and configure any chart supported by [ECharts](https://echarts.apache.org/examples/en/).  
 Each chart type expects data in a specific structure and format.  
 Depending on the chart, you may need to prepare the data to ensure the correct data types, and reshape it to match the structure the chart requires.
 
-### How to check the data structure a chart expects
+### How to Check the Data Structure a Chart Expects
 
 To identify the data structure expected by a chart: 
 
@@ -47,7 +47,7 @@ To identify the data structure expected by a chart:
     - **Flat Data:** If it is a flat array of values or objects (data: [1, 2, 3] or [{name, value}]).   
     - **Nested Data:** If it has children: [...] inside data items. 
 
-## Prepare and reshape data
+## Prepare and Reshape Data
 
 After you identify whether the chart expects flat or nested data, you can determine how to prepare and reshape your data.
 
@@ -137,7 +137,7 @@ option.series[0].name = 'Errors';
 
 ```
 
-## How does custom charts work
+## How Does Custom Charts Work
 
 Creating a custom chart involves the following steps:
 
