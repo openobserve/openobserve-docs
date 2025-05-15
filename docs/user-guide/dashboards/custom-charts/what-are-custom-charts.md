@@ -111,10 +111,10 @@ option.yAxis = { type: 'value', name: 'Count' };
 ```  
 **Note**: 
 
-* Use `type: 'category'` for named groups like days or statuses.  
-* Use `type: 'time'` for timestamps.  
-* Use `type: 'value'` for numeric values.  
-* Some charts (like pie or sunburst) do not use axes. In those cases, omit these fields.
+- Use `type: 'category'` for named groups like days or statuses.  
+- Use `type: 'time'` for timestamps.  
+- Use `type: 'value'` for numeric values.  
+- Some charts (like pie or sunburst) do not use axes. In those cases, omit these fields.
 
 **5. `series`: Defines what data to plot and what type of chart to use.**  
 ```linenums="1"  
