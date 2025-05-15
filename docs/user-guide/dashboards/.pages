@@ -6,4 +6,5 @@ nav:
     - Variable Dependencies in Dashboards: variable-dependencies.md
     - Custom Charts: custom-charts.md
     - Comparison Against in Dashboards: comparison-against-in-dashboards.md
+    - Custom Charts: custom-charts
     

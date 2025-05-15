@@ -1,3 +1,4 @@
 nav:
     - Audit trail: audit-trail.md
     - Cipher Keys: cipher-keys.md
+    - Nodes: nodes.md
