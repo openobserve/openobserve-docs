@@ -1,7 +1,7 @@
 Custom charts in OpenObserve let you create visualizations by using SQL to query the data and JavaScript to define how the chart appears. 
-Custom charts are useful when other built-in chart types do not meet your needs.
+Custom charts are ideal when you need advanced visualizations or more flexibility than built-in chart types provide.
 
-This guide introduces the fundamentals of Custom Charts in OpenObserve, including how to access custom charts in the UI, how to choose the right chart type, and prepare and reshape data based on chart requirements.
+This guide introduces the fundamentals of custom charts in OpenObserve, including how to access custom charts in the UI, how to choose the right chart type, and prepare and reshape data based on chart requirements.
 
 **Note**: This guide is for users comfortable writing SQL and JavaScript who want full control over how their charts appear.
 
@@ -43,7 +43,7 @@ Creating a custom chart involves these high-level steps:
   - Write a SQL query to prepare the required fields. The result is stored in `data[0]`.
   - (Optional) Use JavaScript to reshape `data[0]` if the chart expects a nested structure.
   - Use `data[0]` or the reshaped data to define the `option` object that renders the chart.
-  
+
 6. **Preview**: Preview the chart and adjust your SQL or JavaScript as needed.
 
 > **Note**: Using custom charts, you can create and configure any chart supported by [ECharts](https://echarts.apache.org/examples/en/).  
