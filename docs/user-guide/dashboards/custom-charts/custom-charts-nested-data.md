@@ -18,7 +18,7 @@ To build a custom chart, you need to bridge two things:
 - **What data you already have**: This is the structure of your ingested data, which is usually flat.
 - **What the chart expects**: Each chart type needs data in a specific format. Some charts expect flat data, while others require nested data.
 
-> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md/#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md/#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart.
+> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md/#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md/#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart. 
 
 ## Step 1: Understand the Ingested Data
 OpenObserve stores ingested data in a flat structure.  
