@@ -201,4 +201,4 @@ option.series[0].name = 'Errors';
 
 - [Custom Charts: Flat Data](custom-charts-flat-data.md)  
 - [Custom Charts: Nested Data](custom-charts-nested-data.md)  
-- [Custom Charts: Event Handlers and Reusable Function (CustomFn)](custom-charts-event-handlers-and-custom-functions.md) 
+- [Custom Charts: Event Handlers and Reusable Function (CustomFn)](custom-charts-event-handlers-and-custom-functions.md)  
