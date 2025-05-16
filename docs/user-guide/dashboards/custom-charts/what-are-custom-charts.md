@@ -43,6 +43,7 @@ Creating a custom chart involves these high-level steps:
   - Write a SQL query to prepare the required fields. The result is stored in `data[0]`.
   - (Optional) Use JavaScript to reshape `data[0]` if the chart expects a nested structure.
   - Use `data[0]` or the reshaped data to define the `option` object that renders the chart.
+  
 6. **Preview**: Preview the chart and adjust your SQL or JavaScript as needed.
 
 > **Note**: Using custom charts, you can create and configure any chart supported by [ECharts](https://echarts.apache.org/examples/en/).  
