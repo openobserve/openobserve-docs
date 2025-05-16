@@ -4,7 +4,17 @@ The following step-by-step instructions can help you build a [custom chart that 
 
 Build a custom **heatmap chart** to understand which organization and search type combinations generate the most query load.
 
-## Step 1: Understand the Dataset
+
+## Before You Begin
+
+To build a custom chart, you need to bridge two things:
+
+- **What data you already have**: This is the structure of your ingested data, which is usually flat.
+- **What the chart expects**: Each chart type needs data in a specific format. Some charts expect flat data, while others require nested data.
+
+> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md/#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md/#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart.
+
+## Step 1: Understand the Ingested Dataset
 
 In OpenObserve, the data ingested into a stream is typically in a flat structure.   
 **Example:** In the following dataset, each row represents a single event or query log with its own timestamp, organization ID, search type, and query duration.
@@ -34,7 +44,7 @@ In this example, each row in [data[0]](what-are-custom-charts.md/#the-data-objec
 - `search_type` (example: "logs")  
 - A numeric value (`total_seconds`) representing total query time.
 
-**Note**: For charts that expect flat data, [reshaping is not needed](what-are-custom-charts.md/#prepare-and-reshape-data). SQL alone is enough to prepare the data in required format.
+**Note**: For charts that expect flat data, [reshaping is not needed](what-are-custom-charts.md/#build-the-chart). SQL alone is enough to prepare the data in required format.
 
 ## Step 3: Prepare the Data (via SQL)
 
@@ -82,7 +92,7 @@ data=[[
 ]]
 ```
 
-**Note**: OpenObserve stores the result of the query in the `data` object as an array of an array.
+**Note**: OpenObserve stores the result of the query in [the `data` object](what-are-custom-charts.md/#the-data-object) as an **array of an array**.
 
 ## Step 4: Inspect the Queried Dataset
 
@@ -95,7 +105,10 @@ console.log(data[0]);
 
 ## Step 5: JavaScript Code to Render the Heatmap
 
-Use the JavaScript editor to write a script that:
+In the JavaScript editor, you must construct an [object named `option`](what-are-custom-charts.md/#the-option-object). 
+This `option` object defines how the chart looks and behaves. To feed data into the chart, use the query result stored in `data[0]` 
+
+The following script:
 
 - Extracts all unique orgs and search types  
 - Creates a [x, y, value] format for each cell  

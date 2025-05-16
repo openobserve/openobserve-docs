@@ -1,6 +1,6 @@
 The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md/#how-to-check-the-data-structure-a-chart-expects). 
 
-This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md/#prepare-and-reshape-data). 
+This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md/#build-the-chart). 
 
 ## Use Case
 Build a custom **Sunburst chart** to visualize how **query execution time** is distributed across different **organizations** and **search types**.
@@ -9,6 +9,16 @@ The goal is to understand:
 - Which organization generates the most query load  
 - How that load is split across dashboards, logs, and alerts  
 - Whether certain usage patterns need optimization or resource allocation
+
+
+## Before You Begin
+
+To build a custom chart, you need to bridge two things:
+
+- **What data you already have**: This is the structure of your ingested data, which is usually flat.
+- **What the chart expects**: Each chart type needs data in a specific format. Some charts expect flat data, while others require nested data.
+
+> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md/#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md/#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart.
 
 ## Step 1: Understand the Ingested Data
 OpenObserve stores ingested data in a flat structure.  
@@ -151,7 +161,7 @@ Note: In the `option` object, use the reshaped `treeData` array as the data fiel
 
 ## Step 6: Render the Chart
 
-Construct the [`option` object](what-are-custom-charts.md/#the-option-object) in the JavaScript code to define the reshaped dataset and configure how the chart should appear.
+Construct the [`option` object](what-are-custom-charts.md/#the-option-object) in the JavaScript code to define the reshaped dataset and configure how the chart should appear. 
 
 ```linenums="17"
 option = {

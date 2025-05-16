@@ -1,6 +1,16 @@
 Custom charts in OpenObserve let you create visualizations by using SQL to query the data and JavaScript to define how the chart appears. 
 Custom charts are useful when other built-in chart types do not meet your needs.
 
+This guide introduces the fundamentals of Custom Charts in OpenObserve, including how to access custom charts in the UI, how to choose the right chart type, and prepare and reshape data based on chart requirements.
+
+**Note**: This guide is for users comfortable writing SQL and JavaScript who want full control over how their charts appear.
+
+> If you are already familiar with how Custom Charts work and are looking for use case examples, see the following guides:
+>
+> - [Custom Charts: Flat Data](custom-charts-flat-data.md)  
+> - [Custom Charts: Nested Data](custom-charts-nested-data.md)  
+> - [Custom Charts: Event Handlers and Reusable Function (CustomFn)](custom-charts-event-handlers-and-custom-functions.md) 
+
 ## How to Access Custom Charts
 
 1. Go to **Dashboards** from the left-hand navigation menu.  
@@ -17,44 +27,90 @@ Custom charts are useful when other built-in chart types do not meet your needs.
 
 After selecting **Custom Chart**, the screen displays: 
 
-1. A SQL editor  
-2. A JavaScript editor  
-3. A chart preview panel
+1. A SQL editor to write your query
+2. A JavaScript editor to define how the chart should be displayed
+3. A chart preview panel to preview the output
 
-Use these options to write your query, define how the chart should be displayed, and preview the output.
 
-## What Data Do We Have
+## How Does Custom Charts Work
 
-OpenObserve stores ingested data in a flat structure.   
-Use the **Logs** page to view the ingested data for a selected time range. 
+Creating a custom chart involves these high-level steps:
 
-## What Data Does the Chart Expect
+1. **Choose the Chart**: Choose the right chart type and check whether it expects flat or nested data.
+2. **Know Your Data**: Identify the stream and understand the structure of the data you have ingested.
+3. **Build the Chart**:
 
-Using custom charts, you can create and configure any chart supported by [ECharts](https://echarts.apache.org/examples/en/).  
-Each chart type expects data in a specific structure and format.  
-Depending on the chart, you may need to prepare the data to ensure the correct data types, and reshape it to match the structure the chart requires.
+  - Write a SQL query to prepare the required fields. The result is stored in `data[0]`.
+  - (Optional) Use JavaScript to reshape `data[0]` if the chart expects a nested structure.
+  - Use `data[0]` or the reshaped data to define the `option` object that renders the chart.
+6. **Preview**: Preview the chart and adjust your SQL or JavaScript as needed.
 
-### How to Check the Data Structure a Chart Expects
+> **Note**: Using custom charts, you can create and configure any chart supported by [ECharts](https://echarts.apache.org/examples/en/).  
 
-To identify the data structure expected by a chart: 
 
-1. Go to [https://echarts.apache.org/en/option.html#series](https://echarts.apache.org/en/option.html#series).  
-2. Find your chart’s series type.  
-   Example: `series-line`, `series-bar`, `series-sunburst`, `series-tree`, `series-graph`, etc.  
-3. Click the chart type.  
-4. Navigate to the `data` field under that series type and observe the following: 
+## Choose the Chart
 
-    - **Flat Data:** If it is a flat array of values or objects (data: [1, 2, 3] or [{name, value}]).   
-    - **Nested Data:** If it has children: [...] inside data items. 
+Use the following table to choose an appropriate chart for your use case and note the data structure expected by the chart: 
 
-## Prepare and Reshape Data
+=== "Charts That Expect Flat Data"
 
-After you identify whether the chart expects flat or nested data, you can determine how to prepare and reshape your data.
+    | Chart Type         | Usage                                                                 | Data Structure Expected                                |
+    |--------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------|
+    | **Bar Chart**          | Count and compare things like number of errors per service                         | `{"service": "auth", "count": 30}`                  |
+    | **Stacked Bar Chart**  | Break down each bar by another field, like error types within services             | `{"service": "auth", "type": "500", "count": 20}`   |
+    | **Line Chart**         | Track how something changes over time, like CPU usage or latency                   | `{"timestamp": "10:00", "value": 75}`               |
+    | **Multi-Line Chart**   | Compare time trends across multiple sources, like CPU usage by server              | `{"timestamp": "10:00", "server": "A", "value": 75}`|
+    | **Area Chart**         | Visualize total usage or growth over time                                          | Same format as Line Chart                           |
+    | **Stacked Area Chart** | Show cumulative trends grouped by source, like traffic by region                   | Same format as Multi-Line Chart                     |
+    | **Pie Chart**          | Show the share of each category, like how logs are split by type                   | `{"type": "INFO", "count": 120}`                    |
+    | **Funnel Chart**       | Visualize drop-offs through steps, like how many logs reached each stage           | `{"step": "filtered", "count": 8000}`               |
+    | **Gauge Chart**        | Display one key value in real time, like current queue length or uptime            | `{"value": 98.5}`                                   |
+    | **Heatmap**            | Spot hotspots by comparing values across two fields, like errors per host per hour | `{"host": "A", "hour": "10AM", "errors": 12}`       |
+    | **Histogram**          | Group values into ranges to see distribution, like response times in buckets       | `{"bucket": "0–100ms", "count": 150}`               |
+    | **Box Plot**           | Understand value spread and outliers, like latency ranges per API                  | `{"api": "/login", "values": [10, 25, 60, 100]}`    |
+    | **Timeline Chart**     | Show when events started and ended, like deployments or outages                    | `{"start": "10:00", "end": "10:15", "label": "deployment"}` |
+    | **Waterfall Chart**    | Break down total time into phases, like each stage of a request                    | `{"step": "SQL", "duration": 40}`                   |
+    | **Radar Chart**        | Score and compare multiple aspects of something, like API performance              | `{"api": "getUser", "latency": 30, "cpu": 40, "errors": 2}` |
+    | **Scatter Plot**       | Spot relationships between two metrics, like payload size vs. response time        | `{"x": 3000, "y": 150}`                              |
+    | **Step Line Chart**    | Show when something changed, like a feature flag turning on/off                    | `{"timestamp": "10:00", "state": "on"}`             |
+    | **Table**              | Show raw results in a tabular format, like the top 10 slowest queries              | List of records like `{"query": "...", "duration": 1200}` |
 
-- **Preparation** is done using SQL. It includes filtering, aggregating, and converting values (e.g., durations to seconds). The output gets stored into the [data object](#heading=h.v1k313w3r22s).  
-- **Reshaping** is done using JavaScript. It is needed only when the chart expects nested structure (e.g., parent–child). Use JavaScript to convert flat records in the `data` object into the nested data format required by the chart. For charts that expect flat data, no reshaping is needed. 
 
-## The `data` Object 
+=== "Charts That Expect Nested Data"
+
+    | Chart Type           | Usage                                                                 | Data Structure Expected                                      |
+    |----------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------|
+    | **Sunburst Chart**       | Explore categories within categories, like org → service → error type              | `{"name": "org", "children": [...]}`                      |
+    | **Treemap**              | Compare sizes inside nested groups, like log size by team and service              | Nested structure with `value` at each level               |
+    | **Flame Chart**          | Visualize execution steps with duration, like function or trace spans              | Nested objects with `name`, `start`, `end`, `value`, `children` |
+    | **Nested Pie Chart**     | Show a main category split into subcategories, like env → service → log type       | Nested `children` with `name` and `value`                 |
+    | **Icicle Chart**         | Show categories in a top-down layout, like service → module → function             | Same as sunburst but vertically arranged                  |
+    | **Partition Chart**      | Show side-by-side hierarchy splits, like service trees                             | Same nested format                                        |
+    | **Organization Chart**   | Show ownership or team structures in a hierarchy                                   | Nested `children` structure with `label` fields           |
+    | **Collapsible Tree**     | Let users expand/collapse nested items, like trace paths or nested logs            | Nested structure, same as flame chart                     | 
+
+## Know Your Data
+
+Before you build a custom chart, you need to know:
+
+- **What data you already have**: This is the structure of your ingested data, which is usually flat.
+- **What the chart expects**: Each chart type needs data in a specific format. Some charts expect flat data, while others require nested data.
+
+> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](#prepare-and-reshape-data) the data through grouping or aggregation, [reshape](#prepare-and-reshape-data) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart.
+
+## Build the Chart
+
+The chart building stage involves the following steps: 
+
+1. **Fetch and prepare your data using SQL**: Data fetching and preparation is done using SQL. It includes filtering, aggregating, and converting values (e.g., durations to seconds). The output gets stored into the [data object](#the-data-object).  
+2. **Reshape the data (if needed) using JavaScript**: If the chart expects a nested structure, convert data[0] into a new variable (e.g., treeData). For charts that expect flat data, no reshaping is needed. 
+3. **Use the `data` object or the reshaped variable in your chart config**: Flat charts can use data[0] directly; nested charts require the reshaped data.
+4. **Pass the final dataset to the [`option` object](#the-option-object)**: Use the selected data source to configure how the chart appears and behaves.
+
+
+## Key Concepts
+
+### The `data` Object 
 
 OpenObserve stores the query result in a global object called ``` data` ``. This is always an **array of an array**:
 
@@ -68,12 +124,15 @@ data =
 - `data[0]` contains the result set of your query which is an array of rows.  
 - Each item in `data[0]` is an object representing a single row.
 
-## The `option` Object
+### The `option` Object
 
 In the JavaScript editor, you must construct an object named `option`. 
-This `option` object defines how the chart looks and behaves. 
 
-Use your query results (`data[0]`) to populate fields in the `option` object. All chart settings, such as `axes`, `series`, `titles`, `tooltips`, etc., must be defined in this `option` object. 
+Key Points: 
+
+- This `option` object defines how the chart looks and behaves. 
+- To feed data into the chart, use the query result stored in `data[0]`. `data[0]` is an array of records returned from your SQL query. 
+- Use `data[0]` to build the series, `xAxis`, `yAxis`, and other chart parts inside the `option` object.
 
 #### Components of the `option` Object
 
@@ -136,17 +195,6 @@ option.series[0].data = data[0].map(row => row.count);
 option.series[0].name = 'Errors';
 
 ```
-
-## How Does Custom Charts Work
-
-Creating a custom chart involves the following steps:
-
-1. Check what structure and data types the chart expects.  
-2. Select the stream to query.  
-3. Write a SQL query to prepare the data.  
-4. Reshape the result using JavaScript if needed.  
-5. Define the chart using the option object.  
-6. Apply changes to preview the chart.
 
 ## Next Steps
 
