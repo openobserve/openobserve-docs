@@ -36,11 +36,11 @@ After selecting **Custom Chart**, the screen displays:
 
 Creating a custom chart involves these high-level steps:
 
-1. **Choose the Chart**: Choose the right chart type and check whether it expects flat or nested data.
-2. **Know Your Data**: Identify the stream and understand the structure of the data you have ingested.
-3. **Build the Chart**:
+1. [**Choose the Chart**](#choose-the-chart): Choose the right chart type and check whether it expects flat or nested data. 
+2. [**Know Your Data**](#know-your-data): Choose the stream that contains the data you want to visualize. Review the structure of the ingested data. Knowing what fields are available and how they are organized will help you write your query.
+3. [**Build the Chart**](#build-the-chart):
 
-    - Write a SQL query to prepare the required fields. The result is stored in `data[0]`.
+    - Write a SQL query to fetch data from the selected stream and prepare the required fields. The result is stored in `data[0]`.
     - (Optional) Use JavaScript to reshape `data[0]` if the chart expects a nested structure.
     - Use `data[0]` or the reshaped data to define the `option` object that renders the chart.
 

@@ -2,4 +2,5 @@ nav:
     - What Are Custom Charts: what-are-custom-charts.md
     - Custom Charts with Flat Data: custom-charts-flat-data.md
     - Custom Charts with Nested Data: custom-charts-nested-data.md
+    - Event Handlers and Custom Functions: custom-charts-event-handlers-and-custom-functions.md
     
