@@ -1,4 +1,4 @@
-This guide shows how to make your [custom charts](what-are-custom-charts.md) interactive using event handlers and reusable custom functions (CustomFn).
+This guide shows how to make your [custom charts](what-are-custom-charts.md) interactive using event handlers and reusable custom functions (customFn).
 
 ## What Are Event Handlers 
 
@@ -6,21 +6,21 @@ Event handlers let you define what happens when a user interacts with the chart,
 
 Common event handlers: 
 
-- **`click`**: Clicking a chart element  
-- **`mousemove`**: Hovering over a data point  
-- **`legendchanged`**: Selecting or unselecting a legend item
+- `click`: Clicking a chart element  
+- `mousemove`: Hovering over a data point  
+- `legendchanged`: Selecting or unselecting a legend item
 
 Before you begin, note the following: 
 
-- Charts in OpenObserve use an `option` object.  
-- You define which event such as `click` you want to listen to using the `o2_events` block.  
-- You connect the event to a **function** that will run when the event happens.
+- Charts in OpenObserve use an [`option` object](what-are-custom-charts.md/#the-option-object).  
+- Use the `o2_events` block to specify the event type, such as `click`.  
+- Associate the event with a function that will run when the event occurs.
 
 ## How to Create Event Handlers
 
 ### Step 1: Create a basic chart with labels and values
 
-```javascript
+```linenums="1"
 
 option = {  
   xAxis: { type: "category", data: ["A", "B", "C"] },  
@@ -33,11 +33,11 @@ option = {
 ```  
 At this point, clicking on the chart does nothing. 
 
-### Step 2: Add the `o2_events` block to the chart  
+### Step 2: Add the `o2_events` block to the chart logic
 This tells the chart what kind of user action (event) you want to respond to.  
-Here, we want to respond to a `click`.
+Here, we want to respond to a `click` event:
 
-```javascript
+```linenums="1"
 
 option = {  
   xAxis: { type: "category", data: ["A", "B", "C"] },  
@@ -48,12 +48,12 @@ option = {
   }  
 };  
 ```  
-To make the above code snippet to work, you need to define the `handleClick` function.
+To make the above code snippet work, you need to define the `handleClick` function.
 
 ### Step 3: Write the event handler function  
 This function runs every time the user clicks a bar.
 
-```  
+```linenums="9"  
 function handleClick(params, chart) {  
   console.log("You clicked:", params.name, params.value);  
 }  
@@ -62,22 +62,25 @@ function handleClick(params, chart) {
 #### What is `params`?  
 `params` contains information about the thing the user clicked, such as: 
 
-* `name`: The label of the bar such as A  
-* `value`: The number shown on the bar such as 10
+* `name`: The label of the bar (for example, A)  
+* `value`: The number shown on the bar (for example, 10)
 
 #### What is `chart`?  
-This is a reference to the whole chart. You can use it to access other parts of the chart configuration such as to call functions you defined under [custom functions](). 
+This is a reference to the whole chart. You can use it to access other parts of the chart configuration such as to call [custom functions](#what-are-custom-functions). 
 
-### Step 4: Apply and Test  
+### Step 4: Apply and test  
 Click **Apply** in the OpenObserve custom chart editor.  
 Then click on a bar and check the browser console.   
 You should see something like:   
 ```  
 You clicked: A 10  
 ```  
+![custom-charts-event-handlers](../../../images/custom-charts-event-handlers.png)
+
 ### Step 5 (optional): Add more events  
 Further, you can add more event handlers such as `mousemove`, `legendchanged` like this:  
-```  
+
+```linenums="1"  
 o2_events: {  
   click: handleClick,  
   mousemove: handleHover  
@@ -104,7 +107,7 @@ You can write that logic as a custom function and call that function from the `c
 
 ### Step 1: Add a `customFn` block inside your chart’s `option` object
 
-```javascript
+```linenums="1"
 
 option = {  
   xAxis: { type: "category", data: ["A", "B", "C"] },  
@@ -119,13 +122,12 @@ option = {
 };
 
 ```  
-> ***Note:** `formatMessage` is the name of your reusable function.
+> ***Note**: `formatMessage` is the name of your reusable function.
 
 ### Step 2: Write the custom function  
 This function takes a label and value, and returns a readable message.
 
-```javascript
-
+```linenums="12"
 function formatMessage(label, value) {  
   return `You selected ${label} with value ${value}`;  
 }  
@@ -135,7 +137,7 @@ function formatMessage(label, value) {
 ### Step 3: Update the event handler to use `customFn`  
 Update your `click` handler to call this reusable function:
 
-```javascript  
+```linenums="15"
 function handleClick(params, chart) {  
   const label = params.name;  
   const value = params.value;
@@ -158,23 +160,24 @@ Then click a bar in the chart.
 The browser console will show:
 
 ```  
-You selected B with value 20  
+You selected A with value 10  
 ```
+![custom-charts-custom-function](../../../images/custom-charts-custom-function.png)
+
 
 ## Troubleshooting
 
-Chart does not respond to clicks
+- When the chart does not respond to clicks:
 
-- Ensure `o2_events` is defined in the `option` object.  
-- Confirm the handler function such as handleClick is defined correctly.
+    - Ensure `o2_events` is defined in the `option` object.  
+    - Confirm the handler function such as handleClick is defined correctly.
+- When `customFn is not a function` error
 
-`customFn is not a function` error
+    - Ensure the function is defined outside the `option` object.  
+    - The name in `customFn` must match the actual function name. 
 
-- Ensure the function is defined outside the `option` object.  
-- The name in `customFn` must match the actual function name. 
+- Only one event works when multiple are defined
 
-Only one event works when multiple are defined
-
-- Verify each event uses a uniquely named handler.  
-- Ensure all handlers are declared before the chart is rendered. 
+    - Verify each event uses a uniquely named handler.  
+    - Ensure all handlers are declared before the chart is rendered. 
 

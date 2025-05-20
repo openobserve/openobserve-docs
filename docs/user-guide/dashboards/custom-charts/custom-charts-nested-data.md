@@ -11,7 +11,8 @@ The goal is to understand:
 - Whether certain usage patterns need optimization or resource allocation
 
 
-## Before You Begin
+## Step 1: Choose the Chart
+
 
 To build a custom chart, you need to bridge two things:
 
