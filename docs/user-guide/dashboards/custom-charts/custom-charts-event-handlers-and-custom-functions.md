@@ -1,6 +1,4 @@
-This guide shows how to make your custom charts interactive using event handlers and reusable custom functions (CustomFn).
-
-[Custom charts](what-are-custom-charts.md) in OpenObserve can be made interactive using JavaScript-based event handlers. Additionally, you can define reusable functions for consistent logic across your custom chart. 
+This guide shows how to make your [custom charts](what-are-custom-charts.md) interactive using event handlers and reusable custom functions (CustomFn).
 
 ## What Are Event Handlers 
 
