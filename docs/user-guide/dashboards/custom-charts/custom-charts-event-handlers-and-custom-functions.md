@@ -122,7 +122,7 @@ option = {
 };
 
 ```  
-> ***Note**: `formatMessage` is the name of your reusable function.
+> **Note**: `formatMessage` is the name of your reusable function.
 
 ### Step 2: Write the custom function  
 This function takes a label and value, and returns a readable message.
