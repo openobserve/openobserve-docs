@@ -34,7 +34,7 @@ By default, only root users can access the Quotas settings from the `_meta` orga
 
 ![Quotas Grant Access](../../images/quotas-grant-access-using-rbac.png)
 
-## How to Configure Quotas using Environment Variables
+## How to Configure Quotas Using Environment Variables
 
 ### Prerequisites
 

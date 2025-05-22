@@ -8,12 +8,12 @@ A group of such nodes working together is called a cluster. Clusters allow OpenO
 This guide explains how to monitor the health and performance of each node in your OpenObserve deployment.
 
 ### Availability
-The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster
+The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
 
 ### Access
 In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
 
-By default, only root users have access to this page. To grant access to other roles, use [Role-Based Access Control (RBAC)](https://openobserve.ai/docs/user-guide/identity-and-access-management/enable-rbac-in-openobserve-enterprise/) to assign the necessary permissions.
+By default, only root users have access to this page. 
 
 **For Single-Cluster Setup**<br> 
 ![nodes-single-cluster](../../images/nodes-single-cluster.png)
@@ -45,7 +45,7 @@ Each node displays the following metrics in a tabular format with progress bars 
     - **Time Wait (T):** Shows recently closed connections waiting to expire.  
     - **Total:** The total may include other states not listed, such as LISTEN, SYN_SENT, SYN_RECV, etc.  
     **Example:** 86 (E:43, C:11, T:29) means: 43 are Established, 11 are in Close Wait, and 29 are in Time Wait state. Total 86 TCP connections on the node.  
-    
+
 - **Status**: Shows the current status of each node using color indicators:  
   
     - **Offline** (Red): Node has missed heartbeats and is considered down. Access the Kubernetes cluster or the AWS environment (wherever the system is hosted) and troubleshoot or fix the issue directly from there.
