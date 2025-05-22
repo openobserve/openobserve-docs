@@ -36,7 +36,6 @@ The **Running Queries** table displays the following fields:
 - **Total Exec. Duration**: Combined time spent executing all active queries.  
 - **Total Query Range**: Total log duration the queries are scanning.  
 - **Actions**: Cancel queries initiated by a user.
-
 ![Running Queries](../../images/query-management-running-queries.png)
 
 The **All Queries** table displays the following fields: 
@@ -65,7 +64,7 @@ The **All Queries** table displays the following fields:
     - **Dashboards**: Queries coming from Dashboards.  
     - **UI**: Queries run manually by users from the Logs interface.  
     - **Others**: Queries triggered by Alerts or Reports.
-
+<br>
 ![Filter and Search in Running Queries](../../images/query-management-filter-search.png)
 
 - **Refresh Query Button**: Click to reload the page with the latest query data. Refer to the **Last Data Refresh Time** section to confirm whether the query results are up to date before refreshing.
