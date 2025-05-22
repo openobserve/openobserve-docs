@@ -171,12 +171,13 @@ You selected A with value 10
 
     - Ensure `o2_events` is defined in the `option` object.  
     - Confirm the handler function such as handleClick is defined correctly.
-- When `customFn is not a function` error
+
+- When `customFn is not a function` error occurs:
 
     - Ensure the function is defined outside the `option` object.  
     - The name in `customFn` must match the actual function name. 
 
-- Only one event works when multiple are defined
+- When only one event works when multiple are defined:
 
     - Verify each event uses a uniquely named handler.  
     - Ensure all handlers are declared before the chart is rendered. 
