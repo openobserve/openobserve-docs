@@ -4,10 +4,11 @@ This guide explains what Quotas are, how to configure them, how to navigate the 
 
 Quotas in OpenObserve are rate limiting mechanisms that let you control how many API requests users can make per second. 
 
-You can use Quotas to define request-per-second (Req/s) limits for API operations such as **List**, **Get**, **Create**, **Update**, and **Delete**. These limits can be applied in two ways: 
+You can use Quotas to define request-per-second (Req/s) limits for API operations such as **List**, **Get**, **Create**, **Update**, and **Delete**. 
+These limits can be applied in two ways: 
 
-- **Per API module** at the organization level   
-- **Per role** within an organization
+- At org-level: Limit how many requests all users in an organization can make to a specific API, such as Logs or Alerts.
+- At role-level: Limit how many requests all users in a specific role can make to an API.
 
 > **Note**: If a user exceeds the defined quota, OpenObserve returns a `RateLimitExceeded` error.
 
@@ -76,9 +77,7 @@ The Quotas page provides a tabbed interface with two views:
 
 ### API Limits
 
-Apply API-level quotas across a selected organization for all user roles. 
-
-Limits set here apply to all users within that organization for each API module. 
+Use this to set **org-level** quotas for a specific API module. The limit applies to **all users in the selected organization**, regardless of their role.
 
 You can also apply rules globally by selecting the **global rules** option under the organization selector dropdown. This applies the limit across all organizations and their respective user roles.
 
@@ -86,7 +85,7 @@ You can also apply rules globally by selecting the **global rules** option under
 
 ### Role Limits
 
-Apply role-level quotas for specific API modules within a selected organization. This allows granular control, where each role can have different limits for the same module.
+Use this to set **role-level** quotas for specific API modules within an organization. This allows more granular control by assigning **different limits** to each role for the same API module.
 
 ![Quotas Role Limits](../../images/quotas-role-limits-view.png)
 
@@ -192,5 +191,6 @@ There is no standard recommendation for setting the minimum quota for the Search
 
 To define an effective quota, consider testing the partition behavior for your typical query patterns using the method above.
 
-
+## Next Step
+Learn [how quotas work](how-quotas-work.md).
 

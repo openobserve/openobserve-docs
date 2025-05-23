@@ -43,6 +43,15 @@ Before you create a Scheduled Action, ensure the following are in place:
     os.environ.get("ORIGIN_CLUSTER_URL")
     os.environ.get("ORIGIN_CLUSTER_TOKEN")
     ```
+    Note that you must use the base64 encoded version of the cluster token.   
+    > **Where to Get the Base64 Token**
+    > <br>
+    > To find the base64-encoded version of `username:password`:
+    >
+    >1. From the left navigation menu, select **Data Sources**.
+    >2. Go to **Custom** > **OTEL Collector**.
+    >3. Locate the section for `Authorization: Basic <token>`
+    >The value after `Basic` is your **base64 token**.
 
     However, other variables (like `OPENOBSERVE_ORG`, `OPENOBSERVE_STREAM`) are not provided by default.  
     If the script needs them, you can define them in the script or in the **Environment Variables** section when creating or editing an Action.
@@ -69,7 +78,7 @@ class OpenObserveClient:
     def __init__(self):
         # Get values from environment variables with defaults
         self.base_url = os.environ.get("ORIGIN_CLUSTER_URL", "http://localhost:5080")
-        self.token = os.environ.get("ORIGIN_CLUSTER_TOKEN", "openobserve:openobserve")
+        self.token = os.environ.get("ORIGIN_CLUSTER_TOKEN", "dXNlcm5hbWU6cGFzc3dvcmQ=") # Here, "dXNlcm5hbWU6cGFzc3dvcmQ=" is the base64-encoded version of "username:password". See the "Where to Get the Base64 Token" section above.
         self.org = os.environ.get("OPENOBSERVE_ORG")
         self.stream = os.environ.get("OPENOBSERVE_STREAM") 
 

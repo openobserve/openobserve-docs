@@ -1,4 +1,4 @@
-The **Query Management page** provides **real-time visibility and control** over all currently running queries across dashboards, alerts, logs, and reports within an OpenObserve instance. Using the **Query Management page**, you can decide whether to cancel a query or leave it running. 
+The **Query Management** page provides **real-time visibility and control** over all currently running queries across dashboards, alerts, logs, and reports within an OpenObserve instance. Using the **Query Management page**, you can decide whether to cancel a query or leave it running. 
 
 ## Availability
 
@@ -6,7 +6,7 @@ The Query Management feature is available only in high-availability (HA) deploym
 
 ## Access
 
-By default root users can access the **Query Management** page from the `_meta` organization. 
+By default, `root` users and `Admins` with access to the `_meta` organization can access the Query Management page. RBAC cannot grant access to other custom roles. 
 
 **To access the Query Management page:**
 
