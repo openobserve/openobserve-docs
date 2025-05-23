@@ -6,7 +6,7 @@ The Query Management feature is available only in high-availability (HA) deploym
 
 ## Access
 
-By default, `root` users and any predefined user roles (`Admin`,`Editor`,`Viewer`, or `User`) with access to the `_meta` organization can access the Query Management page. RBAC cannot grant access to other custom roles. 
+By default, `root` users and any predefined user roles (`Admin`,`Editor`,`Viewer`, or `User`) with access to the `_meta` organization can access the **Query Management** page. RBAC cannot grant access to other custom roles. 
 
 **To access the Query Management page:**
 

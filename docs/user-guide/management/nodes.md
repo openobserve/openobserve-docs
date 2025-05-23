@@ -13,7 +13,7 @@ The **Nodes** page is available only when OpenObserve is running in a clustered 
 ### Access
 In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
 
-By default, `root` users and `Admins` with access to the `_meta` organization can access the Nodes page. RBAC cannot grant access to other user roles. 
+By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
 
 **For Single-Cluster Setup**<br> 
 ![nodes-single-cluster](../../images/nodes-single-cluster.png)
