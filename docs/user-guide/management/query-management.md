@@ -11,8 +11,7 @@ By default, `root` users and `Admins` with access to the `_meta` organization ca
 **To access the Query Management page:**
 
 1. Select `_meta` organization from the top right corner.   
-2. Go to Management. 
-![View Management](../../images/query-management-access.png)  
+2. Go to **Management**. 
 3. In the side panel, select **Query Management**.   
    You will be taken to the **Running Queries** section.
 ![Running Queries](../../images/query-management-running-queries.png)
