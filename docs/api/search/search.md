@@ -104,7 +104,6 @@ Something need highlighted:
 
 ## Limitation
 
-- For now, we don't support `union`, `join` in SQL, we supported only one table for query.
 - You should give a time range for each query or it will scan all data, it is a very expensive operate.
 
 
