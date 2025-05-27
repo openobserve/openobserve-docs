@@ -51,8 +51,6 @@ For input data with key as `_timestamp`/`@timestamp`, for the value we support t
 
 ### Full text search
 
-For full text search user can use query in-built query functions like `match_all_raw`, `match_all_raw_ignore_case`, please note user can restrict full text search to specific fields/columns in log stream by selecting fields/columns from stream in stream details screen.
+For full text search user can use query in-built query functions `match_all`, please note user can restrict full text search to specific fields/columns in log stream by selecting fields/columns from stream in stream details screen.
 
-### Inverted index search
-
-Similar to full text search, user can enabled inverted index feature and select appropriate fields to be indexed during ingestion. For such fields, user can query function `match_all` for case-insensitive search for all the fields that have Inverted Index set as the `Full text search`.
+If user enabled `Inverted Index`, this function will auto use `Inverted Index` for `Full text search`.

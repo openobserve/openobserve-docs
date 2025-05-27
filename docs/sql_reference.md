@@ -17,15 +17,7 @@ then you can specify Index Type for one or multiple fields (e.g. `body`, `messag
 
 > We have default fields: `log`, `message`, `msg`, `content`, `data`, `json`. you can set the full text search fields in the UI or through `index.setting` API.
 
-_Please note: `match_all` searches through the inverted indexed terms, which are all indexed in lowercase internally. Therefore, search keywords for `match_all` are case-insensitive. For case-sensitive searches, please use `match_all_raw` and `match_all_raw_ignore_case` described below accordingly._
-
-### match_all_raw('v')
-
-filter the keyword in multiple fields. Unlike `match_all`, `match_all_raw` does not utilize `Inverted Index`, instead searches through entire original data. This function is case-sensitive.
-
-### match_all_raw_ignore_case('v')
-
-same as `match_all_raw` but with case-insensitive.
+_Please note: `match_all` searches through the inverted indexed terms, which are all indexed in lowercase internally. Therefore, search keywords for `match_all` are case-insensitive._
 
 ### re_match(field, 'pattern')
 
