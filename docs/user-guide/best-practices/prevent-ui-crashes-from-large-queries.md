@@ -1,11 +1,16 @@
-OpenObserve does not restrict the number of records returned or the length of the time range in a query. 
+OpenObserve does not restrict the number of records returned or the length of the time range in a query. You can query a few minutes or a longer time range, depending on your data retention settings (by default, 1 year, may vary by configuration).
 
-You can query a few minutes or a longer time range, based on your data retention settings. The default retention is 1 year, but this may vary by configuration.
+!!! warning
+    Queries that return a **large number of records** or **generate a large payload** can overload the browser. This may cause the UI to crash, particularly on the **Log Search** page or in **Dashboard panels**.
 
-However, queries that return a large number of results, especially those with small time intervals, breakdown fields, or large text fields, can overload the browser. 
-This may cause the UI to become unresponsive or crash, particularly on the **Logs** page or in **Dashboard Panels**.
+This typically happens when:
 
-Two scenarios where this risk is significant:
+- A small interval is used over a long time range, resulting in too many rows.
+- Large text fields, such as `log.body`, are included, increasing payload size.
+
+
+ 
+Use the guidance below to understand these risks and avoid them when building queries and dashboards.
 
 ## 1. Long Range Queries with Small Intervals 
 
@@ -29,18 +34,21 @@ ORDER BY log_time_interval ASC
 
 The above query returns the number of logs collected every 5 minutes. When run over a 7-day period, it generates more than 2,000 time buckets, each representing a row that the browser must load and render. This volume of data can cause the UI to become unresponsive or crash.
 
-> **Note:** <br>
->**In Dashboard Panels- Breakdown Fields Multiply the Problem**<br>
->In dashboard panels, if you add a breakdown to the query (e.g., by `log.level`), it multiplies the number of rows. <br> For example,
->
->- You already have 2,000 time buckets  
->- `log.level` has 5 unique values: `INFO`, `ERROR`, `DEBUG`, `WARN`, `TRACE`
->
->The result becomes: 2,000 time buckets × 5 breakdown values = 10,000 rows
->
->That is 5X more data than without the breakdown. 
->
->All of it must be fetched, loaded, and rendered in your browser. It ends up crashing the UI. 
+
+!!! Note
+    **In Dashboard Panels- Breakdown Fields Multiply the Problem**
+
+    In dashboard panels, if you add a breakdown to the query (e.g., by `log.level`), it multiplies the number of rows. If the query is long range and has small time interval, adding breakdown to the Panels would further worsen the problem. 
+    <br> For example,
+
+    - You already have 2,000 time buckets  
+    - `log.level` has 5 unique values: `INFO`, `ERROR`, `DEBUG`, `WARN`, `TRACE`
+
+    The result becomes: 2,000 time buckets × 5 breakdown values = 10,000 rows
+
+    That is 5X more data than without the breakdown. 
+
+    All of it must be fetched, loaded, and rendered in your browser. It ends up crashing the UI. 
 
 ## 2. Tables that Include Large Text Fields 
 
