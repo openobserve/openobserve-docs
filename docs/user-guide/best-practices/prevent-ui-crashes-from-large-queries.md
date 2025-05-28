@@ -63,3 +63,7 @@ To keep the user interface responsive and avoid crashes, follow these recommenda
 - Avoid including large fields such as `log.body` in dashboard tables unless absolutely necessary.  
 - Preview the field before including it in a large table.  
 - Use shorter time ranges when you need to view logs with large messages.
+
+
+
+prevent-ui-crashes-from-large-queries
