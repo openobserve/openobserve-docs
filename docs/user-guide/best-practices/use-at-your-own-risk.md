@@ -1,10 +1,10 @@
 OpenObserve does not restrict the number of records returned or the length of the time range in a query. You can query a few minutes or several months of data. 
 However, queries that return a large number of results, especially those with small time intervals, breakdown fields, or large text fields, can overload the browser. 
-This may cause the UI to become unresponsive or crash, particularly on the **Logs** page or in **dashboard panels**.
+This may cause the UI to become unresponsive or crash, particularly on the **Logs** page or in **Dashboard Panels**.
 
 Two scenarios where this risk is significant:
 
-## 1. Long Duration Queries with Small Intervals 
+## 1. Long Range Queries with Small Intervals 
 
 > **Where this issue can occur**: Logs Search and Dashboards
 <br>
