@@ -6,7 +6,7 @@ Two scenarios where this risk is significant:
 
 ## 1. Long Range Queries with Small Intervals 
 
-> **Where this issue can occur**: Logs Search and Dashboards
+> **Where this issue can occur**: Log Search and Dashboards
 <br>
 
 When you run histogram queries using `histogram("timestamp", interval)`, the `interval` defines how the data is grouped over time. For example, an `interval` of `5m` groups logs into 5-minute buckets. The longer the time range and the smaller the interval, the more buckets the query will return.
