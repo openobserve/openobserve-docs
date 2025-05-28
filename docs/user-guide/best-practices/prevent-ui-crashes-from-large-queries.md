@@ -1,4 +1,7 @@
-OpenObserve does not restrict the number of records returned or the length of the time range in a query. You can query a few minutes or several months of data. 
+OpenObserve does not restrict the number of records returned or the length of the time range in a query. 
+
+You can query a few minutes or a longer time range, based on your data retention settings. The default retention is 1 year, but this may vary by configuration.
+
 However, queries that return a large number of results, especially those with small time intervals, breakdown fields, or large text fields, can overload the browser. 
 This may cause the UI to become unresponsive or crash, particularly on the **Logs** page or in **Dashboard Panels**.
 

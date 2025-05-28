@@ -87,6 +87,7 @@ repo_url: https://github.com/openobserve/openobserve
 repo_name: openobserve/openobserve
 edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
 markdown_extensions:
+  - admonition
   - tables
   - pymdownx.tabbed:
       alternate_style: true 
@@ -95,5 +96,6 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+
 
   
