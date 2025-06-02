@@ -2,7 +2,7 @@
 
 You can setup tracing for your Go application. Check sample configuration on how to setup traces.
 
-##Clone 
+## Clone 
 
 ```
 
@@ -80,13 +80,12 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 }
 
 ```
-##Setup up credentials 
+## Setup up credentials 
 
-You will get `url` and `Authorization` key here [http://cloud.openobserve.ai/ingestion/traces/](http://cloud.openobserve.ai/ingestion/traces/)
+- You will get `url` and `Authorization` key [here](cloud.openobserve.ai/web/ingestion/custom/traces/).
+- Replace the `url` and `Authorization` key in the `pkg/tel/otel_helper_http.go` file.
 
-Replace the `url` and `Authorization` key in the `pkg/tel/otel_helper_http.go` file
-
-##Setup Service/Application 
+## Setup Service/Application 
 Follow the steps given in the sample-tracing-golang readme and then start server
 ```
 go run .

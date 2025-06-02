@@ -25,7 +25,7 @@ The Download Manager is a background service that runs on each querier node. Its
     2. Store it in its local disk cache  
 
     !!! Note
-        This process is a form of proactive caching. The file is downloaded and cached before any user queries it, ensuring faster response times when recent data is searched.
+        This process is a form of **proactive caching**. The file is downloaded and cached before any user queries it, ensuring faster response times when recent data is searched.
 
 === "Search"
 
@@ -37,7 +37,7 @@ The Download Manager is a background service that runs on each querier node. Its
     2. Uses the Download Manager to fetch missing files  
 
     !!! Note
-        This is a reactive caching mechanism. The querier downloads only the files needed to fulfill the user’s search.
+        This is a **reactive caching mechanism**. The querier downloads only the files needed to fulfill the user’s search.
 
 ## Queue-Based Downloading
 

@@ -58,7 +58,7 @@ Here:
 
 #### Sample Downsampling Rules
 
-**Single Rule**
+##### Single Rule
 ```yaml
 O2_METRICS_DOWNSAMPLING_RULES: "o2_cpu_metrics:avg:30d:5m"
 ```
