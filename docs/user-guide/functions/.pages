@@ -1,3 +1,4 @@
 nav:
     - Functions: index.md
+    - Functions in OpenObserve: functions-in-openobserve.md
     - Enrichment: enrichment.md
