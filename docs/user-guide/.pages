@@ -16,5 +16,6 @@ nav:
     - Identity and Access Management (IAM): identity-and-access-management
     - Management: management
     - Profile: profile
+    - Performance: performance
     - Best Practices: best-practices
 
