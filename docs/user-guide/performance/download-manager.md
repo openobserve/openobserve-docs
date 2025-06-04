@@ -21,8 +21,8 @@ The Download Manager is a background service that runs on each querier node. Its
 
     The selected querier receives a broadcast event notifying it about the new file. It then uses the Download Manager to:
 
-    1. Download the file from the object storage (e.g., S3)  
-    2. Store it in its local disk cache  
+    1. Download the file from the object storage, such as S3. 
+    2. Store it in its local disk cache.  
 
     !!! Note
         This process is a form of **proactive caching**. The file is downloaded and cached before any user queries it, ensuring faster response times when recent data is searched.

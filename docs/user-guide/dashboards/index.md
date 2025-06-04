@@ -1,44 +1,15 @@
-# Index
+# Dashboards Overview
 
+In OpenObserve, Dashboards are used to visualize and monitor both real-time and historical data. They present information in an interactive, easy-to-read form. 
 
-## Chart types
+**Learn more**:
 
-Following chart types are supported:
-
-1. Area
-1. Area stacked
-1. Line
-1. Vertical Bar
-1. Horizontal bar
-1. Vertical Bar stacked
-1. Horizontal bar stacked
-1. Heatmap
-1. Geo map
-1. Pie
-1. Donut
-1. Gauge
-1. Metric text / Single stat
-1. Table
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kjUvXQdL798?si=guA2AK3COvYJolIr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-## Dashboard variables
-
-Dashboard variables are used to make dashboards interactive. They can be used to filter data based on certain aspects e.g. host name, kubernetes namespace, etc. 
-
-You must define dashboard variables at dashboard level and then use them on each chart within the dashboard. This allows for filtering data across multiple charts using the same variable. These variables can be used in both SQL based charts or PromQL based charts together in a single dashboard.
-
-There are 2 kinds of variables:
-
-1. [Static variables](variables.md)
-1. Dynamic variables
-
-Below is an example of a dashboard with a filter:
-
-![Dashboard with filter](images/filter1.png)
-
-
-
+- [Dashboards in OpenObserve](dashboards-in-openobserve.md)
+- [Manage Dashboards](manage-dashboards.md)
+- [Variables](variables.md)
+- [Variable Dependencies in Dashboards](variable-dependencies.md)
+- [Comparison Against in Dashboards](comparison-against-in-dashboards.md)
+- [Custom Charts](custom-charts)
 
 
 

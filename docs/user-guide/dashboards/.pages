@@ -1,7 +1,7 @@
 nav:
+    - Dashboards Overview: index.md
     - Dashboards in OpenObserve: dashboards-in-openobserve.md
     - Manage Dashboards: manage-dashboards.md
-    - Index: index.md
     - Variables: variables.md
     - Variable Dependencies in Dashboards: variable-dependencies.md
     - Comparison Against in Dashboards: comparison-against-in-dashboards.md
