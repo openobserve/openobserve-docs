@@ -16,27 +16,25 @@ Webhooks are ideal for integrating OpenObserve alerts with third-party platforms
 1. In OpenObserve, go to **Management** from the top navigation bar.
 2. Select **Alert Destinations**.
 3. Select the **Webhook** tab.
-4. Fill in the following details:
-
-   - **Name**: Enter a descriptive name for the Webhook destination such as **SlackNotifications**. 
-   > Note: Characters like :, ?, /, #, and spaces are not allowed.
-   - **Template**: Choose a alert message template from the dropdown menu. Refer to [Templates](templates.md) to create or manage templates.
-   - **URL**: Specify the Webhook endpoint URL where notifications will be sent.
-   - **Method**: Select the HTTP method depending on the Webhook's requirements.
-   - **Output Format**: Choose **JSON** unless the receiving system explicitly requires **NDJSON** format.  
-   > Why Output Format Matters <br>
-   > You define where the alert should be sent — this is the alert destination. <br>
-   > OpenObserve sends the alert to that destination — which is a remote server. <br>
-   > The remote server expects the payload in a specific format. <br>
-   > You choose JSON or NDJSON accordingly. <br>
-   > **Example:** <br> 
-   > **If the destination is a Slack webhook, choose JSON.** <br>
-   > **If the destination is another OpenObserve instance, choose JSON.** <br>
-   > **If the destination is a Splunk HTTP Event Collector (HEC) endpoint, choose NDJSON.** <br>
-   >
-   - **Headers (Optional)**: Add custom headers in key-value format such as authentication tokens or content type.
-   - **Skip TLS Verify**: Enable this option if the endpoint uses self-signed certificates or if you want to bypass SSL verification.
-6. Click **Save** to create the Webhook destination.
+4. Enter a descriptive name for the Webhook destination such as **SlackNotifications**. 
+> Note: Characters like :, ?, /, #, and spaces are not allowed.
+5. Choose a template from the dropdown menu. Refer to [Templates](templates.md) to create or manage templates.
+6. Specify the Webhook endpoint URL where notifications will be sent.
+7. Select the HTTP method depending on the Webhook's requirements.
+8. Choose **JSON** unless the receiving system explicitly requires **NDJSON** format.  
+> Why Output Format Matters <br>
+> You define where the alert should be sent — this is the alert destination. <br>
+> OpenObserve sends the alert to that destination — which is a remote server. <br>
+> The remote server expects the payload in a specific format. <br>
+> You choose JSON or NDJSON accordingly. <br>
+> **Example:** <br> 
+> **If the destination is a Slack webhook, choose JSON.** <br>
+> **If the destination is another OpenObserve instance, choose JSON.** <br>
+> **If the destination is a Splunk HTTP Event Collector (HEC) endpoint, choose NDJSON.** <br>
+>
+9. Under **Headers**, add custom headers in key-value format such as authentication tokens or content type.
+10. Enable the **Skip TLS Verify** option if the endpoint uses self-signed certificates or if you want to bypass SSL verification.
+9. Click **Save** to create the Webhook destination.
 
 ![alert destination](../../images/alert-destination-webhook-slack.png)
 
@@ -47,9 +45,10 @@ Webhooks are ideal for integrating OpenObserve alerts with third-party platforms
 - **URL**: `https://hooks.slack.com/services/T02QBH105PF/B04C7NLLLRE/HY3fXf123`  
 - **Method**: POST
 - **Output Format**: JSON  
-- **Headers**:  
-  - **Key**: Authorization  
-  - **Value**: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
+- **Headers**: 
+
+    - **Key**: Authorization  
+    - **Value**: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
 
 
 ## Configure Email Destinations
