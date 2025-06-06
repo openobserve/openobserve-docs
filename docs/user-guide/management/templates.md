@@ -1,4 +1,4 @@
-# Alerts Templates
+# Alert Templates
 
 Templates are used when notification is sent for an alert, templates forms body of request being sent to destination, for eg. for slack one can create template like:
 

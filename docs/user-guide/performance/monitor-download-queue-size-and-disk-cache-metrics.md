@@ -73,6 +73,7 @@ From the **Stream Type** dropdown, select **Metrics**. This enables access to th
 
 ### Step 4: Select the Metric
 From the metrics dropdown, select the one you want to plot. For example, `zo_query_disk_cache_hit_count`. 
+![select the metric](../../images/download-manager-metrics-choose-metrics.png)
 
 ### Step 5: Configure the Axes 
 **Configure the X-Axis:**
@@ -88,12 +89,15 @@ From the metrics dropdown, select the one you want to plot. For example, `zo_que
 3. Use the **Aggregation** dropdown and select **Max** to show the highest value per interval. 
 > Using the **Max** aggregation highlights the highest cache hit value observed in each interval.
  
+![download manager metrics plotting - conifgure y-axis](../../images/download-manager-metrics-configure-axes.png) 
+
 ### Step 6: Add Filters
 Filters narrow the data to a specific cluster and namespace, ensuring the chart reflects the intended environment. In this example, we need to add two filters:
 
 - Filter for cluster to isolate the specific Kubernetes cluster. For example, `common-dev` which is ingested as value in the `k8s_cluster` field. 
 - Filter for namespace to filter down to the environment namespace. For example, `main` which is ingested as value in the `k8s_namespace_name` field. 
 
+![add filters](../../images/download-manager-metrics-filters.png)
 
 **Add Filter for Cluster:**
 
@@ -117,13 +121,15 @@ To visualize the cache hit count on each pod, add a breakdown for pods.
 
 This configuration allows the chart to display a separate line for each pod. It helps you compare cache hit behavior across pods in the same namespace.
 
+![add breakdown](../../images/download-manager-metrics-pod-name.png)
+
 ### Step 8: Select the Time Range
 Use the time range selector at the top of the panel editor to define the period you want to analyze. For example, select Last 6 hours or Last 12 hours to examine recent trends.
 
 ### Step 9: Click Apply
 Click **Apply** to generate the chart using your selected configuration.
     
-
+![Download Manager Metrics Visualization](../../images/download-manager-metrics-plotting.png)
 ## Plot Additional Metrics
 To complete cache performance analysis and monitor the download queue, repeat **Steps 1** through **9**, however, select `zo_query_disk_cache_miss_count`, `zo_file_downloader_normal_queue_size`, and `zo_file_downloader_priority_queue_size` in **Step 4**. Use the same filters, time range, and breakdown by pod.
 
