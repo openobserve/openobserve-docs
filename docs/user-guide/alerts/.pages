@@ -1,7 +1,5 @@
 nav:
     - Alerts: alerts.md
-    - Destinations: destinations.md
-    - Templates: templates.md
     - Import and Export Alerts: import-export-alerts.md
     - Alert Folders: alert-folders.md
     - Multi-window Selector in Scheduled Alerts (SQL Mode): multi-window-selector-scheduled-alerts-concept.md
