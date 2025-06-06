@@ -1,2 +1,3 @@
 nav:
     - Download Manager: download-manager.md
+    - Monitor Download Queue Size and Disk Cache Metrics: monitor-download-queue-size-and-disk-cache-metrics.md
