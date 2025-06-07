@@ -1,5 +1,7 @@
 nav:
     - Query Management: query-management.md
+    - Alert Destinations: alert-destinations.md
+    - Templates: templates.md
     - Audit trail: audit-trail.md
     - Cipher Keys: cipher-keys.md
     - Nodes in OpenObserve: nodes.md
