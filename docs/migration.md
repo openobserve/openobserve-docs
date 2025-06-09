@@ -2,6 +2,8 @@
 
 Migration can be done using OpenObserve binary as a CLI.
 
+> Only work with <= 0.12.x, we will fix it in latest version soon.
+
 ```
 ./openobserve -h
 OpenObserve is an observability platform that allows you to capture, search, and analyze your logs, metrics, and traces.
