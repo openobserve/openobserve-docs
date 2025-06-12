@@ -1,59 +1,115 @@
 # OpenObserve: Introduction
 
-`OpenObserve` is a cloud native observability platform (`Logs`, `Metrics`, `Traces`) that provides `~140x lower storage costs` (compared to Elasticsearch. YMMV. Could be higher or lower based on data entropy) for real life log data, significantly lower operational cost and ease of use. It can scale to petabytes of data, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate OpenObserve and how its approach towards observability could help you build better software, save money on observability costs, and sleep better.
+## What is OpenObserve (O2) ?
 
+`OpenObserve` is a cloud native observability platform that unifies `logs`, `metrics`, and `traces`. It provides `~140x lower storage costs` (compared to Elasticsearch. Results can be higher or lower based on data entropy) for real life log data, significantly `lower operational cost` and `ease of use`. 
 
-## Project Status, Features and Roadmap
+It can scale to `petabytes of data`, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate OpenObserve and understand how its architectural approach can optimize your observability costs and enhance software development.
 
-Following is the list of available features and roadmap.
+## OpenObserve Features
 
-| # | Feature                                                       | Status              |
-|---|---------------------------------------------------------------|---------------------|
-| 1 | Log search                                                    | Available           |
-| 2 | Highly compressed storage of data                             | Available           |
-| 3 | Dynamic evolution of schema                                   | Available           |
-| 4 | Out of the box authentication                                 | Available           |
-| 5 | Support of S3, MinIO, GCS, Azure blob for data storage        | Available           |
-| 6 | Advanced GUI                                                  | Available           |
-| 7 | SQL based query language                                      | Available           |
-| 8 | Support for very high cardinality data                        | Available           |
-| 9 | Search-around logs data                                       | Available           |
-| 10 | User defined Ingest and Query functions (VRL based)          | Available           |
-| 11 | Multi-tenancy                                                | Available           |
-| 12 | Ingestion API compatibility with Elasticsearch               | Available           |
-| 13 | Search and aggregation API compatibility with Elasticsearch  | [Through zPlane](zplane) |
-| 14 | Standard alerts (Based on logs)                              | Available           |
-| 15 | Real time Alerts (Based on logs)                             | Available           |
-| 16 | High Availability (HA) and clustering                        | Available           |
-| 17 | Stateless nodes                                              | Available           |
-| 18 | Localization for multiple languages                          | Available           |
-| 19 | Prebuilt binaries for multiple platforms                     | Available           |
-| 20 | Prebuilt container images for multiple platforms             | Available           |
-| 21 | Prebuilt container images for with SIMD acceleration         | Available           |
-| 22 | SIMD support for vectorized processing (AVX512 and Neon)     | Available           |
-| 23 | Dashboards                                                   | Available           |
-| 24 | Metrics                                                      | Available           |
-| 25 | PromQL support for metrics                                   | Available (97% PromQL compliant) |
-| 26 | Traces                                                       | Available           |
-| 27 | Standard alerts (Based on metrics)                           | Available           |
-| 28 | Real time Alerts (Based on metrics)                          | Available           |
-| 29 | Template based alert target (Allows alerting to slack, teams and many more)  | Available |
-| 30 | Send alerts to Prometheus alertmanager                       | Available           |
-| 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose | Available |
-| 32 | Single Sign On(SSO)                                          | Available (Enterprise) |
-| 33 | RBAC (Role Based Access Control)                             | Available (Enterprise) |
-| 34 | Front end - Performance analytics                            | Available           |
-| 35 | Front end - Session Replay                                   | Available           |
-| 36 | Front end - Error tracking                                   | Available           |
-| 37 | Log patterns                                                 | To start            |
-| 38 | Anomaly detection                                            | To start            |
-| 39 | Correlation between logs, metrics and traces                 | To start            |
-| 40 | Dashboard migration from Splunk, Kibana and Grafana | beta. [https://dc.openobserve.ai](https://dc.openobserve.ai) [https://github.com/openobserve/dashboard_converter](https://github.com/openobserve/dashboard_converter) |
+### Core Observability Features
 
+#### Logs Management
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 1 | Log search | ✅ Available | Advanced search capabilities with SQL-based queries |
+| 2 | Highly compressed storage of data | ✅ Available | Efficient data compression reduces storage requirements |
+| 3 | Dynamic evolution of schema | ✅ Available | Automatic schema evolution without manual intervention |
+| 9 | Search-around logs data | ✅ Available | Contextual log exploration around specific events |
+| 8 | Support for very high cardinality data | ✅ Available | Handle datasets with millions of unique values |
+| 10 | User defined Ingest and Query functions (VRL based) | ✅ Available | Custom data processing and transformation functions |
+| 14 | Standard alerts (Based on logs) | ✅ Available | Log-based alerting system |
+| 15 | Real time Alerts (Based on logs) | ✅ Available | Immediate log-based notifications |
 
-Please raise any new feature requests via [github issue tracker](https://github.com/openobserve/openobserve/issues).
+#### Metrics & Monitoring
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 24 | Metrics | ✅ Available | Native metrics ingestion and storage |
+| 25 | PromQL support for metrics | ✅ Available | 97% PromQL compliant for Prometheus compatibility |
+| 23 | Dashboards | ✅ Available | Customizable visualization dashboards |
+| 27 | Standard alerts (Based on metrics) | ✅ Available | Metric-based alerting system |
+| 28 | Real time Alerts (Based on metrics) | ✅ Available | Immediate metric-based notifications |
 
-You can use either the open source version or [OpenObserve Cloud](https://cloud.openobserve.ai). [OpenObserve Cloud](https://cloud.openobserve.ai) is built on top of open source OpenObserve but has minor differences to account for its SaaS nature. We will highlight the differences in the documentation whenever needed.
+#### Distributed Tracing
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 26 | Traces | ✅ Available | Complete distributed tracing support |
+
+#### Query & Analysis
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 7 | SQL based query language | ✅ Available | Standard SQL interface for familiar querying |
+| 6 | Advanced GUI | ✅ Available | Built-in interface eliminates need for additional components |
+
+### Platform & Infrastructure
+
+#### Deployment & Scaling
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 16 | High Availability (HA) and clustering | ✅ Available | Clustering and failover capabilities |
+| 17 | Stateless nodes | ✅ Available | Horizontal scaling without data replication concerns |
+| 11 | Multi-tenancy | ✅ Available | Secure data isolation between tenants |
+| 22 | SIMD support for vectorized processing (AVX512 and Neon) | ✅ Available | Hardware-accelerated data processing |
+| 21 | Prebuilt container images with SIMD acceleration | ✅ Available | Optimized container deployments |
+
+#### Storage & Integration
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 5 | Support of S3, MinIO, GCS, Azure blob for data storage | ✅ Available | Multi-cloud storage backend support |
+| 12 | Ingestion API compatibility with Elasticsearch | ✅ Available | Compatible ingestion APIs for existing tooling |
+| 13 | Search and aggregation API compatibility with Elasticsearch | 🔧 Through zPlane | Full Elasticsearch API compatibility via enterprise add-on |
+| 4 | Out of the box authentication | ✅ Available | Built-in authentication system |
+| 18 | Localization for multiple languages | ✅ Available | Support for multiple languages |
+
+#### Cloud Integration
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 31 | Ingest AWS logs (cloudwatch, VPC flow logs, AWS WAF and more) using Kinesis firehose | ✅ Available | Native AWS log ingestion |
+
+### Enterprise Features
+
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 32 | Single Sign On (SSO) | ✅ Available (Enterprise) | Integration with enterprise identity providers |
+| 33 | RBAC (Role Based Access Control) | ✅ Available (Enterprise) | Role-based access control with granular permissions |
+
+### Alerting & Notifications
+
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 29 | Template based alert target (Allows alerting to slack, teams and many more) | ✅ Available | Flexible alerting to multiple platforms |
+| 30 | Send alerts to Prometheus alertmanager | ✅ Available | Integration with Prometheus AlertManager |
+
+### Frontend Observability
+
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 34 | Front end - Performance analytics | ✅ Available | Frontend performance monitoring |
+| 35 | Front end - Session Replay | ✅ Available | User session recording and analysis |
+| 36 | Front end - Error tracking | ✅ Available | Frontend error monitoring and alerting |
+
+### Deployment Options
+
+| # | Feature | Status | Description |
+|---|---------|--------|-------------|
+| 19 | Prebuilt binaries for multiple platforms | ✅ Available | Cross-platform binary distributions |
+| 20 | Prebuilt container images for multiple platforms | ✅ Available | Multi-architecture container support |
+
+#### Getting Started
+For detailed instructions on installation and setting up your first observation, refer to our [Getting Started Guide](getting-started.md).
+
+### Roadmap
+
+#### Upcoming Features
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Log patterns | 🔨 In Development | Automated pattern recognition in log data |
+| Anomaly detection | 🔨 In Development | Machine learning-based anomaly identification |
+| Cross-signal correlation | 🔨 In Development | Unified correlation between logs, metrics, and traces |
+
+Please raise any new feature requests via [GitHub issue tracker](https://github.com/openobserve/openobserve/issues).
 
 ## Guiding principles
 
@@ -83,23 +139,33 @@ We want to build the best software in the observability category in the world, a
 
 Elasticsearch is a general purpose search engine which can be used for app search or log search. OpenObserve is built specifically for log search. If you are looking for a lightweight alternative to Elasticsearch then you should take a look at ZincSearch.
 
-OpenObserve provides ability to index data in multiple ways to make it faster yet keep storage size low. It uses a combination of partitioning, bloom filters, inverted indexes, caching and columnar storage to make search and aggregation queries faster. You can combine these to find the right balance between storage and performance. [Uber found 80% of queries in their production environment to be aggregation queries](https://www.uber.com/en-IN/blog/logging/) and columnar data storage of OpenObserve means that aggregation queries will typically be much faster than Elasticsearch.
+#### Technical Advantages
+OpenObserve provides ability to index data in multiple ways to make it faster yet keep storage size low. It uses a combination of:
+
+- Partitioning
+- Bloom filters
+- Inverted indexes
+- Caching
+- Columnar storage
+
+[Uber found 80% of queries in their production environment to be aggregation queries](https://www.uber.com/en-IN/blog/logging/) and columnar data storage of OpenObserve means that aggregation queries will typically be much faster than Elasticsearch.
+
+#### Storage Cost Comparison
 
 Below is the result when we sent real life log data from our kubernetes cluster to both Elasticsearch and OpenObserve using fluentbit. This only pertains to storage. Cost of EBS volume is [8 cents/GB/Month (GP3)](https://aws.amazon.com/ebs/pricing/), cost of s3 is [2.3 cents/GB/month](https://aws.amazon.com/s3/pricing/). In HA mode in Elasticsearch you generally have 1 primary node and 2 replicas. You don't need to replicate s3 for data durability/availability as [AWS redundantly stores your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region](https://aws.amazon.com/s3/faqs/).
 
 ![OpenObserve Vs Elasticsearch storage](./images/zo_vs_es.png)
 
-OpenObserve offers significant advantage of 140x lower storage costs compared to Elasticsearch in the above scenario (YMMV, you could get higher or lower values based on entropy of data). That does not even consider additional unused EBS volume capacity that needs to be available in order to not run out of disk space and the effort that it requires to keep monitoring disk usage so it is not filled.
+OpenObserve offers significant advantage of 140x lower storage costs compared to Elasticsearch in the above scenario. Your actual results may vary depending on how compressible your specific log data is. This doesn't even consider additional unused EBS volume capacity and monitoring overhead.
 
-Stateless node architecture allows OpenObserve to scale horizontally without worrying about data replication or corruption challenges.
+#### Operational Advantages
 
-OpenObserve's lack of index mapping and associated challenges provides a hassle-free experience in managing clusters.
-
-You will typically see much lower operational effort and cost in managing OpenObserve clusters compared to Elasticsearch.
-
-The platform's built-in GUI eliminates the need for another component like Kibana, and has awesome performance, thanks to Rust, without the challenges of JVM. 
-
-In contrast to Elasticsearch, which is a general-purpose search engine that doubles as an observability tool, OpenObserve was built from the ground up as an observability tool, with high focus on delivering exceptional observability.
+- `Stateless Architecture`: Scale horizontally without data replication or corruption challenges
+- `No Index Mapping`: Hassle-free cluster management without index mapping complexities
+- `Lower Operational Cost`: Significantly reduced effort in managing clusters
+- `Built-in GUI`: Eliminates need for additional components like Kibana
+- `Rust Performance`: Awesome performance without JVM challenges
+- `Purpose-Built`: Built from ground up as observability tool, not general-purpose search
 
 ## Elasticsearch compatibility
 
