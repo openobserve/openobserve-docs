@@ -1,5 +1,5 @@
-After [learning about streams](streams-in-openobserve.md) and [completing the data ingestion](streams-in-openobserve.md/#ingest-data-into-stream), you can view detailed information about a stream. 
-This guide explains how to access the Stream Details panel and the information available in the panel. 
+After data [ingestion is complete](streams-in-openobserve.md/#ingest-data-into-stream), you can view detailed information about a stream using the **Stream Details** panel. 
+This guide explains how to access the **Stream Details** panel and the information available in the panel. 
 
 ## Access 
 

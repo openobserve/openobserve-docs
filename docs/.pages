@@ -1,8 +1,6 @@
 nav:
 - Introduction: index.md
-- Downloads: downloads.md
 - Getting started: getting-started.md
-- Screenshots: screenshots.md
 - Quickstart: quickstart.md
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md

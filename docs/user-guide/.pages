@@ -2,9 +2,6 @@ nav:
     - Concepts: concepts.md
     - Log Search: logs
     - Metrics: metrics
-    - Real User Monitoring (RUM): rum.md
-    - Organizations: organizations.md
-    - Users: users.md
     - Streams: streams
     - Ingestion: ingestion.md
     - Pipelines: Pipelines
@@ -12,7 +9,7 @@ nav:
     - Dashboards: dashboards
     - Actions: actions
     - Functions: functions
-    - Migration: migration
+    - Real User Monitoring (RUM): rum.md
     - Identity and Access Management (IAM): identity-and-access-management
     - Management: management
     - Profile: profile
