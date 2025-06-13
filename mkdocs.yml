@@ -13,6 +13,7 @@ plugins:
 #   - monitoring.md
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/feedback.css
 extra_javascript:
   - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
   - js/ms-clarity.js
@@ -42,6 +43,17 @@ extra:
     provider: google
     property: G-3383ZJ2HH7
     domain: openobserve.ai
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/thumb-up-outline
+          name: This page was helpful
+          data: 1
+          note: Thank you for your feedback.
+        - icon: material/thumb-down-outline
+          name: This page could be improved
+          data: 0
+          note: Thank you, we will review this page.
     # feedback:
     #   title: Was this page helpful?
     #   ratings:

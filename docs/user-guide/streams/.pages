@@ -1,0 +1,6 @@
+nav:
+    - Streams Overview: index.md
+    - Streams in OpenObserve: streams-in-openobserve.md
+    - Stream Details: stream-details.md
+    - Schema Settings: schema-settings.md
+    - Extended Retention: extended-retention.md

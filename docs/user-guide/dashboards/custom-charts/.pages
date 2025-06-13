@@ -1,4 +1,5 @@
 nav:
+    - Custom Charts Overview: index.md
     - What Are Custom Charts: what-are-custom-charts.md
     - Custom Charts with Flat Data: custom-charts-flat-data.md
     - Custom Charts with Nested Data: custom-charts-nested-data.md

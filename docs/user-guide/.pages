@@ -5,7 +5,7 @@ nav:
     - Real User Monitoring (RUM): rum.md
     - Organizations: organizations.md
     - Users: users.md
-    - Streams: streams.md
+    - Streams: streams
     - Ingestion: ingestion.md
     - Pipelines: Pipelines
     - Alerts: alerts
