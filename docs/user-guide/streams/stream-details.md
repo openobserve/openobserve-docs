@@ -2,7 +2,6 @@ After data [ingestion is complete](streams-in-openobserve.md/#ingest-data-into-s
 This guide explains how to access the **Stream Details** panel and the information available in the panel. 
 
 ## Access 
-
 From the Streams page, select the **Explore** icon from the **Actions** column.   
 ![stream details access](../../images/stream-details-access.png) 
 
