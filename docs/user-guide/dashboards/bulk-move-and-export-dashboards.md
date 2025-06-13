@@ -24,6 +24,7 @@ The selected dashboards will be moved to the specified folder.
 2. Select the dashboards you want to export using the checkboxes.  
 3. Click the **Export** button at the bottom of the table.
 
+
 ![Export dashboards in bulk](../../images/dashboard-bulk-move.png) 
 
 A success message will confirm that the dashboards were exported.
