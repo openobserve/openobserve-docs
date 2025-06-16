@@ -128,6 +128,8 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_CALCULATE_STATS_INTERVAL          | 600                        | No           | In seconds. How often stream stats (total size) is calculated  |
 | ZO_ENRICHMENT_TABLE_LIMIT            |                            | No           |  |
 | ZO_SWAGGER_ENABLED                   | true                       | No           | Generate SWAGGER API documentation by default. (since v0.10.8)  |
+| ZO_INGEST_ALLOWED_UPTO                   | 5                       | No           | Discards events older than the specified number of hours. By default, OpenObserve accepts data only if it is not older than 5 hours from the current ingestion time.|
+| ZO_INGEST_ALLOWED_IN_FUTURE                   | 24                       | No           | Discards events dated beyond the specified number of future hours. By default, OpenObserve accepts data only if it is not timestamped more than 24 hours into the future.|
 
 > For local mode, OpenObserve use sqlite as the metadata store.
 >
@@ -203,7 +205,10 @@ OpenObserve is configured through the use of below environment variables.
 | -------------------------------------- | ------------------------- | --------- | ------------------------------------------------------------------------- |
 | ZO_DATA_CACHE_DIR                      | ./data/openobserve/cache/ | No        | local query cache storage directory, applicable only for cluster mode.    |
 | ZO_MEMORY_CACHE_ENABLED                | true                      | No        | enable in-memory caching for files, default is true, the latest files are cached for accelerated queries.           |
-| ZO_MEMORY_CACHE_CACHE_LATEST_FILES     | false                     | No        | by default we just cache files required by data being queried, enable this option to cache all the latest generated files. Caching all latest generated files can accelerate the queries on latest data, the time range for latest cached files depends on the max cache size.   |
+| ZO_CACHE_LATEST_FILES_ENABLED                | false                      | No        | Enables or disables latest file caching.|
+| ZO_CACHE_LATEST_FILES_PARQUET                | true                      | No        | Enables caching of latest parquet files.|
+| ZO_CACHE_LATEST_FILES_INDEX                | true                      | No        | Enables caching of index files.|
+| ZO_CACHE_LATEST_FILES_DELETE_MERGE_FILES                | false                      | No        | Controls whether merged files should be deleted from cache.|
 | ZO_MEMORY_CACHE_MAX_SIZE               | -                         | No        | default 50% of the total memory used for in-memory cache, one can set it to desired amount unit: MB  |
 | ZO_MEMORY_CACHE_SKIP_SIZE              | -                         | No        | default 80% of the total memory cache size, A query will skip memory cache if it need more than this value. one can set it to desired amount unit: MB  |
 | ZO_MEMORY_CACHE_RELEASE_SIZE           | -                         | No        | default drop 1% entries from in-memory cache as cache is full, one can set it to desired amount unit: MB |

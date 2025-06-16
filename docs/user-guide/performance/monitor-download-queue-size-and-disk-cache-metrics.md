@@ -11,7 +11,6 @@ OpenObserve emits four key metrics that track how data files are downloaded and 
 - `zo_file_downloader_priority_queue_size`: Number of files in the [**priority** queue](download-manager.md/#dual-queue-system). 
 
 - `zo_query_disk_cache_hit_count`: Number of files that were already on disk when the query was executed. 
-
 - `zo_query_disk_cache_miss_count`: Number of files that were not on disk and had to be downloaded before the query could run.
 
 !!! Note
@@ -167,4 +166,4 @@ If the metrics do not appear:
 
 - Verify that `ZO_SELF_METRIC_CONSUMPTION_ENABLED` is set to **true**.
 - Check that `ZO_SELF_METRIC_CONSUMPTION_ACCEPTLIST` includes all the relevant metric names.
-- Confirm that your dashboard filters match the environment where metrics are enabled (e.g., `main`, `usertest`, etc.)
+- Confirm that your dashboard filters match the environment where metrics are enabled. For example, `main`, `usertest`, etc.

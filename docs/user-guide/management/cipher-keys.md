@@ -8,7 +8,7 @@ Follow these steps to create and configure Cipher Keys in OpenObserve:
 
 ### Step 1: Navigate to the Cipher Keys Section
 
-1. From the top navigation bar, click the gear icon (**Management**).  
+1. From the top navigation bar, click the gear icon to open the **Management** page.  
 2. Select **Cipher Keys**.
 
 ![cipher-keys](../../images/cipher-keys1.png)
@@ -43,7 +43,9 @@ After you have filled in all the details, click **Save**. Your new Cipher Key is
 
 After creating the Cipher Key, write queries using the `decrypt()` function in the following formats to decrypt encrypted logs:
 
-```SELECT decrypt (<field name which is encrypted>, ‘<Name of the Cipher Key>’ ) as <name the decrypted log field> from <stream name>;```
+```
+SELECT decrypt (<field name which is encrypted>, ‘<Name of the Cipher Key>’ ) as <name the decrypted log field> from <stream name>;
+```
 
 Let’s say you have the following setup:
 
@@ -53,13 +55,24 @@ Let’s say you have the following setup:
 - You want to name the decrypted field `decrypted_user_data` in the query results.
 
 The query to decrypt and retrieve the logs would look like this:  
-```SELECT decrypt(user_data, 'user_data_decryption_key') as decrypted_user_data FROM user_activity_stream;```
+```
+SELECT decrypt(user_data, 'user_data_decryption_key') as decrypted_user_data FROM user_activity_stream;
+```
 
 Additionally, you can use the `decrypt()` function:
 
-- **With the WHERE clause**: The following query retrieves the `user_id` from the `user_activity_stream` where the decrypted `user_data` matches the string '`John Doe`':  ```Select user_id from user_activity_stream where decrypt(user_data,'user_data_decryption_key') = 'John Doe';``` 
-- **With match* functions**: The following query will decrypt the `user_data` field using the `user_data_decryption_key` and match the decrypted value with `'John’:` ```SELECT user_id FROM user_activity_stream WHERE str_match_all(decrypt(user_data, 'user_data_decryption_key'), 'John Doe’);```  
-- **With the LIKE clause**: This query will decrypt the `user_data` field using the `user_data_decryption_key` and return results where the decrypted data contains the substring '`John`': ```SELECT user_id FROM user_activity_stream WHERE decrypt(user_data, 'user_data_decryption_key') LIKE '%John%';```
+- **With the WHERE clause**: The following query retrieves the `user_id` from the `user_activity_stream` where the decrypted `user_data` matches the string '`John Doe`':  
+```
+Select user_id from user_activity_stream where decrypt(user_data,'user_data_decryption_key') = 'John Doe';
+``` 
+- **With match* functions**: The following query will decrypt the `user_data` field using the `user_data_decryption_key` and match the decrypted value with `'John’`: 
+```
+SELECT user_id FROM user_activity_stream WHERE str_match_all(decrypt(user_data, 'user_data_decryption_key'), 'John Doe’);
+```  
+- **With the LIKE clause**: This query will decrypt the `user_data` field using the `user_data_decryption_key` and return results where the decrypted data contains the substring '`John`': 
+```
+SELECT user_id FROM user_activity_stream WHERE decrypt(user_data, 'user_data_decryption_key') LIKE '%John%';
+```
 
 **Note:** 
 

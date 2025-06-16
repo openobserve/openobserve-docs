@@ -152,11 +152,18 @@ The above example illustrates a basic pipeline setup. However, pipelines can bec
 
 
 <br>
-<!-- I would call out another important character to watch out about pipeline  -->
-<!-- The pipeline is implemented explicitly here, meaning, however a user configures a pipeline, the data flows as it shows on the UI. -->
-<!-- This could be problematic if a user creates a pipeline with source stream `default` -> condition/function -> destination stream `default1` -->
-<!-- With this setup, the user won't see any data in `default` anymore once this pipeline is enabled, which might not be user's intension -->
-<!-- So, in the latest UI, when a source stream is added, a default destination stream to the same stream is added as well, so that the data is always going to be there, unless the user explicitly deletes this connection -->
+
+## FAQ
+**Q**: If I set the frequency to 5 minutes and the current time is 23:03, when will the next runs happen?
+**A**: OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. This ensures that all runs occur at consistent and predictable intervals.
+**Example**<br>
+If the current time is 23:03, here is when the next run will occur for different frequencies:
+
+- Frequency 4 minutes > 23:04
+- Frequency 5 minutes > 23:05
+- Frequency 7 minutes > 23:07
+
+Each run continues at fixed intervals from that point onward, such as 23:08, 23:12, and so on for 4-minute frequency.
 
 
 ## Next Step

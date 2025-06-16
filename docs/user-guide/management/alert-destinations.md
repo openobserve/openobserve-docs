@@ -19,7 +19,7 @@ Webhooks are ideal for integrating OpenObserve alerts with third-party platforms
 4. Fill the following sections:
 
     - **Name**: Enter a descriptive name for the Webhook destination such as **SlackNotifications**. 
-    > Note: Characters like :, ?, /, #, and spaces are not allowed.
+    > **Note**: Characters like :, ?, /, #, and spaces are not allowed.
     - **Template**: Choose a template from the dropdown menu. Refer to [Templates](templates.md) to create or manage templates.
     - **URL**: Specify the Webhook endpoint URL where notifications will be sent.
     - **Method**: Select the HTTP method depending on the Webhook's requirements.
@@ -31,17 +31,16 @@ Webhooks are ideal for integrating OpenObserve alerts with third-party platforms
 
 ![alert destination](../../images/alert-destination-webhook-slack.png)
 
-### Example
+!!! Note "Example"
+    - **Name**: Slack Alerts  
+    - **Template**: SlackTemplate  
+    - **URL**: `https://hooks.slack.com/services/T02QBH105PF/B04C7NLLLRE/HY3fXf123`  
+    - **Method**: POST
+    - **Output Format**: JSON  
+    - **Headers**: 
 
-- **Name**: Slack Alerts  
-- **Template**: SlackTemplate  
-- **URL**: `https://hooks.slack.com/services/T02QBH105PF/B04C7NLLLRE/HY3fXf123`  
-- **Method**: POST
-- **Output Format**: JSON  
-- **Headers**: 
-
-    - **Key**: Authorization  
-    - **Value**: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
+        - **Key**: Authorization  
+        - **Value**: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
 
 
 ## Configure Email Destinations
@@ -58,11 +57,10 @@ Email destinations are used for delivering alert notifications directly to speci
 5. Click **Save** to create the Email destination.
 
 
-### Example
-
-- **Name**: Critical Alerts  
-- **Template**: EmailTemplate  
-- **Recipients**: `team@example.com; manager@example.com`  
+!!! Note "Example"
+    - **Name**: Critical Alerts  
+    - **Template**: EmailTemplate  
+    - **Recipients**: `team@example.com; manager@example.com`  
 
 ## Additional Notes
 ![list_Destinations](../../images/destinations/4.jpg)
@@ -80,20 +78,20 @@ By following this guide, you can set up Webhook and Email destinations to ensure
 To send email alerts, OpenObserve requires SMTP configuration. This can be done by setting the appropriate environment variables when starting OpenObserve.
 
 
-#### Start OpenObserve with SMTP Configuration
+### Start OpenObserve with SMTP Configuration
 
 Use the following command to configure OpenObserve to send email alerts via Gmail:
 
 ```bash
-ZO_SMTP_ENABLED=true \
-ZO_SMTP_HOST="smtp.gmail.com" \
-ZO_SMTP_PORT=587 \
-ZO_SMTP_USER_NAME="your-user-name" \
-ZO_SMTP_PASSWORD="your-app-password" \
-ZO_SMTP_FROM_EMAIL="your-email-address" \
-ZO_SMTP_ENCRYPTION="starttls" \
-ZO_ROOT_USER_EMAIL="root@example.com" \
-ZO_ROOT_USER_PASSWORD="Complexpass#123" \
+ZO_SMTP_ENABLED=true 
+ZO_SMTP_HOST="smtp.gmail.com" 
+ZO_SMTP_PORT=587 
+ZO_SMTP_USER_NAME="your-user-name" 
+ZO_SMTP_PASSWORD="your-app-password" 
+ZO_SMTP_FROM_EMAIL="your-email-address" 
+ZO_SMTP_ENCRYPTION="starttls" 
+ZO_ROOT_USER_EMAIL="root@example.com" 
+ZO_ROOT_USER_PASSWORD="Complexpass#123" 
 ./openobserve
 ```
 Replace the placeholders (your-email-address, your-app-password, etc.) with your actual SMTP details.

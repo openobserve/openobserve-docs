@@ -34,3 +34,7 @@ If the org-level limit is 100 requests per second and the role-level limit is 20
 - Only 20 requests per second can be used collectively by users in that role.  
   If one user in the role consumes all 20 requests per second, others in the same role receives `RateLimitExceeded` errors.
 - Across all roles, if the total usage exceeds the 100 requests-per-second org quota, further requests are blocked with `RateLimitExceeded` errors, even if individual role limits have not been reached.
+
+## FAQ
+**Q:** What happens if I define a quota for a stream or index that does not exist?
+**A:** If a quota rule targets a stream whose index does not exist, due to a typo, deletion, or misconfiguration, OpenObserve will detect the missing index and skip applying the quota for that stream. A warning will be logged to indicate that the quota could not be enforced because the index was not found. This safeguard prevents silent failures and ensures that quota tracking and enforcement remain reliable.

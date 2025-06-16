@@ -143,7 +143,7 @@ The following examples illustrate how files are assigned to the priority or norm
             The querier does not begin processing the search query until all required files, regardless of whether they were downloaded via the Priority or Normal Queue.
 
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions 
 
 **Q. My query includes both recent and old data. Do I get results faster with the new system?** <br>
 **A.** Yes. Files within the configured priority window are downloaded immediately. This helps reduce total wait time, even though the query waits for all required files.

@@ -96,5 +96,15 @@ Example of a Dashboard with Panels in different Tabs:
 
 ![dashboard with panels in multiple tabs](../../images/dashboard-9.png)
 
+## FAQ
+**Q**: **Why does my dashboard chart say "No data"?** <br>
+**A**: OpenObserve shows a "No data" message on a dashboard chart when the selected query returns no results for the specified time range.
+This helps clarify that the chart loaded successfully, but no matching data was found. It is not an error.
+When a dashboard loads a blank chart placeholder appears while data is loading.
+ If the query returns data for the selected time range, the chart is rendered normally.
+ If the query returns no data, the chart shows a No data message to indicate an empty result.
+> To resolve this, try adjusting the time range or filters, and refresh the dashboard.
+
+
 ## Next Step
 - [Manage Dashboards](manage-dashboards.md)

@@ -1,0 +1,51 @@
+/* Make inner feedback content align horizontally */
+.md-feedback__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-left: var(--md-typeset-padding, 0);
+    margin-left: 0;
+    text-align: left;
+  }
+  
+  /* Title text styling */
+  .md-feedback__title {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    text-align: left;
+  }
+  
+  /* Wraps both icons – thumbs up and down */
+  .md-feedback__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Individual icons (buttons) */
+  .md-feedback__icon {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+  }
+  .md-feedback {
+    border-top: 1px solid var(--md-default-fg-color--light, #ccc);
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }  
+
+  .md-feedback__note{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  

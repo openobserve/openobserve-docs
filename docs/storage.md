@@ -197,4 +197,4 @@ This is the recommended meta store as it is more reliable and scalable. A lot of
 
 `ZO_META_STORE=mysql`
 
-Use this if you prefer MySQL for any reason.
+Use this if you prefer MySQL for any reason. 
