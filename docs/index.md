@@ -1,14 +1,12 @@
 # OpenObserve: Introduction
 
-## What is OpenObserve (O2) ?
+## What is OpenObserve?
 
-`OpenObserve` is a cloud native observability platform that unifies `logs`, `metrics`, and `traces`. It provides `~140x lower storage costs` (compared to Elasticsearch. Results can be higher or lower based on data entropy) for real life log data, significantly `lower operational cost` and `ease of use`. 
+**OpenObserve**, also referred to as O2, is a cloud native observability platform that unifies **logs, metrics, and traces**. It provides *~140x lower storage costs* (compared to Elasticsearch. Results can be higher or lower based on data entropy) for real life log data, significantly lower operational cost and ease of use. 
 
-It can scale to `petabytes of data`, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate OpenObserve and understand how its architectural approach can optimize your observability costs and enhance software development.
+It can scale to **petabytes of data**, is highly performant and allows you to sleep better at night 😀. If you are looking for an observability tool for logs, metrics and traces, do evaluate OpenObserve and understand how its architectural approach can optimize your observability costs and enhance software development.
 
 ## OpenObserve Features
-
-### Core Observability Features
 
 #### Logs Management
 | # | Feature | Status | Description |
@@ -19,8 +17,8 @@ It can scale to `petabytes of data`, is highly performant and allows you to slee
 | 9 | Search-around logs data | ✅ Available | Contextual log exploration around specific events |
 | 8 | Support for very high cardinality data | ✅ Available | Handle datasets with millions of unique values |
 | 10 | User defined Ingest and Query functions (VRL based) | ✅ Available | Custom data processing and transformation functions |
-| 14 | Standard alerts (Based on logs) | ✅ Available | Log-based alerting system |
-| 15 | Real time Alerts (Based on logs) | ✅ Available | Immediate log-based notifications |
+| 14 | Standard alerts | ✅ Available | Log-based alerting system |
+| 15 | Real time Alerts  | ✅ Available | Immediate log-based notifications |
 
 #### Metrics & Monitoring
 | # | Feature | Status | Description |
@@ -28,8 +26,8 @@ It can scale to `petabytes of data`, is highly performant and allows you to slee
 | 24 | Metrics | ✅ Available | Native metrics ingestion and storage |
 | 25 | PromQL support for metrics | ✅ Available | 97% PromQL compliant for Prometheus compatibility |
 | 23 | Dashboards | ✅ Available | Customizable visualization dashboards |
-| 27 | Standard alerts (Based on metrics) | ✅ Available | Metric-based alerting system |
-| 28 | Real time Alerts (Based on metrics) | ✅ Available | Immediate metric-based notifications |
+| 27 | Standard alerts  | ✅ Available | Metric-based alerting system |
+| 28 | Real time Alerts | ✅ Available | Immediate metric-based notifications |
 
 #### Distributed Tracing
 | # | Feature | Status | Description |
@@ -42,7 +40,6 @@ It can scale to `petabytes of data`, is highly performant and allows you to slee
 | 7 | SQL based query language | ✅ Available | Standard SQL interface for familiar querying |
 | 6 | Advanced GUI | ✅ Available | Built-in interface eliminates need for additional components |
 
-### Platform & Infrastructure
 
 #### Deployment & Scaling
 | # | Feature | Status | Description |
