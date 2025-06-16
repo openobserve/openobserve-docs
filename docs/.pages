@@ -1,6 +1,6 @@
 nav:
-- Introduction: index.md
-- Downloads: downloads.md
+- Overview: overview
+- Features: features
 - Getting started: getting-started.md
 - Screenshots: screenshots.md
 - Quickstart: quickstart.md
