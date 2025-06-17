@@ -1,49 +1,111 @@
-# Logs
+# Frontend Observability
 
-OpenObserve provides powerful log management capabilities for collecting, storing, and analyzing log data from your applications and infrastructure.
+OpenObserve provides comprehensive frontend observability capabilities that enable you to monitor user experiences, track performance metrics, and diagnose issues in web applications and mobile apps. Gain complete visibility into how users interact with your frontend applications and ensure optimal user experience across all devices and browsers.
 
 ## Overview
 
-Logs in OpenObserve offer comprehensive observability into your system's behavior, allowing you to track events, debug issues, and monitor application performance. Built with high performance and cost efficiency in mind, OpenObserve handles log ingestion and querying at scale.
-
-![Logs Page](../images/features/logs-page.png)
-*Logs Page view*
+Frontend Observability in OpenObserve allows you to monitor real user experiences, track Core Web Vitals, capture JavaScript errors, and analyze user journeys across your web and mobile applications. Built for modern frontend architectures, OpenObserve efficiently collects, processes, and analyzes frontend telemetry data while maintaining minimal impact on application performance.
 
 ## Key Features
 
-### Log Ingestion
-- **Multiple Protocols**: Support for various log shipping protocols including HTTP, syslog, and popular log shippers
-- **Structured & Unstructured**: Handle both JSON structured logs and plain text logs
-- **Real-time Processing**: Immediate indexing and availability for search and analysis
+### Real User Monitoring (RUM)
+- **User Session Tracking**: Complete user session recording with interaction timelines
+- **Page Performance**: Detailed page load times, rendering metrics, and resource loading analysis
+- **Core Web Vitals**: Automatic tracking of LCP, FID, CLS, and other Google Core Web Vitals
+- **Geographic Insights**: User experience analysis by geographic location and network conditions
+- **Device & Browser Analytics**: Performance breakdowns by device type, browser, and OS
 
-### Search & Query
+### [Error Tracking & Debugging](../user-guide/rum.md#error-tracking)
 
-- **Field Extraction**: Automatic parsing and extraction of log fields
+- **JavaScript Error Capture**: Automatic collection of JavaScript errors, exceptions, and promise rejections
 
-![Field Extraction](../images/features/log-feilds-detection.png)
+- **Source Map Integration**: Detailed stack traces with original source code for minified applications
 
-- **Full-text Search**: Powerful search capabilities across all log fields
+- **Error Context**: Rich error context including user actions, browser state, and session information
 
-![Full-text Search](../images/features/full-text-search.png)
+- **Error Grouping**: Intelligent error grouping and deduplication for efficient issue management
 
-- **SQL Queries**: Use familiar SQL syntax for complex log analysis
+### [Performance Monitoring](../user-guide/rum.md#performance-monitoring)
 
-![SQL Queries](../images/features/sql-based-log-search.png)
+- **Page Load Analytics**: Comprehensive page load performance with waterfall charts and timing breakdowns
 
-- **Time-based Filtering**: Efficient time range queries for targeted log exploration
+- **Resource Monitoring**: Track loading times for images, scripts, stylesheets, and API calls
 
-![Time-based Filtering](../images/features/time-selection.png)
+- **Runtime Performance**: Monitor JavaScript execution times, memory usage, and CPU utilization
 
-### Storage & Performance
-- **Compressed Storage**: Efficient compression reduces storage costs significantly
+- **Custom Performance Metrics**: Track application-specific performance indicators and business metrics
 
-![Compressed Storage](../images/features/data-compression.png)
+### User Experience Analytics
 
-- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations
+- **User Journey Mapping**: Visualize complete user paths through your application
 
-![Indexing](../images/features/index.png)
+- **Interaction Tracking**: Monitor clicks, scrolls, form submissions, and custom user interactions
 
-- **Retention Policies**: Configurable data retention to manage storage costs
+- **Rage Click Detection**: Identify user frustration points with automatic rage click detection
 
-![Retention Policies](../images/features/data-retention.png)
+- **Conversion Funnel Analysis**: Track user conversion rates and identify drop-off points
+
+### Network & API Monitoring
+
+- **AJAX/Fetch Tracking**: Monitor all HTTP requests with response times, status codes, and payload sizes
+
+- **API Performance**: Detailed API call analysis with success rates and error patterns
+
+- **Network Conditions**: Track user network speed and connection quality impact on performance
+
+- **Third-Party Service Monitoring**: Monitor external service dependencies and their impact on user experience
+
+### Browser & Device Insights
+
+- **Browser Compatibility**: Identify browser-specific issues and compatibility problems
+
+- **Device Performance**: Analyze performance across different device capabilities and screen sizes
+
+- **Viewport Analytics**: Understanding of how users interact with different screen resolutions
+
+### [Session Replay & Recording](../user-guide/rum.md#session-replay)
+
+- **Session Recordings**: Visual playback of user sessions for detailed investigation
+
+- **Privacy Controls**: Configurable data masking and privacy protection for sensitive information
+
+- **Event Timeline**: Synchronized timeline of user actions, network requests, and application state
+
+- **Issue Correlation**: Link session recordings to specific errors and performance issues
+
+
+### Mobile App Observability
+
+- **Crash Reporting**: Comprehensive crash reporting for iOS and Android applications
+
+- **App Performance**: Monitor app launch times, screen rendering, and memory usage
+
+- **User Engagement**: Track app usage patterns, feature adoption, and user retention
+
+- **Network Performance**: Monitor API calls and network conditions in mobile environments
+
+### Data Collection & Privacy
+
+- **Lightweight SDKs**: Minimal impact JavaScript and mobile SDKs with optimized performance
+
+- **Sampling Strategies**: Intelligent sampling to balance data quality with performance impact
+
+- **GDPR Compliance**: Built-in privacy controls and data anonymization features
+
+- **Custom Data Collection**: Flexible APIs for collecting custom frontend metrics and events
+
+## Integration
+
+### Web Applications
+- **JavaScript SDK**: Easy integration with vanilla JavaScript, React, Vue, Angular, and other frameworks
+- **NPM Package**: Simple installation via package managers with TypeScript support
+- **CDN Integration**: Quick setup with CDN-hosted SDK for immediate implementation
+- **Framework Plugins**: Native plugins for popular frameworks and build tools
+
+### CI/CD Integration
+- **Build Integration**: Integrate observability setup into your build and deployment pipelines
+- **Source Map Upload**: Automatic source map upload for enhanced error debugging
+- **Performance Budgets**: Set performance budgets and fail builds on regression
+- **Release Tracking**: Correlate frontend performance with deployments and releases
+
 

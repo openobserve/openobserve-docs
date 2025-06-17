@@ -1,49 +1,73 @@
-# Logs
+# Distributed Tracing
 
-OpenObserve provides powerful log management capabilities for collecting, storing, and analyzing log data from your applications and infrastructure.
+OpenObserve provides powerful distributed tracing capabilities that enable you to track requests as they flow through your microservices architecture, identify performance bottlenecks, and troubleshoot complex distributed systems with ease.
 
 ## Overview
 
-Logs in OpenObserve offer comprehensive observability into your system's behavior, allowing you to track events, debug issues, and monitor application performance. Built with high performance and cost efficiency in mind, OpenObserve handles log ingestion and querying at scale.
+Distributed tracing in OpenObserve allows you to visualize the complete journey of requests across multiple services, understand service dependencies, and pinpoint the root cause of performance issues. Built for modern cloud-native applications, OpenObserve efficiently handles trace ingestion, correlation, and analysis at enterprise scale while maintaining exceptional query performance.
 
-![Logs Page](../images/features/logs-page.png)
-*Logs Page view*
+![Tracing Page](../images/features/tracing-page.png)
+*Distributed Tracing overview page*
 
 ## Key Features
 
-### Log Ingestion
-- **Multiple Protocols**: Support for various log shipping protocols including HTTP, syslog, and popular log shippers
-- **Structured & Unstructured**: Handle both JSON structured logs and plain text logs
-- **Real-time Processing**: Immediate indexing and availability for search and analysis
+### Trace Ingestion
+- **OpenTelemetry Native**: Full support for OpenTelemetry protocol with automatic trace collection
+- **Multiple Protocols**: Compatible with Jaeger, Zipkin, and custom tracing formats
+- **High Throughput**: Process millions of spans per second with sub-millisecond latency
+- **Sampling Strategies**: Intelligent sampling to balance observability with performance impact
+- **Batch Processing**: Optimized batch ingestion for maximum efficiency
 
-### Search & Query
+### Trace Structure & Data
+- **Hierarchical Spans**: Complete trace trees showing parent-child relationships between operations
+- **Rich Metadata**: Capture detailed span attributes, tags, and contextual information
+- **Error Tracking**: Automatic error detection and classification within traces
+- **Service Mapping**: Dynamic service topology discovery and visualization
+- **Custom Instrumentation**: Support for manual and automatic instrumentation
 
-- **Field Extraction**: Automatic parsing and extraction of log fields
+### Trace Analysis & Search
 
-![Field Extraction](../images/features/log-feilds-detection.png)
+- **Advanced Filtering**: Search traces by service, operation, duration, errors, and custom attributes
 
-- **Full-text Search**: Powerful search capabilities across all log fields
+![Trace Search](../images/features/trace-search.png)
 
-![Full-text Search](../images/features/full-text-search.png)
+- **Dependency Analysis**: Visualize service dependencies and communication patterns
 
-- **SQL Queries**: Use familiar SQL syntax for complex log analysis
+- **Performance Profiling**: Identify slow operations and bottlenecks across your distributed system
 
-![SQL Queries](../images/features/sql-based-log-search.png)
+- **Error Investigation**: Quickly locate and analyze failed requests and exceptions
 
-- **Time-based Filtering**: Efficient time range queries for targeted log exploration
+### Visualization & Insights
 
-![Time-based Filtering](../images/features/time-selection.png)
+- **Gantt Chart Views**: Interactive timeline visualization showing span relationships and durations
+
+- **Service Map**: Real-time service topology with performance metrics and error rates
+
+- **Flame Graphs**: Detailed performance analysis with hierarchical span breakdown
+
+- **Trace Comparison**: Side-by-side comparison of traces for performance analysis
+
+### Correlation & Context
+
+- **Metrics Correlation**: Link traces to related metrics and logs for complete observability
+
+- **Log Integration**: Automatic correlation between trace spans and application logs
+
+- **Alert Integration**: Trigger alerts based on trace patterns, error rates, and performance thresholds
 
 ### Storage & Performance
-- **Compressed Storage**: Efficient compression reduces storage costs significantly
 
-![Compressed Storage](../images/features/data-compression.png)
+- **Efficient Compression**: Advanced compression techniques reduce storage overhead by up to 85%
 
-- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations
+- **Smart Indexing**: High-performance indexing optimized for trace queries and span searches
 
-![Indexing](../images/features/index.png)
+- **Tail-based Sampling**: Intelligent sampling decisions based on complete trace context
 
-- **Retention Policies**: Configurable data retention to manage storage costs
+- **Retention Management**: [Flexible retention policies](../user-guide/streams/extended-retention.md) for cost-effective long-term storage
 
-![Retention Policies](../images/features/data-retention.png)
-
+### Integration & Standards
+- **OpenTelemetry Ecosystem**: Full compatibility with OpenTelemetry collectors and instrumentation libraries
+- **Jaeger Integration**: Seamless migration from Jaeger with native protocol support
+- **Zipkin Compatibility**: Support for Zipkin trace format and existing instrumentation
+- **Cloud Native**: Native Kubernetes integration with automatic service discovery
+- **API Access**: Comprehensive REST APIs for programmatic trace access and analysis

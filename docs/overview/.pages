@@ -1,8 +1,6 @@
 nav:
   - Introduction: index.md
-  - Downloads: downloads.md
   - Our Principle: guiding-principles.md
-  - Features: features
-  - Comparison with Alternatives: comparsion.md
+  - Comparison with Alternatives: comparison.md
   - Architecture: architecture.md
 

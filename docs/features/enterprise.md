@@ -1,49 +1,21 @@
-# Logs
-
-OpenObserve provides powerful log management capabilities for collecting, storing, and analyzing log data from your applications and infrastructure.
+# Enterprise Features
 
 ## Overview
+Enterprise tier includes all standard features plus the following enterprise-specific capabilities. Available free for up to 200 GB of ingestion per day.
 
-Logs in OpenObserve offer comprehensive observability into your system's behavior, allowing you to track events, debug issues, and monitor application performance. Built with high performance and cost efficiency in mind, OpenObserve handles log ingestion and querying at scale.
+## Enterprise-Only Features
 
-![Logs Page](../images/features/logs-page.png)
-*Logs Page view*
+### Data Management
+- **Extended Data Retention** - Keep data longer than standard retention periods
+- **Federated Search / Super Cluster** - Search across multiple clusters from single interface
 
-## Key Features
+### Security & Access
+- **SSO (Single Sign On)** - Integrate with existing identity providers
+- **Role-Based Access Control (RBAC)** - Manage user permissions by role
+- **Sensitive Data Redaction** - Automatically mask sensitive information
+- **Cipher Keys** - Encryption and compliance support for HIPAA and PCI
 
-### Log Ingestion
-- **Multiple Protocols**: Support for various log shipping protocols including HTTP, syslog, and popular log shippers
-- **Structured & Unstructured**: Handle both JSON structured logs and plain text logs
-- **Real-time Processing**: Immediate indexing and availability for search and analysis
-
-### Search & Query
-
-- **Field Extraction**: Automatic parsing and extraction of log fields
-
-![Field Extraction](../images/features/log-feilds-detection.png)
-
-- **Full-text Search**: Powerful search capabilities across all log fields
-
-![Full-text Search](../images/features/full-text-search.png)
-
-- **SQL Queries**: Use familiar SQL syntax for complex log analysis
-
-![SQL Queries](../images/features/sql-based-log-search.png)
-
-- **Time-based Filtering**: Efficient time range queries for targeted log exploration
-
-![Time-based Filtering](../images/features/time-selection.png)
-
-### Storage & Performance
-- **Compressed Storage**: Efficient compression reduces storage costs significantly
-
-![Compressed Storage](../images/features/data-compression.png)
-
-- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations
-
-![Indexing](../images/features/index.png)
-
-- **Retention Policies**: Configurable data retention to manage storage costs
-
-![Retention Policies](../images/features/data-retention.png)
-
+### Operations
+- **Query Management** - Optimize and manage query performance
+- **Workload Management (QoS)** - Prioritize and allocate resources
+- **Audit Trail** - Track all system activities and changes

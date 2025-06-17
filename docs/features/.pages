@@ -2,9 +2,7 @@ nav:
   - Log Management: logs.md
   - Metric Monitoring: metrics.md
   - Distributed Tracing: distributed-tracing.md
-  - Query & Analysis: query.md
   - Frontent Observability: frontend.md
-  - Storage & Integration: storage.md
   - Enterprise Features: enterprise.md
   - What's next: upcoming.md
 
