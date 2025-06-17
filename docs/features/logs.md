@@ -18,9 +18,11 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ### Search & Query
 
-- **Field Extraction**: Automatic parsing and extraction of log fields
+- **Field Extraction**: Automatic parsing and extraction of log fields. 
 
 ![Field Extraction](../images/features/log-feilds-detection.png)
+
+The [Schema Settings](../user-guide/streams/schema-settings.md) tab in the Stream Details panel allows you to inspect and manage the schema used to store and query ingested data. 
 
 - **Full-text Search**: Powerful search capabilities across all log fields
 
@@ -43,7 +45,9 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ![Indexing](../images/features/index.png)
 
-- **Retention Policies**: Configurable data retention to manage storage costs
+Know more about [Streams](../user-guide/streams/streams-in-openobserve.md) and its [details](../user-guide/streams/stream-details.md#stream-details)
+
+- **Retention Policies**: [Configurable data retention](../user-guide/streams/extended-retention.md) to manage storage costs
 
 ![Retention Policies](../images/features/data-retention.png)
 
