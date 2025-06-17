@@ -1,49 +1,73 @@
-# Logs
+# Metrics
 
-OpenObserve provides powerful log management capabilities for collecting, storing, and analyzing log data from your applications and infrastructure.
+OpenObserve provides comprehensive metrics collection, storage, and visualization capabilities for monitoring your applications and infrastructure performance in real-time.
 
 ## Overview
 
-Logs in OpenObserve offer comprehensive observability into your system's behavior, allowing you to track events, debug issues, and monitor application performance. Built with high performance and cost efficiency in mind, OpenObserve handles log ingestion and querying at scale.
+Metrics in OpenObserve enable you to track key performance indicators, monitor system health, and gain insights into your application's behavior over time. Designed for high-throughput environments, OpenObserve efficiently handles metrics ingestion, storage, and querying at scale while maintaining cost-effectiveness.
 
-![Logs Page](../images/features/logs-page.png)
-*Logs Page view*
+![Metrics Page](../images/features/metrics-page.png)
+*Metrics Page view*
 
 ## Key Features
 
-### Log Ingestion
-- **Multiple Protocols**: Support for various log shipping protocols including HTTP, syslog, and popular log shippers
-- **Structured & Unstructured**: Handle both JSON structured logs and plain text logs
-- **Real-time Processing**: Immediate indexing and availability for search and analysis
+### Metrics Ingestion
+- **Multiple Formats**: Support for various metrics formats including Prometheus, InfluxDB, and JSON
+- **Push & Pull Models**: Flexible ingestion supporting both push-based and pull-based collection methods
+- **High Throughput**: Handle millions of metrics per second with minimal latency
+- **Batch Processing**: Efficient batch ingestion for optimal performance
 
-### Search & Query
+### Data Types & Structure
+- **Time Series Data**: Native support for time-series metrics with timestamp precision
+- **Multi-dimensional**: Handle metrics with multiple labels and dimensions for detailed analysis
 
-- **Field Extraction**: Automatic parsing and extraction of log fields
+![Multi-dimensional Metrics](../images/features/metrics-dimensions.png)
 
-![Field Extraction](../images/features/log-feilds-detection.png)
+- **Aggregation Functions**: Built-in support for common aggregation functions (sum, avg, min, max, count)
+- **Custom Metrics**: Flexible schema for application-specific metrics and KPIs
 
-- **Full-text Search**: Powerful search capabilities across all log fields
+### Query & Analysis
 
-![Full-text Search](../images/features/full-text-search.png)
+- **PromQL Support**: Full compatibility with Prometheus Query Language for familiar querying
 
-- **SQL Queries**: Use familiar SQL syntax for complex log analysis
+![PromQL Queries](../images/features/promql-queries.png)
 
-![SQL Queries](../images/features/sql-based-log-search.png)
+- **SQL Interface**: Use SQL syntax for complex metrics analysis and reporting
 
-- **Time-based Filtering**: Efficient time range queries for targeted log exploration
+- **Time Range Selection**: Flexible time range queries with support for relative and absolute time periods
 
-![Time-based Filtering](../images/features/time-selection.png)
+![Time Range Selection](../images/features/metrics-time-selection.png)
+
+- **Mathematical Operations**: Perform calculations and transformations on metrics data
+
+### Visualization & Dashboards
+
+- **Real-time Charts**: Interactive time-series visualizations with multiple chart types
+
+![Metrics Visualization](../images/features/metrics-charts.png)
+
+- **Custom Dashboards**: Create comprehensive dashboards with multiple metrics panels
+
+- **Alerting Integration**: Set up alerts based on metrics thresholds and conditions
+
+![Metrics Alerting](../images/features/metrics-alerts.png)
 
 ### Storage & Performance
-- **Compressed Storage**: Efficient compression reduces storage costs significantly
 
-![Compressed Storage](../images/features/data-compression.png)
+- **Optimized Compression**: Advanced compression algorithms reduce storage costs by up to 90%
 
-- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations
+![Metrics Compression](../images/features/metrics-compression.png)
 
-![Indexing](../images/features/index.png)
+- **Efficient Indexing**: High-performance indexing for fast query execution across large datasets
 
-- **Retention Policies**: Configurable data retention to manage storage costs
+- **Downsampling**: Automatic data downsampling for long-term storage optimization
 
-![Retention Policies](../images/features/data-retention.png)
+- **Retention Policies**: [Configurable retention settings](../user-guide/streams/extended-retention.md) to balance storage costs and data availability
 
+![Metrics Retention](../images/features/metrics-retention.png)
+
+### Integration & Compatibility
+- **Prometheus Compatible**: Full compatibility with Prometheus ecosystem and exporters
+- **Grafana Integration**: Native support for Grafana dashboards and visualization
+- **API Access**: RESTful APIs for programmatic access to metrics data
+- **Standard Exporters**: Support for popular metrics exporters (Node Exporter, cAdvisor, etc.)
