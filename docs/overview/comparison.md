@@ -23,12 +23,12 @@ OpenObserve offers significant advantage of 140x lower storage costs compared to
 
 #### Operational Advantages
 
-- `Stateless Architecture`: Scale horizontally without data replication or corruption challenges
-- `No Index Mapping`: Hassle-free cluster management without index mapping complexities
-- `Lower Operational Cost`: Significantly reduced effort in managing clusters
-- `Built-in GUI`: Eliminates need for additional components like Kibana
-- `Rust Performance`: Awesome performance without JVM challenges
-- `Purpose-Built`: Built from ground up as observability tool, not general-purpose search
+- **Stateless Architecture**: Scale horizontally without data replication or corruption challenges
+- **No Index Mapping**: Hassle-free cluster management without index mapping complexities
+- **Lower Operational Cost**: Significantly reduced effort in managing clusters
+- **Built-in GUI**: Eliminates need for additional components like Kibana
+- **Rust Performance**: Awesome performance without JVM challenges
+- **Purpose-Built**: Built from ground up as observability tool, not general-purpose search
 
 ## Elasticsearch compatibility
 
