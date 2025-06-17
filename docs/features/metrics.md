@@ -20,9 +20,6 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 ### Data Types & Structure
 - **Time Series Data**: Native support for time-series metrics with timestamp precision
 - **Multi-dimensional**: Handle metrics with multiple labels and dimensions for detailed analysis
-
-![Multi-dimensional Metrics](../images/features/metrics-dimensions.png)
-
 - **Aggregation Functions**: Built-in support for common aggregation functions (sum, avg, min, max, count)
 - **Custom Metrics**: Flexible schema for application-specific metrics and KPIs
 
