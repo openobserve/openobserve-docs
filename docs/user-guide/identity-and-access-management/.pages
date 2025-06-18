@@ -1,4 +1,5 @@
 nav:
+    - Identity and Access Management: index.md
     - Role-Based Access Control (RBAC): role-based-access-control.md
     - Enable Role-Based Access Control (RBAC) in Enterprise Edition: enable-rbac-in-openobserve-enterprise.md
     - Single Sign-On (SSO): SSO.md

@@ -1,4 +1,6 @@
-# Alerts Documentation
+Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. You can define queries, set conditions on the query results, receive notifications through webhooks such as Slack, email, or other endpoints, and trigger configured Actions automatically when an alert is activated.
+
+**Learn more:**
 
 1. [Alerts](alerts)
 2. [Destinations](destinations)

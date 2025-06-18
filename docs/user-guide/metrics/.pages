@@ -1,3 +1,4 @@
 nav:
+    - Metrics Overview: index.md
     - File Access Time: file-access-time-metric.md
     - Downsampling Metrics: downsampling-metrics.md

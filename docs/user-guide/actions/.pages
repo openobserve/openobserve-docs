@@ -1,4 +1,5 @@
 nav:
+    - Actions Overview: index.md
     - Actions in OpenObserve: actions-in-openobserve.md 
     - Create and Use Real-time Actions: create-and-use-real-time-actions.md
     - Create and Use Scheduled Actions: create-and-use-scheduled-actions.md

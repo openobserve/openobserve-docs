@@ -1,4 +1,5 @@
 nav:
+    - Alerts Overview: index.md
     - Alerts: alerts.md
     - Import and Export Alerts: import-export-alerts.md
     - Alert Folders: alert-folders.md

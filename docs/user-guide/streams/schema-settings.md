@@ -17,7 +17,8 @@ For example:
 
 ![schema settings field type detection](../../images/schema-settings-fieldtype-detection.png)
 
-!!! Note “Update the field type with caution.” 
+!!! Note
+    **Update the field type with caution.**
     Once a field is detected as a certain type, changing the type in future log entries, for example, from **Utf8** to **Int64**, can result in inconsistent search behavior. It is recommended to maintain consistent field types across all log entries.
 
 ## Index Types
