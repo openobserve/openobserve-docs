@@ -39,11 +39,11 @@ OpenObserve is perfect for:
 OpenObserve's architectural approach can transform how you handle observability - reducing costs while improving performance and ease of use.
 
 **Next Steps:**
-- Explore our comprehensive [Feature List](../features) to see all capabilities
-- Check out our [Quick Start Guide](/getting-started.md) to begin evaluation
+- Explore our comprehensive [Feature List](../features/logs.md) to see all capabilities
+- Check out our [Quick Start Guide](../getting-started.md) to begin evaluation
 - Join our [Community](https://github.com/openobserve/openobserve/discussions) to connect with other users
 
-*Sleep better at night knowing your observability stack is both powerful and affordable* 😴
+*Sleep better at night knowing your observability stack is both powerful and affordable* 
 
 
 
