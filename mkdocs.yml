@@ -28,7 +28,7 @@ extra:
     - icon: fontawesome/brands/docker 
       link: https://gallery.ecr.aws/zinclabs/openobserve
     - icon: fontawesome/brands/slack 
-      link: https://join.slack.com/t/zincobserve/shared_invite/zt-11r96hv2b-UwxUILuSJ1duzl_6mhJwVg
+      link: https://short.openobserve.ai/community
   alternate:
     # - name: English
     #   link: /en/ 
