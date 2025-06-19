@@ -31,13 +31,13 @@ To stream Cloudflare logs, log in to OpenObserve and follow these steps:
 1. From the left menu, select **Data Sources > Custom > Logs > Curl**.
 2. Extract the following details from the sample curl command: 
 
-![Extract Endpoint and Credentials](../../docs/images/extract-creds-from-data-sources.png)
+![Extract endpoint and credentials](../../images/extract-creds-from-data-sources.png)
 
-    - **Endpoint**: `https://api.openobserve.ai/api/<organization_name>/<stream_name>/_json`. 
-    Replace `organization_name` with the organization name shown at the top right corner of the screen. Replace the `stream_name` with **cloudflare_logs**.
-    - **Credentials**: 
-    The sample includes a string in the format: `your-username@example.com:802gZ3uo4N5S917s6Med`. 
-    Here, the username is `your-username@example.com` and the password is `FNIN8MWspXZRKRgS`. 
+- **Endpoint**: `https://api.openobserve.ai/api/<organization_name>/<stream_name>/_json`. 
+Replace `organization_name` with the organization name shown at the top right corner of the screen. Replace the `stream_name` with **cloudflare_logs**.
+- **Credentials**: 
+The sample includes a string in the format: `your-username@example.com:802gZ3uo4N5S917s6Med`. 
+Here, the username is `your-username@example.com` and the password is `FNIN8MWspXZRKRgS`. 
 
 ### Step 2: Generate Cloudflare Logs
 To generate real logs for the GraphQL method, you need actual traffic routed through Cloudflare. Choose one of the following approaches:
@@ -71,9 +71,9 @@ return new Response("Hello from Cloudflare!", {
 4. Select **Deploy** and note the generated URL, such as `log-generator.example-subdomain.workers.dev`.
 5. You may optionally add a route under **Workers Routes**, such as `example.com/log/*`.
 6. Generate traffic by visiting the Worker URL, linking it on a webpage, or enabling access through a known route.
-![Generate traffic visiting the Worker URL](../../docs/images/cloudflare-worker-setup.gif)
+![Generate traffic visiting the Worker URL](../../images/cloudflare-worker-setup.gif)
 
-![Cloudflare worker.js](../../docs/images/cloudflare-worker-js.png)
+![Cloudflare worker.js](../../images/cloudflare-worker-js.png)
 
 **Option 3: Existing traffic on Business or Enterprise plans**
 
@@ -107,7 +107,7 @@ There are two options to send logs from Cloudflare to OpenObserve. Click each ta
     ```
     2. Create a file named **cloudflare_logs_to_openobserve.py** and paste the following script:
 
-    ``` linenums="1"
+    ```py linenums="1"
     import requests
     import time
     import json
@@ -281,7 +281,7 @@ You should see entries similar to the following:
   "requests": 1
 }
 ```
-![Verify the Cloudflare and OpenObserve integration](../../docs/images/cloudflare-verify-ingestion.gif)
+![Verify the Cloudflare and OpenObserve integration](../../images/cloudflare-verify-ingestion.gif)
 
 Logs appear immediately when using Logpush. If you are testing with GraphQL, the simulated data appears first. Real logs are usually visible within 5 to 10 minutes.
 
