@@ -3,7 +3,7 @@ nav:
     - Log Search: logs
     - Metrics: metrics
     - Streams: streams
-    - Ingestion: ingestion.md
+    - Ingestion: ingestion
     - Pipelines: Pipelines
     - Alerts: alerts
     - Dashboards: dashboards
