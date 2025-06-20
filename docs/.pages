@@ -16,7 +16,7 @@ nav:
 - How To: howto
 - API Reference: api
 - Ingestion: ingestion
-- Integration: integration
+- Integrations: integration
 - Migration: migration
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md

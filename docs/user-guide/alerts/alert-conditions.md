@@ -13,6 +13,11 @@ While creating an alert, you can define multiple conditions to determine when th
 
 ![Alert conditions](../../images/alert-conditions.png)
 
+!!! Note
+    Each condition group in an alert can include nested groups to build complex logic. However, nesting is limited to a maximum depth of three levels per group. This means you can nest groups within groups, but only up to three levels deep.
+
+    This limit ensures that alert logic remains readable and manageable while still allowing sufficient flexibility for advanced use cases.
+
 ## Example
 The configuration shown in the image includes the following conditions:
 
@@ -38,3 +43,4 @@ The alert is triggered if any one of these items is true:
 - Both `k8s_pod_name` is `dev3-openobserve-ingester` and `k8s_deployment_name` is `dev3-openobserve-router`.
 
 Because the top-level operator is `OR`, only one item must be true for the alert to trigger.
+

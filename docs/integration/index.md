@@ -2,7 +2,7 @@ The following user guides provide step-by-step instructions to integrate externa
 
 Each guide corresponds to a data source listed in the **Data Sources** section of the OpenObserve user interface.
 
-![Data Sources](../../images/data-sources.png)
+![Data Sources](../../docs/images/data-sources.png)
 
 **Learn more**:
 

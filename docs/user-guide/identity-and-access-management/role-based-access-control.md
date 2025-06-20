@@ -63,7 +63,7 @@ Admins can create custom user roles in OpenObserve to define more granular acces
 5. Click the edit icon on the custom role to assign permission to specific features and assign users and service accounts to the custom role.
 6. Click **Save**.
 
-![custom_roles](../../images/rbac1-custom_roles.png)
+![Custom roles in OpenObserve](../../images/rbac1-custom_roles.png)
 
 ## Service Accounts  
 
@@ -82,7 +82,7 @@ A service account in OpenObserve is a non-human account used for API access, aut
 5. A **token** is generated for the service account.
 6. After the service account is created, assign the necessary **roles** and **permissions**. This step is required for the service account to make API calls and access specific services in OpenObserve.
 
-![service_account](../../images/rbac2-service-account.png)
+![Service accounts in OpenObserve](../../images/rbac2-service-account.png)
 
 **Note:**
 
@@ -101,27 +101,32 @@ User groups allow admins to manage permissions collectively.
 4. From the **Roles, Users,** and **Service Accounts** tabs, select the list of users and service accounts that need to be assigned with appropriate roles.
 5. Click **Save**.
 
-![user_groups](../../images/rbac3-user-groups.png)
+![User groups in OpenObserve](../../images/rbac3-user-groups.png)
 
 ## Users
 
 Users are organization members with assigned roles that determine their access and actions within OpenObserve. Their permissions depend on the role assigned to them, such as **Admin, Editor, Viewer, User,** or **Root User**.
 
-**Note:** As of February 2025, only the **root user** can invite new users to an **Organization** in OpenObserve.
+**Note:** As of February 2025, only the **root user** can invite new users to an **Organization** in OpenObserve. <br>
 
 ![users](../../images/rbac4-add-users-enterprise.png)
 
-**To add users**:
+**To add a user to an organization**:
 
-1. From the IAM panel, select the **Users** section.
-2. Click the **Add User** button.
-3. Select an existing user by using the toggle or create a new one as shown below:
+1. Navigate to **IAM > Users**.
+2. Click **Add User**.
+3. Enter the user’s email address. <br>
+   ![Create User](../../images/create-user-IAM.png)
+4. Select one of the predefined roles- **Admin**, **Editor**, **Viewer**, or **User**.
+5. Optionally, assign one or more custom roles to extend permissions.
+6. Click **Save**.
+7. If the user does not already exist, you will be prompted to set a password, first name, and last name. <br>
+If the entered email address already belongs to an existing user, the system will show a message:
+`User is already part of the organization`. <br>
+![Create User and Set Password](../../images/create-user-IAM-password.png)
 
-   - Enter the **Email Address, Password, First Name,** and **Last Name**.
-   - Select the **Role**. Here, you can select a role from the predefined user roles.
-   - Select the **Organization**.
-   - Click **Save**.
+After you save the changes, the new user gets listed in the **Users** page.<br>
+Use the Actions column to edit and delete the user. 
 
-**Note:** In the **Cloud version**, any user can invite new users by entering their email addresses, separated by commas or semicolons, selecting a role, and clicking **Send Invite**.
-
-![invite_users_o2cloud](../../images/rbac-invite-users-o2cloud.png)
+**Note:** In the **Cloud version**, any user can invite new users by entering their email addresses, separated by commas or semicolons, selecting a role, and clicking **Send Invite**. <br>
+![Invite_users_o2cloud](../../images/rbac-invite-users-o2cloud.png)
