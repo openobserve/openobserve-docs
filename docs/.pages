@@ -9,7 +9,7 @@ nav:
 - Architecture: architecture.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md
-- Storage: storage.md
+- Data Management: data-management
 - User Guide: user-guide
 - Operator Guide: operator-guide
 - Performance Optimization: performance.md

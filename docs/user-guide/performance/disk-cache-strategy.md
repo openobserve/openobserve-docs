@@ -7,7 +7,8 @@ ZO_DISK_CACHE_STRATEGY=<strategy_name>
 ```
 
 ## Supported Values
-1. `lru`  or Least Recently Used (**Default**)
+
+### `lru`  or Least Recently Used (**Default**)
 
 - **How it works**: Evicts the file that has not been accessed for the longest time.
 - **Use when**: You want frequently accessed data to stay in cache longer, regardless of when it was added.
@@ -17,7 +18,7 @@ ZO_DISK_CACHE_STRATEGY=<strategy_name>
     - Keeps recently used files in the cache.
     - Removes the oldest or the least accessed entries first.
 
-2. `fifo` or First In, First Out
+### `fifo` or First In, First Out
 
 - **How it works**: Evicts the oldest cached files in the order they were added, without considering how often they are used.
 - **Use when**: You want a simple time-based cache cleanup that clears files strictly in order of arrival.
@@ -26,7 +27,7 @@ ZO_DISK_CACHE_STRATEGY=<strategy_name>
     - Ignores access frequency.
     - Clears files in the same order they were cached.
 
-3. `time_lru` or Time-Grouped Least Recently Used
+### `time_lru` or Time-Grouped Least Recently Used
 
 - **How it works**: Groups cached files by time windows such as hourly, then applies least recently used or LRU eviction within those windows.
 - **Use when**: You need time-aligned cache control while still preserving frequently accessed files.
