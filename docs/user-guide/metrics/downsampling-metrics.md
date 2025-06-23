@@ -8,8 +8,10 @@ Downsampling summarizes historical data into fewer data points. Each summarized 
 
 Downsampling is configured using the following environment variables.:
 
-- `O2_COMPACT_DOWNSAMPLING_INTERVAL`: Defines how often the downsampling job runs (interval), in seconds. <br>**Example:** `O2_COMPACT_DOWNSAMPLING_INTERVAL`: "300" (this downsampling job runs every 5 minutes)  
-- `O2_METRICS_DOWNSAMPLING_RULES`: Specifies which data streams to target and how they should be downsampled using defined rules. You can add a comma-separated list of rules.<br>**Example:** `O2_METRICS_DOWNSAMPLING_RULES`: "o2_cpu_usage:avg:30d:5m, app_analytics:last:10d:10m"
+- `O2_COMPACT_DOWNSAMPLING_INTERVAL`: Defines how often the downsampling job runs or the interval, in seconds. 
+> For example, `O2_COMPACT_DOWNSAMPLING_INTERVAL`: "300", this downsampling job runs every 5 minutes.  
+- `O2_METRICS_DOWNSAMPLING_RULES`: Specifies which data streams to target and how they should be downsampled using defined rules. You can add a comma-separated list of rules.
+> For example, `O2_METRICS_DOWNSAMPLING_RULES`: "o2_cpu_usage:avg:30d:5m, app_analytics:last:10d:10m"
 
 > Refer to the [Downsampling Rule](#downsampling-rule) section. <br> 
 
@@ -56,9 +58,9 @@ Here:
 - **offset**: It defines the age of data eligible for downsampling. For example, 15d for applying downsampling on data older than 15 days.  
 - **step**: The time block used to group data points. For example, 30m for applying downsampling to retain one value every 30 minutes.
 
-#### Sample Downsampling Rules
+### Sample Downsampling Rules
 
-##### Single Rule
+#### Single Rule
 ```yaml
 O2_METRICS_DOWNSAMPLING_RULES: "o2_cpu_metrics:avg:30d:5m"
 ```

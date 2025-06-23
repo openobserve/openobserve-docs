@@ -1,3 +1,4 @@
 nav:
+    - Quotas Overview: index.md
     - Quotas: quotas.md
     - How Quotas Work: how-quotas-work.md

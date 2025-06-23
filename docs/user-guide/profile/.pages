@@ -1,2 +1,3 @@
 nav:
+    - Profile Overview: index.md
     - UI Languages in OpenObserve: language.md

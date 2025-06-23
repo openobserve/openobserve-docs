@@ -89,3 +89,15 @@ Please note we selected `Slack` destination for demo, but you can add others in 
 Watch this video to understand more.
 
 <iframe width="760" height="315" src="https://www.youtube.com/embed/QvgyHU3_wME?si=xv03MHM6KoQo8pCm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## FAQ
+**Q**: If I set the frequency to 5 minutes and the current time is 23:03, when will the next runs happen?
+**A**: OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. This ensures that all runs occur at consistent and predictable intervals.
+**Example**<br>
+If the current time is 23:03, here is when the next run will occur for different frequencies:
+
+- Frequency 4 minutes > 23:04
+- Frequency 5 minutes > 23:05
+- Frequency 7 minutes > 23:07
+
+Each run continues at fixed intervals from that point onward, such as 23:08, 23:12, and so on for 4-minute frequency.

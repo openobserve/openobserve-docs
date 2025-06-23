@@ -1,8 +1,6 @@
 nav:
 - Introduction: index.md
-- Downloads: downloads.md
 - Getting started: getting-started.md
-- Screenshots: screenshots.md
 - Quickstart: quickstart.md
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
@@ -11,13 +9,14 @@ nav:
 - Architecture: architecture.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md
-- Storage: storage.md
+- Data Management: data-management
 - User Guide: user-guide
 - Operator Guide: operator-guide
 - Performance Optimization: performance.md
 - How To: howto
 - API Reference: api
 - Ingestion: ingestion
+- Integrations: integration
 - Migration: migration
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
