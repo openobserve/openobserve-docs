@@ -1,162 +1,201 @@
-[OpenObserve Enterprise Edition](https://openobserve.ai/downloads/) is the recommended version for self-hosted deployments. This guide provides step-by-step instructions to install OpenObserve Enterprise Edition.
+# OpenObserve Enterprise Edition Installation Guide
 
-## Installation Methods
+[OpenObserve Enterprise Edition](https://openobserve.ai/downloads/) is the recommended version for self-hosted deployments. This comprehensive guide provides two installation methods to deploy OpenObserve Enterprise Edition on Amazon EKS.
 
-- [Helm Chart](#option-1-helm-chart): Use this method if you have an existing Amazon Elastic Kubernetes Service (EKS) cluster.
-- [Terraform](#option-2-terraform): Use this method if you do not have an existing EKS cluster.
+## Overview
 
-## Option 1: Helm Chart
-This workflow shows how to install the OpenObserve Enterprise Edition in an existing EKS Cluster using OpenObserve Helm Chart.
+Choose your installation method based on your current infrastructure:
 
-### Prerequisites
+| Method | Use Case | Prerequisites |
+|--------|----------|---------------|
+| **Helm Chart** | Existing EKS cluster | Running EKS cluster + Helm |
+| **Terraform** | New infrastructure setup | AWS CLI + Terraform + Infracost |
 
-Before you begin, verify that:
+---
 
-- Your EKS cluster is running.
-- The OpenObserve Helm Chart is installed. Refer to the [OpenObserve Helm Chart Installation Guide](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/README.md).
+## Method 1: Helm Chart Installation
+*For existing Amazon EKS clusters*
 
-### Step 1: Configure the `values.yaml` File
+### Prerequisites Checklist
+- EKS cluster is running and accessible
+- [OpenObserve Helm Chart](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/README.md) is installed
+- `kubectl` configured for your cluster
 
-Navigate to the `enterprise` section in the `values.yaml` file and set the `enterprise.enabled` parameter to `true` as shown below:
+### Step-by-Step Installation
+
+#### 1. Configure Enterprise Settings
+Edit your `values.yaml` file to enable Enterprise Edition:
 
 ```yaml
 enterprise:
   enabled: true
 ```
-### Step 2: Enable Role-Based Access Control (RBAC) and Single Sign-On (SSO)
-This configuration is necessary to enable [RBAC](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/) and [SSO](https://openobserve.ai/docs/SSO/) features in the OpenObserve Enterprise Edition. In the `values.yaml` file, enable OpenFGA and Dex by setting their values to `true`:
 
-```yaml 
+#### 2. Enable RBAC and SSO Components
+Add the following configurations to enable [RBAC](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/) and [SSO](https://openobserve.ai/docs/SSO/) features:
+
+```yaml
 openfga:
   enabled: true
-```
-```yaml
+
 dex:
   enabled: true
 ```
-### Step 3: Deploy the Helm Chart
-Update the Helm repository:
 
-```yaml
+#### 3. Deploy the Application
+Update Helm repository and deploy:
+
+```bash
+# Update repository
 helm repo update
-```
 
-Verify if the `openobserve` namespace exists:
-
-```yaml
+# Check if namespace exists
 kubectl get namespaces
 ```
 
-If the output shows the `openobserve` namespace, run the following command:
-
-```yaml
+**If `openobserve` namespace exists:**
+```bash
 helm upgrade --namespace openobserve -f values.yaml o2 openobserve/openobserve
 ```
 
-If the output does not show the `openobserve` namespace, create the namespace first and then run the `helm upgrade` command:
-
-```yaml
-kubectl create ns openobserve 
-```
-```yaml
+**If `openobserve` namespace doesn't exist:**
+```bash
+kubectl create ns openobserve
 helm upgrade --namespace openobserve -f values.yaml o2 openobserve/openobserve
 ```
 
-### Step 4: Verify Deployment Status
-After deployment, verify that all pods are running:
+#### 4. Verify Deployment
+Confirm all pods are running:
 
-```yaml 
+```bash
 kubectl get pods -n openobserve
 ```
 
-**Expected Output**: All pods should be listed with a status of `Running`. 
+**Expected Result:** All pods should show status `Running`
 
-> **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).** 
+---
 
-## Option 2: Terraform 
+## Method 2: Terraform Infrastructure Setup
+*For new EKS cluster deployment*
 
-Use this method if you do not have an existing Amazon EKS cluster. This workflow sets up the infrastructure required to deploy OpenObserve Enterprise Edition on an EKS cluster. <br>
-**Note:** The [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac/tree/main) includes Terraform configuration files and other resources that automate the setup. The following setup process handles nearly all tasks automatically, with only one manual step required: Configuring your DNS in Amazon Route 53 using the Network Load Balancer (NLB).
+### Overview
+This method uses the [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac/tree/main) to automate infrastructure setup. Only one manual step required: DNS configuration in Amazon Route 53.
 
-### Prerequisites
-Verify that the following tools are installed:
+### Prerequisites Installation
+Ensure these tools are installed:
 
-- [Terraform](https://www.terraform.io/downloads.html) 
+- [Terraform](https://www.terraform.io/downloads.html)
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 - [Infracost](https://www.infracost.io/docs/)
 
-### Configure Environment Variables
-Set up the following environment variables:
+### Environment Configuration
+Set up required environment variables:
 
-- `ENV`: The environment you are targeting (e.g., `dev`, `staging`, or `prod`).
-- `CUSTOMER_NAME`: The name of the customer for whom the infrastructure is managed.
-- `AWS_PROFILE`: The AWS profile to use for authentication.
+```bash
+export ENV=dev                    # Environment: dev/staging/prod
+export CUSTOMER_NAME=example      # Customer identifier
+export AWS_PROFILE=my-aws-profile # AWS authentication profile
+```
 
-### Step 1. Configure Variables in `terraform.tfvars` (init)
-Navigate to the terraform.tfvars file and update as required:
+### Installation Process
 
-- `root_user_email`    = "`example@openobserve.ai`" 
-- `root_user_password` = "`CustomSecurePassword123`" 
-- `o2_domain` = "`example.openobserve.ai`" 
-- `O2_dex_domain` = "`example-auth.openobserve.ai`" 
-- `secret_name`  = "`example`" 
+#### Step 1: Configure Variables
+Update `terraform.tfvars` with your settings:
 
-### Step 2: Initialize Terraform (init)
-Run the following command to download all necessary [Terraform modules and providers](https://github.com/openobserve/openobserve-eks-iac/blob/main/README.md#terraform-overview), and initialize the working directory containing your configuration files:
-```yaml
+```hcl
+root_user_email    = "example@openobserve.ai"
+root_user_password = "CustomSecurePassword123"
+o2_domain         = "example.openobserve.ai"
+O2_dex_domain     = "example-auth.openobserve.ai"
+secret_name       = "example"
+```
+
+#### Step 2: Initialize Infrastructure
+Download modules and initialize Terraform:
+
+```bash
 make init ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
+
 **Example:**
-```yaml
+```bash
 make init ENV=dev CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
-### Step 3: Plan Terraform Changes (plan)
-The following command shows the proposed changes Terraform will apply to the infrastructure: 
-```yaml
+#### Step 3: Review Changes
+Preview infrastructure changes:
+
+```bash
 make plan ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
+
 **Example:**
-```yaml
+```bash
 make plan ENV=dev CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
-### Step 4: Apply Terraform Changes (apply)
-Execute the following command to apply the changes:
-```yaml
+#### Step 4: Apply Infrastructure
+Execute the infrastructure deployment:
+
+```bash
 make apply ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
+
 **Example:**
-```yaml
+```bash
 make apply ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
-### Step 5: Run the Pre-Setup to Install Dependencies (`o2_pre_setup`)
-After applying, run the following command:
-```yaml
+#### Step 5: Install Dependencies
+Run pre-setup to install required dependencies:
+
+```bash
 make o2_pre_setup ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
+
 **Example:**
-```yaml
+```bash
 make o2_pre_setup ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
-### Step 6: Deploy OpenObserve Enterprise Edition on EKS (`o2_deployment`)
-The following command deploys the OpenObserve Helm Chart using `o2_deployment`:
+#### Step 6: Deploy OpenObserve
+Deploy the Enterprise Edition using Helm:
 
-```yaml
+```bash
 make o2_deployment ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
 ```
+
 **Example:**
-```yaml
+```bash
 make o2_deployment ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
 ```
 
-The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab=readme-ov-file#5-output-and-state-management) file in the configuration verifies whether your workflow ran successfully. After successfully executing the above steps, you can access **OpenObserve Enterprise Edition** with all features enabled.
+### Verification
+The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab=readme-ov-file#5-output-and-state-management) file confirms successful deployment. Upon completion, you'll have access to OpenObserve Enterprise Edition with all features enabled.
 
-> **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).**
+---
 
-**Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
+## Alternative: OpenTofu Usage
 
+To use **OpenTofu** instead of Terraform:
 
+1. Install [OpenTofu](https://opentofu.org/docs/intro/install/)
+2. Modify the **provider.tf** file
+3. Use the **Makefile** from the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu)
 
+---
+
+## Support & Community
+
+For technical support and community discussions:
+
+- **Slack Community:** [Join our Slack channel](https://short.openobserve.ai/community)
+- **Documentation:** [OpenObserve Documentation](https://openobserve.ai/docs/)
+
+---
+
+## Additional Resources
+
+- [RBAC Configuration Guide](../docs/user-guide/identity-and-access-management/enable-rbac-in-openobserve-enterprise.md)
+- [Helm Chart Repository](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/README.md)
+- [Terraform Modules Overview](https://github.com/openobserve/openobserve-eks-iac/blob/main/README.md#terraform-overview)
