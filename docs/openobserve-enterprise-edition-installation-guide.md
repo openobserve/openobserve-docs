@@ -1,162 +1,167 @@
-[OpenObserve Enterprise Edition](https://openobserve.ai/downloads/) is the recommended version for self-hosted deployments. This guide provides step-by-step instructions to install OpenObserve Enterprise Edition.
+This guide explains how to deploy [OpenObserve Enterprise Edition](https://openobserve.ai/downloads/)  in a **Kubernetes** environment using **Helm**. 
 
-## Installation Methods
+> These instructions use Amazon EKS and S3 for demonstration, but the deployment works with any Kubernetes platform such as GKE or AKS, and other S3-compatible storage services such as Azure Blob, MinIO, or GCS.
 
-- [Helm Chart](#option-1-helm-chart): Use this method if you have an existing Amazon Elastic Kubernetes Service (EKS) cluster.
-- [Terraform](#option-2-terraform): Use this method if you do not have an existing EKS cluster.
+> For support, reach out in the [Slack channel](https://short.openobserve.ai/community).
 
-## Option 1: Helm Chart
-This workflow shows how to install the OpenObserve Enterprise Edition in an existing EKS Cluster using OpenObserve Helm Chart.
+??? info "Architecture Overview" 
+    OpenObserve Enterprise Edition depends on several components to support scalable ingestion, search, storage, and access control:
 
-### Prerequisites
+    - **Object Storage**, such as S3, Azure Blob, GCS, or MinIO, stores all telemetry data in Parquet format.
+    - **PostgreSQL** stores metadata such as dashboards, stream configurations, users, and the filelist table.
+    - **NATS** coordinates communication between ingestion and query nodes.
+    - **Dex and OpenFGA** enable Single Sign-On (SSO) and Role-Based Access Control (RBAC).
 
-Before you begin, verify that:
 
-- Your EKS cluster is running.
-- The OpenObserve Helm Chart is installed. Refer to the [OpenObserve Helm Chart Installation Guide](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/README.md).
+## Installation Steps
+Follow these steps to install OpenObserve Enterprise Edition:
 
-### Step 1: Configure the `values.yaml` File
 
-Navigate to the `enterprise` section in the `values.yaml` file and set the `enterprise.enabled` parameter to `true` as shown below:
+??? info "Prerequisites"
+    Before you begin, ensure that the following are available:
 
-```yaml
-enterprise:
-  enabled: true
-```
-### Step 2: Enable Role-Based Access Control (RBAC) and Single Sign-On (SSO)
-This configuration is necessary to enable [RBAC](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/) and [SSO](https://openobserve.ai/docs/SSO/) features in the OpenObserve Enterprise Edition. In the `values.yaml` file, enable OpenFGA and Dex by setting their values to `true`:
+    - An active AWS account with permissions to create EKS clusters, S3 buckets, IAM roles, and policies.
+    - AWS CLI installed and configured using the `aws configure` command.
 
-```yaml 
-openfga:
-  enabled: true
-```
-```yaml
-dex:
-  enabled: true
-```
-### Step 3: Deploy the Helm Chart
-Update the Helm repository:
 
-```yaml
-helm repo update
-```
+???  "Step 1: Create a Kubernetes Cluster Using `eksctl`"  
+    > **Cluster Setup**: This step sets up the Kubernetes cluster using Amazon EKS. You can use any other Kubernetes service instead of EKS.
 
-Verify if the `openobserve` namespace exists:
+    1. Download the cluster configuration file:
+    ```
+    wget https://raw.githubusercontent.com/openobserve/eks-openobserve/main/o2-eks.yaml
+    ```
+    2. Open `o2-eks.yaml` and update the `CLUSTER_NAME`.
+    3. Run the following command to create the cluster:
+    ```
+    eksctl create cluster -f o2-eks.yaml
+    ```
 
-```yaml
-kubectl get namespaces
-```
+    After this step, you have a working Kubernetes cluster. The platform does not need to be Amazon EKS. You can use Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), or any other distribution.
 
-If the output shows the `openobserve` namespace, run the following command:
+???  "Step 2: Install Helm"
+    > **Deployment Tool**: Helm is a tool that simplifies application deployment in Kubernetes by using reusable configuration templates called charts.
 
-```yaml
-helm upgrade --namespace openobserve -f values.yaml o2 openobserve/openobserve
-```
+    For installation instructions, see the [Helm Installation Guide](https://helm.sh/docs/intro/install/).
 
-If the output does not show the `openobserve` namespace, create the namespace first and then run the `helm upgrade` command:
+???  "Step 3: Create an S3 Bucket and IAM Role"
+    > **Object Storage and IAM Access**: This step configures a storage bucket and IAM role that OpenObserve will use to write log data to S3.
 
-```yaml
-kubectl create ns openobserve 
-```
-```yaml
-helm upgrade --namespace openobserve -f values.yaml o2 openobserve/openobserve
-```
+    1. Download and prepare the script:
+    ```
+    wget https://raw.githubusercontent.com/openobserve/eks-openobserve/main/bucket.sh
+    chmod +x bucket.sh
+    ```
+    2. Open `bucket.sh` and update the `CLUSTER_NAME` variable to match your cluster ou created in **Step 1**.
+    3. Run the script:
+    ```
+    ./bucket.sh
+    ```
 
-### Step 4: Verify Deployment Status
-After deployment, verify that all pods are running:
+    **Make a note of the following:**
 
-```yaml 
-kubectl get pods -n openobserve
-```
+      - Bucket name
+      - IAM role ARN
+        
+    These values are required for the Helm chart configuration in later steps.
+      
+    You can verify the bucket and IAM role in the AWS Console. You should see the S3 bucket and a role named OpenObserveRole.
 
-**Expected Output**: All pods should be listed with a status of `Running`. 
+???  "Step 4: Download the OpenObserve Helm Values File"
+    > **Deployment Configuration**: This file contains the configurable parameters that control how OpenObserve will be deployed.
 
-> **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).** 
+    Download the values file using:
 
-## Option 2: Terraform 
+    ```
+    wget https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/charts/openobserve/values.yaml
+    ```
 
-Use this method if you do not have an existing Amazon EKS cluster. This workflow sets up the infrastructure required to deploy OpenObserve Enterprise Edition on an EKS cluster. <br>
-**Note:** The [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac/tree/main) includes Terraform configuration files and other resources that automate the setup. The following setup process handles nearly all tasks automatically, with only one manual step required: Configuring your DNS in Amazon Route 53 using the Network Load Balancer (NLB).
+???  "Step 5: Update the `values.yaml` Configuration"
+    > **Helm Chart Configurations**: This step configures access credentials, storage, and platform-specific settings before deploying OpenObserve.
 
-### Prerequisites
-Verify that the following tools are installed:
+    1. Add the IAM role for the service account
+    Under the `serviceAccount` section, add the IAM role ARN:
+    ```
+    serviceAccount:
+      create: true
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::<account-id>:role/OpenObserveRole
+    ```
+    2. Configure the object storage provider
+    Under the config section, set the S3 provider, bucket name, and region:
+    ```
+    config:
+      ZO_S3_PROVIDER: "s3"
+      ZO_S3_BUCKET_NAME: "openobserve-29608"
+      ZO_S3_REGION_NAME: "us-east-2"
+    ```
+    Valid values for `ZO_S3_PROVIDER` include `s3`, `azure`, `minio`, and `gcs`.
+    Example configurations for Azure and MinIO are available in the same `values.yaml` file.
+    3. Set up root user credentials
+    Under the auth section, define login credentials for the root user:
+    ```
+    auth:
+      ZO_ROOT_USER_EMAIL: "root@example.com"
+      ZO_ROOT_USER_PASSWORD: "Complexpass#123"
+    ```
+    4. Enable RBAC and SSO 
+    To enable role-based access control and single sign-on, add the following configuration:
+    ```
+    openfga:
+      enabled: true
+    ```
+    ```
+    dex:
+      enabled: true
+    ```
+    For more inforamtion, refer to the [RBAC and SSO guides](../docs/user-guide/identity-and-access-management/).
 
-- [Terraform](https://www.terraform.io/downloads.html) 
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
-- [Infracost](https://www.infracost.io/docs/)
 
-### Configure Environment Variables
-Set up the following environment variables:
+    !!! Note
+        The NATS coordinator service is deployed automatically by the OpenObserve Helm chart. You do not need to install or configure it separately.
 
-- `ENV`: The environment you are targeting (e.g., `dev`, `staging`, or `prod`).
-- `CUSTOMER_NAME`: The name of the customer for whom the infrastructure is managed.
-- `AWS_PROFILE`: The AWS profile to use for authentication.
 
-### Step 1. Configure Variables in `terraform.tfvars` (init)
-Navigate to the terraform.tfvars file and update as required:
+???  "Step 6: Install PostgreSQL Using CloudNativePG"
+    > **Metadata Storage**: OpenObserve uses PostgreSQL to store metadata such as dashboards, stream configurations, users, and the filelist table.
 
-- `root_user_email`    = "`example@openobserve.ai`" 
-- `root_user_password` = "`CustomSecurePassword123`" 
-- `o2_domain` = "`example.openobserve.ai`" 
-- `O2_dex_domain` = "`example-auth.openobserve.ai`" 
-- `secret_name`  = "`example`" 
+    If you are not using Amazon RDS, install the CloudNativePG operator using the following command:
+    ```
+    kubectl apply --server-side -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
+    ```
 
-### Step 2: Initialize Terraform (init)
-Run the following command to download all necessary [Terraform modules and providers](https://github.com/openobserve/openobserve-eks-iac/blob/main/README.md#terraform-overview), and initialize the working directory containing your configuration files:
-```yaml
-make init ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
-```
-**Example:**
-```yaml
-make init ENV=dev CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
-```
+???  "Step 7: Create a `gp3` Storage Class"
+    > **Local Buffering**: This storage class enables local disk buffering before telemetry data is stored in S3.
 
-### Step 3: Plan Terraform Changes (plan)
-The following command shows the proposed changes Terraform will apply to the infrastructure: 
-```yaml
-make plan ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
-```
-**Example:**
-```yaml
-make plan ENV=dev CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
-```
+    Create the `gp3` storage class using:
+    ```
+    kubectl apply -f https://raw.githubusercontent.com/openobserve/eks-openobserve/main/gp3_storage_class.yaml
+    ```
+    To verify the storage class (optional), run `kubectl get sc`.
+    This command works with all Kubernetes environments. The `gp3` class is specific to **Amazon EBS**.
 
-### Step 4: Apply Terraform Changes (apply)
-Execute the following command to apply the changes:
-```yaml
-make apply ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
-```
-**Example:**
-```yaml
-make apply ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
-```
+???  "Step 8: Add the OpenObserve Helm Repository"
+    > **Chart Repository**: This repository contains the official Helm chart for deploying OpenObserve.
 
-### Step 5: Run the Pre-Setup to Install Dependencies (`o2_pre_setup`)
-After applying, run the following command:
-```yaml
-make o2_pre_setup ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
-```
-**Example:**
-```yaml
-make o2_pre_setup ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
-```
+    ```
+    helm repo add openobserve https://charts.openobserve.ai
+    helm repo update
+    ```
+???  "Step 9: Deploy OpenObserve Using Helm"
+    > **Deployment**: This step installs OpenObserve into your Kubernetes cluster using the Helm chart.
 
-### Step 6: Deploy OpenObserve Enterprise Edition on EKS (`o2_deployment`)
-The following command deploys the OpenObserve Helm Chart using `o2_deployment`:
+    1. Create the namespace: <br>
+    ```
+    kubectl create ns openobserve
+    ```
+    2. Deploy OpenObserve: <br>
+    ```
+    helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
+    ```
 
-```yaml
-make o2_deployment ENV=<environment> CUSTOMER_NAME=<customer> AWS_PROFILE=<aws_profile>
-```
-**Example:**
-```yaml
-make o2_deployment ENV=prod CUSTOMER_NAME=example AWS_PROFILE=my-aws-profile
-```
+    **After installation, Helm will output a kubectl port-forward command. Run the command and open http://localhost:<port>/ in your browser.**
 
-The [output.tf](https://github.com/openobserve/openobserve-eks-iac/tree/main?tab=readme-ov-file#5-output-and-state-management) file in the configuration verifies whether your workflow ran successfully. After successfully executing the above steps, you can access **OpenObserve Enterprise Edition** with all features enabled.
-
-> **For support, reach out in the [Slack channel](https://short.openobserve.ai/community).**
-
-**Note**: To use **OpenTofu** instead of Terraform, you need to modify the **provider.tf** and then use the **Makefile** that is placed under the [opentofu directory](https://github.com/openobserve/openobserve-eks-iac/tree/main/opentofu). Ensure that you have [OpenTofu](https://opentofu.org/docs/intro/install/) installed. 
+    **Installation complete**
+    OpenObserve is now running in your Kubernetes cluster. You can log in using the root user credentials and begin configuring data streams, dashboards, and alerting.
 
 
 

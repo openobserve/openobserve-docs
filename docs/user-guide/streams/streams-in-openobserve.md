@@ -11,16 +11,24 @@ A stream is a logical container that holds one type of observability data, such 
     - It has a unique name.  
     - It stores only one type of data such as logs, metrics, and traces.
 
-## Access and Permissions
+## Access
 
-Stream access depends on the OpenObserve edition and whether role-based access control (RBAC) is enabled.
+=== "Cloud"
+    - The **Add Stream** button is present by default on the **Streams** page.
+    - Users can create streams without enabling any configuration.
+    - During stream creation, the Fields section is optional.
+    - If you do not define any fields, OpenObserve will automatically detect them from the data you ingest. These detected fields will appear under **All Fields** in the Stream Details page.
 
-### Open-Source Edition
+=== "Self-hosted"
+    - By default, the **Add Stream** button is not visible on the **Streams** page.
+    - To enable the **Add Stream** button, set the following environment variable to `true`: <br>
+        `ZO_ALLOW_USER_DEFINED_SCHEMAS`
+    - After enabling the variable:
 
-- All users have unrestricted access to all streams.  
-- Any user can view, create, and delete streams.  
-- The **Add Stream** button is available to all users after login.
-> For more information about the Open-Source Edition, see the [Quickstart Guide](https://openobserve.ai/docs/quickstart/#self-hosted-installation). 
+        - The **Add Stream** button becomes visible.
+        - During stream creation, the **Fields** section is mandatory. You must define at least one field name and field type. This defines a user-defined schema for the stream.
+
+## Permission
 
 ### OpenObserve Cloud or the Enterprise Edition with Role Based Access Control (RBAC)
 
@@ -39,22 +47,53 @@ If RBAC is enabled in OpenObserve Cloud and the enterprise edition:
 
 - You have set up OpenObserve using [OpenObserve Cloud](https://cloud.openobserve.ai/) or the [self hosted](https://openobserve.ai/docs/quickstart/) option.   
 - You have created the organization where you plan to create the stream.
+- For self-hosted deployment, ensure that the `ZO_ALLOW_USER_DEFINED_SCHEMAS` environment variable is enabled. 
 
-Users with the required permissions can follow these steps to create streams:  
+The following steps vary for **Cloud** and **Self-hosted** deployment: 
+> If RBAC is enabled, ensure that you have required permissions to create streams.  
 
-1. Select the organization from the top navigation bar.   
-2. From the left navigation menu, select **Streams**.  
-3. Click **Add Stream.**   
-4. In the **Add Stream** dialog: 
+=== "Create Streams in OpenObserve Cloud"
+    1. Select the organization from the top navigation bar.   
+    2. From the left navigation menu, select **Streams**.  
+    3. Click **Add Stream.**   
+    4. In the **Add Stream** dialog: 
 
-   - Enter a unique stream name.   
-   - Select the **Stream Type**.  
-   - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
-     To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
-   - (Optional) Use the Add Fields, if you wish to create fields to the User Defined Schema. Learn more about [user defined schema](https://openobserve.ai/docs/performance/#24-user-defined-schema-uds).    
-5. Click **Create Stream**.
+        - Enter a unique stream name.   
+        - Select the **Stream Type**.  
+        - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
+            To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
+        - (Optional) Use the **Add Fields**, if you wish to create fields to the **User Defined Schema**. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md/#user-defined-schema-uds).    
+    5. Click **Create Stream**.
 
-The new stream appears on the Streams page. Ingest data into the stream to populate and start using it.
+    The new stream appears on the Streams page. Ingest data into the stream to populate and start using it.
+
+
+=== "Create Streams in OpenObserve Self-Hosted"
+    1. Select the organization from the top navigation bar.   
+    2. From the left navigation menu, select **Streams**.  
+    3. Click **Add Stream.**   
+    4. In the **Add Stream** dialog: 
+
+        - Enter a unique stream name.   
+        - Select the **Stream Type**.  
+        - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
+            To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
+        - In the **Add Fields** section, you must define at least one field name and field type. This creates a user-defined schema at stream creation.
+    
+        ??? info "Click to see how User-defined Schema works."
+            Let us say you define the following fields while creating a stream:
+
+            - job (String)
+            - code (Integer)
+            - message (String)
+
+            After you ingest data into this stream:
+            
+            - These fields (job, code, message) will appear under User Defined Schema in the [Stream Details](../../user-guide/streams/stream-details.md) page.
+            - Any additional fields not defined earlier will appear under All Fields.
+        
+        This creates a user-defined schema at stream creation. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md/#user-defined-schema-uds).    
+    5. Click **Create Stream**.
 
 !!! Note
 
@@ -68,7 +107,7 @@ The new stream appears on the Streams page. Ingest data into the stream to popul
 
 - [Ingest Data Using curl](https://openobserve.ai/docs/quickstart/#load-sample-data). 
 - Ingest Data Using API in [JSON formatted logs](https://openobserve.ai/docs/api/ingestion/logs/json/) and [multiple records in a batch with multiple JSON lines](https://openobserve.ai/docs/api/ingestion/logs/multi/). 
-- [Ingest Data Continuously Using Data Sources](https://openobserve.ai/docs/user-guide/ingestion/). 
+- [Ingest Data Continuously Using Data Sources](../../integration/index.md). 
 
 !!! Note
     You can now use the stream in Logs search, Dashboards, Pipelines, Alerts, and Actions.

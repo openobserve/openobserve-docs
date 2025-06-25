@@ -18,9 +18,6 @@ OpenObserve supports two types of organizations:
     **_meta Organization** is considered as a **custom** organization. It is a system-level organization that exists in both single-node and multi-node (HA) deployments. 
 
     - The **_meta** organization provides visibility into the health and status of the OpenObserve instance, including node metrics, resource usage, and configuration across all organizations. 
-
-    - Only the root user and users explicitly authorized through role-based access control (RBAC) can access it.
-    
     - Use the **IAM > Roles > Permission** in the **_meta** organization to manage users across all organizations and control who can list, create, update, or delete organizations.
 
 ## Access 
@@ -29,7 +26,7 @@ In OpenObserve, access to organization-level operations, such as listing, creati
 
 ### Open-Source Mode 
 Any authenticated user can create new organizations using the Add Organization button in the UI.
-### Enterprise and Cloud Mode with RBAC Enabled
+### Enterprise Mode with RBAC Enabled
 - Access to organization management is strictly controlled through RBAC, which must be configured in the _meta organization.
 - The **root** user always has unrestricted access to all organizations, including **_meta**.
 - Only roles defined in **_meta** can include permissions for managing organizations.
@@ -78,7 +75,7 @@ ZO_CREATE_ORG_THROUGH_INGESTION=true
 When enabled:
 
 - Only the **root** user can create organizations by sending data to a non-existent organization.
-- If a non-root user attempts to do so, a 403 Forbidden error is returned.
+- If a non-root user attempts to do so, a 401 unauthorized error is returned.
 
 ## Behavior and Limitations
 

@@ -2,10 +2,10 @@ nav:
 - Introduction: index.md
 - Getting started: getting-started.md
 - Quickstart: quickstart.md
-- Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
+- Enterprise Edition Installation: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
 - Example Queries: example-queries.md
-- SQL reference: sql_reference.md
+- SQL SQL Function Reference: sql_reference.md
 - Architecture: architecture.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md

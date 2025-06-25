@@ -1,7 +1,7 @@
 This page explains how to run your first log search in OpenObserve, set a time range, execute a query, apply VRL transformations, adjust display settings, and save or export the results. 
 
 > Before you begin, make sure you have the required access to use the **Logs** page. Learn more about [access control](index.md/#access).
-> Ensure that at least one stream with data is available in your organization. Learn more about [streams](../streams/). 
+> Ensure that at least one stream with data is available in your organization. Learn more about [streams](../streams/streams-in-openobserve.md). 
 
 ## Get Started with Logs
 To start using the **Logs** page:

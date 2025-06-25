@@ -44,7 +44,4 @@ PromQL example:
 
 
 
-## Other variable types
-
-TBD
 
