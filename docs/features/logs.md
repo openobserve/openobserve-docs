@@ -12,13 +12,13 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 ## Key Features
 
 ### Log Ingestion
-- **Multiple Protocols**: Support for various log shipping protocols including HTTP, syslog, and popular log shippers
+- **Multiple Protocols**: Support for multiple ingestion methods including HTTP and integration with popular log shippers like FluentBit, Vector, etc.
 - **Structured & Unstructured**: Handle both JSON structured logs and plain text logs
 - **Real-time Processing**: Immediate indexing and availability for search and analysis
 
 ### Search & Query
 
-- **Field Extraction**: Automatic parsing and extraction of log fields. 
+- **Field Extraction**: Automatic field detection and parsing for structured data.
 
 ![Field Extraction](../images/features/log-feilds-detection.png)
 
@@ -28,11 +28,11 @@ The [Schema Settings](../user-guide/streams/schema-settings.md) tab in the Strea
 
 ![Full-text Search](../images/features/log-settings.png)
 
-- **SQL Queries**: Use familiar SQL syntax for complex log analysis
+- **SQL Queries**: Use familiar SQL syntax for complex filtering and aggregation.
 
 ![SQL Queries](../images/features/sql-based-log-search.png)
 
-- **Time-based Filtering**: Efficient time range queries for targeted log exploration
+- **Time-based Filtering**: Query logs within specific time windows using absolute or relative ranges.
 
 ![Time-based Filtering](../images/features/time-selection.png)
 

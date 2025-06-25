@@ -12,10 +12,10 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 ## Key Features
 
 ### Metrics Ingestion
-- **Multiple Formats**: Support for various metrics formats including Prometheus, InfluxDB, and JSON
-- **Push & Pull Models**: Flexible ingestion supporting both push-based and pull-based collection methods
+- **Multiple Formats**: Support for multiple formats including Prometheus remote-write and structured JSON metrics via HTTP ingestion.
+- **Push & Pull Models**: Supports push-based ingestion and integration with systems like Prometheus for pull-based scraping.
 - **High Throughput**: Handle millions of metrics per second with minimal latency
-- **Batch Processing**: Efficient batch ingestion for optimal performance
+- **Optimized Processing**: Optimized ingestion pipelines for high-throughput environments.
 
 ### Data Types & Structure
 - **Time Series Data**: Native support for time-series metrics with timestamp precision
