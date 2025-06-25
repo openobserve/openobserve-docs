@@ -10,6 +10,7 @@ nav:
 - Architecture: architecture.md
 =======
 - Overview: overview
+- Architecture: architecture.md
 - Getting started: getting-started.md
 - Features: features
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
