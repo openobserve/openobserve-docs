@@ -26,7 +26,7 @@ The [Schema Settings](../user-guide/streams/schema-settings.md) tab in the Strea
 
 - **Full-text Search**: Powerful search capabilities across all log fields
 
-![Full-text Search](../images/features/full-text-search.png)
+![Full-text Search](../images/features/log-settings.png)
 
 - **SQL Queries**: Use familiar SQL syntax for complex log analysis
 
@@ -43,7 +43,7 @@ The [Schema Settings](../user-guide/streams/schema-settings.md) tab in the Strea
 
 - **Fast Retrieval**: Optimized indexing for quick log searches and aggregations
 
-![Indexing](../images/features/index.png)
+![Indexing](../images/features/log-settings.png)
 
 Know more about [Streams](../user-guide/streams/streams-in-openobserve.md) and its [details](../user-guide/streams/stream-details.md#stream-details)
 
