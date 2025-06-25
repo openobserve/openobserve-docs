@@ -44,7 +44,7 @@ OpenObserve's architectural approach can transform how you handle observability 
 **Next Steps:**
 
 - Explore our comprehensive [Feature List](../features/logs.md) to see all capabilities
-- Check out our [Quick Start Guide](../getting-started.md) to begin evaluation
+- Check out [Getting Started Guide](../getting-started.md) to start exploring
 - Join our [Community](https://github.com/openobserve/openobserve/discussions) to connect with other users
 
 *Sleep better at night knowing your observability stack is both powerful and affordable* 

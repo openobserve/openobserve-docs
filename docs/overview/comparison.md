@@ -32,8 +32,4 @@ OpenObserve offers significant advantage of 140x lower storage costs compared to
 
 ## Elasticsearch compatibility
 
-OpenObserve `_bulk` API endpoint is elasticsearch compatible and can be used by log forwarders like fluentbit, fluentd and vector. Filebeat is supported through zPlane.
-
-Search and aggregation API compatibility with Elasticsearch is provided through zPlane.
-
-zPlane is the enterprise product offered by ZincLabs that among other things provides Elasticsearch search and aggregation compatibility. Learn more about it at [zPlane docs](zplane)
+OpenObserve `_bulk` API endpoint is elasticsearch compatible and can be used by log forwarders like fluentbit, fluentd, Filebeat and vector.

@@ -25,7 +25,7 @@ We are building the best software in the observability category in the world. Th
 - Unified logs, metrics, and traces with correlation
 - Intuitive UI and powerful APIs
 - Feature-rich yet simple to use
-- Designed for real-world workflows
+- Designed for scale
 
 ## Accessible Costs
 **Enterprise capabilities without enterprise pricing**
