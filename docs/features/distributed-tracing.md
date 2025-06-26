@@ -6,7 +6,7 @@ OpenObserve provides powerful distributed tracing capabilities that enable you t
 
 Distributed tracing in OpenObserve allows you to visualize the complete journey of requests across multiple services, understand service dependencies, and pinpoint the root cause of performance issues. Built for modern cloud-native applications, OpenObserve efficiently handles trace ingestion, correlation, and analysis at enterprise scale while maintaining exceptional query performance.
 
-![Tracing Page](../images/features/tracing-page.png)
+![Tracing Page](../images/features/traces-hero.png)
 *Distributed Tracing overview page*
 
 ## Key Features
@@ -55,8 +55,6 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 ![Traces Service Map](../images/features/traces-service-map.png)
 
 ### Storage & Performance
-
-- **Efficient Compression**: Advanced compression techniques reduce storage overhead by up to 85%
 
 - **Smart Indexing**: High-performance indexing optimized for trace queries and span searches
 

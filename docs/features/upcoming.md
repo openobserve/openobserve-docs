@@ -4,6 +4,6 @@ Our vision is to build the most performant and cost-effective observability plat
 
 Every feature we develop is driven by real user needs and our commitment to making observability simple, powerful, and accessible to teams everywhere.
 
-Explore our current roadmap and upcoming features **[here](https://github.com/openobserve/openobserve/milestones)**
+Want to help shape the future of OpenObserve? We're always evolving and welcome contributions, feedback, and new ideas from the community.
 
-Have ideas that could make OpenObserve even better? We'd love to hear from you! Share your thoughts and feature requests in our **[GitHub Discussions](https://github.com/openobserve/openobserve/discussions)** - your input directly shapes what we build next 🚀
+Have a feature request or improvement in mind? Jump into our **[GitHub Discussions](https://github.com/openobserve/openobserve/discussions)** or explore the **[official repository](https://github.com/openobserve/openobserve)** to get involved. Whether it’s ideas, code, or just curiosity — we’d love to have you onboard 🚀

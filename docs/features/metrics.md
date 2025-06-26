@@ -51,7 +51,7 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 
 ### Storage & Performance
 
-- **Optimized Compression**: Advanced compression algorithms reduce storage costs by up to 90%
+- **Optimized Compression**: Advanced compression algorithms reduce storage costs.
 
 ![Metrics Compression](../images/features/metrics-compression.png)
 
@@ -65,6 +65,6 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 
 ### Integration & Compatibility
 - **Prometheus Compatible**: Full compatibility with Prometheus ecosystem and exporters
-- **Grafana Integration**: Native support for Grafana dashboards and visualization
+- **OpenTelemetry Ecosystem**: Full compatibility with OpenTelemetry collectors and instrumentation libraries
 - **API Access**: RESTful APIs for programmatic access to metrics data
 - **Standard Exporters**: Support for popular metrics exporters (Node Exporter, cAdvisor, etc.)

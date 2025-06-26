@@ -45,6 +45,5 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 
 ## Integration
 
-- **Web SDK**: Easily add via CDN or NPM (`@openobserve/browser-rum`)
-- **Framework Support**: Works with vanilla JS, React, Vue, Angular, and more
+Getting started with [OpenObserve's RUM](../user-guide/rum.md) is straightforward. Add our JavaScript snippet to your application's entry point eg: index.js or main.js, and you'll begin collecting user experience data immediately.
 
