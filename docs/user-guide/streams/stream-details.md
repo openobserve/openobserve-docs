@@ -1,20 +1,18 @@
-After data [ingestion is complete](streams-in-openobserve.md/#ingest-data-into-stream), you can view detailed information about a stream using the **Stream Details** panel. 
-This guide explains how to access the **Stream Details** panel and the information available in the panel. 
+After After you complete [data ingestion](streams-in-openobserve.md/#ingest-data-into-stream), use **Stream Details** to view configuration and usage information for a stream and update its settings.
 
-## Access 
-From the Streams page, select the **Explore** icon from the **Actions** column.   
+This guide explains how to open **Stream Details** and the information it displays. 
+
+## Access the Stream Details 
+From the **Streams** page, select the **Explore** icon from the **Actions** column.   
 ![stream details access](../../images/stream-details-access.png) 
 
-This opens the **Stream Details** panel, which provides configuration details, schema settings, and extended retention options.
-
 ## Permission
-
 User roles that have permission to update Streams can modify the stream settings from the **Stream Details** page. The permission needs to be assigned to appropriate user roles using role-based access control (RBAC). 
 
 ![stream details permission](../../images/stream-details-permission.png)
 
 ## Stream Details
-The **Stream Details** panel displays key configuration and usage information for the selected stream:
+**Stream Details** shows key configuration and usage information for the selected stream:
 
 ![stream details](../../images/stream-details.png)
 
@@ -42,9 +40,14 @@ The **Stream Details** panel displays key configuration and usage information fo
     ```
     ZO_DEFAULT_MAX_QUERY_RANGE_DAYS  
     ```  
-    > However, when a non-zero Max query range is set on a stream, the value set from the Stream Details panel overrides the global value. <br> By default, both the environment variable and **Max Query Range** in the UI is set to zero (o), which means no limit.
+    > However, when a non-zero Max query range is set on a stream, the value set through **Stream Details** overrides the global value. <br> By default, both the environment variable and the **Max Query Range** value are set to zero, which means there is no limit.
   
 - **Use Stream Stats for Partitioning**: When you enable this toggle, OpenObserve assumes that all your data present in the stream is equally split and creates equal sized partitions between the start and end time. 
+
+## Troubleshooting
+
+- If stream details appear blank, verify that the data has been successfully ingested.
+- Ensure you have the necessary role permissions to view or modify stream settings.
 
 ## Next Steps
 

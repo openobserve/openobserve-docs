@@ -1,18 +1,33 @@
-# Functions
+This guide describes the custom SQL functions supported in OpenObserve for querying and processing logs and time series data. These functions extend the capabilities of standard SQL by enabling full-text search, array processing, and time-based aggregations.
 
-## FUll text search functions
+## Full-text Search Functions
+These functions allow you to filter records based on keyword or pattern matches within one or more fields.
 
-### str_match(field, 'v')
+### `match_field(field, 'value')`
+**Alias for**: `str_match(field, 'v')` <br>
+**Description**: <br>
+Filters logs by matching the exact string value within the specified field. The match is case-sensitive. <br>
+**Example**:
+```sql
+SELECT * FROM logs WHERE match_field("status", 'Success')
+```
+This filters logs where the status field contains the string 'Success'. It does not match 'success' or 'SUCCESS'.
 
-filter the keyword in the field.
+### `match_field_ignore_case(field, 'value')`
+**Alias for**: `str_match_ignore_case` <br>
+**Description**: <br>
+Filters logs by matching the string value within the specified field, ignoring case. The match is case-insensitive. <br>
+**Example**:
+```sql
+SELECT * FROM logs WHERE match_field_ignore_case("status", 'success')
+```
+This matches logs where the status field contains 'success', 'Success', 'SUCCESS', or any other casing variation.
 
-### str_match_ignore_case(field, 'v')
 
-filter the keyword in the field with case_insensitive. it can match `KeyWord` or `keyWord`.
 
 ### match_all('v')
-
-filter the keyword in the fields, whose **Index Type** is set to `Full text search` in streams settings. To utilize Inverted Index, you must set environment variable `ZO_ENABLE_INVERTED_INDEX` to `true` first,
+**Description**: <br>
+Filters the keyword in the fields, whose **Index Type** is set to `Full text search` in streams settings. To utilize Inverted Index, you must set environment variable `ZO_ENABLE_INVERTED_INDEX` to `true` first,
 then you can specify Index Type for one or multiple fields (e.g. `body`, `message`) to `Inverted Index` by going to stream settings.
 
 > We have default fields: `log`, `message`, `msg`, `content`, `data`, `json`. you can set the full text search fields in the UI or through `index.setting` API.

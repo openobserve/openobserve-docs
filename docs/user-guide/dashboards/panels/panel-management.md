@@ -1,7 +1,5 @@
 This guide explains how to use and manage panels in the dashboard. It includes features available in the panel toolbar, step-by-step instructions, and troubleshooting tips for common issues.
 
-## Panel Toolbar Features
-
 The panel toolbar offers the following controls to adjust, organize, and customize your panels:
 
 ## Viewing and Refresh Controls  
@@ -13,6 +11,17 @@ Maximizes the panel to cover the entire display, providing an expanded view. <br
 
 - To expand the view, click the **Full Screen Mode** button in the panel toolbar.  
 - To exit **Full Screen Mode**, press **Escape** on your keyboard. 
+
+### Information Icon
+The information icon on panel shows the description of the panel. <br>  
+![Panel Description](../../../images/manage-panels-panel-description.png)  
+
+**To add, edit, or remove a panel description:**
+
+1. In the panel toolbar, open the dropdown menu and select **Edit Panel**.  
+2. On the right side of the screen, select the **Config** tab.  
+3. Under **Description**, enter, update, or delete the panel description as needed.  
+4. Select **Apply** to save your changes.
 
 ### Last Refreshed At  
 Displays the timestamp of when the panel’s data was last updated. <br> 
@@ -103,11 +112,9 @@ Allows you to add notes to selected data points or time ranges across multiple p
 
     - Use the dropdown menu to select panels. You can apply annotations across multiple panels based on your selection.    
     - If you do not select any panel, the annotation applies to all panels for the selected time range, within the dashboard by default.
-
-![Select Panels](../../../images/manage-panels-select-panels.png)
+    ![Select Panels](../../../images/manage-panels-select-panels.png)
 
 5. **Save Annotation.**
-
 ![Save Annotation](../../../images/manage-panels-save-annotations.png)
 
 
@@ -120,13 +127,3 @@ Allows you to add notes to selected data points or time ranges across multiple p
   ![Delete Annotations](../../../images/manage-panels-delete-annotations.png)
 
 
-!!! Note
-    Information icon on panel shows the description of the panel.   
-    ![Panel Description](../../../images/manage-panels-panel-description.png)  
-
-    **To add, edit, or remove a panel description:**
-
-    1. In the panel toolbar, open the dropdown menu and select **Edit Panel**.  
-    2. On the right side of the screen, select the **Config** tab.  
-    3. Under **Description**, enter, update, or delete the panel description as needed.  
-    4. Select **Apply** to save your changes.

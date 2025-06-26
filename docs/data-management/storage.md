@@ -10,7 +10,7 @@ By default:
 
 - Metadata is always stored on disk using **SQLite** in **Local mode**.
 - Metadata is always stored on disk using **postgres** in **Cluster mode**.
-- Stream data can be stored on disk or S3-compatible object storage such as Amazon S3, minIO, Google GCS, Alibaba OSS, or Tencent COS.
+- Stream data can be stored on disk or object storage such as Amazon S3, minIO, Google GCS, Alibaba OSS, or Tencent COS.
 
 ## Storage Modes
 

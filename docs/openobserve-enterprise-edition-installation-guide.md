@@ -1,6 +1,8 @@
+## Deploy OpenObserve Enterprise Edition as a Highly Available (HA) installation using Helm.
+
 This guide explains how to deploy [OpenObserve Enterprise Edition](https://openobserve.ai/downloads/)  in a **Kubernetes** environment using **Helm**. 
 
-> These instructions use Amazon EKS and S3 for demonstration, but the deployment works with any Kubernetes platform such as GKE or AKS, and other S3-compatible storage services such as Azure Blob, MinIO, or GCS.
+> These instructions use Amazon EKS and S3 for demonstration, but the deployment works with any Kubernetes environment, such as GKE or AKS, and other object storage services such as Azure Blob, MinIO, or GCS.
 
 > For support, reach out in the [Slack channel](https://short.openobserve.ai/community).
 
@@ -13,7 +15,7 @@ This guide explains how to deploy [OpenObserve Enterprise Edition](https://openo
     - **Dex and OpenFGA** enable Single Sign-On (SSO) and Role-Based Access Control (RBAC).
 
 
-## Installation Steps
+### Installation Steps
 Follow these steps to install OpenObserve Enterprise Edition:
 
 
@@ -158,10 +160,9 @@ Follow these steps to install OpenObserve Enterprise Edition:
     helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
     ```
 
-    **After installation, Helm will output a kubectl port-forward command. Run the command and open http://localhost:<port>/ in your browser.**
+  After installation, the output displays a `kubectl port-forward` command. Run that command and then open `http://localhost:<port>` in your browser, replacing `<port>` with the actual port number shown.
 
-    **Installation complete**
-    OpenObserve is now running in your Kubernetes cluster. You can log in using the root user credentials and begin configuring data streams, dashboards, and alerting.
+  OpenObserve is now running in your Kubernetes cluster. Log in using the root user credentials configured in Step 5 to start using OpenObserve.
 
-
-
+!!! info "Note"
+    OpenObserve also provides an Infrastructure as Code (IAC) workflow using [Terraform](https://www.terraform.io/downloads.html) or [OpenTofu](https://opentofu.org/docs/intro/install/). This streamlines the deployment of Amazon Elastic Kubernetes Service (EKS) and OpenObserve in HA mode. It enables teams to quickly provision and manage OpenObserve infrastructure in Amazon EKS using prebuilt, flexible modules. To explore this option, visit the [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac).

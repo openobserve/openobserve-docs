@@ -1,4 +1,4 @@
-This guide explains how organizations work in OpenObserve. It covers organization types, creation methods, identifiers, access control, and switching behavior. 
+This guide explains how organizations work in OpenObserve. It covers organization types, creation methods, identifiers, access control, and limitations. 
 
 ## Overview   
 Organizations provide logical boundaries for separating data, users, and access controls, enabling secure multi-tenant usage in a single OpenObserve deployment.

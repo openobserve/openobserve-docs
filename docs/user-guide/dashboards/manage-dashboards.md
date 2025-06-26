@@ -71,5 +71,3 @@ In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 ![tabs](../../images/dashboard-manage-5.png)
 
 
-FAQs
-Q: Why does my dashboard chart say "No data"?

@@ -1,6 +1,6 @@
 ## Extended Retention
 
-The Extended Retention feature in the Stream Details panel allows you to retain specific segments of your stream data beyond the configured stream-level or global retention period. 
+The Extended Retention feature in **Stream Details** allows you to retain specific segments of your stream data beyond the configured stream-level or global retention period. 
 
 ## When to Use Extended Retention
 
@@ -9,10 +9,11 @@ For example, logs from a known incident that occurred last month, you can config
 
 ## How to Apply Extended Retention
 
-1. Navigate to the **Stream Details** panel.  
-2. Select the **Extended Retention** tab.  
-3. Use the date selector to specify a time range in UTC. Click **Apply**.  
-4. Click **Update Settings** to apply the retention policy.
+1. From the **Streams** page, select the **Explore** icon from the **Actions** column. 
+2. Navigate to [**Stream Details**](../../user-guide/streams/stream-details.md/#access-the-stream-details).  
+3. Select the **Extended Retention** tab.  
+4. Use the date selector to specify a time range in UTC. Click **Apply**.  
+5. Click **Update Settings** to apply the retention policy.
 
 !!! Note  
     The data within the selected time range will be retained for an additional 3,650 days.

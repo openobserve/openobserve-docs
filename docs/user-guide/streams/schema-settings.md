@@ -1,4 +1,4 @@
-The **Schema Settings** tab in the [Stream Details](stream-details.md) panel allows you to inspect and manage the schema used to store and query ingested data. A schema defines the structure of log data in a stream, including:
+The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to inspect and manage the schema used to store and query ingested data. A schema defines the structure of log data in a stream, including:
 
 - The fields present in the logs  
 - The detected data types for each field  
