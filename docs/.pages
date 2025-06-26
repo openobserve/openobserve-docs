@@ -19,7 +19,7 @@ nav:
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
 - Example Queries: example-queries.md
-- SQL Function reference: sql_reference.md
+- SQL Function Reference: sql_reference.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md
 - Data Management: data-management
