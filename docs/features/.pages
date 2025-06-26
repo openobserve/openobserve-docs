@@ -1,0 +1,7 @@
+nav:
+  - Log Management: logs.md
+  - Metric Monitoring: metrics.md
+  - Distributed Tracing: distributed-tracing.md
+  - Frontend Observability: frontend.md
+  - Enterprise Features: enterprise.md
+  - What's next: upcoming.md
