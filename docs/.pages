@@ -1,19 +1,6 @@
 nav:
-<<<<<<< HEAD
-<<<<<<< HEAD
-- Introduction: index.md
-- Getting started: getting-started.md
-- Quickstart: quickstart.md
-- Enterprise Edition Installation: openobserve-enterprise-edition-installation-guide.md
-- Releases: releases.md
-- Example Queries: example-queries.md
-- SQL Function Reference: sql_reference.md
-- Architecture: architecture.md
-=======
-=======
->>>>>>> b992089 (nav bar modification:)
 - Overview: overview
-- Architecture: architecture.md
+- Architechture: architecture.md
 - Getting started: getting-started.md
 - Features: features
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md

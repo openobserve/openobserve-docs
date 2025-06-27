@@ -6,7 +6,7 @@ OpenObserve provides powerful log management capabilities for collecting, storin
 
 Logs in OpenObserve offer comprehensive observability into your system's behavior, allowing you to track events, debug issues, and monitor application performance. Built with high performance and cost efficiency in mind, OpenObserve handles log ingestion and querying at scale.
 
-![Logs Page](../images/features/logs-page.png)
+![Logs Page](../images/features/logs-hero.png)
 *Logs Page view*
 
 ## Key Features

@@ -6,7 +6,7 @@ OpenObserve provides comprehensive metrics collection, storage, and visualizatio
 
 Metrics in OpenObserve enable you to track key performance indicators, monitor system health, and gain insights into your application's behavior over time. Designed for high-throughput environments, OpenObserve efficiently handles metrics ingestion, storage, and querying at scale while maintaining cost-effectiveness.
 
-![Metrics Page](../images/features/metrics-page.png)
+![Metrics Page](../images/features/metrics-hero.png)
 *Metrics Page view*
 
 ## Key Features
