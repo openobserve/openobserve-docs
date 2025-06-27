@@ -104,22 +104,17 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 
     **Prerequisites**: Ensure Docker is installed and running on your system.
 
-    Docker images are available at [https://gallery.ecr.aws/zinclabs/openobserve-enterprise](https://gallery.ecr.aws/zinclabs/openobserve-enterprise)
+    Docker images are available at:
+    
+    - Enterprise: [https://gallery.ecr.aws/zinclabs/openobserve-enterprise](https://gallery.ecr.aws/zinclabs/openobserve-enterprise)
+    - OSS : [https://gallery.ecr.aws/zinclabs/openobserve](https://gallery.ecr.aws/zinclabs/openobserve)
+
 
     **Linux/macOS:**
     ```bash
-    # Create a data directory
-    mkdir -p ./openobserve-data
-
-    # Run OpenObserve container
-    docker run -d \
-      --name openobserve \
-      -v ./openobserve-data:/data \
-      -e ZO_DATA_DIR="/data" \
-      -e ZO_ROOT_USER_EMAIL="root@example.com" \
-      -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
-      -p 5080:5080 \
-      public.ecr.aws/zinclabs/openobserve:latest
+    docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
+    -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
+    public.ecr.aws/zinclabs/openobserve:latest
     ```
 
     **Windows:**
