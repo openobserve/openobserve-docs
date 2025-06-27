@@ -159,10 +159,9 @@ Follow these steps to install OpenObserve Enterprise Edition:
     ```
     helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
     ```
+    After installation, the output displays a `kubectl port-forward` command. Run that command and then open `http://localhost:<port>` in your browser, replacing `<port>` with the actual port number shown.
 
-  After installation, the output displays a `kubectl port-forward` command. Run that command and then open `http://localhost:<port>` in your browser, replacing `<port>` with the actual port number shown.
-
-  OpenObserve is now running in your Kubernetes cluster. Log in using the root user credentials configured in Step 5 to start using OpenObserve.
+    OpenObserve is now running in your Kubernetes cluster. Log in using the root user credentials configured in Step 5 to start using OpenObserve.
 
 !!! info "Note"
     OpenObserve also provides an Infrastructure as Code (IAC) workflow using [Terraform](https://www.terraform.io/downloads.html) or [OpenTofu](https://opentofu.org/docs/intro/install/). This streamlines the deployment of Amazon Elastic Kubernetes Service (EKS) and OpenObserve in HA mode. It enables teams to quickly provision and manage OpenObserve infrastructure in Amazon EKS using prebuilt, flexible modules. To explore this option, visit the [openobserve-eks-iac repository](https://github.com/openobserve/openobserve-eks-iac).
