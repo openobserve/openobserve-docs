@@ -67,25 +67,8 @@ code >= 400
 
 ![Invalid Syntax](../images/example-queries/equalto-greaterthan-error.png)
 
-## Aggregations & Complex Queries
 
-**Histogram of log timestamps with status code counts:**
-```sql
-SELECT 
-  histogram(_timestamp) AS ts_histogram, 
-  count(CASE WHEN code = 200 THEN 1 END) AS code_200_count,
-  count(CASE WHEN code = 401 THEN 1 END) AS code_401_count,
-  count(CASE WHEN code = 500 THEN 1 END) AS code_500_count
-FROM your_stream_name
-GROUP BY ts_histogram
-```
-
-Replace `your_stream_name` with the actual stream name in your OpenObserve setup.
-- `histogram(_timestamp)` bins timestamps into uniform intervals (e.g. hourly). You can configure the granularity in the UI or query if needed.
-    ![Histogram of log timestamps](../images/example-queries/histogram.png)
-
-
-## Filtering Queries
+## Filtering using WHERE Clause
 
 **Filter by service and status code:**
 ```sql
@@ -129,3 +112,19 @@ LIMIT 10
 
 
 
+## Aggregations & Complex Queries
+
+**Histogram of log timestamps with status code counts:**
+```sql
+SELECT 
+  histogram(_timestamp) AS ts_histogram, 
+  count(CASE WHEN code = 200 THEN 1 END) AS code_200_count,
+  count(CASE WHEN code = 401 THEN 1 END) AS code_401_count,
+  count(CASE WHEN code = 500 THEN 1 END) AS code_500_count
+FROM your_stream_name
+GROUP BY ts_histogram
+```
+
+Replace `your_stream_name` with the actual stream name in your OpenObserve setup.
+- `histogram(_timestamp)` bins timestamps into uniform intervals (e.g. hourly). You can configure the granularity in the UI or query if needed.
+    ![Histogram of log timestamps](../images/example-queries/histogram.png)
