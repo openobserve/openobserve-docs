@@ -4,6 +4,7 @@ Questions: This guide describes the custom SQL functions supported in OpenObserv
 These functions allow you to filter records based on keyword or pattern matches within one or more fields.
 
 ### `str_match(field, 'value')`
+
 **Alias**: `match_field(field, 'value')` (Available in OpenObserve version 0.15.0 and later) <br> 
 
 **Description**: <br>
@@ -18,9 +19,12 @@ SELECT * FROM "default" WHERE str_match(k8s_pod_name, 'main-openobserve-ingester
 ```
 This query filters logs from the `default` stream where the `k8s_pod_name` field contains the exact string `main-openobserve-ingester-1`. It does not match values such as `Main-OpenObserve-Ingester-1`, `main-openobserve-ingester-0`, or any case variation.
 
+![str_match](./images/sql-reference/str-match.png)
+
 ---
 ### `str_match_ignore_case(field, 'value')`
 **Alias**: `match_field_ignore_case(field, 'value')` (Available in OpenObserve version 0.15.0 and later)<br>
+
 **Description**: <br>
 
 - Filters logs where the specified field contains the string value. 
@@ -32,6 +36,8 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 SELECT * FROM "default" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSERVE-INGESTER-1')
 ```
 This query filters logs from the `default` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
+
+![str_match_ignore_case](./images/sql-reference/str-ignore-case.png)
 
 ---
 
@@ -52,6 +58,8 @@ SELECT * FROM "default" WHERE match_all('openobserve-querier')
 ```
 This query returns all logs in the `default` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 
+![match_all](./images/sql-reference/match-all.png)
+
 ---
 ### `re_match(field, 'pattern')`
 **Description**: <br>
@@ -70,12 +78,17 @@ SELECT * FROM "default" WHERE re_match(k8s_container_name, 'openobserve-querier|
 ```
 This query returns logs from the `default` stream where the `k8s_container_name` field matches any of the strings `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
 
+![re_match](./images/sql-reference/re-match.png)
+
+
 To perform a case-insensitive search:
 
 ```sql
 SELECT * FROM "default" WHERE re_match(k8s_container_name, '(?i)openobserve-querier')
 ```
 This query returns logs where the `k8s_container_name` field contains any casing variation of `openobserve-querier`, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
+
+![re_match_ignore_case](./images/sql-reference/re-match-ignore-case.png)
 
 ---
 
@@ -90,6 +103,8 @@ This query returns logs where the `k8s_container_name` field contains any casing
 SELECT * FROM "default" WHERE re_not_match(k8s_container_name, 'openobserve-querier|controller|nats')
 ```
 This query returns logs from the `default` stream where the `k8s_container_name` field does not match any of the values `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
+
+![re_not_match](./images/sql-reference/re-not-match.png)
 
 ---
 
@@ -115,6 +130,8 @@ SELECT *, arr_descending(emails) as sorted_emails FROM "default" ORDER BY _times
 In this query, the emails field contains a stringified JSON array such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The query creates a new field `sorted_emails`, which contains the elements sorted in descending order:
 `["john@doe.com", "jene@doe.com", "jim@email.com"]`
 
+![arr_descending](./images/sql-reference/array-descending.png)
+
 ---
 
 ### `arrcount(arrfield)`
@@ -126,6 +143,8 @@ Counts the number of elements in a stringified JSON array stored in the specifie
 SELECT *, arrcount(emails) as email_count FROM "default" ORDER BY _timestamp DESC
 ```
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function counts the number of elements in the array and returns the result: `3`.
+
+![arrcount](./images/sql-reference/array-count.png)
 
 ---
 
@@ -142,6 +161,8 @@ SELECT *, arrindex(emails, 0, 1) as selected_emails FROM "default" ORDER BY _tim
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function extracts elements at index `0` and `1`. The result is:
 `["jim@email.com", "john@doe.com"]`
 
+![arrindex](./images/sql-reference/array-index.png)
+
 ---
 
 ### `arrjoin(field, delimiter)`
@@ -156,6 +177,8 @@ SELECT *, arrjoin(emails, ' | ') as joined_numbers FROM "default" ORDER BY _time
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function joins all elements using the delimiter `|`. The result is:
 `"jim@email.com | john@doe.com | jene@doe.com"`
 
+![arr_join](./images/sql-reference/array-join.png)
+
 ---
 
 ### `arrsort(field)`
@@ -169,6 +192,9 @@ SELECT *, arrsort(emails) as increasing_numbers FROM "default" ORDER BY _timesta
 ```
 In this query, the emails field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function sorts the elements in increasing lexicographical order. The result is:
 `["jene@doe.com", "jim@email.com", "john@doe.com"]`.
+
+![arrsort](./images/sql-reference/array-sort.png)
+
 
 ---
 
@@ -185,6 +211,8 @@ SELECT *, arrzip(emails, usernames, '|') as zipped_field FROM "default" ORDER BY
 In this query, the `emails` field contains `["jim@email.com", "john@doe.com"]` and the `usernames` field contains `["jim", "john"]`. The function combines each pair of elements using the delimiter `|`.
 The result is:
 `["jim@email.com | jim", "john@doe.com | john"]`
+
+![arrzip](./images/sql-reference/array-zip.png)
 
 ---
 
@@ -286,6 +314,8 @@ Each row in the result shows:
 
 - **`key`**: The start time of the 30-second bucket.
 - **`num`**: The count of log records that fall within that time bucket.
+
+![histogram](./images/sql-reference/histogram.png)
 
 !!! note
     To avoid unexpected bucket sizes based on internal defaults, always specify the bucket duration explicitly using units. 
