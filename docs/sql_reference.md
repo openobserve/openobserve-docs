@@ -234,6 +234,14 @@ In this query, the `json_object_field` contains a value such as:
 The function navigates the JSON structure and extracts the value associated with the path `nested.value`.
 The result is: `23`.
 
+Sample Input in log stream:
+
+![Nested Input](./images/sql-reference/nested-input.png)
+
+Running SQL query using spath():
+
+![Nested value extraction](./images/sql-reference/nested.png)
+
 ---
 
 ### `cast_to_arr(field)`
