@@ -260,6 +260,8 @@ In this query:
 - The function `cast_to_arr` is used to convert these fields into native arrays.
 - The result of `array_union` is a merged array with unique values: `[1, 2, 3, 4]`.
 
+![cast_to_arr](./images/sql-reference/cast-to-array.png)
+
 ---
 
 ### `to_array_string(array)`
@@ -282,6 +284,8 @@ In this query:
 - `array_concat` joins the two native arrays.
 - `to_array_string` converts the result back into a stringified array.
 - `arrsort` then sorts the array in increasing order.
+
+![to_array_string](./images/sql-reference/to-array-string.png)
 
 ---
 
