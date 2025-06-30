@@ -4,7 +4,8 @@ Questions: This guide describes the custom SQL functions supported in OpenObserv
 These functions allow you to filter records based on keyword or pattern matches within one or more fields.
 
 ### `str_match(field, 'value')`
-**Alias**: `match_field(field, 'value')` <br>
+**Alias**: `match_field(field, 'value')` (Available in OpenObserve version 0.15.0 and later) <br> 
+
 **Description**: <br>
 
 - Filters logs where the specified field contains the exact string value. 
@@ -19,7 +20,7 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 
 ---
 ### `str_match_ignore_case(field, 'value')`
-**Alias**: `match_field_ignore_case(field, 'value')` <br>
+**Alias**: `match_field_ignore_case(field, 'value')` (Available in OpenObserve version 0.15.0 and later)<br>
 **Description**: <br>
 
 - Filters logs where the specified field contains the string value. 
@@ -37,11 +38,11 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 ### `match_all('value')`
 **Description**: <br>
 
-- Filters logs by searching for the keyword across all fields that have the Index Type set to Full Text Search in the [stream settings](../docs/user-guide/streams/schema-settings.md). 
+- Filters logs by searching for the keyword across all fields that have the Index Type set to Full Text Search in the [stream settings](../user-guide/streams/schema-settings/). 
 - This function is case-insensitive and returns matches regardless of the keyword's casing.
 
 !!! Note 
-    To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../docs/user-guide/streams/schema-settings.md) in the user interface or through the [setting API](../docs/api/stream/setting.md).
+    To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/streams/schema-settings/) in the user interface or through the [setting API](../api/stream/setting/).
 
     The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
 
@@ -261,7 +262,7 @@ Aggregate functions compute a single result from a set of input values. For usag
 
 ### `histogram(field, 'duration')`
 **Description:** <br>
-Use the `histogram` function to divide your time-based log data into time buckets of a fixed duration and then apply aggregate functions such as COUNT() or SUM() to those intervals.
+Use the `histogram` function to divide your time-based log data into time buckets of a fixed duration and then apply aggregate functions such as `COUNT()` or `SUM()` to those intervals.
 This helps in visualizing time-series trends and performing meaningful comparisons over time. <br><br>
 **Syntax:** <br>
 ```sql
