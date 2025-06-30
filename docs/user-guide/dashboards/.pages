@@ -3,10 +3,10 @@ nav:
     - Dashboards in OpenObserve: dashboards-in-openobserve.md
     - Manage Dashboards: manage-dashboards.md
     - Move and Export Dashboards in Bulk: bulk-move-and-export-dashboards.md
-    - Variables: variables.md
-    - Variable Dependencies in Dashboards: variable-dependencies.md
+    - Panels: panels
+    - Variables: variables
     - Comparison Against in Dashboards: comparison-against-in-dashboards.md
     - Custom Charts: custom-charts
-    - Panels: panels
+
 
     
