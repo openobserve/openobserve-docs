@@ -70,7 +70,10 @@ To apply the variable to a panle:
 The panel is now dynamically filtered using the **Pod** variable. When users select a value from the **Pod** dropdown on the dashboard, the panel updates to display data for that pod only.
 ![Variable in Dashboard](../../../images/query-variable-results.png)
 
-## Default Max Record Size
+## Advanced Configuration
+After creating and applying a variable, you can further refine its behavior using advanced settings.
+
+### Default Max Record Size
 
 The **Default max record size** limits how many records appear in the dropdown list. 
 
@@ -83,10 +86,10 @@ This allows users to select valid values that may not be included in the default
 
     Default max record size is 10. 
 
-## Filters
+### Filters
 You can optionally configure [variable dependencies](variable-dependencies.md) using the **Filters** option.
 
-## Default Select
+### Default Select
 
 **Default Select** controls what values are selected automatically when the dashboard loads.
 
@@ -99,11 +102,11 @@ Available options:
 To configure this select one of the options under **By Default Select** when adding or editing a variable.
 
 
-## Hide on Dashboard
+### Hide on Dashboard
 
 If enabled, the variable dropdown will not be shown in the dashboard interface. This is useful for variables that are meant to work in the background or should not be modified by users.
 
-## Escape Single Quotes
+### Escape Single Quotes
 
 If enabled, single quotes in user input will be escaped automatically.
 
@@ -114,7 +117,7 @@ If enabled, single quotes in user input will be escaped automatically.
 
 This prevents syntax errors in SQL queries that include user inputs with special characters.
 
-## Single-Select and Multi-Select 
+### Single-Select and Multi-Select 
 
 When creating variables, you can enable support for multiple selections.
 
@@ -123,7 +126,10 @@ When creating variables, you can enable support for multiple selections.
 
 To enable multi-select, toggle the **Allow multiple selection** switch when configuring the variable.
 
-## Custom Values 
+
+## Variable Input Behavior
+
+### Custom Values 
 
 You can enter custom values manually when the desired option is not available in the variable dropdown. These values work if they exist in the underlying data.
 
@@ -133,7 +139,7 @@ You can enter custom values manually when the desired option is not available in
 !!! Note
     If a custom value is entered that does not exist in the data, dashboard panels will display no results.
 
-## Type-Ahead 
+### Type-Ahead 
 
 The type-ahead input feature allows users to search for a value by typing in the dropdown.
 
