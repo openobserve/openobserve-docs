@@ -37,11 +37,11 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 ### `match_all('value')`
 **Description**: <br>
 
-- Filters logs by searching for the keyword across all fields that have the Index Type set to Full Text Search in the [stream settings](../docs/user-guide/streams/schema-settings.md). 
+- Filters logs by searching for the keyword across all fields that have the Index Type set to Full Text Search in the [stream settings](./user-guide/streams/schema-settings.md). 
 - This function is case-insensitive and returns matches regardless of the keyword's casing.
 
 !!! Note 
-    To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../docs/user-guide/streams/schema-settings.md) in the user interface or through the [setting API](../docs/api/stream/setting.md).
+    To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](./user-guide/streams/schema-settings.md) in the user interface or through the [setting API](./api/stream/setting.md).
 
     The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
 
@@ -122,7 +122,7 @@ Counts the number of elements in a stringified JSON array stored in the specifie
 
 **Exmaple**:
 ```sql
-SELECT *, arr_descending(emails) as sorted_emails FROM "default" ORDER BY _timestamp DESC
+SELECT *, arrcount(emails) as email_count FROM "default" ORDER BY _timestamp DESC
 ```
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function counts the number of elements in the array and returns the result: `3`.
 
