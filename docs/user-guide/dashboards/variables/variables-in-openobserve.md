@@ -43,7 +43,7 @@ Variables appear as dropdowns at the top of the dashboard.
 
 ## Apply the Variable to a Panel
 
-To apply the variable to a panle: 
+To apply the variable to a panel: 
 
 1. Go to the same dashboard where you created the variable.
 2. Create a new panel or open an existing panel to edit it.
@@ -97,7 +97,7 @@ Available options:
 
 - **First value**: Selects the first listed value from the dropdown.
 - **All values**: Selects all values from the dropdown.
-- **Custom**: Lets you specify one or more default values.
+- **Custom**: Specify one or more default values.
 
 To configure this select one of the options under **By Default Select** when adding or editing a variable.
 
