@@ -1,7 +1,7 @@
 ---
 title: OpenObserve Grafana Plugin
 weight: 4450
-description: OpenObserve Plugin to be in Grafana
+description: OpenObserve Plugin to be used in Grafana
 ---
 # OpenObserve Grafana Plugin
 
