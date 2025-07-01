@@ -118,12 +118,12 @@ Although the value appears as a valid array, it is stored as a string. The array
 
 ### `arr_descending(field)`
 **Description**: <br>
-
+ß
 - Sorts the elements in the specified array field in descending order. 
 - The array must be a stringified JSON array. 
 - All elements in the array must be of the same type.
 
-**Exmaple**:
+**Example**:
 ```sql
 SELECT *, arr_descending(emails) as sorted_emails FROM "default" ORDER BY _timestamp DESC
 ```
@@ -138,7 +138,7 @@ In this query, the emails field contains a stringified JSON array such as `["jim
 **Description**: <br>
 Counts the number of elements in a stringified JSON array stored in the specified field. The field must contain a valid JSON array as a string.
 
-**Exmaple**:
+**Example**:
 ```sql
 SELECT *, arrcount(emails) as email_count FROM "default" ORDER BY _timestamp DESC
 ```
