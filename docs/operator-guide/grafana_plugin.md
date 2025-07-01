@@ -40,7 +40,7 @@ With the OpenObserve Grafana plugin, you can:
 - **Use OpenObserve as a Prometheus data source** for metrics visualization
 
 !!! warning "Plugin Maintenance Status"
-      Please note that this Grafana plugin is not actively maintained or regularly updated. While it may work with current versions of Grafana and OpenObserve, compatibility and functionality are not guaranteed. We recommend testing thoroughly in your environment before deploying to production. For the most reliable experience, consider using OpenObserve's built-in visualization capabilities.
+      This Grafana plugin is not actively maintained. It may work with current Grafana and OpenObserve versions, but compatibility isn’t guaranteed. Test thoroughly before production use. For best results, use OpenObserve’s built-in visualizations.
 
 ## Getting Started
 
