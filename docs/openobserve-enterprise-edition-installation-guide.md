@@ -116,7 +116,7 @@ Follow these steps to install OpenObserve Enterprise Edition:
     dex:
       enabled: true
     ```
-    For more inforamtion, refer to the [RBAC and SSO guides](../docs/user-guide/identity-and-access-management/).
+    For more inforamtion, refer to the [RBAC and SSO guides](../user-guide/identity-and-access-management/role-based-access-control/).
 
 
     !!! Note
