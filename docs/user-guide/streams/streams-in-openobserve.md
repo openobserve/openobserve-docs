@@ -39,7 +39,7 @@ If RBAC is enabled in OpenObserve Cloud and the enterprise edition:
 - **Viewer:** Can view streams. Cannot create, update, or delete streams.  
 - **User:** Cannot view, create, or modify streams.  
 - **Custom roles**: A user or service account with custom roles can create and manage streams if the required permissions are granted using RBAC.
-> Learn more about [OpenObserve Cloud](https://cloud.openobserve.ai/) and the [Enterprise Edition](https://openobserve.ai/docs/ha_deployment/). 
+> Learn more about [OpenObserve Cloud](https://cloud.openobserve.ai/) and the [Enterprise Edition](https://openobserve.ai/docs/openobserve-enterprise-edition-installation-guide/). 
 
 ## Create a Stream in OpenObserve
 
@@ -107,7 +107,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
 
 - [Ingest Data Using curl](https://openobserve.ai/docs/quickstart/#load-sample-data). 
 - Ingest Data Using API in [JSON formatted logs](https://openobserve.ai/docs/api/ingestion/logs/json/) and [multiple records in a batch with multiple JSON lines](https://openobserve.ai/docs/api/ingestion/logs/multi/). 
-- [Ingest Data Continuously Using Data Sources](../../integration/index.md). 
+- [Ingest Data Continuously Using Data Sources](../../ingestion/index.md). 
 
 !!! Note
     You can now use the stream in Logs search, Dashboards, Pipelines, Alerts, and Actions.
