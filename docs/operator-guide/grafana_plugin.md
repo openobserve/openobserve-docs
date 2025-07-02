@@ -30,15 +30,6 @@ You should consider using OpenObserve's Grafana plugin if you:
 2. **Have existing Grafana dashboards** you want to keep
 3. **Need to consolidate** OpenObserve data with other data sources in a single Grafana instance
 
-## What the Plugin Enables
-
-With the OpenObserve Grafana plugin, you can:
-
-- **Visualize OpenObserve data** directly in your existing Grafana dashboards
-- **Use Grafana Explore** to perform ad-hoc queries on logs and metrics from OpenObserve
-- **Combine OpenObserve data** with data from other sources in unified dashboards
-- **Use OpenObserve as a Prometheus data source** for metrics visualization
-
 !!! warning "Plugin Maintenance Status"
       This Grafana plugin is not actively maintained. It may work with current Grafana and OpenObserve versions, but compatibility isn’t guaranteed. Test thoroughly before production use. For best results, use OpenObserve’s built-in visualizations.
 
@@ -227,8 +218,7 @@ You should now be able to see the results.
 
 <img src="../images/explore_4.png" width="100%" />
 
-If you want to explore metrics from OpenObserve in OpenObserve you can setup grafana as a standard prometheus data source and explore metrics. You do not need the plugin for that as grafana supports prometheus data source out of the box.
-
+If you want to explore metrics from OpenObserve in Grafana, you can set up OpenObserve as a Prometheus-compatible data source using an endpoint like https://api.openobserve.ai/api/org_name/prometheus. You do not need the plugin for this, as Grafana supports Prometheus natively.
 
 
 
