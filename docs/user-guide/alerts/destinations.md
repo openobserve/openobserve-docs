@@ -16,7 +16,7 @@ The **Destinations** section provides three configuration options. Select a dest
     **Steps to Configure Webhooks as Alert Destination:** 
 
     1. Go to **Management > Alert Destinations**. 
-    2. In the **Add Destinations** page, click **Webhook**.
+    2. In the **Add Destination** page, click **Webhook**.
     3. Fill in the following details:
       ![Add Destinations](../../images/webook-as-alert-destination.png) 
       
@@ -123,7 +123,7 @@ The **Destinations** section provides three configuration options. Select a dest
     ![Alert Destination](../../images/alert-email-destination.png)
   
       1. Go to **Management** > **Alert Destinations**. 
-      2. In the **Add Destinations** page, click **Email**.
+      2. In the **Add Destination** page, click **Email**.
       3. Enter a name for the destination.
       4. Select an email template to define the alert content.
       5. Enter the recipient’s email address.
@@ -149,7 +149,7 @@ The **Destinations** section provides three configuration options. Select a dest
     ![Action Destination](../../images/action-as-destination.png)
 
       1. Go to **Management > Alert Destinations**. 
-      2. In the **Add Destinations** page, click **Actions**.
+      2. In the **Add Destination** page, click **Actions**.
       3. Enter the name of the destination.
       4. Select the template. 
       5. Select the real-time action. 
