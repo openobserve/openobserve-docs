@@ -48,9 +48,9 @@ trace.set_tracer_provider(tracer_provider)
 ```
 ##Setup up credentials 
 
-You will get `url` and `Authorization` key here [http://cloud.openobserve.ai/ingestion/traces/](http://cloud.openobserve.ai/ingestion/traces/)
+You will get `url` and `Authorization` key [here](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
 
-Replace the `url` and `Authorization` key in the `tracing.py` file
+Replace the `url` and `Authorization` key in the `tracing.py` file.
 
 ##Setup Service/Application 
 Follow the steps given in the sample-tracing-python readme and then start server
@@ -65,9 +65,7 @@ Refresh page couple of times to get more traces exported.
 
 
 
-Traces are captured, you can check these captured traces here [https://cloud.openobserve.ai/traces](https://cloud.openobserve.ai/traces)
-
-![Traces Page](./images/traces_python.png)
+Traces are captured, you can check these captured traces here [https://cloud.openobserve.ai/web/traces](https://cloud.openobserve.ai/web/traces).
 
 Filter traces with your service name `python-service`
 
