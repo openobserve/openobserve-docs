@@ -11,7 +11,7 @@ Follow these steps to create and configure Cipher Keys in OpenObserve:
 1. From the top navigation bar, click the gear icon to open the **Management** page.  
 2. Select **Cipher Keys**.
 
-![cipher-keys](../../images/cipher-keys1.png)
+![cipher-keys](../../images/cipher-keys.png)
 
 ### Step 2: Create a New Cipher Key
 
@@ -22,9 +22,9 @@ Follow these steps to create and configure Cipher Keys in OpenObserve:
     - **Key Store Type:** Choose where the encryption key will be stored:
 
         - **OpenObserve (Local)**: Stores the encryption key directly in OpenObserve’s database. If you select **OpenObserve**, paste your encryption key in the **Secrets** field. [Learn how you can encrypt the key before storing it in the OpenObserve database for additional security](#cipher-key-storage-in-openobserve).
-     ![cipher-keys-typestorage-o2](../../images/cipher-keys2.png)
+     ![Cipher Key Store Type- Local](../../images/cipher-keys-o2local.png)
         - **Akeyless**: Allow using Akeyless as an external key management system to store keys. If you select Akeyless, enter the Base URL of the Akeyless API, Access ID, Authentication details - Access Key or Lightweight directory access protocol (LDAP), and Secret Types - [Static](https://docs.akeyless.io/docs/static-secrets) or [Distributed Fragments Cryptography (DFC)](https://docs.akeyless.io/docs/zero-knowledge).
-     ![cipher-keys-storagetype-akeyless](../../images/cipher-keys3.png) 
+     ![Cipher Keys Storage Type- akeyless](../../images/cipher-keys-akeyless.png) 
 
 
 3. Click **Continue**. 
@@ -36,7 +36,7 @@ Choose an encryption method:
 - **Simple**: Choose if encryption is done using Advanced Encryption Standard (AES). From the dropdown, select the algorithm as `AES-256 SIV`.  
 - **Tink KeySet**: Choose if the encryption is done using Google Tink.
 
-![cipher-keys-encryption-mechanism](../../images/cipher-keys4.png)  
+![Cipher keys encryption mechanism](../../images/cipher-keys-encryption-mechanism.png)  
 After you have filled in all the details, click **Save**. Your new Cipher Key is now available to use in OpenObserve.
 
 ## How to Use Cipher Keys to Decrypt Encrypted Logs
@@ -81,7 +81,7 @@ SELECT user_id FROM user_activity_stream WHERE decrypt(user_data, 'user_data_dec
 
 ## How to Manage Cipher Keys
 
-![manage-cipher-keys](../../images/cipher-keys5.png) 
+![manage-cipher-keys](../../images/cipher-keys-manage.png) 
 To update or delete a Cipher Key, click the edit or delete icon under the **Actions** column, respectively.
 
 ## Cipher Key Storage in OpenObserve 

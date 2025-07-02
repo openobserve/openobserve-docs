@@ -1,5 +1,5 @@
 This guide provides instructions on how to create alert folders. You can now use folders to organize alerts on the **Alerts** page. This helps you group and manage alerts efficiently. <br>
-![alert-folders](../../images/alert-folders-1.png)
+![Alert folders](../../images/alert-folders.png)
 
 All alerts are stored in the **default** folder unless you assign them to a different folder.
 

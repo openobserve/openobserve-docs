@@ -6,32 +6,35 @@ This guide provides step-by-step instructions for using the [Multi-window Select
 
 You can apply the multi-window selector feature to both new and existing scheduled alerts in SQL mode. 
 
-#### To access multi-window selector in new alerts: 
+### In New Alerts 
+
+To access multi-window selector in new alerts:
 
 1. Select **Alerts**.   
 2. Select the folder or create a new folder as per requirement.  
 3. Click **Add Alert**.  
-4. Select **Scheduled Alerts**.  
-5. Select **SQL**.   
-6. Navigate to the **Multi-window Selector** section.
+4. Under **Alert Setup**, select **Scheduled Alerts**.   
+5. Navigate to the **Multi-window Selector** section.
 
-![access multi-window](../../images/multi-window-0.png)
+![access multi-window](../../images/multi-window.png)
 
-#### To access multi-window selector in existing alerts: 
+### In Existing Alerts
+
+To access multi-window selector in existing alerts: 
 
 1. Select the existing alert from the **Alerts** page (the selected alert must be scheduled and created in the SQL mode). Apply the **Scheduled** filter to view all the Scheduled alerts. 
 2. Click the edit icon.  
 3. In the **Update Alert** page, navigate to the **Multi-window Selector** section.
 
-![access multi-window in existing alerts](../../images/multi-window-01.png)
+![access multi-window in existing alerts](../../images/multi-window-in-existing-alerts.png)
 
-## How to Use Multi-window Selector 
+## Use Multi-window Selector 
 
 > **Use Case**: You want to monitor **purchase events where users had to retry the action (retry count > 0)**. Specifically, you want to check if the number of such purchase events has **increased by more than 5% in the last 30 minutes**, compared to the same 30-minute period yesterday. If yes, you want to receive an **alert by email** that clearly states the percentage increase, so you can take necessary actions.
 
 Follow these steps to configure the **Multi-window Selector** feature in your scheduled alert:
 
-#### Step 1: Write the SQL Query
+### Step 1: Write the SQL Query
 
 **Tip**: Use the Logs page to write and test your SQL query. 
 
@@ -61,15 +64,15 @@ Explanation of the above SQL query:
 - **Filters**: Only include events of type `purchase` that have retry count greater than zero.  
 - **Group by**: Each time bucket.
 
-![sql editor](../../images/multi-window-1.png)
+![sql editor](../../images/multi-window-sql-editor.png)
 
-#### Step 2: Define the Period
+### Step 2: Define the Period
 
 Specify the time range for which you want to evaluate the data (for example, the last 30 minutes).
 
-![period](../../images/multi-window-2.png)
+![period](../../images/multi-window-period.png)
 
-#### Step 3: Select Multi-window
+### Step 3: Select Multi-window
 
 In the **Multi-window Selector** section, select the historical time window you want to compare against the current time window.
 
@@ -80,7 +83,7 @@ In this case, the alert manager will run **two SQL queries** at runtime:
 1. One for the **current time window** (for example, 9:30 AM – 10:00 AM, today).  
 2. One for the **selected past time window** (for example, 9:30 AM – 10:00 AM, yesterday).
 
-#### Step 4: Write the VRL Function 
+### Step 4: Write the VRL Function 
 
 > **What input does the VRL function receive?**<br>
 > ​The output of your SQL query is the input to your VRL function.<br>
@@ -238,7 +241,7 @@ Example:
 ]
 ```
 
-#### Step 5: Define the Threshold
+### Step 5: Define the Threshold
 
 Use the VRL function output to define the threshold.
 Set the threshold as:
@@ -250,7 +253,7 @@ Set the threshold as:
 
 Set the **Threshold** as **>= 1**
 
-#### Step 6: Define the Frequency
+### Step 6: Define the Frequency
 
 Determines how often the alert manager runs the query throughout the day (e.g., every 30 minutes).
 
@@ -277,13 +280,13 @@ At 10:30 AM, OpenObserve alert manager executes SQL for:
 - Current window: 10:00 AM – 10:30 AM, today
 - Past window: 10:00 AM – 10:30 AM, one day ago
 
-#### Step 7: Select Destination
+### Step 7: Select Destination
 
 Specify where you want to receive the alert notification- email or webhook. 
 
 ![add destination](../../images/multi-window-4.png)
 
-#### Step 8: Create Row Template
+### Step 8: Create Row Template
 
 Design the row template to customize the alert content.
 
@@ -303,9 +306,9 @@ Alert: Purchase events with retries increased by {{ diff_percentage }}%*
 Details: Count difference: {{ diff }}
 ```
 
-#### Step 9: Save the Alert
+### Step 9: Save the Alert
 
-### FAQ
+## FAQ
 
 **What is a window in the Multi-window Selector?** <br>
 A *window* is a specific time range of data. It depends on the period you set in the alert.

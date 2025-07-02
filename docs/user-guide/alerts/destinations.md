@@ -1,101 +1,157 @@
-# Alerts - destinations
-In OpenObserve (O2), **Destinations** enables users to set up notification channels for alert messages. These destinations define where and how notifications will be delivered when alerts are triggered. Destinations are reusable, allowing them to be associated with multiple alerts for efficient management.
+In OpenObserve, **Destinations** define how and where alert notifications are delivered when an alert is triggered. Destinations are reusable. You can assign a destination to one or more alerts to manage notifications efficiently.
 
-The **Destinations** section provides two configuration options:
+## Configure Alert Destinations 
 
-1. **Webhook**: Used for sending notifications to third-party systems via HTTP requests.
-2. **Email**: Used for delivering notifications directly to email addresses.
+The **Destinations** section provides three configuration options. Select a destination type to view configuration instructions.
 
-Below is a detailed guide on how to configure both Webhook and Email destinations in OpenObserve.
+=== "Webhook"
+    When the alert gets triggered, OpenObserve will send alert data to an external system using an HTTP POST request. Use this option to integrate with services that support webhook ingestion. You can customize the request payload using templates to match the format expected by the target system. 
+    
+    ???  "View use cases."
+        You can use this destination to:
 
----
-## Configuring Webhook Destinations
+          - Create incident tickets in **Jira Service Management** or **ServiceNow**.
+          - Send notifications to **Slack** or **Microsoft Teams channels**.
 
-Webhooks are ideal for integrating OpenObserve alerts with third-party platforms, such as Slack, Microsoft Teams, or custom systems. Follow these steps to configure a Webhook destination:
+    **Steps to Configure Webhooks as Alert Destination:** 
 
-1. Navigate to the **Alerts** module from the left-hand navigation menu and click on **Destinations**.
-2. Click the **Add Destination** button.
-![Destinations](../../images/destinations/1.jpg)
-3. In the **Add Destination** screen, select the **Webhook** tab (selected by default).
-4. Fill in the following details:
-   - **Name**: Enter a descriptive name for the Webhook destination (e.g., "Slack Notifications").
-   - **Template**: Choose a predefined alert message template from the dropdown menu.
-   - **URL**: Specify the Webhook endpoint URL where notifications will be sent.
-   - **Method**: Select the HTTP method (**POST**, **GET**, or **PUT**) depending on the Webhook's requirements.
-   - **Headers (Optional)**: Add custom headers in key-value format (e.g., authentication tokens or content type).
-   - **Skip TLS Verify**: Enable this option if the endpoint uses self-signed certificates or if you want to bypass SSL verification.
-6. Once all the fields are complete, click **Save** to create the Webhook destination.
+    1. Go to **Management > Alert Destinations**. 
+    2. In the **Add Destinations** page, click **Webhook**.
+    3. Fill in the following details:
+      ![Add Destinations](../../images/webook-as-alert-destination.png) 
+      
+        - **Name**: Enter a descriptive name for the Webhook destination. For example, SlackNotifications. Note that characters such as `,`, `:`, `?`, `/`, `#`, and `spaces` are not allowed.
+        - **Template**: Choose a predefined alert message template from the dropdown menu.
+        - **URL**: Specify the Webhook endpoint URL where notifications will be sent. For example, `https://hooks.slack.com/services/T02QBH105PF/B04C7NLLLRE/HY3fXf123`
+        - **Method**: Select the HTTP method (`POST`, `GET`, or `PUT`) depending on the Webhook's requirements.
+        - **Headers (Optional)**: Add custom headers in key-value format. For example, authentication tokens or content type. For example, 
+            ```
+            Key: Authorization  
+            Value: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
+            ```
+        - **Skip TLS Verify**: Enable this option if the endpoint uses self-signed certificates or if you want to bypass SSL verification.
+    6. Click **Save** to create the Webhook destination.
 
-![Destinations](../../images/destinations/2.jpg)
-### Example:
+=== "Email"
+    When the alert gets triggered, OpenObserve will send alert notifications to one or more email addresses using SMTP. Use this option when email is the preferred channel for receiving alerts. You must configure the email delivery settings under your OpenObserve SMTP setup. The alert payload can be formatted using a predefined template.
+  
+    ???  "View use cases."
+          You can use this destination to:
 
-- **Name**: Slack Alerts  
-- **Template**: SlackTemplate  
-- **URL**: `https://hooks.slack.com/services/T02QBH105PF/B04C7NLLLRE/HY3fXf123`  
-- **Method**: POST  
-- **Headers**:  
-  - **Key**: Authorization  
-  - **Value**: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
+          - Notify on-call team members or distribution lists.
+          - Route alerts to incident mailboxes used by helpdesk.
+    
+    **Prerequisites:**
+    
+    ??? "1. Set up an email account for sending alerts."
+        To send email alerts using Gmail SMTP, you must create an App Password. Follow these steps:
 
----
-## Configuring Email Destinations
+        1. Sign in to your Gmail account.
+        2. Go to **Google Account Settings** > **Security**.
+        3. Under **Signing into Google**, enable **2-Step Verification** (if not already enabled).
+        4. After enabling 2-Step Verification, go to the **App Passwords**.
+        5. In the **App Passwords** page, enter a name for your app, such as SMTP, and click **Create**.
+        6. Copy the generated App Password and store it securely. You will need it during configuration.
 
-Email destinations are used for delivering alert notifications directly to specified email addresses. To configure an Email destination:
+        **Test Your Gmail SMTP Configuration** <br>
+        Use an online tool such as [Mailmeteor’s SMTP Test Tool](https://mailmeteor.com/smtp-test) to verify your configuration. <br>To test:
 
-1. Navigate to the **Alerts** module from the left-hand navigation menu and click on **Destinations**.
-2. Click the **Add Destination** button.
-3. In the **Add Destination** screen, select the **Email** tab.
-4. Fill in the following details:
-   - **Name**: Provide a descriptive name for the Email destination (e.g., "Team Alerts").
-   - **Template**: Select a predefined email message template from the dropdown.
-   - **Recipients**: Enter one or more email addresses, separated by commas or semicolons.
-5. Click **Save** to create the Email destination.
+        1. Go to Mailmeteor's SMTP Test Tool and select the email provider.
+        2. The tool fills in the SMTP server as `smtp.gmail.com` and port `587`.
+        3. Enter your Gmail address and the **App Password** you created earlier.
+        4. Click **Test Configuration**. 
 
-![Destinations](../../images/destinations/3.jpg)
-### Example:
+        If successful, you will receive a test email in your inbox. This confirms your Gmail SMTP configuration is working.
+    
+    ??? "2. Configure environment variables to enable email alerts through SMTP in OpenObserve."
+        Choose your deployment type and configure the environment variables accordingly:
+      
+        - **For Single Node Deployment**: You need to pass SMTP configuration parameters when starting OpenObserve. Below is the command to configure OpenObserve to send email alerts via Gmail:
 
-- **Name**: Critical Alerts  
-- **Template**: EmailTemplate  
-- **Recipients**: `team@example.com; manager@example.com`  
+        ```yml linenums="1"
+        ZO_SMTP_ENABLED=true \
+        ZO_SMTP_HOST="smtp.gmail.com" \
+        ZO_SMTP_PORT=587 \
+        ZO_SMTP_USER_NAME="your-gmail-address@gmail.com" \
+        ZO_SMTP_PASSWORD="your-app-password" \
+        ZO_SMTP_FROM_EMAIL="your-gmail-address@gmail.com" \
+        ZO_SMTP_ENCRYPTION="starttls" \
+        ZO_ROOT_USER_EMAIL="root-user-email" \
+        ZO_ROOT_USER_PASSWORD="root-user-password" \
+        ./openobserve
 
----
-## Additional Notes
-![list_Destinations](../../images/destinations/4.jpg)
-- Configured destinations appear in the **Destinations** list under the **Alerts** module. From this list, you can:
-  - Search for specific destinations by name or type.
-  - Edit existing destinations to update settings.
-  - Delete destinations that are no longer required.
-- Destinations can be linked to multiple alerts, allowing for efficient and consistent notification management.
+        ```
+        Replace the placeholders with your actual credentials and email addresses.
 
-By following this guide, you can set up Webhook and Email destinations to ensure timely and reliable alert notifications in OpenObserve.
+        - **For High Availability (HA) deployment**: Configure the above environemnt variables in the values.yaml file
+        - **For Cloud**: No additional configuration required. 
+    
+    ??? "3. Set up an alert template."
+        This allows you to define the content and layout of the alert message.
+        
+        1. In OpenObserve, go to **Management > Templates**.
+        2. Click **Add Template** to create a new email template. 
+        3. In the template creation screen:
+          ![Alert Destination](../../images/email-template-for-alert.png)
 
----
-### Setup and Configure OpenObserve to Send Email Alerts via SMTP
+            - Select **Email** as the template type.
+            - Enter a name for the template.
+            - Fill in the **Title** and **Body** fields.
+          
+            Title Example:
+            ```
+            [Alert: {alert_name}] - Severity: {alert_type}
+            ```
+            Body Example:
+            ```
+            {
+              "alertname": "{alert_name}",
+              "stream": "{stream_name}",
+              "organization": "{org_name}",
+              "alerttype": "{alert_type}",
+              "severity": "critical"
+            }
+            ```
+    ??? "4. Ensure that the recipient is part of the appropriate organization"
+        1. From the left-nevigation menu, go to **IAM** (Identity and Access Management) > **Users**.
+        2. Click **Add User**.
+        3. Enter the user’s email address, role, password, and name.
+        4. Click **Save**. 
+      After the user is added, they become eligible to receive email alerts.
+    
+    **Steps to Configure Emails as Alert Destination:** <br> 
+    ![Alert Destination](../../images/alert-email-destination.png)
+  
+      1. Go to **Management** > **Alert Destinations**. 
+      2. In the **Add Destinations** page, click **Email**.
+      3. Enter a name for the destination.
+      4. Select an email template to define the alert content.
+      5. Enter the recipient’s email address.
+      6. Click **Save**.
+      
+    This creates the email as alert destination. 
 
-To send email alerts, OpenObserve requires SMTP configuration. This can be done by setting the appropriate environment variables when starting OpenObserve.
+=== "Actions"
+      When an alert gets triggered, OpenObserve executes a Real-time Action script. Use this destination type when the alert data needs to be processed or routed using custom logic.Action scripts are stateful. They can retain values across executions, enabling more advanced workflows than webhook or email destinations.
 
+    ???  "View use cases."
+          For example, you can use this destination to:
+        
+          - Send the alert to Slack, and also ingest a structured copy of the alert into a custom stream in your organization
+          - Track how often a specific alert has triggered, then write aggregated metrics, such as trigger count per hour, to a stream for trend analysis.
+    
+    **Prerequisites:**
+      
+      1. Create the real-time action script as per your requirement. For more details, visit the [Create and Use Real-time Actions](../actions/create-and-use-real-time-actions.md) page.
+      2. Create the alert template.
 
-#### Start OpenObserve with SMTP Configuration
+    **Steps to Configure Actions as Alert Destination:** 
+    ![Action Destination](../../images/action-as-destination.png)
 
-Use the following command to configure OpenObserve to send email alerts via Gmail:
-
-```bash
-ZO_SMTP_ENABLED=true \
-ZO_SMTP_HOST="smtp.gmail.com" \
-ZO_SMTP_PORT=587 \
-ZO_SMTP_USER_NAME="your-user-name" \
-ZO_SMTP_PASSWORD="your-app-password" \
-ZO_SMTP_FROM_EMAIL="your-email-address" \
-ZO_SMTP_ENCRYPTION="starttls" \
-ZO_ROOT_USER_EMAIL="root@example.com" \
-ZO_ROOT_USER_PASSWORD="Complexpass#123" \
-./openobserve
-```
-Replace the placeholders (your-email-address, your-app-password, etc.) with your actual SMTP details.
-
-By configuring SMTP, you ensure that OpenObserve can send reliable email notifications for your alerts.
-
-If you're interested in learning more about SMTP environment variables, refer to this documentation: [SMTP Environment Variables](https://openobserve.ai/docs/environment-variables/#smtp).
-
-For step-by-step instructions on setting up Email Alerts in OpenObserve, check out our Blog: [How to Configure Email Alerts in OpenObserve](https://openobserve.ai/blog/how-to-configure-email-alerts-in-openobserve).
-
+      1. Go to **Management > Alert Destinations**. 
+      2. In the **Add Destinations** page, click **Actions**.
+      3. Enter the name of the destination.
+      4. Select the template. 
+      5. Select the real-time action. 
+      6. Click **Save**. 
+     
