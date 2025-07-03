@@ -40,10 +40,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-west-2  # or your preferred region
 
-    - name: Build MkDocs site
+    - name: Install MkDocs and Material theme
       run: |
-        rm -rf site
-        mkdocs build
+        pip install mkdocs mkdocs-material
 
     - name: Deploy to S3
       run: |
