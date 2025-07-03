@@ -20,7 +20,7 @@ jobs:
 
     - name: Install MkDocs and Material theme
       run: |
-        pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin
+        pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-material-plausible-plugin
 
     - name: Install AWS CLI
       run: |
