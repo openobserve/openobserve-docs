@@ -86,6 +86,25 @@ SELECT * FROM default WHERE trace_id = {trace_id} ORDER BY start_time
 
 **Note:** Traces do not support full SQL queries in the traces interface, however, the search API supports SQL for trace data when needed for complex queries.
 
+**Example:**
+```sql
+{
+    "query": {
+        "sql": "SELECT * FROM default WHERE trace_id = b1eeb579ae863bdf9408e7d64c02d5d1" ORDER BY start_time, 
+        "start_time": 1751443100969000,
+        "end_time": 1751444000969000,
+        "from": 0,
+        "size": 25
+    },
+    "search_type": "ui",
+    "timeout": 0
+}
+```
+**Note:** 
+
+- When `size` is set to `25`, only the first `25` spans for the trace are returned.
+- To retrieve all spans, set `size` to `-1`. In this case, you do not need to define the `from` parameter.
+
 ## Error Handling
 
 Common HTTP Status Codes:
