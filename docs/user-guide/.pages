@@ -4,7 +4,7 @@ nav:
     - Metrics: metrics
     - Streams: streams
     - Ingestion: ingestion
-    - Pipelines: Pipelines
+    - Pipelines: pipelines
     - Alerts: alerts
     - Dashboards: dashboards
     - Actions: actions

@@ -2,7 +2,7 @@
 
 You can setup tracing for your Node.js Typescript application. Check sample configuration on how to setup traces.
 
-##Clone </br>
+## Clone 
 ```
 
 git clone https://github.com/openobserve/sample-tracing-nodejs-typescript
@@ -39,13 +39,12 @@ const  sdk = new  opentelemetry.NodeSDK({
 sdk.start();
 ```
 </br>
-##Setup up credentials </br>
+## Setup up credentials 
 
-You will get `url` and `Authorization` key here [http://cloud.openobserve.ai/ingestion/traces/](http://cloud.openobserve.ai/ingestion/traces/)
+You will get `url` and `Authorization` key [here](http://cloud.openobserve.ai/web/ingestion/traces/).
+Replace the `url` and `Authorization` key in the `tracing.js` file.
 
-Replace the `url` and `Authorization` key in the `tracing.js` file
-
-##Setup Service/Application </br>
+## Setup Service/Application
 
 Follow the steps given in the sample-tracing-nodejs-typescript readme and then start server
 

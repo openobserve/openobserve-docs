@@ -18,16 +18,16 @@ The first step to using Actions is to ensure that there is a service account tha
 
 1. From the left navigation bar, go to **IAM** > **Service Accounts** > **Add Service Account**.  
 2. Creates a Service Account with an email ID. Example: `action_script@gmail.com`. <br>
-![create service account](../../images/create-real-time-action-1.png)
+![create service account](../../images/create-service-account.png)
 3. Go to **IAM** > **Roles** and assign a role to the Service Account. This can either be:  
 
     - An existing role  
     - A newly created role tailored to the specific use case
     
-    ![add role to the service account](../../images/create-real-time-action-2.png)
+    ![add role to the service account](../../images/create-real-time-action-add-role.png)
 
 4. Edit the role and grant the appropriate permission to the role to enable Action execution. 
-![edit the role assigned to the service account](../../images/create-real-time-action-3.png)
+![edit the role assigned to the service account](../../images/create-real-time-action-edit-role-permissions.png)
 
 **Note:** 
 
@@ -130,22 +130,22 @@ real_time_action_script/
 
 ## Step 3: Configure the Real-time Action
 
-![configure the action](../../images/create-real-time-action-4.png)
+![configure the action](../../images/create-real-time-action-configure-action.png)
 
 1. Go to **Actions** in the OpenObserve UI.  
 2. Click **Add Action**.<br>
-![add action](../../images/create-real-time-action-5.png)
+![add action](../../images/create-real-time-action-add-action.png)
 
 3. In the **Add Action** page:  
 
     - **Name**: Provide a name for your Action. Note that characters like :, ?, /, #, and spaces are not allowed.  
     - **Description**: Enter an appropriate description.   
     - **Type**: Select **Real-time**.<br>
-![add action screen](../../images/create-real-time-action-6.png)
+![add action screen](../../images/create-real-time-action-add-desc-type.png)
 
 4. In the **Upload Script Zip** section, upload the Action script package in `.zip` format and click **Continue**. OpenObserve stores the ZIP file in object storage.<br> 
 **Note:** Only `.zip` files are accepted and it may contain various resources such as `main.py`, `.txt` etc.  
-![image7](../../images/create-real-time-action-7.png)  
+![Upload script](../../images/create-real-time-action-upload-script.png)  
 
 The file is now securely stored and tied to that Action configuration. Note that the Actions scripts are not executable yet.
 
@@ -153,7 +153,7 @@ The file is now securely stored and tied to that Action configuration. Note that
 
 Under **Select Service Account**, select a service account that the Action should use for credentials or identity. <br>
 **Note**: Now, OpenObserve knows which token to use when it needs to run the Action.  
-![select the service account](../../images/create-real-time-action-8.png)
+![select the service account](../../images/create-real-time-action-select-service-account.png)
 
 ## Step 5: Add Environment Variables (optional)
 

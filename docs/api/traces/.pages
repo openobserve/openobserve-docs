@@ -1,0 +1,4 @@
+nav:
+
+- Traces API Overview: index.md
+- Search Traces: trace-search-api.md

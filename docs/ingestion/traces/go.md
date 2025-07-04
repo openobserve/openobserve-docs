@@ -98,7 +98,7 @@ Refresh page couple of times to get more traces exported.
 
 
 
-Traces are captured, you can check these captured traces here [https://cloud.openobserve.ai/traces](https://cloud.openobserve.ai/traces)
+Traces are captured, you can check these captured traces [here](https://cloud.openobserve.ai/web/traces).
 
 
 ![Traces Page](./images/traces_go.png)

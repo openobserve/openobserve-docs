@@ -1,3 +1,9 @@
+---
+title: Single Sign-On (SSO) 
+description: Learn how to enable Single Sign-On (SSO) in OpenObserve.
+---
+<!-- search: SSO, Single Sign-On-->
+
 > `Applicable to enterprise version`
 
 OpenObserve, integrates Single Sign-On (SSO) capabilities using Dex, an OpenID Connect Identity (OIDC) and OAuth 2.0 provider. Dex does not have a user database and instead uses external identity providers like LDAP, Google, GitHub, etc. for authentication.
@@ -250,14 +256,6 @@ connectors:
 
 ```     
 
-
-#### OAuth2
-
-TODO
-
-#### Github
-
-TODO
 
 
 
