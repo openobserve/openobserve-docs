@@ -1,12 +1,43 @@
-# Grafana plugin
+---
+title: OpenObserve Grafana Plugin
+weight: 4450
+description: OpenObserve Plugin to be used in Grafana
+---
+# OpenObserve Grafana Plugin
 
-Grafana is a dashboarding and graphing application, initially built for time series data, but has evolved into a tool that can pull data from multiple sources and visualize it in a single dashboard for logs and traces too. It is a popular tool for monitoring and observability.
+## What is Grafana?
 
-You **`DO NOT`** need grafana for visualizing logs and metrics data from OpenObserve by maintaining one more app. OpenObserve has a very advanced GUI for that, which you can use for logs, metrics, traces, front end monitoring, dashboards and alerting. You could however use grafana if you are already using it for some of your needs e.g. monitoring metrics using prometheus and are comfortable using it and don't want to change. In this case you can use OpenObserve grafana plugin to visualize logs and metrics data from OpenObserve in your grafana dashboard. You can also use grafana explore tool to query adhoc logs and metrics data from OpenObserve. You could also use OpenObserve as a prometheus source in grafana and use grafana to visualize metrics data from OpenObserve.
+Grafana is a popular open-source dashboarding and visualization platform. Originally designed for time series data, it has evolved into a comprehensive tool that can pull data from multiple sources and create unified dashboards for logs, metrics, and traces. It's widely used for monitoring and observability across organizations.
 
-Below are the steps to install and configure the plugin. We will provide guide on how to set up grafana in a kubernetes environment. You can adapt these steps to set up grafana in a non-kubernetes environment.
+## Do You Need Grafana with OpenObserve?
 
-If you are already familiar with grafana plugin installation, you can download the plugin from [here](https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz) and get started or follow the below steps.
+**Short Answer: No, but you might want it.**
+
+OpenObserve comes with a powerful built-in GUI that handles all your visualization needs, including:
+
+- [Logs analysis and search](../features/logs.md)
+- [Metrics monitoring](../features/metrics.md)  
+- [Distributed tracing](../features/distributed-tracing.md)
+- [Frontend monitoring](../features/frontend.md)
+- [Interactive dashboards](../user-guide/dashboards/dashboards-in-openobserve.md)
+- [Alerting and notifications](../user-guide/alerts/alerts.md)
+
+**When to Use the Grafana Plugin:**
+
+You should consider using OpenObserve's Grafana plugin if you:
+
+1. **Already use Grafana** for other monitoring needs (e.g., Prometheus metrics)
+2. **Have existing Grafana dashboards** you want to keep
+3. **Need to consolidate** OpenObserve data with other data sources in a single Grafana instance
+
+!!! warning "Plugin Maintenance Status"
+      This Grafana plugin is not actively maintained. It may work with current Grafana and OpenObserve versions, but compatibility isn’t guaranteed. Test thoroughly before production use. For best results, use OpenObserve’s built-in visualizations.
+
+## Getting Started
+
+The following guide will walk you through installing and configuring the plugin in a Kubernetes environment. The steps can be adapted for non-Kubernetes deployments.
+
+**Quick Start:** If you are already familiar with grafana plugin installation, you can download the plugin from [here](https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz) and get started. Feel free to skip the configuration section, you can directly jump [here](#using-grafana-plugin)
 
 ## Install Grafana
 
@@ -187,8 +218,7 @@ You should now be able to see the results.
 
 <img src="../images/explore_4.png" width="100%" />
 
-If you want to explore metrics from OpenObserve in OpenObserve you can setup grafana as a standard prometheus data source and explore metrics. You do not need the plugin for that as grafana supports prometheus data source out of the box.
-
+If you want to explore metrics from OpenObserve in Grafana, you can set up OpenObserve as a Prometheus-compatible data source using an endpoint like https://api.openobserve.ai/api/org_name/prometheus. You do not need the plugin for this, as Grafana supports Prometheus natively.
 
 
 
