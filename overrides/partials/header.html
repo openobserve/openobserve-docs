@@ -1,15 +1,15 @@
 {#-
-    This file was automatically generated - do not edit
-  -#}
-  {% set class = "md-header" %}
-  {% if "navigation.tabs.sticky" in features %}
-    {% set class = class ~ " md-header--shadow md-header--lifted" %}
-  {% elif "navigation.tabs" not in features %}
-    {% set class = class ~ " md-header--shadow" %}
-  {% endif %}
-  <header class="{{ class }}" data-md-component="header">
-    <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
-<!-- Logo linking to main site -->
+  This file was automatically generated - do not edit
+-#}
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
+{% endif %}
+<header class="{{ class }}" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+   <!-- Logo linking to main site -->
 <a href="/" title="OpenObserve Homepage" class="md-header__button md-logo" aria-label="OpenObserve Homepage" data-md-component="logo">
   {% include "partials/logo.html" %}
 </a>
@@ -18,58 +18,58 @@
 <a href="/docs" title="Docs Home" class="md-header__button" style="font-weight: bold; font-size: 1rem; padding-left: 0.5rem;">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
 </a>
-      <label class="md-header__button md-icon" for="__drawer">
-        {% set icon = config.theme.icon.menu or "material/menu" %}
-        {% include ".icons/" ~ icon ~ ".svg" %}
-      </label>
-      <div class="md-header__title" data-md-component="header-title">
-        <div class="md-header__ellipsis">
-          <div class="md-header__topic">
-            <span class="md-ellipsis">
-              {{ config.site_name }}
-            </span>
-          </div>
-          <div class="md-header__topic" data-md-component="header-topic">
-            <span class="md-ellipsis">
-              {% if page.meta and page.meta.title %}
-                {{ page.meta.title }}
-              {% else %}
-                {{ page.title }}
-              {% endif %}
-            </span>
-          </div>
+    <label class="md-header__button md-icon" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/menu" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            {{ config.site_name }}
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            {% if page.meta and page.meta.title %}
+              {{ page.meta.title }}
+            {% else %}
+              {{ page.title }}
+            {% endif %}
+          </span>
         </div>
       </div>
-      {% if config.theme.palette %}
-        {% if not config.theme.palette is mapping %}
-          {% include "partials/palette.html" %}
-        {% endif %}
-      {% endif %}
+    </div>
+    {% if config.theme.palette %}
       {% if not config.theme.palette is mapping %}
-        {% include "partials/javascripts/palette.html" %}
-      {% endif %}
-      {% if config.extra.alternate %}
-        {% include "partials/alternate.html" %}
-      {% endif %}
-      {% if "material/search" in config.plugins %}
-        {% set search = config.plugins["material/search"] | attr("config") %}
-        {% if search.enabled %}
-          <label class="md-header__button md-icon" for="__search">
-            {% set icon = config.theme.icon.search or "material/magnify" %}
-            {% include ".icons/" ~ icon ~ ".svg" %}
-          </label>
-          {% include "partials/search.html" %}
-        {% endif %}
-      {% endif %}
-      {% if config.repo_url %}
-        <div class="md-header__source">
-          {% include "partials/source.html" %}
-        </div>
-      {% endif %}
-    </nav>
-    {% if "navigation.tabs.sticky" in features %}
-      {% if "navigation.tabs" in features %}
-        {% include "partials/tabs.html" %}
+        {% include "partials/palette.html" %}
       {% endif %}
     {% endif %}
-  </header>
+    {% if not config.theme.palette is mapping %}
+      {% include "partials/javascripts/palette.html" %}
+    {% endif %}
+    {% if config.extra.alternate %}
+      {% include "partials/alternate.html" %}
+    {% endif %}
+    {% if "material/search" in config.plugins %}
+      {% set search = config.plugins["material/search"] | attr("config") %}
+      {% if search.enabled %}
+        <label class="md-header__button md-icon" for="__search">
+          {% set icon = config.theme.icon.search or "material/magnify" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+        </label>
+        {% include "partials/search.html" %}
+      {% endif %}
+    {% endif %}
+    {% if config.repo_url %}
+      <div class="md-header__source">
+        {% include "partials/source.html" %}
+      </div>
+    {% endif %}
+  </nav>
+  {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+  {% endif %}
+</header>
