@@ -1,0 +1,54 @@
+name: Deploy MkDocs Site to S3
+
+on:
+  push:
+    branches:
+      - main   # Change this to your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Install AWS CLI
+      run: |
+        if ! command -v aws &> /dev/null; then
+          echo "AWS CLI not found. Installing..."
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+        else
+          echo "AWS CLI already installed."
+        fi
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2  # or your preferred region
+
+    - name: Build MkDocs site
+      run: |
+        rm -rf site
+        mkdocs build
+
+    - name: Deploy to S3
+      run: |
+        aws s3 sync ./site s3://openobserve-staging-website/docs --exclude=".git/*"
+
+    - name: Invalidate CloudFront cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id EZ2SEJVXM7NXL --paths "/docs/*"
