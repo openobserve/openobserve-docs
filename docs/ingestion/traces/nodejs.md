@@ -44,9 +44,9 @@ sdk.start();
 </br>
 ##Setup up credentials </br>
 
-You will get `url` and `Authorization` key here [http://cloud.openobserve.ai/ingestion/traces/](http://cloud.openobserve.ai/ingestion/traces/)
+You will get `url` and `Authorization` key [here](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
 
-Replace the `url` and `Authorization` key in the `tracing.js` file
+Replace the `url` and `Authorization` key in the `tracing.js` file.
 
 ##Setup Service/Application </br>
 Run commands

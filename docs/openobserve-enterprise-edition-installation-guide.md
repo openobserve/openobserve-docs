@@ -6,13 +6,13 @@ This guide explains how to deploy [OpenObserve Enterprise Edition](https://openo
 
 > For support, reach out in the [Slack channel](https://short.openobserve.ai/community).
 
-??? info "Architecture Overview" 
+!!! info "Architecture Overview" 
     OpenObserve Enterprise Edition depends on several components to support scalable ingestion, search, storage, and access control:
 
     - **Object Storage**, such as S3, Azure Blob, GCS, or MinIO, stores all telemetry data in Parquet format.
     - **PostgreSQL** stores metadata such as dashboards, stream configurations, users, and the filelist table.
     - **NATS** coordinates communication between ingestion and query nodes.
-    - **Dex and OpenFGA** enable Single Sign-On (SSO) and Role-Based Access Control (RBAC).
+    - **Dex and OpenFGA** enable [Single Sign-On (SSO)](../user-guide/identity-and-access-management/sso/) and [Role-Based Access Control (RBAC)](../user-guide/identity-and-access-management/role-based-access-control/).
 
 
 ### Installation Steps

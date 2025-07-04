@@ -77,21 +77,7 @@ curl -X GET \
 
 Retrieve detailed span information for a specific trace using the traces `/latest` endpoint with a `trace_id` filter.
 
-### Method 1: Using Traces Latest API 
-
-**Endpoint**
-```
-GET /api/{org_id}/{stream_name}/traces/latest?filter=trace_id%{trace_id}&start_time={start_time}&end_time={end_time}&from=0&size=25
-```
-
-**Example Request**
-```bash
-curl -X GET \
-  "https://your-openobserve-instance/api/your_org/default/traces/latest?filter=trace_id%3Dc2dc93864163b4f0e25342c2b8ca9a8b&start_time=1751443100969000&end_time=1751444000969000&from=0&size=25" \
-  -H "Authorization: Basic <your-auth-token>"
-```
-
-### Method 2: Using Search API 
+### Using Search API 
 
 For complex queries, you can use the [search API](https://openobserve.ai/docs/api/search/search/) with SQL queries:
 ```sql
@@ -99,6 +85,25 @@ SELECT * FROM default WHERE trace_id = {trace_id} ORDER BY start_time
 ```
 
 **Note:** Traces do not support full SQL queries in the traces interface, however, the search API supports SQL for trace data when needed for complex queries.
+
+**Example:**
+```sql
+{
+    "query": {
+        "sql": "SELECT * FROM default WHERE trace_id = b1eeb579ae863bdf9408e7d64c02d5d1" ORDER BY start_time, 
+        "start_time": 1751443100969000,
+        "end_time": 1751444000969000,
+        "from": 0,
+        "size": 25
+    },
+    "search_type": "ui",
+    "timeout": 0
+}
+```
+**Note:** 
+
+- When `size` is set to `25`, only the first `25` spans for the trace are returned.
+- To retrieve all spans, set `size` to `-1`. In this case, you do not need to define the `from` parameter.
 
 ## Error Handling
 
