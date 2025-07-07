@@ -101,7 +101,7 @@ You would need ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD environment variable
 
     Create the deployment and port forward:
 
-        kubectl apply -f https://raw.githubusercontent.com/zinclabs/openobserve/main/deploy/k8s/statefulset.yaml
+        kubectl apply -f https://raw.githubusercontent.com/openobserve/openobserve/main/deploy/k8s/statefulset.yaml
 
     Expose the openobserve service by port-forwarding:
 

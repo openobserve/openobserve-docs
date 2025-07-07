@@ -1,6 +1,7 @@
 nav:
     - Alerts Overview: index.md
     - Alerts in OpenObserve: alerts.md
+    - Alert Destinations: destinations.md
     - Alert Folders: alert-folders.md
     - Alert Conditions: alert-conditions.md
     - Import and Export Alerts: import-export-alerts.md

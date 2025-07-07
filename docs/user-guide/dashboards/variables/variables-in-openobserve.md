@@ -134,14 +134,44 @@ To enable multi-select, toggle the **Allow multiple selection** switch when conf
 You can enter custom values manually when the desired option is not available in the variable dropdown. These values work if they exist in the underlying data.
 
 - In **single-select**, you can select a custom value and refresh the panels to view related data.
-- In **multi-select**, custom values cannot be combined with other dropdown values. You must select only one custom value at a time.
+- In **multi-select**, custom values cannot be combined with other dropdown values. You you select the custom value, you cannot select any other value.
 
 !!! Note
     If a custom value is entered that does not exist in the data, dashboard panels will display no results.
 
 ### Type-Ahead 
 
-The type-ahead input feature allows users to search for a value by typing in the dropdown.
+The type-ahead input feature allows users to search and select values by typing into the variable dropdown. This feature supports both exact value selection and partial match-based filtering.
+
+- **The search is case sensitive.** For example, typing `zo` will not match `ZO` or `Zo`.
+- When you type into the dropdown, the system filters values based on the input string. If matching values exist within the fetched list (as limited by **[Default Max Record Size](#default-max-record-size)**), they appear as selectable options.
+- You can select any of the listed values to filter dashboard panels accordingly.
+
+**For example:**
+
+If you type `zo`, the dropdown may return the following options:
+```
+zo1-nats
+zo2-nats
+zo3-nats
+```
+You can then:
+
+- Select `zo1-nats` to display panel data only for that value.
+- Select the input string `zo` as a **custom value**, which applies the filter for all values that contain `zo`. In this case, the panels will reflect data for all of the following:
+```
+zo1-nats
+zo2-nats
+zo3-nats
+```
+
+!!! Note
+    If the input string is not present in the fetched list but exists in the data, you can still select it as a custom value. However, if the input does not match any values in the data, the panel will return no results.
+
+
+
+
+The type-ahead input feature allows users to search for a value by typing in the dropdown and select.
 
 - If the value exists within the fetched list (as per the [**Max Record Limit**](#default-max-record-size)), it will appear in the filtered results and can be selected directly.
 - If the value exists in the data but is not included in the fetched list, you will see an option to select it as a custom value.

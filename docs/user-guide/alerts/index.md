@@ -3,8 +3,8 @@ Alerts enable continuous monitoring of log, metric, or trace data to detect crit
 **Learn more:**
 
 1. [Alerts](alerts)
-2. [Destinations](destinations)
-3. [Templates](templates)
+2. [Alert Destinations](../management/alert-destinations.md)
+3. [Templates](../management/templates.md)
 4. [Import and Export Alerts](import-export-alerts)
 5. [Alert Folders](alert-folders)
 6. [Multi-window Selector in Scheduled Alerts (SQL Mode)](multi-window-selector-scheduled-alerts-concept)
