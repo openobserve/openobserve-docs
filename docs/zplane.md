@@ -3,11 +3,9 @@
 # Elasticsearch query DSL API compatibility
 
 !!! tip "Try Native Support First"
-        Before setting up zPlane, check if OpenObserve's native Elasticsearch API compatibility meets your needs. OpenObserve supports Elasticsearch-style query and aggregation APIs without requiring additional software or licensing.
+        Before setting up zPlane, check if OpenObserve's native Elasticsearch API compatibility meets your needs.
 
 OpenObserve natively supports Elasticsearch ingestion API compatibility. You don't need zPlane for ingestion API compatibility.
-
-OpenObserve also natively supports Elasticsearch-style query and aggregation APIs. For additional features or enhanced compatibility beyond the native support, you can use zPlane.
 
 ⚠️ zPlane is commercial software that needs to be licensed before you can use it in production. Please contact us at [hello@openobserve.ai](mailto:hello@openobserve.ai) for enquiries or enterprise license.
 
