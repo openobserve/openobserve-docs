@@ -62,4 +62,4 @@ If any validation errors occur during import, refer to the following resolutions
 The imported pipeline appears in the **Pipelines** tab.   
 
 ## Related Links
-- [Manage Pipelines](Manage-Pipelines.md)
+- [Manage Pipelines](../manage-pipelines/)

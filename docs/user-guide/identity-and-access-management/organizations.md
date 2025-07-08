@@ -3,7 +3,7 @@ This guide explains how organizations work in OpenObserve. It covers organizatio
 ## Overview   
 Organizations provide logical boundaries for separating data, users, and access controls, enabling secure multi-tenant usage in a single OpenObserve deployment.
 
-> You will encounter the concept of organization when you first log in or [ingest data into a stream](../streams/streams-in-openobserve.md/#ingest-data-into-stream). To send data into OpenObserve, you must specify the **organization identifier** in your ingestion endpoint. 
+> You will encounter the concept of organization when you first log in or [ingest data into a stream](../../streams/streams-in-openobserve/#ingest-data-into-stream). To send data into OpenObserve, you must specify the **organization identifier** in your ingestion endpoint. 
 
 ![Organizations in OpenObserve](../../images/organization-in-openobserve.png)
 
