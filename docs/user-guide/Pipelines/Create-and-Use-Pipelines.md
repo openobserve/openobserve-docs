@@ -30,7 +30,7 @@ This opens up the pipeline editor.
         - In the **Build Query** section, select the **Stream Type** (Logs, Metrics, or Traces) and **Stream Name**. Use the seach bar to search for the desired field in the source stream. 
         - In the **SQL Query** section, write a query to fetch data from a source. For **Metrics**, you also have the option to write **PromQL**.
         ![scheduled pipeline](../../images/create-pipeline-sch-query.png)
-        - Under **Set Variables**, schedule the query execution by setting the **Frequency** and **Period**. For more details, visit [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md).
+        - Under **Set Variables**, schedule the query execution by setting the **Frequency** and **Period**. For more details, visit [Pipelines in OpenObserve](../pipelines-in-openobserve/).
         - Adjust the time filter and click **Run Query** to view the output.
         ![scheduled pipeline](../../images/create-pipeline-sch-output.png) 
         <br>In the above example, data is ingested periodically into the stream `default`. The query runs every 6 minutes and fetches all data that was ingested into the stream `default` in the preceding 6-minute interval.
@@ -96,7 +96,7 @@ This opens up the pipeline editor.
 
 ### Step 7: Save the pipeline
 
-After you click Save, it gets activated automatically. Learn how to [manage pipelines](Manage-Pipelines.md).
+After you click Save, it gets activated automatically. Learn how to [manage pipelines](../manage-pipelines/).
 
 ![active pipeline](../../images/pipeline8_save_pipeline.png)
 
@@ -167,4 +167,4 @@ Each run continues at fixed intervals from that point onward, such as 23:08, 23:
 
 
 ## Next Step
-- [Manage Pipelines](Manage-Pipelines.md) 
+- [Manage Pipelines](../manage-pipelines/) 

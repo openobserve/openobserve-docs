@@ -2,8 +2,8 @@ In OpenObserve, pipelines are data processing workflows used to transform logs, 
 
 **Learn more:**
 
-- [Pipelines in OpenObserve](Pipelines-in-OpenObserve.md)
-- [Create and Use Pipelines](Create-and-Use-Pipelines.md)
-- [Import and Export Pipelines](import-and-export-pipelines.md)
-- [Manage Pipelines](Manage-Pipelines.md)
-- [Configurable Delay in Scheduled Pipelines](onfigurable-delay-in-scheduled-pipelines.md)
+- [Pipelines in OpenObserve](../pipelines/pipelines-in-openobserve/)
+- [Create and Use Pipelines](../pipelines/create-and-use-pipelines/)
+- [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
+- [Manage Pipelines](../pipelines/manage-pipelines/)
+- [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)

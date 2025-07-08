@@ -2,6 +2,6 @@ This section introduces the concept of variables in OpenObserve dashboards. The 
 
 **Learn more:** 
 
-- [Variables in OpenObserve](variables-in-openobserve.md)
-- [Variable Types](variable-types.md)
-- [Variable Dependencies](variable-dependencies.md)
+- [Variables in OpenObserve](../variables/variables-in-openobserve/)
+- [Variable Types](../variables/variable-types/)
+- [Variable Dependencies](../variables/variable-dependencies/)
