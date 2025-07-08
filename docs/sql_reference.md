@@ -588,13 +588,13 @@ It returns the top 3 client IP addresses that have the most unique user agents.
     | 10 | 192.168.1.150 | 690 |
 
 
-    ## Why Results Are Approximate
+    **Why Results Are Approximate**
     Results are approximate due to two factors:
 
     1. **HyperLogLog approximation:** Distinct counts are estimated, not exact.
     2. **Space-Saving distribution:** Some globally significant client IPs might not appear in individual nodes' top 10 lists due to uneven data distribution.
 
-    ## Limitations
+    **Limitations**
 
     - Results are approximate, not exact.
     - Distinct count accuracy depends on HyperLogLog algorithm precision.
