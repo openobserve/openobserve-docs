@@ -154,7 +154,7 @@ The above example illustrates a basic pipeline setup. However, pipelines can bec
 <br>
 
 ## FAQ
-**Q**: If I set the frequency to 5 minutes and the current time is 23:03, when will the next runs happen?
+**Q**: If I set the frequency to 5 minutes and the current time is 23:03, when will the next runs happen? <br>
 **A**: OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. This ensures that all runs occur at consistent and predictable intervals.
 **Example**<br>
 If the current time is 23:03, here is when the next run will occur for different frequencies:
