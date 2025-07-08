@@ -76,5 +76,5 @@ To configure an external destination for pipelines:
 
 
 ## Next Steps
-- [Create and Use Pipelines](create-and-use-pipelines.md)
-- [Manage Pipelines](manage-pipelines.md)
+- [Create and Use Pipelines](../use-pipelines/)
+- [Manage Pipelines](../manage-pipelines/)
