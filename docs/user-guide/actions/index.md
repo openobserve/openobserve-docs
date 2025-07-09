@@ -2,9 +2,8 @@
 
 **Learn more:**
 
-- [Actions Overview](index.md)
-- [Actions in OpenObserve](actions-in-openobserve.md)
-- [Create and Use Real-time Actions](create-and-use-real-time-actions.md)
-- [Create and Use Scheduled Actions](create-and-use-scheduled-actions.md)
-- [Declare Python Dependencies in Actions](declare-python-dependencies-in-O2-actions.md)
-- [Environment Variables in Actions](environment-variables-in-actions.md)
+- [Actions in OpenObserve](../actions/actions-in-openobserve/)
+- [Create and Use Real-time Actions](../actions/create-and-use-real-time-actions/)
+- [Create and Use Scheduled Actions](../actions/create-and-use-scheduled-actions/)
+- [Declare Python Dependencies in Actions](../actions/declare-python-dependencies-in-O2-actions/)
+- [Environment Variables in Actions](../actions/environment-variables-in-actions/)
