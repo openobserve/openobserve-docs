@@ -346,6 +346,50 @@ Each row in the result shows:
 SELECT approx_topk(clientip, 10) FROM "default"
 ```
 It returns the `10` most frequently occurring client IP addresses from the `default` stream. 
+
+**Function result (returns an object with an array):**
+
+```json
+{
+  "item": [
+    {"clientip": "192.168.1.100", "request_count": 2650},
+    {"clientip": "10.0.0.5", "request_count": 2230},
+    {"clientip": "203.0.113.50", "request_count": 2210},
+    {"clientip": "198.51.100.75", "request_count": 1970},
+    {"clientip": "172.16.0.10", "request_count": 1930},
+    {"clientip": "192.168.1.200", "request_count": 1830},
+    {"clientip": "203.0.113.80", "request_count": 1630},
+    {"clientip": "10.0.0.25", "request_count": 1590},
+    {"clientip": "172.16.0.30", "request_count": 1550},
+    {"clientip": "192.168.1.150", "request_count": 1410}
+  ]
+}
+```
+**Use the `unnest()` to extract usable results:**
+
+```sql
+SELECT item.clientip as clientip, item.request_count as request_count
+FROM (
+  SELECT unnest(approx_topk(clientip, 10)) 
+  FROM "default"
+)
+ORDER BY request_count DESC
+```
+**Final output (individual rows):** 
+
+```json
+{"clientip":"192.168.1.100","request_count":2650}
+{"clientip":"10.0.0.5","request_count":2230}
+{"clientip":"203.0.113.50","request_count":2210}
+{"clientip":"198.51.100.75","request_count":1970}
+{"clientip":"172.16.0.10","request_count":1930}
+{"clientip":"192.168.1.200","request_count":1830}
+{"clientip":"203.0.113.80","request_count":1630}
+{"clientip":"10.0.0.25","request_count":1590}
+{"clientip":"172.16.0.30","request_count":1550}
+{"clientip":"192.168.1.150","request_count":1410}
+```
+
 ??? info "The Space-Saving Algorithm Explained:"
     The Space-Saving algorithm enables efficient top-K queries on high-cardinality data by limiting memory usage during distributed query execution. This approach trades exact precision for system stability and performance. <br> 
     **Problem Statement** <br>
@@ -481,6 +525,49 @@ SELECT approx_topk_distinct(clientip, clientas, 3) FROM "default" ORDER BY _time
 ```
 It returns the top 3 client IP addresses that have the most unique user agents.
 
+**Function result (returns an object with an array):**
+
+```json
+{
+  "item": [
+    {"clientip": "192.168.1.100", "distinct_count": 1450},
+    {"clientip": "203.0.113.50", "distinct_count": 1170},
+    {"clientip": "10.0.0.5", "distinct_count": 1160},
+    {"clientip": "198.51.100.75", "distinct_count": 1040},
+    {"clientip": "172.16.0.10", "distinct_count": 1010},
+    {"clientip": "192.168.1.200", "distinct_count": 950},
+    {"clientip": "203.0.113.80", "distinct_count": 830},
+    {"clientip": "10.0.0.25", "distinct_count": 810},
+    {"clientip": "172.16.0.30", "distinct_count": 790},
+    {"clientip": "192.168.1.150", "distinct_count": 690}
+  ]
+}
+```
+
+**Use the `unnest()`, to extract usable results:**
+
+```sql
+SELECT item.clientip as clientip, item.distinct_count as distinct_count 
+FROM (
+  SELECT unnest(approx_topk_distinct(clientip, clientas, 10)) as item
+  FROM "default" 
+)
+ORDER BY distinct_count DESC
+```
+**Final output (individual rows):**
+
+```json
+{"clientip":"192.168.1.100","distinct_count":1450}
+{"clientip":"203.0.113.50","distinct_count":1170}
+{"clientip":"10.0.0.5","distinct_count":1160}
+{"clientip":"198.51.100.75","distinct_count":1040}
+{"clientip":"172.16.0.10","distinct_count":1010}
+{"clientip":"192.168.1.200","distinct_count":950}
+{"clientip":"203.0.113.80","distinct_count":830}
+{"clientip":"10.0.0.25","distinct_count":810}
+{"clientip":"172.16.0.30","distinct_count":790}
+{"clientip":"192.168.1.150","distinct_count":690}
+```
 ??? info "The HyperLogLog Algorithm Explained:"
     **Problem Statement**
 
