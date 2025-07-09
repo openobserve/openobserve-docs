@@ -1,14 +1,16 @@
-# Integration with OpenTelemetry for AWS EC2 Monitoring
-
-This guide provides step-by-step instructions to integrate OpenTelemetry with OpenObserve for monitoring AWS EC2 logs and metrics.
+# Integration with AWS EC2
+This guide provides step-by-step instructions to integrate AWS EC2 with OpenObserve.
 
 ## Overview
+The AWS EC2 integration enables streaming of system metrics and logs from EC2 instances to OpenObserve using the OpenObserve Collector, a pre-configured version of the OpenTelemetry Collector.
 
-The OpenTelemetry integration enables streaming of logs and metrics from AWS EC2 instances to OpenObserve using the OpenObserve Collector. This integration leverages OpenTelemetry's open-source observability framework to collect system metrics (CPU, memory, disk I/O, network traffic) and log files from EC2 instances without vendor lock-in.
+The integration collects:
 
-OpenTelemetry provides unified standards for collecting telemetry data, cross-platform compatibility, and flexibility for cloud-native infrastructure. The OpenObserve Collector is a pre-configured version of the OpenTelemetry Collector optimized for capturing logs and metrics from EC2 instances, offering simplified setup with pre-built configuration templates, optimized performance for OpenObserve, and comprehensive log and metrics collection.
+- System metrics: CPU usage, memory utilization, disk I/O, and network traffic
+- Log data: System logs from /var/log/ and custom application logs
+- Real-time monitoring: Continuous collection with configurable intervals
 
-This integration helps you monitor performance, troubleshoot issues, and gain visibility into your EC2 infrastructure by streaming real-time logs and metrics to OpenObserve.
+This integration helps you monitor EC2 instance performance, troubleshoot issues, and gain visibility into your infrastructure without the complexity and cost of traditional AWS CloudWatch monitoring.
 
 ## Steps to Integrate
 
