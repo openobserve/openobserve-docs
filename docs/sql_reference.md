@@ -494,7 +494,11 @@ ORDER BY request_count DESC
 
     **Why Results Are Approximate** <br>
 
-    Results are approximate because some globally significant IPs might not appear in individual nodes' top 10 lists due to uneven data distribution across nodes. For example, an IP with moderate traffic across all nodes might have a high global total but not rank in any single node's top 10.
+    The approx_topk function returns approximate results because it relies on each query node sending only its local top N entries to the leader. The leader combines these partial lists to produce the final result.
+
+    If a value appears frequently across all nodes but never ranks in the top N on any individual node, it is excluded. This can cause high-frequency values to be missed globally.
+
+    For example, if an IP receives 400, 450, and 500 requests across three nodes but ranks 11th on each, it will not appear in any node’s top 10. Even though the global total is 1,350, it will be missed.
 
     **Limitations** <br>
 
@@ -515,7 +519,7 @@ ORDER BY request_count DESC
     - **field2**: The field to count distinct values of. 
     - **k**: Number of top results to return.
 
-- Uses HyperLogLog algorithm for efficient distinct counting and Space-Saving algorithm for top-K selection on high-cardinality data.
+- Uses [**HyperLogLog** algorithm] for efficient distinct counting and Space-Saving algorithm for top-K selection on high-cardinality data.
 - Results are approximate due to the probabilistic nature of both algorithms and distributed processing across partitions.
 
 **Example:**
@@ -568,7 +572,7 @@ ORDER BY distinct_count DESC
 {"clientip":"172.16.0.30","distinct_count":790}
 {"clientip":"192.168.1.150","distinct_count":690}
 ```
-??? info "The HyperLogLog Algorithm Explained:"
+??? info "The HyperLogLog Algorithm Explained:" 
     **Problem Statement**
 
     Traditional `GROUP BY` operations with `DISTINCT` counts on high-cardinality fields can cause memory exhaustion in distributed systems. Consider this query:
