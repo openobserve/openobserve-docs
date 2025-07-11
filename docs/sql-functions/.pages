@@ -1,0 +1,7 @@
+nav:
+
+- SQL Functions Overview: index.md
+- Full-Text Search Functions: full-text-search.md 
+- Array Functions: array.md
+- Aggregate Functions: aggregate.md
+- Approximate Aggregate Functions: approximate-aggregate  
