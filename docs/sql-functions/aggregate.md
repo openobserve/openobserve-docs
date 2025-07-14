@@ -4,7 +4,6 @@ description: This page explains how to use the histogram() function in OpenObser
 ---
 Aggregate functions compute a single result from a set of input values. For usage of standard SQL aggregate functions such as `COUNT`, `SUM`, `AVG`, `MIN`, and `MAX`, refer to [PostgreSQL documentation](https://www.postgresql.org/docs/).
 
----
 
 ### `histogram`
 **Syntax**: histogram(field) or histogram(field, 'interval')

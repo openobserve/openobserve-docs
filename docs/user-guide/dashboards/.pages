@@ -4,7 +4,9 @@ nav:
     - Manage Dashboards: manage-dashboards.md
     - Move and Export Dashboards in Bulk: bulk-move-and-export-dashboards.md
     - Panels: panels
+    - Config: config
     - Variables: variables
+    - Filters: filters
     - Comparison Against in Dashboards: comparison-against-in-dashboards.md
     - Custom Charts: custom-charts
 

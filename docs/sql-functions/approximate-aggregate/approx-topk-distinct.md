@@ -74,5 +74,9 @@ For details on how this approach compares to traditional GROUP BY queries in ter
 ## Limitations
 The following are the known limitations of `approx_topk_distinct()` function:
 
+
 - Results are approximate, not guaranteed to be exact. 
 - Accuracy depends on data distribution across partitions.
+
+
+

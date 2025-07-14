@@ -4,7 +4,6 @@ description: This page describes the full-text search functions supported in Ope
 ---
 The full-text search functions allow you to filter records based on keyword or pattern matches within one or more fields. <br>This page lists the full-text search functions supported in OpenObserve, along with their usage formats, descriptions, and examples.
 
----
 
 ### `str_match`
 
