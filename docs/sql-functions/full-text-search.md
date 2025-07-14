@@ -2,10 +2,8 @@
 title: Full-Text Search Functions in OpenObserve
 description: This page describes the full-text search functions supported in OpenObserve, including their syntax, behavior, and examples. Functions such as str_match, str_match_ignore_case, match_all, re_match, and re_not_match allow users to filter logs based on exact string matches, case-insensitive searches, keyword searches across multiple fields, and pattern-based filtering using regular expressions. The guide also explains the role of inverted indexing and how to enable it for enhanced search coverage. Sample queries and output visuals are provided to help users apply these functions effectively in log analysis.
 ---
-
 The full-text search functions allow you to filter records based on keyword or pattern matches within one or more fields. <br>This page lists the full-text search functions supported in OpenObserve, along with their usage formats, descriptions, and examples.
 
----
 
 ### `str_match`
 
