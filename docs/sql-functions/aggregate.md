@@ -1,3 +1,8 @@
+---
+title: histogram() Function in OpenObserve
+description: This page explains how to use the histogram() function in OpenObserve to group time-based log data into fixed intervals for trend analysis. It includes syntax options with or without interval specification, use with aggregate functions such as COUNT(), and guidance on interpreting the result. A detailed example shows how logs are grouped into 30-second time buckets, along with the output format. Users are advised to specify intervals explicitly to ensure consistent and predictable results. The page also includes a visual example to support understanding. 
+---
+
 Aggregate functions compute a single result from a set of input values. For usage of standard SQL aggregate functions such as `COUNT`, `SUM`, `AVG`, `MIN`, and `MAX`, refer to [PostgreSQL documentation](https://www.postgresql.org/docs/).
 
 ---

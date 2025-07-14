@@ -3,3 +3,4 @@ OpenObserve provides the following approximate aggregate functions designed for 
 Learn more: 
 
 - [approx_topk](../approximate-aggregate/approx-topk/)
+- [approx_topk_distinct](../approximate-aggregate/approx-topk-distinct/)
