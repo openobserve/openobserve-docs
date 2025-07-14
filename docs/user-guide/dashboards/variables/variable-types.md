@@ -1,10 +1,10 @@
-This page describes the types of [variables](variables-in-openobserve.md), their use cases, and the configuration required for each type.
+This page describes the types of [variables](../variables-in-openobserve/), their use cases, and the configuration required for each type.
 
 OpenObserve supports the following variable types:
 
 ## 1. Query Values
 
-This variable dynamically fetches values from a selected field in a stream. It supports both [single-select and multi-select options](variables-in-openobserve.md/#multi-select-and-single-select-variables).
+This variable dynamically fetches values from a selected field in a stream. It supports both [single-select and multi-select options](../variables-in-openobserve/#single-select-and-multi-select).
 
 **When to use:** When the available values depend on data already ingested, such as identifiers, names, or categories.
 
@@ -152,5 +152,5 @@ This variable lets you predefine a list of selectable values.
 
 ## Next Steps
 
-- Learn how to [apply variables to a panel](variables-in-openobserve.md/#apply-the-variable-to-a-panel). 
-- Learn about [variable dependencies](variable-dependencies.md).
+- Learn how to [apply variables to a panel](../variables-in-openobserve/#apply-the-variable-to-a-panel). 
+- Learn about [variable dependencies](../variable-dependencies/).

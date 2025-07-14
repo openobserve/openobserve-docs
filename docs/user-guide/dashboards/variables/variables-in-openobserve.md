@@ -87,7 +87,7 @@ This allows users to select valid values that may not be included in the default
     Default max record size is 10. 
 
 ### Filters
-You can optionally configure [variable dependencies](variable-dependencies.md) using the **Filters** option.
+You can optionally configure [variable dependencies](../variable-dependencies/) using the **Filters** option.
 
 ### Default Select
 
@@ -178,4 +178,4 @@ The type-ahead input feature allows users to search for a value by typing in the
 
 ## Next Steps
 
-- Learn about different [types of variables](variable-types.md). 
+- Learn about different [types of variables](../variable-types/). 

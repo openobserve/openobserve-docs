@@ -8,7 +8,7 @@
 6. [Users](users.md)
 7. [Streams](streams.md)
 8. [Ingestion](ingestion.md)
-9. [Pipelines](Pipelines)
+9. [Pipelines](pipelines)
 10. [Alerts](alerts)
 11. [Dashboards](dashboards)
 12. [Actions](actions)

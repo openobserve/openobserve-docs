@@ -16,7 +16,7 @@ To access multi-window selector in new alerts:
 4. Under **Alert Setup**, select **Scheduled Alerts**.   
 5. Navigate to the **Multi-window Selector** section.
 
-![access multi-window](../../images/multi-window.png)
+![access multi-window](../../images/multi-window-period.png)
 
 ### In Existing Alerts
 
@@ -212,7 +212,7 @@ if length(result) >= 2 {
 
 .
 ```
-![vrl editor](../../images/multi-window-5.png)
+![vrl editor](../../images/multi-window-vrl-editor.png)
 
 **Understand the VRL Function Output**
 
@@ -257,7 +257,7 @@ Set the **Threshold** as **>= 1**
 
 Determines how often the alert manager runs the query throughout the day (e.g., every 30 minutes).
 
-![frequency](../../images/multi-window-6.png)
+![frequency](../../images/multi-window-frequency.png)
 
 **Important:**
 
@@ -284,7 +284,7 @@ At 10:30 AM, OpenObserve alert manager executes SQL for:
 
 Specify where you want to receive the alert notification- email or webhook. 
 
-![add destination](../../images/multi-window-4.png)
+![add destination](../../images/multi-window-add-destination.png)
 
 ### Step 8: Create Row Template
 
@@ -310,8 +310,8 @@ Details: Count difference: {{ diff }}
 
 ## FAQ
 
-**What is a window in the Multi-window Selector?** <br>
-A *window* is a specific time range of data. It depends on the period you set in the alert.
+**Q.** **What is a window in the Multi-window Selector?** <br>
+**A.** A *window* is a specific time range of data. It depends on the period you set in the alert.
 If you set the period to 4 hours, each window will cover exactly 4 hours of data.
 
 - The **current window** is simply the most recent 4-hour block of time before the evaluation. If the current time is **April 10th at 4:00 PM**, then the current window covers **April 10th from 12:00 PM to 4:00 PM**.
@@ -320,11 +320,11 @@ If you set the period to 4 hours, each window will cover exactly 4 hours of data
 Every window you select is just a copy of the same time range (defined by the period), shifted back by the amount of time you choose.
 <br>
 
-**Does the period control the window length?**<br>
-Yes. The period defines the duration of each window. If you set the period to 4 hours, then every window — whether it's the current window or any past window — will be exactly 4 hours long.
+**Q.** **Does the period control the window length?**<br>
+**A.** Yes. The period defines the duration of each window. If you set the period to 4 hours, then every window — whether it's the current window or any past window — will be exactly 4 hours long.
 
-**Does the alert manager run multiple queries inside one window?** <br>
-No. For each evaluation, the alert manager runs:
+**Q.** **Does the alert manager run multiple queries inside one window?** <br>
+**A.** No. For each evaluation, the alert manager runs:
 
 - One query for the current window
 - One separate query for each additional past window you select
@@ -337,8 +337,8 @@ For example:
 - If you set frequency to every 12 hours, it runs the queries every 12 hours.
 So, frequency controls when the alert manager checks, and period controls what time range is checked at each evaluation.
 
-**What happens if I forget to include `#ResultArray#` in my VRL function?** <br>
-If you do not include `#ResultArray#`, your VRL function will receive a flat array:**  
+**Q.** **What happens if I forget to include `#ResultArray#` in my VRL function?** <br>
+**A.** If you do not include `#ResultArray#`, your VRL function will receive a flat array:**  
 
 ``` linenums="1"
 [

@@ -1,5 +1,5 @@
 
-This guide explains how to use the configurable delay feature for [scheduled pipelines](Pipelines-in-OpenObserve.md).
+This guide explains how to use the configurable delay feature for [scheduled pipelines](../use-pipelines/).
 This feature allows you to delay the execution of a scheduled pipeline by a set number of minutes after its scheduled start time. This is useful to ensure data completeness and accommodate late-arriving events before the pipeline runs.
 
 ## How to Configure Delay
@@ -34,5 +34,5 @@ At 10:00 AM (scheduled time), the pipeline executes at 10:02 AM, processing data
 - **Data Window Unchanged**: Delay only affects when execution starts. It does not change the data range.
 
 **Related Links**<br>
-For steps on creating scheduled pipelines, see [Scheduled Pipelines](Create-and-Use-Pipelines.md).  
+For steps on creating scheduled pipelines, see [Scheduled Pipelines](../use-pipelines/).  
 
