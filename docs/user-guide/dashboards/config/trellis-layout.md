@@ -3,7 +3,7 @@ title: Trellis Layout in Dashboards
 description: Learn how to use the Trellis Layout option under the Config tab to split a chart into multiple panels based on a breakdown field, allowing easy comparison across grouped values.
 ---
 
-This guide explains how to use the Trellis Layout option under the Config tab to split a single chart into multiple consistently formatted panels based on a selected breakdown field.
+This guide explains how to use the **Trellis Layout** option under the **Config** tab to split a single chart into multiple consistently formatted panels based on a selected breakdown field.
 
 ## What is Trellis Layout?
 **Trellis Layout** creates a separate chart panel for each unique value in a selected breakdown field. All panels use the same X-axis and Y-axis scales, making it easier to visually compare metric trends across different values.
@@ -26,7 +26,7 @@ Trellis Layout supports:
 ## Apply Trellis Layout to a Panel
 Follow these steps:
 
-1. Open or [create a panel](../dashboards-in-openobserve/#panels). 
+1. Open or [create a panel](https://openobserve.ai/docs/user-guide/dashboards/dashboards-in-openobserve/#panels). 
 2. Click **Add Panel** to create a new panel and choose a supported chart type. 
 Alternatively, select **Edit Panel** from the dropdown menu on an existing panel. 
 3. Under **Fields**, choose a stream type and a stream name. 
