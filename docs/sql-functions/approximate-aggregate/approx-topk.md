@@ -57,9 +57,9 @@ This provides a flat output as shown below:
 
 ---
 
-## `GROUP BY` versus `approx_topk`
+## `GROUP BY` Versus `approx_topk`
 
-### How GROUP BY Works
+### How `GROUP BY` Works
 The traditional way to find the top values in a field is by using a `GROUP BY` query combined with `ORDER BY` and `LIMIT`. <br>
     For example:
 
@@ -79,12 +79,12 @@ The traditional way to find the top values in a field is by using a `GROUP BY` q
     Consider the following scenario:
 
     - Dataset contains `3 million` unique client IPs.
-    - Query runs using `60` CPU cores.
-    - Each core processes `60` partitions.
+    - Query runs using `60` querier nodes.
+    - Each core processes `60` CPU cores, with each core processing one partition.
 
     This results in:
     
-    `3 million` values × `60` cores × `60` partitions = `10.8 billion` data entries being processed in memory.
+    `3 million` values × `60` nodes × `60` cores or partitions = `10.8 billion` data entries being processed in memory.
 
     This level of memory usage can overwhelm the system and cause failures.
 
@@ -96,11 +96,13 @@ The traditional way to find the top values in a field is by using a `GROUP BY` q
     This is a common limitation of using traditional `GROUP BY` with high-cardinality fields in large environments.
 
 ### How `approx_topk` Works
-When you run a query using `approx_topk()`, each query node processes a subset of the dataset and computes its local approximate top K values. These local top K values are sent to the leader node. The leader node merges them to generate the final approximate result. 
+When you run a query using `approx_topk()`, each query node processes a subset of the dataset and computes its local approximate top K values. 
+Each node sends up to `max(K * 10, 1000)` values to the leader node rather than just **K** values. This provides buffer capacity to prevent missing globally frequent values that may not appear in the **local top K** lists of individual nodes.
 
-Because each node sends only its local top K values, the final result may miss values that are frequent across the entire dataset but do not appear in the top K list of any single node. 
+Despite this optimization, `approx_topk()` still returns approximate results because the function uses a probabilistic algorithm and the query execution is distributed across nodes.
 
 !!! Note 
+    
     This method improves performance and reduces memory usage, especially in production-scale environments. It is a trade-off between precision and efficiency. View the **performance comparison** shown in the following section.  
 
 ---
@@ -131,7 +133,8 @@ FROM (
 ORDER BY request_count DESC
 ```
 
-**Results**<br>
+**Results**
+<br>
 ![Performance Difference Between `GROUP BY` and `approx_topk()](../../images/approx-topk.png)
 <br>
 Both queries were run against the same dataset using OpenObserve dashboards. Here are the observed query durations from the browser developer tools:
@@ -153,7 +156,7 @@ The following are the known limitations of `approx_topk()` function:
 ---
 
 ## Frequently Asked Questions
-**Q.** Can I use a `WHERE` clause with `approx_topk()`?
+**Q.** Can I use a `WHERE` clause with `approx_topk()`? <br>
 **A.** Yes. You can apply a `WHERE` clause before calling the `approx_topk()` function to filter the dataset. This limits the scope of the top K calculation to only the matching records.
 
 ```sql
@@ -165,5 +168,5 @@ FROM (
 ) 
 ORDER BY request_count DESC
 ```
-
+<br>
 ![WHERE clause with approx_topk](../../images/approx-topk-with-filter.png)

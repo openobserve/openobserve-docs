@@ -3,17 +3,16 @@ Aggregate functions compute a single result from a set of input values. For usag
 ---
 
 ### `histogram`
-**Syntax**: `histogram(field, 'duration')`
+**Syntax**: histogram(field) or histogram(field, 'interval')
 **Description:** <br>
-Use the `histogram` function to divide your time-based log data into time buckets of a fixed duration and then apply aggregate functions such as `COUNT()` or `SUM()` to those intervals.
-This helps in visualizing time-series trends and performing meaningful comparisons over time. <br><br>
+Use the `histogram()` function to divide your time-based log data into fixed intervals and apply aggregate functions such as `COUNT()` or `SUM()` to analyze time-series patterns. This helps visualize trends over time and supports meaningful comparisons.<br><br>
 **Syntax:** <br>
 ```sql
-histogram(<timestamp_field>, '<duration>')
+histogram(timestamp_field, 'interval')
 ```
 
 - `timestamp_field`: A valid timestamp field, such as _timestamp.
-- `duration`: A fixed time interval in readable units such as '30 seconds', '1 minute', '15 minutes', or '1 hour'.
+- `interval`: A fixed time interval in readable units such as '30 seconds', '1 minute', '15 minutes', or '1 hour'.
 
 **Histogram with aggregate function** <br>
 ```sql
@@ -33,5 +32,6 @@ Each row in the result shows:
 ![histogram](./images/sql-reference/histogram.png)
 
 !!! note
-    To avoid unexpected bucket sizes based on internal defaults, always specify the bucket duration explicitly using units. 
+    - If you do not specify an interval, the backend automatically determines a suitable value.
+    - To ensure consistent bucket sizes and avoid unexpected behavior, it is recommended to always define the interval explicitly.
 
