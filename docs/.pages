@@ -22,3 +22,4 @@ nav:
 - Telemetry: telemetry.md
 - zPlane: zplane.md
 - Work Group: work_group.md 
+- SQL Functions: sql-functions
