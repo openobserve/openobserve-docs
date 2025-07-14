@@ -2,7 +2,6 @@
 title: Trellis Layout in Dashboards
 description: Learn how to use the Trellis Layout option under the Config tab to split a chart into multiple panels based on a breakdown field, allowing easy comparison across grouped values.
 ---
-
 This guide explains how to use the **Trellis Layout** option under the **Config** tab to split a single chart into multiple consistently formatted panels based on a selected breakdown field.
 
 ## What is Trellis Layout?

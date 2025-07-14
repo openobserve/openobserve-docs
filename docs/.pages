@@ -5,8 +5,8 @@ nav:
 - Features: features
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
+- SQL Functions: sql-functions
 - Example Queries: example-queries.md
-- SQL Function Reference: sql_reference.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md
 - Data Management: data-management
@@ -22,3 +22,4 @@ nav:
 - Telemetry: telemetry.md
 - zPlane: zplane.md
 - Work Group: work_group.md 
+
