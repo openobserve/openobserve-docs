@@ -3,7 +3,6 @@ title: approx_topk_distinct() Function in OpenObserve
 description: This page explains how to use the approx_topk_distinct() function in OpenObserve to identify the top K values in one field based on the highest number of distinct values in another field. It introduces the combined use of HyperLogLog and Space-Saving algorithms to efficiently process large, high-cardinality datasets. The guide includes SQL syntax, a usage example, and demonstrates how to flatten the result using the unnest() function. It also provides a sample output to help users understand the structure and interpretation of the result. For top values based only on frequency, refer to the approx_topk() function.
 ---
 
-
 This page provides instructions on using the `approx_topk_distinct()` function. 
 If you only need to find the top K most frequently occurring values in a field, refer to the [approx_topk()](../approx-topk/) function.
 
@@ -78,3 +77,6 @@ The following are the known limitations of `approx_topk_distinct()` function:
 
 Results are approximate, not guaranteed to be exact. Not recommended when exact accuracy is critical for analysis or reporting.
 Accuracy depends on data distribution across partitions.
+
+![approx_topk_distinct](../../images/approx-topk-distinct.png)
+
