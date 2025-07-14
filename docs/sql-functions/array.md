@@ -1,3 +1,8 @@
+---
+title: Array Functions in OpenObserve
+description: This page lists all supported array functions in OpenObserve, along with their syntax, descriptions, and usage examples. These functions operate on fields that contain stringified JSON arrays, enabling users to sort, count, extract subsets, join, and combine array elements. Functions such as arrsort, arrjoin, arrindex, arrzip, spath, and cast_to_arr help process and transform array data effectively. 
+---
+
 This page lists the array functions supported in OpenObserve, along with their usage formats, descriptions, and examples.
 
 The array functions operate on fields that contain arrays. In OpenObserve, array fields are typically stored as stringified JSON arrays.
