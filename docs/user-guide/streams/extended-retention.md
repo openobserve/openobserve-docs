@@ -10,7 +10,7 @@ For example, logs from a known incident that occurred last month, you can config
 ## How to Apply Extended Retention
 
 1. From the **Streams** page, select the **Explore** icon from the **Actions** column. 
-2. Navigate to [**Stream Details**](../../user-guide/streams/stream-details.md/#access-the-stream-details).  
+2. Navigate to [**Stream Details**](../../user-guide/streams/stream-details.md#access-the-stream-details).  
 3. Select the **Extended Retention** tab.  
 4. Use the date selector to specify a time range in UTC. Click **Apply**.  
 5. Click **Update Settings** to apply the retention policy.

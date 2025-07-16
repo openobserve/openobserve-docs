@@ -82,7 +82,7 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 ```
 ## Setup up credentials 
 
-- You will get `url` and `Authorization` key [here](cloud.openobserve.ai/web/ingestion/custom/traces/).
+- You will get `url` and `Authorization` key [here](https://cloud.openobserve.ai/web/ingestion/custom/traces/).
 - Replace the `url` and `Authorization` key in the `pkg/tel/otel_helper_http.go` file.
 
 ## Setup Service/Application 

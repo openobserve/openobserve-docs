@@ -62,7 +62,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
         - Select the **Stream Type**.  
         - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
             To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
-        - (Optional) Use the **Add Fields**, if you wish to create fields to the **User Defined Schema**. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md/#user-defined-schema-uds).    
+        - (Optional) Use the **Add Fields**, if you wish to create fields to the **User Defined Schema**. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).    
     5. Click **Create Stream**.
 
     The new stream appears on the Streams page. Ingest data into the stream to populate and start using it.
@@ -92,7 +92,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
             - These fields (job, code, message) will appear under User Defined Schema in the [Stream Details](../../user-guide/streams/stream-details.md) page.
             - Any additional fields not defined earlier will appear under All Fields.
         
-        This creates a user-defined schema at stream creation. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md/#user-defined-schema-uds).    
+        This creates a user-defined schema at stream creation. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).    
     5. Click **Create Stream**.
 
 !!! Note

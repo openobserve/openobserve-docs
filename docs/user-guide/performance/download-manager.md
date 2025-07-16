@@ -17,7 +17,7 @@ The Download Manager is a background service that runs on each querier node. Its
 
 === "Ingestion"
 
-    During ingestion, OpenObserve continuously collects and stores incoming data. This data is stored in the form of small Parquet files. Smaller files are periodically merged into larger ones by either the ingester or the compactor. When a larger Parquet file is created, the system uses a [hashing mechanism](../../performance.md/#pre-cache-files-for-faster-query-execution) to select one of the querier nodes to receive and cache the file.
+    During ingestion, OpenObserve continuously collects and stores incoming data. This data is stored in the form of small Parquet files. Smaller files are periodically merged into larger ones by either the ingester or the compactor. When a larger Parquet file is created, the system uses a [hashing mechanism](../../performance.md#pre-cache-files-for-faster-query-execution) to select one of the querier nodes to receive and cache the file.
 
     The selected querier receives a broadcast event notifying it about the new file. It then uses the Download Manager to:
 

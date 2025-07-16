@@ -6,9 +6,9 @@ This guide helps you monitor internal metrics that measure how efficiently the [
 
 OpenObserve emits four key metrics that track how data files are downloaded and cached:
 
-- `zo_file_downloader_normal_queue_size`: Number of files currently waiting in the [**normal** queue](download-manager.md/#dual-queue-system).
+- `zo_file_downloader_normal_queue_size`: Number of files currently waiting in the [**normal** queue](download-manager.md#dual-queue-system).
 
-- `zo_file_downloader_priority_queue_size`: Number of files in the [**priority** queue](download-manager.md/#dual-queue-system). 
+- `zo_file_downloader_priority_queue_size`: Number of files in the [**priority** queue](download-manager.md#dual-queue-system). 
 
 - `zo_query_disk_cache_hit_count`: Number of files that were already on disk when the query was executed. 
 - `zo_query_disk_cache_miss_count`: Number of files that were not on disk and had to be downloaded before the query could run.
@@ -62,7 +62,7 @@ After plotting the chart, you will calculate the cache efficiency to evaluate ov
 2. Go to **Dashboards** from the left navigation menu.
 3. Open an existing dashboard or create a new one.
 4. Click **Add Panel** to start building a chart.
-Refer to [Panels in Dashboards](../dashboards/dashboards-in-openobserve.md/#panels) if needed. 
+Refer to [Panels in Dashboards](../dashboards/dashboards-in-openobserve.md#panels) if needed. 
 
 ### Step 2: Choose a Chart Type
 From the chart type panel, choose a visualization type suitable for time-series data. **Line Chart** is recommended for tracking values over time.

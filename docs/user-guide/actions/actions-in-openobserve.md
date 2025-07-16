@@ -39,9 +39,9 @@ These are ideal for recurring tasks such as:
 ## Next Steps
 
 - [Create and Use Real-time Actions](../create-and-use-real-time-actions/) 
-- [Create and Use Scheduled Actions](../create-and-use-scheduled-actions.md)   
+- [Create and Use Scheduled Actions](../create-and-use-scheduled-actions/)   
 
 ## Related Links
 
-- [Declare Python Dependencies in Actions](../declare-python-dependencies-in-O2-actions.md)
-- [Environment Variables in Actions](../environment-variables-in-actions.md)
+- [Declare Python Dependencies in Actions](../declare-python-dependencies-in-O2-actions/)
+- [Environment Variables in Actions](../environment-variables-in-actions/)
