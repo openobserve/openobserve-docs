@@ -34,7 +34,7 @@ Capture and forward VPC Flow Logs to OpenObserve via Firehose for real-time netw
     2. Provide OpenObserve's HTTP Endpoint URL and Access Key, and set an S3 backup bucket.
     3. Give the stream a meaningful name and Create it.
 
-    ![Create Firehose Delivery Stream](../images/aws-integrations/vpc-flow/firehose-stream.png)
+    ![Create Firehose Delivery Stream](../images/aws-integrations/vpc-flow/firehose-stream.png){: style="height:800px"}
    
 ??? "Step 3: Enable VPC Flow Logs"
 
@@ -46,7 +46,7 @@ Capture and forward VPC Flow Logs to OpenObserve via Firehose for real-time netw
         - Log format: `All fields`
     3. Create the flow log
 
-        ![Create Flow Log](../images/aws-integrations/vpc-flow/vpc-flowlog.png)
+        ![Create Flow Log](../images/aws-integrations/vpc-flow/vpc-flowlog.png){: style="height:800px"}
 
 ??? "Step 4: Verify Logs in OpenObserve"
 

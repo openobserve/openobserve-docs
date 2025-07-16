@@ -101,6 +101,7 @@ edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
 markdown_extensions:
   - admonition
   - tables
+  - attr_list
   - pymdownx.tabbed:
       alternate_style: true 
   - pymdownx.highlight:
