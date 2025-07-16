@@ -1,3 +1,4 @@
 nav:
 
     - EC2 : ec2.md
+    - ALB : alb.md
