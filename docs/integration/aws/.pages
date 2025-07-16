@@ -1,3 +1,4 @@
 nav:
 
-    - EC2 : ec2.md
+    - Amazon EC2 : ec2.md
+    - Application Load Balancer(ALB) : alb.md
