@@ -1,4 +1,4 @@
-After After you complete [data ingestion](streams-in-openobserve.md/#ingest-data-into-stream), use **Stream Details** to view configuration and usage information for a stream and update its settings.
+After After you complete [data ingestion](streams-in-openobserve.md#ingest-data-into-stream), use **Stream Details** to view configuration and usage information for a stream and update its settings.
 
 This guide explains how to open **Stream Details** and the information it displays. 
 

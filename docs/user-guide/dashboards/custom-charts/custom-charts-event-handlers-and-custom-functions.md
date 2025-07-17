@@ -12,7 +12,7 @@ Common event handlers:
 
 Before you begin, note the following: 
 
-- Charts in OpenObserve use an [`option` object](what-are-custom-charts.md/#the-option-object).  
+- Charts in OpenObserve use an [`option` object](what-are-custom-charts.md#the-option-object).  
 - Use the `o2_events` block to specify the event type, such as `click`.  
 - Associate the event with a function that will run when the event occurs.
 

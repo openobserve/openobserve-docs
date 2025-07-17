@@ -32,7 +32,7 @@ Each row in the result shows:
 - **`key`**: The start time of the 30-second bucket.
 - **`num`**: The count of log records that fall within that time bucket.
 <br>
-![histogram](./images/sql-reference/histogram.png)
+![histogram](../images/sql-reference/histogram.png)
 
 !!! note
     - If you do not specify an interval, the backend automatically determines a suitable value.

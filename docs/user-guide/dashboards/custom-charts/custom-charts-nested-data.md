@@ -1,6 +1,6 @@
-The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md/#how-to-check-the-data-structure-a-chart-expects). 
+The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
-This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md/#build-the-chart). 
+This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md#build-the-chart). 
 
 ## Use Case
 Build a custom **Sunburst chart** to visualize how **query execution time** is distributed across different **organizations** and **search types**.
@@ -19,7 +19,7 @@ To build a custom chart, you need to bridge two things:
 - **What data you already have**: This is the structure of your ingested data, which is usually flat.
 - **What the chart expects**: Each chart type needs data in a specific format. Some charts expect flat data, while others require nested data.
 
-> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md/#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md/#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart. 
+> **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart. 
 
 ## Step 1: Understand the Ingested Data
 OpenObserve stores ingested data in a flat structure.  
@@ -43,13 +43,13 @@ OpenObserve stores ingested data in a flat structure.
 
 ## Step 2: Identify the Expected Data Structure
 
-Before starting, [identify what structure the chart expects](what-are-custom-charts.md/#how-to-check-the-data-structure-a-chart-expects). 
+Before starting, [identify what structure the chart expects](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
 Sunburst chart expects data to be in nested format or parent-child hierarchy. Each parent (`organization_id`) should contain its children (`search_types`), each with a value.
 
 ## Step 3: Fetch and Prepare the Data
 
-In the [**Add Panel**](what-are-custom-charts.md/#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
+In the [**Add Panel**](what-are-custom-charts.md#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
 ![custom-charts-add-panel](../../../images/custom-chart-nested-data-add-panel.png) 
 
 Write a SQL query in the Query Editor to fetch and prepare the data: 
@@ -117,7 +117,7 @@ data = [[
 ]];
 ```
 
-**Note**: OpenObserve stores the result of the query in the [`data` object](what-are-custom-charts.md/#the-data-object) as an array of an array.
+**Note**: OpenObserve stores the result of the query in the [`data` object](what-are-custom-charts.md#the-data-object) as an array of an array.
 
 ## Step 4: Inspect the Queried Data
 
@@ -162,7 +162,7 @@ Note: In the `option` object, use the reshaped `treeData` array as the data fiel
 
 ## Step 6: Render the Chart
 
-Construct the [`option` object](what-are-custom-charts.md/#the-option-object) in the JavaScript code to define the reshaped dataset and configure how the chart should appear. 
+Construct the [`option` object](what-are-custom-charts.md#the-option-object) in the JavaScript code to define the reshaped dataset and configure how the chart should appear. 
 
 ```linenums="17"
 option = {

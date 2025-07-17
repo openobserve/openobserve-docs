@@ -88,7 +88,7 @@ To use GCS for storing stream data, first create the bucket in GCS.
 | ZO_S3_FEATURE_HTTP1_ONLY | true   | Required for compatibility                                                              |
 | ZO_S3_PROVIDER           | s3     | Enables S3-compatible API                                           |
 
-Refer to [GCS AWS migration documentation]((https://cloud.google.com/storage/docs/aws-simple-migration)) for more information.
+Refer to [GCS AWS migration documentation](https://cloud.google.com/storage/docs/aws-simple-migration) for more information.
 
 **Using GCS directly:**
 
