@@ -4,4 +4,6 @@ nav:
     - Application Load Balancer(ALB) : alb.md
     - Amazon Virtual Private Cloud : vpc-flow.md
     - Amazon Cognito : cognito.md
+    - AWS Cloudwatch logs: cloudwatch-logs.md
     - Amazon EventBridge : eventbridge.md
+
