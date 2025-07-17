@@ -11,6 +11,8 @@ The **Show Symbol** setting is available only for the following chart types:
 - Area
 - Area Stacked
 
+---
+
 ## Configure the Show Symbol Option
 To configure the **Show Symbol** option:
 
@@ -24,6 +26,8 @@ To configure the **Show Symbol** option:
     - When you select **No**, the chart renders a continuous line or area without individual point markers.
     ![Do not show symbol](../../../images/show-symbol-no.png)
 
+---
+
 ## Default Behavior and Environment Variable
 The default selection of the **Show Symbol** dropdown is determined by the following environment variable:
 
@@ -35,6 +39,8 @@ ZO_DASHBOARD_SHOW_SYMBOL_ENABLED=false  # default
 - When set to **false**, the **Show Symbol** dropdown defaults to **No**.
 
 > This setting only controls the default state of the **Show Symbol** dropdown. Users can manually change the setting regardless of the environment variable value.
+
+---
 
 ## Limitations
 The **Show Symbol** option is supported only in **Line**, **Area**, and **Area Stacked** charts. It is not available for any other chart types in dashboard panels. If a different chart type is selected, the **Show Symbol** option will not appear in the configuration panel.
