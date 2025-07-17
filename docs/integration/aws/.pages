@@ -4,3 +4,4 @@ nav:
     - Application Load Balancer(ALB) : alb.md
     - Amazon Virtual Private Cloud : vpc-flow.md
     - Amazon Cognito : cognito.md
+    - Amazon EventBridge : eventbridge.md
