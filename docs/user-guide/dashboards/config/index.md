@@ -3,3 +3,5 @@ The Config tab in OpenObserve dashboards allows users to customize the behavior,
 Learn more: 
 
 - [Trellis Layout](../config/trellis-layout/)
+- [Show Symbol](../config/show-symbol/)
+
