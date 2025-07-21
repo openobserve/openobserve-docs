@@ -53,9 +53,7 @@ Follow these steps to create and configure **Cipher Keys** in OpenObserve:
 You can retrieve original values from encrypted logs using the `decrypt()` and `decrypt_path()` functions. These functions operate at query time and do not write decrypted data to disk.
 
 ### Use the `decrypt` function
-Use the `decrypt()` function when the encrypted field contains a non-nested value. 
-
-The `decrypt()` function performs brute-force decryption. It attempts to decrypt any value in the input that appears to be base64-encoded. If the decryption is successful, the value is replaced with the decrypted output. If not, the value is returned unchanged.
+The `decrypt()` function performs brute-force decryption. It attempts to decrypt any sub-string in the input that appears to be base64-encoded. If the decryption is successful, the sub-string is replaced with the decrypted output. If not, the sub-string is retained unchanged.
 
 !!! warning
     The `decrypt()` function can be slower on larger input fields due to its brute-force behavior. For inputs smaller than 500 characters, performance degradation is typically around 10 percent. However, for inputs exceeding 10,000 characters, the slowdown can increase to 50 to 100 percent. Avoid using this function on unnecessarily large fields unless required.
@@ -255,7 +253,7 @@ When using **OpenObserve** as the encryption key (secret) storage option, you ca
 - **Duplicate Cipher Key Names:** Ensure that each **Cipher Key** name is unique.  
 - **Invalid Characters in Cipher Key Name:** Ensure that **Cipher Key** names do not contain colons.
 - **Incorrect Encryption Key Type (Simple or Tink):** When storing encryption keys, ensure you use the correct key type (Simple or Tink). If an incompatible key type is used, the system will show an error, and the key remains unsaved.  
-- **Invalid Akeyless Credentials:** If you enter invalid Akeyless credentials during **Cipher Ke**y creation or update, the system will reject the operation and show an error message. Correct the credentials and try again.    
+- **Invalid Akeyless Credentials:** If you enter invalid Akeyless credentials during **Cipher Key** creation or update, the system will reject the operation and show an error message. Correct the credentials and try again.    
 - **Error in DFC Configuration:**
 
     - For DFC without an Initialization Vector (IV), the system accepts any IV value except an empty one. An empty IV will trigger an error.  
