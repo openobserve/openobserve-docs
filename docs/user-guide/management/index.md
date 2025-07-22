@@ -2,9 +2,10 @@ The Management section includes tools for maintaining and securing OpenObserve o
 
 Learn more: 
 
-- [Query Management](query-management.md)
-- [Alert Destinations](alert-destinations.md)
-- [Templates](templates.md)
-- [Audit trail](audit-trail.md)
-- [Cipher Keys](cipher-keys.md)
-- [Nodes in OpenObserve](nodes.md)
+- [Query Management](../management/query-management/)
+- [Alert Destinations](../management/alert-destinations/)
+- [Templates](../management/templates/)
+- [Audit trail](../management/audit-trail/)
+- [Cipher Keys](../management/cipher-keys/)
+- [Nodes in OpenObserve](../management/nodes/)
+- [SSO Domain Restrictions](../management/sso-domain-restrictions/)
