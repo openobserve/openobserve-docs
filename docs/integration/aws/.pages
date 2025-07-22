@@ -7,3 +7,4 @@ nav:
     - AWS Cloudwatch logs: cloudwatch-logs.md
     - Amazon EventBridge : eventbridge.md
     - Amazon Relational Database Service (RDS) : rds.md
+    - Amazon CloudFront : cdn.md 

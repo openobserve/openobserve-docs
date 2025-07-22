@@ -21,7 +21,19 @@ Amazon RDS can export logs to CloudWatch Logs. These can be forwarded to OpenObs
     - AWS permissions for RDS, CloudWatch Logs, IAM, and Kinesis Firehose
     - S3 bucket for Firehose backup (recommended)
 
-??? "Step 1: Enable RDS Log Exports"
+??? "Step 1: Get OpenObserve Ingestion URL and Access Key"
+
+    1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+    2. Copy the ingestion URL and Access Key
+
+    ![Get OpenObserve Ingestion URL and Access Key](../images/aws-integrations/vpc-flow/fetch-url.png)
+    
+    > Update the URL to have the stream name of your choice:
+        ```
+        https://<your-openobserve-domain>/aws/default/<stream_name>/_kinesis_firehose
+        ```
+
+??? "Step 2: Enable RDS Log Exports"
 
     1. Go to **RDS → Databases → Your DB Instance → Modify**
     2. Scroll to **Log exports**, and enable:
@@ -33,12 +45,12 @@ Amazon RDS can export logs to CloudWatch Logs. These can be forwarded to OpenObs
 
     ![Enable RDS Log Exports](../images/aws-integrations/rds/schedule-modification.png)
 
-??? "Step 2: Locate RDS Log Groups in CloudWatch"
+??? "Step 3: Locate RDS Log Groups in CloudWatch"
 
     1. Go to **CloudWatch → Logs → Log groups**
     2. Find log group like: `/aws/rds/instance/<db-name>/<log_group_name>`
 
-??? "Step 3: Create a Firehose Delivery Stream"
+??? "Step 4: Create a Firehose Delivery Stream"
 
     1. In AWS Kinesis Firehose, Create delivery stream with Source: `Direct PUT` and Destination: `HTTP Endpoint`.
     2. Provide OpenObserve's HTTP Endpoint URL and Access Key, and set an S3 backup bucket.
@@ -46,7 +58,7 @@ Amazon RDS can export logs to CloudWatch Logs. These can be forwarded to OpenObs
 
     ![Create Firehose Stream](../images/aws-integrations/rds/firehose-stream.png){: style="height:800px"}
 
-??? "Step 4: Create Log Subscription Filter"
+??? "Step 5: Create Log Subscription Filter"
 
     1. In **CloudWatch Logs → Log Groups**, select the RDS log group
     2. Click **Actions → Create subscription filter**
@@ -59,7 +71,7 @@ Amazon RDS can export logs to CloudWatch Logs. These can be forwarded to OpenObs
 
     ![Subscription Filter](../images/aws-integrations/rds/filter.png){: style="height:800px"}
 
-??? "Step 5: Verify Logs in OpenObserve"
+??? "Step 6: Verify Logs in OpenObserve"
 
     1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
