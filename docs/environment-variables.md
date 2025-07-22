@@ -35,7 +35,8 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_WIDENING_SCHEMA_EVOLUTION         | true                       | No           | if set to false user can add new columns to data being ingested but changes to existing data for data type are not supported .  |
 | ZO_SKIP_SCHEMA_VALIDATION            | false                      | No           | Default we check ingested every record for schema validation, but if your schema is fixed, you can skip it, this will increase 2x ingestion performance.  |
 | ZO_FEATURE_INGEST_BUFFER_ENABLED     | false                      | No           | enable it to enqueue ingestion requests for background processing, used to improve responsiveness of ingestion endpoints     |
-| ZO_FEATURE_FULLTEXT_EXTRA_FIELDS     | -                          | No           | default full text search uses `log`, `message`, `msg`, `content`, `data`, `json` as global setting, but you can add more fields as global full text search fields. eg: `field1,field2`  |
+| ZO_FEATURE_FULLTEXT_EXTRA_FIELDS     | -                          | No           | Automatically enables global full-text indexing on the specified fields if they exist in the ingested log data. By default, OpenObserve applies full-text indexing to the following global fields: `log`, `message`, `msg`, `content`, `data`, and `json`. Example: `field1`,`field2`  |
+| ZO_FEATURE_INDEX_EXTRA_FIELDS     | -                          | No           | 	Automatically enables global secondary indexing on the specified fields if they exist in the ingested log data. Example: `field1`,`field2`  |
 | ZO_FEATURE_DISTINCT_EXTRA_FIELDS     | ""                         | No           |  |
 | ZO_FEATURE_QUICK_MODE_FIELDS         | ""                         | No           |  |
 | ZO_FEATURE_FILELIST_DEDUP_ENABLED    | false                      | No           |  |
