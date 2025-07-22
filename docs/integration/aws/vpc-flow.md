@@ -35,7 +35,6 @@ Capture and forward VPC Flow Logs to OpenObserve via Firehose for real-time netw
     3. Give the stream a meaningful name and Create it.
 
     ![Create Firehose Delivery Stream](../images/aws-integrations/vpc-flow/firehose-stream.png){: style="height:800px"}
-
    
 ??? "Step 3: Enable VPC Flow Logs"
 
