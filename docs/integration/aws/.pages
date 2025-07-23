@@ -5,6 +5,7 @@ nav:
     - Amazon Virtual Private Cloud : vpc-flow.md
     - Amazon Cognito : cognito.md
     - AWS Cloudwatch logs: cloudwatch-logs.md
+    - AWS Cloudwatch metrics: cloudwatch-metrics.md
     - API Gateway logs: api-gateway.md
     - Amazon EventBridge : eventbridge.md
     - Amazon Relational Database Service (RDS) : rds.md
