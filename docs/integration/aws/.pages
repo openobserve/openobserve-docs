@@ -9,4 +9,5 @@ nav:
     - API Gateway logs: api-gateway.md
     - Amazon EventBridge : eventbridge.md
     - Amazon Relational Database Service (RDS) : rds.md
+    - AWS Route 53 : route-53.md
     - Amazon CloudFront : cdn.md 
