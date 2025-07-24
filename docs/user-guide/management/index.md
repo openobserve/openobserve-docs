@@ -2,6 +2,7 @@ The Management section includes tools for maintaining and securing OpenObserve o
 
 Learn more: 
 
+- [Streaming Search](../management/streaming-search/)
 - [Query Management](../management/query-management/)
 - [Alert Destinations](../management/alert-destinations/)
 - [Templates](../management/templates/)
@@ -9,4 +10,4 @@ Learn more:
 - [Cipher Keys](../management/cipher-keys/)
 - [Nodes in OpenObserve](../management/nodes/)
 - [SSO Domain Restrictions](../management/sso-domain-restrictions/)
-- [Streaming Search](../management/streaming-search/)
+
