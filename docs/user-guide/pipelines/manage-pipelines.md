@@ -30,6 +30,36 @@ View all pipelines in a tabular format, including:
 
 ## Actions Tab
 
-- **Pause/Start Pipelines**: Temporarily stop or restart pipelines as needed.
 - **Edit Pipeline**: Modify the configuration of an existing pipeline.
 - **Delete Pipeline**: Remove a pipeline permanently from your system.
+- **Pause/Start Pipelines**: Temporarily stop or restart pipelines as needed.
+
+!!! Info "Pause and Resume a Scheduled Pipeline"
+    **Pausing a Scheduled Pipeline:**
+
+    - When paused, the pipeline stops executing on its scheduled intervals. 
+    - The system preserves the exact timestamp when the pause occurred. 
+    - Pipeline configuration and state are maintained during the pause. 
+
+    **Unpausing a Scheduled Pipeline:**
+
+    When resuming a paused scheduled pipeline, OpenObserve presents a **Resume Pipeline Ingestion** dialog with two options:
+    <br>
+    ![Resume pipeline](../../images/resume-scheduled-pipeline.png)
+
+    - **Continue from where it paused:**
+
+        - Processes all data from the pause timestamp to the current time. 
+        - Maintains complete data continuity with no gaps. 
+        - May consume significant system resources for long pause periods. 
+
+        > **Note:** Use the **Continue from where it paused** option, when data completeness is critical. 
+
+    - **Start from now:**
+
+        - Begins processing from the current timestamp. 
+        - Creates a data gap between the pause and resume timestamps. 
+        - Provides immediate resumption with minimal resource usage. 
+
+        > **Note:** Use the **Start from now** option, when data gaps are acceptable. 
+    
