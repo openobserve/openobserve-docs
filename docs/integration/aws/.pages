@@ -7,8 +7,11 @@ nav:
     - AWS Network Firewall : network-firewall.md
     - AWS Cloudwatch logs: cloudwatch-logs.md
     - AWS Cloudwatch metrics: cloudwatch-metrics.md
-    - API Gateway logs: api-gateway.md
-    - Amazon EventBridge : eventbridge.md
     - Amazon Relational Database Service (RDS) : rds.md
     - AWS Route 53 : route-53.md
+    - AWS Web Application Firewall (WAF): waf.md
+    - API Gateway logs: api-gateway.md
     - Amazon CloudFront : cdn.md 
+    - Amazon EventBridge : eventbridge.md
+    
+  
