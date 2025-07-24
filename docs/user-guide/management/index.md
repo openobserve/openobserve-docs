@@ -9,3 +9,4 @@ Learn more:
 - [Cipher Keys](../management/cipher-keys/)
 - [Nodes in OpenObserve](../management/nodes/)
 - [SSO Domain Restrictions](../management/sso-domain-restrictions/)
+- [Streaming Search](../management/streaming-search/)
