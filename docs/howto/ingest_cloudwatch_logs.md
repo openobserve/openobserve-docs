@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest and analyze AWS CloudWatch logs in OpenObserve using Kinesis Firehose
+  and subscription filters. Works with self-hosted and OpenObserve Cloud.
+---
 # Ingest Amazon Cloudwatch logs in OpenObserve
 
 ## Introduction

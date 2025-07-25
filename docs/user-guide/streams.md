@@ -1,3 +1,8 @@
+---
+description: >-
+  Learn how streams in OpenObserve handle data ingestion, storage, and querying.
+  Get started with setup, schema settings, and extended retention options.
+---
 # Streams
 
 A stream in OpenObserve is sequence of events(logs/metrics/traces), sharing the same source for eg: logs from a specific application or from an enterprise.

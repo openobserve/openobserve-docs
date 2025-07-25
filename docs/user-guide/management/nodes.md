@@ -1,3 +1,8 @@
+---
+description: >-
+  Monitor node health and performance in OpenObserve clusters, including CPU,
+  memory, and TCP connections across ingesters, queriers, and other node types.
+---
 In OpenObserve, a node is an instance of the OpenObserve application. Each node performs one or more specific tasks, such as collecting incoming data, answering search queries, storing data efficiently, or managing alert rules.
 
 A group of such nodes working together is called a cluster. Clusters allow OpenObserve to distribute work across nodes, helping the system scale, stay responsive, and remain available even if one node goes offline. Depending on how OpenObserve is deployed, this cluster can be:

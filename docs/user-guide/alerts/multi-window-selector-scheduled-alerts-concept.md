@@ -1,3 +1,9 @@
+---
+description: >-
+  Use Multi-window Selector in scheduled alerts to compare current vs.
+  historical data, detect anomalies, and trigger alerts based on trends over
+  time.
+---
 This page explains the importance of the Multi-window Selector in OpenObserve, how it works, and the key concepts of period, window, and frequency. It also describes how OpenObserve processes scheduled alerts when the Multi-window Selector is applied.
 
 ## Why You Need Multi-window Selector

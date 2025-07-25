@@ -1,3 +1,9 @@
+---
+description: >-
+  Create real-time Actions in OpenObserve to automate workflows with Python
+  scripts triggered by log events or alerts—manual or automated scripts are
+  supported.
+---
 **Real-time Actions** in OpenObserve are user-defined Python scripts that are executed **immediately** when triggered, either manually by a user through the Logs UI or automatically when an alert gets triggered.
 
 This guide provides instruction on how to create Real-time Actions.

@@ -1,3 +1,8 @@
+---
+description: >-
+  Send ECS logs to OpenObserve using AWS FireLens with Fluent Bit. Works with
+  Fargate or EC2. Requires adding a sidecar to ECS task definitions.
+---
 # Ingest logs from Amazon ECS using AWS firelens
 
 ## Introduction

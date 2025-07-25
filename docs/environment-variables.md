@@ -1,3 +1,8 @@
+---
+description: >-
+  Configure OpenObserve with flexible environment variables for roles, storage,
+  performance, and scaling across open source and enterprise deployments.
+---
 > Applicable to open source & enterprise version
 
 OpenObserve is configured through the use of below environment variables.

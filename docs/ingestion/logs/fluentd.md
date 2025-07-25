@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs into OpenObserve using Fluentd with HTTP output, JSON formatting,
+  and basic auth for flexible and secure data forwarding.
+---
 # Fluentd
 
 ```toml

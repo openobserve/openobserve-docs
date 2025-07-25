@@ -1,3 +1,8 @@
+---
+description: >-
+  Send logs to OpenObserve from Python using HTTP POST with basic auth and JSON
+  payloads—great for integrating with ECS, Kubernetes, or any Python app.
+---
 ## Python
 
 ```py

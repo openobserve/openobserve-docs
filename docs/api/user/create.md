@@ -1,3 +1,8 @@
+---
+description: >-
+  Create a new OpenObserve user by sending email, name, password, and role via
+  POST. Supports admin and user roles.
+---
 # Create user
 
 Endpoint: `POST /api/{organization}/users`

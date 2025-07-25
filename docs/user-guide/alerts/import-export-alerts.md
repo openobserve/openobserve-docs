@@ -1,3 +1,9 @@
+---
+description: >-
+  Import and export alert rules in OpenObserve as JSON to streamline
+  configuration across environments. Easily reuse, share, and manage alerts at
+  scale.
+---
 This guide provides an overview of the alert import and export feature and explains how to use it. 
 
 The primary goal of the alert import and export feature is to simplify and automate the management of alert configurations across environments. Instead of manually recreating alert rules in each OpenObserve instance, users can export an alert’s definition to a file and import it elsewhere. 

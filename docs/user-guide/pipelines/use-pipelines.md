@@ -1,3 +1,7 @@
+---
+description: >-
+ Create and run real-time or scheduled pipelines in OpenObserve to transform and route data between streams using queries, conditions, and functions.
+---
 This guide shows you how to create and use real-time and scheduled pipelines in OpenObserve.
 
 ## Create a Pipeline

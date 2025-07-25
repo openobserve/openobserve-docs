@@ -1,3 +1,8 @@
+---
+description: >-
+  Set up trace ingestion for Go apps in OpenObserve using OpenTelemetry SDK.
+  Clone sample repo, configure endpoint and auth, then start exporting traces.
+---
 # Go
 
 You can setup tracing for your Go application. Check sample configuration on how to setup traces.

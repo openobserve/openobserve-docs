@@ -1,3 +1,8 @@
+---
+description: >-
+  Use OpenObserve's Search Inspector to profile slow queries, trace execution
+  steps, and debug with real-time, structured search metadata.
+---
 ## Search Inspector
 The Search Inspector in OpenObserve helps you identify what happens during a search operation. 
 

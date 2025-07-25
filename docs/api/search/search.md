@@ -1,3 +1,8 @@
+---
+description: >-
+  Search logs with SQL using POST /api/{org}/_search. Filter by time, size, and
+  conditions. Supports full text, aggregations, and custom functions.
+---
 # Search
 
 Endpoint: `POST /api/{organization}/_search`

@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs in syslog format via TCP/UDP with OpenObserve. Enable in UI, set
+  org, stream, and subnet. Default port 5514. Great for server log integration.
+---
 # Syslog server
 
 OpenObserve can act as a syslog server. This means that you can send logs to OpenObserve using the syslog protocol. OpenObserve supports both UDP and TCP syslog.

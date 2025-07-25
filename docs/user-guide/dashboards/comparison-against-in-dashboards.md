@@ -1,3 +1,8 @@
+---
+description: >-
+  Visually compare current vs. past data in OpenObserve dashboards using the
+  Comparison Against feature for trend analysis across supported chart types.
+---
 The **Comparison Against** feature in OpenObserve **Dashboards** allows you to visually compare your **current data** with **data from a selected point in time in the past**.
 It is useful for trend analysis and identifying patterns over time.
 

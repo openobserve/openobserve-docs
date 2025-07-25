@@ -1,3 +1,8 @@
+---
+description: >-
+  See function examples using VRL to add, change, or delete fields in logs. Try
+  them out in the VRL playground at playground.vrl.dev.
+---
 # Examples for function
 
 ## add new field

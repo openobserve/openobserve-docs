@@ -1,3 +1,8 @@
+---
+description: >-
+  OpenObserve's Download Manager improves query speed by managing Parquet file
+  downloads using a dual-queue system for recent and historical data.
+---
 This guide explains how OpenObserve ensures fast and reliable query performance. It introduces the Download Manager, a built-in component that manages how files are downloaded during ingestion and search.
 
 ## How the Download Manager Works

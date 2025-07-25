@@ -1,6 +1,8 @@
 ---
 title: Use Cipher Keys to Decrypt Encrypted Logs in OpenObserve
-description: Learn how to create and manage Cipher Keys in OpenObserve and query encrypted logs using decrypt() and decrypt_path() functions. 
+description: >-
+  Decrypt encrypted logs in OpenObserve Enterprise using Cipher Keys—enable
+  secure searches without storing decrypted data on disk.
 ---
 This page explains how to create and manage **Cipher Keys** in OpenObserve and how to use them to decrypt encrypted log data during search queries. 
 The **Cipher Keys** feature is essential for handling sensitive data stored in encrypted formats while still enabling effective log search and analysis, without storing decrypted data on disk. 

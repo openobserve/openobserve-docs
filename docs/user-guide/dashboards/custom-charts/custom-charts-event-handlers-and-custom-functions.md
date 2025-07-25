@@ -1,3 +1,8 @@
+---
+description: >-
+  Add interactivity to custom charts in OpenObserve using event handlers and
+  reusable functions to respond to clicks, hovers, and legend selections.
+---
 This guide shows how to make your [custom charts](what-are-custom-charts.md) interactive using event handlers and reusable custom functions (customFn).
 
 ## What Are Event Handlers 

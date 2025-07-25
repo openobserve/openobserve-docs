@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest metrics into OpenObserve via Prometheus remote write and explore them
+  using SQL in dashboards.
+---
 # Prometheus 
 
 You can ingest metrics using prometheus [remote write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) in OpenObserve.

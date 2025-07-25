@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs into OpenObserve using Filebeat by configuring input paths and
+  output to OpenObserve's API with Elasticsearch-compatible settings.
+---
 # Filebeat
 
 ```toml
