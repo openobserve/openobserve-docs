@@ -5,3 +5,4 @@ nav:
     - Cloudflare: cloudflare.md
     - PostgreSQL: postgresql.md
     - Snowflake: snowflake.md
+    - DevOps : devops
