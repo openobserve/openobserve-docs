@@ -1,3 +1,8 @@
+---
+description: >-
+  Import and export pipelines in OpenObserve to move configurations across
+  environments easily using JSON files, URLs, or direct input.
+---
 This guide explains how to import and export pipelines. Use this feature to replicate existing pipelines across environments without recreating them from scratch.
 
 

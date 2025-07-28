@@ -1,3 +1,8 @@
+---
+description: >-
+  Deploy OpenObserve in HA mode using Helm on Kubernetes. Requires object
+  storage, IAM roles, and metadata config via PostgreSQL or MySQL.
+---
 # High Availability (HA) Deployment
 
 While OpenObserve can be installed and run in HA mode on bare metal servers, VMs, Kubernetes and possibly other platforms, we currently provide installation using helm charts officially. We may provide additional installers like terraform in future. Local disk storage is not supported in HA mode and as such configuring an object store is mandatory.

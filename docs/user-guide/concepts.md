@@ -1,3 +1,8 @@
+---
+description: >-
+  Learn core OpenObserve concepts: organizations, streams, users, functions,
+  ingestion, and search. Understand roles, partitioning, and timestamp handling.
+---
 # Concepts
 
 ## Organizations

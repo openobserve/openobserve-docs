@@ -1,3 +1,8 @@
+---
+description: >-
+  Create heatmaps with custom charts using flat data in OpenObserve. Learn how
+  to query, format, and visualize data with SQL and JavaScript.
+---
 The following step-by-step instructions can help you build a [custom chart that expects flat data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
 ## Use Case

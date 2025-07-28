@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how org-level and role-level quotas work in OpenObserve, and what
+  happens when limits are applied individually or together across users and
+  roles.
+---
 This guide explains how org-level and role-level quotas work in OpenObserve, and what happens when one or both types of quotas are applied. To learn how to configure quotas, see the [Quotas documentation](quotas.md).
 
 In OpenObserve, quotas can be set at two levels:

@@ -1,3 +1,8 @@
+---
+description: >-
+  Access OpenObserve binary and container releases, including stable builds and
+  dev images with the latest features at GitHub and AWS ECR repositories.
+---
 # Releases
 
 1. Binary releases are available at: <https://github.com/openobserve/openobserve/releases>

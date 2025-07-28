@@ -1,3 +1,8 @@
+---
+description: >-
+  Control API usage in OpenObserve with quotas. Set rate limits per org or role,
+  manage access via RBAC, and prevent overload with smart rate limiting.
+---
 This guide explains what Quotas are, how to configure them, how to navigate the Quotas interface, and how to set quota limits.
 
 ## What Are Quotas

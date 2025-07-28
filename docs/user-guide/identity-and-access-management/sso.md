@@ -1,6 +1,7 @@
 ---
 title: Single Sign-On (SSO) 
-description: Learn how to enable Single Sign-On (SSO) in OpenObserve.
+description: >-
+  Enable SSO in OpenObserve with Dex using LDAP or OIDC providers like Google. Supports enterprise RBAC, role mapping, and secure user auth setup.
 ---
 <!-- search: SSO, Single Sign-On-->
 

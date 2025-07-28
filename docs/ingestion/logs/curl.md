@@ -1,3 +1,9 @@
+---
+description: >-
+  Ingest logs into OpenObserve using curl for single or bulk records.
+  Authenticate and send data directly or from a file using the _json API
+  endpoint.
+---
 ## curl
 
 ### Single record

@@ -1,3 +1,8 @@
+---
+description: >-
+  Enable Mimalloc in OpenObserve for optimized Rust memory management. Use cargo
+  flags and env vars for fine-tuned performance and memory control.
+---
 # Mimalloc
 
 OpenObserve has a feature to use [Mimalloc](https://github.com/microsoft/mimalloc) as memory management for Rust.

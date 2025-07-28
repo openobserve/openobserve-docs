@@ -1,3 +1,7 @@
+---
+description: >-
+  Set up email and webhook destinations in OpenObserve to route alert notifications. Reuse destinations across alerts for streamlined alert management.
+---
 In OpenObserve, **Destinations** define how and where alert notifications are delivered when an alert is triggered. Destinations are reusable. You can assign a destination to one or more alerts to manage notifications efficiently.
 
 ## Configure Alert Destinations 

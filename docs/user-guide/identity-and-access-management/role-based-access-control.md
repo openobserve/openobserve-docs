@@ -1,3 +1,8 @@
+---
+description: >-
+  Manage fine-grained access in OpenObserve with OpenFGA-based RBAC—roles,
+  permissions, service accounts, and user groups.
+---
 This guide provides an overview of Role-Based Access Control (RBAC), its features, and how it is implemented in OpenObserve.
 
 ## Overview

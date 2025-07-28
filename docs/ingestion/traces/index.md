@@ -1,3 +1,8 @@
+---
+description: >-
+  Send OpenTelemetry-compatible traces to OpenObserve via HTTP or gRPC using
+  SDKs or auto-instrumentation. Supports both cloud and self-hosted.
+---
 # Index
 
 OpenObserve follows opentelemtry standards for traces. You can send traces to OpenObserve using code instrumented via opentelemtry SDKs or via auto-instrumentation to send traces to OpenObserve.

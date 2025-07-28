@@ -1,3 +1,8 @@
+---
+description: >-
+  Retain key stream data beyond default limits with Extended Retention in
+  OpenObserve. Preserve specific time ranges in streams for up to 10 years.
+---
 ## Extended Retention
 
 The Extended Retention feature in **Stream Details** allows you to retain specific segments of your stream data beyond the configured stream-level or global retention period. 

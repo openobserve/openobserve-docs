@@ -1,3 +1,8 @@
+---
+description: >-
+  Monitor OpenObserve using Prometheus metrics with global labels for cluster,
+  instance, and role to track performance and health.
+---
 # Monitoring OpenObserve
 
 OpenObserve exposes prometheus metrics about itself that allows you to monitor OpenObserve.

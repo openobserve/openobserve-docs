@@ -1,3 +1,8 @@
+---
+description: >-
+  Monitor and cancel live queries across dashboards, alerts, and logs; inspect
+  execution time, range, user, and more in HA deployments.
+---
 The **Query Management** page provides **real-time visibility and control** over all currently running queries across dashboards, alerts, logs, and reports within an OpenObserve instance. Using the **Query Management page**, you can decide whether to cancel a query or leave it running. 
 
 ## Availability

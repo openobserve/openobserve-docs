@@ -1,3 +1,9 @@
+---
+description: >-
+  List all data transformation functions for your org via GET
+  /api/{org}/functions, including stream, name, order, and function body
+  details.
+---
 # List functions
 
 Endpoint: `GET /api/{organization}/functions`

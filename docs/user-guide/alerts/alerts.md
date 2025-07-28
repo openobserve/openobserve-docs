@@ -1,3 +1,8 @@
+---
+description: >-
+  Learn how alerting works in OpenObserve. Supports real-time and scheduled
+  alerts with thresholds, frequency, silence periods, and aggregation options.
+---
 # Alerts
 
 Alerting provides mechanism to notify users when certain conditions are met. OpenObserve supports both scheduled and real time alerts. For the most part you should use Standard alerts as they are more efficient and can be used for most use cases.

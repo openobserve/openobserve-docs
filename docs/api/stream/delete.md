@@ -1,3 +1,8 @@
+---
+description: >-
+  Delete OpenObserve streams via API. Deletion is async and handled by the
+  compactor. Configure auto-deletion with data retention environment settings.
+---
 # Delete stream
 
 Endpoint: `DELETE /api/{organization}/streams/{stream}?type={StreamType}`

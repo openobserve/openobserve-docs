@@ -1,3 +1,9 @@
+---
+description: >-
+  Add context to log data in OpenObserve using enrichment tables and VRL
+  functions—map values like protocol numbers to readable names at ingest or
+  query time.
+---
 # Enrichment
 
 ## Introduction 

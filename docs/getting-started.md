@@ -1,3 +1,8 @@
+---
+description: >-
+  Get started with OpenObserve quickly—follow the quickstart guide or watch the
+  intro video to explore its powerful observability features in action.
+---
 # OpenObserve Quickstart Guide
 
 This guide will help you get started with OpenObserve. You can choose between [OpenObserve Cloud](https://cloud.openobserve.ai) (recommended) or a self-hosted installation.

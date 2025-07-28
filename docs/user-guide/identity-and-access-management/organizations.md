@@ -1,3 +1,7 @@
+---
+description: >-
+ In OpenObserve, organizations group streams, users, and functions. Each user must select an organization to access and manage data and resources.
+---
 This guide explains how organizations work in OpenObserve. It covers organization types, creation methods, identifiers, access control, and limitations. 
 
 ## Overview   

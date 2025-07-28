@@ -1,3 +1,8 @@
+---
+description: >-
+  Track real user performance, errors, and sessions with RUM in OpenObserve.
+  Gain insights, debug issues, and optimize your frontend experience easily.
+---
 # RUM (Real User Monitoring)
 
 Front end monitoring is vital for understanding how your users are experiencing your application. RUM (Real User Monitoring) is a feature that allows you to track the performance of your application from the perspective of your users. RUM is a powerful tool for understanding how your application is performing in the real world, and can help you identify and fix performance issues before they impact your users.

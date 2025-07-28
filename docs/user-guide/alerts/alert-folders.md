@@ -1,3 +1,8 @@
+---
+description: >-
+  Organize alerts efficiently in OpenObserve using folders. Create, search, and
+  manage alert folders to keep your monitoring structured and easy to navigate.
+---
 This guide provides instructions on how to create alert folders. You can now use folders to organize alerts on the **Alerts** page. This helps you group and manage alerts efficiently. <br>
 ![Alert folders](../../images/alert-folders.png)
 

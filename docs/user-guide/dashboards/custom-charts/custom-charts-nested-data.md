@@ -1,3 +1,8 @@
+---
+description: >-
+  Build a custom Sunburst chart in OpenObserve using nested data. Learn how to
+  transform flat query logs into hierarchical visual insights.
+---
 The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
 This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md#build-the-chart). 
