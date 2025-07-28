@@ -131,6 +131,7 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_SWAGGER_ENABLED                   | true                       | No           | Generate SWAGGER API documentation by default. (since v0.10.8)  |
 | ZO_INGEST_ALLOWED_UPTO                   | 5                       | No           | Discards events older than the specified number of hours. By default, OpenObserve accepts data only if it is not older than 5 hours from the current ingestion time.|
 | ZO_INGEST_ALLOWED_IN_FUTURE                   | 24                       | No           | Discards events dated beyond the specified number of future hours. By default, OpenObserve accepts data only if it is not timestamped more than 24 hours into the future.|
+| ZO_QUERY_INDEX_THREAD_NUM                   | 0                       | No           | Controls thread count for Tantivy index search. Set to `0` to use default: `CPU cores × 4`. Set a positive integer to override. `0` does not mean unlimited.|
 
 > For local mode, OpenObserve use sqlite as the metadata store.
 >
