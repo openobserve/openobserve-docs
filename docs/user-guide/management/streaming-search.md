@@ -69,10 +69,13 @@ This enables:
 
 !!! info "Performance Test: 2-week Dashboard Query"
 
-    Panel 1 triggers 7 `_search` requests and completes loading the data in 4.452 seconds.  <br><br>
+    Panel 1 triggers 7 `_search` requests and completes loading the data in 4.452 seconds.
+
     ![Without Streaming Search- panel 1](../../images/without-streaming-search-panel1.png) 
-    <br>
-    Panel 2 triggers 57 `_search` requests and completes loading the data in 25.987 seconds.  <br><br>
+    
+    Panel 2 triggers 57 `_search` requests and completes loading the data in 25.987 seconds.
+    
+    
     ![Without Streaming Search- panel 2](../../images/without-streaming-search-panel2.png)
 
 ## With Streaming Search
@@ -87,8 +90,12 @@ This enables:
 !!! info "Performance Test: 2-week Dashboard Query"
 
     Panel 1 triggers 1 `_search_stream` request and completes loading the data in 393 milliseconds. 
+
+
     ![With Streaming Search](../../images/with-streaming-search-panel1.png)
+
     Panel 2 triggers 1 `_search_stream` request and completes loading the data in 1.29 seconds. 
+
     ![With Streaming Search](../../images/with-streaming-search-panel2.png)
 
 ## Considerations
