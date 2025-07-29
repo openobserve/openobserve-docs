@@ -67,16 +67,15 @@ This enables:
 - Each request has its own connection, and there is no query-wide cache across partitions.
 - The browser must wait for multiple independent requests to complete, which can increase load times and perceived delay.
 
-!!! info "Performance Test: 2-week Dashboard Query"
+**Performance Test: 2-week Dashboard Query** <br>
 
-    Panel 1 triggers 7 `_search` requests and completes loading the data in 4.452 seconds.
+Panel 1 triggers 7 `_search` requests and completes loading the data in 4.452 seconds.
+<br>
+![Without Streaming Search- panel 1](../../images/without-streaming-search-panel1.png) 
 
-    ![Without Streaming Search- panel 1](../../images/without-streaming-search-panel1.png) 
-    
-    Panel 2 triggers 57 `_search` requests and completes loading the data in 25.987 seconds.
-    
-    
-    ![Without Streaming Search- panel 2](../../images/without-streaming-search-panel2.png)
+Panel 2 triggers 57 `_search` requests and completes loading the data in 25.987 seconds.
+<br>
+![Without Streaming Search- panel 2](../../images/without-streaming-search-panel2.png)
 
 ## With Streaming Search
 
@@ -87,16 +86,15 @@ This enables:
 - The system uses a query-wide cache, which improves efficiency and reduces recomputation.
 - There is no duplication of requests, which lowers server and browser load.
 
-!!! info "Performance Test: 2-week Dashboard Query"
+**Performance Test: 2-week Dashboard Query**
 
-    Panel 1 triggers 1 `_search_stream` request and completes loading the data in 393 milliseconds. 
+Panel 1 triggers 1 `_search_stream` request and completes loading the data in 393 milliseconds. 
+<br>
+![With Streaming Search](../../images/with-streaming-search-panel1.png)
 
-
-    ![With Streaming Search](../../images/with-streaming-search-panel1.png)
-
-    Panel 2 triggers 1 `_search_stream` request and completes loading the data in 1.29 seconds. 
-
-    ![With Streaming Search](../../images/with-streaming-search-panel2.png)
+Panel 2 triggers 1 `_search_stream` request and completes loading the data in 1.29 seconds. 
+<br>
+![With Streaming Search](../../images/with-streaming-search-panel2.png)
 
 ## Considerations
 
