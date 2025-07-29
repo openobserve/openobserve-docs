@@ -5,3 +5,11 @@
     color: #7782FF;
   }
 }
+
+.hero-gradient {
+  @apply bg-gradient-to-r from-[#6A76E3] to-[#45A4F3];
+}
+
+input {
+  color: #ffffff;
+}

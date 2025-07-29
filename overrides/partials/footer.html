@@ -1,17 +1,47 @@
-<footer class="relative bg-black w-full">
+<footer class="relative bg-[#121212] w-full">
   <!-- Background SVG -->
   <svg
     class="absolute inset-0 w-full h-full"
+    xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1221 684"
     fill="none"
   >
-    <circle cx="610.5" cy="610.5" r="410.5" fill="url(#gradient)" />
+    <g filter="url(#filter0_f_1434_1855)">
+      <circle
+        cx="610.5"
+        cy="610.5"
+        r="410.5"
+        fill="url(#paint0_radial_1434_1855)"
+      />
+    </g>
     <defs>
+      <filter
+        id="filter0_f_1434_1855"
+        x="0"
+        y="0"
+        width="1221"
+        height="1221"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="100"
+          result="effect1_foregroundBlur_1434_1855"
+        />
+      </filter>
       <radialGradient
-        id="gradient"
+        id="paint0_radial_1434_1855"
         cx="0"
         cy="0"
         r="1"
+        gradientUnits="userSpaceOnUse"
         gradientTransform="translate(610.5 610.5) rotate(90) scale(410.5)"
       >
         <stop offset="0.01" stop-color="#23282C" />
@@ -30,7 +60,7 @@
 
       <!-- Newsletter -->
       <div class="rounded-lg text-center mx-auto">
-        <form id="newsletter-form">
+        <form id="newsletter-form" @submit.prevent="onSubmit">
           <h2 class="text-white font-medium text-lg mb-2 relative inline-block">
             Stay Updated
             <span
@@ -42,7 +72,9 @@
           </p>
 
           <div class="flex flex-col gap-2.5 mb-4">
-            <div class="text-sm rounded-full border border-[#4a90e2] text-left">
+            <div
+              class="text-xs rounded-full border border-[#4a90e2] text-left !text-white caret-white"
+            >
               <input
                 type="email"
                 name="email"
@@ -50,7 +82,7 @@
                 placeholder="Enter your email"
                 required
                 aria-label="Email address"
-                class="flex-1 px-4 py-2 bg-transparent text-white outline-none placeholder-[rgba(255,255,255,0.6)]"
+                class="flex-1 px-4 py-2 w-full rounded-full bg-transparent !text-white caret-white outline-none placeholder-[rgba(255,255,255,0.6)]"
               />
             </div>
             <div
@@ -58,12 +90,12 @@
               class="text-left ml-2 text-red-400 text-sm hidden"
             ></div>
             <div
-              class="px-6 py-2 rounded-full bg-[#7782FF] text-white text-sm font-medium cursor-pointer hover:bg-[#6672fa]"
+              class="px-6 py-2 rounded-full bg-[#7782FF] text-white text-sm font-medium hover:bg-[#6672fa]"
             >
               <button
                 type="submit"
                 id="newsletter-submit"
-                class="transition active:scale-98"
+                class="transition active:scale-98 w-full cursor-pointer"
               >
                 Subscribe
               </button>
@@ -84,10 +116,10 @@
     ></div>
 
     <div class="flex justify-center lg:justify-end py-4">
-      <div class="flex items-center gap-6">
+      <div class="flex items-center gap-4">
         <div class="w-12 h-12 flex-shrink-0 grayscale">
           <img
-            src="/docs/assets/sop.webp"
+            src="/docs/assets/soc.webp"
             class="w-full h-full object-contain"
             alt="Official AICPA SOC badge"
             loading="lazy"
@@ -96,9 +128,9 @@
           />
         </div>
 
-        <div class="flex flex-col text-white text-xs sm:text-sm">
-          <h2 class="whitespace-nowrap">SOC2 Type II</h2>
-          <p class="whitespace-nowrap">Certified</p>
+        <div class="flex flex-col text-white">
+          <h2 class="whitespace-nowrap text-sm">SOC2 Type II</h2>
+          <p class="whitespace-nowrap text-xs">Certified</p>
         </div>
         <div class="flex flex-wrap justify-center md:justify-start gap-2">
           <a
@@ -114,7 +146,118 @@
         </div>
       </div>
     </div>
-    <div></div>
+    <div>
+      <section class="hero-gradient w-full rounded-md">
+        <div
+          class="flex flex-col md:flex-row md:items-start lg:items-center md:justify-between gap-4 p-2"
+        >
+          <!-- Left: Tag + Title + Date & Time -->
+          <div
+            class="flex flex-col lg:flex-row w-full text-white gap-1 md:gap-1 lg:gap-4"
+          >
+            <!-- Tag + Title on same row -->
+            <div
+              class="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 lg:gap-4"
+            >
+              <!-- Tag -->
+              <div
+                class="flex items-center gap-2 text-xs font-semibold text-yellow-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 md:w-4 md:h-4 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+                Upcoming Webinar
+              </div>
+
+              <!-- Title -->
+              <h2
+                class="font-bold text-white text-xs md:font-semibold md:text-white md:mt-0 md:max-w-fit"
+              >
+                From Zero to Observability in 30 Minutes
+              </h2>
+            </div>
+
+            <!-- Date & Time below tag/title -->
+            <div class="flex gap-4 text-xs md:flex-row md:gap-2">
+              <!-- Date -->
+              <div class="flex items-center gap-2 text-white/90">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 md:w-4 md:h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z"
+                  />
+                </svg>
+                July 29, 2025
+              </div>
+
+              <!-- Time -->
+              <div class="flex items-center gap-2 text-white/90">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 md:w-4 md:h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                01:30 AM ET
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Button -->
+          <div class="flex flex-col text-blue-600 text-xs">
+            <a
+              href="/webinars-videos/zero-to-observability-in-30-minutes/"
+              target="_blank"
+              class="ring-offset-background focus-visible:outline-none focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 h-6 md:h-7 bg-white  hover:bg-blue-50 font-semibold px-3 py-1 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+            >
+              Register Now
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-arrow-right ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:translate-x-1"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
     <!-- Bottom Footer -->
     <div
       class="border-t border-gray-700 mt-10 pt-5 flex flex-col lg:flex-row justify-between items-center text-white gap-4"
@@ -133,32 +276,66 @@
           <a href="/policies/privacy-policy/" target="_blank">Privacy Policy</a>
         </li>
       </ul>
-      <div class="flex gap-3">
-        <a href="https://short.openobserve.ai/community" target="_blank"
-          ><img src="/docs/assets/slack-icon.svg" alt="slack" class="w-6 h-6"
-        /></a>
-        <a href="https://twitter.com/OpenObserve" target="_blank"
-          ><img
-            src="/docs/assets/twitter-icon.svg"
-            alt="twitter"
-            class="w-6 h-6"
-        /></a>
-        <a href="https://www.linkedin.com/company/openobserve" target="_blank"
-          ><img
-            src="/docs/assets/linkdin-icon.svg"
-            alt="linkedin"
-            class="w-6 h-6"
-        /></a>
-        <a href="https://github.com/openobserve/openobserve" target="_blank"
-          ><img src="/docs/assets/github-icon.svg" alt="github" class="w-6 h-6"
-        /></a>
-        <a href="https://www.youtube.com/@openobserve" target="_blank"
-          ><img
-            src="/docs/assets/youtube-icon.svg"
-            alt="youtube"
-            class="w-6 h-6"
-        /></a>
-      </div>
+      <ul class="flex gap-2">
+        <li
+          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+        >
+          <a href="https://short.openobserve.ai/community" target="_blank">
+            <img
+              src="/docs/assets/slack-icon.svg"
+              alt="slack"
+              class="w-5 h-5"
+            />
+          </a>
+        </li>
+        <li
+          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+        >
+          <a href="https://twitter.com/OpenObserve" target="_blank">
+            <img
+              src="/docs/assets/twitter-icon.svg"
+              alt="twitter"
+              class="w-5 h-5"
+            />
+          </a>
+        </li>
+        <li
+          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+        >
+          <a
+            href="https://www.linkedin.com/company/openobserve"
+            target="_blank"
+          >
+            <img
+              src="/docs/assets/linkdin-icon.svg"
+              alt="linkedin"
+              class="w-5 h-5"
+            />
+          </a>
+        </li>
+        <li
+          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+        >
+          <a href="https://github.com/openobserve/openobserve" target="_blank">
+            <img
+              src="/docs/assets/github-icon.svg"
+              alt="github"
+              class="w-5 h-5"
+            />
+          </a>
+        </li>
+        <li
+          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+        >
+          <a href="https://www.youtube.com/@openobserve" target="_blank">
+            <img
+              src="/docs/assets/youtube-icon.svg"
+              alt="youtube"
+              class="w-5 h-5"
+            />
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -391,21 +568,36 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "Subscribing...";
 
-      // Simulate API delay
-      setTimeout(() => {
-        toast.textContent = `Subscribed successfully with: ${email}`;
-        toast.classList.remove("hidden");
-        toast.style.opacity = 1;
+      const onSubmit = handleSubmit(async (values) => {
+        try {
+          // Track newsletter signup in Segment before/during submission
+          // await trackNewsletterSignup(values.email);
 
-        setTimeout(() => {
-          toast.classList.add("hidden");
-          toast.style.opacity = 0;
-        }, 3000);
+          // Simulate API call delay
+          await new Promise((resolve) => setTimeout(resolve, 1500));
 
-        emailInput.value = "";
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Subscribe";
-      }, 1500);
+          // Show success toast
+          toastMessage.value = `Subscribed successfully with: ${values.email}`;
+          showToast.value = true;
+
+          // Hide toast after 3 seconds
+          setTimeout(() => {
+            showToast.value = false;
+          }, 3000);
+
+          // Reset form if needed
+          resetForm();
+        } catch (error) {
+          // console.error("Newsletter signup error:", error);
+
+          // Show error toast or handle error here
+          toastMessage.value = "Something went wrong, please try again.";
+          showToast.value = true;
+          setTimeout(() => {
+            showToast.value = false;
+          }, 3000);
+        }
+      });
     });
   </script>
 </footer>
