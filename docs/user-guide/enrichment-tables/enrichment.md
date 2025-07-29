@@ -142,6 +142,13 @@ In addition to enriching data at query time, you can apply the same enrichment l
 !!! note 
     Use query-time enrichment when you want flexibility. Use ingestion-time enrichment when you want consistency and speed.
 
+## Storage Limit
+The maximum size of an enrichment table is controlled by the environment variable `ZO_ENRICHMENT_TABLE_LIMIT`.
+
+- Default value: 256 MB
+- If the enrichment table exceeds this limit, you cannot append additional records. OpenObserve returns an error when the size threshold is reached.
+
+
 ## Troubleshooting
 - **Field not enriched:** Ensure the enrichment table column name matches the log field and that the data types are compatible. 
 - **No result added:** Check that the enrichment table was uploaded and saved correctly, and that a matching row exists.
