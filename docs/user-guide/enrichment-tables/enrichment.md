@@ -5,14 +5,14 @@ description: Learn how to enrich incoming or queried log data in OpenObserve usi
 This page explains how to enrich incoming or queried log data in OpenObserve using enrichment tables. 
 
 ## What Is an Enrichment Table 
-An enrichment table in OpenObserve is a reference table used to enhance your log data with additional context. It is typically a CSV file that maps keys from your logs to descriptive values.
+An enrichment table in OpenObserve is a reference table used to enhance your log data with additional context. It is typically a CSV file that maps the fields from your logs to descriptive values.
 
 You can use enrichment tables during:
 
 - **Ingestion**: To add context as data is ingested.
 - **Query time**: To enrich data dynamically while querying. 
 
-**Enrichment is performed using Vector Remap Language or VRL functions.**
+**Enrichment is performed using [Vector Remap Language or VRL functions](https://vector.dev/docs/reference/vrl/).**
 
 !!! note "Where to find"
     To access the enrichment table interface:
@@ -146,3 +146,7 @@ In addition to enriching data at query time, you can apply the same enrichment l
 - **Field not enriched:** Ensure the enrichment table column name matches the log field and that the data types are compatible. 
 - **No result added:** Check that the enrichment table was uploaded and saved correctly, and that a matching row exists.
 - **Permission denied:** Ensure the user has the correct permissions in the IAM role to access the enrichment table.
+
+## Related Links
+
+- [Upload, Caching, and Restart Behavior](../enrichment-tables/enrichment-table-upload-caching/)

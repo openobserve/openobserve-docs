@@ -1,8 +1,8 @@
 ---
-title: Enrichment Table Upload and Recovery Flow – OpenObserve
+title: Upload, Caching, and Restart Behavior – OpenObserve
 description: Explains enrichment table upload, caching, and recovery behavior in OpenObserve based on file size and system settings.
 ---
-This page describes how OpenObserve handles enrichment table uploads, background synchronization, local disk caching, and recovery after node restarts.
+This page describes how OpenObserve handles [enrichment table](../enrichment/) uploads, caching, and table loading behavior during node restart.
 
 
 ## Upload Behavior
