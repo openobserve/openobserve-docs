@@ -136,6 +136,11 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_SWAGGER_ENABLED                   | true                       | No           | Generate SWAGGER API documentation by default. (since v0.10.8)  |
 | ZO_INGEST_ALLOWED_UPTO                   | 5                       | No           | Discards events older than the specified number of hours. By default, OpenObserve accepts data only if it is not older than 5 hours from the current ingestion time.|
 | ZO_INGEST_ALLOWED_IN_FUTURE                   | 24                       | No           | Discards events dated beyond the specified number of future hours. By default, OpenObserve accepts data only if it is not timestamped more than 24 hours into the future.|
+| ZO_QUERY_INDEX_THREAD_NUM                   | 0                       | No           | Controls thread count for Tantivy index search. Set to `0` to use default: `CPU cores × 4`. Set a positive integer to override. `0` does not mean unlimited.|
+| ZO_COMPACT_OLD_DATA_STREAMS                   | 0                       | No           | Comma-separated list of stream names for which older stored data will be reprocessed and compacted. Example: `stream1,stream2`.|
+| ZO_SEARCH_INSPECTOR_ENABLED                   | false                       | No           | Controls search inspector feature for detailed search operation tracing. When enabled, tracks search operations with `trace_id` and generates extensive logs for debugging. |
+| ZO_UTF8_VIEW_ENABLED                   | true                       | No           | When set to `true`, this environment variable activates DataFusion's StringView optimization in OpenObserve, which automatically converts UTF8 string fields to the more efficient UTF8View data type during query processing.  |
+
 
 > For local mode, OpenObserve use sqlite as the metadata store.
 >
