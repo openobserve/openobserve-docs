@@ -14,21 +14,23 @@ plugins:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/feedback.css
+  - css/output.css
 extra_javascript:
   - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
   - js/ms-clarity.js
   - js/zinc.js
   - js/vector_co.js
+  - https://buttons.github.io/buttons.js
 extra:
-  social:
-    - icon: fontawesome/brands/linkedin 
-      link: https://www.linkedin.com/company/zinclabsinc
-    - icon: fontawesome/brands/github 
-      link: https://github.com/openobserve/openobserve
-    - icon: fontawesome/brands/docker 
-      link: https://gallery.ecr.aws/zinclabs/openobserve
-    - icon: fontawesome/brands/slack 
-      link: https://short.openobserve.ai/community
+  # social:
+  #   - icon: fontawesome/brands/linkedin 
+  #     link: https://www.linkedin.com/company/zinclabsinc
+  #   - icon: fontawesome/brands/github 
+  #     link: https://github.com/openobserve/openobserve
+  #   - icon: fontawesome/brands/docker 
+  #     link: https://gallery.ecr.aws/zinclabs/openobserve
+  #   - icon: fontawesome/brands/slack 
+  #     link: https://short.openobserve.ai/community
   alternate:
     # - name: English
     #   link: /en/ 
@@ -95,9 +97,9 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
-repo_url: https://github.com/openobserve/openobserve
-repo_name: openobserve/openobserve
-edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
+# repo_url: https://github.com/openobserve/openobserve
+# repo_name: openobserve/openobserve
+# edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
 markdown_extensions:
   - admonition
   - tables

@@ -1,0 +1,411 @@
+<footer class="relative bg-black w-full">
+  <!-- Background SVG -->
+  <svg
+    class="absolute inset-0 w-full h-full"
+    viewBox="0 0 1221 684"
+    fill="none"
+  >
+    <circle cx="610.5" cy="610.5" r="410.5" fill="url(#gradient)" />
+    <defs>
+      <radialGradient
+        id="gradient"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientTransform="translate(610.5 610.5) rotate(90) scale(410.5)"
+      >
+        <stop offset="0.01" stop-color="#23282C" />
+        <stop offset="0.885" stop-color="#23282C" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <div class="relative container mx-auto px-4 py-10 lg:px-8 xl:px-12">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Footer Grid -->
+      <div
+        id="footer-columns"
+        class="w-full lg:w-[75%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+      ></div>
+
+      <!-- Newsletter -->
+      <div class="rounded-lg text-center mx-auto">
+        <form id="newsletter-form">
+          <h2 class="text-white font-medium text-lg mb-2 relative inline-block">
+            Stay Updated
+            <span
+              class="absolute bottom-[-5px] left-0 w-full h-0.5 bg-white block"
+            ></span>
+          </h2>
+          <p class="text-gray-300 text-sm transition duration-300 mb-6">
+            Get the latest OpenObserve insights
+          </p>
+
+          <div class="flex flex-col gap-2.5 mb-4">
+            <div class="text-sm rounded-full border border-[#4a90e2] text-left">
+              <input
+                type="email"
+                name="email"
+                id="newsletter-email"
+                placeholder="Enter your email"
+                required
+                aria-label="Email address"
+                class="flex-1 px-4 py-2 bg-transparent text-white outline-none placeholder-[rgba(255,255,255,0.6)]"
+              />
+            </div>
+            <div
+              id="newsletter-error"
+              class="text-left ml-2 text-red-400 text-sm hidden"
+            ></div>
+            <div
+              class="px-6 py-2 rounded-full bg-[#7782FF] text-white text-sm font-medium cursor-pointer hover:bg-[#6672fa]"
+            >
+              <button
+                type="submit"
+                id="newsletter-submit"
+                class="transition active:scale-98"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+
+          <p class="text-xs text-[rgba(255,255,255,0.6)]">
+            By subscribing, you agree to receive product related updates.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div
+      id="newsletter-toast"
+      class="fixed bottom-5 right-2 transform bg-[#7782FF] text-white p-6 rounded-lg shadow-lg z-50 hidden transition-opacity duration-300"
+    ></div>
+
+    <div class="flex justify-center lg:justify-end py-4">
+      <div class="flex items-center gap-6">
+        <div class="w-12 h-12 flex-shrink-0 grayscale">
+          <img
+            src="/docs/assets/sop.webp"
+            class="w-full h-full object-contain"
+            alt="Official AICPA SOC badge"
+            loading="lazy"
+            width="48"
+            height="48"
+          />
+        </div>
+
+        <div class="flex flex-col text-white text-xs sm:text-sm">
+          <h2 class="whitespace-nowrap">SOC2 Type II</h2>
+          <p class="whitespace-nowrap">Certified</p>
+        </div>
+        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+          <a
+            class="github-button"
+            href="https://github.com/openobserve/openobserve"
+            data-color-scheme="light"
+            data-size="large"
+            data-show-count="true"
+            aria-label="Star openobserve/openobserve on GitHub"
+          >
+            Star
+          </a>
+        </div>
+      </div>
+    </div>
+    <div></div>
+    <!-- Bottom Footer -->
+    <div
+      class="border-t border-gray-700 mt-10 pt-5 flex flex-col lg:flex-row justify-between items-center text-white gap-4"
+    >
+      <div class="text-center text-xs lg:text-left">
+        <p class="">OpenObserve Inc. © <span id="current-year"></span></p>
+        <p>3000 Sand Hill Rd Building 1, Suite 260, Menlo Park, CA 94025</p>
+      </div>
+      <ul class="flex flex-wrap gap-4 text-xs text-gray-300">
+        <li class="hover:text-[#7782FF]">
+          <a href="/policies/terms-of-service/" target="_blank"
+            >Terms of Service</a
+          >
+        </li>
+        <li class="hover:text-[#7782FF]">
+          <a href="/policies/privacy-policy/" target="_blank">Privacy Policy</a>
+        </li>
+      </ul>
+      <div class="flex gap-3">
+        <a href="https://short.openobserve.ai/community" target="_blank"
+          ><img src="/docs/assets/slack-icon.svg" alt="slack" class="w-6 h-6"
+        /></a>
+        <a href="https://twitter.com/OpenObserve" target="_blank"
+          ><img
+            src="/docs/assets/twitter-icon.svg"
+            alt="twitter"
+            class="w-6 h-6"
+        /></a>
+        <a href="https://www.linkedin.com/company/openobserve" target="_blank"
+          ><img
+            src="/docs/assets/linkdin-icon.svg"
+            alt="linkedin"
+            class="w-6 h-6"
+        /></a>
+        <a href="https://github.com/openobserve/openobserve" target="_blank"
+          ><img src="/docs/assets/github-icon.svg" alt="github" class="w-6 h-6"
+        /></a>
+        <a href="https://www.youtube.com/@openobserve" target="_blank"
+          ><img
+            src="/docs/assets/youtube-icon.svg"
+            alt="youtube"
+            class="w-6 h-6"
+        /></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Footer links
+    const footerData = [
+      {
+        title: "Platform",
+        items: [
+          {
+            id: 836,
+            text: "Logs",
+            link: "/logs/",
+            target: null,
+          },
+          {
+            id: 837,
+            text: "Metrics",
+            link: "/metrics/",
+            target: null,
+          },
+          {
+            id: 838,
+            text: "Traces",
+            link: "/traces/",
+            target: null,
+          },
+          {
+            id: 839,
+            text: "Frontend Monitoring",
+            link: "/frontend-monitoring/",
+            target: null,
+          },
+          {
+            id: 840,
+            text: "Pipelines",
+            link: "/pipelines/",
+            target: null,
+          },
+          {
+            id: 841,
+            text: "Alerts",
+            link: "/alerts/",
+            target: null,
+          },
+          {
+            id: 842,
+            text: "Visualizations & Dashboard",
+            link: "/visualization-and-dashboards/",
+            target: null,
+          },
+          {
+            id: 843,
+            text: "Pricing",
+            link: "/pricing/",
+            target: null,
+          },
+        ],
+      },
+      {
+        title: "Solutions",
+        items: [
+          {
+            id: 844,
+            text: "Azure Monitoring",
+            link: "/azure-monitoring/",
+            target: null,
+          },
+          {
+            id: 845,
+            text: "AWS Monitoring",
+            link: "/aws-monitoring/",
+            target: null,
+          },
+          {
+            id: 846,
+            text: "GCP Monitoring",
+            link: "/gcp-monitoring/",
+            target: null,
+          },
+          {
+            id: 847,
+            text: "Kubernetes Monitoring",
+            link: "/kubernetes-monitoring/",
+            target: null,
+          },
+          {
+            id: 848,
+            text: "Database Monitoring",
+            link: "/database-monitoring/",
+            target: null,
+          },
+          {
+            id: 849,
+            text: "OpenTelemetry",
+            link: "/opentelemetry/",
+            target: null,
+          },
+        ],
+      },
+      {
+        title: "Resources",
+        items: [
+          {
+            id: 850,
+            text: "Documentation",
+            link: "/docs/",
+            target: "_blank",
+          },
+          {
+            id: 851,
+            text: "Blog",
+            link: "/blog/",
+            target: null,
+          },
+          {
+            id: 852,
+            text: "FAQs",
+            link: "/faqs/",
+            target: null,
+          },
+          {
+            id: 853,
+            text: "Articles",
+            link: "/articles/",
+            target: null,
+          },
+          {
+            id: 854,
+            text: "Customer Stories",
+            link: "/customer-stories/",
+            target: null,
+          },
+          {
+            id: 855,
+            text: "Downloads",
+            link: "/downloads/",
+            target: null,
+          },
+          {
+            id: 856,
+            text: "Webinar and Videos",
+            link: "/webinars-videos/",
+            target: null,
+          },
+          {
+            id: 857,
+            text: "Events",
+            link: "/events/",
+            target: null,
+          },
+        ],
+      },
+      {
+        title: "Company",
+        items: [
+          {
+            id: 858,
+            text: "About",
+            link: "/about/",
+            target: null,
+          },
+          {
+            id: 859,
+            text: "Careers",
+            link: "/careers/",
+            target: null,
+          },
+          {
+            id: 860,
+            text: "Contact Us",
+            link: "/contact-us/",
+            target: null,
+          },
+          {
+            id: 861,
+            text: "Contact Sales",
+            link: "/contact-sales/",
+            target: null,
+          },
+          {
+            id: 862,
+            text: "Enterprise License",
+            link: "/enterprise-license/",
+            target: null,
+          },
+        ],
+      },
+    ];
+
+    const container = document.getElementById("footer-columns");
+    footerData.forEach((section) => {
+      const column = document.createElement("div");
+      column.innerHTML = `
+        <h2 class="text-white font-medium text-base mb-3">${section.title}</h2>
+        <ul class="space-y-2 text-gray-300  text-xs">
+          ${section.items
+            .map(
+              (item) =>
+                `<li class="hover:text-[#7782FF]"><a href="${item.link}"  target="${item.target}">${item.text}</a></li>`
+            )
+            .join("")}
+        </ul>
+      `;
+      container.appendChild(column);
+    });
+
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
+
+    // Newsletter form submission
+    const form = document.getElementById("newsletter-form");
+    const emailInput = document.getElementById("newsletter-email");
+    const errorMsg = document.getElementById("newsletter-error");
+    const submitBtn = document.getElementById("newsletter-submit");
+    const toast = document.getElementById("newsletter-toast");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (!isValid) {
+        errorMsg.textContent = "Please enter a valid email address.";
+        errorMsg.classList.remove("hidden");
+        return;
+      }
+
+      errorMsg.classList.add("hidden");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Subscribing...";
+
+      // Simulate API delay
+      setTimeout(() => {
+        toast.textContent = `Subscribed successfully with: ${email}`;
+        toast.classList.remove("hidden");
+        toast.style.opacity = 1;
+
+        setTimeout(() => {
+          toast.classList.add("hidden");
+          toast.style.opacity = 0;
+        }, 3000);
+
+        emailInput.value = "";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Subscribe";
+      }, 1500);
+    });
+  </script>
+</footer>

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .hover\:text-\[\#7782FF\]:hover {
+    color: #7782FF;
+  }
+}
