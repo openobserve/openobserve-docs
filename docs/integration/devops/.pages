@@ -1,6 +1,7 @@
 nav:
 
     - Jenkins: jenkins.md
+    - Terraform: terraform.md
     - Github Actions: github-actions.md
     
     
