@@ -119,13 +119,13 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
     ```bash
     docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
     -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
-    public.ecr.aws/zinclabs/openobserve:latest
+    o2cr.ai/openobserve/openobserve:latest
     ```
 
     **Windows:**
     ```cmd
     # Windows Command Prompt
-    docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 public.ecr.aws/zinclabs/openobserve:latest
+    docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 o2cr.ai/openobserve/openobserve:latest
     ```
 
     **Docker Image Options:**
