@@ -46,12 +46,17 @@ When a node restarts, OpenObserve restores the enrichment table in the following
 
 ### If local disk cache is available
 
-- OpenObserve checks the local disk cache first and loads the enrichment table directly from the local disk cache into memory.
+OpenObserve first checks whether a local disk cache is available. If found, it then verifies whether the cached enrichment table is up to date.
+
+- If the cache is current, OpenObserve loads the enrichment table directly from the local disk into memory.
+- If the cache is outdated, OpenObserve proceeds with the same flow used when no local disk cache is available.
 
 ### If local disk cache is missing
 
+When no local disk cache is available: 
+
 - OpenObserve sends a single search request to one of the querier nodes.
-- The querier fetches the latest enrichment data from PostgreSQL or S3 and provides it to the restarting node.
+- The querier fetches the latest enrichment data from the metadata database, such as PostgreSQL, and the remote storage system, such as S3. It then provides the data to the restarting node.
 
 
 

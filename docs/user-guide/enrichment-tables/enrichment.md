@@ -24,7 +24,7 @@ You can use enrichment tables during:
     This opens the enrichment table management interface, where you can view, create, and manage enrichment tables available to the selected organization.
 
 !!! note "Who can access"
-    Access to enrichment tables is controlled via the **Enrichment Tables** module in the **IAM** settings, using **role-based access control (RBAC)**.
+    Access to enrichment tables is controlled via the **Enrichment Tables** module in the **IAM** settings, using **[role-based access control (RBAC)](../../identity-and-access-management/role-based-access-control/)**.
 
     - **Root users** have full access by default.
     - Other users must be assigned access through **Roles** in **IAM**.
@@ -142,12 +142,28 @@ In addition to enriching data at query time, you can apply the same enrichment l
 !!! note 
     Use query-time enrichment when you want flexibility. Use ingestion-time enrichment when you want consistency and speed.
 
+## Append Data to an Existing Table
+To add more data to an existing enrichment table, enable the **Append data to existing Enrichment Table** option before uploading your new CSV file: 
+
+1. In the left-hand navigation menu, select **Pipelines > Enrichment Tables**.
+2. Select the table you want to update.
+3. In the **Update Enrichment Table** view, select the new CSV file that contains the additional data.
+4. Turn on the **Append data to existing Enrichment Table** toggle.
+5. Select **Save** to upload and append the new data to the existing table.
+<br>
+![Append Data to an Existing Table](../../images/enrichment-table-append.png)
+
 ## Storage Limit
 The maximum size of an enrichment table is controlled by the environment variable `ZO_ENRICHMENT_TABLE_LIMIT`.
 
-- Default value: 256 MB
+- Default value: `256` (in MB)
 - If the enrichment table exceeds this limit, you cannot append additional records. OpenObserve returns an error when the size threshold is reached.
 
+## Upload Size Limit
+The maximum size of the data payload that can be uploaded at one time is controlled by the environment variable `ZO_PAYLOAD_LIMIT`.
+
+- Default value:`209715200`(approximately 210 MB)
+- If you attempt to upload a payload larger than the configured limit, OpenObserve returns an error. 
 
 ## Troubleshooting
 - **Field not enriched:** Ensure the enrichment table column name matches the log field and that the data types are compatible. 
