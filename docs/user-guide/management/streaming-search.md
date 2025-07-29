@@ -19,7 +19,7 @@ Streaming Search allows OpenObserve to return query results through a single, pe
 ## Concepts
 ### Partition
 
-OpenObserve splits the total time range into partitions, each covering a segment of time or data volume. For example, an 8-hour query with 8 GB of data may be split into 8 partitions, each processing 1 GB. These partitions are executed independently and contribute partial results to the final output.
+OpenObserve splits the total time range into partitions, each covering a segment of time or data volume. For example, an 8-hour query with 8 GB of data may be split into 8 partitions, each processing 1 GB. These partitions are executed sequentially and contribute partial results to the final output.
 
 
 ### Mini-Partition
