@@ -56,7 +56,7 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 
     **Download and Install**
     
-    1. 📦 Download Binaries from [downloads page](https://openobserve.ai/downloads)
+    1. Download Binaries from [downloads page](https://openobserve.ai/downloads)
     2. Open Command Prompt or PowerShell as Administrator
     3. Run the following commands:
 
@@ -81,7 +81,7 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 === "MacOS/Linux Binaries"
 
 
-    1. 📦 Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads)
+    1. Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads)
     2. Make it executable: `chmod +x openobserve`
     3. Run with environment variables as shown:
     ```bash
