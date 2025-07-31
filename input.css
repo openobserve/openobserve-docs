@@ -2,7 +2,7 @@
 
 @layer utilities {
   .hover\:text-\[\#7782FF\]:hover {
-    color: #7782FF;
+    color: #7782ff;
   }
 }
 
@@ -12,4 +12,107 @@
 
 input {
   color: #ffffff;
+}
+
+.custom-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+}
+
+.theme-purple {
+  --color-primary-purple: rgba(107, 118, 227);
+  color: var(--color-primary-purple);
+  --color-card: rgba(107, 118, 227, 0.2);
+  --color-hover-card: rgba(126, 34, 206);
+  --color-tabs-background: rgba(107, 118, 227);
+  --color-tabs-title-text: rgba(107, 118, 227);
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
+  scroll-padding-top: 8rem;
+}
+
+main {
+  min-height: calc(100vh - 8rem);
+  padding-top: 3rem; 
+}
+
+
+.primary-button {
+  position: relative;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: all 0.3s ease;
+  background-color: rgba(107, 118, 227);
+  /* Creates a 2px border that matches the button color initially */
+  border: 1px solid transparent;
+  font-size: 12px;
+
+}
+
+.primary-button:hover {
+  background-color: hsl(233 53% 53%);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-image: linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
+    linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%);
+  box-shadow: none;
+}
+
+.secondary-button {
+  position: relative;
+  border: none;
+  color: #5764d9;
+  cursor: pointer;
+  border-radius: 6px;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: all 0.3s ease;
+  background-color: white;
+  border: 1px solid transparent;
+  font-size: 12px;
+}
+
+.secondary-button:hover {
+  /* Transparent border to show gradient */
+  background-color: #f3f4f6;
+}
+
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-color: #cccccc;
+  /* Light gray border for disabled state */
+  background: transparent;
+  box-shadow: none;
+}
+
+.gradient-hover {
+  background: linear-gradient(to left, #6A76E3 ,#45A4F3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+.md-header {
+  position: fixed !important;
+  top: 70px !important;
 }
