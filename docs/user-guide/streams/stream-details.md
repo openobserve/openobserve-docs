@@ -1,3 +1,8 @@
+---
+description: >-
+  View and manage detailed stream settings in OpenObserve, including retention,
+  query limits, schema, and usage stats via the Stream Details panel.
+---
 After After you complete [data ingestion](streams-in-openobserve.md#ingest-data-into-stream), use **Stream Details** to view configuration and usage information for a stream and update its settings.
 
 This guide explains how to open **Stream Details** and the information it displays. 

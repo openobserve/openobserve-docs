@@ -1,3 +1,8 @@
+---
+description: >-
+  Configure how OpenObserve evicts cached files on disk using LRU, FIFO, or
+  time-based LRU strategies via the ZO_DISK_CACHE_STRATEGY setting.
+---
 ## Configure Disk Cache Eviction Strategy
 OpenObserve allows you to configure how cached files on disk are evicted when the cache reaches its size limit. The eviction behavior is controlled by the `ZO_DISK_CACHE_STRATEGY` environment variable.
 

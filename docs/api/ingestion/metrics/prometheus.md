@@ -1,3 +1,9 @@
+---
+description: >-
+  Ingest metrics via Prometheus remote write using POST
+  /api/{org}/prometheus/api/v1/write. Compatible with any tool supporting the
+  spec.
+---
 # Metrics Ingestion - Prometheus remote write
 
 Endpoint: `POST /api/{organization}/prometheus/api/v1/write`

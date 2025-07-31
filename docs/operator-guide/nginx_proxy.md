@@ -1,3 +1,8 @@
+---
+description: >-
+  Configure OpenObserve behind an NGINX reverse proxy using /logs path and set
+  ZO_BASE_URI=/logs to align with the proxy route.
+---
 # OpenObserve behind a nginx reverse proxy
 
 ## Set nginx proxy

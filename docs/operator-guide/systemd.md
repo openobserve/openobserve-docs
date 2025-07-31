@@ -1,3 +1,8 @@
+---
+description: >-
+  Set up OpenObserve as a systemd service. Learn how to create env and service
+  files, enable the service, and manage OpenObserve with systemctl.
+---
 # Systemd
 
 Install OpenObserve as a system service use systemd.

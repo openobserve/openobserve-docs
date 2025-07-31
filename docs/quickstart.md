@@ -1,3 +1,8 @@
+---
+description: >-
+  Get started with OpenObserve Cloud or self-hosted setup. Explore easy
+  onboarding, sample data ingestion, and quick log search in minutes.
+---
 # Quickstart
 
 You can get started with [OpenObserve Cloud](https://cloud.openobserve.ai) or a self hosted installation. 

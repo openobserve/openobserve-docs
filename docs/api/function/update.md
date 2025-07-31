@@ -1,3 +1,8 @@
+---
+description: >-
+  Update data transformation functions via PUT /api/{org}/functions/{name}. Use
+  VRL to drop fields, change types, or filter records.
+---
 # Update function
 
 Endpoint: `PUT /api/{organization}/functions/{name}`

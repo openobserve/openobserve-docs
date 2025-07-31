@@ -1,3 +1,8 @@
+---
+description: >-
+  Restore a broken etcd cluster in OpenObserve by restarting pods, resetting
+  data, and rejoining members using CLI and updated Helm configs.
+---
 # Etcd Cluster Restore
 
 Many users ran into the case only one of the 3 pods of etcd cluster can works. The other 2 pods always restart and can't back to work.

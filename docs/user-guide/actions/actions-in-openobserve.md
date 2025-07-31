@@ -1,3 +1,8 @@
+---
+description: >-
+  Learn how to create and manage Actions in OpenObserve—custom Python scripts
+  for real-time or scheduled automation tied to logs and alerts.
+---
 This guide explains what Actions are, their types, and use cases.
 
 ## What are Actions  

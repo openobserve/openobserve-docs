@@ -1,3 +1,8 @@
+---
+description: >-
+  Delay scheduled pipeline execution in OpenObserve to ensure data completeness
+  by waiting minutes after the trigger time before processing data.
+---
 
 This guide explains how to use the configurable delay feature for [scheduled pipelines](../use-pipelines/).
 This feature allows you to delay the execution of a scheduled pipeline by a set number of minutes after its scheduled start time. This is useful to ensure data completeness and accommodate late-arriving events before the pipeline runs.

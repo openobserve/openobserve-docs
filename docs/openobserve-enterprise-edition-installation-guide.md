@@ -1,3 +1,8 @@
+---
+description: >-
+  Install OpenObserve Enterprise via Helm or Terraform on EKS. Step-by-step
+  guide for enabling RBAC, SSO, and deploying with full feature support.
+---
 ## Deploy OpenObserve Enterprise Edition as a Highly Available (HA) installation using Helm.
 
 This guide explains how to deploy [OpenObserve Enterprise Edition](https://openobserve.ai/downloads/)  in a **Kubernetes** environment using **Helm**. 

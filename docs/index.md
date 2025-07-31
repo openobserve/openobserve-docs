@@ -1,3 +1,8 @@
+---
+description: >-
+  OpenObserve Technical Documentation--cloud-native observability for logs,
+  metrics, and traces
+---
 # OpenObserve: Introduction
 
 ## What is OpenObserve?
@@ -43,8 +48,8 @@ OpenObserve's architectural approach can transform how you handle observability 
 
 **Next Steps:**
 
-- Explore our comprehensive [Feature List](../features/logs.md) to see all capabilities
-- Check out [Getting Started Guide](../getting-started.md) to start exploring
+- Explore our comprehensive [Feature List](../docs/features/) to see all capabilities
+- Check out [Getting Started Guide](../docs/getting-started/) to start exploring
 - Join our [Community](https://github.com/openobserve/openobserve/discussions) to connect with other users
 
 *Sleep better at night knowing your observability stack is both powerful and affordable* 

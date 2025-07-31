@@ -1,3 +1,8 @@
+---
+description: >-
+  Switch UI language in OpenObserve via your profile. Choose from 11 languages.
+  Only UI elements are translated—your data stays unchanged.
+---
 OpenObserve supports multiple UI languages. You can switch the interface language to your preference in just a few clicks. 
 
 **Key Points**

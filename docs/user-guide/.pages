@@ -9,6 +9,7 @@ nav:
     - Dashboards: dashboards
     - Actions: actions
     - Functions: functions
+    - Enrichment Tables: enrichment-tables
     - Real User Monitoring (RUM): rum.md
     - Identity and Access Management (IAM): identity-and-access-management
     - Management: management

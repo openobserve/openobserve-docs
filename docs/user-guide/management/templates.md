@@ -1,3 +1,7 @@
+---
+description: >-
+  Create alert notification templates in OpenObserve with variable placeholders and row templates for Slack, email, webhooks, and more.
+---
 # Alert Templates
 
 Templates are used when notification is sent for an alert, templates forms body of request being sent to destination, for eg. for slack one can create template like:

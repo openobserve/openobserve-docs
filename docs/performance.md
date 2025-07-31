@@ -1,3 +1,8 @@
+---
+description: >-
+  Optimize OpenObserve performance for ingestion and search with CPU tuning,
+  SIMD builds, WAL config, column pruning, predicate pushdown, and more.
+---
 # Performance Optimization
 
 ## Introduction

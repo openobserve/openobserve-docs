@@ -1,3 +1,8 @@
+---
+description: >-
+  Send AWS logs to OpenObserve via Kinesis Firehose using a secure HTTP endpoint
+  and base64-encoded credentials for seamless ingestion.
+---
 # Kinesis Firehose
 
 Amazon Cloudwatch and [many other AWS services](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html) can send logs to kinesis firehose which can be used for sending data to OpenObserve. You can find the complete list [here](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html).

@@ -1,3 +1,7 @@
+---
+description: >-
+  Learn how OpenObserve stores ingested stream data and the metadata for ingested date using disk, SQLite, Postgres, or S3-compatible object storage.
+---
 This guide explains how to configure data and metadata storage in OpenObserve. The information applies to both the open-source and enterprise versions.
 
 ## Overview

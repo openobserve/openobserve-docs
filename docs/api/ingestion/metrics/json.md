@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest JSON metrics in batch via POST /api/{org}/ingest/metrics/_json.
+  Supports counters, gauges, histograms, summaries, and custom labels.
+---
 # Metrics Ingestion - JSON
 
 Endpoint: `POST /api/{organization}/ingest/metrics/_json`

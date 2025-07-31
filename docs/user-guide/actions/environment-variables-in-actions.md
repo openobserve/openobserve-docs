@@ -1,3 +1,8 @@
+---
+description: >-
+  Use environment variables in OpenObserve Actions to customize script behavior
+  without hardcoding values—ideal for thresholds, tokens, and dynamic configs.
+---
 If your Action script is designed to use environment variables (e.g., for thresholds or other dynamic values), OpenObserve gives you the option to define those variables while [configuring the Action](../create-and-use-real-time-actions/).
 
 > You can use environment variables to pass information into your script, without writing it directly in the Python script.  

@@ -1,3 +1,8 @@
+---
+description: >-
+  Set up OpenTelemetry tracing for your Node.js TypeScript app and export traces
+  to OpenObserve using the provided sample configuration.
+---
 # Typescript
 
 You can setup tracing for your Node.js Typescript application. Check sample configuration on how to setup traces.

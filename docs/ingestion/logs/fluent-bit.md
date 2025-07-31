@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs into OpenObserve using Fluent-bit via HTTP or Elasticsearch output
+  plugins with custom URI, authentication, and JSON formatting options.
+---
 # Fluent-bit
 
 ## HTTP output

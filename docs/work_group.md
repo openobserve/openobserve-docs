@@ -1,3 +1,8 @@
+---
+description: >-
+  Manage query performance in enterprise with Work Group settings—optimize CPU,
+  memory, and concurrency for long and short queries in OpenObserve streams.
+---
 > `Applicable to enterprise version`
 
 ## All the ENV

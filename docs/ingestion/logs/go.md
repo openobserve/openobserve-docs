@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs into OpenObserve using Go by sending JSON data via HTTP POST with
+  basic authentication and custom headers.
+---
 ## Golang
 
 ```golang

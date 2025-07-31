@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest system metrics from Telegraf into OpenObserve using Prometheus remote
+  write. Configure inputs and send data with HTTP output in protobuf format.
+---
 # Telegraf
 
 

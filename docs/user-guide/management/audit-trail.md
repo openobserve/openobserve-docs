@@ -1,3 +1,8 @@
+---
+description: >-
+  Track all non-ingestion API activity in OpenObserve Enterprise using Audit
+  Trail, with logs sent to a stream for dashboards and alerting.
+---
 # Audit Trail
 
 > **Note:** This feature is applicable to the Enterprise Edition.

@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs, metrics, and traces into OpenObserve using OTEL Collector via
+  OTLP HTTP or gRPC with secure headers and flexible endpoint configuration.
+---
 ## OTEL collector / OTLP
 
 OpenObserve supports OTLP for `logs`, `metrics` and `traces` ingestion. following protocols are supported:
