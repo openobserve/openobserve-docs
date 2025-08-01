@@ -7,4 +7,5 @@ nav:
     - Audit trail: audit-trail.md
     - Cipher Keys: cipher-keys.md
     - Nodes in OpenObserve: nodes.md
-    - SSO Domain Restrictions: sso-domain-restrictions.md
+    - SSO Domain Restrictions: sso-domain-restrictions.md 
+    - Regex Patterns: regex-patterns.md
