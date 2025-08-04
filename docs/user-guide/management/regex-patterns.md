@@ -66,7 +66,7 @@ The **Regex Pattern** feature in OpenObserve allows you to automatically detect 
 
     1. **Name**: Enter a clear, descriptive name. For example, Email Detection. 
     2. **Description:** (Optional)  Explain what the pattern is intended to detect.
-    3. **Regex Pattern**: Paste or write the regular expression you want to use. Refer to the following **common patterns** or this open source [pyWhat project](https://github.com/bee-san/pyWhat/tree/main/pywhat/Data). 
+    3. **Regex Pattern**: Paste or write the regular expression you want to use. Refer to the following **common patterns**. 
     4. **Test Pattern**: Provide a sample input to validate that the regex works as expected.
     5. Click the **Create and Close** button to save the pattern. 
 
