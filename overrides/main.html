@@ -2,7 +2,4 @@
 
 {% block extrahead %}
 {{ super() }}
-{% if page and page.meta and page.meta.description %}
-<meta name="description" content="{{ page.meta.description }}">
-{% endif %}
 {% endblock %}
