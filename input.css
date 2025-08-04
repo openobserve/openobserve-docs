@@ -116,3 +116,11 @@ main {
   position: fixed !important;
   top: 70px !important;
 }
+
+.md-main__inner{
+  margin-top: 70px !important;
+}
+
+.md-sidebar__scrollwrap {
+  margin-top: 70px !important;
+}
