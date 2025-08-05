@@ -12,7 +12,7 @@
           >
             <a class="flex items-center h-11 w-40 md:w-52" href="/">
               <img
-                src="/docs/assets/o2-logo-readme.svg"
+                src="/assets/o2-logo-readme.svg"
                 alt="OpenObserve"
                 class="w-full h-full py-1"
               />
@@ -118,7 +118,7 @@
                       class="space-y-2 grid grid-cols-2 text-[14px] text-gray-500 w-full"
                     >
                       <li class="hover:text-black">
-                        <a href="/docs/" target="_blank">Documentation</a>
+                        <a href="/" target="_blank">Documentation</a>
                       </li>
                       <li class="hover:text-black">
                         <a href="/customer-stories/">Customer Stories</a>
@@ -191,18 +191,18 @@
           <div class="relative">
             <!-- Top Navbar -->
             <div
-              class="flex justify-between items-center p-2 container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10"
+              class="flex justify-between items-center p-2 container mx-auto"
             >
               <a class="flex items-center h-12 w-40 md:w-52" href="/">
                 <img
-                  src="/docs/assets/o2-logo-readme.svg"
+                  src="/assets/o2-logo-readme.svg"
                   alt="OpenObserve"
                   class="w-full h-full py-1"
                 />
               </a>
-              <div class="flex items-center justify-center space-x-3">
+              <div class="flex items-center justify-center space-x-1">
                 <a
-                  class="flex capitalize text-nowrap text-center justify-center items-center px-3 md:px-5 py-1.5 text-xs primary-button transition-opacity duration-500 ease-in-out"
+                  class="flex capitalize text-nowrap text-center justify-center items-center px-1.5 md:px-5 py-1.5 text-xs primary-button transition-opacity duration-500 ease-in-out"
                   href="/demo/"
                   target="_self"
                 >
@@ -225,13 +225,13 @@
                 >
                   <img
                     id="menu-icon"
-                    src="/docs/assets/navmenu.svg"
+                    src="/assets/navmenu.svg"
                     alt="Open Menu"
                     class="block "
                   />
                   <img
                     id="close-icon"
-                    src="/docs/assets/close.svg"
+                    src="/assets/close.svg"
                     alt="Close Menu"
                     class="hidden"
                   />
@@ -242,11 +242,11 @@
             <!-- Mobile Fullscreen Menu -->
             <div
               id="mobile-menu"
-              class="w-full fixed inset-0 z-50 h-screen overflow-y-auto bg-white hidden"
+              class="w-full fixed top-[120px] z-50 h-[calc(100vh-120px)] overflow-y-auto bg-white hidden"
             >
               <!-- Menu Items -->
               <div
-                class="w-full flex flex-col items-center space-y-4 bg-white h-[calc(100vh-86px)] overflow-y-auto mt-2"
+                class="w-full flex flex-col items-center space-y-4 bg-white h-full overflow-y-auto mt-2"
               >
                 <ul class="w-full flex flex-col space-y-4 p-4">
                   <!-- PLATFORM -->
@@ -256,7 +256,7 @@
                     >
                       <h4>Platform</h4>
                       <img
-                        src="/docs/assets/submenu-icon.svg"
+                        src="/assets/submenu-icon.svg"
                         alt="Arrow"
                         class="arrow w-4 h-4 transition-transform"
                       />
@@ -339,7 +339,7 @@
                     >
                       <h4>Solutions</h4>
                       <img
-                        src="/docs/assets/submenu-icon.svg"
+                        src="/assets/submenu-icon.svg"
                         alt="Arrow"
                         class="arrow w-4 h-4 transition-transform"
                       />
@@ -425,7 +425,7 @@
                     >
                       <h4>Resources</h4>
                       <img
-                        src="/docs/assets/submenu-icon.svg"
+                        src="/assets/submenu-icon.svg"
                         alt="Arrow"
                         class="arrow w-4 h-4 transition-transform"
                       />
@@ -447,7 +447,7 @@
                         class="text-[15px] text-gray-500 font-semibold space-y-1"
                       >
                         <li>
-                          <a href="/docs/" target="_blank">Documentation</a>
+                          <a href="/" target="_blank">Documentation</a>
                         </li>
                         <li>
                           <a href="/customer-stories/">Customer Stories</a>
@@ -505,14 +505,12 @@
 
         if (menuIcon && closeIcon && mobileMenu) {
           menuIcon.addEventListener("click", () => {
-            console.log("Opening menu...");
             mobileMenu.classList.remove("hidden");
             menuIcon.classList.add("hidden");
             closeIcon.classList.remove("hidden");
           });
 
           closeIcon.addEventListener("click", () => {
-            console.log("Closing menu...");
             mobileMenu.classList.add("hidden");
             menuIcon.classList.remove("hidden");
             closeIcon.classList.add("hidden");

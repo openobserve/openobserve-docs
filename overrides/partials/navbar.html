@@ -29,54 +29,15 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
 <!-- Header -->
 <header class="{{ class }}" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
-    <!-- Logo linking to main site -->
-    <a
-      href="/"
-      title="OpenObserve Homepage"
-      class="md-header__button md-logo"
-      aria-label="OpenObserve Homepage"
-      data-md-component="logo"
-    >
-      <img src="/docs/images/logo_circle.png" alt="OpenObserve Logo" />
-    </a>
-    <svg height="32" viewBox="0 0 32 32" width="32">
-      <path
-        d="M22 5L9 28"
-        stroke="#EAEAEA"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
-    <!-- Extra icon or text linking to /docs -->
-    <a
-      href="/docs"
-      title="Docs Home"
-      class="md-header__button"
-      style="font-weight: bold; font-size: 1rem; padding-left: 0.5rem"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 -960 960 960"
-        width="24px"
-        fill="currentColor"
-      >
-        <path
-          d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"
-        />
-      </svg>
-    </a>
-
     <!-- Button to open drawer -->
     <label class="md-header__button md-icon" for="__drawer">
       {% include ".icons/material/menu" ~ ".svg" %}
     </label>
 
-    <!-- Header title -->
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
+    <div class="md-header__title">
+      <div class="md-header__ellipsis" data-md-component="header-title">
         <div class="md-header__topic">
-          <span class="md-ellipsis"> {{ config.site_name }} </span>
+          <span class="md-ellipsis"> Documentation </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
@@ -86,6 +47,15 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
         </div>
       </div>
     </div>
+
+    <!-- Button to open search modal -->
+    {% if "material/search" in config.plugins %}
+    <label class="md-header__button md-icon" for="__search">
+      {% include ".icons/material/magnify.svg" %}
+    </label>
+
+    <!-- Search interface -->
+    {% include "partials/search.html" %} {% endif %}
 
     <!-- Color palette -->
     {% if config.theme.palette %} {% if not config.theme.palette is mapping %}
@@ -114,6 +84,14 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
         type="radio"
         name="__palette"
         id="__palette_{{ loop.index }}"
+        {%
+        if
+        loop.first
+        %}
+        checked
+        {%
+        endif
+        %}
       />
       {% if option.toggle %}
       <label
@@ -156,20 +134,6 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
         </div>
       </div>
     </div>
-    {% endif %}
-
-    <!-- Button to open search modal -->
-    {% if "material/search" in config.plugins %}
-    <label class="md-header__button md-icon" for="__search">
-      {% include ".icons/material/magnify.svg" %}
-    </label>
-
-    <!-- Search interface -->
-    {% include "partials/search.html" %} {% endif %}
-
-    <!-- Repository information -->
-    {% if config.repo_url %}
-    <div class="md-header__source">{% include "partials/source.html" %}</div>
     {% endif %}
   </nav>
 

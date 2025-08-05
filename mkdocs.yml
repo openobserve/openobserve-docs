@@ -72,7 +72,7 @@ extra:
     #         Thanks for your feedback! Help us improve this page by
     #         using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
 theme:
-  # logo: images/logo_circle.png
+  logo: images/logo_circle.png
   favicon: images/logo_circle.png
   name: material
   custom_dir: overrides
@@ -97,8 +97,8 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
-repo_url: https://github.com/openobserve/openobserve
-repo_name: openobserve/openobserve
+# repo_url: https://github.com/openobserve/openobserve
+# repo_name: openobserve/openobserve
 # edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
 markdown_extensions:
   - admonition
