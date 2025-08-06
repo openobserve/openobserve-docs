@@ -74,7 +74,6 @@ extra:
     #         using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
 theme:
   favicon: images/logo_circle.png
-  drawer_title: Documentation
   name: material
   custom_dir: overrides
   features:

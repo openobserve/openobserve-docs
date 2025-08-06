@@ -201,7 +201,3 @@ nav.md-grid {
     justify-content: space-between;
   }
 }
-
-.md-nav__button .md-logo{
-  display: none !important;
-}
