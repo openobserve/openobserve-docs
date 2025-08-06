@@ -1,4 +1,4 @@
-site_name: OpenObserve Documentation
+site_name: Documentation
 site_url: https://openobserve.ai/docs
 # https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
 plugins:
@@ -39,6 +39,7 @@ extra:
     #   link: /cn/
     #   lang: zh
   generator: false
+  default_color_scheme: default
   version:
     provider: mike
   analytics:
@@ -72,8 +73,8 @@ extra:
     #         Thanks for your feedback! Help us improve this page by
     #         using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
 theme:
-  logo: images/logo_circle.png
   favicon: images/logo_circle.png
+  drawer_title: Documentation
   name: material
   custom_dir: overrides
   features:
@@ -85,18 +86,16 @@ theme:
     - content.code.copy
     - content.code.select
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: white
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate 
-      primary: black
-      toggle:
-        icon: material/weather-night
-        name: Switch to light mode
+  - scheme: default
+    primary: white
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to dark mode
+  - scheme: slate
+    primary: black
+    toggle:
+      icon: material/weather-night
+      name: Switch to light mode
 # repo_url: https://github.com/openobserve/openobserve
 # repo_name: openobserve/openobserve
 # edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
