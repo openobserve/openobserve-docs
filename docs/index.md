@@ -1,3 +1,7 @@
+---
+template: index.html
+---
+
 # OpenObserve: Introduction
 
 ## What is OpenObserve?
