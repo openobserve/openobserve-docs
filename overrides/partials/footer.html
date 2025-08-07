@@ -353,265 +353,91 @@
     </div>
   </div>
 
-  <script>
-    // Footer links
-    const footerData = [
-      {
-        title: "Platform",
-        items: [
-          {
-            id: 836,
-            text: "Logs",
-            link: "/logs/",
-            target: null,
-          },
-          {
-            id: 837,
-            text: "Metrics",
-            link: "/metrics/",
-            target: null,
-          },
-          {
-            id: 838,
-            text: "Traces",
-            link: "/traces/",
-            target: null,
-          },
-          {
-            id: 839,
-            text: "Frontend Monitoring",
-            link: "/frontend-monitoring/",
-            target: null,
-          },
-          {
-            id: 840,
-            text: "Pipelines",
-            link: "/pipelines/",
-            target: null,
-          },
-          {
-            id: 841,
-            text: "Alerts",
-            link: "/alerts/",
-            target: null,
-          },
-          {
-            id: 842,
-            text: "Visualizations & Dashboard",
-            link: "/visualization-and-dashboards/",
-            target: null,
-          },
-          {
-            id: 843,
-            text: "Pricing",
-            link: "/pricing/",
-            target: null,
-          },
-        ],
-      },
-      {
-        title: "Solutions",
-        items: [
-          {
-            id: 844,
-            text: "Azure Monitoring",
-            link: "/azure-monitoring/",
-            target: null,
-          },
-          {
-            id: 845,
-            text: "AWS Monitoring",
-            link: "/aws-monitoring/",
-            target: null,
-          },
-          {
-            id: 846,
-            text: "GCP Monitoring",
-            link: "/gcp-monitoring/",
-            target: null,
-          },
-          {
-            id: 847,
-            text: "Kubernetes Monitoring",
-            link: "/kubernetes-monitoring/",
-            target: null,
-          },
-          {
-            id: 848,
-            text: "Database Monitoring",
-            link: "/database-monitoring/",
-            target: null,
-          },
-          {
-            id: 849,
-            text: "OpenTelemetry",
-            link: "/opentelemetry/",
-            target: null,
-          },
-        ],
-      },
-      {
-        title: "Resources",
-        items: [
-          {
-            id: 850,
-            text: "Documentation",
-            link: "/",
-            target: "_blank",
-          },
-          {
-            id: 851,
-            text: "Blog",
-            link: "/blog/",
-            target: null,
-          },
-          {
-            id: 852,
-            text: "FAQs",
-            link: "/faqs/",
-            target: null,
-          },
-          {
-            id: 853,
-            text: "Articles",
-            link: "/articles/",
-            target: null,
-          },
-          {
-            id: 854,
-            text: "Customer Stories",
-            link: "/customer-stories/",
-            target: null,
-          },
-          {
-            id: 855,
-            text: "Downloads",
-            link: "/downloads/",
-            target: null,
-          },
-          {
-            id: 856,
-            text: "Webinar and Videos",
-            link: "/webinars-videos/",
-            target: null,
-          },
-          {
-            id: 857,
-            text: "Events",
-            link: "/events/",
-            target: null,
-          },
-        ],
-      },
-      {
-        title: "Company",
-        items: [
-          {
-            id: 858,
-            text: "About",
-            link: "/about/",
-            target: null,
-          },
-          {
-            id: 859,
-            text: "Careers",
-            link: "/careers/",
-            target: null,
-          },
-          {
-            id: 860,
-            text: "Contact Us",
-            link: "/contact-us/",
-            target: null,
-          },
-          {
-            id: 861,
-            text: "Contact Sales",
-            link: "/contact-sales/",
-            target: null,
-          },
-          {
-            id: 862,
-            text: "Enterprise License",
-            link: "/enterprise-license/",
-            target: null,
-          },
-        ],
-      },
-    ];
+ <script>
+    function renderFooterColumns() {
+      const container = document.getElementById("footer-columns");
+      if (!container || container.children.length > 0) return;
 
-    const container = document.getElementById("footer-columns");
-    footerData.forEach((section) => {
-      const column = document.createElement("div");
-      column.innerHTML = `
-        <h2 class="text-white font-medium text-base mb-3">${section.title}</h2>
-        <ul class="space-y-2 text-gray-300  text-xs">
-          ${section.items
-            .map(
-              (item) =>
-                `<li class="hover:text-[#7782FF]"><a href="${item.link}" class=""  target="${item.target}">${item.text}</a></li>`
-            )
-            .join("")}
-        </ul>
-      `;
-      container.appendChild(column);
-    });
+      const footerData = [
+        {
+          title: "Platform",
+          items: [
+            { text: "Logs", link: "/logs/" },
+            { text: "Metrics", link: "/metrics/" },
+            { text: "Traces", link: "/traces/" },
+            { text: "Frontend Monitoring", link: "/frontend-monitoring/" },
+            { text: "Pipelines", link: "/pipelines/" },
+            { text: "Alerts", link: "/alerts/" },
+            { text: "Visualizations & Dashboard", link: "/visualization-and-dashboards/" },
+            { text: "Pricing", link: "/pricing/" },
+          ],
+        },
+        {
+          title: "Solutions",
+          items: [
+            { text: "Azure Monitoring", link: "/azure-monitoring/" },
+            { text: "AWS Monitoring", link: "/aws-monitoring/" },
+            { text: "GCP Monitoring", link: "/gcp-monitoring/" },
+            { text: "Kubernetes Monitoring", link: "/kubernetes-monitoring/" },
+            { text: "Database Monitoring", link: "/database-monitoring/" },
+            { text: "OpenTelemetry", link: "/opentelemetry/" },
+          ],
+        },
+        {
+          title: "Resources",
+          items: [
+            { text: "Documentation", link: "/", target: "_blank" },
+            { text: "Blog", link: "/blog/" },
+            { text: "FAQs", link: "/faqs/" },
+            { text: "Articles", link: "/articles/" },
+            { text: "Customer Stories", link: "/customer-stories/" },
+            { text: "Downloads", link: "/downloads/" },
+            { text: "Webinar and Videos", link: "/webinars-videos/" },
+            { text: "Events", link: "/events/" },
+          ],
+        },
+        {
+          title: "Company",
+          items: [
+            { text: "About", link: "/about/" },
+            { text: "Careers", link: "/careers/" },
+            { text: "Contact Us", link: "/contact-us/" },
+            { text: "Contact Sales", link: "/contact-sales/" },
+            { text: "Enterprise License", link: "/enterprise-license/" },
+          ],
+        },
+      ];
 
-    document.getElementById("current-year").textContent =
-      new Date().getFullYear();
-
-    // Newsletter form submission
-    const form = document.getElementById("newsletter-form");
-    const emailInput = document.getElementById("newsletter-email");
-    const errorMsg = document.getElementById("newsletter-error");
-    const submitBtn = document.getElementById("newsletter-submit");
-    const toast = document.getElementById("newsletter-toast");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-      if (!isValid) {
-        errorMsg.textContent = "Please enter a valid email address.";
-        errorMsg.classList.remove("hidden");
-        return;
-      }
-
-      errorMsg.classList.add("hidden");
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Subscribing...";
-
-      const onSubmit = handleSubmit(async (values) => {
-        try {
-          // Track newsletter signup in Segment before/during submission
-          // await trackNewsletterSignup(values.email);
-
-          // Simulate API call delay
-          await new Promise((resolve) => setTimeout(resolve, 1500));
-
-          // Show success toast
-          toastMessage.value = `Subscribed successfully with: ${values.email}`;
-          showToast.value = true;
-
-          // Hide toast after 3 seconds
-          setTimeout(() => {
-            showToast.value = false;
-          }, 3000);
-
-          // Reset form if needed
-          resetForm();
-        } catch (error) {
-          // console.error("Newsletter signup error:", error);
-
-          // Show error toast or handle error here
-          toastMessage.value = "Something went wrong, please try again.";
-          showToast.value = true;
-          setTimeout(() => {
-            showToast.value = false;
-          }, 3000);
-        }
+      footerData.forEach((section) => {
+        const column = document.createElement("div");
+        column.innerHTML = `
+          <h2 class="text-white font-medium text-base mb-3">${section.title}</h2>
+          <ul class="space-y-2 text-gray-300 text-xs">
+            ${section.items
+              .map(
+                (item) => `<li class="hover:text-[#7782FF]">
+                  <a href="${item.link}" target="${item.target || ''}">${item.text}</a>
+                </li>`
+              )
+              .join("")}
+          </ul>
+        `;
+        container.appendChild(column);
       });
-    });
+
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+    }
+
+    if (typeof document$ !== "undefined") {
+      // For MkDocs Material instant navigation
+      document$.subscribe(() => {
+        renderFooterColumns();
+      });
+    } else {
+      // For standard full page load
+      document.addEventListener("DOMContentLoaded", () => {
+        renderFooterColumns();
+      });
+    }
   </script>
 </footer>
