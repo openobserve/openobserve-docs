@@ -189,11 +189,16 @@ nav.md-grid {
   }
 }
 
-@media (min-width: 1024px) {
+  .md-header__title {
+    margin-left: 0.1rem;
+    width: 100px;
+  }
+    
+@media (min-width: 1025px) {
   .md-header__title {
     flex-grow: 0;
     flex-basis: auto;
-    min-width: 400px;
+    max-width: 400px;
   }
   .md-header__inner {
     display: flex;
