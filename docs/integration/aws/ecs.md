@@ -5,11 +5,16 @@ description: >-
 ---
 # Ingest logs from Amazon ECS using AWS firelens
 
+This guide provides step-by-step instructions to integrate Amazon Elastic Container Service (ECS) with OpenObserve for log ingestion using AWS FireLens.
+
 ## Introduction
 
-In order to send logs from [**`tasks`**](## "An `ECS task` is a collection of on or more containers running as a single unit in ECS. If you are from a kubernetes background then an ECS task is equivalent to a pod") running in ECS (on fargate and ec2 for linux) to OpenObserve, AWS firelens is the recommended mechanism. AWS firelens is a log router for Amazon ECS that sends log data from containers running in ECS tasks to fluentbit (or fluentd) sidecar container which can then send data to wherever fluentbit supports sending data. A sidecar container is simply an additional container running along side the main container in a task that performs some ancillary services - e.g. collecting logs, keep configuration up to date, etc. We recommend that you use fluentbit instead of fluentd due to its much lower resource requirements.
+To send logs from ECS tasks (Fargate or EC2, Linux) to OpenObserve, use AWS FireLens with a Fluent Bit sidecar. FireLens routes container logs in ECS tasks to Fluent Bit, which then forwards them to OpenObserve.
 
-If you have existing ECS tasks from which you need to send logs to OpenObserve, then you will need to modify their task definition to add fluentbit sidecar. Let's take a look at how to accomplish this.
+We recommend Fluent Bit over Fluentd due to its lower resource usage. For existing tasks, update the task definition to include the Fluent Bit sidecar.
+
+> A sidecar is just an extra container that runs in the same ECS task (or Kubernetes pod) as your main application container, but it provides a supporting service rather than running the main app.
+
 
 ## Steps to Integrate
 
