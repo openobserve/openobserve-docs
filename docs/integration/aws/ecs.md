@@ -115,7 +115,7 @@ We recommend Fluent Bit over Fluentd due to its lower resource usage. For existi
       }
       ```
 
-    > **Note**: `Do not` set `assignPublicIp` on line `10` as ENABLED for real world scenarios. You do not want to access tasks directly. We are doing this now only for demonstration. You should always either front the services with a load balancer or AWS `Cloud Map`.
+    > **Note**: Do not set `assignPublicIp` on line `10` as ENABLED for real world scenarios. You do not want to access tasks directly. We are doing this now only for demonstration. You should always either front the services with a load balancer or AWS `Cloud Map`.
 
 ??? "Create ECS service"
 
