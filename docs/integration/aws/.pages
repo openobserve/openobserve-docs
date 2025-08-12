@@ -9,6 +9,7 @@ nav:
     - AWS Cloudwatch metrics: cloudwatch-metrics.md
     - Amazon Relational Database Service (RDS) : rds.md
     - AWS Route 53 : route-53.md
+    - AWS Elastic Container Service: ecs_logs_using_firelens.md
     - AWS Web Application Firewall (WAF): waf.md
     - API Gateway logs: api-gateway.md
     - Amazon CloudFront : cdn.md 
