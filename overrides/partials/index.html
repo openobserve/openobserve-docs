@@ -3,7 +3,7 @@
 <!-- Hide only the table of contents (right sidebar) for landing page -->
 {% block content_nav %}{% endblock %} {% block content %}
 <div class="landing-page">
-  <div class="landing-container">
+  <div class="landing-container w-full mx-auto">
     <!-- Main Content -->
     <main class="landing-main-content">
       <!-- Hero Card -->
@@ -17,35 +17,37 @@
           </p>
           <div class="landing-hero-buttons">
             <a href="quickstart/" class="landing-btn landing-btn-primary">
-              <div class="landing-play-icon">▶</div>
-              Quick Start
+              <span class="landing-btn-content">
+                <span class="landing-play-icon">▶</span>
+                <span class="landing-btn-title">Quick Start</span>
+              </span>
             </a>
-            <a
-              href="getting-started/"
-              class="landing-btn landing-btn-secondary"
-            >
-              ⬇ Install Now
+            <a href="getting-started/" class="landing-btn landing-btn-primary">
+              <span class="landing-btn-content">
+                <span class="landing-play-icon">⬇</span>
+                <span class="landing-btn-title">Install Now</span>
+              </span>
             </a>
           </div>
         </div>
       </div>
 
       <!-- Tutorial Section -->
-      <section class="landing-section">
-        <h2 class="landing-section-title">Popular Tutorials</h2>
+      <section class="landing-section mb-2">
+        <h2 class="landing-section-title text-xs mb-0.5 font-semibold">
+          Popular Tutorials
+        </h2>
         <div class="landing-tutorial-grid">
           <a href="quickstart/" class="landing-tutorial-card">
             <div class="landing-tutorial-icon landing-tutorial-icon--blue">
               🚀
             </div>
-            <h3 class="landing-tutorial-title">Quick Start Guide</h3>
+            <p class="landing-tutorial-title">Quick Start Guide</p>
             <p class="landing-tutorial-description">
               Get OpenObserve running locally in under 2 minutes with Docker
             </p>
             <div class="landing-tutorial-footer">
-              <div class="landing-tutorial-meta">
-                <span>2 min</span>
-              </div>
+              <div class="landing-tutorial-meta"><span>2 min</span></div>
               <span
                 class="landing-difficulty-badge landing-difficulty-badge--beginner"
                 >Beginner</span
@@ -56,14 +58,12 @@
             <div class="landing-tutorial-icon landing-tutorial-icon--red">
               📊
             </div>
-            <h3 class="landing-tutorial-title">Create Your First Dashboard</h3>
+            <p class="landing-tutorial-title">Create Your First Dashboard</p>
             <p class="landing-tutorial-description">
-              Learn how to build beautiful dashboards and visualizations
+              Build dashboards and visualizations easily
             </p>
             <div class="landing-tutorial-footer">
-              <div class="landing-tutorial-meta">
-                <span>5 min</span>
-              </div>
+              <div class="landing-tutorial-meta"><span>5 min</span></div>
               <span
                 class="landing-difficulty-badge landing-difficulty-badge--beginner"
                 >Beginner</span
@@ -74,14 +74,12 @@
             <div class="landing-tutorial-icon landing-tutorial-icon--purple">
               ⚡
             </div>
-            <h3 class="landing-tutorial-title">Advanced Log Queries</h3>
+            <p class="landing-tutorial-title">Advanced Log Queries</p>
             <p class="landing-tutorial-description">
-              Master SQL queries for powerful log analysis and insights
+              Master SQL for powerful log analysis
             </p>
             <div class="landing-tutorial-footer">
-              <div class="landing-tutorial-meta">
-                <span>10 min</span>
-              </div>
+              <div class="landing-tutorial-meta"><span>10 min</span></div>
               <span
                 class="landing-difficulty-badge landing-difficulty-badge--intermediate"
                 >Intermediate</span
@@ -92,14 +90,28 @@
             <div class="landing-tutorial-icon landing-tutorial-icon--green">
               🔧
             </div>
-            <h3 class="landing-tutorial-title">Production Deployment</h3>
+            <p class="landing-tutorial-title">Production Deployment</p>
             <p class="landing-tutorial-description">
-              Deploy OpenObserve in production with high availability
+              Deploy OpenObserve with high availability
             </p>
             <div class="landing-tutorial-footer">
-              <div class="landing-tutorial-meta">
-                <span>15 min</span>
-              </div>
+              <div class="landing-tutorial-meta"><span>15 min</span></div>
+              <span
+                class="landing-difficulty-badge landing-difficulty-badge--intermediate"
+                >Intermediate</span
+              >
+            </div>
+          </a>
+          <a href="user-guide/alerts/" class="landing-tutorial-card">
+            <div class="landing-tutorial-icon landing-tutorial-icon--orange">
+              🚨
+            </div>
+            <p class="landing-tutorial-title">Set Up Alerts</p>
+            <p class="landing-tutorial-description">
+              Configure alerts and notifications
+            </p>
+            <div class="landing-tutorial-footer">
+              <div class="landing-tutorial-meta"><span>7 min</span></div>
               <span
                 class="landing-difficulty-badge landing-difficulty-badge--intermediate"
                 >Intermediate</span
@@ -120,10 +132,7 @@
               </div>
               <div class="landing-feature-text">
                 <h4>Log Management</h4>
-                <p>
-                  Comprehensive guide to ingesting, searching, and analyzing
-                  logs
-                </p>
+                <p>Guide to ingesting, searching, and analyzing logs</p>
               </div>
             </div>
             <span class="landing-chevron-right">›</span>
@@ -135,10 +144,7 @@
               </div>
               <div class="landing-feature-text">
                 <h4>Metrics & Monitoring</h4>
-                <p>
-                  Collect and visualize metrics from your infrastructure and
-                  applications
-                </p>
+                <p>Collect and visualize metrics from your infrastructure</p>
               </div>
             </div>
             <span class="landing-chevron-right">›</span>
@@ -150,9 +156,7 @@
               </div>
               <div class="landing-feature-text">
                 <h4>Distributed Tracing</h4>
-                <p>
-                  Track requests across microservices with end-to-end tracing
-                </p>
+                <p>Track requests across microservices</p>
               </div>
             </div>
             <span class="landing-chevron-right">›</span>
@@ -164,9 +168,31 @@
               </div>
               <div class="landing-feature-text">
                 <h4>Alerting & Notifications</h4>
-                <p>
-                  Set up intelligent alerts and get notified when issues occur
-                </p>
+                <p>Set up alerts and get notified when issues occur</p>
+              </div>
+            </div>
+            <span class="landing-chevron-right">›</span>
+          </a>
+          <a href="features/frontend/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--purple">
+                🌐
+              </div>
+              <div class="landing-feature-text">
+                <h4>Frontend UI</h4>
+                <p>Modern, intuitive web interface</p>
+              </div>
+            </div>
+            <span class="landing-chevron-right">›</span>
+          </a>
+          <a href="features/enterprise/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--orange">
+                🏢
+              </div>
+              <div class="landing-feature-text">
+                <h4>Enterprise Features</h4>
+                <p>Advanced security, SSO, and integrations</p>
               </div>
             </div>
             <span class="landing-chevron-right">›</span>
