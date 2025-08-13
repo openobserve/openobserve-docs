@@ -1,5 +1,5 @@
 ---
-template: index.html
+template: /partials/index.html
 ---
 
 # OpenObserve: Introduction

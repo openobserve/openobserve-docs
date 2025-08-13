@@ -15,7 +15,7 @@ extra_css:
   - stylesheets/extra.css
   - stylesheets/feedback.css
   - css/output.css
-  - stylesheets/landing-page.css
+  - css/landing-page.css
 extra_javascript:
   - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
   - js/ms-clarity.js
