@@ -13,7 +13,6 @@ nav:
 - User Guide: user-guide
 - Operator Guide: operator-guide
 - Performance Optimization: performance.md
-- How To: howto
 - API Reference: api
 - Ingestion: ingestion
 - Integrations: integration
