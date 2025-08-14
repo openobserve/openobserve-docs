@@ -1,0 +1,22 @@
+The following user guides provide step-by-step instructions to integrate AWS services with OpenObserve. These integrations allow you to collect logs, metrics, and events directly from various AWS offerings, enabling unified observability across your cloud workloads.
+
+Each guide corresponds to a data source listed in the **Data Sources** section of the OpenObserve user interface.
+
+![Data Sources](../../../docs/images/data-sources.png)
+
+Learn more:
+
+- [Amazon EC2](ec2.md)
+- [Application Load Balancer(ALB)](alb.md)
+- [Amazon Virtual Private Cloud](vpc-flow.md)
+- [Amazon Cognito](cognito.md)
+- [AWS Network Firewall](network-firewall.md)
+- [AWS Cloudwatch logs](cloudwatch-logs.md)
+- [AWS Cloudwatch metrics](cloudwatch-metrics.md)
+- [Amazon Relational Database Service (RDS)](rds.md)
+- [Amazon Elastic Container Service (ECS)](ecs.md)
+- [AWS Route 53](route-53.md)
+- [AWS Web Application Firewall (WAF)](waf.md)
+- [API Gateway logs](api-gateway.md)
+- [Amazon CloudFront](cdn.md)
+- [Amazon EventBridge](eventbridge.md)
