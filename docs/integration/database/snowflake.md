@@ -24,7 +24,7 @@ The Snowflake integration enables monitoring of Snowflake performance metrics, b
     ```
 
     You can also create a role from Snowsight.
-    ![Create a role in Snowflake](../images/snowflake-create-role.png)
+    ![Create a role in Snowflake](../../images/snowflake-create-role.png)
 
 ??? "Step 2: Copy the Account Name from Snowflake"
 
@@ -40,7 +40,7 @@ The Snowflake integration enables monitoring of Snowflake performance metrics, b
     GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE O2_ROLE;
     GRANT SELECT ON ALL TABLES IN SCHEMA SNOWFLAKE.ACCOUNT_USAGE TO ROLE O2_ROLE;
     ```
-    ![Grant Permissions to the Role](../images/snowflake-provide-permission.png)
+    ![Grant Permissions to the Role](../../images/snowflake-provide-permission.png)
 
 ??? "Step 4: Install OpenTelemetry Collector on Ubuntu"
 
