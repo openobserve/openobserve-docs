@@ -7,3 +7,4 @@ Each guide corresponds to a data source listed in the **Data Sources** section o
 Learn more:
 
 - [Vercel](vercel.md)
+- [Heroku](heroku.md)
