@@ -7,3 +7,4 @@ nav:
     - Snowflake: snowflake.md
     - Servers: servers
     - DevOps : devops
+    - Application Platform: application-platform
