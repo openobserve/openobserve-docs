@@ -13,12 +13,7 @@ Heroku’s Logplex consolidates logs from your app (stdout/stderr), router (HTTP
 
 ![Heroku logs](../images/app-platforms/heroku-logs.png)
 
-OpenObserve transforms these limitations into powerful benefits:
-
--  **Unlimited Retention** for long-term analysis  
--  **Structured JSON Logs** for easy filtering and querying  
--  **Columnar Storage** for cost-effective scalability  
--  **Dashboards, Real-Time Queries, and Alerts** for proactive monitoring :contentReference[oaicite:0]{index=0}
+OpenObserve ingests these logs in structured JSON format, enabling fast search, rich visualization, and proactive alerting.
 
 ## Steps to Integrate
 
@@ -180,20 +175,20 @@ OpenObserve transforms these limitations into powerful benefits:
         ```bash
         heroku drains -a <your-heroku-app-name>
         ```
-    - Tail your forwarder logs for warnings or errors :contentReference[oaicite:8]{index=8}
+    - Tail your forwarder logs for warnings or errors
 
 ??? "**Buffer overflow (Error L10)**"
     - Reduce sampling rate:
         ```bash
         heroku drains:update --sampling-rate 10 <drain-id> -a <your-heroku-app-name>
-        ``` :contentReference[oaicite:9]{index=9}
+        ```
 
 ??? "**Unparsed logs**"
     - Review `Unparsed log` warnings in forwarder logs
     - Adjust regex patterns in `index.js`
 
 ??? "**Truncated logs**"
-    - Heroku truncates lines >10 KB. Simplify log message content in forwarding app and redeploy :contentReference[oaicite:10]{index=10}
+    - Heroku truncates lines >10 KB. Simplify log message content in forwarding app and redeploy
 
 ??? "**Slow log delivery**"
-    - Increase heartbeat interval in `index.js` or reduce traffic volume :contentReference[oaicite:11]{index=11}
+    - Increase heartbeat interval in `index.js` or reduce traffic volume
