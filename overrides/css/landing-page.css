@@ -31,7 +31,7 @@ body > .landing-page {
   --card-bg: #272936;
   --border-color: #3d3d3d;
   --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
+  --text-secondary: #474747;
   --text-muted: #888888;
   --text-light: #666666;
 
@@ -162,7 +162,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 .landing-hero-title {
-  font-size: 22px !important;
+  font-size: 30px !important;
   color: #ffffff !important;
   font-weight: bold;
 }
@@ -504,9 +504,23 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Community items need different styling due to title + description */
 .landing-community-grid .landing-integration-item {
-  align-items: flex-start;
-  padding: var(--spacing-lg);
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding-top: var(--spacing-xs);
+  padding-bottom: var(--spacing-xs);
+  padding-left: var(--spacing-sm);
+  padding-right: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: var(--transition-base);
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   min-height: 80px;
+  margin: 0;
 }
 
 .landing-community-grid .landing-integration-icon {
