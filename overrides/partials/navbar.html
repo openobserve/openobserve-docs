@@ -40,28 +40,30 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
       </label>
 
       <!-- Docs icon + title -->
-      <a
-        href="/docs"
-        title="Docs Home"
-        class="md-header__button"
-        style="font-weight: bold; font-size: 1rem; padding-left: 0.1rem"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="currentColor"
+      <div class="flex items-center">
+        <a
+          href="/docs"
+          title="Docs Home"
+          class="md-header__button"
+          style="font-weight: bold; font-size: 1rem; padding-left: 0.1rem; display: flex; align-items: center"
         >
-          <path
-            d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"
-          />
-        </svg>
-      </a>
-      <div class="md-header__title">
-        <div class="md-header__ellipsis" data-md-component="header-title">
-          <div>
-            <span class="md-ellipsis"> Documentation </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="currentColor"
+          >
+            <path
+              d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"
+            />
+          </svg>
+        </a>
+        <div class="md-header__title" style="margin-left: -0.1rem; display: flex; align-items: center">
+          <div class="md-header__ellipsis" data-md-component="header-title">
+            <div>
+              <span class="md-ellipsis"> Documentation </span>
+            </div>
           </div>
         </div>
       </div>

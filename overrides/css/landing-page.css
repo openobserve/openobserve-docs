@@ -591,15 +591,15 @@ body:has(.landing-page) .md-sidebar--secondary {
 [data-md-color-scheme="slate"] .landing-section-title,
 [data-md-color-scheme="slate"] .landing-tutorial-title,
 [data-md-color-scheme="slate"] .landing-feature-text h4,
+[data-md-color-scheme="slate"] .landing-integration-text h5 {
+  color: var(--text-primary);
+}
+
+/* Dark theme description text colors for specific sections */
 [data-md-color-scheme="slate"] .landing-tutorial-description,
 [data-md-color-scheme="slate"] .landing-feature-text p,
-[data-md-color-scheme="slate"]
-  .landing-integration-text
-  p
-  [data-md-color-scheme="slate"]
-  .landing-integration-text
-  h5 {
-  color: var(--text-primary);
+[data-md-color-scheme="slate"] .landing-integration-text p {
+  color: #ded6d6;
 }
 
 [data-md-color-scheme="default"] .landing-section-title,
