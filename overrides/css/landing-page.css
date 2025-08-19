@@ -166,6 +166,10 @@ body:has(.landing-page) .md-sidebar--secondary {
   position: relative;
   z-index: 1;
   padding: var(--spacing-xs) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
 }
 
 .landing-hero-title {
