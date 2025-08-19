@@ -265,6 +265,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-section-title {
   font-size: 20px !important;
   font-weight: 700;
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+    sans-serif;
   /* margin: 4px 0 8px 0; */
   color: var(--text-primary);
 }
@@ -589,7 +591,14 @@ body:has(.landing-page) .md-sidebar--secondary {
 [data-md-color-scheme="slate"] .landing-section-title,
 [data-md-color-scheme="slate"] .landing-tutorial-title,
 [data-md-color-scheme="slate"] .landing-feature-text h4,
-[data-md-color-scheme="slate"] .landing-integration-text h5 {
+[data-md-color-scheme="slate"] .landing-tutorial-description,
+[data-md-color-scheme="slate"] .landing-feature-text p,
+[data-md-color-scheme="slate"]
+  .landing-integration-text
+  p
+  [data-md-color-scheme="slate"]
+  .landing-integration-text
+  h5 {
   color: var(--text-primary);
 }
 
@@ -600,9 +609,15 @@ body:has(.landing-page) .md-sidebar--secondary {
   color: var(--md-default-fg-color);
 }
 
+[data-md-color-scheme="default"] .landing-tutorial-description,
+[data-md-color-scheme="default"] .landing-feature-text p,
+[data-md-color-scheme="default"] .landing-integration-text p {
+  color: var(--md-default-fg-color--light);
+}
+
 [data-md-color-scheme="default"] .landing-tutorial-card,
 [data-md-color-scheme="default"] .landing-feature-item,
 [data-md-color-scheme="default"] .landing-integration-item {
   background-color: var(--md-default-bg-color);
-  border-color: var(--md-default-fg-color--light);
+  border-color: #e0e0e0;
 }
