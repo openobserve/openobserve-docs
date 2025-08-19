@@ -284,7 +284,6 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 .landing-tutorial-card {
-  background-color: var(--card-bg);
   border-radius: var(--radius-lg);
   padding: var(--spacing-sm);
   border: 1px solid var(--border-color);
@@ -298,11 +297,62 @@ body:has(.landing-page) .md-sidebar--secondary {
   height: 100%;
 }
 
+/* Individual tutorial card background colors */
+.landing-tutorial-card--blue {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.landing-tutorial-card--red {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.landing-tutorial-card--purple {
+  background-color: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.landing-tutorial-card--green {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.landing-tutorial-card--orange {
+  background-color: rgba(245, 158, 66, 0.1);
+  border-color: rgba(245, 158, 66, 0.3);
+}
+
 .landing-tutorial-card:hover {
-  border-color: var(--primary-blue);
   box-shadow: var(--shadow-md);
   text-decoration: none;
   color: inherit;
+}
+
+/* Enhanced hover states for different card types */
+.landing-tutorial-card--blue:hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.landing-tutorial-card--red:hover {
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+.landing-tutorial-card--purple:hover {
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.landing-tutorial-card--green:hover {
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.landing-tutorial-card--orange:hover {
+  border-color: rgba(245, 158, 66, 0.6);
+  box-shadow: 0 4px 12px rgba(245, 158, 66, 0.15);
 }
 
 .landing-tutorial-icon {
@@ -315,22 +365,24 @@ body:has(.landing-page) .md-sidebar--secondary {
   font-size: 18px;
   color: var(--text-primary);
   flex-shrink: 0;
+  background-color: #ffffff;
+  border: 2px solid transparent;
 }
 
 .landing-tutorial-icon--blue {
-  background-color: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 .landing-tutorial-icon--red {
-  background-color: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 .landing-tutorial-icon--purple {
-  background-color: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.3);
 }
 .landing-tutorial-icon--green {
-  background-color: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 .landing-tutorial-icon--orange {
-  background-color: rgba(245, 158, 66, 0.2);
+  border-color: rgba(245, 158, 66, 0.3);
 }
 
 .landing-tutorial-title {
@@ -347,7 +399,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   font-size: var(--font-size-base);
   margin-bottom: var(--spacing-md);
   line-height: 1.4;
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
 }
 
 .landing-tutorial-footer {
@@ -363,6 +415,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   gap: var(--spacing-xs);
   font-size: var(--font-size-sm);
   color: var(--text-muted);
+  font-weight: bold;
 }
 
 .landing-difficulty-badge {
@@ -619,9 +672,35 @@ body:has(.landing-page) .md-sidebar--secondary {
   color: var(--md-default-fg-color--light);
 }
 
-[data-md-color-scheme="default"] .landing-tutorial-card,
+/* Light theme overrides for feature and integration items only */
 [data-md-color-scheme="default"] .landing-feature-item,
 [data-md-color-scheme="default"] .landing-integration-item {
   background-color: var(--md-default-bg-color);
   border-color: #e0e0e0;
+}
+
+/* Light theme specific tutorial card styles - maintain colored backgrounds */
+[data-md-color-scheme="default"] .landing-tutorial-card--blue {
+  background-color: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+[data-md-color-scheme="default"] .landing-tutorial-card--red {
+  background-color: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+[data-md-color-scheme="default"] .landing-tutorial-card--purple {
+  background-color: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+[data-md-color-scheme="default"] .landing-tutorial-card--green {
+  background-color: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+[data-md-color-scheme="default"] .landing-tutorial-card--orange {
+  background-color: rgba(245, 158, 66, 0.08);
+  border-color: rgba(245, 158, 66, 0.25);
 }
