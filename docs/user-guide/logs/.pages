@@ -1,3 +1,4 @@
 nav:
     - Logs Overview: index.md
     - Logs in OpenObserve: logs.md
+    - Quick Mode and Interesting Fields: quickmode.md
