@@ -46,10 +46,14 @@ html {
   .md-sidebar--primary {
   position: sticky; /* stay visible */
   top: 0; /* eliminate excess gap */
-  height: 100vh; /* occupy full viewport */
   z-index: 200;
   display: flex;
   flex-direction: column;
+  }
+
+  /* Add bottom padding to main content so sidebar never gets overlapped by footer */
+  .md-main, .md-content {
+    padding-bottom: 3rem;
   }
   .md-footer { z-index: 0; }
   /* Give room so last items can scroll fully into view */
@@ -73,4 +77,40 @@ html {
   .md-sidebar--primary .md-nav__list { padding-bottom: 0; }
   /* Ensure main/content layers don't cover sidebar */
   .md-main, .md-main__inner, .md-content, .md-content__inner { position: relative; z-index: 0; }
+}
+[data-md-color-scheme="slate"] .md-search__form {
+  background-color: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  border-radius: 4px !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: rgba(255,255,255,0.5) !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__icon {
+  color: #fff !important;
+}
+
+/* Search dropdown styling for dark theme */
+[data-md-color-scheme="slate"] .md-search__suggest {
+  background: #222 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+}
+
+/* Cursor pointer only on search elements */
+.md-header__button[for="__search"],
+.md-search__input,
+.md-search__icon {
+  cursor: pointer !important;
+}
+
+.md-header, .md-header__inner, .md-header__title, .md-header__ellipsis {
+  cursor: default !important;
 }
