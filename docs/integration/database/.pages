@@ -6,3 +6,4 @@ nav:
     - Redis: redis.md
     - Apache Zookeeper: zookeeper.md
     - Cassandra: cassandra.md
+    - Aerospike: aerospike.md
