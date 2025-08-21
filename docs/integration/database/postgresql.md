@@ -23,7 +23,7 @@ The PostgreSQL integration enables monitoring of PostgreSQL database performance
     ```sql
     CREATE ROLE myuser WITH LOGIN PASSWORD 'mypassword';
     ```
-    ![Set up PostgreSQL Access](../images/postgresql-set-up-access.png)
+    ![Set up PostgreSQL Access](../../images/postgresql-set-up-access.png)
 
     Replace `myuser` and `mypassword` with credentials suitable for your environment. You will use these values in later steps to authenticate the OpenTelemetry Collector.
 
