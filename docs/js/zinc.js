@@ -157,11 +157,38 @@
     const savedScheme = localStorage.getItem('theme-preference');
     if (savedScheme) {
       document.documentElement.setAttribute('data-md-color-scheme', savedScheme);
+      // Set the correct radio button as checked
+      var paletteForm = document.querySelector('form[data-md-component="palette"]');
+      if (paletteForm) {
+        var inputs = paletteForm.querySelectorAll('input[name="__palette"]');
+        inputs.forEach(function(input) {
+          if (input.getAttribute('data-md-color-scheme') === savedScheme) {
+            input.checked = true;
+          } else {
+            input.checked = false;
+          }
+        });
+      }
     }
   }
 
   // Save theme preference when changed
   function observeThemeChanges() {
+    // Attach change event to theme radio buttons
+    var paletteForm = document.querySelector('form[data-md-component="palette"]');
+    if (paletteForm) {
+      var inputs = paletteForm.querySelectorAll('input[name="__palette"]');
+      inputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+          if (this.checked) {
+            var scheme = this.getAttribute('data-md-color-scheme');
+            document.documentElement.setAttribute('data-md-color-scheme', scheme);
+            localStorage.setItem('theme-preference', scheme);
+          }
+        });
+      });
+    }
+    // Also keep the MutationObserver for manual changes
     const observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         if (mutation.attributeName === 'data-md-color-scheme') {
@@ -172,19 +199,21 @@
         }
       });
     });
-    
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['data-md-color-scheme']
     });
   }
 
-  // Initialize
-  applySavedTheme();
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', observeThemeChanges);
-  } else {
+  // Setup theme persistence (apply + observe)
+  function setupThemePersistence() {
+    applySavedTheme();
     observeThemeChanges();
   }
+
+  // Initial setup
+  setupThemePersistence();
+
+  // Re-apply on every DOMContentLoaded (instant navigation)
+  document.addEventListener('DOMContentLoaded', setupThemePersistence);
 })();
