@@ -150,165 +150,24 @@
   handleTracking();
 })();
 
-// Enhanced theme management with proper persistence and navigation support
+// Simple theme persistence - leverages MkDocs Material's built-in theme system
 (function() {
-  // Immediately apply saved theme before DOM loads to prevent flash
-  function applyThemeImmediately() {
-    const savedScheme = localStorage.getItem('data-md-color-scheme');
+  // Apply saved theme immediately to prevent flash
+  function applySavedTheme() {
+    const savedScheme = localStorage.getItem('theme-preference');
     if (savedScheme) {
       document.documentElement.setAttribute('data-md-color-scheme', savedScheme);
-      // Also set on body for additional targeting
-      document.body.setAttribute('data-md-color-scheme', savedScheme);
     }
   }
 
-  // Apply theme immediately if DOM is already loading
-  if (document.readyState === 'loading') {
-    applyThemeImmediately();
-  }
-
-  function initializeThemeSystem() {
-    const paletteForm = document.querySelector('form[data-md-component="palette"]');
-    
-    if (!paletteForm) {
-      // Retry after a short delay if form not found
-      setTimeout(initializeThemeSystem, 100);
-      return;
-    }
-
-    const inputs = paletteForm.querySelectorAll('input[name="__palette"]');
-    const labels = paletteForm.querySelectorAll('label.md-header__button');
-    
-    // Enhanced theme update function
-    function updateTheme(scheme, persistToStorage = true) {
-      if (!scheme) return;
-      
-      // Apply to document element
-      document.documentElement.setAttribute('data-md-color-scheme', scheme);
-      // Apply to body as well for better CSS targeting
-      document.body.setAttribute('data-md-color-scheme', scheme);
-      
-      // Persist to localStorage
-      if (persistToStorage) {
-        localStorage.setItem('data-md-color-scheme', scheme);
-      }
-      
-      // Update primary color based on scheme
-      const primary = scheme === 'slate' ? 'black' : 'white';
-      document.documentElement.setAttribute('data-md-color-primary', primary);
-      
-      // Force CSS recalculation
-      document.documentElement.style.setProperty('--md-color-scheme', scheme);
-      
-      // Dispatch custom event for other components
-      window.dispatchEvent(new CustomEvent('themeChanged', { detail: { scheme } }));
-    }
-
-    // Restore saved theme and update form state
-    function restoreTheme() {
-      const savedScheme = localStorage.getItem('data-md-color-scheme');
-      if (savedScheme) {
-        // Find and check the corresponding input
-        const targetInput = paletteForm.querySelector(`input[data-md-color-scheme="${savedScheme}"]`);
-        if (targetInput) {
-          // Uncheck all inputs first
-          inputs.forEach(input => input.checked = false);
-          // Check the target input
-          targetInput.checked = true;
-          // Update theme
-          updateTheme(savedScheme, false);
-        }
-      } else {
-        // Use default theme if none saved
-        const defaultInput = paletteForm.querySelector('input[name="__palette"]:first-child');
-        if (defaultInput) {
-          defaultInput.checked = true;
-          const scheme = defaultInput.getAttribute('data-md-color-scheme');
-          updateTheme(scheme);
-        }
-      }
-    }
-
-    // Enhanced click handlers for theme toggle
-    labels.forEach((label) => {
-      label.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const targetId = label.getAttribute('for');
-        const targetInput = document.getElementById(targetId);
-        
-        if (targetInput) {
-          // Uncheck all inputs
-          inputs.forEach(input => input.checked = false);
-          // Check target input
-          targetInput.checked = true;
-          
-          // Get scheme and update
-          const scheme = targetInput.getAttribute('data-md-color-scheme');
-          updateTheme(scheme);
-          
-          // Trigger change event for compatibility
-          targetInput.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      });
-    });
-
-    // Listen for input changes
-    inputs.forEach(input => {
-      input.addEventListener('change', function() {
-        if (this.checked) {
-          const scheme = this.getAttribute('data-md-color-scheme');
-          updateTheme(scheme);
-        }
-      });
-    });
-
-    // Initialize theme
-    restoreTheme();
-  }
-
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeThemeSystem);
-  } else {
-    initializeThemeSystem();
-  }
-
-  // Handle navigation in SPA-like environments (MkDocs Material with instant navigation)
-  document.addEventListener('DOMContentLoaded', function() {
-    // Re-initialize theme system on navigation
-    if (typeof app !== 'undefined' && app.location$) {
-      app.location$.subscribe(() => {
-        setTimeout(initializeThemeSystem, 50);
-      });
-    }
-    
-    // Fallback: Watch for URL changes
-    let currentUrl = window.location.href;
-    const checkUrlChange = () => {
-      if (window.location.href !== currentUrl) {
-        currentUrl = window.location.href;
-        setTimeout(initializeThemeSystem, 50);
-      }
-    };
-    
-    // Check for URL changes periodically
-    setInterval(checkUrlChange, 100);
-  });
-
-  // Enhanced mutation observer for theme changes
-  document.addEventListener('DOMContentLoaded', function() {
+  // Save theme preference when changed
+  function observeThemeChanges() {
     const observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes') {
-          if (mutation.attributeName === 'data-md-color-scheme') {
-            const scheme = document.documentElement.getAttribute('data-md-color-scheme');
-            if (scheme) {
-              localStorage.setItem('data-md-color-scheme', scheme);
-              // Ensure body also has the attribute
-              document.body.setAttribute('data-md-color-scheme', scheme);
-            }
+        if (mutation.attributeName === 'data-md-color-scheme') {
+          const scheme = document.documentElement.getAttribute('data-md-color-scheme');
+          if (scheme) {
+            localStorage.setItem('theme-preference', scheme);
           }
         }
       });
@@ -316,10 +175,16 @@
     
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['data-md-color-scheme', 'data-md-color-primary']
+      attributeFilter: ['data-md-color-scheme']
     });
-  });
+  }
 
-  // Apply theme immediately on script load
-  applyThemeImmediately();
+  // Initialize
+  applySavedTheme();
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', observeThemeChanges);
+  } else {
+    observeThemeChanges();
+  }
 })();

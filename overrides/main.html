@@ -9,15 +9,12 @@
 <meta name="description" content="{{ page.meta.description }}">
 {% endif %}
 
-<!-- Immediate theme application to prevent flash -->
+<!-- Simple theme flash prevention -->
 <script>
 (function() {
-  var savedScheme = localStorage.getItem('data-md-color-scheme');
+  const savedScheme = localStorage.getItem('theme-preference');
   if (savedScheme) {
     document.documentElement.setAttribute('data-md-color-scheme', savedScheme);
-    if (document.body) {
-      document.body.setAttribute('data-md-color-scheme', savedScheme);
-    }
   }
 })();
 </script>
