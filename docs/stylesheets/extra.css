@@ -1,80 +1,9 @@
-/* Simplified theme management */
-:root {
-  --theme-transition: 200ms ease;
+[data-md-color-scheme="openobserve"] {
+  --md-primary-fg-color: #ffffff;
+  --md-primary-fg-color--light: #ECB7B7;
+  --md-primary-fg-color--dark: #90030C;
 }
 
-/* Smooth transitions for theme changes */
-html, body, .md-header, .md-main, .md-content {
-  transition: background-color var(--theme-transition), 
-              color var(--theme-transition) !important;
-}
-
-/* Enhanced search visibility for dark theme */
-[data-md-color-scheme="slate"] .md-search__form {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 4px !important;
-}
-
-[data-md-color-scheme="slate"] .md-search__input {
-  background-color: transparent !important;
-  color: #ffffff !important;
-}
-
-[data-md-color-scheme="slate"] .md-search__input::placeholder {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-
-[data-md-color-scheme="slate"] .md-search__icon {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-
-/* Ensure default theme search visibility */
-[data-md-color-scheme="default"] .md-search__form {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-radius: 4px !important;
-}
-
-[data-md-color-scheme="default"] .md-search__input {
-  background-color: transparent !important;
-  color: #000000 !important;
-}
-
-[data-md-color-scheme="default"] .md-search__input::placeholder {
-  color: rgba(0, 0, 0, 0.6) !important;
-}
-
-[data-md-color-scheme="default"] .md-search__icon {
-  color: rgba(0, 0, 0, 0.7) !important;
-}
-
-/* Sidebar overlap fix */
-@media (min-width: 60em) {
-  .md-sidebar--primary {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .md-sidebar--primary .md-sidebar__scrollwrap {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0.25rem 0 2.25rem;
-    overscroll-behavior: contain;
-  }
-  
-  .md-sidebar--primary .md-sidebar__scrollwrap:after {
-    display: none !important;
-  }
-  
-  .md-footer { z-index: 0; }
-}
-
-/* Essential styles */
 @media only screen and (min-width: 76.25em) {
   .md-main__inner {
     max-width: none;
@@ -99,4 +28,49 @@ html, body, .md-header, .md-main, .md-content {
 html {
   font-size: 125%;
 }
+/* --- Sidebar overlap fix --------------------------------------------------
+   Issue: Bottom of left navigation sidebar links were being hidden by a white
+   overlay/section when scrolling the page body. In Material for MkDocs this
+   is commonly caused by the main content (or footer) layering above the
+   sidebar, or by the sidebar losing its own scroll context causing the fade
+   pseudo-element to cover final items.
 
+   Fix:
+   1. Reassert a dedicated scroll container + full height for primary sidebar.
+   2. Remove bottom/top gradient (pseudo elements) that can mask final items.
+   3. Raise z-index so main content/footer can't visually overlap it.
+   4. Provide stable scrollbar to avoid layout shift.
+*/
+@media (min-width: 60em) {
+  /* Minimal, non-intrusive adjustments */
+  .md-sidebar--primary {
+  position: sticky; /* stay visible */
+  top: 0; /* eliminate excess gap */
+  height: 100vh; /* occupy full viewport */
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  }
+  .md-footer { z-index: 0; }
+  /* Give room so last items can scroll fully into view */
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.25rem 0 2.25rem; /* trim top, moderate bottom */
+  overscroll-behavior: contain;
+  }
+  /* Remove bottom fade/overlay that appeared as white block */
+  .md-sidebar--primary .md-sidebar__scrollwrap:after {
+    display: none !important;
+  }
+  /* Also disable any other potential masking pseudo-elements */
+  .md-sidebar--primary:before,
+  .md-sidebar--primary:after,
+  .md-sidebar--primary .md-sidebar__inner:before,
+  .md-sidebar--primary .md-sidebar__inner:after { display: none !important; }
+  /* Tighter default nav spacing */
+  .md-sidebar--primary .md-nav { margin-top: 0; }
+  .md-sidebar--primary .md-nav__list { padding-bottom: 0; }
+  /* Ensure main/content layers don't cover sidebar */
+  .md-main, .md-main__inner, .md-content, .md-content__inner { position: relative; z-index: 0; }
+}
