@@ -32,14 +32,13 @@ input {
   --color-tabs-title-text: rgba(107, 118, 227);
 }
 
-html,
-body {
+html {
   margin: 0;
   width: 100%;
-  height: 100%;
   font-family: "Inter", sans-serif;
   scroll-behavior: smooth;
   scroll-padding-top: 8rem;
+  /* height: 100%; removed to prevent extra space at the bottom */
 }
 
 main {

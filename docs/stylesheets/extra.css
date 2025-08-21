@@ -53,7 +53,7 @@ html {
 
   /* Add bottom padding to main content so sidebar never gets overlapped by footer */
   .md-main, .md-content {
-    padding-bottom: 3rem;
+    padding-bottom: 0.5rem;
   }
   .md-footer { z-index: 0; }
   /* Give room so last items can scroll fully into view */
