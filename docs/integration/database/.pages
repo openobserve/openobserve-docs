@@ -2,3 +2,4 @@ nav:
 
     - PostgreSQL: postgresql.md
     - Snowflake: snowflake.md
+    - MongoDB: mongodb.md
