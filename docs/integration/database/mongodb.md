@@ -71,7 +71,7 @@ Supported MongoDB versions: **4.0+**.
 
     Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your actual OpenObserve API endpoint and authentication token, which you can find in your Data Sources -> Databases -> MongoDB
 
-    ![Collect OpenObserve Credentials](../images/databases/openobserve-creds.png)
+    ![Collect OpenObserve Credentials](../images/databases/otel-metrics-cred.png)
 
 ??? "Step 3: Run the Collector"
 
