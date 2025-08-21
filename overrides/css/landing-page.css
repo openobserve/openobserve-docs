@@ -541,8 +541,31 @@ body:has(.landing-page) .md-sidebar--secondary {
   top: var(--spacing-md);
   right: var(--spacing-md);
   font-size: 20px;
-  color: #ffffff;
+  color: #222;
   font-weight: bold;
+  transition: color 0.2s;
+}
+
+/* Dark theme chevron color */
+[data-md-color-scheme="slate"] .landing-chevron-right {
+  color: #fff !important;
+}
+
+/* Light theme chevron color */
+[data-md-color-scheme="default"] .landing-chevron-right {
+  color: #222 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .landing-chevron-right {
+    color: #fff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .landing-chevron-right {
+    color: #222;
+  }
 }
 
 /* Integration Grid */
