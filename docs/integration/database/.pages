@@ -4,3 +4,4 @@ nav:
     - Snowflake: snowflake.md
     - MongoDB: mongodb.md
     - Redis: redis.md
+    - Apache Zookeeper: zookeeper.md
