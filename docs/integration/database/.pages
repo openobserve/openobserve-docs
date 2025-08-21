@@ -5,3 +5,4 @@ nav:
     - MongoDB: mongodb.md
     - Redis: redis.md
     - Apache Zookeeper: zookeeper.md
+    - Cassandra: cassandra.md
