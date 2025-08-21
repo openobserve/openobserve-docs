@@ -2,6 +2,7 @@ nav:
 
     - PostgreSQL: postgresql.md
     - Snowflake: snowflake.md
+    - MySQL: mysql.md
     - MongoDB: mongodb.md
     - Redis: redis.md
     - Apache Zookeeper: zookeeper.md
