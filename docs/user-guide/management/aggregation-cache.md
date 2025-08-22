@@ -1,5 +1,5 @@
 ---
-title: Streaming Aggregation in OpenObserv
+title: Streaming Aggregation in OpenObserve
 description: Learn how Streaming Aggregation accelerates dashboards using aggregation cache in OpenObserve Enterprise.
 ---
 This document helps you understand what Streaming Aggregation is and how it relates to aggregation cache in OpenObserve.
