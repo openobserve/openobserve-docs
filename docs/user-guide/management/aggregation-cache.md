@@ -17,10 +17,10 @@ Streaming Aggregation is an Enterprise setting in OpenObserve that enables aggre
     2. Turn on the **Enable Streaming Aggregation** toggle.
     3. Select **Save**.
 
-## What is Aggregation Cache
-Aggregation cache accelerates aggregation queries by saving results for each time partition when a dashboard panel runs. When a panel later requests the same or overlapping time range with the same stream and filters, OpenObserve reuses the saved partitions and computes only the missing partitions. Results remain correct because the system combines partition results using safe math such as adding sums and counts before computing an average.
+## What is aggregation cache
+Aggregation cache improves performance by storing the results of each time partition the first time a query runs. This applies to dashboards, log queries, or any other place where aggregate SQL queries are used. When you run a query again with the same stream and filters, and for the same or overlapping time range, OpenObserve reuses the stored partitions and computes only the missing ones. The final result remains accurate because OpenObserve merges the stored and new partitions using safe operations such as adding sums and counts before computing averages.
 
-## How Aggregation Cache works
+## How aggregation cache works
 This section explains what happens at query time. Aggregation cache stores mergeable results per time partition on the first run, then reuses matching partitions on later runs that use the same stream, filters, and grouping over the same or overlapping time range.
 
 ### First run populates the cache
@@ -93,7 +93,7 @@ Capture the following details:
 ## Performance benefits
 Streaming Aggregation is enabled in all the following test runs:
 
-**Test Run 1**:
+**Test run 1**:
 
 - Time range: `2025-08-13 00:00:00 - 2025-08-20 00:00:00`
 - Time taken to load the dashboard: `6.84 s`
@@ -101,21 +101,21 @@ Streaming Aggregation is enabled in all the following test runs:
 ![test run 1](test-run-one-agg-cache.png)
 
 
-**Test Run 2**:
+**Test run 2**:
 
 - Time range: `2025-08-13 00:00:00 - 2025-08-20 00:00:00` 
 - Time taken to load the dashboard: `3.00 s`
 - `result_cache_ratio` is `100` in all partitions
 ![test run 2](test-run-two-agg-cache.png)
 
-**Test Run 3**:
+**Test run 3**:
 
 - Time range: `2025-08-6 00:00:00 - 2025-08-20 00:00:00`
 - Time taken to load the dashboard: `6.36 s`
 - `result_cache_ratio` is `100` for partitions that cover the time range `2025-08-13 00:00:00 → 2025-08-20 00:00:00` and `result_cache_ratio` is `0` for the rest of the partitions 
 ![test run 3](test-run-three-agg-cache.png)
 
-**Test Run 4**: 
+**Test run 4**: 
 
 - Time range: `2025-08-6 00:00:00 - 2025-08-20 00:00:00` 
 - Time taken to load the dashboard: `3.38 s`
