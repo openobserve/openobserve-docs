@@ -1,5 +1,5 @@
 nav:
-
+    - Database Integrations Overview: index.md
     - PostgreSQL: postgresql.md
     - Snowflake: snowflake.md
     - MySQL: mysql.md

@@ -1,6 +1,6 @@
 nav: 
 
-- Overview: index.md
+- Approximate Aggregate Overview: index.md
 - approx_topk : approx-topk.md
 - approx-topk-distinct: approx-topk-distinct.md
 
