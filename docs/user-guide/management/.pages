@@ -1,6 +1,7 @@
 nav:
     - Management Overview: index.md
     - Streaming Search: streaming-search.md
+    - Aggregation Cache: aggregation-cache.md
     - Query Management: query-management.md
     - Alert Destinations: alert-destinations.md
     - Templates: templates.md
