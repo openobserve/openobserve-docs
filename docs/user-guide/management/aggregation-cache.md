@@ -2,6 +2,7 @@
 title: Streaming Aggregation in OpenObserve
 description: Learn how Streaming Aggregation works in OpenObserve Enterprise.
 ---
+This page explains what Streaming Aggregation is and shows how to use it to improve query performance with aggregation cache in OpenObserve.
 
 > This is an enterprise feature. 
 
