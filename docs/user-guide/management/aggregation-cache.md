@@ -147,16 +147,17 @@ description: Learn how Streaming Aggregation works in OpenObserve Enterprise.
 
     ## How to use streaming aggregation
     **Example query**
-    ```SELECT 
+    ```sql
+    SELECT 
         k8s_deployment_name as "x_axis_1", 
         count(_timestamp) as "y_axis_1"  
     FROM "default"  
     GROUP BY x_axis_1
     ```
     
-    You can apply the aggregation query in any place where queries are executed, such as **Logs** and **Dashboards**. To view the time taken to load the panel, verify cacheability, and cache usage, use the developer tool on your browser. Right click on your browser and select **Inspect**. Open **Network** in Developer Tools and filter by Fetch/XHR.
+    You can apply the aggregation query in any place where queries are executed, such as Logs or Dashboards. To measure load time, check cacheability, and verify cache usage, use your browser’s developer tools. Right-click the browser, select Inspect, open the Network tab, and filter by Fetch/XHR.
 
-    Note that the following example is performed with Streaming Search enabled. Aggregation cache works the same when streaming search is disabled. 
+    The following example is performed with Streaming Search enabled. Aggregation cache works the same when Streaming Search is disabled.
 
     **Step 1: Run the aggregation query** <br>
 
@@ -169,18 +170,17 @@ description: Learn how Streaming Aggregation works in OpenObserve Enterprise.
     ![Logs page first run](first-run-logs-page.png)
 
     **Step 2: Check if the query is eligible for caching** <br> 
-    After the first run, if `streaming_aggs` is true and `streaming_id` has a value, the query is eligible for caching. You can check these fields in the query response by using your browser developer tools. Open **Network**, select the `_search_partition` entry, and view the **Preview** or **Response** tab to confirm the values.
+    After the first run, if `streaming_aggs` is true and `streaming_id` has a value, the query is eligible for caching. You can check these fields in the query response by using your browser developer tools. Open **Network**, select the `_search_partition` entry, and view the **Response** tab to confirm the values.
 
     ![alt text](check-if-the-query-is-cacheable.png)
 
-    **Step 3: Run again with overlapping time** <br>
+    **Step 3: Run the query again with overlapping time** <br>
 
-    Select a time window to overlap with the earlier run, for example past 6 days or past 1 week, and run the query again. Cached partitions are reused and only new partitions are computed, which reduces execution time.
+    Select a time window that overlaps with the earlier run, for example Past 6 days or Past 1 week, and run the query again. Cached partitions are reused and only new partitions are computed, which reduces execution time.
 
-    Second run shows the result for time range of past 6 days. 
+    Second run shows the result for the Past 6 days. 
     ![Second run](second-run-logs-page.png) 
-    Third run shows the result for time range of past 1 week. 
-    
+    Third run shows the result for the Past 1 week. 
     ![Third run](third-run-logs-page.png)
 
     **Step 4: Confirm cache reuse on later runs**
