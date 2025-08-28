@@ -52,7 +52,7 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
 
     ---
 
-    ## How it work
+    ## How does it work?
 
     **First run: partitioning and caching aggregate factors** <br>
     When an aggregation query runs for the first time, OpenObserve divides the requested time range into fixed-size partitions. Each partition is processed separately. Instead of storing the final aggregates, OpenObserve caches the factors required to compute the aggregate. For example, it caches sums and counts, which can later be combined to produce averages.
@@ -64,7 +64,7 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
 
     ---
 
-    ## How it handles late-arriving data
+    ## How does it handle late-arriving data?
     To handle late-arriving data, OpenObserve applies a delay window before marking aggregation results as eligible to cache.  
     The system compares the query time with the end of the selected time range. If the end of the range falls within the delay window, the result is not cached. This ensures that results include all delayed records before being stored.  
     The delay window is configured through the environment variable `ZO_CACHE_DELAY_SECS`. The default value is 300 secs (5 minutes). You can adjust this value to match the ingestion delay in your environment. For example, if logs typically arrive with up to 10 minutes of delay, set the variable to 600 secs.  
@@ -126,6 +126,8 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
     ## Cacheability of Queries
     Not all queries can benefit from aggregation cache. For a query to be cacheable, OpenObserve must be able to store and safely merge intermediate results across partitions.
 
+    ---
+
     ## Supported aggregate functions
     The following aggregates are directly supported for caching:
 
@@ -146,6 +148,8 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
     - [approx_percentile_cont_with_weight](https://datafusion.apache.org/user-guide/sql/aggregate_functions.html#approx-percentile-cont-with-weight)
     - [approx_topk](https://openobserve.ai/docs/sql-functions/approximate-aggregate/approx-topk/)
     - [approx_topk_distinct](http://openobserve.ai/docs/sql-functions/approximate-aggregate/approx-topk-distinct/)
+
+    ---
 
 === "How to use"
 
