@@ -5,7 +5,7 @@ nav:
     - Snowflake: snowflake.md
     - MySQL: mysql.md
     - MongoDB: mongodb.md
-    - Redis: redis.
+    - Redis: redis.md
     - Amazon DynamoDB: dynamodb.md
     - Apache Zookeeper: zookeeper.md
     - Cassandra: cassandra.md
