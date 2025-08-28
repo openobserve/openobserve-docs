@@ -47,6 +47,7 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
         | `ZO_DATAFUSION_STREAMING_AGGS_CACHE_MAX_ENTRIES` | Defines the maximum number of cache entries stored for streaming aggregations. Controls how many partition results are retained. | `10000`                           |
         | `ZO_DISK_AGGREGATION_CACHE_MAX_SIZE`            | Sets the maximum size for record batch cache on disk. By default, it is 10 percent of the local volume space, capped at 20 GB.             | 10 percent of volume, up to 20 GB |
         | `ZO_CACHE_DELAY_SECS`            | Defines the number of seconds to wait before aggregation results become eligible to cache.             | 300 secs |
+        | `ZO_AGGREGATION_TOPK_ENABLED`            | It enables the `approx_topk` function.             | true |
 
 
     ---
@@ -67,52 +68,6 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
     To handle late-arriving data, OpenObserve applies a delay window before marking aggregation results as eligible to cache.  
     The system compares the query time with the end of the selected time range. If the end of the range falls within the delay window, the result is not cached. This ensures that results include all delayed records before being stored.  
     The delay window is configured through the environment variable `ZO_CACHE_DELAY_SECS`. The default value is 300 secs (5 minutes). You can adjust this value to match the ingestion delay in your environment. For example, if logs typically arrive with up to 10 minutes of delay, set the variable to 600 secs.  
-
-    **Example:** <br>
-    Assume an organization is monitoring error logs from its application. A user runs queries to check the number of errors that occurred between 11:30 and 11:40. The system must decide whether the results are eligible to cache.
-
-    **Case 1: Query at 11:40:00**
-    
-    - **Query time**: 11:40:00
-    - **Time range**: 11:30–11:40
-    - **Age of range**: 0 seconds
-    - **Eligibility**: Not eligible (within 5 minutes)
-    - **Result shown**: 105 errors
-    - **Cache action**: Not stored
-    At this point, the system has only partial data for 11:40. More late-arriving error logs may still come in.
-
-    **Case 2: Query at 11:40:30**
-
-    - **Query time**: 11:40:30
-    - **Time range**: 11:30–11:40
-    - **Age of range**: 30 seconds
-    - **Eligibility**: Not eligible
-    - **Result shown**: 106 errors
-    - **Cache action**: Not stored
-
-    New logs that were delayed by the pipeline arrived for 11:40, so the error count increased. If this partial result were cached, future queries would be wrong.
-
-    **Case 3: Query at 11:45:00**
-
-    - **Query time**: 11:45:00
-    - **Time range**: 11:30–11:40
-    - **Age of range**: 300 seconds (5 minutes)
-    - **Eligibility**: Eligible to cache
-    - **Result shown**: 108 errors
-    - **Cache action**: Stored in cache
-
-    By now, the system has received all logs for the 11:30–11:40 range. The result is considered complete and safe to cache.
-
-    **Case 4: Query at 11:46:00**
-
-    - **Query time**: 11:46:00
-    - **Time range**: 11:30–11:40
-    - **Age of range**: 360 seconds (6 minutes)
-    - **Eligibility**: Eligible
-    - **Result shown**: 108 errors
-    - **Cache action**: Returned directly from cache
-    
-    The result is reused from cache with no recomputation.
 
     ---
 
