@@ -46,6 +46,8 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
         | `ZO_FEATURE_QUERY_STREAMING_AGGS`                | Enables or disables streaming aggregation. When set to `true`, aggregation queries use the aggregation cache.                              | `true`                           |
         | `ZO_DATAFUSION_STREAMING_AGGS_CACHE_MAX_ENTRIES` | Defines the maximum number of cache entries stored for streaming aggregations. Controls how many partition results are retained. | `10000`                           |
         | `ZO_DISK_AGGREGATION_CACHE_MAX_SIZE`            | Sets the maximum size for record batch cache on disk. By default, it is 10 percent of the local volume space, capped at 20 GB.             | 10 percent of volume, up to 20 GB |
+        | `ZO_CACHE_DELAY_SECS`            | Defines the number of seconds to wait before aggregation results become eligible to cache.             | 300 secs |
+
 
     ---
 
