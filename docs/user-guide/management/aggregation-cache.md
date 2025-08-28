@@ -1,8 +1,9 @@
 ---
 title: Streaming Aggregation in OpenObserve
-description: Learn how Streaming Aggregation works in OpenObserve Enterprise.
+
+description: Learn how streaming aggregation works in OpenObserve Enterprise.
 ---
-This page explains what Streaming Aggregation is and shows how to use it to improve query performance with aggregation cache in OpenObserve.
+This page explains what streaming aggregation is and shows how to use it to improve query performance with aggregation cache in OpenObserve.
 
 > This is an enterprise feature. 
 
@@ -46,31 +47,28 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
         | `ZO_FEATURE_QUERY_STREAMING_AGGS`                | Enables or disables streaming aggregation. When set to `true`, aggregation queries use the aggregation cache.                              | `true`                           |
         | `ZO_DATAFUSION_STREAMING_AGGS_CACHE_MAX_ENTRIES` | Defines the maximum number of cache entries stored for streaming aggregations. Controls how many partition results are retained. | `10000`                           |
         | `ZO_DISK_AGGREGATION_CACHE_MAX_SIZE`            | Sets the maximum size for record batch cache on disk. By default, it is 10 percent of the local volume space, capped at 20 GB.             | 10 percent of volume, up to 20 GB |
-        | `ZO_CACHE_DELAY_SECS`            | Defines the number of seconds to wait before aggregation results become eligible to cache.             | 300 secs |
-        | `ZO_AGGREGATION_TOPK_ENABLED`            | Enables the `approx_topk` function.             | true |
+        | `ZO_CACHE_DELAY_SECS`            | Defines the number of seconds to wait before aggregation results become eligible to cache.             | `300 secs` |
+        | `ZO_AGGREGATION_TOPK_ENABLED`            | Enables the `approx_topk` function.             | `true` |
 
 
     ---
 
     ## How does it work?
 
-
     **First run: partitioning and caching aggregate factors** <br>
     When an aggregation query runs for the first time, OpenObserve divides the requested time range into fixed-size partitions. Each partition is processed separately. Instead of storing the final aggregates, OpenObserve caches the factors required to compute the aggregate. For example, it caches sums and counts, which can later be combined to produce averages.
 
-    These results are cached on disk. This creates the initial **Aggregation cache** for the query stream. <br>
-
+    These results are cached on disk. This creates the initial aggregation cache for the query stream. <br>
+    
     **Later runs: reuse of cached partitions**<br>
     When another query runs with the same stream, filters, and grouping, OpenObserve checks the cache. If the requested time range overlaps with existing partitions, it reuses the cached results and computes only the missing partitions. Results remain accurate because cached sums, counts, and other stored values can be combined with new results to compute the final aggregates.
 
     ---
 
-
     ## How does it handle late-arriving data?
-
     To handle late-arriving data, OpenObserve applies a delay window before marking aggregation results as eligible to cache.  
     The system compares the query time with the end of the selected time range. If the end of the range falls within the delay window, the result is not cached. This ensures that results include all delayed records before being stored.  
-    The delay window is configured through the environment variable `ZO_CACHE_DELAY_SECS`. The default value is 300 secs (5 minutes). You can adjust this value to match the ingestion delay in your environment. For example, if logs typically arrive with up to 10 minutes of delay, set the variable to 600 secs.  
+    The delay window is configured through the environment variable `ZO_CACHE_DELAY_SECS`. The default value is 300 secs. You can adjust this value to match the ingestion delay in your environment. For example, if logs typically arrive with up to 10 minutes of delay, set the variable to 600 secs.  
 
     ---
 
@@ -166,9 +164,10 @@ This page explains what Streaming Aggregation is and shows how to use it to impr
     GROUP BY x_axis_1
     ```
     
-    You can apply the aggregation query in any place where queries are executed, such as Logs or Dashboards. To measure load time, check cacheability, and verify cache usage, use your browser’s developer tools. Right-click the browser, select Inspect, open the Network tab, and filter by Fetch/XHR.
+    You can apply the aggregation query in any place where queries are executed, such as Logs or Dashboards. To measure load time, check cacheability, and verify cache usage, use your browser’s developer tools. 
+    Right-click the browser, select **Inspect**, open the **Network** tab, and filter by **Fetch/XHR**.
 
-    The following example is performed with Streaming Search enabled. Aggregation cache works the same when Streaming Search is disabled.
+    The following example is performed with [Streaming Search](https://openobserve.ai/docs/user-guide/streams/summary-streams/) enabled. Aggregation cache works the same when Streaming Search is disabled.
 
     **Step 1: Run the aggregation query** <br>
 
@@ -252,23 +251,19 @@ Streaming aggregation is enabled in all the following test runs:
 
 ## Limitations
 
-- Very complex queries may not be eligible for cache reuse yet. Examples include joins, nested subqueries, heavy window functions, and large unions
-- The first run pays full computation cost to populate the cache
+- Very complex queries may not be eligible for cache reuse yet. Examples include joins, nested subqueries, heavy window functions, and large unions.
+- The first run pays full computation cost to populate the cache.
 - Reuse depends on partition availability. Eviction due to capacity limits can reduce reuse.
 
 --- 
 
 ## Troubleshooting
 
-1. **Second run is not faster**
+- **Issue**: **Second run is not faster**
+- **Cause**: The query was not cacheable or the first run did not complete. 
+- **Fix**: Align time windows and filters with the first run. Verify `streaming_aggs` and `streaming_id`. After a successful first run, confirm `result_cache_ratio` equals `100` on some partitions.
 
-    - **Cause**: The query was not cacheable or the first run did not complete. 
-    - **Fix**: Align time windows and filters with the first run. Verify `streaming_aggs` and `streaming_id`. After a successful first run, confirm `result_cache_ratio` equals `100` on some partitions.
 
-2. **Different panels do not benefit**
-
-    - **Cause**: Time windows or filters differ. 
-    - **Fix**: Use the same windows and the same filters across panels that analyze the same stream.
 
 
 
