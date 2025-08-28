@@ -3,7 +3,7 @@ nav:
     - Integrations Overview: index.md
     - AWS: aws
     - Cloudflare: cloudflare.md
-    - PostgreSQL: postgresql.md
-    - Snowflake: snowflake.md
+    - Database: database
     - Servers: servers
     - DevOps : devops
+    - Application Platform: application-platform

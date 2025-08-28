@@ -1,5 +1,6 @@
 ---
 title: Streaming Aggregation in OpenObserve
+
 description: Learn how streaming aggregation works in OpenObserve Enterprise.
 ---
 This page explains what streaming aggregation is and shows how to use it to improve query performance with aggregation cache in OpenObserve.
@@ -58,7 +59,7 @@ This page explains what streaming aggregation is and shows how to use it to impr
     When an aggregation query runs for the first time, OpenObserve divides the requested time range into fixed-size partitions. Each partition is processed separately. Instead of storing the final aggregates, OpenObserve caches the factors required to compute the aggregate. For example, it caches sums and counts, which can later be combined to produce averages.
 
     These results are cached on disk. This creates the initial aggregation cache for the query stream. <br>
-
+    
     **Later runs: reuse of cached partitions**<br>
     When another query runs with the same stream, filters, and grouping, OpenObserve checks the cache. If the requested time range overlaps with existing partitions, it reuses the cached results and computes only the missing partitions. Results remain accurate because cached sums, counts, and other stored values can be combined with new results to compute the final aggregates.
 
@@ -261,6 +262,7 @@ Streaming aggregation is enabled in all the following test runs:
 - **Issue**: **Second run is not faster**
 - **Cause**: The query was not cacheable or the first run did not complete. 
 - **Fix**: Align time windows and filters with the first run. Verify `streaming_aggs` and `streaming_id`. After a successful first run, confirm `result_cache_ratio` equals `100` on some partitions.
+
 
 
 
