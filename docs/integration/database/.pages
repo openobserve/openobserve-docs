@@ -6,6 +6,7 @@ nav:
     - MySQL: mysql.md
     - MongoDB: mongodb.md
     - Redis: redis.md
+    - Amazon DynamoDB: dynamodb.md
     - Apache Zookeeper: zookeeper.md
     - Cassandra: cassandra.md
     - Aerospike: aerospike.md
