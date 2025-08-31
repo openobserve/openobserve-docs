@@ -5,6 +5,18 @@ description: >-
 ---
 # Syslog server
 
+!!! warning "Deprecation Notice"
+    Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of August 2025** and is no longer available in OpenObserve.  
+
+    **Recommended alternatives:**  
+    - [AxoSyslog](https://axoflow.com/docs/axosyslog-core/chapter-destinations/openobserve/)  
+    - [syslog-ng](https://www.syslog-ng.com/community/b/blog/posts/sending-logs-to-openobserve-using-syslog-ng)  
+    - [Vector](../logs/vector.md)  
+    - [Fluent Bit](../logs/fluent-bit.md)  
+
+    We suggest using **AxoSyslog or syslog-ng** if you want protocol-native support for Syslog.
+
+
 OpenObserve can act as a syslog server. This means that you can send logs to OpenObserve using the syslog protocol. OpenObserve supports both UDP and TCP syslog.
 
 ## Enable syslog
