@@ -135,14 +135,14 @@ WHERE match_all('error') AND body LIKE '%error%';
 **OR behavior**
 
 - If all branches of the OR are indexable, Tantivy unites the row sets efficiently.
-- If any branch is not indexable, Tantivy resolves what it can, and DataFusion resolves the rest.
+- If any branch is not indexable, the entire OR is not indexable. The query runs in DataFusion.
 
 **Examples**
 ```sql
 -- Fast: both indexable
 WHERE match_all('error') OR k8s_namespace_name = 'ziox';
 
--- Slower: one branch not indexable
+-- Slower: both sides are not indexable
 WHERE match_all('error') OR body LIKE '%error%';
 ```
 
