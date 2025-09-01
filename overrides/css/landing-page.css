@@ -953,6 +953,13 @@ body:has(.landing-page) .md-sidebar--secondary {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
+/* Light theme border colors for sections */
+[data-md-color-scheme="default"] .landing-feature-item,
+[data-md-color-scheme="default"] .landing-integration-item,
+[data-md-color-scheme="default"] .landing-community-support-item {
+  border-color: #a2a2a2 !important;
+}
+
 /* Light theme icon background colors */
 [data-md-color-scheme="default"]
   .landing-feature-icon.landing-tutorial-icon--blue {
@@ -1032,10 +1039,10 @@ body:has(.landing-page) .md-sidebar--secondary {
   background-color: rgb(221, 247, 250);
 }
 
-/* Theme-specific icon visibility for Popular Integrations */
+/* Theme-specific icon visibility */
 /* Light theme - show light icons, hide dark icons */
 [data-md-color-scheme="default"] .light-theme-icon {
-  display: block;
+  display: inline-block;
 }
 
 [data-md-color-scheme="default"] .dark-theme-icon {
@@ -1048,5 +1055,5 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 [data-md-color-scheme="slate"] .dark-theme-icon {
-  display: block;
+  display: inline-block;
 }
