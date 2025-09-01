@@ -40,12 +40,32 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
       </label>
 
       <!-- Docs icon + title -->
-      <div class="flex items-center">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          background-color: rgb(245, 243, 255);
+          border-radius: 8px;
+          padding: 3px 8px;
+          margin: 10px 12px 8px 12px;
+          gap: 6px;
+          flex-shrink: 0;
+          min-width: 0;
+        "
+        class="docs-header-container"
+      >
         <a
           href="/docs"
           title="Docs Home"
           class="md-header__button"
-          style="font-weight: bold; font-size: 1rem; padding-left: 0.1rem; display: flex; align-items: center"
+          style="
+            font-weight: bold;
+            font-size: 1rem;
+            padding-left: 0.1rem;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,14 +79,58 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
             />
           </svg>
         </a>
-        <div class="md-header__title" style="margin-left: -0.1rem; display: flex; align-items: center">
-          <div class="md-header__ellipsis" data-md-component="header-title">
-            <div>
-              <span class="md-ellipsis"> Documentation </span>
-            </div>
-          </div>
+        <div style="display: flex; align-items: center; min-width: 0; flex: 1">
+          <span
+            style="
+              font-weight: bold;
+              font-size: 1rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            "
+            class="docs-title-text"
+            >Documentation</span
+          >
         </div>
       </div>
+
+      <!-- Custom CSS for dark theme support -->
+      <style>
+        .docs-header-container {
+          background-color: rgb(245, 243, 255) !important;
+          border: 1px solid #7c3aed !important;
+        }
+
+        .docs-title-text {
+          color: inherit;
+        }
+
+        /* Dark theme styles */
+        [data-md-color-scheme="slate"] .docs-header-container,
+        [data-md-color-scheme="dark"] .docs-header-container {
+          background-color: rgb(23, 20, 29) !important;
+          border: 1px solid #7c3aed !important;
+        }
+
+        [data-md-color-scheme="slate"] .docs-title-text,
+        [data-md-color-scheme="dark"] .docs-title-text {
+          color: white !important;
+        }
+
+        [data-md-color-scheme="slate"] .docs-header-container svg,
+        [data-md-color-scheme="dark"] .docs-header-container svg {
+          fill: white !important;
+        }
+
+        /* Custom theme toggle styles */
+        .custom-theme-toggle {
+          cursor: pointer;
+        }
+
+        .custom-theme-toggle .custom-icon {
+          display: block;
+        }
+      </style>
     </div>
 
     <!-- Center section (Search) -->
@@ -117,12 +181,28 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
         />
         {% if option.toggle %}
         <label
-          class="md-header__button md-icon"
+          class="md-header__button md-icon custom-theme-toggle"
           title="{{ option.toggle.name }}"
           for="__palette_{{ loop.index0 or loop.length }}"
           hidden
         >
-          {% include ".icons/" ~ option.toggle.icon ~ ".svg" %}
+          {% if option.scheme == "slate" or option.scheme == "dark" %}
+          <!-- Sun icon for dark theme toggle -->
+          <img
+            src="/docs/assets/sun.svg"
+            alt="Light mode"
+            class="custom-icon"
+            style="width: 24px; height: 24px"
+          />
+          {% else %}
+          <!-- Moon icon for light theme toggle -->
+          <img
+            src="/docs/assets/moon.svg"
+            alt="Dark mode"
+            class="custom-icon"
+            style="width: 24px; height: 24px"
+          />
+          {% endif %}
         </label>
         {% endif %} {% endfor %}
       </form>
