@@ -192,9 +192,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Hero Section */
 .landing-hero-card {
-  background: rgb(255, 255, 255);
   border: 2px solid transparent;
-  background-image: linear-gradient(#ffffff, #ffffff),
+  background-image: linear-gradient(rgb(247, 247, 247), rgb(247, 247, 247)),
     linear-gradient(
       135deg,
       rgba(99, 102, 241, 0.3) 0%,
@@ -208,6 +207,28 @@ body:has(.landing-page) .md-sidebar--secondary {
   margin-bottom: 12px;
   position: relative;
   overflow: hidden;
+}
+
+/* Dark theme hero card background */
+[data-md-color-scheme="slate"] .landing-hero-card {
+  background-image: linear-gradient(rgb(10, 8, 19), rgb(10, 8, 19)),
+    linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.3) 0%,
+      rgba(139, 92, 246, 0.3) 50%,
+      rgba(6, 182, 212, 0.3) 100%
+    );
+}
+
+/* Light theme hero card background */
+[data-md-color-scheme="default"] .landing-hero-card {
+  background-image: linear-gradient(rgb(247, 247, 247), rgb(247, 247, 247)),
+    linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.3) 0%,
+      rgba(139, 92, 246, 0.3) 50%,
+      rgba(6, 182, 212, 0.3) 100%
+    );
 }
 
 .landing-hero-card::before {
@@ -244,6 +265,16 @@ body:has(.landing-page) .md-sidebar--secondary {
   /* max-width: 580px; */
   line-height: 1.5;
   opacity: 0.95;
+}
+
+/* Dark theme hero description text */
+[data-md-color-scheme="slate"] .landing-hero-description {
+  color: #e5e7eb !important;
+}
+
+/* Light theme hero description text */
+[data-md-color-scheme="default"] .landing-hero-description {
+  color: #333333 !important;
 }
 
 .landing-hero-buttons {
@@ -399,7 +430,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   flex: 1 1 0;
   min-height: 80px;
   box-sizing: border-box;
-  padding: 12px 16px 10px 16px;
+  padding: var(--spacing-md) var(--spacing-lg);
 }
 
 .landing-tutorial-card:hover {
@@ -412,7 +443,6 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-tutorial-title {
   font-size: var(--font-size-md);
   font-weight: 600;
-  margin: 0 0 var(--spacing-xs) 0;
   color: var(--text-primary);
   line-height: 1.3;
 }

@@ -1,7 +1,7 @@
 [data-md-color-scheme="openobserve"] {
   --md-primary-fg-color: #ffffff;
-  --md-primary-fg-color--light: #ECB7B7;
-  --md-primary-fg-color--dark: #90030C;
+  --md-primary-fg-color--light: #ecb7b7;
+  --md-primary-fg-color--dark: #90030c;
 }
 
 @media only screen and (min-width: 76.25em) {
@@ -44,24 +44,27 @@ html {
 @media (min-width: 60em) {
   /* Minimal, non-intrusive adjustments */
   .md-sidebar--primary {
-  position: sticky; /* stay visible */
-  top: 0; /* eliminate excess gap */
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
+    position: sticky; /* stay visible */
+    top: 0; /* eliminate excess gap */
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
   }
 
   /* Add bottom padding to main content so sidebar never gets overlapped by footer */
-  .md-main, .md-content {
+  .md-main,
+  .md-content {
     padding-bottom: 0.5rem;
   }
-  .md-footer { z-index: 0; }
+  .md-footer {
+    z-index: 0;
+  }
   /* Give room so last items can scroll fully into view */
   .md-sidebar--primary .md-sidebar__scrollwrap {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0.25rem 0 2.25rem; /* trim top, moderate bottom */
-  overscroll-behavior: contain;
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.25rem 0 2.25rem; /* trim top, moderate bottom */
+    overscroll-behavior: contain;
   }
   /* Remove bottom fade/overlay that appeared as white block */
   .md-sidebar--primary .md-sidebar__scrollwrap:after {
@@ -71,16 +74,28 @@ html {
   .md-sidebar--primary:before,
   .md-sidebar--primary:after,
   .md-sidebar--primary .md-sidebar__inner:before,
-  .md-sidebar--primary .md-sidebar__inner:after { display: none !important; }
+  .md-sidebar--primary .md-sidebar__inner:after {
+    display: none !important;
+  }
   /* Tighter default nav spacing */
-  .md-sidebar--primary .md-nav { margin-top: 0; }
-  .md-sidebar--primary .md-nav__list { padding-bottom: 0; }
+  .md-sidebar--primary .md-nav {
+    margin-top: 0;
+  }
+  .md-sidebar--primary .md-nav__list {
+    padding-bottom: 0;
+  }
   /* Ensure main/content layers don't cover sidebar */
-  .md-main, .md-main__inner, .md-content, .md-content__inner { position: relative; z-index: 0; }
+  .md-main,
+  .md-main__inner,
+  .md-content,
+  .md-content__inner {
+    position: relative;
+    z-index: 0;
+  }
 }
 [data-md-color-scheme="slate"] .md-search__form {
   background-color: rgba(73, 73, 73, 0.08) !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-radius: 4px !important;
 }
 
@@ -90,7 +105,7 @@ html {
 }
 
 [data-md-color-scheme="slate"] .md-search__input::placeholder {
-  color: rgba(255,255,255,0.5) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
 [data-md-color-scheme="slate"] .md-search__icon {
@@ -101,7 +116,7 @@ html {
 [data-md-color-scheme="slate"] .md-search__suggest {
   background: #222 !important;
   color: #fff !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
 /* Cursor pointer only on search elements */
@@ -111,6 +126,22 @@ html {
   cursor: pointer !important;
 }
 
-.md-header, .md-header__inner, .md-header__title, .md-header__ellipsis {
+.md-header,
+.md-header__inner,
+.md-header__title,
+.md-header__ellipsis {
   cursor: default !important;
+}
+
+/* Theme-specific full screen backgrounds */
+[data-md-color-scheme="default"] body {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+[data-md-color-scheme="slate"] body {
+  background-color: rgb(18, 18, 18) !important;
+}
+
+[data-md-color-scheme="openobserve"] body {
+  background-color: #1a1a2e !important;
 }
