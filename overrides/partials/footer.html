@@ -1,3 +1,4 @@
+<!-- Newsletter Form -->
 <!--
   Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
 
@@ -82,7 +83,7 @@
 
       <!-- Newsletter -->
       <div class="rounded-lg text-center mx-auto">
-        <form id="newsletter-form" @submit.prevent="onSubmit">
+        <form id="newsletter-form" name="newsletter" novalidate>
           <h2 class="text-white font-medium text-lg mb-2 relative inline-block">
             Stay Updated
             <span
@@ -128,7 +129,93 @@
             By subscribing, you agree to receive product related updates.
           </p>
         </form>
+        <div
+          id="newsletter-toast"
+          class="fixed bottom-5 right-2 transform bg-[#7782FF] text-white p-6 rounded-lg shadow-lg z-50 hidden transition-opacity duration-300"
+        ></div>
       </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const form = document.getElementById("newsletter-form");
+          const emailInput = document.getElementById("newsletter-email");
+          const emailError = document.getElementById("newsletter-error");
+          const toast = document.getElementById("newsletter-toast");
+          const subscribeBtn = document.getElementById("newsletter-submit");
+
+          function showToast(message) {
+            toast.textContent = message;
+            toast.classList.remove("hidden");
+            toast.style.opacity = "1";
+            setTimeout(() => {
+              toast.style.opacity = "0";
+              setTimeout(() => toast.classList.add("hidden"), 300);
+            }, 3000);
+          }
+
+          function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          }
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            emailError.classList.add("hidden");
+            subscribeBtn.disabled = true;
+
+            const email = emailInput.value.trim();
+            if (!validateEmail(email)) {
+              emailError.textContent = "Invalid email address";
+              emailError.classList.remove("hidden");
+              subscribeBtn.disabled = false;
+              return;
+            }
+
+            // Send API request to Formspree demo endpoint
+            fetch("https://formspree.io/f/mqkrjvay", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            })
+              .then((response) => {
+                if (response.ok) {
+                  showToast("Subscribed successfully with: " + email);
+                  form.reset();
+                  // Segment tracking
+                  if (window.analytics && typeof window.analytics.track === "function") {
+                    window.analytics.track("O2 Website - Newsletter Signup", {
+                      email: email,
+                      source: "website"
+                    });
+                  }
+                } else {
+                  showToast("Something went wrong, please try again.");
+                }
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  event: "newsletter_form_submit",
+                  form_id: form.id,
+                  form_name: form.name,
+                  form_status: response.ok ? "success" : "error",
+                  page_location: window.location.href,
+                });
+              })
+              .catch(() => {
+                showToast("Something went wrong, please try again.");
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  event: "newsletter_form_submit",
+                  form_id: form.id,
+                  form_name: form.name,
+                  form_status: "error",
+                  page_location: window.location.href,
+                });
+              })
+              .finally(() => {
+                subscribeBtn.disabled = false;
+              });
+          });
+        });
+      </script>
     </div>
 
     <!-- Toast -->
@@ -137,11 +224,11 @@
       class="fixed bottom-5 right-2 transform bg-[#7782FF] text-white p-6 rounded-lg shadow-lg z-50 hidden transition-opacity duration-300"
     ></div>
 
-    <div class="flex justify-center lg:justify-end ">
+    <div class="flex justify-center lg:justify-end">
       <div class="flex items-center gap-4">
         <div class="w-12 h-12 flex-shrink-0 grayscale">
           <img
-            src="assets/soc.webp"
+            src="/docs/assets/soc.webp"
             class="w-full h-full object-contain"
             alt="Official AICPA SOC badge"
             loading="lazy"
@@ -296,7 +383,7 @@
         >
           <a href="https://short.openobserve.ai/community" target="_blank">
             <img
-              src="assets/slack-icon.svg"
+              src="/docs/assets/slack-icon.svg"
               alt="slack"
               class="w-5 h-5"
             />
@@ -307,7 +394,7 @@
         >
           <a href="https://twitter.com/OpenObserve" target="_blank">
             <img
-              src="assets/twitter-icon.svg"
+              src="/docs/assets/twitter-icon.svg"
               alt="twitter"
               class="w-5 h-5"
             />
@@ -321,7 +408,7 @@
             target="_blank"
           >
             <img
-              src="assets/linkdin-icon.svg"
+              src="/docs/assets/linkdin-icon.svg"
               alt="linkedin"
               class="w-5 h-5"
             />
@@ -332,7 +419,7 @@
         >
           <a href="https://github.com/openobserve/openobserve" target="_blank">
             <img
-              src="assets/github-icon.svg"
+              src="/docs/assets/github-icon.svg"
               alt="github"
               class="w-5 h-5"
             />
@@ -343,7 +430,7 @@
         >
           <a href="https://www.youtube.com/@openobserve" target="_blank">
             <img
-              src="assets/youtube-icon.svg"
+              src="/docs/assets/youtube-icon.svg"
               alt="youtube"
               class="w-5 h-5"
             />
@@ -353,7 +440,30 @@
     </div>
   </div>
 
- <script>
+  <script>
+    function loadGitHubButtonScript() {
+      // Remove existing script if present
+      const oldScript = document.getElementById("github-bjs");
+      if (oldScript) oldScript.remove();
+
+      // Add GitHub button script
+      const script = document.createElement("script");
+      script.id = "github-bjs";
+      script.async = true;
+      script.defer = true;
+      script.src = "https://buttons.github.io/buttons.js";
+      document.body.appendChild(script);
+    }
+
+    // Initial load
+    loadGitHubButtonScript();
+
+    // For MkDocs Material instant navigation
+    if (typeof document$ !== "undefined") {
+      document$.subscribe(() => {
+        loadGitHubButtonScript();
+      });
+    }
     function renderFooterColumns() {
       const container = document.getElementById("footer-columns");
       if (!container || container.children.length > 0) return;
@@ -368,7 +478,10 @@
             { text: "Frontend Monitoring", link: "/frontend-monitoring/" },
             { text: "Pipelines", link: "/pipelines/" },
             { text: "Alerts", link: "/alerts/" },
-            { text: "Visualizations & Dashboard", link: "/visualization-and-dashboards/" },
+            {
+              text: "Visualizations & Dashboard",
+              link: "/visualization-and-dashboards/",
+            },
             { text: "Pricing", link: "/pricing/" },
           ],
         },
@@ -386,7 +499,7 @@
         {
           title: "Resources",
           items: [
-            { text: "Documentation", link: "/", target: "_blank" },
+            { text: "Documentation", link: "/docs", target: "_blank" },
             { text: "Blog", link: "/blog/" },
             { text: "FAQs", link: "/faqs/" },
             { text: "Articles", link: "/articles/" },
@@ -411,12 +524,16 @@
       footerData.forEach((section) => {
         const column = document.createElement("div");
         column.innerHTML = `
-          <h2 class="text-white font-medium text-base mb-3">${section.title}</h2>
+          <h2 class="text-white font-medium text-base mb-3">${
+            section.title
+          }</h2>
           <ul class="space-y-2 text-gray-300 text-xs">
             ${section.items
               .map(
                 (item) => `<li class="hover:text-[#7782FF]">
-                  <a href="${item.link}" target="${item.target || ''}">${item.text}</a>
+                  <a href="${item.link}" target="${item.target || ""}">${
+                  item.text
+                }</a>
                 </li>`
               )
               .join("")}
@@ -425,7 +542,8 @@
         container.appendChild(column);
       });
 
-      document.getElementById("current-year").textContent = new Date().getFullYear();
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
     }
 
     if (typeof document$ !== "undefined") {

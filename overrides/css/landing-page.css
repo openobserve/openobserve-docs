@@ -204,8 +204,8 @@ body:has(.landing-page) .md-sidebar--secondary {
   background-origin: border-box;
   background-clip: padding-box, border-box;
   border-radius: var(--radius-xl);
-  padding: 10px 24px;
-  margin-bottom: 15px;
+  padding: 6px 24px;
+  margin-bottom: 12px;
   position: relative;
   overflow: hidden;
 }
@@ -223,7 +223,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-hero-content {
   position: relative;
   z-index: 1;
-  padding: var(--spacing-xs) 0;
+  padding: 2px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -238,7 +238,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 .landing-hero-description {
   font-size: var(--font-size-lg);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   color: #333333 !important;
   font-weight: 400;
   /* max-width: 580px; */
@@ -345,19 +345,49 @@ body:has(.landing-page) .md-sidebar--secondary {
     sans-serif;
   margin: 0 0 8px 0 !important;
   color: var(--text-primary);
+  text-align: center;
 }
 
 /* Tutorial Grid */
-.landing-tutorial-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+
+/* New two-row tutorial card layout */
+.landing-tutorial-rows {
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
-  margin-bottom: 0;
+  align-items: center;
+}
+
+.landing-tutorial-row {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+.landing-tutorial-row .landing-tutorial-card {
+  flex: 1 1 0;
+  min-width: 220px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  background: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .landing-tutorial-row {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .landing-tutorial-card {
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   border: 1px solid var(--border-color);
   transition: var(--transition-base);
   position: relative;
@@ -366,17 +396,21 @@ body:has(.landing-page) .md-sidebar--secondary {
   color: inherit;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1 1 0;
+  min-height: 80px;
+  box-sizing: border-box;
+  padding: 12px 16px 10px 16px;
 }
 
-/* Simple tutorial card styling with light gray background */
+/* Simple tutorial card styling with no background */
+
 .landing-tutorial-card--blue,
 .landing-tutorial-card--red,
 .landing-tutorial-card--purple,
 .landing-tutorial-card--green,
 .landing-tutorial-card--orange {
-  background-color: var(--card-bg);
-  border-color: #444451;
+  background: transparent;
+  border-color: var(--border-color);
 }
 
 .landing-tutorial-card:hover {
@@ -398,7 +432,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-tutorial-title {
   font-size: var(--font-size-md);
   font-weight: 600;
-  margin: 0 0 var(--spacing-sm) 0;
+  margin: 0 0 var(--spacing-xs) 0;
   color: var(--text-primary);
   line-height: 1.3;
 }
@@ -406,7 +440,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-tutorial-description {
   color: var(--text-secondary);
   font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
   line-height: 1.4;
   margin-top: 0;
 }
@@ -453,25 +487,26 @@ body:has(.landing-page) .md-sidebar--secondary {
 /* Features List */
 .landing-features-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-md);
   margin-bottom: 0;
 }
 
 .landing-feature-item {
-  background-color: var(--card-bg);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   border: 1px solid #444451;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  text-align: center;
   transition: var(--transition-base);
   position: relative;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  row-gap: 4px;
+  min-height: 100px;
 }
 
 .landing-feature-item:hover {
@@ -483,33 +518,59 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 .landing-feature-left {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
+  width: 100%;
 }
 
 .landing-feature-icon {
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+}
+
+/* Icon background colors with opacity */
+.landing-feature-icon.landing-tutorial-icon--blue {
+  background-color: rgba(59, 130, 246, 0.15);
+}
+
+.landing-feature-icon.landing-tutorial-icon--red {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+.landing-feature-icon.landing-tutorial-icon--purple {
+  background-color: rgba(139, 92, 246, 0.15);
+}
+
+.landing-feature-icon.landing-tutorial-icon--green {
+  background-color: rgba(16, 185, 129, 0.15);
+}
+
+.landing-feature-icon.landing-tutorial-icon--orange {
+  background-color: rgba(249, 115, 22, 0.15);
 }
 
 .landing-feature-text h3 {
   font-size: var(--font-size-lg) !important;
   font-weight: 600;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin: 0 0 var(--spacing-xs) 0;
+  text-align: center;
 }
 
 .landing-feature-text p {
-  font-size: var(--font-size-base) !important;
+  font-size: var(--font-size-sm) !important;
   font-weight: 400;
-  margin-bottom: 2px;
-  margin-top: 0;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
 }
 
 /* Dark theme feature text colors */
@@ -532,8 +593,15 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 .landing-feature-text p {
   color: var(--text-secondary);
-  font-size: var(--font-size-base);
-  margin-bottom: 2px;
+  font-size: var(--font-size-sm);
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Remove chevron arrow for the new design */
+.landing-chevron-right {
+  display: none;
 }
 
 .landing-chevron-right {
@@ -576,8 +644,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   margin-bottom: 0;
 }
 
-.landing-integration-item {
-  background-color: var(--card-bg);
+.landing-integration-item {  
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
   border: 1px solid #444451;
@@ -695,6 +762,10 @@ body:has(.landing-page) .md-sidebar--secondary {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .landing-features-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .landing-integration-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -710,7 +781,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   }
 
   .landing-features-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .landing-integration-grid,
@@ -720,6 +791,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 
   .landing-hero-card {
     padding: var(--spacing-md) var(--spacing-lg);
+    background: #f7f7f7;
   }
 
   .landing-hero-title {
@@ -755,16 +827,6 @@ body:has(.landing-page) .md-sidebar--secondary {
   color: var(--md-default-fg-color--light);
 }
 
-/* Light theme overrides - use light gray colors for all cards */
-[data-md-color-scheme="default"] .landing-feature-item,
-[data-md-color-scheme="default"] .landing-integration-item,
-[data-md-color-scheme="default"]
-  .landing-community-grid
-  .landing-integration-item {
-  background-color: #f8f9fa !important;
-  border-color: #d1d5db !important;
-}
-
 [data-md-color-scheme="default"] .landing-feature-item:hover,
 [data-md-color-scheme="default"] .landing-integration-item:hover,
 [data-md-color-scheme="default"]
@@ -774,12 +836,50 @@ body:has(.landing-page) .md-sidebar--secondary {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Light theme specific tutorial card styles - simple gray design */
+/* Light theme icon background colors */
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--blue {
+  background-color: rgb(236, 246, 255);
+}
+
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--red {
+  background-color: rgb(255, 246, 233);
+}
+
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--purple {
+  background-color: rgb(239, 235, 255);
+}
+
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--green {
+  background-color: rgb(232, 248, 238);
+}
+
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--orange {
+  background-color: rgb(254, 248, 224);
+}
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--pink {
+  background-color: rgb(253, 242, 248);
+}
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--navy {
+  background-color: rgb(229, 239, 255);
+}
+[data-md-color-scheme="default"]
+  .landing-feature-icon.landing-tutorial-icon--forest {
+  background-color: rgb(239, 250, 254);
+}
+
+/* Light theme specific tutorial card styles - no background */
 [data-md-color-scheme="default"] .landing-tutorial-card--blue,
 [data-md-color-scheme="default"] .landing-tutorial-card--red,
 [data-md-color-scheme="default"] .landing-tutorial-card--purple,
 [data-md-color-scheme="default"] .landing-tutorial-card--green,
 [data-md-color-scheme="default"] .landing-tutorial-card--orange {
-  background-color: #f8f9fa;
+  background-color: transparent;
   border-color: #d1d5db;
 }
