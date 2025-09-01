@@ -192,7 +192,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Hero Section */
 .landing-hero-card {
-  background: #ffffff;
+  background: rgb(255, 255, 255);
   border: 2px solid transparent;
   background-image: linear-gradient(#ffffff, #ffffff),
     linear-gradient(
@@ -402,31 +402,11 @@ body:has(.landing-page) .md-sidebar--secondary {
   padding: 12px 16px 10px 16px;
 }
 
-/* Simple tutorial card styling with no background */
-
-.landing-tutorial-card--blue,
-.landing-tutorial-card--red,
-.landing-tutorial-card--purple,
-.landing-tutorial-card--green,
-.landing-tutorial-card--orange {
-  background: transparent;
-  border-color: var(--border-color);
-}
-
 .landing-tutorial-card:hover {
-  box-shadow: var(--shadow-md);
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Simple hover states for all card types */
-.landing-tutorial-card--blue:hover,
-.landing-tutorial-card--red:hover,
-.landing-tutorial-card--purple:hover,
-.landing-tutorial-card--green:hover,
-.landing-tutorial-card--orange:hover {
   border-color: #6b7280;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  color: inherit;
 }
 
 .landing-tutorial-title {
@@ -495,7 +475,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-feature-item {
   border-radius: var(--radius-lg);
   padding: var(--spacing-md) var(--spacing-lg);
-  border: 1px solid #444451;
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -533,7 +513,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   justify-content: center;
   font-size: 20px;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-xs);
+
   position: relative;
 }
 
@@ -647,7 +627,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-integration-item {
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
-  border: 1px solid #444451;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -761,7 +741,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-community-support-item {
   border-radius: var(--radius-lg);
   padding: var(--spacing-md) var(--spacing-lg);
-  border: 1px solid #444451;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -934,6 +914,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 [data-md-color-scheme="default"] .landing-feature-item:hover,
+[data-md-color-scheme="default"] .landing-tutorial-card:hover,
 [data-md-color-scheme="default"] .landing-integration-item:hover,
 [data-md-color-scheme="default"]
   .landing-community-grid
@@ -978,14 +959,4 @@ body:has(.landing-page) .md-sidebar--secondary {
 [data-md-color-scheme="default"]
   .landing-feature-icon.landing-tutorial-icon--forest {
   background-color: rgb(239, 250, 254);
-}
-
-/* Light theme specific tutorial card styles - no background */
-[data-md-color-scheme="default"] .landing-tutorial-card--blue,
-[data-md-color-scheme="default"] .landing-tutorial-card--red,
-[data-md-color-scheme="default"] .landing-tutorial-card--purple,
-[data-md-color-scheme="default"] .landing-tutorial-card--green,
-[data-md-color-scheme="default"] .landing-tutorial-card--orange {
-  background-color: transparent;
-  border-color: #d1d5db;
 }
