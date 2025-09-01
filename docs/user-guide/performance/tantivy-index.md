@@ -1,6 +1,10 @@
+---
+title: Tantivy Indexing in OpenObserve
+description: Learn how Tantivy indexing works in OpenObserve, including full-text and secondary indexes, query behaviors with AND and OR operators, and how to verify index usage.
+---
 This document explains Tantivy indexing in OpenObserve, the types of indexes it builds, how to use the correct query patterns, and how to verify and configure indexing.
 
-> This is an Enterprise feature.
+> Tantivy indexing is an open-source feature in OpenObserve.
 
 ## What is Tantivy?
 Tantivy is the inverted index library used in OpenObserve to accelerate searches. An inverted index keeps a map of values or tokens and the row IDs of the records that contain them. When a user searches for a value, the query can use this index to go directly to the matching rows instead of scanning every log record.
