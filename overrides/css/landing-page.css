@@ -990,3 +990,63 @@ body:has(.landing-page) .md-sidebar--secondary {
   .landing-feature-icon.landing-tutorial-icon--forest {
   background-color: rgb(239, 250, 254);
 }
+
+/* Dark theme icon background colors */
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--blue {
+  background-color: rgb(213, 235, 253);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--red {
+  background-color: rgb(255, 238, 211);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--purple {
+  background-color: rgb(215, 189, 250);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--green {
+  background-color: rgb(211, 245, 225);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--orange {
+  background-color: rgb(255, 247, 193);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--pink {
+  background-color: rgb(251, 229, 241);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--navy {
+  background-color: rgb(190, 216, 251);
+}
+
+[data-md-color-scheme="slate"]
+  .landing-feature-icon.landing-tutorial-icon--forest {
+  background-color: rgb(221, 247, 250);
+}
+
+/* Theme-specific icon visibility for Popular Integrations */
+/* Light theme - show light icons, hide dark icons */
+[data-md-color-scheme="default"] .light-theme-icon {
+  display: block;
+}
+
+[data-md-color-scheme="default"] .dark-theme-icon {
+  display: none;
+}
+
+/* Dark theme - show dark icons, hide light icons */
+[data-md-color-scheme="slate"] .light-theme-icon {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .dark-theme-icon {
+  display: block;
+}
