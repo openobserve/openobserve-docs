@@ -41,7 +41,7 @@ For `k8s_namespace_name`, the index might look like:
 A query for `k8s_namespace_name = 'ingress-nginx'` retrieves those rows directly, without scanning unrelated records. By keeping these indexes, Tantivy avoids full scans across millions or billions of records. This results in queries that return in milliseconds rather than seconds. 
 
 ## Configure Environment Variable 
-To enable or disable Tantivy indexing, configure the following environment variable: 
+To enable Tantivy indexing, configure the following environment variable: 
 ```
 ZO_ENABLE_INVERTED_INDEX = true
 ```
@@ -49,7 +49,7 @@ ZO_ENABLE_INVERTED_INDEX = true
 ## Query behavior
 Tantivy optimizes queries differently based on whether the field is full-text or secondary. Using the right operator for each field type ensures the query is served from the index instead of scanning logs.
 
-1. Full-text index scenarios
+### Full-text index scenarios
 
 **Correct usage** <br>
 
@@ -70,7 +70,7 @@ WHERE NOT match_all('error');
 WHERE body = 'error';
 ```
 
-2. Secondary index scenarios
+### Secondary index scenarios
 
 **Correct usage**
 
@@ -97,7 +97,7 @@ WHERE k8s_namespace_name NOT IN ('ziox', 'cert-manager');
 WHERE match_all('ingress-nginx');
 ```
 
-3. Mixed scenarios
+### Mixed scenarios
 
 When a query combines full-text and secondary fields, apply the best operator for each part.
 
@@ -119,7 +119,7 @@ WHERE body = 'error'
   AND match_all('ingress-nginx');
 ```
 
-4. AND and OR operator behavior
+### AND and OR operator behavior
 
 **AND behavior** <br>
 
