@@ -7,3 +7,5 @@ nav:
     - Snowflake: snowflake.md
     - Servers: servers
     - DevOps : devops
+    - Linux: linux.md 
+    - Windows: windows.md
