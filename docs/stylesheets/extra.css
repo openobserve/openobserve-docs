@@ -101,12 +101,12 @@ html {
   color: #fff !important;
 }
 
-[data-md-color-scheme="slate"] .md-search__icon {
+[data-md_color_scheme="slate"] .md-search__icon {
   color: #fff !important;
 }
 
 /* Search dropdown styling for dark theme */
-[data-md-color-scheme="slate"] .md-search__suggest {
+[data-md_color_scheme="slate"] .md-search__suggest {
   background: #222 !important;
   color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
@@ -166,7 +166,7 @@ html {
 /* Dark theme overrides */
 
 [data-md-color-scheme="slate"] .md-search__input {
-  background-color: #7c3aed !important;
+  background-color: rgb(29, 22, 40) !important;
   color: #fff !important;
   border-radius: 999px !important;
   box-shadow: none !important;
@@ -175,7 +175,7 @@ html {
   min-width: 16em !important;
 }
 
-[data-md-color-scheme="slate"] .md-search__icon {
+[data-md_color-scheme="slate"] .md-search__icon {
   color: #fff !important; /* white icon for dark theme */
 }
 
@@ -256,4 +256,149 @@ html {
   transform: translateY(-50%) !important;
   font-size: 1.5em !important;
   pointer-events: none;
+}
+
+/* --- FINAL: Sidebar Custom Design --- */
+.md-sidebar--primary {
+  background: #ede9fe !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 2em !important;
+  padding: 1em 0.5em !important;
+  margin-right: 2em !important;
+  box-shadow: none !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+  margin-left: 5px;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary {
+  background: rgb(23, 20, 29) !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 2em !important;
+  padding: 1em 0.5em !important;
+  margin-right: 2em !important;
+  box-shadow: none !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+}
+
+.md-sidebar__title,
+.md-sidebar__title:before,
+.md-sidebar__title:after {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Highlight selected nav item with purple bar on left */
+.md-sidebar--primary .md-nav__item--active > .md-nav__link {
+  position: relative !important;
+  background: transparent !important;
+  border-radius: 5px !important;
+  padding-left: 1em !important;
+}
+.md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 32px;
+  background: #4b237a;
+  border-radius: 0 !important;
+  z-index: 1;
+}
+
+/* Thin sidebar scrollbar thumb, flush with border */
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  scrollbar-width: thin !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 6px !important;
+  background: transparent !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 6px !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+/* --- Sidebar: Add right margin for full rounded border visibility --- */
+.md-sidebar--primary {
+  margin-right: 1em !important;
+}
+[data-md_color-scheme="slate"] .md-sidebar--primary {
+  margin-right: 1em !important;
+}
+
+/* --- Remove white shadow from sidebar title --- */
+.md-sidebar__title {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.md-sidebar__title,
+.md-sidebar__title:before,
+.md-sidebar__title:after {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* --- Ensure sidebar scrollbar thumb is flush with right border --- */
+.md-sidebar--primary {
+  padding-right: 0 !important;
+  border-right: 2px solid #7c3aed !important;
+  box-sizing: border-box !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  border-right: none !important;
+  box-sizing: border-box !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 6px !important;
+  background: transparent !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 6px !important;
+  border-right: none !important;
+  margin-right: 0 !important;
+}
+
+/* --- Final fix: Remove all space between sidebar scrollbar and border --- */
+.md-sidebar--primary {
+  padding-right: 0 !important;
+  border-right: 2px solid #7c3aed !important;
+  box-sizing: border-box !important;
+  border-radius: 2em !important;
+  background-clip: padding-box !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  width: 100% !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  border-right: none !important;
+  box-sizing: border-box !important;
+  overflow-y: scroll !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 6px !important;
+  background: transparent !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 6px !important;
+  border-right: none !important;
+  margin-right: 0 !important;
+}
+
+/* --- Remove background and shadow from sidebar nav title --- */
+.md-sidebar--primary .md-nav__title,
+.md-sidebar--primary .md-nav__title:before,
+.md-sidebar--primary .md-nav__title:after {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
