@@ -254,7 +254,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   transition: all 0.3s ease;
   background-color: var(--color-primary-purple);
   border: 1px solid transparent;
-  padding: 8px 16px !important;
+  padding: 5px 14px !important;
   text-decoration: none;
   font-weight: 500;
   display: inline-flex;
