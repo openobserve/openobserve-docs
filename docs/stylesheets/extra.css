@@ -161,6 +161,7 @@ html {
 .md-search__icon {
   color: #000 !important; /* black icon for light theme */
   transition: color 0.2s;
+  margin-left: 341px !important;
 }
 
 /* Dark theme overrides */
