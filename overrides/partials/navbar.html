@@ -44,9 +44,10 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
         style="
           display: flex;
           align-items: center;
+          justify-content: space-between;
           background-color: rgb(245, 243, 255);
           border-radius: 8px;
-          padding: 1px 8px;
+          padding: 5px 16px;
           margin: 10px 12px 5px 12px;
           gap: 6px;
           flex-shrink: 0;
@@ -56,28 +57,27 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
       >
         <a
           href="/docs"
-          title="Docs Home"
-          class="md-header__button"
+          title="Docs Home"          
           style="
             font-weight: bold;
             font-size: 1rem;
-            padding-left: 0.1rem;
             display: flex;
             align-items: center;
             flex-shrink: 0;
           "
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="currentColor"
-          >
-            <path
-              d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"
-            />
-          </svg>
+          <img
+            src="/docs/assets/docs-dark.svg"
+            alt="Docs Icon Light"
+            class="docs-icon-light"
+            style="height: 24px; width: 24px"
+          />
+          <img
+            src="/docs/assets/docs-light.svg"
+            alt="Docs Icon Dark"
+            class="docs-icon-dark"
+            style="height: 24px; width: 24px; display: none"
+          />
         </a>
         <div style="display: flex; align-items: center; min-width: 0; flex: 1">
           <span
@@ -96,6 +96,21 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
 
       <!-- Custom CSS for dark theme support -->
       <style>
+        /* Show/hide docs icon based on theme */
+        .docs-icon-light {
+          display: inline-block;
+        }
+        .docs-icon-dark {
+          display: none;
+        }
+        [data-md-color-scheme="slate"] .docs-icon-light,
+        [data-md-color-scheme="dark"] .docs-icon-light {
+          display: none !important;
+        }
+        [data-md-color-scheme="slate"] .docs-icon-dark,
+        [data-md-color-scheme="dark"] .docs-icon-dark {
+          display: inline-block !important;
+        }
         .docs-header-container {
           background-color: rgb(245, 243, 255) !important;
           border: 1px solid #7c3aed !important;
