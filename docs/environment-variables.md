@@ -104,7 +104,8 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_QUERY_THREAD_NUM                  | -                          | No           | number of threads for searching in data files.  |
 | ZO_QUERY_TIMEOUT                     | 600                        | No           | Default timeout of query, unit: seconds         |
 | ZO_QUERY_ON_STREAM_SELECTION         |                            | No           |  |
-| ZO_ENABLE_INVERTED_INDEX             | false                      | No           |  |
+| ZO_ENABLE_INVERTED_INDEX             | true                       | No           | Enable inverted index creation as default |
+| ZO_INVERTED_INDEX_CAMEL_CASE_TOKENIZER_DISABLED | false           | No           | Enable CamelCase tokenizer as default, if you want to disable it then you can set it to `true` |
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM   |                            | No           |  |
 | ZO_ACTIX_REQ_TIMEOUT                 | 30                         | No           | Sets actix server client timeout in seconds for first request. |
 | ZO_ACTIX_KEEP_ALIVE                  | 30                         | No           | Sets actix server keep-alive preference in seconds.            |

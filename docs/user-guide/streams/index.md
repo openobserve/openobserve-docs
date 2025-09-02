@@ -6,3 +6,4 @@ Learn more:
 - [Stream Details](stream-details.md)
 - [Schema Settings](schema-settings.md)
 - [Extended Retention](extended-retention.md)
+- [Summary Streams](summary-streams.md)

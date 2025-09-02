@@ -19,6 +19,7 @@ extra_javascript:
   - js/ms-clarity.js
   - js/zinc.js
   - js/vector_co.js
+  - js/reo.js
 extra:
   social:
     - icon: fontawesome/brands/linkedin 
