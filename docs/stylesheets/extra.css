@@ -412,6 +412,25 @@ html {
   border: none !important;
 }
 
+.md-nav__title {
+  font-weight: 700 !important;
+  /* Ensure the nav title is not sticky — override any theme "sticky" rules */
+  position: static !important;
+  top: auto !important;
+  z-index: auto !important;
+}
+
+/* Default (light) theme: make nav title dark for contrast */
+.md-nav__title {
+  color: #111111 !important;
+}
+
+/* Dark theme overrides: ensure title stays readable on dark backgrounds */
+[data-md-color-scheme="slate"] .md-nav__title,
+[data-md-color-scheme="openobserve"] .md-nav__title {
+  color: #ffffff !important;
+}
+
 /* Hide md-search__options element */
 .md-search__options {
   display: none !important;
