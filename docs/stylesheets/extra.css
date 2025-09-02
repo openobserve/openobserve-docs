@@ -161,7 +161,6 @@ html {
 .md-search__icon {
   color: #000 !important; /* black icon for light theme */
   transition: color 0.2s;
-  margin-left: 350px !important;
 }
 
 /* Dark theme overrides */
@@ -196,7 +195,7 @@ html {
   color: #222 !important;
   transition: border-color 0.2s;
   box-shadow: none !important;
-  padding: 0.85em 3.5em 0.85em 1.2em !important;
+  padding: 0.85em 3.5em 0.85em 3.2em !important;
   font-size: 1.15em !important;
   min-width: 20em !important;
   height: 3em !important;
@@ -402,4 +401,9 @@ html {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+/* Hide md-search__options element */
+.md-search__options {
+  display: none !important;
 }
