@@ -17,3 +17,4 @@ You can use the Logs page to:
 Learn more:
 
 - [Logs in OpenObserve](logs.md)
+- [Search Around](search-around.md)

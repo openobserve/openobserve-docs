@@ -1,3 +1,5 @@
 nav:
     - Logs Overview: index.md
     - Logs in OpenObserve: logs.md
+    - Search Around: search-around.md
+    
