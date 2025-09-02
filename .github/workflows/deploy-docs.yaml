@@ -47,7 +47,7 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./site s3://openobserve-staging-website/docs --exclude=".git/*"
+        aws s3 sync ./site s3://openobserve-website-prod/docs --exclude=".git/*"
 
     - name: Invalidate CloudFront cache
       run: |
