@@ -564,7 +564,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-integration-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   margin-bottom: 0;  
 }
 
@@ -635,7 +635,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 /* Community Support Section */
 .landing-community-support-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-md);
   margin-bottom: 0;
 }
