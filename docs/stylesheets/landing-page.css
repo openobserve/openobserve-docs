@@ -1,0 +1,18 @@
+/* OpenObserve Landing Page Custom Styles */
+
+/* Only keep custom colors for icons */
+.landing-tutorial-icon--blue {
+  background-color: #3b82f6;
+}
+.landing-tutorial-icon--red {
+  background-color: #ef4444;
+}
+.landing-tutorial-icon--purple {
+  background-color: #8b5cf6;
+}
+.landing-tutorial-icon--green {
+  background-color: #10b981;
+}
+.landing-tutorial-icon--orange {
+  background-color: #f59e42;
+}
