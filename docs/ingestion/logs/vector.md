@@ -1,3 +1,8 @@
+---
+description: >-
+  Ingest logs into OpenObserve using Vector via HTTP or Elasticsearch sinks.
+  Supports basic auth, gzip, and health checks for reliable log delivery.
+---
 # Vector
 
 ( .toml format)

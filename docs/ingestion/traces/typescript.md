@@ -1,3 +1,8 @@
+---
+description: >-
+  Set up OpenTelemetry tracing for your Node.js TypeScript app and export traces
+  to OpenObserve using the provided sample configuration.
+---
 # Typescript
 
 You can setup tracing for your Node.js Typescript application. Check sample configuration on how to setup traces.
@@ -59,7 +64,7 @@ Refresh page couple of times to get more traces exported.
 </br>
 </br>
 
-Traces are captured, you can check these captured traces here [https://cloud.openobserve.ai/traces](https://cloud.openobserve.ai/traces)
+Traces are captured, you can check them in the Traces UI
 </br>
 
 ![Traces Page](./images/traces.png)

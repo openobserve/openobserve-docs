@@ -1,3 +1,8 @@
+---
+description: >-
+  Create custom charts in OpenObserve using SQL and JavaScript for full control
+  over advanced visualizations tailored to your data structure.
+---
 Custom charts in OpenObserve let you create visualizations by using SQL to query the data and JavaScript to define how the chart appears. 
 Custom charts are ideal when you need advanced visualizations or more flexibility than built-in chart types provide.
 

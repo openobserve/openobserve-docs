@@ -1,3 +1,8 @@
+---
+description: >-
+  Ensure your S3 config is valid in OpenObserve to prevent silent
+  failures—startup halts on misconfig to protect data integrity.
+---
 ## Ensure the S3 Configuration is Correct
 To avoid silent failures during data ingestion and storage, OpenObserve validates your S3 configuration before starting. 
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Downsampling in OpenObserve summarizes historical metrics data to reduce
+  storage and improve performance. Configure rules by stream, function, and time
+  block.
+---
 This guide provides an overview of downsampling, including its configuration, rule format, and an example.
 
 > **Downsampling is an enterprise feature in OpenObserve. It applies only to metrics data.**

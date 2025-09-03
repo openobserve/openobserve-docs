@@ -1,7 +1,9 @@
 ---
 title: Etcd Maintenance
 weight: 4450
-description: Periodic etcd cluster maintenance guide
+description: >-
+  Learn how to maintain your etcd cluster with compaction, defragmentation, and
+  space quotas to prevent data loss and ensure reliable performance.
 ---
 
 # Etcd Maintenance

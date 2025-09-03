@@ -1,3 +1,8 @@
+---
+description: >-
+  Manage and customize OpenObserve Dashboards—add panels, adjust time ranges,
+  auto-refresh, export, share, and edit settings for better data visibility.
+---
 This guide explains how to manage Dashboards and use the Dashboard toolbar. 
 
 ## Manage Dashboards

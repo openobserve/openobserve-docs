@@ -1,3 +1,8 @@
+---
+description: >-
+  Monitor file download queues and disk cache hits in OpenObserve to evaluate
+  query performance, cache efficiency, and system responsiveness.
+---
 # Monitor Download Queue Size and Disk Cache Metrics
 
 This guide helps you monitor internal metrics that measure how efficiently the [**dual queue system in the Download Manager**](download-manager.md) handles file downloads and how often queries are served from disk cache in OpenObserve. 

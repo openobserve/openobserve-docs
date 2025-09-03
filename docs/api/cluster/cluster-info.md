@@ -1,3 +1,8 @@
+---
+description: >-
+  Get OpenObserve cluster info via GET /api/{org}/cluster_info. View pending
+  compaction jobs by region and node in multi-region environments.
+---
 Retrieves operational information about the OpenObserve cluster, currently reporting the number of pending compaction jobs per node. The response is organized by region and node, supporting multi-region environments.
 
 ### Request

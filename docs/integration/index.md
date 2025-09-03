@@ -7,5 +7,7 @@ Each guide corresponds to a data source listed in the **Data Sources** section o
 **Learn more**:
 
 - [Cloudflare](cloudflare.md)
-- [PostgreSQL](postgresql.md)
-- [Snowflake](snowflake.md)
+- [Devops](devops)
+- [Database](database)
+- [AWS](aws)
+- [Servers](servers)

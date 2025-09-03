@@ -1,3 +1,9 @@
+---
+description: >-
+  Enable Elasticsearch query DSL compatibility in OpenObserve using
+  zPlane—supports query translation, aggregations, and API endpoints for
+  enterprise use.
+---
 > `Applicable to enterprise version` 
 
 # Elasticsearch query DSL API compatibility

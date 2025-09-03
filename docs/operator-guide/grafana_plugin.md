@@ -1,7 +1,10 @@
 ---
 title: OpenObserve Grafana Plugin
 weight: 4450
-description: OpenObserve Plugin to be used in Grafana
+description: >-
+  Use the OpenObserve Grafana plugin to visualize logs and metrics if you're
+  already using Grafana. Includes setup steps for Kubernetes and non-K8s
+  installs.
 ---
 # OpenObserve Grafana Plugin
 

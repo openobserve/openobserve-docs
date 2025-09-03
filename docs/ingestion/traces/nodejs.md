@@ -1,3 +1,8 @@
+---
+description: >-
+  Set up trace ingestion in Node.js using OpenTelemetry. Clone sample repo,
+  configure OpenObserve endpoint and auth, then run your app to export traces.
+---
 # Javascript NodeJS
 
 You can setup tracing for your Node.js application. Check sample configuration on how to setup traces.

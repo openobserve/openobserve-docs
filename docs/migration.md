@@ -1,3 +1,8 @@
+---
+description: >-
+  Migrate OpenObserve metadata and file lists using CLI with support for MySQL,
+  PostgreSQL, and multiple backends via migrate-meta and migrate-file-list.
+---
 # Migration
 
 Migration can be done using OpenObserve binary as a CLI.

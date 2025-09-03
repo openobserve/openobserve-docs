@@ -1,3 +1,8 @@
+---
+description: >-
+  Manage, filter, search, edit, pause, or delete real-time and scheduled
+  pipelines in OpenObserve using the intuitive pipeline list and actions panel.
+---
 This page describes the features designed to help you manage your pipelines in OpenObserve.
 
 ![pipeline management](../../images/pipeline12_manage_pipelines.png)

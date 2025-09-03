@@ -1,3 +1,9 @@
+---
+description: >-
+  Streams in OpenObserve define how logs, metrics, and traces are ingested,
+  stored, and queried—essential for data processing, retention, and access
+  control.
+---
 Streams define how observability data is ingested, stored, indexed, and queried in OpenObserve. This guide introduces key concepts related to streams and explains how to create and use them.
 
 ## What Is a Stream

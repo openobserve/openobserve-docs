@@ -1,3 +1,8 @@
+---
+description: >-
+  Instrument your app with OpenTelemetry SDKs in JS, TS, Python, or Go to send
+  traces to OpenObserve. See examples for easy setup and trace export.
+---
 # Opentelemetry
 
 You can find the examples of how to instrument your code to send traces to OpenObserve using opentelemetry SDKs below:

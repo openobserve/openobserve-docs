@@ -1,3 +1,8 @@
+---
+description: >-
+  Set up tracing in your Python app with OpenTelemetry to send spans to
+  OpenObserve. Follow the sample config and start exporting traces in minutes.
+---
 # Python
 
 You can setup tracing for your Python application. Check sample configuration on how to setup traces.

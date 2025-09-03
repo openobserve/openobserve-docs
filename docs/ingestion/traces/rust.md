@@ -1,3 +1,8 @@
+---
+description: >-
+  Send traces from Rust to OpenObserve using OpenTelemetry and the
+  tracing_opentelemetry crate. Follow the sample config to get started quickly.
+---
 # Rust
 
 The OpenTelemetry Rust project has several [examples](https://github.com/open-telemetry/opentelemetry-rust/tree/main/examples) for tracing.

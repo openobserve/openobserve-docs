@@ -23,6 +23,7 @@ extra_javascript:
   - js/vector_co.js
   - js/search-close-minimal.js
   - https://buttons.github.io/buttons.js
+  - js/reo.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin
@@ -112,3 +113,4 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.details
+  - meta

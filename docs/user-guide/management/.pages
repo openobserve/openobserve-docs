@@ -1,10 +1,12 @@
 nav:
     - Management Overview: index.md
     - Streaming Search: streaming-search.md
+    - Aggregation Cache: aggregation-cache.md
     - Query Management: query-management.md
     - Alert Destinations: alert-destinations.md
     - Templates: templates.md
     - Audit trail: audit-trail.md
     - Cipher Keys: cipher-keys.md
     - Nodes in OpenObserve: nodes.md
-    - SSO Domain Restrictions: sso-domain-restrictions.md
+    - SSO Domain Restrictions: sso-domain-restrictions.md 
+    - Regex Patterns: regex-patterns.md

@@ -1,3 +1,8 @@
+---
+description: >-
+  Visualize and monitor data in OpenObserve Dashboards with interactive panels,
+  real-time insights, and flexible organization using folders and tabs.
+---
 This guide introduces you to the **Dashboards** in OpenObserve, including what they are, how to access them, and how to create a new dashboard.
 
 ## Introduction to Dashboards

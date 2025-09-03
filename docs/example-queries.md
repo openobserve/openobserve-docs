@@ -1,3 +1,8 @@
+---
+description: >-
+  Explore sample queries for OpenObserve logs, including full-text search,
+  filtering by code, SQL examples, and charting with P95/P99 percentiles.
+---
 # OpenObserve Query Examples
 
 We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip) to demonstrate the sample queries that you can use.

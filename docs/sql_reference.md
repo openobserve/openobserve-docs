@@ -1,3 +1,8 @@
+---
+description: >-
+  Explore OpenObserve's full-text, array, and aggregate functions for advanced
+  querying, filtering, and analysis using SQL and DataFusion support.
+---
 This guide describes the custom SQL functions supported in OpenObserve for querying and processing logs and time series data. These functions extend the capabilities of standard SQL by enabling full-text search, array processing, and time-based aggregations.
 
 ## Full-text Search Functions

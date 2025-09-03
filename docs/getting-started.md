@@ -1,3 +1,8 @@
+---
+description: >-
+  Get started with OpenObserve quickly—follow the quickstart guide or watch the
+  intro video to explore its powerful observability features in action.
+---
 # OpenObserve Quickstart Guide
 
 This guide will help you get started with OpenObserve. You can choose between [OpenObserve Cloud](https://cloud.openobserve.ai) (recommended) or a self-hosted installation.
@@ -51,7 +56,7 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 
     **Download and Install**
     
-    1. Download the Windows binary from our [releases page](https://github.com/openobserve/openobserve/releases)
+    1. Download Binaries from [downloads page](https://openobserve.ai/downloads)
     2. Open Command Prompt or PowerShell as Administrator
     3. Run the following commands:
 
@@ -75,18 +80,8 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 
 === "MacOS/Linux Binaries"
 
-    **Option A: Quick Install Script**
-    ```bash
-    # Download and install latest version automatically
-    curl -L https://raw.githubusercontent.com/openobserve/openobserve/main/download.sh | sh
 
-    # Run OpenObserve
-    ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
-    ```
-
-    **Option B: Manual Download**
-
-    1. Download the appropriate binary from our [releases page](https://github.com/openobserve/openobserve/releases)
+    1. Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads)
     2. Make it executable: `chmod +x openobserve`
     3. Run with environment variables as shown:
     ```bash
@@ -112,15 +107,13 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 
     **Linux/macOS:**
     ```bash
-    docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 \
-    -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
-    public.ecr.aws/zinclabs/openobserve:latest
+    docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" o2cr.ai/openobserve/openobserve-enterprise:latest
     ```
 
     **Windows:**
     ```cmd
     # Windows Command Prompt
-    docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 public.ecr.aws/zinclabs/openobserve:latest
+    docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 o2cr.ai/openobserve/openobserve-enterprise:latest
     ```
 
     **Docker Image Options:**

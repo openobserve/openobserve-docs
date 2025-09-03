@@ -1,3 +1,8 @@
+---
+description: >-
+  Move or export multiple dashboards in bulk in OpenObserve to organize them
+  efficiently or back them up using the dashboard list view.
+---
 OpenObserve allows you to move or export multiple dashboards at once using the dashboard list view. This helps you organize your dashboards efficiently or back them up when needed.  
 
 ![Move dashboards in bulk](../../images/dashboard-bulk-move.png)

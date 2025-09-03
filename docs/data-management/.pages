@@ -1,5 +1,0 @@
-nav:
-
-    - Data Management Overview: index.md
-    - Storage Configuration: storage.md
-    - Configure Multiple Object Storage Accounts: configure-multiple-storage-accounts.md

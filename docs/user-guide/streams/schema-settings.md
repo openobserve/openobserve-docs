@@ -1,3 +1,8 @@
+---
+description: >-
+  Manage stream schemas in OpenObserve to optimize query performance. Define
+  field types, set index types, and enable user-defined schemas for efficiency.
+---
 The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to inspect and manage the schema used to store and query ingested data. A schema defines the structure of log data in a stream, including:
 
 - The fields present in the logs  

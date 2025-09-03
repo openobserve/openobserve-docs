@@ -9,11 +9,10 @@ nav:
 - Example Queries: example-queries.md
 - HA Deployment: ha_deployment.md
 - Environment Variables: environment-variables.md
-- Data Management: data-management
+- Storage Management: storage-management
 - User Guide: user-guide
 - Operator Guide: operator-guide
 - Performance Optimization: performance.md
-- How To: howto
 - API Reference: api
 - Ingestion: ingestion
 - Integrations: integration

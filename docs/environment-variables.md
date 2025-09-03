@@ -1,3 +1,8 @@
+---
+description: >-
+  Configure OpenObserve with flexible environment variables for roles, storage,
+  performance, and scaling across open source and enterprise deployments.
+---
 > Applicable to open source & enterprise version
 
 OpenObserve is configured through the use of below environment variables.
@@ -99,7 +104,8 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_QUERY_THREAD_NUM                  | -                          | No           | number of threads for searching in data files.  |
 | ZO_QUERY_TIMEOUT                     | 600                        | No           | Default timeout of query, unit: seconds         |
 | ZO_QUERY_ON_STREAM_SELECTION         |                            | No           |  |
-| ZO_ENABLE_INVERTED_INDEX             | false                      | No           |  |
+| ZO_ENABLE_INVERTED_INDEX             | true                       | No           | Enable inverted index creation as default |
+| ZO_INVERTED_INDEX_CAMEL_CASE_TOKENIZER_DISABLED | false           | No           | Enable CamelCase tokenizer as default, if you want to disable it then you can set it to `true` |
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM   |                            | No           |  |
 | ZO_ACTIX_REQ_TIMEOUT                 | 30                         | No           | Sets actix server client timeout in seconds for first request. |
 | ZO_ACTIX_KEEP_ALIVE                  | 30                         | No           | Sets actix server keep-alive preference in seconds.            |
@@ -131,6 +137,10 @@ OpenObserve is configured through the use of below environment variables.
 | ZO_SWAGGER_ENABLED                   | true                       | No           | Generate SWAGGER API documentation by default. (since v0.10.8)  |
 | ZO_INGEST_ALLOWED_UPTO                   | 5                       | No           | Discards events older than the specified number of hours. By default, OpenObserve accepts data only if it is not older than 5 hours from the current ingestion time.|
 | ZO_INGEST_ALLOWED_IN_FUTURE                   | 24                       | No           | Discards events dated beyond the specified number of future hours. By default, OpenObserve accepts data only if it is not timestamped more than 24 hours into the future.|
+| ZO_QUERY_INDEX_THREAD_NUM                   | 0                       | No           | Controls thread count for Tantivy index search. Set to `0` to use default: `CPU cores × 4`. Set a positive integer to override. `0` does not mean unlimited.|
+| ZO_SEARCH_INSPECTOR_ENABLED                   | false                       | No           | Controls search inspector feature for detailed search operation tracing. When enabled, tracks search operations with `trace_id` and generates extensive logs for debugging. |
+| ZO_UTF8_VIEW_ENABLED                   | true                       | No           | When set to `true`, this environment variable activates DataFusion's StringView optimization in OpenObserve, which automatically converts UTF8 string fields to the more efficient UTF8View data type during query processing.  |
+
 
 > For local mode, OpenObserve use sqlite as the metadata store.
 >

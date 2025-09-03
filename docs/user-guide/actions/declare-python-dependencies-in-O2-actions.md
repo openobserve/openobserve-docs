@@ -1,3 +1,8 @@
+---
+description: >-
+  Learn how to declare Python dependencies in OpenObserve Actions using
+  pyproject.toml or a dependencies folder to support external libraries.
+---
 Declaring dependencies is an important aspect when creating your Action script in Python. If your script relies on external libraries, you must specify them using one of the supported methods outlined below:
 
 - `pyproject.toml` File
