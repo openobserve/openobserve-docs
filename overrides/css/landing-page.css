@@ -252,7 +252,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   background-origin: border-box;
   background-clip: padding-box, border-box;
   transition: all 0.3s ease;
-  background-color: var(--color-primary-purple);
+  background-color: rgb(107, 118, 226);
   border: 1px solid transparent;
   padding: 5px 14px !important;
   text-decoration: none;
@@ -436,7 +436,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 .landing-feature-item {
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-xs) var(--spacing-md);
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -565,7 +565,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-sm);
-  margin-bottom: 0;
+  margin-bottom: 0;  
 }
 
 .landing-integration-item {
@@ -629,7 +629,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   font-size: var(--font-size-md) !important;
   font-weight: 600;
   margin: 0;
-  text-align: left;
+  text-align: center;
 }
 
 /* Community Support Section */

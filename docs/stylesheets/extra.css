@@ -149,7 +149,7 @@ html {
   transition: border-color 0.2s;
   box-shadow: none !important;
   padding: 0.75em 2.5em 0.75em 1em !important; /* more height and space for icon */
-  font-size: 1.50em !important;
+  font-size: 1.5em !important;
   min-width: 16em !important;
 }
 
@@ -172,7 +172,7 @@ html {
   border-radius: 8px !important;
   box-shadow: none !important;
   padding: 0.75em 2.5em 0.75em 3.2em !important;
-  font-size: 1.50em !important;
+  font-size: 1.5em !important;
   min-width: 16em !important;
 }
 .md-search__output {
@@ -194,6 +194,7 @@ html {
   padding: 0 !important;
 }
 
+/* Direct approach: Add close button to search input */
 .md-search__input {
   background-color: rgb(245, 243, 254);
   border: 2px solid #7c3aed !important;
@@ -201,11 +202,11 @@ html {
   color: #222 !important;
   transition: border-color 0.2s;
   box-shadow: none !important;
-  padding: 0.20em 3.5em 0.20em 3.2em !important;
-  font-size: 1.50em !important;
+  padding: 0.2em 3.2em 0.2em 3.2em !important; /* Remove extra right padding for desktop */
+  font-size: 1.5em !important;
   min-width: 20em !important;
   height: 3em !important;
-  /* Custom placeholder */
+  /* Remove background image for desktop - will be added for mobile only */
 }
 .md-search__input::placeholder {
   color: #7c3aed !important;
@@ -223,9 +224,10 @@ html {
   top: 50% !important;
   transform: translateY(-50%) !important;
   font-size: 1.25em !important;
-  pointer-events: none;
+  pointer-events: auto;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 [data-md-color-scheme="slate"] .md-search__form {
@@ -241,10 +243,11 @@ html {
   color: #fff !important;
   border-radius: 999px !important;
   box-shadow: none !important;
-  padding: 0.85em 3.5em 0.85em 3.2em !important;
-  font-size: 1.50em !important;
+  padding: 0.85em 3.2em 0.85em 3.2em !important; /* Remove extra right padding for desktop */
+  font-size: 1.5em !important;
   min-width: 20em !important;
   height: 3em !important;
+  /* Remove close button for desktop - will be added for mobile only */
 }
 [data-md-color-scheme="slate"] .md-search__input::placeholder {
   color: #fff !important;
@@ -503,21 +506,88 @@ html {
   display: none !important;
 }
 
+/* Reset any conflicting styles */
+
+/* Reset any conflicting styles */
+
 /* --- Responsive Search Bar Visibility --- */
 @media (max-width: 1440px) {
-  .md-search__input {
+  .md-header .md-search__input {
     min-width: 14em !important;
-    font-size: 1.50em !important;
+    font-size: 1.5em !important;
   }
 }
 
 @media (max-width: 1024px) {
-  .md-search__input {
+  /* Hide search input only in the header navbar, not in search overlay */
+  .md-header .md-search__input {
     display: none !important;
   }
-  .md-search__icon {
+  .md-header .md-search__icon {
     display: inline-flex !important;
     margin-left: 10px;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+  /* Ensure search input is visible and functional in search overlay */
+  .md-search .md-search__input {
+    display: block !important;
+    width: 100% !important;
+    min-width: auto !important;
+    margin: 0 !important;
+    padding: 0.75em 4.5em 0.75em 1em !important; /* Extra right padding for close button on mobile */
+    font-size: 1.2em !important;
+    border-radius: 8px !important;
+    pointer-events: auto !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    /* Add close button background image for mobile only */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%237c3aed' stroke-width='2'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: calc(100% - 1em) center !important;
+    background-size: 1.2em !important;
+  }
+
+  /* Dark theme close button for mobile */
+  [data-md-color-scheme="slate"] .md-search .md-search__input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") !important;
+  }
+
+  /* Ensure search overlay icon doesn't interfere */
+  .md-search .md-search__icon {
+    pointer-events: none !important;
+    display: none !important;
+  }
+
+  /* Mobile search overlay styling */
+  .md-search__output {
+    max-height: 75vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* Ensure search form is properly styled on mobile */
+  .md-search .md-search__form {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Mobile close button positioning */
+  .md-search .md-search__close {
+    display: flex !important;
+    right: 1em !important;
+    color: #7c3aed !important;
+  }
+
+  /* Mobile close button hover */
+  .md-search .md-search__close:hover {
+    background-color: rgba(124, 58, 237, 0.1) !important;
+  }
+
+  /* Dark theme mobile close button */
+  [data-md-color-scheme="slate"] .md-search .md-search__close {
+    color: #fff !important;
   }
 }
 
@@ -530,7 +600,7 @@ html {
 @media (min-width: 1441px) {
   .md-search__input {
     min-width: 20em !important;
-    font-size: 1.50em !important;
+    font-size: 1.5em !important;
     display: inline-block !important;
   }
 }
