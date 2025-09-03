@@ -6,4 +6,7 @@ nav:
     - Database: database
     - Servers: servers
     - DevOps : devops
+    - Linux: linux.md 
+    - Windows: windows.md
     - Application Platform: application-platform
+
