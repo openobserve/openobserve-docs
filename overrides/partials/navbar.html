@@ -40,6 +40,21 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
       </label>
 
       <!-- Docs icon + title -->
+      <a
+        href="/docs"
+        title="Docs Home"          
+        style="
+          font-weight: bold;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          gap: 8px;
+          text-decoration: none;
+          color: inherit;
+          cursor: pointer;
+        "
+      >
       <div
         style="
           display: flex;
@@ -52,20 +67,10 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
           gap: 6px;
           flex-shrink: 0;
           min-width: 0;
+          transition: all 0.2s ease;
         "
         class="docs-header-container"
       >
-        <a
-          href="/docs"
-          title="Docs Home"          
-          style="
-            font-weight: bold;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-          "
-        >
           <img
             src="/docs/assets/docs-dark.svg"
             alt="Docs Icon Light"
@@ -78,21 +83,21 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
             class="docs-icon-dark"
             style="height: 24px; width: 24px; display: none"
           />
-        </a>
-        <div style="display: flex; align-items: center; min-width: 0; flex: 1">
-          <span
-            style="
-              font-weight: bold;
-              font-size: 1rem;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            "
-            class="docs-title-text"
-            >Documentation</span
-          >
+          <div style="display: flex; align-items: center; min-width: 0; flex: 1">
+            <span
+              style="
+                font-weight: bold;
+                font-size: 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
+              class="docs-title-text"
+              >Documentation</span
+            >
+          </div>
         </div>
-      </div>
+      </a>
 
       <!-- Custom CSS for dark theme support -->
       <style>
@@ -116,6 +121,12 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
           border: 1px solid #7c3aed !important;
         }
 
+        .docs-header-container:hover {
+          background-color: rgb(237, 233, 254) !important;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(124, 58, 237, 0.1);
+        }
+
         .docs-title-text {
           color: inherit;
         }
@@ -125,6 +136,13 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
         [data-md-color-scheme="dark"] .docs-header-container {
           background-color: rgb(23, 20, 29) !important;
           border: 1px solid #7c3aed !important;
+        }
+
+        [data-md-color-scheme="slate"] .docs-header-container:hover,
+        [data-md-color-scheme="dark"] .docs-header-container:hover {
+          background-color: rgb(30, 27, 38) !important;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
         }
 
         [data-md-color-scheme="slate"] .docs-title-text,

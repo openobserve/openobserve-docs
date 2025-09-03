@@ -21,20 +21,21 @@ extra_javascript:
   - js/ms-clarity.js
   - js/zinc.js
   - js/vector_co.js
+  - js/search-close-minimal.js
   - https://buttons.github.io/buttons.js
 extra:
   # social:
-  #   - icon: fontawesome/brands/linkedin 
+  #   - icon: fontawesome/brands/linkedin
   #     link: https://www.linkedin.com/company/zinclabsinc
-  #   - icon: fontawesome/brands/github 
+  #   - icon: fontawesome/brands/github
   #     link: https://github.com/openobserve/openobserve
-  #   - icon: fontawesome/brands/docker 
+  #   - icon: fontawesome/brands/docker
   #     link: https://gallery.ecr.aws/zinclabs/openobserve
-  #   - icon: fontawesome/brands/slack 
+  #   - icon: fontawesome/brands/slack
   #     link: https://short.openobserve.ai/community
   alternate:
     # - name: English
-    #   link: /en/ 
+    #   link: /en/
     #   lang: en
     # - name: Chinese
     #   link: /cn/
@@ -86,16 +87,16 @@ theme:
     - content.code.copy
     - content.code.select
   palette:
-  - scheme: default
-    primary: white
-    toggle:
-      icon: material/weather-sunny
-      name: Switch to dark mode
-  - scheme: slate
-    primary: black
-    toggle:
-      icon: material/weather-night
-      name: Switch to light mode
+    - scheme: default
+      primary: white
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
 # repo_url: https://github.com/openobserve/openobserve
 # repo_name: openobserve/openobserve
 # edit_uri: https://github.com/openobserve/openobserve-docs/edit/main/docs/
@@ -104,14 +105,10 @@ markdown_extensions:
   - tables
   - attr_list
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.details
-
-
-
-  
