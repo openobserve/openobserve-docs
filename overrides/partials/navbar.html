@@ -1,0 +1,272 @@
+<!--
+  Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine base classes -->
+{% set class = "md-header" %} {% if "navigation.tabs.sticky" in features %} {%
+set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
+"navigation.tabs" not in features %} {% set class = class ~ " md-header--shadow"
+%} {% endif %}
+
+<!-- Header -->
+<header class="{{ class }}" data-md-component="header">
+  <nav
+    class="md-header__inner items-center lg:justify-between"
+    aria-label="{{ lang.t('header') }}"
+  >
+    <!-- Left section (Logo + Docs Title) -->
+    <div class="flex items-center flex-shrink-0 flex-1 w-full">
+      <!-- Drawer button -->
+      <label class="md-header__button md-icon" for="__drawer">
+        {% include ".icons/material/menu.svg" %}
+      </label>
+
+      <!-- Docs icon + title -->
+      <a
+        href="/docs"
+        title="Docs Home"          
+        style="
+          font-weight: bold;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          gap: 8px;
+          text-decoration: none;
+          color: inherit;
+          cursor: pointer;
+        "
+      >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background-color: rgb(245, 243, 255);
+          border-radius: 8px;
+          padding: 5px 30px;
+          margin: 10px 12px 5px 12px;
+          gap: 6px;
+          flex-shrink: 0;
+          min-width: 0;
+          transition: all 0.2s ease;
+        "
+        class="docs-header-container"
+      >
+          <img
+            src="/docs/assets/docs-dark.svg"
+            alt="Docs Icon Light"
+            class="docs-icon-light"
+            style="height: 24px; width: 24px"
+          />
+          <img
+            src="/docs/assets/docs-light.svg"
+            alt="Docs Icon Dark"
+            class="docs-icon-dark"
+            style="height: 24px; width: 24px; display: none"
+          />
+          <div style="display: flex; align-items: center; min-width: 0; flex: 1">
+            <span
+              style="
+                font-weight: bold;
+                font-size: 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
+              class="docs-title-text"
+              >Documentation</span
+            >
+          </div>
+        </div>
+      </a>
+
+      <!-- Custom CSS for dark theme support -->
+      <style>
+        /* Show/hide docs icon based on theme */
+        .docs-icon-light {
+          display: inline-block;
+        }
+        .docs-icon-dark {
+          display: none;
+        }
+        [data-md-color-scheme="slate"] .docs-icon-light,
+        [data-md-color-scheme="dark"] .docs-icon-light {
+          display: none !important;
+        }
+        [data-md-color-scheme="slate"] .docs-icon-dark,
+        [data-md-color-scheme="dark"] .docs-icon-dark {
+          display: inline-block !important;
+        }
+        .docs-header-container {
+          background-color: rgb(245, 243, 255) !important;
+          border: 1px solid #7c3aed !important;
+        }
+
+        .docs-header-container:hover {
+          background-color: rgb(237, 233, 254) !important;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(124, 58, 237, 0.1);
+        }
+
+        .docs-title-text {
+          color: inherit;
+        }
+
+        /* Dark theme styles */
+        [data-md-color-scheme="slate"] .docs-header-container,
+        [data-md-color-scheme="dark"] .docs-header-container {
+          background-color: rgb(23, 20, 29) !important;
+          border: 1px solid #7c3aed !important;
+        }
+
+        [data-md-color-scheme="slate"] .docs-header-container:hover,
+        [data-md-color-scheme="dark"] .docs-header-container:hover {
+          background-color: rgb(30, 27, 38) !important;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
+        }
+
+        [data-md-color-scheme="slate"] .docs-title-text,
+        [data-md-color-scheme="dark"] .docs-title-text {
+          color: white !important;
+        }
+
+        [data-md-color-scheme="slate"] .docs-header-container svg,
+        [data-md-color-scheme="dark"] .docs-header-container svg {
+          fill: white !important;
+        }
+
+        /* Custom theme toggle styles */
+        .custom-theme-toggle {
+          cursor: pointer;
+        }
+
+        .custom-theme-toggle .custom-icon {
+          display: block;
+        }
+      </style>
+    </div>
+
+    <!-- Center section (Search) -->
+    <div class="lg:flex lg:flex-grow">
+      {% if "material/search" in config.plugins %}
+      <label class="md-header__button md-icon" for="__search">
+        {% include ".icons/material/magnify.svg" %}
+      </label>
+      {% include "partials/search.html" %} {% endif %}
+    </div>
+
+    <!-- Right section (Color palette, language selector) -->
+    <div class="flex items-center gap-2 flex-shrink-0">
+      {% if config.theme.palette %} {% if not config.theme.palette is mapping %}
+      <form class="md-header__option" data-md-component="palette">
+        {% for option in config.theme.palette %} {% set scheme = option.scheme |
+        d("default", true) %} {% set primary = option.primary | d("indigo",
+        true) %} {% set accent = option.accent | d("indigo", true) %}
+        <input
+          class="md-option"
+          data-md-color-media="{{ option.media }}"
+          data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
+          data-md-color-primary="{{ primary | replace(' ', '-') }}"
+          data-md-color-accent="{{ accent | replace(' ', '-') }}"
+          {%
+          if
+          option.toggle
+          %}
+          aria-label="{{ option.toggle.name }}"
+          {%
+          else
+          %}
+          aria-hidden="true"
+          {%
+          endif
+          %}
+          type="radio"
+          name="__palette"
+          id="__palette_{{ loop.index }}"
+          {%
+          if
+          loop.first
+          %}
+          checked
+          {%
+          endif
+          %}
+        />
+        {% if option.toggle %}
+        <label
+          class="md-header__button md-icon custom-theme-toggle"
+          title="{{ option.toggle.name }}"
+          for="__palette_{{ loop.index0 or loop.length }}"
+          hidden
+        >
+          {% if option.scheme == "slate" or option.scheme == "dark" %}
+          <!-- Sun icon for dark theme toggle -->
+          <img
+            src="/docs/assets/sun.svg"
+            alt="Light mode"
+            class="custom-icon"
+            style="width: 24px; height: 24px"
+          />
+          {% else %}
+          <!-- Moon icon for light theme toggle -->
+          <img
+            src="/docs/assets/moon.svg"
+            alt="Dark mode"
+            class="custom-icon"
+            style="width: 24px; height: 24px"
+          />
+          {% endif %}
+        </label>
+        {% endif %} {% endfor %}
+      </form>
+      {% endif %} {% endif %} {% if config.extra.alternate %}
+      <div class="md-header__option">
+        <div class="md-select">
+          {% set icon = config.theme.icon.alternate or "material/translate" %}
+          <button
+            class="md-header__button md-icon"
+            aria-label="{{ lang.t('select.language') }}"
+          >
+            {% include ".icons/" ~ icon ~ ".svg" %}
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              {% for alt in config.extra.alternate %}
+              <li class="md-select__item">
+                <a
+                  href="{{ alt.link | url }}"
+                  hreflang="{{ alt.lang }}"
+                  class="md-select__link"
+                >
+                  {{ alt.name }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </nav>
+</header>

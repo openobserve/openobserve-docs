@@ -1,7 +1,7 @@
 [data-md-color-scheme="openobserve"] {
   --md-primary-fg-color: #ffffff;
-  --md-primary-fg-color--light: #ECB7B7;
-  --md-primary-fg-color--dark: #90030C;
+  --md-primary-fg-color--light: #ecb7b7;
+  --md-primary-fg-color--dark: #90030c;
 }
 
 @media only screen and (min-width: 76.25em) {
@@ -27,4 +27,580 @@
 
 html {
   font-size: 125%;
+}
+/* --- Sidebar overlap fix --------------------------------------------------
+   Issue: Bottom of left navigation sidebar links were being hidden by a white
+   overlay/section when scrolling the page body. In Material for MkDocs this
+   is commonly caused by the main content (or footer) layering above the
+   sidebar, or by the sidebar losing its own scroll context causing the fade
+   pseudo-element to cover final items.
+
+   Fix:
+   1. Reassert a dedicated scroll container + full height for primary sidebar.
+   2. Remove bottom/top gradient (pseudo elements) that can mask final items.
+   3. Raise z-index so main content/footer can't visually overlap it.
+   4. Provide stable scrollbar to avoid layout shift.
+*/
+@media (min-width: 60em) {
+  /* Minimal, non-intrusive adjustments */
+  .md-sidebar--primary {
+    position: sticky; /* stay visible */
+    top: 0; /* eliminate excess gap */
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Add bottom padding to main content so sidebar never gets overlapped by footer */
+  .md-main,
+  .md-content {
+    padding-bottom: 0.5rem;
+  }
+  .md-footer {
+    z-index: 0;
+  }
+  /* Give room so last items can scroll fully into view */
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.25rem 0 2.25rem; /* trim top, moderate bottom */
+    overscroll-behavior: contain;
+  }
+  /* Remove bottom fade/overlay that appeared as white block */
+  .md-sidebar--primary .md-sidebar__scrollwrap:after {
+    display: none !important;
+  }
+  /* Also disable any other potential masking pseudo-elements */
+  .md-sidebar--primary:before,
+  .md-sidebar--primary:after,
+  .md-sidebar--primary .md-sidebar__inner:before,
+  .md-sidebar--primary .md-sidebar__inner:after {
+    display: none !important;
+  }
+  /* Tighter default nav spacing */
+  .md-sidebar--primary .md-nav {
+    margin-top: 0;
+  }
+  .md-sidebar--primary .md-nav__list {
+    padding-bottom: 0;
+  }
+  /* Ensure main/content layers don't cover sidebar */
+  .md-main,
+  .md-main__inner,
+  .md-content,
+  .md-content__inner {
+    position: relative;
+    z-index: 0;
+  }
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  background-color: #7c3aed !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+}
+
+[data-md_color_scheme="slate"] .md-search__icon {
+  color: #fff !important;
+}
+
+/* Search dropdown styling for dark theme */
+[data-md_color_scheme="slate"] .md-search__suggest {
+  background: #222 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Cursor pointer only on search elements */
+.md-header__button[for="__search"],
+.md-search__input,
+.md-search__icon {
+  cursor: pointer !important;
+}
+
+.md-header,
+.md-header__inner,
+.md-header__title,
+.md-header__ellipsis {
+  cursor: default !important;
+}
+
+/* Theme-specific full screen backgrounds */
+[data-md-color-scheme="default"] body {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+[data-md-color-scheme="slate"] body {
+  background-color: rgb(18, 18, 18) !important;
+}
+
+[data-md-color-scheme="openobserve"] body {
+  background-color: #1a1a2e !important;
+}
+
+/* Custom search bar styles for MkDocs Material */
+
+.md-search__input {
+  background-color: rgb(245, 243, 254);
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  color: #222 !important;
+  transition: border-color 0.2s;
+  box-shadow: none !important;
+  padding: 0.75em 2.5em 0.75em 1em !important; /* more height and space for icon */
+  font-size: 1.5em !important;
+  min-width: 16em !important;
+}
+
+.md-search__input:focus {
+  border-color: #7c3aed !important;
+  outline: none;
+}
+
+.md-search__icon {
+  color: #000 !important; /* black icon for light theme */
+  /* transition: color 0.2s; */
+  padding-top: 10px;
+}
+
+/* Dark theme overrides */
+
+[data-md-color-scheme="slate"] .md-search__input {
+  background-color: rgb(29, 22, 40) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  padding: 0.75em 2.5em 0.75em 3.2em !important;
+  font-size: 1.5em !important;
+  min-width: 16em !important;
+}
+.md-search__output {
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  margin-top: 1em !important;
+}
+
+[data-md_color-scheme="slate"] .md-search__icon {
+  color: #fff !important; /* white icon for dark theme */
+}
+
+/* --- Improved Search Bar Styles: Always Override --- */
+.md-search__form {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+
+/* Direct approach: Add close button to search input */
+.md-search__input {
+  background-color: rgb(245, 243, 254);
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  color: #222 !important;
+  transition: border-color 0.2s;
+  box-shadow: none !important;
+  padding: 0.2em 3.2em 0.2em 3.2em !important; /* Remove extra right padding for desktop */
+  font-size: 1.5em !important;
+  min-width: 20em !important;
+  height: 3em !important;
+  /* Remove background image for desktop - will be added for mobile only */
+}
+.md-search__input::placeholder {
+  color: #7c3aed !important;
+  opacity: 1 !important;
+  font-size: 1.25em !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+}
+
+.md-search__icon {
+  color: #000 !important;
+  /* transition: color 0.2s; */
+  position: absolute !important;
+  right: 1.5em !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 1.25em !important;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+[data-md-color-scheme="slate"] .md-search__form {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
+  padding: 0 !important;
+}
+
+[data-md_color-scheme="slate"] .md-search__input {
+  background-color: #7c3aed !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  padding: 0.85em 3.2em 0.85em 3.2em !important; /* Remove extra right padding for desktop */
+  font-size: 1.5em !important;
+  min-width: 20em !important;
+  height: 3em !important;
+  /* Remove close button for desktop - will be added for mobile only */
+}
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: #fff !important;
+  opacity: 1 !important;
+  font-size: 1.25em !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+}
+
+[data-md-color-scheme="slate"] .md-search__icon {
+  color: #fff !important;
+  position: absolute !important;
+  right: 1.2em !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 1.5em !important;
+  pointer-events: none;
+}
+
+/* --- FINAL: Sidebar Custom Design --- */
+.md-sidebar--primary {
+  background: rgb(245, 243, 254) !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  padding: 1em 0.5em !important;
+  /* margin-right: 2em !important; */
+  box-shadow: none !important;
+  z-index: 10 !important;
+  /* allow the active indicator to sit inside the rounded border */
+  overflow: visible !important;
+}
+
+@media (min-width: 1024px) {
+  .md-sidebar--primary {
+    margin-left: 12px;
+  }
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary {
+  background: rgb(23, 20, 29) !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  padding: 1em 0.5em !important;
+  margin-right: 2em !important;
+  box-shadow: none !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+}
+
+.md-sidebar__title,
+.md-sidebar__title:before,
+.md-sidebar__title:after {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Highlight selected nav item with purple bar on left */
+.md-sidebar--primary .md-nav__item--active > .md-nav__link {
+  position: relative !important;
+  background: transparent !important;
+  border-radius: 5px !important;
+  /* make the active link text bold (applies to the text, not the empty pseudo-element) */
+  font-weight: 700 !important;
+  /* leave space on the RIGHT for the indicator that sits against the sidebar border */
+  padding-right: 1.6em !important;
+  /* keep a little left padding for text alignment */
+  padding-left: 1.1em !important;
+  overflow: visible !important;
+}
+.md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
+  content: "";
+  position: absolute;
+  /* place the indicator INSIDE the sidebar inner border (right side in this theme)
+     tweak the `right` value if you want it closer/further from the border */
+  right: 8px; /* adjust this number to visually align with your border (2px) */
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 25px;
+  background: #4b237a;
+  /* slightly rounded marker to match sidebar corner curvature */
+  border-radius: 3px !important;
+  z-index: 3 !important;
+  /* font-weight on an empty pseudo-element has no effect; kept empty for visual bar */
+}
+
+/* Thin sidebar scrollbar thumb, flush with border */
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  scrollbar-width: thin !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 6px !important;
+  background: transparent !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 6px !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+/* --- Sidebar: Add right margin for full rounded border visibility --- */
+.md-sidebar--primary {
+  margin-right: 1em !important;
+}
+[data-md_color-scheme="slate"] .md-sidebar--primary {
+  margin-right: 1em !important;
+}
+
+/* --- Remove white shadow from sidebar title --- */
+.md-sidebar__title {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.md-sidebar__title,
+.md-sidebar__title:before,
+.md-sidebar__title:after {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* --- Ensure sidebar scrollbar thumb is flush with right border --- */
+.md-sidebar--primary {
+  padding-right: 0 !important;
+  border-right: 2px solid #7c3aed !important;
+  box-sizing: border-box !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  border-right: none !important;
+  box-sizing: border-box !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 6px !important;
+  background: transparent !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 6px !important;
+  border-right: none !important;
+  margin-right: 0 !important;
+}
+
+/* --- Final fix: Remove all space between sidebar scrollbar and border --- */
+.md-sidebar--primary {
+  padding-right: 0 !important;
+  border-right: 2px solid #7c3aed !important;
+  box-sizing: border-box !important;
+  border-radius: 8px !important;
+  background-clip: padding-box !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  width: 100% !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  border-right: none !important;
+  box-sizing: border-box !important;
+  overflow-y: scroll !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 6px !important;
+  background: transparent !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 6px !important;
+  border-right: none !important;
+  margin-right: 0 !important;
+}
+
+/* Outer-sidebar active indicator: render a single highlight bar inside the
+   sidebar scroll container so the marker visually sits against the sidebar
+   inner border (outer div). */
+.md-sidebar--primary > .o-active-indicator {
+  /* indicator rendered as a direct child of the outer sidebar so it can
+     visually sit flush against the sidebar inner border */
+  position: absolute;
+  right: 2px; /* aligns with the 2px sidebar inner border; tweak if needed */
+  width: 6px;
+  background: #4b237a;
+  border-radius: 3px;
+  z-index: 220; /* above sidebar content but below header overlays */
+  transition: top 180ms ease, height 180ms ease, opacity 160ms ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hide native scrollbar inside the sidebar scrollwrap and provide a custom
+   visual track + thumb that we control via JS so the active marker can be
+   aligned exactly with the visible thumb. */
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  scrollbar-width: none !important; /* Firefox */
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  display: none !important; /* Chrome/Safari */
+}
+
+/* custom track & thumb appended as children of the outer sidebar */
+.md-sidebar--primary > .o-scroll-track {
+  position: absolute;
+  right: 2px;
+  width: 12px; /* includes some padding so thumb doesn't touch the border */
+  top: 0;
+  height: 100%;
+  pointer-events: none; /* visual only */
+}
+.md-sidebar--primary > .o-scroll-track .o-scroll-thumb {
+  position: absolute;
+  right: 3px; /* place thumb inside track, a few px from border */
+  width: 6px;
+  background: #4b237a; /* purple thumb */
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px rgba(75, 35, 122, 0.06) inset;
+  transition: top 120ms linear, height 120ms linear;
+  pointer-events: auto;
+}
+
+/* Keep the active indicator visually matching the custom thumb (same color)
+   but slightly narrower so it reads as an indicator inside the sidebar. */
+.md-sidebar--primary > .o-active-indicator {
+  right: 8px; /* move it slightly left so it appears inside the content area */
+  width: 4px;
+  background: #4b237a;
+}
+
+/* --- Remove background and shadow from sidebar nav title --- */
+.md-sidebar--primary .md-nav__title,
+.md-sidebar--primary .md-nav__title:before,
+.md-sidebar--primary .md-nav__title:after {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.md-nav__title {
+  font-weight: 700 !important;
+  /* Ensure the nav title is not sticky — override any theme "sticky" rules */
+  position: static !important;
+}
+
+/* Default (light) theme: make nav title dark for contrast */
+.md-nav__title {
+  color: #111111 !important;
+}
+
+/* Dark theme overrides: ensure title stays readable on dark backgrounds */
+[data-md-color-scheme="slate"] .md-nav__title,
+[data-md-color-scheme="openobserve"] .md-nav__title {
+  color: #ffffff !important;
+}
+
+/* Hide md-search__options element */
+.md-search__options {
+  display: none !important;
+}
+
+/* Reset any conflicting styles */
+
+/* Reset any conflicting styles */
+
+/* --- Responsive Search Bar Visibility --- */
+@media (max-width: 1440px) {
+  .md-header .md-search__input {
+    min-width: 14em !important;
+    font-size: 1.5em !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Hide search input only in the header navbar, not in search overlay */
+  .md-header .md-search__input {
+    display: none !important;
+  }
+  .md-header .md-search__icon {
+    display: inline-flex !important;
+    margin-left: 10px;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+  /* Ensure search input is visible and functional in search overlay */
+  .md-search .md-search__input {
+    display: block !important;
+    width: 100% !important;
+    min-width: auto !important;
+    margin: 0 !important;
+    padding: 0.75em 4.5em 0.75em 1em !important; /* Extra right padding for close button on mobile */
+    font-size: 1.2em !important;
+    border-radius: 8px !important;
+    pointer-events: auto !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    /* Add close button background image for mobile only */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%237c3aed' stroke-width='2'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: calc(100% - 1em) center !important;
+    background-size: 1.2em !important;
+  }
+
+  /* Dark theme close button for mobile */
+  [data-md-color-scheme="slate"] .md-search .md-search__input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") !important;
+  }
+
+  /* Ensure search overlay icon doesn't interfere */
+  .md-search .md-search__icon {
+    pointer-events: none !important;
+    display: none !important;
+  }
+
+  /* Mobile search overlay styling */
+  .md-search__output {
+    max-height: 75vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* Ensure search form is properly styled on mobile */
+  .md-search .md-search__form {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Mobile close button positioning */
+  .md-search .md-search__close {
+    display: flex !important;
+    right: 1em !important;
+    color: #7c3aed !important;
+  }
+
+  /* Mobile close button hover */
+  .md-search .md-search__close:hover {
+    background-color: rgba(124, 58, 237, 0.1) !important;
+  }
+
+  /* Dark theme mobile close button */
+  [data-md-color-scheme="slate"] .md-search .md-search__close {
+    color: #fff !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .md-search__input {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 1441px) {
+  .md-search__input {
+    min-width: 20em !important;
+    font-size: 1.5em !important;
+    display: inline-block !important;
+  }
 }

@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+<!-- Hide only the table of contents (right sidebar) for landing page -->
+{% block content_nav %}{% endblock %} {% block content %}
+<div class="landing-page">
+  <div class="landing-container w-full mx-auto">
+    <!-- Main Content -->
+    <main class="landing-main-content">
+      <!-- Hero Card -->
+      <div class="landing-hero-card">
+        <div class="landing-hero-content">
+          <div>
+            <!-- <h1 class="landing-hero-title">OpenObserve Documentation</h1> -->
+            <p class="landing-hero-description">
+              OpenObserve (O2) is a cloud-native observability platform that
+              unifies logs, metrics, and traces into one solution.
+            </p>
+          </div>
+          <div class="landing-hero-buttons">
+            <a href="overview/" class="primary-button">
+              <span class="landing-btn-content">
+                <span class="landing-play-icon">
+                  <img src="/docs/assets/view.svg" alt="" />
+                </span>
+                <span>Overview</span>
+              </span>
+            </a>
+            <a href="getting-started/" class="primary-button">
+              <span class="landing-btn-content">
+                <span class="landing-play-icon">
+                  <img src="/docs/assets/download.svg" alt="" />
+                </span>
+                <span>Download</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tutorial Section -->
+      <section class="landing-section">
+        <h2 class="landing-section-title">Quick Guides</h2>
+        <div class="landing-tutorial-rows">
+          <div class="landing-tutorial-row">
+            <a href="getting-started/" class="landing-tutorial-card">
+              <h3 class="landing-tutorial-title">Getting Started</h3>
+              <p class="landing-tutorial-description">
+                Get OpenObserve running locally in under 2 minutes with Docker
+              </p>
+            </a>
+            <a
+              href="user-guide/dashboards/dashboards-in-openobserve/"
+              class="landing-tutorial-card"
+            >
+              <h3 class="landing-tutorial-title">
+                Create Your First Dashboard
+              </h3>
+              <p class="landing-tutorial-description">
+                Build dashboards and visualizations easily
+              </p>
+            </a>
+          </div>
+          <div class="landing-tutorial-row">
+            <a href="sql-functions/" class="landing-tutorial-card">
+              <h3 class="landing-tutorial-title">Advanced Log Queries</h3>
+              <p class="landing-tutorial-description">
+                Master SQL for powerful log analysis
+              </p>
+            </a>
+            <a href="ha_deployment/" class="landing-tutorial-card">
+              <h3 class="landing-tutorial-title">Production Deployment</h3>
+              <p class="landing-tutorial-description">
+                Deploy OpenObserve with high availability
+              </p>
+            </a>
+            <a href="user-guide/alerts/alerts/" class="landing-tutorial-card">
+              <h3 class="landing-tutorial-title">Set Up Alerts</h3>
+              <p class="landing-tutorial-description">
+                Configure alerts and notifications
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Features Section -->
+      <section class="landing-section">
+        <h2 class="landing-section-title">User Guides</h2>
+        <div class="landing-features-list">
+          <a href="user-guide/logs/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--green">
+                <img src="/docs/assets/user-guides/Log Search.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Log Search</h3>
+                <p>View and filter logs, run SQL queries, transform logs</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/metrics/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--blue">
+                <img src="/docs/assets/user-guides/status-up.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Metrics</h3>
+                <p>Analyze file access times and system performance</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/streams/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--orange">
+                <img src="/docs/assets/user-guides/stream.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Streams</h3>
+                <p>Define how data is ingested, stored, indexed, and queried</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/ingestion/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--purple">
+                <img src="/docs/assets/user-guides/ingestion.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Ingestion</h3>
+                <p>Ingest logs, metrics, and traces from various sources</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/pipelines/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--pink">
+                <img src="/docs/assets/user-guides/pipeline.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Pipelines</h3>
+                <p>Configure data processing workflows during ingestion</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/alerts/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--red">
+                <img src="/docs/assets/user-guides/alerts.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Alerts</h3>
+                <p>Set continuous monitoring to detect critical issues</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/dashboards/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--navy">
+                <img src="/docs/assets/user-guides/dashboard.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Dashboards</h3>
+                <p>Visualize and monitor real-time and historical data</p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/rum/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--forest">
+                <img src="/docs/assets/user-guides/rum.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>RUM</h3>
+                <p>
+                  Set performance monitoring, error tracking, and session replay
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="user-guide/actions/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--orange">
+                <img src="/docs/assets/user-guides/action.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Actions</h3>
+                <p>
+                  Create Python scripts to support custom automation workflows
+                </p>
+              </div>
+            </div>
+          </a>
+          <a
+            href="user-guide/identity-and-access-management/"
+            class="landing-feature-item"
+          >
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--green">
+                <img src="/docs/assets/user-guides/iam.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>IAM</h3>
+                <p>Manage user identities and control access to resource</p>
+              </div>
+            </div>
+          </a>
+          <a href="data-management/storage/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--purple">
+                <img
+                  src="/docs/assets/user-guides/storage-management.svg"
+                  alt=""
+                />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Storage Management</h3>
+                <p>
+                  Configure how ingested stream data and metadata are stored
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="environment-variables/" class="landing-feature-item">
+            <div class="landing-feature-left">
+              <div class="landing-feature-icon landing-tutorial-icon--pink">
+                <img src="/docs/assets/user-guides/env-variable.svg" alt="" />
+              </div>
+              <div class="landing-feature-text">
+                <h3>Environment Variables</h3>
+                <p>Configure threshold or dynamic value variables in Actions</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Popular Integrations Section -->
+      <section class="landing-section">
+        <h2 class="landing-section-title">Popular Integrations</h2>
+        <div class="landing-integration-grid">
+          <a href="docs/integration/aws/" class="landing-integration-item">
+            <div class="landing-integration-icon landing-tutorial-icon--orange">
+              <!-- Light theme AWS icon -->
+              <img
+                src="/docs/assets/popular-integration/aws.svg"
+                alt=""
+                class="light-theme-icon"
+              />
+              <!-- Dark theme AWS icon -->
+              <img
+                src="/docs/assets/popular-integration/aws-dark.svg"
+                alt=""
+                class="dark-theme-icon"
+              />
+            </div>
+            <div class="landing-integration-text">
+              <h3>AWS</h3>
+            </div>
+          </a>
+          <a href="integration/database/" class="landing-integration-item">
+            <div class="landing-integration-icon landing-tutorial-icon--blue">
+              <!-- Light theme DevOps icon -->
+              <img
+                src="/docs/assets/popular-integration/db.svg"
+                alt=""
+                class="light-theme-icon"
+              />
+              <!-- Dark theme DevOps icon -->
+              <img
+                src="/docs/assets/popular-integration/db-dark.svg"
+                alt=""
+                class="dark-theme-icon"
+              />
+            </div>
+            <div class="landing-integration-text">
+              <h3>DATABASES</h3>
+            </div>
+          </a>
+          <a href="/kubernetes-monitoring/" class="landing-integration-item">
+            <div class="landing-integration-icon landing-tutorial-icon--purple">
+              <img
+                src="/docs/assets/popular-integration/kubernets.svg"
+                alt=""
+              />
+            </div>
+            <div class="landing-integration-text">
+              <h3>KUBERNETS</h3>
+            </div>
+          </a>
+          <a href="integration/devops/" class="landing-integration-item">
+            <div class="landing-integration-icon landing-tutorial-icon--green">
+              <img
+                src="/docs/assets/popular-integration/devops-2 1.svg"
+                alt=""
+              />
+            </div>
+            <div class="landing-integration-text">
+              <h3>DEVOPS</h3>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Community Section -->
+      <section class="landing-section">
+        <h2 class="landing-section-title">Community & Support</h2>
+        <div class="landing-community-support-grid">
+          <a
+            href="https://openobserve-community.slack.com/join/shared_invite/zt-349pw0xfa-AAg8m7k_chcsPy3GDYzkjQ#/shared-invite/email"
+            class="landing-community-support-item"
+          >
+            <div
+              class="landing-community-support-icon landing-tutorial-icon--pink"
+            >
+              <img src="/docs/assets/community-support/community.svg" alt="" />
+            </div>
+            <div class="landing-community-support-text">
+              <h3>Community</h3>
+              <p>Join our discussions</p>
+            </div>
+            <div class="landing-community-support-arrow">→</div>
+          </a>
+          <a
+            href="https://github.com/openobserve/openobserve"
+            class="landing-community-support-item"
+          >
+            <div
+              class="landing-community-support-icon landing-tutorial-icon--purple"
+            >
+              <!-- Light theme DevOps icon -->
+              <img
+                src="/docs/assets/github-dark.svg"
+                alt=""
+                class="light-theme-icon"
+              />
+              <!-- Dark theme DevOps icon -->
+              <img
+                src="/docs/assets/github_White.svg"
+                alt=""
+                class="dark-theme-icon"
+              />
+            </div>
+            <div class="landing-community-support-text">
+              <h3>GitHub</h3>
+              <p>Report issues & contribute</p>
+            </div>
+            <div class="landing-community-support-arrow">→</div>
+          </a>
+          <a href="/resources/" class="landing-community-support-item">
+            <div
+              class="landing-community-support-icon landing-tutorial-icon--blue"
+            >
+              <img src="/docs/assets/community-support/resources.svg" alt="" />
+            </div>
+            <div class="landing-community-support-text">
+              <h3>Resources</h3>
+              <p>Resources to learn, grow and master</p>
+            </div>
+            <div class="landing-community-support-arrow">→</div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+{% endblock %}

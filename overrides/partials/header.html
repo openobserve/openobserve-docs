@@ -1,165 +1,545 @@
-<!--
-  Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div
+      class="w-full fixed top-0 z-50 backdrop-blur-md custom-gradient text-black transition-all duration-500"
+    >
+      <!-- Desktop Header -->
+      <div class="lg:block hidden">
+        <header class="sticky top-0 z-50 w-full">
+          <div
+            class="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex justify-between items-center py-2"
+          >
+            <a class="flex items-center h-11 w-40 md:w-52" href="/">
+              <img
+                src="/docs/assets/o2-logo-readme.svg"
+                alt="OpenObserve"
+                class="w-full h-full py-1"
+              />
+            </a>
+            <nav>
+              <ul
+                class="flex items-center space-x-0.5 w-full font-semibold text-[17px]"
+              >
+                <!-- PLATFORM -->
+                <li class="group relative">
+                  <div class="hover:text-[#6b76e3]">
+                    <a
+                      href="/platform/"
+                      class="px-3 py-2 rounded-lg transition-all bg-transparent"
+                      >Platform</a
+                    >
+                  </div>
+                  <div
+                    class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[660px] p-5 bg-white rounded-lg border-2 border-gray-300 shadow-lg hidden group-hover:flex"
+                  >
+                    <ul
+                      class="space-y-2 grid grid-cols-3 text-[14px] text-gray-500 w-full"
+                    >
+                      <li class="hover:text-black">
+                        <a href="/logs/">Logs</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/metrics/">Metrics</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/traces/">Traces</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/frontend-monitoring/">Frontend Monitoring</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/pipelines/">Pipelines</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/alerts/">Alerts</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/visualization-and-dashboards/"
+                          >Visualization & Dashboards</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </li>
 
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to
-  deal in the Software without restriction, including without limitation the
-  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-  sell copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
+                <!-- SOLUTIONS -->
+                <li class="group relative">
+                  <div class="hover:text-[#6b76e3]">
+                    <a
+                      href="/solutions/"
+                      class="px-3 py-2 rounded-lg transition-all bg-transparent"
+                      >Solutions</a
+                    >
+                  </div>
+                  <div
+                    class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[430px] p-5 bg-white rounded-lg border-2 border-gray-300 shadow-lg hidden group-hover:flex group-hover:flex-wrap group-hover:gap-x-8 group-hover:gap-y-4"
+                  >
+                    <ul
+                      class="space-y-2 grid grid-cols-2 text-[14px] text-gray-500 w-full"
+                    >
+                      <li class="hover:text-black">
+                        <a href="/aws-monitoring/">AWS Monitoring</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/azure-monitoring/">Azure Monitoring</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/gcp-monitoring/">GCP Monitoring</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/kubernetes-monitoring/"
+                          >Kubernetes Monitoring</a
+                        >
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/database-monitoring/">Database Monitoring</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/opentelemetry/">OpenTelemetry</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
 
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
+                <!-- RESOURCES -->
+                <li class="group relative">
+                  <div class="hover:text-[#6b76e3]">
+                    <a
+                      href="/resources/"
+                      class="px-3 py-2 rounded-lg transition-all bg-transparent"
+                      >Resources</a
+                    >
+                  </div>
+                  <div
+                    class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[450px] p-5 bg-white rounded-lg border-2 border-gray-300 shadow-lg hidden group-hover:flex group-hover:flex-wrap group-hover:gap-x-8 group-hover:gap-y-4"
+                  >
+                    <ul
+                      class="space-y-2 grid grid-cols-2 text-[14px] text-gray-500 w-full"
+                    >
+                      <li class="hover:text-black">
+                        <a href="/docs" target="_blank">Documentation</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/customer-stories/">Customer Stories</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/blog/">Blog</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/faqs/">Freqently Asked Questions</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/webinars-videos/">Webinar and Videos</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/partners">Partners</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/events/">Events</a>
+                      </li>
+                      <li class="hover:text-black">
+                        <a href="/downloads/">Downloads</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
 
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-  IN THE SOFTWARE.
--->
+                <!-- PRICING -->
+                <li class="relative hover:text-[#6b76e3]">
+                  <a
+                    href="/pricing/"
+                    class="px-3 py-2 rounded-lg transition-all bg-transparent hover:text-primary-purple"
+                    >Pricing</a
+                  >
+                </li>
+              </ul>
+            </nav>
+            <div class="flex items-center space-x-2">
+              <a
+                class="flex capitalize text-nowrap text-center justify-center items-center px-3 md:px-5 py-1.5 text-xs primary-button transition-opacity duration-500 ease-in-out opacity-100 visible pointer-events-auto"
+                href="/demo/"
+                target="_self"
+              >
+                Get Demo
+              </a>
+              <a
+                class="flex capitalize text-nowrap text-center justify-center items-center px-3 md:px-5 py-1.5 text-xs secondary-button border !border-gray-200"
+                href="https://cloud.openobserve.ai"
+                target="_blank"
+              >
+                Log In
+              </a>
+              <a
+                class="github-button"
+                href="https://github.com/openobserve/openobserve"
+                data-color-scheme="light"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star openobserve/openobserve on GitHub"
+              >
+                Star
+              </a>
+            </div>
+          </div>
+        </header>
+      </div>
 
-<!-- Determine base classes -->
-{% set class = "md-header" %}
-{% if "navigation.tabs.sticky" in features %}
-  {% set class = class ~ " md-header--shadow md-header--lifted" %}
-{% elif "navigation.tabs" not in features %}
-  {% set class = class ~ " md-header--shadow" %}
-{% endif %}
+      <!-- Mobile Header -->
+      <div class="lg:hidden block">
+        <header class="flex flex-col z-50 relative">
+          <div class="relative">
+            <!-- Top Navbar -->
+            <div
+              class="flex justify-between items-center p-2 container mx-auto"
+            >
+              <a class="flex items-center h-12 w-40 md:w-52" href="/">
+                <img
+                  src="assets/o2-logo-readme.svg"
+                  alt="OpenObserve"
+                  class="w-full h-full py-1"
+                />
+              </a>
+              <div class="flex items-center justify-center space-x-1">
+                <a
+                  class="flex capitalize text-nowrap text-center justify-center items-center px-1.5 md:px-5 py-1.5 text-xs primary-button transition-opacity duration-500 ease-in-out"
+                  href="/demo/"
+                  target="_self"
+                >
+                  Get Demo
+                </a>
+                <a
+                  class="github-button"
+                  href="https://github.com/openobserve/openobserve"
+                  data-color-scheme="light"
+                  data-size="small"
+                  data-show-count="true"
+                  aria-label="Star openobserve/openobserve on GitHub"
+                  >Star</a
+                >
 
-<!-- Header -->
-<header class="{{ class }}" data-md-component="header">
-  <nav
-    class="md-header__inner md-grid"
-    aria-label="{{ lang.t('header') }}"
-  >
+                <!-- Toggle Icon -->
+                <div
+                  id="mobile-menu-toggle"
+                  class="cursor-pointer h-7 w-7 flex items-center"
+                >
+                  <img
+                    id="menu-icon"
+                    src="assets/navmenu.svg"
+                    alt="Open Menu"
+                    class="block "
+                  />
+                  <img
+                    id="close-icon"
+                    src="assets/close.svg"
+                    alt="Close Menu"
+                    class="hidden"
+                  />
+                </div>
+              </div>
+            </div>
 
-    <!-- Logo linking to main site -->
-<a href="/" title="OpenObserve Homepage" class="md-header__button md-logo" aria-label="OpenObserve Homepage" data-md-component="logo">
-  {% include "partials/logo.html" %}
-</a>
-<svg height="32" viewBox="0 0 32 32" width="32"><path d="M22 5L9 28" stroke="#EAEAEA" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
-<!-- Extra icon or text linking to /docs -->
-<a href="/docs" title="Docs Home" class="md-header__button" style="font-weight: bold; font-size: 1rem; padding-left: 0.5rem;">
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
-</a>
+            <!-- Mobile Fullscreen Menu -->
+            <div
+              id="mobile-menu"
+              class="w-full fixed top-[120px] z-50 h-[calc(100vh-120px)] overflow-y-auto bg-white hidden"
+            >
+              <!-- Menu Items -->
+              <div
+                class="w-full flex flex-col items-center space-y-4 bg-white h-full overflow-y-auto mt-2"
+              >
+                <ul class="w-full flex flex-col space-y-4 p-4">
+                  <!-- PLATFORM -->
+                  <li class="flex flex-col space-y-2">
+                    <div
+                      class="flex items-center justify-between text-gray-500 text-base font-semibold w-full text-left toggle-btn"
+                    >
+                      <h4>Platform</h4>
+                      <img
+                        src="assets/submenu-icon.svg"
+                        alt="Arrow"
+                        class="arrow w-4 h-4 transition-transform"
+                      />
+                    </div>
+                    <div class="submenu hidden space-y-4 mt-2">
+                      <div
+                        class="border rounded-md p-4 text-center flex flex-col space-y-2"
+                      >
+                        <h3 class="font-medium text-xs text-black">
+                          Full Stack Observability Platform
+                        </h3>
+                        <a
+                          href="/platform/"
+                          class="text-xs gradient-hover font-medium underline"
+                          >View Platform</a
+                        >
+                      </div>
+                      <ul
+                        class="text-[15px] text-gray-500 font-semibold space-y-1"
+                      >
+                        <li>
+                          <a href="/logs/" class="block hover:text-black"
+                            >Logs</a
+                          >
+                        </li>
+                        <li>
+                          <a href="/metrics/" class="block hover:text-black"
+                            >Metrics</a
+                          >
+                        </li>
+                        <li>
+                          <a href="/traces/" class="block hover:text-black"
+                            >Traces</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/frontend-monitoring/"
+                            class="block hover:text-black"
+                            >Frontend Monitoring</a
+                          >
+                        </li>
+                        <li>
+                          <a href="/pipelines/" class="block hover:text-black"
+                            >Pipelines</a
+                          >
+                        </li>
+                        <li>
+                          <a href="/alerts/" class="block hover:text-black"
+                            >Alerts</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/visualization-and-dashboards/"
+                            class="block hover:text-black"
+                            >Visualization & Dashboards</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      class="w-full flex justify-center h-0.5 mt-1"
+                      style="
+                        background: linear-gradient(
+                          90deg,
+                          rgba(255, 255, 255, 0) 0%,
+                          #c0c0c0 25.5%,
+                          #c0c0c0 70%,
+                          rgba(255, 255, 255, 0) 100%
+                        );
+                      "
+                    ></div>
+                  </li>
 
-    <!-- Button to open drawer -->
-    <label class="md-header__button md-icon" for="__drawer">
-      {% include ".icons/material/menu" ~ ".svg" %}
-    </label>
+                  <!-- SOLUTIONS -->
+                  <li class="flex flex-col space-y-2">
+                    <div
+                      class="flex items-center justify-between text-gray-500 text-base font-semibold w-full text-left toggle-btn"
+                    >
+                      <h4>Solutions</h4>
+                      <img
+                        src="assets/submenu-icon.svg"
+                        alt="Arrow"
+                        class="arrow w-4 h-4 transition-transform"
+                      />
+                    </div>
+                    <div class="submenu hidden space-y-4 mt-2">
+                      <div
+                        class="border rounded-md p-4 text-center flex flex-col space-y-2"
+                      >
+                        <h3 class="font-medium text-xs text-black">
+                          Full Stack Observability Solutions
+                        </h3>
+                        <a
+                          href="/solutions/"
+                          class="text-xs gradient-hover font-medium underline"
+                          >View Solutions</a
+                        >
+                      </div>
+                      <ul
+                        class="text-[15px] text-gray-500 font-semibold space-y-1"
+                      >
+                        <li>
+                          <a
+                            href="/aws-monitoring/"
+                            class="block hover:text-black"
+                            >AWS Monitoring</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/azure-monitoring/"
+                            class="block hover:text-black"
+                            >Azure Monitoring</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/gcp-monitoring/"
+                            class="block hover:text-black"
+                            >GCP Monitoring</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/kubernetes-monitoring/"
+                            class="block hover:text-black"
+                            >Kubernetes Monitoring</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/database-monitoring/"
+                            class="block hover:text-black"
+                            >Database Monitoring</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="/opentelemetry/"
+                            class="block hover:text-black"
+                            >OpenTelemetry</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      class="w-full flex justify-center h-0.5"
+                      style="
+                        background: linear-gradient(
+                          90deg,
+                          rgba(255, 255, 255, 0) 0%,
+                          #c0c0c0 25.5%,
+                          #c0c0c0 70%,
+                          rgba(255, 255, 255, 0) 100%
+                        );
+                      "
+                    ></div>
+                  </li>
 
-    <!-- Header title -->
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            {{ config.site_name }}
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            {% if page.meta and page.meta.title %}
-              {{ page.meta.title }}
-            {% else %}
-              {{ page.title }}
-            {% endif %}
-          </span>
-        </div>
+                  <!-- RESOURCES -->
+                  <li class="flex flex-col space-y-2">
+                    <div
+                      class="flex items-center justify-between text-gray-500 text-base font-semibold w-full text-left toggle-btn"
+                    >
+                      <h4>Resources</h4>
+                      <img
+                        src="assets/submenu-icon.svg"
+                        alt="Arrow"
+                        class="arrow w-4 h-4 transition-transform"
+                      />
+                    </div>
+                    <div class="submenu hidden space-y-4 mt-2">
+                      <div class="border rounded-md p-4 text-center">
+                        <h3
+                          class="font-medium text-xs text-black flex flex-col space-y-2"
+                        >
+                          Full Stack Observability Resources
+                        </h3>
+                        <a
+                          href="/resources/"
+                          class="text-xs gradient-hover font-medium underline"
+                          >View Resources</a
+                        >
+                      </div>
+                      <ul
+                        class="text-[15px] text-gray-500 font-semibold space-y-1"
+                      >
+                        <li>
+                          <a href="/" target="_blank">Documentation</a>
+                        </li>
+                        <li>
+                          <a href="/customer-stories/">Customer Stories</a>
+                        </li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/faqs/">Freqently Asked Questions</a></li>
+                        <li>
+                          <a href="/webinars-videos/">Webinar and Videos</a>
+                        </li>
+                        <li><a href="/partners">Partners</a></li>
+                        <li><a href="/events/">Events</a></li>
+                        <li><a href="/downloads/">Downloads</a></li>
+                      </ul>
+                    </div>
+                    <div
+                      class="w-full flex justify-center h-0.5 mt-1"
+                      style="
+                        background: linear-gradient(
+                          90deg,
+                          rgba(255, 255, 255, 0) 0%,
+                          #c0c0c0 25.5%,
+                          #c0c0c0 70%,
+                          rgba(255, 255, 255, 0) 100%
+                        );
+                      "
+                    ></div>
+                  </li>
+                </ul>
+
+                <!-- Pricing Button -->
+                <div
+                  class="flex flex-col justify-center w-full items-center space-y-4 pt-4 px-10"
+                >
+                  <a
+                    class="p-3 border border-black rounded-md w-full text-center text-black text-xs hover:bg-gray-100"
+                    href="/pricing/"
+                    >Pricing</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
       </div>
     </div>
+    {% include "partials/navbar.html" %}
 
-    <!-- Color palette -->
-    {% if config.theme.palette %}
-      {% if not config.theme.palette is mapping %}
-        <form class="md-header__option" data-md-component="palette">
-          {% for option in config.theme.palette %}
-            {% set scheme  = option.scheme  | d("default", true) %}
-            {% set primary = option.primary | d("indigo", true) %}
-            {% set accent  = option.accent  | d("indigo", true) %}
-            <input
-              class="md-option"
-              data-md-color-media="{{ option.media }}"
-              data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
-              data-md-color-primary="{{ primary | replace(' ', '-') }}"
-              data-md-color-accent="{{ accent | replace(' ', '-') }}"
-              {% if option.toggle %}
-                aria-label="{{ option.toggle.name }}"
-              {% else  %}
-                aria-hidden="true"
-              {% endif %}
-              type="radio"
-              name="__palette"
-              id="__palette_{{ loop.index }}"
-            />
-            {% if option.toggle %}
-              <label
-                class="md-header__button md-icon"
-                title="{{ option.toggle.name }}"
-                for="__palette_{{ loop.index0 or loop.length }}"
-                hidden
-              >
-                {% include ".icons/" ~ option.toggle.icon ~ ".svg" %}
-              </label>
-            {% endif %}
-          {% endfor %}
-        </form>
-      {% endif %}
-    {% endif %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ✅ Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const menuIcon = document.getElementById("menu-icon");
+        const closeIcon = document.getElementById("close-icon");
 
-    <!-- Site language selector -->
-    {% if config.extra.alternate %}
-      <div class="md-header__option">
-        <div class="md-select">
-          {% set icon = config.theme.icon.alternate or "material/translate" %}
-          <button
-            class="md-header__button md-icon"
-            aria-label="{{ lang.t('select.language') }}"
-          >
-            {% include ".icons/" ~ icon ~ ".svg" %}
-          </button>
-          <div class="md-select__inner">
-            <ul class="md-select__list">
-              {% for alt in config.extra.alternate %}
-                <li class="md-select__item">
-                  <a
-                    href="{{ alt.link | url }}"
-                    hreflang="{{ alt.lang }}"
-                    class="md-select__link"
-                  >
-                    {{ alt.name }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    {% endif %}
+        if (menuIcon && closeIcon && mobileMenu) {
+          menuIcon.addEventListener("click", () => {
+            mobileMenu.classList.remove("hidden");
+            menuIcon.classList.add("hidden");
+            closeIcon.classList.remove("hidden");
+          });
 
-    <!-- Button to open search modal -->
-    {% if "material/search" in config.plugins %}
-      <label class="md-header__button md-icon" for="__search">
-        {% include ".icons/material/magnify.svg" %}
-      </label>
+          closeIcon.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            menuIcon.classList.remove("hidden");
+            closeIcon.classList.add("hidden");
+          });
+        }
 
-      <!-- Search interface -->
-      {% include "partials/search.html" %}
-    {% endif %}
+        // ✅ Mobile Submenu Accordion
+        const toggleButtons = document.querySelectorAll(".toggle-btn");
 
-    <!-- Repository information -->
-    {% if config.repo_url %}
-      <div class="md-header__source">
-        {% include "partials/source.html" %}
-      </div>
-    {% endif %}
-  </nav>
+        toggleButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const isOpen = this.nextElementSibling.classList.contains("hidden");
 
-  <!-- Navigation tabs (sticky) -->
-  {% if "navigation.tabs.sticky" in features %}
-    {% if "navigation.tabs" in features %}
-      {% include "partials/tabs.html" %}
-    {% endif %}
-  {% endif %}
-</header>
+            // Close all submenus
+            document
+              .querySelectorAll(".submenu")
+              .forEach((menu) => menu.classList.add("hidden"));
+            document
+              .querySelectorAll(".arrow")
+              .forEach((icon) => icon.classList.remove("rotate-90"));
+
+            // Open clicked submenu
+            if (isOpen) {
+              this.nextElementSibling.classList.remove("hidden");
+              this.querySelector(".arrow").classList.add("rotate-90");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
