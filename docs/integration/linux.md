@@ -1,6 +1,6 @@
 ---
 title: Linux Monitoring Integration with OpenObserve
-description: Learn how to integrate Linux systems with OpenObserve to collect and analyze system logs and performance metrics using the Collector or OpenTelemetry Collector.
+description: Learn how to integrate Linux systems with OpenObserve to collect and analyze system logs and performance metrics using the OpenObserve Collector or OpenTelemetry Collector.
 ---
 # Integration with Linux
 
@@ -54,7 +54,7 @@ OpenObserve provides two approaches to monitor Linux systems:
    
     **Steps** 
 
-    1. Set Up the Collector
+    1. Set Up the OpenTelemetry Collector
     Check for the latest version of the OpenTelemetry Collector on the official [releases page](https://github.com/open-telemetry/opentelemetry-collector-releases/releases).
     ```bash linenums="1"
     sudo mkdir -p /opt/otel-collector
@@ -62,7 +62,7 @@ OpenObserve provides two approaches to monitor Linux systems:
     curl -L https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.115.0/otelcol-contrib_0.115.0_linux_amd64.tar.gz -o otelcol-contrib.tar.gz
     tar -xzf otelcol-contrib.tar.gz
     ```
-    2. Configure the Collector
+    2. Configure the OpenTelemetry Collector
     Create a file named `config.yaml` in the `/opt/otel-collector` directory with the following content: 
     ```yaml linenums="1"
     receivers:
@@ -187,22 +187,22 @@ Here are some essential configurations to enhance your Linux monitoring:
 
 ## Troubleshooting
 
-??? "Collector Installation Issues"
+??? "OpenObserve Collector Installation Issues"
     - **Permission Denied**: Run the installation command with `sudo`.
     - **Service Not Starting**: Check status with `sudo systemctl status openobserve-agent` and look for error messages.
     - **Network Issues**: Verify connectivity with `curl -v https://your-openobserve-instance.com`.
 
 ??? "Log Collection Issues"
-    - **Missing Logs**: Check file permissions and ensure the Collector has read access to log files.
-    - **Journald Access**: For systemd-based systems, ensure the Collector has proper journal access.
+    - **Missing Logs**: Check file permissions and ensure the OpenObserve Collector has read access to log files.
+    - **Journald Access**: For systemd-based systems, ensure the OpenObserve Collector has proper journal access.
     - **Log Format Problems**: If logs appear malformed, check timezone settings and log formats.
     
 ??? "Metrics Collection Issues"
-    - **Missing Metrics**: Verify the Collector has permissions to access system metrics.
-    - **Performance Impact**: If the Collector uses too many resources, adjust collection intervals.
+    - **Missing Metrics**: Verify the OpenObserve Collector has permissions to access system metrics.
+    - **Performance Impact**: If the OpenObserve Collector uses too many resources, adjust collection intervals.
 
 ??? "OpenTelemetry Collector Issues"
-    - **Configuration Errors**: Validate your config.yaml syntax and check Collector logs.
+    - **Configuration Errors**: Validate your config.yaml syntax and check OpenTelemetry Collector logs.
     - **Export Failures**: Verify your endpoint URL and API key are correct.
-    - **Resource Constraints**: Adjust batch settings if the Collector terminates unexpectedly.
+    - **Resource Constraints**: Adjust batch settings if the OpenTelemetry Collector terminates unexpectedly.
     
