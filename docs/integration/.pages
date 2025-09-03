@@ -1,6 +1,7 @@
 nav:
 
     - Integrations Overview: index.md
+    - Kubernetes: k8s.md
     - AWS: aws
     - Cloudflare: cloudflare.md
     - Database: database
