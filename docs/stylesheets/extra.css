@@ -149,7 +149,7 @@ html {
   transition: border-color 0.2s;
   box-shadow: none !important;
   padding: 0.75em 2.5em 0.75em 1em !important; /* more height and space for icon */
-  font-size: 1.1em !important;
+  font-size: 1.50em !important;
   min-width: 16em !important;
 }
 
@@ -160,7 +160,8 @@ html {
 
 .md-search__icon {
   color: #000 !important; /* black icon for light theme */
-  transition: color 0.2s;
+  /* transition: color 0.2s; */
+  padding-top: 10px;
 }
 
 /* Dark theme overrides */
@@ -171,12 +172,13 @@ html {
   border-radius: 8px !important;
   box-shadow: none !important;
   padding: 0.75em 2.5em 0.75em 3.2em !important;
-  font-size: 1.1em !important;
+  font-size: 1.50em !important;
   min-width: 16em !important;
 }
 .md-search__output {
   border: 2px solid #7c3aed !important;
   border-radius: 8px !important;
+  margin-top: 1em !important;
 }
 
 [data-md_color-scheme="slate"] .md-search__icon {
@@ -199,8 +201,8 @@ html {
   color: #222 !important;
   transition: border-color 0.2s;
   box-shadow: none !important;
-  padding: 0.85em 3.5em 0.85em 3.2em !important;
-  font-size: 1.15em !important;
+  padding: 0.20em 3.5em 0.20em 3.2em !important;
+  font-size: 1.50em !important;
   min-width: 20em !important;
   height: 3em !important;
   /* Custom placeholder */
@@ -208,19 +210,19 @@ html {
 .md-search__input::placeholder {
   color: #7c3aed !important;
   opacity: 1 !important;
-  font-size: 1em !important;
+  font-size: 1.25em !important;
   font-weight: 500 !important;
   letter-spacing: 0.02em;
 }
 
 .md-search__icon {
   color: #000 !important;
-  transition: color 0.2s;
+  /* transition: color 0.2s; */
   position: absolute !important;
   right: 1.5em !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
-  font-size: 1.5em !important;
+  font-size: 1.25em !important;
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -240,14 +242,14 @@ html {
   border-radius: 999px !important;
   box-shadow: none !important;
   padding: 0.85em 3.5em 0.85em 3.2em !important;
-  font-size: 1.15em !important;
+  font-size: 1.50em !important;
   min-width: 20em !important;
   height: 3em !important;
 }
 [data-md-color-scheme="slate"] .md-search__input::placeholder {
   color: #fff !important;
   opacity: 1 !important;
-  font-size: 1em !important;
+  font-size: 1.25em !important;
   font-weight: 500 !important;
   letter-spacing: 0.02em;
 }
@@ -271,7 +273,8 @@ html {
   /* margin-right: 2em !important; */
   box-shadow: none !important;
   z-index: 10 !important;
-  overflow: hidden !important;
+  /* allow the active indicator to sit inside the rounded border */
+  overflow: visible !important;
 }
 
 @media (min-width: 1024px) {
@@ -302,19 +305,30 @@ html {
   position: relative !important;
   background: transparent !important;
   border-radius: 5px !important;
-  padding-left: 1em !important;
+  /* make the active link text bold (applies to the text, not the empty pseudo-element) */
+  font-weight: 700 !important;
+  /* leave space on the RIGHT for the indicator that sits against the sidebar border */
+  padding-right: 1.6em !important;
+  /* keep a little left padding for text alignment */
+  padding-left: 1.1em !important;
+  overflow: visible !important;
 }
 .md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
   content: "";
   position: absolute;
+  /* place the indicator INSIDE the sidebar inner border (right side in this theme)
+     tweak the `right` value if you want it closer/further from the border */
+  right: 8px; /* adjust this number to visually align with your border (2px) */
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 6px;
-  height: 32px;
+  width: 4px;
+  height: 25px;
   background: #4b237a;
-  border-radius: 0 !important;
-  z-index: 1;
+  /* slightly rounded marker to match sidebar corner curvature */
+  border-radius: 3px !important;
+  z-index: 3 !important;
+  /* font-weight on an empty pseudo-element has no effect; kept empty for visual bar */
 }
 
 /* Thin sidebar scrollbar thumb, flush with border */
@@ -403,6 +417,61 @@ html {
   margin-right: 0 !important;
 }
 
+/* Outer-sidebar active indicator: render a single highlight bar inside the
+   sidebar scroll container so the marker visually sits against the sidebar
+   inner border (outer div). */
+.md-sidebar--primary > .o-active-indicator {
+  /* indicator rendered as a direct child of the outer sidebar so it can
+     visually sit flush against the sidebar inner border */
+  position: absolute;
+  right: 2px; /* aligns with the 2px sidebar inner border; tweak if needed */
+  width: 6px;
+  background: #4b237a;
+  border-radius: 3px;
+  z-index: 220; /* above sidebar content but below header overlays */
+  transition: top 180ms ease, height 180ms ease, opacity 160ms ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hide native scrollbar inside the sidebar scrollwrap and provide a custom
+   visual track + thumb that we control via JS so the active marker can be
+   aligned exactly with the visible thumb. */
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  scrollbar-width: none !important; /* Firefox */
+}
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  display: none !important; /* Chrome/Safari */
+}
+
+/* custom track & thumb appended as children of the outer sidebar */
+.md-sidebar--primary > .o-scroll-track {
+  position: absolute;
+  right: 2px;
+  width: 12px; /* includes some padding so thumb doesn't touch the border */
+  top: 0;
+  height: 100%;
+  pointer-events: none; /* visual only */
+}
+.md-sidebar--primary > .o-scroll-track .o-scroll-thumb {
+  position: absolute;
+  right: 3px; /* place thumb inside track, a few px from border */
+  width: 6px;
+  background: #4b237a; /* purple thumb */
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px rgba(75, 35, 122, 0.06) inset;
+  transition: top 120ms linear, height 120ms linear;
+  pointer-events: auto;
+}
+
+/* Keep the active indicator visually matching the custom thumb (same color)
+   but slightly narrower so it reads as an indicator inside the sidebar. */
+.md-sidebar--primary > .o-active-indicator {
+  right: 8px; /* move it slightly left so it appears inside the content area */
+  width: 4px;
+  background: #4b237a;
+}
+
 /* --- Remove background and shadow from sidebar nav title --- */
 .md-sidebar--primary .md-nav__title,
 .md-sidebar--primary .md-nav__title:before,
@@ -416,8 +485,6 @@ html {
   font-weight: 700 !important;
   /* Ensure the nav title is not sticky — override any theme "sticky" rules */
   position: static !important;
-  top: auto !important;
-  z-index: auto !important;
 }
 
 /* Default (light) theme: make nav title dark for contrast */
@@ -440,7 +507,7 @@ html {
 @media (max-width: 1440px) {
   .md-search__input {
     min-width: 14em !important;
-    font-size: 1em !important;
+    font-size: 1.50em !important;
   }
 }
 
@@ -463,7 +530,7 @@ html {
 @media (min-width: 1441px) {
   .md-search__input {
     min-width: 20em !important;
-    font-size: 1.15em !important;
+    font-size: 1.50em !important;
     display: inline-block !important;
   }
 }
