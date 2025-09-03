@@ -1,6 +1,6 @@
 ---
 title: Linux Monitoring Integration with OpenObserve
-description: Learn how to integrate Linux systems with OpenObserve to collect and analyze system logs and performance metrics using the Agent or OpenTelemetry Collector.
+description: Learn how to integrate Linux systems with OpenObserve to collect and analyze system logs and performance metrics using the Collector or OpenTelemetry Collector.
 ---
 # Integration with Linux
 
@@ -10,22 +10,26 @@ This guide explains how to integrate Linux systems with OpenObserve to collect a
 
 Linux systems generate two primary types of monitoring data: system logs and performance metrics. Collecting and analyzing these data is essential for maintaining system health, performance, and security.
 
+---
+
+## Installation Options
+
 OpenObserve provides two approaches to monitor Linux systems:
 
-- **OpenObserve Agent**: A simple, one-command installation recommended for most users.
+- **OpenObserve Collector**: A simple, one-command installation recommended for most users.
 - **OpenTelemetry Collector**: A flexible option for advanced or customized environments.
 
 ---
 
 ## Steps to integrate
 
-=== "Using the OpenObserve Agent (Recommended)"
+=== "Using the OpenObserve Collector (Recommended)"
 
     **Prerequisites**
 
     - A Linux machine such as Ubuntu, Debian, CentOS, or RHEL
     - Root or sudo access to install and configure services
-    - Access to an OpenObserve instance, either cloud or self-hosted
+    - Access to an OpenObserve instance, either [cloud](https://openobserve.ai/docs/getting-started/#option-1-openobserve-cloud-setup) or [self-hosted](https://openobserve.ai/docs/getting-started/#option-2-self-hosted-installation)
 
     **Steps**
 
@@ -39,7 +43,7 @@ OpenObserve provides two approaches to monitor Linux systems:
     ![linux integration](../images/linux-integration.png)
     
 
-    What the Agent Does:
+    What the OpenObserve Collector Does:
 
     - Installs as a systemd service
     - Collects system logs from journald or syslog
@@ -183,22 +187,22 @@ Here are some essential configurations to enhance your Linux monitoring:
 
 ## Troubleshooting
 
-??? "Agent Installation Issues"
+??? "Collector Installation Issues"
     - **Permission Denied**: Run the installation command with `sudo`.
     - **Service Not Starting**: Check status with `sudo systemctl status openobserve-agent` and look for error messages.
     - **Network Issues**: Verify connectivity with `curl -v https://your-openobserve-instance.com`.
 
 ??? "Log Collection Issues"
-    - **Missing Logs**: Check file permissions and ensure the agent has read access to log files.
-    - **Journald Access**: For systemd-based systems, ensure the agent has proper journal access.
+    - **Missing Logs**: Check file permissions and ensure the Collector has read access to log files.
+    - **Journald Access**: For systemd-based systems, ensure the Collector has proper journal access.
     - **Log Format Problems**: If logs appear malformed, check timezone settings and log formats.
     
 ??? "Metrics Collection Issues"
-    - **Missing Metrics**: Verify the agent has permissions to access system metrics.
-    - **Performance Impact**: If the agent uses too many resources, adjust collection intervals.
+    - **Missing Metrics**: Verify the Collector has permissions to access system metrics.
+    - **Performance Impact**: If the Collector uses too many resources, adjust collection intervals.
 
 ??? "OpenTelemetry Collector Issues"
-    - **Configuration Errors**: Validate your config.yaml syntax and check collector logs.
+    - **Configuration Errors**: Validate your config.yaml syntax and check Collector logs.
     - **Export Failures**: Verify your endpoint URL and API key are correct.
-    - **Resource Constraints**: Adjust batch settings if the collector terminates unexpectedly.
+    - **Resource Constraints**: Adjust batch settings if the Collector terminates unexpectedly.
     

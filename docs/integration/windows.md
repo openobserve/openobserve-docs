@@ -1,6 +1,6 @@
 ---
 title: Integration with Windows for OpenObserve Monitoring
-description: Integrate Windows with OpenObserve to collect event logs and performance metrics using Agent or OpenTelemetry.
+description: Integrate Windows with OpenObserve to collect event logs and performance metrics using Collector or OpenTelemetry.
 ---
 # Integration with Windows
 This guide provides instructions to integrate Windows systems with OpenObserve for monitoring logs and metrics.
@@ -13,15 +13,15 @@ Windows systems generate multiple types of monitoring data that are essential fo
 ## Installation Options
 OpenObserve offers two powerful approaches for Windows monitoring:
 
-- **OpenObserve Agent**: A streamlined, all-in-one solution for quick deployment
+- **OpenObserve Collector**: A streamlined, all-in-one solution for quick deployment
 - **OpenTelemetry Collector**: A customizable approach for advanced configurations
 
 --- 
 
 ## Steps to integrate
-=== "Using the OpenObserve Agent (Recommended)"
+=== "Using the OpenObserve Collector (Recommended)"
 
-    The OpenObserve agent provides a simple, one-command installation that automatically collects both Windows Event Logs and Performance Metrics.
+    The OpenObserve Collector provides a simple, one-command installation that automatically collects both Windows Event Logs and Performance Metrics.
 
     **Prerequisites**
 
@@ -29,7 +29,7 @@ OpenObserve offers two powerful approaches for Windows monitoring:
 
     - A Windows machine such as Windows 10/11 or Windows Server
     - Administrator access to install and configure services
-    - Access to an OpenObserve instance, either cloud or self-hosted
+    - Access to an OpenObserve instance, either [cloud](https://openobserve.ai/docs/getting-started/#option-1-openobserve-cloud-setup) or [self-hosted](https://openobserve.ai/docs/getting-started/#option-2-self-hosted-installation)
 
     **Steps**
 
@@ -43,7 +43,7 @@ OpenObserve offers two powerful approaches for Windows monitoring:
     Invoke-WebRequest -Uri https://raw.githubusercontent.com/openobserve/agents/main/windows/install.ps1 -OutFile install.ps1 ; .\install.ps1 -URL https://your-openobserve-instance.com/api/default/ -AUTH_KEY YOUR_API_KEY
     ```
 
-    Upcon successful execution of the above command, the agent will:
+    Upon successful execution of the above command, the Collector will:
 
     - Install as a Windows service that starts automatically.
     - Collect logs from Windows Event Log such as Application, System, Security.
@@ -139,7 +139,7 @@ OpenObserve offers two powerful approaches for Windows monitoring:
     ```
     .\otelcol-contrib.exe --config "C:\otel-collector\config.yaml"
     ```
-    To run the collector as a Windows service, you can use the New-Service PowerShell cmdlet or the SC command-line tool.
+    To run the Collector as a Windows service, you can use the New-Service PowerShell cmdlet or the SC command-line tool.
 
 ---
 
@@ -178,7 +178,7 @@ Here are some practical configurations to enhance your Windows monitoring:
 ## Troubleshooting
 If you encounter issues with your Windows monitoring setup:
 
-- **Verify Agent Installation**: Check if the OpenObserve agent service is running with `Get-Service -Name "OpenObserveAgent"`.
+- **Verify Collector Installation**: Check if the OpenObserve Collector service is running with `Get-Service -Name "OpenObserveAgent"`.
 - **Check Permissions**: The service account must have administrative privileges to access Windows Event Logs and Performance Counters.
 - **Test Connectivity**: Ensure your server can reach your OpenObserve instance with `Test-NetConnection -ComputerName your-openobserve-instance.com -Port 443`.
 - **Review Event Log Access**: For security logs, ensure the service account has the **Manage auditing and security log** right.
