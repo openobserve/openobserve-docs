@@ -35,9 +35,9 @@ This query retrieves logs where any text field contains the keyword `staging`.
 ![queried-results](../../images/queried-results.png)
 7. Locate the **Search Around** option available at the bottom of this screen.
 ![source-details](../../images/source-details.png)
-8. Choose how many records you want to retrieve in total, including the selected record. For example, when you select 10, the result set contains 10 records in total, including the selected record. The split is 5 records before the selected record and 4 records after.
+8. In the **Number of events** selector, choose how many records you want to retrieve in total, including the selected record. For example, when you select 10, the result set contains 10 records in total, including the selected record. The split is 5 records before the selected record and 4 records after.
 9. Click **Search Around**.
 ![search-around-result](../../images/search-around-result.png)
-The search around results are shown without applying the filters from your original query. For example, in the image below, the following log record from the search around result does not contain the keyword staging, even though the original query used `match_all('staging')`. 
+The search around results are shown without applying the filters from your original query. The record highlighted in the following image does not contain the keyword staging, even though the query used `match_all('staging')`. 
 ![search-around-result-no-filter](../../images/search-around-result-no-filter.png)
 
