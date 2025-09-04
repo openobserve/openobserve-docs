@@ -7,7 +7,7 @@ description: Learn how to use Search Around in OpenObserve to view logs before a
 This page explains how to use the Search Around feature for a selected log record.
 
 ## Overview
-The Search Around feature fetches stored log entries that are immediately before and after a selected record. The results are based only on the timestamp of the selected record and do not include any filters from the original search query. This behavior gives you additional context for debugging and troubleshooting. 
+The Search Around feature fetches stored log entries that are immediately before and after a selected record. The results are based only on the order in which records are stored in the storage backend, and they do not include filters from the original search query. This behavior gives you additional context for debugging and troubleshooting. 
 
 !!! note "Who can use it"
     The feature is available to all users with access to the **Logs** page.
