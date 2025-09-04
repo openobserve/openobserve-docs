@@ -8,6 +8,7 @@ nav:
     - AWS Cloudwatch logs: cloudwatch-logs.md
     - AWS Cloudwatch metrics: cloudwatch-metrics.md
     - Amazon Relational Database Service (RDS) : rds.md
+    - Amazon Lambda Function: lambda.md
     - Amazon Elastic Container Service (ECS): ecs.md
     - AWS Route 53 : route-53.md
     - AWS Web Application Firewall (WAF): waf.md

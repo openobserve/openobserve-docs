@@ -9,5 +9,7 @@ nav:
     - DevOps : devops
     - Linux: linux.md 
     - Windows: windows.md
-    - Application Platform: application-platform
+    - Vercel : vercel.md
+    - Heroku: heroku.md
+    - Message Brokers: message-brokers
 
