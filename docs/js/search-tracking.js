@@ -165,6 +165,24 @@
   }
 
   /**
+   * Track page feedback (thumbs up/down) - new functionality
+   */
+  function trackPageFeedback(feedbackValue, pageUrl, pageTitle) {
+    console.log("trackPageFeedback called:", {
+      feedbackValue,
+      pageUrl,
+      pageTitle,
+    });
+
+    // Send feedback event to same analytics endpoint
+    sendAnalyticsEvent("reaction", {
+      feedback_value: feedbackValue === 1 ? "like" : "dislike", // 1 for thumbs up, 0 for thumbs down
+      // feedback_type: "reaction",
+      page_url: pageUrl,      
+    });
+  }
+
+  /**
    * Get result count from search results
    */
   function getSearchResultCount() {
@@ -349,15 +367,64 @@
   }
 
   /**
+   * Initialize feedback tracking - new functionality for page feedback
+   */
+  function initializeFeedbackTracking() {
+    console.log("Initializing MkDocs feedback tracking...");
+
+    // Track feedback button clicks
+    document.addEventListener("click", function (e) {
+      // Check if clicked element is a feedback button
+      const feedbackButton = e.target.closest(".md-feedback__icon");
+
+      if (!feedbackButton) {
+        return;
+      }
+
+      console.log("Feedback button clicked:", feedbackButton);
+
+      // Get feedback value from data-md-value attribute
+      const feedbackValue = feedbackButton.getAttribute("data-md-value");
+
+      if (feedbackValue === null) {
+        console.warn("No feedback value found on button");
+        return;
+      }
+
+      // Get current page information
+      const pageUrl = window.location.href;
+      const pageTitle = document.title || "Unknown Page";
+
+      // Convert feedback value to number
+      const feedbackValueNum = parseInt(feedbackValue, 10);
+
+      console.log("Tracking feedback:", {
+        value: feedbackValueNum,
+        url: pageUrl,
+        title: pageTitle,
+      });
+
+      // Track the feedback
+      trackPageFeedback(feedbackValueNum, pageUrl, pageTitle);
+    });
+
+    console.log("MkDocs feedback tracking initialized");
+  }
+
+  /**
    * Initialize when DOM is ready
    */
   function init() {
     initializeContext();
 
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initializeSearchTracking);
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeSearchTracking();
+        initializeFeedbackTracking();
+      });
     } else {
       initializeSearchTracking();
+      initializeFeedbackTracking();
     }
   }
 
@@ -384,6 +451,7 @@
     sendEvent: sendAnalyticsEvent,
     trackSearch: trackSearchQuery,
     trackClick: trackResultClick,
+    trackFeedback: trackPageFeedback,
     updateContext: function () {
       initializeContext();
     },
@@ -394,6 +462,11 @@
       );
       console.log("Found search results:", searchResults);
       return searchResults;
+    },
+    testFeedbackDetection: function () {
+      const feedbackButtons = document.querySelectorAll(".md-feedback__icon");
+      console.log("Found feedback buttons:", feedbackButtons);
+      return feedbackButtons;
     },
     getCurrentSearchState: function () {
       const searchContainer = document.querySelector(".md-search");
@@ -420,6 +493,15 @@
           console.log("Simulating click on:", link);
           link.click();
         }
+      }
+    },
+    simulateFeedbackClick: function (value = 1) {
+      const feedbackButton = document.querySelector(
+        `.md-feedback__icon[data-md-value="${value}"]`
+      );
+      if (feedbackButton) {
+        console.log("Simulating feedback click:", feedbackButton);
+        feedbackButton.click();
       }
     },
   };
