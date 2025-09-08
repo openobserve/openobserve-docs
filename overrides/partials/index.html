@@ -17,14 +17,18 @@
             </p>
           </div>
           <div class="landing-hero-buttons">
-            <a href="overview/" class="primary-button">
+            <button
+              id="overview-video-btn"
+              class="primary-button"
+              type="button"
+            >
               <span class="landing-btn-content">
                 <span class="landing-play-icon">
                   <img src="/docs/assets/view.svg" alt="" />
                 </span>
                 <span>Overview</span>
               </span>
-            </a>
+            </button>
             <a href="/downloads/" class="primary-button">
               <span class="landing-btn-content">
                 <span class="landing-play-icon">
@@ -405,4 +409,159 @@
     </main>
   </div>
 </div>
+
+<!-- YouTube Video Popup Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const overviewBtn = document.getElementById("overview-video-btn");
+
+    if (overviewBtn) {
+      overviewBtn.addEventListener("click", function () {
+        // Extract video ID from the YouTube URL
+        const videoUrl =
+          "https://www.youtube.com/embed/C0GH5Ox8NnY?si=Xm-tEpbnm-iywGqH";
+        const videoId = extractVideoId(videoUrl);
+
+        if (videoId) {
+          openVideoPopup(videoId);
+        }
+      });
+    }
+
+    function extractVideoId(url) {
+      try {
+        const urlObj = new URL(url);
+        if (urlObj.hostname.includes("youtu.be")) {
+          return urlObj.pathname.slice(1);
+        }
+        if (urlObj.hostname.includes("youtube.com")) {
+          // Handle /embed/ URLs
+          if (urlObj.pathname.includes("/embed/")) {
+            return urlObj.pathname.split("/embed/")[1].split("?")[0];
+          }
+          // Handle regular watch URLs
+          return urlObj.searchParams.get("v");
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    function openVideoPopup(videoId) {
+      // Create popup overlay
+      const popupOverlay = document.createElement("div");
+      popupOverlay.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      background: rgba(0,0,0,0.8) !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 99999 !important;
+      animation: fadeIn 0.3s ease;
+    `;
+
+      const popupContent = document.createElement("div");
+      popupContent.style.cssText = `
+      position: relative;
+      background: #000;
+      border-radius: 10px;
+      max-width: 90%;
+      max-height: 90%;
+      box-shadow: 0 0 20px #000;
+    `;
+
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = `
+      display: block;
+      width: 80vw;
+      height: calc(80vw * 9 / 16);
+      max-width: 1200px;
+      max-height: 675px;
+      border: none;
+      border-radius: 10px;
+    `;
+
+      // Responsive adjustments
+      if (window.innerWidth <= 600) {
+        iframe.style.width = "95vw";
+        iframe.style.height = "calc(95vw * 9 / 16)";
+      } else if (window.innerWidth <= 900) {
+        iframe.style.width = "90vw";
+        iframe.style.height = "calc(90vw * 9 / 16)";
+      }
+
+      const closeBtn = document.createElement("div");
+      closeBtn.textContent = "×";
+      closeBtn.style.cssText = `
+      position: absolute;
+      top: -15px;
+      right: -10px;
+      background: #fff;
+      border-radius: 50%;
+      border: 2px solid #999;
+      width: 40px;
+      height: 40px;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 36px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      color: #333;
+      transition: all 0.2s ease;
+    `;
+
+      // Hover effect for close button
+      closeBtn.addEventListener("mouseenter", function () {
+        this.style.backgroundColor = "#f0f0f0";
+        this.style.transform = "scale(1.1)";
+      });
+
+      closeBtn.addEventListener("mouseleave", function () {
+        this.style.backgroundColor = "#fff";
+        this.style.transform = "scale(1)";
+      });
+
+      // Close popup function
+      function closePopup() {
+        if (popupOverlay && document.body.contains(popupOverlay)) {
+          popupOverlay.remove();
+          document.removeEventListener("keydown", handleEscape);
+          document.body.style.overflow = "";
+        }
+      }
+
+      // Handle ESC key
+      function handleEscape(e) {
+        if (e.key === "Escape") closePopup();
+      }
+
+      // Add event listeners
+      closeBtn.addEventListener("click", closePopup);
+      popupOverlay.addEventListener("click", (e) => {
+        if (e.target === popupOverlay) closePopup();
+      });
+      document.addEventListener("keydown", handleEscape);
+
+      // Prevent body scroll when popup is open
+      document.body.style.overflow = "hidden";
+
+      // Assemble and show popup
+      popupContent.appendChild(closeBtn);
+      popupContent.appendChild(iframe);
+      popupOverlay.appendChild(popupContent);
+      document.body.appendChild(popupOverlay);
+    }
+  });
+</script>
 {% endblock %}
