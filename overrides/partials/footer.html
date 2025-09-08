@@ -21,6 +21,32 @@
   IN THE SOFTWARE.
 -->
 
+<style>
+  .custom-container {
+    max-width: 100%; /* container: full width by default */
+    margin-left: auto; /* mx-auto: horizontal centering */
+    margin-right: auto;
+    padding-left: 1rem; /* px-4: padding left/right 1rem (16px) */
+    padding-right: 1rem;
+    padding-top: 2.5rem; /* py-10: padding top/bottom 2.5rem (40px) */
+    padding-bottom: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    /* lg:px-8: 1024px breakpoint */
+    .custom-container {
+      padding-left: 2rem; /* 2rem = 32px */
+      padding-right: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    /* xl:px-12: 1280px breakpoint */
+    .custom-container {
+      padding-left: 8rem; /* 3rem = 48px */
+      padding-right: 8rem;
+    }
+  }
+</style>
+
 <footer class="relative bg-[#121212] w-full">
   <!-- Background SVG -->
   <svg
@@ -73,16 +99,19 @@
     </defs>
   </svg>
 
-  <div class="relative container mx-auto px-4 py-10 lg:px-8 xl:px-12">
+  <div class="relative custom-container">
     <div class="flex flex-col lg:flex-row gap-6">
       <!-- Footer Grid -->
       <div
         id="footer-columns"
-        class="w-full lg:w-[75%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+        class="w-full lg:w-[75%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap -6"
       ></div>
 
       <!-- Newsletter -->
-      <div class="rounded-lg text-center mx-auto">
+      <div
+        class="rounded-lg text-center mx-auto w-70"
+        style="width: 20rem; max-width: 20rem"
+      >
         <form id="newsletter-form" name="newsletter" novalidate>
           <h2 class="text-white font-medium text-lg mb-2 relative inline-block">
             Stay Updated
@@ -126,7 +155,8 @@
           </div>
 
           <p class="text-xs text-[rgba(255,255,255,0.6)]">
-            By subscribing, you agree to receive product and marketing related updates from OpenObserve.
+            By subscribing, you agree to receive product and marketing related
+            updates from OpenObserve.
           </p>
         </form>
         <div
@@ -181,10 +211,13 @@
                   showToast("Subscribed successfully with: " + email);
                   form.reset();
                   // Segment tracking
-                  if (window.analytics && typeof window.analytics.track === "function") {
+                  if (
+                    window.analytics &&
+                    typeof window.analytics.track === "function"
+                  ) {
                     window.analytics.track("O2 Website - Newsletter Signup", {
                       email: email,
-                      source: "website"
+                      source: "website",
                     });
                   }
                 } else {
@@ -363,11 +396,11 @@
     <div
       class="border-t border-gray-700 mt-10 pt-5 flex flex-col lg:flex-row justify-between items-center text-white gap-4"
     >
-      <div class="text-center text-xs lg:text-left">
+      <div class="text-center lg:text-left" style="font-size: 0.6rem">
         <p class="">OpenObserve Inc. © <span id="current-year"></span></p>
         <p>3000 Sand Hill Rd Building 1, Suite 260, Menlo Park, CA 94025</p>
       </div>
-      <ul class="flex flex-wrap gap-4 text-xs text-gray-300">
+      <ul class="flex flex-wrap gap-4 text-gray-300" style="font-size: 0.8rem">
         <li class="hover:text-[#7782FF]">
           <a href="/policies/terms-of-service/" target="_blank"
             >Terms of Service</a
@@ -375,6 +408,11 @@
         </li>
         <li class="hover:text-[#7782FF]">
           <a href="/policies/privacy-policy/" target="_blank">Privacy Policy</a>
+        </li>
+        <li class="hover:text-[#7782FF]">
+          <a href="/security-compliance/" target="_blank"
+            >Security & Compliance</a
+          >
         </li>
       </ul>
       <ul class="flex gap-2">
@@ -516,6 +554,7 @@
             { text: "Careers", link: "/careers/" },
             { text: "Contact Us", link: "/contact-us/" },
             { text: "Contact Sales", link: "/contact-sales/" },
+            { text: "Partners", link: "/partners/" },
             { text: "Enterprise License", link: "/enterprise-license/" },
           ],
         },
@@ -527,7 +566,7 @@
           <h2 class="text-white font-medium text-base mb-3">${
             section.title
           }</h2>
-          <ul class="space-y-2 text-gray-300 text-xs">
+          <ul class="space-y-2 text-gray-300 text-xs" style="font-size: .80rem;">
             ${section.items
               .map(
                 (item) => `<li class="hover:text-[#7782FF]">
