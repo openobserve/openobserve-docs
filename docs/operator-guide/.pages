@@ -1,4 +1,5 @@
 nav:
+    - Operator Guide Overview: index.md
     - Systemd: systemd.md
     - SIMD: simd.md
     - Mimalloc: mimalloc.md

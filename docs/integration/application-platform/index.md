@@ -1,10 +1,6 @@
-The following user guides provide step-by-step instructions to integrate application platforms and PaaS services with OpenObserve. These integrations allow you to collect logs, metrics, and events directly from your hosting, routing, and developer platforms, enabling unified observability across your applications.
-
-Each guide corresponds to a data source listed in the **Data Sources** section of the OpenObserve user interface.
-
-![Data Sources](../../../docs/images/data-sources.png)
+You can forward application logs from popular platforms to OpenObserve for centralized storage, search, and monitoring. These guides explain how to set up log forwarding and verification.
 
 Learn more:
 
-- [Vercel](vercel.md)
-- [Heroku](heroku.md)
+- [Vercel](../../integration/application-platform/vercel/)
+- [Heroku](../../integration/application-platform/heroku/)
