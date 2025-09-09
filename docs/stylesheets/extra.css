@@ -202,10 +202,10 @@ html {
   color: #222 !important;
   transition: border-color 0.2s;
   box-shadow: none !important;
-  padding: 0.2em 3.2em 0.2em 3.2em !important; /* Remove extra right padding for desktop */
+  padding: 8px 3.2em 8px 3.2em !important; /* Match docs title padding: 5px vertical */
   font-size: 1.5em !important;
   min-width: 20em !important;
-  height: 3em !important;
+  height: auto !important; /* Let height be determined by padding + content */
   /* Remove background image for desktop - will be added for mobile only */
 }
 .md-search__input::placeholder {
@@ -221,7 +221,7 @@ html {
   /* transition: color 0.2s; */
   position: absolute !important;
   right: 1.5em !important;
-  top: 50% !important;
+  top: 46% !important;
   transform: translateY(-50%) !important;
   font-size: 1.25em !important;
   pointer-events: auto;
@@ -243,10 +243,10 @@ html {
   color: #fff !important;
   border-radius: 999px !important;
   box-shadow: none !important;
-  padding: 0.85em 3.2em 0.85em 3.2em !important; /* Remove extra right padding for desktop */
+  padding: 5px 3.2em 5px 3.2em !important; /* Match docs title padding: 5px vertical */
   font-size: 1.5em !important;
   min-width: 20em !important;
-  height: 3em !important;
+  height: auto !important; /* Let height be determined by padding + content */
   /* Remove close button for desktop - will be added for mobile only */
 }
 [data-md-color-scheme="slate"] .md-search__input::placeholder {
@@ -515,6 +515,7 @@ html {
   .md-header .md-search__input {
     min-width: 14em !important;
     font-size: 1.5em !important;
+    height: auto !important; /* Ensure consistent height calculation */
   }
 }
 
@@ -536,7 +537,7 @@ html {
     width: 100% !important;
     min-width: auto !important;
     margin: 0 !important;
-    padding: 0.75em 4.5em 0.75em 1em !important; /* Extra right padding for close button on mobile */
+    padding: 5px 4.5em 5px 1em !important; /* Match docs title padding: 5px vertical, extra right for close button */
     font-size: 1.2em !important;
     border-radius: 8px !important;
     pointer-events: auto !important;
@@ -602,5 +603,6 @@ html {
     min-width: 20em !important;
     font-size: 1.5em !important;
     display: inline-block !important;
+    height: auto !important; /* Ensure consistent height calculation */
   }
 }
