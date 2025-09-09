@@ -924,6 +924,11 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  /* Three column layout for integration grid on tablets and small laptops */
+  .landing-integration-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   /* Two column layout for community support on medium to large tablets */
   .landing-community-support-grid {
     grid-template-columns: repeat(2, 1fr);
