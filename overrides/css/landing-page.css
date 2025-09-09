@@ -243,7 +243,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 /* Primary Button Styles */
-.primary-button {
+.primary-button-hero {
   position: relative;
   border: none;
   color: white !important;
@@ -267,24 +267,24 @@ body:has(.landing-page) .md-sidebar--secondary {
   line-height: 1.2;
 }
 
-.primary-button:hover {
+.primary-button-hero:hover {
   background-color: var(--color-hover-card);
   color: white !important;
   text-decoration: none;
 }
 
-.primary-button:visited,
-.primary-button:focus {
+.primary-button-hero:visited,
+.primary-button-hero:focus {
   color: white !important;
   text-decoration: none;
 }
 
-.primary-button *,
-.primary-button:hover * {
+.primary-button-hero *,
+.primary-button-hero:hover * {
   color: white !important;
 }
 
-.primary-button:disabled {
+.primary-button-hero:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   background-image: linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
@@ -318,7 +318,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 /* Additional button text containment rules */
-.primary-button span {
+.primary-button-hero span {
   display: flex;
   align-items: center;
   height: 100%;
@@ -332,7 +332,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 /* Ensure buttons maintain consistent height */
-.landing-hero-buttons .primary-button {
+.landing-hero-buttons .primary-button-hero {
   min-height: 36px;
   height: auto;
   box-sizing: border-box;
