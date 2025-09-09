@@ -652,7 +652,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 .landing-community-support-item {
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md) calc(var(--spacing-lg) + 30px) var(--spacing-md)
+    var(--spacing-lg);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -664,6 +665,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   text-decoration: none;
   color: inherit;
   min-height: 80px;
+  overflow: hidden;
 }
 
 .landing-community-support-item:hover {
@@ -684,6 +686,13 @@ body:has(.landing-page) .md-sidebar--secondary {
   opacity: 0;
   transition: all 0.2s ease;
   color: var(--text-primary);
+  z-index: 1;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 [data-md-color-scheme="default"] .landing-community-support-arrow {
@@ -914,6 +923,28 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  /* Two column layout for community support on medium to large tablets */
+  .landing-community-support-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 992px) {
+  /* Reduce arrow size and adjust position for medium screens */
+  .landing-community-support-arrow {
+    font-size: 16px;
+    right: var(--spacing-md);
+  }
+
+  /* Reduce extra padding on medium screens */
+  .landing-community-support-item {
+    padding: var(--spacing-md) calc(var(--spacing-md) + 25px) var(--spacing-md)
+      var(--spacing-md);
+  }
+}
+
 @media (max-width: 768px) {
   .landing-tutorial-row {
     flex-direction: column;
@@ -928,8 +959,9 @@ body:has(.landing-page) .md-sidebar--secondary {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Keep two column layout for community support */
   .landing-community-support-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .landing-hero-content {
@@ -941,5 +973,46 @@ body:has(.landing-page) .md-sidebar--secondary {
   .landing-hero-buttons {
     align-self: stretch;
     justify-content: center;
+  }
+
+  /* Hide arrow on mobile to prevent overlap */
+  .landing-community-support-arrow {
+    display: none !important;
+  }
+
+  /* Adjust community support item padding for mobile - remove extra right padding when arrow is hidden */
+  .landing-community-support-item {
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md)
+      var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-features-list {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-integration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Switch to single column only on very small screens */
+  .landing-community-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-main-content {
+    padding: 0 var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+  }
+
+  /* Ensure no arrow interference on very small screens */
+  .landing-community-support-arrow {
+    display: none !important;
+  }
+
+  /* Compact padding for very small screens */
+  .landing-community-support-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 60px;
   }
 }
