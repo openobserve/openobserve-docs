@@ -924,6 +924,20 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  /* Hero section - column layout for tablets and small laptops */
+  .landing-hero-content {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    text-align: center;
+  }
+
+  .landing-hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+  }
+
   /* Three column layout for integration grid on tablets and small laptops */
   .landing-integration-grid {
     grid-template-columns: repeat(3, 1fr);
