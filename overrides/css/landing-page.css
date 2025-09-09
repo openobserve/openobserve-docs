@@ -254,14 +254,17 @@ body:has(.landing-page) .md-sidebar--secondary {
   transition: all 0.3s ease;
   background-color: rgb(107, 118, 226);
   border: 1px solid transparent;
-  padding: 5px 14px !important;
+  padding: 8px 16px !important;
   text-decoration: none;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-xs);
   font-size: var(--font-size-md);
   white-space: nowrap;
+  min-height: 36px;
+  line-height: 1.2;
 }
 
 .primary-button:hover {
@@ -293,16 +296,46 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-btn-content {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  justify-content: center;
+  gap: 6px;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .landing-play-icon {
   display: flex;
   align-items: center;
-  font-size: 1.15em;
-  margin-right: 0.1em;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
+}
+
+.landing-play-icon img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Additional button text containment rules */
+.primary-button span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  line-height: 1.2;
+}
+
+.landing-btn-content span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Ensure buttons maintain consistent height */
+.landing-hero-buttons .primary-button {
+  min-height: 36px;
+  height: auto;
+  box-sizing: border-box;
 }
 
 /* Section Styles */
@@ -935,7 +968,9 @@ body:has(.landing-page) .md-sidebar--secondary {
   .landing-hero-buttons {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: var(--spacing-md);
+    flex-wrap: wrap;
   }
 
   /* Three column layout for integration grid on tablets and small laptops */
@@ -992,6 +1027,9 @@ body:has(.landing-page) .md-sidebar--secondary {
   .landing-hero-buttons {
     align-self: stretch;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
   }
 
   /* Hide arrow on mobile to prevent overlap */
