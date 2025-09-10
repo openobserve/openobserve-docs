@@ -313,6 +313,9 @@ html {
   .md-sidebar--primary {
     margin-left: 12px;
   }
+  .md-sidebar--secondary {
+    margin-right: 12px !important;
+  }
 }
 [data-md-color-scheme="slate"] .md-sidebar--primary {
   background: rgb(23, 20, 29) !important;
@@ -465,20 +468,18 @@ html {
   padding: 1em 0.5em !important;
   margin-left: 1em !important;
   box-shadow: none !important;
-  z-index: 9 !important;
+  z-index: 200 !important;
   position: sticky !important;
-  top: 10rem !important;
-  max-height: calc(100vh - 100px) !important;
-  overflow-y: auto !important;
+  top: 5rem !important;
+  max-height: calc(100vh - 6.4rem) !important;
+  overflow: visible !important;
   /* Keep it visible when scrolling */
   transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
-@media (min-width: 1024px) {
-  .md-sidebar--secondary {
-    margin-right: 12px !important;
-  }
-}
+
 
 /* Dark theme secondary sidebar */
 [data-md-color-scheme="slate"] .md-sidebar--secondary {
@@ -488,6 +489,14 @@ html {
   padding: 1em 0.5em !important;
   margin-left: 1em !important;
   box-shadow: none !important;
+  z-index: 200 !important;
+  position: sticky !important;
+  top: 5rem !important;
+  max-height: calc(100vh - 6.4rem) !important;
+  overflow: visible !important;
+  transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Ensure secondary sidebar title has no background */
@@ -497,6 +506,31 @@ html {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+/* Secondary sidebar scroll container - match primary sidebar behavior */
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 0.25rem 0 2.25rem !important;
+  overscroll-behavior: contain !important;
+  width: 100% !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  border-right: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Remove any masking pseudo-elements from secondary sidebar */
+.md-sidebar--secondary .md-sidebar__scrollwrap:after {
+  display: none !important;
+}
+
+.md-sidebar--secondary:before,
+.md-sidebar--secondary:after,
+.md-sidebar--secondary .md-sidebar__inner:before,
+.md-sidebar--secondary .md-sidebar__inner:after {
+  display: none !important;
 }
 
 .md-nav__title {
@@ -676,4 +710,15 @@ html {
 .md-sidebar--primary[data-md-state],
 .md-sidebar--secondary[data-md-state] {
   transform: none !important;
+}
+
+/* Ensure both sidebars have proper footer clearance */
+@media (min-width: 60em) {
+  .md-main,
+  .md-content {
+    padding-bottom: 0.5rem;
+  }
+  .md-footer {
+    z-index: 0;
+  }
 }
