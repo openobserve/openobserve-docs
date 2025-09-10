@@ -62,9 +62,15 @@
       link.classList.remove("md-nav__link--active", "is-active");
     });
 
-    // Add active class to current item
+    // Add active class to current item and scroll into view if needed
     if (index >= 0 && index < tocLinks.length) {
-      tocLinks[index].classList.add("md-nav__link--active", "is-active");
+      const activeLink = tocLinks[index];
+      activeLink.classList.add("md-nav__link--active", "is-active");
+      // Scroll the active link into view within the sidebar
+      // Only if not already fully visible
+      if (typeof activeLink.scrollIntoView === "function") {
+        activeLink.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
     }
   }
 
