@@ -1,9 +1,15 @@
 nav:
 
     - Integrations Overview: index.md
+    - Kubernetes: k8s.md
     - AWS: aws
     - Cloudflare: cloudflare.md
     - Database: database
     - Servers: servers
     - DevOps : devops
-    - Application Platform: application-platform
+    - Linux: linux.md 
+    - Windows: windows.md
+    - Vercel : vercel.md
+    - Heroku: heroku.md
+    - Message Brokers: message-brokers
+

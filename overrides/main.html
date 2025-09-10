@@ -2,4 +2,20 @@
 
 {% block extrahead %}
 {{ super() }}
+{% block htmltitle %}
+  <title>OpenObserve Documentation</title>
+{% endblock %}
+{% if page and page.meta and page.meta.description %}
+<meta name="description" content="{{ page.meta.description }}">
+{% endif %}
+
+<!-- Simple theme flash prevention -->
+<script>
+(function() {
+  const savedScheme = localStorage.getItem('theme-preference');
+  if (savedScheme) {
+    document.documentElement.setAttribute('data-md-color-scheme', savedScheme);
+  }
+})();
+</script>
 {% endblock %}

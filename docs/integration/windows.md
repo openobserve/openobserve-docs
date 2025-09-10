@@ -61,7 +61,7 @@ OpenObserve offers two powerful approaches for Windows monitoring:
     New-Item -Path "C:\otel-collector" -ItemType Directory -Force
     cd C:\otel-collector
     ```
-    **Download the latest OpenTelemetry Collector contrib distribution**
+    **Download the latest collector contrib distribution**
     ```
     Invoke-WebRequest -Uri "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.115.0/otelcol-contrib_0.115.0_windows_amd64.tar.gz" -OutFile "otelcol-contrib.tar.gz"
     ```

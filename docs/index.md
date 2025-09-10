@@ -1,8 +1,7 @@
 ---
-description: >-
-  OpenObserve Technical Documentation--cloud-native observability for logs,
-  metrics, and traces
+template: /partials/index.html
 ---
+
 # OpenObserve: Introduction
 
 ## What is OpenObserve?

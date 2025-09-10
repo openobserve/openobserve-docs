@@ -16,6 +16,5 @@ You can use the Logs page to:
 
 Learn more:
 
-- [Logs in OpenObserve](../logs/logs/)
-- [Search Around](../logs/search-around/)
-- [Quick Mode and Interesting Fields](../logs/quickmode/)
+- [Logs in OpenObserve](logs.md)
+- [Search Around](search-around.md)
