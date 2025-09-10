@@ -18,7 +18,7 @@ OpenObserve ingests these logs in structured JSON format, enabling fast search, 
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started/#self-hosted-installation))
     - **An existing Heroku application** already deployed and generating logs
     - Heroku CLI installed and authenticated
     - Node.js, npm, Git, and terminal access

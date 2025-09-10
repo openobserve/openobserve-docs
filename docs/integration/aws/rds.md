@@ -16,7 +16,7 @@ Amazon RDS can export logs to CloudWatch Logs. These can be forwarded to OpenObs
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - Amazon RDS instance with log exports enabled
     - AWS permissions for RDS, CloudWatch Logs, IAM, and Kinesis Firehose
     - S3 bucket for Firehose backup (recommended)

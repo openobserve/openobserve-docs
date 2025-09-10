@@ -20,7 +20,7 @@ We recommend Fluent Bit over Fluentd due to its lower resource usage. For existi
 
 ??? "Prerequisites"
 
-    1. An [OpenObserve Cloud](https://cloud.openobserve.ai) account or OpenObserve self hosted setup.
+    1. An [OpenObserve Cloud](https://cloud.openobserve.ai) account or OpenObserve [Self-Hosted](../../../getting-started/#self-hosted-installation) setup.
     1. A running ECS cluster that supports fargate. If you don't already have one, create one by following the [documentation](https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-cluster-console-v2.html).
 
     We will run our tasks using fargate for this demonstration.

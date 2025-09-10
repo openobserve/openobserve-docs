@@ -25,7 +25,7 @@ Monitor and analyze AWS API activity (e.g., EC2 starts, IAM changes, S3 access) 
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS account with:
         - CloudTrail enabled for management events
         - IAM permissions to create EventBridge rules and Firehose streams

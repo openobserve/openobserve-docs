@@ -16,7 +16,7 @@ The Jenkins integration captures traces, logs, and metrics using the [OpenTeleme
 ??? "Prerequisites"
 
     - Jenkins installed on your system
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
 
 ??? "Step 1: Install the OpenTelemetry Plugin"
 

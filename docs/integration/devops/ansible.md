@@ -19,7 +19,7 @@ Ansible doesn’t send logs to external systems by default. This integration con
     - Ubuntu machine (local, virtual machine, or cloud VM)
     - User with `sudo` privileges
     - Basic familiarity with Ansible and Fluent Bit
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - Ansible Installed
 
 ??? "Step 1: Configure Ansible log File"

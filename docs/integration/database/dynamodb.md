@@ -15,7 +15,7 @@ Applications that rely on **Amazon DynamoDB** often require real-time insights i
 
 ??? "Prerequisites"
     - AWS account with permissions for **DynamoDB**, **Kinesis Data Streams**, and **Kinesis Firehose**  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation)) 
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation)) 
     - Dynamo DB Table
 
 ??? "Step 1: Create Kinesis Data Stream"

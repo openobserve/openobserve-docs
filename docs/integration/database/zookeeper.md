@@ -17,7 +17,7 @@ Monitoring Zookeeper is critical to ensure **availability, performance, and stab
 
 ??? "Prerequisites"
     - Running **Apache Zookeeper instance(s)**  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))  
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))  
 
 ??? "Step 1: Update Apache Zookeeper Configuration"
 

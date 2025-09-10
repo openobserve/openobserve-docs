@@ -17,7 +17,7 @@ Supported MongoDB versions: **4.0+**.
 
 ??? "Prerequisites"
     - Running **MongoDB instance(s)**
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
 
 ??? "Step 1: Install OpenTelemetry Collector Contrib"
 

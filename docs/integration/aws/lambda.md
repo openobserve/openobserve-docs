@@ -18,7 +18,7 @@ This eliminates the need to store or process logs in CloudWatch, while still giv
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))  
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))  
     - AWS account with:
         - A Lambda function  
         - IAM permissions to update environment variables and layers  

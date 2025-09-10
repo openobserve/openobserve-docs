@@ -16,7 +16,7 @@ Monitor login attempts, user activity, and authentication behavior from Amazon C
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS account with:
         - Cognito User Pool
         - Permissions to create EventBridge rules and Firehose streams
