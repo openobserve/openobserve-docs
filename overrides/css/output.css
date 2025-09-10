@@ -116,9 +116,9 @@
   summary {
     display: list-item;
   }
-  ol, ul, menu {
+  /* ol, ul, menu {
     list-style: none;
-  }
+  } */
   img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
     vertical-align: middle;
