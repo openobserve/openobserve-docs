@@ -94,6 +94,30 @@ html {
   }
 }
 
+.md-nav--secondary .md-nav__link.is-active,
+.md-nav--secondary .md-nav__link--active {
+  color: #7c3aed !important;
+  font-weight: 600 !important;
+  /* Remove border and padding modifications */
+}
+
+.md-nav--secondary .md-nav__link:hover {
+  color: #7c3aed;
+}
+
+/* Dark theme TOC styling - clean purple text only */
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link.is-active,
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active {
+  color: #a78bfa !important;
+  font-weight: 600 !important;
+}
+
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link:hover {
+  color: #a78bfa;
+}
+
+/* Note: TOC positioning is now handled in the secondary sidebar section below */
+
 [data-md-color-scheme="slate"] .md-search__input {
   background-color: #7c3aed !important;
   border: 2px solid #7c3aed !important;
@@ -278,6 +302,11 @@ html {
   z-index: 10 !important;
   /* allow the active indicator to sit inside the rounded border */
   overflow: visible !important;
+  /* Fix positioning to prevent movement */
+  position: sticky !important;
+  top: 5rem !important;
+  max-height: calc(100vh - 6.4rem) !important;
+  transform: none !important;
 }
 
 @media (min-width: 1024px) {
@@ -294,6 +323,11 @@ html {
   box-shadow: none !important;
   z-index: 10 !important;
   overflow: hidden !important;
+  /* Fix positioning to prevent movement */
+  position: sticky !important;
+  top: 3.2rem !important;
+  max-height: calc(100vh - 6.4rem) !important;
+  transform: none !important;
 }
 
 .md-sidebar__title,
@@ -334,21 +368,6 @@ html {
   /* font-weight on an empty pseudo-element has no effect; kept empty for visual bar */
 }
 
-/* Thin sidebar scrollbar thumb, flush with border */
-.md-sidebar--primary .md-sidebar__scrollwrap {
-  scrollbar-width: thin !important;
-}
-.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
-  width: 6px !important;
-  background: transparent !important;
-}
-.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
-  background: #7c3aed !important;
-  border-radius: 6px !important;
-  margin: 0 !important;
-  border: none !important;
-}
-
 /* --- Sidebar: Add right margin for full rounded border visibility --- */
 .md-sidebar--primary {
   margin-right: 1em !important;
@@ -381,16 +400,6 @@ html {
   margin-right: 0 !important;
   border-right: none !important;
   box-sizing: border-box !important;
-}
-.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
-  width: 6px !important;
-  background: transparent !important;
-}
-.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
-  background: #7c3aed !important;
-  border-radius: 6px !important;
-  border-right: none !important;
-  margin-right: 0 !important;
 }
 
 /* --- Final fix: Remove all space between sidebar scrollbar and border --- */
@@ -438,47 +447,53 @@ html {
 }
 
 /* Hide native scrollbar inside the sidebar scrollwrap and provide a custom
-   visual track + thumb that we control via JS so the active marker can be
-   aligned exactly with the visible thumb. */
-.md-sidebar--primary .md-sidebar__scrollwrap {
-  scrollbar-width: none !important; /* Firefox */
-}
-.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar {
-  display: none !important; /* Chrome/Safari */
-}
-
-/* custom track & thumb appended as children of the outer sidebar */
-.md-sidebar--primary > .o-scroll-track {
-  position: absolute;
-  right: 2px;
-  width: 12px; /* includes some padding so thumb doesn't touch the border */
-  top: 0;
-  height: 100%;
-  pointer-events: none; /* visual only */
-}
-.md-sidebar--primary > .o-scroll-track .o-scroll-thumb {
-  position: absolute;
-  right: 3px; /* place thumb inside track, a few px from border */
-  width: 6px;
-  background: #4b237a; /* purple thumb */
-  border-radius: 6px;
-  box-shadow: 0 0 0 2px rgba(75, 35, 122, 0.06) inset;
-  transition: top 120ms linear, height 120ms linear;
-  pointer-events: auto;
-}
-
-/* Keep the active indicator visually matching the custom thumb (same color)
-   but slightly narrower so it reads as an indicator inside the sidebar. */
-.md-sidebar--primary > .o-active-indicator {
-  right: 8px; /* move it slightly left so it appears inside the content area */
-  width: 4px;
-  background: #4b237a;
-}
-
 /* --- Remove background and shadow from sidebar nav title --- */
 .md-sidebar--primary .md-nav__title,
+.md-sidebar--secondary .md-nav__title,
 .md-sidebar--primary .md-nav__title:before,
 .md-sidebar--primary .md-nav__title:after {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* --- SECONDARY SIDEBAR (TOC) Custom Design --- */
+.md-sidebar--secondary {
+  background: rgb(245, 243, 254) !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  padding: 1em 0.5em !important;
+  margin-left: 1em !important;
+  box-shadow: none !important;
+  z-index: 9 !important;
+  position: sticky !important;
+  top: 10rem !important;
+  max-height: calc(100vh - 100px) !important;
+  overflow-y: auto !important;
+  /* Keep it visible when scrolling */
+  transform: none !important;
+}
+
+@media (min-width: 1024px) {
+  .md-sidebar--secondary {
+    margin-right: 12px !important;
+  }
+}
+
+/* Dark theme secondary sidebar */
+[data-md-color-scheme="slate"] .md-sidebar--secondary {
+  background: rgb(23, 20, 29) !important;
+  border: 2px solid #7c3aed !important;
+  border-radius: 8px !important;
+  padding: 1em 0.5em !important;
+  margin-left: 1em !important;
+  box-shadow: none !important;
+}
+
+/* Ensure secondary sidebar title has no background */
+.md-sidebar--secondary .md-nav__title,
+.md-sidebar--secondary .md-nav__title:before,
+.md-sidebar--secondary .md-nav__title:after {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
@@ -605,4 +620,60 @@ html {
     display: inline-block !important;
     height: auto !important; /* Ensure consistent height calculation */
   }
+}
+
+/* Slim scrollbar styling for both sidebars - High specificity override */
+.md-sidebar--primary .md-sidebar__scrollwrap,
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+  scrollbar-width: thin !important;
+  scrollbar-color: #7c3aed transparent !important;
+}
+
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar,
+.md-sidebar--secondary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 3px !important;
+  height: 3px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-track,
+.md-sidebar--secondary .md-sidebar__scrollwrap::-webkit-scrollbar-track {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb,
+.md-sidebar--secondary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  background-color: #7c3aed !important;
+  border-radius: 3px !important;
+  border: none !important;
+  min-height: 20px !important;
+}
+
+.md-sidebar--primary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb:hover,
+.md-sidebar--secondary .md-sidebar__scrollwrap::-webkit-scrollbar-thumb:hover {
+  background: #6d28d9 !important;
+  background-color: #6d28d9 !important;
+}
+
+/* Fix sidebar overflow and ensure proper scrolling */
+.md-sidebar--primary .md-sidebar__scrollwrap,
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+  overflow-y: auto !important;
+  max-height: inherit !important;
+}
+
+/* Ensure sidebars maintain their position and don't move */
+.md-sidebar--primary,
+.md-sidebar--secondary {
+  will-change: auto !important;
+  transition: none !important;
+}
+
+/* Override any MkDocs Material default transforms */
+.md-sidebar--primary[data-md-state],
+.md-sidebar--secondary[data-md-state] {
+  transform: none !important;
 }
