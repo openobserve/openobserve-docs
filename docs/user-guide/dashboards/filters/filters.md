@@ -23,6 +23,7 @@ Use static filters when the filter values are known and do not change at runtime
 Alternatively, hover over a field in the **Fields** section and select the **+F** icon to add a filter directly.
 3. Click the filter and open the dropdown. 
 3. Verify or change the selected field using the **Filters on Field** dropdown.
+![filters-on-filed](../../../images/filters-on-filed.png)
 4. Choose the **List** tab. 
 5. Select one or more values from the available list. 
 ![Create Static Filter](../../../images/filters-create-static-filters.png)
@@ -52,6 +53,7 @@ To add a dynamic filter to a panel:
 Alternatively, hover over a field in the **Fields** section and select the **+F** icon to add a filter directly.
 3. Click the filter and open the dropdown. 
 3. Verify or change the selected field using the **Filters on Field** dropdown.
+![filters-on-filed](../../../images/filters-on-filed.png)
 4. Choose the **Condition** tab. 
 5. In the **Operator** section, choose an operator. For example, `=`, `>`, `IN`, `str_match`. 
 6. In the **Value** section, you can provide a fixed value or a variable like `$my_variable`. Ensure that the variable named `my_variable` exists. See [Variables in OpenObserve](../variables/variables-in-openobserve/) to learn how to create a variable.
