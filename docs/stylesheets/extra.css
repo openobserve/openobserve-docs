@@ -11,6 +11,71 @@
   z-index: 200 !important;
 }
 
+/* STRONG FINAL MOBILE SCROLL FIX (highest priority):
+   Lock the sidebar inner to the viewport and force the scrollwrap to handle
+   vertical scrolling. This is intentionally placed at the end and uses
+   !important to win over earlier rules that made nested lists overflow.
+*/
+@media (max-width: 76.24em) {
+  /* Ensure the sidebar occupies the viewport height while drawer is open */
+  .md-sidebar--primary,
+  input[id="__drawer"]:checked ~ .md-container .md-sidebar--primary,
+  .md-toggle[data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important; /* prevent sidebar itself from scrolling */
+    will-change: auto !important;
+  }
+
+  /* Keep the inner wrapper full height but clipped; scrollwrap will scroll */
+  .md-sidebar--primary .md-sidebar__inner {
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  /* Force scrollwrap to fill available space and handle vertical scrolling */
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  input[id="__drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary
+    .md-sidebar__scrollwrap,
+  .md-toggle[data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary
+    .md-sidebar__scrollwrap {
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: relative !important;
+  }
+
+  /* Prevent nested navs from using absolute/transform tricks that remove them
+     from the scroll context (keep them in normal flow) */
+  .md-sidebar--primary .md-nav__list,
+  .md-sidebar--primary .md-nav__item,
+  .md-sidebar--primary .md-nav__item > .md-nav__list,
+  .md-sidebar--primary nav[data-md-level] {
+    position: static !important;
+    transform: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Make sure scrolling works with touch and pointer events */
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    touch-action: pan-y !important;
+  }
+}
+
 [data-md-color-scheme="openobserve"] {
   --md-primary-fg-color: #ffffff;
   --md-primary-fg-color--light: #ecb7b7;
@@ -968,5 +1033,367 @@ nav.md-grid {
   .md-header__title {
     margin-left: 0.5rem !important;
     flex-grow: 1 !important;
+  }
+}
+
+/* MOBILE FIX: Ensure primary sidebar links are tappable on mobile
+   - force the sidebar and its inner containers above the overlay
+   - ensure pointer-events are enabled for sidebar and links
+   - enable smooth touch scrolling inside the scrollwrap
+*/
+@media (max-width: 76.24em) {
+  /* Make sure the sidebar sits above the overlay and other content */
+  .md-sidebar--primary {
+    z-index: 1000 !important;
+    pointer-events: auto !important;
+    -webkit-overflow-scrolling: touch !important; /* smooth scrolling on iOS */
+  }
+
+  /* Ensure the scroll container accepts touch and clicks */
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  .md-sidebar--primary .md-sidebar__inner {
+    z-index: 1001 !important;
+    pointer-events: auto !important;
+    overflow: auto !important; /* allow scrolling and tapping inside */
+  }
+
+  /* Make links fully interactive and on top of any small pseudo-elements */
+  .md-sidebar--primary .md-nav__link {
+    position: relative !important;
+    z-index: 1002 !important;
+    pointer-events: auto !important;
+    display: block !important;
+  }
+
+  /* Prevent any active-indicator pseudo-elements from intercepting taps */
+  .md-sidebar--primary .md-nav__item--active > .md-nav__link::before,
+  .md-sidebar--primary > .o-active-indicator {
+    pointer-events: none !important;
+  }
+
+  /* Keep overlay visually behind sidebar and don't intercept taps when drawer is open */
+  .md-overlay {
+    z-index: 900 !important;
+  }
+}
+
+/* STRONG MOBILE OVERRIDES: fix overlap and non-clickable links */
+@media (max-width: 76.24em) {
+  /* Make sidebar a narrow drawer (avoid full-width that can cover content) */
+  .md-sidebar--primary {
+    position: fixed !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 280px !important;
+    max-width: 90vw !important;
+    transform: translateX(-100%) !important; /* hidden by default */
+    z-index: 1200 !important; /* baseline above header */
+    top: 0 !important;
+    height: 100vh !important;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25) !important;
+    background-clip: padding-box !important;
+  }
+
+  /* When drawer is checked (open), bring sidebar fully into view and above overlay */
+  input[id="__drawer"]:checked ~ .md-container .md-sidebar--primary,
+  .md-toggle[data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary {
+    transform: translateX(0) !important;
+    z-index: 1400 !important; /* ensure it's above overlay and header */
+    pointer-events: auto !important;
+  }
+
+  /* Ensure overlay remains behind the sidebar when open */
+  input[id="__drawer"]:checked ~ .md-overlay,
+  .md-toggle[data-md-toggle="drawer"]:checked ~ .md-container .md-overlay {
+    z-index: 1300 !important; /* below the sidebar but above page */
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Keep header beneath the sidebar so it doesn't capture taps */
+  .md-header {
+    z-index: 1250 !important;
+  }
+
+  /* Scroll container should allow touch scrolling and not intercept taps */
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  .md-sidebar--primary .md-sidebar__inner {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    pointer-events: auto !important;
+    z-index: 1401 !important;
+  }
+
+  /* Links: ensure they receive taps and use touch-action for faster response */
+  .md-sidebar--primary .md-nav__link {
+    pointer-events: auto !important;
+    z-index: 1402 !important;
+    touch-action: manipulation !important;
+  }
+
+  /* Deactivate any decorative element from intercepting touches */
+  .md-sidebar--primary .md-nav__item--active > .md-nav__link::before,
+  .md-sidebar--primary > .o-active-indicator,
+  .md-sidebar--primary:before,
+  .md-sidebar--primary:after {
+    pointer-events: none !important;
+  }
+
+  /* Safety: ensure nothing else is layered above the sidebar when open */
+  input[id="__drawer"]:checked ~ .md-container * {
+    pointer-events: auto !important;
+  }
+}
+
+/* MOBILE ACCORDION: hide nested navs by default and show only when toggled */
+@media (max-width: 76.24em) {
+  /* Hide all nested nav blocks by default to prevent them stacking above parents
+    but keep top-level (data-md-level="0") visible */
+  .md-sidebar--primary .md-nav[data-md-level]:not([data-md-level="0"]) {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  /* When the toggle checkbox is checked, show the corresponding nav below the label */
+  .md-nav__toggle:checked ~ nav[data-md-level],
+  .md-nav__toggle:checked + label + nav[data-md-level] {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  /* Ensure child ul lists are visible when their parent nav is shown */
+  .md-nav__toggle:checked ~ nav[data-md-level] .md-nav__list,
+  .md-nav__toggle:checked + label + nav[data-md-level] .md-nav__list {
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Make sure labels remain interactive and in normal flow */
+  .md-sidebar--primary .md-nav__link {
+    display: block !important;
+    position: relative !important;
+  }
+}
+
+/* MOBILE NESTED-LIST FIX: ensure subitems expand below their parent and are readable */
+@media (max-width: 76.24em) {
+  /* Allow the sidebar scrolling container and inner container to show expanded content */
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  .md-sidebar--primary .md-sidebar__inner {
+    overflow: visible !important;
+    max-height: none !important;
+    position: static !important;
+  }
+
+  /* Ensure nav lists and items flow in document order (not absolutely positioned) */
+  .md-sidebar--primary .md-nav__list,
+  .md-sidebar--primary .md-nav__item,
+  .md-sidebar--primary .md-nav__item > .md-nav__list {
+    position: static !important;
+    overflow: visible !important;
+    max-height: none !important;
+    display: block !important;
+  }
+
+  /* If nested lists were collapsed using transforms or translate, reset them */
+  .md-sidebar--primary .md-nav__item .md-nav__list {
+    transform: none !important;
+  }
+
+  /* Remove clipping on individual link elements so child lists aren't hidden */
+  .md-sidebar--primary .md-nav__link,
+  .md-sidebar--primary .md-nav__title {
+    overflow: visible !important;
+  }
+
+  /* Reduce z-index stacking on nav elements so expanded lists appear in normal flow */
+  .md-sidebar--primary .md-nav__list,
+  .md-sidebar--primary .md-nav__item {
+    z-index: auto !important;
+  }
+}
+
+/* MOBILE: keep label text and arrow on one line; ensure nested navs expand in-flow */
+@media (max-width: 76.24em) {
+  .md-sidebar--primary .md-nav__link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .md-sidebar--primary .md-nav__icon {
+    margin-left: 0.5rem !important;
+    flex-shrink: 0 !important;
+    order: 2 !important;
+  }
+
+  /* Show nested nav when its toggle checkbox is checked */
+  input[type="checkbox"].md-nav__toggle:checked + label + nav[data-md-level],
+  input[type="checkbox"].md-nav__toggle:checked ~ nav[data-md-level],
+  .md-nav__toggle:checked + label + nav[data-md-level],
+  .md-nav__toggle:checked ~ nav[data-md-level] {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  /* Ensure child lists inside shown nav are visible and flow below */
+  input[type="checkbox"].md-nav__toggle:checked
+    + label
+    + nav[data-md-level]
+    .md-nav__list,
+  input[type="checkbox"].md-nav__toggle:checked
+    ~ nav[data-md-level]
+    .md-nav__list,
+  .md-nav__toggle:checked + label + nav[data-md-level] .md-nav__list,
+  .md-nav__toggle:checked ~ nav[data-md-level] .md-nav__list {
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Ensure nested labels stay full-width and don't wrap arrow */
+  .md-sidebar--primary .md-nav__item--nested > .md-nav__link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* SHOW ACTUAL SUBITEMS: hide duplicate nav titles and force UL visible when open */
+@media (max-width: 76.24em) {
+  /* Hide the internal nav title that repeats the parent label inside the nav block */
+  .md-sidebar--primary nav[data-md-level] > .md-nav__title {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Show the direct UL (.md-nav__list) when the toggle checkbox is checked or nav reports expanded */
+  input.md-nav__toggle:checked + label + nav[data-md-level] > .md-nav__list,
+  input.md-nav__toggle:checked ~ nav[data-md-level] > .md-nav__list,
+  nav[data-md-level][aria-expanded="true"] > .md-nav__list {
+    display: block !important;
+    visibility: visible !important;
+    max-height: none !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Also ensure the nav container itself is visible when toggled */
+  input.md-nav__toggle:checked + label + nav[data-md-level],
+  input.md-nav__toggle:checked ~ nav[data-md-level],
+  nav[data-md-level][aria-expanded="true"] {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Make sure nested items are in normal flow */
+  .md-sidebar--primary .md-nav__item--nested {
+    display: block !important;
+  }
+}
+
+/* EXTRA: explicitly show/hide the actual <ul class="md-nav__list"> child
+   when a toggle is checked, with very high specificity to override
+   any framework rules that might still hide the lists. */
+@media (max-width: 76.24em) {
+  /* Hide all nested ul lists by default (safety) */
+  .md-sidebar--primary
+    nav[data-md-level]:not([data-md-level="0"])
+    > .md-nav__list {
+    display: none !important;
+    visibility: hidden !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Show the direct child .md-nav__list when the preceding checkbox is checked */
+  input[type="checkbox"].md-nav__toggle:checked
+    + label
+    + nav[data-md-level]
+    > .md-nav__list,
+  input[type="checkbox"].md-nav__toggle:checked
+    ~ nav[data-md-level]
+    > .md-nav__list,
+  .md-nav__toggle:checked + label + nav[data-md-level] > .md-nav__list,
+  .md-nav__toggle:checked ~ nav[data-md-level] > .md-nav__list {
+    display: block !important;
+    visibility: visible !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Also make sure any nested lists deeper inside are visible when parent is open */
+  input[type="checkbox"].md-nav__toggle:checked
+    + label
+    + nav[data-md-level]
+    .md-nav__list,
+  input[type="checkbox"].md-nav__toggle:checked
+    ~ nav[data-md-level]
+    .md-nav__list,
+  .md-nav__toggle:checked + label + nav[data-md-level] .md-nav__list,
+  .md-nav__toggle:checked ~ nav[data-md-level] .md-nav__list {
+    display: block !important;
+    visibility: visible !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+/* FINAL MOBILE SCROLL FIX: force the mobile sidebar scrollwrap to scroll when
+   the menu content is taller than the viewport. Placed last to override
+   earlier overflow:visible rules. */
+@media (max-width: 76.24em) {
+  /* Apply to the scrollwrap generally and when the drawer is open */
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  input[id="__drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary
+    .md-sidebar__scrollwrap,
+  .md-toggle[data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary
+    .md-sidebar__scrollwrap {
+    max-height: calc(100vh - 3.5rem) !important; /* leave space for header */
+    height: calc(100vh - 3.5rem) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: relative !important;
+  }
+
+  /* Ensure nested navs don't push content out of the scroll container */
+  .md-sidebar--primary .md-nav__list,
+  .md-sidebar--primary .md-nav__item {
+    box-sizing: border-box !important;
   }
 }
