@@ -283,8 +283,7 @@ html {
   min-height: 4rem !important;
   height: auto !important;
   position: sticky !important;
-  top: 0 !important;
-  z-index: 1000 !important;
+  top: 0 !important;  
 }
 
 .md-header__inner {
