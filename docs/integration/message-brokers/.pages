@@ -1,4 +1,5 @@
 nav:
 
+    - Message Broker: index.md
     - Kafka: kafka.md
   

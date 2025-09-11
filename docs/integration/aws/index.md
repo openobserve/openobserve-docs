@@ -1,5 +1,8 @@
 The following user guides provide step-by-step instructions to integrate AWS services with OpenObserve. These integrations allow you to collect logs, metrics, and events directly from various AWS offerings, enabling unified observability across your cloud workloads.
-
+<br>
+Each guide corresponds to a service that appears under the Amazon Web Services (AWS) section in the OpenObserve user interface.
+![aws](aws.png)
+<br>
 Learn more:
 
 - [Amazon EC2](ec2.md)
