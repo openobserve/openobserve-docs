@@ -23,7 +23,7 @@ extra_javascript:
   - js/vector_co.js
   - js/search-close-minimal.js
   - js/search-tracking.js
-  - js/toc-highlight.js
+  # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
   - js/reo.js
 extra:

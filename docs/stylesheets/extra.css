@@ -283,7 +283,7 @@ html {
   min-height: 4rem !important;
   height: auto !important;
   position: sticky !important;
-  top: 0 !important;  
+  top: 0 !important;
 }
 
 .md-header__inner {
@@ -313,9 +313,11 @@ html {
   display: block !important;
 }
 
-@media (min-width: 1024px) {
+/* Desktop-only styles */
+@media (min-width: 76.25em) {
   .md-sidebar--primary {
     margin-left: 12px;
+    margin-right: 1em !important;
   }
 }
 [data-md-color-scheme="slate"] .md-sidebar--primary {
@@ -323,7 +325,6 @@ html {
   border: 2px solid #7c3aed !important;
   border-radius: 8px !important;
   padding: 1em 0.5em !important;
-  margin-right: 2em !important;
   box-shadow: none !important;
   z-index: 200 !important;
   position: sticky !important;
@@ -335,6 +336,13 @@ html {
   overflow: hidden !important;
   transform: none !important;
   display: block !important;
+}
+
+/* Desktop-only dark theme margin */
+@media (min-width: 76.25em) {
+  [data-md-color-scheme="slate"] .md-sidebar--primary {
+    margin-right: 1em !important;
+  }
 }
 
 .md-sidebar__title,
@@ -372,12 +380,7 @@ html {
 }
 
 /* --- Sidebar: Add right margin for full rounded border visibility --- */
-.md-sidebar--primary {
-  margin-right: 1em !important;
-}
-[data-md_color-scheme="slate"] .md-sidebar--primary {
-  margin-right: 1em !important;
-}
+/* Margins are now handled in the main sidebar rules above */
 
 /* --- Remove white shadow from sidebar title --- */
 .md-sidebar__title {
@@ -709,4 +712,261 @@ html .md-sidebar--primary {
 .md-sidebar--primary .md-sidebar__inner:before,
 .md-sidebar--primary .md-sidebar__inner:after {
   display: none !important;
+}
+
+.md-header {
+  position: fixed !important;
+  top: 70px !important;
+}
+
+.md-main__inner {
+  margin-top: 70px !important;
+}
+
+nav.md-grid {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* default (base) = px-4 */
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  nav.md-grid {
+    padding-left: 1.5rem; /* sm:px-6 */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  nav.md-grid {
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  nav.md-grid {
+    padding-left: 2.5rem; /* xl:px-10 */
+    padding-right: 2.5rem;
+  }
+}
+.md-search__inner {
+  width: 20rem;
+}
+@media (max-width: 768px) {
+  .md-search__inner {
+    top: 80px !important;
+  }
+
+  .md-search__input {
+    pointer-events: auto !important;
+    color: black !important;
+  }
+}
+
+.md-header__title {
+  margin-left: 0.1rem;
+  width: 100px;
+}
+
+@media (min-width: 1025px) {
+  .md-header__title {
+    flex-grow: 0;
+    flex-basis: auto;
+    max-width: 400px;
+  }
+  .md-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* === MOBILE SIDEBAR RESPONSIVE FIXES === */
+
+/* Mobile breakpoints for sidebar */
+@media (max-width: 76.24em) {
+  /* Reset sidebar positioning for mobile */
+  .md-sidebar--primary,
+  .md-sidebar--primary[data-md-component="sidebar"],
+  .md-sidebar--primary[data-md-state],
+  .md-sidebar--primary[data-md-state="lock"] {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 280px !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    z-index: 300 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease-in-out !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-right: 2px solid #7c3aed !important;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
+    will-change: transform !important;
+  }
+
+  /* Show sidebar when drawer is checked (mobile menu open) */
+  .md-toggle[data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary,
+  input[id="__drawer"]:checked ~ .md-container .md-sidebar--primary {
+    transform: translateX(0) !important;
+  }
+
+  /* Mobile sidebar scroll container */
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    height: 100% !important;
+    max-height: calc(100vh - 2rem) !important;
+    overflow-y: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  /* Mobile sidebar inner container */
+  .md-sidebar--primary .md-sidebar__inner {
+    height: 100% !important;
+    min-height: 100% !important;
+    padding: 1rem 0 !important;
+  }
+
+  /* Hide secondary sidebar on mobile */
+  .md-sidebar--secondary {
+    display: none !important;
+  }
+
+  /* Ensure main content doesn't overlap */
+  .md-main {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .md-main__inner {
+    margin-top: 4rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 1rem !important;
+  }
+
+  /* Mobile navigation improvements */
+  .md-sidebar--primary .md-nav__title {
+    padding: 1rem 0 0.5rem !important;
+    font-size: 1.1rem !important;
+    border-bottom: 1px solid rgba(124, 58, 237, 0.2) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .md-sidebar--primary .md-nav__link {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Mobile nested navigation */
+  .md-sidebar--primary .md-nav__item--nested .md-nav__link {
+    padding-left: 1rem !important;
+  }
+
+  .md-sidebar--primary .md-nav[data-md-level="1"] .md-nav__link {
+    padding-left: 1.5rem !important;
+  }
+
+  .md-sidebar--primary .md-nav[data-md-level="2"] .md-nav__link {
+    padding-left: 2rem !important;
+  }
+
+  .md-sidebar--primary .md-nav[data-md-level="3"] .md-nav__link {
+    padding-left: 2.5rem !important;
+  }
+
+  /* Mobile active link styling */
+  .md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
+    right: 0 !important;
+    width: 3px !important;
+    height: 100% !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+
+  /* Mobile drawer overlay */
+  .md-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    z-index: 250 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+
+  input[id="__drawer"]:checked ~ .md-overlay {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Tablet-specific adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .md-sidebar--primary {
+    max-width: 260px !important;
+    padding: 0.75rem !important;
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    max-height: calc(100vh - 6rem) !important;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .md-sidebar--primary {
+    max-width: 90vw !important;
+    padding: 0.75rem !important;
+  }
+
+  .md-sidebar--primary .md-nav__link {
+    padding: 0.6rem 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .md-main__inner {
+    padding: 0 0.5rem !important;
+  }
+}
+
+/* Dark theme mobile adjustments */
+@media (max-width: 76.24em) {
+  [data-md-color-scheme="slate"] .md-sidebar--primary {
+    background: rgb(23, 20, 29) !important;
+    border-right: 2px solid #7c3aed !important;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  [data-md-color-scheme="openobserve"] .md-sidebar--primary {
+    background: #1a1a2e !important;
+    border-right: 2px solid #7c3aed !important;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4) !important;
+  }
+}
+
+/* Improve mobile header and navigation button */
+@media (max-width: 76.24em) {
+  .md-header__button[for="__drawer"] {
+    margin-right: 0.5rem !important;
+    color: #7c3aed !important;
+  }
+
+  .md-header__title {
+    margin-left: 0.5rem !important;
+    flex-grow: 1 !important;
+  }
 }

@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer utilities {
   .hover\:text-\[\#7782FF\]:hover {
@@ -7,7 +9,7 @@
 }
 
 .hero-gradient {
-  @apply bg-gradient-to-r from-[#6A76E3] to-[#45A4F3];
+  background: linear-gradient(to right, #6a76e3, #45a4f3);
 }
 
 input {
@@ -188,11 +190,11 @@ nav.md-grid {
   }
 }
 
-  .md-header__title {
-    margin-left: 0.1rem;
-    width: 100px;
-  }
-    
+.md-header__title {
+  margin-left: 0.1rem;
+  width: 100px;
+}
+
 @media (min-width: 1025px) {
   .md-header__title {
     flex-grow: 0;
