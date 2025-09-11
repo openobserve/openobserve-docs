@@ -2,7 +2,7 @@ The following user guides provide step-by-step instructions to integrate DevOps 
 
 Learn more:
 
-- [Jenkins](../../integration/devops/jenkins/)
-- [Ansible](../../integration/devops/ansible/)
-- [Terraform](../../integration/devops/terraform/)
-- [Github Actions](../../integration/devops/github-actions/)
+- [Jenkins](jenkins.md)
+- [Ansible](ansible.md)
+- [Terraform](terraform.md)
+- [Github Actions](github-actions.md)
