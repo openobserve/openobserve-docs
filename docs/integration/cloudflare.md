@@ -1,3 +1,4 @@
+# Integration with Cloudflare
 This guide provides step-by-step instructions to integrate Cloudflare with OpenObserve.
 
 ## Overview

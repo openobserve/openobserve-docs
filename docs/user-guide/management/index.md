@@ -3,6 +3,7 @@ The Management section includes tools for maintaining and securing OpenObserve o
 Learn more: 
 
 - [Streaming Search](../management/streaming-search/)
+- [Streaming Aggregation](../management/aggregation-cache/)
 - [Query Management](../management/query-management/)
 - [Alert Destinations](../management/alert-destinations/)
 - [Templates](../management/templates/)
@@ -11,4 +12,5 @@ Learn more:
 - [Nodes in OpenObserve](../management/nodes/)
 - [SSO Domain Restrictions](../management/sso-domain-restrictions/)
 - [Regex Patterns](../management/regex-patterns/)
+
 

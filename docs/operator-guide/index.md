@@ -1,9 +1,10 @@
-# Operations Guide
+Learn more:
 
-1. [Systemd](systemd)
-1. [SIMD](simd)
-1. [Mimalloc](mimalloc)
-1. [Grafana plugin](grafana_plugin)
-1. [Etcd maintenance](etcd)
-1. [Etcd restore](etcd_restore)
-1. [Nginx proxy](nginx_proxy)
+- [Systemd](systemd)
+- [SIMD](simd)
+- [Mimalloc](mimalloc)
+- [Grafana plugin](grafana_plugin)
+- [Etcd maintenance](etcd)
+- [Etcd restore](etcd_restore)
+- [Nginx proxy](nginx_proxy)
+

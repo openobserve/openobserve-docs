@@ -2,8 +2,7 @@
 description: >-
  Set up Multi-window Selector in SQL alerts to compare current vs. past data, detect changes, and trigger alerts based on trends across time windows.
 ---
-This guide provides step-by-step instructions for using the [Multi-window Selector](multi-window-selector-scheduled-alerts-concept.md) feature in Scheduled Alerts.
-
+This guide provides step-by-step instructions for using the [Multi-window Selector](../multi-window-selector-scheduled-alerts-concept) feature in Scheduled Alerts.
 
 
 ## How to Access The Multi-window Selector
