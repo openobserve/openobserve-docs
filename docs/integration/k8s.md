@@ -28,7 +28,7 @@ The integration includes:
     - A Kubernetes cluster (Minikube, GKE, EKS, or similar)  
     - Helm 3.x installed locally  
     - `kubectl` configured for your cluster  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started/#self-hosted-installation))
 
 
 ??? "Step 1: Install Cert-Manager"

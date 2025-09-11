@@ -14,7 +14,7 @@ CloudWatch Metric Streams allow efficient, near real-time delivery of metrics to
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self‑Hosted](../../../quickstart/#self‑hosted‑installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or[Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS IAM permissions for:
         - CloudWatch: `ListMetrics`, `GetMetricData`, `GetMetricStatistics`
         - Kinesis Data Streams: `CreateStream`, `PutRecord`

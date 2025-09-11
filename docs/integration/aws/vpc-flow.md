@@ -12,7 +12,7 @@ Capture and forward VPC Flow Logs to OpenObserve via Firehose for real-time netw
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS account with access to VPC and Firehose
     - S3 bucket for failed log backup (recommended)
 

@@ -1,5 +1,6 @@
 nav:
 
-    - Message Broker: index.md
+    - Message Queues: index.md
     - Kafka: kafka.md
+    - RabbitMQ: rabbitmq.md
   

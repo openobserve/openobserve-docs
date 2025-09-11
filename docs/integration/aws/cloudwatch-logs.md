@@ -17,7 +17,7 @@ This approach enables centralized log analysis, alerting, and visualization in O
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS account with:
         - CloudWatch Log Group(s)
         - IAM permissions to create Firehose streams and set up log subscriptions
