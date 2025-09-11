@@ -4,23 +4,16 @@ Each guide corresponds to a data source listed in the **Data Sources** section o
 
 ![Data Sources](../../docs/images/data-sources.png)
 
-**Learn more**:
+**Learn more**
 
-- [Cloudflare](../integration/cloudflare/)
-- [Devops](devops)
-- [Database](database)
+- [Kubernetes](k8s.md)
 - [AWS](aws)
+- [Cloudflare](cloudflare.md)
+- [Database](database)
 - [Servers](servers)
-
-
-Kubernetes
-AWS
-Cloudflare
-Database
-Servers
-DevOps
-Linux
-Windows
-Vercel
-Heroku
-Message Brokers
+- [DevOps](devops)
+- [Linux](linux.md)
+- [Windows](windows.md)
+- [Vercel](vercel.md)
+- [Heroku](heroku.md)
+- [Message Brokers](message-brokers)
