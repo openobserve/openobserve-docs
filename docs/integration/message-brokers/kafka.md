@@ -14,7 +14,7 @@ Monitoring Kafka is essential for ensuring performance, reliability, and data in
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
     - Kafka running 
 
 ??? "Step 1: Create Test Kafka Topics (Optional)"

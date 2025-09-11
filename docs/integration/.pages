@@ -11,5 +11,5 @@ nav:
     - Windows: windows.md
     - Vercel : vercel.md
     - Heroku: heroku.md
-    - Message Brokers: message-brokers
+    - Message Queues: message-brokers
 
