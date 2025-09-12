@@ -11,3 +11,4 @@ Each guide corresponds to a data source listed in the **Data Sources** section o
 Learn more:
 
 - [GCP Logs](gcp-logs.md)
+- [Google Cloud Run](cloud-run.md)
