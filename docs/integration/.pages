@@ -13,4 +13,5 @@ nav:
     - Vercel : vercel.md
     - Heroku: heroku.md
     - Message Queues: message-brokers
+    - Airflow: airflow.md
 
