@@ -568,6 +568,21 @@ html {
   display: none !important;
 }
 
+/* Prevent theme from adding background or shadow to secondary nav titles */
+@media screen and (min-width: 60em) {
+  .md-nav--secondary .md-nav__title,
+  .md-nav--secondary .md-nav__title:before,
+  .md-nav--secondary .md-nav__title:after,
+  .md-sidebar--secondary .md-nav__title,
+  .md-sidebar--secondary .md-nav__title:before,
+  .md-sidebar--secondary .md-nav__title:after {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    position: static !important; /* prevent sticky if applied elsewhere */
+    z-index: auto !important;
+  }
+}
 /* Reset any conflicting styles */
 
 /* Reset any conflicting styles */
