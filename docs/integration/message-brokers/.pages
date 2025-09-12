@@ -3,4 +3,5 @@ nav:
     - Message Queues: index.md
     - Kafka: kafka.md
     - RabbitMQ: rabbitmq.md
+    - NATS: nats.md
   

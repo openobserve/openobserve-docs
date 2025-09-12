@@ -12,3 +12,4 @@ Learn more:
 
 - [Kafka](kafka.md)
 - [RabbitMQ](rabbitmq.md)
+- [NATS](nats.md)
