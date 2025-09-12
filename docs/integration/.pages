@@ -5,6 +5,7 @@ nav:
     - AWS: aws
     - Cloudflare: cloudflare.md
     - Database: database
+    - GCP: gcp
     - Servers: servers
     - DevOps : devops
     - Linux: linux.md 
