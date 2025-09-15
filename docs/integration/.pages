@@ -15,4 +15,5 @@ nav:
     - Message Queues: message-brokers
     - Airflow: airflow.md
     - Cribl: cribl.md
+    - Security: security
 
