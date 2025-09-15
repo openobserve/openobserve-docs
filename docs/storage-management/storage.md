@@ -202,7 +202,7 @@ ZO_S3_SECRET_KEY=YOUR_SECRET_KEY
 ZO_S3_FEATURE_FORCE_HOSTED_STYLE=true
 ```
 
-Refer to [Hetzner Cloud Object Storage documentation](https://docs.hetzner.com/cloud/storage/apps/s3cmd/) for more information about endpoints and regions.
+Refer to [Hetzner Cloud Object Storage documentation](https://docs.hetzner.com/storage/object-storage/) for more information about endpoints and regions.
 
 
 ## Metadata Storage
