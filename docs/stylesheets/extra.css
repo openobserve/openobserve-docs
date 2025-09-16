@@ -354,7 +354,7 @@ html {
 .md-header__inner {
   min-height: 4rem !important;
   height: auto !important;
-  padding: 0.5rem 1rem !important;
+  /* padding: 0.5rem 1rem !important; */
 }
 
 /* --- FINAL: Sidebar Custom Design --- */
