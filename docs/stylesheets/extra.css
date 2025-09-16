@@ -1242,6 +1242,12 @@ nav.md-grid {
   }
 }
 
+/* Ensure main content is always tall enough so sidebar never shifts above navbar */
+.md-main,
+.md-content {
+  min-height: calc(100vh - 4rem); /* 4rem = navbar height, adjust if needed */
+}
+
 /* MOBILE: keep label text and arrow on one line; ensure nested navs expand in-flow */
 @media (max-width: 76.24em) {
   .md-sidebar--primary .md-nav__link {
