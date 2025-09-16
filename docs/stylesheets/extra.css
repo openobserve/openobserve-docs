@@ -604,3 +604,94 @@ html {
     display: inline-block !important;
   }
 }
+
+/* Responsive typography, content width and accessibility tweaks for prose */
+/* Scoped to markdown-rendered content to avoid affecting the landing page visuals */
+.md-content__inner:not(.landing-page):not(:has(.landing-page)) .md-typeset {
+  /* Ensure base paragraph spacing */
+  text-align: left !important; /* reading comfort */
+  hyphens: none !important;
+}
+
+/* Desktop/Laptop: >= 1024px */
+@media (min-width: 64em) {
+  .md-content__inner:not(.landing-page):not(:has(.landing-page)) {
+    max-width: 70ch; /* target 65-70 chars */
+  }
+  .md-content__inner .md-typeset {
+    font-size: 2rem; /* 18px (1 step larger than many defaults) */
+    line-height: 1.6; /* within 1.55-1.65 range */
+  }
+}
+
+/* Tablet: 481 - 1024px */
+@media (min-width: 30.0625em) and (max-width: 64em) {
+  .md-content__inner:not(.landing-page):not(:has(.landing-page)) {
+    max-width: 62ch; /* target ~60-65 chars */
+  }
+  .md-content__inner .md-typeset {
+    font-size: 2rem; /* 17px */
+    line-height: 1.6;
+  }
+}
+
+/* Mobile: <= 480px */
+@media (max-width: 30em) {
+  .md-content__inner:not(.landing-page):not(:has(.landing-page)) {
+    max-width: 48ch; /* 45-55 chars */
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+  .md-content__inner .md-typeset {
+    font-size: 1.5rem; /* 16px */
+    line-height: 1.65; /* slightly looser for small screens */
+  }
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  line-height: 1.2;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+.md-typeset h2 {
+  font-size: 2em;
+}
+.md-typeset h3 {
+  font-size: 1.5em;
+}
+.md-typeset p {
+  font-size: 1.1em;
+}
+
+/* Tables and code blocks: allow horizontal scrolling (no forced wrap) */
+.md-typeset table,
+.md-typeset pre,
+.md-typeset code {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.md-typeset pre {
+  white-space: pre; /* preserve long tokens */
+}
+
+/* Images: cap width to content column unless explicitly full-bleed */
+.md-typeset img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Accessibility: ensure minimum readable font size across devices */
+/* If site/root overrides html font-size, these rules assert minimums for content */
+.md-content__inner .md-typeset {
+  font-size: 2rem;
+}
