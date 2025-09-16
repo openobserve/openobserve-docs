@@ -42,7 +42,7 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
       <!-- Docs icon + title -->
       <a
         href="/docs"
-        title="Docs Home"          
+        title="Docs Home"
         style="
           font-weight: bold;
           font-size: 1rem;
@@ -55,22 +55,22 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
           cursor: pointer;
         "
       >
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          background-color: rgb(245, 243, 255);
-          border-radius: 8px;
-          padding: 5px 30px;
-          margin: 10px 12px 5px 12px;
-          gap: 6px;
-          flex-shrink: 0;
-          min-width: 0;
-          transition: all 0.2s ease;
-        "
-        class="docs-header-container"
-      >
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(245, 243, 255);
+            border-radius: 8px;
+            padding: 5px 30px;
+            margin: 10px 12px 5px 12px;
+            gap: 6px;
+            flex-shrink: 0;
+            min-width: 0;
+            transition: all 0.2s ease;
+          "
+          class="docs-header-container"
+        >
           <img
             src="/docs/assets/docs-dark.svg"
             alt="Docs Icon Light"
@@ -83,7 +83,9 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
             class="docs-icon-dark"
             style="height: 24px; width: 24px; display: none"
           />
-          <div style="display: flex; align-items: center; min-width: 0; flex: 1">
+          <div
+            style="display: flex; align-items: center; min-width: 0; flex: 1"
+          >
             <span
               style="
                 font-weight: bold;
@@ -162,6 +164,91 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
 
         .custom-theme-toggle .custom-icon {
           display: block;
+        }
+
+        /* Ensure header inner respects content width limits and centers */
+        /* Match the content max-width breakpoints: use ch-based limits and allow
+           children to shrink to avoid forcing a large minimum width (e.g. 76rem).
+        */
+        .md-header__inner {
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+          box-sizing: border-box;
+          padding-left: 1rem;
+          padding-right: 1rem;
+          /* allow children to shrink below their content width */
+        }
+
+        /* Ensure direct flex children can shrink (prevents overflow that keeps
+           the header wider than its max-width). This mirrors `min-width:0`
+           applied to content areas so flex items don't force larger widths.
+           Limit the rule so elements that use utility `tw-w-full` don't
+           force 100% width inside the header (which would push other items
+           out of view). Also ensure `.tw-flex-1` behaves as a normal
+           flexible column.
+        */
+        .md-header__inner > * {
+          min-width: 0;
+        }
+
+        /* Prevent utility class `tw-w-full` from making a header child take
+           the full width of the nav; inside the header we want auto width so
+           flexbox can distribute space correctly. Use !important to override
+           utility rules if necessary.
+        */
+        .md-header__inner .tw-w-full {
+          width: auto !important;
+        }
+
+        /* Make flex-1 behave as a flexible column that can shrink and grow
+           rather than forcing a fixed basis. This helps keep left and right
+           controls visible.
+        */
+        .md-header__inner .tw-flex-1 {
+          flex: 1 1 auto !important;
+          min-width: 0;
+        }
+
+        /* Override utility `tw-flex-shrink-0` inside the header so left and
+           right sections are allowed to shrink when space is constrained.
+           This prevents a non-shrinking child from forcing the header to
+           remain wide and hiding other controls.
+        */
+        .md-header__inner .tw-flex-shrink-0 {
+          flex-shrink: 1 !important;
+        }
+
+        /* Desktop/Laptop: >= 1024px */
+        @media (min-width: 64em) {
+          .md-header__inner {
+            max-width: 86rem; /* same as content (2xl) */
+          }
+        }
+
+        /* Very large screens: >= 2560px */
+        /* 2560px / 16 = 160em, but we'll use min-width in px for clarity */
+        @media (min-width: 2560px) {
+          /* Increase max-width for very wide displays but cap for readability */
+          .md-header__inner {
+            min-width: 86rem;
+          }
+        }
+
+        /* Tablet: 481 - 1024px */
+        @media (min-width: 30.0625em) and (max-width: 64em) {
+          .md-header__inner {
+            max-width: 68rem;
+          }
+        }
+
+        /* Mobile: <= 480px */
+        @media (max-width: 30em) {
+          .md-header__inner {
+            max-width: 30rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
         }
       </style>
     </div>
