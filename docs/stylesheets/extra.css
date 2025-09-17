@@ -80,8 +80,9 @@
   max-width: 70ch; /* optimal line length for prose */
   width: 100%;
   box-sizing: content-box; /* keep the ch-based width accurate */
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;  
 }
 
 [data-md-color-scheme="openobserve"] {
