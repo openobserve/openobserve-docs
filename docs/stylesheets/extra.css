@@ -1452,3 +1452,55 @@ nav.md-grid {
     background-image: url("/docs/assets/close-icon.svg") !important;
   }
 }
+
+.md-main__inner.md-grid {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;   /* px-4 */
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* sm (≥640px) */
+@media (min-width: 640px) {
+  .md-main__inner.md-grid {
+    max-width: 640px;
+    padding-left: 1.5rem;  /* sm:px-6 */
+    padding-right: 1.5rem;
+  }
+}
+
+/* md (≥768px) */
+@media (min-width: 768px) {
+  .md-main__inner.md-grid {
+    max-width: 768px;
+  }
+}
+
+/* lg (≥1024px) */
+@media (min-width: 1024px) {
+  .md-main__inner.md-grid {
+    max-width: 1024px;
+    padding-left: 2rem;   /* lg:px-8 */
+    padding-right: 2rem;
+    justify-content: space-between; /* lg:justify-between */
+  }
+}
+
+/* xl (≥1280px) */
+@media (min-width: 1280px) {
+  .md-main__inner.md-grid {
+    max-width: 1280px;
+    padding-left: 2.5rem;  /* xl:px-10 */
+    padding-right: 2.5rem;
+  }
+}
+
+/* 2xl (≥1536px) */
+@media (min-width: 1536px) {
+  .md-main__inner.md-grid {
+    max-width: 1736px;
+  }
+}
