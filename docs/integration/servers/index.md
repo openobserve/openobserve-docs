@@ -6,3 +6,4 @@ Each guide corresponds to a web server that appears under the Web Servers tab in
 Learn more:
 
 - [Nginx](nginx.md)
+- [Oracle Weblogic](weblogic.md)
