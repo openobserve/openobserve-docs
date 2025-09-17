@@ -56,7 +56,7 @@ Alternatively, hover over a field in the **Fields** section and select the **+F*
 ![filters-on-filed](../../../images/filters-on-filed.png)
 4. Choose the **Condition** tab. 
 5. In the **Operator** section, choose an operator. For example, `=`, `>`, `IN`, `str_match`. 
-6. In the **Value** section, you can provide a fixed value or a variable like `$my_variable`. Ensure that the variable named `my_variable` exists. See [Variables in OpenObserve](../variables/variables-in-openobserve/) to learn how to create a variable.
+6. In the **Value** section, you can provide a fixed value or a variable like `$my_variable`. Ensure that the variable named `my_variable` exists. See [Variables in OpenObserve](../../variables/variables-in-openobserve/) to learn how to create a variable.
 7. Click **Save** to save the panel. 
 !!! note "Important"
       Before you provide a fixed value, know the filed type associated with the value. This helps avoid syntax errors and ensures accurate query generation.
