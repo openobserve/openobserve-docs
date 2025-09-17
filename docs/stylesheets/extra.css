@@ -1,3 +1,7 @@
+/* Hide the search close icon by default; JS will show it when needed */
+.md-search__close {
+  display: none !important;
+}
 /* === FINAL SECONDARY SIDEBAR POSITIONING OVERRIDE === */
 .md-sidebar--secondary,
 .md-sidebar--secondary[data-md-component="sidebar"],
@@ -74,15 +78,6 @@
   .md-sidebar--primary .md-sidebar__scrollwrap {
     touch-action: pan-y !important;
   }
-}
-/* Limit content width to 70 characters per line for main markdown content */
-.md-content__inner:not(.landing-page):not(:has(.landing-page)) {
-  max-width: 70ch; /* optimal line length for prose */
-  width: 100%;
-  box-sizing: content-box; /* keep the ch-based width accurate */
-  margin-left: auto !important;
-  margin-right: auto !important;
-  display: block !important;  
 }
 
 [data-md-color-scheme="openobserve"] {
@@ -224,20 +219,6 @@ html {
   background-color: #1a1a2e !important;
 }
 
-/* Custom search bar styles for MkDocs Material */
-
-.md-search__input {
-  background-color: rgb(245, 243, 254);
-  border: 2px solid #7c3aed !important;
-  border-radius: 8px !important;
-  color: #222 !important;
-  transition: border-color 0.2s;
-  box-shadow: none !important;
-  padding: 0.75em 2.5em 0.75em 1em !important; /* more height and space for icon */
-  font-size: 1.5em !important;
-  min-width: 16em !important;
-}
-
 .md-search__input:focus {
   border-color: #7c3aed !important;
   outline: none;
@@ -281,24 +262,30 @@ html {
 
 /* Direct approach: Add close button to search input */
 .md-search__input {
-  background-color: rgb(245, 243, 254);
-  border: 2px solid #7c3aed !important;
+  background-color: #ede9fe;
+  border: 1px solid #7c3aed !important;
   border-radius: 8px !important;
   color: #222 !important;
   transition: border-color 0.2s;
   box-shadow: none !important;
-  padding: 8px 3.2em 8px 3.2em !important; /* Match docs title padding: 5px vertical */
+  padding: 9px 3.2em 9px 3.2em !important; /* Match docs title padding: 5px vertical */
   font-size: 1.5em !important;
   min-width: 20em !important;
   height: auto !important; /* Let height be determined by padding + content */
-  /* Remove background image for desktop - will be added for mobile only */
+  background-image: url("/docs/assets/close-icon.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: calc(100% - 1em) center !important;
+  background-size: 1.2em !important;
 }
 .md-search__input::placeholder {
   color: #7c3aed !important;
   opacity: 1 !important;
-  font-size: 1.25em !important;
-  font-weight: 500 !important;
+  font-size: 1.2em !important;
+  font-weight: 400 !important;
   letter-spacing: 0.02em;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
 }
 
 .md-search__icon {
@@ -336,10 +323,6 @@ html {
 }
 [data-md-color-scheme="slate"] .md-search__input::placeholder {
   color: #fff !important;
-  opacity: 1 !important;
-  font-size: 1.25em !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.02em;
 }
 
 [data-md-color-scheme="slate"] .md-search__icon {
@@ -1425,5 +1408,47 @@ nav.md-grid {
   .md-sidebar--primary .md-nav__list,
   .md-sidebar--primary .md-nav__item {
     box-sizing: border-box !important;
+  }
+}
+/* === FINAL OVERRIDE: Always hide close icon unless shown by JS === */
+.md-search__close {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+/* Minimal clear button for search input */
+.md-search__clear {
+  display: none;
+  position: absolute;
+  right: 4em;
+  top: 57%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #7c3aed;
+  font-size: 1.25em;
+  cursor: pointer;
+  z-index: 10;
+}
+.md-search__clear:active {
+  color: #4b237a;
+}
+/* Mobile-specific position for .md-search__clear */
+@media (max-width: 1024px) {
+  .md-search__clear {
+    right: 4em;
+    top: 32%;
+    font-size: 1.5em;
+    transform: translateY(-50%);
+  }
+}
+/* Show close icon only on search input focus for desktop screens */
+@media (min-width: 1025px) {
+  .md-search__input {
+    background-image: none !important;
+  }
+  .md-search__input:focus {
+    background-image: url("/docs/assets/close-icon.svg") !important;
   }
 }
