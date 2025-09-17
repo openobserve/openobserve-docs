@@ -75,6 +75,12 @@
     touch-action: pan-y !important;
   }
 }
+/* Limit content width to 70 characters per line for main markdown content */
+.md-content__inner.md-typeset {
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 [data-md-color-scheme="openobserve"] {
   --md-primary-fg-color: #ffffff;
