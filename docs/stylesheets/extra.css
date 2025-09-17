@@ -76,13 +76,12 @@
   }
 }
 /* Limit content width to 70 characters per line for main markdown content */
-.md-content__inner.md-typeset {
-  max-width: 70ch;
+.md-content__inner:not(.landing-page):not(:has(.landing-page)) {
+  max-width: 70ch; /* optimal line length for prose */
+  width: 100%;
+  box-sizing: content-box; /* keep the ch-based width accurate */
   margin-left: auto;
   margin-right: auto;
-  text-align: justify;  
-  /* display: block; */
-  margin: auto;  
 }
 
 [data-md-color-scheme="openobserve"] {
