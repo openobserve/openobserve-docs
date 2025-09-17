@@ -39,9 +39,9 @@ The script authenticates to Anypoint with a username/password, fetches logs from
         ANYPOINT_PASSWORD = "YOUR_PASSWORD"
         OPENOBSERVE_ENDPOINT = "https://<your-openobserve-endpoint>/api/default/mulesoft/_json"
         OPENOBSERVE_API_TOKEN = "BASE64_ENCODED_USER:PASSWORD"
-        ANYPOINT_ORG_NAME = "o2"
-        ANYPOINT_ENV_NAME = "Sandbox"
-        ANYPOINT_APP_NAME = "demov2"
+        ANYPOINT_ORG_NAME = "<ANYPOINT_ORG_NAME>"
+        ANYPOINT_ENV_NAME = "<ANYPOINT_ENV_NAME>"
+        ANYPOINT_APP_NAME = "<ANYPOINT_APP_NAME>"
         STATE_FILE = "last_log_time.json"
 
         # ------------------------------
