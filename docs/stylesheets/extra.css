@@ -1507,9 +1507,5 @@ nav.md-grid {
 
 .md-content__inner:not(.landing-page):not(:has(.landing-page)) {
   max-width: 70ch; /* optimal line length for prose */
-  width: 100%;
-  box-sizing: content-box; /* keep the ch-based width accurate */
-  margin-left: auto !important;
-  margin-right: auto !important;
-  display: block !important;
+  width: 100%;    
 }
