@@ -255,7 +255,7 @@
           const resultCount = getSearchResultCount();
           trackSearchQuery(query, resultCount);
           lastTrackedQuery = query;
-        }, 500); // Matching Vue.js 500ms debounce
+        }, 600); // Matching Vue.js 600ms debounce
       }
 
       // Clear tracking when input is cleared
