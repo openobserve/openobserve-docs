@@ -16,4 +16,5 @@ nav:
     - Airflow: airflow.md
     - Cribl: cribl.md
     - Security: security
+    - Mulesoft: mulesoft.md
 
