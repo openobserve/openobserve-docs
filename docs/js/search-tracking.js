@@ -76,16 +76,10 @@
   async function sendAnalyticsEvent(eventType, payload) {
     // Check if analytics is disabled for internal users
     if (isAnalyticsDisabled()) {
-      console.log(
-        "Analytics disabled for internal user, skipping:",
-        eventType,
-        payload
-      );
       return;
     }
 
-    if (!ANALYTICS_CONFIG.ENABLED || !ANALYTICS_CONFIG.API_ENDPOINT) {
-      console.log("Search Analytics (Demo Mode):", eventType, payload);
+    if (!ANALYTICS_CONFIG.ENABLED || !ANALYTICS_CONFIG.API_ENDPOINT) {      
       return;
     }
 
@@ -107,9 +101,7 @@
           // pageType,                // docs / blog / marketing (uncomment if needed)
           ...payload,
         }),
-      });
-
-      console.log("Search analytics event sent:", eventType, payload);
+      });      
     } catch (error) {
       console.warn("Analytics API error:", error);
     }
@@ -126,18 +118,10 @@
     totalResults = resultCount;
 
     // Send search event exactly like Vue.js reference
-    sendAnalyticsEvent("search", {
+    sendAnalyticsEvent("doc-search", {
       search_query: _q,
       result_count: resultCount,
-    });
-
-    // Also send analytics for zero results (like Vue.js reference)
-    if (resultCount === 0) {
-      sendAnalyticsEvent("search", {
-        search_query: _q,
-        result_count: resultCount,
-      });
-    }
+    });    
   }
 
   /**
@@ -146,16 +130,8 @@
   function trackResultClick(resultUrl, resultTitle, resultRank) {
     const _q = lastSearchQuery.trim();
 
-    console.log("trackResultClick called:", {
-      resultUrl,
-      resultTitle,
-      resultRank,
-      lastSearchQuery: _q,
-      totalResults,
-    });
-
     // Send result_click event exactly like Vue.js reference
-    sendAnalyticsEvent("result_click", {
+    sendAnalyticsEvent("doc-search-click", {
       result_url: resultUrl,
       result_rank: resultRank,
       result_title: resultTitle,
@@ -168,11 +144,6 @@
    * Track page feedback (thumbs up/down) - new functionality
    */
   function trackPageFeedback(feedbackValue, pageUrl, pageTitle) {
-    console.log("trackPageFeedback called:", {
-      feedbackValue,
-      pageUrl,
-      pageTitle,
-    });
 
     // Send feedback event to same analytics endpoint
     sendAnalyticsEvent("reaction", {
@@ -233,15 +204,6 @@
     );
     const resultRank = Array.from(allResults).indexOf(resultItem) + 1;
 
-    console.log("Extracted result info:", {
-      url: resultUrl,
-      title: resultTitle,
-      rank: resultRank,
-      resultItem: resultItem,
-      linkElement: linkElement,
-      titleElement: titleElement,
-    });
-
     return {
       url: resultUrl,
       title: resultTitle,
@@ -255,8 +217,6 @@
   function initializeSearchTracking() {
     let searchTimeout;
     let lastTrackedQuery = "";
-
-    console.log("Initializing MkDocs search tracking...");
 
     // Update context when search becomes active (like Vue.js modal opening)
     const updateContextOnSearchActivation = () => {
@@ -308,8 +268,6 @@
 
     // Track search result clicks with enhanced logic
     document.addEventListener("click", function (e) {
-      console.log("Click detected on:", e.target);
-
       // Multiple ways to detect search result clicks
       const isSearchResult =
         e.target.closest(".md-search-result__item") ||
@@ -323,17 +281,9 @@
           e.target.closest(".md-search-result") ||
           (e.target.href && document.querySelector(".md-search--active")));
 
-      if (!isSearchResult && !isSearchLink) {
-        console.log("Not a search result click, ignoring");
+      if (!isSearchResult && !isSearchLink) {        
         return;
       }
-
-      console.log("Search result clicked!", {
-        isSearchResult: !!isSearchResult,
-        isSearchLink: !!isSearchLink,
-        targetElement: e.target,
-        closestResult: e.target.closest(".md-search-result__item"),
-      });
 
       // Check if search is active (more lenient check)
       const searchContainer = document.querySelector(".md-search");
@@ -344,33 +294,27 @@
         !searchContainer ||
         (!searchContainer.classList.contains("md-search--active") &&
           !hasSearchValue)
-      ) {
-        console.log("Search not active and no search value, ignoring click");
+      ) {        
         return;
       }
 
       // Update context right before tracking click (ensure fresh data)
       updateContextOnSearchActivation();
 
-      const resultInfo = extractResultInfo(e.target);
-      console.log("Result info extracted:", resultInfo);
+      const resultInfo = extractResultInfo(e.target);      
 
-      if (resultInfo && resultInfo.url) {
-        console.log("Calling trackResultClick with:", resultInfo);
+      if (resultInfo && resultInfo.url) {        
         trackResultClick(resultInfo.url, resultInfo.title, resultInfo.rank);
       } else {
         console.warn("Could not extract result info from clicked element");
       }
-    });
-
-    console.log("MkDocs search tracking initialized");
+    });    
   }
 
   /**
    * Initialize feedback tracking - new functionality for page feedback
    */
-  function initializeFeedbackTracking() {
-    console.log("Initializing MkDocs feedback tracking...");
+  function initializeFeedbackTracking() {    
 
     // Track feedback button clicks
     document.addEventListener("click", function (e) {
@@ -379,9 +323,7 @@
 
       if (!feedbackButton) {
         return;
-      }
-
-      console.log("Feedback button clicked:", feedbackButton);
+      }      
 
       // Get feedback value from data-md-value attribute
       const feedbackValue = feedbackButton.getAttribute("data-md-value");
@@ -398,17 +340,11 @@
       // Convert feedback value to number
       const feedbackValueNum = parseInt(feedbackValue, 10);
 
-      console.log("Tracking feedback:", {
-        value: feedbackValueNum,
-        url: pageUrl,
-        title: pageTitle,
-      });
 
       // Track the feedback
       trackPageFeedback(feedbackValueNum, pageUrl, pageTitle);
     });
-
-    console.log("MkDocs feedback tracking initialized");
+    
   }
 
   /**
@@ -459,13 +395,11 @@
     testClickDetection: function () {
       const searchResults = document.querySelectorAll(
         ".md-search-result__item, .md-search-result, [data-md-component='search-result']"
-      );
-      console.log("Found search results:", searchResults);
+      );      
       return searchResults;
     },
     testFeedbackDetection: function () {
-      const feedbackButtons = document.querySelectorAll(".md-feedback__icon");
-      console.log("Found feedback buttons:", feedbackButtons);
+      const feedbackButtons = document.querySelectorAll(".md-feedback__icon");      
       return feedbackButtons;
     },
     getCurrentSearchState: function () {
@@ -489,8 +423,7 @@
       );
       if (results[index]) {
         const link = results[index].querySelector("a");
-        if (link) {
-          console.log("Simulating click on:", link);
+        if (link) {          
           link.click();
         }
       }
@@ -499,8 +432,7 @@
       const feedbackButton = document.querySelector(
         `.md-feedback__icon[data-md-value="${value}"]`
       );
-      if (feedbackButton) {
-        console.log("Simulating feedback click:", feedbackButton);
+      if (feedbackButton) {        
         feedbackButton.click();
       }
     },
