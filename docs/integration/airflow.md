@@ -19,7 +19,7 @@ With OpenTelemetry and OpenObserve, you gain **real-time observability** into Ai
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started/#self-hosted-installation))
     - Apache Airflow installed and running
     - Basic understanding of Airflow configs (`airflow.cfg`)
     - OpenTelemetry Collector installed
@@ -126,7 +126,7 @@ With OpenTelemetry and OpenObserve, you gain **real-time observability** into Ai
 
 ??? "Step 6: Visualize Logs in OpenObserve"
 
-    1. Go to **Streams → airflow** in OpenObserve to query logs.Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
+    1. Go to **Streams → airflow** in OpenObserve to query logs. Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
      
      ![Visualize Logs in OpenObserve](images/airflow-logs.png)
     

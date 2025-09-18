@@ -16,7 +16,7 @@ description: Learn how to route, filter, and analyze logs and traces from Cribl 
 ???  "Prerequisites"
 
     - Running **Cribl Stream** instance with access to the UI  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started/#self-hosted-installation))
 
 ???  "Step 1: Configure an Internal Source in Cribl"
 
