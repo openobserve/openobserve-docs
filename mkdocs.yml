@@ -1,4 +1,4 @@
-site_name: Documentation
+site_name: OpenObserve Documentation
 site_url: https://openobserve.ai/docs
 # https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
 plugins:
