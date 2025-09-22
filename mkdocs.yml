@@ -18,14 +18,15 @@ extra_css:
   - css/landing-page.css
 extra_javascript:
   - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
-  - js/ms-clarity.js
-  - js/zinc.js
-  - js/vector_co.js
+  # - js/ms-clarity.js
+  # - js/zinc.js
+  # - js/vector_co.js
   - js/search-close-minimal.js
   - js/search-tracking.js
   - https://buttons.github.io/buttons.js
-  - js/reo.js
+  # - js/reo.js
   - js/landing-individual-card-ms-tracking.js
+  - js/google-tag-manager.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin

@@ -102,6 +102,8 @@
           ...payload,
         }),
       });      
+      });
+
     } catch (error) {
       console.warn("Analytics API error:", error);
     }
@@ -129,6 +131,7 @@
    */
   function trackResultClick(resultUrl, resultTitle, resultRank) {
     const _q = lastSearchQuery.trim();
+
 
     // Send result_click event exactly like Vue.js reference
     sendAnalyticsEvent("doc-search-click", {
@@ -218,6 +221,7 @@
     let searchTimeout;
     let lastTrackedQuery = "";
 
+
     // Update context when search becomes active (like Vue.js modal opening)
     const updateContextOnSearchActivation = () => {
       try {
@@ -268,6 +272,7 @@
 
     // Track search result clicks with enhanced logic
     document.addEventListener("click", function (e) {
+
       // Multiple ways to detect search result clicks
       const isSearchResult =
         e.target.closest(".md-search-result__item") ||
@@ -285,6 +290,7 @@
         return;
       }
 
+     
       // Check if search is active (more lenient check)
       const searchContainer = document.querySelector(".md-search");
       const searchInput = document.querySelector(".md-search__input");
@@ -301,20 +307,21 @@
       // Update context right before tracking click (ensure fresh data)
       updateContextOnSearchActivation();
 
-      const resultInfo = extractResultInfo(e.target);      
+      const resultInfo = extractResultInfo(e.target);
 
-      if (resultInfo && resultInfo.url) {        
+      if (resultInfo && resultInfo.url) {
         trackResultClick(resultInfo.url, resultInfo.title, resultInfo.rank);
       } else {
         console.warn("Could not extract result info from clicked element");
       }
-    });    
+    });
+
   }
 
   /**
    * Initialize feedback tracking - new functionality for page feedback
    */
-  function initializeFeedbackTracking() {    
+  function initializeFeedbackTracking() {
 
     // Track feedback button clicks
     document.addEventListener("click", function (e) {
@@ -323,7 +330,8 @@
 
       if (!feedbackButton) {
         return;
-      }      
+      }
+
 
       // Get feedback value from data-md-value attribute
       const feedbackValue = feedbackButton.getAttribute("data-md-value");
@@ -344,7 +352,7 @@
       // Track the feedback
       trackPageFeedback(feedbackValueNum, pageUrl, pageTitle);
     });
-    
+
   }
 
   /**
@@ -395,7 +403,7 @@
     testClickDetection: function () {
       const searchResults = document.querySelectorAll(
         ".md-search-result__item, .md-search-result, [data-md-component='search-result']"
-      );      
+      );
       return searchResults;
     },
     testFeedbackDetection: function () {
