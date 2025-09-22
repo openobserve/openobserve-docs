@@ -14,7 +14,7 @@ AWS Network Firewall allows you to log network traffic data, including both flow
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self‑Hosted](../../../quickstart/#self‑hosted‑installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS IAM permissions to manage Network Firewall, Kinesis Firehose, and IAM roles
     - S3 bucket for backup (recommended)
     - A configured AWS Network Firewall deployment

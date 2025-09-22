@@ -15,7 +15,7 @@ API Gateway can send access logs directly to a Kinesis Firehose delivery stream.
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS API Gateway already configured
     - IAM permissions to manage API Gateway, Firehose, and roles
     - An S3 bucket for Firehose backup (optional but recommended)

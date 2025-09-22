@@ -15,7 +15,7 @@ Stream system metrics and logs from EC2 Linux instances to OpenObserve using the
 
 
 ??? "Prerequisites"
-      - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+      - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
       - AWS EC2 Linux instance with SSH access
 
 

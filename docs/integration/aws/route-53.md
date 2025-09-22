@@ -16,7 +16,7 @@ Route 53 query logs capture DNS requests processed by public or private hosted z
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self‑Hosted](../../../quickstart/#self‑hosted‑installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS IAM permissions to manage Route 53, CloudWatch Logs, IAM roles, and Firehose
     - S3 bucket for Firehose backup (optional but recommended)
     - OpenObserve ingestion URL and Access Key

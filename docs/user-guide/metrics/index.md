@@ -1,4 +1,6 @@
+#Metrics Overview
 
+Learn more:
 
-- [File Access Time](file-access-time-metric.md)
-- [Downsampling Metrics](downsampling-metrics.md)
+- [File Access Time](../metrics/file-access-time-metric/)
+- [Downsampling Metrics](../metrics/downsampling-metrics/)

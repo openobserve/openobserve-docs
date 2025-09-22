@@ -17,7 +17,7 @@ This integration captures metadata and logs from GitHub Actions jobs and pushes 
 
 ??? "Prerequisites"
 
-    * OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    * OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     * GitHub repository
 
 ??? "Step 1: Get OpenObserve Credentials"

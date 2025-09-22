@@ -5,11 +5,16 @@ nav:
     - AWS: aws
     - Cloudflare: cloudflare.md
     - Database: database
+    - GCP: gcp
     - Servers: servers
     - DevOps : devops
     - Linux: linux.md 
     - Windows: windows.md
     - Vercel : vercel.md
     - Heroku: heroku.md
-    - Message Brokers: message-brokers
+    - Message Queues: message-brokers
+    - Airflow: airflow.md
+    - Cribl: cribl.md
+    - Security: security
+    - Mulesoft: mulesoft.md
 

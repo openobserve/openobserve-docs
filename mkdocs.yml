@@ -1,4 +1,4 @@
-site_name: Documentation
+site_name: OpenObserve Documentation
 site_url: https://openobserve.ai/docs
 # https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
 plugins:
@@ -26,6 +26,7 @@ extra_javascript:
   # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
   - js/reo.js
+  - js/landing-individual-card-ms-tracking.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin

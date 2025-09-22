@@ -146,7 +146,7 @@ The **Destinations** section provides three configuration options. Select a dest
     
     **Prerequisites:**
       
-      1. Create the real-time action script as per your requirement. For more details, visit the [Create and Use Real-time Actions](../actions/create-and-use-real-time-actions.md) page.
+      1. Create the real-time action script as per your requirement. For more details, visit the [Create and Use Real-time Actions](../../actions/create-and-use-real-time-actions/) page.
       2. Create the alert template.
 
     **Steps to Configure Actions as Alert Destination:** 

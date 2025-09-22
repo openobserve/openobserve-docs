@@ -87,6 +87,6 @@ When you create a Scheduled Alert in SQL mode and apply the Multi-window Selecto
 
 **Important**: In addition to sending alerts, OpenObserve also allows you to automate actions based on alert triggers. You can use Actions to perform automated responses when alerts are triggered. [Learn more about Actions in OpenObserve](https://openobserve.ai/docs/user-guide/actions/actions-in-openobserve/).
 
-### Next Step
-[Learn how to use the Multi-window Selector in Scheduled Alerts](how-to-access-multi-window-selector-scheduled-alerts.md).
+## Next Step
+[Learn how to use the Multi-window Selector in Scheduled Alerts](../how-to-access-multi-window-selector-scheduled-alerts).
 

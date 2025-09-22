@@ -14,7 +14,7 @@ AWS WAF logs include detailed information about requests evaluated against your 
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self‑Hosted](../../../quickstart/#self‑hosted‑installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - AWS IAM permissions to manage WAF, S3, Lambda, Kinesis Firehose, CloudFormation
     - An existing AWS WAF WebACL attached to CloudFront, ALB, or API Gateway
     - An S3 bucket to receive WAF logs

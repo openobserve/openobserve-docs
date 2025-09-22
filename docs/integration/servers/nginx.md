@@ -17,7 +17,7 @@ By default, NGINX logs in a custom format that isn’t ideal for log analytics. 
 ??? "Prerequisites"
 
     - NGINX installed and running
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
 
 
 ??? "Step 1: Configure NGINX to Emit JSON Logs"

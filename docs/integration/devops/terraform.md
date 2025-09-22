@@ -17,7 +17,7 @@ Terraform doesn’t log to files by default. This integration enables detailed l
 ??? "Prerequisites"
 
     - Terraform installed
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
 
 ??? "Step 1: Enable Logging in Terraform"
 

@@ -18,7 +18,7 @@ To effectively monitor Cassandra, we will set up OpenTelemetry (OTel) to collect
 
 ??? "Prerequisites"
     - Running **Apache Cassandra** instance(s)  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))  
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))  
 
 ??? "Step 1: Download OpenTelemetry JMX Metrics JAR"
 

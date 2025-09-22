@@ -17,12 +17,13 @@ Use static filters when the filter values are known and do not change at runtime
 
 **To add a static filter to a panel:**
 
-1. In the panel editor, select the **+** icon in the Filters section. 
+1. In the panel editor, select the **+** icon in the **Filters** section. 
 2. Select **Add Condition**. 
 ![Add Filters](../../../images/add-filters.png)
 Alternatively, hover over a field in the **Fields** section and select the **+F** icon to add a filter directly.
 3. Click the filter and open the dropdown. 
 3. Verify or change the selected field using the **Filters on Field** dropdown.
+![filters-on-filed](../../../images/filters-on-filed.png)
 4. Choose the **List** tab. 
 5. Select one or more values from the available list. 
 ![Create Static Filter](../../../images/filters-create-static-filters.png)
@@ -52,84 +53,28 @@ To add a dynamic filter to a panel:
 Alternatively, hover over a field in the **Fields** section and select the **+F** icon to add a filter directly.
 3. Click the filter and open the dropdown. 
 3. Verify or change the selected field using the **Filters on Field** dropdown.
+![filters-on-filed](../../../images/filters-on-filed.png)
 4. Choose the **Condition** tab. 
-5. Choose an operator (for example, `=`, `>`, `IN`, `str_match`)
-* Provide a fixed value or a variable like `$my_var`
+5. In the **Operator** section, choose an operator. For example, `=`, `>`, `IN`, `str_match`. 
+6. In the **Value** section, you can provide a fixed value or a variable like `$my_variable`. Ensure that the variable named `my_variable` exists. See [Variables in OpenObserve](../../variables/variables-in-openobserve/) to learn how to create a variable.
+7. Click **Save** to save the panel. 
+!!! note "Important"
+      Before you provide a fixed value, know the filed type associated with the value. This helps avoid syntax errors and ensures accurate query generation.
 
-When you enter  values manually:
-**Field Types and Values:**
-* The field type is indicated in the Fields list:
-   * `Tt` (Text): Represents string fields
-   * `#` (Number): Represents numeric fields
-* When a filter is applied:
-   * For string fields, values are automatically quoted in the SQL query (for example, `'123e'`)
-   * For numeric fields, values are treated as raw numbers (for example, `123e`)
+      The field type is indicated with `Tt` and `#` in the **Fields** list. 
+      `Tt` represents string fields and `#` represents numeric fields. 
+      ![field type](../../../images/field-type.png) 
 
-This helps avoid syntax errors and ensures accurate query generation.
+      When a filter is applied:
 
-When you enter values dynaically using variables: 
+      - For string fields, values are automatically quoted in the SQL query. For example, `'123e'`. 
+      - For numeric fields, values are treated as raw numbers. For example, `123e`. 
 
-Step 1: Create the Variable
-Create a variable named pod to dynamically fetch all unique pod names from your log stream.
+## Add Filter Groups
+1. In the **Filter** section, click **+ > Add Group** to create nested filters. You can add multiple filter conditions inside the group and combine them using **AND** or **OR** operators. 
+![Filter groups](../../../images/filter-grouping.png)
+2. After configuring filters, click **Apply** to run the query. 
+3. Click **Save** to save the panel. 
 
-Variable Type: Query Values
-
-Name: pod
-
-Label: Pod
-
-Stream Type: logs
-
-Stream: default
-
-Field: k8s_pod_name
-
-After saving, the variable appears as a dropdown at the top of the dashboard.
-
-Step 2: Configure the Panel
-X-axis: HISTOGRAM(_timestamp)
-
-Y-axis: COUNT(k8s_namespace_name)
-
-Filter:
-
-Field: k8s_pod_name
-
-Type: Condition
-
-Operator: =
-
-Value: $pod
-
-
-
-
-
-### Grouped Filters (AND/OR Logic)
-
-Use this to create nested filters with logical combinations.
-
-**Steps:**
-* Click **+ > Add group**
-* Add multiple filter conditions inside the group
-* Define how the filters should be combined using **AND** or **OR**
-
-**Example:**
-```
-(k8s_app_instance = "cert-manager" OR kubernetes_container_name = "nginx") AND level = "error"
-```
-
-### Combine Static and Dynamic Filters
-
-You can mix static and dynamic filters in the same panel:
-* Use **+** to add more filters
-* Combine fixed values with variables or logic conditions
-* All filters contribute to a single SQL query generated below the chart
-
-## Apply and Save
-
-After configuring filters:
-* Click **Apply** to run the query
-* Click **Save** to save the panel
-
-If you change filters or variables later, click **Apply** again to refresh the panel.
+!!! note "Note"
+      You can also combine static and dynamic filters.

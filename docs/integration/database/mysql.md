@@ -17,7 +17,7 @@ With the **OpenTelemetry Collector** and **OpenObserve**, you can seamlessly ing
 
 ??? "Prerequisites"
     - Running **MySQL instance(s)**  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))  
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))  
 
 ??? "Step 1: Install OpenTelemetry Collector Contrib"
 
@@ -94,3 +94,4 @@ With the **OpenTelemetry Collector** and **OpenObserve**, you can seamlessly ing
     - **Authentication Issues**: Confirm that the username and password configured in the OpenTelemetry Collector match your MySQL credentials.  
     - **Endpoint Validation**: If running MySQL on a remote server, make sure you are using the correct hostname/IP in the `endpoint` field of your collector configuration.  
     - **Collector Logs**: Inspect the OpenTelemetry Collector logs for detailed error messages (`journalctl -u otel-collector -f` on Linux). These logs often indicate whether the issue is authentication, connectivity, or configuration related.  
+

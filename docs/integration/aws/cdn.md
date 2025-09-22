@@ -14,7 +14,7 @@ CloudFront access logs contain detailed request-level data. By streaming them to
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - Amazon CloudFront distribution
     - S3 bucket to store CloudFront logs
     - IAM role with necessary permissions

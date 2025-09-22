@@ -15,7 +15,7 @@ This method uses a self-hosted serverless function as a relay to forward logs se
 ## Steps to Integrate
 
 ??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../quickstart/#self-hosted-installation))
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started/#self-hosted-installation))
     - Vercel project (Pro or Enterprise plan, Log Drains are not available on Hobby)
     - Vercel CLI or dashboard access
     - Basic Node.js knowledge for modifying serverless functions
