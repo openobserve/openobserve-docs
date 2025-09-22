@@ -1504,8 +1504,3 @@ nav.md-grid {
     max-width: 1736px;
   }
 }
-
-.md-content__inner:not(.landing-page):not(:has(.landing-page)) {
-  max-width: 70ch; /* optimal line length for prose */
-  width: 100%;    
-}
