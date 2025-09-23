@@ -3,7 +3,7 @@ description: >-
   Add an existing user to an OpenObserve organization with a specified role
   using a simple POST request. Supports admin and user roles.
 ---
-# Add existing user to org
+# Add exiting user to org
 
 Endpoint: `POST /api/{organization}/users/{user_email}`
 
