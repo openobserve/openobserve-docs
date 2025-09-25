@@ -6,4 +6,4 @@ nav:
     - Import and Export Alerts: import-export-alerts.md
     - Multi-window Selector in Scheduled Alerts (SQL Mode): multi-window-selector-scheduled-alerts-concept.md
     - Use Multi-window Selector in Scheduled Alerts: how-to-access-multi-window-selector-scheduled-alerts.md
-    - Alerting Examples- Telegram: alerting-example-telegram.md
+    - Use Telegram for Alerts: alerting-example-telegram.md
