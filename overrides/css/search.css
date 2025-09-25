@@ -1,0 +1,88 @@
+.md-search-result__meta {
+  padding-left: 10px !important ;
+  position: sticky !important;
+  top: 0 !important;
+}
+
+/* make the sticky meta sit above the list and not let content show through */
+.md-search-result__meta {
+  z-index: 20 !important;
+  background: var(--md-search-meta-bg, #fff) !important;
+  /* subtle border/shadow to visually separate the sticky header from the list */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* ensure the results list doesn't visually overlap the sticky meta
+   add a small top padding so the first items start below the header.
+   tweak the value if your header is taller or shorter. */
+.md-search-result__list {
+  position: relative;
+  z-index: 1;
+  padding-top: 0.75rem; /* adjust as needed to match header height */
+}
+
+.md-search-result__meta .key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px; /* more comfortable padding */
+  margin: 0 4px; /* consistent spacing between keys */
+  background: #f9f9f9; /* subtle background */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: monospace;
+  font-weight: 500;
+  font-size: 13px; /* uniform size */
+  text-align: center;
+  min-width: 24px;
+  height: 24px; /* consistent height for all keys */
+  box-shadow: inset 0 -1px 0 #aaa;
+  line-height: 1; /* remove extra vertical spacing */
+}
+
+.md-search-result__meta .key-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px; /* more comfortable padding */
+  margin: 0 0.5px; /* consistent spacing between keys */
+  background: #f9f9f9; /* subtle background */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: monospace;
+  font-weight: 500;
+  font-size: 13px; /* uniform size */
+  text-align: center;
+  min-width: 24px;
+  height: 24px; /* consistent height for all keys */
+  box-shadow: inset 0 -1px 0 #aaa;
+}
+
+.md-search-result__meta .search_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+.key-container {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  justify-content: normal;
+}
+
+.key-close {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  justify-content: normal;
+}
+/* 
+@media (max-width: 648px) {
+  .md-search__inner.md-search__inner , .md-search__inner.md-search__output{
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+} */
