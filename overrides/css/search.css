@@ -6,10 +6,39 @@
 
 /* make the sticky meta sit above the list and not let content show through */
 .md-search-result__meta {
-  z-index: 20 !important;
-  background: var(--md-search-meta-bg, #fff) !important;
+  z-index: 20;
+  /* allow the site to control the meta background via a variable; avoid !important
+     so theme-specific rules can override when necessary */
+  background: var(--md-search-meta-bg, #fff);
+  color: var(--md-search-meta-color, #111);
   /* subtle border/shadow to visually separate the sticky header from the list */
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Explicit light-theme rules: when the theme palette is set to 'default' or
+   'light' via the data attribute, ensure the meta header uses the provided
+   variables (or sensible fallbacks). These use !important so they reliably
+   apply on pages that also include other high-specificity overrides. */
+[data-md-color-scheme="default"] .md-search-result__meta,
+[data-md-color-scheme="light"] .md-search-result__meta,
+[data-md_color_scheme="default"] .md-search-result__meta,
+[data-md_color_scheme="light"] .md-search-result__meta {
+  background: var(--md-search-meta-bg, #fff) !important;
+  color: var(--md-search-meta-color, #111) !important;
+  border: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-md-color-scheme="default"] .md-search-result__meta .key,
+[data-md-color-scheme="light"] .md-search-result__meta .key,
+[data-md_color_scheme="default"] .md-search-result__meta .key,
+[data-md_color_scheme="light"] .md-search-result__meta .key,
+[data-md-color-scheme="default"] .md-search-result__meta .key-arrow,
+[data-md-color-scheme="light"] .md-search-result__meta .key-arrow,
+[data-md_color_scheme="default"] .md-search-result__meta .key-arrow,
+[data-md_color_scheme="light"] .md-search-result__meta .key-arrow {
+  background: #f9f9f9 !important;
+  border: 1px solid #ccc !important;
+  color: #111 !important;
 }
 
 /* ensure the results list doesn't visually overlap the sticky meta
