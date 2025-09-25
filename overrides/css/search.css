@@ -55,7 +55,6 @@
   text-align: center;
   min-width: 24px;
   height: 24px; /* consistent height for all keys */
-  box-shadow: inset 0 -1px 0 #aaa;
 }
 
 .md-search-result__meta .search_container {
@@ -86,3 +85,56 @@
     margin-right: auto;
   }
 } */
+
+/* Dark theme adjustments: make the sticky search meta and key pills readable
+   Targets both attribute naming variants used across the project and also
+   respects users' dark color-scheme preference. These rules intentionally
+   use high specificity and !important to win over earlier light-theme rules.
+*/
+
+[data-md-color-scheme="slate"] .md-search-result__meta,
+[data-md-color-scheme="openobserve"] .md-search-result__meta,
+[data-md_color_scheme="slate"] .md-search-result__meta,
+[data-md_color_scheme="openobserve"] .md-search-result__meta {
+  background: #414455 !important; /* near-black but slightly translucent */
+  color: #e6e6e6 !important; /* light text for contrast */
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+[data-md-color-scheme="slate"] .md-search-result__meta .key,
+[data-md-color-scheme="openobserve"] .md-search-result__meta .key,
+[data-md_color_scheme="slate"] .md-search-result__meta .key,
+[data-md_color_scheme="openobserve"] .md-search-result__meta .key {
+  background: rgba(255, 255, 255, 0.04) !important; /* subtle pill */
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #fff !important;
+}
+
+[data-md-color-scheme="slate"] .md-search-result__meta .key-arrow,
+[data-md-color-scheme="openobserve"] .md-search-result__meta .key-arrow,
+[data-md_color_scheme="slate"] .md-search-result__meta .key-arrow,
+[data-md_color_scheme="openobserve"] .md-search-result__meta .key-arrow {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #fff !important;
+}
+
+/* Also support system dark preference for pages that don't set the data attribute */
+@media (prefers-color-scheme: dark) {
+  .md-search-result__meta {
+    background: #414455 !important;
+    color: #e6e6e6 !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  }
+  .md-search-result__meta .key,
+  .md-search-result__meta .key-arrow {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    color: #fff !important;
+  }
+}
+
+/* Small readability/touch improvements for dark mode */
+.md-search-result__meta .search_container {
+  gap: 0.6em !important;
+}
