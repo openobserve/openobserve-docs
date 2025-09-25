@@ -1,12 +1,16 @@
 ---
-title: Etcd Maintenance
+title: Etcd Maintenance (Deprecated)
 weight: 4450
 description: >-
   Learn how to maintain your etcd cluster with compaction, defragmentation, and
   space quotas to prevent data loss and ensure reliable performance.
 ---
 
-# Etcd Maintenance
+# Etcd Maintenance (Deprecated)
+
+!!! warning "Deprecation Notice"
+    Support for **etcd** has been deprecated in OpenObserve.
+
 
 ## Overview
 
