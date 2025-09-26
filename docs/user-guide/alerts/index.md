@@ -8,5 +8,5 @@ Alerts enable continuous monitoring of log, metric, or trace data to detect crit
 - [Templates](../management/templates/)
 - [Import and Export Alerts](../alerts/import-export-alerts/)
 - [Alert Folders](../alerts/alert-folders/)
-- [Multi-window Selector in Scheduled Alerts (SQL Mode)](../alerts/]multi-window-selector-scheduled-alerts-concept)
+- [Multi-window Selector in Scheduled Alerts (SQL Mode)](../alerts/multi-window-selector-scheduled-alerts-concept)
 - [Use Multi-window Selector in Scheduled Alerts](../alerts/how-to-access-multi-window-selector-scheduled-alerts)

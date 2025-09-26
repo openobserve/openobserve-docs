@@ -5,3 +5,4 @@ The following guides provide details on managing user identities and controlling
 - [Single Sign-On (SSO)](../identity-and-access-management/sso/)
 - [Organizations](../identity-and-access-management/organizations/)
 - [Quotas](../identity-and-access-management/quotas/)
+- [Manage Users & Passwords](../identity-and-access-management/update-password.md)

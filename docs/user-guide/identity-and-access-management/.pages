@@ -5,3 +5,4 @@ nav:
     - Single Sign-On (SSO): sso.md
     - Organizations: organizations.md
     - Quotas: quotas
+    - Manage Users & Passwords: update-password.md
