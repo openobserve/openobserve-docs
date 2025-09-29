@@ -81,6 +81,15 @@ This opens up the pipeline editor.
 
 ### Step 5: Edit the Destination node
 
+!!! warning "Important"
+    If you create a route with a condition or filter that forwards events to a new destination, only the matching events go there. <br>
+    Events that do not match the condition are dropped. They are not stored in the source stream unless you explicitly add a destination node that points to the source stream.
+
+    **Recommended pattern:** Always add two routes in your real-time pipeline.
+
+    - **Route A**: Add your filter or transformation and forward matching events to the new destination.
+    - **Route B**: Add a catch-all route without a filter that points back to the same source stream to prevent data loss.
+
 1. Drag a **Stream** node into the editor.
 2. Click the edit icon in the destination **Stream** node.
 3. In the **Associate Stream** form:
@@ -93,8 +102,8 @@ This opens up the pipeline editor.
 ![destination stream](../../images/pipeline6_destination_stream.png)
 ### Step 6: Connect the Source, Transform, and Destination nodes to complete the data flow order
 
-- Use the **remove icon** (![remove icon](../../images/pipeline10_remove.png)) to remove any incorrect connection.
-- Use the **connection icon** (![connection icon](../../images/pipelines11_connect_icon.png)) to build a connection between two nodes.
+- ![remove icon](../../images/pipeline10_remove.png): Use the **remove icon** to remove any incorrect connection.
+- ![connection icon](../../images/pipelines11_connect_icon.png): Use the **connection icon** to build a connection between two nodes.
 
 ![realtime pipeline node connection](../../images/pipeline-new1-connect-nodes.png) 
 
@@ -103,6 +112,7 @@ This opens up the pipeline editor.
 After you click Save, it gets activated automatically. Learn how to [manage pipelines](../manage-pipelines/).
 
 ![active pipeline](../../images/pipeline8_save_pipeline.png)
+
 
 
 ## Use the Pipeline
