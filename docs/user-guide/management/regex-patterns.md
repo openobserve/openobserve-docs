@@ -249,7 +249,6 @@ The following regex patterns are applied to the `message` field of the `pii_test
     4. Set the time range to include the test data.
     5. Click **Run Query**.
     6. Verify results:
-
     ![drop-at-ingestion-time-result](../../images/drop-at-ingestion-time-result.png)
 
     **Key points:** 
@@ -260,7 +259,7 @@ The following regex patterns are applied to the `message` field of the `pii_test
 
 ??? "Test 3: Redact at Query Time"
     **Pattern Configuration**:
-    ![redact-at-query-test-config](../../images/redact-at-query-time-test-config.png)
+    ![redact-at-query-test-config](../../images/redact-at-query-test-config.png)
 
     **Test Steps:**
 
@@ -275,7 +274,6 @@ The following regex patterns are applied to the `message` field of the `pii_test
     4. Set the time range to include the test data.
     5. Click **Run Query**.
     6. Verify results:
-
     ![redact-at-query-time-result](../../images/redact-at-query-time-result.png)
 
     **Key points:** 
@@ -301,7 +299,6 @@ The following regex patterns are applied to the `message` field of the `pii_test
     4. Set the time range to include the test data.
     5. Click **Run Query**.
     6. Verify results:
-
     ![Drop at Query Time](../../images/drop-at-query-time-result.png)
 
     **Key points:** 
