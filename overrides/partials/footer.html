@@ -86,14 +86,14 @@
       <!-- Newsletter -->
       <div class="tw-rounded-lg tw-text-center tw-mx-auto">
         <form id="newsletter-form" name="newsletter" novalidate>
-          <h2
+          <div
             class="tw-text-white tw-font-medium tw-text-lg tw-mb-2 tw-relative tw-inline-block"
           >
             Stay Updated
             <span
               class="tw-absolute tw-bottom-[-5px] tw-left-0 tw-w-full tw-h-0.5 tw-bg-white tw-block"
             ></span>
-          </h2>
+          </div>
           <p
             class="tw-text-gray-300 tw-text-sm tw-transition tw-duration-300 tw-mb-6"
           >
@@ -248,7 +248,7 @@
         </div>
 
         <div class="tw-flex tw-flex-col tw-text-white">
-          <h2 class="tw-whitespace-nowrap tw-text-sm">SOC2 Type II</h2>
+          <p class="tw-whitespace-nowrap tw-text-sm">SOC2 Type II</p>
           <p class="tw-whitespace-nowrap tw-text-xs">Certified</p>
         </div>
         <div
@@ -538,9 +538,7 @@
       footerData.forEach((section) => {
         const column = document.createElement("div");
         column.innerHTML = `
-          <h2 class="tw-text-white tw-font-medium tw-text-base tw-mb-3">${
-            section.title
-          }</h2>
+          <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">${section.title}</div>
           <ul class="tw-space-y-2 tw-text-gray-300 tw-text-xs">
             ${section.items
               .map(
