@@ -53,9 +53,10 @@ This opens up the pipeline editor.
 
     ![condition in realtime pipeline](../../images/pipeline3_transform_using_condition.png)  
     
-    - **For a Function node**: In the **Associate Function** form, select an existing function or create a new function to associate with the pipeline.
+    - **For a Function node**: In the **Associate Function** form, select an existing function or create a new function to associate with the pipeline. <br>
     ![function in realtime pipeline](../../images/pipeline-new1-associate-function.png)
-    <br>To create a new function:
+    <br>
+    To create a new function:
 
         1. In the **Associate Function** form, enable the **Create new function** toggle.
         ![function in realtime pipeline](../../images/Pipeline-new1-add-function.png)
