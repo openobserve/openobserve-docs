@@ -333,7 +333,7 @@ The following regex patterns are applied to the `message` field of the `pii_test
 **Solution**: Check the field type in the Stream Details view. Only UTF8 fields support regex patterns. <br>
 
 <br>
-**Issue**: Pattern does not apply.
+**Issue**: Pattern does not apply. <br>
 **Cause**: Configuration changes were not saved.<br>
 **Solution**: Ensure that you selected **Update Changes** after applying the pattern.<br>
 
