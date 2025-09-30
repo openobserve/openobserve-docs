@@ -27,6 +27,8 @@ extra_javascript:
   - https://buttons.github.io/buttons.js
   - js/reo.js
   - js/landing-individual-card-ms-tracking.js
+  - js/feedback.js
+  - js/segment.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin
