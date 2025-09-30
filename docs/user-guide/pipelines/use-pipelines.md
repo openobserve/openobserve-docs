@@ -86,10 +86,11 @@ This opens up the pipeline editor.
     If you create a route with a condition or filter that forwards events to a new destination, only the matching events go there. <br>
     Events that do not match the condition are dropped. They are not stored in the source stream unless you explicitly add a destination node that points to the source stream.
 
-    **Suggested pattern:** Always add two routes in your real-time pipeline.
+    **Suggested pattern**: Always add two or more routes in your real-time pipeline.
 
-    - **Route A**: Add your filter or transformation and forward matching events to the new destination.
-    - **Route B**: Add a catch-all route without a filter that points back to the same source stream to prevent data loss.
+    - Route A: Add a catch-all route without a filter. Point it back to the same source stream to prevent data loss.
+    - Route B: Filter number 1 and forward matching events to destination 1.
+    - Route C: Filter number 2 and forward matching events to destination 2.
 
 1. Drag a **Stream** node into the editor.
 2. Click the edit icon in the destination **Stream** node.
