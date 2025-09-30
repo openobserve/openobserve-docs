@@ -17,7 +17,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 - **Drop**: Sensitive data is removed before being stored on disk.
 
 **Query time**
-> **Note**: If you have already ingested sensitive data and it's stored on disk, you can use query time redaction or drop to protect it without re-ingesting your logs. This allows you to apply sensitive data redaction retroactively to existing data.
+> **Note**: If you have already ingested sensitive data and it's stored on disk, you can use query time redaction or drop to protect it. This allows you to apply sensitive data redaction to existing data.
 
 - **Redaction**: Sensitive data is read from disk but masked before results are displayed.
 - **Drop**: Sensitive data is read from disk but excluded from the query results.
