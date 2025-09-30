@@ -24,6 +24,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 
     1. Select the appropriate organization from the dropdown in the top-right corner.
     2. Select **Management** > **Sensitive Data Redaction**.
+    ![Sensitive Data Redaction](../../images/sensitive-data-redaction.png)
 
     This opens the Sensitive Data Redaction interface, where you can view, create, and manage regex patterns available to the selected organization.
 
