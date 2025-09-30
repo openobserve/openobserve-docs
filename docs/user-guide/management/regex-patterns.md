@@ -11,10 +11,13 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 
 **Ingestion time**
 
+> **Note**: Use ingestion time redaction or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it's redacted or dropped during ingestion.
+
 - **Redaction**: Sensitive data is masked before being stored on disk.
 - **Drop**: Sensitive data is removed before being stored on disk.
 
 **Query time**
+> **Note**: If you have already ingested sensitive data and it's stored on disk, you can use query time redaction or drop to protect it without re-ingesting your logs. This allows you to apply sensitive data redaction retroactively to existing data.
 
 - **Redaction**: Sensitive data is read from disk but masked before results are displayed.
 - **Drop**: Sensitive data is read from disk but excluded from the query results.
@@ -23,17 +26,23 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     To access the **Sensitive Data Redaction** interface:
 
     1. Select the appropriate organization from the dropdown in the top-right corner.
-    2. Select **Management** > **Sensitive Data Redaction**.
+    2. Select **Management** > **Sensitive Data Redaction**. 
+    
     ![Sensitive Data Redaction](../../images/sensitive-data-redaction.png)
 
     This opens the Sensitive Data Redaction interface, where you can view, create, and manage regex patterns available to the selected organization.
 
 !!! note "Who can access"
-    Access to **Sensitive Data Redaction** is controlled via the **Regexp Patterns** module in the **IAM** settings, using [role-based access control (RBAC)](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/).
+    `Root` users have full access to both pattern creation and pattern association by default. For other users, permissions are controlled via the **Regexp Patterns** and **Streams** module in the **IAM** settings, using [role-based access control (RBAC)](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/).
 
-    - `Root` users have full access by default.
-    - Other user permissions must be assigned access through **Roles** in **IAM**.
-    - You can control access at both the module level (all regex patterns) and the individual pattern level. This allows precise control over which users can view, create, edit, or delete specific regex patterns.
+    **Pattern Creation:**
+
+    - Users need permissions on the **Regexp Patterns** module to create, view, edit, or delete regex patterns.
+    - You can control access at both the module level (all regex patterns) and the individual pattern level for precise control.
+
+    **Pattern Association:**
+
+    - To associate patterns with stream fields, users need List permission on **Regexp Patterns** AND edit permission on **Streams** modules. 
 
 !!! warning "Important Note"
     - Regex patterns can only be applied to fields with UTF8 data type.
@@ -42,7 +51,8 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 ## Create Regex Patterns
 
 **To create a regex pattern:**
-??? note "Step 1: Discover sensitive data"
+
+??? "Step 1: Discover sensitive data"
     Identify which fields may contain sensitive data. 
 
     1. From the left-hand menu, select **Logs**. 
@@ -50,7 +60,6 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     3. Select an appropriate time range and click **Run Query**. 
     This shows the records for the selected time range. 
     <br>
-
     ![Identify PII for regex application](../../images/identify-pii-for-regex-application.png)
 
     **Look for common sensitive patterns.**
@@ -69,7 +78,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     "timestamp": "2025-07-30T10:30:00Z"
     }
     ```
-??? note "Step 2: Create and test regex patterns"
+??? "Step 2: Create and test regex patterns"
     To create regex patterns, naviagte to **Management** > **Sensitive Data Redaction** > **Create Pattern**. 
     
     ![Create regex](../../images/create-regex-pattern.png)
@@ -135,6 +144,7 @@ Once your patterns are created and tested, you can apply them to specific fields
     ![Select regex pattern](../../images/select-regex.png) 
     <br>
     After selecting a pattern, a detail view appears.
+
     ![Regex selection](../../images/regex-selection-view.png)
 
 ??? "Step 3: From the pattern details view, choose whether to Redact or Drop"
