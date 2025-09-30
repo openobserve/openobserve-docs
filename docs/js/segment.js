@@ -17,8 +17,7 @@ function getSegmentProxyUrl() {
 
 function trackFeedback(feedbackData) {
   const proxyUrl = getSegmentProxyUrl();
-  if (!proxyUrl) {
-    console.warn("Segment proxy URL not set");
+  if (!proxyUrl) {    
     return;
   }
   const message = {
@@ -27,23 +26,17 @@ function trackFeedback(feedbackData) {
     properties: feedbackData,
     timestamp: new Date().toISOString(),
     type: "track",
-  };
-  console.log("[Segment] trackFeedback called");
-  console.log("[Segment] Proxy URL:", proxyUrl);
-  console.log("[Segment] Payload:", message);
+  };  
   fetch(proxyUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(message),
   })
-    .then((res) => {
-      console.log("[Segment] Response status:", res.status, res.statusText);
-      return res.text().then((text) => {
-        console.log("[Segment] Response body:", text);
+    .then((res) => {      
+      return res.text().then((text) => {       
       });
     })
-    .catch((e) => {
-      console.error("Segment trackFeedback error:", e);
+    .catch((e) => {     
     });
 }
 

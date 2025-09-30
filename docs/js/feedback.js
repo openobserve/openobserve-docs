@@ -3,10 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const feedbackButton = document.querySelector("#feedbackButton");
   const modal = document.querySelector("#feedbackModal");
 
-  if (!feedbackButton || !modal) {
-    console.warn(
-      "Feedback widget: #feedbackButton or #feedbackModal not found in DOM. Feedback widget disabled."
-    );
+  if (!feedbackButton || !modal) {   
     return;
   }
 
@@ -18,10 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastActiveElement = null;
 
   // Ensure the form exists before touching it
-  if (!form) {
-    console.warn(
-      "Feedback widget: form inside #feedbackModal not found. Feedback disabled."
-    );
+  if (!form) {    
     return;
   }
 
@@ -99,8 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // ensure right alignment like Vue: right-0 on the modal container
       if (!modal.classList.contains("tw-right-0"))
         modal.classList.add("tw-right-0");
-    } catch (err) {
-      console.error("Feedback widget: calculatePosition failed", err);
+    } catch (err) {      
     }
   }
 
@@ -156,8 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         closeModal();
       }
-    } catch (err) {
-      console.error("Feedback widget: error toggling modal", err);
+    } catch (err) {      
     }
   });
 
@@ -213,8 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         window.trackFeedback(data);
       } catch (e) {
-        // Segment tracking error should not block submission
-        console.error("Segment trackFeedback error:", e);
+        // Segment tracking error should not block submission       
       }
     }
 
