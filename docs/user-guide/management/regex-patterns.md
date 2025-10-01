@@ -315,8 +315,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     **Key points:** 
 
     - Original data is preserved on disk.
-    - Email address appears as [REDACTED] in query results.
-    - Useful for compliance while maintaining data for authorized access.
+    - The `message` field with the credit card details gets dropped in query results.
+    - This demonstrates field-level drop at query time. 
 
 
 ## Limitations
