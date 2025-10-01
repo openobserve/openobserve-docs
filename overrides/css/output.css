@@ -665,6 +665,11 @@ video {
   margin-right: auto;
 }
 
+.tw-my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .tw-mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -733,6 +738,10 @@ video {
   height: 0.125rem;
 }
 
+.tw-h-10 {
+  height: 2.5rem;
+}
+
 .tw-h-12 {
   height: 3rem;
 }
@@ -771,6 +780,10 @@ video {
 
 .tw-h-full {
   height: 100%;
+}
+
+.tw-w-10 {
+  width: 2.5rem;
 }
 
 .tw-w-12 {
@@ -847,8 +860,24 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.tw-scale-90 {
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .tw-transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes tw-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tw-animate-spin {
+  animation: tw-spin 1s linear infinite;
 }
 
 .tw-cursor-pointer {
@@ -983,6 +1012,10 @@ video {
   border-width: 2px;
 }
 
+.tw-border-4 {
+  border-width: 4px;
+}
+
 .tw-border-t {
   border-top-width: 1px;
 }
@@ -1022,6 +1055,19 @@ video {
   border-color: rgb(55 65 81 / var(--tw-border-opacity, 1));
 }
 
+.tw-border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+
+.tw-border-t-transparent {
+  border-top-color: transparent;
+}
+
+.tw-border-opacity-80 {
+  --tw-border-opacity: 0.8;
+}
+
 .tw-bg-\[\#121212\] {
   --tw-bg-opacity: 1;
   background-color: rgb(18 18 18 / var(--tw-bg-opacity, 1));
@@ -1030,6 +1076,11 @@ video {
 .tw-bg-\[\#7782FF\] {
   --tw-bg-opacity: 1;
   background-color: rgb(119 130 255 / var(--tw-bg-opacity, 1));
+}
+
+.tw-bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .tw-bg-gray-200 {
@@ -1044,6 +1095,10 @@ video {
 .tw-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.tw-bg-opacity-60 {
+  --tw-bg-opacity: 0.6;
 }
 
 .tw-bg-gradient-to-r {
