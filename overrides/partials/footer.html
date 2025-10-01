@@ -166,7 +166,7 @@
         </form>
         <div
           id="newsletter-toast"
-          class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300"
+          class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-[15px]"
         ></div>
       </div>
 
@@ -306,7 +306,10 @@
           const recaptchaContainer = document.getElementById(
             "newsletter-recaptcha"
           );
-          if (!recaptchaContainer || recaptchaWidgetId !== null) return;
+          if (!recaptchaContainer) return;
+
+          // If widget already exists, don't create another one
+          if (recaptchaWidgetId !== null) return;
 
           try {
             recaptchaWidgetId = window.grecaptcha.render(recaptchaContainer, {
@@ -315,8 +318,7 @@
               "expired-callback": window.onRecaptchaExpired,
               theme: "dark",
             });
-          } catch (error) {
-            // Silent error handling
+          } catch (error) {            
           }
         }
 
@@ -327,15 +329,25 @@
             "newsletter-recaptcha-container"
           );
           const recaptchaDiv = document.getElementById("newsletter-recaptcha");
+          const loader = document.getElementById("newsletter-captcha-loader");
 
           if (container) {
             container.classList.remove("tw-hidden");
             container.classList.add("tw-flex");
           }
 
+          // Hide loader when showing reCAPTCHA
+          if (loader) {
+            loader.style.display = "none";
+          }
+
           // Wait for DOM update, then render reCAPTCHA
           setTimeout(() => {
-            if (recaptchaDiv && window.grecaptcha && !recaptchaWidgetId) {
+            if (
+              recaptchaDiv &&
+              window.grecaptcha &&
+              recaptchaWidgetId === null
+            ) {
               initializeRecaptcha();
             }
           }, 100);
@@ -352,7 +364,9 @@
               "Please complete the reCAPTCHA to proceed.",
               "error"
             );
-            // Re-enable submit button
+            // Show submit button again
+            const buttonContainer = subscribeBtn.parentElement;
+            buttonContainer.style.display = "block";
             subscribeBtn.disabled = false;
             subscribeBtn.textContent = "Subscribe";
             return;
@@ -373,7 +387,9 @@
                 "Captcha validation failed. Please try again.",
                 "error"
               );
-              // Re-enable submit button
+              // Show submit button again
+              const buttonContainer = subscribeBtn.parentElement;
+              buttonContainer.style.display = "block";
               subscribeBtn.disabled = false;
               subscribeBtn.textContent = "Subscribe";
               return;
@@ -384,7 +400,7 @@
 
             // Success flow
             showToastMessage(
-              `Successfully subscribed! Welcome to OpenObserve updates.`,
+              `Subscribed successfully with: ${email}`,
               "success"
             );
 
@@ -402,8 +418,20 @@
               container.classList.remove("tw-flex");
             }
 
-            if (window.grecaptcha && recaptchaWidgetId) {
-              window.grecaptcha.reset(recaptchaWidgetId);
+            // Completely destroy and recreate reCAPTCHA widget
+            if (window.grecaptcha && recaptchaWidgetId !== null) {
+              try {
+                window.grecaptcha.reset(recaptchaWidgetId);
+                // Clear the container completely
+                const recaptchaDiv = document.getElementById(
+                  "newsletter-recaptcha"
+                );
+                if (recaptchaDiv) {
+                  recaptchaDiv.innerHTML = "";
+                }
+                recaptchaWidgetId = null;
+              } catch (error) {                
+              }
             }
             recaptchaToken = "";
 
@@ -443,8 +471,21 @@
               container.classList.remove("tw-flex");
             }
 
-            if (window.grecaptcha && recaptchaWidgetId) {
-              window.grecaptcha.reset(recaptchaWidgetId);
+            // Completely destroy and recreate reCAPTCHA widget on error
+            if (window.grecaptcha && recaptchaWidgetId !== null) {
+              try {
+                window.grecaptcha.reset(recaptchaWidgetId);
+                // Clear the container completely
+                const recaptchaDiv = document.getElementById(
+                  "newsletter-recaptcha"
+                );
+                if (recaptchaDiv) {
+                  recaptchaDiv.innerHTML = "";
+                }
+                recaptchaWidgetId = null;
+              } catch (error) {
+                
+              }
             }
             recaptchaToken = "";
 
@@ -459,7 +500,9 @@
             });
           } finally {
             isSubmitting = false;
-            // Re-enable submit button
+            // Show submit button again
+            const buttonContainer = subscribeBtn.parentElement;
+            buttonContainer.style.display = "block";
             subscribeBtn.disabled = false;
             subscribeBtn.textContent = "Subscribe";
           }
@@ -511,9 +554,9 @@
               return false; // Prevent further processing
             }
 
-            // Disable submit button to prevent multiple submissions
-            subscribeBtn.disabled = true;
-            subscribeBtn.textContent = "Processing...";
+            // Hide submit button after click
+            const buttonContainer = subscribeBtn.parentElement;
+            buttonContainer.style.display = "none";
 
             try {
               // Show reCAPTCHA (like Vue component submitForm)
@@ -521,7 +564,9 @@
             } catch (error) {
               showToastMessage("An error occurred. Please try again.", "error");
 
-              // Re-enable submit button
+              // Show submit button again on error
+              const buttonContainer = subscribeBtn.parentElement;
+              buttonContainer.style.display = "block";
               subscribeBtn.disabled = false;
               subscribeBtn.textContent = "Subscribe";
             }
@@ -535,7 +580,7 @@
     <!-- Toast -->
     <div
       id="newsletter-toast"
-      class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300"
+      class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-[15px]"
     ></div>
 
     <div class="tw-flex tw-justify-center lg:tw-justify-end">
