@@ -392,6 +392,146 @@
         </li>
       </ul>
       <ul class="tw-flex tw-gap-2">
+        <!-- Feedback Widget -->
+        <div class="tw-relative tw-z-10 tw-items-center">
+          <!-- Feedback Button -->
+          <button
+            id="feedbackButton"
+            class="tw-ring-offset-background focus-visible:tw-outline-none focus-visible:tw-ring-ring tw-inline-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full focus-visible:tw-ring-2 focus-visible:tw-ring-offset-2 disabled:tw-pointer-events-none disabled:tw-opacity-50 tw-w-9 tw-h-9 tw-bg-gradient-to-r tw-from-blue-500 tw-to-purple-600 tw-text-white hover:tw-from-blue-600 hover:tw-to-purple-700 tw-font-semibold tw-shadow-lg hover:tw-shadow-xl tw-transition-all tw-duration-300 tw-group tw-cursor-pointer"
+            title="Send Feedback"
+          >
+            <img src="/docs/assets/feedback.svg" alt="" class="tw-w-6 tw-h-6" />
+          </button>
+
+          <!-- Feedback Modal (hidden by default, toggle with JS) -->
+          <div
+            id="feedbackModal"
+            class="tw-absolute tw-z-50 tw-top-full tw-mt-4 tw-right-0 custom-feedback-modal tw-hidden"
+            style="min-width: 400px"
+          >
+            <div
+              class="tw-bg-gray-200 tw-border tw-border-gray-200 tw-rounded-xl tw-shadow-lg tw-w-full tw-relative tw-flex tw-flex-col tw-font-sans"
+              tabindex="0"
+            >
+              <!-- Success View -->
+              <div
+                class="success-view tw-hidden tw-flex-col tw-items-center tw-text-center tw-py-3"
+              >
+                <div
+                  class="tw-w-16 tw-h-16 tw-rounded-full tw-border-2 tw-border-gray-300 tw-flex tw-items-center tw-justify-center tw-mb-4"
+                >
+                  <svg
+                    class="tw-w-8 tw-h-8 tw-text-teal-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <h3
+                  class="tw-text-xl tw-font-semibold tw-text-gray-900 tw-mb-2"
+                >
+                  Thank you!
+                </h3>
+                <p class="tw-text-gray-600 tw-text-sm tw-leading-relaxed">
+                  Your response<br />
+                  has been submitted successfully!
+                </p>
+              </div>
+
+              <!-- Form View -->
+              <div class="form-view">
+                <!-- Tabs -->
+                <div class="tw-flex tw-mb-3">
+                  <div
+                    class="tw-flex tw-p-0.5 tw-w-full tw-gap-2"
+                    role="tablist"
+                    aria-label="Feedback types"
+                  >
+                    <button
+                      id="feedback-tab-issue"
+                      role="tab"
+                      aria-selected="true"
+                      data-type="Issue"
+                      class="feedback-tab tw-flex tw-items-center tw-gap-2 tw-py-1.5 tw-rounded-md tw-text-xs tw-font-medium tw-transition-all tw-flex-1 tw-justify-center tw-cursor-pointer tw-border tw-border-gray-400 tw-text-gray-600 hover:tw-text-gray-900 hover:tw-bg-gray-100 hover:tw-border-gray-200"
+                      style="border: 1px solid gray !important"
+                    >
+                      <span class="tw-text-xs">⚠️</span>
+                      <span>Issue</span>
+                    </button>
+                    <button
+                      id="feedback-tab-idea"
+                      role="tab"
+                      aria-selected="false"
+                      data-type="Idea"
+                      class="feedback-tab tw-flex tw-items-center tw-gap-2 tw-py-1.5 tw-rounded-md tw-text-xs tw-font-medium tw-transition-all tw-flex-1 tw-justify-center tw-cursor-pointer tw-border tw-border-gray-400 tw-text-gray-600 hover:tw-text-gray-900 hover:tw-bg-gray-100 hover:tw-border-gray-200"
+                      style="border: 1px solid gray !important"
+                    >
+                      <span class="tw-text-xs">💡</span>
+                      <span>Idea</span>
+                    </button>
+                    <button
+                      id="feedback-tab-other"
+                      role="tab"
+                      aria-selected="false"
+                      data-type="Other"
+                      class="feedback-tab tw-flex tw-items-center tw-gap-2 tw-py-1.5 tw-rounded-md tw-text-xs tw-font-medium tw-transition-all tw-flex-1 tw-justify-center tw-cursor-pointer tw-border tw-border-gray-400 tw-text-gray-600 hover:tw-text-gray-900 hover:tw-bg-gray-100 hover:tw-border-gray-200"
+                      style="border: 1px solid gray !important"
+                    >
+                      <span class="tw-text-xs">🤝</span>
+                      <span>Other</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Input Field -->
+                <form class="tw-flex tw-flex-col tw-gap-3">
+                  <!-- Hidden input to store selected feedback type (default Issue) -->
+                  <input type="hidden" name="type" value="Issue" />
+                  <textarea
+                    rows="4"
+                    placeholder="Type your feedback here..."
+                    required
+                    aria-required="true"
+                    class="tw-bg-white tw-border tw-text-black tw-border-gray-300 tw-rounded-xl tw-px-3 tw-py-2 tw-text-xs focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-border-transparent tw-resize-none tw-placeholder-gray-400 tw-shadow-sm"
+                  ></textarea>
+
+                  <button
+                    type="submit"
+                    class="tw-bg-gradient-to-r tw-from-blue-500 tw-to-purple-600 tw-text-white tw-py-1.5 tw-rounded-lg tw-text-xs tw-font-semibold tw-transition-all tw-duration-200 tw-shadow-md tw-flex tw-items-center tw-justify-center tw-gap-2 cursor-pointer hover:tw-from-blue-600 hover:tw-to-purple-700"
+                  >
+                    <span>Submit</span>
+                  </button>
+                </form>
+
+                <div
+                  class="tw-mt-2 tw-text-[12px] tw-text-gray-500 tw-text-center"
+                >
+                  This is for <b>Website feedback only</b> - for general support
+                  go to our
+                  <a
+                    href="https://short.openobserve.ai/community"
+                    target="_blank"
+                    rel="noopener"
+                    class="tw-text-blue-600 tw-underline"
+                    >Community Slack</a
+                  >
+                </div>
+                <div
+                  class="tw-mt-2 tw-text-red-500 tw-text-sm tw-text-center tw-hidden error-view"
+                >
+                  Failed to submit feedback. Please try again.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <li
           class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10"
         >
@@ -538,7 +678,9 @@
       footerData.forEach((section) => {
         const column = document.createElement("div");
         column.innerHTML = `
-          <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">${section.title}</div>
+          <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">${
+            section.title
+          }</div>
           <ul class="tw-space-y-2 tw-text-gray-300 tw-text-xs">
             ${section.items
               .map(
@@ -570,4 +712,69 @@
       });
     }
   </script>
+  <style>
+    /* Custom styles for feedback modal */
+
+    /* Responsive: Center modal and fit to screen on mobile */
+    @media (max-width: 640px) {
+      .custom-feedback-modal {
+        position: fixed !important;
+        left: 50% !important;
+        top: 80% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 95vw !important;
+        min-width: 0 !important;
+        max-width: 95vw !important;
+        z-index: 9999 !important;
+        margin: 0 !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      .custom-feedback-modal .tw-bg-gray-200 {
+        padding: 1rem !important;
+      }
+    }
+
+    /* Responsive: Tablet view styles */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .custom-feedback-modal {
+        position: fixed !important;
+        left: 50% !important;
+        top: 60% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 70vw !important;
+        min-width: 0 !important;
+        max-width: 70vw !important;
+        z-index: 9999 !important;
+        margin: 0 !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      .custom-feedback-modal .tw-bg-gray-200 {
+        padding: 1.5rem !important;
+      }
+    }
+    /* Desktop defaults: keep modal small and aligned to the footer button when open */
+    @media (min-width: 1025px) {
+      .custom-feedback-modal {
+        position: absolute !important;
+        left: auto !important;
+        right: 0 !important;
+        /* allow top-full / bottom-full classes to control vertical placement */
+        width: auto !important;
+        min-width: 400px !important;
+        max-width: 420px !important;
+      }
+
+      .custom-feedback-modal .tw-bg-gray-200 {
+        padding: 0.75rem !important;
+      }
+    }
+  </style>
 </footer>

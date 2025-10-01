@@ -28,6 +28,7 @@ extra_javascript:
   # - js/reo.js
   - js/landing-individual-card-ms-tracking.js
   - js/google-tag-manager.js
+  - js/feedback.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin
