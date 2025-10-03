@@ -164,7 +164,7 @@
         </form>
         <div
           id="newsletter-toast"
-          class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300"
+          class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-base"
         ></div>
       </div>
 
@@ -284,11 +284,11 @@
         ) {
           recaptchaToken = token;
 
-          // Hide loader, show success state briefly
-          const loader = document.getElementById("newsletter-captcha-loader");
-          if (loader) {
-            loader.style.display = "flex";
-          }
+          // // Hide loader immediately on success
+          // const loader = document.getElementById("newsletter-captcha-loader");
+          // if (loader) {
+          //   loader.style.display = "none";
+          // }
 
           // Auto-submit after reCAPTCHA completion (like Vue component)
           setTimeout(async () => {
@@ -307,8 +307,8 @@
           );
           if (!recaptchaContainer) return;
 
-          // If widget already exists, don't create another one
-          if (recaptchaWidgetId !== null) return;
+          // Clear any existing widget content first
+          recaptchaContainer.innerHTML = "";
 
           try {
             recaptchaWidgetId = window.grecaptcha.render(recaptchaContainer, {
@@ -317,7 +317,10 @@
               "expired-callback": window.onRecaptchaExpired,
               theme: "dark",
             });
-          } catch (error) {}
+          } catch (error) {
+            // If render fails, reset the widget ID
+            recaptchaWidgetId = null;
+          }
         }
 
         // Submit form function (like Vue component)
@@ -334,18 +337,25 @@
             container.classList.add("tw-flex");
           }
 
-          // Hide loader when showing reCAPTCHA
+          // Ensure loader is hidden when showing reCAPTCHA
           if (loader) {
             loader.style.display = "none";
           }
 
-          // Wait for DOM update, then render reCAPTCHA
+          // Always try to initialize reCAPTCHA, even if widget exists
           setTimeout(() => {
-            if (
-              recaptchaDiv &&
-              window.grecaptcha &&
-              recaptchaWidgetId === null
-            ) {
+            if (recaptchaDiv && window.grecaptcha) {
+              // Destroy existing widget if it exists
+              if (recaptchaWidgetId !== null) {
+                try {
+                  window.grecaptcha.reset(recaptchaWidgetId);
+                } catch (error) {
+                  // If reset fails, clear the container
+                  recaptchaDiv.innerHTML = "";
+                }
+                recaptchaWidgetId = null;
+              }
+              // Always create a new widget
               initializeRecaptcha();
             }
           }, 100);
@@ -368,6 +378,12 @@
             subscribeBtn.disabled = false;
             subscribeBtn.textContent = "Subscribe";
             return;
+          }
+
+          // Hide loader during processing
+          const loader = document.getElementById("newsletter-captcha-loader");
+          if (loader) {
+            loader.style.display = "none";
           }
 
           try {
@@ -420,16 +436,19 @@
             if (window.grecaptcha && recaptchaWidgetId !== null) {
               try {
                 window.grecaptcha.reset(recaptchaWidgetId);
-                // Clear the container completely
-                const recaptchaDiv = document.getElementById(
-                  "newsletter-recaptcha"
-                );
-                if (recaptchaDiv) {
-                  recaptchaDiv.innerHTML = "";
-                }
-                recaptchaWidgetId = null;
-              } catch (error) {}
+              } catch (error) {
+                // Silent error handling
+              }
             }
+
+            // Clear the container and reset widget ID
+            const recaptchaDiv = document.getElementById(
+              "newsletter-recaptcha"
+            );
+            if (recaptchaDiv) {
+              recaptchaDiv.innerHTML = "";
+            }
+            recaptchaWidgetId = null;
             recaptchaToken = "";
 
             // Analytics tracking
@@ -472,16 +491,19 @@
             if (window.grecaptcha && recaptchaWidgetId !== null) {
               try {
                 window.grecaptcha.reset(recaptchaWidgetId);
-                // Clear the container completely
-                const recaptchaDiv = document.getElementById(
-                  "newsletter-recaptcha"
-                );
-                if (recaptchaDiv) {
-                  recaptchaDiv.innerHTML = "";
-                }
-                recaptchaWidgetId = null;
-              } catch (error) {}
+              } catch (error) {
+                // Silent error handling
+              }
             }
+
+            // Clear the container and reset widget ID
+            const recaptchaDiv = document.getElementById(
+              "newsletter-recaptcha"
+            );
+            if (recaptchaDiv) {
+              recaptchaDiv.innerHTML = "";
+            }
+            recaptchaWidgetId = null;
             recaptchaToken = "";
 
             // GTM error tracking
