@@ -1,5 +1,19 @@
 // feedback.js
-document.addEventListener("DOMContentLoaded", () => {
+
+function feedbackModalInit() {
+  // Remove any previous event listeners by replacing the button and modal with clones
+  const oldBtn = document.querySelector("#feedbackButton");
+  const oldModal = document.querySelector("#feedbackModal");
+  if (oldBtn) {
+    const newBtn = oldBtn.cloneNode(true);
+    oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+  }
+  if (oldModal) {
+    const newModal = oldModal.cloneNode(true);
+    oldModal.parentNode.replaceChild(newModal, oldModal);
+  }
+
+  // Now re-select after replacement  
   const feedbackButton = document.querySelector("#feedbackButton");
   const modal = document.querySelector("#feedbackModal");
 
@@ -30,11 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openModal() {
-    // store previous active element so we can restore focus when modal closes
     lastActiveElement = document.activeElement;
     modal.classList.remove("tw-hidden");
     calculatePosition();
-    // focus the textarea for immediate typing if present
     const ta = modal.querySelector("textarea");
     if (ta) ta.focus();
   }
@@ -44,35 +56,25 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
     errorView.classList.add("tw-hidden");
     successView.classList.add("tw-hidden");
-    // remove layout class when hidden to avoid display conflicts
     successView.classList.remove("tw-flex");
-    // clear any inline positioning set during calculatePosition
     try {
       modal.style.top = "";
       modal.style.bottom = "";
-    } catch (e) {
-      /* ignore */
-    }
+    } catch (e) {}
     formView.classList.remove("tw-hidden");
-    // restore focus to previously active element
     try {
       if (lastActiveElement && typeof lastActiveElement.focus === "function") {
         lastActiveElement.focus();
       }
-    } catch (e) {
-      /* ignore */
-    }
+    } catch (e) {}
   }
 
   function calculatePosition() {
-    // class-based positioning like the Vue component: toggle top-full / bottom-full
     try {
       const btnRect = feedbackButton.getBoundingClientRect();
       const screenHeight = window.innerHeight;
       const buttonCenter = btnRect.top + btnRect.height / 2;
       const placeAbove = buttonCenter > screenHeight / 2;
-
-      // rely on CSS classes and the parent .tw-relative for positioning
       modal.classList.remove(
         "tw-top-full",
         "tw-bottom-full",
@@ -81,22 +83,18 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (placeAbove) {
         modal.classList.add("tw-bottom-full", "tw-mb-4");
-        // explicitly position above using inline style to avoid CSS specificity issues
         modal.style.bottom = "100%";
         modal.style.top = "";
       } else {
         modal.classList.add("tw-top-full", "tw-mt-4");
-        // explicitly position below
         modal.style.top = "100%";
         modal.style.bottom = "";
       }
-      // ensure right alignment like Vue: right-0 on the modal container
       if (!modal.classList.contains("tw-right-0"))
         modal.classList.add("tw-right-0");
     } catch (err) {}
   }
 
-  // wire tab clicks with keyboard navigation and ARIA handling
   if (tabs && tabs.length) {
     const setActiveTab = (index) => {
       tabs.forEach((tb, i) => {
@@ -137,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // init
     setActiveTab(0);
   }
 
@@ -165,56 +162,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    // First, let the browser run HTML5 validation UI (native popup) if any
-    // required fields are missing. reportValidity() will show the native
-    // validation message and return false if invalid.
     if (typeof form.reportValidity === "function") {
       const ok = form.reportValidity();
       if (!ok) {
-        // browser showed a native message; stop submission
         return;
       }
     }
-
-    // hide any previous custom error
     try {
       errorView.classList.add("tw-hidden");
-    } catch (err) {
-      /* ignore */
-    }
-
-    // grab textarea and read trimmed value (we already know it's non-empty)
+    } catch (err) {}
     const ta =
       form.querySelector("textarea") || modal.querySelector("textarea");
     const message = (ta && ta.value && ta.value.trim()) || "";
-
     const data = {
-      // use the prepared hidden input value (always present)
       type: (typeInput && typeInput.value) || "Issue",
       message: message,
       currentUrl: window.location.href,
       userAgent: navigator.userAgent,
       source: "feedback_form",
     };
-
-    // Track feedback in Segment (if segment.js is loaded)
     if (typeof window.trackFeedback === "function") {
       try {
         window.trackFeedback(data);
-      } catch (e) {
-        // Segment tracking error should not block submission
-      }
+      } catch (e) {}
     }
-
-    // show immediate success view (keeps original UX), then submit in background
     formView.classList.add("tw-hidden");
-    // ensure success view displays as flex column when visible
     successView.classList.add("tw-flex");
     successView.classList.remove("tw-hidden");
-
     setTimeout(closeModal, 1500);
-
     fetch(
       "https://script.google.com/macros/s/AKfycby5A7NSQCmG4KIBdM0HkRP-5zpRPy8aTrQHiQoe9uG_c_rv1VCiAnnZE8co7-kofgw-hg/exec",
       {
@@ -224,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { "Content-Type": "application/json" },
       }
     ).catch(() => {
-      // network failure: hide success and show error
       try {
         successView.classList.add("tw-hidden");
         successView.classList.remove("tw-flex");
@@ -235,9 +209,18 @@ document.addEventListener("DOMContentLoaded", () => {
           errorView.classList.remove("tw-hidden");
         }
         if (ta && typeof ta.focus === "function") ta.focus();
-      } catch (err) {
-        /* ignore */
-      }
+      } catch (err) {}
     });
   });
+}
+
+// Run on DOMContentLoaded and MkDocs instant navigation
+if (typeof window.document$ !== "undefined") {
+  window.document$.subscribe(() => {
+    setTimeout(feedbackModalInit, 0);
+  });
+}
+// Always run on DOMContentLoaded (for initial load)
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(feedbackModalInit, 0);
 });
