@@ -3,7 +3,7 @@ name: Deploy MkDocs Site to S3
 on:
   push:
     branches:
-      - update_workflow_assume_role   # Change this to your deployment branch
+      - dev   # Change this to your deployment branch
 
 jobs:
   deploy:
