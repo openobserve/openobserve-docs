@@ -125,6 +125,20 @@
               class="tw-text-left tw-ml-2 tw-text-red-400 tw-text-sm tw-hidden"
             ></div>
 
+            <!-- Submit button container - can be hidden during subscription -->
+            <div
+              id="newsletter-submit-container"
+              class="tw-px-6 tw-py-2 tw-rounded-full tw-bg-[#7782FF] tw-text-white tw-text-sm tw-font-medium hover:tw-bg-[#6672fa]"
+            >
+              <button
+                type="submit"
+                id="newsletter-submit"
+                class="tw-transition active:tw-scale-98 tw-w-full tw-cursor-pointer"
+              >
+                Subscribe
+              </button>
+            </div>
+
             <!-- reCAPTCHA v2 Container - Hidden by default -->
             <div
               id="newsletter-recaptcha-container"
@@ -144,18 +158,6 @@
                   ></div>
                 </div>
               </div>
-            </div>
-
-            <div
-              class="tw-px-6 tw-py-2 tw-rounded-full tw-bg-[#7782FF] tw-text-white tw-text-sm tw-font-medium hover:tw-bg-[#6672fa]"
-            >
-              <button
-                type="submit"
-                id="newsletter-submit"
-                class="tw-transition active:tw-scale-98 tw-w-full tw-cursor-pointer"
-              >
-                Subscribe
-              </button>
             </div>
           </div>
 
@@ -320,9 +322,75 @@
           }
         }
 
+        // Reset reCAPTCHA widget
+        function resetRecaptcha() {
+          if (window.grecaptcha && recaptchaWidgetId !== null) {
+            try {
+              window.grecaptcha.reset(recaptchaWidgetId);
+            } catch (error) {
+              // If reset fails, destroy and recreate the widget
+              try {
+                const recaptchaContainer = document.getElementById(
+                  "newsletter-recaptcha"
+                );
+                if (recaptchaContainer) {
+                  recaptchaContainer.innerHTML = "";
+                  recaptchaWidgetId = null;
+                  // Re-initialize after a short delay
+                  setTimeout(() => {
+                    initializeRecaptcha();
+                  }, 100);
+                }
+              } catch (recreateError) {
+                // Silent error handling
+              }
+            }
+          }
+          recaptchaToken = "";
+        }
+
+        // Reset the entire newsletter form state
+        function resetNewsletterForm() {
+          showCaptcha = false;
+
+          // Show submit button container again
+          const submitContainer = document.getElementById(
+            "newsletter-submit-container"
+          );
+          if (submitContainer) {
+            submitContainer.classList.remove("tw-hidden");
+          }
+
+          const container = document.getElementById(
+            "newsletter-recaptcha-container"
+          );
+          if (container) {
+            container.classList.add("tw-hidden");
+            container.classList.remove("tw-flex");
+          }
+
+          // Hide loader
+          const loader = document.getElementById("newsletter-captcha-loader");
+          if (loader) {
+            loader.classList.add("tw-hidden");
+            loader.classList.remove("tw-flex");
+          }
+
+          resetRecaptcha();
+        }
+
         // Submit form function (like Vue component)
         function submitForm() {
           showCaptcha = true;
+
+          // Hide only submit button container during subscription process
+          const submitContainer = document.getElementById(
+            "newsletter-submit-container"
+          );
+          if (submitContainer) {
+            submitContainer.classList.add("tw-hidden");
+          }
+
           const container = document.getElementById(
             "newsletter-recaptcha-container"
           );
@@ -335,8 +403,22 @@
 
           // Wait for DOM update, then render reCAPTCHA
           setTimeout(() => {
-            if (recaptchaDiv && window.grecaptcha && !recaptchaWidgetId) {
-              initializeRecaptcha();
+            if (recaptchaDiv && window.grecaptcha) {
+              // If widget doesn't exist or is null, create it
+              if (recaptchaWidgetId === null) {
+                initializeRecaptcha();
+              } else {
+                // If widget exists, just reset it to allow new interaction
+                try {
+                  window.grecaptcha.reset(recaptchaWidgetId);
+                  recaptchaToken = "";
+                } catch (error) {
+                  // If reset fails, recreate the widget
+                  recaptchaDiv.innerHTML = "";
+                  recaptchaWidgetId = null;
+                  initializeRecaptcha();
+                }
+              }
             }
           }, 100);
         }
@@ -352,7 +434,13 @@
               "Please complete the reCAPTCHA to proceed.",
               "error"
             );
-            // Re-enable submit button
+            // Show submit button container again and re-enable submit button
+            const submitContainer = document.getElementById(
+              "newsletter-submit-container"
+            );
+            if (submitContainer) {
+              submitContainer.classList.remove("tw-hidden");
+            }
             subscribeBtn.disabled = false;
             subscribeBtn.textContent = "Subscribe";
             return;
@@ -373,9 +461,17 @@
                 "Captcha validation failed. Please try again.",
                 "error"
               );
-              // Re-enable submit button
+              // Show submit button container again and re-enable submit button
+              const submitContainer = document.getElementById(
+                "newsletter-submit-container"
+              );
+              if (submitContainer) {
+                submitContainer.classList.remove("tw-hidden");
+              }
               subscribeBtn.disabled = false;
               subscribeBtn.textContent = "Subscribe";
+              // Reset recaptcha for retry
+              resetRecaptcha();
               return;
             }
 
@@ -392,20 +488,8 @@
             const form = document.getElementById("newsletter-form");
             if (form) form.reset();
 
-            // Hide reCAPTCHA and reset
-            showCaptcha = false;
-            const container = document.getElementById(
-              "newsletter-recaptcha-container"
-            );
-            if (container) {
-              container.classList.add("tw-hidden");
-              container.classList.remove("tw-flex");
-            }
-
-            if (window.grecaptcha && recaptchaWidgetId) {
-              window.grecaptcha.reset(recaptchaWidgetId);
-            }
-            recaptchaToken = "";
+            // Reset newsletter form completely for next submission
+            resetNewsletterForm();
 
             // Analytics tracking
             if (
@@ -433,20 +517,8 @@
               "error"
             );
 
-            // Reset reCAPTCHA on error
-            showCaptcha = false;
-            const container = document.getElementById(
-              "newsletter-recaptcha-container"
-            );
-            if (container) {
-              container.classList.add("tw-hidden");
-              container.classList.remove("tw-flex");
-            }
-
-            if (window.grecaptcha && recaptchaWidgetId) {
-              window.grecaptcha.reset(recaptchaWidgetId);
-            }
-            recaptchaToken = "";
+            // Reset newsletter form completely for retry
+            resetNewsletterForm();
 
             // GTM error tracking
             window.dataLayer = window.dataLayer || [];
@@ -513,7 +585,7 @@
 
             // Disable submit button to prevent multiple submissions
             subscribeBtn.disabled = true;
-            subscribeBtn.textContent = "Processing...";
+            subscribeBtn.textContent = "Subscribing...";
 
             try {
               // Show reCAPTCHA (like Vue component submitForm)
@@ -521,7 +593,13 @@
             } catch (error) {
               showToastMessage("An error occurred. Please try again.", "error");
 
-              // Re-enable submit button
+              // Show submit button container again and re-enable submit button
+              const submitContainer = document.getElementById(
+                "newsletter-submit-container"
+              );
+              if (submitContainer) {
+                submitContainer.classList.remove("tw-hidden");
+              }
               subscribeBtn.disabled = false;
               subscribeBtn.textContent = "Subscribe";
             }
