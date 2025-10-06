@@ -1,28 +1,48 @@
 ---
-title: Regex Pattern Redaction in OpenObserve Enterprise
-description: Learn how to create and apply regex patterns to redact or drop sensitive data during log ingestion in OpenObserve Enterprise Edition.
+title: Sensitive Data Redaction in OpenObserve Enterprise
+description: Learn how to redact or drop sensitive data using regex patterns during log ingestion or query time in OpenObserve Enterprise Edition.
 ---
 
-This document helps users understand, create, and use regex patterns to automatically redact or drop sensitive data and Personally Identifiable Information (PII) during log ingestion.
+This document explains how to configure and manage regex patterns for redacting or dropping sensitive data in OpenObserve.
 > Note: This feature is applicable to the OpenObserve [Enterprise Edition](../../../openobserve-enterprise-edition-installation-guide/).
 
 ## Overview 
-The **Regex Pattern** feature in OpenObserve allows you to automatically detect and redact or drop sensitive data during log ingestion using regular expressions. This ensures field-level control over PII, authentication details, financial data, and other confidential values before they are stored or indexed.
+The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted** or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.
+
+**Ingestion time**
+
+> **Note**: Use ingestion time redaction or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it's redacted or dropped during ingestion.
+
+- **Redaction**: Sensitive data is masked before being stored on disk.
+- **Drop**: Sensitive data is removed before being stored on disk.
+
+**Query time**
+> **Note**: If you have already ingested sensitive data and it's stored on disk, you can use query time redaction or drop to protect it. This allows you to apply sensitive data redaction to existing data.
+
+- **Redaction**: Sensitive data is read from disk but masked before results are displayed.
+- **Drop**: Sensitive data is read from disk but excluded from the query results.
 
 !!! note "Where to find"
-    To access the **Regex Pattern** interface:
+    To access the **Sensitive Data Redaction** interface:
 
     1. Select the appropriate organization from the dropdown in the top-right corner.
-    2. Select **Management** > **Regex Pattern**.
+    2. Select **Management** > **Sensitive Data Redaction**. 
+    
+    ![Sensitive Data Redaction](../../images/sensitive-data-redaction.png)
 
-    This opens the regex pattern management interface, where you can view, create, and manage regex patterns available to the selected organization.
+    This opens the Sensitive Data Redaction interface, where you can view, create, and manage regex patterns available to the selected organization.
 
 !!! note "Who can access"
-    Access to **Regex Pattern** is controlled via the **Regexp Patterns** module in the **IAM** settings, using [role-based access control (RBAC)](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/).
+    `Root` users have full access to both pattern creation and pattern association by default. For other users, permissions are controlled via the **Regexp Patterns** and **Streams** module in the **IAM** settings, using [role-based access control (RBAC)](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/).
 
-    - `Root` users have full access by default.
-    - Other user permissions must be assigned access through **Roles** in **IAM**.
-    - You can control access at both the module level (all regex patterns) and the individual pattern level. This allows precise control over which users can view, create, edit, or delete specific regex patterns.
+    **Pattern Creation:**
+
+    - Users need permissions on the **Regexp Patterns** module to create, view, edit, or delete regex patterns.
+    - You can control access at both the module level (all regex patterns) and the individual pattern level for precise control.
+
+    **Pattern Association:**
+
+    - To associate patterns with stream fields, users need List permission on **Regexp Patterns** AND edit permission on **Streams** modules. 
 
 !!! warning "Important Note"
     - Regex patterns can only be applied to fields with UTF8 data type.
@@ -31,15 +51,15 @@ The **Regex Pattern** feature in OpenObserve allows you to automatically detect 
 ## Create Regex Patterns
 
 **To create a regex pattern:**
-??? note "Step 1: Discover Sensitive Data"
-    Identify which fields may contain sensitive or Personally Identifiable Information (PII). 
+
+??? "Step 1: Discover sensitive data"
+    Identify which fields may contain sensitive data. 
 
     1. From the left-hand menu, select **Logs**. 
     2. In the stream selection dropdown, select the stream. 
     3. Select an appropriate time range and click **Run Query**. 
     This shows the records for the selected time range. 
     <br>
-
     ![Identify PII for regex application](../../images/identify-pii-for-regex-application.png)
 
     **Look for common sensitive patterns.**
@@ -58,10 +78,11 @@ The **Regex Pattern** feature in OpenObserve allows you to automatically detect 
     "timestamp": "2025-07-30T10:30:00Z"
     }
     ```
-??? note "Step 2: Create and Test Regex Patterns"
-    To create regex patterns, naviagte to **Management** > **Regex Pattern** > **Create Pattern**. 
+??? "Step 2: Create and test regex patterns"
+    To create regex patterns, naviagte to **Management** > **Sensitive Data Redaction** > **Create Pattern**. 
+    
     ![Create regex](../../images/create-regex-pattern.png)
-
+ 
     In the pattern creation form, enter the following details: 
 
     1. **Name**: Enter a clear, descriptive name. For example, Email Detection. 
@@ -86,52 +107,45 @@ The **Regex Pattern** feature in OpenObserve allows you to automatically detect 
     **Example** <br>
     The following screenshots illustrate the pattern creation process:
 
-    1. Reviewing a log that includes PII
+    1. Review the logs that includes PII.
     <br>
-    The log message in the `pii_test_stream` contains names, email addresses, IP addresses, SSNs, and credit card numbers.
+    The `message` field in the `pii_test_stream` contains names, email addresses, IP addresses, SSNs, and credit card numbers.
     <br>
     ![Stream with PII](../../images/stream-with-pii.png)
-    2. Creating and testing the regex patterns
+    2. Create and test the regex patterns.
     <br>
     **Full Name**: 
     ![Full name regex](../../images/full-name-regex.png)
     <br>
     **Email Addresses**:
     ![Email regex](../../images/email-regex.png)
-    3. Adding more patterns 
-    <br>
-    Continue creating patterns for additional sensitive fields such as IP addresses, SSNs, and credit card numbers. 
-    ![Regex example](../../images/all-regex-patterns.png)
-
 
 ## Apply Regex Patterns 
-Once your regex patterns are created and tested, you can apply them to specific fields in a stream to redact or drop sensitive data during ingestion.
-
+Once your patterns are created and tested, you can apply them to specific fields in a stream to redact or drop sensitive data during ingestion or at query time.
+<br>
 **To apply a pattern to a field:**
 
-??? "Step 1: Go to the Stream Field"
+??? "Step 1: Go to the stream field"
     1. From the left-hand menu, go to **Streams**.
     2. Locate the stream where you want to apply regex patterns and select **Stream Details** from the **Actions** column.
-    3. In the **Stream Settings** tab, locate the field that contains sensitive data.
-    <br>
+    3. In the **Stream Settings** tab, locate the field that contains sensitive data. 
 
-??? "Step 2: Add Pattern" 
-    1. Select **Add Pattern** for that field. This opens the pattern panel, where you can view Applied Patterns (if any) and browse all available patterns. <br>
+    ![Field with sesitive data](../../images/stream-settings-sensitive-fields.png)
+
+??? "Step 2: Add pattern" 
+    1. Select **Add Pattern** for the target field. This opens the pattern panel, where you can view already applied patterns and add new ones.
     ![Add regex pattern](../../images/stream-settings-add-regex.png)
-
-    2. Select a pattern to apply. 
+    2. From the **All Patterns** section, select a pattern you want to apply. 
     ![Select regex pattern](../../images/select-regex.png) 
     <br>
-    After you select a pattern, a detail view appears, showing the following:
+    After selecting a pattern, a detail view appears.
     ![Regex selection](../../images/regex-selection-view.png)
 
-        - **Pattern Name** and **Description**
-        - The **Regex Pattern**
-        - A **Test Input** area (optional)
-        - Options for how to handle matches.
+??? "Step 3: From the pattern details view, choose whether to Redact or Drop"
 
-??? "Step 3: Choose Whether to Redact or Drop"
-    When applying a regex pattern, you must choose one of the following actions.
+    ![Regex pattern execution action- redact or drop](../../images/redact-or-drop-during-regex-pattern-execution.png)
+    
+    When applying a regex pattern, you must choose one of the following actions:
 
     **Redact**:
 
@@ -143,38 +157,158 @@ Once your regex patterns are created and tested, you can apply them to specific 
     - Removes the entire field from the log record if the regex pattern matches.  
     - Use this when the entire field should be excluded from storage or analysis.
 
-    Select the appropriate action (Redact or Drop) and click **Add Pattern**.
+    Select the appropriate action between Redact and Drop. 
 
-??? "Step 4: Apply Multiple Patterns (Optional)"
-    You can apply multiple patterns to the same field.  
-    All applied patterns will appear in the left-hand panel with check marks. 
-    ![Multiple regex selection](../../images/multiple-regex-selection.png)
+??? "Step 4: From the pattern details view, choose when the action needs to be executed"
+    You must decide whether the redaction or drop action will occur at ingestion time, query time, or both.
+    
+    ![Regex pattern execution time](../../images/regex-pattern-execution-time.png)
 
-??? "Step 4: Save Configuration" 
+    **Ingestion**: 
+
+    - The data is redacted or dropped before it is written to disk.  
+    - This ensures that sensitive information is never stored in OpenObserve.  
+    - Example: If an email address is redacted at ingestion, only the masked value `[REDACTED]` will be stored in the logs.
+
+    **Query**:  
+
+    - The data is stored in its original form but is redacted or dropped only when queried.  
+    - This allows administrators to preserve the original data while preventing exposure of sensitive values during searches.  
+    - Example: An email address stored in raw form will be hidden as `[REDACTED]` in query results.  
+
+    You can select one or both options depending on your security and compliance requirements.
+    **If neither ingestion time nor query time is selected, no redaction or drop is applied.**
+
+??? "Step 5: Add pattern and update changes"
+
+    1. To add the regex pattern to Applied Patterns, click **Add Pattern**. 
+    ![Add regex pattern](../../images/add-regex-pattern.png)
+    2. Select **Update Changes**.
+    ![Update regex patterns](../../images/update-regex-patterns.png)
+
+??? "Step 6: (Optional) Apply multiple patterns"
+
+    You can apply multiple patterns to the same field, as shown below:
+    Configure a regex pattern to detect emails:
+    ![regex-patterns-redact](../../images/regex-patterns-redact.png)
+    Configure a regex pattern to IP addresses:
+    ![regex-patterns-drop](../../images/regex-patterns-drop.png) 
+    All applied patterns will appear in the left-hand panel with check marks.
+
+??? "Step 7: Save configuration" 
     When finished, click **Update Changes** to save the configuration. This activates the regex rules for the selected field.
-    ![Regex applied](../../images/regex-applied.png)
 
-## Test Redaction and Drop
-Once regex patterns are applied to a stream, you can verify the results by inspecting incoming log records.
 
-**Note:** These tests assume that data ingestion is active for the target stream. If ingestion is paused, ensure that you select the correct time range while running search queries to include previously ingested test data.
+## Test Redaction and Drop Operations
 
-??? "To test redaction and drop"
+The following regex patterns are applied to the `message` field of the `pii_test` stream:
 
-    1. Go to **Logs** in the left-hand menu.
-    2. Select the stream where you applied the redaction pattern.
-    3. Set an appropriate time range and select **Run Query**.
+| Pattern Name | Action | Timing | Description |
+|--------------|--------|--------|-------------|
+| Full Name | Redact | Ingestion | Masks names like "John Doe" |
+| Email | Redact | Query | Masks email addresses at query time |
+| IP Address | Drop | Ingestion | Removes IP addresses before storage |
+| Credit Card | Drop | Query | Excludes credit card numbers from results |
 
-    **For redaction**: <br>
-    When the pattern is configured to **Redact**, matched values will appear as `[REDACTED]` in the field.
-    ![redact-test-regex](../../images/redact-test-regex.png)
+??? "Test 1: Redact at Ingestion Time"
+    **Pattern Configuration**:
+    ![redact-at-ingestion-time-test-config](../../images/redact-at-ingestion-time-test-config.png)
 
-    **For drop**: <br>
-    To demonstrate drop behavior, the pattern configuration for the `message` field was updated by changing the match action in one of the applied patterns (for example, the credit card pattern) from **Redact** to **Drop**. <br>
-    ![Drop regex test](../../images/regex-drop-test.png)
-    <br>
-    When the pattern is configured to **Drop**, the target field, such as `message`, will not appear in the ingested record.
-    ![regex-drop-result](../../images/regex-drop-result.png)
+    **Test Steps**:
+
+    1. From the left-hand menu, select **Logs**. 
+    2. Select the `pii_test` stream from the dropdown.
+    3. Ingest a log entry containing a full name in the message field. 
+    ```bash
+    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"User John Doe logged in successfully"}]'
+    {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
+    ```
+    4. Set the time range to include the test data.
+    5. Click **Run Query**.
+    6. Verify results:
+    ![redact-at-ingestion-time-result](../../images/redact-at-ingestion-time-result.png)
+
+    **Key points:**
+
+    - The name "John Doe" is replaced with [REDACTED].
+    - The rest of the message field remains intact.
+    - This is the actual stored value on disk.
+
+
+??? "Test 2: Drop at Ingestion Time"
+    **Pattern Configuration**:
+    ![drop-at-query-time-test-config](../../images/drop-at-ingestion-time-test-config.png)
+
+    **Test Steps:**
+
+    1. From the left-hand menu, select **Logs**. 
+    2. Select the `pii_test` stream from the dropdown.
+    3. Ingest a log entry containing a IP address in the message field. 
+    ```bash
+    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Connection from IP 192.168.1.100 established"}]'
+    {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
+    ```
+    4. Set the time range to include the test data.
+    5. Click **Run Query**.
+    6. Verify results:
+    ![drop-at-ingestion-time-result](../../images/drop-at-ingestion-time-result.png)
+
+    **Key points:** 
+
+    - The entire message field is missing from the stored record. 
+    - Other fields remain intact. 
+    - This demonstrates field-level drop at ingestion. 
+
+??? "Test 3: Redact at Query Time"
+    **Pattern Configuration**:
+    ![redact-at-query-test-config](../../images/redact-at-query-test-config.png)
+
+    **Test Steps:**
+
+    1. From the left-hand menu, select **Logs**. 
+    2. Select the `pii_test` stream from the dropdown.
+    3. Ingest a log entry containing a email addresses in the message field. 
+    ```bash
+    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Password reset requested for john.doe@company.com"}]'
+    {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
+
+    ```
+    4. Set the time range to include the test data.
+    5. Click **Run Query**.
+    6. Verify results:
+    ![redact-at-query-time-result](../../images/redact-at-query-time-result.png)
+
+    **Key points:** 
+
+    - Original data is preserved on disk.
+    - Email address appears as [REDACTED] in query results.
+    - Useful for compliance while maintaining data for authorized access.
+
+
+??? "Test 4: Drop at Query Time"
+    **Pattern Configuration**:
+    ![Drop at Query Time- Test Config](../../images/drop-at-query-time-test-config.png)
+
+    **Test Steps:**
+
+    1. From the left-hand menu, select **Logs**. 
+    2. Select the `pii_test` stream from the dropdown.
+    3. Ingest a log entry containing credit card details in the message field. 
+    ```bash
+    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Payment processed with card 4111-1111-1111-1111"}]'
+    {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
+    ```
+    4. Set the time range to include the test data.
+    5. Click **Run Query**.
+    6. Verify results:
+    ![Drop at Query Time](../../images/drop-at-query-time-result.png)
+
+    **Key points:** 
+
+    - Original data is preserved on disk.
+    - The `message` field with the credit card details gets dropped in query results.
+    - This demonstrates field-level drop at query time. 
+
 
 ## Limitations
 
@@ -182,16 +316,16 @@ Once regex patterns are applied to a stream, you can verify the results by inspe
 - **Field Type Restrictions**: Regex patterns can only be applied to fields with a UTF8 data type. Other field types are not supported.
 - **Data Requirements**: Patterns can only be applied after the stream has ingested data. Empty streams will not show any fields in the Stream Settings tab for pattern association.
 - **Performance**: Complex patterns may impact ingestion speed, but overall performance remains faster than VRL-based redaction. 
-- **Data Impact**: Regex patterns apply only to newly ingested data. Existing log data is not modified.
 
 ## Troubleshooting
 
-**Problem**: **Add Pattern** not visible in **Stream Details**. <br>
+**Issue**: The Add Pattern option is not visible in Stream Details. <br>
 **Cause**: The field is not of UTF8 type. <br>
-**Solution**: Check the field type in the Stream Details view. Only UTF8 fields support regex patterns.<br>
+**Solution**: Check the field type in the Stream Details view. Only UTF8 fields support regex patterns. <br>
 
-**Problem**: Pattern does not apply.<br>
+<br>
+**Issue**: Pattern does not apply. <br>
 **Cause**: Configuration changes were not saved.<br>
-**Solution**: Ensure that you selected **Update Changes** after applying the pattern.
+**Solution**: Ensure that you selected **Update Changes** after applying the pattern.<br>
 
 
