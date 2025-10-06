@@ -3,11 +3,11 @@ name: Deploy MkDocs Site to S3
 on:
   push:
     branches:
-      - dev   # Change this to your deployment branch
+      - update_workflow_assume_role   # Change this to your deployment branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: org-openobserve-standard-4
 
     steps:
     - name: Checkout source code
