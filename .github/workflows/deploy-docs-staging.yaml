@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: org-openobserve-standard-4
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
     - name: Checkout source code
