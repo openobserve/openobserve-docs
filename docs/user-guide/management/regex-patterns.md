@@ -119,9 +119,6 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     <br>
     **Email Addresses**:
     ![Email regex](../../images/email-regex.png)
-    3. Add more patterns. 
-    <br>
-    Continue creating patterns for additional sensitive fields such as IP addresses, SSNs, and credit card numbers. 
 
 ## Apply Regex Patterns 
 Once your patterns are created and tested, you can apply them to specific fields in a stream to redact or drop sensitive data during ingestion or at query time.
@@ -137,14 +134,11 @@ Once your patterns are created and tested, you can apply them to specific fields
 
 ??? "Step 2: Add pattern" 
     1. Select **Add Pattern** for the target field. This opens the pattern panel, where you can view already applied patterns and add new ones.
-    
     ![Add regex pattern](../../images/stream-settings-add-regex.png)
-
     2. From the **All Patterns** section, select a pattern you want to apply. 
     ![Select regex pattern](../../images/select-regex.png) 
     <br>
     After selecting a pattern, a detail view appears.
-
     ![Regex selection](../../images/regex-selection-view.png)
 
 ??? "Step 3: From the pattern details view, choose whether to Redact or Drop"
@@ -188,11 +182,8 @@ Once your patterns are created and tested, you can apply them to specific fields
 ??? "Step 5: Add pattern and update changes"
 
     1. To add the regex pattern to Applied Patterns, click **Add Pattern**. 
-
     ![Add regex pattern](../../images/add-regex-pattern.png)
-
     2. Select **Update Changes**.
-
     ![Update regex patterns](../../images/update-regex-patterns.png)
 
 ??? "Step 6: (Optional) Apply multiple patterns"
