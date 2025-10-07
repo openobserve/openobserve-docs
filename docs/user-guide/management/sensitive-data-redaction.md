@@ -53,6 +53,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 **To create a regex pattern:**
 
 ??? "Step 1: Discover sensitive data"
+    ### Step 1: Discover sensitive data
     Identify which fields may contain sensitive data. 
 
     1. From the left-hand menu, select **Logs**. 
@@ -79,6 +80,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     }
     ```
 ??? "Step 2: Create and test regex patterns"
+    ### Step 2: Create and test regex patterns
     To create regex patterns, naviagte to **Management** > **Sensitive Data Redaction** > **Create Pattern**. 
     
     ![Create regex](../../images/create-regex-pattern.png)
@@ -126,6 +128,7 @@ Once your patterns are created and tested, you can apply them to specific fields
 **To apply a pattern to a field:**
 
 ??? "Step 1: Go to the stream field"
+    ### Step 1: Go to the stream field
     1. From the left-hand menu, go to **Streams**.
     2. Locate the stream where you want to apply regex patterns and select **Stream Details** from the **Actions** column.
     3. In the **Stream Settings** tab, locate the field that contains sensitive data. 
@@ -133,6 +136,7 @@ Once your patterns are created and tested, you can apply them to specific fields
     ![Field with sesitive data](../../images/stream-settings-sensitive-fields.png)
 
 ??? "Step 2: Add pattern" 
+    ### Step 2: Add pattern
     1. Select **Add Pattern** for the target field. This opens the pattern panel, where you can view already applied patterns and add new ones.
     ![Add regex pattern](../../images/stream-settings-add-regex.png)
     2. From the **All Patterns** section, select a pattern you want to apply. 
@@ -141,11 +145,11 @@ Once your patterns are created and tested, you can apply them to specific fields
     After selecting a pattern, a detail view appears.
     ![Regex selection](../../images/regex-selection-view.png)
 
-??? "Step 3: From the pattern details view, choose whether to Redact or Drop"
-
+??? "Step 3: Choose whether to Redact or Drop"
+    ### Step 3: Choose whether to Redact or Drop
     ![Regex pattern execution action- redact or drop](../../images/redact-or-drop-during-regex-pattern-execution.png)
     
-    When applying a regex pattern, you must choose one of the following actions:
+    When applying a regex pattern, you must choose one of the following actions in the pattern details screen:
 
     **Redact**:
 
@@ -159,8 +163,9 @@ Once your patterns are created and tested, you can apply them to specific fields
 
     Select the appropriate action between Redact and Drop. 
 
-??? "Step 4: From the pattern details view, choose when the action needs to be executed"
-    You must decide whether the redaction or drop action will occur at ingestion time, query time, or both.
+??? "Step 4: Choose when the action needs to be executed"
+    ### Step 4: Choose when the action needs to be executed
+    In the pattern details screen, select when the chosen action (redact or drop) should be executed, at ingestion time, query time, or both.
     
     ![Regex pattern execution time](../../images/regex-pattern-execution-time.png)
 
@@ -180,6 +185,7 @@ Once your patterns are created and tested, you can apply them to specific fields
     **If neither ingestion time nor query time is selected, no redaction or drop is applied.**
 
 ??? "Step 5: Add pattern and update changes"
+    ### Step 5: Add pattern and update changes
 
     1. To add the regex pattern to Applied Patterns, click **Add Pattern**. 
     ![Add regex pattern](../../images/add-regex-pattern.png)
@@ -196,6 +202,7 @@ Once your patterns are created and tested, you can apply them to specific fields
     All applied patterns will appear in the left-hand panel with check marks.
 
 ??? "Step 7: Save configuration" 
+    ### Step 7: Save configuration
     When finished, click **Update Changes** to save the configuration. This activates the regex rules for the selected field.
 
 
@@ -210,7 +217,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
 | IP Address | Drop | Ingestion | Removes IP addresses before storage |
 | Credit Card | Drop | Query | Excludes credit card numbers from results |
 
-??? "Test 1: Redact at Ingestion Time"
+??? "Test 1: Redact at ingestion time"
+    ### Test 1: Redact at ingestion time
     **Pattern Configuration**:
     ![redact-at-ingestion-time-test-config](../../images/redact-at-ingestion-time-test-config.png)
 
@@ -235,7 +243,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - This is the actual stored value on disk.
 
 
-??? "Test 2: Drop at Ingestion Time"
+??? "Test 2: Drop at ingestion time"
+    ### Test 2: Drop at ingestion time
     **Pattern Configuration**:
     ![drop-at-query-time-test-config](../../images/drop-at-ingestion-time-test-config.png)
 
@@ -259,7 +268,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - Other fields remain intact. 
     - This demonstrates field-level drop at ingestion. 
 
-??? "Test 3: Redact at Query Time"
+??? "Test 3: Redact at query time"
+    ### Test 3: Redact at query time
     **Pattern Configuration**:
     ![redact-at-query-test-config](../../images/redact-at-query-test-config.png)
 
@@ -285,7 +295,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - Useful for compliance while maintaining data for authorized access.
 
 
-??? "Test 4: Drop at Query Time"
+??? "Test 4: Drop at query time"
+    ### Test 4: Drop at query time
     **Pattern Configuration**:
     ![Drop at Query Time- Test Config](../../images/drop-at-query-time-test-config.png)
 
@@ -318,14 +329,10 @@ The following regex patterns are applied to the `message` field of the `pii_test
 - **Performance**: Complex patterns may impact ingestion speed, but overall performance remains faster than VRL-based redaction. 
 
 ## Troubleshooting
+| **Issue**                                                | **Cause**                             | **Solution**                                                                              |
+| -------------------------------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------- |
+| The Add Pattern option is not visible in Stream Details. | The field is not of UTF8 type.        | Check the field type in the Stream Details view. Only UTF8 fields support regex patterns. |
+| Pattern does not apply.                                  | Configuration changes were not saved. | Ensure that you selected **Update Changes** after applying the pattern.                   |
 
-**Issue**: The Add Pattern option is not visible in Stream Details. <br>
-**Cause**: The field is not of UTF8 type. <br>
-**Solution**: Check the field type in the Stream Details view. Only UTF8 fields support regex patterns. <br>
-
-<br>
-**Issue**: Pattern does not apply. <br>
-**Cause**: Configuration changes were not saved.<br>
-**Solution**: Ensure that you selected **Update Changes** after applying the pattern.<br>
 
 
