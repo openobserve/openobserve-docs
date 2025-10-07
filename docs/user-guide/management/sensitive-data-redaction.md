@@ -44,7 +44,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 
     - To associate patterns with stream fields, users need List permission on **Regexp Patterns** AND edit permission on **Streams** modules. 
 
-!!! warning "Important Note"
+!!! warning "Important note"
     - Regex patterns can only be applied to fields with UTF8 data type.
     - The stream must have ingested data before you can apply regex patterns. Empty streams will not show field options for pattern association.
 
