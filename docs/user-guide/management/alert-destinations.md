@@ -9,6 +9,7 @@ In OpenObserve, **Destinations** define how and where alert notifications are de
 The **Destinations** section provides three configuration options. Select a destination type to view configuration instructions.
 
 === "Webhook"
+    ## Webhook
     When the alert gets triggered, OpenObserve will send alert data to an external system using an HTTP POST request. Use this option to integrate with services that support webhook ingestion. You can customize the request payload using templates to match the format expected by the target system. 
     
     ???  "View use cases."
@@ -16,14 +17,35 @@ The **Destinations** section provides three configuration options. Select a dest
 
           - Create incident tickets in **Jira Service Management** or **ServiceNow**.
           - Send notifications to **Slack** or **Microsoft Teams channels**.
+    
+    ### Prerequisites
+    ??? "Set up an alert template."
+        This allows you to define the content and layout of the alert message.
+        
+        1. In OpenObserve, go to **Management > Templates**.
+        2. Click **Add Template** to create a new template. 
+        3. In the template creation screen:
+          ![Alert Destination -Webhook](../../images/webhook-template-for-alert.png)
 
-    **Steps to Configure Webhooks as Alert Destination:** 
+            - Enter a name for the template.
+            - Select **Webhook** as the template type.
+            - Fill in the **Body** fields.
+          
+            Body Example:
+            ```                  
+              {
+                "text": "{alert_name} is active"
+              }
+                    
+            ```
+
+    **Steps to configure webhooks as alert destination** 
 
     1. Go to **Management > Alert Destinations**. 
     2. In the **Add Destination** page, click **Webhook**.
     3. Fill in the following details:
       ![Add Destinations](../../images/webook-as-alert-destination.png) 
-      
+
         - **Name**: Enter a descriptive name for the Webhook destination. For example, SlackNotifications. Note that characters such as `,`, `:`, `?`, `/`, `#`, and `spaces` are not allowed.
         - **Template**: Choose a predefined alert message template from the dropdown menu.
         - **URL**: Specify the Webhook endpoint URL where notifications will be sent. For example, `https://hooks.slack.com/services/T02QBH105PF/B04C7NLLLRE/HY3fXf123`
@@ -37,6 +59,7 @@ The **Destinations** section provides three configuration options. Select a dest
     6. Click **Save** to create the Webhook destination.
 
 === "Email"
+    ## Email
     When the alert gets triggered, OpenObserve will send alert notifications to one or more email addresses using SMTP. Use this option when email is the preferred channel for receiving alerts. You must configure the email delivery settings under your OpenObserve SMTP setup. The alert payload can be formatted using a predefined template.
   
     ???  "View use cases."
@@ -45,7 +68,7 @@ The **Destinations** section provides three configuration options. Select a dest
           - Notify on-call team members or distribution lists.
           - Route alerts to incident mailboxes used by helpdesk.
     
-    **Prerequisites:**
+    ### Prerequisites
     
     ??? "1. Set up an email account for sending alerts."
         To send email alerts using Gmail SMTP, you must create an App Password. Follow these steps:
@@ -123,9 +146,9 @@ The **Destinations** section provides three configuration options. Select a dest
         4. Click **Save**. 
       After the user is added, they become eligible to receive email alerts.
     
-    **Steps to Configure Emails as Alert Destination:** <br> 
+    ### Steps to configure emails as alert destination 
     ![Alert Destination](../../images/alert-email-destination.png)
-  
+
       1. Go to **Management** > **Alert Destinations**. 
       2. In the **Add Destination** page, click **Email**.
       3. Enter a name for the destination.
@@ -136,20 +159,46 @@ The **Destinations** section provides three configuration options. Select a dest
     This creates the email as alert destination. 
 
 === "Actions"
-      When an alert gets triggered, OpenObserve executes a Real-time Action script. Use this destination type when the alert data needs to be processed or routed using custom logic.Action scripts are stateful. They can retain values across executions, enabling more advanced workflows than webhook or email destinations.
+    ## Actions
+    When an alert gets triggered, OpenObserve executes a Real-time Action script. Use this destination type when the alert data needs to be processed or routed using custom logic.Action scripts are stateful. They can retain values across executions, enabling more advanced workflows than webhook or email destinations.
 
     ???  "View use cases."
-          For example, you can use this destination to:
-        
-          - Send the alert to Slack, and also ingest a structured copy of the alert into a custom stream in your organization
-          - Track how often a specific alert has triggered, then write aggregated metrics, such as trigger count per hour, to a stream for trend analysis.
-    
-    **Prerequisites:**
+        For example, you can use this destination to:
       
-      1. Create the real-time action script as per your requirement. For more details, visit the [Create and Use Real-time Actions](../../actions/create-and-use-real-time-actions/) page.
-      2. Create the alert template.
+        - Send the alert to Slack, and also ingest a structured copy of the alert into a custom stream in your organization
+        - Track how often a specific alert has triggered, then write aggregated metrics, such as trigger count per hour, to a stream for trend analysis.
+    
+    ### Prerequisites
+      
+    ??? "1. Create the real-time action"
+        Create the real-time action script as per your requirement. For more details, visit the [Create and Use Real-time Actions](../../actions/create-and-use-real-time-actions/) page.
+    ??? "2. Create the alert template"
+        When you configure an Action as the alert destination, OpenObserve passes the alert data to your Real-time Action script through a template.
+        The template defines the structure of the alert payload that your Python script will receive as the `data` argument in its `main()` function.
+        <br>
+        **Note:** Unlike email or webhook templates (which are meant for human-readable or HTTP payload formatting), this template is meant to be machine-readable.
+        Hence, it should be a valid JSON object that matches how your script expects to read alert fields.
+        
+        You can create the template from Management > Templates > Add Template > Web Hook (because Action templates also use JSON structure).
+        
+        Use the following structure as an example:
 
-    **Steps to Configure Actions as Alert Destination:** 
+        {
+        "alert_name": "{alert_name}",
+        "alert_type": "{alert_type}",
+        "stream_name": "{stream_name}",
+        "org_name": "{org_name}",
+        "alert_period": "{alert_period}",
+        "alert_operator": "{alert_operator}",
+        "alert_threshold": "{alert_threshold}",
+        "alert_start_time": "{alert_start_time}",
+        "alert_end_time": "{alert_end_time}",
+        "alert_trigger_time": "{alert_trigger_time}"
+        }
+        This ensures that when the alert triggers, your real-time Action script receives this JSON as `data`.
+        Your Python script can then parse these fields directly.
+
+    ### Steps to configure actions as alert destination
     ![Action Destination](../../images/action-as-destination.png)
 
       1. Go to **Management > Alert Destinations**. 

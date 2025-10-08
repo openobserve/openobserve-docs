@@ -16,6 +16,7 @@ Streaming Search allows OpenObserve to return query results through a single, pe
     <br>
     ![User Access](../../images/streaming-search-access.png)
     
+    
 ## Concepts
 ### Partition
 
