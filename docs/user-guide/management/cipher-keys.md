@@ -13,12 +13,13 @@ The **Cipher Keys** feature is essential for handling sensitive data stored in e
 
 Follow these steps to create and configure **Cipher Keys** in OpenObserve:
 
-??? "Step 1: Navigate to the Cipher Keys Section"
+??? "Step 1: Navigate to the Cipher Keys section"
 
     1. From the top navigation bar, click the gear icon to open the **Management** page.  
     2. Select **Cipher Keys**.
 
     ![cipher-keys](../../images/cipher-keys.png)
+    
 
 ??? "Step 2: Create a New Cipher Key"
 
@@ -47,163 +48,162 @@ Follow these steps to create and configure **Cipher Keys** in OpenObserve:
     ![Cipher keys encryption mechanism](../../images/cipher-keys-encryption-mechanism.png)
 
     After you have filled in all the details, click **Save**. Your new **Cipher Key** is now available to use in OpenObserve.
+    ![cipher-keys-page](../../images/cipher-keys-page.png)
 
 ---
 
 ## Query Encrypted Logs with `decrypt` and `decrypt_path`
 
-You can retrieve original values from encrypted logs using the `decrypt()` and `decrypt_path()` functions. These functions operate at query time and do not write decrypted data to disk.
+To retrieve original values from encrypted logs, use the `decrypt()` and `decrypt_path()` functions. These functions operate at query time and do not write decrypted data to disk.
+??? "Use the `decrypt` function"
+    ### Use the `decrypt` function
+    The `decrypt()` function performs brute-force decryption. It attempts to decrypt any sub-string in the input that appears to be **base64-encoded**. If the decryption is successful, the sub-string is replaced with the decrypted output. If not, the sub-string is retained unchanged.
 
-### Use the `decrypt` function
-The `decrypt()` function performs brute-force decryption. It attempts to decrypt any sub-string in the input that appears to be base64-encoded. If the decryption is successful, the sub-string is replaced with the decrypted output. If not, the sub-string is retained unchanged.
+    !!! warning
+        The `decrypt()` function can be slower on larger input fields due to its brute-force behavior. For inputs smaller than 500 characters, performance degradation is typically around 10 percent. However, for inputs exceeding 10,000 characters, the slowdown can increase to 50 to 100 percent. Avoid using this function on unnecessarily large fields unless required.
 
-!!! warning
-    The `decrypt()` function can be slower on larger input fields due to its brute-force behavior. For inputs smaller than 500 characters, performance degradation is typically around 10 percent. However, for inputs exceeding 10,000 characters, the slowdown can increase to 50 to 100 percent. Avoid using this function on unnecessarily large fields unless required.
+    !!! node "Syntax"
+      ```sql
+      decrypt(encrypted_field, 'cipher_key_name') 
+      ```
+      Here: 
 
-**Syntax** <br>
-```sql
-decrypt(encrypted_field, 'cipher_key_name') 
-```
-Here: 
+      - `encrypted_field`: The field containing the encrypted value.
+      - `cipher_key_name`: The name of the **Cipher Key** used during encryption.
 
-- `encrypted_field`: The field containing the encrypted value.
-- `cipher_key_name`: The name of the **Cipher Key** used during encryption.
+    **Example** <br>
+    **Sample Encrypted Dataset**: The following log entries exist in the `customer_feedback_encrypt` stream: 
+    ![Cipher keys encrypted data](../../images/cipher-keys-encrypted-data.png)
 
-**Sample Encrypted Dataset** <br>
-The following log entries exist in the `customer_feedback_encrypt` stream: 
-<br>
-![Cipher keys encrypted data](../../images/cipher-keys-encrypted-data.png)
+    **1. Decrypt a single field** <br>
 
-**1. Decrypt a single field** <br>
+    ```sql
+    SELECT
+      decrypt(name_encrypted, 'customer_feedback_key') AS name
+    FROM "customer_feedback_encrypt"
+    ```
+    This returns the decrypted value of the `name_encrypted` field. 
+    <br>
+    ![decrypt a single field](../../images/decrypt-single-field.png)
 
-```sql
-SELECT
-  decrypt(name_encrypted, 'customer_feedback_key') AS name
-FROM "customer_feedback_encrypt"
-```
-This returns the decrypted value of the `name_encrypted` field. 
-<br>
-![decrypt a single field](../../images/decrypt-single-field.png)
-
-**2. Decrypt multiple fields** <br>
-```sql
-SELECT
-  decrypt(name_encrypted, 'customer_feedback_key') AS name,
-  decrypt(feedback_encrypted, 'customer_feedback_key') AS feedback_text
-FROM "customer_feedback_encrypt"
-```
-This returns decrypted values for both `name_encrypted` and `feedback_encrypted`. 
-<br>
-![Decrypt multiple fields](../../images/decrypt-multiple-fields.png)
+    **2. Decrypt multiple fields** <br>
+    ```sql
+    SELECT
+      decrypt(name_encrypted, 'customer_feedback_key') AS name,
+      decrypt(feedback_encrypted, 'customer_feedback_key') AS feedback_text
+    FROM "customer_feedback_encrypt"
+    ```
+    This returns decrypted values for both `name_encrypted` and `feedback_encrypted`. 
+    <br>
+    ![Decrypt multiple fields](../../images/decrypt-multiple-fields.png)
 
 
 ---
+??? "Use the `decrypt_path` function"
+    ### Use the `decrypt_path` function
+    Use `decrypt_path()` to decrypt a specific value nested inside a JSON field. The field itself must be a valid JSON object. The path specifies the location of the encrypted value inside that object. The function will apply decryption only at that path.
 
-### Use the `decrypt_path` Function
-Use `decrypt_path()` to decrypt a specific value nested inside a JSON field. The field itself must be a valid JSON object. The path specifies the location of the encrypted value inside that object. The function will apply decryption only at that path.
+    !!! node "Syntax"
+        ```sql
+        decrypt_path(encrypted_field, 'cipher_key_name', 'path')
+        ```
+        Here: 
 
-**Syntax** <br>
-```sql
-decrypt_path(encrypted_field, 'cipher_key_name', 'path')
-```
-Here: 
-
-- `encrypted_field`: A JSON object or nested data structure that contains encrypted values at various paths. 
-- `cipher_key_name`: The name of the Cipher Key used during encryption.
-- `path`: A dot-delimited string that specifies the location of the encrypted value within the nested JSON structure. Use '.' to return the entire decrypted object.
+        - `encrypted_field`: A JSON object or nested data structure that contains encrypted values at various paths. 
+        - `cipher_key_name`: The name of the Cipher Key used during encryption.
+        - `path`: A dot-delimited string that specifies the location of the encrypted value within the nested JSON structure. Use '.' to return the entire decrypted object.
 
 
-Example:
+    **Example:**
 
-If a log entry from the `encrypted_logs` stream contains:
+    If a log entry from the `encrypted_logs` stream contains:
 
-```json
-{
-  log: {
-    "a": {
-      "b": {
-        "c": "ENCRYPTED_STRING"
+    ```json
+    {
+      log: {
+        "a": {
+          "b": {
+            "c": "ENCRYPTED_STRING"
+          }
+        }
       }
     }
-  }
-}
-```
-And `ENCRYPTED_STRING` decrypts to `xyz` using the cipher key `my_key`. Then the following SQL query: 
+    ```
+    And `ENCRYPTED_STRING` decrypts to `xyz` using the cipher key `my_key`. Then the following SQL query: 
 
-```sql
-SELECT decrypt_path(log, 'my_key', 'a.b.c') AS decrypted_value FROM "encrypted_logs"
-```
-returns: 
-
-```json
-{
-decrypted_value: xyz
-}
-```
-
-**Sample Encrypted Dataset** <br>
-The following records exist in encrypted format in the `customer_feedback_nested` stream. Each record has multiple encrypted fields at different nesting levels:
-<br>
-![Nested Dataset](../../images/nested-dataset.png)
-
-**1. Decrypt a top-level field**
-The `feedback_text` field contains an encrypted plain-text value. To retrieve its original value, use `decrypt_path()` with the path set to '.'.
-```sql
-SELECT
-  decrypt_path(feedback_text, 'customer_feedback_key', '.') AS feedback_text_decrypted
-FROM "customer_feedback_nested"
-```
-<br>
-
-![Decrypt a top-level field](../../images/decrypt-path-top-level.png)
-
-**2. Decrypt a nested field**
-To retrieve the decrypted value of `name`, you can write the query as shown below: 
-```sql
-SELECT
-  decrypt_path(metadata, 'customer_feedback_key', 'user.name') AS name
-FROM "customer_feedback_nested"
-```
-<br>
-
-![Decrypt a nested field](../../images/decrypt-a-nested-field.png)
-
-!!! Info "Path Examples for `decrypt_path()`"
-    The `decrypt_path()` function allows you to specify exact JSON paths to selectively decrypt fields.  <br>
-    The following examples show how to define the path in the decrypt_path() function for different JSON structures, including nested arrays and objects.
-
-    - Decrypt tokens in an array of sessions
-    **Input:**
+    ```sql
+    SELECT decrypt_path(log, 'my_key', 'a.b.c') AS decrypted_value FROM "encrypted_logs"
+    ```
+    returns: 
 
     ```json
-
     {
-    "sessions": [
-        { "id": "1", "token": "ENC(...)" },
-        { "id": "2", "token": "ENC(...)" }
-    ]
+    decrypted_value: xyz
     }
     ```
-    **Path**: `sessions.*.token` <br>
-    This path decrypts the token field in each object within the sessions array.
 
-    - Decrypt nested fields in a multi-level array
-    **Input:**
+    **Sample Encrypted Dataset**: The following records exist in encrypted format in the `customer_feedback_nested` stream. Each record has multiple encrypted fields at different nesting levels:
+    <br>
+    ![Nested Dataset](../../images/nested-dataset.png)
 
-    ```json
-    {
-    "data": [
+    **1. Decrypt a top-level field**
+    The `feedback_text` field contains an encrypted plain-text value. To retrieve its original value, use `decrypt_path()` with the path set to '.'.
+    ```sql
+    SELECT
+      decrypt_path(feedback_text, 'customer_feedback_key', '.') AS feedback_text_decrypted
+    FROM "customer_feedback_nested"
+    ```
+    <br>
+
+    ![Decrypt a top-level field](../../images/decrypt-path-top-level.png)
+
+    **2. Decrypt a nested field**
+    To retrieve the decrypted value of `name`, you can write the query as shown below: 
+    ```sql
+    SELECT
+      decrypt_path(metadata, 'customer_feedback_key', 'user.name') AS name
+    FROM "customer_feedback_nested"
+    ```
+    <br>
+
+    ![Decrypt a nested field](../../images/decrypt-a-nested-field.png)
+
+    !!! Info "Path Examples for `decrypt_path()`"
+        The `decrypt_path()` function allows you to specify exact JSON paths to selectively decrypt fields.  <br>
+        The following examples show how to define the path in the decrypt_path() function for different JSON structures, including nested arrays and objects.
+
+        - Decrypt tokens in an array of sessions
+        **Input:**
+
+        ```json
+
         {
-        "details": [
-            { "secure": "ENC(...)" },
-            { "secure": "ENC(...)" }
+        "sessions": [
+            { "id": "1", "token": "ENC(...)" },
+            { "id": "2", "token": "ENC(...)" }
         ]
         }
-    ]
-    }
-    ```
-    **Path:** `data.*.details.*.secure` <br>
-    This path decrypts every secure field in each nested details array within the data array.
+        ```
+        **Path**: `sessions.*.token` <br>
+        This path decrypts the token field in each object within the sessions array.
+
+        - Decrypt nested fields in a multi-level array
+        **Input:**
+
+        ```json
+        {
+        "data": [
+            {
+            "details": [
+                { "secure": "ENC(...)" },
+                { "secure": "ENC(...)" }
+            ]
+            }
+        ]
+        }
+        ```
+        **Path:** `data.*.details.*.secure` <br>
+        This path decrypts every secure field in each nested details array within the data array.
 
 
 ---
