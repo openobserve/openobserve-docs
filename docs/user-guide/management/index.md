@@ -11,6 +11,6 @@ Learn more:
 - [Cipher Keys](../management/cipher-keys/)
 - [Nodes in OpenObserve](../management/nodes/)
 - [SSO Domain Restrictions](../management/sso-domain-restrictions/)
-- [Regex Patterns](../management/regex-patterns/)
+- [Sensitive Data Redaction](../management/sensitive-data-redaction/)
 
 
