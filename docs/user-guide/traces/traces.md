@@ -1,5 +1,5 @@
 ---
-title: View and Configure Traces in OpenObserve
+title: Traces in OpenObserve
 description: Configure tracing, correlate logs, and analyze performance in OpenObserve.
 ---
 This document explains how to use OpenObserve to collect, view, and analyze distributed traces. It covers how to configure tracing for self-monitoring and external applications, correlate traces with logs, and explore trace data in the UI to identify performance bottlenecks and errors.
