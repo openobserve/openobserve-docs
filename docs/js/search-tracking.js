@@ -101,9 +101,7 @@
           // pageType,                // docs / blog / marketing (uncomment if needed)
           ...payload,
         }),
-      });      
       });
-
     } catch (error) {
       console.warn("Analytics API error:", error);
     }
