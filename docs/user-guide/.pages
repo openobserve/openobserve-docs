@@ -5,6 +5,7 @@ nav:
     - Streams: streams
     - Ingestion: ingestion
     - Pipelines: pipelines
+    - Traces: traces
     - Alerts: alerts
     - Dashboards: dashboards
     - Actions: actions

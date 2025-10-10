@@ -1,0 +1,5 @@
+nav:
+
+- Traces Overview: index.md  
+- Traces in OpenObserve: traces.md
+
