@@ -2,18 +2,6 @@
 .md-search__close {
   display: none !important;
 }
-/* === FINAL SECONDARY SIDEBAR POSITIONING OVERRIDE === */
-.md-sidebar--secondary,
-.md-sidebar--secondary[data-md-component="sidebar"],
-.md-sidebar--secondary[data-md-state],
-.md-sidebar--secondary[data-md-state="lock"] {
-  position: sticky !important;
-  top: 8rem !important;
-  transform: none !important;
-  transition: none !important;
-  will-change: auto !important;
-  z-index: 200 !important;
-}
 
 /* STRONG FINAL MOBILE SCROLL FIX (highest priority):
    Lock the sidebar inner to the viewport and force the scrollwrap to handle
@@ -786,6 +774,64 @@ html .md-sidebar--primary {
   display: none !important;
 }
 
+/* ------------------------------------------------------------------ */
+/* Mirror primary sidebar height/scroll behavior for secondary only     */
+/* Only height/scroll/positioning properties are applied to avoid      */
+/* changing colors, spacing, or layout in other views.                 */
+/* ------------------------------------------------------------------ */
+.md-sidebar--secondary,
+.md-sidebar--secondary[data-md-component="sidebar"],
+.md-sidebar--secondary[data-md-state],
+.md-sidebar--secondary[data-md-state="lock"] {
+  /* Match primary's sticky positioning and footer clearance */
+  position: sticky !important;
+  top: 8rem !important;
+  transform: none !important;
+  transition: none !important;
+  will-change: auto !important;
+  z-index: 200 !important;
+
+  /* Content-based height with same footer clearance as primary */
+  height: auto !important;
+  min-height: auto !important;
+  max-height: calc(100vh - 9rem) !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+
+/* Ensure inner container is content-based like primary */
+.md-sidebar--secondary .md-sidebar__inner {
+  height: auto !important;
+  min-height: auto !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+/* Provide a scrollwrap that matches primary's behavior and clearance */
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+  overflow-y: auto !important;
+  padding: 0.25rem 0 1rem !important;
+  overscroll-behavior: contain !important;
+  width: 100% !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+  /* Allow content-based height but limit to viewport minus footer/header */
+  height: auto !important;
+  max-height: calc(100vh - 12rem) !important;
+}
+
+/* Remove potential masking pseudo-elements that could hide final items */
+.md-sidebar--secondary .md-sidebar__scrollwrap:after {
+  display: none !important;
+}
+.md-sidebar--secondary:before,
+.md-sidebar--secondary:after,
+.md-sidebar--secondary .md-sidebar__inner:before,
+.md-sidebar--secondary .md-sidebar__inner:after {
+  display: none !important;
+}
+
 .md-header {
   position: fixed !important;
   top: 70px !important;
@@ -1457,7 +1503,7 @@ nav.md-grid {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;   /* px-4 */
+  padding-left: 1rem; /* px-4 */
   padding-right: 1rem;
   display: flex;
   align-items: center;
@@ -1467,7 +1513,7 @@ nav.md-grid {
 @media (min-width: 640px) {
   .md-main__inner.md-grid {
     max-width: 640px;
-    padding-left: 1.5rem;  /* sm:px-6 */
+    padding-left: 1.5rem; /* sm:px-6 */
     padding-right: 1.5rem;
   }
 }
@@ -1483,7 +1529,7 @@ nav.md-grid {
 @media (min-width: 1024px) {
   .md-main__inner.md-grid {
     max-width: 1024px;
-    padding-left: 2rem;   /* lg:px-8 */
+    padding-left: 2rem; /* lg:px-8 */
     padding-right: 2rem;
     justify-content: space-between; /* lg:justify-between */
   }
@@ -1493,7 +1539,7 @@ nav.md-grid {
 @media (min-width: 1280px) {
   .md-main__inner.md-grid {
     max-width: 1480px;
-    padding-left: 2.5rem;  /* xl:px-10 */
+    padding-left: 2.5rem; /* xl:px-10 */
     padding-right: 2.5rem;
   }
 }
@@ -1502,5 +1548,29 @@ nav.md-grid {
 @media (min-width: 1536px) {
   .md-main__inner.md-grid {
     max-width: 70rem;
+  }
+}
+
+/* Strong mobile hide: ensure secondary sidebar stays hidden on small screens
+   This rule targets the same selector variants used elsewhere and is placed
+   at the end of the stylesheet with !important to avoid accidental overrides. */
+@media (max-width: 76.24em) {
+  .md-sidebar--secondary,
+  .md-sidebar--secondary[data-md-component="sidebar"],
+  .md-sidebar--secondary[data-md-state],
+  .md-sidebar--secondary[data-md-state="lock"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: none !important; /* neutralize any transforms */
+  }
+
+  /* Also make sure secondary inner containers don't show up */
+  .md-sidebar--secondary .md-sidebar__inner,
+  .md-sidebar--secondary .md-sidebar__scrollwrap,
+  .md-nav--secondary {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 }
