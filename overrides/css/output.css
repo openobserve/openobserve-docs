@@ -457,6 +457,7 @@ legend {
   padding: 0;
 }
 
+ol,
 ul,
 menu {
   list-style: none;
@@ -581,9 +582,9 @@ video {
   }
 }
 
-@media (min-width: 70rem) {
+@media (min-width: 86rem) {
   .tw-container {
-    max-width: 70rem;
+    max-width: 86rem;
   }
 }
 
@@ -835,6 +836,10 @@ video {
 
 .tw-w-full {
   width: 100%;
+}
+
+.tw-max-w-\[70rem\] {
+  max-width: 70rem;
 }
 
 .tw-flex-1 {
