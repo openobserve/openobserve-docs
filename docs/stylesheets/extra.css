@@ -1550,3 +1550,27 @@ nav.md-grid {
     max-width: 70rem;
   }
 }
+
+/* Strong mobile hide: ensure secondary sidebar stays hidden on small screens
+   This rule targets the same selector variants used elsewhere and is placed
+   at the end of the stylesheet with !important to avoid accidental overrides. */
+@media (max-width: 76.24em) {
+  .md-sidebar--secondary,
+  .md-sidebar--secondary[data-md-component="sidebar"],
+  .md-sidebar--secondary[data-md-state],
+  .md-sidebar--secondary[data-md-state="lock"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: none !important; /* neutralize any transforms */
+  }
+
+  /* Also make sure secondary inner containers don't show up */
+  .md-sidebar--secondary .md-sidebar__inner,
+  .md-sidebar--secondary .md-sidebar__scrollwrap,
+  .md-nav--secondary {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
