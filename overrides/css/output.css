@@ -457,6 +457,7 @@ legend {
   padding: 0;
 }
 
+ol,
 ul,
 menu {
   list-style: none;
@@ -835,6 +836,10 @@ video {
 
 .tw-w-full {
   width: 100%;
+}
+
+.tw-max-w-\[70rem\] {
+  max-width: 70rem;
 }
 
 .tw-flex-1 {

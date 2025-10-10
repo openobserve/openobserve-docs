@@ -1501,6 +1501,6 @@ nav.md-grid {
 /* 2xl (≥1536px) */
 @media (min-width: 1536px) {
   .md-main__inner.md-grid {
-    max-width: 1736px;
+    max-width: 70rem;
   }
 }
