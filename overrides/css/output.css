@@ -581,9 +581,9 @@ video {
   }
 }
 
-@media (min-width: 86rem) {
+@media (min-width: 70rem) {
   .tw-container {
-    max-width: 86rem;
+    max-width: 70rem;
   }
 }
 
