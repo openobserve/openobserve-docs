@@ -16,6 +16,7 @@ nav:
     - Management: management
     - Profile: profile
     - Performance: performance
+    - Federated Search: federated-search
     - Best Practices: best-practices
     - Migration: migration
    
