@@ -50,8 +50,8 @@ extra:
     #   lang: zh
   generator: false
   default_color_scheme: default
-  version:
-    provider: mike
+  # version:
+  #   provider: mike
   analytics:
     provider: google
     property: G-3383ZJ2HH7
