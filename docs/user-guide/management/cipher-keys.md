@@ -7,7 +7,8 @@ description: >-
 This page explains how to create and manage **Cipher Keys** in OpenObserve and how to use them to decrypt encrypted log data during search queries. 
 The **Cipher Keys** feature is essential for handling sensitive data stored in encrypted formats while still enabling effective log search and analysis, without storing decrypted data on disk. 
 
-> **Note:** This feature is applicable to the OpenObserve [Enterprise Edition](../../../openobserve-enterprise-edition-installation-guide/).
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
 ## Create Cipher Keys
 

@@ -3,7 +3,9 @@ title: Federated Search in OpenObserve - How-to Guide
 description: Step-by-step instructions for querying your current cluster and performing federated searches across one or more clusters in a supercluster setup.
 ---
 This document explains how to query your current cluster and how to perform [federated searches](../) across one or more different clusters in a supercluster setup.
-> This feature is available in Enterprise Edition.
+
+!!! info "Availability"
+    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
 
 ## How to query your current cluster in a supercluster
 
@@ -17,7 +19,7 @@ Query your current cluster when you know the data is in your cluster or when you
     - Results will include data from the current cluster only.
 <br>
 **Steps:**
-![current-cluster-query](current-cluster-query.png)
+![current-cluster-query](../../images/current-cluster-query.png)
 
 1. Navigate to the **Logs** page.
 2. Enter your query in the SQL Query Editor.
@@ -30,7 +32,7 @@ Query your current cluster when you know the data is in your cluster or when you
 
 **Result**<br>
 Data from the selected cluster only.
-![current-cluster-query-result](current-cluster-query-result.png)
+![current-cluster-query-result](../../images/current-cluster-query-result.png)
 
 
 ## How to query one or more different clusters in a supercluster
@@ -44,7 +46,7 @@ Use federated search when you need data from multiple clusters.
 
 **Steps**
 <br>
-![federated-search](federated-search.png)
+![federated-search-multi-select](../../images/federated-search-multi-select.png)
 
 1. Navigate to the **Logs** page.
 2. Enter your query in the SQL Query Editor.
@@ -57,7 +59,7 @@ Use federated search when you need data from multiple clusters.
 
 **Result**<br>
 Combined data from all selected clusters.
-![federated-search-result](federated-search-result.png)
+![federated-search-result](../../images/federated-search-result.png)
 ## Region selection reference
 
 Use this quick reference to understand how region selection affects query execution:

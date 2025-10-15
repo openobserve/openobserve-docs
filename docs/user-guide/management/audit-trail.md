@@ -6,8 +6,9 @@ description: >-
 ---
 # Audit Trail
 
-> **Note:** This feature is applicable to the Enterprise Edition.
-
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+    
 ## What is Audit Trail
 Audit Trail records user actions across all organizations in OpenObserve. It captures non-ingestion API calls and helps you monitor activity and improve security.
 
@@ -31,7 +32,7 @@ When audit logging is enabled using the `O2_AUDIT_ENABLED` environment variable,
 !!! note "Example"
     The following example shows a captured audit event from the `audit` stream:
   ![audit-trail](../../images/audit-trail.png)
-  
+
 !!! note "Use cases"
     Because audit events are stored in a log stream, you can:
 

@@ -5,11 +5,13 @@ description: >-
 ---
 <!-- search: SSO, Single Sign-On-->
 
-> `Applicable to enterprise version`
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
+## SSO in OpenObserve
 OpenObserve, integrates Single Sign-On (SSO) capabilities using Dex, an OpenID Connect Identity (OIDC) and OAuth 2.0 provider. Dex does not have a user database and instead uses external identity providers like LDAP, Google, GitHub, etc. for authentication.
 
-## Setup OpenObserve
+## Configure SSO in OpenObserve
 
 You must set following environment variables to enable SSO in OpenObserve.
 
