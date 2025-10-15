@@ -109,3 +109,7 @@ main {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+.header-list-style {
+  list-style: none;
+}

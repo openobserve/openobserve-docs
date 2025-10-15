@@ -944,6 +944,10 @@ video {
   gap: 1.5rem;
 }
 
+.tw-gap-y-2 {
+  row-gap: 0.5rem;
+}
+
 .tw-space-x-0\.5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.125rem * var(--tw-space-x-reverse));
@@ -1553,6 +1557,10 @@ main {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.header-list-style {
+  list-style: none;
 }
 
 .hover\:tw-border-gray-200:hover {
