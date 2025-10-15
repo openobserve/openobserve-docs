@@ -1555,6 +1555,12 @@ main {
   background-clip: text;
 }
 
+.header-list-style {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .hover\:tw-border-gray-200:hover {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
