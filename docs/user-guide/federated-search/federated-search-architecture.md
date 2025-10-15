@@ -4,7 +4,8 @@ description: Technical explanation of OpenObserve deployment modes, normal clust
 ---
 This document explains the technical architecture of OpenObserve deployments, how queries execute in normal clusters, and how [federated search](../) coordinates queries across clusters in a supercluster.
 
-> This feature is available in Enterprise Edition.
+!!! info "Availability"
+    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
 
 ## Understanding OpenObserve deployments
 Before diving into how federated search works, you need to understand how OpenObserve can be deployed. OpenObserve scales from a single machine to a globally distributed infrastructure.

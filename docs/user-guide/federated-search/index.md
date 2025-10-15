@@ -4,8 +4,9 @@ description: Learn what federated search is, key concepts, prerequisites, and wh
 ---
 This document provides an overview of federated search in OpenObserve.
 
-> This feature is available in Enterprise Edition.
-
+!!! info "Availability"
+    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+    
 ## What is federated search?
 
 Federated search enables querying across multiple OpenObserve clusters that are connected as a supercluster, all from one interface.

@@ -8,6 +8,9 @@ description: >-
 
 This guide provides instruction on how to create Real-time Actions.
 
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+
 ## Create a Real-time Action
 ??? info "Prerequisite"
     Create a Service Account and Assign a Role 

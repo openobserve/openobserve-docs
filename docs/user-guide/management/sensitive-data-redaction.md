@@ -4,7 +4,9 @@ description: Learn how to redact or drop sensitive data using regex patterns dur
 ---
 
 This document explains how to configure and manage regex patterns for redacting or dropping sensitive data in OpenObserve.
-> Note: This feature is applicable to the OpenObserve [Enterprise Edition](../../../openobserve-enterprise-edition-installation-guide/).
+
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
 ## Overview 
 The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted** or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.
