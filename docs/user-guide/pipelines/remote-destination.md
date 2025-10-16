@@ -154,16 +154,16 @@ This document explains how to configure remote destinations in OpenObserve pipel
     **Condition 4: Retry Exhaustion** <br>
     After repeated transmission failures, the system stops retrying the file. By default, this happens after 6 failed attempts. The file then remains on disk but is no longer scheduled for transmission.
 
-    - This behavior can be changed using the ZO_PIPELINE_REMOVE_WAL_FILE_AFTER_MAX_RETRY configuration. When set to true, failed files are permanently deleted instead of being kept on disk.
-    - The retry limit is configurable via ZO_PIPELINE_MAX_RETRY_COUNT.
+    - This behavior can be changed using the `ZO_PIPELINE_REMOVE_WAL_FILE_AFTER_MAX_RETRY` configuration. When set to true, failed files are permanently deleted instead of being kept on disk.
+    - The retry limit is configurable via `ZO_PIPELINE_MAX_RETRY_COUNT`.
 
     ## Failure handling and retry
 
     When transmission fails, the system waits before retrying. Wait times increase with each failure: 5 minutes after the first failure, 10 minutes after the second, 20 minutes after the third, and so on, doubling each time. This is called exponential backoff. It gives a failed or overloaded destination time to recover instead of immediately retrying, which would consume bandwidth and potentially worsen the problem.
 
-    - **Maximum wait time**: Retry intervals cannot exceed 24 hours (configurable via ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS), ensuring files are retried at least once daily.
+    - **Maximum wait time**: Retry intervals cannot exceed 24 hours (configurable via `ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS`), ensuring files are retried at least once daily.
     - **Random variation**: The system adds small random delays to retry times. This prevents many failed files from retrying at the exact same moment and overwhelming the destination. This is known as preventing the "thundering herd" problem, where multiple requests hitting a recovering system simultaneously can cause it to fail again.
-    - **Retry limit**: After 6 failed attempts (configurable via ZO_PIPELINE_MAX_RETRY_COUNT), the system stops retrying. File handling then follows the rules described in Condition 4 of the  section.
+    - **Retry limit**: After 6 failed attempts (configurable via `ZO_PIPELINE_MAX_RETRY_COUNT`), the system stops retrying. File handling then follows the rules described in Condition 4 of the  section.
 
     ## Persistent queue architecture
     The combination of disk-based storage, multi-threaded processing, FIFO ordering, and retry logic implements a system pattern known as a persistent queue. A persistent queue is a queue that stores items on disk so it survives restarts and failures, preserves order, and resumes transmission without duplication.
