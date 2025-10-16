@@ -7,3 +7,4 @@ nav:
     - Etcd maintenance: etcd.md
     - Etcd restore: etcd_restore.md
     - Nginx proxy: nginx_proxy.md
+    - Configuration Management: config-management.md
