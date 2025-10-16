@@ -138,24 +138,24 @@ This document explains how to configure remote destinations in OpenObserve pipel
 
     ## WAL file lifecycle
     WAL files are deleted under four conditions:
-    <br>
+    <br><br>
     **Condition 1: Successful Transmission**
     <br>
     All data in the file has been sent and the destination has acknowledged receipt. The file is immediately deleted. This is the normal deletion path during healthy operation.
-    <br>
+    <br><br>
     **Condition 2: Disk Space Limit**
     <br>
     When remote destination WAL files consume 50% of available disk space (default), the system stops writing new files and deletes the oldest files to free space. Deletion occurs regardless of transmission status. This limit prevents remote destination operations from consuming disk space needed by other OpenObserve components like data ingestion and query processing. The disk space limit is configurable via the `ZO_PIPELINE_WAL_SIZE_LIMIT` environment variable. On a 1 TB disk with the default 50% limit, remote destination files will not exceed approximately 500 GB.
-    <br>
+    <br><br>
     **Condition 3: Data Retention Policy**
     <br>
     WAL files containing data older than the stream's retention period are deleted regardless of transmission status. Each pipeline inherits retention settings from its associated stream. If a stream has 30-day retention, WAL files with data older than 31 days are deleted even if never transmitted. This aligns remote destination data lifecycle with overall retention policy.
-    <br>
+    <br><br>
     **Condition 4: Retry Exhaustion** <br>
     After repeated transmission failures, the system stops retrying the file. By default, this happens after 6 failed attempts. The file then remains on disk but is no longer scheduled for transmission.
 
-        - This behavior can be changed using the ZO_PIPELINE_REMOVE_WAL_FILE_AFTER_MAX_RETRY configuration. When set to true, failed files are permanently deleted instead of being kept on disk.
-        - The retry limit is configurable via ZO_PIPELINE_MAX_RETRY_COUNT.
+    - This behavior can be changed using the ZO_PIPELINE_REMOVE_WAL_FILE_AFTER_MAX_RETRY configuration. When set to true, failed files are permanently deleted instead of being kept on disk.
+    - The retry limit is configurable via ZO_PIPELINE_MAX_RETRY_COUNT.
 
     ## Failure handling and retry
 
@@ -190,8 +190,8 @@ This document explains how to configure remote destinations in OpenObserve pipel
 
     | **Environment Variable** | **Description** |
     | --- | --- |
-    | ZO_PIPELINE_REMOTE_STREAM_CONCURRENT_COUNT | • Defines the number of concurrent threads the exporter uses to send data from Write-Ahead Log (WAL) files to the remote destination.• Controls export parallelism. Higher values increase throughput but also increase CPU usage.• Set this value to match or slightly exceed the number of CPU cores. Increase when export speed lags behind ingestion, and decrease if CPU usage stays above 80 percent. |
-    | ZO_PIPELINE_FILE_PUSH_BACK_INTERVAL | **• **Specifies how long a reader waits before checking the queue again after catching up to the writer.• Balances latency and CPU utilization. Lower values reduce event latency but raise CPU load; higher values lower CPU usage but increase latency.• Use 1 second for low-latency pipelines. Increase to 5–10 seconds in resource-limited systems or when small delays are acceptable. |
-    | ZO_PIPELINE_SINK_TASK_SPAWN_INTERVAL_MS | • Determines how often the scheduler assigns new export tasks to reader threads, measured in milliseconds.• Controls backlog clearing speed and CPU overhead. Shorter intervals improve responsiveness but raise CPU usage.• Use 10–50 ms to clear persistent backlogs faster. Use 200–500 ms to reduce CPU load in low-throughput environments. Keep 100 ms for balanced performance. |
-    | ZO_PIPELINE_MAX_RETRY_COUNT | • Sets the maximum number of retry attempts per WAL file after export failure.• Prevents endless retries for failed exports and limits disk growth when destinations are unreachable.• Increase to 10 when the destination is unreliable or often unavailable. Keep the default of 6 for stable networks. |
-    | ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS | • Defines the longest allowed interval between retry attempts during exponential backoff.• Ensures failed files are retried at least once in the defined period and prevents retries from spacing out indefinitely.• Keep the default 24 hours for typical conditions. Increase to 48 hours if the destination experiences long outages. |
+    | ZO_PIPELINE_REMOTE_STREAM_CONCURRENT_COUNT | • Defines the number of concurrent threads the exporter uses to send data from Write-Ahead Log (WAL) files to the remote destination.<br>• Controls export parallelism. Higher values increase throughput but also increase CPU usage.<br>• Set this value to match or slightly exceed the number of CPU cores. Increase when export speed lags behind ingestion, and decrease if CPU usage stays above 80 percent. |
+    | ZO_PIPELINE_FILE_PUSH_BACK_INTERVAL | • Specifies how long a reader waits before checking the queue again after catching up to the writer.<br>• Balances latency and CPU utilization. Lower values reduce event latency but raise CPU load; higher values lower CPU usage but increase latency.<br>• Use 1 second for low-latency pipelines. Increase to 5–10 seconds in resource-limited systems or when small delays are acceptable. |
+    | ZO_PIPELINE_SINK_TASK_SPAWN_INTERVAL_MS | • Determines how often the scheduler assigns new export tasks to reader threads, measured in milliseconds.<br>• Controls backlog clearing speed and CPU overhead. Shorter intervals improve responsiveness but raise CPU usage.<br>• Use 10–50 ms to clear persistent backlogs faster. Use 200–500 ms to reduce CPU load in low-throughput environments. Keep 100 ms for balanced performance. |
+    | ZO_PIPELINE_MAX_RETRY_COUNT | • Sets the maximum number of retry attempts per WAL file after export failure.<br>• Prevents endless retries for failed exports and limits disk growth when destinations are unreachable.<br>• Increase to 10 when the destination is unreliable or often unavailable. Keep the default of 6 for stable networks. |
+    | ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS | • Defines the longest allowed interval between retry attempts during exponential backoff.<br>• Ensures failed files are retried at least once in the defined period and prevents retries from spacing out indefinitely.<br>• Keep the default 24 hours for typical conditions. Increase to 48 hours if the destination experiences long outages. |
