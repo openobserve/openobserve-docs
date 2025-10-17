@@ -1,3 +1,7 @@
+---
+title: Custom Configuration File and Dynamic Reloading in OpenObserve
+description: Learn how to use custom config paths and dynamic config reloading in OpenObserve to apply changes without restarts.
+---
 This guide explains how to use custom configuration file locations and
 dynamic configuration reloading in OpenObserve to manage deployments
 without system restarts.
