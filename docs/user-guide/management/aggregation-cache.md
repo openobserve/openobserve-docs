@@ -150,7 +150,15 @@ This page explains what streaming aggregation is and shows how to use it to impr
     - [approx_topk_distinct](https://openobserve.ai/docs/sql-functions/approximate-aggregate/approx-topk-distinct/)
 
     ---
+    ## Aggregation cache metrics
+    OpenObserve exposes Prometheus metrics to monitor aggregation cache performance and memory usage.
 
+    | Metric | Description |
+    |--------|-------------|
+    | `zo_query_aggregation_cache_items` | Monitor to understand cache utilization and verify that streaming aggregation is populating the cache as expected |
+    | `zo_query_aggregation_cache_bytes` | Monitor memory consumption to ensure the cache stays within acceptable limits and doesn't exhaust system resources |
+
+    ---
 === "How to use"
 
     ## How to use streaming aggregation
