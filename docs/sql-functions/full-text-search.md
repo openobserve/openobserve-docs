@@ -27,7 +27,8 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 
 ---
 
-### `not str_match(field, 'value')`
+### `not str_match`
+**Syntax**: `not str_match(field, 'value')` <br>
 **Description**:<br>
 
 - Filters logs where the specified field does NOT contain the exact string value.
@@ -116,7 +117,8 @@ SELECT * FROM "default" WHERE match_all('*ab*')
 ```sql
 SELECT * FROM "default" WHERE match_all('key1 key2*')
 ```
-### `not match_all('value')`
+### `not match_all`
+**Syntax**: `not match_all('value')`
 **Description**: <br>
 
 - Filters logs by excluding records where the keyword appears in any field that has the Index Type set to Full Text Search in the stream settings. 
