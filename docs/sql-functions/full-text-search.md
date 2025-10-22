@@ -73,7 +73,7 @@ SELECT * FROM "default" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSE
 This query filters logs from the `default` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
 <br>
 ![str_match_ignore_case](../images/sql-reference/str-ignore-case.png)
-
+<br>
 ---
 
 ### `match_all`
