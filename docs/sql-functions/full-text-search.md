@@ -25,6 +25,33 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 <br>
 ![str_match](../images/sql-reference/str-match.png)
 
+---
+
+### `not str_match(field, 'value')`
+**Description**:<br>
+
+- Filters logs where the specified field does NOT contain the exact string value.
+- The match is case-sensitive.
+- Only logs that do not include the exact characters and casing specified will be returned.
+- Can be combined with other conditions using AND/OR operators.
+
+**Example**: <br>
+```sql
+SELECT * FROM "default" WHERE NOT str_match(k8s_app_instance, 'dev2')
+```
+![not str_match](../images/sql-reference/not-str-match.png)
+
+**Combining multiple NOT conditions with AND:**
+```sql
+SELECT * FROM "default" WHERE (NOT str_match(k8s_app_instance, 'dev2')) AND (NOT str_match(k8s_cluster, 'dev2'))
+```
+![not str_match with AND operator](../images/sql-reference/not-str-match-with-and.png)
+
+**Combining NOT conditions with OR:**
+```sql
+SELECT * FROM "default" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_match(k8s_cluster, 'dev2')))
+```
+![not str_match with OR operator](../images/sql-reference/not-str-match-with-or.png)
 
 ---
 ### `str_match_ignore_case`
@@ -46,7 +73,7 @@ SELECT * FROM "default" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSE
 This query filters logs from the `default` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
 <br>
 ![str_match_ignore_case](../images/sql-reference/str-ignore-case.png)
-
+<br>
 ---
 
 ### `match_all`
@@ -68,6 +95,52 @@ SELECT * FROM "default" WHERE match_all('openobserve-querier')
 This query returns all logs in the `default` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 <br>
 ![match_all](../images/sql-reference/match-all.png)
+
+
+**More pattern support**
+The `match_all` function also supports the following patterns for flexible searching:
+
+- **Prefix search**: Matches keywords that start with the specified prefix:
+```sql
+SELECT * FROM "default" WHERE match_all('ab*')
+```
+- **Postfix search**: Matches keywords that end with the specified suffix:
+```sql
+SELECT * FROM "default" WHERE match_all('*ab')
+```
+- **Contains search**: Matches keywords that contain the substring anywhere:
+```sql
+SELECT * FROM "default" WHERE match_all('*ab*')
+```
+- **Phrase prefix search**: Matches keywords where the last term uses prefix matching:
+```sql
+SELECT * FROM "default" WHERE match_all('key1 key2*')
+```
+### `not match_all('value')`
+**Description**: <br>
+
+- Filters logs by excluding records where the keyword appears in any field that has the Index Type set to Full Text Search in the stream settings. 
+- This function is case-insensitive and excludes matches regardless of the keyword's casing.
+- **Important**: Only searches fields configured as Full Text Search fields. Other fields in the record are not evaluated.
+- Provides significant performance improvements when used with indexed fields.
+
+**Example**:
+```sql
+SELECT * FROM "default" WHERE NOT match_all('foo')
+```
+This query returns all logs in the `default` stream where the keyword `foo` does NOT appear in any of the full-text indexed fields. Fields not configured for full-text search are ignored.
+
+**Combining NOT match_all with NOT str_match**:
+```sql
+SELECT * FROM "default" WHERE (NOT str_match(f1, 'bar')) AND (NOT match_all('foo'))
+```
+This query returns logs where field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
+
+**Using NOT with OR conditions**:
+```sql
+SELECT * FROM "default" WHERE NOT (str_match(f1, 'bar') OR match_all('foo'))
+```
+This query returns logs where BOTH conditions are false: field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
 
 ---
 
