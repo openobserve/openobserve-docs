@@ -5,7 +5,7 @@ description: >-
 ---
 This guide describes the custom SQL functions supported in OpenObserve for querying and processing logs and time series data. These functions extend the capabilities of standard SQL by enabling full-text search, array processing, and time-based aggregations.
 
-## Full-text Search Functions
+## Full-text search functions
 These functions allow you to filter records based on keyword or pattern matches within one or more fields.
 
 ### `str_match(field, 'value')`
@@ -26,6 +26,31 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 
 ![str_match](./images/sql-reference/str-match.png)
 
+### `not str_match(field, 'value')`
+**Description**:<br>
+
+- Filters logs where the specified field does NOT contain the exact string value.
+- The match is case-sensitive.
+- Only logs that do not include the exact characters and casing specified will be returned.
+- Can be combined with other conditions using AND/OR operators.
+
+**Example**: <br>
+```sql
+SELECT * FROM "default" WHERE NOT str_match(k8s_app_instance, 'dev2')
+```
+![not str_match](./images/sql-reference/not-str-match.png)
+
+**Combining multiple NOT conditions with AND:**
+```sql
+SELECT * FROM "default" WHERE (NOT str_match(k8s_app_instance, 'dev2')) AND (NOT str_match(k8s_cluster, 'dev2'))
+```
+![not str_match with AND operator](./images/sql-reference/not-str-match-with-and.png)
+
+**Combining NOT conditions with OR:**
+```sql
+SELECT * FROM "default" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_match(k8s_cluster, 'dev2')))
+```
+![not str_match with OR operator](./images/sql-reference/not-str-match-with-or.png)
 ---
 ### `str_match_ignore_case(field, 'value')`
 **Alias**: `match_field_ignore_case(field, 'value')` (Available in OpenObserve version 0.15.0 and later)<br>
@@ -64,6 +89,51 @@ SELECT * FROM "default" WHERE match_all('openobserve-querier')
 This query returns all logs in the `default` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 
 ![match_all](./images/sql-reference/match-all.png)
+
+**More pattern support**
+The `match_all` function also supports the following patterns for flexible searching:
+
+- **Prefix search**: Matches keywords that start with the specified prefix:
+```sql
+SELECT * FROM "default" WHERE match_all('ab*')
+```
+- **Postfix search**: Matches keywords that end with the specified suffix:
+```sql
+SELECT * FROM "default" WHERE match_all('*ab')
+```
+- **Contains search**: Matches keywords that contain the substring anywhere:
+```sql
+SELECT * FROM "default" WHERE match_all('*ab*')
+```
+- **Phrase prefix search**: Matches keywords where the last term uses prefix matching:
+```sql
+SELECT * FROM "default" WHERE match_all('key1 key2*')
+```
+### `not match_all('value')`
+**Description**: <br>
+
+- Filters logs by excluding records where the keyword appears in any field that has the Index Type set to Full Text Search in the stream settings. 
+- This function is case-insensitive and excludes matches regardless of the keyword's casing.
+- **Important**: Only searches fields configured as Full Text Search fields. Other fields in the record are not evaluated.
+- Provides significant performance improvements when used with indexed fields.
+
+**Example**:
+```sql
+SELECT * FROM "default" WHERE NOT match_all('foo')
+```
+This query returns all logs in the `default` stream where the keyword `foo` does NOT appear in any of the full-text indexed fields. Fields not configured for full-text search are ignored.
+
+**Combining NOT match_all with NOT str_match**:
+```sql
+SELECT * FROM "default" WHERE (NOT str_match(f1, 'bar')) AND (NOT match_all('foo'))
+```
+This query returns logs where field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
+
+**Using NOT with OR conditions**:
+```sql
+SELECT * FROM "default" WHERE NOT (str_match(f1, 'bar') OR match_all('foo'))
+```
+This query returns logs where BOTH conditions are false: field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
 
 ---
 ### `re_match(field, 'pattern')`
@@ -113,7 +183,7 @@ This query returns logs from the `default` stream where the `k8s_container_name`
 
 ---
 
-## Array Functions
+## Array functions
 The array functions operate on fields that contain arrays. In OpenObserve, array fields are typically stored as stringified JSON arrays.
 <br>For example, in a stream named `default`, there may be a field named `emails` that contains the following value:
 `["jim@email.com", "john@doe.com", "jene@doe.com"]` <br>
@@ -302,7 +372,7 @@ In this query:
 
 ---
 
-## Aggregate Functions
+## Aggregate functions
 Aggregate functions compute a single result from a set of input values. For usage of standard SQL aggregate functions such as `COUNT`, `SUM`, `AVG`, `MIN`, and `MAX`, refer to [PostgreSQL documentation](https://www.postgresql.org/docs/).
 
 ### `histogram(field, 'duration')`
@@ -324,7 +394,7 @@ FROM "default"
 GROUP BY key
 ORDER BY key
 ```
-**Expected Output**: <br>
+**Expected output**: <br>
 
 This query divides the log data into 30-second intervals. 
 Each row in the result shows:
@@ -416,7 +486,7 @@ ORDER BY request_count DESC
     - Each core maintains hash tables during aggregation across all partitions
     - Memory usage: 3M entries × 60 cores × 60 partitions = 10.8 billion hash table entries
 
-    **Typical Error Message:**
+    **Typical error message:**
     ```
     Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHashAggregateStream[20] with 0 bytes already allocated for this reservation - 51510301 bytes remain available for the total pool
     ```
@@ -434,7 +504,7 @@ ORDER BY request_count DESC
     **Scenario** <br>
     Find the top 10 client IPs by request count from web server logs distributed across 3 follower query nodes.
 
-    **Raw Data Distribution** <br>
+    **Raw data distribution** <br>
 
     | Rank | Node 1 | Requests | Node 2 | Requests | Node 3 | Requests |
     |------|---------|----------|---------|----------|---------|----------|
@@ -450,7 +520,7 @@ ORDER BY request_count DESC
     | 10 | 192.168.1.150 | 440 | 192.168.1.150 | 520 | 192.168.1.150 | 450 |
 
 
-    **Follower Query Nodes Process Data** <br>
+    **Follower query nodes process data** <br>
 
     Each follower node executes the query locally and returns only its top 10 results:
 
@@ -467,7 +537,7 @@ ORDER BY request_count DESC
     | 9 | 203.0.113.80 | 460 | 10.0.0.25 | 560 | 172.16.0.30 | 490 |
     | 10 | 192.168.1.150 | 440 | 192.168.1.150 | 520 | 192.168.1.150 | 450 |
 
-    **Leader Query Node Aggregates Results** <br>
+    **Leader query node aggregates results** <br>
 
     | Client IP | Node 1 | Node 2 | Node 3 | Total Requests |
     |-----------|---------|---------|---------|----------------|
@@ -482,7 +552,7 @@ ORDER BY request_count DESC
     | 172.16.0.30 | 480 | 580 | 490 | **1,550** |
     | 192.168.1.150 | 440 | 520 | 450 | **1,410** |
 
-    **Final Top 10 Results:**
+    **Final top 10 results:**
 
     | Rank | Client IP | Total Requests |
     |------|-----------|----------------|
@@ -497,7 +567,7 @@ ORDER BY request_count DESC
     | 9 | 172.16.0.30 | 1,550 |
     | 10 | 192.168.1.150 | 1,410 |
 
-    **Why Results Are Approximate** <br>
+    **Why results are approximate** <br>
 
     The approx_topk function returns approximate results because it relies on each query node sending only its local top N entries to the leader. The leader combines these partial lists to produce the final result.
 
@@ -599,7 +669,7 @@ ORDER BY distinct_count DESC
     - Memory usage for distinct counting: Potentially unlimited storage for tracking unique values.
     - Combined with grouping: Memory requirements become exponentially larger.
 
-    **Typical Error Message:**
+    **Typical error message:**
     ```
     Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHashAggregateStream[20] with 0 bytes already allocated for this reservation - 51510301 bytes remain available for the total pool
     ```
@@ -610,7 +680,7 @@ ORDER BY distinct_count DESC
     SELECT approx_topk_distinct(clientip, clientas, 10) FROM default
     ```
 
-    **Combined Approach:**
+    **Combined approach:**
 
     - **HyperLogLog**: Handles distinct counting using a fixed **16 kilobytes** data structure per group.
     - **Space-Saving**: Limits the number of groups returned from each partition to top K.
@@ -619,7 +689,7 @@ ORDER BY distinct_count DESC
     **Example: Web Server User Agent Analysis**
     Find the top 10 client IPs by unique user agent count from web server logs in the `default` stream.
 
-    **Raw Data Distribution**
+    **Raw data distribution**
 
     | Node 1 | Distinct User Agents | Node 2 | Distinct User Agents | Node 3 | Distinct User Agents |
     |---------|---------------------|---------|---------------------|---------|---------------------|
@@ -636,7 +706,7 @@ ORDER BY distinct_count DESC
 
     **Note**: Each distinct count is computed using HyperLogLog's 16KB data structure per client IP.
 
-    **Follower Query Nodes Process Data**
+    **Follower query nodes process data**
 
     Each follower node executes the query locally and returns only its top 10 results:
 
@@ -653,7 +723,7 @@ ORDER BY distinct_count DESC
     | 9 | 203.0.113.80 | 220 | 10.0.0.25 | 270 | 172.16.0.30 | 260 |
     | 10 | 192.168.1.150 | 200 | 192.168.1.150 | 250 | 192.168.1.150 | 240 |
 
-    **Leader Query Node Aggregates Results**
+    **Leader query node aggregates results**
 
     | Client IP | Node 1 | Node 2 | Node 3 | Total Distinct User Agents |
     |-----------|---------|---------|---------|---------------------------|
@@ -668,7 +738,7 @@ ORDER BY distinct_count DESC
     | 172.16.0.30 | 240 | 290 | 260 | **790** |
     | 192.168.1.150 | 200 | 250 | 240 | **690** |
 
-    **Final Top 10 Results:**
+    **Final top 10 results:**
 
     | Rank | Client IP | Total Distinct User Agents |
     |------|-----------|---------------------------|
@@ -684,7 +754,7 @@ ORDER BY distinct_count DESC
     | 10 | 192.168.1.150 | 690 |
 
 
-    **Why Results Are Approximate**
+    **Why results are approximate**
     Results are approximate due to two factors:
 
     1. **HyperLogLog approximation:** Distinct counts are estimated, not exact.

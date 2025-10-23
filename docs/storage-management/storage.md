@@ -191,7 +191,11 @@ OpenObserve supports multiple metadata store backends, configurable using the `Z
 - Recommended for production deployments due to reliability and scalability. 
 - The default Helm chart (after February 23, 2024) uses [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the meta store. These instances provide high availability and backup support.
 
-### etcd (Deprecated)
+### etcd (Removed)
+
+!!! warning "Removal notice"
+    Etcd support has been removed. Use NATS instead.
+    
 - Set `ZO_META_STORE=etcd`.
 - While etcd is used as the cluster coordinator, it was also the default metadata store in Helm charts released before 23 February 2024. This configuration is now deprecated. Helm charts released after 23 February 2024 use PostgreSQL as the default metadata store.
 

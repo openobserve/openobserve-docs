@@ -5,8 +5,11 @@ description: >-
 ---
 This guide explains what Actions are, their types, and use cases.
 
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+    
 ## What are Actions  
-**Actions** in OpenObserve are user-defined Python scripts that support custom automation workflows. They can be applied to log data directly from the Logs UI or used as alert destinations. 
+Actions in OpenObserve are user-defined Python scripts that support custom automation workflows. They can be applied to log data directly from the Logs UI or used as alert destinations. 
 
 - Previously, OpenObserve supported log transformations only through VRL (Vector Remap Language). Python scripts written for Actions expand the capabilities of log transformations in OpenObserve.  
 - Additionally, earlier, when an alert gets triggered, users used to get notified via email or webhook. But, with Actions as alert destinations, users can take an immediate action by adding an automation workflow using Actions. 
