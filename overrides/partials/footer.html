@@ -183,7 +183,8 @@
         // Configuration
         const NEWSLETTER_CONFIG = window.NEWSLETTER_CONFIG || {
           RECAPTCHA_SITE_KEY: "6LdvUdMrAAAAAJksqV0YEwNBEBGL2SB90Gebun5n",
-          NEWSLETTER_ENDPOINT: "https://5cciazu22tev222enhrbx6w3y40hscvu.lambda-url.us-east-2.on.aws",
+          NEWSLETTER_ENDPOINT:
+            "https://5cciazu22tev222enhrbx6w3y40hscvu.lambda-url.us-east-2.on.aws",
           FALLBACK_ENDPOINT:
             "https://5cciazu22tev222enhrbx6w3y40hscvu.lambda-url.us-east-2.on.aws",
         };
@@ -1062,21 +1063,29 @@
       footerData.forEach((section) => {
         const column = document.createElement("div");
         column.innerHTML = `
-          <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">${
-            section.title
-          }</div>
-          <ul class="tw-space-y-2 tw-text-gray-300 tw-text-xs header-list-style">
-            ${section.items
-              .map(
-                (item) => `<li class="hover:tw-text-[#7782FF]">
-                  <a href="${item.link}" target="${item.target || ""}">${
-                  item.text
-                }</a>
-                </li>`
-              )
-              .join("")}
-          </ul>
-        `;
+    <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">
+      ${section.title}
+    </div>
+    <ul class="tw-space-y-2 tw-text-gray-300 tw-text-xs header-list-style">
+      ${section.items
+        .map((item) => {
+          const plausibleAttr =
+            item.text === "Request Demo"
+              ? 'plausible-event-name="Demo+Button"'
+              : "";
+          return `
+            <li class="hover:tw-text-[#7782FF]">
+              <a href="${item.link}" target="${
+            item.target || ""
+          }" ${plausibleAttr}>
+                ${item.text}
+              </a>
+            </li>
+          `;
+        })
+        .join("")}
+    </ul>
+  `;
         container.appendChild(column);
       });
 
