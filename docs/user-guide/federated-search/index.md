@@ -41,7 +41,7 @@ Before using federated search, understand these core concepts:
 
 > **Important**: Querying your current cluster uses normal cluster query execution, not federated search architecture.
 
-> For detailed technical explanations of deployment modes, architecture, and how queries execute, see the [Federated Search Architecture](../federated-search-architecture/) page.
+> For detailed technical explanations of deployment modes, architecture, and how queries execute, see the [Federated search architecture](https://openobserve.ai/docs/user-guide/federated-search/federated-search-architecture/) page.
 
 ## When to use federated search
 
@@ -61,5 +61,5 @@ Before using federated search, understand these core concepts:
 
 **Next steps**
 
-- [How to Use Federated Search](../how-to-use-federated-search/)
-- [Federated Search Architecture](../federated-search-architecture/)
+- [How to use federated search](https://openobserve.ai/docs/user-guide/federated-search/how-to-use-federated-search/)
+- [Federated search architecture](https://openobserve.ai/docs/user-guide/federated-search/federated-search-architecture/)

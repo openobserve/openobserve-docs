@@ -573,7 +573,7 @@ OpenObserve is configured using the following environment variables.
 | ZO_QUICK_MODE_ENABLED            | false | Indicates if quick mode is enabled.                     |
 | ZO_QUICK_MODE_NUM_FIELDS         | 500   | The number of fields to consider for quick mode.        |
 | ZO_QUICK_MODE_STRATEGY           |  | Possible values are `first`, `last`, `both`.               |
-
+| ZO_QUICK_MODE_FORCE_ENABLED           | true | |
 
 ## Miscellaneous 
 | Environment Variable | Default Value | Description |
