@@ -1,27 +1,32 @@
 ---
 title: Sensitive Data Redaction in OpenObserve Enterprise
-description: Learn how to redact or drop sensitive data using regex patterns during log ingestion or query time in OpenObserve Enterprise Edition.
+description: Learn how to redact, hash, or drop sensitive data using regex patterns during log ingestion or query time in OpenObserve Enterprise Edition.
 ---
 
-This document explains how to configure and manage regex patterns for redacting or dropping sensitive data in OpenObserve.
+This document explains how to configure and manage regex patterns to redact, hash, and drop sensitive data in OpenObserve.
 
 !!! info "Availability"
     This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
 ## Overview 
-The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted** or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.
+The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted**, **hashed**, or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.
 
 **Ingestion time**
 
-> **Note**: Use ingestion time redaction or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it's redacted or dropped during ingestion.
+> **Note**: Use ingestion time redaction, hash, or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it is redacted, hashed, or dropped during ingestion.
 
-- **Redaction**: Sensitive data is masked before being stored on disk.
+- **Redact**: Sensitive data is masked before being stored on disk.
+- **Hash**: Sensitive data is replaced with a **hash prefix** to protect the original data.  
 - **Drop**: Sensitive data is removed before being stored on disk.
 
 **Query time**
-> **Note**: If you have already ingested sensitive data and it's stored on disk, you can use query time redaction or drop to protect it. This allows you to apply sensitive data redaction to existing data.
+> **Note**: If you have already ingested sensitive data and it is stored on disk, you can use query time redaction or drop to protect it. This allows you to apply sensitive data redaction to existing data.
 
 - **Redaction**: Sensitive data is read from disk but masked before results are displayed.
+- **Hash**: Sensitive data is replaced with a hashed prefix during query evaluation, preserving correlation without revealing the value.  
+!!! note "Configure hash pattern length"
+    `ZO_RE_PATTERN_HASH_LENGTH` sets the number of hash characters kept for display and search.
+    Default 12. Allowed range 12 to 64. 
 - **Drop**: Sensitive data is read from disk but excluded from the query results.
 
 !!! note "Where to find"
@@ -46,11 +51,12 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 
     - To associate patterns with stream fields, users need List permission on **Regexp Patterns** AND edit permission on **Streams** modules. 
 
-!!! warning "Important Note"
+!!! warning "Important note"
     - Regex patterns can only be applied to fields with UTF8 data type.
     - The stream must have ingested data before you can apply regex patterns. Empty streams will not show field options for pattern association.
 
-## Create Regex Patterns
+
+## Create regex patterns
 
 **To create a regex pattern:**
 
@@ -111,7 +117,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     **Example** <br>
     The following screenshots illustrate the pattern creation process:
 
-    1. Review the logs that includes PII.
+    1. Review the logs that include PII.
     <br>
     The `message` field in the `pii_test_stream` contains names, email addresses, IP addresses, SSNs, and credit card numbers.
     <br>
@@ -124,7 +130,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
     **Email Addresses**:
     ![Email regex](../../images/email-regex.png)
 
-## Apply Regex Patterns 
+## Apply regex patterns 
 Once your patterns are created and tested, you can apply them to specific fields in a stream to redact or drop sensitive data during ingestion or at query time.
 <br>
 **To apply a pattern to a field:**
@@ -147,8 +153,8 @@ Once your patterns are created and tested, you can apply them to specific fields
     After selecting a pattern, a detail view appears.
     ![Regex selection](../../images/regex-selection-view.png)
 
-??? "Step 3: Choose whether to Redact or Drop"
-    ### Step 3: Choose whether to Redact or Drop
+??? "Step 3: Choose whether to Redact, Hash, or Drop"
+    ### Step 3: Choose whether to Redact, Hash, or Drop
     ![Regex pattern execution action- redact or drop](../../images/redact-or-drop-during-regex-pattern-execution.png)
     
     When applying a regex pattern, you must choose one of the following actions in the pattern details screen:
@@ -158,28 +164,33 @@ Once your patterns are created and tested, you can apply them to specific fields
     - Replaces only the matching portion of the field value with `[REDACTED]`, while preserving the rest of the field.  
     - Use this when the field contains both sensitive and non-sensitive information and you want to retain the overall context.
 
+    **Hash**:
+    
+    - Replaces the matched sensitive value with a **deterministic hashed token** while keeping its position within the field.  
+
+
     **Drop**:
 
     - Removes the entire field from the log record if the regex pattern matches.  
     - Use this when the entire field should be excluded from storage or analysis.
 
-    Select the appropriate action between Redact and Drop. 
+    Select the appropriate action. 
 
 ??? "Step 4: Choose when the action needs to be executed"
     ### Step 4: Choose when the action needs to be executed
-    In the pattern details screen, select when the chosen action (redact or drop) should be executed, at ingestion time, query time, or both.
-    
+    In the pattern details screen, select when the chosen action (redact, hash, or drop) should be executed, at ingestion time, query time, or both.
+
     ![Regex pattern execution time](../../images/regex-pattern-execution-time.png)
 
     **Ingestion**: 
 
-    - The data is redacted or dropped before it is written to disk.  
+    - The data is redacted, hashed, or dropped before it is written to disk.  
     - This ensures that sensitive information is never stored in OpenObserve.  
     - Example: If an email address is redacted at ingestion, only the masked value `[REDACTED]` will be stored in the logs.
 
     **Query**:  
 
-    - The data is stored in its original form but is redacted or dropped only when queried.  
+    - The data is stored in its original form but is redacted, hashed, or dropped only when queried.  
     - This allows administrators to preserve the original data while preventing exposure of sensitive values during searches.  
     - Example: An email address stored in raw form will be hidden as `[REDACTED]` in query results.  
 
@@ -192,15 +203,11 @@ Once your patterns are created and tested, you can apply them to specific fields
     1. To add the regex pattern to Applied Patterns, click **Add Pattern**. 
     ![Add regex pattern](../../images/add-regex-pattern.png)
     2. Select **Update Changes**.
-    ![Update regex patterns](../../images/update-regex-patterns.png)
 
 ??? "Step 6: (Optional) Apply multiple patterns"
 
     You can apply multiple patterns to the same field, as shown below:
-    Configure a regex pattern to detect emails:
-    ![regex-patterns-redact](../../images/regex-patterns-redact.png)
-    Configure a regex pattern to IP addresses:
-    ![regex-patterns-drop](../../images/regex-patterns-drop.png) 
+    ![apply-multiple-reg-pattern](apply-multiple-reg-pattern.png) 
     All applied patterns will appear in the left-hand panel with check marks.
 
 ??? "Step 7: Save configuration" 
@@ -208,7 +215,7 @@ Once your patterns are created and tested, you can apply them to specific fields
     When finished, click **Update Changes** to save the configuration. This activates the regex rules for the selected field.
 
 
-## Test Redaction and Drop Operations
+## Test Redact, Hash and Drop operations
 
 The following regex patterns are applied to the `message` field of the `pii_test` stream:
 
@@ -220,7 +227,7 @@ The following regex patterns are applied to the `message` field of the `pii_test
 | Credit Card | Drop | Query | Excludes credit card numbers from results |
 
 ??? "Test 1: Redact at ingestion time"
-    ### Test 1: Redact at ingestion time
+    ### Redact at ingestion time
     **Pattern Configuration**:
     ![redact-at-ingestion-time-test-config](../../images/redact-at-ingestion-time-test-config.png)
 
@@ -230,7 +237,7 @@ The following regex patterns are applied to the `message` field of the `pii_test
     2. Select the `pii_test` stream from the dropdown.
     3. Ingest a log entry containing a full name in the message field. 
     ```bash
-    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"User John Doe logged in successfully"}]'
+    $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"User John Doe logged in successfully"}]'
     {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
     ```
     4. Set the time range to include the test data.
@@ -246,7 +253,7 @@ The following regex patterns are applied to the `message` field of the `pii_test
 
 
 ??? "Test 2: Drop at ingestion time"
-    ### Test 2: Drop at ingestion time
+    ### Drop at ingestion time
     **Pattern Configuration**:
     ![drop-at-query-time-test-config](../../images/drop-at-ingestion-time-test-config.png)
 
@@ -254,9 +261,9 @@ The following regex patterns are applied to the `message` field of the `pii_test
 
     1. From the left-hand menu, select **Logs**. 
     2. Select the `pii_test` stream from the dropdown.
-    3. Ingest a log entry containing a IP address in the message field. 
+    3. Ingest a log entry containing an IP address in the message field. 
     ```bash
-    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Connection from IP 192.168.1.100 established"}]'
+    $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Connection from IP 192.168.1.100 established"}]'
     {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
     ```
     4. Set the time range to include the test data.
@@ -270,8 +277,26 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - Other fields remain intact. 
     - This demonstrates field-level drop at ingestion. 
 
-??? "Test 3: Redact at query time"
-    ### Test 3: Redact at query time
+??? "Test 3: Hashed at ingestion time"
+    ### Hashed at ingestion time
+    **Pattern Configuration**:
+    ![config-hash-pattern-ingestion-time](../../images/config-hash-pattern-ingestion-time.png)
+
+    **Test Steps:**
+
+    1. From the left-hand menu, select **Logs**. 
+    2. Select the `pii_test` stream from the dropdown.
+    3. Ingest a log entry containing a card details in the logs field. 
+    ```bash
+    $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"job":"test","level":"info","log":"Payment processed with card 4111-1111-1111-1111"}]'
+    ```
+    4. Set the time range to include the test data.
+    5. Click **Run Query**.
+    6. Verify results:
+    ![hashed-at-ingestion-time](../../images/hashed-at-ingestion-time.png)
+
+??? "Test 4: Redact at query time"
+    ### Redact at query time
     **Pattern Configuration**:
     ![redact-at-query-test-config](../../images/redact-at-query-test-config.png)
 
@@ -279,9 +304,9 @@ The following regex patterns are applied to the `message` field of the `pii_test
 
     1. From the left-hand menu, select **Logs**. 
     2. Select the `pii_test` stream from the dropdown.
-    3. Ingest a log entry containing a email addresses in the message field. 
+    3. Ingest a log entry containing an email addresses in the message field. 
     ```bash
-    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Password reset requested for john.doe@company.com"}]'
+    $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Password reset requested for john.doe@company.com"}]'
     {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 
     ```
@@ -297,8 +322,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - Useful for compliance while maintaining data for authorized access.
 
 
-??? "Test 4: Drop at query time"
-    ### Test 4: Drop at query time
+??? "Test 5: Drop at query time"
+    ### Drop at query time
     **Pattern Configuration**:
     ![Drop at Query Time- Test Config](../../images/drop-at-query-time-test-config.png)
 
@@ -308,7 +333,7 @@ The following regex patterns are applied to the `message` field of the `pii_test
     2. Select the `pii_test` stream from the dropdown.
     3. Ingest a log entry containing credit card details in the message field. 
     ```bash
-    $ curl -u root@example.com:FNIB8MWspXZRkRgS -k https://dev2.internal.zinclabs.dev/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Payment processed with card 4111-1111-1111-1111"}]'
+    $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"level":"info","job":"test","message":"Payment processed with card 4111-1111-1111-1111"}]'
     {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
     ```
     4. Set the time range to include the test data.
@@ -321,6 +346,24 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - Original data is preserved on disk.
     - The `message` field with the credit card details gets dropped in query results.
     - This demonstrates field-level drop at query time. 
+
+??? "Test 6: Hashed at query time"
+    ### Hashed at query time
+    **Pattern Configuration**:
+    ![config-hash-pattern-query-time](../../images/config-hash-pattern-query-time.png)
+
+    **Test Steps:**
+
+    1. From the left-hand menu, select **Logs**. 
+    2. Select the `pii_test` stream from the dropdown.
+    3. Ingest a log entry containing a card details in the logs field. 
+    ```bash
+    $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"job":"test","level":"info","log":"Payment processed with card 4111-1111-1111-1111"}]'
+    ```
+    4. Set the time range to include the test data.
+    5. Click **Run Query**.
+    6. Verify results:
+    ![hash-at-query-time](../../images/hashed-at-query-time.png)
 
 
 ## Limitations
