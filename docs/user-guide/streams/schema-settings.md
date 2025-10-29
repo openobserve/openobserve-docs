@@ -3,16 +3,18 @@ description: >-
   Manage stream schemas in OpenObserve to optimize query performance. Define
   field types, set index types, and enable user-defined schemas for efficiency.
 ---
-The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to inspect and manage the schema used to store and query ingested data. A schema defines the structure of log data in a stream, including:
+The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to inspect and manage the schema used to store and query ingested data. A schema defines the structure of log data within a stream and includes:
 
-- The fields present in the logs  
-- The detected data types for each field  
-- The index type set for the field by user
+- The fields detected during ingestion  
+- The inferred data types for each field  
+- The index type assigned to each field  
+- Optional sensitive data redaction rules 
 
 Each field represents a key from the JSON log, automatically detected during ingestion. Fields are shown with their name, inferred data type, and any associated index.
 
-## Field Type Detection
+![schema settings](../../images/stream-details-schema-settings.png)
 
+## Field type
 When OpenObserve receives logs, it automatically infers the data type of each field.   
 For example:
 
@@ -20,20 +22,13 @@ For example:
 - `58.0` as `Float64`  
 - `"58%"` as `Utf8`
 
-![schema settings field type detection](../../images/schema-settings-fieldtype-detection.png)
+## Index Type
+You can modify or assign an index type to a field to improve search performance. Indexing can reduce the amount of data that must be scanned during queries. 
 
-!!! Note
-    **Update the field type with caution.**
-    Once a field is detected as a certain type, changing the type in future log entries, for example, from **Utf8** to **Int64**, can result in inconsistent search behavior. It is recommended to maintain consistent field types across all log entries.
+To learn more, visit the [Fields and Index in Streams](streams/fields-and-index-in-streams) page.
 
-## Index Types
-
-You can assign an index type to a field to improve search performance. Indexing can reduce the amount of data that must be scanned during queries. OpenObserve supports multiple index types, such as KeyValue filters and hash partitions.  
-
-![schema settings index types](../../images/schema-settings-index-type.png)
 !!! Warning  
-    Once an index type is applied to a field and saved, it can only be **disabled.**  
-    You cannot assign a new index type to that field after disabling the current one. This limitation exists because index types affect how data is stored on disk. Changing the index after storing data may lead to inconsistent query results or data retrieval failures.
+    Changing the index after storing data may lead to inconsistent query results or data retrieval failures.
 
 ## User-Defined Schema (UDS)
 
@@ -47,7 +42,7 @@ All other fields will either be ignored or stored in a special `_raw` field if t
 
 To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEFINED_SCHEMAS` to `true` .
 
-## How to Add a User-Defined Schema
+### How to add a User-Defined Schema
 
 1. From the **Streams** page, click the **Stream Details** option under the **Actions** column.   
 2. Go to the **Schema Settings** tab.  
@@ -55,15 +50,20 @@ To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEF
 4. Click **Add to Defined Schema**.  
 5. Save your changes using the **Update Settings** button.
 
-![schema settings user defined schema](../../images/schema-settings-user-defined-schemas.png)
 
-Once this is done:
+After you save the changes:
 
 - The schema interface switches to show **User Defined Schema** and **Other Fields** tabs.  
 - Only fields under **User Defined Schema** will be searchable.  
 - Fields not included will no longer appear in queries or field selectors.
 
 You can also manually add a field to the schema using the **Add Field(s)** button. This is useful when a field may not have appeared in the logs yet but is expected later. For example, an `error_code` field that appears only during failures can be added before the actual error happens using this.
+
+
+## Sensitive Data Redaction (SDR)
+Sensitive Data Redaction (SDR) lets you redact or drop sensitive data during ingestion or at query time using regex-based rules.
+
+For detailed steps to create and manage SDR rules, refer to the [Sensitive Data Redaction](https://openobserve.ai/docs/user-guide/management/sensitive-data-redaction/) guide. 
 
 ## Next Steps
 
