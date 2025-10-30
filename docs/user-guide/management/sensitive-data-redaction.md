@@ -16,17 +16,14 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 > **Note**: Use ingestion time redaction, hash, or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it is redacted, hashed, or dropped during ingestion.
 
 - **Redact**: Sensitive data is masked before being stored on disk.
-- **Hash**: Sensitive data is replaced with a **hash prefix** to protect the original data.  
+- **Hash**: Sensitive data is replaced with a [searchable](#search-hashed-values-uusing-match_all_hash) hash before being stored on disk.  
 - **Drop**: Sensitive data is removed before being stored on disk.
 
 **Query time**
 > **Note**: If you have already ingested sensitive data and it is stored on disk, you can use query time redaction or drop to protect it. This allows you to apply sensitive data redaction to existing data.
 
 - **Redaction**: Sensitive data is read from disk but masked before results are displayed.
-- **Hash**: Sensitive data is replaced with a hashed prefix during query evaluation, preserving correlation without revealing the value.  
-!!! note "Configure hash pattern length"
-    `ZO_RE_PATTERN_HASH_LENGTH` sets the number of hash characters kept for display and search.
-    Default 12. Allowed range 12 to 64. 
+- **Hash**: Sensitive data is read from disk but masked with a [searchable](#search-hashed-values-uusing-match_all_hash) hash before results are displayed.
 - **Drop**: Sensitive data is read from disk but excluded from the query results.
 
 !!! note "Where to find"
@@ -277,8 +274,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - Other fields remain intact. 
     - This demonstrates field-level drop at ingestion. 
 
-??? "Test 3: Hashed at ingestion time"
-    ### Hashed at ingestion time
+??? "Test 3: Hash at ingestion time"
+    ### Hash at ingestion time
     **Pattern Configuration**:
     ![config-hash-pattern-ingestion-time](../../images/config-hash-pattern-ingestion-time.png)
 
@@ -347,8 +344,8 @@ The following regex patterns are applied to the `message` field of the `pii_test
     - The `message` field with the credit card details gets dropped in query results.
     - This demonstrates field-level drop at query time. 
 
-??? "Test 6: Hashed at query time"
-    ### Hashed at query time
+??? "Test 6: Hash at query time"
+    ### Hash at query time
     **Pattern Configuration**:
     ![config-hash-pattern-query-time](../../images/config-hash-pattern-query-time.png)
 
@@ -364,6 +361,18 @@ The following regex patterns are applied to the `message` field of the `pii_test
     5. Click **Run Query**.
     6. Verify results:
     ![hash-at-query-time](../../images/hashed-at-query-time.png)
+
+## Search hashed values uUsing `match_all_hash`
+The `match_all_hash` user-defined function (UDF) complements the SDR Hash feature. It allows you to search for logs that contain the hashed equivalent of a specific sensitive value.
+When data is hashed using Sensitive Data Redaction, the original value is replaced with a deterministic hash. You can use `match_all_hash()` to find all records that contain the hashed token, even though the original value no longer exists in storage.
+Example: 
+```sql
+match_all_hash('4111-1111-1111-1111')
+```
+This query returns all records where the SDR Hash of the provided value exists in any field.
+In the example below, it retrieves the log entry containing
+[REDACTED:907fe4882defa795fa74d530361d8bfb], the hashed version of the given card number.
+![match-all-hash](../../images/match-all-hash.png)
 
 
 ## Limitations
