@@ -333,6 +333,8 @@ OpenObserve is configured using the following environment variables.
 | ZO_NATS_DELIVER_POLICY  | all           | Starting point in the stream for message delivery. Allowed values are all, last, new. |
 | ZO_NATS_SUB_CAPACITY    | 65535         | Maximum subscription capacity.                                                        |
 | ZO_NATS_QUEUE_MAX_SIZE | 2048          | Maximum queue size in megabytes.                                                      |
+| ZO_NATS_KV_WATCH_MODULES | 2048          | Defines which internal modules use the NATS Key-Value Watcher instead of the default NATS Queue for event synchronization. Add one or more module prefixes separated by commas, such as /nodes/ or /user_sessions/. When left empty, all modules use the default NATS Queue mechanism.                                                      |
+| ZO_NATS_EVENT_STORAGE | memory          | Controls how NATS JetStream stores event data. Use memory for high-speed, in-memory event storage or file for durable, disk-based storage that persists across restarts. <br> Performance Benchmark Results: <br> • File Storage: 10,965 ops/sec (10.71 MB/s throughput, ~911 µs mean latency) <br>• Memory Storage: 16,957 ops/sec (16.56 MB/s throughput, ~589 µs mean latency) <br> Memory storage offers ~55 percent higher throughput and lower latency, while file storage ensures durability.                                                      |
 
 
 ## S3 and Object Storage
