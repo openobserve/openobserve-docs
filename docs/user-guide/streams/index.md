@@ -7,3 +7,5 @@ Streams define how observability data is ingested, stored, indexed, and queried 
     - ### [Extended Retention](extended-retention.md)
     - ### [Summary Streams](summary-streams.md)
     - ### [Data Type and Index Types in Streams](data-type-and-index-type-in-streams.md)
+    - ### [Field and Index Types in Streams](fields-and-index-in-streams.md)
+    - ### [Query Recommendations Stream](query-recommendations.md)

@@ -9,7 +9,7 @@ description: >-
 !!! info "Availability"
     This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
     
-## What is Audit Trail
+## What is audit trail?
 Audit Trail records user actions across all organizations in OpenObserve. It captures non-ingestion API calls and helps you monitor activity and improve security.
 
 !!! note "Who can access"
