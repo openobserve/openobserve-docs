@@ -62,7 +62,7 @@ This recommendation indicates that across the last 360000000 hours of query data
 <br>
 
 **Example 2** <br>
-![example-2-query-recommendations](../../images/example-2-query-recommendationsage.png)
+![example-2-query-recommendations](../../images/example-2-query-recommendations.png)
 This recommendation is for the `status` field in the `alert_test` stream. All 5 queries used `status` with an equality operator. Although the number is small, the uniform pattern indicates a potential for future optimization.
 
 !!! note "Interpretation"
