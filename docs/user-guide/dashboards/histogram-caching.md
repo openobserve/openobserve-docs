@@ -13,11 +13,11 @@ Most dashboard queries overlap in time when refreshed.
 
 **For example**:
 
-- First query: 07:00 to 07:15
-- Next query: 07:01 to 07:16
+- First query: `07:00` to `07:15`
+- Next query: `07:01` to `07:16`
 
 The two ranges share 14 minutes of the same data.
-Only the one new minute from 07:15 to 07:16 needs fresh scanning.
+Only the one new minute from `07:15` to `07:16` needs fresh scanning.
 Histogram caching reuses data for that overlapping part to prevent redundant processing.
 
 ### How caching works
@@ -43,7 +43,6 @@ In this query:
 - `y_axis_1` represents the count of log entries for each interval.
 
 When run repeatedly over relative time ranges, only the new data beyond the last cached timestamp is scanned, while older intervals are reused.
-
 ![dashboard-query-example](../../images/dashboard-query-example.png)
 
 
