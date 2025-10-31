@@ -34,6 +34,9 @@ Use real-time pipelines when you need immediate processing, such as monitoring l
 A scheduled pipeline automates the processing of historical data from an existing stream at user-defined intervals. This is useful when you need to extract, transform, and load (ETL) data at regular intervals without manual intervention. 
 ![Scheduled Pipelines in OpenObserve](../../images/pipelines-new-%20scheduled.png)
 
+!!! note "Performance"
+    OpenObserve maintains a cache for scheduled pipelines to prevent the alert manager from making unnecessary database calls. This cache becomes particularly beneficial when the number of scheduled pipelines is high. For example, with 500 scheduled pipelines, the cache eliminates 500 separate database queries each time the pipelines are triggered, significantly improving performance.
+    
 #### How they work
 
 1. **Source**: To create a scheduled pipeline, you need an existing stream, which serves as the source stream. 
@@ -44,7 +47,7 @@ A scheduled pipeline automates the processing of historical data from an existin
 ![Scheduled Pipelines Transform in OpenObserve](../../images/pipeline-new-scheduled-condition.png)
 4. **Destination**: The transformed data is sent to the following destination(s) for storage or further processing: 
     - **Stream**: The supported destination stream types are Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
-    - **Remote**: Select **Remote** if you wish to send data to [external destination](#external-pipeline-destinations).
+    - **Remote**: Select **Remote** if you wish to send data to [external destination](https://openobserve.ai/docs/user-guide/pipelines/remote-destination/).
 
 #### Frequency and Period
 The scheduled pipeline runs based on the user-defined **Frequency** and **Period**. 
@@ -59,20 +62,6 @@ The scheduled pipeline runs based on the user-defined **Frequency** and **Period
 
 #### When to use
 Use scheduled pipelines for tasks that require processing at fixed intervals instead of continuously, such as generating periodic reports and processing historical data in batches.
-
-## External Pipeline Destinations
-OpenObserve allows you to route pipeline data to external destinations. 
-
-To configure an external destination for pipelines: 
-
-1. Navigate to the **Pipeline Destination** configuration page. You can access the configuration page while setting up the remote pipeline destination from the pipeline editor or directly from **Management** (Settings icon in the navigation menu) > **Pipeline Destinations** > **Add Destination**.
-2. In the **Add Destination** form, provide a descriptive name for the external destination.
-3. Under **URL**, specify the endpoint where the data should be sent.
-4. Select the HTTP method based on your requirement.
-5. Add headers for authentication. In the **Header** field, enter authentication-related details (e.g., Authorization). In the **Value** field, provide the corresponding authentication token.
-6. Use the toggle **Skip TLS Verify** to enable or disable Transport Layer Security (TLS) verification. <br>
-**Note**: Enable the **Skip TLS Verify** toggle to bypass security and certificate verification checks for the selected destination. Use with caution, as disabling verification may expose data to security risks. You may enable the toggle for development or testing environments but is not recommended for production unless absolutely necessary.
-![Remote Destination](../../images/pipeline-new-remote-destination.png)
 
 
 ## Next Steps
