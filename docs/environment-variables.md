@@ -15,6 +15,11 @@ OpenObserve is configured using the following environment variables.
 | ZO_LOCAL_MODE | true | If local mode is set to true, OpenObserve becomes single node deployment.If it is set to false, it indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure SQLite DB, for cluster mode one needs to configure PostgreSQL (recommended) or MySQL. |
 | ZO_LOCAL_MODE_STORAGE | disk | Applicable only for local mode. By default, local disk is used as storage. OpenObserve supports both disk and S3 in local mode. |
 | ZO_NODE_ROLE | all | Node role assignment. Possible values are ingester, querier, router, compactor, alertmanager, and all. A single node can have multiple roles by specifying them as a comma-separated list. For example, compactor, alertmanager. |
+| ZO_NODE_ROLE_GROUP | "" | Each query-processing node can be assigned to a specific group using ZO_NODE_ROLE_GROUP. <br>
+**interactive**: Handles queries triggered directly by users through the UI. <br>
+**background**: Handles automated or scheduled queries, such as alerts and reports. <br>
+**empty string** (default): Handles all query types. <br>
+In high-load environments, alerts or reports might run large, resource-intensive queries. By assigning dedicated groups, administrators can prevent such queries from blocking or slowing down real-time user searches. |
 | ZO_NODE_HEARTBEAT_TTL | 30 | Time-to-live (TTL) for node heartbeats in seconds. |
 | ZO_INSTANCE_NAME | - | In the cluster mode, each node has a instance name. Default is instance hostname. |
 | ZO_CLUSTER_COORDINATOR | nats | Defines how nodes in the cluster discover each other. |
@@ -573,9 +578,9 @@ OpenObserve is configured using the following environment variables.
 | Environment Variable             | Default Value | Description                                             |
 | -------------------------------- | --------- | ------------------------------------------------------- |
 | ZO_QUICK_MODE_ENABLED            | false | Indicates if quick mode is enabled.                     |
-| ZO_QUICK_MODE_NUM_FIELDS         | 500   | The number of fields to consider for quick mode.        |
 | ZO_QUICK_MODE_STRATEGY           |  | Possible values are `first`, `last`, `both`.               |
-| ZO_QUICK_MODE_FORCE_ENABLED           | true | |
+| ZO_QUICK_MODE_FORCE_ENABLED           | true | Enables automatic activation of Quick Mode from the backend. When set to true, OpenObserve applies Quick Mode automatically if the number of fields in a stream exceeds the limit defined by `ZO_QUICK_MODE_NUM_FIELDS`, even when the Quick Mode toggle in the UI is turned off.|
+| ZO_QUICK_MODE_NUM_FIELDS         | 500   | This defines the number of fields beyond which the quick mode will be force enabled.        |
 
 ## Miscellaneous 
 | Environment Variable | Default Value | Description |

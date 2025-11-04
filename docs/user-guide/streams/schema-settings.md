@@ -65,6 +65,45 @@ Sensitive Data Redaction (SDR) lets you redact or drop sensitive data during ing
 
 For detailed steps to create and manage SDR rules, refer to the [Sensitive Data Redaction](https://openobserve.ai/docs/user-guide/management/sensitive-data-redaction/) guide. 
 
+
+## Manage fields in Schema Settings
+The Schema Settings tab in the Stream Details page allows you to view, search, and manage fields in your stream schema. You can add, remove, or delete fields as needed to maintain accurate schema definitions for your data.
+
+### Search fields
+Use the search bar in the top-right corner to quickly find a **field by name** or **index type**.
+This feature helps locate specific fields efficiently, especially in large schemas.
+
+### Add field
+To add a new field manually: 
+1. Select the **+** icon next to the search bar.
+![add-new-fields](../../images/add-new-fields.png)
+2. The **Add Field**(s) section appears above the field list.
+3. Enter the **Field Name** and **Data Type**.
+![field-name-data-type](../../images/field-name-data-type.png)
+4. Select **Update Settings** to save the new field to the schema.
+![update-settings](../../images/update-settings.png)
+You can define multiple fields in this section before applying the changes. This option is used when creating or extending the User Defined Schema (UDS).
+
+### Remove defined schema
+To remove defined schema entries, first select one or more fields using the checkbox beside each field name.
+Then select **Remove Defined Schema** at the bottom of the panel.
+
+This action removes the selected fields from the **User Defined Schema** but does not delete them from the stream. The removed fields appear under **Other Fields**.
+
+
+### Delete fields
+To delete fields from the schema, first select one or more fields using the checkbox beside each field name.
+Then select Delete at the bottom of the panel.
+
+This action permanently deletes the selected fields from the schema. Use this action carefully, as it directly modifies the schema definition.
+
+![delete-fields](../../images/delete-fields.png)
+
+### Bulk selection
+Each field includes a checkbox for selection. You can select multiple fields and apply **Add to Defined Schema**, **Remove Defined Schema**, or **Delete** actions in bulk to simplify schema management and save time.
+
+
+
 ## Next Steps
 
 - [Extended Retention](extended-retention.md)
