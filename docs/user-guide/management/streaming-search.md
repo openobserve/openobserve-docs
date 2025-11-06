@@ -2,20 +2,14 @@
 title: OpenObserve Streaming Search 
 description: Learn how OpenObserve's Streaming Search delivers incremental query results using HTTP/2 partitioning for faster log analysis and real-time data processing.
 ---
-This user guide provides details on how to configure, and use the **Streaming Search** feature to improve query performance and responsiveness.  
+This user guide provides details on how the **Streaming Search** feature improves query performance and responsiveness.
 
 ## What is Streaming Search?
 
 Streaming Search allows OpenObserve to return query results through a single, persistent HTTP/2 connection. Instead of issuing one HTTP request per partition, the system streams the entire result set over one connection. This reduces overhead, improves dashboard performance, and provides faster response times during long-range queries.
 
 !!! note "Where to Find"
-    The **Streaming Search** toggle is located under **Management > General Settings**.
-
-!!! note "Who Can Access"
-    The `Root` user and any other user with permission to **update** the **Settings** module can modify the **Streaming Search** setting. Access is controlled through role-based access control (RBAC).
-    <br>
-    ![User Access](../../images/streaming-search-access.png)
-    
+    This feature is **enabled by default** and automatically optimizes query performance.
     
 ## Concepts
 ### Partition
@@ -39,7 +33,7 @@ The environment variable is enabled by default and it defines the duration of th
 
 ### HTTP/2 Streaming
 
-When **Streaming Search** is enabled, OpenObserve uses a single HTTP/2 connection to send the entire result set. 
+OpenObserve uses a single HTTP/2 connection to send the entire result set. 
 
 This enables:
 
@@ -47,16 +41,7 @@ This enables:
 - Fewer HTTP round trips
 - Faster response and improved dashboard rendering
 
-> **Note:** When **Streaming Search is enabled**, the mini-partition output is included in the same `_search_stream` response. All data is delivered over a single HTTP/2 connection. You do not see a separate request for the mini-partition. 
-
-## Enable or Disable Streaming Search
-
-1. Go to **Management**.
-2. Select **General Settings**. <br>
-![Enable or Disable Streaming Search](../../images/enable-disable-streaming-search.png)
-3. Locate the **Enable Streaming Search** option.
-4. Toggle this switch to **On** to enable streaming mode, or **Off** to disable it.
-5. Click **Save** to apply the changes.
+> **Note:** The mini-partition output is included in the same `_search_stream` response. All data is delivered over a single HTTP/2 connection. You do not see a separate request for the mini-partition. 
 
 
 ## Without Streaming Search
@@ -100,5 +85,4 @@ Panel 2 triggers 1 `_search_stream` request and completes loading the data in 1.
 ## Considerations
 
 - Requires HTTP/2 support in the network stack.
-- Falls back to standard query mode if disabled.
 - Partitioning behavior is automatic. Mini-partitioning improves the time-to-first-result without affecting the accuracy of final results.

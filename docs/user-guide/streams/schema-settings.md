@@ -38,7 +38,7 @@ User-Defined Schema (UDS) allows you to select a subset of fields that are:
 - Retained for storage  
 - Searchable and indexable
 
-All other fields will either be ignored or stored in a special `_raw` field if the **Store Original Data** toggle is enabled. These unselected fields will not be searchable.
+All other fields will either be ignored or stored in a special `_all` field if the **Store Original Data** toggle is enabled. These unselected fields will not be searchable.
 
 To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEFINED_SCHEMAS` to `true` .
 

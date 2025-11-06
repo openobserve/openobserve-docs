@@ -87,7 +87,19 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_FILE_MOVE_FIELDS_LIMIT | 2000 | Field count threshold per WAL file. If exceeded, merging is skipped on the ingester. |
 | ZO_MEM_TABLE_MAX_SIZE | 0 | Total size limit of all memtables. Multiple memtables exist for different organizations and stream types. Each memtable cannot exceed ZO_MAX_FILE_SIZE_IN_MEMORY, and the combined size cannot exceed this limit. If exceeded, the system returns a MemoryTableOverflowError to prevent out-of-memory conditions. Default is 50 percent of total memory. |
 | ZO_MEM_PERSIST_INTERVAL | 5 | Interval in seconds at which immutable memtables are persisted from memory to disk. Default is 5 seconds. |
-
+| ZO_FEATURE_SHARED_MEMTABLE_ENABLED | false | When set to true, it turns on the shared memtable feature and several organizations can use the same in-memory table instead of each organization creating its own. This helps reduce memory use when many organizations send data at the same time. It also works with older non-shared write-ahead log (WAL) files. |
+| ZO_MEM_TABLE_BUCKET_NUM | 1 | This setting controls how many in-memory tables OpenObserve creates, and works differently depending on whether shared memtable is enabled or disabled. <br> 
+**When ZO_FEATURE_SHARED_MEMTABLE_ENABLED is true (shared memtable enabled)**:
+<br>
+OpenObserve creates the specified number of shared in-memory tables that all organizations use together. <br> **If the number is higher**: OpenObserve creates more shared tables. Each table holds data from fewer organizations. This can make data writing faster because each table handles less data. However, it also uses more memory. <br>
+**If the number is lower**: OpenObserve creates fewer shared tables. Each table holds data from more organizations. This saves memory but can make data writing slightly slower when many organizations send data at the same time.
+<br>
+**When ZO_FEATURE_SHARED_MEMTABLE_ENABLED is false (shared memtable disabled)**:
+<br>
+Each organization creates its own set of in-memory tables based on the ZO_MEM_TABLE_BUCKET_NUM value.
+<br>
+For example, if ZO_MEM_TABLE_BUCKET_NUM is set to 4, each organization will create 4 separate in-memory tables.
+This is particularly useful when you have only one organization, as creating multiple in-memory tables for that single organization can improve ingestion performance.|
 
 ## Indexing
 | Environment Variable | Default Value | Description |
