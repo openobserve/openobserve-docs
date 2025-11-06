@@ -5,7 +5,8 @@ description: >-
 ---
 This page explains what Query Management is and shows how to use it. 
 
-> This feature is available only in [high-availability (HA)](../../openobserve-enterprise-edition-installation-guide.md) deployments.
+!!! info "Availability"
+    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
 
 === "Overview"
     ## What is Query Management?
@@ -37,7 +38,7 @@ This page explains what Query Management is and shows how to use it.
     The **Running Queries** table displays the following fields:
 
     - **Email**: The email ID of the user who initiated the queries.  
-    - **Search Type**: The origin of the query (for example, dashboards, alerts, or others).  
+    - **Search Type**: The origin of the query. For example, dashboards, alerts, or others.  
     - **Number of Queries**: Total active queries for that user.  
     - **Total Exec. Duration**: Combined time spent executing all active queries.  
     - **Total Query Range**: Total log duration the queries are scanning.  
@@ -48,7 +49,8 @@ This page explains what Query Management is and shows how to use it.
 
     - **Email:** The email of the user who triggered the query.  
     - **Organization ID:** The organization context.   
-    - **Search Type:** The source of the query, such as dashboards, UI, or alerts.  
+    - **Search Type:** The source of the query, such as dashboards, alerts, or others.  
+    - **Query Source:** Displays the specific origin of the query. If the query originates from a **dashboard**, this field shows the dashboard name. If the query originates from an **alert**, it shows the alert name.  
     - **Execution Duration:** The total time the query has been running.  
     - **Query Range:** The time range being queried.  
     - **Query Type:** Whether the system classifies the query as Short or Long.  

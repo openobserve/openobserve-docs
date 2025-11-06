@@ -3,7 +3,8 @@ title: Streaming Aggregation in OpenObserve
 
 description: Learn how streaming aggregation works in OpenObserve Enterprise.
 ---
-This page explains what streaming aggregation is and shows how to use it to improve query performance with aggregation cache in OpenObserve.
+This page explains what streaming aggregation is and how it improves query performance in OpenObserve.
+
 
 !!! info "Availability"
     This feature is available in Enterprise Edition.
@@ -12,7 +13,7 @@ This page explains what streaming aggregation is and shows how to use it to impr
 
     ## What is streaming aggregation?
 
-    Streaming aggregation in OpenObserve enables **aggregation cache**. When streaming aggregation is enabled, OpenObserve begins caching the factors required to compute aggregates for each time partition during query execution. These cached values can then be reused for later queries that cover the same or overlapping time ranges.
+    Streaming aggregation is an Enterprise feature that enables **aggregation cache**. By default, the streaming aggregation feature is enabled. It allows OpenObserve to cache the factors required to compute aggregates for each time partition during query execution. These cached values can then be reused for later queries that cover the same or overlapping time ranges.
 
     ??? "Why aggregation cache matters"
 
@@ -28,18 +29,14 @@ This page explains what streaming aggregation is and shows how to use it to impr
 
     ??? "Relationship between streaming aggregation and aggregation cache"
 
-        - **Streaming aggregation** is the feature toggle in Enterprise settings.
-        - **Aggregation cache** is the mechanism that becomes active when streaming aggregation is enabled.
+        - **Streaming aggregation** is the underlying technology that enables aggregation cache. 
+        - **Aggregation cache** is the mechanism that stores and reuses your query results.
 
     !!! Note "Who can use it"
         All Enterprise users. 
 
     !!! Note "Where to find it"
-        To enable aggregation cache: 
-
-        1. Go to **Management > General Settings**.  
-        2. Turn on the **Enable Streaming Aggregation** toggle.
-        3. Select **Save**.
+        It is **enabled by default** in Enterprise Edition. No manual configuration is required.
 
     !!! Note "Environment variables"
 
@@ -74,7 +71,7 @@ This page explains what streaming aggregation is and shows how to use it to impr
     ---
 
     ## Query Behavior
-    When aggregation cache is enabled, OpenObserve writes intermediate results into disk as Arrow IPC files. These files store values that can be safely combined later instead of full raw logs.
+    OpenObserve writes intermediate results into disk as Arrow IPC files. These files store values that can be safely combined later instead of full raw logs.
     Example query
     ```sql
     SELECT avg(response_time), sum(bytes), count(*)
@@ -161,9 +158,9 @@ This page explains what streaming aggregation is and shows how to use it to impr
     | `zo_query_aggregation_cache_bytes` | Monitor memory consumption to ensure the cache stays within acceptable limits and doesn't exhaust system resources |
 
     ---
-=== "How to use"
+=== "Verifying aggregation cache"
 
-    ## How to use streaming aggregation
+    ## Verifying aggregation cache
     **Example query**
     ```sql
     SELECT 
@@ -226,8 +223,8 @@ This page explains what streaming aggregation is and shows how to use it to impr
     ---
 
 ## Performance benefits
-Streaming aggregation is enabled in all the following test runs:
-
+The following test runs demonstrate aggregation cache performance improvements:
+<br>
 **Test run 1**:
 
 - Time range: `2025-08-13 00:00:00 - 2025-08-20 00:00:00`

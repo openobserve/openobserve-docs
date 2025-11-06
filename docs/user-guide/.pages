@@ -1,6 +1,6 @@
 nav:
     - Concepts: concepts.md
-    - Log Search: logs
+    - Logs: logs
     - Metrics: metrics
     - Streams: streams
     - Ingestion: ingestion
