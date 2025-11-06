@@ -1,4 +1,4 @@
-## What are Logs
+## Overview 
 Logs are a type of stream in OpenObserve that record structured event data from applications, systems, or services. Each log entry includes a timestamp, message, and optional metadata fields such as severity, service name, or container details.
 
 You can use the Logs page to:
@@ -9,12 +9,14 @@ You can use the Logs page to:
 - Save views and schedule recurring searches
 - Export logs for offline analysis
 
-## Access
+!!! note "Who can access"
 
-- **Enterprise** and **Cloud** editions support Role-Based Access Control (RBAC) to restrict log access per stream and role.
-- **Open Source** edition provides full access to all logs for all users.
+    - **Enterprise** and **Cloud** editions support Role-Based Access Control (RBAC) to restrict log access per stream and role.
+    - **Open Source** edition provides full access to all logs for all users.
 
 Learn more:
 
 - [Logs in OpenObserve](logs.md)
 - [Search Around](search-around.md)
+- [Quick Mode and Interesting Fields](quickmode.md)
+- [Explain and Analyze Query](explain-analyze-query.md)

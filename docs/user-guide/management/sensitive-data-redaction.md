@@ -163,7 +163,7 @@ Once your patterns are created and tested, you can apply them to specific fields
 
     **Hash**:
     
-    - Replaces the matched sensitive value with a **deterministic hashed token** while keeping its position within the field.  
+    - Replaces the matched sensitive value with a **searchable hash** while keeping its position within the field.  
 
 
     **Drop**:
@@ -214,14 +214,6 @@ Once your patterns are created and tested, you can apply them to specific fields
 
 ## Test Redact, Hash and Drop operations
 
-The following regex patterns are applied to the `message` field of the `pii_test` stream:
-
-| Pattern Name | Action | Timing | Description |
-|--------------|--------|--------|-------------|
-| Full Name | Redact | Ingestion | Masks names like "John Doe" |
-| Email | Redact | Query | Masks email addresses at query time |
-| IP Address | Drop | Ingestion | Removes IP addresses before storage |
-| Credit Card | Drop | Query | Excludes credit card numbers from results |
 
 ??? "Test 1: Redact at ingestion time"
     ### Redact at ingestion time
@@ -362,17 +354,81 @@ The following regex patterns are applied to the `message` field of the `pii_test
     6. Verify results:
     ![hash-at-query-time](../../images/hashed-at-query-time.png)
 
-## Search hashed values uUsing `match_all_hash`
+## Search hashed values using `match_all_hash`
 The `match_all_hash` user-defined function (UDF) complements the SDR Hash feature. It allows you to search for logs that contain the hashed equivalent of a specific sensitive value.
-When data is hashed using Sensitive Data Redaction, the original value is replaced with a deterministic hash. You can use `match_all_hash()` to find all records that contain the hashed token, even though the original value no longer exists in storage.
-Example: 
+When data is hashed using Sensitive Data Redaction, the original value is replaced with a searchable hash. You can use `match_all_hash()` to find all records that contain the hashed token, even though the original value no longer exists in storage. <br>
+**Example**: 
 ```sql
 match_all_hash('4111-1111-1111-1111')
 ```
 This query returns all records where the SDR Hash of the provided value exists in any field.
 In the example below, it retrieves the log entry containing
 [REDACTED:907fe4882defa795fa74d530361d8bfb], the hashed version of the given card number.
+
 ![match-all-hash](../../images/match-all-hash.png)
+
+
+## Import patterns from built-in library
+OpenObserve provides a built-in library of 147+ pre-configured regex patterns that can be imported directly into your organization. These patterns cover common sensitive data types and security-related formats, allowing you to quickly implement data protection without writing regex patterns from scratch.
+<br>
+
+**To import patterns from the built-in library:**
+
+??? "Step 1: Navigate to the Import section"
+    ### Step 1: Navigate to the Import section
+    
+    1. Go to **Management** > **Sensitive Data Redaction**.
+    2. Click the **Import** button in the top-right corner.
+    3. The **Import Pattern** screen opens with three tabs:
+        - **Built-in Patterns**: Pre-configured patterns from OpenObserve's pattern library
+        - **File Upload/JSON**: Import patterns from a JSON file
+        - **URL Import**: Import patterns from a URL
+    4. Select the **Built-in Patterns** tab.
+
+    ![Built-in Patterns Import Interface](../../images/built-in-patterns-import.png)
+
+??? "Step 2: Browse and search patterns"
+    ### Step 2: Browse and search patterns
+    
+    The built-in patterns library displays 147 patterns. You can:
+    
+    - **Search patterns**: Use the search bar to find patterns by name
+    ![Search patterns](../../images/search-patterns.png)
+    - **Filter by tags**: Use the "Filter by Tag" dropdown to narrow patterns by category 
+    ![Filter by tags](../../images/filter-by-tags.png)
+    - **Refresh**: Click the **Refresh** button to pull the latest patterns from the GitHub repository
+
+??? "Step 3: View pattern details"
+    ### Step 3: View pattern details
+    
+    To view details about a pattern before importing:
+    
+    1. Click the **three dots (⋮)** icon next to any pattern in the list.
+    2. A detail panel displays:
+
+        - **Description**: What the pattern detects
+        - **Pattern**: The actual regex expression
+        - **Tags**: Categories the pattern belongs to
+        - **Rarity**: How commonly this pattern is used
+        - **Valid Examples**: Sample data that matches this pattern
+
+    ![Pattern details view](../../images/pattern-detail-view.png)
+    
+    This helps you verify the pattern will match your expected data format before importing.
+
+??? "Step 4: Select and import patterns"
+    ### Step 4: Select and import patterns
+    
+    1. **Select patterns**: Check the box next to each pattern you want to import. You can select multiple patterns at once.
+    ![Select patterns](../../images/select-patterns.png)
+    2. **Import**: Click the **Import** button in the top-right.
+    ![Import selected patterns](../../images/import-selected-patterns.png)
+
+    After importing patterns, you can edit, export, and delete the patterns. 
+    ![Manage patterns](../../images/manage-patterns.png)
+
+    !!! warning "Duplicate handling" 
+        The system does not allow you to import the same pattern more than once to avoid duplicates. 
 
 
 ## Limitations

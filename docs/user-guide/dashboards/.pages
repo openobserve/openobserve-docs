@@ -9,6 +9,7 @@ nav:
     - Filters: filters
     - Comparison Against in Dashboards: comparison-against-in-dashboards.md
     - Custom Charts: custom-charts
+    - Histogram Caching: histogram-caching.md
 
 
     
