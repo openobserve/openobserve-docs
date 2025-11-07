@@ -33,6 +33,9 @@ To learn more, visit the [Fields and Index in Streams](streams/fields-and-index-
 ## User-Defined Schema (UDS)
 
 By default, OpenObserve stores all fields it detects. However, in high-ingestion environments, especially those with thousands of unique fields per log, such as large-scale services, this can degrade performance.  
+
+> UDS applies to logs, metrics, and traces.
+
 User-Defined Schema (UDS) allows you to select a subset of fields that are:
 
 - Retained for storage  

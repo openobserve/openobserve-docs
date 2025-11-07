@@ -142,6 +142,13 @@ While stream schemas are synchronized across all clusters in real-time, the actu
 
 This design maintains data residency compliance while enabling unified configuration management.
 
+## How nodes coordinate internally using NATS
+OpenObserve uses NATS for internal coordination between nodes within a region. This coordination enables nodes to share information for purposes such as caching and maintaining cluster awareness.
+<br>
+As part of the reliability improvement in inter-node communication, OpenObserve now uses NATS stream queues to broadcast NATS events instead of using NATS key-value watchers. The NATS stream queue ensures reliable delivery by retrying event transmission until all subscribers receive the event for processing.
+<br>
+Except for the nodes list, nothing is now stored in NATS key-value storage. 
+
 ## Limitations
 
 **No cluster identification in results:** Query results do not indicate which cluster provided specific data. To identify the source, query each cluster individually.
