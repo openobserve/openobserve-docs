@@ -4,3 +4,4 @@ nav:
     - Monitor Download Queue Size and Disk Cache Metrics: monitor-download-queue-size-and-disk-cache-metrics.md
     - Configure Disk Cache Eviction Strategy: disk-cache-strategy.md
     - Tantivy Index: tantivy-index.md
+    - Broadcast Join: broadcast-join.md

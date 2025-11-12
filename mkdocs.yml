@@ -1,4 +1,4 @@
-site_name: Documentation
+site_name: OpenObserve Documentation
 site_url: https://openobserve.ai/docs
 # https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
 plugins:
@@ -18,13 +18,19 @@ extra_css:
   - css/landing-page.css
 extra_javascript:
   - https://unpkg.com/openapi-explorer@0/dist/browser/openapi-explorer.min.js
-  - js/ms-clarity.js
-  - js/zinc.js
-  - js/vector_co.js
+  # - js/ms-clarity.js
+  # - js/zinc.js
+  # - js/vector_co.js
   - js/search-close-minimal.js
   - js/search-tracking.js
+  - js/theme.js
+  # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
-  - js/reo.js
+  # - js/reo.js
+  - js/landing-individual-card-ms-tracking.js
+  - js/google-tag-manager.js
+  - js/feedback.js
+  - js/segment.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin
@@ -44,8 +50,8 @@ extra:
     #   lang: zh
   generator: false
   default_color_scheme: default
-  version:
-    provider: mike
+  # version:
+  #   provider: mike
   analytics:
     provider: google
     property: G-3383ZJ2HH7

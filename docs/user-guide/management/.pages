@@ -9,4 +9,4 @@ nav:
     - Cipher Keys: cipher-keys.md
     - Nodes in OpenObserve: nodes.md
     - SSO Domain Restrictions: sso-domain-restrictions.md 
-    - Regex Patterns: regex-patterns.md
+    - Sensitive Data Redaction: sensitive-data-redaction.md

@@ -21,10 +21,10 @@
   IN THE SOFTWARE.
 -->
 
-<footer class="relative bg-[#121212] w-full">
+<footer class="tw-relative tw-bg-[#121212] tw-w-full">
   <!-- Background SVG -->
   <svg
-    class="absolute inset-0 w-full h-full"
+    class="tw-absolute tw-inset-0 tw-w-full tw-h-full"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1221 684"
     fill="none"
@@ -73,30 +73,42 @@
     </defs>
   </svg>
 
-  <div class="relative container mx-auto px-4 py-10 lg:px-8 xl:px-12">
-    <div class="flex flex-col lg:flex-row gap-6">
+  <div
+    class="tw-relative tw-container tw-mx-auto tw-px-4 tw-py-10 lg:tw-px-8 xl:tw-px-12"
+  >
+    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-6">
       <!-- Footer Grid -->
       <div
         id="footer-columns"
-        class="w-full lg:w-[75%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+        class="tw-w-full lg:tw-w-[75%] tw-grid tw-grid-cols-2 sm:tw-grid-cols-3 lg:tw-grid-cols-4 tw-gap-6"
       ></div>
 
       <!-- Newsletter -->
-      <div class="rounded-lg text-center mx-auto">
-        <form id="newsletter-form" name="newsletter" novalidate>
-          <h2 class="text-white font-medium text-lg mb-2 relative inline-block">
+      <div class="tw-rounded-lg tw-text-center tw-mx-auto">
+        <form
+          id="newsletter-form"
+          name="newsletter"
+          novalidate
+          method="post"
+          action="javascript:void(0)"
+        >
+          <div
+            class="tw-text-white tw-font-medium tw-text-lg tw-mb-2 tw-relative tw-inline-block"
+          >
             Stay Updated
             <span
-              class="absolute bottom-[-5px] left-0 w-full h-0.5 bg-white block"
+              class="tw-absolute tw-bottom-[-5px] tw-left-0 tw-w-full tw-h-0.5 tw-bg-white tw-block"
             ></span>
-          </h2>
-          <p class="text-gray-300 text-sm transition duration-300 mb-6">
+          </div>
+          <p
+            class="tw-text-gray-300 tw-text-sm tw-transition tw-duration-300 tw-mb-6"
+          >
             Get the latest OpenObserve insights
           </p>
 
-          <div class="flex flex-col gap-2.5 mb-4">
+          <div class="tw-flex tw-flex-col tw-gap-2.5 tw-mb-4">
             <div
-              class="text-xs rounded-full border border-[#4a90e2] text-left !text-white caret-white"
+              class="tw-text-xs tw-rounded-full tw-border tw-border-[#4a90e2] tw-text-left !tw-text-white tw-caret-white"
             >
               <input
                 type="email"
@@ -105,114 +117,495 @@
                 placeholder="Enter your email"
                 required
                 aria-label="Email address"
-                class="flex-1 px-4 py-2 w-full rounded-full bg-transparent !text-white caret-white outline-none placeholder-[rgba(255,255,255,0.6)]"
+                class="tw-flex-1 tw-px-4 tw-py-2 tw-w-full tw-rounded-full tw-bg-transparent !tw-text-white tw-caret-white tw-outline-none tw-placeholder-[rgba(255,255,255,0.6)]"
               />
             </div>
             <div
               id="newsletter-error"
-              class="text-left ml-2 text-red-400 text-sm hidden"
+              class="tw-text-left tw-ml-2 tw-text-red-400 tw-text-sm tw-hidden"
             ></div>
+
+            <!-- Submit button container - can be hidden during subscription -->
             <div
-              class="px-6 py-2 rounded-full bg-[#7782FF] text-white text-sm font-medium hover:bg-[#6672fa]"
+              id="newsletter-submit-container"
+              class="tw-px-6 tw-py-2 tw-rounded-full tw-bg-[#7782FF] tw-text-white tw-text-sm tw-font-medium hover:tw-bg-[#6672fa]"
             >
               <button
                 type="submit"
                 id="newsletter-submit"
-                class="transition active:scale-98 w-full cursor-pointer"
+                class="tw-transition active:tw-scale-98 tw-w-full tw-cursor-pointer"
               >
                 Subscribe
               </button>
             </div>
+
+            <!-- reCAPTCHA v2 Container - Hidden by default -->
+            <div
+              id="newsletter-recaptcha-container"
+              class="tw-justify-center tw-my-2 tw-hidden"
+            >
+              <div class="tw-relative">
+                <!-- Captcha -->
+                <div id="newsletter-recaptcha" class="tw-scale-90"></div>
+
+                <!-- Loader Overlay -->
+                <div
+                  id="newsletter-captcha-loader"
+                  class="tw-absolute tw-inset-0 tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-60 tw-hidden"
+                >
+                  <div
+                    class="tw-w-10 tw-h-10 tw-border-4 tw-border-t-transparent tw-border-white tw-border-opacity-80 tw-rounded-full tw-animate-spin"
+                  ></div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <p class="text-xs text-[rgba(255,255,255,0.6)]">
-            By subscribing, you agree to receive product and marketing related updates from OpenObserve.
+          <p class="tw-text-xs tw-text-[rgba(255,255,255,0.6)]">
+            By subscribing, you agree to receive product and marketing related
+            updates from OpenObserve.
           </p>
         </form>
         <div
           id="newsletter-toast"
-          class="fixed bottom-5 right-2 transform bg-[#7782FF] text-white p-6 rounded-lg shadow-lg z-50 hidden transition-opacity duration-300"
+          class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-base"
         ></div>
       </div>
 
       <script>
+        // Global variables for reCAPTCHA
+        let recaptchaWidgetId = null;
+        let isRecaptchaLoaded = false;
+        let showCaptcha = false;
+        let recaptchaToken = "";
+        let isSubmitting = false;
+
+        // Configuration
+        const NEWSLETTER_CONFIG = window.NEWSLETTER_CONFIG || {
+          RECAPTCHA_SITE_KEY: "6LdvUdMrAAAAAJksqV0YEwNBEBGL2SB90Gebun5n",
+          NEWSLETTER_ENDPOINT:
+            "https://5cciazu22tev222enhrbx6w3y40hscvu.lambda-url.us-east-2.on.aws",
+          FALLBACK_ENDPOINT:
+            "https://5cciazu22tev222enhrbx6w3y40hscvu.lambda-url.us-east-2.on.aws",
+        };
+
+        // validateCaptcha function
+        async function validateCaptcha(payload) {
+          const { token, email, userId } = payload;
+
+          const message = {
+            user: userId ? { userId } : { anonymousId: getAnonymousId() },
+            email,
+            token,
+          };
+
+          try {
+            const response = await fetch(
+              NEWSLETTER_CONFIG.NEWSLETTER_ENDPOINT,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(message),
+              }
+            );
+
+            // Check if response is actually JSON
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+              const textResponse = await response.text();
+              throw new Error(
+                `Server returned ${response.status}: Expected JSON but got ${contentType}`
+              );
+            }
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              const errMsg =
+                result["error-codes"]?.join(", ") ||
+                result.message ||
+                "Captcha validation failed";
+              throw new Error(errMsg);
+            }
+
+            return result;
+          } catch (error) {
+            // If it's a network error or server not running, try fallback
+            if (error.name === "TypeError" || error.message.includes("fetch")) {
+              try {
+                const fallbackResponse = await fetch(
+                  NEWSLETTER_CONFIG.FALLBACK_ENDPOINT,
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(message),
+                  }
+                );
+
+                if (fallbackResponse.ok) {
+                  const fallbackResult = await fallbackResponse.json();
+                  return fallbackResult;
+                }
+              } catch (fallbackError) {
+                // Silent fallback error handling
+              }
+            }
+            throw error;
+          }
+        }
+
+        // Anonymous ID function
+        function getAnonymousId() {
+          if (
+            typeof window === "undefined" ||
+            typeof localStorage === "undefined"
+          ) {
+            return (
+              "anon_" +
+              Math.random().toString(36).substr(2, 9) +
+              "_" +
+              Date.now()
+            );
+          }
+          const stored = localStorage.getItem("segment_anonymous_id");
+          if (stored) return stored;
+          const newId =
+            "anon_" +
+            Math.random().toString(36).substr(2, 9) +
+            "_" +
+            Date.now();
+          localStorage.setItem("segment_anonymous_id", newId);
+          return newId;
+        }
+
+        // reCAPTCHA callback functions
+        window.onRecaptchaLoad = function () {
+          isRecaptchaLoaded = true;
+        };
+
+        window.onRecaptchaSuccess = window.recaptchaSuccess = async function (
+          token
+        ) {
+          recaptchaToken = token;
+
+          // Hide loader, show success state briefly
+          const loader = document.getElementById("newsletter-captcha-loader");
+          if (loader) {
+            loader.style.display = "flex";
+          }
+
+          // Auto-submit after reCAPTCHA completion (like Vue component)
+          setTimeout(async () => {
+            await processNewsletterSubmission();
+          }, 500);
+        };
+
+        window.onRecaptchaExpired = function () {
+          recaptchaToken = "";
+        };
+
+        function initializeRecaptcha() {
+          if (!isRecaptchaLoaded || !window.grecaptcha) return;
+          const recaptchaContainer = document.getElementById(
+            "newsletter-recaptcha"
+          );
+          if (!recaptchaContainer || recaptchaWidgetId !== null) return;
+
+          try {
+            recaptchaWidgetId = window.grecaptcha.render(recaptchaContainer, {
+              sitekey: NEWSLETTER_CONFIG.RECAPTCHA_SITE_KEY,
+              callback: window.onRecaptchaSuccess,
+              "expired-callback": window.onRecaptchaExpired,
+              theme: "dark",
+            });
+          } catch (error) {
+            // Silent error handling
+          }
+        }
+
+        // Reset reCAPTCHA widget
+        function resetRecaptcha() {
+          if (window.grecaptcha && recaptchaWidgetId !== null) {
+            try {
+              window.grecaptcha.reset(recaptchaWidgetId);
+            } catch (error) {
+              // If reset fails, destroy and recreate the widget
+              try {
+                const recaptchaContainer = document.getElementById(
+                  "newsletter-recaptcha"
+                );
+                if (recaptchaContainer) {
+                  recaptchaContainer.innerHTML = "";
+                  recaptchaWidgetId = null;
+                  // Re-initialize after a short delay
+                  setTimeout(() => {
+                    initializeRecaptcha();
+                  }, 100);
+                }
+              } catch (recreateError) {
+                // Silent error handling
+              }
+            }
+          }
+          recaptchaToken = "";
+        }
+
+        // Reset the entire newsletter form state
+        function resetNewsletterForm() {
+          showCaptcha = false;
+
+          // Show submit button container again
+          const submitContainer = document.getElementById(
+            "newsletter-submit-container"
+          );
+          if (submitContainer) {
+            submitContainer.classList.remove("tw-hidden");
+          }
+
+          const container = document.getElementById(
+            "newsletter-recaptcha-container"
+          );
+          if (container) {
+            container.classList.add("tw-hidden");
+            container.classList.remove("tw-flex");
+          }
+
+          // Hide loader
+          const loader = document.getElementById("newsletter-captcha-loader");
+          if (loader) {
+            loader.classList.add("tw-hidden");
+            loader.classList.remove("tw-flex");
+          }
+
+          resetRecaptcha();
+        }
+
+        // Submit form function (like Vue component)
+        function submitForm() {
+          showCaptcha = true;
+
+          // Hide only submit button container during subscription process
+          const submitContainer = document.getElementById(
+            "newsletter-submit-container"
+          );
+          if (submitContainer) {
+            submitContainer.classList.add("tw-hidden");
+          }
+
+          const container = document.getElementById(
+            "newsletter-recaptcha-container"
+          );
+          const recaptchaDiv = document.getElementById("newsletter-recaptcha");
+
+          if (container) {
+            container.classList.remove("tw-hidden");
+            container.classList.add("tw-flex");
+          }
+
+          // Wait for DOM update, then render reCAPTCHA
+          setTimeout(() => {
+            if (recaptchaDiv && window.grecaptcha) {
+              // If widget doesn't exist or is null, create it
+              if (recaptchaWidgetId === null) {
+                initializeRecaptcha();
+              } else {
+                // If widget exists, just reset it to allow new interaction
+                try {
+                  window.grecaptcha.reset(recaptchaWidgetId);
+                  recaptchaToken = "";
+                } catch (error) {
+                  // If reset fails, recreate the widget
+                  recaptchaDiv.innerHTML = "";
+                  recaptchaWidgetId = null;
+                  initializeRecaptcha();
+                }
+              }
+            }
+          }, 100);
+        }
+
+        // Process newsletter submission (like Vue component onSubmit)
+        async function processNewsletterSubmission() {
+          const emailInput = document.getElementById("newsletter-email");
+          const subscribeBtn = document.getElementById("newsletter-submit");
+          const email = emailInput ? emailInput.value.trim() : "";
+
+          if (!recaptchaToken) {
+            showToastMessage(
+              "Please complete the reCAPTCHA to proceed.",
+              "error"
+            );
+            // Show submit button container again and re-enable submit button
+            const submitContainer = document.getElementById(
+              "newsletter-submit-container"
+            );
+            if (submitContainer) {
+              submitContainer.classList.remove("tw-hidden");
+            }
+            subscribeBtn.disabled = false;
+            subscribeBtn.textContent = "Subscribe";
+            return;
+          }
+
+          try {
+            isSubmitting = true;
+
+            // Validate captcha first
+            const captchaResult = await validateCaptcha({
+              token: recaptchaToken,
+              email: email,
+            });
+
+            // If captcha failed, stop the submission
+            if (!captchaResult.success) {
+              showToastMessage(
+                "Captcha validation failed. Please try again.",
+                "error"
+              );
+              // Show submit button container again and re-enable submit button
+              const submitContainer = document.getElementById(
+                "newsletter-submit-container"
+              );
+              if (submitContainer) {
+                submitContainer.classList.remove("tw-hidden");
+              }
+              subscribeBtn.disabled = false;
+              subscribeBtn.textContent = "Subscribe";
+              // Reset recaptcha for retry
+              resetRecaptcha();
+              return;
+            }
+
+            // Simulate API call delay (like Vue component)
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+
+            // Success flow
+            showToastMessage(
+              `Subscribed successfully with: ${email}`,
+              "success"
+            );
+
+            // Reset form
+            const form = document.getElementById("newsletter-form");
+            if (form) form.reset();
+
+            // Reset newsletter form completely for next submission
+            resetNewsletterForm();
+
+            // Analytics tracking
+            if (
+              window.analytics &&
+              typeof window.analytics.track === "function"
+            ) {
+              window.analytics.track("O2 Website - Newsletter Signup", {
+                email: email,
+                source: "website",
+              });
+            }
+
+            // GTM tracking
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "newsletter_form_submit",
+              form_id: "newsletter-form",
+              form_name: "newsletter",
+              form_status: "success",
+              page_location: window.location.href,
+            });
+          } catch (error) {
+            showToastMessage(
+              "Something went wrong, please try again.",
+              "error"
+            );
+
+            // Reset newsletter form completely for retry
+            resetNewsletterForm();
+
+            // GTM error tracking
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "newsletter_form_submit",
+              form_id: "newsletter-form",
+              form_name: "newsletter",
+              form_status: "error",
+              page_location: window.location.href,
+            });
+          } finally {
+            isSubmitting = false;
+            // Re-enable submit button
+            subscribeBtn.disabled = false;
+            subscribeBtn.textContent = "Subscribe";
+          }
+        }
+
+        // Global toast function to avoid duplication
+        function showToastMessage(message, type) {
+          const toast = document.getElementById("newsletter-toast");
+          if (!toast) return;
+
+          const isError = type === "error";
+          toast.textContent = message;
+          toast.classList.remove("tw-hidden");
+          toast.style.opacity = "1";
+          toast.style.backgroundColor = isError ? "#ef4444" : "#7782FF";
+
+          setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.classList.add("tw-hidden"), 300);
+          }, 4000);
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
           const form = document.getElementById("newsletter-form");
           const emailInput = document.getElementById("newsletter-email");
           const emailError = document.getElementById("newsletter-error");
-          const toast = document.getElementById("newsletter-toast");
           const subscribeBtn = document.getElementById("newsletter-submit");
-
-          function showToast(message) {
-            toast.textContent = message;
-            toast.classList.remove("hidden");
-            toast.style.opacity = "1";
-            setTimeout(() => {
-              toast.style.opacity = "0";
-              setTimeout(() => toast.classList.add("hidden"), 300);
-            }, 3000);
-          }
 
           function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
           }
 
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            emailError.classList.add("hidden");
-            subscribeBtn.disabled = true;
+          // Initialize reCAPTCHA when API is ready
+          if (window.grecaptcha && window.grecaptcha.render) {
+            isRecaptchaLoaded = true;
+            initializeRecaptcha();
+          }
+
+          form.addEventListener("submit", async function (e) {
+            e.preventDefault(); // Prevent form submission and URL changes
+            e.stopPropagation(); // Stop event bubbling
+
+            emailError.classList.add("tw-hidden");
 
             const email = emailInput.value.trim();
             if (!validateEmail(email)) {
               emailError.textContent = "Invalid email address";
-              emailError.classList.remove("hidden");
-              subscribeBtn.disabled = false;
-              return;
+              emailError.classList.remove("tw-hidden");
+              return false; // Prevent further processing
             }
 
-            // Send API request to Formspree demo endpoint
-            fetch("https://formspree.io/f/mqkrjvay", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email }),
-            })
-              .then((response) => {
-                if (response.ok) {
-                  showToast("Subscribed successfully with: " + email);
-                  form.reset();
-                  // Segment tracking
-                  if (window.analytics && typeof window.analytics.track === "function") {
-                    window.analytics.track("O2 Website - Newsletter Signup", {
-                      email: email,
-                      source: "website"
-                    });
-                  }
-                } else {
-                  showToast("Something went wrong, please try again.");
-                }
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                  event: "newsletter_form_submit",
-                  form_id: form.id,
-                  form_name: form.name,
-                  form_status: response.ok ? "success" : "error",
-                  page_location: window.location.href,
-                });
-              })
-              .catch(() => {
-                showToast("Something went wrong, please try again.");
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                  event: "newsletter_form_submit",
-                  form_id: form.id,
-                  form_name: form.name,
-                  form_status: "error",
-                  page_location: window.location.href,
-                });
-              })
-              .finally(() => {
-                subscribeBtn.disabled = false;
-              });
+            // Disable submit button to prevent multiple submissions
+            subscribeBtn.disabled = true;
+            subscribeBtn.textContent = "Subscribing...";
+
+            try {
+              // Show reCAPTCHA (like Vue component submitForm)
+              submitForm();
+            } catch (error) {
+              showToastMessage("An error occurred. Please try again.", "error");
+
+              // Show submit button container again and re-enable submit button
+              const submitContainer = document.getElementById(
+                "newsletter-submit-container"
+              );
+              if (submitContainer) {
+                submitContainer.classList.remove("tw-hidden");
+              }
+              subscribeBtn.disabled = false;
+              subscribeBtn.textContent = "Subscribe";
+            }
+
+            return false; // Ensure no form submission happens
           });
         });
       </script>
@@ -221,15 +614,15 @@
     <!-- Toast -->
     <div
       id="newsletter-toast"
-      class="fixed bottom-5 right-2 transform bg-[#7782FF] text-white p-6 rounded-lg shadow-lg z-50 hidden transition-opacity duration-300"
+      class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-[15px]"
     ></div>
 
-    <div class="flex justify-center lg:justify-end">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 flex-shrink-0 grayscale">
+    <div class="tw-flex tw-justify-center lg:tw-justify-end">
+      <div class="tw-flex tw-items-center tw-gap-4">
+        <div class="tw-w-12 tw-h-12 tw-flex-shrink-0 tw-grayscale">
           <img
             src="/docs/assets/soc.webp"
-            class="w-full h-full object-contain"
+            class="tw-w-full tw-h-full tw-object-contain"
             alt="Official AICPA SOC badge"
             loading="lazy"
             width="48"
@@ -237,11 +630,13 @@
           />
         </div>
 
-        <div class="flex flex-col text-white">
-          <h2 class="whitespace-nowrap text-sm">SOC2 Type II</h2>
-          <p class="whitespace-nowrap text-xs">Certified</p>
+        <div class="tw-flex tw-flex-col tw-text-white">
+          <p class="tw-whitespace-nowrap tw-text-sm">SOC2 Type II</p>
+          <p class="tw-whitespace-nowrap tw-text-xs">Certified</p>
         </div>
-        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+        <div
+          class="tw-flex tw-flex-wrap tw-justify-center md:tw-justify-start tw-gap-2"
+        >
           <a
             class="github-button"
             href="https://github.com/openobserve/openobserve"
@@ -256,22 +651,22 @@
       </div>
     </div>
     <!-- <div>
-      <section class="hero-gradient w-full rounded-md">
+      <section class="tw-hero-gradient tw-w-full tw-rounded-md">
         <div
-          class="flex flex-col md:flex-row md:items-start lg:items-center md:justify-between gap-4 p-2"
+          class="tw-flex tw-flex-col md:tw-flex-row md:tw-items-start lg:tw-items-center md:tw-justify-between tw-gap-4 tw-p-2"
         >
           <div
-            class="flex flex-col lg:flex-row w-full text-white gap-1 md:gap-1 lg:gap-4"
+            class="tw-flex tw-flex-col lg:tw-flex-row tw-w-full tw-text-white tw-gap-1 md:tw-gap-1 lg:tw-gap-4"
           >
             <div
-              class="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 lg:gap-4"
+              class="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-gap-1 md:tw-gap-3 lg:tw-gap-4"
             >
               <div
-                class="flex items-center gap-2 text-xs font-semibold text-yellow-300"
+                class="tw-flex tw-items-center tw-gap-2 tw-text-xs tw-font-semibold tw-text-yellow-300"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-5 h-5 md:w-4 md:h-4 shrink-0"
+                  class="tw-w-5 tw-h-5 md:tw-w-4 md:tw-h-4 tw-shrink-0"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -287,17 +682,17 @@
               </div>
 
               <h2
-                class="font-bold text-white text-xs md:font-semibold md:text-white md:mt-0 md:max-w-fit"
+                class="tw-font-bold tw-text-white tw-text-xs md:tw-font-semibold md:tw-text-white md:tw-mt-0 md:tw-max-w-fit"
               >
                 From Zero to Observability in 30 Minutes
               </h2>
             </div>
 
-            <div class="flex gap-4 text-xs md:flex-row md:gap-2">
-              <div class="flex items-center gap-2 text-white/90">
+            <div class="tw-flex tw-gap-4 tw-text-xs md:tw-flex-row md:tw-gap-2">
+              <div class="tw-flex tw-items-center tw-gap-2 tw-text-white/90">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-5 h-5 md:w-4 md:h-4"
+                  class="tw-w-5 tw-h-5 md:tw-w-4 md:tw-h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -312,10 +707,10 @@
                 July 29, 2025
               </div>
 
-              <div class="flex items-center gap-2 text-white/90">
+              <div class="tw-flex tw-items-center tw-gap-2 tw-text-white/90">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-5 h-5 md:w-4 md:h-4"
+                  class="tw-w-5 tw-h-5 md:tw-w-4 md:tw-h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -332,11 +727,11 @@
             </div>
           </div>
 
-          <div class="flex flex-col text-blue-600 text-xs">
+          <div class="tw-flex tw-flex-col tw-text-blue-600 tw-text-xs">
             <a
               href="/webinars-videos/zero-to-observability-in-30-minutes/"
               target="_blank"
-              class="ring-offset-background focus-visible:outline-none focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 h-6 md:h-7 bg-white  hover:bg-blue-50 font-semibold px-3 py-1 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+              class="tw-ring-offset-background focus-visible:tw-outline-none focus-visible:tw-ring-ring tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-whitespace-nowrap tw-rounded-md focus-visible:tw-ring-2 focus-visible:tw-ring-offset-2 disabled:tw-pointer-events-none disabled:tw-opacity-50 [&_svg]:tw-size-4 [&_svg]:tw-shrink-0 tw-h-6 md:tw-h-7 tw-bg-white hover:tw-bg-blue-50 tw-font-semibold tw-px-3 tw-py-1 tw-shadow-lg hover:tw-shadow-xl tw-transition-all tw-duration-300 group tw-cursor-pointer"
             >
               Register Now
               <svg
@@ -349,7 +744,7 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-arrow-right ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:translate-x-1"
+                class="lucide lucide-arrow-right tw-ml-1 tw-w-4 tw-h-4 tw-transition-transform tw-duration-200 tw-transform group-hover:tw-translate-x-1"
               >
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
@@ -361,47 +756,189 @@
     </div> -->
     <!-- Bottom Footer -->
     <div
-      class="border-t border-gray-700 mt-10 pt-5 flex flex-col lg:flex-row justify-between items-center text-white gap-4"
+      class="tw-border-t tw-border-gray-700 tw-mt-5 tw-pt-5 tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-items-center tw-text-white tw-gap-4"
     >
-      <div class="text-center text-xs lg:text-left">
-        <p class="">OpenObserve Inc. © <span id="current-year"></span></p>
+      <div class="tw-text-center tw-text-xs lg:tw-text-left">
+        <p class="tw-text-white">
+          OpenObserve Inc. © <span id="current-year"></span>
+        </p>
         <p>3000 Sand Hill Rd Building 1, Suite 260, Menlo Park, CA 94025</p>
       </div>
-      <ul class="flex flex-wrap gap-4 text-xs text-gray-300">
-        <li class="hover:text-[#7782FF]">
+      <ul class="tw-flex tw-flex-wrap tw-gap-4 tw-text-xs tw-text-gray-300">
+        <li class="hover:tw-text-[#7782FF] header-list-style">
           <a href="/policies/terms-of-service/" target="_blank"
             >Terms of Service</a
           >
         </li>
-        <li class="hover:text-[#7782FF]">
+        <li class="hover:tw-text-[#7782FF] header-list-style">
           <a href="/policies/privacy-policy/" target="_blank">Privacy Policy</a>
         </li>
       </ul>
-      <ul class="flex gap-2">
+      <ul class="tw-flex tw-gap-2">
+        <!-- Feedback Widget -->
+        <div class="tw-relative tw-z-10 tw-items-center">
+          <!-- Feedback Button -->
+          <button
+            id="feedbackButton"
+            class="tw-ring-offset-background focus-visible:tw-outline-none focus-visible:tw-ring-ring tw-inline-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full focus-visible:tw-ring-2 focus-visible:tw-ring-offset-2 disabled:tw-pointer-events-none disabled:tw-opacity-50 tw-w-9 tw-h-9 tw-bg-gradient-to-r tw-from-blue-500 tw-to-purple-600 tw-text-white hover:tw-from-blue-600 hover:tw-to-purple-700 tw-font-semibold tw-shadow-lg hover:tw-shadow-xl tw-transition-all tw-duration-300 tw-group tw-cursor-pointer"
+            title="Send Feedback"
+          >
+            <img src="/docs/assets/feedback.svg" alt="" class="tw-w-6 tw-h-6" />
+          </button>
+
+          <!-- Feedback Modal (hidden by default, toggle with JS) -->
+          <div
+            id="feedbackModal"
+            class="tw-absolute tw-z-50 tw-top-full tw-mt-4 tw-right-0 custom-feedback-modal tw-hidden"
+            style="min-width: 400px"
+          >
+            <div
+              class="tw-bg-gray-200 tw-border tw-border-gray-200 tw-rounded-xl tw-shadow-lg tw-w-full tw-relative tw-flex tw-flex-col tw-font-sans"
+              tabindex="0"
+            >
+              <!-- Success View -->
+              <div
+                class="success-view tw-hidden tw-flex-col tw-items-center tw-text-center tw-py-3"
+              >
+                <div
+                  class="tw-w-16 tw-h-16 tw-rounded-full tw-border-2 tw-border-gray-300 tw-flex tw-items-center tw-justify-center tw-mb-4"
+                >
+                  <svg
+                    class="tw-w-8 tw-h-8 tw-text-teal-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <h3
+                  class="tw-text-xl tw-font-semibold tw-text-gray-900 tw-mb-2"
+                >
+                  Thank you!
+                </h3>
+                <p class="tw-text-gray-600 tw-text-sm tw-leading-relaxed">
+                  Your response<br />
+                  has been submitted successfully!
+                </p>
+              </div>
+
+              <!-- Form View -->
+              <div class="form-view">
+                <!-- Tabs -->
+                <div class="tw-flex tw-mb-3">
+                  <div
+                    class="tw-flex tw-p-0.5 tw-w-full tw-gap-2"
+                    role="tablist"
+                    aria-label="Feedback types"
+                  >
+                    <button
+                      id="feedback-tab-issue"
+                      role="tab"
+                      aria-selected="true"
+                      data-type="Issue"
+                      class="feedback-tab tw-flex tw-items-center tw-gap-2 tw-py-1.5 tw-rounded-md tw-text-xs tw-font-medium tw-transition-all tw-flex-1 tw-justify-center tw-cursor-pointer tw-border tw-border-gray-400 tw-text-gray-600 hover:tw-text-gray-900 hover:tw-bg-gray-100 hover:tw-border-gray-200"
+                      style="border: 1px solid gray !important"
+                    >
+                      <span class="tw-text-xs">⚠️</span>
+                      <span>Issue</span>
+                    </button>
+                    <button
+                      id="feedback-tab-idea"
+                      role="tab"
+                      aria-selected="false"
+                      data-type="Idea"
+                      class="feedback-tab tw-flex tw-items-center tw-gap-2 tw-py-1.5 tw-rounded-md tw-text-xs tw-font-medium tw-transition-all tw-flex-1 tw-justify-center tw-cursor-pointer tw-border tw-border-gray-400 tw-text-gray-600 hover:tw-text-gray-900 hover:tw-bg-gray-100 hover:tw-border-gray-200"
+                      style="border: 1px solid gray !important"
+                    >
+                      <span class="tw-text-xs">💡</span>
+                      <span>Idea</span>
+                    </button>
+                    <button
+                      id="feedback-tab-other"
+                      role="tab"
+                      aria-selected="false"
+                      data-type="Feedback"
+                      class="feedback-tab tw-flex tw-items-center tw-gap-2 tw-py-1.5 tw-rounded-md tw-text-xs tw-font-medium tw-transition-all tw-flex-1 tw-justify-center tw-cursor-pointer tw-border tw-border-gray-400 tw-text-gray-600 hover:tw-text-gray-900 hover:tw-bg-gray-100 hover:tw-border-gray-200"
+                      style="border: 1px solid gray !important"
+                    >
+                      <span class="tw-text-xs">🤝</span>
+                      <span>Other</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Input Field -->
+                <form class="tw-flex tw-flex-col tw-gap-3">
+                  <!-- Hidden input to store selected feedback type (default Issue) -->
+                  <input type="hidden" name="type" value="Issue" />
+                  <textarea
+                    rows="4"
+                    placeholder="Type your feedback here..."
+                    required
+                    aria-required="true"
+                    class="tw-bg-white tw-border tw-text-black tw-border-gray-300 tw-rounded-xl tw-px-3 tw-py-2 tw-text-xs focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-border-transparent tw-resize-none tw-placeholder-gray-400 tw-shadow-sm"
+                  ></textarea>
+
+                  <button
+                    type="submit"
+                    class="tw-bg-gradient-to-r tw-from-blue-500 tw-to-purple-600 tw-text-white tw-py-1.5 tw-rounded-lg tw-text-xs tw-font-semibold tw-transition-all tw-duration-200 tw-shadow-md tw-flex tw-items-center tw-justify-center tw-gap-2 cursor-pointer hover:tw-from-blue-600 hover:tw-to-purple-700"
+                  >
+                    <span>Submit</span>
+                  </button>
+                </form>
+
+                <div
+                  class="tw-mt-2 tw-text-[12px] tw-text-gray-500 tw-text-center"
+                >
+                  This is for <b>Website feedback only</b> - for general support
+                  go to our
+                  <a
+                    href="https://short.openobserve.ai/community"
+                    target="_blank"
+                    rel="noopener"
+                    class="tw-text-blue-600 tw-underline"
+                    >Community Slack</a
+                  >
+                </div>
+                <div
+                  class="tw-mt-2 tw-text-red-500 tw-text-sm tw-text-center tw-hidden error-view"
+                >
+                  Failed to submit feedback. Please try again.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <li
-          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
         >
           <a href="https://short.openobserve.ai/community" target="_blank">
             <img
               src="/docs/assets/slack-icon.svg"
               alt="slack"
-              class="w-5 h-5"
+              class="tw-w-5 tw-h-5"
             />
           </a>
         </li>
         <li
-          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
         >
           <a href="https://twitter.com/OpenObserve" target="_blank">
             <img
               src="/docs/assets/twitter-icon.svg"
               alt="twitter"
-              class="w-5 h-5"
+              class="tw-w-5 tw-h-5"
             />
           </a>
         </li>
         <li
-          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
         >
           <a
             href="https://www.linkedin.com/company/openobserve"
@@ -410,29 +947,29 @@
             <img
               src="/docs/assets/linkdin-icon.svg"
               alt="linkedin"
-              class="w-5 h-5"
+              class="tw-w-5 tw-h-5"
             />
           </a>
         </li>
         <li
-          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
         >
           <a href="https://github.com/openobserve/openobserve" target="_blank">
             <img
               src="/docs/assets/github-dark.svg"
               alt="github"
-              class="w-5 h-5"
+              class="tw-w-5 tw-h-5"
             />
           </a>
         </li>
         <li
-          class="p-2 rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-10"
+          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
         >
           <a href="https://www.youtube.com/@openobserve" target="_blank">
             <img
               src="/docs/assets/youtube-icon.svg"
               alt="youtube"
-              class="w-5 h-5"
+              class="tw-w-5 tw-h-5"
             />
           </a>
         </li>
@@ -516,6 +1053,8 @@
             { text: "Careers", link: "/careers/" },
             { text: "Contact Us", link: "/contact-us/" },
             { text: "Contact Sales", link: "/contact-sales/" },
+            { text: "Request Demo", link: "/demo/" },
+            { text: "Partners", link: "/partners/" },
             { text: "Enterprise License", link: "/enterprise-license/" },
           ],
         },
@@ -524,21 +1063,29 @@
       footerData.forEach((section) => {
         const column = document.createElement("div");
         column.innerHTML = `
-          <h2 class="text-white font-medium text-base mb-3">${
-            section.title
-          }</h2>
-          <ul class="space-y-2 text-gray-300 text-xs">
-            ${section.items
-              .map(
-                (item) => `<li class="hover:text-[#7782FF]">
-                  <a href="${item.link}" target="${item.target || ""}">${
-                  item.text
-                }</a>
-                </li>`
-              )
-              .join("")}
-          </ul>
-        `;
+    <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">
+      ${section.title}
+    </div>
+    <ul class="tw-space-y-2 tw-text-gray-300 tw-text-xs header-list-style">
+      ${section.items
+        .map((item) => {
+          const plausibleAttr =
+            item.text === "Request Demo"
+              ? 'plausible-event-name="Demo+Button"'
+              : "";
+          return `
+            <li class="hover:tw-text-[#7782FF]">
+              <a href="${item.link}" target="${
+            item.target || ""
+          }" ${plausibleAttr}>
+                ${item.text}
+              </a>
+            </li>
+          `;
+        })
+        .join("")}
+    </ul>
+  `;
         container.appendChild(column);
       });
 
@@ -558,4 +1105,76 @@
       });
     }
   </script>
+  <style>
+    /* Custom styles for feedback modal */
+
+    /* Responsive: Center modal and fit to screen on mobile */
+    @media (max-width: 640px) {
+      .custom-feedback-modal {
+        position: fixed !important;
+        left: 50% !important;
+        top: 80% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 95vw !important;
+        min-width: 0 !important;
+        max-width: 95vw !important;
+        z-index: 9999 !important;
+        margin: 0 !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      .custom-feedback-modal .tw-bg-gray-200 {
+        padding: 1rem !important;
+      }
+    }
+
+    /* Responsive: Tablet view styles */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .custom-feedback-modal {
+        position: fixed !important;
+        left: 50% !important;
+        top: 60% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 70vw !important;
+        min-width: 0 !important;
+        max-width: 70vw !important;
+        z-index: 9999 !important;
+        margin: 0 !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      .custom-feedback-modal .tw-bg-gray-200 {
+        padding: 1.5rem !important;
+      }
+    }
+    /* Desktop defaults: keep modal small and aligned to the footer button when open */
+    @media (min-width: 1025px) {
+      .custom-feedback-modal {
+        position: absolute !important;
+        left: auto !important;
+        right: 0 !important;
+        /* allow top-full / bottom-full classes to control vertical placement */
+        width: auto !important;
+        min-width: 400px !important;
+        max-width: 420px !important;
+      }
+
+      .custom-feedback-modal .tw-bg-gray-200 {
+        padding: 0.75rem !important;
+      }
+    }
+  </style>
+
+  <!-- reCAPTCHA v2 Script -->
+  <script
+    src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit"
+    async
+    defer
+  ></script>
 </footer>

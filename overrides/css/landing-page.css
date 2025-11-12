@@ -83,7 +83,7 @@ body > .landing-page {
 
 /* Heading styles */
 .landing-page h1 {
-  font-size: 20px !important;
+  font-size: 32px !important;
   font-weight: bold;
   margin: 0;
   line-height: 1.3;
@@ -155,7 +155,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-main-content {
   width: 100%;
   padding: 0 var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
-  margin-top: 0 !important;
+  margin-top: 1rem !important;
   padding-top: 0 !important;
 }
 
@@ -176,6 +176,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   margin-bottom: 12px;
   position: relative;
   overflow: hidden;
+  margin-top: 20px;
 }
 
 /* Dark theme hero card background */
@@ -243,7 +244,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 /* Primary Button Styles */
-.primary-button {
+.primary-button-hero {
   position: relative;
   border: none;
   color: white !important;
@@ -254,34 +255,37 @@ body:has(.landing-page) .md-sidebar--secondary {
   transition: all 0.3s ease;
   background-color: rgb(107, 118, 226);
   border: 1px solid transparent;
-  padding: 5px 14px !important;
+  padding: 8px 16px !important;
   text-decoration: none;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-xs);
   font-size: var(--font-size-md);
   white-space: nowrap;
+  min-height: 36px;
+  line-height: 1.2;
 }
 
-.primary-button:hover {
+.primary-button-hero:hover {
   background-color: var(--color-hover-card);
   color: white !important;
   text-decoration: none;
 }
 
-.primary-button:visited,
-.primary-button:focus {
+.primary-button-hero:visited,
+.primary-button-hero:focus {
   color: white !important;
   text-decoration: none;
 }
 
-.primary-button *,
-.primary-button:hover * {
+.primary-button-hero *,
+.primary-button-hero:hover * {
   color: white !important;
 }
 
-.primary-button:disabled {
+.primary-button-hero:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   background-image: linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
@@ -293,16 +297,46 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-btn-content {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  justify-content: center;
+  gap: 6px;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .landing-play-icon {
   display: flex;
   align-items: center;
-  font-size: 1.15em;
-  margin-right: 0.1em;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
+}
+
+.landing-play-icon img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Additional button text containment rules */
+.primary-button-hero span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  line-height: 1.2;
+}
+
+.landing-btn-content span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Ensure buttons maintain consistent height */
+.landing-hero-buttons .primary-button-hero {
+  min-height: 36px;
+  height: auto;
+  box-sizing: border-box;
 }
 
 /* Section Styles */
@@ -652,7 +686,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 .landing-community-support-item {
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md) calc(var(--spacing-lg) + 30px) var(--spacing-md)
+    var(--spacing-lg);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -664,6 +699,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   text-decoration: none;
   color: inherit;
   min-height: 80px;
+  overflow: hidden;
 }
 
 .landing-community-support-item:hover {
@@ -684,6 +720,13 @@ body:has(.landing-page) .md-sidebar--secondary {
   opacity: 0;
   transition: all 0.2s ease;
   color: var(--text-primary);
+  z-index: 1;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 [data-md-color-scheme="default"] .landing-community-support-arrow {
@@ -914,6 +957,49 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  /* Hero section - column layout for tablets and small laptops */
+  .landing-hero-content {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    text-align: center;
+  }
+
+  .landing-hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  /* Three column layout for integration grid on tablets and small laptops */
+  .landing-integration-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Two column layout for community support on medium to large tablets */
+  .landing-community-support-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 992px) {
+  /* Reduce arrow size and adjust position for medium screens */
+  .landing-community-support-arrow {
+    font-size: 16px;
+    right: var(--spacing-md);
+  }
+
+  /* Reduce extra padding on medium screens */
+  .landing-community-support-item {
+    padding: var(--spacing-md) calc(var(--spacing-md) + 25px) var(--spacing-md)
+      var(--spacing-md);
+  }
+}
+
 @media (max-width: 768px) {
   .landing-tutorial-row {
     flex-direction: column;
@@ -928,8 +1014,9 @@ body:has(.landing-page) .md-sidebar--secondary {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Keep two column layout for community support */
   .landing-community-support-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .landing-hero-content {
@@ -941,5 +1028,49 @@ body:has(.landing-page) .md-sidebar--secondary {
   .landing-hero-buttons {
     align-self: stretch;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  /* Hide arrow on mobile to prevent overlap */
+  .landing-community-support-arrow {
+    display: none !important;
+  }
+
+  /* Adjust community support item padding for mobile - remove extra right padding when arrow is hidden */
+  .landing-community-support-item {
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md)
+      var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-features-list {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-integration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Switch to single column only on very small screens */
+  .landing-community-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-main-content {
+    padding: 0 var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+  }
+
+  /* Ensure no arrow interference on very small screens */
+  .landing-community-support-arrow {
+    display: none !important;
+  }
+
+  /* Compact padding for very small screens */
+  .landing-community-support-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 60px;
   }
 }

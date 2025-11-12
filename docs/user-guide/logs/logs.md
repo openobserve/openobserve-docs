@@ -111,6 +111,6 @@ Click the more options menu or the three-bar icon to access:
 
 ## Next Steps
 
-- To learn how to visualize logs, refer to the [Dashboards](../dashboards/index/) documentation. 
-- To learn how to monitor logs continuously, refer to the [Alerts](../alerts/index/) documentation. 
+- To learn how to visualize logs, refer to the [Dashboards](../../dashboards/) documentation. 
+- To learn how to monitor logs continuously, refer to the [Alerts](../../alerts) documentation. 
 

@@ -6,6 +6,9 @@ description: >-
 ---
 This guide provides step-by-step instructions for creating and using Scheduled Actions in OpenObserve.
 
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+
 **Scheduled Actions** in OpenObserve allow you to execute custom Python scripts at a specific time, either **once** or on a **recurring schedule** defined using a cron expression.  
 Scheduled Actions run based on time, making them suitable for:
 

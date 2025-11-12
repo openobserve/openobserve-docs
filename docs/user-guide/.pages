@@ -1,10 +1,11 @@
 nav:
     - Concepts: concepts.md
-    - Log Search: logs
+    - Logs: logs
     - Metrics: metrics
     - Streams: streams
     - Ingestion: ingestion
     - Pipelines: pipelines
+    - Traces: traces
     - Alerts: alerts
     - Dashboards: dashboards
     - Actions: actions
@@ -15,6 +16,7 @@ nav:
     - Management: management
     - Profile: profile
     - Performance: performance
+    - Federated Search: federated-search
     - Best Practices: best-practices
     - Migration: migration
    
