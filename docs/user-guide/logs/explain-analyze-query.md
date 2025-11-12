@@ -84,7 +84,7 @@ The execution tree displays operators from top to bottom on your screen, but you
 
 ---
 
-## Explain Query
+## Explain query
 
 The Explain Query option shows how OpenObserve interprets and executes a SQL query. It displays two views: 
 
@@ -117,19 +117,16 @@ The Physical Plan shows how OpenObserve executes your query, including the speci
 
 !!! note "Common operators you will see:"
 
-    - **DataSourceExec**: Reads data from storage
-    - **RemoteScanExec**: Reads data from distributed partitions or remote nodes
-    - **FilterExec**: Applies filtering operations
-    - **ProjectionExec**: Handles column selection and expression computation
-    - **AggregateExec**: Performs aggregation operations
-    - May show `mode=Partial` or `mode=FinalPartitioned`
-    - **RepartitionExec**: Redistributes data across partitions
-    - May show `Hash([column], N)` or `RoundRobinBatch(N)`
-    - **CoalesceBatchesExec**: Combines data batches
-    - **SortExec**: Sorts data
-    - May show `TopK(fetch=N)` for optimized sorting
-    - **SortPreservingMergeExec**: Merges sorted data streams
-    - **CooperativeExec**: Coordinates distributed execution
+    - **DataSourceExec**: Reads data from storage.
+    - **RemoteScanExec**: Reads data from distributed partitions or remote nodes.
+    - **FilterExec**: Applies filtering operations.
+    - **ProjectionExec**: Handles column selection and expression computation.
+    - **AggregateExec**: Performs aggregation operations. May show `mode=Partial` or `mode=FinalPartitioned`.
+    - **RepartitionExec**: Redistributes data across partitions. May show `Hash([column], N)` or `RoundRobinBatch(N)`.
+    - **CoalesceBatchesExec**: Combines data batches.
+    - **SortExec**: Sorts data. May show `TopK(fetch=N)` for optimized sorting.
+    - **SortPreservingMergeExec**: Merges sorted data streams.
+    - **CooperativeExec**: Coordinates distributed execution.
 
 ---
 
