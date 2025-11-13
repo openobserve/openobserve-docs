@@ -7,4 +7,6 @@ nav:
     - Summary Streams: summary-streams.md
     - Field and Index Types in Streams: fields-and-index-in-streams.md
     - Query Recommendations Stream: query-recommendations.md
+    - Distinct Values: distinct-values.md
+
     

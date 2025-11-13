@@ -2,6 +2,7 @@ nav:
 
 - SQL Functions Overview: index.md
 - Full-Text Search Functions: full-text-search.md 
+- Secondary Index Functions: secondary-index.md
 - Array Functions: array.md
 - Aggregate Functions: aggregate.md
 - Approximate Aggregate Functions: approximate-aggregate  
