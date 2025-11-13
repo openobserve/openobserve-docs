@@ -84,7 +84,7 @@ The execution tree displays operators from top to bottom on your screen, but you
 
 ---
 
-## Explain query
+## Explain Query
 
 The Explain Query option shows how OpenObserve interprets and executes a SQL query. It displays two views: 
 
@@ -116,7 +116,6 @@ The Physical Plan shows how OpenObserve executes your query, including the speci
 ![physical-plan](../../images/physical-plan.png)
 
 !!! note "Common operators you will see:"
-
     - **DataSourceExec**: Reads data from storage.
     - **RemoteScanExec**: Reads data from distributed partitions or remote nodes.
     - **FilterExec**: Applies filtering operations.

@@ -3,11 +3,11 @@ description: >-
   Configure OpenObserve with flexible environment variables for roles, storage,
   performance, and scaling across open source and enterprise deployments.
 ---
-> Applicable to both Open Source and Enterprise editions. 
+> Applicable to both Open Source and Enterprise editions.
 
 OpenObserve is configured using the following environment variables.
 
-## Basic Configuration 
+## Basic Configuration
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_ROOT_USER_EMAIL | - | Email ID of the root user. |
@@ -32,7 +32,7 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_HTTP_WORKER_MAX_BLOCKING | 1024 | Maximum number of blocking connections allowed per HTTP thread. |
 | ZO_GRPC_PORT | 5081 | Port number on which the OpenObserve server listens for gRPC requests. |
 | ZO_GRPC_ADDR | | IP address on which the OpenObserve server listens for gRPC requests. |
-| ZO_GRPC_ORG_HEADER_KEY | openobserve-org-id | Header key for sending organization information in traces using OTLP over gRPC. |
+| ZO_GRPC_ORG_HEADER_KEY | organization | Header key for sending organization information in traces using OTLP over gRPC. |
 | ZO_GRPC_STREAM_HEADER_KEY | stream-name | Header key for sending stream name information in traces using OTLP over gRPC. |
 | ZO_GRPC_MAX_MESSAGE_SIZE | 16 | Maximum gRPC message size in MB. Default is 16 MB. |
 | ZO_GRPC_CONNECT_TIMEOUT | 5 | Timeout in seconds for connecting to the gRPC server. |
@@ -87,14 +87,9 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_MEM_TABLE_MAX_SIZE | 0 | Total size limit of all memtables. Multiple memtables exist for different organizations and stream types. Each memtable cannot exceed ZO_MAX_FILE_SIZE_IN_MEMORY, and the combined size cannot exceed this limit. If exceeded, the system returns a MemoryTableOverflowError to prevent out-of-memory conditions. Default is 50 percent of total memory. |
 | ZO_MEM_PERSIST_INTERVAL | 5 | Interval in seconds at which immutable memtables are persisted from memory to disk. Default is 5 seconds. |
 | ZO_FEATURE_SHARED_MEMTABLE_ENABLED | false | When set to true, it turns on the shared memtable feature and several organizations can use the same in-memory table instead of each organization creating its own. This helps reduce memory use when many organizations send data at the same time. It also works with older non-shared write-ahead log (WAL) files. |
-| ZO_MEM_TABLE_BUCKET_NUM | 1 | This setting controls how many in-memory tables OpenObserve creates, and works differently depending on whether shared memtable is enabled or disabled. <br>**When ZO_FEATURE_SHARED_MEMTABLE_ENABLED is true (shared memtable enabled)**: OpenObserve creates the specified number of shared in-memory tables that all organizations use together. <br> **If the number is higher**: OpenObserve creates more shared tables. Each table holds data from fewer organizations. This can make data writing faster because each table handles less data. However, it also uses more memory. <br> **If the number is lower**: OpenObserve creates fewer shared tables. Each table holds data from more organizations. This saves memory but can make data writing slightly slower when many organizations send data at the same time.
-<br>
-**When ZO_FEATURE_SHARED_MEMTABLE_ENABLED is false (shared memtable disabled)**:
-<br>
-Each organization creates its own set of in-memory tables based on the ZO_MEM_TABLE_BUCKET_NUM value.
-<br>
-For example, if ZO_MEM_TABLE_BUCKET_NUM is set to 4, each organization will create 4 separate in-memory tables.
-This is particularly useful when you have only one organization, as creating multiple in-memory tables for that single organization can improve ingestion performance.|
+| ZO_MEM_TABLE_BUCKET_NUM | 1 | This setting controls how many in-memory tables OpenObserve creates, and works differently depending on whether shared memtable is enabled or disabled. <br> **When ZO_FEATURE_SHARED_MEMTABLE_ENABLED is true (shared memtable enabled)**: OpenObserve creates the specified number of shared in-memory tables that all organizations use together. <br> - **If the number is higher**: OpenObserve creates more shared tables. Each table holds data from fewer organizations. This can make data writing faster because each table handles less data. However, it also uses more memory. <br> - **If the number is lower**: OpenObserve creates fewer shared tables. Each table holds data from more organizations. This saves memory but can make data writing slightly slower when many organizations send data at the same time.
+<br> **When ZO_FEATURE_SHARED_MEMTABLE_ENABLED is false (shared memtable disabled)**: Each organization creates its own set of in-memory tables based on the ZO_MEM_TABLE_BUCKET_NUM value.
+<br> For example, if ZO_MEM_TABLE_BUCKET_NUM is set to 4, each organization will create 4 separate in-memory tables. This is particularly useful when you have only one organization, as creating multiple in-memory tables for that single organization can improve ingestion performance.|
 
 ## Indexing
 | Environment Variable | Default Value | Description |
@@ -132,7 +127,7 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_COMPACT_PENDING_JOBS_METRIC_INTERVAL | 300           | Interval to publish pending job metrics in seconds.                                            |
 | ZO_COMPACT_MAX_GROUP_FILES               | 10000         | Maximum number of files allowed in a compaction group.                                         |
 
-## UI and Web 
+## UI and Web
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_UI_SQL_BASE64_ENABLED | false | Enable base64 encoding for SQL in UI. |
@@ -153,7 +148,7 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_JSON_LIMIT | 209715200 | The max payload size of JSON. |
 | ZO_PAYLOAD_LIMIT | 209715200 | The max payload size of http request body. |
 
-## Actix Server   
+## Actix Server
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_ACTIX_REQ_TIMEOUT | 30 | Sets actix server client timeout in seconds for first request. |
@@ -182,7 +177,7 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_TRACES_FILE_RETENTION | hourly | Default time partition level for trace streams. Supported values are hourly and daily. |
 | ZO_METRICS_FILE_RETENTION | daily | Default time partition level for metric streams. Supported values are hourly and daily. |
 
-## Metrics 
+## Metrics
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_METRICS_DEDUP_ENABLED | true | Enable de-duplication for metrics |
@@ -193,13 +188,13 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_SELF_METRIC_CONSUMPTION_ACCEPTLIST | -             | Comma-separated list of metrics to self-consume.     |
 
 
-## Distinct Values 
+## Distinct Values
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_DISTINCT_VALUES_INTERVAL | 10s | Controls how often distinct values for a stream are written from memory to disk. Distinct values are automatically collected when data is ingested. Instead of writing every value to disk immediately, the system waits for this interval. This prevents the system from frequently writing very small chunks of data to disk. Example: If the interval is 10 seconds, distinct values ingested within that 10-second window are combined and written once. |
 | ZO_DISTINCT_VALUES_HOURLY | false | Enables additional deduplication at an hourly level. When enabled, distinct values that repeat within the same hour are merged again, and the system logs a count instead of storing duplicate entries. The collected distinct values are stored in a special stream named distinct_values. Example: Suppose request IDs 123 appear multiple times in one hour. Instead of separate entries, they are merged into one record like: request_id: 123, count: 3  |
 
-## Alerts and Reports 
+## Alerts and Reports
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_ALERT_SCHEDULE_INTERVAL | 10s | Defines how often the alert manager checks for scheduled jobs such as alerts, reports, or scheduled pipelines. The default value is 10 seconds. This means the alert manager fetches and processes alerts, reports, and pipelines every 10 seconds. |
@@ -241,7 +236,7 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_FILE_LIST_DUMP_MIN_HOUR    | 2             | Minimum hour of day to run file list dump.  |
 | ZO_FILE_LIST_DUMP_DEBUG_CHECK | true          | Enables debug checks during file list dump. |
 
-## Queue 
+## Queue
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_QUEUE_STORE | | Set to "nats" to enable internal queuing through NATS for coordinating rate limiting. |
@@ -561,7 +556,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_USAGE_REPORTING_MODE    | local  | Local mode means the usage will be reported only in the internal cluster of ZO_USAGE_ORG. remote mode means that the usage reporting will be ingested to the remote target. both ingests the usage reports both to internal and remote target. |
 | ZO_USAGE_REPORTING_URL     | [http://localhost:5080/api/_meta/usage/_json](http://localhost:5080/api/_meta/usage/_json) | In case of remote or both value of ZO_USAGE_REPORTING_MODE, this URL is used to post the usage reports to remote target.  |
 | ZO_USAGE_REPORTING_CREDS   | -  | The credentials required to send along with the post request to the ZO_USAGE_REPORTING_URL. E.g. - Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=.  |
-| ZO_USAGE_PUBLISH_INTERVAL  | 600   | Duration in seconds after the last reporting usage will be published. |                                                                                                     
+| ZO_USAGE_PUBLISH_INTERVAL  | 600   | Duration in seconds after the last reporting usage will be published. |
 
 ## SMTP
 
@@ -602,7 +597,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_QUICK_MODE_FORCE_ENABLED           | true | Enables automatic activation of Quick Mode from the backend. When set to true, OpenObserve applies Quick Mode automatically if the number of fields in a stream exceeds the limit defined by `ZO_QUICK_MODE_NUM_FIELDS`, even when the Quick Mode toggle in the UI is turned off.|
 | ZO_QUICK_MODE_NUM_FIELDS         | 500   | This defines the number of fields beyond which the quick mode will be force enabled.        |
 
-## Miscellaneous 
+## Miscellaneous
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_STARTING_EXPECT_QUERIER_NUM | 0 | The number of queriers expected to be running while caching enrichment tables. |
@@ -717,7 +712,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 <!--
 
 | Environment Variable                 | Default Value              | Mandatory    | Description                                                                       |
-| ------------------------------------ | -------------------------- | ------------ | --------------------------------------------------------------------------------- | 
+| ------------------------------------ | -------------------------- | ------------ | --------------------------------------------------------------------------------- |
 | ZO_ROOT_USER_EMAIL                   | -                          | On first run | Email of first/root user                                                          |
 | ZO_ROOT_USER_PASSWORD                | -                          | On first run | Password for first/root user                                                      |
 | ZO_LOCAL_MODE                        | true                       | No           | If local mode is set to true ,OpenObserve becomes single node deployment, false indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure `sqlite db`, for cluster mode one needs to config `etcd`.                    |
@@ -731,7 +726,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_HTTP_WORKER_MAX_BLOCKING          | 1024                       | No           | number of per http thread blocking connection in queue                            |
 | ZO_GRPC_PORT                         | 5081                       | No           | openobserve server listen gRPC port                                               |
 | ZO_GRPC_ADDR                         |                            | No           | openobserve server listen gRPC ip address                                         |
-| ZO_GRPC_ORG_HEADER_KEY               | openobserve-org-id         | No           | header key for sending organization information for `traces` using OTLP over grpc |
+| ZO_GRPC_ORG_HEADER_KEY               | organization               | No           | header key for sending organization information for `traces` using OTLP over grpc |
 | ZO_GRPC_STREAM_HEADER_KEY            | stream-name                | No           | header key for sending stream-name information for `traces` using OTLP over grpc  |
 | ZO_GRPC_MAX_MESSAGE_SIZE             | 16                         | No           | Max grpc message size in MB, default is 16 MB.                                    |
 | ZO_GRPC_CONNECT_TIMEOUT              | 5 (seconds)                | No           | The timeout in seconds to connect to the grpc server.                             |
