@@ -12,8 +12,8 @@ Install OpenObserve as a system service use systemd.
 `/etc/openobserve.env`
 
 ```toml
-ZO_ROOT_USER_EMAIL = "root@example.com"
-ZO_ROOT_USER_PASSWORD = "Complexpass#123"
+ZO_ROOT_USER_EMAIL = "example@example.com"
+ZO_ROOT_USER_PASSWORD = "Example@123"
 ZO_DATA_DIR = "/data/openobserve"
 ```
 

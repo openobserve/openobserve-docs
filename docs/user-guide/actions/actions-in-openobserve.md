@@ -6,7 +6,7 @@ description: >-
 This guide explains what Actions are, their types, and use cases.
 
 !!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
     
 ## What are Actions  
 Actions in OpenObserve are user-defined Python scripts that support custom automation workflows. They can be applied to log data directly from the Logs UI or used as alert destinations. 
