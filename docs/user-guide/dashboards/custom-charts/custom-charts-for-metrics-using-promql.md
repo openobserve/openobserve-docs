@@ -1,18 +1,16 @@
-
 This guide explains how to build custom charts for metrics in OpenObserve using PromQL. The goal is to help new and advanced users understand how raw metrics data transforms into a fully rendered chart through predictable and repeatable steps.
 
 ## How metric data flows into a chart
-Metrics data in OpenObserve follows a fixed transformation pipeline:
+Metrics data in OpenObserve follows a fixed transformation flow:
 
 `Metrics data in OpenObserve > PromQL query > Matrix JSON > Transform into timestamp-value pairs > Render chart`
 
-This data pipeline never changes. Only two things vary:
+This data flow never changes. Only two things vary:
 
 - The **PromQL query**
 - The **JavaScript transformation logic** that prepares data based on the chart you want to build
 
-The example uses the `container_cpu_time metric` and builds a time-series line chart.
-
+The example uses the `container_cpu_time` metric and builds a time-series line chart.
 
 ## How to build the custom chart for metrics using PromQL
 
@@ -121,15 +119,11 @@ The example uses the `container_cpu_time metric` and builds a time-series line c
                 metric: { ...labels... },
                 values: [
                     [timestamp, value],
-
-            ...
+                    ...
                         ]
-                }
-
+                    }
                 ]
-
             }
-
         ]
         ```
         Here,
@@ -148,7 +142,7 @@ The example uses the `container_cpu_time metric` and builds a time-series line c
 ??? "Step 5: Understand how to transform the data and render the chart"
     ### Step 5: Understand how to transform the data and render the chart
     Now that you have inspected the raw PromQL response, you can prepare the data and build a chart.
-    Every PromQL-based custom chart in OpenObserve follows the same pipeline:
+    Every PromQL-based custom chart in OpenObserve follows the same flow:
     `data > transform > series > option > chart`
     The following subsections explain each part in the correct order.
 
@@ -179,7 +173,7 @@ The example uses the `container_cpu_time metric` and builds a time-series line c
     Here:
 
     - Each object inside result represents one metric series.
-    - The metric object holds all identifying labels.
+    - The `metric` object holds all identifying labels.
     - The values array holds the actual time-series data as `[timestamp, value]`.
 
 
@@ -255,52 +249,51 @@ The example uses the `container_cpu_time metric` and builds a time-series line c
     **JavaScript code:**
 
     ```js linenums="1"
+    /// Set the chart type you want
+    // Supported examples: "line", "scatter", "bar"
+    const chartType = "bar";
+
     // Step 1: prepare an empty list of series
     const series = [];
 
     // Step 2: read the PromQL response from OpenObserve
     if (Array.isArray(data) && data.length > 0) {
     const query = data[0];
+
     if (query.result && Array.isArray(query.result)) {
-    for (const item of query.result) {
-    if (!Array.isArray(item.values)) {
-    continue;
+        for (const item of query.result) {
+        if (!Array.isArray(item.values)) {
+            continue;
+        }
+
+        // Step 3: convert [timestamp, value] to [ISO time, number]
+        const points = item.values.map(([timestamp, value]) => [
+            new Date(timestamp * 1000).toISOString(),
+            Number(value)
+        ]);
+
+        // Step 4: choose a label for the legend
+        const name =
+            item.metric.k8s_pod_name ||
+            item.metric.container_id ||
+            "unknown";
+
+        // Step 5: add one series entry for this metric
+        series.push({
+            name: name,
+            type: ,
+            data: points
+        });
+        }
     }
-
-    // Step 3: convert [timestamp, value] to [ISO time, number]
-    const points = item.values.map(([timestamp, value]) => [
-    new Date(timestamp * 1000).toISOString(),
-    Number(value)
-    ]);
-
-    // Step 4: choose a label for the legend
-    const name =
-    item.metric.k8s_pod_name ||
-    item.metric.container_id ||
-    "unknown";
-
-    // Step 5: add one line series for this metric
-    series.push({
-    name: name,
-    type: "line",
-    data: points,
-    smooth: true,
-    showSymbol: false
-    });
-
-    }
-
-    }
-
     }
 
     // Step 6: define how the chart should be drawn
-
     option = {
-    tooltip: { trigger: "axis" },
-    legend: { type: "scroll", top: "top" },
     xAxis: { type: "time", name: "Time" },
     yAxis: { type: "value", name: "Value" },
+    legend: { type: "scroll", top: "top" },
+    tooltip: { trigger: chartType === "scatter" ? "item" : "axis" },
     series: series
     };
     ```
