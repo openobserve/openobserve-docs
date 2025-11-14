@@ -22,10 +22,10 @@ For example:
 - `58.0` as `Float64`  
 - `"58%"` as `Utf8`
 
-## Index Type
+## Index type
 You can modify or assign an index type to a field to improve search performance. Indexing can reduce the amount of data that must be scanned during queries. 
 
-To learn more, visit the [Fields and Index in Streams](streams/fields-and-index-in-streams) page.
+To learn more, visit the [Fields and Index in Streams](https://openobserve.ai/docs/user-guide/streams/data-type-and-index-type-in-streams/) page.
 
 !!! Warning  
     Changing the index after storing data may lead to inconsistent query results or data retrieval failures.
