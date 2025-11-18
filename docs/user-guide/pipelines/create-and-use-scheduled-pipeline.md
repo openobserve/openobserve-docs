@@ -135,8 +135,8 @@ Use this guide to create and run scheduled pipelines. Scheduled pipelines run at
     ### Step 1: Ingest data
     Use curl or any supported ingestion method.
     To find the sample curl command, go to **Data Sources** > **Custom** > **Logs** > **Curl**. 
-    Each new event ingested into the source stream is processed instantly.
-
+    The scheduled pipeline does not run immediately when data is ingested.  
+    It processes data only when the schedule triggers, using the configured frequency, period, and delay.
 ??? "Step 2: Verify output"
     ### Step 2: Verify output
     ![view-result](../../images/view-scheduled-result.png)
