@@ -2,13 +2,16 @@
 This guide provides information about how the Alert History feature in OpenObserve works, where the data originates from, who can access it, how to interpret the Alert History table, and how to debug failed or skipped alerts.
 
 ## Overview 
-All alert trigger data is stored in the triggers stream inside the `_meta` organization. Access to `_meta` is restricted and managed through IAM, which means only users with elevated privileges can view it directly.
+OpenObserve records alert evaluation events in a dedicated stream called `triggers`. Each organization has its own `triggers` stream. When an alert is evaluated, the evaluation result is written to the triggers stream inside that organization. OpenObserve also writes a copy of the same event to the `triggers` stream in the `_meta` organization for organization level monitoring.
 
-The Alert History page brings this information into the user’s organization. It provides visibility into alert evaluations, including when each alert ran, its evaluation duration, and its final status. This design allows alert owners to monitor alert performance and troubleshoot issues without requiring access to the `_meta` organization.
+> An evaluation is the system checking whether the alert’s condition is true. For scheduled alerts, this check happens at the set frequency. For real time alerts, the check happens whenever new data arrives. The condition defines what should trigger the alert. 
+A trigger happens when the evaluation finds the condition to be true. This creates a firing event and can send a notification if one is set.
 
 !!! note "Who can access it"
-    Any user who has permission to view, update, or delete alerts can also access Alert History. This ensures that alert managers and operators can analyze their alerts’ execution history without depending on users with higher administrative access.
+    Any user who has permission to view, update, or delete alerts can also access Alert History. Users do not need access to the `_meta` organization to view alert history for their own organization. Access to the `_meta` organization is only required when administrators need to review alert evaluation events across all organizations.
 
+!!! note "Environment variable"
+    `ZO_USAGE_REPORT_TO_OWN_ORG`: Controls where alert evaluation events are stored. When it is enabled, OpenObserve writes each evaluation event to the organization’s own `triggers` stream and also keeps a copy in the `_meta` organization. This allows users to view their alert history within their own organization without requiring access to `_meta`, while still supporting organization level debugging from the `_meta` organization.
 
 ## How to interpret the Alert History table
 ![alert-history](../../images/alert-history.png)
@@ -22,8 +25,9 @@ Each row represents one alert evaluation.
 - **Start Time** and **End Time**: The time range of data evaluated.
 - **Duration**: How long the alert condition remained true.
 - **Status**: The result of the alert evaluation.
-- **Retries**: Number of times the system retried alert delivery when the destination did not acknowledge it. The system retries up to three times. <br> 
-**Note**: The environment variable `ZO_SCHEDULER_MAX_RETRIES` defines how many times the scheduler retries a failed execution.
+- **Retries**: Number of times the system retried alert delivery when the destination did not acknowledge it. The system retries up to three times. <br> **Note**: The environment variable `ZO_SCHEDULER_MAX_RETRIES` defines how many times the scheduler retries a failed execution.
+- **Total Evaluations**: Shows how many times the alert rule has been evaluated over the selected time range. Each evaluation corresponds to one run of the alert’s query and condition.
+- **Firing Count**: Shows how many of those evaluations resulted in a firing event, that is, how many times the alert condition was satisfied and the alert was triggered.
 - **Actions**: Opens a detailed view that includes:
 
     - **Evaluation Time**: The time taken to complete the alert’s search query.
@@ -37,6 +41,9 @@ Each row represents one alert evaluation.
     - **condition_not_met**: The configured alert condition was not satisfied for that time range.
     - **skipped**: The scheduled evaluation window was missed due to a delay, and the system evaluated the next aligned window.
 
+- **Alert Details** drawer: Opens when the user clicks an alert in the Alerts list. The drawer displays the alert condition, description, and evaluation history.  
+
+![Alert details drawer](../../images/alert-details-drawer.png)
 ## How to debug a failed alert
 This process applies only to users who have access to the `_meta` organization.
 ![debug-alert-history](../../images/debug-alert-history.png)
@@ -64,3 +71,4 @@ This process applies only to users who have access to the `_meta` organization.
 A **skipped** status appears when a scheduled alert runs later than its expected window. <br>
 For example, an alert configured with a 5-minute period and 5-minute frequency is scheduled to run at 12:00 PM. It should normally evaluate data from 11:55 to 12:00.
 If the alert manager experiences a delay and runs the job at 12:05 PM, it evaluates the current aligned window (12:00 to 12:05) instead of the earlier one. The earlier window (11:55 to 12:00) is marked as skipped to indicate that evaluation for that range did not occur because of delay in job pickup or data availability.
+

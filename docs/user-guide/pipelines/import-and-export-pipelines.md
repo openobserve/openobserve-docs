@@ -6,49 +6,39 @@ description: >-
 This guide explains how to import and export pipelines. Use this feature to replicate existing pipelines across environments without recreating them from scratch.
 
 
-## Export a Pipeline
+## Export a pipeline
 
 To export an existing pipeline configuration:
 
 1. From the left navigation menu, go to **Pipelines**.  
 2. In the **Pipelines** tab, locate the pipeline you want to export.   
-3. In the **Actions** column of the pipeline you want to export, click the download icon.  
-
+3. In the **Actions** column of the pipeline, click the download icon.  
+![download-pipeline](../../images/download-pipeline-json.png)
 The downloaded `.json` file contains the pipeline configuration and can be used to import the pipeline into another environment.<br>
-![export pipeline](../../images/pipeline-import-export-1.png)  
 
-For example, exporting the pipeline `encrypt_test_pipeline` generates a JSON file similar to the following:  
-```json  
-{  
-  "name": "encrypt_test_pipeline",  
-  "stream_name": "k8s_events",  
-  "stream_type": "logs",  
-  "type": "realtime",  
-  "nodes": [...],  
-  "edges": [...],  
-  "enabled": false  
-}  
-```
+For example, exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar to the following:  
+![json-file-pipeline-export](../../images/json-file-pipeline-export.png)
 
-## Import a Pipeline
+## Import a pipeline
 
 To import a previously exported pipeline:
+![pipeline-import](../../images/pipeline-import.png)
 
 1. Go to **Pipelines**.  
 2. Click **Import Pipeline** in the top-right corner.<br>  
-   ![import pipeline](../../images/pipeline-import-export-2.jpg) 
 3. Choose one of the supported import methods:  
 
     - **Upload JSON Files**: Select one or more JSON files containing pipeline configurations from your local system.  
     - **Enter URL**: Provide a URL to fetch the pipeline configuration.  
     - **Paste JSON Object**: Copy and paste the JSON pipeline definition in the JSON editor.
 
-![import methods](../../images/pipeline-import-export-3.png)<br>  
-To import pipelines in bulk, choose multiple JSON files, as shown below:<br>  
-![bulk import](../../images/pipeline-import-export-4.png)  
-4. Click **Import**.
+![import methods](pipeline-import-json.png) 
+4. To import pipelines in bulk, choose multiple JSON files. 
+5. Click **Import**. 
+The imported pipeline appears in the **Pipelines** tab.
 
-## Handle Validation Errors
+
+## Handle validation errors while importing pipelines
 
 If any validation errors occur during import, refer to the following resolutions:
 
@@ -62,9 +52,10 @@ If any validation errors occur during import, refer to the following resolutions
 - **Function name does not exist:** Enter the function name  
 - **Remote Destination does not exist:** Ensure the remote destination is accurate. 
 
-![validation error](../../images/pipeline-import-export-5.png)
-
-The imported pipeline appears in the **Pipelines** tab.   
 
 ## Related Links
-- [Manage Pipelines](../manage-pipelines/)
+- [Pipelines in OpenObserve](../pipelines/pipelines/)
+- [Create and Use Real-time Pipeline](../create-and-use-real-time-pipeline/)
+- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Manage Pipelines](../pipelines/manage-pipelines/)
+- [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
