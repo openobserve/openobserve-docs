@@ -1,7 +1,7 @@
 This guide explains how to build custom charts for metrics in OpenObserve using PromQL. The goal is to help new and advanced users understand how raw metrics data transforms into a fully rendered chart through predictable and repeatable steps.
 
 ## How metric data flows into a chart
-Metrics data in OpenObserve follows a fixed transformation flow:
+Custom charts use a clear and repeatable flow to convert PromQL results into a visual chart. When you build a chart with the Custom Chart panel, OpenObserve processes the data in the following order:
 
 `Metrics data in OpenObserve > PromQL query > Matrix JSON > Transform into timestamp-value pairs > Render chart`
 
