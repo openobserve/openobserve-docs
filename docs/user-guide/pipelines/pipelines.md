@@ -68,6 +68,9 @@ Use real-time pipelines when you need immediate processing, such as monitoring l
 
 ## Scheduled pipelines
 A scheduled pipeline processes historical data from an existing stream at user-defined intervals. This is useful when you need to extract, transform, and load (ETL) data at regular intervals without manual intervention. 
+
+
+> For more details, refer to the [Create and Use Scheduled Pipelines](../create-and-use-scheduled-pipeline/) guide. 
     
 ### How scheduled pipelines work
 
