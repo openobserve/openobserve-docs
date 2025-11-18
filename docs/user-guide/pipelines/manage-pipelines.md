@@ -36,7 +36,7 @@ Each pipeline row includes the following actions.
 
 ### Pause and resume pipelines
 
-You can pause both real-time and scheduled pipelines.
+You can pause both real-time and scheduled pipelines. <br>
 
 **Pausing a pipeline:**
 
@@ -74,9 +74,9 @@ Scheduled pipelines display a Resume Pipeline Ingestion dialog with two options.
 
 ### Pipeline error
 If a pipeline encounters an error, an error icon appears in the **Actions** column.
-![pipeline-error](pipeline-error.png)
+![pipeline-error](../../images/pipeline-error.png)
 Selecting this icon opens a dialog that displays the full error summary.
-![pipeline-error-view](pipeline-error-view.png)
+![pipeline-error-view](../../images/pipeline-error-view.png)
 
 ## Pipeline history
 You can view past executions, errors, and performance statistics in the Pipeline History page.
@@ -88,7 +88,7 @@ You can export any pipeline and import pipeline configurations through the Impor
 
 ## Related links
 - [Pipelines in OpenObserve](../pipelines/pipelines/)
-- [Create and Use Real-time Pipeline](../create-and-use-real-time-pipeline/)
-- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Create and Use Real-time Pipeline](../pipelines/create-and-use-real-time-pipeline/)
+- [Create and Use Scheduled Pipeline](../pipelines/create-and-use-scheduled-pipeline/)
 - [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
 - [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)

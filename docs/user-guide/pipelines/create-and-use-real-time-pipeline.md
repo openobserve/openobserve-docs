@@ -153,7 +153,7 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
 
 ## Related links
 - [Pipelines in OpenObserve](../pipelines/pipelines/)
-- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Create and Use Scheduled Pipeline](../pipelines/create-and-use-scheduled-pipeline/)
 - [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
 - [Manage Pipelines](../pipelines/manage-pipelines/)
 - [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
