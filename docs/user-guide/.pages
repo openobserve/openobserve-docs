@@ -1,11 +1,10 @@
 nav:
-    - Concepts: concepts.md
     - Logs: logs
+    - Traces: traces
     - Metrics: metrics
     - Streams: streams
     - Ingestion: ingestion
     - Pipelines: pipelines
-    - Traces: traces
     - Alerts: alerts
     - Dashboards: dashboards
     - Actions: actions

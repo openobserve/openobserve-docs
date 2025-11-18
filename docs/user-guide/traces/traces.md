@@ -76,7 +76,7 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     ![Service map](../../images/service-map.png)
     **Span details:** Provide metadata such as file path, code line, service version, thread ID, and additional attributes. Events and error messages appear when available.
     ![Span details](../../images/span-details.png)
-=== "Configure"
+=== "How-to"
     <br>
     The following configuration steps show how to set up OpenObserve for self-monitoring and for collecting traces from external applications.
 
@@ -246,7 +246,6 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
 
             **Note**: If no results appear after selecting **View Trace**, confirm that in your log stream the trace ID and span ID are available in the `trace_id` and `span_id` respectively. If not, ensure the custom trace ID and span ID fields are configured in the Organization parameter section under Management. 
             ![config-traces-in-org-parameter](../../images/config-traces-in-org-parameter.png)
-=== "How to"
 
     ## View a trace
     1. Go to **Traces**.
