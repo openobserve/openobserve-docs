@@ -16,14 +16,13 @@ To export an existing pipeline configuration:
 ![download-pipeline](../../images/download-pipeline-json.png)
 The downloaded `.json` file contains the pipeline configuration and can be used to import the pipeline into another environment.<br>
 
-For example, exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar to the following:  
-![json-file-pipeline-export](../../images/json-file-pipeline-export.png)
+!!! note "Example" 
+    Exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar to the following:"  
+    ![json-file-pipeline-export](../../images/json-file-pipeline-export.png)
 
 ## Import a pipeline
-
 To import a previously exported pipeline:
-![pipeline-import](../../images/pipeline-import.png)
-
+![alt text](../../images/import-pipelines.png)
 1. Go to **Pipelines**.  
 2. Click **Import Pipeline** in the top-right corner.<br>  
 3. Choose one of the supported import methods:  
@@ -32,7 +31,6 @@ To import a previously exported pipeline:
     - **Enter URL**: Provide a URL to fetch the pipeline configuration.  
     - **Paste JSON Object**: Copy and paste the JSON pipeline definition in the JSON editor.
 
-![import methods](pipeline-import-json.png) 
 4. To import pipelines in bulk, choose multiple JSON files. 
 5. Click **Import**. 
 The imported pipeline appears in the **Pipelines** tab.
@@ -53,9 +51,9 @@ If any validation errors occur during import, refer to the following resolutions
 - **Remote Destination does not exist:** Ensure the remote destination is accurate. 
 
 
-## Related Links
+## Related links
 - [Pipelines in OpenObserve](../pipelines/pipelines/)
-- [Create and Use Real-time Pipeline](../create-and-use-real-time-pipeline/)
-- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Create and Use Real-time Pipeline](../pipelines/create-and-use-real-time-pipeline/)
+- [Create and Use Scheduled Pipeline](../pipelines/create-and-use-scheduled-pipeline/)
 - [Manage Pipelines](../pipelines/manage-pipelines/)
 - [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
