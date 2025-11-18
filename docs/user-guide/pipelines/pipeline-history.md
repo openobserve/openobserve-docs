@@ -4,8 +4,7 @@ This guide provides information about how the Pipeline History feature in OpenOb
 ## Overview
 Pipeline History provides visibility into every pipeline run, including its execution time, status, and duration. Each record represents one instance of a scheduled or manually triggered pipeline execution.
 
-!!! "Who can access"
-
+!!! note "Who can access"
     Any user who has permission to view, update, or delete pipelines can also view pipeline history. This ensures that users responsible for managing or maintaining pipelines can monitor their performance and investigate failures without requiring elevated access.
 
 
@@ -31,7 +30,7 @@ The table lists each pipeline run with key execution details.
 
 ![actions-pipeline-history](../../images/actions-pipeline-history.png)
 
-    - **Query Time**: Time taken by the SQL query within the pipeline to execute. This helps measure query performance.
-    - **Source Node**: Node responsible for executing the run. This helps identify where the execution occurred for debugging and performance monitoring.<br>
-    Example: <br>
-    **Source Node**: `o2-openobserve-alertmanager-0`
+- **Query Time**: Time taken by the SQL query within the pipeline to execute. This helps measure query performance.
+- **Source Node**: Node responsible for executing the run. This helps identify where the execution occurred for debugging and performance monitoring.<br>
+Example: <br>
+**Source Node**: `o2-openobserve-alertmanager-0`

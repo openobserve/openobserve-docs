@@ -3,68 +3,92 @@ description: >-
   Manage, filter, search, edit, pause, or delete real-time and scheduled
   pipelines in OpenObserve using the intuitive pipeline list and actions panel.
 ---
-This page describes the features designed to help you manage your pipelines in OpenObserve.
+This page describes how to manage real-time and scheduled pipelines in OpenObserve. You can filter, search, view, edit, pause, resume, or delete pipelines from a single interface.
 
-![pipeline management](../../images/pipeline12_manage_pipelines.png)
+![pipeline management](../../images/manage_pipelines.png)
 
+## Filter pipelines
+Use the filter options **All**, **Real-Time**, and **Scheduled** to view only the type of pipelines you want to work with.
 
-## Filter Options
-
-Toggle between **All**, **Real-Time**, and **Scheduled** pipelines to focus on the type of pipelines you want to view.
-
-
-## Search Pipelines
-
+## Search pipelines
 Use the search bar to locate pipelines by name or attributes.
 
+## Pipeline list view
+The pipeline list displays key information for each pipeline.
 
-## Pipeline List View
+- **Pipeline Name**: Identifies the pipeline.
+- **Type**: Indicates whether the pipeline is real-time or scheduled.
+- **Stream Name**: Shows the associated source stream.
+- **Stream Type**: Indicates the type of data in the stream such as logs, metrics, traces, or enrichment tables.
+- **Frequency**: Displays how often the scheduled pipeline runs.
+- **Period**: Shows the time duration used for each execution window of a scheduled pipeline.
+- **Cron**: Indicates whether the pipeline is configured using a cron expression.
 
-View all pipelines in a tabular format, including:
+## Actions tab
 
-- **Pipeline Name**: Identify the pipeline.
-- **Type**: Displays whether it is real-time or scheduled.
-- **Stream Name**: Indicates the associated source stream.
-- **Stream Type**: Specifies the type of data in the stream- logs, metrics, traces, or enrichment tables.  
-- **Frequency**: Shows how often the scheduled pipeline executes.
-- **Period**: Indicates the interval duration for scheduled pipeline execution.
-- **Silence**: Shows the configured silence period for scheduled pipelines.
-- **Cron**: Specifies whether the scheduled pipeline uses a cron schedule (True/False).
-- **SQL Query**: Displays the SQL query used in the scheduled pipeline configuration.
+Each pipeline row includes the following actions.
+
+- Start or pause pipeline
+- Edit pipeline
+- Export pipeline configuration
+- Delete pipeline
+- View pipeline details
+
+### Pause and resume pipelines
+
+You can pause both real-time and scheduled pipelines.
+
+**Pausing a pipeline:**
+
+- When paused, the pipeline stops executing on its scheduled intervals. 
+- The system preserves the exact timestamp when the pause occurred. 
+- Pipeline configuration and state are maintained during the pause. 
+
+**Resuming a real-time pipeline**:
+
+- Real-time pipelines resume instantly with one click.
+- No dialog or additional options are shown.
+- Processing continues from the current moment.
 
 
-## Actions Tab
+**Resuming a scheduled pipeline**: 
 
-- **Edit Pipeline**: Modify the configuration of an existing pipeline.
-- **Delete Pipeline**: Remove a pipeline permanently from your system.
-- **Pause/Start Pipelines**: Temporarily stop or restart pipelines as needed.
+Scheduled pipelines display a Resume Pipeline Ingestion dialog with two options.
+![Resume pipeline](../../images/resume-scheduled-pipeline.png)
 
-!!! Info "Pause and Resume a Scheduled Pipeline"
-    **Pausing a Scheduled Pipeline:**
+  - **Continue from where it paused:**
 
-    - When paused, the pipeline stops executing on its scheduled intervals. 
-    - The system preserves the exact timestamp when the pause occurred. 
-    - Pipeline configuration and state are maintained during the pause. 
+    - Processes all data from the pause timestamp to the current time. 
+    - Maintains complete data continuity with no gaps. 
+    - May consume significant system resources for long pause periods. 
 
-    **Unpausing a Scheduled Pipeline:**
+    > **Note:** Use the **Continue from where it paused** option, when data completeness is critical. 
 
-    When resuming a paused scheduled pipeline, OpenObserve presents a **Resume Pipeline Ingestion** dialog with two options:
-    <br>
-    ![Resume pipeline](../../images/resume-scheduled-pipeline.png)
+  - **Start from now:**
 
-    - **Continue from where it paused:**
+    - Begins processing from the current timestamp. 
+    - Creates a data gap between the pause and resume timestamps. 
+    - Provides immediate resumption with minimal resource usage. 
 
-        - Processes all data from the pause timestamp to the current time. 
-        - Maintains complete data continuity with no gaps. 
-        - May consume significant system resources for long pause periods. 
+    > **Note:** Use the **Start from now** option, when data gaps are acceptable. 
 
-        > **Note:** Use the **Continue from where it paused** option, when data completeness is critical. 
+### Pipeline error
+If a pipeline encounters an error, an error icon appears in the **Actions** column.
+![pipeline-error](pipeline-error.png)
+Selecting this icon opens a dialog that displays the full error summary.
+![pipeline-error-view](pipeline-error-view.png)
 
-    - **Start from now:**
+## Pipeline history
+You can view past executions, errors, and performance statistics in the Pipeline History page.
 
-        - Begins processing from the current timestamp. 
-        - Creates a data gap between the pause and resume timestamps. 
-        - Provides immediate resumption with minimal resource usage. 
+The [Pipeline History](https://openobserve.ai/docs/user-guide/pipelines/pipeline-history/) page provides a complete timeline of runs with detailed execution information.
 
-        > **Note:** Use the **Start from now** option, when data gaps are acceptable. 
-    
+## Import and export pipelines
+You can export any pipeline and import pipeline configurations through the Import and **Export** options. For more details, see [Import and export pipelines](https://openobserve.ai/docs/user-guide/pipelines/import-and-export-pipelines/).
+
+## Related links
+- [Pipelines in OpenObserve](../pipelines/pipelines/)
+- [Create and Use Real-time Pipeline](../create-and-use-real-time-pipeline/)
+- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
+- [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
