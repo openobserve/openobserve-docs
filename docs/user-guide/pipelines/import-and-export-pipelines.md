@@ -15,10 +15,8 @@ To export an existing pipeline configuration:
 3. In the **Actions** column of the pipeline, click the download icon.  
 ![download-pipeline](../../images/download-pipeline-json.png)
 The downloaded `.json` file contains the pipeline configuration and can be used to import the pipeline into another environment.<br>
-
-!!! note "Example" 
-    Exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar to the following:"  
-    ![json-file-pipeline-export](../../images/json-file-pipeline-export.png)
+Exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar to the following:  
+![json-file-pipeline-export](../../images/json-file-pipeline-export.png)
 
 ## Import a pipeline
 To import a previously exported pipeline:
