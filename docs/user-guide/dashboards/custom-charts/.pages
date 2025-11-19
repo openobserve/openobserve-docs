@@ -5,3 +5,4 @@ nav:
     - Custom Charts with Nested Data: custom-charts-nested-data.md
     - Event Handlers and Custom Functions: custom-charts-event-handlers-and-custom-functions.md
     - Custom Charts for Metrics Using PromQL: custom-charts-for-metrics-using-promql.md
+    - Custom Charts for Metrics Using Multiple PromQL Queries: custom-charts-for-metrics-using-multiple-promql-queries.md
