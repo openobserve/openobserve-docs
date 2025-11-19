@@ -5,12 +5,12 @@ description: >-
 ---
 The following step-by-step instructions can help you build a [custom chart that expects flat data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
-## Use Case
+## Use case
 
 Build a custom **heatmap chart** to understand which organization and search type combinations generate the most query load.
 
 
-## Before You Begin
+## Before you begin
 
 To build a custom chart, you need to bridge two things:
 
@@ -19,7 +19,7 @@ To build a custom chart, you need to bridge two things:
 
 > **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart.
 
-## Step 1: Understand the Ingested Dataset
+## Step 1: Understand the ingested dataset
 
 In OpenObserve, the data ingested into a stream is typically in a flat structure.   
 **Example:** In the following dataset, each row represents a single event or query log with its own timestamp, organization ID, search type, and query duration.
@@ -39,7 +39,7 @@ In OpenObserve, the data ingested into a stream is typically in a flat structure
 
 **Note**: Use the **Logs** page to view the data ingested to the stream. 
 
-## Step 2: Identify the Expected Data Structure
+## Step 2: Identify the expected data structure
 
 Before moving ahead, [identify what structure the chart expects](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). The heatmap chart expects flat data.
 
@@ -51,7 +51,7 @@ In this example, each row in [data[0]](what-are-custom-charts.md#the-data-object
 
 **Note**: For charts that expect flat data, [reshaping is not needed](what-are-custom-charts.md#build-the-chart). SQL alone is enough to prepare the data in required format.
 
-## Step 3: Prepare the Data (via SQL)
+## Step 3: Prepare the data (via SQL)
 
 In the [Add Panel](what-are-custom-charts.md#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
 ![custom-chart-flat-data-add-panel](../../../images/custom-chart-flat-data-add-panel.png)
@@ -85,7 +85,7 @@ Select a time range to fetch the relevant dataset for your chart.
 
 ![custom-chart-flat-data-time-range-selection](../../../images/custom-chart-flat-data-time-range.png)
 
-**Expected Query Result**
+**Expected query result**
 
 ```linenums="1"
 data=[[
@@ -99,7 +99,7 @@ data=[[
 
 **Note**: OpenObserve stores the result of the query in [the `data` object](what-are-custom-charts.md#the-data-object) as an **array of an array**.
 
-## Step 4: Inspect the Queried Dataset
+## Step 4: Inspect the queried dataset
 
 Inspect the queried dataset:
 
@@ -108,7 +108,7 @@ console.log(data);
 console.log(data[0]);
 ```
 
-## Step 5: JavaScript Code to Render the Heatmap
+## Step 5: JavaScript code to render the heatmap
 
 In the JavaScript editor, you must construct an [object named `option`](what-are-custom-charts.md#the-option-object). 
 This `option` object defines how the chart looks and behaves. To feed data into the chart, use the query result stored in `data[0]` 
@@ -165,13 +165,13 @@ option = {
 };
 ```
 
-## Step 6: View Result
+## Step 6: View result
 
 Click **Apply** to generate the chart. 
 
 ![custom-chart-flat-data-result](../../../images/custom-chart-flat-data-result.png)
 
-### Understand the Chart
+### Understand the chart
 
 In the chart, 
 
@@ -208,7 +208,7 @@ Use the following guidance to identify and fix common issues when working with c
 - Open your browser's developer console to locate the error.  
 - Use `console.log()` to test your script step by step.
 
-**4. Chart Not Rendering:**   
+**4. Chart not rendering:**   
 **Cause**: The query returned data, but the chart did not render.  
 **Fix**: 
 

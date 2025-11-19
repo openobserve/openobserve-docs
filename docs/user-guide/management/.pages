@@ -10,3 +10,4 @@ nav:
     - Nodes in OpenObserve: nodes.md
     - SSO Domain Restrictions: sso-domain-restrictions.md 
     - Sensitive Data Redaction: sensitive-data-redaction.md
+    - License Management: lincense.md
