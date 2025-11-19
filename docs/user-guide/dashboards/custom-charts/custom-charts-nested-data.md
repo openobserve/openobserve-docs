@@ -7,7 +7,7 @@ The following step-by-step instructions show how to build a [custom chart that e
 
 This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md#build-the-chart). 
 
-## Use Case
+## Use case
 Build a custom **Sunburst chart** to visualize how **query execution time** is distributed across different **organizations** and **search types**.
 The goal is to understand:
 
@@ -16,7 +16,7 @@ The goal is to understand:
 - Whether certain usage patterns need optimization or resource allocation
 
 
-## Step 1: Choose the Chart
+## Step 1: Choose the chart
 
 
 To build a custom chart, you need to bridge two things:
@@ -26,7 +26,7 @@ To build a custom chart, you need to bridge two things:
 
 > **Note**: Understanding both is important because it helps you write the right SQL query, [prepare](what-are-custom-charts.md#build-the-chart) the data through grouping or aggregation, [reshape](what-are-custom-charts.md#build-the-chart) the results to match the chart’s structure, and map them correctly in the JavaScript code that renders the chart. 
 
-## Step 1: Understand the Ingested Data
+## Step 1: Understand the ingested data
 OpenObserve stores ingested data in a flat structure.  
 
 **Example:** In the following dataset, each row represents a single event or query log, with its own timestamp, organization ID, search type, and query duration.
@@ -46,13 +46,13 @@ OpenObserve stores ingested data in a flat structure.
 
 **Note**: To view the ingested data, go to the **Logs** page and run the query against the stream for a selected time range. 
 
-## Step 2: Identify the Expected Data Structure
+## Step 2: Identify the expected data structure
 
 Before starting, [identify what structure the chart expects](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
 Sunburst chart expects data to be in nested format or parent-child hierarchy. Each parent (`organization_id`) should contain its children (`search_types`), each with a value.
 
-## Step 3: Fetch and Prepare the Data
+## Step 3: Fetch and prepare the data
 
 In the [**Add Panel**](what-are-custom-charts.md#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
 ![custom-charts-add-panel](../../../images/custom-chart-nested-data-add-panel.png) 
@@ -90,7 +90,7 @@ Select a time range to fetch the relevant dataset for your chart.
 
 ![custom-chart-select-time-range](../../../images/custom-chart-nested-time-range-selection.png)
 
-**Expected Query Result**
+**Expected query result**
 
 ```linenums="1"
 data = [[
@@ -124,7 +124,7 @@ data = [[
 
 **Note**: OpenObserve stores the result of the query in the [`data` object](what-are-custom-charts.md#the-data-object) as an array of an array.
 
-## Step 4: Inspect the Queried Data
+## Step 4: Inspect the queried data
 
 Inspect the queried dataset before reshaping:
 
@@ -139,7 +139,7 @@ This helps confirm:
 - If there is any inconsistencies or formatting issues  
 - If the data requires any preparation before reshaping
 
-## Step 5: Reshape Data Into Nested Structure
+## Step 5: Reshape data into nested structure
 
 In the JavaScript editor, write a script to convert the queried result into a nested array suitable for a Sunburst chart:
 
@@ -165,7 +165,7 @@ const treeData = Object.values(grouped);
 
 Note: In the `option` object, use the reshaped `treeData` array as the data field in your chart configuration.
 
-## Step 6: Render the Chart
+## Step 6: Render the chart
 
 Construct the [`option` object](what-are-custom-charts.md#the-option-object) in the JavaScript code to define the reshaped dataset and configure how the chart should appear. 
 
@@ -189,7 +189,7 @@ option = {
 
 **Note**: Further, you can enhance the chart with [event handlers and reusable functions](custom-charts-event-handlers-and-custom-functions.md).
 
-## Step 7: View Results
+## Step 7: View results
 
 Click **Apply** to generate the chart. 
 
@@ -198,7 +198,7 @@ If the query and JavaScript logic are correct, the chart appears in the preview 
 ![custom-charts-result](../../../images/custom-chart-nested-data-result.png)
 <br>
 
-### Understand the Chart
+### Understand the chart
 
 The above Sunburst chart shows a breakdown of total query time across organizations and their search types.
 
