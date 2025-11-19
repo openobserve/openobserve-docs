@@ -21,6 +21,7 @@ Exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar t
 ## Import a pipeline
 To import a previously exported pipeline:
 ![alt text](../../images/import-pipelines.png)
+
 1. Go to **Pipelines**.  
 2. Click **Import Pipeline** in the top-right corner.<br>  
 3. Choose one of the supported import methods:  
