@@ -7,7 +7,7 @@ description: >-
 
 This guide explains how to deploy [OpenObserve Enterprise Edition](https://openobserve.ai/downloads/)  in a **Kubernetes** environment using **Helm**. 
 
-> For support, reach out in the [Slack channel](/marketing-opt-in/, "_self").
+> For support, reach out in the [Slack channel](/marketing-opt-in/ "_blank").
 
 !!! info "Architecture Overview" 
     OpenObserve Enterprise Edition depends on several components to support scalable ingestion, search, storage, and access control:
