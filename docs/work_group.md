@@ -1,13 +1,39 @@
 ---
-description: >-
-  Manage query performance in enterprise with Work Group settings—optimize CPU,
-  memory, and concurrency for long and short queries in OpenObserve streams.
+description: Manage query performance in enterprise with Work Group settings—optimize CPU, memory, and concurrency for long and short queries in OpenObserve streams.
 ---
-> `Applicable to enterprise version`
 
-## All the ENV
+Work groups control how OpenObserve allocates CPU, memory, and concurrency for different types of search tasks. They help maintain consistent performance when multiple users and system processes run searches at the same time. 
 
-```
+!!! note "Note"
+    This feature is available in the Enterprise Edition.
+
+
+## Overview
+OpenObserve evaluates each search task and assigns it to a work group. Each group receives its own limits for CPU, memory, and concurrency. When many tasks run at the same time, work groups prevent heavy tasks from slowing down interactive user queries.
+
+OpenObserve uses three work groups:
+
+- Short
+- Long
+- Background
+
+!!! note "Note"
+    Short and long groups manage user queries. The background group handles system tasks.
+
+## Background work group
+The background work group handles system tasks that run independently of user activity. These tasks include:
+
+- Alert evaluations
+- Report generation
+- Derived stream processing
+
+The background group uses its own queue and resource limits. This ensures that system tasks do not interfere with user query performance.
+
+
+## Environment variables
+Work groups rely on the following environment variables for resource management and concurrency limits.
+
+```ini
 ZO_FEATURE_QUERY_QUEUE_ENABLED = false
 
 O2_SEARCH_GROUP_BASE_SPEED = 1024 // MB
@@ -27,43 +53,70 @@ O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4
 O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY = 1
 O2_SEARCH_GROUP_USER_SHORT_MAX_CONCURRENCY = 2
 ```
+These variables define how much CPU and memory each group can use and how many queries each group can run at the same time.
 
-### How it works
 
-1. Allocate resources based on whether it's a short or long query.
-2. Define two resource groups with 3 environments to limit the resource on each querier node:
+### How OpenObserve assigns queries to work groups
+OpenObserve estimates the execution time for each query and assigns it to the short or long work group based on the expected cost. 
+
+The estimation uses the following values:
+
+- Allocate resources based on whether the query is short or long.
+- Define two resource groups with 3 environments to limit the resource on each querier node:
+
     - `O2_SEARCH_GROUP_x_MAX_CPU`, should be a percentage of the total CPU cores.
     - `O2_SEARCH_GROUP_x_MAX_MEMORY`, should be a percentage of the total `Datafusion` memory.
     - `O2_SEARCH_GROUP_x_MAX_CONCURRENCY`, should be a fixed number, minimal `1`. 
-    1. Long query group
+
+    - Long query group:
+
         - `O2_SEARCH_GROUP_LONG_MAX_CPU = 80%`
         - `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 80%`
         - `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`
-    2. Short query group
+
+    - Short query group:
+
         - `O2_SEARCH_GROUP_SHORT_MAX_CPU = 20%`
         - `O2_SEARCH_GROUP_SHORT_MAX_MEMORY = 20%`
         - `O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4`
-3. The amount of available memory for per query request equals to `O2_SEARCH_GROUP_x_MAX_MEMORY / O2_SEARCH_GROUP_x_MAX_CONCURRENCY`. For example, if total system memory is `10GB` then Datafusion allow to use `50%`, which amounts to `5GB`; therefore, long-query groups have access to `80%` equating to `4GB` and supporting `2` concurrent processes means each search request can use up to `2GB` of RAM.
-4. The search request will always use all of the CPU cores in its group.
-5. Search requests exceeding concurrency limits will be queued and executed in FIFO order.
 
-### User Quota-Based Resource Management
+- The amount of memory available to a single search request in a group equals: `O2_SEARCH_GROUP_x_MAX_MEMORY / O2_SEARCH_GROUP_x_MAX_CONCURRENCY`
 
-On top of global resource management settings, we also have user quota-based design elements. For example:
+!!! note "Example" 
+
+    - If total system memory is `10GB` then Datafusion can use `50%`, DataFusion has `5GB`.  
+    - If the long group has `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 80%`, it can use `4GB`. 
+    - With `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`, each long query can use up to `2GB` of memory.
+
+- A search request uses all CPU cores assigned to its work group as defined by `O2_SEARCH_GROUP_x_MAX_CPU`.
+- When a search request exceeds the concurrency defined by `O2_SEARCH_GROUP_x_MAX_CONCURRENCY`, it is placed in a queue and executed later in first-in, first-out order.
+
+
+
+###  User quota-based resource management
+
+OpenObserve applies per-user quotas inside each work group. These limits prevent a single user from using all group concurrency.
 
 - `O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY = 1`
 - `O2_SEARCH_GROUP_USER_SHORT_MAX_CONCURRENCY = 2`
 
-Even we allow to run `4` short queries in concurrent, but for same user only allow to run `2` short queries, if the user has over `2` request in concurrent then the exceeding request need wait into queue.
+**Example**:
 
-### How to calculate whether the search request is a long query or a short query?
+- Short group allows four concurrent short queries through `O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4`.
+- One user can run only two short queries at the same time.
+- If the same user sends more than two short queries, the extra queries wait in the queue even if global capacity is available.
 
-- We assume the search speed is `1GB`, `O2_SEARCH_GROUP_BASE_SPEED=1024`, this is configurable. 
-- We assume greater than `10s` is a long query, `O2_SEARCH_GROUP_BASE_SECS=10`, this is configurable.
-- We know the total CPU cores of the queries in the cluster.  
-- We also know the `scan_size` of a search request, and then we can calculate the predicted seconds:
+### How to calculate whether a search request is a long query or a short query
+OpenObserve uses base speed and base seconds to estimate the expected execution time.
 
-```rust
+- `O2_SEARCH_GROUP_BASE_SPEED = 1024` defines the assumed scan speed in megabytes per second, which is about one gigabyte per second.
+- `O2_SEARCH_GROUP_BASE_SECS = 10` defines the time threshold for classification. Queries that exceed this threshold are long queries.
+- The system knows the total CPU cores across querier nodes.
+- The system knows the `scan_size` of the search request.
+
+OpenObserve uses the following logic:
+
+```rust linenums="1"
 let cpu_cores = max(2, CLUSTER_TOTAL_CPU_CORES * O2_SEARCH_GROUP_SHORT_MAX_CPU);
 let predict_secs = scan_size / O2_SEARCH_GROUP_BASE_SPEED / cpu_cores;
 if predict_secs > O2_SEARCH_GROUP_BASE_SECS {
@@ -73,40 +126,82 @@ if predict_secs > O2_SEARCH_GROUP_BASE_SECS {
 }
 ```
 
-## How to decide Long or Short query
-
-- we have 10 querier, each node have 16 CPU cores and 64GB. then we have 160 CPU cores in the cluster for query.
-- then we can use 128 (80%  set using O2_SEARCH_GROUP_LONG_MAX_CPU ) CPU cores for long term query.
-- then we can use 32 (20% set using O2_SEARCH_GROUP_SHORT_MAX_CPU ) CPU cores for short term query.
-
-### Short query
-
-We fire a query and we know that the scan_size is 100GB, then 100GB / 1GB (base_speed set using O2_SEARCH_GROUP_BASE_SPEED) / 32 CPU cores = `3s`, and the base_secs (set using O2_SEARCH_GROUP_BASE_SECS) is `10s`, so we decide this is a **short query**.
-
-### Long query
-
-We fire a query and we know that the scan_size is 1TB, then 1024GB / 1GB (base_speed) / 32 CPU cores = `31s`, and the base_secs is `10s`, so we decide this is a **long query**.
+- The predicted time is the scan size divided by `O2_SEARCH_GROUP_BASE_SPEED` and then divided by the number of CPU cores used for the calculation.
+- If the predicted time is greater than the value of `O2_SEARCH_GROUP_BASE_SECS`, the request is a long query.
+- Otherwise, it is a short query.
 
 
-## How to decide the MAX_CONCURRENCY
+## How to decide long or short query: example
 
-This is based on your resource and the response time that you expect.
+Cluster example:
 
-For example. We have 160 CPU cores and we assume the search speed is 1GB/core/secs, then we know if we want to search 1TB data, it need 1024GB / 1GB / 160 CPU = `6.4s`, but this is for single request. 
+- Ten querier nodes
+- Sixteen CPU cores and sixty-four gigabytes of memory per node
+- Total CPU cores for queries: one hundred sixty
 
-If you want to support two requests processing in parallel, then each request can use 50% resource it means only 80 CPU cores, then concurrent 2 requests and both search for 1TB data, each request will response in 1024GB / 1GB / 80 CPU = `12.8s`.
+From the environment variables:
 
-If you set the `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 4`, then it will be:
+- Long queries use eighty percent of available CPU cores, which is one hundred twenty-eight cores.
+- Short queries use twenty percent of available CPU cores, which is thirty-two cores.
 
-- when there is only one request, actually it can use all the CPU cores, the response time is `6.4s`
-- when there are 2 concurrent requests, each request can use 50% CPU cores, the response time is `12.8s`
-- when there are 4 concurrent requests, each request can use 25% CPU cores, the response time is `25.6s`
-- when there are 5 concurrent requests, each request can use 25% CPU cores, the response time is `25.6s`, and the 5 request need wait in long term queue.
 
-If you set the `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 10`, then it will be:
+**Short query example**:
 
-- when there is only one request, actually it can use all the CPU cores, the response time is `6.4s`
-- when there are 2 concurrent requests, each request can use 50% CPU cores, the response time is `12.8s`
-- when there are 4 concurrent requests, each request can use 25% CPU cores, the response time is `25.6s`
-- when there are 10 concurrent requests, each request can use 10% CPU cores, the response time is `64s`
-- when there are 11 concurrent requests, each request can use 10% CPU cores, the response time is `64s`, and the 11 request need wait in long term queue.
+- Scan size: one hundred gigabytes
+- Base speed: one gigabyte per second
+- CPU for short queries: thirty-two cores
+
+
+**Estimated time**: `100GB / 1GB per second / 32 cores = 3 seconds`
+<br>
+**Threshold**: `O2_SEARCH_GROUP_BASE_SECS = 10`
+<br>
+**Result**: This is a short query.
+
+<br>
+**Long query example**
+
+- Scan size: one terabyte
+- Base speed: one gigabyte per second
+- CPU for short queries: thirty-two cores
+
+
+**Estimated time**: `1024GB / 1GB per second / 32 cores = 31 seconds`
+<br>
+**Result**: This is a long query.
+
+
+## How to decide the maximum concurrency
+Concurrency determines how many queries are allowed to run at the same time in each group. Increasing concurrency increases parallelism but also increases the response time for each task.
+
+
+Cluster example:
+
+- Total CPU cores: one hundred sixty
+- Scan size: one terabyte
+- Base speed: one gigabyte per second
+
+
+**Single request**: 
+<br>
+`1024GB / 1GB per second / 160 cores = 6.4 seconds`
+<br><br>
+**Two parallel requests**
+<br>
+Each request receives eighty cores:
+<br>
+`1024GB / 1GB per second / 80 cores = 12.8 seconds`
+<br><br>
+**Four parallel requests**
+<br>
+Each request receives forty cores:
+<br>
+`1024GB / 1GB per second / 40 cores = 25.6 seconds`
+<br><br>
+**Ten parallel requests**
+<br>
+Each request receives sixteen cores:
+<br>
+`1024GB / 1GB per second / 16 cores = 64 seconds`
+<br>
+If the number of requests exceeds the value of `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY`, the extra requests wait in the queue.
