@@ -1,4 +1,5 @@
 nav:
+    - General Settings: general-settings.md
     - Management Overview: index.md
     - Streaming Search: streaming-search.md
     - Streaming Aggregation: aggregation-cache.md
