@@ -91,7 +91,7 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
     A destination defines where the processed events are written. You can forward data to another stream or to an external system.
 
     **To add a stream destination:** 
-    ![stream-destination](../../images/stream-destination.png)
+    ![external-destination](../../images/external-destination.png)
 
     1. Drag a **Stream** node into the editor.
     2. In the **Associate Stream** panel, configure the destination stream.
@@ -113,7 +113,7 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
 
 
     **To add an external destination:** 
-    ![external-destination](../../images/external-destination.png)
+    ![stream-destination](../../images/stream-destination.png)
 
     1. Drag a **Remote** node into the editor.
     2. In the **External Destination** panel, either select an existing destination or enable **Create new Destination** and fill in the required details such as name, URL, method, output format, and headers.
