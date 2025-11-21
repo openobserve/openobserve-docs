@@ -1,7 +1,7 @@
 This page provides an overview of pipelines, their types, and how they work.<br>
 
-## What pipelines do
-Pipelines let you control what happens to your data after it is ingested into OpenObserve. They provide a clear way to read data from a source, apply changes, and send the processed output to a destination. Pipelines work continuously in the background and ensure that your data is transformed or routed exactly as required.  
+## Overview
+Pipelines let you control what happens to your data after it is ingested into OpenObserve. They provide a clear way to read data from a source, apply changes, and send the processed output to a destination.  
 ![Pipelines in OpenObserve](../../images/pipeline-new-editor.png)
 
 !!! note "Who can access pipelines"
