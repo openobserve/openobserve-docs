@@ -6,3 +6,5 @@ nav:
     - Organizations: organizations.md
     - Quotas: quotas
     - Manage Users & Passwords: update-password.md
+    - SSO Claim Parser: sso-claim-parser.md
+    - SSO Claim Samples: sso-claim-samples.md
