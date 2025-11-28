@@ -832,6 +832,10 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_ALERT_SCHEDULE_INTERVAL           |                            | No           |  |
 | ZO_TCP_PORT                          | 5514                       | No           | TCP port for syslog  |
 | ZO_UDP_PORT                          | 5514                       | No           | UDP port for syslog  |
+| ZO_TCP_TLS_ENABLED                   | false                      | No           | Enable TLS for TCP syslog server. |
+| ZO_TCP_TLS_CERT_PATH                 |                            | No           | Path to the TLS certificate file to be used on the server. |
+| ZO_TCP_TLS_KEY_PATH                  |                            | No           | Path to the TLS key file to be used on the server. |
+| ZO_TCP_TLS_CA_CERT_PATH              |                            | No           | Path to the TLS CA certificate file to be used on the server. |
 | ZO_APP_NAME                          |                            | No           |  |
 | ZO_DEFAULT_SCRAPE_INTERVAL           |                            | No           |  |
 | ZO_CIRCUIT_BREAKER_ENABLE            |                            | No           |  |
