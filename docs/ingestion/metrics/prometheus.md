@@ -7,8 +7,6 @@ description: >-
 
 You can ingest metrics using prometheus [remote write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) in OpenObserve.
 
-You will then be able to explore the metrics in metrics explorer and build dashboards by querying using SQL. PromQL support for querying metrics is under development.
-
 You could use below configuration for collecting metrics
 
 ```yaml
@@ -20,4 +18,10 @@ basic_auth:
   password: password
 ```
 
-Replace api.openobserve.ai with your self hosted OpenObserve instance if you are hosting it yourself.
+> Replace api.openobserve.ai with your self hosted OpenObserve instance if you are hosting it yourself.
+
+You will then be able to explore the metrics in metrics explorer and build dashboards by querying using **SQL or PromQL**
+
+<img alt="image" src="https://github.com/user-attachments/assets/ea26c61e-abeb-49a0-b594-542ee03be0fa" />
+
+
