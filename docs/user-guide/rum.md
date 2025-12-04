@@ -82,7 +82,7 @@ openobserveRum.setUser({
   email: "captainhook@example.com",
 });
 
-openobserveRum.startSessionReplayRecording();
+openobserveRum.startSessionReplayRecording({ force: true });
 ```
 
 **Note**: In some scenarios, you may want to begin recording, even if it was initially sampled out of replay. To force Session Replay recording for the rest of the current session, call `startSessionReplayRecording({ force: true })`.
