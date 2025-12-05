@@ -85,6 +85,8 @@ openobserveRum.setUser({
 openobserveRum.startSessionReplayRecording();
 ```
 
+**Note**: In some scenarios, you may want to begin recording, even if it was initially sampled out of replay. To force Session Replay recording for the rest of the current session, call `startSessionReplayRecording({ force: true })`.
+
 ## Performance Monitoring
 
 Front end monitoring is vital for understanding how your users are experiencing your application. Performance analytics is a feature that allows you to track the performance of your application from the perspective of your users. It is a powerful tool for understanding how your application is performing in the real world, and can help you identify and fix performance issues before they impact your users.
