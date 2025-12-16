@@ -1,6 +1,6 @@
 nav:
-    - K8s Operator Overview: overview.md
-    - Deployment Script: deployment-script.md
+    - K8s Operator Overview: OVERVIEW.md
+    - Deployment Script: deploy-script.md
     - Manual Deployment: manual-deployment.md
     - Features: o2_operator_features.md
-    - Troubleshooting Guide: troubleshooting-guide.md
+    - Troubleshooting Guide: TROUBLESHOOTING.md
