@@ -13,6 +13,7 @@ nav:
 - User Guide: user-guide
 - Operator Guide: operator-guide
 - Performance Optimization: performance.md
+- Capacity Planning: capacity-planning.md
 - API Reference: api
 - Ingestion: ingestion
 - Integrations: integration
