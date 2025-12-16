@@ -14,6 +14,7 @@ nav:
 - Operator Guide: operator-guide
 - Observeability As Code: o2-k8s-operator
 - Performance Optimization: performance.md
+- Capacity Planning: capacity-planning.md
 - API Reference: api
 - Ingestion: ingestion
 - Integrations: integration
