@@ -12,6 +12,7 @@ nav:
 - Storage Management: storage-management
 - User Guide: user-guide
 - Operator Guide: operator-guide
+- Observeability As Code: o2-k8s-operator
 - Performance Optimization: performance.md
 - API Reference: api
 - Ingestion: ingestion
