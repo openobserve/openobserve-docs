@@ -267,4 +267,5 @@ Now let's explore the data you just loaded.
     - Check available memory and CPU resources
     - For large datasets, consider the high-availability deployment
 
-If you're still having issues, Join our [Slack Community](https://short.openobserve.ai/community) for help
+If you're still having issues, Join our [Slack Community](/marketing-opt-in/){:target="_blank" rel="noopener noreferrer"} for help
+

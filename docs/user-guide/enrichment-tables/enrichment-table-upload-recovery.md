@@ -59,4 +59,25 @@ When no local disk cache is available:
 - The querier fetches the latest enrichment data from the metadata database, such as PostgreSQL, and the remote storage system, such as S3. It then provides the data to the restarting node.
 
 
+## Region-based caching in multi-region super clusters
+In a multi-region super cluster deployment, enrichment tables are typically queried from all regions when a node starts up and rebuilds its cache. While this ensures data completeness, it can slow startup or cause failures if one or more regions are unavailable.
+
+To address this, OpenObserve Enterprise supports primary region–based caching, controlled by the environment variable `ZO_ENRICHMENT_TABLE_GET_REGION`.
+
+### Requirements 
+
+- Available only in Enterprise Edition.
+- Requires Super Cluster to be enabled.
+- The `ZO_ENRICHMENT_TABLE_GET_REGION` variable must specify a valid region name.
+
+### How it works
+When a node starts, OpenObserve calls internal methods such as `get_enrichment_table_data()` and `cache_enrichment_tables()` to retrieve enrichment table data. <br>
+The boolean parameter `apply_primary_region_if_specified` controls whether to use only the primary region for these fetch operations.
+
+In a multi-region super cluster deployment, when `apply_primary_region_if_specified = true`, OpenObserve checks the value of `ZO_ENRICHMENT_TABLE_GET_REGION`. 
+
+- If `ZO_ENRICHMENT_TABLE_GET_REGION` specifies a primary region, the node queries only that region to fetch enrichment table data during cache initialization. 
+- If `ZO_ENRICHMENT_TABLE_GET_REGION` is not set, or the region name is empty, OpenObserve continues to query all regions as before.
+
+
 

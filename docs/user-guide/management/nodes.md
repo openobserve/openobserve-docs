@@ -1,8 +1,12 @@
 ---
+title: Monitor Node Health and Performance
 description: >-
   Monitor node health and performance in OpenObserve clusters, including CPU,
   memory, and TCP connections across ingesters, queriers, and other node types.
 ---
+This document explains how to monitor the health and performance of nodes in OpenObserve clusters.
+
+## Overview
 In OpenObserve, a node is an instance of the OpenObserve application. Each node performs one or more specific tasks, such as collecting incoming data, answering search queries, storing data efficiently, or managing alert rules.
 
 A group of such nodes working together is called a cluster. Clusters allow OpenObserve to distribute work across nodes, helping the system scale, stay responsive, and remain available even if one node goes offline. Depending on how OpenObserve is deployed, this cluster can be:
@@ -12,21 +16,22 @@ A group of such nodes working together is called a cluster. Clusters allow OpenO
 
 This guide explains how to monitor the health and performance of each node in your OpenObserve deployment.
 
-### Availability
-The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
+!!! note "Where to find"
+    The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
 
-### Access
-In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
+!!! note "Who can access"
+    In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
 
-By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
+    By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
 
+## Nodes interface
 **For Single-Cluster Setup**<br> 
 ![nodes-single-cluster](../../images/nodes-single-cluster.png)
 
 **For Super-Cluster Setup**<br>
 ![nodes-multi-cluster](../../images/nodes-super-cluster.png)
 
-## Node Types
+## Node types
 
 - **Ingester**: Handles incoming data and writes it to storage.  
 - **Querier**: Responds to user queries and retrieves data from storage.  
@@ -34,7 +39,7 @@ By default, `root` users and `Admins` with access to the `_meta` organization ca
 - **Router**: Routes API requests and serves the OpenObserve user interface.  
 - **Alert Manager**: Manages alerting rules and runs scheduled tasks.
 
-## View Key Metrics
+## View ky metrics
 
 Each node displays the following metrics in a tabular format with progress bars and color indicators:
 
@@ -59,7 +64,7 @@ Each node displays the following metrics in a tabular format with progress bars 
     - **Online** (Green): Node is healthy and active.
     ![nodes-status-online](../../images/nodes-status-online.png)
 
-## Use Refresh, Search, and Filters 
+## Use refresh, search, and filters 
 
 - **Refresh:** Click the **Refresh** button in the top-right corner of the page to update the list with the latest node data.  
 - **Search Bar:** Use the search bar to locate nodes by names and version.  
@@ -74,7 +79,7 @@ Each node displays the following metrics in a tabular format with progress bars 
 
 ![nodes-search-filter](../../images/nodes-search-filter.png)  
 
-## Monitor and Troubleshoot Node Health
+## Monitor and troubleshoot node health
 Use the following signals to monitor node health and take action when needed:
 
 - **CPU and Memory Usage**: If you notice sustained usage above 70%, consider scaling out your deployment or investigating the workload on that node. Note that this percentage may vary depending upon the use case.

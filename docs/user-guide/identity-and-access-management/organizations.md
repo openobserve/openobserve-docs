@@ -11,48 +11,48 @@ Organizations provide logical boundaries for separating data, users, and access 
 
 ![Organizations in OpenObserve](../../images/organization-in-openobserve.png)
 
-## Organization Types
+## Organization types
 
 OpenObserve supports two types of organizations:
 
 - **Default organization:** Automatically created for each user upon account creation. Typically named **default** and owned by the user. The UI labels it as type **default**.
 - **Custom organization:** Any organization other than the **default**. These are created manually using the UI or ingestion (if enabled). Displayed in the UI as type **custom**.
 
-!!! Info "What Is **_meta** Organization?"
-    **_meta Organization** is considered as a **custom** organization. It is a system-level organization that exists in both single-node and multi-node (HA) deployments. 
+### _meta organization
+**_meta Organization** is considered as a **custom** organization. It is a system-level organization that exists in both single-node and multi-node (HA) deployments. 
 
-    - The **_meta** organization provides visibility into the health and status of the OpenObserve instance, including node metrics, resource usage, and configuration across all organizations. 
-    - Use the **IAM > Roles > Permission** in the **_meta** organization to manage users across all organizations and control who can list, create, update, or delete organizations.
+- The **_meta** organization provides visibility into the health and status of the OpenObserve instance, including node metrics, resource usage, and configuration across all organizations. 
+- Use the **IAM > Roles > Permission** in the **_meta** organization to manage users across all organizations and control who can list, create, update, or delete organizations.
 
-## Access 
+!!! note "Who can access"
+    ## Who can access
+    In OpenObserve, access to organization-level operations, such as listing, creating, updating, or deleting organizations, depends on the deployment mode.
 
-In OpenObserve, access to organization-level operations, such as listing, creating, updating, or deleting organizations, depends on the deployment mode.
+    ### Access in the open-source mode 
+    Any authenticated user can create new organizations using the **Add Organization** button in the UI.
+    ### Access in the enterprise mode with RBAC enabled
+    - Access to organization management is strictly controlled through RBAC, which must be configured in the _meta organization.
+    - The **root** user always has unrestricted access to all organizations, including **_meta**.
+    - Only roles defined in **_meta** can include permissions for managing organizations.
+    - The **organization** module is available in the role editor only within the **_meta** organization. 
 
-### Open-Source Mode 
-Any authenticated user can create new organizations using the Add Organization button in the UI.
-### Enterprise Mode with RBAC Enabled
-- Access to organization management is strictly controlled through RBAC, which must be configured in the _meta organization.
-- The **root** user always has unrestricted access to all organizations, including **_meta**.
-- Only roles defined in **_meta** can include permissions for managing organizations.
-- The **organization** module is available in the role editor only within the **_meta** organization. 
+## How to grant organization management access?
+To delegate organization management to users in enterprise mode:
 
-!!! Info "How to Grant Organization Management Access?"
-    To delegate organization management to users in enterprise mode:
+1. Switch to the **_meta** organization.
+2. Go to **IAM > Roles**.
+3. Create a new role or edit an existing one.
+4. In the **Permissions** tab, locate the Organizations module.
+5. Select the required operations:
 
-    1. Switch to the **_meta** organization.
-    2. Go to **IAM > Roles**.
-    3. Create a new role or edit an existing one.
-    4. In the **Permissions** tab, locate the Organizations module.
-    5. Select the required operations:
+    - **Create**: Add new organizations
+    - **Update**: Modify organization details
+    !!! note "Note"
+        By default, OpenObserve displays the list of organizations a user belongs to. You do not need to explicitly grant permission to view or retrieve organization details.
+6. Click **Save**. <br>
+![Grant Organization Management Access in OpenObserve](../../images/organization-role-permission.png)
 
-        - **List**: View existing organizations
-        - **Create**: Add new organizations
-        - **Update**: Modify organization details
-        - **Delete**: Remove organizations
-    6. Click **Save**. <br>
-    ![Grant Organization Management Access in OpenObserve](../../images/organization-role-permission.png)
-
-    Once this role is assigned to a user within the **_meta** organization, they will have access to manage organizations across the system.
+Once this role is assigned to a user within the **_meta** organization, they will have access to manage organizations across the system.
 
 
 ## Create an Organization

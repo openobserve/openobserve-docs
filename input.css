@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer utilities {
   .hover\:text-\[\#7782FF\]:hover {
@@ -7,7 +9,7 @@
 }
 
 .hero-gradient {
-  @apply bg-gradient-to-r from-[#6A76E3] to-[#45A4F3];
+  background: linear-gradient(to right, #6a76e3, #45a4f3);
 }
 
 input {
@@ -108,100 +110,6 @@ main {
   background-clip: text;
 }
 
-.md-header {
-  position: fixed !important;
-  top: 70px !important;
-}
-
-.md-main__inner {
-  margin-top: 70px !important;
-}
-
-.md-sidebar {
-  top: 75px !important;
-  /* height: calc(100vh - 105px) !important; */
-}
-
-@media (min-width: 640px) and (max-width: 1023px) {
-  .md-sidebar {
-    top: 70px !important;
-  }
-}
-@media (min-width: 1024px) {
-  .md-sidebar {
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-  }
-}
-
-/* @media screen and (min-width: 60em) {
-  .md-sidebar--secondary:not([hidden]) {
-    display: none !important;
-  }
-} */
-
-/* @media (min-width: 768px) {
- .md-sidebar__scrollwrap {
-  display: none !important;
- }
-  
-} */
-nav.md-grid {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem; /* default (base) = px-4 */
-  padding-right: 1rem;
-}
-
-@media (min-width: 640px) {
-  nav.md-grid {
-    padding-left: 1.5rem; /* sm:px-6 */
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  nav.md-grid {
-    padding-left: 2rem; /* lg:px-8 */
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  nav.md-grid {
-    padding-left: 2.5rem; /* xl:px-10 */
-    padding-right: 2.5rem;
-  }
-}
-.md-search__inner {
-  width: 20rem;
-}
-@media (max-width: 768px) {
-  .md-search__inner {
-    top: 80px !important;
-  }
-
-  .md-search__input {
-    pointer-events: auto !important;
-    color: black !important;
-  }
-}
-
-  .md-header__title {
-    margin-left: 0.1rem;
-    width: 100px;
-  }
-    
-@media (min-width: 1025px) {
-  .md-header__title {
-    flex-grow: 0;
-    flex-basis: auto;
-    max-width: 400px;
-  }
-  .md-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.header-list-style {
+  list-style: none;
 }

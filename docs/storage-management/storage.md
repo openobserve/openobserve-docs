@@ -175,6 +175,35 @@ OpenObserve can use azure blob for storing stream data. Following environment va
 | AZURE_STORAGE_ACCOUNT_KEY  | Access key           | Need to provide mandatorily                  |
 | ZO_S3_BUCKET_NAME          | Blob Container name  | Need to provide mandatorily                  |
 
+### Hetzner Cloud Object Storage
+
+To use Hetzner Cloud Object Storage for storing stream data, first create the bucket in Hetzner Cloud.
+Then set the following environment variables:
+
+| Environment Variable | Value | Description |
+| -------------------- | ----- | ----------- |
+| ZO_LOCAL_MODE_STORAGE | s3 | Use S3-compatible storage |
+| ZO_S3_SERVER_URL | https://your-bucket.your-region.your-objectstorage.com | Hetzner Object Storage endpoint |
+| ZO_S3_REGION_NAME | your-region | Region name (e.g., hel1, nbg1, fsn1) |
+| ZO_S3_BUCKET_NAME | your-bucket | Bucket name |
+| ZO_S3_ACCESS_KEY | your-access-key | Access key |
+| ZO_S3_SECRET_KEY | your-secret-key | Secret key |
+| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | true | Enable hosted-style addressing |
+
+Example configuration with placeholder values:
+
+```bash
+ZO_LOCAL_MODE_STORAGE=s3
+ZO_S3_SERVER_URL=https://my-bucket.hel1.your-objectstorage.com
+ZO_S3_REGION_NAME=hel1
+ZO_S3_BUCKET_NAME=my-bucket
+ZO_S3_ACCESS_KEY=YOUR_ACCESS_KEY
+ZO_S3_SECRET_KEY=YOUR_SECRET_KEY
+ZO_S3_FEATURE_FORCE_HOSTED_STYLE=true
+```
+
+Refer to [Hetzner Cloud Object Storage documentation](https://docs.hetzner.com/storage/object-storage/) for more information about endpoints and regions.
+
 
 ## Metadata Storage
 
@@ -191,7 +220,11 @@ OpenObserve supports multiple metadata store backends, configurable using the `Z
 - Recommended for production deployments due to reliability and scalability. 
 - The default Helm chart (after February 23, 2024) uses [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the meta store. These instances provide high availability and backup support.
 
-### etcd (Deprecated)
+### etcd (Removed)
+
+!!! warning "Removal notice"
+    Etcd support has been removed. Use NATS instead.
+    
 - Set `ZO_META_STORE=etcd`.
 - While etcd is used as the cluster coordinator, it was also the default metadata store in Helm charts released before 23 February 2024. This configuration is now deprecated. Helm charts released after 23 February 2024 use PostgreSQL as the default metadata store.
 

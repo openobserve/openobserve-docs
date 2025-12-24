@@ -3,7 +3,6 @@ description: >-
   Ingest logs, metrics, and traces into OpenObserve via OTEL, Fluentbit, APIs,
   syslog, Prometheus, or programmatically using Go, Python, or curl.
 ---
-# Ingestion
 
 Logs metrics and traces can be ingested into OpenObserve from a variety of sources. This section describes how to ingest data from the following sources:
 
@@ -17,6 +16,11 @@ Logs metrics and traces can be ingested into OpenObserve from a variety of sourc
 1. [Fluent-bit](logs/fluent-bit)
 1. [Fluentd](logs/fluentd)
 1. [Amazon Kinesis Firehose](logs/kinesis_firehose)
+1. [Syslog](logs/syslog)
+1. [Python](logs/python)
+1. [Go](logs/go)
+1. [Curl](logs/curl)
+
 
 ### APIs
 

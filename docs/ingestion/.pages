@@ -1,5 +1,5 @@
 nav:
-    - Index: index.md
+    - Ingestion Overview: index.md
     - Logs: logs
     - Metrics: metrics
     - Traces: traces

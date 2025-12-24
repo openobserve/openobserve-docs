@@ -5,15 +5,16 @@ description: >-
 ---
 This guide provides an overview of Role-Based Access Control (RBAC), its features, and how it is implemented in OpenObserve.
 
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+
+    - **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
+    - **Cloud version**: RBAC is preconfigured and does not require setup.
+    - **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
+
 ## Overview
 
 OpenObserve uses RBAC to manage what actions users can perform based on their assigned roles. Instead of giving all users the same level of access, RBAC ensures that each user can only access the features and data relevant to their role.
-
-RBAC is available in **OpenObserve Enterprise** and **Cloud** versions but is not supported in the open-source version:
-
-- **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
-- **Cloud version**: RBAC is preconfigured and does not require setup.
-- **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
 
 ## How OpenObserve Implements RBAC
 

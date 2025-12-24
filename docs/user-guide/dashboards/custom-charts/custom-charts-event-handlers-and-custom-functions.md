@@ -5,8 +5,7 @@ description: >-
 ---
 This guide shows how to make your [custom charts](what-are-custom-charts.md) interactive using event handlers and reusable custom functions (customFn).
 
-## What Are Event Handlers 
-
+## What are event handlers? 
 Event handlers let you define what happens when a user interacts with the chart, such as clicking or hovering over a data point. Use event handlers in the custom chart logic to display messages, log actions, or apply filters based on user input.
 
 Common event handlers: 
@@ -21,7 +20,7 @@ Before you begin, note the following:
 - Use the `o2_events` block to specify the event type, such as `click`.  
 - Associate the event with a function that will run when the event occurs.
 
-## How to Create Event Handlers
+## How to create event handlers
 
 ### Step 1: Create a basic chart with labels and values
 
@@ -92,7 +91,7 @@ o2_events: {
 }  
 ```
 
-## What Are Custom Functions
+## What are custom functions?
 
 Custom functions (customFn) are special sections inside the chart’s `option` object where you can define reusable functions.
 
@@ -102,7 +101,7 @@ These functions can be used:
 - To apply logic such as filters  
 - To keep your event handlers simple
 
-## How to Create Custom Functions
+## How to create custom functions
 
 **Example**: You have a chart showing bars for A, B, and C. When the user clicks on a bar, you want to format the output like:   
 ```  
