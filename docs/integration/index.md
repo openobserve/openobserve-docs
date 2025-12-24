@@ -7,6 +7,7 @@ Each guide corresponds to a data source listed in the **Data Sources** section o
 
 - [Kubernetes](k8s.md)
 - [AWS](aws)
+- [Model Context Protocol (MCP)](mcp)
 - [Cloudflare](cloudflare.md)
 - [Database](database)
 - [Servers](servers)
