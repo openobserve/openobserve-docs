@@ -1,6 +1,6 @@
 nav:
-    - Concepts: concepts.md
-    - Log Search: logs
+    - Logs: logs
+    - Traces: traces
     - Metrics: metrics
     - Streams: streams
     - Ingestion: ingestion
@@ -10,11 +10,12 @@ nav:
     - Actions: actions
     - Functions: functions
     - Enrichment Tables: enrichment-tables
-    - Real User Monitoring (RUM): rum.md
+    - Real User Monitoring (RUM): rum
     - Identity and Access Management (IAM): identity-and-access-management
     - Management: management
     - Profile: profile
     - Performance: performance
+    - Federated Search: federated-search
     - Best Practices: best-practices
     - Migration: migration
    

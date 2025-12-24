@@ -246,37 +246,23 @@ ZO_USE_MULTIPLE_RESULT_CACHE: "true" # Enable to use mulple result caches for qu
 ```
 
 ## Query partitioning
+OpenObserve improves query responsiveness by processing large result sets in smaller units called **partitions**. A partition represents a segment of the overall query based on time range or data volume. 
 
-Query performance UX is not always about delivering query results faster. Imagine if you woudn't have to wait for the results of the query but could keep getting the results of the query incrementally as they are processed. This would be similar (but slighly better) to knowing the status of where your uber driver is and how long s/he is going to take to reach you even if it takes the same time without knowing it.
+- When you run a query on the Logs page or in a dashboard panel. OpenObserve divides the query into multiple partitions. 
+- Each partition is processed sequentially, and partial results are returned as soon as each partition completes. This reduces waiting time and improves the time to first result during long-range or high-volume queries.
 
-In the case of a query result on log search page or getting the results on dashboard panel, OpenObserve can partition the query to get results incrementally. 
+Partitioning introduces a tradeoff. Smaller partitions return early results and improve responsiveness, but they also increase the number of operations the system must perform. This can extend the total time required to complete the query. OpenObserve addresses this by combining partitioning with a streaming delivery model based on **HTTP2**.
 
-e.g. A query for 1 day may be broken into 4 queries of 6 hours each (UI would automatically do this for you) and you would see the results of first 6 hours and then incrementally get all the results. All the requests are made incrementally by the UI. By default UI uses AJAX requests for each qyery partition.
+To learn more, visit the [Steaming Aggregation](https://openobserve.ai/docs/user-guide/management/aggregation-cache/) page. 
 
-While query partitioning can improve user experience greatly, it can also reduce the overall speed of getting the result. e.g. One day query was broken into 48 individual queries. Now this query without partition may have gitten completed in 6 seconds. Howver making 48 separate HTTP requests sequentially may take 24 seconds to get the results (HTTP requests have overhead). In order to tackle this you can enable websockets. You can enable websockets using:
+## Mini-partition
+OpenObserve uses a mini-partition to return the first set of results faster. The mini-partition is a smaller slice of the first partition and is controlled by the environment variable `ZO_MINI_SEARCH_PARTITION_DURATION_SECS`, which defines the mini-partition duration in seconds. The default value is sixty seconds.
 
-```shell
-ZO_WEBSOCKET_ENABLED: "true"
-```
 
-Enabling websockets would also require you to setup more things if you are using a reverse proxy like nginx.
 
-Official helm chart has all of this setup for you so you don't have to worry about it. However if you are setting it up yourself or using another environment make sure that these (or it's equivalents) are configured:
 
-Add nginx annotations:
 
-```yaml
-    nginx.ingress.kubernetes.io/proxy-http-version: "1.1" # Enable HTTP/1.1 for WebSockets
-    nginx.ingress.kubernetes.io/enable-websocket: "true"
-    # nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive # disable keep alive to use websockets
-    nginx.ingress.kubernetes.io/proxy-set-headers: |
-      Upgrade $http_upgrade;
-      Connection "Upgrade";
-```
 
-Websockets as of 0.14.1 is an experimental feature and you must enable it from the UI as well. `Settings > General settings > Enable Websocket Search`
-
-Result caching + Query partition + Websockets = Huge performance gains and great UX.
 
 
 ## Large Number of Fields

@@ -1,6 +1,6 @@
 nav:
 - Overview: overview
-- Architechture: architecture.md
+- Architecture: architecture.md
 - Getting started: getting-started.md
 - Features: features
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
@@ -12,7 +12,9 @@ nav:
 - Storage Management: storage-management
 - User Guide: user-guide
 - Operator Guide: operator-guide
+- Observeability As Code: o2-k8s-operator
 - Performance Optimization: performance.md
+- Capacity Planning: capacity-planning.md
 - API Reference: api
 - Ingestion: ingestion
 - Integrations: integration

@@ -23,10 +23,14 @@ extra_javascript:
   # - js/vector_co.js
   - js/search-close-minimal.js
   - js/search-tracking.js
+  - js/theme.js
+  # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
   # - js/reo.js
   - js/landing-individual-card-ms-tracking.js
   - js/google-tag-manager.js
+  - js/feedback.js
+  - js/segment.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin
@@ -46,8 +50,8 @@ extra:
     #   lang: zh
   generator: false
   default_color_scheme: default
-  version:
-    provider: mike
+  # version:
+  #   provider: mike
   analytics:
     provider: google
     property: G-3383ZJ2HH7

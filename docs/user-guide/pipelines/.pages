@@ -1,7 +1,9 @@
 nav:
     - Pipelines Overview: index.md
     - Pipelines in OpenObserve: pipelines.md
-    - Create and Use Pipelines: use-pipelines.md
+    - Create and Use Real-time Pipeline: create-and-use-real-time-pipeline.md
+    - Create and Use Scheduled Pipeline: create-and-use-scheduled-pipeline.md
+    - Remote Destination: remote-destination.md
     - Import and Export Pipelines: import-and-export-pipelines.md
     - Manage Pipelines: manage-pipelines.md
     - Configurable Delay in Scheduled Pipelines: configurable-delay-in-scheduled-pipelines.md

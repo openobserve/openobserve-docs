@@ -7,7 +7,10 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: org-openobserve-standard-4
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
     - name: Checkout source code
@@ -34,10 +37,9 @@ jobs:
         fi
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
         aws-region: us-east-2  # or your preferred region
 
     - name: Build MkDocs site
@@ -47,7 +49,7 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./site s3://openobserve-website-staging/docs --exclude=".git/*"
+        aws s3 sync ./site s3://openobserve-website-staging/docs --exclude=".git/*" --delete
 
     - name: Invalidate CloudFront cache
       run: |

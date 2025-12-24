@@ -6,7 +6,7 @@ description: >-
 ---
 Streams define how observability data is ingested, stored, indexed, and queried in OpenObserve. This guide introduces key concepts related to streams and explains how to create and use them.
 
-## What Is a Stream
+## What is a stream?
 
 A stream is a logical container that holds one type of observability data, such as logs, metrics, or traces. It is the required entry point for data ingestion in OpenObserve. Every log, metric, or trace must be associated with a stream at the time of ingestion.
 
@@ -59,6 +59,8 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
 > If RBAC is enabled, ensure that you have required permissions to create streams.  
 
 === "Create Streams in OpenObserve Cloud"
+    ### Create streams in OpenObserve Cloud
+
     1. Select the organization from the top navigation bar.   
     2. From the left navigation menu, select **Streams**.  
     3. Click **Add Stream.**   
@@ -68,13 +70,20 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
         - Select the **Stream Type**.  
         - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
             To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
-        - (Optional) Use the **Add Fields**, if you wish to create fields to the **User Defined Schema**. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).    
+        - (Optional) Use the **Add Fields** section if you wish to define fields for your stream:
+            - **Field Name**: Name of the field
+            - **Data Type**: Select from utf8, int64, uint64, float64, or boolean
+            - **Index Type**: Choose an indexing strategy (Secondary Index, Full Text Search, KeyValue Partition, Prefix Partition, or Hash Partition) <br>
+            For detailed information about each field type and index strategy, see [Field and Index Types in Streams](fields-and-index-in-streams.md)
+  
+        These fields create a User Defined Schema. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).    
     5. Click **Create Stream**.
 
     The new stream appears on the Streams page. Ingest data into the stream to populate and start using it.
 
 
-=== "Create Streams in OpenObserve Self-Hosted"
+=== "Create streams in OpenObserve self-hosted"
+    ### Create streams in OpenObserve self-hosted
     1. Select the organization from the top navigation bar.   
     2. From the left navigation menu, select **Streams**.  
     3. Click **Add Stream.**   
@@ -84,7 +93,12 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
         - Select the **Stream Type**.  
         - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
             To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
-        - In the **Add Fields** section, you must define at least one field name and field type. This creates a user-defined schema at stream creation.
+        - In the **Add Fields** section, you must define at least one field with:
+            - **Field Name**: Name of the field
+            - **Data Type**: Select from utf8, int64, uint64, float64, or boolean
+            - **Index Type**: Choose an indexing strategy (Secondary Index, Full Text Search, KeyValue Partition, Prefix Partition, or Hash Partition)<br>
+            For detailed information about each field type and index strategy, see [Field and Index Types in Streams](fields-and-index-in-streams.md)
+        This creates a user-defined schema at stream creation. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).  
     
         ??? info "Click to see how User-defined Schema works."
             Let us say you define the following fields while creating a stream:
@@ -98,7 +112,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
             - These fields (job, code, message) will appear under User Defined Schema in the [Stream Details](../../user-guide/streams/stream-details.md) page.
             - Any additional fields not defined earlier will appear under All Fields.
         
-        This creates a user-defined schema at stream creation. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).    
+          
     5. Click **Create Stream**.
 
 !!! Note

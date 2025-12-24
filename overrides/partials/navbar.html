@@ -29,11 +29,11 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
 <!-- Header -->
 <header class="{{ class }}" data-md-component="header">
   <nav
-    class="md-header__inner items-center lg:justify-between"
+    class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 md-header__inner tw-items-center lg:tw-justify-between tw-max-w-[70rem]"
     aria-label="{{ lang.t('header') }}"
   >
     <!-- Left section (Logo + Docs Title) -->
-    <div class="flex items-center flex-shrink-0 flex-1 w-full">
+    <div class="tw-flex tw-items-center tw-flex-shrink-0 tw-flex-1 tw-w-full">
       <!-- Drawer button -->
       <label class="md-header__button md-icon" for="__drawer">
         {% include ".icons/material/menu.svg" %}
@@ -55,22 +55,22 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
           cursor: pointer;
         "
       >
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          background-color: rgb(245, 243, 255);
-          border-radius: 8px;
-          padding: 5px 30px;
-          margin: 10px 12px 5px 12px;
-          gap: 6px;
-          flex-shrink: 0;
-          min-width: 0;
-          transition: all 0.2s ease;
-        "
-        class="docs-header-container"
-      >
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(245, 243, 255);
+            border-radius: 8px;
+            padding: 5px 30px;
+            margin: 10px 12px 5px 12px;
+            gap: 6px;
+            flex-shrink: 0;
+            min-width: 0;
+            transition: all 0.2s ease;
+          "
+          class="docs-header-container"
+        >
           <img
             src="/docs/assets/docs-dark.svg"
             alt="Docs Icon Light"
@@ -83,7 +83,9 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
             class="docs-icon-dark"
             style="height: 24px; width: 24px; display: none"
           />
-          <div style="display: flex; align-items: center; min-width: 0; flex: 1">
+          <div
+            style="display: flex; align-items: center; min-width: 0; flex: 1"
+          >
             <span
               style="
                 font-weight: bold;
@@ -167,7 +169,7 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
     </div>
 
     <!-- Center section (Search) -->
-    <div class="lg:flex lg:flex-grow">
+    <div class="lg:tw-flex lg:tw-flex-grow">
       {% if "material/search" in config.plugins %}
       <label class="md-header__button md-icon" for="__search">
         {% include ".icons/material/magnify.svg" %}
@@ -176,7 +178,7 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
     </div>
 
     <!-- Right section (Color palette, language selector) -->
-    <div class="flex items-center gap-2 flex-shrink-0">
+    <div class="tw-flex tw-items-center tw-gap-2 tw-flex-shrink-0">
       {% if config.theme.palette %} {% if not config.theme.palette is mapping %}
       <form class="md-header__option" data-md-component="palette">
         {% for option in config.theme.palette %} {% set scheme = option.scheme |
