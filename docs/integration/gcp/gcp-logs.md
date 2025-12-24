@@ -13,7 +13,7 @@ The integration flow is: **Google Cloud Logs → Log Router Sink → Pub/Sub →
 
 ## Steps to Integrate
 
-??? "Prerequisites"
+??? "## Prerequisites"
     - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))
     - A Google Cloud Platform (GCP) project with necessary IAM permissions
     - Basic knowledge of GCP Console or `gcloud` CLI
