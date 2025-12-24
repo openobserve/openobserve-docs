@@ -10,6 +10,9 @@ description: >-
 
 OpenObserve supports the **Model Context Protocol (MCP)**, an open standard that enables seamless integration between AI tools and data platforms. With MCP, you can connect tools like Claude Code CLI, custom AI agents, and other MCP-compatible clients to your OpenObserve instance.
 
+!!! note
+    This capability is supported in the Enterprise edition of OpenObserve.
+
 ## What is MCP?
 
 The Model Context Protocol (MCP) is an open protocol that standardizes how AI applications connect to external data sources and tools. It enables:
