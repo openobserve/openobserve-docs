@@ -54,6 +54,12 @@ OpenObserve's MCP server works with any MCP-compatible client, including:
 
 ## Getting Started
 
+Add one ENV to your OpenObserve first:
+
+```
+O2_TOOL_API_URL = "http://localhost:5080"
+```
+
 Choose your integration:
 
 ### [Claude Code CLI Setup](claude.md)
