@@ -42,12 +42,12 @@ O2_SEARCH_GROUP_BASE_SECS = 10 // seconds
 O2_SEARCH_GROUP_CPU_LIMIT_ENABLED = false
 O2_SEARCH_GROUP_DYNAMIC_RESOURCE = true
 
-O2_SEARCH_GROUP_LONG_MAX_CPU = 80%
-O2_SEARCH_GROUP_LONG_MAX_MEMORY = 80%
+O2_SEARCH_GROUP_LONG_MAX_CPU = 50%
+O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%
 O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2
 
-O2_SEARCH_GROUP_SHORT_MAX_CPU = 20%
-O2_SEARCH_GROUP_SHORT_MAX_MEMORY = 20%
+O2_SEARCH_GROUP_SHORT_MAX_CPU = 50%
+O2_SEARCH_GROUP_SHORT_MAX_MEMORY = 50%
 O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4
 
 O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY = 1
@@ -70,8 +70,8 @@ The estimation uses the following values:
 
     - Long query group:
 
-        - `O2_SEARCH_GROUP_LONG_MAX_CPU = 80%`
-        - `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 80%`
+        - `O2_SEARCH_GROUP_LONG_MAX_CPU = 50%`
+        - `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%`
         - `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`
 
     - Short query group:
@@ -85,8 +85,8 @@ The estimation uses the following values:
 !!! note "Example" 
 
     - If total system memory is `10GB` then Datafusion can use `50%`, DataFusion has `5GB`.  
-    - If the long group has `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 80%`, it can use `4GB`. 
-    - With `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`, each long query can use up to `2GB` of memory.
+    - If the long group has `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%`, it can use `2.5GB`. 
+    - With `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`, each long query can use up to `1.25GB` of memory.
 
 - A search request uses all CPU cores assigned to its work group as defined by `O2_SEARCH_GROUP_x_MAX_CPU`.
 - When a search request exceeds the concurrency defined by `O2_SEARCH_GROUP_x_MAX_CONCURRENCY`, it is placed in a queue and executed later in first-in, first-out order.
