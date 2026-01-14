@@ -19,7 +19,7 @@ This document explains how to configure remote destinations in OpenObserve pipel
         ![remote-destination-from-pipeline-editor](../../images/remote-destination-from-pipeline-editor.png)
         ![remote-destination-config-from-pipeline-editor](../../images/remote-destination-config-from-pipeline-editor.png)
         - **From Management**: Click the settings icon in the navigation menu > **Pipeline Destinations** > **Add Destination**.
-        ![remote-destination-config-from-management](../../images/remote-destination-config-from-management.png)
+        ![remote-destination-config-from-management](../../images/create-destination-pipelines.png)
 
     ??? "Step 2: Create the destination"
         ### Step 2: Create the destination
@@ -27,7 +27,7 @@ This document explains how to configure remote destinations in OpenObserve pipel
 
         1. **Name**: Provide a descriptive name for the external destination. For example, `remote_destination_dev`. 
         2. **URL**: Specify the endpoint where data should be sent. 
-        ![config-remote-destination](../../images/config-remote-destination.png)
+        ![config-remote-destination](../../images/add-destination-new-ui.png)
         !!! note "To send the transformed data to another OpenObserve instance:" 
             Use the following URL format: `https://<instance-url>/api/<organization>/<stream>/_json` <br>
             **Example**: To send data to a stream called `remote_pipeline` in the `default` organization on a different OpenObserve instance: `https://your-o2-instance.example.com/api/default/remote_pipeline/_json`
@@ -50,12 +50,12 @@ This document explains how to configure remote destinations in OpenObserve pipel
         **Important**: Always verify the data format expected by your destination system before selecting. Check the destination's API documentation or ingestion requirements to ensure compatibility.
         5. **Headers**: To send data to an external endpoint, you may need to provide authentication credentials, if required. In the **Header** field, enter Authorization and in the **Value** field, provide the authentication token.
         !!! note "To send the transformed data to another OpenObserve instance:"
-            ![config-remote-destination-header](../../images/config-remote-destination-header.png)
-            1. Log in to the destination OpenObserve instance. 
-            2. Navigate to **Data Sources** > **Databases**. 
-            3. Copy the authorization token value displayed there. 
+            ![o2-instance-add-destination](../../images/o2-instance-add-destination.png)
+            1. Log in to your OpenObserve instance. 
+            2. Navigate to **Data Sources** UI. 
+            3. Copy the authorization token value displayed there under custom -> traces( Basic authentication token). 
             4. Paste this token in the **Value** field. 
-            ![config-remote-destination-headers](../../images/config-remote-destination-headers.png)
+            ![config-remote-destination-header](../../images/auth-header-o2-destination.png)
         !!! note "To send data to an external endpoint:"
             Add the authentication headers required by your external service. This could be API keys, bearer tokens, or other authentication methods depending on the service.
         6. **Skip TLS Verify**: Use this toggle to enable or disable Transport Layer Security (TLS) verification. Enable this toggle to bypass security and certificate verification checks. **Use with caution, as disabling verification may expose data to security risks.**
