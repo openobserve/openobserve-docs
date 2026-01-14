@@ -5,34 +5,67 @@ description: >-
 ---
 # Migration
 
-Migration can be done using OpenObserve binary as a CLI.
+OpenObserve provides migration tools to transfer your metadata and file lists between different database backends (SQLite, MySQL, PostgreSQL). This guide walks you through the standard migration process.
 
-> Only work with <= 0.12.x, we will fix it in latest version soon.
+> Only works with >= 0.50.0
 
-```
-./openobserve -h
-OpenObserve is an observability platform that allows you to capture, search, and analyze your logs, metrics, and traces.
+## Overview
 
-Usage: openobserve [COMMAND]
+The migration process consists of 4 main steps:
+1. Configure environment variables (set both source and target database DSN)
+2. Initialize the new database with required tables
+3. Migrate metadata (all tables except file_list)
+4. Migrate file list data
 
-Commands:
-  reset               reset openobserve data
-  import              import openobserve data
-  export              export openobserve data
-  view                view openobserve data
-  init-dir            init openobserve data dir
-  migrate-file-list   migrate file-list
-  migrate-meta        migrate meta
-  migrate-dashboards  migrate-dashboards
-  delete-parquet      delete parquet files from s3 and file_list
-  help                Print this message or the help of the given subcommand(s)
+## Migration Process
 
-Options:
-  -h, --help     Print help
+### Step 1: Configure Environment Variables
+
+Set environment variables for **both** your source and target databases. This allows OpenObserve to read from the old database and write to the new one during migration.
+
+**Example: Migrating from SQLite to PostgreSQL**
+```shell
+export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/openobserve"
 ```
 
-You must use the `migrate-meta` command to migrate meta store.
+**Example: Migrating from MySQL to PostgreSQL**
+```shell
+export ZO_META_MYSQL_DSN="mysql://user:password@server-address:3306/openobserve"
+export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/openobserve"
+```
 
+#### Available Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `ZO_META_STORE` | Target database type (sqlite/mysql/postgres) | `postgres` |
+| `ZO_META_MYSQL_DSN` | MySQL connection string | `mysql://user:password@host:3306/db` |
+| `ZO_META_POSTGRES_DSN` | PostgreSQL connection string | `postgres://user:password@host:5432/db` |
+
+### Step 2: Initialize New Database
+
+Create the required tables in your target database using the `init-db` command:
+
+```shell
+ZO_META_STORE=postgres ./openobserve init-db
+```
+
+Replace `postgres` with `mysql` if migrating to MySQL.
+
+### Step 3: Migrate Metadata
+
+Migrate all metadata tables (excluding file_list) from source to target:
+
+```shell
+./openobserve migrate-meta --from sqlite --to postgres
+```
+
+**Common migration paths:**
+- SQLite to PostgreSQL: `--from sqlite --to postgres`
+- SQLite to MySQL: `--from sqlite --to mysql`
+- MySQL to PostgreSQL: `--from mysql --to postgres`
+
+**Command options:**
 ```shell
 ./openobserve migrate-meta -h
 migrate meta
@@ -40,171 +73,225 @@ migrate meta
 Usage: openobserve migrate-meta --from <from> --to <to>
 
 Options:
-  -f, --from <from>  migrate from: sled, sqlite, etcd, mysql, postgresql
-  -t, --to <to>      migrate to: sqlite, etcd, mysql, postgresql
+  -f, --from <from>  migrate from: sqlite, mysql, postgresql
+  -t, --to <to>      migrate to: sqlite, mysql, postgresql
   -h, --help         Print help
 ```
 
-You must use `migrate-file-list` command to migrate the parquet file list
+### Step 4: Migrate File List
+
+Migrate the parquet file list data from source to target:
+
 ```shell
-./openobserve migrate-file-list -h                         
+./openobserve migrate-file-list --from sqlite --to postgres
+```
+
+**Command options:**
+```shell
+./openobserve migrate-file-list -h
 migrate file-list
 
-Usage: openobserve migrate-file-list [OPTIONS] --from <from> --to <to>
+Usage: openobserve migrate-file-list --from <from> --to <to>
 
 Options:
-  -p, --prefix <prefix>  only migrate specified prefix, default is all
-  -f, --from <from>      migrate from: sled, sqlite, etcd, mysql, postgresql
+  -f, --from <from>      migrate from: sqlite, mysql, postgresql
   -t, --to <to>          migrate to: sqlite, mysql, postgresql
   -h, --help             Print help
 ```
 
-There are some environments for metadata store:
+## Advanced Options
 
+The migration commands support several advanced features:
+
+- **Batch Processing**: Automatically handles large datasets in configurable batches
+- **Incremental Syncing**: Uses timestamp-based filtering to resume partial migrations
+- **Dry-Run Mode**: Test migrations without executing actual changes
+- **Progress Tracking**: Real-time feedback on migration status
+
+For more details on these options, refer to the command help text using the `-h` flag.
+
+## Cluster Mode Migration
+
+For OpenObserve running in cluster/Kubernetes mode, follow these steps:
+
+### Prerequisites
+
+1. Deploy MySQL or PostgreSQL database (or enable via helm chart)
+2. Change image tag to debug version if you need shell access (e.g., `v0.50.0-rc1` → `v0.50.0-rc1-debug`)
+3. Scale down all services to 0 **except** compactor (keep 1 compactor pod running)
+4. All migration commands must be run inside the **compactor** pod
+
+### Migration Steps
+
+**1. Configure Environment Variables**
+
+Log into the compactor pod and set the required DSN variables:
+
+```shell
+# For migrating from etcd to PostgreSQL
+export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/openobserve"
+
+# For migrating from etcd to MySQL
+export ZO_META_MYSQL_DSN="mysql://user:password@server-address:3306/openobserve"
+```
+
+**2. Initialize New Database**
+
+Create the directory structure if it doesn't exist:
+```shell
+mkdir -p data/openobserve/wal/
+```
+> Replace `data/openobserve/` with your actual data directory path.
+
+Initialize the database tables:
+```shell
+ZO_META_STORE=postgres ./openobserve init-db
+```
+
+**3. Migrate Metadata**
+
+```shell
+# To PostgreSQL
+./openobserve migrate-meta --from etcd --to postgres
+
+# To MySQL
+./openobserve migrate-meta --from etcd --to mysql
+```
+
+**4. Migrate File List**
+
+```shell
+# To PostgreSQL
+./openobserve migrate-file-list --from etcd --to postgres
+
+# To MySQL
+./openobserve migrate-file-list --from etcd --to mysql
+```
+
+### Update Deployment Configuration
+
+After successful migration, add the following environment variables to your deployment:
+
+**For PostgreSQL:**
 ```yaml
 ZO_META_STORE: "postgres"
-ZO_META_MYSQL_DSN: "mysql://user:password@server-address:3306/app"
-ZO_META_POSTGRES_DSN: "postgres://user:password@server-address:5432/app"
+ZO_META_POSTGRES_DSN: "postgres://user:password@server-address:5432/openobserve"
 ```
 
+**For MySQL:**
+```yaml
+ZO_META_STORE: "mysql"
+ZO_META_MYSQL_DSN: "mysql://user:password@server-address:3306/openobserve"
+```
 
-## Cluster mode migration
+Restart OpenObserve to use the new database backend.
 
-All the commands must be run in the pod `compactor`, If you can't login into the pod, please change your image tag to `debug` version, for example:
+## Local Mode Migration
 
-> You are using `v0.9.1` then you can set the image to debug version `public.ecr.aws/zinclabs/openobserve:v0.9.1-debug`
+For standalone/local OpenObserve deployments:
 
-Please choose the version you are using and add suffix `-debug` to the tag, If you don't know which version you are using, you can login OpenObserve UI and click `About` menu to get it.
+### Prerequisites
 
-1. Change the image tag to debug version if you are running in kubernetes.
-1. Deploy MySQL / PostgreSQL first, You also can create a RDS service in the cloud, or enable postgres using our helm chart:
-    ```
-    postgres:
-      enabled: true
-    ```
-    You can copy the values from: https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/values.yaml#L521
-1. Stop all the pods except `compactor`, you can scale all the other services to `0` and `compactor` to `1`, Just keep only `1` compactor.
-1. Login into `compactor` pod.
-1. Set following environment variables depends on you want to use MySQL or PostgreSQL
-    ```shell
-    $ export ZO_META_MYSQL_DSN="mysql://user:password@server-address:3306/app"
-    $ export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/app"
-    ```
-1. Run the command depends on you want to use MySQL or PostgreSQL
+1. Deploy MySQL or PostgreSQL database
+2. Stop data ingestion to avoid writes during migration
+3. Change to debug image version if you need shell access
+4. Log into the OpenObserve container/pod
 
-    If there is no `wal` directory please create it.
-    ```shell
-    mkdir -p data/openobserve/wal/
-    ```
-    > Remember change the `data/openobserve/` to your real data directory.
+### Migration Steps
 
-    ```shell
-    ./openobserve migrate-meta --from etcd --to mysql
-    ./openobserve migrate-meta --from etcd --to postgres
-    ```
-    This will migrate metadata.
-    ```shell
-    ./openobserve migrate-file-list --from etcd --to mysql
-    ./openobserve migrate-file-list --from etcd --to postgres
-    ```
-    This will migrate the file list. 
+**1. Configure Environment Variables**
 
-1. If everything is fine then add these new environments to your deploy:
+```shell
+# For PostgreSQL
+export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/openobserve"
 
-    MySQL:
-    ```yaml
-    ZO_META_STORE: "mysql"
-    ZO_META_MYSQL_DSN: "mysql://user:password@server-address:3306/app"
-    ```
-    PostgreSQL:
-    ```yaml
-    ZO_META_STORE: "postgres"
-    ZO_META_POSTGRES_DSN: "postgres://user:password@server-address:5432/app"
-    ```
+# For MySQL
+export ZO_META_MYSQL_DSN="mysql://user:password@server-address:3306/openobserve"
+```
 
-Restart OpenObserve, it should working with MySQL / PostgreSQL now. 
+**2. Initialize New Database**
 
-You can connect to the database and you will see these tables:
+Create the WAL directory if needed:
+```shell
+mkdir -p data/openobserve/wal/
+```
+> Replace `data/openobserve/` with your actual data directory path.
+
+Initialize the database:
+```shell
+ZO_META_STORE=postgres ./openobserve init-db
+```
+
+**3. Migrate Metadata**
+
+```shell
+# To PostgreSQL
+./openobserve migrate-meta --from sqlite --to postgres
+
+# To MySQL
+./openobserve migrate-meta --from sqlite --to mysql
+```
+
+**4. Migrate File List**
+
+```shell
+# To PostgreSQL
+./openobserve migrate-file-list --from sqlite --to postgres
+
+# To MySQL
+./openobserve migrate-file-list --from sqlite --to mysql
+```
+
+### Update Configuration
+
+Add the environment variables to your deployment configuration:
+
+**For PostgreSQL:**
+```yaml
+ZO_META_STORE: "postgres"
+ZO_META_POSTGRES_DSN: "postgres://user:password@server-address:5432/openobserve"
+```
+
+**For MySQL:**
+```yaml
+ZO_META_STORE: "mysql"
+ZO_META_MYSQL_DSN: "mysql://user:password@server-address:3306/openobserve"
+```
+
+Restart OpenObserve to use the new database.
+
+## Verification
+
+After completing the migration, verify success by connecting to your target database and checking for the following tables:
 
 ```
 +-----------------------+
-| Tables_in_openobserve |
+| Tables                |
 +-----------------------+
 | file_list             |
 | file_list_deleted     |
 | meta                  |
-| scheduled_jobs        | (>= v0.10.0)
+| ...                   |
 | stream_stats          |
 +-----------------------+
-5 rows in set (0.00 sec)
 ```
 
-## Local mode migration
+Also can check if we have data now:
 
-If you can't login into the pod, please change your image tag to `debug` version, for example:
-
-> You are using `v0.9.1` then you can set the image to debug version `public.ecr.aws/zinclabs/openobserve:v0.9.1-debug`
-
-Please choose the version you are using and add suffix `-debug` to the tag, If you don't know which version you are using, you can login OpenObserve UI and click `About` menu to get it.
-
-1. Change the image tag to debug version if you are running in kubernetes.
-1. Deploy MySQL / PostgreSQL first, You also can create a RDS service in the cloud.
-1. Stop ingestion to avoid data write during migration.
-1. Login into the pod.
-1. Set following environment variables depends on you want to use MySQL or PostgreSQL
-    ```shell
-    $ export ZO_META_MYSQL_DSN="mysql://user:password@server-address:3306/app"
-    $ export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/app"
-    ```
-1. Run the command depends on you want to use MySQL or PostgreSQL
-
-    If there is no `wal` directory please create it.
-    ```shell
-    mkdir -p data/openobserve/wal/
-    ```
-    > Remember change the `data/openobserve/` to your real data directory.
-
-    ```shell
-    ./openobserve migrate-meta --from sqlite --to mysql
-    ./openobserve migrate-meta --from sqlite --to postgres
-    ```
-    This will migrate metadata.
-    ```shell
-    ./openobserve migrate-file-list --from sqlite --to mysql
-    ./openobserve migrate-file-list --from sqlite --to postgres
-    ```
-    This will migrate the file list. 
-
-1. If everything is fine then add these new environments to your deploy:
-
-    MySQL:
-    ```yaml
-    ZO_META_STORE: "mysql"
-    ZO_META_MYSQL_DSN: "mysql://user:password@server-address:3306/app"
-    ```
-    PostgreSQL:
-    ```yaml
-    ZO_META_STORE: "postgres"
-    ZO_META_POSTGRES_DSN: "postgres://user:password@server-address:5432/app"
-    ```
-
-Restart OpenObserve, it should working with MySQL / PostgreSQL now. 
-
-You can connect to the database and you will see these tables:
-
-```
-+-----------------------+
-| Tables_in_openobserve |
-+-----------------------+
-| file_list             |
-| file_list_deleted     |
-| meta                  |
-| scheduled_jobs        | (>= v0.10.0)
-| stream_stats          |
-+-----------------------+
-5 rows in set (0.00 sec)
+```sql
+SELECT COUNT(*) FROM meta;
+SELECT COUNT(*) FROM file_list;
 ```
 
-## Local mode to Cluster mode
+You can also check that OpenObserve starts successfully and that your data is accessible through the UI.
 
-TODO
+## Enabling PostgreSQL via Helm Chart
+
+If deploying OpenObserve via Helm, you can enable PostgreSQL directly in your values:
+
+```yaml
+postgres:
+  enabled: true
+```
+
+See the full configuration options at: https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/values.yaml#L521
