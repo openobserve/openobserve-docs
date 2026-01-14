@@ -128,11 +128,9 @@ For OpenObserve running in cluster/Kubernetes mode, follow these steps:
 Log into the compactor pod and set the required DSN variables:
 
 ```shell
-# For migrating from etcd to PostgreSQL
-export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/openobserve"
-
-# For migrating from etcd to MySQL
+# For migrating from MySQL to PostgreSQL
 export ZO_META_MYSQL_DSN="mysql://user:password@server-address:3306/openobserve"
+export ZO_META_POSTGRES_DSN="postgres://user:password@server-address:5432/openobserve"
 ```
 
 **2. Initialize New Database**
@@ -152,20 +150,20 @@ ZO_META_STORE=postgres ./openobserve init-db
 
 ```shell
 # To PostgreSQL
-./openobserve migrate-meta --from etcd --to postgres
+./openobserve migrate-meta --from mysql --to postgres
 
 # To MySQL
-./openobserve migrate-meta --from etcd --to mysql
+./openobserve migrate-meta --from postgres --to mysql
 ```
 
 **4. Migrate File List**
 
 ```shell
 # To PostgreSQL
-./openobserve migrate-file-list --from etcd --to postgres
+./openobserve migrate-file-list --from mysql --to postgres
 
 # To MySQL
-./openobserve migrate-file-list --from etcd --to mysql
+./openobserve migrate-file-list --from postgres --to mysql
 ```
 
 ### Update Deployment Configuration
