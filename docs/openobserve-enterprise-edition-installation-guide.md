@@ -649,3 +649,64 @@ This guide explains how to deploy [OpenObserve Enterprise Edition](https://openo
         http://localhost:5080
         ```
         Log in with the email and password you set in `values.yaml`.
+
+### Enterprise License 
+
+Enterprise Edition is free for up to 200 GB/day (~6 TB/month) of data ingestion
+
+Pricing:
+  - Free tier: Up to 200 GB/day of ingestion (roughly 6 TB/month), including full commercial use in accordance with the [license](https://openobserve.ai/enterprise-license/)
+  - Registration required if ingesting greater than 100 GB/day to get a free license for up to 200 GB/Day
+  - Volume discounts and multi-year contracts available, [contact our sales team](https://openobserve.ai/contact-sales/)
+
+  Enterprise Features:
+
+  Security & Access Control:
+  - Single Sign-On (SSO): OIDC, OAuth, SAML 2.0, LDAP/AD, and integration with major identity providers (Okta, Azure Entra, Google, GitHub, GitLab, Keycloak)
+  - Advanced RBAC: Granular role-based access control with custom roles and permissions – [Learn more](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/)
+  - Audit trails: Comprehensive immutable audit logs with configurable retention
+  - Sensitive Data Redaction (SDR): Automatically redact PII and sensitive data during ingestion and queries
+  - Advanced encryption: AES-256 SIV cipher keys with Google Tink KeySet and Akeyless integration
+  - Rate limit: Control API request rates and protect against abuse
+
+  Performance & Scalability:
+  - Query performance: 100x improvement for many queries
+  - Federated search / Super Cluster: Query across multiple clusters and regions
+  - Query management: Control query resource usage and priorities
+  - Workload management (QoS): Quality of Service controls for multi-tenant environments
+  - Query optimizer / Aggregation cache / TopK Aggregation: Advanced query optimization for faster performance
+  - Broadcast join: Optimized join operations for distributed queries
+  - Metrics auto downsampling: Automatic downsampling for long-term metrics retention
+
+  AI & Intelligence:
+  - Incident management: Automated incident creation and tracking from alerts
+  - SRE Agent: AI-powered root cause analysis with correlated logs, metrics, and traces
+  - AI assistant: Intelligent assistant for observability workflows
+  - Log Patterns: Automatic pattern extraction and anomaly identification
+  - MCP server: Model Context Protocol server for AI integrations
+  - Logs, metrics, and traces correlation: Automated detection and correlation across telemetry signals
+
+  Data Processing & Integration:
+  - Actions: Custom automation and response actions
+  - Pipeline remote destinations: Send processed data to external systems
+  - Advanced pipelines: Enhanced data transformation and routing capabilities
+
+### How Enterprise Licensing Works:
+
+  Enterprise installations work without requesting a license key up to 100 GB/day of data ingestion. If your ingestion volume goes beyond 100 GB/day, you need to request a license for your team.
+
+  License Types:
+
+  1. Free-Tier License (≤ 200 GB/Day) 
+  2. Paid Subscription License (> 200 GB/Day)
+
+  Usage Limits:
+
+  To accommodate occasional traffic spikes, OpenObserve provides a buffer:
+
+  - You can exceed your license limit up to 3 times per month without impact.
+  - After exceeding your limit 3 times in a calendar month, search queries will be blocked until you upgrade your license or your ingestion volume returns within limits.
+
+  This applies to both fresh installations (100 GB/day limit) and Free-Tier License users (200 GB/day limit).
+
+  For full terms and conditions, visit the https://openobserve.ai/enterprise-license/.
