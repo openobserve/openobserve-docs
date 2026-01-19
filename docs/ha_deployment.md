@@ -192,7 +192,6 @@ Add/Modify following to values.yaml
      ZO_S3_BUCKET_NAME: "mysuperduperbucket"
      ZO_S3_REGION_NAME: "us-west-1"
      ZO_S3_PROVIDER: "s3"
-     ZO_S3_FEATURE_FORCE_HOSTED_STYLE: "true"
    ```
 
 ## Setup

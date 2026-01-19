@@ -370,7 +370,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_S3_BUCKET_NAME              | -             | Bucket name                                                                          |
 | ZO_S3_BUCKET_PREFIX            | -             | You can store data in a sub directory, like: `openobserve/`                          |
 | ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, swift                             |
-| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | Feature: `force_hosted_style`, default enable for provider `minio` and `swift`.        |
+| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | Feature: `force_hosted_style`.                                                     |
 | AWS_EC2_METADATA_DISABLED      | false         | Feature, default enable for `swift`.                                                 |
 | ZO_S3_FEATURE_BULK_DELETE       | false         | Enables bulk deletion of streams in object stores that support stream deletion. If your object store supports stream delete, you can enable this variable. AWS S3 and Azure ObjectStore are known to support it. When set to **true**, OpenObserve issues a single operation to delete all files under the stream’s storage prefix, reducing deletion time and API usage.                                                                             |
 | ZO_S3_ACCOUNTS                       | -             | Comma-separated list of account identifiers. |
@@ -1056,7 +1056,7 @@ For backward compatibility, we still support etcd but most of you should be able
 | ZO_S3_BUCKET_NAME              | -             | No        | bucket name                                                                          |
 | ZO_S3_BUCKET_PREFIX            | -             | No        | you can store data in a sub directory, like: `openobserve/`                          |
 | ZO_S3_PROVIDER                 | s3            | No        | s3 provider name, like: aws, gcs, gcp, oss, minio, swift                             |
-| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | No        | feature: `force_hosted_style`, default enable for provider `minio` and `swift`.        |
+| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | Feature: `force_hosted_style`.                                                     |
 | AWS_EC2_METADATA_DISABLED      | false         | No        | feature, default enable for `swift`.                                                 |
 | ZO_S3_FEATURE_HTTP1_ONLY       | false         | No        | feature                                                                              |
 | ZO_S3_FEATURE_HTTP2_ONLY       | false         | No        | feature                                                                              |
