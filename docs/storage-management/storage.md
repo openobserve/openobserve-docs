@@ -54,11 +54,11 @@ Then set the following environment variables:
 | Environment Variable | Value | Description                                     |
 | -------------------- | ----- | ----------------------------------------------- |
 | ZO_S3_SERVER_URL     | -     | MinIO server address                            |
-| ZO_S3_REGION_NAME    | -     | Region name, such as `us-west-1` |
+| ZO_S3_REGION_NAME    | -     | Region name, such as `us-west-1`                |
 | ZO_S3_ACCESS_KEY     | -     | Access key                                      |
 | ZO_S3_SECRET_KEY     | -     | Secret key                                      |
 | ZO_S3_BUCKET_NAME    | -     | Bucket name                                     |
-| ZO_S3_PROVIDER       | minio    | Used to specify settings like `force_style=true`  |
+| ZO_S3_PROVIDER       | minio | ...                                             |
 
 
 ### Openstack Swift
@@ -117,7 +117,6 @@ Then set the following environment variables:
 | ZO_S3_BUCKET_NAME              | -     | Bucket name                                                     |
 | ZO_S3_ACCESS_KEY               | -     | Access key                                                      |
 | ZO_S3_SECRET_KEY               | -     | Secret key                                                      |
-| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | true  | Enables hosted-style addressing                                                              |
 
 Refer to [Alibaba OSS region and endpoint documentation](https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints).
 
@@ -188,7 +187,6 @@ Then set the following environment variables:
 | ZO_S3_BUCKET_NAME | your-bucket | Bucket name |
 | ZO_S3_ACCESS_KEY | your-access-key | Access key |
 | ZO_S3_SECRET_KEY | your-secret-key | Secret key |
-| ZO_S3_FEATURE_FORCE_HOSTED_STYLE | true | Enable hosted-style addressing |
 
 Example configuration with placeholder values:
 
@@ -199,7 +197,6 @@ ZO_S3_REGION_NAME=hel1
 ZO_S3_BUCKET_NAME=my-bucket
 ZO_S3_ACCESS_KEY=YOUR_ACCESS_KEY
 ZO_S3_SECRET_KEY=YOUR_SECRET_KEY
-ZO_S3_FEATURE_FORCE_HOSTED_STYLE=true
 ```
 
 Refer to [Hetzner Cloud Object Storage documentation](https://docs.hetzner.com/storage/object-storage/) for more information about endpoints and regions.
