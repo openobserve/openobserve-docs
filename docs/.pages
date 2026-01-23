@@ -22,4 +22,5 @@ nav:
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - Work Group: work_group.md 
+- SIEM: siem.md
 
