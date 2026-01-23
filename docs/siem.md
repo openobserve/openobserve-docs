@@ -18,6 +18,8 @@ OpenObserve acts as an all-in-one **Data Lake**, **Detection Engine**, and **Res
 6. **Visualization Layer:** **Dashboards** provide real-time situational awareness, visual trend analysis, and compliance reporting for SOC analysts.  
 7. **Response Layer:** Alerts automatically trigger **Incidents** within OpenObserve's native Incident Management module for triage, assignment, and state tracking.
 
+![OpenObserve SIEM architecture](./images/openobserve_siem.jpg)
+
 ## **2. Ingestion & Integrations**
 
 To build a SIEM, you need to ingest security telemetry from "dozens" of sources. We recommend using **Vector** as a highly efficient log shipper. In this architecture, Vector acts as a "dumb pipe"—it simply polls the APIs and forwards the raw JSON to OpenObserve.
