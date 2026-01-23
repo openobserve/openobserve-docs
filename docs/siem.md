@@ -20,7 +20,7 @@ OpenObserve acts as an all-in-one **Data Lake**, **Detection Engine**, and **Res
 
 ## **2. Ingestion & Integrations**
 
-To build a SIEM, you need to ingest security telemetry from "dozens" of sources. We recommend using **Vector** (by Datadog) as a highly efficient log shipper. In this architecture, Vector acts as a "dumb pipe"—it simply polls the APIs and forwards the raw JSON to OpenObserve.
+To build a SIEM, you need to ingest security telemetry from "dozens" of sources. We recommend using **Vector** as a highly efficient log shipper. In this architecture, Vector acts as a "dumb pipe"—it simply polls the APIs and forwards the raw JSON to OpenObserve.
 
 ### **Example: Ingesting SaaS Logs (Microsoft 365 / Dropbox)**
 
@@ -45,7 +45,7 @@ compression = "gzip"
 encoding.codec = "json"
 ```
 
-**Pro Tip:** By sending data to a \_raw stream first, you ensure you never lose the original log. You can then use Pipelines to process and route it to clean streams.
+**Pro Tip:** By sending data to a `_raw` stream first, you ensure you never lose the original log. You can then use Pipelines to process and route it to clean streams.
 
 ## **3. The Golden Rule: Normalization (Pipelines & VRL)**
 
@@ -116,8 +116,8 @@ There are two primary methods to utilize this data:
 
 Ideally, you should enrich your logs **at the time of ingestion**. By using Pipelines to look up IPs in your enrichment table as logs arrive, you add context (e.g., threat_group, confidence_score) directly to the log record *before* it is stored.
 
-* **Pros:** Search performance is faster (no expensive JOINs needed at query time), and the data is permanently tagged with the intelligence available at that moment.  
-* **VRL Example:** Use the get_enrichment_table_record function in your pipeline to match the log's .src_endpoint_ip against the ip column in your uploaded malicious_ips table.
+* **Pros:** Search performance is faster (no expensive JOINs needed at query time), and the data is permanently tagged with the intelligence available at that moment
+* **VRL Example:** Use the `get_enrichment_table_record` function in your pipeline to match the log's `.src_endpoint_ip` against the `ip` column in your uploaded `malicious_ips` table
 
 ```ruby
 # Lookup src_endpoint_ip in the 'malicious_ips' table.
@@ -133,7 +133,7 @@ if err == null && record != null {
 
 ### **Method 2: Query-Time Correlation (SQL Join)**
 
-Alternatively, you can correlate logs dynamically using SQL JOINs. This method is ideal for **retrospective analysis**—for example, checking if an IP that was added to a blocklist *today* accessed your network *last week*. OpenObserve supports performing SQL JOINs directly against your Enrichment Tables (Lookup Tables).
+Alternatively, you can correlate logs dynamically using SQL JOINs. This method is ideal for **retrospective analysis**—for example, checking if an IP that was added to a blocklist *today* accessed your network *last week*. OpenObserve supports performing SQL JOINs directly against your Enrichment Tables.
 
 **Note:** When performing a JOIN, you must prefix the enrichment table name with **enrich.**.
 
@@ -162,29 +162,29 @@ GROUP BY
 
 A SIEM is only as good as the intelligence you feed it. To detect threats effectively, you should ingest high-fidelity Indicators of Compromise (IOCs) such as malicious IPs, domains, and file hashes.
 
-#### **Open Source (Free)**
+### **Open Source (Free)**
 
 *Great for getting started and blocking high-volume "noisy" threats.*
 
-* **AlienVault OTX (Open Threat Exchange):** One of the world's largest crowd-sourced threat intelligence communities. You can subscribe to specific "pulses" relevant to your industry.  
-* **Abuse.ch:** A gold standard for specific threat types.  
-  * **URLhaus:** Malicious URLs used for malware distribution.  
-  * **ThreatFox:** Detailed IOCs for botnets and ransomware.  
-* **MISP (Malware Information Sharing Platform):** While MISP is a platform, it provides access to hundreds of free feeds (CIRCL, etc.). You can run MISP alongside OpenObserve and export IOCs into OpenObserve enrichment tables.  
+* **AlienVault OTX (Open Threat Exchange):** One of the world's largest crowd-sourced threat intelligence communities. You can subscribe to specific "pulses" relevant to your industry.
+* **Abuse.ch:** A gold standard for specific threat types.
+  * **URLhaus:** Malicious URLs used for malware distribution.
+  * **ThreatFox:** Detailed IOCs for botnets and ransomware.
+* **MISP (Malware Information Sharing Platform):** While MISP is a platform, it provides access to hundreds of free feeds (CIRCL, etc.). You can run MISP alongside OpenObserve and export IOCs into OpenObserve Enrichment Tables.
 * **CINS Army:** A high-fidelity list of IPs with poor reputation.
 
-#### **Commercial (Paid)**
+### **Commercial (Paid)**
 
 *Recommended for sophisticated threat actor profiling, dark web monitoring, and lower false-positive rates.*
 
-* **CrowdStrike Falcon Intelligence:** Highly rated for its integration of endpoint telemetry with threat data, offering excellent attribution of adversary groups.  
-* **Recorded Future:** Massive breadth of coverage, including dark web, social media, and technical sources. Their "Intelligence Graph" is excellent for contextualizing why an IP is bad.  
-* **Mandiant (Google Cloud):** Intelligence derived from frontline incident response. If Mandiant says it's bad, it is likely a confirmed breach.  
+* **CrowdStrike Falcon Intelligence:** Highly rated for its integration of endpoint telemetry with threat data, offering excellent attribution of adversary groups.
+* **Recorded Future:** Massive breadth of coverage, including dark web, social media, and technical sources. Their "Intelligence Graph" is excellent for contextualizing why an IP is bad.
+* **Mandiant (Google Cloud):** Intelligence derived from frontline incident response. If Mandiant says it's bad, it is likely a confirmed breach.
 * **GreyNoise:** *Unique Value.* Instead of telling you what is bad, GreyNoise tells you what is "internet background noise" (scanners, researchers). Use this to **filter out** alerts and reduce false positives.
 
 ## **5. Detection Engineering (Writing Rules)**
 
-In OpenObserve, "Rules" are simply **Scheduled Alerts** running SQL queries. When these alerts trigger, they create an **Incident**.
+In OpenObserve, "Rules" are simply **Scheduled Alerts** running SQL queries. When these alerts trigger, they create an incident.
 
 ### **Type A: Threshold Detection**
 
@@ -213,11 +213,13 @@ HAVING
   count(*) > 10
 ```
 
+**Note:** Field names are quoted when they contain special characters or match SQL keywords. System fields like `_timestamp` don't require quotes.
+
 4. **Schedule:** Run every 5 minutes.
 
 ### **Type B: IOC Matching (Indicators of Compromise)**
 
-*Detects known bad artifacts (IPs, Hashs).*
+*Detects known bad artifacts (IPs, Hashes).*
 
 **Scenario:** Detect connection to a known malicious C2 IP.
 
@@ -232,7 +234,7 @@ WHERE
   "dst_endpoint_ip" IN ('103.1.2.3', '45.33.22.11', '192.0.2.1')
 ```
 
-*(Note: For large lists of IOCs, use the Enrichment/JOIN method described in Section 4).*
+*(Note: For large lists of IOCs, use the Enrichment Table JOIN method described in the Enrichment section above).*
 
 ### **Type C: Behavioral/Sigma**
 
@@ -261,10 +263,10 @@ Most modern threat detection logic is shared in the **Sigma** format (YAML). Sin
 
 | Sigma Concept | OpenObserve SQL Equivalent (OCSF) |
 | :---- | :---- |
-| **Log Source** (product: windows) | FROM windows_stream |
-| **Selection** (Image: cmd.exe) | WHERE process_name = 'cmd.exe' |
-| **User** (User: alice) | WHERE actor_user_name = 'alice' |
-| **Wildcards** (CommandLine: \*evil\*) | WHERE process_cmd_line LIKE '%evil%' |
+| **Log Source** (product: `windows`) | FROM windows_stream |
+| **Selection** (Image: `cmd.exe`) | WHERE process_name = 'cmd.exe' |
+| **User** (User: `alice`) | WHERE actor_user_name = 'alice' |
+| **Wildcards** (CommandLine: `evil`) | WHERE process_cmd_line LIKE '%evil%' |
 
 ### **Automation with Sigma CLI**
 
@@ -292,7 +294,7 @@ sigma convert -t sql -p postgresql rules/windows/process_creation/proc_creation_
 ```yaml
 detection:
   selection:
-    Image|endswith: '\whoami.exe'
+    Image|endswith: '\\whoami.exe'
   condition: selection
 ```
 
@@ -304,47 +306,43 @@ SELECT
 FROM
   windows_events
 WHERE
-  process_file_path LIKE '%\whoami.exe'
+  process_file_path LIKE '%\\whoami.exe'
 ```
 
 ## **7. Incident Management (Triage & Response)**
 
 OpenObserve closes the loop from detection to response with native Incident Management. Alerts are no longer just "fire-and-forget" notifications; they are stateful records that teams can collaborate on.
 
-* **Lifecycle Tracking:** Every triggered rule creates an incident. Move incidents through states: New -> Investigating -> Resolved (or False Positive).  
-* **Assignment:** Assign incidents to specific analysts to ensure accountability.  
-* **Evidence & Comments:** Analysts can add notes and attach query results directly to the incident record to document the investigation.  
-* **Metrics:** Track Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR) directly within the platform.
+* **Lifecycle Tracking:** Every triggered rule creates an incident. Move incidents through states: New -> Investigating -> Resolved (or False Positive)
+* **Assignment:** Assign incidents to specific analysts to ensure accountability
+* **Evidence & Comments:** Analysts can add notes and attach query results directly to the incident record to document the investigation
+* **Metrics:** Track Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR) directly within the platform
 
 ## **8. Dashboards for Analysts**
 
-A SIEM is not just for alerting; it is for investigation. You should create three primary Dashboards in OpenObserve:
+A SIEM is not just for alerting; it is for investigation. You should create dashboards in OpenObserve to monitor key security metrics:
 
-1. **SOC Overview:**  
-   * Big Number: **Open Incidents** (Priority for immediate action).  
-   * Pie Chart: Incidents by Severity (Critical, High, Medium).  
-   * Table: Unassigned Incidents > 24 hours old.  
-2. **User Activity:**  
-   * Bar Chart: Top Users by Failed Logins.  
-   * Map: Geo-location of logins (using geoip functions).  
-   * Table: Administrative actions (User creation, Permission changes).  
-3. **Network/System Hygiene:**  
-   * Line Chart: Outbound Traffic Volume (Spikes may indicate data exfiltration).  
-   * Table: Top blocked firewall connections.
+1. **User Activity:**
+   * Bar Chart: Top Users by Failed Logins
+   * Map: Geo-location of logins (using geoip functions)
+   * Table: Administrative actions (User creation, Permission changes)
+2. **Network/System Hygiene:**
+   * Line Chart: Outbound Traffic Volume (Spikes may indicate data exfiltration)
+   * Table: Top blocked firewall connections
 
 ## **9. Retention and Compliance**
 
 One of OpenObserve's biggest strengths as a SIEM is cost-effective long-term retention via Object Storage (S3). OpenObserve automatically manages data lifecycle, ensuring that recent data is instantly accessible while older data is stored efficiently on object storage (S3/MinIO/GCS/Azure Blob) for compliance and historical analysis.
 
-* **Unified Storage:** No manual tiering is required. OpenObserve transparently handles the movement of data to object storage, allowing you to query petabytes of historical data as easily as real-time logs.  
-* **Compliance:** Retain data for 1 year (or any required compliance period) at the cost of S3 storage, significantly cheaper than block storage.  
-* **Audit:** Use OpenObserve's built-in audit logs to track who queried the SIEM data to ensure chain of custody.
+* **Unified Storage:** No manual tiering is required. OpenObserve transparently handles the movement of data to object storage, allowing you to query petabytes of historical data as easily as real-time logs
+* **Compliance:** Retain data for 1 year (or any required compliance period) at the cost of S3 storage, significantly cheaper than block storage
+* **Audit:** Use OpenObserve's built-in audit logs to track who queried the SIEM data to ensure chain of custody
 
 ## **Checklist for Production**
 
-* [ ] **Data Source Map:** List all required sources (Dropbox, Endpoint, M365, Firewall).
-* [ ] **Schema Definition:** Adopt OCSF and define actor_user_name, src_endpoint_ip, activity_name etc.
-* [ ] **Pipeline Config:** Create VRL Functions in OpenObserve to map incoming logs to your OCSF Schema.
-* [ ] **Threat Intel:** Subscribe to at least 2 open source feeds (e.g., Abuse.ch + AlienVault) and ingest them into OpenObserve lookup tables.
-* [ ] **Base Ruleset:** Implement the "Top 10" critical alerts (Brute force, Root login, Malware detected).
-* [ ] **Incident Workflow:** Define your team's triage process (e.g., "All Critical incidents must be acknowledged within 30 minutes") and configure notification channels to alert on new Incident creation.
+* [ ] **Data Source Map:** List all required sources (Dropbox, Endpoint, M365, Firewall)
+* [ ] **Schema Definition:** Adopt OCSF and define `actor_user_name`, `src_endpoint_ip`, `activity_name`, etc
+* [ ] **Pipeline Config:** Create VRL Functions in OpenObserve to map incoming logs to your OCSF Schema
+* [ ] **Threat Intel:** Subscribe to at least 2 open source feeds (e.g., Abuse.ch + AlienVault) and ingest them into OpenObserve Enrichment Tables
+* [ ] **Base Ruleset:** Implement the "Top 10" critical alerts (Brute force, Root login, Malware detected)
+* [ ] **Incident Workflow:** Define your team's triage process (e.g., "All Critical incidents must be acknowledged within 30 minutes") and configure notification channels to alert on new incident creation
