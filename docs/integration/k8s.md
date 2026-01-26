@@ -1,17 +1,17 @@
 ---
-title: Kubernetes Monitoring Integration Guide
-description: This guide explains how to monitor Kubernetes clusters using OpenTelemetry and OpenObserve. It covers installing the OpenTelemetry Operator, deploying the OpenObserve Collector, enabling auto-instrumentation, and importing pre-built dashboards.
+title: Kubernetes Monitoring - K8s Cluster Monitoring and Container Observability | OpenObserve
+description: Complete Kubernetes monitoring guide for K8s cluster monitoring, container monitoring, pod metrics, Kubernetes logs, and microservices observability using OpenTelemetry and OpenObserve.
 ---
 
-# Integration with Kubernetes
+# Kubernetes Monitoring - K8s Cluster & Container Observability
 
-This guide provides step-by-step instructions to integrate Kubernetes with **OpenObserve** for observability.  
+Monitor Kubernetes clusters with comprehensive Kubernetes monitoring for K8s cluster monitoring, container monitoring, pod metrics, and microservices observability. This guide provides step-by-step instructions to integrate Kubernetes monitoring with **OpenObserve** for complete Kubernetes observability, container logs, and K8s metrics collection.
 
 ## Overview
 
-Kubernetes monitoring differs from traditional server-based monitoring. Instead of only tracking system uptime, you need insights into **pods, services, microservices interactions, events, logs, and traces**.  
+Kubernetes monitoring differs from traditional server-based monitoring. Kubernetes cluster monitoring requires insights into **pods, containers, services, microservices interactions, Kubernetes events, container logs, and distributed traces** for effective K8s monitoring.
 
-OpenTelemetry provides a unified way to collect telemetry data from Kubernetes, and OpenObserve makes it easy to ingest, store, visualize, and analyze that data with minimal setup.  
+OpenTelemetry provides a unified way to collect Kubernetes telemetry data, and OpenObserve makes it easy to ingest, store, visualize, and analyze Kubernetes metrics, logs, and traces for comprehensive Kubernetes monitoring and container observability with minimal setup.  
 
 ![Integration Architechture for monitoring K8s in OpenObserve](./images/k8s/architechture.png)
 

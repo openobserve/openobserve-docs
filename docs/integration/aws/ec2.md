@@ -1,14 +1,14 @@
 ---
-title: AWS EC2 Integration Guide
-description: Collect system metrics and logs from your EC2 Linux instances using the OpenObserve Collector (built on OpenTelemetry). Monitor performance, troubleshoot issues, and analyze logs in one place. 
+title: AWS EC2 Monitoring - Server Metrics and Logs Collection | OpenObserve
+description: Complete AWS EC2 monitoring guide for collecting server metrics, system logs, and performance data from EC2 Linux instances using OpenTelemetry for infrastructure monitoring and observability.
 ---
 
-# Integration with AWS EC2
-This guide provides step-by-step instructions to integrate AWS EC2 with OpenObserve.
+# AWS EC2 Monitoring - Infrastructure & Server Monitoring
 
+Monitor AWS EC2 instances with comprehensive server monitoring, collecting system metrics, application logs, and performance data. This guide shows you how to set up AWS EC2 monitoring using the OpenObserve Collector (built on OpenTelemetry) for infrastructure monitoring and cloud observability.
 
 ## Overview
-Stream system metrics and logs from EC2 Linux instances to OpenObserve using the OpenObserve Collector (based on OpenTelemetry).
+Stream server metrics and system logs from AWS EC2 Linux instances to OpenObserve for infrastructure monitoring, performance tracking, and log analysis using the OpenObserve Collector (based on OpenTelemetry).
 
 
 ## Steps to Integrate

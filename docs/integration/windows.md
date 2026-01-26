@@ -1,12 +1,13 @@
 ---
-title: Integration with Windows for OpenObserve Monitoring
-description: Integrate Windows with OpenObserve to collect event logs and performance metrics using OpenObserve Collector or OpenTelemetry.
+title: Windows Server Monitoring - Event Logs and Performance Metrics | OpenObserve
+description: Complete Windows server monitoring guide for collecting Windows event logs, server metrics, and performance data using OpenObserve Collector for Windows monitoring and server observability.
 ---
-# Integration with Windows
-This guide provides instructions to integrate Windows systems with OpenObserve for monitoring logs and metrics.
+# Windows Server Monitoring - Event Logs & Performance Metrics
 
-## Overview 
-Windows systems generate multiple types of monitoring data that are essential for maintaining system health and security. Event logs provide critical insights that support IT operations in troubleshooting, auditing, and compliance. Performance metrics such as CPU usage, memory consumption, disk I/O, network activity, and process-specific data help identify bottlenecks, capacity issues, and resource constraints before they affect users.
+Monitor Windows servers with comprehensive Windows server monitoring for collecting Windows event logs, server performance metrics, and infrastructure data. This guide provides instructions to integrate Windows systems with OpenObserve for Windows monitoring, server observability, and infrastructure monitoring using OpenObserve Collector or OpenTelemetry.
+
+## Overview
+Windows server monitoring requires collecting event logs and server performance metrics that are essential for maintaining Windows system health and security. Windows Event Logs provide critical insights for IT operations, troubleshooting, auditing, and compliance. Windows Performance metrics such as CPU usage, memory consumption, disk I/O, network activity, and process-specific data help identify server bottlenecks, capacity issues, and resource constraints for effective Windows server monitoring.
 
 --- 
 

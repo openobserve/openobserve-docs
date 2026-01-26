@@ -1,10 +1,15 @@
-# Integration with PostgreSQL
+---
+title: PostgreSQL Database Monitoring - Performance Metrics and Query Analysis | OpenObserve
+description: Complete PostgreSQL database monitoring guide for collecting PostgreSQL performance metrics, query analysis, and database health using OpenTelemetry for PostgreSQL monitoring and database observability.
+---
 
-This guide provides step-by-step instructions to integrate PostgreSQL with OpenObserve.
+# PostgreSQL Database Monitoring - Performance & Query Analysis
+
+Monitor PostgreSQL databases with comprehensive PostgreSQL database monitoring for collecting PostgreSQL performance metrics, query performance data, and database health metrics. This guide provides step-by-step instructions to integrate PostgreSQL monitoring with OpenObserve for PostgreSQL database performance monitoring and observability.
 
 ## Overview
 
-The PostgreSQL integration enables monitoring of PostgreSQL database performance metrics through OpenTelemetry. This integration streams telemetry data from PostgreSQL to OpenObserve, providing insights into database health, query performance, and operational metrics for effective monitoring and troubleshooting.
+The PostgreSQL database monitoring integration enables monitoring of PostgreSQL database performance metrics through OpenTelemetry. This PostgreSQL integration streams database telemetry data from PostgreSQL to OpenObserve, providing insights into PostgreSQL database health, query performance, and operational metrics for effective database monitoring and troubleshooting.
 
 
 ## Steps to Integrate

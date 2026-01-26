@@ -1,11 +1,10 @@
 ---
-description: >-
-  Get started with OpenObserve quickly—follow the quickstart guide or watch the
-  intro video to explore its powerful observability features in action.
+title: Getting Started with OpenObserve - Cloud and Self-Hosted Setup Guide | OpenObserve
+description: Complete getting started guide for OpenObserve observability platform setup - cloud deployment and self-hosted installation for logs, metrics, and traces monitoring.
 ---
-# OpenObserve Quickstart Guide
+# Getting Started with OpenObserve - Observability Platform Setup
 
-This guide will help you get started with OpenObserve. You can choose between [OpenObserve Cloud](https://cloud.openobserve.ai) (recommended) or a self-hosted installation.
+Get started with OpenObserve observability platform for logs, metrics, and traces monitoring. This guide helps you set up OpenObserve for complete observability. You can choose between [OpenObserve Cloud](https://cloud.openobserve.ai) (recommended) or a self-hosted installation for your observability needs.
 
 ## Choose Your Installation Method
 

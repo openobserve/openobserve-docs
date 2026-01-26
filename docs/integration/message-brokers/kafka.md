@@ -1,15 +1,15 @@
 ---
-title: Apache Kafka Integration Guide
-description: Collect and monitor Apache Kafka metrics with OpenTelemetry Collector Contrib and visualize them in OpenObserve.
+title: Apache Kafka Monitoring - Stream Processing and Message Broker Metrics | OpenObserve
+description: Complete Apache Kafka monitoring guide for collecting Kafka metrics, message broker monitoring, stream processing performance, and Kafka cluster monitoring with OpenTelemetry for real-time observability.
 ---
 
-# Integration with Apache Kafka
+# Apache Kafka Monitoring - Stream Processing & Message Broker Monitoring
 
-This guide explains how to monitor **Apache Kafka** using the [OpenTelemetry Collector Contrib](https://github.com/open-telemetry/opentelemetry-collector-contrib) (`otelcol-contrib`) and export metrics to **OpenObserve** for visualization.
+Monitor Apache Kafka message broker with comprehensive Kafka monitoring for collecting Kafka cluster metrics, topic metrics, consumer lag, and producer performance. This guide explains how to monitor **Apache Kafka** for stream processing monitoring, message broker observability, and real-time data pipeline monitoring using OpenTelemetry Collector.
 
 ## Overview
 
-Monitoring Kafka is essential for ensuring performance, reliability, and data integrity.With OpenTelemetry and OpenObserve, you gain **real-time visibility** into Kafka clusters, topics, consumers, and producers.
+Apache Kafka monitoring is essential for ensuring message broker performance, stream processing reliability, and data integrity. With OpenTelemetry and OpenObserve, you gain **real-time visibility** into Kafka clusters, Kafka topics, consumer groups, and producer performance for comprehensive Kafka monitoring and observability.
 
 ## Steps to Integrate
 

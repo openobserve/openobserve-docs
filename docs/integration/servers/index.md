@@ -1,9 +1,17 @@
-The following user guides provide step-by-step instructions to integrate server platforms and operating systems with OpenObserve. These integrations enable you to collect system logs, performance metrics, and events for comprehensive visibility into your server environments.
-<br>
-Each guide corresponds to a web server that appears under the Web Servers tab in the OpenObserve user interface.
+---
+title: Web Server Monitoring - NGINX, Apache, WebLogic Performance | OpenObserve
+description: Comprehensive web server monitoring integrations for NGINX monitoring, Apache server metrics, WebLogic performance, and web server log analysis.
+---
+
+# Web Server Monitoring & Performance Integration
+
+OpenObserve provides comprehensive web server monitoring integrations to collect server logs, access logs, performance metrics, and events from web servers and application servers. Monitor NGINX, Apache, WebLogic, and web server performance for complete server observability and performance tracking.
+
+These web server monitoring integrations enable NGINX monitoring, access log analysis, server performance tracking, and application server observability for web applications.
+
 ![servers](servers.png)
-<br>
-Learn more:
+
+## Web Server Integration Guides
 
 - [Nginx](nginx.md)
 - [Oracle Weblogic](weblogic.md)
