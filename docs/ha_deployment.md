@@ -1,11 +1,12 @@
 ---
-description: >-
-  Deploy OpenObserve in HA mode using Helm on Kubernetes. Requires object
-  storage, IAM roles, and metadata config via PostgreSQL or MySQL.
+title: High Availability Deployment Guide - HA Setup on Kubernetes | OpenObserve
+description: Complete high availability (HA) deployment guide for OpenObserve on Kubernetes using Helm charts with object storage and PostgreSQL for production observability.
 ---
-# High Availability (HA) Deployment
+# High Availability (HA) Deployment - Kubernetes Production Setup
 
-While OpenObserve can be installed and run in HA mode on bare metal servers, VMs, Kubernetes and possibly other platforms, we currently provide installation using helm charts officially. We may provide additional installers like terraform in future. Local disk storage is not supported in HA mode and as such configuring an object store is mandatory.
+Deploy OpenObserve in high availability (HA) mode for production observability workloads. This HA deployment guide covers Kubernetes deployment using Helm charts with object storage (S3, Azure Blob) and PostgreSQL for highly available log management and monitoring.
+
+While OpenObserve can be installed and run in HA mode on bare metal servers, VMs, Kubernetes and possibly other platforms, we currently provide installation using Helm charts officially for Kubernetes HA deployment. Local disk storage is not supported in HA mode and as such configuring object storage (S3, Azure Blob) is mandatory for high availability deployment.
 
 ## Helm charts
 

@@ -1,9 +1,8 @@
 ---
-description: >-
-  Ingest logs in syslog format via TCP/UDP with OpenObserve. Enable in UI, set
-  org, stream, and subnet. Default port 5514. Great for server log integration.
+title: Syslog Server Integration for System Log Collection | OpenObserve
+description: Configure syslog server integration for collecting system logs, server logs, and network device logs using TCP/UDP protocols with OpenObserve for centralized logging.
 ---
-# Syslog server
+# Syslog Server - System & Network Log Collection
 
 !!! warning "Deprecation Notice"
     Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of August 2025** and is no longer available in OpenObserve.  

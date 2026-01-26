@@ -1,9 +1,8 @@
 ---
-description: >-
-  Ingest logs into OpenObserve using Go by sending JSON data via HTTP POST with
-  basic authentication and custom headers.
+title: Go (Golang) Log Ingestion SDK - Structured Logging for Go Applications | OpenObserve
+description: Go/Golang SDK guide for structured log ingestion, application logging, and log forwarding to OpenObserve using HTTP API for Go application monitoring.
 ---
-## Golang
+## Go (Golang) Log Ingestion - Application Logging
 
 ```golang
 package main

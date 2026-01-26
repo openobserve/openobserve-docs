@@ -1,11 +1,10 @@
 ---
-description: >-
-  Set up OpenTelemetry tracing for your Node.js TypeScript app and export traces
-  to OpenObserve using the provided sample configuration.
+title: TypeScript Distributed Tracing - OpenTelemetry for TypeScript APM | OpenObserve
+description: Complete TypeScript distributed tracing guide using OpenTelemetry SDK for TypeScript application performance monitoring and trace instrumentation.
 ---
-# Typescript
+# TypeScript Distributed Tracing - OpenTelemetry APM
 
-You can setup tracing for your Node.js Typescript application. Check sample configuration on how to setup traces.
+Setup distributed tracing for your Node.js TypeScript application using OpenTelemetry for TypeScript application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for TypeScript applications.
 
 ## Clone 
 ```

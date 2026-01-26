@@ -1,11 +1,10 @@
 ---
-description: >-
-  Get started with OpenObserve Cloud or self-hosted setup. Explore easy
-  onboarding, sample data ingestion, and quick log search in minutes.
+title: OpenObserve Quickstart - Log Management and Observability in Minutes | OpenObserve
+description: Quick start guide for OpenObserve log management and observability platform - setup, data ingestion, and log search in minutes with cloud or self-hosted deployment.
 ---
-# Quickstart
+# OpenObserve Quickstart - Log Management & Observability
 
-You can get started with [OpenObserve Cloud](https://cloud.openobserve.ai) or a self hosted installation. 
+Get started with OpenObserve log management and observability platform in minutes. This quickstart guide shows you how to setup OpenObserve, ingest logs, and start monitoring. You can get started with [OpenObserve Cloud](https://cloud.openobserve.ai) or a self hosted installation. 
 
 OpenObserve Cloud is recommended for most users due to following benefits:
 

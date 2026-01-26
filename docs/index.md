@@ -1,12 +1,14 @@
 ---
+title: OpenObserve - Cloud Native Observability Platform for Logs, Metrics, and Traces
+description: OpenObserve is a cloud native observability platform for unified logs, metrics, and traces monitoring with 140x lower storage costs and petabyte-scale performance.
 template: /partials/index.html
 ---
 
-# OpenObserve: Introduction
+# OpenObserve: Cloud Native Observability Platform
 
 ## What is OpenObserve?
 
-**OpenObserve**, also referred to as O2, is a cloud native observability platform that unifies **logs, metrics, and traces** into a single, powerful solution. Built from the ground up for modern cloud environments, OpenObserve delivers enterprise-grade observability at a fraction of the cost and complexity of traditional solutions.
+**OpenObserve**, also referred to as O2, is a cloud native observability platform that unifies **logs, metrics, and traces** into a single, powerful observability solution. Built from the ground up for modern cloud environments and Kubernetes, OpenObserve delivers enterprise-grade observability, log management, and monitoring at a fraction of the cost and complexity of traditional observability solutions.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/C0GH5Ox8NnY?si=Xm-tEpbnm-iywGqH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 

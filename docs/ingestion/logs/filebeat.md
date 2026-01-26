@@ -1,9 +1,10 @@
 ---
-description: >-
-  Ingest logs into OpenObserve using Filebeat by configuring input paths and
-  output to OpenObserve's API with Elasticsearch-compatible settings.
+title: Filebeat Log Shipper Integration for Log Collection | OpenObserve
+description: Set up Filebeat log shipper to collect and forward logs from files, servers, and applications to OpenObserve for centralized log management and analysis.
 ---
-# Filebeat
+# Filebeat Log Collection - File-Based Log Shipping
+
+Filebeat is a lightweight log shipper that monitors log files and forwards log data to centralized logging platforms. Configure Filebeat to collect logs from servers, applications, and services, and send them to OpenObserve for log aggregation and analysis.
 
 ```toml
 setup.ilm.enabled: false

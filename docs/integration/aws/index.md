@@ -1,9 +1,17 @@
-The following user guides provide step-by-step instructions to integrate AWS services with OpenObserve. These integrations allow you to collect logs, metrics, and events directly from various AWS offerings, enabling unified observability across your cloud workloads.
-<br>
-Each guide corresponds to a service that appears under the Amazon Web Services (AWS) section in the OpenObserve user interface.
+---
+title: AWS Monitoring Integration - CloudWatch, EC2, Lambda, ECS | OpenObserve
+description: Comprehensive AWS monitoring integration guide for CloudWatch logs and metrics, EC2 monitoring, Lambda monitoring, ECS container monitoring, RDS, VPC Flow Logs, and more AWS services.
+---
+
+# AWS Monitoring & Cloud Observability Integration
+
+OpenObserve provides comprehensive AWS monitoring integrations to collect logs, metrics, and events from AWS services. Monitor AWS infrastructure, serverless applications, containers, and cloud resources with unified observability for AWS CloudWatch, EC2, Lambda, ECS, RDS, and more.
+
+These AWS monitoring integrations enable cloud observability, infrastructure monitoring, and application performance monitoring across your AWS cloud workloads.
+
 ![aws](aws.png)
-<br>
-Learn more:
+
+## AWS Services Integration Guides
 
 - [Amazon EC2](ec2.md)
 - [Application Load Balancer(ALB)](alb.md)

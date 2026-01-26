@@ -1,11 +1,10 @@
 ---
-description: >-
-  Send traces from Rust to OpenObserve using OpenTelemetry and the
-  tracing_opentelemetry crate. Follow the sample config to get started quickly.
+title: Rust Distributed Tracing - OpenTelemetry for Rust APM | OpenObserve
+description: Complete Rust distributed tracing guide using OpenTelemetry SDK for Rust application performance monitoring and trace instrumentation.
 ---
-# Rust
+# Rust Distributed Tracing - OpenTelemetry APM
 
-The OpenTelemetry Rust project has several [examples](https://github.com/open-telemetry/opentelemetry-rust/tree/main/examples) for tracing.
+Setup distributed tracing for your Rust application using OpenTelemetry for Rust application performance monitoring (APM) and trace ingestion. The OpenTelemetry Rust project has several [examples](https://github.com/open-telemetry/opentelemetry-rust/tree/main/examples) for tracing.
 
 There are several crates worth mentioning for Rust developers:
 

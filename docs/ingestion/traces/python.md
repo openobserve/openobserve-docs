@@ -1,11 +1,10 @@
 ---
-description: >-
-  Set up tracing in your Python app with OpenTelemetry to send spans to
-  OpenObserve. Follow the sample config and start exporting traces in minutes.
+title: Python Distributed Tracing - OpenTelemetry for Python APM | OpenObserve
+description: Complete Python distributed tracing guide using OpenTelemetry SDK for Python application performance monitoring and trace instrumentation.
 ---
-# Python
+# Python Distributed Tracing - OpenTelemetry APM
 
-You can setup tracing for your Python application. Check sample configuration on how to setup traces.
+Setup distributed tracing for your Python application using OpenTelemetry for Python application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Python applications.
 
 ##Clone 
 
