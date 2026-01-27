@@ -1,4 +1,5 @@
 nav:
+    - O2 CLI: o2-cli.md
     - K8s Operator Overview: o2-operator-overview.md
     - Deployment Script: deploy-script.md
     - Manual Deployment: manual-deployment.md
