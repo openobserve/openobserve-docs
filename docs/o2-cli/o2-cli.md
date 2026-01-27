@@ -16,7 +16,7 @@ keywords: >
 
 | Version | Status | License |
 |---------|--------|---------|
-| 1.1.3 | Production-Ready | Enterprise |
+| 1.1.4 | Production-Ready | Enterprise |
 
 > **⚠️ Enterprise Requirement:** O2 CLI requires OpenObserve Enterprise edition. It will not work with the community version. For Enterprise access, visit [openobserve.ai/pricing](https://openobserve.ai/pricing).
 
