@@ -298,3 +298,10 @@ Available on all commands:
 o2 --help
 ```
 
+### Community Feedback
+
+We welcome community input on upcoming features. Please share your use cases and requirements through:
+- GitHub Issues for feature requests [open an issue](https://github.com/openobserve/o2-cli/issues)
+- Community forums for discussions [Start the conversation →](https://short.openobserve.ai/community)
+
+
