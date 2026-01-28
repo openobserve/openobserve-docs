@@ -13,7 +13,7 @@ A Kubernetes operator that enables declarative management of resources of OpenOb
 
 ## Overview
 
-The OpenObserve Operator allows you to manage OpenObserve Enterprise configuration objects using Kubernetes CRDs, enabling GitOps workflows and infrastructure-as-code practices for your observability stack.
+The [OpenObserve Operator](https://github.com/openobserve/o2-k8s-operator) allows you to manage OpenObserve Enterprise configuration objects using Kubernetes CRDs, enabling GitOps workflows and infrastructure-as-code practices for your observability stack.
 
 > [!IMPORTANT]
 > This operator is designed to work with **OpenObserve Enterprise** only. It requires Enterprise API features that are not available in the open-source version.
