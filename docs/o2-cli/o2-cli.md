@@ -297,7 +297,7 @@ Available on all commands:
 ```bash
 o2 --help
 ```
-
+Find the detailed list of commands and troubleshooting guide [here](https://github.com/openobserve/o2-cli/tree/main/docs).
 ### Community Feedback
 
 We welcome community input on upcoming features. Please share your use cases and requirements through:
