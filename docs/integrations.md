@@ -1,0 +1,3 @@
+---
+template: /partials/integration.html
+---

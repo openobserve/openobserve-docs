@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+<!-- Hide only the table of contents (right sidebar) for landing page -->
+{% block content_nav %}{% endblock %} {% block content %}
+<div class="landing-page">
+  <div class="landing-container">
+    <div class="landing-main-content">
+      <h1 class="">Integrations</h1>
+      <p>
+        Integrations allow you to collect and store data from various sources in
+        OpenObserve.
+      </p>
+
+      <!-- Filter Tags -->
+      <div
+        class="integration-filter-tags"
+        style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap"
+      >
+        <button class="filter-tag active" data-category="all">All</button>
+        <button class="filter-tag" data-category="infrastructure">
+          Infrastructure
+        </button>
+        <button class="filter-tag" data-category="data">Data</button>
+        <button class="filter-tag" data-category="cloud">Cloud</button>
+        <button class="filter-tag" data-category="devops">DevOps</button>
+        <button class="filter-tag" data-category="containers">
+          Containers
+        </button>
+      </div>
+
+      <div class="landing-integration-grid" id="integrations-container">
+        <!-- Integration items will be dynamically inserted here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const integrations = [
+    {
+      id: "kubernetes",
+      name: "Kubernetes",
+      description: "Collect logs and metrics from Kubernetes clusters and pods",
+      category: "containers",
+      icon: "/docs/assets/popular-integration/kubernets.svg",
+      url: "/docs/integration/k8s/",
+      configureUrl: "/docs/integration/k8s/",
+      learnMoreUrl: "/docs/integration/k8s/",
+    },
+    {
+      id: "aws",
+      name: "AWS",
+      description:
+        "Monitor AWS services including EC2, S3, Lambda, and CloudWatch",
+      category: "cloud",
+      icon: "/docs/assets/popular-integration/aws.svg",
+      url: "/docs/integration/aws/",
+      configureUrl: "/docs/integration/aws/",
+      learnMoreUrl: "/docs/integration/aws/",
+    },
+    {
+      id: "mcp",
+      name: "Model Context Protocol (MCP)",
+      description: "Integration with Model Context Protocol for AI workflows",
+      category: "data",
+      icon: "/docs/assets/popular-integration/kubernets.svg",
+      url: "/docs/integration/mcp/",
+      configureUrl: "/docs/integration/mcp/",
+      learnMoreUrl: "/docs/integration/mcp/",
+    },
+    {
+      id: "cloudflare",
+      name: "Cloudflare",
+      description: "Monitor Cloudflare CDN and security services",
+      category: "cloud",
+      icon: "/docs/assets/popular-integration/cloudflare.svg",
+      url: "/docs/integration/cloudflare/",
+      configureUrl: "/docs/integration/cloudflare/",
+      learnMoreUrl: "/docs/integration/cloudflare/",
+    },
+    {
+      id: "database",
+      name: "Database",
+      description: "Monitor PostgreSQL, MySQL, MongoDB, and other databases",
+      category: "data",
+      icon: "/docs/assets/popular-integration/db.svg",
+      url: "/docs/integration/database/",
+      configureUrl: "/docs/integration/database/",
+      learnMoreUrl: "/docs/integration/database/",
+    },
+    {
+      id: "servers",
+      name: "Servers",
+      description: "Monitor server infrastructure and system performance",
+      category: "infrastructure",
+      icon: "/docs/assets/popular-integration/servers.svg",
+      url: "/docs/integration/servers/",
+      configureUrl: "/docs/integration/servers/",
+      learnMoreUrl: "/docs/integration/servers/",
+    },
+    {
+      id: "devops",
+      name: "DevOps",
+      description:
+        "Integrate with Jenkins, GitLab, GitHub Actions, and CI/CD pipelines",
+      category: "devops",
+      icon: "/docs/assets/popular-integration/devops-2 1.svg",
+      configureUrl: "/docs/integration/devops/",
+      learnMoreUrl: "/docs/integration/devops/",
+    },
+    {
+      id: "linux",
+      name: "Linux",
+      description: "System monitoring for Linux servers and infrastructure",
+      category: "infrastructure",
+      icon: "/docs/assets/popular-integration/linux.svg",
+      configureUrl: "/docs/integration/linux/",
+      learnMoreUrl: "/docs/integration/linux/",
+    },
+    {
+      id: "windows",
+      name: "Windows",
+      description: "Monitor Windows servers and collect system metrics",
+      category: "infrastructure",
+      icon: "/docs/assets/popular-integration/windows.svg",
+      configureUrl: "/docs/integration/windows/",
+      learnMoreUrl: "/docs/integration/windows/",
+    },
+    {
+      id: "vercel",
+      name: "Vercel",
+      description: "Monitor Vercel deployments and serverless functions",
+      category: "cloud",
+      icon: "/docs/assets/popular-integration/vercel.svg",
+      configureUrl: "/docs/integration/vercel/",
+      learnMoreUrl: "/docs/integration/vercel/",
+    },
+    {
+      id: "heroku",
+      name: "Heroku",
+      description: "Monitor Heroku applications and dyno performance",
+      category: "cloud",
+      icon: "/docs/assets/popular-integration/kubernets.svg",
+      configureUrl: "/docs/integration/heroku/",
+      learnMoreUrl: "/docs/integration/heroku/",
+    },
+    {
+      id: "message-brokers",
+      name: "Message Brokers",
+      description: "Monitor Kafka, RabbitMQ, and other message queue systems",
+      category: "data",
+      icon: "/docs/assets/popular-integration/kubernets.svg",
+      configureUrl: "/docs/integration/message-brokers/",
+      learnMoreUrl: "/docs/integration/message-brokers/",
+    },
+  ];
+
+  let currentFilter = "all";
+
+  function renderIntegrations(filterCategory = "all") {
+    const container = document.getElementById("integrations-container");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const colorClasses = [
+      "landing-integration-icon--green",
+      "landing-integration-icon--blue",
+      "landing-integration-icon--orange",
+      "landing-integration-icon--purple",
+      "landing-integration-icon--pink",
+      "landing-integration-icon--navy",
+      "landing-integration-icon--red",
+      "landing-integration-icon--forest",
+    ];
+
+    // Filter integrations based on selected category
+    const filteredIntegrations =
+      filterCategory === "all"
+        ? integrations
+        : integrations.filter(
+            (integration) => integration.category === filterCategory,
+          );
+
+    filteredIntegrations.forEach((integration, index) => {
+      /* Card container */
+      const card = document.createElement("div");
+      card.className = "integrations-landing-card";
+
+      /* Icon */
+      const iconWrapper = document.createElement("div");
+      const colorClass = colorClasses[index % colorClasses.length];
+      iconWrapper.className = `landing-integration-icon ${colorClass}`;
+
+      const img = document.createElement("img");
+      img.src = integration.icon;
+      img.alt = integration.name;
+      iconWrapper.appendChild(img);
+
+      /* Text */
+      const textWrapper = document.createElement("div");
+      textWrapper.className = "landing-integration-text";
+
+      const title = document.createElement("h3");
+      title.textContent = integration.name;
+
+      const description = document.createElement("p");
+      description.textContent = integration.description;
+
+      textWrapper.appendChild(title);
+      textWrapper.appendChild(description);
+
+      /* Buttons */
+      const buttonsWrapper = document.createElement("div");
+      buttonsWrapper.className = "landing-integration-buttons";
+
+      const configureBtn = document.createElement("a");
+      configureBtn.href = integration.configureUrl || integration.url;
+      configureBtn.className =
+        "landing-integration-btn landing-integration-btn-primary";
+      configureBtn.textContent = "Configure";
+      configureBtn.setAttribute(
+        "data-clarity-event",
+        "docs_integration_configure_click",
+      );
+      configureBtn.setAttribute("data-clarity-title", integration.name);
+
+      const learnMoreBtn = document.createElement("a");
+      learnMoreBtn.href = integration.learnMoreUrl || integration.url;
+      learnMoreBtn.className =
+        "landing-integration-btn landing-integration-btn-secondary";
+      learnMoreBtn.textContent = "Learn More";
+      learnMoreBtn.setAttribute(
+        "data-clarity-event",
+        "docs_integration_learn_more_click",
+      );
+      learnMoreBtn.setAttribute("data-clarity-title", integration.name);
+
+      buttonsWrapper.appendChild(configureBtn);
+      buttonsWrapper.appendChild(learnMoreBtn);
+
+      /* Assemble */
+      card.appendChild(iconWrapper);
+      card.appendChild(textWrapper);
+      card.appendChild(buttonsWrapper);
+      container.appendChild(card);
+    });
+  }
+
+  function initializeFilters() {
+    const filterTags = document.querySelectorAll(".filter-tag");
+
+    filterTags.forEach((tag) => {
+      tag.addEventListener("click", function () {
+        // Remove active class from all tags
+        filterTags.forEach((t) => t.classList.remove("active"));
+
+        // Add active class to clicked tag
+        this.classList.add("active");
+
+        // Get category and render filtered integrations
+        const category = this.getAttribute("data-category");
+        currentFilter = category;
+        renderIntegrations(category);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      renderIntegrations();
+      initializeFilters();
+    });
+  } else {
+    renderIntegrations();
+    initializeFilters();
+  }
+</script>
+
+{% endblock %}
