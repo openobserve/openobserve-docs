@@ -15,10 +15,12 @@ nav:
 - Performance Optimization: performance.md
 - API Reference: api
 - Ingestion: ingestion
+- Integrations: integrations.md
 - Integrations: integration
 - Migration: migration.md
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - zPlane: zplane.md
 - Work Group: work_group.md 
+
 
