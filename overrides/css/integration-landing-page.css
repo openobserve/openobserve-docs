@@ -101,6 +101,7 @@
     transform 0.25s ease,
     opacity 0.25s ease;
   pointer-events: none;
+  visibility: visible;
 }
 
 /* Title inside center */
@@ -161,50 +162,49 @@
   background-color: rgba(5, 150, 105, 0.15);
 }
 
-
 /* Integration item hover effects */
 .integrations-landing-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--orange):hover {
   border-color: var(--feature-orange);
-  background-color: rgba(249, 115, 22, 0.05);
+  background-color: rgba(249, 115, 22, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--blue):hover {
   border-color: var(--feature-blue);
-  background-color: rgba(59, 130, 246, 0.05);
+  background-color: rgba(59, 130, 246, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--purple):hover {
   border-color: var(--feature-purple);
-  background-color: rgba(139, 92, 246, 0.05);
+  background-color: rgba(139, 92, 246, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--green):hover {
   border-color: var(--feature-green);
-  background-color: rgba(16, 185, 129, 0.05);
+  background-color: rgba(16, 185, 129, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--navy):hover {
   border-color: var(--feature-navy);
-  background-color: rgba(30, 64, 175, 0.05);
+  background-color: rgba(30, 64, 175, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--red):hover {
   border-color: var(--feature-red);
-  background-color: rgba(239, 68, 68, 0.05);
+  background-color: rgba(239, 68, 68, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--pink):hover {
   border-color: var(--feature-pink);
-  background-color: rgba(236, 72, 153, 0.05);
+  background-color: rgba(236, 72, 153, 0.07);
 }
 
 .integrations-landing-card:has(.landing-integration-icon--forest):hover {
   border-color: var(--feature-forest);
-  background-color: rgba(5, 150, 105, 0.05);
+  background-color: rgba(5, 150, 105, 0.07);
 }
 
 /* Integration buttons */
@@ -221,7 +221,7 @@
 }
 .integrations-landing-card:hover .integration-center {
   opacity: 0;
-  transform: translateY(-32px);
+  /* transform: translateY(-32px); */
 }
 
 .integrations-landing-card:hover .integration-title--hover {
@@ -242,7 +242,7 @@
 
 .integrations-landing-card:hover .landing-integration-icon {
   opacity: 0;
-  transform: scale(0.9);
+  /* transform: scale(0.9); */
 }
 @media (max-width: 1024px) {
   .landing-integration-grid {
@@ -291,8 +291,6 @@
     height: 28px;
   }
 
-  
-
   .integration-description {
     opacity: 1 !important;
     transform: none !important;
@@ -313,8 +311,9 @@
   .integrations-landing-card:hover .integration-center,
   .integrations-landing-card:hover,
   .integrations-landing-card:hover .landing-integration-buttons {
-    opacity: 1 !important;
+    opacity: 0 !important;
     transform: none !important;
+    transition: ease-in 300ms !important;
   }
   .integrations-landing-card:hover .landing-integration-icon {
     opacity: 1 !important;
@@ -364,7 +363,6 @@
     width: 26px;
     height: 26px;
   }
-
 
   .integration-description {
     opacity: 1 !important;
@@ -565,9 +563,21 @@
     font-weight: 400 !important;
     margin-bottom: var(--spacing-sm) !important;
   }
-  
+
   /* more gap before buttons and between them */
   .integrations-landing-card:hover .landing-integration-buttons {
     gap: var(--spacing-sm);
+    margin-top: auto !important;
+  }
+
+  /* Prevent ghost text during hover transition */
+  .integrations-landing-card:hover .integration-center {
+    opacity: 0;
+    /* transform: translateY(-32px); */
+    visibility: hidden;
+    transition:
+      opacity 0.1s ease
+      transform 0.1s ease,
+      visibility 0s linear 0.1s;
   }
 }
