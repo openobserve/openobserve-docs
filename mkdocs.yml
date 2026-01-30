@@ -32,6 +32,7 @@ extra_javascript:
   - js/google-tag-manager.js
   - js/feedback.js
   - js/segment.js
+  - js/integrations.js
 extra:
   # social:
   #   - icon: fontawesome/brands/linkedin
