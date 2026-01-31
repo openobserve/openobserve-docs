@@ -557,7 +557,6 @@ body:has(.integrations-page) .md-sidebar--secondary {
 @media (max-width: 768px) {
   .integration-card-actions {
     padding-top: 8px;
-    border-top: 1px solid var(--md-default-fg-color--lightest);
   }
 }
 
