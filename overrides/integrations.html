@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+<!-- Hide only the table of contents (right sidebar) for integrations page -->
+{% block content_nav %}{% endblock %}
+
+{% block content %}
+<div class="integrations-page">
+  <div class="integrations-container">
+    <!-- Main Content -->
+    <main class="integrations-main-content">
+      <!-- Page Header -->
+      <div class="integrations-header">
+        <h1 class="integrations-title">Integrations</h1>
+        <p class="integrations-description">
+          Comprehensive monitoring integrations for cloud platforms, infrastructure, databases, and applications. 
+          Collect logs, metrics, and traces from your entire technology stack.
+        </p>
+      </div>
+
+      <!-- Filter and Search Section -->
+      <div class="integrations-controls">
+        <!-- Category Filter Tags -->
+        <div class="integrations-filter-tags" id="categoryFilters">
+          <button class="filter-tag active" data-category="all">All</button>
+          <button class="filter-tag" data-category="cloud">Cloud</button>
+          <button class="filter-tag" data-category="database">Database</button>
+          <button class="filter-tag" data-category="messaging">Messaging</button>
+          <button class="filter-tag" data-category="os">OS</button>
+          <button class="filter-tag" data-category="server">Server</button>
+          <button class="filter-tag" data-category="devops">DevOps</button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="integrations-search">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input 
+              type="text" 
+              id="integrationSearch" 
+              class="search-input" 
+              placeholder="Search for an integration..."
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Count -->
+      <div class="integrations-results-info">
+        <p id="resultsCount">Loading integrations...</p>
+      </div>
+
+      <!-- Integrations Grid -->
+      <div class="integrations-grid" id="integrationsGrid">
+        <!-- Cards will be dynamically inserted here by JavaScript -->
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults" style="display: none;">
+        <p>No integrations found matching your criteria.</p>
+        <p class="no-results-hint">Try adjusting your filters or search term.</p>
+      </div>
+
+      <!-- Can't Find Section -->
+      <section class="integrations-help">
+        <h2>Can't find what you're looking for?</h2>
+        <p>We're constantly adding new integrations. If you need help integrating with a specific technology, please reach out to our community.</p>
+        <div class="help-buttons">
+          <a href="https://github.com/openobserve/openobserve/discussions" class="help-button" target="_blank" rel="noopener">
+            Community Support
+          </a>
+          <a href="https://github.com/openobserve/openobserve/issues/new" class="help-button help-button-secondary" target="_blank" rel="noopener">
+            Request Integration
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- Load integration data and functionality -->
+<script>
+  // Make the integrations data path available to the JS
+  window.INTEGRATIONS_DATA_PATH = '/integrations.json';
+</script>
+{% endblock %}

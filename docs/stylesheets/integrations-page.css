@@ -1,0 +1,681 @@
+/**
+ * OpenObserve Integrations Page - Matching Landing Page Style
+ * SEO-optimized with server-rendered HTML
+ */
+
+/* Hide TOC for integrations page */
+.integrations-page ~ .md-sidebar--secondary {
+  display: none !important;
+}
+
+body:has(.integrations-page) .md-sidebar--secondary {
+  display: none !important;
+}
+
+.md-main .integrations-page {
+  margin-right: 0 !important;
+}
+
+.md-content__inner.integrations-page {
+  margin-right: 0 !important;
+  max-width: none !important;
+}
+
+/* Main Container - Full Width like Homepage */
+.integrations-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.integrations-container {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.integrations-main-content {
+  width: 100%;
+  padding: 0 20px 20px 20px;
+  margin-top: 1rem !important;
+  padding-top: 0 !important;
+}
+
+/* Header - Match Landing Page */
+.integrations-page h1 {
+  font-size: 32px !important;
+  font-weight: bold;
+  margin: 0 0 8px 0 !important;
+  line-height: 1.3;
+  color: #6366f1 !important;
+}
+
+[data-md-color-scheme="slate"] .integrations-page h1 {
+  color: #6366f1 !important;
+}
+
+[data-md-color-scheme="default"] .integrations-page h1 {
+  color: #6366f1 !important;
+}
+
+.integrations-description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 20px;
+  max-width: none;
+}
+
+/* Controls Section - Matching Landing Page */
+.integrations-controls {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Category Filter Tags - Matching Landing Page */
+.integrations-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.filter-tag {
+  padding: 6px 16px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--md-default-fg-color);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-tag:hover {
+  background: var(--md-accent-fg-color);
+  color: white;
+  border-color: var(--md-accent-fg-color);
+}
+
+.filter-tag.active {
+  background: #6366f1;
+  color: white;
+  border-color: #6366f1;
+}
+
+/* Search Box - Matching Landing Page */
+.integrations-search {
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  color: var(--md-default-fg-color--light);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 40px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--md-default-fg-color--lighter);
+}
+
+/* Count Display */
+.integrations-count {
+  font-size: 13px;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 16px;
+}
+
+/* Integrations Grid - Matching Landing Page Card Size */
+.integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .integrations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .integrations-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .integrations-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Integration Card - Datadog-style with content replacement on hover */
+.integration-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 16px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 12px;
+  background: var(--md-default-bg-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  height: 200px;
+}
+
+/* Desktop: Hover effect with category color background */
+@media (min-width: 769px) {
+  .integration-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: transparent;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  [data-md-color-scheme="slate"] .integration-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Category-specific hover backgrounds - Light tints */
+  .integration-card[data-category="cloud"]:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.08) 100%);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .integration-card[data-category="database"]:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.08) 100%);
+    border-color: rgba(16, 185, 129, 0.3);
+  }
+
+  .integration-card[data-category="messaging"]:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 66, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%);
+    border-color: rgba(245, 158, 66, 0.3);
+  }
+
+  .integration-card[data-category="os"]:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%);
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+
+  .integration-card[data-category="server"]:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  .integration-card[data-category="devops"]:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(8, 145, 178, 0.08) 100%);
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+
+  /* Dark mode: Slightly more visible tints */
+  [data-md-color-scheme="slate"] .integration-card[data-category="cloud"]:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(37, 99, 235, 0.12) 100%);
+  }
+
+  [data-md-color-scheme="slate"] .integration-card[data-category="database"]:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.12) 100%);
+  }
+
+  [data-md-color-scheme="slate"] .integration-card[data-category="messaging"]:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 66, 0.18) 0%, rgba(249, 115, 22, 0.12) 100%);
+  }
+
+  [data-md-color-scheme="slate"] .integration-card[data-category="os"]:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.18) 0%, rgba(124, 58, 237, 0.12) 100%);
+  }
+
+  [data-md-color-scheme="slate"] .integration-card[data-category="server"]:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(220, 38, 38, 0.12) 100%);
+  }
+
+  [data-md-color-scheme="slate"] .integration-card[data-category="devops"]:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.18) 0%, rgba(8, 145, 178, 0.12) 100%);
+  }
+}
+
+/* Mobile: Flexible height for content, match hover state */
+@media (max-width: 768px) {
+  .integration-card {
+    height: auto;
+    min-height: 200px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 16px;
+  }
+  
+  /* Add subtle background like desktop hover */
+  .integration-card[data-category="cloud"] {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(37, 99, 235, 0.03) 100%);
+  }
+
+  .integration-card[data-category="database"] {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.03) 100%);
+  }
+
+  .integration-card[data-category="messaging"] {
+    background: linear-gradient(135deg, rgba(245, 158, 66, 0.06) 0%, rgba(249, 115, 22, 0.03) 100%);
+  }
+
+  .integration-card[data-category="os"] {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.06) 0%, rgba(124, 58, 237, 0.03) 100%);
+  }
+
+  .integration-card[data-category="server"] {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(220, 38, 38, 0.03) 100%);
+  }
+
+  .integration-card[data-category="devops"] {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(8, 145, 178, 0.03) 100%);
+  }
+}
+
+/* Card Icon */
+.integration-card-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 12px;
+  transition: opacity 0.3s ease;
+  background: transparent;
+}
+
+.integration-card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Desktop: Hide icon on hover */
+@media (min-width: 769px) {
+  .integration-card:hover .integration-card-icon {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .integration-card-icon {
+    width: 48px;
+    height: 48px;
+    padding: 8px;
+  }
+}
+
+/* Card Content - Default state */
+.integration-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+/* Desktop: Hide default content on hover */
+@media (min-width: 769px) {
+  .integration-card:hover .integration-card-content {
+    display: none;
+  }
+}
+
+/* Mobile: Hide default content, show hover content instead */
+@media (max-width: 768px) {
+  .integration-card-content {
+    display: none;
+  }
+}
+
+/* Hover content - Hidden by default, shown on hover */
+.integration-card-hover-content {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+/* Desktop: Show hover content on hover */
+@media (min-width: 769px) {
+  .integration-card:hover .integration-card-hover-content {
+    display: flex;
+  }
+}
+
+/* Mobile: Always show hover content (no hover available) */
+@media (max-width: 768px) {
+  .integration-card-hover-content {
+    display: flex !important;
+    align-items: flex-start;
+  }
+}
+
+/* Small icon for hover state */
+.integration-card-hover-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.integration-card-hover-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Category-specific small icon backgrounds */
+.integration-card[data-category="cloud"] .integration-card-hover-icon {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.integration-card[data-category="database"] .integration-card-hover-icon {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.integration-card[data-category="messaging"] .integration-card-hover-icon {
+  background: rgba(245, 158, 66, 0.15);
+}
+
+.integration-card[data-category="os"] .integration-card-hover-icon {
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.integration-card[data-category="server"] .integration-card-hover-icon {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.integration-card[data-category="devops"] .integration-card-hover-icon {
+  background: rgba(6, 182, 212, 0.15);
+}
+
+[data-md-color-scheme="slate"] .integration-card[data-category="cloud"] .integration-card-hover-icon {
+  background: rgba(59, 130, 246, 0.22);
+}
+
+[data-md-color-scheme="slate"] .integration-card[data-category="database"] .integration-card-hover-icon {
+  background: rgba(16, 185, 129, 0.22);
+}
+
+[data-md-color-scheme="slate"] .integration-card[data-category="messaging"] .integration-card-hover-icon {
+  background: rgba(245, 158, 66, 0.22);
+}
+
+[data-md-color-scheme="slate"] .integration-card[data-category="os"] .integration-card-hover-icon {
+  background: rgba(139, 92, 246, 0.22);
+}
+
+[data-md-color-scheme="slate"] .integration-card[data-category="server"] .integration-card-hover-icon {
+  background: rgba(239, 68, 68, 0.22);
+}
+
+[data-md-color-scheme="slate"] .integration-card[data-category="devops"] .integration-card-hover-icon {
+  background: rgba(6, 182, 212, 0.22);
+}
+
+/* Mobile: Slightly larger icon */
+@media (max-width: 768px) {
+  .integration-card-hover-icon {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+  }
+}
+
+.integration-card-title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+  color: var(--md-default-fg-color) !important;
+  text-align: center;
+}
+
+/* Hover title */
+.integration-card-hover-content .integration-card-title {
+  text-align: left;
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .integration-card-title {
+    text-align: left;
+  }
+  
+  .integration-card-hover-content .integration-card-title {
+    text-align: left;
+  }
+}
+
+.integration-card-category {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+/* Desktop: Show category in both default and hover states */
+@media (min-width: 769px) {
+  .integration-card-content .integration-card-category {
+    display: inline-block;
+  }
+
+  .integration-card-hover-content .integration-card-category {
+    display: inline-block;
+  }
+}
+
+/* Mobile: Always visible */
+@media (max-width: 768px) {
+  .integration-card-category {
+    display: inline-block;
+  }
+}
+
+.integration-card-description {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--md-default-fg-color);
+  margin: 0 0 auto 0;
+  text-align: left;
+}
+
+[data-md-color-scheme="slate"] .integration-card-description {
+  color: var(--md-default-fg-color--light);
+}
+
+/* Mobile: Left-align description */
+@media (max-width: 768px) {
+  .integration-card-description {
+    text-align: left;
+  }
+}
+
+/* Card Actions */
+.integration-card-actions {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+/* Mobile: Add border */
+@media (max-width: 768px) {
+  .integration-card-actions {
+    padding-top: 8px;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+  }
+}
+
+/* Primary button (Configure) */
+.integration-card-link-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+  background: #6366f1;
+  padding: 8px 12px;
+  border: 2px solid #6366f1;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.integration-card-link-primary:hover {
+  background: #5558e3;
+  border-color: #5558e3;
+  transform: translateY(-1px);
+}
+
+[data-md-color-scheme="slate"] .integration-card-link-primary {
+  background: #818cf8;
+  border-color: #818cf8;
+}
+
+[data-md-color-scheme="slate"] .integration-card-link-primary:hover {
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+/* Secondary button (Learn More) */
+.integration-card-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #6366f1;
+  background: transparent;
+  padding: 8px 12px;
+  border: 2px solid #6366f1;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.integration-card-link:hover {
+  color: #ffffff;
+  background: #6366f1;
+  transform: translateY(-1px);
+}
+
+[data-md-color-scheme="slate"] .integration-card-link {
+  color: #818cf8;
+  border-color: #818cf8;
+}
+
+[data-md-color-scheme="slate"] .integration-card-link:hover {
+  background: #818cf8;
+  color: #ffffff;
+}
+
+/* Help Section */
+.integrations-help {
+  text-align: center;
+  padding: 24px;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--md-default-fg-color--light);
+}
+
+.integrations-help a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.integrations-help a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .integrations-main-content {
+    padding: 0 16px 16px 16px;
+  }
+
+  .integrations-page h1 {
+    font-size: 24px !important;
+  }
+
+  .integrations-filter-tags {
+    justify-content: flex-start;
+  }
+
+  .filter-tag {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .integrations-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .integration-card {
+    padding: 12px;
+    min-height: 150px;
+  }
+}
