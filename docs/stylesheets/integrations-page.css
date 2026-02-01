@@ -391,14 +391,14 @@ body:has(.integrations-page) .md-sidebar--secondary {
 
 /* Card Icon */
 .integration-card-icon {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   margin: 0 0 12px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  padding: 12px;
+  padding: 4px;
   transition: opacity 0.3s ease;
   background: transparent;
 }
