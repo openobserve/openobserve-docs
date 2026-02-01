@@ -10,6 +10,7 @@
   let allCards = [];
   let activeCategory = 'all';
   let searchQuery = '';
+  let initialized = false;
 
   // DOM Elements
   let gridElement;
@@ -23,6 +24,11 @@
   function init() {
     // Only run on integrations page
     if (!document.querySelector('.integrations-page')) {
+      return;
+    }
+
+    // Prevent double initialization
+    if (initialized) {
       return;
     }
 
@@ -47,6 +53,9 @@
       console.warn('Integrations grid not found');
       return;
     }
+
+    // Mark as initialized
+    initialized = true;
 
     // Get all pre-rendered cards
     allCards = Array.from(gridElement.querySelectorAll('.integration-card'));
@@ -188,4 +197,15 @@
 
   // Initialize on load
   init();
+
+  // Re-initialize on page navigation (for MkDocs Material instant loading)
+  document.addEventListener('DOMContentLoaded', init);
+  
+  // Handle MkDocs Material's instant loading
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(function() {
+      initialized = false;
+      init();
+    });
+  }
 })();
