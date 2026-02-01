@@ -87,7 +87,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
 
 .filter-tag {
   padding: 6px 16px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 1px solid #00000040;
   border-radius: 20px;
   background: transparent;
   color: var(--md-default-fg-color);
@@ -134,7 +134,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
 .search-input {
   width: 100%;
   padding: 8px 12px 8px 40px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 1px solid #00000040;
   border-radius: 8px;
   background: var(--md-default-bg-color);
   color: var(--md-default-fg-color);
@@ -149,7 +149,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
 }
 
 .search-input::placeholder {
-  color: var(--md-default-fg-color--lighter);
+  color: #00000040;
 }
 
 /* Count Display */
@@ -193,7 +193,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   justify-content: center;
   align-items: center;
   padding: 20px 16px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 1px solid #00000040;
   border-radius: 12px;
   background: var(--md-default-bg-color);
   transition: all 0.3s ease;
