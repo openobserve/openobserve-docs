@@ -22,6 +22,10 @@ content -%}
           <button class="filter-tag" data-category="os">OS</button>
           <button class="filter-tag" data-category="server">Server</button>
           <button class="filter-tag" data-category="devops">DevOps</button>
+          <button class="filter-tag" data-category="security">Security</button>
+          <button class="filter-tag" data-category="networking">Networking</button>
+          <button class="filter-tag" data-category="languages">Languages/Frameworks</button>
+          <button class="filter-tag" data-category="other">Other</button>
         </div>
 
         <div class="integrations-search">
@@ -54,7 +58,7 @@ content -%}
       </div>
 
       <div class="integrations-count" id="integrationsCount">
-        Showing all 43 integrations
+        Showing all 71 integrations
       </div>
 
       <div class="integrations-grid" id="integrationsGrid">
@@ -2724,6 +2728,1630 @@ content -%}
               </a>
               <a
                 href="/docs/integration/message-brokers/nats/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="iis"
+          data-category="server"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/iis.svg"
+              alt="IIS icon"
+              onerror="this.src = '/docs/assets/integration-icons/server.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">IIS</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #ef44441a;
+                color: #ef4444;
+                margin-bottom: 12px;
+              "
+            >
+              SERVER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              IIS
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Microsoft IIS web server logs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/servers/iis/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/servers/iis/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="sql-server"
+          data-category="database"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/sql-server.svg"
+              alt="SQL Server icon"
+              onerror="this.src = '/docs/assets/integration-icons/database.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">SQL Server</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #10b9811a;
+                color: #10b981;
+                margin-bottom: 12px;
+              "
+            >
+              DATABASE
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              SQL Server
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Microsoft SQL Server databases
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/database/sql-server/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/database/sql-server/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="databricks"
+          data-category="database"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/databricks.svg"
+              alt="Databricks icon"
+              onerror="this.src = '/docs/assets/integration-icons/database.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Databricks</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #10b9811a;
+                color: #10b981;
+                margin-bottom: 12px;
+              "
+            >
+              DATABASE
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Databricks
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Databricks workspace and clusters
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/database/databricks/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/database/databricks/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="falco"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/falco.svg"
+              alt="Falco icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Falco</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Falco
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Falco security events
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/falco/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/falco/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="osquery"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/osquery.svg"
+              alt="Osquery icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Osquery</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Osquery
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Collect endpoint security data with Osquery
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/osquery/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/osquery/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="okta"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/okta.svg"
+              alt="Okta icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Okta</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Okta
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Okta identity and access logs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/okta/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/okta/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="jumpcloud"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/jumpcloud.svg"
+              alt="Jumpcloud icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Jumpcloud</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Jumpcloud
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Jumpcloud directory and security events
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/jumpcloud/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/jumpcloud/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="openvpn"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/openvpn.svg"
+              alt="OpenVPN icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">OpenVPN</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              OpenVPN
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor OpenVPN connection logs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/openvpn/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/openvpn/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="office365"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/office365.svg"
+              alt="Office365 icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Office365</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Office365
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Office 365 audit logs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/office365/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/office365/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="google-workspace"
+          data-category="security"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/google-workspace.svg"
+              alt="Google Workspace icon"
+              onerror="this.src = '/docs/assets/integration-icons/security.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Google Workspace</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #dc26261a;
+                color: #dc2626;
+                margin-bottom: 12px;
+              "
+            >
+              SECURITY
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Google Workspace
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Google Workspace audit logs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/security/google-workspace/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/security/google-workspace/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="netflow"
+          data-category="networking"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/netflow.svg"
+              alt="Netflow icon"
+              onerror="this.src = '/docs/assets/integration-icons/networking.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Netflow</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #a855f71a;
+                color: #a855f7;
+                margin-bottom: 12px;
+              "
+            >
+              NETWORKING
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Netflow
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Collect and analyze network flow data
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/netflow/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/netflow/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="python"
+          data-category="languages"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/python.svg"
+              alt="Python icon"
+              onerror="this.src = '/docs/assets/integration-icons/languages.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Python</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #eab3081a;
+                color: #eab308;
+                margin-bottom: 12px;
+              "
+            >
+              LANGUAGES/FRAMEWORKS
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Python
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Python applications and logs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/python/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/python/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="dotnet-tracing"
+          data-category="languages"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/dotnet.svg"
+              alt=".NET Tracing icon"
+              onerror="this.src = '/docs/assets/integration-icons/languages.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">.NET Tracing</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #eab3081a;
+                color: #eab308;
+                margin-bottom: 12px;
+              "
+            >
+              LANGUAGES/FRAMEWORKS
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              .NET Tracing
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Distributed tracing for .NET applications
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/dotnet/tracing/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/dotnet/tracing/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="dotnet-logs"
+          data-category="languages"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/dotnet.svg"
+              alt=".NET Logs icon"
+              onerror="this.src = '/docs/assets/integration-icons/languages.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">.NET Logs</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #eab3081a;
+                color: #eab308;
+                margin-bottom: 12px;
+              "
+            >
+              LANGUAGES/FRAMEWORKS
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              .NET Logs
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Collect logs from .NET applications
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/dotnet/logs/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/dotnet/logs/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="nodejs"
+          data-category="languages"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/nodejs.svg"
+              alt="NodeJS icon"
+              onerror="this.src = '/docs/assets/integration-icons/languages.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">NodeJS</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #eab3081a;
+                color: #eab308;
+                margin-bottom: 12px;
+              "
+            >
+              LANGUAGES/FRAMEWORKS
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              NodeJS
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Node.js applications
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/nodejs/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/nodejs/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="go"
+          data-category="languages"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/go.svg"
+              alt="Go icon"
+              onerror="this.src = '/docs/assets/integration-icons/languages.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Go</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #eab3081a;
+                color: #eab308;
+                margin-bottom: 12px;
+              "
+            >
+              LANGUAGES/FRAMEWORKS
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Go
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Go applications
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/go/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/go/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="airflow"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/airflow.svg"
+              alt="Airflow icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Airflow</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Airflow
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Monitor Apache Airflow workflows and DAGs
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/airflow/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/airflow/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="cribl"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/cribl.svg"
+              alt="Cribl icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Cribl</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Cribl
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Integrate with Cribl Stream and Edge
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/cribl/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/cribl/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="curl"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/curl.svg"
+              alt="Curl icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Curl</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Curl
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Send data using curl commands
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/curl/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/curl/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="filebeat"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/filebeat.svg"
+              alt="Filebeat icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Filebeat</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Filebeat
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Forward logs using Filebeat
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/filebeat/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/filebeat/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="fluentbit"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/fluentbit.svg"
+              alt="FluentBit icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">FluentBit</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              FluentBit
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Collect and forward logs with Fluent Bit
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/fluentbit/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/fluentbit/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="fluentd"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/fluentd.svg"
+              alt="Fluentd icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Fluentd</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Fluentd
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Collect and forward logs with Fluentd
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/fluentd/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/fluentd/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="vector"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/vector.svg"
+              alt="Vector icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Vector</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Vector
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              High-performance log collection with Vector
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/vector/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/vector/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="otel-collector"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/otel-collector.svg"
+              alt="OTEL Collector icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">OTEL Collector</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              OTEL Collector
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              OpenTelemetry Collector for unified telemetry
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/otel-collector/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/otel-collector/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="logstash"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/logstash.svg"
+              alt="Logstash icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Logstash</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Logstash
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Process and forward logs with Logstash
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/logstash/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/logstash/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="syslog-ng"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/syslog-ng.svg"
+              alt="Syslog-Ng icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Syslog-Ng</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Syslog-Ng
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Forward syslog data with Syslog-NG
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/syslog-ng/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/syslog-ng/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="prometheus"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/prometheus.svg"
+              alt="Prometheus icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Prometheus</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Prometheus
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Ingest metrics from Prometheus
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/prometheus/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/prometheus/"
+                class="integration-card-link integration-card-link-secondary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="integration-card"
+          data-integration-id="telegraf"
+          data-category="other"
+        >
+          <div class="integration-card-icon">
+            <img
+              src="/docs/assets/integration-icons/telegraf.svg"
+              alt="Telegraf icon"
+              onerror="this.src = '/docs/assets/integration-icons/other.svg'"
+              loading="lazy"
+            />
+          </div>
+          <div class="integration-card-content">
+            <h3 class="integration-card-title">Telegraf</h3>
+          </div>
+          <div class="integration-card-hover-content">
+            <div
+              class="integration-card-category"
+              style="
+                background-color: #78716c1a;
+                color: #78716c;
+                margin-bottom: 12px;
+              "
+            >
+              OTHER
+            </div>
+            <h3 class="integration-card-title" style="margin: 0 0 12px 0">
+              Telegraf
+            </h3>
+            <p class="integration-card-description" style="margin-bottom: 16px">
+              Collect metrics using Telegraf agent
+            </p>
+            <div
+              class="integration-card-actions"
+              style="display: flex; flex-direction: row; gap: 8px; width: 100%"
+            >
+              <a
+                href="/docs/integration/telegraf/"
+                class="integration-card-link integration-card-link-primary"
+                target="_blank"
+                rel="noopener"
+                style="text-align: center"
+              >
+                Configure
+              </a>
+              <a
+                href="/docs/integration/telegraf/"
                 class="integration-card-link integration-card-link-secondary"
                 target="_blank"
                 rel="noopener"
