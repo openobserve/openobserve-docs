@@ -23,7 +23,8 @@ body:has(.integrations-page) .md-sidebar--secondary {
 
 /* Main Container - Full Width like Homepage */
 .integrations-page {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.5;
   padding-top: 0 !important;
   margin-top: 0 !important;
@@ -220,58 +221,111 @@ body:has(.integrations-page) .md-sidebar--secondary {
 
   /* Category-specific hover backgrounds - Light tints */
   .integration-card[data-category="cloud"]:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.12) 0%,
+      rgba(37, 99, 235, 0.08) 100%
+    );
     border-color: rgba(59, 130, 246, 0.3);
   }
 
   .integration-card[data-category="database"]:hover {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.12) 0%,
+      rgba(5, 150, 105, 0.08) 100%
+    );
     border-color: rgba(16, 185, 129, 0.3);
   }
 
   .integration-card[data-category="messaging"]:hover {
-    background: linear-gradient(135deg, rgba(245, 158, 66, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(245, 158, 66, 0.12) 0%,
+      rgba(249, 115, 22, 0.08) 100%
+    );
     border-color: rgba(245, 158, 66, 0.3);
   }
 
   .integration-card[data-category="os"]:hover {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.12) 0%,
+      rgba(124, 58, 237, 0.08) 100%
+    );
     border-color: rgba(139, 92, 246, 0.3);
   }
 
   .integration-card[data-category="server"]:hover {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(239, 68, 68, 0.12) 0%,
+      rgba(220, 38, 38, 0.08) 100%
+    );
     border-color: rgba(239, 68, 68, 0.3);
   }
 
   .integration-card[data-category="devops"]:hover {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(8, 145, 178, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.12) 0%,
+      rgba(8, 145, 178, 0.08) 100%
+    );
     border-color: rgba(6, 182, 212, 0.3);
   }
 
   /* Dark mode: Slightly more visible tints */
-  [data-md-color-scheme="slate"] .integration-card[data-category="cloud"]:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(37, 99, 235, 0.12) 100%);
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="cloud"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.18) 0%,
+      rgba(37, 99, 235, 0.12) 100%
+    );
   }
 
-  [data-md-color-scheme="slate"] .integration-card[data-category="database"]:hover {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.12) 100%);
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="database"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.18) 0%,
+      rgba(5, 150, 105, 0.12) 100%
+    );
   }
 
-  [data-md-color-scheme="slate"] .integration-card[data-category="messaging"]:hover {
-    background: linear-gradient(135deg, rgba(245, 158, 66, 0.18) 0%, rgba(249, 115, 22, 0.12) 100%);
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="messaging"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(245, 158, 66, 0.18) 0%,
+      rgba(249, 115, 22, 0.12) 100%
+    );
   }
 
   [data-md-color-scheme="slate"] .integration-card[data-category="os"]:hover {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.18) 0%, rgba(124, 58, 237, 0.12) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.18) 0%,
+      rgba(124, 58, 237, 0.12) 100%
+    );
   }
 
-  [data-md-color-scheme="slate"] .integration-card[data-category="server"]:hover {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(220, 38, 38, 0.12) 100%);
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="server"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(239, 68, 68, 0.18) 0%,
+      rgba(220, 38, 38, 0.12) 100%
+    );
   }
 
-  [data-md-color-scheme="slate"] .integration-card[data-category="devops"]:hover {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.18) 0%, rgba(8, 145, 178, 0.12) 100%);
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="devops"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.18) 0%,
+      rgba(8, 145, 178, 0.12) 100%
+    );
   }
 }
 
@@ -284,37 +338,61 @@ body:has(.integrations-page) .md-sidebar--secondary {
     align-items: flex-start;
     padding: 16px;
   }
-  
+
   /* Add subtle background like desktop hover */
   .integration-card[data-category="cloud"] {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(37, 99, 235, 0.03) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.06) 0%,
+      rgba(37, 99, 235, 0.03) 100%
+    );
   }
 
   .integration-card[data-category="database"] {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.03) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.06) 0%,
+      rgba(5, 150, 105, 0.03) 100%
+    );
   }
 
   .integration-card[data-category="messaging"] {
-    background: linear-gradient(135deg, rgba(245, 158, 66, 0.06) 0%, rgba(249, 115, 22, 0.03) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(245, 158, 66, 0.06) 0%,
+      rgba(249, 115, 22, 0.03) 100%
+    );
   }
 
   .integration-card[data-category="os"] {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.06) 0%, rgba(124, 58, 237, 0.03) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.06) 0%,
+      rgba(124, 58, 237, 0.03) 100%
+    );
   }
 
   .integration-card[data-category="server"] {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(220, 38, 38, 0.03) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(239, 68, 68, 0.06) 0%,
+      rgba(220, 38, 38, 0.03) 100%
+    );
   }
 
   .integration-card[data-category="devops"] {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(8, 145, 178, 0.03) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.06) 0%,
+      rgba(8, 145, 178, 0.03) 100%
+    );
   }
 }
 
 /* Card Icon */
 .integration-card-icon {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   margin: 0 0 12px 0;
   display: flex;
   align-items: center;
@@ -341,10 +419,32 @@ body:has(.integrations-page) .md-sidebar--secondary {
 /* Mobile */
 @media (max-width: 768px) {
   .integration-card-icon {
-    width: 48px;
-    height: 48px;
-    padding: 8px;
+    width: 56px;
+    height: 56px;
+    padding: 0;
   }
+}
+
+@media (max-width: 768px) {
+  .integration-card[data-category="cloud"] {
+    background: none;
+  }
+  .integration-card[data-category="database"] {
+    background: none;
+  }
+  .integration-card[data-category="messaging"] {
+    background: none;
+  }
+  .integration-card[data-category="os"] {
+    background: none;
+  }
+  .integration-card[data-category="server"] {
+    background: none;
+  }
+  .integration-card[data-category="devops"] {
+    background: none;
+  }
+
 }
 
 /* Card Content - Default state */
@@ -437,27 +537,39 @@ body:has(.integrations-page) .md-sidebar--secondary {
   background: rgba(6, 182, 212, 0.15);
 }
 
-[data-md-color-scheme="slate"] .integration-card[data-category="cloud"] .integration-card-hover-icon {
+[data-md-color-scheme="slate"]
+  .integration-card[data-category="cloud"]
+  .integration-card-hover-icon {
   background: rgba(59, 130, 246, 0.22);
 }
 
-[data-md-color-scheme="slate"] .integration-card[data-category="database"] .integration-card-hover-icon {
+[data-md-color-scheme="slate"]
+  .integration-card[data-category="database"]
+  .integration-card-hover-icon {
   background: rgba(16, 185, 129, 0.22);
 }
 
-[data-md-color-scheme="slate"] .integration-card[data-category="messaging"] .integration-card-hover-icon {
+[data-md-color-scheme="slate"]
+  .integration-card[data-category="messaging"]
+  .integration-card-hover-icon {
   background: rgba(245, 158, 66, 0.22);
 }
 
-[data-md-color-scheme="slate"] .integration-card[data-category="os"] .integration-card-hover-icon {
+[data-md-color-scheme="slate"]
+  .integration-card[data-category="os"]
+  .integration-card-hover-icon {
   background: rgba(139, 92, 246, 0.22);
 }
 
-[data-md-color-scheme="slate"] .integration-card[data-category="server"] .integration-card-hover-icon {
+[data-md-color-scheme="slate"]
+  .integration-card[data-category="server"]
+  .integration-card-hover-icon {
   background: rgba(239, 68, 68, 0.22);
 }
 
-[data-md-color-scheme="slate"] .integration-card[data-category="devops"] .integration-card-hover-icon {
+[data-md-color-scheme="slate"]
+  .integration-card[data-category="devops"]
+  .integration-card-hover-icon {
   background: rgba(6, 182, 212, 0.22);
 }
 
@@ -491,7 +603,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   .integration-card-title {
     text-align: left;
   }
-  
+
   .integration-card-hover-content .integration-card-title {
     text-align: left;
   }
