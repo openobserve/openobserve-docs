@@ -18,7 +18,7 @@ nav:
 - Capacity Planning: capacity-planning.md
 - API Reference: api
 - Ingestion: ingestion
-- Integrations: integration
+- Integrations: integration.md
 - Migration: migration.md
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md

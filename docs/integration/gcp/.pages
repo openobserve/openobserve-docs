@@ -1,7 +1,0 @@
-nav:
-
-    - GCP Integrations Overview: index.md
-    - GCP Logs: gcp-logs.md
-    - Google Cloud Run: cloud-run.md
-    
-  
