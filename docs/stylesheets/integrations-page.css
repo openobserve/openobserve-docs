@@ -162,7 +162,12 @@ body:has(.integrations-page) .md-sidebar--secondary {
 }
 
 [data-md-color-scheme="slate"] .filter-tag {
-  border-color: rgba(255, 255, 255, 0.26) !important; /* visible category borders */
+  border-color: rgba(
+    255,
+    255,
+    255,
+    0.26
+  ) !important; /* visible category borders */
 }
 
 [data-md-color-scheme="slate"] .filter-tag:hover {
@@ -295,9 +300,120 @@ body:has(.integrations-page) .md-sidebar--secondary {
     border-color: rgba(6, 182, 212, 0.3);
   }
 
-  /* Dark mode: Slightly more visible tints */
+  /* New: Match actual data-category values in HTML */
+  /* Cloud group: AWS/GCP/Platform/CDN */
+  .integration-card[data-category="AWS"]:hover,
+  .integration-card[data-category="GCP"]:hover,
+  .integration-card[data-category="Platform"]:hover,
+  .integration-card[data-category="CDN"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.12) 0%,
+      rgba(37, 99, 235, 0.08) 100%
+    );
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  /* OS group: Linux/Windows */
+  .integration-card[data-category="Linux"]:hover,
+  .integration-card[data-category="Windows"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.12) 0%,
+      rgba(124, 58, 237, 0.08) 100%
+    );
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+
+  /* Server group: Web Server + lowercase 'server' */
+  .integration-card[data-category="Web Server"]:hover,
+  .integration-card[data-category="server"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(239, 68, 68, 0.12) 0%,
+      rgba(220, 38, 38, 0.08) 100%
+    );
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  /* Database (both cases) */
+  .integration-card[data-category="Database"]:hover,
+  .integration-card[data-category="database"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.12) 0%,
+      rgba(5, 150, 105, 0.08) 100%
+    );
+    border-color: rgba(16, 185, 129, 0.3);
+  }
+
+  /* Messaging */
+  .integration-card[data-category="Messaging"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(245, 158, 66, 0.12) 0%,
+      rgba(249, 115, 22, 0.08) 100%
+    );
+    border-color: rgba(245, 158, 66, 0.3);
+  }
+
+  /* DevOps (both cases) */
+  .integration-card[data-category="DevOps"]:hover,
+  .integration-card[data-category="devops"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.12) 0%,
+      rgba(8, 145, 178, 0.08) 100%
+    );
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+
+  /* Languages/Frameworks */
+  .integration-card[data-category="languages"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(234, 179, 8, 0.12) 0%,
+      rgba(202, 138, 4, 0.08) 100%
+    );
+    border-color: rgba(234, 179, 8, 0.3);
+  }
+
+  /* Security */
+  .integration-card[data-category="security"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(220, 38, 38, 0.12) 0%,
+      rgba(185, 28, 28, 0.08) 100%
+    );
+    border-color: rgba(220, 38, 38, 0.3);
+  }
+
+  /* Networking */
+  .integration-card[data-category="networking"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(168, 85, 247, 0.12) 0%,
+      rgba(147, 51, 234, 0.08) 100%
+    );
+    border-color: rgba(168, 85, 247, 0.3);
+  }
+
+  /* Other */
+  .integration-card[data-category="other"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(120, 113, 108, 0.12) 0%,
+      rgba(87, 83, 78, 0.08) 100%
+    );
+    border-color: rgba(120, 113, 108, 0.3);
+  }
+
+  /* Dark mode variants – slightly stronger tints */
+  [data-md-color-scheme="slate"] .integration-card[data-category="AWS"]:hover,
+  [data-md-color-scheme="slate"] .integration-card[data-category="GCP"]:hover,
   [data-md-color-scheme="slate"]
-    .integration-card[data-category="cloud"]:hover {
+    .integration-card[data-category="Platform"]:hover,
+  [data-md-color-scheme="slate"] .integration-card[data-category="CDN"]:hover {
     background: linear-gradient(
       135deg,
       rgba(59, 130, 246, 0.18) 0%,
@@ -305,6 +421,29 @@ body:has(.integrations-page) .md-sidebar--secondary {
     );
   }
 
+  [data-md-color-scheme="slate"] .integration-card[data-category="Linux"]:hover,
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="Windows"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.18) 0%,
+      rgba(124, 58, 237, 0.12) 100%
+    );
+  }
+
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="Web Server"]:hover,
+  [data-md_color-scheme="slate"]
+    .integration-card[data-category="server"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(239, 68, 68, 0.18) 0%,
+      rgba(220, 38, 38, 0.12) 100%
+    );
+  }
+
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="Database"]:hover,
   [data-md-color-scheme="slate"]
     .integration-card[data-category="database"]:hover {
     background: linear-gradient(
@@ -315,7 +454,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   }
 
   [data-md-color-scheme="slate"]
-    .integration-card[data-category="messaging"]:hover {
+    .integration-card[data-category="Messaging"]:hover {
     background: linear-gradient(
       135deg,
       rgba(245, 158, 66, 0.18) 0%,
@@ -323,29 +462,50 @@ body:has(.integrations-page) .md-sidebar--secondary {
     );
   }
 
-  [data-md-color-scheme="slate"] .integration-card[data-category="os"]:hover {
-    background: linear-gradient(
-      135deg,
-      rgba(139, 92, 246, 0.18) 0%,
-      rgba(124, 58, 237, 0.12) 100%
-    );
-  }
-
   [data-md-color-scheme="slate"]
-    .integration-card[data-category="server"]:hover {
-    background: linear-gradient(
-      135deg,
-      rgba(239, 68, 68, 0.18) 0%,
-      rgba(220, 38, 38, 0.12) 100%
-    );
-  }
-
+    .integration-card[data-category="DevOps"]:hover,
   [data-md-color-scheme="slate"]
     .integration-card[data-category="devops"]:hover {
     background: linear-gradient(
       135deg,
       rgba(6, 182, 212, 0.18) 0%,
       rgba(8, 145, 178, 0.12) 100%
+    );
+  }
+
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="languages"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(234, 179, 8, 0.18) 0%,
+      rgba(202, 138, 4, 0.12) 100%
+    );
+  }
+
+  [data-md_color-scheme="slate"]
+    .integration-card[data-category="security"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(220, 38, 38, 0.18) 0%,
+      rgba(185, 28, 28, 0.12) 100%
+    );
+  }
+
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="networking"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(168, 85, 247, 0.18) 0%,
+      rgba(147, 51, 234, 0.12) 100%
+    );
+  }
+
+  [data-md-color-scheme="slate"]
+    .integration-card[data-category="other"]:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(120, 113, 108, 0.18) 0%,
+      rgba(87, 83, 78, 0.12) 100%
     );
   }
 }
@@ -465,7 +625,6 @@ body:has(.integrations-page) .md-sidebar--secondary {
   .integration-card[data-category="devops"] {
     background: none;
   }
-
 }
 
 /* Card Content - Default state */

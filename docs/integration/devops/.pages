@@ -1,0 +1,7 @@
+nav:
+    - DevOps Integrations Overview: index.md
+    - Jenkins: jenkins.md
+    - Ansible: ansible.md
+    - Terraform: terraform.md
+    - Github Actions: github-actions.md
+    

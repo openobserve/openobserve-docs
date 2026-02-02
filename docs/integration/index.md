@@ -1,0 +1,825 @@
+---
+title: Integrations for Monitoring - Kubernetes, AWS, Databases, and More | OpenObserve
+description: Comprehensive integration guides for Kubernetes monitoring, AWS monitoring, database monitoring, cloud observability, and infrastructure monitoring with OpenObserve for logs, metrics, and traces.
+template: /partials/integrations.html
+---
+
+<!-- All content is in the template -->
+        Comprehensive monitoring integrations for cloud platforms, infrastructure, databases, and applications. 
+        Collect logs, metrics, and traces from your entire technology stack.
+      </p>
+    </div>
+
+    <div class="integrations-controls">
+      <div class="integrations-filter-tags" id="categoryFilters">
+        <button class="filter-tag active" data-category="all">All</button>
+        <button class="filter-tag" data-category="cloud">Cloud</button>
+        <button class="filter-tag" data-category="database">Database</button>
+        <button class="filter-tag" data-category="messaging">Messaging</button>
+        <button class="filter-tag" data-category="os">OS</button>
+        <button class="filter-tag" data-category="server">Server</button>
+        <button class="filter-tag" data-category="devops">DevOps</button>
+      </div>
+
+      <div class="integrations-search">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input 
+            type="text" 
+            id="integrationSearch"
+            class="search-input" 
+            placeholder="Search for an integration..." 
+            aria-label="Search integrations"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="integrations-count" id="integrationsCount">
+      Showing all 43 integrations
+    </div>
+
+    <!-- SEO-friendly static HTML - all integrations pre-rendered -->
+    <div class="integrations-grid" id="integrationsGrid">
+      <div class="integration-card" data-integration-id="kubernetes" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/kubernetes.svg" alt="Kubernetes icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Kubernetes</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Kubernetes clusters and workloads</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/k8s/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="mcp" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/mcp.svg" alt="Model Context Protocol (MCP) icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Model Context Protocol (MCP)</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Model Context Protocol integrations</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/mcp" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cloudflare" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cloudflare.svg" alt="Cloudflare icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Cloudflare</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Cloudflare logs and events</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/cloudflare/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="gcp-logs" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/gcp-logs.svg" alt="GCP Logs icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">GCP Logs</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Ingest and analyze Google Cloud logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/gcp/gcp-logs/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cloud-run" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cloud-run.svg" alt="Google Cloud Run icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Google Cloud Run</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Google Cloud Run services</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/gcp/cloud-run/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="linux" data-category="os">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/linux.svg" alt="Linux icon" onerror="this.src='/docs/assets/integration-icons/os.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Linux</h3>
+          <div class="integration-card-category" style="background-color: #8b5cf61a; color: #8b5cf6;">
+            OS
+          </div>
+          <p class="integration-card-description">Collect and monitor Linux system metrics and logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/linux/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="windows" data-category="os">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/windows.svg" alt="Windows icon" onerror="this.src='/docs/assets/integration-icons/os.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Windows</h3>
+          <div class="integration-card-category" style="background-color: #8b5cf61a; color: #8b5cf6;">
+            OS
+          </div>
+          <p class="integration-card-description">Collect and monitor Windows system metrics and logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/windows/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="vercel" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/vercel.svg" alt="Vercel icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Vercel</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Vercel deployments and serverless functions</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/vercel/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="heroku" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/heroku.svg" alt="Heroku icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Heroku</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Heroku apps and logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/heroku/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="message-brokers" data-category="messaging">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/message-brokers.svg" alt="Message Brokers icon" onerror="this.src='/docs/assets/integration-icons/messaging.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Message Brokers</h3>
+          <div class="integration-card-category" style="background-color: #f59e421a; color: #f59e42;">
+            MESSAGING
+          </div>
+          <p class="integration-card-description">Monitor message broker systems</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/message-brokers" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="ec2" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/ec2.svg" alt="Amazon EC2 icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon EC2</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Amazon EC2 instances</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/ec2/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="alb" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/alb.svg" alt="Application Load Balancer (ALB) icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Application Load Balancer (ALB)</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor AWS Application Load Balancers</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/alb/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="vpc-flow" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/vpc-flow.svg" alt="Amazon Virtual Private Cloud icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon Virtual Private Cloud</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Analyze Amazon VPC flow logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/vpc-flow/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cognito" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cognito.svg" alt="Amazon Cognito icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon Cognito</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Amazon Cognito authentication logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/cognito/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="network-firewall" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/network-firewall.svg" alt="AWS Network Firewall icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">AWS Network Firewall</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor AWS Network Firewall events</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/network-firewall/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cloudwatch-logs" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cloudwatch-logs.svg" alt="AWS CloudWatch Logs icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">AWS CloudWatch Logs</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Ingest AWS CloudWatch logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/cloudwatch-logs/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cloudwatch-metrics" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cloudwatch-metrics.svg" alt="AWS CloudWatch Metrics icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">AWS CloudWatch Metrics</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Collect AWS CloudWatch metrics</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/cloudwatch-metrics/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="rds" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/rds.svg" alt="Amazon RDS icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon RDS</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Amazon RDS databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/rds/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="ecs" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/ecs.svg" alt="Amazon ECS icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon ECS</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Amazon ECS containers</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/ecs/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="route-53" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/route-53.svg" alt="AWS Route 53 icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">AWS Route 53</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor Route 53 DNS logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/route-53/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="waf" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/waf.svg" alt="AWS WAF icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">AWS WAF</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor AWS Web Application Firewall</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/waf/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="api-gateway" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/api-gateway.svg" alt="API Gateway icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">API Gateway</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor AWS API Gateway logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/api-gateway/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cloudfront" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cloudfront.svg" alt="Amazon CloudFront icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon CloudFront</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor CloudFront CDN logs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/cdn/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="eventbridge" data-category="cloud">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/eventbridge.svg" alt="Amazon EventBridge icon" onerror="this.src='/docs/assets/integration-icons/cloud.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon EventBridge</h3>
+          <div class="integration-card-category" style="background-color: #3b82f61a; color: #3b82f6;">
+            CLOUD
+          </div>
+          <p class="integration-card-description">Monitor EventBridge events</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/aws/eventbridge/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="postgresql" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/postgresql.svg" alt="PostgreSQL icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">PostgreSQL</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor PostgreSQL databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/postgresql/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="snowflake" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/snowflake.svg" alt="Snowflake icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Snowflake</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Snowflake data warehouse</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/snowflake/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="oracle" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/oracle.svg" alt="Oracle Database icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Oracle Database</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Oracle databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/oracle/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="mysql" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/mysql.svg" alt="MySQL icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">MySQL</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor MySQL databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/mysql/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="mongodb" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/mongodb.svg" alt="MongoDB icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">MongoDB</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor MongoDB databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/mongodb/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="redis" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/redis.svg" alt="Redis icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Redis</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Redis instances</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/redis/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="dynamodb" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/dynamodb.svg" alt="Amazon DynamoDB icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Amazon DynamoDB</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor DynamoDB tables</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/dynamodb/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="zookeeper" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/zookeeper.svg" alt="Apache Zookeeper icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Apache Zookeeper</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Apache Zookeeper clusters</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/zookeeper/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="cassandra" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/cassandra.svg" alt="Cassandra icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Cassandra</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Cassandra databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/cassandra/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="aerospike" data-category="database">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/aerospike.svg" alt="Aerospike icon" onerror="this.src='/docs/assets/integration-icons/database.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Aerospike</h3>
+          <div class="integration-card-category" style="background-color: #10b9811a; color: #10b981;">
+            DATABASE
+          </div>
+          <p class="integration-card-description">Monitor Aerospike databases</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/database/aerospike/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="nginx" data-category="server">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/nginx.svg" alt="Nginx icon" onerror="this.src='/docs/assets/integration-icons/server.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Nginx</h3>
+          <div class="integration-card-category" style="background-color: #ef44441a; color: #ef4444;">
+            SERVER
+          </div>
+          <p class="integration-card-description">Monitor Nginx server logs and metrics</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/servers/nginx/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="weblogic" data-category="server">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/weblogic.svg" alt="Oracle Weblogic icon" onerror="this.src='/docs/assets/integration-icons/server.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Oracle Weblogic</h3>
+          <div class="integration-card-category" style="background-color: #ef44441a; color: #ef4444;">
+            SERVER
+          </div>
+          <p class="integration-card-description">Monitor Oracle Weblogic servers</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/servers/weblogic/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="jenkins" data-category="devops">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/jenkins.svg" alt="Jenkins icon" onerror="this.src='/docs/assets/integration-icons/devops.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Jenkins</h3>
+          <div class="integration-card-category" style="background-color: #06b6d41a; color: #06b6d4;">
+            DEVOPS
+          </div>
+          <p class="integration-card-description">Monitor Jenkins pipelines and builds</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/devops/jenkins/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="ansible" data-category="devops">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/ansible.svg" alt="Ansible icon" onerror="this.src='/docs/assets/integration-icons/devops.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Ansible</h3>
+          <div class="integration-card-category" style="background-color: #06b6d41a; color: #06b6d4;">
+            DEVOPS
+          </div>
+          <p class="integration-card-description">Monitor Ansible automation runs</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/devops/ansible/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="terraform" data-category="devops">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/terraform.svg" alt="Terraform icon" onerror="this.src='/docs/assets/integration-icons/devops.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Terraform</h3>
+          <div class="integration-card-category" style="background-color: #06b6d41a; color: #06b6d4;">
+            DEVOPS
+          </div>
+          <p class="integration-card-description">Monitor Terraform deployments</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/devops/terraform/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="github-actions" data-category="devops">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/github-actions.svg" alt="Github Actions icon" onerror="this.src='/docs/assets/integration-icons/devops.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Github Actions</h3>
+          <div class="integration-card-category" style="background-color: #06b6d41a; color: #06b6d4;">
+            DEVOPS
+          </div>
+          <p class="integration-card-description">Monitor GitHub Actions workflows</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/devops/github-actions/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="kafka" data-category="messaging">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/kafka.svg" alt="Kafka icon" onerror="this.src='/docs/assets/integration-icons/messaging.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">Kafka</h3>
+          <div class="integration-card-category" style="background-color: #f59e421a; color: #f59e42;">
+            MESSAGING
+          </div>
+          <p class="integration-card-description">Monitor Kafka brokers and topics</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/message-brokers/kafka/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="rabbitmq" data-category="messaging">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/rabbitmq.svg" alt="RabbitMQ icon" onerror="this.src='/docs/assets/integration-icons/messaging.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">RabbitMQ</h3>
+          <div class="integration-card-category" style="background-color: #f59e421a; color: #f59e42;">
+            MESSAGING
+          </div>
+          <p class="integration-card-description">Monitor RabbitMQ queues and exchanges</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/message-brokers/rabbitmq/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <div class="integration-card" data-integration-id="nats" data-category="messaging">
+        <div class="integration-card-icon">
+          <img src="/docs/assets/integration-icons/nats.svg" alt="NATS icon" onerror="this.src='/docs/assets/integration-icons/messaging.svg'" loading="lazy">
+        </div>
+        <div class="integration-card-content">
+          <h3 class="integration-card-title">NATS</h3>
+          <div class="integration-card-category" style="background-color: #f59e421a; color: #f59e42;">
+            MESSAGING
+          </div>
+          <p class="integration-card-description">Monitor NATS messaging systems</p>
+        </div>
+        <div class="integration-card-actions">
+          <a href="/docs/integration/message-brokers/nats/" class="integration-card-link" rel="noopener">
+            Learn More →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="integrations-help">
+      <p>Don't see your integration? <a href="https://github.com/openobserve/openobserve/discussions" target="_blank" rel="noopener">Request an integration</a> or <a href="/docs/ingestion/" rel="noopener">view our API documentation</a> for custom integrations.</p>
+    </div>
+  </div>
+</div>
