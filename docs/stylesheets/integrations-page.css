@@ -152,6 +152,27 @@ body:has(.integrations-page) .md-sidebar--secondary {
   color: #00000040;
 }
 
+/* Dark mode fixes: improve search placeholder and category tag borders */
+[data-md-color-scheme="slate"] .search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important; /* higher contrast on dark */
+}
+
+[data-md-color-scheme="slate"] .search-input {
+  border-color: rgba(255, 255, 255, 0.26) !important; /* visible border */
+}
+
+[data-md-color-scheme="slate"] .filter-tag {
+  border-color: rgba(255, 255, 255, 0.26) !important; /* visible category borders */
+}
+
+[data-md-color-scheme="slate"] .filter-tag:hover {
+  border-color: var(--md-accent-fg-color) !important; /* keep hover accent */
+}
+
+[data-md-color-scheme="slate"] .filter-tag.active {
+  border-color: #6366f1 !important; /* keep active accent */
+}
+
 /* Count Display */
 .integrations-count {
   font-size: 13px;
@@ -549,7 +570,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   background: rgba(16, 185, 129, 0.22);
 }
 
-[data-md-color-scheme="slate"]
+[data-md_color-scheme="slate"]
   .integration-card[data-category="messaging"]
   .integration-card-hover-icon {
   background: rgba(245, 158, 66, 0.22);
@@ -567,7 +588,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   background: rgba(239, 68, 68, 0.22);
 }
 
-[data-md-color-scheme="slate"]
+[data-md_color-scheme="slate"]
   .integration-card[data-category="devops"]
   .integration-card-hover-icon {
   background: rgba(6, 182, 212, 0.22);
@@ -702,7 +723,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   border-color: #818cf8;
 }
 
-[data-md-color-scheme="slate"] .integration-card-link-primary:hover {
+[data-md_color-scheme="slate"] .integration-card-link-primary:hover {
   background: #6366f1;
   border-color: #6366f1;
 }
@@ -737,7 +758,7 @@ body:has(.integrations-page) .md-sidebar--secondary {
   border-color: #818cf8;
 }
 
-[data-md-color-scheme="slate"] .integration-card-link:hover {
+[data-md_color-scheme="slate"] .integration-card-link:hover {
   background: #818cf8;
   color: #ffffff;
 }
