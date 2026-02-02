@@ -1,389 +1,398 @@
 [
-    {
-        "id": "kubernetes",
-        "name": "Kubernetes",
-        "description": "Monitor Kubernetes clusters and workloads",
-        "category": "Kubernetes",
-        "icon": "",
-        "configureUrl": "/docs/integration/k8s/",
-        "learnMoreUrl": "/docs/integration/k8s/"
-    },
-    {
-        "id": "mcp",
-        "name": "Model Context Protocol (MCP)",
-        "description": "Monitor Model Context Protocol integrations",
-        "category": "AI",
-        "icon": "",
-        "configureUrl": "/docs/integration/mcp",
-        "learnMoreUrl": "/docs/integration/mcp"
-    },
-    {
-        "id": "cloudflare",
-        "name": "Cloudflare",
-        "description": "Monitor Cloudflare logs and events",
-        "category": "CDN",
-        "icon": "",
-        "configureUrl": "/docs/integration/cloudflare/",
-        "learnMoreUrl": "/docs/integration/cloudflare/"
-    },
-    {
-        "id": "gcp-logs",
-        "name": "GCP Logs",
-        "description": "Ingest and analyze Google Cloud logs",
-        "category": "GCP",
-        "icon": "",
-        "configureUrl": "/docs/integration/gcp/gcp-logs/",
-        "learnMoreUrl": "/docs/integration/gcp/gcp-logs/"
-    },
-    {
-        "id": "cloud-run",
-        "name": "Google Cloud Run",
-        "description": "Monitor Google Cloud Run services",
-        "category": "GCP",
-        "icon": "",
-        "configureUrl": "/docs/integration/gcp/cloud-run/",
-        "learnMoreUrl": "/docs/integration/gcp/cloud-run/"
-    },
-    {
-        "id": "linux",
-        "name": "Linux",
-        "description": "Collect and monitor Linux system metrics and logs",
-        "category": "Linux",
-        "icon": "",
-        "configureUrl": "/docs/integration/linux/",
-        "learnMoreUrl": "/docs/integration/linux/"
-    },
-    {
-        "id": "windows",
-        "name": "Windows",
-        "description": "Collect and monitor Windows system metrics and logs",
-        "category": "Windows",
-        "icon": "",
-        "configureUrl": "/docs/integration/windows/",
-        "learnMoreUrl": "/docs/integration/windows/"
-    },
-    {
-        "id": "vercel",
-        "name": "Vercel",
-        "description": "Monitor Vercel deployments and serverless functions",
-        "category": "Platform",
-        "icon": "",
-        "configureUrl": "/docs/integration/vercel/",
-        "learnMoreUrl": "/docs/integration/vercel/"
-    },
-    {
-        "id": "heroku",
-        "name": "Heroku",
-        "description": "Monitor Heroku apps and logs",
-        "category": "Platform",
-        "icon": "",
-        "configureUrl": "/docs/integration/heroku/",
-        "learnMoreUrl": "/docs/integration/heroku/"
-    },
-    {
-        "id": "message-brokers",
-        "name": "Message Brokers",
-        "description": "Monitor message broker systems",
-        "category": "Messaging",
-        "icon": "",
-        "configureUrl": "/docs/integration/message-brokers",
-        "learnMoreUrl": "/docs/integration/message-brokers"
-    },
-    {
-        "id": "ec2",
-        "name": "Amazon EC2",
-        "description": "Monitor Amazon EC2 instances",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/ec2/",
-        "learnMoreUrl": "/docs/integration/aws/ec2/"
-    },
-    {
-        "id": "alb",
-        "name": "Application Load Balancer (ALB)",
-        "description": "Monitor AWS Application Load Balancers",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/alb/",
-        "learnMoreUrl": "/docs/integration/aws/alb/"
-    },
-    {
-        "id": "vpc-flow",
-        "name": "Amazon Virtual Private Cloud",
-        "description": "Analyze Amazon VPC flow logs",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/vpc-flow/",
-        "learnMoreUrl": "/docs/integration/aws/vpc-flow/"
-    },
-    {
-        "id": "cognito",
-        "name": "Amazon Cognito",
-        "description": "Monitor Amazon Cognito authentication logs",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/cognito/",
-        "learnMoreUrl": "/docs/integration/aws/cognito/"
-    },
-    {
-        "id": "network-firewall",
-        "name": "AWS Network Firewall",
-        "description": "Monitor AWS Network Firewall events",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/network-firewall/",
-        "learnMoreUrl": "/docs/integration/aws/network-firewall/"
-    },
-    {
-        "id": "cloudwatch-logs",
-        "name": "AWS CloudWatch Logs",
-        "description": "Ingest AWS CloudWatch logs",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/cloudwatch-logs/",
-        "learnMoreUrl": "/docs/integration/aws/cloudwatch-logs/"
-    },
-    {
-        "id": "cloudwatch-metrics",
-        "name": "AWS CloudWatch Metrics",
-        "description": "Collect AWS CloudWatch metrics",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/cloudwatch-metrics/",
-        "learnMoreUrl": "/docs/integration/aws/cloudwatch-metrics/"
-    },
-    {
-        "id": "rds",
-        "name": "Amazon RDS",
-        "description": "Monitor Amazon RDS databases",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/rds/",
-        "learnMoreUrl": "/docs/integration/aws/rds/"
-    },
-    {
-        "id": "ecs",
-        "name": "Amazon ECS",
-        "description": "Monitor Amazon ECS containers",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/ecs/",
-        "learnMoreUrl": "/docs/integration/aws/ecs/"
-    },
-    {
-        "id": "route-53",
-        "name": "AWS Route 53",
-        "description": "Monitor Route 53 DNS logs",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/route-53/",
-        "learnMoreUrl": "/docs/integration/aws/route-53/"
-    },
-    {
-        "id": "waf",
-        "name": "AWS WAF",
-        "description": "Monitor AWS Web Application Firewall",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/waf/",
-        "learnMoreUrl": "/docs/integration/aws/waf/"
-    },
-    {
-        "id": "api-gateway",
-        "name": "API Gateway",
-        "description": "Monitor AWS API Gateway logs",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/api-gateway/",
-        "learnMoreUrl": "/docs/integration/aws/api-gateway/"
-    },
-    {
-        "id": "cloudfront",
-        "name": "Amazon CloudFront",
-        "description": "Monitor CloudFront CDN logs",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/cdn/",
-        "learnMoreUrl": "/docs/integration/aws/cdn/"
-    },
-    {
-        "id": "eventbridge",
-        "name": "Amazon EventBridge",
-        "description": "Monitor EventBridge events",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/aws/eventbridge/",
-        "learnMoreUrl": "/docs/integration/aws/eventbridge/"
-    },
-    {
-        "id": "postgresql",
-        "name": "PostgreSQL",
-        "description": "Monitor PostgreSQL databases",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/postgresql/",
-        "learnMoreUrl": "/docs/integration/database/postgresql/"
-    },
-    {
-        "id": "snowflake",
-        "name": "Snowflake",
-        "description": "Monitor Snowflake data warehouse",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/snowflake/",
-        "learnMoreUrl": "/docs/integration/database/snowflake/"
-    },
-    {
-        "id": "oracle",
-        "name": "Oracle Database",
-        "description": "Monitor Oracle databases",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/oracle/",
-        "learnMoreUrl": "/docs/integration/database/oracle/"
-    },
-    {
-        "id": "mysql",
-        "name": "MySQL",
-        "description": "Monitor MySQL databases",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/mysql/",
-        "learnMoreUrl": "/docs/integration/database/mysql/"
-    },
-    {
-        "id": "mongodb",
-        "name": "MongoDB",
-        "description": "Monitor MongoDB databases",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/mongodb/",
-        "learnMoreUrl": "/docs/integration/database/mongodb/"
-    },
-    {
-        "id": "redis",
-        "name": "Redis",
-        "description": "Monitor Redis instances",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/redis/",
-        "learnMoreUrl": "/docs/integration/database/redis/"
-    },
-    {
-        "id": "dynamodb",
-        "name": "Amazon DynamoDB",
-        "description": "Monitor DynamoDB tables",
-        "category": "AWS",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/dynamodb/",
-        "learnMoreUrl": "/docs/integration/database/dynamodb/"
-    },
-    {
-        "id": "zookeeper",
-        "name": "Apache Zookeeper",
-        "description": "Monitor Apache Zookeeper clusters",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/zookeeper/",
-        "learnMoreUrl": "/docs/integration/database/zookeeper/"
-    },
-    {
-        "id": "cassandra",
-        "name": "Cassandra",
-        "description": "Monitor Cassandra databases",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/cassandra/",
-        "learnMoreUrl": "/docs/integration/database/cassandra/"
-    },
-    {
-        "id": "aerospike",
-        "name": "Aerospike",
-        "description": "Monitor Aerospike databases",
-        "category": "Database",
-        "icon": "",
-        "configureUrl": "/docs/integration/database/aerospike/",
-        "learnMoreUrl": "/docs/integration/database/aerospike/"
-    },
-    {
-        "id": "nginx",
-        "name": "Nginx",
-        "description": "Monitor Nginx server logs and metrics",
-        "category": "Web Server",
-        "icon": "",
-        "configureUrl": "/docs/integration/servers/nginx/",
-        "learnMoreUrl": "/docs/integration/servers/nginx/"
-    },
-    {
-        "id": "weblogic",
-        "name": "Oracle Weblogic",
-        "description": "Monitor Oracle Weblogic servers",
-        "category": "Web Server",
-        "icon": "",
-        "configureUrl": "/docs/integration/servers/weblogic/",
-        "learnMoreUrl": "/docs/integration/servers/weblogic/"
-    },
-    {
-        "id": "jenkins",
-        "name": "Jenkins",
-        "description": "Monitor Jenkins pipelines and builds",
-        "category": "DevOps",
-        "icon": "",
-        "configureUrl": "/docs/integration/devops/jenkins/",
-        "learnMoreUrl": "/docs/integration/devops/jenkins/"
-    },
-    {
-        "id": "ansible",
-        "name": "Ansible",
-        "description": "Monitor Ansible automation runs",
-        "category": "DevOps",
-        "icon": "",
-        "configureUrl": "/docs/integration/devops/ansible/",
-        "learnMoreUrl": "/docs/integration/devops/ansible/"
-    },
-    {
-        "id": "terraform",
-        "name": "Terraform",
-        "description": "Monitor Terraform deployments",
-        "category": "DevOps",
-        "icon": "",
-        "configureUrl": "/docs/integration/devops/terraform/",
-        "learnMoreUrl": "/docs/integration/devops/terraform/"
-    },
-    {
-        "id": "github-actions",
-        "name": "Github Actions",
-        "description": "Monitor GitHub Actions workflows",
-        "category": "DevOps",
-        "icon": "",
-        "configureUrl": "/docs/integration/devops/github-actions/",
-        "learnMoreUrl": "/docs/integration/devops/github-actions/"
-    },
-    {
-        "id": "kafka",
-        "name": "Kafka",
-        "description": "Monitor Kafka brokers and topics",
-        "category": "Messaging",
-        "icon": "",
-        "configureUrl": "/docs/integration/message-brokers/kafka/",
-        "learnMoreUrl": "/docs/integration/message-brokers/kafka/"
-    },
-    {
-        "id": "rabbitmq",
-        "name": "RabbitMQ",
-        "description": "Monitor RabbitMQ queues and exchanges",
-        "category": "Messaging",
-        "icon": "",
-        "configureUrl": "/docs/integration/message-brokers/rabbitmq/",
-        "learnMoreUrl": "/docs/integration/message-brokers/rabbitmq/"
-    },
-    {
-        "id": "nats",
-        "name": "NATS",
-        "description": "Monitor NATS messaging systems",
-        "category": "Messaging",
-        "icon": "",
-        "configureUrl": "/docs/integration/message-brokers/nats/",
-        "learnMoreUrl": "/docs/integration/message-brokers/nats/"
-    }
+  {
+    "id": "kubernetes",
+    "name": "Kubernetes",
+    "description": "Monitor Kubernetes clusters and workloads",
+    "category": "Kubernetes",
+    "icon": "",
+    "configureUrl": "/docs/integration/k8s/",
+    "learnMoreUrl": "/docs/integration/k8s/"
+  },
+  {
+    "id": "mcp",
+    "name": "Model Context Protocol (MCP)",
+    "description": "Monitor Model Context Protocol integrations",
+    "category": "AI",
+    "icon": "",
+    "configureUrl": "/docs/integration/mcp",
+    "learnMoreUrl": "/docs/integration/mcp"
+  },
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare",
+    "description": "Monitor Cloudflare logs and events",
+    "category": "CDN",
+    "icon": "",
+    "configureUrl": "/docs/integration/cloudflare/",
+    "learnMoreUrl": "/docs/integration/cloudflare/"
+  },
+  {
+    "id": "gcp-logs",
+    "name": "GCP Logs",
+    "description": "Ingest and analyze Google Cloud logs",
+    "category": "GCP",
+    "icon": "",
+    "configureUrl": "/docs/integration/gcp/gcp-logs/",
+    "learnMoreUrl": "/docs/integration/gcp/gcp-logs/"
+  },
+  {
+    "id": "cloud-run",
+    "name": "Google Cloud Run",
+    "description": "Monitor Google Cloud Run services",
+    "category": "GCP",
+    "icon": "",
+    "configureUrl": "/docs/integration/gcp/cloud-run/",
+    "learnMoreUrl": "/docs/integration/gcp/cloud-run/"
+  },
+  {
+    "id": "gcp",
+    "name": "Google Cloud Platform (GCP)",
+    "description": "Monitor Google Cloud Platform services and logs",
+    "category": "GCP",
+    "icon": "",
+    "configureUrl": "/docs/integration/gcp/",
+    "learnMoreUrl": "/docs/integration/gcp/"
+  },
+  {
+    "id": "linux",
+    "name": "Linux",
+    "description": "Collect and monitor Linux system metrics and logs",
+    "category": "Linux",
+    "icon": "",
+    "configureUrl": "/docs/integration/linux/",
+    "learnMoreUrl": "/docs/integration/linux/"
+  },
+  {
+    "id": "windows",
+    "name": "Windows",
+    "description": "Collect and monitor Windows system metrics and logs",
+    "category": "Windows",
+    "icon": "",
+    "configureUrl": "/docs/integration/windows/",
+    "learnMoreUrl": "/docs/integration/windows/"
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "description": "Monitor Vercel deployments and serverless functions",
+    "category": "Platform",
+    "icon": "",
+    "configureUrl": "/docs/integration/vercel/",
+    "learnMoreUrl": "/docs/integration/vercel/"
+  },
+  {
+    "id": "heroku",
+    "name": "Heroku",
+    "description": "Monitor Heroku apps and logs",
+    "category": "Platform",
+    "icon": "",
+    "configureUrl": "/docs/integration/heroku/",
+    "learnMoreUrl": "/docs/integration/heroku/"
+  },
+  {
+    "id": "message-brokers",
+    "name": "Message Brokers",
+    "description": "Monitor message broker systems",
+    "category": "Messaging",
+    "icon": "",
+    "configureUrl": "/docs/integration/message-brokers",
+    "learnMoreUrl": "/docs/integration/message-brokers"
+  },
+  {
+    "id": "ec2",
+    "name": "Amazon EC2",
+    "description": "Monitor Amazon EC2 instances",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/ec2/",
+    "learnMoreUrl": "/docs/integration/aws/ec2/"
+  },
+  {
+    "id": "alb",
+    "name": "Application Load Balancer (ALB)",
+    "description": "Monitor AWS Application Load Balancers",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/alb/",
+    "learnMoreUrl": "/docs/integration/aws/alb/"
+  },
+  {
+    "id": "vpc-flow",
+    "name": "Amazon Virtual Private Cloud",
+    "description": "Analyze Amazon VPC flow logs",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/vpc-flow/",
+    "learnMoreUrl": "/docs/integration/aws/vpc-flow/"
+  },
+  {
+    "id": "cognito",
+    "name": "Amazon Cognito",
+    "description": "Monitor Amazon Cognito authentication logs",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/cognito/",
+    "learnMoreUrl": "/docs/integration/aws/cognito/"
+  },
+  {
+    "id": "network-firewall",
+    "name": "AWS Network Firewall",
+    "description": "Monitor AWS Network Firewall events",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/network-firewall/",
+    "learnMoreUrl": "/docs/integration/aws/network-firewall/"
+  },
+  {
+    "id": "cloudwatch-logs",
+    "name": "AWS CloudWatch Logs",
+    "description": "Ingest AWS CloudWatch logs",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/cloudwatch-logs/",
+    "learnMoreUrl": "/docs/integration/aws/cloudwatch-logs/"
+  },
+  {
+    "id": "cloudwatch-metrics",
+    "name": "AWS CloudWatch Metrics",
+    "description": "Collect AWS CloudWatch metrics",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/cloudwatch-metrics/",
+    "learnMoreUrl": "/docs/integration/aws/cloudwatch-metrics/"
+  },
+  {
+    "id": "rds",
+    "name": "Amazon RDS",
+    "description": "Monitor Amazon RDS databases",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/rds/",
+    "learnMoreUrl": "/docs/integration/aws/rds/"
+  },
+  {
+    "id": "ecs",
+    "name": "Amazon ECS",
+    "description": "Monitor Amazon ECS containers",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/ecs/",
+    "learnMoreUrl": "/docs/integration/aws/ecs/"
+  },
+  {
+    "id": "route-53",
+    "name": "AWS Route 53",
+    "description": "Monitor Route 53 DNS logs",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/route-53/",
+    "learnMoreUrl": "/docs/integration/aws/route-53/"
+  },
+  {
+    "id": "waf",
+    "name": "AWS WAF",
+    "description": "Monitor AWS Web Application Firewall",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/waf/",
+    "learnMoreUrl": "/docs/integration/aws/waf/"
+  },
+  {
+    "id": "api-gateway",
+    "name": "API Gateway",
+    "description": "Monitor AWS API Gateway logs",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/api-gateway/",
+    "learnMoreUrl": "/docs/integration/aws/api-gateway/"
+  },
+  {
+    "id": "cloudfront",
+    "name": "Amazon CloudFront",
+    "description": "Monitor CloudFront CDN logs",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/cdn/",
+    "learnMoreUrl": "/docs/integration/aws/cdn/"
+  },
+  {
+    "id": "eventbridge",
+    "name": "Amazon EventBridge",
+    "description": "Monitor EventBridge events",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/aws/eventbridge/",
+    "learnMoreUrl": "/docs/integration/aws/eventbridge/"
+  },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "description": "Monitor PostgreSQL databases",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/postgresql/",
+    "learnMoreUrl": "/docs/integration/database/postgresql/"
+  },
+  {
+    "id": "snowflake",
+    "name": "Snowflake",
+    "description": "Monitor Snowflake data warehouse",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/snowflake/",
+    "learnMoreUrl": "/docs/integration/database/snowflake/"
+  },
+  {
+    "id": "oracle",
+    "name": "Oracle Database",
+    "description": "Monitor Oracle databases",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/oracle/",
+    "learnMoreUrl": "/docs/integration/database/oracle/"
+  },
+  {
+    "id": "mysql",
+    "name": "MySQL",
+    "description": "Monitor MySQL databases",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/mysql/",
+    "learnMoreUrl": "/docs/integration/database/mysql/"
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB",
+    "description": "Monitor MongoDB databases",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/mongodb/",
+    "learnMoreUrl": "/docs/integration/database/mongodb/"
+  },
+  {
+    "id": "redis",
+    "name": "Redis",
+    "description": "Monitor Redis instances",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/redis/",
+    "learnMoreUrl": "/docs/integration/database/redis/"
+  },
+  {
+    "id": "dynamodb",
+    "name": "Amazon DynamoDB",
+    "description": "Monitor DynamoDB tables",
+    "category": "AWS",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/dynamodb/",
+    "learnMoreUrl": "/docs/integration/database/dynamodb/"
+  },
+  {
+    "id": "zookeeper",
+    "name": "Apache Zookeeper",
+    "description": "Monitor Apache Zookeeper clusters",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/zookeeper/",
+    "learnMoreUrl": "/docs/integration/database/zookeeper/"
+  },
+  {
+    "id": "cassandra",
+    "name": "Cassandra",
+    "description": "Monitor Cassandra databases",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/cassandra/",
+    "learnMoreUrl": "/docs/integration/database/cassandra/"
+  },
+  {
+    "id": "aerospike",
+    "name": "Aerospike",
+    "description": "Monitor Aerospike databases",
+    "category": "Database",
+    "icon": "",
+    "configureUrl": "/docs/integration/database/aerospike/",
+    "learnMoreUrl": "/docs/integration/database/aerospike/"
+  },
+  {
+    "id": "nginx",
+    "name": "Nginx",
+    "description": "Monitor Nginx server logs and metrics",
+    "category": "Web Server",
+    "icon": "",
+    "configureUrl": "/docs/integration/servers/nginx/",
+    "learnMoreUrl": "/docs/integration/servers/nginx/"
+  },
+  {
+    "id": "weblogic",
+    "name": "Oracle Weblogic",
+    "description": "Monitor Oracle Weblogic servers",
+    "category": "Web Server",
+    "icon": "",
+    "configureUrl": "/docs/integration/servers/weblogic/",
+    "learnMoreUrl": "/docs/integration/servers/weblogic/"
+  },
+  {
+    "id": "jenkins",
+    "name": "Jenkins",
+    "description": "Monitor Jenkins pipelines and builds",
+    "category": "DevOps",
+    "icon": "",
+    "configureUrl": "/docs/integration/devops/jenkins/",
+    "learnMoreUrl": "/docs/integration/devops/jenkins/"
+  },
+  {
+    "id": "ansible",
+    "name": "Ansible",
+    "description": "Monitor Ansible automation runs",
+    "category": "DevOps",
+    "icon": "",
+    "configureUrl": "/docs/integration/devops/ansible/",
+    "learnMoreUrl": "/docs/integration/devops/ansible/"
+  },
+  {
+    "id": "terraform",
+    "name": "Terraform",
+    "description": "Monitor Terraform deployments",
+    "category": "DevOps",
+    "icon": "",
+    "configureUrl": "/docs/integration/devops/terraform/",
+    "learnMoreUrl": "/docs/integration/devops/terraform/"
+  },
+  {
+    "id": "github-actions",
+    "name": "Github Actions",
+    "description": "Monitor GitHub Actions workflows",
+    "category": "DevOps",
+    "icon": "",
+    "configureUrl": "/docs/integration/devops/github-actions/",
+    "learnMoreUrl": "/docs/integration/devops/github-actions/"
+  },
+  {
+    "id": "kafka",
+    "name": "Kafka",
+    "description": "Monitor Kafka brokers and topics",
+    "category": "Messaging",
+    "icon": "",
+    "configureUrl": "/docs/integration/message-brokers/kafka/",
+    "learnMoreUrl": "/docs/integration/message-brokers/kafka/"
+  },
+  {
+    "id": "rabbitmq",
+    "name": "RabbitMQ",
+    "description": "Monitor RabbitMQ queues and exchanges",
+    "category": "Messaging",
+    "icon": "",
+    "configureUrl": "/docs/integration/message-brokers/rabbitmq/",
+    "learnMoreUrl": "/docs/integration/message-brokers/rabbitmq/"
+  },
+  {
+    "id": "nats",
+    "name": "NATS",
+    "description": "Monitor NATS messaging systems",
+    "category": "Messaging",
+    "icon": "",
+    "configureUrl": "/docs/integration/message-brokers/nats/",
+    "learnMoreUrl": "/docs/integration/message-brokers/nats/"
+  }
 ]
