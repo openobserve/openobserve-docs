@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <radialGradient id="b" cx="160.37" cy="-156" fx="160.37" fy="-156" r="74.39" gradientTransform="translate(-95.01 -90.88) scale(.94 -.94)" gradientUnits="userSpaceOnUse">
+      <stop offset=".27" stop-color="#ffd70f"/>
+      <stop offset=".49" stop-color="#ffcb12"/>
+      <stop offset=".88" stop-color="#feac19"/>
+      <stop offset="1" stop-color="#fea11b"/>
+    </radialGradient>
+    <radialGradient id="g" cx="64" cy="64" fx="64" fy="64" r="64" gradientUnits="userSpaceOnUse">
+      <stop offset=".18" stop-color="#5ea0ef"/>
+      <stop offset=".56" stop-color="#5c9fee"/>
+      <stop offset=".69" stop-color="#559ced"/>
+      <stop offset=".78" stop-color="#4a97e9"/>
+      <stop offset=".86" stop-color="#3990e4"/>
+      <stop offset=".93" stop-color="#2387de"/>
+      <stop offset=".99" stop-color="#087bd6"/>
+      <stop offset="1" stop-color="#0078d4"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <path id="c" data-name="bd983c41-db73-40ec-a4f4-da1213fc9924" d="m97.43,51.43c5.35-5.4,5.35-14.1,0-19.5h0l-23.72-23.79c-5.37-5.34-14.05-5.34-19.43,0h0l-23.72,23.79c-5.35,5.4-5.35,14.1,0,19.5l19.73,20.1c.72.72,1.13,1.69,1.13,2.71v36.74c0,1.24.49,2.43,1.36,3.31l9.04,9.04c1.21,1.21,3.16,1.21,4.37,0,0,0,0,0,0,0l8.73-8.73h0l5.12-5.12c.67-.72.67-1.84,0-2.56l-3.69-3.69c-.74-.78-.74-2,0-2.79l3.69-3.69c.67-.72.67-1.84,0-2.56l-3.69-3.69c-.74-.78-.74-2,0-2.79l3.69-3.69c.67-.72.67-1.84,0-2.56l-5.12-5.2v-1.88l22.51-22.96ZM64,13.93c4.3,0,7.79,3.49,7.79,7.79s-3.49,7.79-7.79,7.79-7.79-3.49-7.79-7.79,3.49-7.79,7.79-7.79Z" fill="url(#b)"/>
+    <path id="d" data-name="ad2e7e44-9bfd-4775-8bf4-8ef26a544921" d="m57.83,111.44h0c.72.62,1.82.54,2.44-.18.26-.31.41-.69.42-1.1v-30.12c0-.61-.32-1.18-.83-1.51h0c-.77-.5-1.79-.29-2.29.48-.2.3-.29.67-.27,1.03v30.12c.03.47.21.92.53,1.28Z" fill="#ff9300" isolation="isolate" opacity=".75"/>
+    <rect id="e" data-name="a996fbff-3936-4b24-b407-369336c143ba" x="45.03" y="39.83" width="38.93" height="4.59" rx="2.11" ry="2.11" fill="#ff9300" isolation="isolate" opacity=".75"/>
+    <rect id="f" data-name="bb12d31c-3352-4a18-87dd-a169a4a8721d" x="45.03" y="47.28" width="38.93" height="4.59" rx="2.11" ry="2.11" fill="#ff9300" isolation="isolate" opacity=".75"/>
+  </g>
+  <path d="m64,0C28.65,0,0,28.65,0,64s28.65,64,64,64,64-28.65,64-64C127.96,28.67,99.33.04,64,0Zm6.69,118.82l-4.51,4.51s0,0,0,0c-1.21,1.21-3.16,1.2-4.37,0l-4.51-4.51c-27.36-3.31-48.57-26.57-48.57-54.82,0-26.56,18.75-48.73,43.73-54.04l1.82-1.83c5.37-5.34,14.05-5.34,19.43,0l1.82,1.83c24.98,5.31,43.73,27.48,43.73,54.04,0,28.25-21.21,51.51-48.57,54.82Z" fill="url(#g)"/>
+</svg>
