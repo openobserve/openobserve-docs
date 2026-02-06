@@ -59,6 +59,10 @@ Add one ENV to your OpenObserve first:
 ```
 O2_TOOL_API_URL = "http://localhost:5080"
 ```
+also set 
+```
+O2_AI_ENABLED="true"
+```
 
 Choose your integration:
 
@@ -201,4 +205,4 @@ Need help with MCP integration?
 
 ---
 
-**Last Updated:** December 2025
+**Last Updated:** February 2026
