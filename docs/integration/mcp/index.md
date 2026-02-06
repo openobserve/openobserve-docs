@@ -205,4 +205,4 @@ Need help with MCP integration?
 
 ---
 
-**Last Updated:** December 2025
+**Last Updated:** February 2026
