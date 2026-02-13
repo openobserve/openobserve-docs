@@ -1,4 +1,4 @@
-# Manual Migration Guide: PostgreSQL `file_list` Partition Upgrade
+# Migration Guide: PostgreSQL `file_list` Partition Upgrade
 
 > For the version > v0.60.x, Please upgrade to v0.60.x first if you are using old version.
 
