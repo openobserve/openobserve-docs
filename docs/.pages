@@ -20,8 +20,8 @@ nav:
 - Ingestion: ingestion
 - Integrations: integration
 - Migration: migration.md
+- Migration file list partition: migration-file-list-partition.md
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - Work Group: work_group.md 
 - SIEM: siem.md
-
