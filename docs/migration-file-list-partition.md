@@ -1,6 +1,6 @@
 # Manual Migration Guide: PostgreSQL `file_list` Partition Upgrade
 
-> For the version v0.60.x, Please upgrade to v0.60.x first if you are using old version.
+> For the version > v0.60.x, Please upgrade to v0.60.x first if you are using old version.
 
 ## Purpose
 
@@ -21,7 +21,7 @@ Common triggers:
 
 ## Important Behavior (Code-Accurate)
 
-1. In `ZO_PG_PARTITION_MODE=manual`, startup **skips auto migration** for regular tables (`relkind='r'`).
+1. In `ZO_META_PARTITION_MODE=manual`, startup **skips auto migration** for regular tables (`relkind='r'`).
 2. Migration renames old tables to `*_default` (not `*_old`).
 3. **Sequence alignment is mandatory** after migration:
 - If `setval(...)` is not executed, identity may restart from `1`.
