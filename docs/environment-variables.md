@@ -711,6 +711,75 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_CUSTOM_HIDE_MENUS      |          | Comma-separated menu items that should not be shown in the menu on openobserve UI. For example, `metrics,traces`. |
 
 
+## AI Integration
+
+> The following environment variables are available only in the Enterprise edition.
+
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_AI_ENABLED | false | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires o2-sre-agent to be deployed. |
+| O2_AI_PROVIDER | - | AI provider name for direct API calls (used only when gateway is not enabled). Supported values: anthropic, openai, bedrock, or other compatible providers. |
+| O2_AI_MODEL | - | AI model identifier to use for AI requests. The value depends on the provider (e.g., claude-sonnet-4-5-20250929 for Anthropic, gpt-4 for OpenAI). |
+| O2_AI_API_KEY | - | Authentication API key for accessing the AI service. Required for AI features. |
+| O2_AI_GATEWAY_ENABLED | - | Set to "true" to route AI requests through an AI Gateway instead of direct provider API calls. |
+| O2_AI_GATEWAY_URL | - | URL of the AI Gateway service (e.g., http://my-gateway:80). When specified, all AI requests are routed through this gateway. |
+| O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: http://o2-sre-agent:8000 |
+| O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: http://o2-openobserve-router:5080 |
+| O2_MCP_USERNAME | - | Username for MCP (Model Context Protocol) authentication with o2-sre-agent. Optional. |
+| O2_MCP_PASSWORD | - | Password for MCP (Model Context Protocol) authentication with o2-sre-agent. Optional. |
+
+## SRE Agent Configuration
+
+> The following environment variables are available only in the Enterprise edition.
+
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_SRE_HOST | 0.0.0.0 | Host address for the o2-sre-agent service to bind to. |
+| O2_SRE_PORT | 8000 | Port number for the o2-sre-agent service. |
+| O2_SRE_LOG_LEVEL | INFO | Logging level for o2-sre-agent. Supported values: DEBUG, INFO, WARNING, ERROR |
+| O2_MCP_VALIDATION_ENABLED | true | Enables Model Context Protocol (MCP) validation for AI requests. |
+| O2_MCP_VALIDATION_RETRY | true | Enables retry mechanism for failed MCP validation. |
+| O2_MCP_CONTENT_VALIDATION_ENABLED | true | Enables content validation for MCP requests and responses. |
+| O2_MCP_CONTENT_VALIDATION_MODE | hybrid | Validation mode for MCP content. Supported values: strict, hybrid, permissive |
+| O2_MCP_RESPONSE_VALIDATION_ENABLED | true | Enables validation of AI response format and structure. |
+
+## Incidents and RCA
+
+> The following environment variables are available only in the Enterprise edition.
+
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_INCIDENTS_ENABLED | false | Enables the incidents management feature for tracking and managing system incidents. |
+| O2_INCIDENTS_RCA_ENABLED | false | Enables root cause analysis (RCA) for incidents to automatically identify potential causes using AI. |
+| O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES | -1 | Time in minutes after which incidents are automatically resolved. Set to -1 to disable auto-resolution. |
+| O2_INCIDENTS_ALERT_GRAPH_ENABLED | false | Enables alert graph visualization in the incidents interface showing related alerts. |
+
+## Service Graph
+
+> The following environment variables are available only in the Enterprise edition.
+
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_SERVICE_GRAPH_ENABLED | false | Enables service graph feature for visualizing service dependencies and relationships from trace data. |
+| O2_SERVICE_GRAPH_PROCESSING_INTERVAL_SECS | 300 | Interval in seconds at which service graph data is processed and updated (default: 5 minutes). |
+| O2_SERVICE_GRAPH_QUERY_TIME_RANGE_MINUTES | 10 | Time range in minutes for querying and analyzing trace data to build service graph. |
+| O2_SERVICE_GRAPH_EXCLUDE_INTERNAL_SPANS | false | When enabled, excludes internal spans from service graph visualization to focus on external service interactions. |
+
+## Service Streams
+
+> The following environment variables are available only in the Enterprise edition.
+
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_SERVICE_STREAMS_ENABLED | false | Enables service streams feature for automatically correlating logs and metrics with services based on trace data. |
+| O2_SERVICE_STREAMS_SAMPLE_EVERY_NTH_STREAM | 5 | Samples every Nth stream for service correlation analysis to optimize performance and reduce overhead. |
+| O2_SERVICE_STREAMS_SAMPLE_EVERY_NTH_FILE | 50 | Samples every Nth file for service correlation analysis to reduce processing overhead. |
+| O2_SERVICE_STREAMS_MIN_CORRELATION_CONFIDENCE | 0.20 | Minimum confidence threshold (0.0-1.0) for correlating streams with services. Lower values include more potential correlations. |
+| O2_SERVICE_STREAMS_MAX_STREAMS_PER_SERVICE | 100 | Maximum number of streams that can be associated with a single service to prevent unbounded growth. |
+| O2_SERVICE_STREAMS_SAMPLE_WINDOW_SECS | 3600 | Time window in seconds (default: 1 hour) for sampling and analyzing service stream correlations. |
+| O2_FQN_PRIORITY_DIMENSIONS | k8s-deployment,k8s-statefulset,k8s-daemonset,k8s-job,aws-ecs-task,service | Comma-separated list of dimension priorities for fully qualified name (FQN) resolution in service identification. Used to determine service identity from resource attributes. |
+
+
 
 <!--
 
