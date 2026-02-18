@@ -71,7 +71,6 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_MEM_TABLE_STREAMS                 | -             | Comma-separated list of streams that use dedicated MemTables. |
 | ZO_INGEST_DEFAULT_HEC_STREAM        | -             | Default stream used for HEC ingestion.                       |
 
-
 ## File Management, WAL, and Memtable
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
