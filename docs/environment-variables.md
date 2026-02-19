@@ -71,7 +71,6 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_MEM_TABLE_STREAMS                 | -             | Comma-separated list of streams that use dedicated MemTables. |
 | ZO_INGEST_DEFAULT_HEC_STREAM        | -             | Default stream used for HEC ingestion.                       |
 
-
 ## File Management, WAL, and Memtable
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
@@ -129,6 +128,8 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_COMPACT_JOB_CLEAN_WAIT_TIME          | 7200          | Minimum age of finished jobs before cleanup in seconds.                                        |
 | ZO_COMPACT_PENDING_JOBS_METRIC_INTERVAL | 300           | Interval to publish pending job metrics in seconds.                                            |
 | ZO_COMPACT_MAX_GROUP_FILES               | 10000         | Maximum number of files allowed in a compaction group.                                         |
+| ZO_COMPACT_FILE_LIST_DELETED_BATCH_SIZE | 1000                       | Controls the batch size used when deleting entries from `file_list` during compaction and data retention.                                                                            |
+| ZO_COMPACT_RETENTION_ALLOWED_HOURS      | "" (empty, no restriction) | Specifies the UTC hours during which data retention jobs are allowed to start. Provide a comma-separated list of hours (e.g., `5,6,7,8` to allow retention between 05:00–08:00 UTC). |
 
 ## UI and Web
 | Environment Variable | Default Value | Description |
