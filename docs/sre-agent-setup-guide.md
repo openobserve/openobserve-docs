@@ -30,10 +30,7 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 ## Prerequisites
 
 1. **OpenObserve Enterprise License** (v0.60.0+)
-2. **AI Provider API Key** - Get one from:
-   - Anthropic: https://console.anthropic.com/
-   - OpenAI: https://platform.openai.com/api-keys
-   - Google Gemini: https://ai.google.dev/
+2. **AI Provider API Key** 
 
 ## Configuration Methods
 
@@ -42,8 +39,9 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 If you're deploying OpenObserve using the official Helm charts, the SRE Agent is already included. You just need to enable and configure it.
 
 **Official Helm Charts:**
-- Multi-node (HA): https://github.com/openobserve/openobserve-helm-chart/tree/main/charts/openobserve
-- Standalone: https://github.com/openobserve/openobserve-helm-chart/tree/main/charts/openobserve-standalone
+- [Multi-node (HA)](https://github.com/openobserve/openobserve-helm-chart/tree/main/charts/openobserve)
+
+- [Standalone](https://github.com/openobserve/openobserve-helm-chart/tree/main/charts/openobserve-standalone)
 
 #### Step 1: Add Helm Repository
 
@@ -431,7 +429,10 @@ Model Context Protocol (MCP) handles communication between the SRE Agent and Ope
 
 **Recommended for Production:**
 - Enable all validation settings (`O2_MCP_VALIDATION_ENABLED: "true"`)
-- Use `hybrid` validation mode for balanced security and flexibility
+
+- Use `hybrid` validation mode for 
+balanced security and flexibility
+
 - Configure MCP authentication for multi-tenant environments
 
 **Development:** Can disable validation (`O2_MCP_VALIDATION_ENABLED: "false"`) for faster iteration.
@@ -594,16 +595,22 @@ O2_INCIDENTS_RCA_ENABLED: "true"
 
 ## Support
 
-**Resources:**
+
 - [Community Slack](https://short.openobserve.ai/community) 
+
 - [GitHub](https://github.com/openobserve/openobserve)
-- Enterprise Support: hello@openobserve.ai
+
+
 
 **Before contacting support, verify:**
 - SRE Agent pod is running and healthy
+
 - AI API key is valid with available quota
+
 - `O2_AI_ENABLED="true"` in OpenObserve config
+
 - Services can communicate (SRE Agent ↔ OpenObserve)
+
 - No conflicting AI Gateway configuration
 
 **Support diagnostics:**
