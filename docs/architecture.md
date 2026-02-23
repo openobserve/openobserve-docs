@@ -1,9 +1,9 @@
 ---
-title: Introduction to Python
+title:  OpenObserve Architecture
 description: >-
   Deploy OpenObserve in single or HA mode. Learn about architecture, components,
   storage, data flow, and performance optimization features.
-keywords: 'python, beginner, tutorial'
+keywords: 'openobserve, architecture, tutorial'
 ---
 
 > Applicable to open source & enterprise version

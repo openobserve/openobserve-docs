@@ -1,11 +1,10 @@
 ---
-description: >-
-  Instrument your app with OpenTelemetry SDKs in JS, TS, Python, or Go to send
-  traces to OpenObserve. See examples for easy setup and trace export.
+title: OpenTelemetry Tracing SDKs - Distributed Tracing for Applications | OpenObserve
+description: OpenTelemetry tracing guide for instrumenting applications with OpenTelemetry SDKs in Node.js, TypeScript, Python, and Go for distributed tracing and APM.
 ---
-# Opentelemetry
+# OpenTelemetry Distributed Tracing - APM Instrumentation
 
-You can find the examples of how to instrument your code to send traces to OpenObserve using opentelemetry SDKs below:
+Instrument your applications with OpenTelemetry SDKs for distributed tracing and application performance monitoring (APM). You can find examples of how to instrument your code to send traces to OpenObserve using OpenTelemetry SDKs below:
 
 1. [Javascript (NodeJS)](./nodejs.md)
 1. [Typescript](./typescript.md)

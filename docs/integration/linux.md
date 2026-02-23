@@ -1,14 +1,14 @@
 ---
-title: Linux Monitoring Integration with OpenObserve
-description: Learn how to integrate Linux systems with OpenObserve to collect and analyze system logs and performance metrics using the OpenObserve Collector or OpenTelemetry Collector.
+title: Linux Server Monitoring - System Logs and Performance Metrics | OpenObserve
+description: Complete Linux server monitoring guide for collecting Linux system logs, server metrics, and performance data using OpenObserve Collector for Linux monitoring and server observability.
 ---
-# Integration with Linux
+# Linux Server Monitoring - System Logs & Performance Metrics
 
-This guide explains how to integrate Linux systems with OpenObserve to collect and analyze system logs and performance metrics.
+Monitor Linux servers with comprehensive Linux server monitoring for collecting Linux system logs, server performance metrics, and infrastructure data. This guide explains how to integrate Linux systems with OpenObserve for Linux monitoring, server observability, and infrastructure monitoring using the OpenObserve Collector or OpenTelemetry Collector.
 
 ## Overview
 
-Linux systems generate two primary types of monitoring data: system logs and performance metrics. Collecting and analyzing these data is essential for maintaining system health, performance, and security.
+Linux server monitoring requires collecting system logs and server performance metrics. Linux systems generate two primary types of monitoring data: system logs (syslog, journald) and performance metrics (CPU, memory, disk, network). Collecting and analyzing Linux monitoring data is essential for maintaining server health, Linux performance optimization, and server security.
 
 ---
 

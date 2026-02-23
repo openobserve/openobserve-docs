@@ -1,9 +1,8 @@
 ---
-description: >-
-  Send logs to OpenObserve from Python using HTTP POST with basic auth and JSON
-  payloads—great for integrating with ECS, Kubernetes, or any Python app.
+title: Python Log Ingestion SDK - Application Logging and Log Forwarding | OpenObserve
+description: Python SDK guide for application log ingestion, structured logging, and log forwarding to OpenObserve using HTTP API for Python application monitoring.
 ---
-## Python
+## Python Log Ingestion - Application Logging
 
 ```py
 import base64, json

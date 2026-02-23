@@ -1,14 +1,17 @@
-The following user guides provide step-by-step instructions to integrate GCP services with OpenObserve. These integrations allow you to collect logs, metrics, and events directly from various Google Cloud offerings, enabling unified observability across your cloud workloads.
+---
+title: GCP Monitoring Integration - Google Cloud Platform Logs and Metrics | OpenObserve
+description: Comprehensive GCP monitoring integration guide for Google Cloud Platform logs, Cloud Run monitoring, GCP metrics collection, and Google Cloud observability with OpenObserve.
+---
 
-</br>
-Each guide corresponds to a data source listed in the **Data Sources** section of the OpenObserve user interface.
+# GCP Monitoring & Google Cloud Observability Integration
 
-</br>
+OpenObserve provides comprehensive GCP monitoring integrations to collect logs, metrics, and events from Google Cloud Platform services. Monitor GCP infrastructure, serverless applications, and cloud resources with unified observability for Google Cloud Run, Cloud Functions, GKE, and more GCP services.
+
+These GCP monitoring integrations enable Google Cloud observability, cloud infrastructure monitoring, and application performance monitoring across your Google Cloud workloads.
+
 ![GCP Data source page](image.png)
 
-</br>
-
-Learn more:
+## GCP Services Integration Guides
 
 - [GCP Logs](gcp-logs.md)
 - [Google Cloud Run](cloud-run.md)

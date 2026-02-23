@@ -1,9 +1,10 @@
 ---
-description: >-
-  Ingest logs into OpenObserve using Fluentd with HTTP output, JSON formatting,
-  and basic auth for flexible and secure data forwarding.
+title: Fluentd Log Aggregation for Unified Logging Layer | OpenObserve
+description: Configure Fluentd unified logging layer for log aggregation, log collection, and centralized log management with OpenObserve using HTTP output and JSON formatting.
 ---
-# Fluentd
+# Fluentd - Unified Logging Layer & Log Aggregation
+
+Fluentd is an open-source data collector for unified logging layer, enabling log aggregation from multiple sources. Configure Fluentd to collect, transform, and forward logs to OpenObserve for centralized log management and analysis.
 
 ```toml
 <source>

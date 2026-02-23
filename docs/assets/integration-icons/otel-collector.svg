@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="15" fill="#425CC7"/>
+  <g transform="translate(15, 20)">
+    <!-- OTel logo inspired design -->
+    <circle cx="35" cy="30" r="8" fill="white"/>
+    <circle cx="15" cy="45" r="6" fill="white" opacity="0.8"/>
+    <circle cx="55" cy="45" r="6" fill="white" opacity="0.8"/>
+    <path d="M 20 50 Q 35 65 50 50" stroke="white" stroke-width="3" fill="none"/>
+  </g>
+</svg>

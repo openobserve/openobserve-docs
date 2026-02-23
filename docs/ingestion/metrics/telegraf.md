@@ -1,9 +1,10 @@
 ---
-description: >-
-  Ingest system metrics from Telegraf into OpenObserve using Prometheus remote
-  write. Configure inputs and send data with HTTP output in protobuf format.
+title: Telegraf Metrics Collection for System and Infrastructure Monitoring | OpenObserve
+description: Configure Telegraf agent for system metrics collection, server monitoring, and infrastructure metrics ingestion to OpenObserve using Prometheus remote write.
 ---
-# Telegraf
+# Telegraf - System Metrics & Infrastructure Monitoring
+
+Telegraf is a plugin-driven server agent for collecting and reporting metrics from systems, services, and IoT sensors. Configure Telegraf for system monitoring, infrastructure metrics collection, and application performance monitoring, sending metrics to OpenObserve via Prometheus remote write.
 
 
 You can enable some inputs first

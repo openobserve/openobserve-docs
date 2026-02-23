@@ -1,17 +1,17 @@
 ---
-title: Monitor Your MySQL Database Metrics with OpenTelemetry and OpenObserve
-description: Learn how to collect and monitor MySQL database metrics using the OpenTelemetry Collector and visualize them in OpenObserve.
+title: MySQL Database Monitoring - Performance Metrics and Query Optimization | OpenObserve
+description: Complete MySQL database monitoring guide for collecting MySQL performance metrics, query performance, and database health using OpenTelemetry for MySQL monitoring and database observability.
 ---
 
-# MySQL Integration with OpenObserve
+# MySQL Database Monitoring - Performance & Query Optimization
 
-This guide provides step-by-step instructions to collect and monitor MySQL database metrics using OpenTelemetry Collector and forward them to OpenObserve.
+Monitor MySQL databases with comprehensive MySQL database monitoring for collecting MySQL performance metrics, query performance data, and database health metrics. This guide shows you how to set up MySQL monitoring using OpenTelemetry Collector for MySQL database performance monitoring, query optimization, and database observability.
 
 ## Overview
 
-MySQL is one of the most widely used open-source relational databases, powering applications from startups to large-scale enterprises. Monitoring MySQL is critical for ensuring availability, performance, and query efficiency.  
+MySQL is one of the most widely used open-source relational databases, powering applications from startups to large-scale enterprises. MySQL database monitoring is critical for ensuring database availability, MySQL performance optimization, and query efficiency.
 
-With the **OpenTelemetry Collector** and **OpenObserve**, you can seamlessly ingest MySQL metrics, visualize database health, and set up proactive alerts.
+With the **OpenTelemetry Collector** and **OpenObserve**, you can collect MySQL metrics, monitor database health, visualize MySQL performance, and set up proactive database alerts for comprehensive MySQL monitoring.
 
 ## Steps to Integrate
 

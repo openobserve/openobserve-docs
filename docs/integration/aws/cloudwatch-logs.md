@@ -1,16 +1,16 @@
 ---
-title: AWS CloudWatch Logs Integration Guide
-description: Stream CloudWatch Logs to OpenObserve using Kinesis Firehose and HTTP delivery.
+title: AWS CloudWatch Logs Monitoring - Stream CloudWatch Logs to OpenObserve | OpenObserve
+description: Complete AWS CloudWatch Logs monitoring guide for streaming CloudWatch application logs and infrastructure logs using Kinesis Firehose for centralized AWS log management and cloud observability.
 ---
 
-# Integration with AWS CloudWatch Logs
+# AWS CloudWatch Logs Monitoring - Centralized AWS Log Management
 
-This guide explains how to *stream logs from AWS CloudWatch* to OpenObserve using Kinesis Firehose with an HTTP endpoint.
+Monitor AWS CloudWatch Logs with comprehensive log streaming from CloudWatch to OpenObserve using Amazon Kinesis Firehose. This guide explains how to stream application logs and infrastructure logs from AWS CloudWatch for centralized log management, cloud observability, and real-time log analysis.
 
 ## Overview
 
-Forward application or infrastructure logs from CloudWatch Logs to OpenObserve in near real-time.  
-The integration uses **CloudWatch Logs subscriptions** to stream log data into **Kinesis Firehose**, which then delivers it to **OpenObserve over HTTP**.
+Forward AWS application logs and infrastructure logs from CloudWatch Logs to OpenObserve in near real-time for AWS monitoring and cloud observability.
+The CloudWatch Logs integration uses **CloudWatch Logs subscriptions** to stream log data into **Amazon Kinesis Firehose**, which delivers logs to **OpenObserve over HTTP** for centralized AWS log management.
 
 This approach enables centralized log analysis, alerting, and visualization in OpenObserve without storing logs in S3 or managing Lambda transformations.
 

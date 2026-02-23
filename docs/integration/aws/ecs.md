@@ -1,15 +1,14 @@
 ---
-description: >-
-  Send ECS logs to OpenObserve using AWS FireLens with Fluent Bit. Works with
-  Fargate or EC2. Requires adding a sidecar to ECS task definitions.
+title: AWS ECS Container Monitoring with FireLens - Fargate and EC2 Logs | OpenObserve
+description: Complete AWS ECS container monitoring guide for collecting container logs from ECS Fargate and EC2 using AWS FireLens with Fluent Bit for containerized application monitoring and observability.
 ---
-# Ingest logs from Amazon ECS using AWS firelens
+# AWS ECS Container Monitoring - Fargate & EC2 Log Collection
 
-This guide provides step-by-step instructions to integrate Amazon Elastic Container Service (ECS) with OpenObserve for log ingestion using AWS FireLens.
+Monitor AWS ECS containers with comprehensive container monitoring for ECS Fargate and ECS on EC2. This guide shows you how to collect container logs from Amazon Elastic Container Service (ECS) using AWS FireLens with Fluent Bit for containerized application monitoring and cloud observability.
 
 ## Introduction
 
-To send logs from ECS tasks (Fargate or EC2, Linux) to OpenObserve, use AWS FireLens with a Fluent Bit sidecar. FireLens routes container logs in ECS tasks to Fluent Bit, which then forwards them to OpenObserve.
+Collect logs from AWS ECS tasks (ECS Fargate or ECS on EC2, Linux) using AWS FireLens with a Fluent Bit sidecar. AWS FireLens routes container logs from ECS tasks to Fluent Bit, which forwards them to OpenObserve for centralized container log management and analysis.
 
 We recommend Fluent Bit over Fluentd due to its lower resource usage. For existing tasks, update the task definition to include the Fluent Bit sidecar.
 

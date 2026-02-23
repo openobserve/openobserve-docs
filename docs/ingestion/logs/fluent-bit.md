@@ -1,9 +1,10 @@
 ---
-description: >-
-  Ingest logs into OpenObserve using Fluent-bit via HTTP or Elasticsearch output
-  plugins with custom URI, authentication, and JSON formatting options.
+title: Fluent Bit Log Ingestion for Kubernetes and Cloud-Native Logs | OpenObserve
+description: Configure Fluent Bit log forwarding to OpenObserve using HTTP or Elasticsearch output for Kubernetes logging, container logs, and cloud-native log collection.
 ---
-# Fluent-bit
+# Fluent Bit Log Ingestion - Kubernetes & Container Logging
+
+Fluent Bit is a fast and lightweight log processor and forwarder designed for cloud-native environments, Kubernetes clusters, and containerized applications. This guide shows you how to configure Fluent Bit for log forwarding and centralized log management with OpenObserve.
 
 ## HTTP output
 

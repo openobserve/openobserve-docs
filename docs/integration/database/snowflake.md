@@ -1,10 +1,15 @@
-# Integration with Snowflake
+---
+title: Snowflake Data Warehouse Monitoring - Query Performance and Cost Analytics | OpenObserve
+description: Complete Snowflake monitoring guide for cloud data warehouse performance metrics, query analytics, cost optimization, and storage monitoring using OpenTelemetry for Snowflake observability.
+---
 
-This guide provides step-by-step instructions to integrate Snowflake with OpenObserve.
+# Snowflake Data Warehouse Monitoring - Performance & Cost Optimization
+
+Monitor Snowflake cloud data warehouse with comprehensive Snowflake monitoring for query performance, billing analytics, storage usage, and cost optimization. This guide provides step-by-step instructions to integrate Snowflake monitoring with OpenObserve for data warehouse observability.
 
 ## Overview
 
-The Snowflake integration enables monitoring of Snowflake performance metrics, billing information, storage usage, and query analytics through OpenTelemetry. This integration streams telemetry data from Snowflake to OpenObserve, providing insights into storage utilization, query performance, credit consumption, and operational metrics for comprehensive monitoring and cost optimization.
+The Snowflake data warehouse monitoring integration enables monitoring of Snowflake performance metrics, billing information, storage usage, and query analytics through OpenTelemetry. This Snowflake integration streams telemetry data from Snowflake to OpenObserve, providing insights into storage utilization, query performance, credit consumption, and operational metrics for comprehensive Snowflake monitoring and cost optimization.
 
 ## Steps to Integrate
 

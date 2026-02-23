@@ -1,11 +1,10 @@
 ---
-description: >-
-  Set up trace ingestion in Node.js using OpenTelemetry. Clone sample repo,
-  configure OpenObserve endpoint and auth, then run your app to export traces.
+title: Node.js Distributed Tracing - OpenTelemetry for Node.js APM | OpenObserve
+description: Complete Node.js distributed tracing guide using OpenTelemetry SDK for Node.js application performance monitoring and trace instrumentation.
 ---
-# Javascript NodeJS
+# Node.js Distributed Tracing - OpenTelemetry APM
 
-You can setup tracing for your Node.js application. Check sample configuration on how to setup traces.
+Setup distributed tracing for your Node.js application using OpenTelemetry for Node.js application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Node.js applications.
 
 ##Clone </br>
 ```

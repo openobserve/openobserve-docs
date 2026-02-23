@@ -1,10 +1,11 @@
 ---
-description: >-
-  Ingest logs, metrics, and traces into OpenObserve via OTEL, Fluentbit, APIs,
-  syslog, Prometheus, or programmatically using Go, Python, or curl.
+title: Data Ingestion Guide - Logs, Metrics, and Traces Collection | OpenObserve
+description: Comprehensive data ingestion guide for collecting logs, metrics, and traces using OpenTelemetry, Prometheus, log forwarders, and APIs for complete observability.
 ---
 
-Logs metrics and traces can be ingested into OpenObserve from a variety of sources. This section describes how to ingest data from the following sources:
+# Data Ingestion - Logs, Metrics & Traces Collection
+
+Collect logs, metrics, and traces into OpenObserve from a variety of data sources for unified observability. This data ingestion guide describes how to ingest observability data from log forwarders, monitoring agents, OpenTelemetry Collector, APIs, and programmatic methods.
 
 ## Logs
 

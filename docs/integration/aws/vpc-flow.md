@@ -1,13 +1,14 @@
 ---
-title: AWS VPC Flow Logs Integration Guide
-description: Stream AWS VPC Flow Logs to OpenObserve using Kinesis Firehose (no CloudWatch required). Direct setup for basic ingestion.
+title: AWS VPC Flow Logs Monitoring - Network Traffic and Security Analysis | OpenObserve
+description: Complete AWS VPC Flow Logs monitoring guide for network traffic analysis, security monitoring, and network visibility using Kinesis Firehose for AWS network monitoring and cloud security.
 ---
 
-# Integration with AWS VPC Flow Logs
-This guide explains how to stream VPC Flow Logs directly to OpenObserve using Amazon Kinesis Firehose.
+# AWS VPC Flow Logs Monitoring - Network Traffic & Security Analysis
+
+Monitor AWS VPC network traffic with comprehensive VPC Flow Logs monitoring for network traffic analysis, security monitoring, and network visibility. This guide explains how to stream AWS VPC Flow Logs directly to OpenObserve using Amazon Kinesis Firehose for AWS network monitoring, cloud security, and network performance analysis.
 
 ## Overview
-Capture and forward VPC Flow Logs to OpenObserve via Firehose for real-time network visibility.
+Capture and forward AWS VPC Flow Logs to OpenObserve via Kinesis Firehose for real-time network visibility, network traffic monitoring, and security analysis.
 
 ## Steps to Integrate
 

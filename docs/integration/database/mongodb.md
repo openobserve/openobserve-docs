@@ -1,15 +1,15 @@
 ---
-title: MongoDB Metrics Integration Guide
-description: This guide explains how to monitor MongoDB metrics using the OpenTelemetry Collector with the MongoDB receiver, and forward them to OpenObserve for visualization and analysis.
+title: MongoDB Database Monitoring - NoSQL Performance Metrics and Query Optimization | OpenObserve
+description: Complete MongoDB database monitoring guide for collecting MongoDB performance metrics, NoSQL database monitoring, and query performance using OpenTelemetry for MongoDB monitoring and database observability.
 ---
 
-# Integration with MongoDB Metrics
+# MongoDB Database Monitoring - NoSQL Performance & Query Optimization
 
-This guide provides step-by-step instructions to collect and monitor MongoDB metrics using **OpenTelemetry Collector Contrib** and forward them to OpenObserve.
+Monitor MongoDB databases with comprehensive MongoDB database monitoring for collecting MongoDB performance metrics, NoSQL database metrics, and query performance data. This guide provides step-by-step instructions to collect and monitor MongoDB metrics using **OpenTelemetry Collector Contrib** for MongoDB database performance monitoring and NoSQL database observability.
 
 ## Overview
 
-To effectively monitor MongoDB, we will utilize the OpenTelemetry Collector with the MongoDB receiver. This setup allows us to collect metrics from MongoDB instances and push them to OpenObserve, enabling us to visualize performance data and respond proactively to issues.
+Monitor MongoDB effectively with comprehensive MongoDB monitoring using the OpenTelemetry Collector with the MongoDB receiver. This MongoDB monitoring setup allows you to collect database metrics from MongoDB instances, monitor NoSQL database performance, visualize MongoDB performance data, and respond proactively to database issues.
 
 Supported MongoDB versions: **4.0+**.
 

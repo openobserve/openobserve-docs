@@ -1,15 +1,15 @@
 ---
-title: AWS RDS Logs Integration Guide
-description: Stream Amazon RDS logs to OpenObserve via CloudWatch Logs and Kinesis Firehose for real-time database monitoring.
+title: AWS RDS Database Monitoring - MySQL, PostgreSQL Database Logs | OpenObserve
+description: Complete AWS RDS database monitoring guide for collecting MySQL and PostgreSQL database logs, slow query logs, and error logs via CloudWatch and Kinesis Firehose for database performance monitoring.
 ---
 
-# Integration with Amazon RDS Logs via CloudWatch
+# AWS RDS Database Monitoring - MySQL & PostgreSQL Log Collection
 
-This guide explains how to stream Amazon RDS logs (slow query, general, and error logs) into OpenObserve using CloudWatch Logs and Kinesis Firehose.
+Monitor AWS RDS databases with comprehensive database monitoring for Amazon RDS MySQL and PostgreSQL. This guide explains how to stream Amazon RDS database logs (slow query logs, general logs, and error logs) into OpenObserve using CloudWatch Logs and Kinesis Firehose for database performance monitoring and database observability.
 
 ## Overview
 
-Amazon RDS can export logs to CloudWatch Logs. These can be forwarded to OpenObserve using Kinesis Firehose with an HTTP endpoint. This enables real-time log monitoring, correlation with application activity, and alerting based on RDS behavior.
+Amazon RDS database logs can be exported to CloudWatch Logs for database monitoring. Stream RDS logs to OpenObserve using Kinesis Firehose with an HTTP endpoint for real-time database log monitoring, database performance analysis, and alerting based on RDS database behavior.
 
 ![Amazon RDS Logs to Openobserve via CloudWatch](../images/aws-integrations/rds/architecture.png)
 

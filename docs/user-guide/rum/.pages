@@ -1,0 +1,17 @@
+title: Real User Monitoring (RUM)
+nav:
+    - Overview: index.md
+    - Getting Started:
+        - RUM Overview: overview.md
+        - Setup Guide: setup.md
+    - Core Features:
+        - Performance Monitoring: performance-monitoring.md
+        - Session Tracking: sessions.md
+        - Error Tracking: error-tracking.md
+        - Session Replay: session-replay.md
+    - Reference & Advanced:
+        - Metrics Reference: metrics-reference.md
+        - Advanced Features: advanced-features.md
+        - Use Cases: use-cases.md
+        - Best Practices: best-practices.md
+        - Troubleshooting: troubleshooting-guide.md

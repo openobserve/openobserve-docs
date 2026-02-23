@@ -1,16 +1,17 @@
 ---
-description: >-
-  Optimize OpenObserve performance for ingestion and search with CPU tuning,
-  SIMD builds, WAL config, column pruning, predicate pushdown, and more.
+title: Performance Optimization Guide - Ingestion and Query Performance Tuning | OpenObserve
+description: Complete performance optimization guide for OpenObserve ingestion performance, query optimization, and search performance tuning for high-throughput observability.
 ---
-# Performance Optimization
+# Performance Optimization - Ingestion & Query Performance
+
+Optimize OpenObserve performance for high-throughput log ingestion, fast query performance, and efficient search operations. This performance tuning guide covers ingestion optimization, query performance, and search performance for observability at scale.
 
 ## Introduction
 
-Performance can be divided primarily into 2 areas:
+OpenObserve performance optimization can be divided primarily into 2 areas:
 
-- WRITE (Ingestion)
-- READ (Log search, aggregation, dashboards)
+- WRITE Performance (Log Ingestion, Data Ingestion)
+- READ Performance (Log Search, Query Performance, Aggregations, Dashboards)
 
 
 ## Ingestion

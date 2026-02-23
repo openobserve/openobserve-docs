@@ -25,7 +25,6 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 ### [Error Tracking](../user-guide/rum.md#error-tracking)
 
 - **JavaScript Errors**: Automatically capture exceptions and errors with full stack traces
-- **Source Maps**: View original source files when source maps are uploaded.
 - **Error Context**: Includes user session metadata and browser details
 
 ![Error Tracking](../images/frontend/error-tracking.webp)

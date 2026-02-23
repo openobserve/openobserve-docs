@@ -1,11 +1,10 @@
 ---
-description: >-
-  Set up trace ingestion for Go apps in OpenObserve using OpenTelemetry SDK.
-  Clone sample repo, configure endpoint and auth, then start exporting traces.
+title: Go Distributed Tracing - OpenTelemetry for Golang APM | OpenObserve
+description: Complete Go/Golang distributed tracing guide using OpenTelemetry SDK for Go application performance monitoring and trace instrumentation.
 ---
-# Go
+# Go (Golang) Distributed Tracing - OpenTelemetry APM
 
-You can setup tracing for your Go application. Check sample configuration on how to setup traces.
+Setup distributed tracing for your Go application using OpenTelemetry for Go application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Golang applications.
 
 ## Clone 
 

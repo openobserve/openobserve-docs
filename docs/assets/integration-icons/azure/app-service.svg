@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128">
+    <linearGradient id="linear-gradient" x1="29.46" y1="25.41" x2="29.23" y2="55.2" gradientTransform="matrix(1 0 0 -1 0 108)" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#ccc"/>
+        <stop offset="1" stop-color="#fcfcfc"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="72.67" y1="-4.54" x2="72.67" y2="22.24" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="103.22" y1="27.9" x2="103.22" y2="56.34" xlink:href="#linear-gradient"/>
+    <radialGradient id="radial-gradient" cx="21383.2" cy="-8196.72" r="427.76" gradientTransform="matrix(.15 0 0 -.15 -3143.48 -1165.63)" gradientUnits="userSpaceOnUse">
+        <stop offset=".18" stop-color="#5ea0ef"/>
+        <stop offset="1" stop-color="#0078d4"/>
+    </radialGradient>
+    <path id="ee75dd06-1aca-4f76-9d11-d05a284020ad" d="M103.45 114.58A64.15 64.15 0 1124.84 13.19l.68-.45a64.12 64.12 0 0177.93 101.84" fill="url(#radial-gradient)"/>
+    <path d="M46.72 50.53a98 98 0 0167.21-27 63.91 63.91 0 00-11.24-10.87A108.47 108.47 0 0067.31 21a94.58 94.58 0 00-30.77 21.24 20.79 20.79 0 0110.18 8.29zM15 76.33A135.5 135.5 0 008.7 96.1a59 59 0 004.68 6.9c1.36 1.73 2.64 3.31 4.15 4.9a135.53 135.53 0 018.14-26.18A20.87 20.87 0 0115 76.33z" fill="url(#linear-gradient-3)" opacity="0.6"/>
+    <path d="M22.35 42.08a90.34 90.34 0 01-5.2-22.17 61.27 61.27 0 00-8.3 10.93 95.49 95.49 0 004.3 18 20.42 20.42 0 019.2-6.76z" fill="url(#linear-gradient-3)" opacity="0.6"/>
+    <circle cx="29.29" cy="61.47" r="20.59" fill="url(#linear-gradient-3)"/>
+    <path d="M59.32 99.11a13.32 13.32 0 014.07-9.58 89.59 89.59 0 01-19.08-14 20.72 20.72 0 01-11.24 6.26A99.21 99.21 0 0044 91.42a91.49 91.49 0 0015.47 9.43 12.77 12.77 0 01-.15-1.74zM106.84 100.7A90.64 90.64 0 0186 98.28a2.89 2.89 0 010 .83 13.19 13.19 0 01-3.85 9.36 103.39 103.39 0 0025.8 1.81 61.66 61.66 0 009-10.11 87.56 87.56 0 01-10.11.53z" fill="url(#linear-gradient-3)" opacity="0.6"/>
+    <circle cx="72.67" cy="99.11" r="13.43" fill="url(#linear-gradient-3)"/>
+    <path d="M89.19 63.36a13.87 13.87 0 014.6-7.55 192.29 192.29 0 01-33.64-31.23 127.4 127.4 0 01-15.09-22 57.15 57.15 0 00-8.22 3.16 136.58 136.58 0 0016.22 24 199.46 199.46 0 0036.13 33.62z" style="isolation:isolate" opacity=".7" fill="#f2f2f2"/>
+    <circle cx="103.22" cy="65.92" r="14.26" fill="url(#linear-gradient-3)"/>
+    <path d="M127.13 75.5l-2.64-1.28-2.26-1.22h-.45l-2-1.58h-.53l-2.25-1.5a13.3 13.3 0 01-4.83 6.94c.91.6 1.89 1.13 2.87 1.66l.6.38 2.64 1.43 6.49 3.39a66.86 66.86 0 002.19-8.37z" fill="url(#linear-gradient-3)" opacity="0.6"/>
+    <circle cx="29.29" cy="61.47" r="20.59" fill="url(#linear-gradient-3)"/>
+    <circle cx="72.67" cy="99.11" r="13.43" fill="url(#linear-gradient-3)"/>
+</svg>

@@ -3,6 +3,7 @@ nav:
     - Logs in OpenObserve: logs.md
     - Refresh Cache Run Query: refresh-cache-run-query.md
     - Search Around: search-around.md
+    - Insights: insights.md
     - Quick Mode and Interesting Fields: quickmode.md
     - Explain and Analyze Query: explain-analyze-query.md
 

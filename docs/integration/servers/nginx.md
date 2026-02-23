@@ -1,16 +1,15 @@
 ---
-title: NGINX Logs Integration Guide  
-description: Monitor NGINX in real-time by forwarding JSON logs to OpenObserve using Fluent Bit on any Linux or Unix-based system.
-
+title: NGINX Monitoring - Web Server Logs and Access Log Analysis | OpenObserve
+description: Complete NGINX monitoring guide for collecting NGINX access logs, error logs, and web server performance metrics using Fluent Bit for NGINX log analysis and web server monitoring.
 ---
 
-# Integration with NGINX
+# NGINX Monitoring - Web Server Log Analysis & Performance Monitoring
 
-This guide walks you through setting up **real-time log monitoring for NGINX** using Fluent Bit and OpenObserve. 
+Monitor NGINX web server with comprehensive NGINX monitoring for collecting NGINX access logs, error logs, and web server performance data. This guide walks you through setting up **real-time NGINX log monitoring** using Fluent Bit for NGINX log analysis, web server monitoring, and HTTP request tracking.
 
 ## Overview
 
-By default, NGINX logs in a custom format that isn’t ideal for log analytics. This guide helps you convert logs into structured JSON, then forward them to OpenObserve using Fluent Bit.
+NGINX web server monitoring requires structured log collection for effective log analytics. By default, NGINX logs in a custom format that isn't optimal for web server log analysis. This guide helps you convert NGINX logs into structured JSON format for NGINX access log analysis, error monitoring, and web server performance tracking using Fluent Bit.
 
 ## Steps to Integrate
 

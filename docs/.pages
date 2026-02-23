@@ -1,10 +1,11 @@
 nav:
 - Overview: overview
-- Architechture: architecture.md
+- Architecture: architecture.md
 - Getting started: getting-started.md
 - Features: features
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
+- O2 CLI: o2-cli
 - SQL Functions: sql-functions
 - Example Queries: example-queries.md
 - HA Deployment: ha_deployment.md
@@ -12,13 +13,15 @@ nav:
 - Storage Management: storage-management
 - User Guide: user-guide
 - Operator Guide: operator-guide
+- Observeability As Code: o2-k8s-operator
 - Performance Optimization: performance.md
+- Capacity Planning: capacity-planning.md
 - API Reference: api
 - Ingestion: ingestion
-- Integrations: integration
+- Integrations: integration.md
 - Migration: migration.md
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
-- zPlane: zplane.md
 - Work Group: work_group.md 
+- SIEM: siem.md
 

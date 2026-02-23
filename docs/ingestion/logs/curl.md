@@ -1,10 +1,8 @@
 ---
-description: >-
-  Ingest logs into OpenObserve using curl for single or bulk records.
-  Authenticate and send data directly or from a file using the _json API
-  endpoint.
+title: Curl Command Log Ingestion - HTTP API for Quick Log Testing | OpenObserve
+description: Simple curl command guide for log ingestion, HTTP API testing, and bulk log upload to OpenObserve for quick log data testing and debugging.
 ---
-## curl
+## Curl Log Ingestion - HTTP API Testing
 
 ### Single record
 

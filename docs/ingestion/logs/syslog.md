@@ -1,9 +1,8 @@
 ---
-description: >-
-  Ingest logs in syslog format via TCP/UDP with OpenObserve. Enable in UI, set
-  org, stream, and subnet. Default port 5514. Great for server log integration.
+title: Syslog Server Integration for System Log Collection | OpenObserve
+description: Configure syslog server integration for collecting system logs, server logs, and network device logs using TCP/UDP protocols with OpenObserve for centralized logging.
 ---
-# Syslog server
+# Syslog Server - System & Network Log Collection
 
 !!! warning "Deprecation Notice"
     Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of August 2025** and is no longer available in OpenObserve.  
@@ -30,7 +29,7 @@ Before you can send logs to OpenObserve, you need to enable OpenObserve to act a
 OpenObserve will only accept syslog traffic from the subnets that you specify. You must specify a minimum of 3 things:
 
 - Organization
-- Stream name 
+- Stream name
 - Subnets
 
 ## Configuration
@@ -39,9 +38,18 @@ Default port: `5514`
 
 You can change the default port number using the following environment variables:
 
-* `ZO_TCP_PORT` - TCP port number to listen on. Default: `5514`
-* `ZO_UDP_PORT` - UDP port number to listen on. Default: `5514`
+- `ZO_TCP_PORT` - TCP port number to listen on. Default: `5514`
+- `ZO_UDP_PORT` - UDP port number to listen on. Default: `5514`
 
+You can also configure the TLS settings for syslog TCP server using the following environment variables:
+
+- `ZO_TCP_TLS_ENABLED` - Enable TLS for TCP syslog server. If enabled, `ZO_TCP_PORT` will be used for the TLS connection over TCP. Default: `false`
+
+If `ZO_TCP_TLS_ENABLED` is set to `true`, then ensure all the below variables are set:
+
+- `ZO_TCP_TLS_CERT_PATH` - Path to the TLS certificate file to be used on the server.
+- `ZO_TCP_TLS_KEY_PATH` - Path to the TLS key file to be used on the server.
+- `ZO_TCP_TLS_CA_CERT_PATH` - Path to the TLS CA certificate file to be used on the server.
 
 ## Testing
 
@@ -53,11 +61,12 @@ Steps:
 
 ### Clone the repo
 
-``` shell
+```shell
 git clone https://github.com/openobserve/syslog_log_generator
 cd syslog_log_generator
 ```
-### Modify the script 
+
+### Modify the script
 
 file `generate_logs.sh`
 
@@ -74,6 +83,6 @@ Modify the file with the appropriate IP address.
 ./generate_logs.sh
 ```
 
-Watch a youtube demo here: 
+Watch a youtube demo here:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dF1IEEY-R54?si=tW8E-LFAqGkAP4ey" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

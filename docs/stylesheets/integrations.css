@@ -1,0 +1,49 @@
+/* Primary button styles */
+.integration-card-link-primary {
+  background-color: #5e35b1;
+  color: #ffffff !important;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.integration-card-link-primary:hover {
+  background-color: #4527a0;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+/* Secondary button styles */
+.integration-card-link-secondary {
+  background-color: transparent;
+  color: #5e35b1;
+  border: 1px solid #5e35b1;
+  transition: all 0.2s ease;
+}
+
+.integration-card-link-secondary:hover {
+  background-color: rgba(94, 53, 177, 0.1);
+  color: #4527a0;
+  border-color: #4527a0;
+}
+
+/* Dark theme support */
+[data-md-color-scheme="slate"] .integration-card-link-primary {
+  background-color: #7e57c2;
+  color: #ffffff !important;
+}
+
+[data-md-color-scheme="slate"] .integration-card-link-primary:hover {
+  background-color: #9575cd;
+  color: #ffffff !important;
+}
+
+[data-md-color-scheme="slate"] .integration-card-link-secondary {
+  color: #b39ddb;
+  border-color: #7e57c2;
+}
+
+[data-md-color-scheme="slate"] .integration-card-link-secondary:hover {
+  background-color: rgba(126, 87, 194, 0.2);
+  color: #d1c4e9;
+  border-color: #9575cd;
+}

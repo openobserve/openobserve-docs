@@ -1,0 +1,281 @@
+/**
+ * OpenObserve Integrations Page JavaScript
+ * Handles filtering, searching, and dynamic rendering of integration cards
+ */
+
+(function() {
+  'use strict';
+
+  // State management
+  let allIntegrations = [];
+  let filteredIntegrations = [];
+  let currentCategory = 'all';
+  let searchTerm = '';
+
+  // Category color mapping
+  const categoryColors = {
+    cloud: '#3b82f6',      // blue
+    database: '#10b981',   // green
+    messaging: '#f59e42',  // orange
+    os: '#8b5cf6',         // purple
+    server: '#ef4444',     // red
+    devops: '#06b6d4'      // cyan
+  };
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  function init() {
+    // Only run on integrations page
+    if (!document.querySelector('.integrations-page')) {
+      return;
+    }
+
+    loadIntegrations();
+    setupEventListeners();
+  }
+
+  async function loadIntegrations() {
+    try {
+      const response = await fetch('/docs/integrations.json');
+      if (!response.ok) {
+        throw new Error('Failed to load integrations data');
+      }
+      
+      allIntegrations = await response.json();
+      filteredIntegrations = [...allIntegrations];
+      
+      renderIntegrations();
+      updateResultsCount();
+    } catch (error) {
+      console.error('Error loading integrations:', error);
+      showError();
+    }
+  }
+
+  function setupEventListeners() {
+    // Category filter buttons
+    const filterButtons = document.querySelectorAll('.filter-tag');
+    filterButtons.forEach(button => {
+      button.addEventListener('click', handleCategoryFilter);
+    });
+
+    // Search input
+    const searchInput = document.getElementById('integrationSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', debounce(handleSearch, 300));
+    }
+  }
+
+  function handleCategoryFilter(event) {
+    const button = event.currentTarget;
+    const category = button.dataset.category;
+
+    // Update active state
+    document.querySelectorAll('.filter-tag').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    button.classList.add('active');
+
+    // Update category and filter
+    currentCategory = category;
+    applyFilters();
+
+    // Track event
+    trackEvent('integration_category_filter', category);
+  }
+
+  function handleSearch(event) {
+    searchTerm = event.target.value.toLowerCase().trim();
+    applyFilters();
+
+    // Track search
+    if (searchTerm) {
+      trackEvent('integration_search', searchTerm);
+    }
+  }
+
+  function applyFilters() {
+    filteredIntegrations = allIntegrations.filter(integration => {
+      // Category filter
+      const categoryMatch = currentCategory === 'all' || 
+                           integration.category === currentCategory;
+
+      // Search filter
+      const searchMatch = !searchTerm || 
+                         integration.name.toLowerCase().includes(searchTerm) ||
+                         integration.description.toLowerCase().includes(searchTerm);
+
+      return categoryMatch && searchMatch;
+    });
+
+    renderIntegrations();
+    updateResultsCount();
+  }
+
+  function renderIntegrations() {
+    const grid = document.getElementById('integrationsGrid');
+    const noResults = document.getElementById('noResults');
+
+    if (!grid) return;
+
+    if (filteredIntegrations.length === 0) {
+      grid.style.display = 'none';
+      noResults.style.display = 'block';
+      return;
+    }
+
+    grid.style.display = 'grid';
+    noResults.style.display = 'none';
+
+    grid.innerHTML = filteredIntegrations.map(integration => 
+      createIntegrationCard(integration)
+    ).join('');
+
+    // Add click tracking to cards
+    grid.querySelectorAll('.integration-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Don't track if clicking on action buttons
+        if (e.target.closest('.integration-action-btn')) {
+          return;
+        }
+        trackEvent('integration_card_click', card.dataset.integrationId);
+      });
+    });
+  }
+
+  function createIntegrationCard(integration) {
+    const iconPath = getIconPath(integration);
+    const categoryColor = categoryColors[integration.category] || '#6b7280';
+    
+    return `
+      <div class="integration-card" data-integration-id="${integration.id}">
+        <!-- Default view (desktop hidden on hover) -->
+        <div class="integration-card-content">
+          <div class="integration-icon" style="background-color: ${categoryColor}15;">
+            ${getIconHtml(integration, iconPath)}
+          </div>
+          <h3 class="integration-name">${escapeHtml(integration.name)}</h3>
+          <p class="integration-description">${escapeHtml(integration.description)}</p>
+          <span class="integration-category" style="background-color: ${categoryColor}20; color: ${categoryColor};">
+            ${escapeHtml(integration.category)}
+          </span>
+        </div>
+
+        <!-- Hover overlay (desktop) / Main view (mobile) -->
+        <div class="integration-hover-overlay">
+          <div class="integration-hover-content">
+            <h3 class="integration-hover-name">${escapeHtml(integration.name)}</h3>
+            <p class="integration-hover-description">${escapeHtml(integration.description)}</p>
+          </div>
+          <div class="integration-hover-actions">
+            <a href="${integration.configureUrl}" 
+               class="integration-action-btn primary"
+               onclick="trackIntegrationAction('${integration.id}', 'configure')">
+              Configure
+            </a>
+            <a href="${integration.learnMoreUrl}" 
+               class="integration-action-btn secondary"
+               onclick="trackIntegrationAction('${integration.id}', 'learn_more')">
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getIconPath(integration) {
+    // Check if icon exists in assets
+    if (integration.icon && integration.icon.trim()) {
+      return integration.icon;
+    }
+    
+    // Default to assets folder
+    return `/docs/assets/integration-icons/${integration.id}.svg`;
+  }
+
+  function getIconHtml(integration, iconPath) {
+    // Try to load the icon, fallback to first letter
+    return `
+      <img src="${iconPath}" 
+           alt="${escapeHtml(integration.name)}" 
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+           style="width: 32px; height: 32px; object-fit: contain;" />
+      <div class="integration-icon-placeholder" style="display: none;">
+        ${integration.name.charAt(0).toUpperCase()}
+      </div>
+    `;
+  }
+
+  function updateResultsCount() {
+    const countElement = document.getElementById('resultsCount');
+    if (!countElement) return;
+
+    const total = allIntegrations.length;
+    const shown = filteredIntegrations.length;
+
+    if (currentCategory === 'all' && !searchTerm) {
+      countElement.textContent = `Showing all ${total} integrations`;
+    } else {
+      countElement.textContent = `Showing ${shown} of ${total} integrations`;
+    }
+  }
+
+  function showError() {
+    const grid = document.getElementById('integrationsGrid');
+    if (grid) {
+      grid.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+          <p style="color: var(--md-default-fg-color--light);">
+            Failed to load integrations. Please try refreshing the page.
+          </p>
+        </div>
+      `;
+    }
+  }
+
+  // Utility functions
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  function trackEvent(eventName, eventValue) {
+    // Track with Microsoft Clarity if available
+    if (window.clarity) {
+      window.clarity('event', eventName, eventValue);
+    }
+
+    // Track with Google Analytics if available
+    if (window.gtag) {
+      window.gtag('event', eventName, {
+        'event_category': 'integrations_page',
+        'event_label': eventValue
+      });
+    }
+  }
+
+  // Make tracking function globally available for inline onclick handlers
+  window.trackIntegrationAction = function(integrationId, action) {
+    trackEvent('integration_action', `${integrationId}_${action}`);
+  };
+
+})();

@@ -1,17 +1,16 @@
 ---
-title: AWS Lambda Integration Guide
-description: Stream AWS Lambda logs directly into OpenObserve using the Lambda Extension, bypassing CloudWatch.
+title: AWS Lambda Monitoring - Serverless Function Logs and Metrics | OpenObserve
+description: Complete AWS Lambda monitoring guide for collecting serverless function logs, metrics, and performance data using Lambda Extension, bypassing CloudWatch for cost-effective serverless monitoring.
 ---
 
-# Integration with AWS Lambda Extension
+# AWS Lambda Monitoring - Serverless Application Observability
 
-This guide explains how to stream **AWS Lambda logs directly to OpenObserve** using the OpenObserve Lambda Extension.  
-With this integration, you can bypass CloudWatch, reduce costs, and achieve **real-time observability** for serverless workloads.
+Monitor AWS Lambda functions with comprehensive serverless monitoring, collecting function logs, invocation metrics, and performance data. This guide explains how to stream AWS Lambda logs directly to OpenObserve using the OpenObserve Lambda Extension for serverless application monitoring, bypassing CloudWatch to reduce costs and achieve real-time observability.
 
 ## Overview
 
-The [OpenObserve Lambda Extension](https://github.com/openobserve/openobserve-lambda-extension) runs alongside your Lambda function and forwards logs directly to OpenObserve.  
-This eliminates the need to store or process logs in CloudWatch, while still giving you centralized log analysis, dashboards, and alerts in OpenObserve.
+The [OpenObserve Lambda Extension](https://github.com/openobserve/openobserve-lambda-extension) runs alongside your AWS Lambda function and forwards serverless logs directly to OpenObserve for Lambda monitoring.
+This eliminates the need to store or process Lambda logs in CloudWatch, while providing centralized log analysis, serverless dashboards, and alerts in OpenObserve for serverless application monitoring.
 
 ![OpenObserve Lambda Extension Workflow](../images/aws-integrations/lambda/workflow.png){:style="height:300px"}
 
