@@ -6,6 +6,7 @@ nav:
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
 - O2 CLI: o2-cli
+- SRE Agent Setup Guide: sre-agent-setup-guide.md
 - SQL Functions: sql-functions
 - Example Queries: example-queries.md
 - HA Deployment: ha_deployment.md
