@@ -138,8 +138,8 @@ CREATE INDEX IF NOT EXISTS file_list_default_date_idx ON file_list_default (date
 
 -- 10) Pre-create future partitions (example: tomorrow + 7 days)
 -- Replace dates as needed in your maintenance window
-CREATE TABLE IF NOT EXISTS file_list_p_20260214 PARTITION OF file_list FOR VALUES FROM ('2026/02/14/00') TO ('2026/02/15/00');
-CREATE TABLE IF NOT EXISTS file_list_p_20260215 PARTITION OF file_list FOR VALUES FROM ('2026/02/15/00') TO ('2026/02/16/00');
+-- CREATE TABLE IF NOT EXISTS file_list_p_20260214 PARTITION OF file_list FOR VALUES FROM ('2026/02/14/00') TO ('2026/02/15/00');
+-- CREATE TABLE IF NOT EXISTS file_list_p_20260215 PARTITION OF file_list FOR VALUES FROM ('2026/02/15/00') TO ('2026/02/16/00');
 
 -- 11) REQUIRED: align sequence to max(id)+1
 SELECT setval(
@@ -201,8 +201,8 @@ CREATE INDEX file_list_history_stream_date_idx ON file_list_history (stream, dat
 ALTER TABLE file_list_history ATTACH PARTITION file_list_history_default DEFAULT;
 CREATE INDEX IF NOT EXISTS file_list_history_default_date_idx ON file_list_history_default (date);
 
-CREATE TABLE IF NOT EXISTS file_list_history_p_20260214 PARTITION OF file_list_history FOR VALUES FROM ('2026/02/14/00') TO ('2026/02/15/00');
-CREATE TABLE IF NOT EXISTS file_list_history_p_20260215 PARTITION OF file_list_history FOR VALUES FROM ('2026/02/15/00') TO ('2026/02/16/00');
+-- CREATE TABLE IF NOT EXISTS file_list_history_p_20260214 PARTITION OF file_list_history FOR VALUES FROM ('2026/02/14/00') TO ('2026/02/15/00');
+-- CREATE TABLE IF NOT EXISTS file_list_history_p_20260215 PARTITION OF file_list_history FOR VALUES FROM ('2026/02/15/00') TO ('2026/02/16/00');
 
 SELECT setval(
     pg_get_serial_sequence('public.file_list_history', 'id'),
@@ -250,8 +250,8 @@ CREATE INDEX file_list_dump_stats_id_idx ON file_list_dump_stats (id);
 ALTER TABLE file_list_dump_stats ATTACH PARTITION file_list_dump_stats_default DEFAULT;
 CREATE INDEX IF NOT EXISTS file_list_dump_stats_default_date_idx ON file_list_dump_stats_default (date);
 
-CREATE TABLE IF NOT EXISTS file_list_dump_stats_p_20260214 PARTITION OF file_list_dump_stats FOR VALUES FROM ('2026/02/14/00') TO ('2026/02/15/00');
-CREATE TABLE IF NOT EXISTS file_list_dump_stats_p_20260215 PARTITION OF file_list_dump_stats FOR VALUES FROM ('2026/02/15/00') TO ('2026/02/16/00');
+-- CREATE TABLE IF NOT EXISTS file_list_dump_stats_p_20260214 PARTITION OF file_list_dump_stats FOR VALUES FROM ('2026/02/14/00') TO ('2026/02/15/00');
+-- CREATE TABLE IF NOT EXISTS file_list_dump_stats_p_20260215 PARTITION OF file_list_dump_stats FOR VALUES FROM ('2026/02/15/00') TO ('2026/02/16/00');
 
 SELECT setval(
     pg_get_serial_sequence('public.file_list_dump_stats', 'id'),
