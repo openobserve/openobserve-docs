@@ -280,15 +280,15 @@ Delete cached query results for a stream.
 #### Request
 **Method:** `DELETE`
 <br>
-**Path:** `/api/{org_id}/streams/{stream_name}/cache/status/results?type=<stream_type>&ts=<timestamp>`
+**Path:** `/api/{org_id}/streams/{stream_name}/cache/results?type=<stream_type>&ts=<timestamp>`
 
 ### Parameters
 | Parameter | Type | Location | Description |
 |-----------|------|----------|-------------|
 | `org_id` | string | path | Organization identifier |
 | `stream_name` | string | Path | Stream name (use `_all` to delete cache for all streams) |
-| `type` | string | path | Stream type: `logs`, `metrics`, or `traces` |
-| `ts` | long | path | Timestamp threshold in microseconds. Deletes cache from start up to this timestamp. Retains cache from timestamp onwards. |
+| `type` | string | Query | Stream type: `logs`, `metrics`, or `traces` |
+| `ts` | long | Query | Timestamp threshold in microseconds. Deletes cache from start up to this timestamp. Retains cache from timestamp onwards. |
 
 #### Request example
 ```bash
