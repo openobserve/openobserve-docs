@@ -283,13 +283,6 @@ BEGIN
     );
 
     EXECUTE format(
-      'CREATE TABLE IF NOT EXISTS %I PARTITION OF file_list_history FOR VALUES FROM (%L) TO (%L)',
-      'file_list_history_p_' || to_char(d, 'YYYYMMDD'),
-      to_char(d, 'YYYY/MM/DD') || '/00',
-      to_char(d + 1, 'YYYY/MM/DD') || '/00'
-    );
-
-    EXECUTE format(
       'CREATE TABLE IF NOT EXISTS %I PARTITION OF file_list_dump_stats FOR VALUES FROM (%L) TO (%L)',
       'file_list_dump_stats_p_' || to_char(d, 'YYYYMMDD'),
       to_char(d, 'YYYY/MM/DD') || '/00',
