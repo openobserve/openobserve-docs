@@ -5,6 +5,7 @@ nav:
 - Features: features
 - Enterprise Edition Installation Guide: openobserve-enterprise-edition-installation-guide.md
 - Releases: releases.md
+- Opentelemetry: opentelemetry
 - O2 CLI: o2-cli
 - SRE Agent Setup Guide: sre-agent-setup-guide.md
 - SQL Functions: sql-functions
