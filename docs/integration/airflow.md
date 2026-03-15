@@ -61,7 +61,7 @@ With OpenTelemetry and OpenObserve, you gain **real-time observability** into Ai
 
     1. In OpenObserve: go to **Data Sources → Otel Collector**  
     2. Copy the **Ingestion URL** and **Access Token**  
-    ![Get OpenObserve Ingestion URL and Token](../images/messagebroker/otel-metrics-source.png)
+    ![Get OpenObserve Ingestion URL and Token](images/messagebroker/otel-metrics-source.png)
 
 ??? "Step 4: Configure OpenTelemetry Collector"
 

@@ -204,7 +204,7 @@ Once your patterns are created and tested, you can apply them to specific fields
 ??? "Step 6: (Optional) Apply multiple patterns"
 
     You can apply multiple patterns to the same field, as shown below:
-    ![apply-multiple-reg-pattern](apply-multiple-reg-pattern.png) 
+    ![apply-multiple-reg-pattern](../../images/apply-multiple-reg-pattern.png) 
     All applied patterns will appear in the left-hand panel with check marks.
 
 ??? "Step 7: Save configuration" 

@@ -9,7 +9,7 @@ OpenObserve provides comprehensive database monitoring integrations to collect d
 
 These database monitoring integrations enable database performance monitoring, query analysis, and database observability across your data infrastructure for SQL and NoSQL databases.
 
-![Data Sources](../../../docs/images/databases.png)
+![Data Sources](../../images/databases.png)
 
 ## Database Integration Guides
 

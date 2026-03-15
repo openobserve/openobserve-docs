@@ -9,7 +9,7 @@ OpenObserve provides comprehensive monitoring integrations to collect logs, metr
 
 Monitor Kubernetes clusters, AWS services, databases (MySQL, PostgreSQL, MongoDB), message brokers (Kafka), web servers (NGINX), and more with unified observability for cloud-native applications and infrastructure.
 
-![Data Sources](../../docs/images/data-sources.png)
+![Data Sources](../images/data-sources.png)
 
 ## Available Integration Guides
 
