@@ -11,7 +11,7 @@ This guide explains how to stream Heroku application logs—including app, route
 
 Heroku’s Logplex consolidates logs from your app (stdout/stderr), router (HTTP requests), and system events (dyno restarts). While convenient, it’s limited by retention length (1,500 lines or one week) and raw text format, which is hard to analyze.
 
-![Heroku logs](../images/app-platforms/heroku-logs.png)
+![Heroku logs](images/app-platforms/heroku-logs.png)
 
 OpenObserve ingests these logs in structured JSON format, enabling fast search, rich visualization, and proactive alerting.
 
@@ -26,7 +26,7 @@ OpenObserve ingests these logs in structured JSON format, enabling fast search, 
 ??? "Step 1: Retrieve OpenObserve Endpoint and Credentials"
 
     1. In OpenObserve: go to **Data Sources → Custom → Logs** → Syslog-NG section
-     ![Get OpenObserve Ingestion URL and Access Key](../images/app-platforms/fetch-syslogng-token.png)
+     ![Get OpenObserve Ingestion URL and Access Key](images/app-platforms/fetch-syslogng-token.png)
 
     2. Keep the credentials handy.Construct the Heroku-specific ingestion endpoint:
         ```

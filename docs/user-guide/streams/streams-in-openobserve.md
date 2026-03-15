@@ -74,7 +74,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
             - **Field Name**: Name of the field
             - **Data Type**: Select from utf8, int64, uint64, float64, or boolean
             - **Index Type**: Choose an indexing strategy (Secondary Index, Full Text Search, KeyValue Partition, Prefix Partition, or Hash Partition) <br>
-            For detailed information about each field type and index strategy, see [Field and Index Types in Streams](fields-and-index-in-streams.md)
+            For detailed information about each field type and index strategy, see [Field and Index Types in Streams](data-type-and-index-type-in-streams.md)
   
         These fields create a User Defined Schema. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).    
     5. Click **Create Stream**.
@@ -97,7 +97,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
             - **Field Name**: Name of the field
             - **Data Type**: Select from utf8, int64, uint64, float64, or boolean
             - **Index Type**: Choose an indexing strategy (Secondary Index, Full Text Search, KeyValue Partition, Prefix Partition, or Hash Partition)<br>
-            For detailed information about each field type and index strategy, see [Field and Index Types in Streams](fields-and-index-in-streams.md)
+            For detailed information about each field type and index strategy, see [Field and Index Types in Streams](data-type-and-index-type-in-streams.md)
         This creates a user-defined schema at stream creation. Learn more about [user defined schema](../../user-guide/streams/schema-settings.md#user-defined-schema-uds).  
     
         ??? info "Click to see how User-defined Schema works."

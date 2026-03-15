@@ -256,18 +256,18 @@ spec:
 
 ## Documentation
 
-- [Product Requirements Document](PRD.md)
-- [API Reference](docs/api.md) (coming soon)
-- [Samples](samples/)
+<!-- - [Product Requirements Document](PRD.md) -->
+<!-- - [API Reference](docs/api.md) (coming soon) -->
+<!-- - [Samples](samples/)
   - [Alert Examples](samples/alerts/)
   - [Alert Template Examples](samples/alerttemplates/)
   - [Destination Examples](samples/destinations/)
   - [Pipeline Examples](samples/pipelines/)
   - [Function Examples](samples/functions/)
-  - [Function Template Reference](samples/functions/functions.template)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [Manual Deployment](docs/MANUAL_DEPLOYMENT.md)
-- [Deploy Script Usage](docs/DEPLOY_SCRIPT_USAGE.md)
+  - [Function Template Reference](samples/functions/functions.template) -->
+- [Troubleshooting](o2-operator-troubleshoot.md)
+- [Manual Deployment](manual-deployment.md)
+- [Deploy Script Usage](deploy-script.md)
 
 ## Security Notes
 
@@ -280,7 +280,7 @@ spec:
 
 **Current Status**: Pre-alpha / Planning
 
-See [O2OPERATOR_FEATURES.md](docs/O2OPERATOR_FEATURES.md) for detailed features.
+See [O2OPERATOR_FEATURES.md](o2-operator-features.md) for detailed features.
 
 ## License
 
@@ -301,10 +301,6 @@ The uninstall process (`./deploy.sh --uninstall`) will:
 - [OpenObserve Enterprise Documentation](https://openobserve.ai/docs/)
 - [Kubernetes Operator Pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
 - [Custom Resource Definitions Guide](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-
-## Contributing
-
-Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ### Reporting Issues
 

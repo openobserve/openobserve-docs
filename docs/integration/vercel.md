@@ -29,7 +29,7 @@ This method uses a self-hosted serverless function as a relay to forward logs se
         https://<your-openobserve-domain>/api/<org_id>/<stream_name>/_json
         ```
 
-    ![Get OpenObserve Ingestion URL and Access Key](../images/app-platforms/fetch-token.png)
+    ![Get OpenObserve Ingestion URL and Access Key](images/app-platforms/fetch-token.png)
 
 ??? "Step 2: Create a Vercel Serverless Function"
 

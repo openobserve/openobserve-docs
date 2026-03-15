@@ -18,7 +18,7 @@ To ingest this sample data refer to this [guide.](../getting-started#load-sample
 match_all('error')
 ```
 
-![Full text Search](../images/example-queries/match-all-error.png)
+![Full text Search](images/example-queries/match-all-error.png)
 
 - `match_all` searches only the fields configured for full-text search. By default, these include: `log`, `message`, `msg`, `content`, `data`, and `json`.
 - If you want more fields to be scanned, configure them under stream settings.
@@ -27,7 +27,7 @@ match_all('error')
 ```sql
 str_match(log, 'error')
 ```
-    ![String Match](../images/example-queries/log-error.png)
+    ![String Match](images/example-queries/log-error.png)
 
 ## Numeric Field Filters
 
@@ -35,42 +35,42 @@ str_match(log, 'error')
 ```sql
 code = 200
 ```
-    ![Exact Numeric Match](../images/example-queries/code.png)
+    ![Exact Numeric Match](images/example-queries/code.png)
 
 **Find logs where `code` is missing (`null`):**
 ```sql
 code is null
 ```
-    ![Null Numeric Match](../images/example-queries/code-is-null.png)
+    ![Null Numeric Match](images/example-queries/code-is-null.png)
 
 **Find logs where `code` has any value:**
 ```sql
 code is not null
 ```
-    ![Not-Null Numeric Match](../images/example-queries/is-not-null.png)
+    ![Not-Null Numeric Match](images/example-queries/is-not-null.png)
 
 
 **Avoid using `code = ''` or `code != ''`** — these do not work properly for numeric fields.
 
-![Inappropriate Numeric Match](../images/example-queries/inappropriate.png)
+![Inappropriate Numeric Match](images/example-queries/inappropriate.png)
 
 
 **Logs where `code` is greater than 399:**
 ```sql
 code > 399
 ```
-    ![Greater than Numeric Match](../images/example-queries/greater-than.png)
+    ![Greater than Numeric Match](images/example-queries/greater-than.png)
 
 
 **Logs where `code` is greater than or equal to 400:**
 ```sql
 code >= 400
 ```
-    ![Greater than Equal to Numeric Match](../images/example-queries/greater-than-equalto.png)
+    ![Greater than Equal to Numeric Match](images/example-queries/greater-than-equalto.png)
 
 **`code => 400` is invalid syntax.** Always use SQL-compatible operators like **>=**.
 
-![Invalid Syntax](../images/example-queries/equalto-greaterthan-error.png)
+![Invalid Syntax](images/example-queries/equalto-greaterthan-error.png)
 
 
 ## Filtering using WHERE Clause
@@ -81,7 +81,7 @@ SELECT * FROM your_stream_name
 WHERE service_name = 'api-gateway' 
   AND code >= 500
 ```
-    ![Filtering Queries](../images/example-queries/filtering.png)
+    ![Filtering Queries](images/example-queries/filtering.png)
 
 
 **Exclude health check logs:**
@@ -89,7 +89,7 @@ WHERE service_name = 'api-gateway'
 SELECT * FROM your_stream_name 
 WHERE NOT str_match(log, 'health-check')
 ```
-    ![Filtering Queries](../images/example-queries/exclude-filtering.png)
+    ![Filtering Queries](images/example-queries/exclude-filtering.png)
 
 ## Grouping and Counting
 
@@ -100,7 +100,7 @@ SELECT histogram(_timestamp) as ts, count(*) as total_logs
 FROM your_stream_name
 GROUP BY ts
 ```
-    ![Group Logs](../images/example-queries/group-logs.png)
+    ![Group Logs](images/example-queries/group-logs.png)
 
 
 **Find top 10 IP addresses by request volume:**
@@ -113,7 +113,7 @@ GROUP BY client_ip
 ORDER BY request_count DESC
 LIMIT 10
 ```
-    ![Top 10 by request volume](../images/example-queries/top-10.png)
+    ![Top 10 by request volume](images/example-queries/top-10.png)
 
 
 
@@ -132,4 +132,4 @@ GROUP BY ts_histogram
 
 Replace `your_stream_name` with the actual stream name in your OpenObserve setup.
 - `histogram(_timestamp)` bins timestamps into uniform intervals (e.g. hourly). You can configure the granularity in the UI or query if needed.
-    ![Histogram of log timestamps](../images/example-queries/histogram.png)
+    ![Histogram of log timestamps](images/example-queries/histogram.png)
