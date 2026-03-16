@@ -18,4 +18,5 @@ nav:
     - Cribl: cribl.md
     - Security: security
     - Mulesoft: mulesoft.md
+    - Monitoring LLM applications : llm-applications.md
 
