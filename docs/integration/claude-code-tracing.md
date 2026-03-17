@@ -176,11 +176,6 @@ The hook maintains incremental state in `~/.claude/state/`:
 - System prompts are not included in Claude Code's conversation transcripts, so they are not part of the trace.
 - Token usage / cost data is not available in the transcript format.
 
-## Similar Projects
-
-- [Langfuse Claude Code Hook](https://langfuse.com/integrations/other/claude-code) — traces to Langfuse
-- [LangSmith Claude Code Hook](https://docs.langchain.com/langsmith/trace-claude-code) — traces to LangSmith
-
 ## Hook Source Code
 
 The complete `openobserve_hooks.py` script is included below. Save it to `~/.claude/hooks/openobserve_hooks.py`.
