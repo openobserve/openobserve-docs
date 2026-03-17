@@ -19,4 +19,5 @@ nav:
     - Security: security
     - Mulesoft: mulesoft.md
     - Monitoring LLM applications : llm-applications.md
+    - Claude Code Tracing: claude-code-tracing.md
 
