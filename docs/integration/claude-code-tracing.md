@@ -119,6 +119,7 @@ Enable tracing selectively by adding env vars to each project's `.claude/setting
 | `OPENOBSERVE_AUTH_TOKEN` | `Basic <base64>` or Bearer token | Yes | — |
 | `OPENOBSERVE_TRACES_STREAM_NAME` | Target stream name | No | `"default"` |
 | `OPENOBSERVE_PROTOCOL` | `"http/protobuf"` or `"grpc"` | No | `"http/protobuf"` |
+| `OPENOBSERVE_USER_ID` | User identifier (added as resource attribute) | No | `None` |
 | `CC_OPENOBSERVE_DEBUG` | Set to `"true"` for verbose logging | No | `"false"` |
 | `CC_OPENOBSERVE_MAX_CHARS` | Max characters per text field before truncation | No | `20000` |
 
@@ -196,12 +197,14 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
         OPENOBSERVE_AUTH_TOKEN             Authorization token
         OPENOBSERVE_TRACES_STREAM_NAME     Stream name (default: "default")
         OPENOBSERVE_PROTOCOL               "http/protobuf" or "grpc" (default: "http/protobuf")
+        OPENOBSERVE_USER_ID                User identifier (default: None, added as resource attribute)
         CC_OPENOBSERVE_DEBUG=true          Enable debug logging
         CC_OPENOBSERVE_MAX_CHARS=20000     Max chars per text field
     """
 
     import json
     import os
+    import socket
     import sys
     import time
     import hashlib
@@ -225,6 +228,8 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
 
     DEBUG = os.environ.get("CC_OPENOBSERVE_DEBUG", "").lower() == "true"
     MAX_CHARS = int(os.environ.get("CC_OPENOBSERVE_MAX_CHARS", "20000"))
+    USER_ID = os.environ.get("OPENOBSERVE_USER_ID") or None
+    HOSTNAME = socket.gethostname()
 
     # ----------------- Logging -----------------
     def _log(level: str, message: str) -> None:
@@ -610,9 +615,10 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
             name=f"Claude Code - Turn {turn_num}",
             attributes={
                 "claude_code.source": "claude-code",
-                "claude_code.session_id": session_id,
+                "session.id": session_id,
                 "claude_code.turn_number": turn_num,
                 "claude_code.transcript_path": str(transcript_path),
+                "host.name": HOSTNAME,
                 "llm.model": model,
                 "gen_ai.provider.name": "anthropic",
                 "gen_ai.operation.name": "chat",
@@ -635,6 +641,7 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                     "gen_ai.input.messages": user_text,
                     "gen_ai.output.messages": assistant_text,
                     "claude_code.tool_count": len(tool_calls),
+                    "host.name": HOSTNAME,
                 },
             ):
                 pass
@@ -658,6 +665,7 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                         "gen_ai.tool.call.id": tc["id"],
                         "gen_ai.tool.call.arguments": in_str,
                         "gen_ai.tool.call.result": out_str,
+                        "host.name": HOSTNAME,
                     },
                 ):
                     pass
@@ -687,11 +695,15 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
             return 0
 
         try:
+            resource_attrs = {
+                "service.name": "claude-code",
+                "session.id": session_id,
+                "host.name": HOSTNAME,
+            }
+            if USER_ID:
+                resource_attrs["user.id"] = USER_ID
             openobserve_init_traces(
-                resource_attributes={
-                    "service.name": "claude-code",
-                    "session.id": session_id,
-                },
+                resource_attributes=resource_attrs,
             )
             tracer = trace.get_tracer("claude-code-hook")
         except Exception as e:
