@@ -76,7 +76,7 @@ The data ingestion flow is as follows:
 1. Parse data line by line.
 1. Check whether there are any functions (ingest functions) used to transform data, then call each ingest function by the function order.
 1. Check for a timestamp field and either convert the timestamp to microseconds or, if no timestamp field is present in the record, set it to the current timestamp.
-1. Check stream schema to identify whether schema needs evolution. If the schema needs to be updated (to add new fields or change the data type of existing fields), acquire `lock` to update schema.
+1. Check the stream schema to identify whether the schema needs evolution. If the schema needs to be updated (to add new fields or change the data type of existing fields), acquire `lock` to update the schema.
 1. Evaluate real time alerts, if any are defined for the stream.
 1. Write to WAL file by timestamp in hourly buckets. Then, convert records in a request to Arrow RecordBatch and write into Memtable.
 
