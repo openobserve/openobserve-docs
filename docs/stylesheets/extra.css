@@ -3,6 +3,30 @@
   display: none !important;
 }
 
+/* Login dropdown: hover colors missing from Tailwind build */
+.hover\:tw-bg-orange-50:hover {
+  background-color: rgb(255 247 237);
+}
+.tw-group:hover .group-hover\:tw-text-orange-700 {
+  color: rgb(194 65 12);
+}
+.tw-group:hover .group-hover\:tw-text-blue-700 {
+  color: rgb(29 78 216);
+}
+.tw-overflow-hidden {
+  overflow: hidden;
+}
+.tw-w-80 {
+  width: 20rem;
+}
+.tw-w-96 {
+  width: 24rem;
+}
+
+.tw-w-56 {
+  width: 14rem;
+}
+
 /* STRONG FINAL MOBILE SCROLL FIX (highest priority):
    Lock the sidebar inner to the viewport and force the scrollwrap to handle
    vertical scrolling. This is intentionally placed at the end and uses
@@ -492,7 +516,10 @@ html {
   background: #4b237a;
   border-radius: 3px;
   z-index: 220; /* above sidebar content but below header overlays */
-  transition: top 180ms ease, height 180ms ease, opacity 160ms ease;
+  transition:
+    top 180ms ease,
+    height 180ms ease,
+    opacity 160ms ease;
   opacity: 0;
   pointer-events: none;
 }
