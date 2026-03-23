@@ -175,7 +175,6 @@ The hook maintains incremental state in `~/.claude/state/`:
 ### Limitations
 
 - System prompts are not included in Claude Code's conversation transcripts, so they are not part of the trace.
-- Token usage / cost data is not available in the transcript format.
 
 ## Hook Source Code
 
@@ -282,6 +281,8 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
             return self
 
         def __exit__(self, exc_type, exc, tb):
+            if self._fh is None:
+                return
             try:
                 import fcntl
                 fcntl.flock(self._fh.fileno(), fcntl.LOCK_UN)
@@ -309,6 +310,24 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
         except Exception as e:
             debug(f"save_state failed: {e}")
 
+    STATE_MAX_AGE_DAYS = 7
+
+    def prune_stale_entries(state: Dict[str, Any]) -> Dict[str, Any]:
+        """Remove state entries older than STATE_MAX_AGE_DAYS."""
+        now = datetime.now(timezone.utc)
+        pruned: Dict[str, Any] = {}
+        for key, val in state.items():
+            updated = val.get("updated") if isinstance(val, dict) else None
+            if updated:
+                try:
+                    ts = datetime.fromisoformat(updated)
+                    if (now - ts).days > STATE_MAX_AGE_DAYS:
+                        continue
+                except Exception:
+                    pass
+            pruned[key] = val
+        return pruned
+
     def state_key(session_id: str, transcript_path: str) -> str:
         # stable key even if session_id collides
         raw = f"{session_id}::{transcript_path}"
@@ -330,19 +349,16 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
 
     def extract_session_and_transcript(payload: Dict[str, Any]) -> Tuple[Optional[str], Optional[Path]]:
         """
-        Tries a few plausible field names; exact keys can vary across hook types/versions.
-        Prefer structured values from stdin over heuristics.
+        Hook payload uses snake_case: session_id, transcript_path.
         """
         session_id = (
-            payload.get("sessionId")
-            or payload.get("session_id")
-            or payload.get("session", {}).get("id")
+            payload.get("session_id")
+            or payload.get("sessionId")
         )
 
         transcript = (
-            payload.get("transcriptPath")
-            or payload.get("transcript_path")
-            or payload.get("transcript", {}).get("path")
+            payload.get("transcript_path")
+            or payload.get("transcriptPath")
         )
 
         if transcript:
@@ -436,6 +452,13 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                 return mid
         return None
 
+    def get_usage(msg: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract usage/token data from an assistant transcript message."""
+        m = msg.get("message")
+        if isinstance(m, dict):
+            return m.get("usage") or {}
+        return {}
+
     # ----------------- Incremental reader -----------------
     @dataclass
     class SessionState:
@@ -479,10 +502,7 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
         if not chunk:
             return [], ss
 
-        try:
-            text = chunk.decode("utf-8", errors="replace")
-        except Exception:
-            text = chunk.decode(errors="replace")
+        text = chunk.decode("utf-8", errors="replace")
 
         combined = ss.buffer + text
         lines = combined.split("\n")
@@ -599,6 +619,9 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
 
         tool_calls = _tool_calls_from_assistants(turn.assistant_msgs)
 
+        # Token usage from the last (final) assistant message in this turn
+        usage = get_usage(last_assistant)
+
         # attach tool outputs
         for c in tool_calls:
             if c["id"] and c["id"] in turn.tool_results_by_id:
@@ -610,7 +633,7 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
             else:
                 c["output"] = None
 
-        # Root span for the turn
+        # Root span for the turn (summary only — details on children)
         with tracer.start_as_current_span(
             name=f"Claude Code - Turn {turn_num}",
             attributes={
@@ -623,15 +646,9 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                 "gen_ai.provider.name": "anthropic",
                 "gen_ai.operation.name": "chat",
                 "claude_code.tool_count": len(tool_calls),
-                "gen_ai.input.messages": user_text,
-                "input.truncated": user_text_meta.get("truncated", False),
-                "input.orig_len": user_text_meta.get("orig_len", 0),
-                "gen_ai.output.messages": assistant_text,
-                "output.truncated": assistant_text_meta.get("truncated", False),
-                "output.orig_len": assistant_text_meta.get("orig_len", 0),
             },
-        ) as turn_span:
-            # LLM generation child span
+        ):
+            # LLM generation child span (carries full message & usage details)
             with tracer.start_as_current_span(
                 name="Claude Response",
                 attributes={
@@ -639,9 +656,17 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                     "gen_ai.request.model": model,
                     "gen_ai.operation.name": "chat",
                     "gen_ai.input.messages": user_text,
+                    "input.truncated": user_text_meta.get("truncated", False),
+                    "input.orig_len": user_text_meta.get("orig_len", 0),
                     "gen_ai.output.messages": assistant_text,
+                    "output.truncated": assistant_text_meta.get("truncated", False),
+                    "output.orig_len": assistant_text_meta.get("orig_len", 0),
                     "claude_code.tool_count": len(tool_calls),
                     "host.name": HOSTNAME,
+                    "gen_ai.usage.input_tokens": usage.get("input_tokens", 0) or 0,
+                    "gen_ai.usage.output_tokens": usage.get("output_tokens", 0) or 0,
+                    "gen_ai.usage.cache_read_tokens": usage.get("cache_read_input_tokens", 0) or 0,
+                    "gen_ai.usage.cache_write_tokens": usage.get("cache_creation_input_tokens", 0) or 0,
                 },
             ):
                 pass
@@ -710,9 +735,11 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
             debug(f"Failed to initialize OpenObserve traces: {e}")
             return 0
 
+        # From here on, openobserve was initialized — ensure shutdown in finally.
         try:
+            emitted = 0
             with FileLock(LOCK_FILE):
-                state = load_state()
+                state = prune_stale_entries(load_state())
                 key = state_key(session_id, str(transcript_path))
                 ss = load_session_state(state, key)
 
@@ -728,8 +755,6 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                     save_state(state)
                     return 0
 
-                # emit turns
-                emitted = 0
                 for t in turns:
                     emitted += 1
                     turn_num = ss.turn_count + emitted
@@ -737,7 +762,6 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
                         emit_turn(tracer, session_id, turn_num, t, transcript_path)
                     except Exception as e:
                         debug(f"emit_turn failed: {e}")
-                        # continue emitting other turns
 
                 ss.turn_count += emitted
                 write_session_state(state, key, ss)
