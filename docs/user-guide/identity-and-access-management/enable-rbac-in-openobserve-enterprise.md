@@ -18,6 +18,7 @@ Before enabling RBAC, ensure the following:
 - You must have **administrator access** to the system where OpenObserve is deployed.
 - OpenObserve must be running in [High Availability (HA) mode](https://openobserve.ai/docs/ha_deployment/), as RBAC is supported only in HA deployments.
 
+
 ## Step 1: Install OpenFGA
 
 OpenFGA must be installed before using RBAC. It can be installed using:
