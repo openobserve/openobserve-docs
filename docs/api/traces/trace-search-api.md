@@ -67,8 +67,8 @@ curl -X GET \
 | `trace_id` | Unique identifier for the trace |
 | `hits` | Array of trace objects |
 | `duration` | Total duration of the trace in microseconds |
-| `start_time` | Trace start time in microseconds |
-| `end_time` | Trace end time in microseconds |
+| `start_time` | Trace start time in nanoseconds |
+| `end_time` | Trace end time in nanoseconds |
 | `first_event` | Details of the first span in the trace |
 | `service_name` | Array of services involved in the trace |
 | `spans` | Array indicating span counts |
