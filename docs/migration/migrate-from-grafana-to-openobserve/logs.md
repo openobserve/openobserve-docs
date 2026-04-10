@@ -29,7 +29,7 @@ Check how logs currently reach Loki. Common setups:
 | Source Type | Migration Path |
 |---|---|
 | **OTel Collector with `loki` exporter** | [Switch to `otlphttp` exporter](#from-otel-collector) |
-| **Promtail** | [Replace with OTel Collector or Fluent Bit](#from-promtail) |
+| **Promtail** | [Update endpoint (Loki push API supported)](#from-promtail) |
 | **Grafana Agent / Alloy** | [Update endpoint](#from-grafana-agent--alloy) |
 | **Fluent Bit** | [Change output from `loki` to `http`](#from-fluent-bit) |
 | **Vector** | [Change sink from `loki` to `http`](#from-vector) |
@@ -58,7 +58,20 @@ Copy the exact updated configuration from the **Data Sources UI** in OpenObserve
 
 ### From Promtail
 
-Promtail only speaks Loki's push API, so you need to replace it — not reconfigure it. Use the [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md) or Fluent Bit as a drop-in replacement.
+Promtail speaks the Loki push API, which OpenObserve supports natively. You can keep Promtail and just change the endpoint:
+
+**Updated config:**
+```yaml
+clients:
+  - url: http://openobserve:5080/api/{org}/loki/api/v1/push
+    basic_auth:
+      username: admin@example.com
+      password: Complexpass#123
+```
+
+Replace `{org}` with your OpenObserve organization name (e.g. `default`).
+
+Alternatively, replace Promtail with the [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md) or Fluent Bit for a more modern, OTel-native setup.
 
 Copy the exact command to deploy O2 Collector from the **Data Sources UI** in OpenObserve.
 

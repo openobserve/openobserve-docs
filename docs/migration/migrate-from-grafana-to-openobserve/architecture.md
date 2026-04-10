@@ -69,10 +69,8 @@ The key insight for migration: **OpenObserve speaks the same ingestion protocols
 | Prometheus Remote Write | `http://mimir:9009/api/v1/push` | `http://openobserve:5080/api/default/prometheus/api/v1/write` |
 | OTLP HTTP | `http://tempo:4318` | `http://openobserve:5080/api/default/` |
 | OTLP gRPC | `tempo:4317` | `openobserve:5081` |
-| Loki Push API | `http://loki:3100/loki/api/v1/push` | Not supported — use OTLP or JSON HTTP instead |
+| Loki Push API | `http://loki:3100/loki/api/v1/push` | `http://openobserve:5080/api/{org}/loki/api/v1/push` |
 | JSON over HTTP | N/A | `http://openobserve:5080/api/default/<stream>/_json` |
-
-> "Loki push API" OpenObserve does not support the Loki push API directly. Log sources using Promtail or the `loki` exporter in OTel Collector need to switch to OTLP or JSON HTTP. See [Migrating Logs](logs.md) for per-source migration paths.
 
 ---
 
