@@ -19,13 +19,39 @@ If you're currently running your observability stack on LGTM — Loki for logs, 
 
 ## Why Migrate?
 
-The LGTM stack is a solid observability setup. But running it means operating 4–6 separate distributed systems, each with its own storage, scaling model, config format, and upgrade cycle. Over time, that operational overhead compounds.
+The LGTM stack is a solid observability setup. But running it means operating 4–6 separate distributed systems — each with its own storage, scaling model, config format, and upgrade cycle. Over time, that operational overhead compounds.
 
-**Multiple systems, multiple problems.** Loki stores logs in chunks with a custom index. Mimir is a horizontally-scaled Prometheus backend. Tempo uses a completely different storage layout for traces. Each component needs separate capacity planning, separate tuning, separate monitoring (yes — you need to monitor your monitoring). When something breaks at 3am, you need to know which of four systems is the culprit.
+### Multiple systems, multiple problems
 
-**Storage fragmentation.** Your logs live in one backend, metrics in another, traces in a third. Correlating across signals means switching between LogQL, PromQL, and TraceQL — three query languages with different syntax, different capabilities, and different mental models. Jumping from a log line to the related trace to the relevant metric spike is possible, but clunky.
+Each component in the LGTM stack is a distinct distributed system:
 
-**Scaling is per-component.** Loki's scaling bottlenecks (ingestion streams, chunk storage) are completely different from Mimir's (series cardinality, query concurrency) and Tempo's (trace storage, block compaction). You become an involuntary expert in four different distributed systems architectures.
+- **Loki** — stores logs in chunks with a custom index
+- **Mimir** — horizontally-scaled Prometheus backend with its own series cardinality model
+- **Tempo** — completely different storage layout for traces
+
+Each one needs separate capacity planning, separate tuning, and separate monitoring (yes — you need to monitor your monitoring). When something breaks at 3am, you need to know which of four systems is the culprit.
+
+### Storage fragmentation
+
+Your logs, metrics, and traces live in three different backends. Correlating across signals means switching query languages:
+
+| Signal | Query Language |
+|---|---|
+| Logs | LogQL |
+| Metrics | PromQL |
+| Traces | TraceQL |
+
+Jumping from a log line to the related trace to the relevant metric spike is possible, but clunky — different UIs, different syntax, different mental models.
+
+### Scaling is per-component
+
+Each system has a completely different scaling profile:
+
+- **Loki** — bottlenecks on ingestion streams and chunk storage
+- **Mimir** — bottlenecks on series cardinality and query concurrency
+- **Tempo** — bottlenecks on trace storage and block compaction
+
+You become an involuntary expert in four different distributed systems architectures.
 
 ## What OpenObserve Changes
 

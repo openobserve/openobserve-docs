@@ -125,7 +125,9 @@ When you're ready, consider switching the SDKs themselves to OpenTelemetry - the
 *OpenObserve Traces Explorer — verify traces are flowing after migration*
 
 
-![OpenObserve Trace Detail View](../../images/migration/lgtm/tarce-detailed.png)
+
+
+![OpenObserve Trace Detail View](../../images/migration/lgtm/trace-detailed.png)
 *OpenObserve trace detail view showing spans and timing*
 
 ### Troubleshooting
