@@ -58,6 +58,7 @@ Update the `url` to the OpenObserve remote write endpoint and add your credentia
 ![OpenObserve Data Sources - Prometheus Remote Write](../../images/migration/lgtm/prometheus.png)
 *You can copy the exact Prometheus remote write configuration from the OpenObserve Data Sources UI*
 
+
 Reload Prometheus after updating (no restart needed):
 ```bash
 curl -X POST http://localhost:9090/-/reload
@@ -105,7 +106,7 @@ logs:
   configs:
     - name: default
       clients:
-        - url: http://openobserve:5080/api/default/_json
+        - url: http://openobserve:5080/api/{org_id}/ingest/metrics/_json
           basic_auth:
             username: admin@example.com
             password: Complexpass#123
