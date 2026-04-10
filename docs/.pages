@@ -21,8 +21,9 @@ nav:
 - API Reference: api
 - Ingestion: ingestion
 - Integrations: integration
-- Migration: migration.md
+- Migration Metadata : migration.md
 - Migration file list partition: migration-file-list-partition.md
+- Migrate to OpenObserve: migration
 - Monitoring OpenObserve: expose-metrics.md
 - Telemetry: telemetry.md
 - Work Group: work_group.md 
