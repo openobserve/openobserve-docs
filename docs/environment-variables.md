@@ -152,13 +152,6 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_JSON_LIMIT | 209715200 | The max payload size of JSON. |
 | ZO_PAYLOAD_LIMIT | 209715200 | The max payload size of http request body. |
 
-## Actix Server
-| Environment Variable | Default Value | Description |
-|---------------------|---------------|-------------|
-| ZO_ACTIX_REQ_TIMEOUT | 30 | Sets actix server client timeout in seconds for first request. |
-| ZO_ACTIX_KEEP_ALIVE | 30 | Sets actix server keep-alive preference in seconds. |
-| ZO_ACTIX_SHUTDOWN_TIMEOUT | | Sets timeout for graceful worker shutdown of actix workers. |
-
 ## Cookies
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
@@ -882,9 +875,6 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_QUERY_ON_STREAM_SELECTION         |                            | No           |  |
 | ZO_ENABLE_INVERTED_INDEX             | false                      | No           |  |
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM   |                            | No           |  |
-| ZO_ACTIX_REQ_TIMEOUT                 | 30                         | No           | Sets actix server client timeout in seconds for first request. |
-| ZO_ACTIX_KEEP_ALIVE                  | 30                         | No           | Sets actix server keep-alive preference in seconds.            |
-| ZO_ACTIX_SHUTDOWN_TIMEOUT            |                            | No           | Sets timeout for graceful worker shutdown of actix workers.    |
 | ZO_COOKIE_SAME_SITE_LAX              | true                       | No           | If true, same site "lax" cookie is set by the server while authentication. |
 | ZO_COOKIE_SECURE_ONLY                | false                      | No           | If true, secure flag is enabled for the cookie set by the server while authentication. |
 | ZO_DISTINCT_VALUES_INTERVAL          |                            | No           |  |
