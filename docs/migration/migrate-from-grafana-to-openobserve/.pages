@@ -4,3 +4,5 @@ nav:
     - Migrating Metrics: metrics.md
     - Migrating Traces: traces.md
     - Migrating Logs: logs.md
+    - Migrating Dashboards & Alerts: dashboards-and-alerts.md
+    
