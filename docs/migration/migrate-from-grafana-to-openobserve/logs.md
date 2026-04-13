@@ -211,4 +211,4 @@ If your logs are JSON, OpenObserve auto-parses them into columns. Check that exp
 
 ---
 
-[Back to Overview](index.md) | Previous: [Migrating Traces](traces.md)
+[Back to Overview](index.md) | Previous: [Migrating Traces](traces.md) | Next: [Migrating Dashboards & Alerts](dashboards-and-alerts.md)

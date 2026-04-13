@@ -14,6 +14,7 @@ If you're currently running your observability stack on LGTM — Loki for logs, 
 3. [Migrating Metrics](metrics.md) — migrate from Mimir or Prometheus remote write
 4. [Migrating Traces](traces.md) — migrate from Tempo
 5. [Migrating Logs](logs.md) — migrate from Loki
+6. [Migrating Dashboards & Alerts](dashboards-and-alerts.md) — recreate Grafana dashboards and Alertmanager rules
 
 ---
 
@@ -102,3 +103,4 @@ After installation, access the UI at `http://localhost:5080` and navigate to **D
 - [Migrating Metrics](metrics.md) — migrate from Mimir or Prometheus remote write
 - [Migrating Traces](traces.md) — migrate from Tempo
 - [Migrating Logs](logs.md) — migrate from Loki
+- [Migrating Dashboards & Alerts](dashboards-and-alerts.md) — recreate Grafana dashboards and Alertmanager rules
