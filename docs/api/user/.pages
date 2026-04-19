@@ -1,7 +1,0 @@
-nav:
-    - Create: create.md
-    - Update: update.md
-    - Add to org: add_user.md 
-    - Remove from org: delete.md
-    - List: list.md
-  

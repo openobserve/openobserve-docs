@@ -17,7 +17,7 @@ With the **OpenTelemetry Collector** and **OpenObserve**, you can collect MySQL 
 
 ??? "Prerequisites"
     - Running **MySQL instance(s)**  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))  
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md#self-hosted-installation))  
 
 ??? "Step 1: Install OpenTelemetry Collector Contrib"
 

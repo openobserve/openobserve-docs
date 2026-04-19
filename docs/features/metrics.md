@@ -57,9 +57,9 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 
 - **Efficient Indexing**: High-performance indexing for fast query execution across large datasets
 
-- **Downsampling**: Automatic data [downsampling](../user-guide/metrics/downsampling-metrics.md) for long-term storage optimization
+- **Downsampling**: Automatic data [downsampling](../user-guide/data-exploration/metrics/downsampling-metrics.md) for long-term storage optimization
 
-- **Retention Policies**: [Configurable retention settings](../user-guide/streams/extended-retention.md) to balance storage costs and data availability
+- **Retention Policies**: [Configurable retention settings](../user-guide/data-processing/streams/extended-retention.md) to balance storage costs and data availability
 
 ![Metrics Retention](../images/features/metrics-retention.png)
 
