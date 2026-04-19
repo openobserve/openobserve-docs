@@ -13,15 +13,15 @@ Monitor Kubernetes clusters, AWS services, databases (MySQL, PostgreSQL, MongoDB
 
 ## Available Integration Guides
 
-- [Kubernetes](k8s.md)
-- [AWS](aws)
-- [Model Context Protocol (MCP)](mcp)
-- [Cloudflare](cloudflare.md)
+- [Kubernetes](system/k8s.md)
+- [AWS](cloud/aws)
+- [Model Context Protocol (MCP)](ai/mcp)
+- [Cloudflare](cloud/cloudflare.md)
 - [Database](database)
 - [Servers](servers)
 - [DevOps](devops)
-- [Linux](linux.md)
-- [Windows](windows.md)
-- [Vercel](vercel.md)
-- [Heroku](heroku.md)
+- [Linux](system/linux.md)
+- [Windows](system/windows.md)
+- [Vercel](cloud/vercel.md)
+- [Heroku](cloud/heroku.md)
 - [Message Brokers](message-brokers)

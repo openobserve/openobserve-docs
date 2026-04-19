@@ -4,7 +4,7 @@ nav:
     - Filebeat: filebeat.md
     - Fluent-bit: fluent-bit.md
     - Fluentd: fluentd.md
-    - Kinesis Firehose: kinesis_firehose.md
+    - Kinesis Firehose: kinesis-firehose.md
     - Syslog: syslog.md
     - Python: python.md
     - Go: go.md

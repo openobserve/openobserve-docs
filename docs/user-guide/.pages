@@ -1,22 +1,6 @@
 nav:
-    - Logs: logs
-    - Traces: traces
-    - Metrics: metrics
-    - Streams: streams
-    - Ingestion: ingestion
-    - Pipelines: pipelines
-    - Alerts: alerts
-    - Dashboards: dashboards
-    - Actions: actions
-    - Functions: functions
-    - Enrichment Tables: enrichment-tables
-    - Real User Monitoring (RUM): rum
-    - Identity and Access Management (IAM): identity-and-access-management
-    - Management: management
-    - Profile: profile
-    - Performance: performance
-    - Federated Search: federated-search
-    - Best Practices: best-practices
-    - Migration: migration
-   
-
+    - Data Exploration: data-exploration
+    - Data Processing: data-processing
+    - Analytics: analytics
+    - Account & Administration: account-administration
+    - Advanced: advanced

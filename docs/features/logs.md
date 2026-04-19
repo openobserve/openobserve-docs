@@ -22,7 +22,7 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ![Field Extraction](../images/features/log-feilds-detection.png)
 
-The [Schema Settings](../user-guide/streams/schema-settings.md) tab in the Stream Details panel allows you to inspect and manage the schema used to store and query ingested data. 
+The [Schema Settings](../user-guide/data-processing/streams/schema-settings.md) tab in the Stream Details panel allows you to inspect and manage the schema used to store and query ingested data. 
 
 - **Full-text Search**: Powerful search capabilities across all log fields
 
@@ -45,8 +45,8 @@ The [Schema Settings](../user-guide/streams/schema-settings.md) tab in the Strea
 
 ![Indexing](../images/features/log-settings.png)
 
-Know more about [Streams](../user-guide/streams/streams-in-openobserve.md) and its [details](../user-guide/streams/stream-details.md#stream-details)
+Know more about [Streams](../user-guide/data-processing/streams/streams-in-openobserve.md) and its [details](../user-guide/data-processing/streams/stream-details.md#stream-details)
 
-- **Retention Policies**: [Configurable data retention](../user-guide/streams/extended-retention.md) to manage storage costs
+- **Retention Policies**: [Configurable data retention](../user-guide/data-processing/streams/extended-retention.md) to manage storage costs
 
 ![Retention Policies](../images/features/data-retention.png)

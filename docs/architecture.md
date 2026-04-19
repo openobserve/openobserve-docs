@@ -27,7 +27,7 @@ Use this mode for light usage and testing or if HA is not a requirement for you.
 
 ## High Availability (HA) mode
 
-Local disk storage is not supported in HA mode. Please refer to [HA Deployment](./ha_deployment.md) for cluster mode deployment.
+Local disk storage is not supported in HA mode. Please refer to [HA Deployment](administration/deployment/ha-deployment.md) for cluster mode deployment.
 
 <img src="../images/arch-ha.webp" alt="HA architecture using NATS and s3" width="80%"/>
 
