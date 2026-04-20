@@ -2,4 +2,3 @@ nav:
     - OpenAI (Python): openai.md
     - Anthropic (Python): anthropic.md
     - Google Gemini: google-gemini.md
-    - Ollama: ollama.md
