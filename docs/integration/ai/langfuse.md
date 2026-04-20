@@ -1,19 +1,19 @@
 ---
 title: Langfuse Integration
-description: Already using Langfuse SDK? Send your LLM traces to OpenObserve via OpenTelemetry OTLP — token usage, latency, and cost alongside your infrastructure. Add one OTLP config, no code rewrite.
+description: Already using Langfuse SDK? Send your LLM traces to OpenObserve via OpenTelemetry OTLP: token usage, latency, and cost alongside your infrastructure. Add one OTLP config, no code rewrite.
 ---
 
 # Integrating Langfuse with OpenObserve
 
-Langfuse SDK is OpenTelemetry-native. If you are already using it to instrument your LLM applications, sending those traces to OpenObserve requires no code changes — add the OTLP exporter config and your spans start flowing in.
+Langfuse SDK works on OpenTelemetry, If you are already using it to instrument your LLM applications, sending those traces to OpenObserve requires minimal code changes; add the OTLP exporter config and your spans start flowing in.
 
 ## Why OpenObserve?
 
-Langfuse is purpose-built for LLM analytics. OpenObserve gives you a unified observability platform — logs, metrics, traces, and APM in one place. If you want your LLM traces alongside the rest of your infrastructure, OpenObserve is a natural fit because both speak OpenTelemetry.
+Langfuse is purpose-built for LLM analytics. But, OpenObserve gives you a unified observability platform: logs, metrics, traces, and APM in one place. If you want your LLM traces alongside the rest of your infrastructure, OpenObserve is a natural fit because both speak OpenTelemetry.
 
 ## How It Works
 
-Langfuse SDK instruments your LLM calls and emits OpenTelemetry spans. You add an OTLP exporter pointing at OpenObserve. Spans flow to both Langfuse and OpenObserve simultaneously — no change to your existing Langfuse setup.
+Langfuse SDK instruments your LLM calls and emits OpenTelemetry spans. You add an OTLP exporter pointing at OpenObserve. Spans flow to both Langfuse and OpenObserve simultaneously; no change to your existing Langfuse setup.
 
 ![Langfuse + OpenObserve architecture](../../images/langfuse-integration/langfuse-openobserve-architecture.png)
 
@@ -113,7 +113,7 @@ Langfuse SDK instruments your LLM calls and emits OpenTelemetry spans. You add a
     provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
     trace.set_tracer_provider(provider)
 
-    # Your existing Langfuse-instrumented code below — no changes needed
+    # Your existing Langfuse-instrumented code below; no changes needed
     response = openai.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": "Explain distributed tracing in one sentence."}],
@@ -144,6 +144,7 @@ Langfuse SDK instruments your LLM calls and emits OpenTelemetry spans. You add a
 
     const sdk = new NodeSDK({
       spanProcessor: new BatchSpanProcessor(otlpExporter),
+      serviceName: process.env.OTEL_SERVICE_NAME,
     });
 
     // Start before any Langfuse-instrumented LLM calls
@@ -205,12 +206,12 @@ SELECT * FROM traces WHERE "langfuse_observation_model_name" = 'gpt-4o-mini-2024
 
 **Traces not appearing in OpenObserve**
 
-- Confirm the endpoint ends with `/v1/traces` — omitting this is the most common mistake
+- Confirm the endpoint ends with `/v1/traces`; omitting this is the most common mistake
 - Confirm the `Authorization` header value is `Basic <base64_token>`; the `Basic ` prefix is required
 - Ensure `provider.force_flush()` + `provider.shutdown()` (Python) or `sdk.shutdown()` (Node.js) are called before the process exits
 - Set `OTEL_LOG_LEVEL=debug` to surface exporter errors to stderr
 
-**Instrumentation not activating — no spans at all**
+**Instrumentation not activating: no spans at all**
 
 - `langfuse.openai` requires valid `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` to activate; without them the wrapper is a no-op
 
