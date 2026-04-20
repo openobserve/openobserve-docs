@@ -1,34 +1,27 @@
 ---
 title: Langfuse Integration
-description: Integrate Langfuse with OpenObserve to send LLM traces, token usage, latency, and cost data via OpenTelemetry OTLP. Monitor AI applications alongside your infrastructure in a unified observability platform.
+description: Already using Langfuse SDK? Send your LLM traces to OpenObserve via OpenTelemetry OTLP — token usage, latency, and cost alongside your infrastructure. Add one OTLP config, no code rewrite.
 ---
 
-# Langfuse LLM Observability with OpenObserve
+# Integrating Langfuse with OpenObserve
 
-Use Langfuse to instrument your LLM applications and send trace data to OpenObserve for unified observability across your AI workloads and infrastructure.
+Langfuse SDK is OpenTelemetry-native. If you are already using it to instrument your LLM applications, sending those traces to OpenObserve requires no code changes — add the OTLP exporter config and your spans start flowing in.
 
-## What is Langfuse?
+## Why OpenObserve?
 
-[Langfuse](https://langfuse.com) is an open-source LLM engineering platform that provides tracing, evaluation, and prompt management for AI applications. It captures every LLM call (including model parameters, token usage, cost, latency, and multi-turn session context) and structures it as OpenTelemetry traces.
+Langfuse is purpose-built for LLM analytics. OpenObserve gives you a unified observability platform — logs, metrics, traces, and APM in one place. If you want your LLM traces alongside the rest of your infrastructure, OpenObserve is a natural fit because both speak OpenTelemetry.
 
-Because Langfuse is built natively on OpenTelemetry, its trace data can be sent to **any OTLP-compatible backend**, including OpenObserve.
+## How It Works
 
-## How the Integration Works
-
-Langfuse's SDK configures an OpenTelemetry tracer provider under the hood. You point the OTLP exporter at OpenObserve's OTLP/HTTP endpoint, and every LLM call your app makes is captured as a span and shipped to OpenObserve automatically.
+Langfuse SDK instruments your LLM calls and emits OpenTelemetry spans. You add an OTLP exporter pointing at OpenObserve. Spans flow to both Langfuse and OpenObserve simultaneously — no change to your existing Langfuse setup.
 
 ![Langfuse + OpenObserve architecture](../../images/langfuse-integration/langfuse-openobserve-architecture.png)
 
-You can send to both simultaneously: Langfuse handles its own ingestion, and the OTel exporter sends the same spans to OpenObserve.
-
 ## Prerequisites
 
-- Python 3.8+ **or** Node.js 18+
+- An existing app instrumented with [Langfuse SDK](https://langfuse.com/docs) (credentials required)
 - An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
-- A [Langfuse](https://langfuse.com/) account (cloud or self-hosted)
 - Your OpenObserve **organisation ID** and **Base64-encoded auth token**
-- Your Langfuse **public key** and **secret key**
-
 
 ## Setup
 
@@ -37,7 +30,7 @@ You can send to both simultaneously: Langfuse handles its own ingestion, and the
     **Python**
 
     ```bash
-    pip install langfuse opentelemetry-sdk opentelemetry-exporter-otlp-proto-http
+    pip install langfuse opentelemetry-sdk opentelemetry-exporter-otlp-proto-http python-dotenv
     ```
 
     **Node.js / TypeScript**
@@ -46,98 +39,93 @@ You can send to both simultaneously: Langfuse handles its own ingestion, and the
     npm install langfuse @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http
     ```
 
-??? "Step 2: Generate your OpenObserve auth token"
+??? "Step 2: Get your OpenObserve auth token and endpoint"
 
-    OpenObserve uses HTTP Basic Auth encoded as Base64. Run the following command with your OpenObserve email and password:
+    OpenObserve uses HTTP Basic Auth encoded as Base64. Run this with your OpenObserve email and password:
 
     ```bash
     echo -n "your-email@example.com:your-password" | base64
     ```
 
-    The output is your `<base64_token>`. You will use it as `Basic <base64_token>` in the auth header below.
+    Your OTLP endpoint:
 
-    For **OpenObserve Cloud**, the OTLP endpoint is:
-
+    **OpenObserve Cloud:**
     ```
-    https://api.openobserve.ai/api/<your-org-id>/traces
-    ```
-
-    For **self-hosted OpenObserve** (default port 5080):
-
-    ```
-    http://localhost:5080/api/<your-org-id>/traces
+    https://api.openobserve.ai/api/<your-org-id>/v1/traces
     ```
 
-??? "Step 3: Configure environment variables"
+    **Self-hosted OpenObserve** (default port 5080):
+    ```
+    http://localhost:5080/api/<your-org-id>/v1/traces
+    ```
 
-    Create a `.env` file in your project root:
+??? "Step 3: Set environment variables"
+
+    Add these to your existing `.env` file alongside your Langfuse credentials:
 
     ```bash
-    # Langfuse credentials
+    # Langfuse credentials (required for instrumentation to activate)
     LANGFUSE_PUBLIC_KEY=pk-lf-...
     LANGFUSE_SECRET_KEY=sk-lf-...
-    LANGFUSE_HOST=https://cloud.langfuse.com   # or your self-hosted URL
+    LANGFUSE_HOST=https://cloud.langfuse.com
 
     # OpenObserve OTLP endpoint
-    OTEL_EXPORTER_OTLP_ENDPOINT=https://api.openobserve.ai/api/<your-org-id>/traces
+    OTEL_EXPORTER_OTLP_ENDPOINT=https://api.openobserve.ai/api/<your-org-id>/v1/traces
     OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic <your-base64-token>
 
-    # OpenAI / Anthropic API keys (if using these providers)
-    OPENAI_API_KEY=sk-...
-    ANTHROPIC_API_KEY=sk-ant-...
+    # Service name shown in OpenObserve traces UI
+    OTEL_SERVICE_NAME=my-llm-app
     ```
 
-    | Variable | Description | Required |
-    |---|---|---|
-    | `LANGFUSE_PUBLIC_KEY` | Langfuse project public key | Yes |
-    | `LANGFUSE_SECRET_KEY` | Langfuse project secret key | Yes |
-    | `LANGFUSE_HOST` | Langfuse instance URL | Yes |
-    | `OTEL_EXPORTER_OTLP_ENDPOINT` | OpenObserve OTLP/HTTP traces URL | Yes |
-    | `OTEL_EXPORTER_OTLP_HEADERS` | Basic auth header for OpenObserve | Yes |
+    | Variable | Description |
+    |---|---|
+    | `LANGFUSE_PUBLIC_KEY` | Langfuse project public key |
+    | `LANGFUSE_SECRET_KEY` | Langfuse project secret key |
+    | `OTEL_EXPORTER_OTLP_ENDPOINT` | OpenObserve OTLP/HTTP traces URL (must end with `/v1/traces`) |
+    | `OTEL_EXPORTER_OTLP_HEADERS` | Basic auth header for OpenObserve |
+    | `OTEL_SERVICE_NAME` | Service label shown in the OpenObserve traces UI |
 
-??? "Step 4: Instrument your Python application"
+??? "Step 4: Add the OpenObserve exporter (Python)"
 
-    Initialize Langfuse with OpenTelemetry and configure the OTLP exporter to point at OpenObserve.
+    Add an OTLP span processor before your first LLM call. Your existing Langfuse instrumentation stays unchanged.
 
     ```python
     import os
     from dotenv import load_dotenv
-    from langfuse import Langfuse
-    from langfuse.openai import openai  # drop-in replacement for openai client
+    from langfuse.openai import openai
 
     from opentelemetry import trace
     from opentelemetry.sdk.trace import TracerProvider
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
     from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+    from opentelemetry.sdk.resources import Resource
 
     load_dotenv()
 
-    # Configure OTLP exporter → OpenObserve
     otlp_exporter = OTLPSpanExporter(
         endpoint=os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"],
         headers={"Authorization": os.environ["OTEL_EXPORTER_OTLP_HEADERS"].split("=", 1)[1]},
     )
 
-    provider = TracerProvider()
+    provider = TracerProvider(
+        resource=Resource(attributes={"service.name": os.environ["OTEL_SERVICE_NAME"]})
+    )
     provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
     trace.set_tracer_provider(provider)
 
-    # Initialize Langfuse (handles its own ingestion separately)
-    langfuse = Langfuse()
-
-    # Use Langfuse's drop-in OpenAI client; traces captured automatically
+    # Your existing Langfuse-instrumented code below — no changes needed
     response = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[{"role": "user", "content": "Explain distributed tracing in one sentence."}],
     )
 
     print(response.choices[0].message.content)
-    langfuse.flush()
+
+    provider.force_flush()
+    provider.shutdown()
     ```
 
-    Every call to `openai.chat.completions.create` is now captured as an OpenTelemetry span and exported to both Langfuse and OpenObserve.
-
-??? "Step 5: Instrument your Node.js / TypeScript application"
+??? "Step 5: Add the OpenObserve exporter (Node.js / TypeScript)"
 
     ```typescript
     import * as dotenv from "dotenv";
@@ -146,10 +134,7 @@ You can send to both simultaneously: Langfuse handles its own ingestion, and the
     import { NodeSDK } from "@opentelemetry/sdk-node";
     import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
     import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-base";
-    import OpenAI from "openai";
-    import { observeOpenAI } from "langfuse";
 
-    // Configure OTLP exporter → OpenObserve
     const otlpExporter = new OTLPTraceExporter({
       url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
       headers: {
@@ -160,52 +145,46 @@ You can send to both simultaneously: Langfuse handles its own ingestion, and the
     const sdk = new NodeSDK({
       spanProcessor: new BatchSpanProcessor(otlpExporter),
     });
+
+    // Start before any Langfuse-instrumented LLM calls
     sdk.start();
 
-    // Wrap the OpenAI client with Langfuse observation
-    const openai = observeOpenAI(new OpenAI());
+    // ... your existing Langfuse-instrumented code below
 
-    async function main() {
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
-        messages: [{ role: "user", content: "Explain distributed tracing in one sentence." }],
-      });
-      console.log(response.choices[0].message.content);
-      await sdk.shutdown();
-    }
-
-    main();
+    // Call before process exits
+    await sdk.shutdown();
     ```
 
 ??? "Step 6: Verify traces are flowing"
 
-    Run your application and then open your OpenObserve instance:
+    Run your application and open your OpenObserve instance:
 
     1. Navigate to **Traces** in the left sidebar
     2. Set the time range to **Last 15 minutes**
-    3. Filter by service name (defaults to your application name or `langfuse`)
-    4. Click any trace to drill into individual spans
+    3. Filter by `service_name = my-llm-app`
+    4. Click any trace to inspect token counts, latency, cost, and model metadata
 
-    You should see spans for each LLM call with token counts, latency, and model metadata attached.
-
+    You should see one trace per LLM call, with token counts and cost visible directly in the trace list.
 
 ## What Gets Captured
 
-Each LLM call is exported as an OpenTelemetry span with the following attributes:
+Every LLM call instrumented by Langfuse SDK appears in OpenObserve with these fields:
 
-| Attribute | Description |
+| Field in OpenObserve | Description |
 |---|---|
-| `gen_ai.system` | LLM provider (e.g. `openai`, `anthropic`) |
-| `gen_ai.request.model` | Model name (e.g. `gpt-4o`, `claude-3-5-sonnet`) |
-| `gen_ai.usage.input_tokens` | Tokens in the prompt |
-| `gen_ai.usage.output_tokens` | Tokens in the response |
-| `gen_ai.request.temperature` | Temperature parameter |
-| `gen_ai.request.max_tokens` | Max tokens parameter |
-| `langfuse.session.id` | Session ID for multi-turn conversations |
-| `langfuse.user.id` | End-user identifier |
+| `llm_usage_tokens_input` | Prompt token count |
+| `llm_usage_tokens_output` | Completion token count |
+| `llm_usage_tokens_total` | Total tokens used |
+| `llm_usage_cost_input` | Cost of prompt tokens |
+| `llm_usage_cost_output` | Cost of completion tokens |
+| `llm_usage_cost_total` | Total cost of the call |
+| `llm_request_parameters_temperature` | Temperature parameter |
+| `llm_request_parameters_max_tokens` | Max tokens parameter |
+| `langfuse_observation_model_name` | Model used (e.g. `gpt-4o-mini-2024-07-18`) |
+| `langfuse_observation_type` | Observation type (e.g. `generation`) |
+| `operation_name` | Operation name (e.g. `OpenAI-generation`) |
+| `service_name` | Your app name from `OTEL_SERVICE_NAME` |
 | `duration` | End-to-end request latency |
-| `error` | Exception details if the request failed |
-
 
 ## Viewing Traces in OpenObserve
 
@@ -214,37 +193,39 @@ Each LLM call is exported as an OpenTelemetry span with the following attributes
 3. Filter by **service name**, model, or time range
 4. Click any span to inspect token counts, latency, cost, and full request metadata
 
-![OpenObserve span detail showing gen_ai and llm_usage attributes](../../images/langfuse-integration/openobserve-spans-genai-fields.png)
+![OpenObserve span detail showing gen_ai and llm_usage attributes](../../images/langfuse-integration/openobserve-traces-view.png)
 
-Use the **Fields** panel on the left to build queries, for example:
+Use the **Fields** panel to build queries, for example:
 
 ```sql
--- Find all calls to gpt-4o in the last hour
-SELECT * FROM traces WHERE "gen_ai.request.model" = 'gpt-4o'
+SELECT * FROM traces WHERE "langfuse_observation_model_name" = 'gpt-4o-mini-2024-07-18'
 ```
-
-
 
 ## Troubleshooting
 
-**Traces are not appearing in OpenObserve**
+**Traces not appearing in OpenObserve**
 
-- Verify `OTEL_EXPORTER_OTLP_ENDPOINT` ends with `/traces` (not just the base URL)
+- Confirm the endpoint ends with `/v1/traces` — omitting this is the most common mistake
 - Confirm the `Authorization` header value is `Basic <base64_token>`; the `Basic ` prefix is required
-- Check that `langfuse.flush()` (Python) or `sdk.shutdown()` (Node.js) is called before your process exits; otherwise buffered spans may be dropped
-- Set `OTEL_LOG_LEVEL=debug` to print exporter output to stderr
+- Ensure `provider.force_flush()` + `provider.shutdown()` (Python) or `sdk.shutdown()` (Node.js) are called before the process exits
+- Set `OTEL_LOG_LEVEL=debug` to surface exporter errors to stderr
 
-**Spans appear in Langfuse but not in OpenObserve**
+**Instrumentation not activating — no spans at all**
 
-- The Langfuse SDK and the OTel exporter are separate pipelines; confirm the `TracerProvider` (Python) or `NodeSDK` (Node.js) is initialized **before** any LLM calls
-- Check your OpenObserve org ID in the endpoint URL; a wrong org ID returns a 404 that the exporter silently swallows
+- `langfuse.openai` requires valid `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` to activate; without them the wrapper is a no-op
+
+**Service shows as `unknown_service` in OpenObserve**
+
+- Set `OTEL_SERVICE_NAME` in your environment and pass it via `Resource` as shown in the code sample above
+
+**`TracerProvider` initialised after LLM calls**
+
+- The `TracerProvider` must be set up before any instrumented LLM call; spans created before it is registered are lost
 
 **`ModuleNotFoundError` / `Cannot find module`**
 
-- Python: `pip install opentelemetry-exporter-otlp-proto-http` (not `opentelemetry-exporter-otlp`)
-- Node.js: `npm install @opentelemetry/exporter-trace-otlp-http` (HTTP variant, not gRPC; OpenObserve does not support gRPC OTLP)
-
-
+- Python: install `opentelemetry-exporter-otlp-proto-http` (not `opentelemetry-exporter-otlp`)
+- Node.js: install `@opentelemetry/exporter-trace-otlp-http` (HTTP variant; OpenObserve does not support gRPC OTLP)
 
 ## Read More
 
