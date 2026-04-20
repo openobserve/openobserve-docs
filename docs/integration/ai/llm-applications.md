@@ -1,4 +1,4 @@
-# **LLM Observability with OpenObserve**
+# LLM Observability with OpenObserve
 
 Monitor, trace, and debug your LLM-powered applications in production using OpenObserve and OpenTelemetry.
 

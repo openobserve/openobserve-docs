@@ -25,3 +25,4 @@ Monitor Kubernetes clusters, AWS services, databases (MySQL, PostgreSQL, MongoDB
 - [Vercel](cloud/vercel.md)
 - [Heroku](cloud/heroku.md)
 - [Message Brokers](message-brokers)
+- [AI Integrations](ai/llm-applications.md)
