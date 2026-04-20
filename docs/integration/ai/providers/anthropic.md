@@ -10,7 +10,6 @@ Automatically capture token usage, latency, and model metadata for every Claude 
 ## **Prerequisites**
 
 * Python 3.8+
-* [`uv`](https://github.com/astral-sh/uv) package manager (or `pip`)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An Anthropic API key
@@ -130,25 +129,13 @@ asyncio.run(main())
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
-2. Filter by `service.name` to isolate your application
-3. Click any span to inspect token counts, latency, and full request metadata
-4. Use `llm.usage.total_tokens` to track cost per conversation turn
+2. Click any span to inspect token counts, latency, and full request metadata
 
-## **Troubleshooting**
+![Anthropic trace span attributes in OpenObserve](../../../images/integration/ai/anthropic.png)
 
-**Traces are not appearing in OpenObserve**
+## **Next Steps**
 
-* Ensure `AnthropicInstrumentor().instrument()` is called before `from anthropic import Anthropic`
-* Confirm `OPENOBSERVE_URL` ends with a trailing `/`
-* Verify `OPENOBSERVE_AUTH_TOKEN` is correctly Base64-encoded (`Basic <token>`)
-
-**`ModuleNotFoundError: No module named 'opentelemetry.instrumentation.anthropic'`**
-
-Run: `pip install opentelemetry-instrumentation-anthropic`
-
-**`ModuleNotFoundError: No module named 'dotenv'`**
-
-Install the correct package: `pip install python-dotenv` (not `dotenv`)
+With Anthropic instrumented, every Claude API call in your application is automatically recorded in OpenObserve. From here you can track token usage and cost per conversation turn, monitor cache hit rates to optimise prompt caching savings, and correlate Claude spans with the rest of your application traces.
 
 ## **Read More**
 
