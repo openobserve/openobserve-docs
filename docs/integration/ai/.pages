@@ -1,0 +1,5 @@
+nav:
+    - LLM Observability with OpenObserve: llm-applications.md
+    - Claude Code Tracing: claude-code-tracing.md
+    - Langfuse Integration: langfuse.md
+    - MCP: mcp
