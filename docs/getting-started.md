@@ -47,7 +47,7 @@ Get started with OpenObserve observability platform for logs, metrics, and trace
 
 ## Option 2: Self-Hosted Installation
 
-> **Important**: These instructions are for single-node installations. For production high-availability setups, see our [HA deployment guide](./ha_deployment.md).
+> **Important**: These instructions are for single-node installations. For production high-availability setups, see our [HA deployment guide](administration/deployment/ha-deployment.md).
 
 You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD) on first startup only. They are not required for subsequent runs.
 

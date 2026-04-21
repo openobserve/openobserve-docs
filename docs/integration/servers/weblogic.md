@@ -171,7 +171,7 @@ By combining **Fluent Bit** for collection with **OpenObserve VRL pipelines** fo
 
 ## Next Steps
 
-* **[Search & Filter Logs](../../../example-queries)**: Query by error level, component, or keywords
-* **[Customize VRL Pipelines](../../../user-guide/logs/logs/#transform-logs-with-vrl)**: Extract thread IDs, class names, or error codes
-* **[Dashboards](../../../user-guide/dashboards/)**: Visualize WebLogic error trends and performance
-* **[Alerts](../../../user-guide/alerts)**: Trigger notifications based on error volume or patterns
+* **[Search & Filter Logs](../../user-guide/data-exploration/example-queries.md)**: Query by error level, component, or keywords
+* **[Customize VRL Pipelines](../../migration/migrate-from-grafana-to-openobserve/logs.md#transform-logs-with-vrl)**: Extract thread IDs, class names, or error codes
+* **[Dashboards](../../user-guide/analytics/dashboards/index.md)**: Visualize WebLogic error trends and performance
+* **[Alerts](../../user-guide/analytics/alerts/alerts.md)**: Trigger notifications based on error volume or patterns

@@ -60,7 +60,7 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 ![Smart Indexing](../images/features/trace-settings.png)
 
-- **Retention Management**: [Flexible retention policies](../user-guide/streams/extended-retention.md) for cost-effective long-term storage
+- **Retention Management**: [Flexible retention policies](../user-guide/data-processing/streams/extended-retention.md) for cost-effective long-term storage
 
 ### Integration & Standards
 - **OpenTelemetry Ecosystem**: Full compatibility with OpenTelemetry collectors and instrumentation libraries

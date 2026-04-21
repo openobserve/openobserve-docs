@@ -1,0 +1,8 @@
+nav:
+    - Overview: index.md
+    - Architecture & Terminology: architecture.md
+    - Migrating Metrics: metrics.md
+    - Migrating Traces: traces.md
+    - Migrating Logs: logs.md
+    - Migrating Dashboards & Alerts: dashboards-and-alerts.md
+    

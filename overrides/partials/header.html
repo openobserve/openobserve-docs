@@ -158,13 +158,120 @@
           >
             Get Demo
           </a>
-          <a
-            class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-px-3 md:tw-px-5 tw-py-1.5 tw-text-xs secondary-button tw-border !tw-border-gray-200"
-            href="https://cloud.openobserve.ai"
-            target="_blank"
-          >
-            Log In
-          </a>
+          <div id="login-dropdown" class="tw-relative">
+            <button
+              id="login-dropdown-button"
+              type="button"
+              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-gap-1.5 tw-px-3 md:tw-px-5 tw-py-1 tw-text-xs secondary-button tw-border !tw-border-gray-200"
+              aria-expanded="false"
+              aria-haspopup="menu"
+            >
+              Log In
+              <svg
+                id="login-dropdown-icon"
+                class="tw-h-2 tw-w-2 tw-shrink-0 tw-transition-transform tw-duration-200"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                width="16"
+                height="16"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <div
+              id="login-dropdown-menu"
+              class="tw-absolute tw-right-0 tw-top-full tw-mt-1 tw-w-56 tw-bg-white tw-border tw-border-gray-300 tw-rounded-lg tw-shadow-xl tw-ring-1 tw-ring-black/5 tw-z-50 tw-hidden tw-overflow-hidden"
+              role="menu"
+              aria-label="Login Region Selector"
+            >
+              <a
+                href="https://cloud.openobserve.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                role="menuitem"
+                tabindex="-1"
+                class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-transition-colors tw-duration-150 tw-group focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-inset focus-visible:tw-ring-indigo-500 hover:tw-bg-orange-50 tw-rounded-t-lg tw-border-b tw-border-gray-100"
+              >
+                <img
+                  src="/docs/assets/aws.svg"
+                  alt="AWS"
+                  class="tw-w-5 tw-h-5 tw-shrink-0"
+                />
+                <span class="tw-flex tw-flex-col">
+                  <span
+                    class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
+                    >US East-2</span
+                  >
+                  <span class="tw-text-[12px] tw-text-gray-500"
+                    >cloud.openobserve.ai</span
+                  >
+                  <span class="tw-text-[12px] tw-text-gray-400"
+                    >Ohio, USA · AWS</span
+                  >
+                </span>
+              </a>
+
+              <a
+                href="https://us2.openobserve.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                role="menuitem"
+                tabindex="-1"
+                class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-transition-colors tw-duration-150 tw-group focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-inset focus-visible:tw-ring-indigo-500 hover:tw-bg-blue-50 tw-border-b tw-border-gray-100"
+              >
+                <img
+                  src="/docs/assets/azure.svg"
+                  alt="Azure"
+                  class="tw-w-5 tw-h-5 tw-shrink-0"
+                />
+                <span class="tw-flex tw-flex-col">
+                  <span
+                    class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-blue-700"
+                    >US West 2</span
+                  >
+                  <span class="tw-text-[12px] tw-text-gray-500"
+                    >us2.openobserve.ai</span
+                  >
+                  <span class="tw-text-[12px] tw-text-gray-400"
+                    >California, USA · Azure</span
+                  >
+                </span>
+              </a>
+
+              <a
+                href="https://eu1.openobserve.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                role="menuitem"
+                tabindex="-1"
+                class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-transition-colors tw-duration-150 tw-group focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-inset focus-visible:tw-ring-indigo-500 hover:tw-bg-orange-50 tw-rounded-b-lg"
+              >
+                <img
+                  src="/docs/assets/aws.svg"
+                  alt="AWS"
+                  class="tw-w-5 tw-h-5 tw-shrink-0"
+                />
+                <span class="tw-flex tw-flex-col">
+                  <span
+                    class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
+                    >EU Central-1</span
+                  >
+                  <span class="tw-text-[12px] tw-text-gray-500"
+                    >eu1.openobserve.ai</span
+                  >
+                  <span class="tw-text-[12px] tw-text-gray-400"
+                    >Frankfurt, Germany · AWS</span
+                  >
+                </span>
+              </a>
+            </div>
+          </div>
           <a
             class="github-button tw-py-1.5"
             href="https://github.com/openobserve/openobserve"
@@ -537,5 +644,71 @@
         }
       });
     });
+
+    // ✅ Desktop Login Dropdown
+    const loginDropdown = document.getElementById("login-dropdown");
+    const loginDropdownButton = document.getElementById(
+      "login-dropdown-button",
+    );
+    const loginDropdownMenu = document.getElementById("login-dropdown-menu");
+    const loginDropdownIcon = document.getElementById("login-dropdown-icon");
+
+    if (loginDropdown && loginDropdownButton && loginDropdownMenu) {
+      const loginMenuItems = Array.from(
+        loginDropdownMenu.querySelectorAll('[role="menuitem"]'),
+      );
+
+      const setLoginDropdownState = (isOpen) => {
+        loginDropdownMenu.classList.toggle("tw-hidden", !isOpen);
+        loginDropdownButton.setAttribute("aria-expanded", String(isOpen));
+        if (loginDropdownIcon) {
+          loginDropdownIcon.classList.toggle("tw-rotate-180", isOpen);
+        }
+      };
+
+      loginDropdownButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen =
+          loginDropdownButton.getAttribute("aria-expanded") === "true";
+        setLoginDropdownState(!isOpen);
+      });
+
+      loginDropdownButton.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          setLoginDropdownState(true);
+          loginMenuItems[0]?.focus();
+        } else if (event.key === "Escape") {
+          setLoginDropdownState(false);
+        }
+      });
+
+      loginMenuItems.forEach((item, index) => {
+        item.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowDown") {
+            event.preventDefault();
+            loginMenuItems[(index + 1) % loginMenuItems.length]?.focus();
+          } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            loginMenuItems[
+              index <= 0 ? loginMenuItems.length - 1 : index - 1
+            ]?.focus();
+          } else if (event.key === "Escape") {
+            setLoginDropdownState(false);
+            loginDropdownButton.focus();
+          }
+        });
+
+        item.addEventListener("click", () => {
+          setLoginDropdownState(false);
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!loginDropdown.contains(event.target)) {
+          setLoginDropdownState(false);
+        }
+      });
+    }
   });
 </script>

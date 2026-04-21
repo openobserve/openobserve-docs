@@ -1,22 +1,11 @@
 nav:
-
     - Integrations Overview: index.md
-    - Kubernetes: k8s.md
-    - AWS: aws
-    - MCP: mcp
-    - Cloudflare: cloudflare.md
+    - AI: ai
+    - Cloud: cloud
+    - Data Pipeline: data-pipeline
     - Database: database
-    - GCP: gcp
-    - Servers: servers
-    - DevOps : devops
-    - Linux: linux.md 
-    - Windows: windows.md
-    - Vercel : vercel.md
-    - Heroku: heroku.md
+    - DevOps: devops
     - Message Queues: message-brokers
-    - Airflow: airflow.md
-    - Cribl: cribl.md
     - Security: security
-    - Mulesoft: mulesoft.md
-    - Monitoring LLM applications : llm-applications.md
-
+    - Servers: servers
+    - System: system

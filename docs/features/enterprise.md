@@ -15,6 +15,6 @@ Enterprise tier includes all standard features plus the following enterprise-spe
 - **Cipher Keys** - Encryption and compliance support for HIPAA and PCI
 
 ### Operations
-- [**Query Management**](../work_group.md) - Optimize and manage query performance
+- [**Query Management**](../user-guide/account-administration/work-group.md) - Optimize and manage query performance
 - **Workload Management (QoS)** - Prioritize and allocate resources
 - **Audit Trail** - Track all system activities and changes

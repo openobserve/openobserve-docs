@@ -17,7 +17,7 @@ Monitor Redis effectively using the **OpenTelemetry Collector Redis receiver**, 
 
 ??? "Prerequisites"
     - Running **Redis instance(s)**  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started/#self-hosted-installation))  
+    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md#self-hosted-installation))  
     - Basic understanding of OpenTelemetry concepts  
 
 ??? "Step 1: Prepare Your Redis Environment"

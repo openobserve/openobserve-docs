@@ -1,0 +1,6 @@
+nav:
+    - JSON: json.md
+    - Bulk: bulk.md
+    - Multi: multi.md
+    - Loki: loki.md
+    - Otlp: otlp.md

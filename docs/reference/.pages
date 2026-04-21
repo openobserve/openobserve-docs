@@ -1,0 +1,6 @@
+title: Reference
+
+nav:
+  - API Reference: api
+  - SQL Functions: sql-functions
+  - SQL Reference: sql-reference.md
