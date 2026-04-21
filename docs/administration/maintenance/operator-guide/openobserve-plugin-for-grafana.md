@@ -11,7 +11,7 @@ This guide walks you through installing and configuring the openobserve plugin i
 
 ## Overview
 Grafana is an open-source platform for creating dashboards and visualizations. 
-OpenObserve provides its own interface for [logs](../../../user-guide/data-exploration/logs/logs.md), [metrics](../../../features/metrics.md), [tracing](../../../features/distributed-tracing.md), [frontend monitoring](../../../features/frontend.md), [dashboards](../../../user-guide/analytics/dashboards/dashboards-in-openobserve.md), and [alerting and notifications](../../../user-guide/analytics/alerts/alerts.md). 
+OpenObserve provides its own interface for [logs](../../../user-guide/data-exploration/logs/logs.md), [metrics](../../../features/metrics.md), [tracing](../../../features/distributed-tracing.md), [frontend monitoring](../../../features/frontend.md), [dashboards](../../../user-guide/analytics/dashboards/dashboards-in-openobserve.md), and [alerting and notifications](../../../user-guide/analytics/alerts/). 
 
 The OpenObserve plugin for Grafana is an optional integration. It enables OpenObserve to be added as a Grafana data source, making it possible to use existing Grafana dashboards or combine OpenObserve data with other monitoring systems.
 

@@ -65,5 +65,5 @@ If you are locked out of the root account, you can reset the root password from 
 
 ## Next Steps
 
-* Set up [alerts](../../analytics/alerts/alerts.md) for failed logins to detect potential security issues.
+* Set up [alerts](../../analytics/alerts/) for failed logins to detect potential security issues.
 * Review [RBAC and role assignments](../identity-and-access-management/enable-rbac-in-openobserve-enterprise.md) to ensure least-privilege access.
