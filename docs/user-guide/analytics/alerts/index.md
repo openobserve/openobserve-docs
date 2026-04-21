@@ -110,7 +110,7 @@ The right panel provides real-time feedback as you configure your alert:
 
 The **Advanced** tab provides additional configuration for scheduled alerts:
 
-- **Compare with Past**: Compare current alert evaluations against historical reference windows to detect relative changes. See [Multi-window Selector](multi-window-selector-scheduled-alerts-concept) for details.
+- **Compare with Past**: Compare current alert evaluations against historical reference windows to detect relative changes. See [Multi-window Selector](multi-window-selector-scheduled-alerts) for details.
 - **Deduplication**: Group similar alerts by fingerprint fields and time window to reduce notification noise.
 - **Additional Settings**: Override notification templates, add context variables, set a description, and customize row templates.
 
@@ -118,14 +118,21 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 
 ---
 
+## Alert folders
+
+Use folders to organize alerts on the **Alerts** page. All alerts are stored in the **default** folder unless you assign them to a different folder.
+
+To create a folder, click **+** in the **Folders** panel on the Alerts page, enter a name and description, and click **Create**. Use the **Search Folder** input to find folders quickly, or toggle **All Folders** to search alerts across all folders.
+
+---
+
 ## Learn more
 
 - [Create an Alert](create-alert) — Step-by-step guide for creating your first alert
 - [Alert Conditions and Filters](alert-conditions) — Deep dive into condition modes, functions, and filters
-- [Alert Folders](alert-folders) — Organize alerts into folders
 - [Alert History](alert-history) — View alert trigger history
 - [Anomaly Detection](anomaly-detection) — ML-based anomaly alerts
 - [Import and Export Alerts](import-export-alerts) — Bulk alert management
-- [Compare with Past (Multi-window)](multi-window-selector-scheduled-alerts-concept) — Historical comparison alerts
+- [Compare with Past (Multi-window)](multi-window-selector-scheduled-alerts) — Historical comparison alerts
 - [Alert Destinations](../../account-administration/management/alert-destinations/) — Configure notification channels
 - [Templates](../../account-administration/management/templates/) — Customize notification content

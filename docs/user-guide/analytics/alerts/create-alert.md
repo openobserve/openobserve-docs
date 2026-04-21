@@ -156,7 +156,7 @@ Compare current evaluations against historical data to detect relative changes r
 - **Current window**: Displays the current look back window and cycle
 - **Add Comparison Window**: Add reference time windows for comparison (e.g., same hour yesterday)
 
-See [Multi-window Selector](multi-window-selector-scheduled-alerts-concept) for detailed concepts and [Use Multi-window Selector](how-to-access-multi-window-selector-scheduled-alerts) for a step-by-step tutorial.
+See [Multi-window Selector](multi-window-selector-scheduled-alerts) for detailed concepts and a step-by-step tutorial.
 
 ### Deduplication
 
