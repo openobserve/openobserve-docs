@@ -112,5 +112,5 @@ Click the more options menu or the three-bar icon to access:
 ## Next Steps
 
 - To learn how to visualize logs, refer to the [Dashboards](../../../index.md) documentation. 
-- To learn how to monitor logs continuously, refer to the [Alerts](../../analytics/alerts/alerts.md) documentation. 
+- To learn how to monitor logs continuously, refer to the [Alerts](../../analytics/alerts/) documentation. 
 
