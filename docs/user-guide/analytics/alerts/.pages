@@ -1,11 +1,8 @@
 nav:
     - Alerts Overview: index.md
-    - Alerts in OpenObserve: alerts.md
-    - Alert Folders: alert-folders.md
+    - Scheduled Alerts: scheduled-alerts.md
+    - Real-time Alerts: real-time-alerts.md
+    - Alert Conditions and Filters: alert-conditions.md
     - Alert History: alert-history.md
-    - Alert Conditions: alert-conditions.md
     - Anomaly Detection: anomaly-detection.md
     - Import and Export Alerts: import-export-alerts.md
-    - Multi-window Selector in Scheduled Alerts (SQL Mode): multi-window-selector-scheduled-alerts-concept.md
-    - Use Multi-window Selector in Scheduled Alerts: how-to-access-multi-window-selector-scheduled-alerts.md
-    - Use Telegram for Alerts: alerting-example-telegram.md

@@ -24,14 +24,13 @@ You can import alerts individually or in bulk using pre-defined templates. The i
 
 1. From the left-hand navigation, select **Alerts**.  
 2. Click the **Import** button. 
-3. Choose one of the supported import methods: 
+3. Choose one of the supported import methods using the tabs at the top: 
 
-    - **Upload JSON File:** Select a local JSON file containing alert configurations.  
-    - **Enter URL:** Provide a URL to fetch the alert configuration.  
-    - **Paste JSON Object:** Copy and paste the JSON alert definition in the JSON editor.
+    - **File Upload / JSON:** Drag and drop a JSON file, or paste alert JSON directly in the editor below. Select the target folder from the **Select Folder** dropdown.
+    - **URL Import:** Provide a URL to fetch the alert configuration.
 
-**Note**: To import alerts in bulk, choose multiple JSON files, as shown below: 
-![import-alerts-in -bulk](../../../images/import-alerts3-in-bulk.png)
+**Note**: To import alerts in bulk, paste a JSON array containing multiple alert definitions in the JSON editor, as shown below: 
+![import-alerts-in-bulk](../../../images/import-alerts3-in-bulk.png)
 4. Click **Import**. <br>
 5. If validation errors occur, resolve issues based on the prompts:
 
@@ -51,7 +50,7 @@ Alert export allows users to download an alert configuration as a JSON file. Thi
 
 1. Navigate to the **Alerts** page.  
 2. Locate the alert you want to export.  
-3. Click the **Export Alert** button under the **Actions** column.
+3. Click the **more options** menu (three-dot icon) in the **Actions** column and select **Export**.
 
 The alert configuration is downloaded as a JSON file.  
 This JSON file can later be imported into another OpenObserve instance, making it easy to transfer or restore alerts.
