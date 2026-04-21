@@ -46,7 +46,7 @@ To accommodate higher traffic, you can horizontally scale the following nodes:
 
 HA mode uses NATS as a cluster coordinator as well as for cluster events and storing the nodes' information.
 
-It uses MySQL or PostgreSQL to store metadata, such as the organization, users, functions, alert rules, stream schema and file list (an index of parquet files).
+It uses PostgreSQL to store metadata, such as the organization, users, functions, alert rules, stream schema and file list (an index of parquet files).
 
 Object storage (for example, Amazon S3, MinIO or GCS) stores all the parquet files data.
 

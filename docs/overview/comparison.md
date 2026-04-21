@@ -37,4 +37,4 @@ This cost comparison pertains only to storage. Amazon EBS storage volumes cost [
 
 ## Elasticsearch Compatibility
 
-The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector by Datadog.
+The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector.
