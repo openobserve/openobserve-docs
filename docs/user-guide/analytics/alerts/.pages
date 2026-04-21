@@ -1,8 +1,8 @@
 nav:
     - Alerts Overview: index.md
-    - Create an Alert: create-alert.md
+    - Scheduled Alerts: scheduled-alerts.md
+    - Real-time Alerts: real-time-alerts.md
     - Alert Conditions and Filters: alert-conditions.md
     - Alert History: alert-history.md
     - Anomaly Detection: anomaly-detection.md
     - Import and Export Alerts: import-export-alerts.md
-    - Compare with Past (Multi-window): multi-window-selector-scheduled-alerts.md
