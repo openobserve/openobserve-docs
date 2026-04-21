@@ -17,7 +17,7 @@ OpenObserve supports three types of alerts:
 
 - **Scheduled alerts**: Run at fixed intervals to evaluate aggregated or historical data. Use for routine monitoring and trend analysis. For example, every 10 minutes, the alert evaluates your data and checks if the average response time exceeds 500ms. If the condition is met, the alert sends a notification.
 - **Real-time alerts**: Monitor data continuously and trigger instantly when conditions are met. Use for critical events requiring instant action. For example, when a specific error pattern appears in your logs, the alert sends a notification within seconds.
-- **Anomaly detection** *(Enterprise and Cloud only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection) for details.
+- **Anomaly detection** *(Enterprise and Cloud only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
 
 ---
 
@@ -58,7 +58,7 @@ When you select an aggregation function (avg, min, max, sum, etc.), the sentence
 
 **"Alert if avg of cpu_usage is >= 80"**
 
-See [Alert Conditions and Filters](alert-conditions) for details on all available functions and modes.
+See [Alert Conditions and Filters](alert-conditions.md) for details on all available functions and modes.
 
 ### Query modes
 
@@ -110,7 +110,7 @@ The right panel provides real-time feedback as you configure your alert:
 
 The **Advanced** tab provides additional configuration for scheduled alerts:
 
-- **Compare with Past**: Compare current alert evaluations against historical reference windows to detect relative changes. See [Multi-window Selector](multi-window-selector-scheduled-alerts) for details.
+- **Compare with Past**: Compare current alert evaluations against historical reference windows to detect relative changes. See [Compare with Past](scheduled-alerts.md#compare-with-past) for details.
 - **Deduplication**: Group similar alerts by fingerprint fields and time window to reduce notification noise.
 - **Additional Settings**: Override notification templates, add context variables, set a description, and customize row templates.
 
@@ -128,11 +128,11 @@ To create a folder, click **+** in the **Folders** panel on the Alerts page, ent
 
 ## Learn more
 
-- [Create an Alert](create-alert) — Step-by-step guide for creating your first alert
-- [Alert Conditions and Filters](alert-conditions) — Deep dive into condition modes, functions, and filters
-- [Alert History](alert-history) — View alert trigger history
-- [Anomaly Detection](anomaly-detection) — ML-based anomaly alerts
-- [Import and Export Alerts](import-export-alerts) — Bulk alert management
-- [Compare with Past (Multi-window)](multi-window-selector-scheduled-alerts) — Historical comparison alerts
+- [Scheduled Alerts](scheduled-alerts.md) — Create scheduled and SQL alerts with advanced configuration
+- [Real-time Alerts](real-time-alerts.md) — Create alerts that trigger instantly on ingestion
+- [Alert Conditions and Filters](alert-conditions.md) — Deep dive into condition modes, functions, and filters
+- [Alert History](alert-history.md) — View alert trigger history
+- [Anomaly Detection](anomaly-detection.md) — ML-based anomaly alerts
+- [Import and Export Alerts](import-export-alerts.md) — Bulk alert management
 - [Alert Destinations](../../account-administration/management/alert-destinations/) — Configure notification channels
 - [Templates](../../account-administration/management/templates/) — Customize notification content
