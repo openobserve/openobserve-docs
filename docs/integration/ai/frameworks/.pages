@@ -1,5 +1,14 @@
 nav:
-    - LangChain / LangGraph: langchain.md
-    - LiteLLM SDK: litellm.md
-    - Vercel AI SDK: vercel-ai.md
+    - Agno: agno.md
+    - AutoGen: autogen.md
+    - Claude Agent SDK: claude-agent-sdk.md
     - CrewAI: crewai.md
+    - DSPy: dspy.md
+    - Google ADK: google-adk.md
+    - Haystack: haystack.md
+    - Instructor: instructor.md
+    - LangChain: langchain.md
+    - LiteLLM: litellm.md
+    - OpenAI Agents: openai-agents.md
+    - Pydantic AI: pydantic-ai.md
+    - SmolAgents: smolagents.md

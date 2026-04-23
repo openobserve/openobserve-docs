@@ -1,0 +1,7 @@
+nav:
+    - Fireworks AI: fireworks.md
+    - Groq: groq.md
+    - Mistral: mistral.md
+    - Ollama: ollama.md
+    - Together AI: together-ai.md
+    - xAI Grok: xai-grok.md
