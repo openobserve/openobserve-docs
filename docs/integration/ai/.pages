@@ -3,3 +3,4 @@ nav:
     - Claude Code Tracing: claude-code-tracing.md
     - MCP: mcp
     - Model Providers: providers
+    - Frameworks: frameworks
