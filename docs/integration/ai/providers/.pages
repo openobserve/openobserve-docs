@@ -5,3 +5,6 @@ nav:
     - Ollama: ollama.md
     - Together AI: together-ai.md
     - xAI Grok: xai-grok.md
+    - OpenAI (Python): openai.md
+    - Anthropic (Python): anthropic.md
+    - Google Gemini: google-gemini.md

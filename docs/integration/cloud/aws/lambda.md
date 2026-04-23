@@ -113,6 +113,6 @@ This eliminates the need to store or process Lambda logs in CloudWatch, while pr
 Once logs are flowing into OpenObserve, you can:  
 
 - **Build [dashboards](../../../index.md)** around function latency, memory usage, and errors  
-- **Set up [alerts](../../../user-guide/analytics/alerts/alerts.md)** on anomalies or failures  
+- **Set up [alerts](../../../user-guide/analytics/alerts/)** on anomalies or failures  
 
 

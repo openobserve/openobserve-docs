@@ -1,0 +1,5 @@
+nav:
+    - LLM Applications: llm-applications.md
+    - Claude Code Tracing: claude-code-tracing.md
+    - MCP: mcp
+    - Model Providers: providers
