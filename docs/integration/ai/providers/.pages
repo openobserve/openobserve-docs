@@ -1,4 +1,10 @@
 nav:
     - OpenAI (Python): openai.md
     - Anthropic (Python): anthropic.md
+    - Ollama: ollama.md
+    - xAI Grok: xai-grok.md
     - Google Gemini: google-gemini.md
+    - Fireworks AI: fireworks.md
+    - Groq: groq.md
+    - Mistral: mistral.md
+

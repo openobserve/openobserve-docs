@@ -1,5 +1,9 @@
 nav:
+    - Claude Agent SDK: claude-agent-sdk.md
+    - CrewAI: crewai.md
+    - Google ADK: google-adk.md
+    - OpenAI Agents: openai-agents.md
+    - LangChain: langchain.md
     - LangChain / LangGraph: langchain.md
     - LiteLLM SDK: litellm.md
     - Vercel AI SDK: vercel-ai.md
-    - CrewAI: crewai.md
