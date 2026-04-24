@@ -1,0 +1,23 @@
+nav:
+    - Agno: agno.md
+    - AutoGen: autogen.md
+    - BeeAI: beeai.md
+    - Claude Agent SDK: claude-agent-sdk.md
+    - CrewAI: crewai.md
+    - DSPy: dspy.md
+    - Google ADK: google-adk.md
+    - Haystack: haystack.md
+    - Instructor: instructor.md
+    - LangChain: langchain.md
+    - LangGraph: langgraph.md
+    - LangServe: langserve.md
+    - LiteLLM: litellm.md
+    - LlamaIndex: llamaindex.md
+    - Mirascope: mirascope.md
+    - OpenAI Agents: openai-agents.md
+    - Pydantic AI: pydantic-ai.md
+    - Ragas: ragas.md
+    - Restate: restate.md
+    - Semantic Kernel: semantic-kernel.md
+    - SmolAgents: smolagents.md
+    - Strands Agents: strands-agents.md

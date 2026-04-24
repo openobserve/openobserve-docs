@@ -1,4 +1,24 @@
 nav:
-    - OpenAI (Python): openai.md
+    - Amazon Bedrock: amazon-bedrock.md
+    - Amazon Bedrock Agents: amazon-bedrock-agents.md
     - Anthropic (Python): anthropic.md
+    - Baseten: baseten.md
+    - BytePlus: byteplus.md
+    - Cerebras: cerebras.md
+    - Cohere: cohere.md
+    - Databricks: databricks.md
+    - DeepSeek: deepseek.md
+    - Fireworks AI: fireworks.md
     - Google Gemini: google-gemini.md
+    - Google Vertex AI: google-vertex-ai.md
+    - Groq: groq.md
+    - Hugging Face: huggingface.md
+    - Mistral: mistral.md
+    - Novita AI: novita.md
+    - Ollama: ollama.md
+    - OpenAI (Python): openai.md
+    - OpenAI Assistants API: openai-assistants.md
+    - Qwen: qwen.md
+    - Together AI: together-ai.md
+    - vLLM: vllm.md
+    - xAI Grok: xai-grok.md

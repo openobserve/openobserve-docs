@@ -1,0 +1,7 @@
+nav:
+    - Cognee: cognee.md
+    - Exa: exa.md
+    - Firecrawl: firecrawl.md
+    - Gradio: gradio.md
+    - mcp-use: mcp-use.md
+    - Milvus: milvus.md

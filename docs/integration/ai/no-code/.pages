@@ -1,0 +1,8 @@
+nav:
+    - Dify: dify.md
+    - Flowise: flowise.md
+    - Langflow: langflow.md
+    - n8n: n8n.md
+    - Open WebUI: openwebui.md
+    - RAGFlow: ragflow.md
+    - Vapi: vapi.md
