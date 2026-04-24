@@ -206,7 +206,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(message),
-              }
+              },
             );
 
             // Check if response is actually JSON
@@ -214,7 +214,7 @@
             if (!contentType || !contentType.includes("application/json")) {
               const textResponse = await response.text();
               throw new Error(
-                `Server returned ${response.status}: Expected JSON but got ${contentType}`
+                `Server returned ${response.status}: Expected JSON but got ${contentType}`,
               );
             }
 
@@ -239,7 +239,7 @@
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(message),
-                  }
+                  },
                 );
 
                 if (fallbackResponse.ok) {
@@ -284,7 +284,7 @@
         };
 
         window.onRecaptchaSuccess = window.recaptchaSuccess = async function (
-          token
+          token,
         ) {
           recaptchaToken = token;
 
@@ -307,7 +307,7 @@
         function initializeRecaptcha() {
           if (!isRecaptchaLoaded || !window.grecaptcha) return;
           const recaptchaContainer = document.getElementById(
-            "newsletter-recaptcha"
+            "newsletter-recaptcha",
           );
           if (!recaptchaContainer || recaptchaWidgetId !== null) return;
 
@@ -332,7 +332,7 @@
               // If reset fails, destroy and recreate the widget
               try {
                 const recaptchaContainer = document.getElementById(
-                  "newsletter-recaptcha"
+                  "newsletter-recaptcha",
                 );
                 if (recaptchaContainer) {
                   recaptchaContainer.innerHTML = "";
@@ -356,14 +356,14 @@
 
           // Show submit button container again
           const submitContainer = document.getElementById(
-            "newsletter-submit-container"
+            "newsletter-submit-container",
           );
           if (submitContainer) {
             submitContainer.classList.remove("tw-hidden");
           }
 
           const container = document.getElementById(
-            "newsletter-recaptcha-container"
+            "newsletter-recaptcha-container",
           );
           if (container) {
             container.classList.add("tw-hidden");
@@ -386,14 +386,14 @@
 
           // Hide only submit button container during subscription process
           const submitContainer = document.getElementById(
-            "newsletter-submit-container"
+            "newsletter-submit-container",
           );
           if (submitContainer) {
             submitContainer.classList.add("tw-hidden");
           }
 
           const container = document.getElementById(
-            "newsletter-recaptcha-container"
+            "newsletter-recaptcha-container",
           );
           const recaptchaDiv = document.getElementById("newsletter-recaptcha");
 
@@ -433,11 +433,11 @@
           if (!recaptchaToken) {
             showToastMessage(
               "Please complete the reCAPTCHA to proceed.",
-              "error"
+              "error",
             );
             // Show submit button container again and re-enable submit button
             const submitContainer = document.getElementById(
-              "newsletter-submit-container"
+              "newsletter-submit-container",
             );
             if (submitContainer) {
               submitContainer.classList.remove("tw-hidden");
@@ -460,11 +460,11 @@
             if (!captchaResult.success) {
               showToastMessage(
                 "Captcha validation failed. Please try again.",
-                "error"
+                "error",
               );
               // Show submit button container again and re-enable submit button
               const submitContainer = document.getElementById(
-                "newsletter-submit-container"
+                "newsletter-submit-container",
               );
               if (submitContainer) {
                 submitContainer.classList.remove("tw-hidden");
@@ -482,7 +482,7 @@
             // Success flow
             showToastMessage(
               `Subscribed successfully with: ${email}`,
-              "success"
+              "success",
             );
 
             // Reset form
@@ -515,7 +515,7 @@
           } catch (error) {
             showToastMessage(
               "Something went wrong, please try again.",
-              "error"
+              "error",
             );
 
             // Reset newsletter form completely for retry
@@ -596,7 +596,7 @@
 
               // Show submit button container again and re-enable submit button
               const submitContainer = document.getElementById(
-                "newsletter-submit-container"
+                "newsletter-submit-container",
               );
               if (submitContainer) {
                 submitContainer.classList.remove("tw-hidden");
@@ -773,6 +773,12 @@
         <li class="hover:tw-text-[#7782FF] header-list-style">
           <a href="/policies/privacy-policy/" target="_blank">Privacy Policy</a>
         </li>
+          <li class="hover:tw-text-[#7782FF] header-list-style">
+          <a href="/legal/subprocessors/" target="_blank">Subprocessors</a>
+        </li>
+          <li class="hover:tw-text-[#7782FF] header-list-style">
+          <a href="/security-compliance/" target="_blank">Security & Compliance</a>
+        </li>
       </ul>
       <ul class="tw-flex tw-gap-2">
         <!-- Feedback Widget -->
@@ -899,7 +905,7 @@
                   This is for <b>Website feedback only</b> - for general support
                   go to our
                   <a
-                    href="/marketing-opt-in/"
+                    href="https://short.openobserve.ai/community"
                     target="_blank"
                     rel="noopener"
                     class="tw-text-blue-600 tw-underline"
@@ -918,7 +924,7 @@
         <li
           class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
         >
-          <a href="/marketing-opt-in/" target="_blank">
+          <a href="https://short.openobserve.ai/community" target="_blank">
             <img
               src="/docs/assets/slack-icon.svg"
               alt="slack"
@@ -1019,6 +1025,10 @@
               text: "Visualizations & Dashboard",
               link: "/visualization-and-dashboards/",
             },
+            { text: "LLM Observabiltity", link: "/llm-observability/" },
+            { text: "AI Assistant", link: "/ai-assistant/" },
+            { text: "AI SRE", link: "/ai-sre/" },
+            { text: "Incidents", link: "/incidents/" },
             { text: "Pricing", link: "/pricing/" },
           ],
         },
@@ -1036,14 +1046,20 @@
         {
           title: "Resources",
           items: [
-            { text: "Documentation", link: "/docs", target: "_blank" },
+            { text: "Documentation", link: "/docs/", target: "_blank" },
             { text: "Blog", link: "/blog/" },
             { text: "FAQs", link: "/faqs/" },
-            { text: "Articles", link: "/articles/" },
             { text: "Customer Stories", link: "/customer-stories/" },
             { text: "Downloads", link: "/downloads/" },
             { text: "Webinar and Videos", link: "/webinars-videos/" },
             { text: "Events", link: "/events/" },
+            { text: "StartUp Program", link: "/startup/" },
+            { text: "OpenObserve VS Others", link: "/comparison/" },
+            {
+              text: "Datadog Bill Analyzer",
+              link: "/datadog_pricing_comparison/",
+            },
+            { text: "What's New", link: "/whats-new/" },
           ],
         },
         {
@@ -1053,11 +1069,16 @@
             { text: "Careers", link: "/careers/" },
             { text: "Contact Us", link: "/contact-us/" },
             { text: "Contact Sales", link: "/contact-sales/" },
-            { text: "Request Demo", link: "/demo/" },
+            { text: "Request Demo", link: "/demo" },
             { text: "Partners", link: "/partners/" },
             { text: "Enterprise License", link: "/enterprise-license/" },
+            {
+              text: "Trust Center",
+              link: "https://security.openobserve.ai/",
+              target: "_blank",
+            },
           ],
-        },
+        }
       ];
 
       footerData.forEach((section) => {
@@ -1076,8 +1097,8 @@
           return `
             <li class="hover:tw-text-[#7782FF]">
               <a href="${item.link}" target="${
-            item.target || ""
-          }" ${plausibleAttr}>
+                item.target || ""
+              }" ${plausibleAttr}>
                 ${item.text}
               </a>
             </li>
