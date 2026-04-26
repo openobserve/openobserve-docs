@@ -3,5 +3,7 @@ nav:
     - Claude Code Tracing: claude-code-tracing.md
     - Frameworks: frameworks
     - Model Providers: providers
+    - Gateways: gateways
+    - No-Code Agent Builders: no-code
     - Tools: tools
     - MCP: mcp

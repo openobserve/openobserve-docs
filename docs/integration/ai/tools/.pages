@@ -1,4 +1,10 @@
 nav:
     - Cognee: cognee.md
+    - Exa: exa.md
+    - Firecrawl: firecrawl.md
     - Gradio: gradio.md
     - Milvus: milvus.md
+    - Mixpanel: mixpanel.md
+    - PostHog: posthog.md
+    - Promptfoo: promptfoo.md
+    - Trubrics: trubrics.md

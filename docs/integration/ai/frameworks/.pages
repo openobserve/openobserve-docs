@@ -12,6 +12,9 @@ nav:
     - LiteLLM: litellm.md
     - Mirascope: mirascope.md
     - OpenAI Agents: openai-agents.md
+    - Pipecat: pipecat.md
     - Pydantic AI: pydantic-ai.md
     - Ragas: ragas.md
+    - Semantic Kernel: semantic-kernel.md
     - SmolAgents: smolagents.md
+    - Strands Agents: strands-agents.md

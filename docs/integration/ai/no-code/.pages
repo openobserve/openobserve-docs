@@ -1,0 +1,5 @@
+nav:
+    - Flowise: flowise.md
+    - Langflow: langflow.md
+    - n8n: n8n.md
+    - Open WebUI: openwebui.md
