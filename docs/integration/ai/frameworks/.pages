@@ -19,6 +19,7 @@ nav:
     - Mastra: mastra.md
     - Mirascope: mirascope.md
     - OpenAI Agents: openai-agents.md
+    - Pipecat: pipecat.md
     - Pydantic AI: pydantic-ai.md
     - Ragas: ragas.md
     - Restate: restate.md
@@ -26,3 +27,6 @@ nav:
     - Temporal: temporal.md
     - Vercel AI SDK: vercel-ai-sdk.md
     - VoltAgent: voltagent.md
+    - Semantic Kernel: semantic-kernel.md
+    - SmolAgents: smolagents.md
+    - Strands Agents: strands-agents.md
