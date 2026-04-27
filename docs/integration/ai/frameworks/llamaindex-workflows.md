@@ -9,7 +9,7 @@ Automatically capture step-by-step execution spans for every LlamaIndex Workflow
 
 ## **Prerequisites**
 
-* Python 3.9+ (use `llama-index-core==0.10.68` for Python 3.9 compatibility)
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key
@@ -17,25 +17,27 @@ Automatically capture step-by-step execution spans for every LlamaIndex Workflow
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-llama-index \
+pip install openobserve "openinference-instrumentation-llama-index==2.2.4" \
   "llama-index-core==0.10.68" "llama-index-llms-openai==0.1.31" \
   python-dotenv
 ```
+
+Pin `llama-index-core` to `0.10.68` on Python 3.9. Later versions use `X | Y` union syntax that requires Python 3.10+.
 
 ## **Configuration**
 
 Create a `.env` file in your project root:
 
 ```
-OPENOBSERVE_URL=https://api.openobserve.ai/
-OPENOBSERVE_ORG=your_org_id
+OPENOBSERVE_URL=http://localhost:5080/
+OPENOBSERVE_ORG=default
 OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 OPENAI_API_KEY=your-openai-api-key
 ```
 
 ## **Instrumentation**
 
-Call `LlamaIndexInstrumentor().instrument()` **before** importing LlamaIndex components. Define your workflow steps normally.
+Call `LlamaIndexInstrumentor().instrument()` before importing LlamaIndex components. Define your workflow steps normally.
 
 ```python
 from dotenv import load_dotenv
@@ -76,25 +78,34 @@ asyncio.run(main())
 
 ## **What Gets Captured**
 
+Each workflow run produces a trace with spans for each step and any LLM calls within them:
+
 | Attribute | Description |
 | ----- | ----- |
-| `openinference_span_kind` | `CHAIN` for the workflow root, `LLM` for model calls within steps |
-| `workflow_name` | The workflow class name |
-| `step_name` | The name of the executing step handler |
-| `llm_model_name` | Model used inside LLM steps |
-| `llm_token_count_prompt` | Prompt tokens consumed |
-| `llm_token_count_completion` | Completion tokens returned |
-| `input_value` | Input event data |
-| `output_value` | Step or workflow output |
-| `duration` | Latency per step and for the full workflow |
+| `openinference_span_kind` | `CHAIN` for the workflow root and steps, `LLM` for model calls |
+| `operation_name` | Span name, e.g. `OpenAI.acomplete` for async LLM calls |
+| `llm_model_name` | Model used inside the LLM step (e.g. `gpt-4o-mini`) |
+| `llm_prompts` | The prompt string sent to the model |
+| `llm_usage_tokens_input` | Input token count |
+| `llm_usage_tokens_output` | Output token count |
+| `llm_usage_tokens_total` | Total tokens for the LLM call |
+| `llm_usage_cost_input` | Estimated cost of input tokens |
+| `llm_usage_cost_output` | Estimated cost of output tokens |
+| `llm_invocation_parameters` | JSON string of model config (context window, function calling support) |
+| `llm_observation_type` | `GENERATION` for LLM spans |
+| `gen_ai_response_model` | Model ID returned by the provider |
 | `span_status` | `OK` or error status |
+| `duration` | Latency per step and for the full workflow |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Each workflow run appears as a root span with child spans per step
 3. Expand the trace to see the step execution order and which step called the LLM
-4. Filter by `workflow_name` to compare different workflow designs
+4. Filter by `openinference_span_kind` = `LLM` to focus on model calls
+5. Filter by `span_status` = `ERROR` to find failed workflow runs
+
+![LlamaIndex Workflows trace in OpenObserve](../../../../images/integration/ai/llamaindex-workflows.png)
 
 ## **Next Steps**
 
@@ -104,5 +115,5 @@ With LlamaIndex Workflows instrumented, every pipeline run is recorded in OpenOb
 
 - [LlamaIndex](llamaindex.md)
 - [LLM Observability Overview](../llm-applications.md)
-- [Traces Ingestion with Python](../../../ingestion/traces/python.md)
 - [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/)

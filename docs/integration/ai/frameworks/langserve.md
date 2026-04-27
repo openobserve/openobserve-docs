@@ -1,16 +1,16 @@
 ---
 title: LangServe
-description: Instrument LangServe applications and send traces to OpenObserve via OpenTelemetry.
+description: Instrument LangServe remote chain calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
 # **LangServe → OpenObserve**
 
-Automatically trace every remote chain invocation when calling a LangServe-hosted API. LangServe uses LangChain under the hood, so the same LangChain instrumentor captures calls made via `RemoteRunnable`.
+Trace every remote chain invocation when calling a LangServe-hosted API from a Python client. LangServe uses LangChain under the hood, so the LangChain instrumentor captures `RemoteRunnable` calls as workflow spans and records end-to-end latency for each remote invocation.
 
 ## **Prerequisites**
 
 * Python 3.8+
-* A running LangServe server (see [LangServe docs](https://python.langchain.com/docs/langserve/))
+* A running LangServe server (see the server setup below)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 
@@ -29,6 +29,32 @@ OPENOBSERVE_URL=https://api.openobserve.ai/
 OPENOBSERVE_ORG=your_org_id
 OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 LANGSERVE_URL=http://localhost:8000
+```
+
+## **Server setup**
+
+Start a minimal LangServe server before running the instrumented client. Install the server dependencies separately:
+
+```shell
+pip install langserve[all] langchain_openai fastapi uvicorn
+```
+
+```python
+from fastapi import FastAPI
+from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langserve import add_routes
+
+app = FastAPI()
+llm = ChatOpenAI(model="gpt-4o-mini")
+prompt = ChatPromptTemplate.from_template("Answer in one sentence: {input}")
+chain = prompt | llm | StrOutputParser()
+add_routes(app, chain, path="/chain")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 ```
 
 ## **Instrumentation**
@@ -54,48 +80,33 @@ result = chain.invoke({"input": "What is OpenTelemetry?"})
 print(result)
 ```
 
-### Starting a minimal LangServe server
-
-```python
-from fastapi import FastAPI
-from langchain_openai import ChatOpenAI
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
-from langserve import add_routes
-
-app = FastAPI()
-llm = ChatOpenAI(model="gpt-4o-mini")
-prompt = ChatPromptTemplate.from_template("Answer in one sentence: {input}")
-chain = prompt | llm | StrOutputParser()
-add_routes(app, chain, path="/chain")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-```
-
 ## **What Gets Captured**
 
 | Attribute | Description |
 | ----- | ----- |
-| `langchain_request_type` | `chain` for the remote runnable call |
-| `gen_ai_request_model` | Model used by the server-side chain |
-| `gen_ai_usage_input_tokens` | Input tokens consumed |
-| `gen_ai_usage_output_tokens` | Output tokens generated |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
-| `duration` | End-to-end request latency |
-| `error` | Exception details on failure |
+| `operation_name` | `RemoteRunnable.workflow` |
+| `llm_observation_type` | `WORKFLOW` |
+| `traceloop_entity_name` | `RemoteRunnable` |
+| `traceloop_workflow_name` | `RemoteRunnable` |
+| `traceloop_span_kind` | `workflow` |
+| `span_kind` | `Internal` |
+| `span_status` | `UNSET` on success, `ERROR` on failure |
+| `duration` | End-to-end latency for the remote chain call |
+
+Token counts are not available on the client side — the LLM call happens inside the server. To capture token usage, instrument the server with the same `LangchainInstrumentor` and point it at OpenObserve.
 
 ## **Viewing Traces**
 
-1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
-2. Click any root span to see the remote chain execution
-3. Inspect token counts and latency for each server-side LLM call
+1. Log in to OpenObserve and navigate to **Traces**
+2. Spans appear with `operation_name: RemoteRunnable.workflow`
+3. Use `duration` to monitor remote chain latency end-to-end
+4. Error spans from invalid endpoints appear with `span_status: ERROR`
+
+![LangServe trace in OpenObserve](../../../images/integration/ai/langserve.png)
 
 ## **Next Steps**
 
-With LangServe instrumented, every remote chain call is recorded in OpenObserve. From here you can monitor API latency, track token usage per endpoint, and alert on error rates.
+With LangServe instrumented, every remote chain call is recorded in OpenObserve. From here you can monitor API latency per endpoint and alert on error rates.
 
 ## **Read More**
 

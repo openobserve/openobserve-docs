@@ -1,4 +1,5 @@
 nav:
+    - Anthropic (JS/TS): anthropic-js.md
     - Anthropic (Python): anthropic.md
     - Cerebras: cerebras.md
     - Cohere: cohere.md
@@ -8,6 +9,7 @@ nav:
     - Mistral: mistral.md
     - Novita AI: novita.md
     - Ollama: ollama.md
+    - OpenAI (JS/TS): openai-js.md
     - OpenAI (Python): openai.md
     - OpenAI Assistants API: openai-assistants.md
     - Together AI: together-ai.md

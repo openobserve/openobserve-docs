@@ -1,24 +1,24 @@
 ---
 title: LiveKit
-description: Instrument LiveKit voice AI agents and send traces to OpenObserve via OpenTelemetry.
+description: Instrument LiveKit Agents LLM calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
 # **LiveKit → OpenObserve**
 
-Automatically capture LLM call spans, token usage, and turn latency for every LiveKit agent session. LiveKit Agents is a Python framework for building real-time voice and video AI agents. It has built-in OpenTelemetry support that activates when the standard OTLP environment variables are set.
+Capture LLM call latency, token usage, input messages, and output content for every LiveKit Agents LLM call. LiveKit Agents is a Python framework for building real-time voice AI agents. Its LLM components can be used standalone without a LiveKit server. Register a TracerProvider with `telemetry.set_tracer_provider()` and every LLM call is automatically traced as nested `llm_request` and `llm_request_run` spans, plus your own manual root spans.
 
 ## **Prerequisites**
 
 * Python 3.10+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
-* A [LiveKit](https://livekit.io/) account with API credentials
-* An OpenAI API key (or another LiveKit-supported LLM)
+* An OpenAI API key
 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk "livekit-agents[openai]" python-dotenv
+pip install "livekit-agents[openai]" opentelemetry-exporter-otlp-proto-http \
+  opentelemetry-sdk python-dotenv
 ```
 
 ## **Configuration**
@@ -26,23 +26,14 @@ pip install openobserve-telemetry-sdk "livekit-agents[openai]" python-dotenv
 Create a `.env` file in your project root:
 
 ```
-OPENOBSERVE_URL=https://api.openobserve.ai/
-OPENOBSERVE_ORG=your_org_id
-OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
-LIVEKIT_URL=wss://your-project.livekit.cloud
-LIVEKIT_API_KEY=your-livekit-api-key
-LIVEKIT_API_SECRET=your-livekit-api-secret
 OPENAI_API_KEY=your-openai-api-key
-OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:5080/api/default/v1/traces
-OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
-OTEL_SERVICE_NAME=livekit-agent
+OTEL_EXPORTER_OTLP_ENDPOINT=https://api.openobserve.ai/api/your_org_id/v1/traces
+OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic <your_base64_token>
 ```
-
-LiveKit Agents reads the standard `OTEL_EXPORTER_OTLP_*` environment variables and exports traces automatically.
 
 ## **Instrumentation**
 
-No explicit `instrument()` call is needed. Define your agent normally and the OTLP exporter is configured via environment variables.
+Build a `TracerProvider` with an OTLP exporter and pass it to `telemetry.set_tracer_provider()` before making any LLM calls. The LiveKit SDK then attaches its own spans as children of any active span.
 
 ```python
 from dotenv import load_dotenv
@@ -50,62 +41,98 @@ load_dotenv()
 
 import asyncio
 import os
-from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli
-from livekit.agents.llm import ChatContext, ChatMessage
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.resources import Resource
+from opentelemetry import trace as trace_api
+
+auth_header = os.environ["OTEL_EXPORTER_OTLP_HEADERS"].replace("Authorization=", "")
+
+provider = TracerProvider(resource=Resource.create({"service.name": "my-app"}))
+provider.add_span_processor(
+    BatchSpanProcessor(
+        OTLPSpanExporter(
+            endpoint=os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"],
+            headers={"Authorization": auth_header},
+        )
+    )
+)
+trace_api.set_tracer_provider(provider)
+
+from livekit.agents import telemetry, llm
 from livekit.plugins import openai as lk_openai
 
-async def entrypoint(ctx: JobContext):
-    await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
+telemetry.set_tracer_provider(provider)
+tracer = trace_api.get_tracer(__name__)
 
-    llm = lk_openai.LLM(model="gpt-4o-mini", api_key=os.environ["OPENAI_API_KEY"])
+model = lk_openai.LLM(model="gpt-4o-mini")
 
-    chat_ctx = ChatContext()
-    chat_ctx.append(text="Hello, how can I help you today?", role="assistant")
 
-    async def on_message(message: str):
-        chat_ctx.append(text=message, role="user")
-        stream = llm.chat(chat_ctx=chat_ctx)
-        reply = ""
-        async for chunk in stream:
-            if chunk.choices and chunk.choices[0].delta.content:
-                reply += chunk.choices[0].delta.content
-        chat_ctx.append(text=reply, role="assistant")
-        return reply
+async def main():
+    with tracer.start_as_current_span("livekit.llm_call") as span:
+        span.set_attribute("livekit.question", "What is distributed tracing?")
+        ctx = llm.ChatContext()
+        ctx.add_message(role="user", content="What is distributed tracing?")
+        stream = model.chat(chat_ctx=ctx)
+        collected = await stream.collect()
+        usage = collected.usage
+        span.set_attribute("livekit.input_tokens", usage.prompt_tokens if usage else 0)
+        span.set_attribute("livekit.output_tokens", usage.completion_tokens if usage else 0)
+        span.set_attribute("livekit.answer_preview", (collected.text or "")[:80])
+        span.set_attribute("span_status", "OK")
+        print(collected.text)
 
-    # Process participant messages
-    async for event in ctx.room.on("data_received"):
-        await on_message(event.data.decode())
+    provider.force_flush()
 
-if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
+
+asyncio.run(main())
 ```
 
 ## **What Gets Captured**
 
+Each LLM call produces a manual `livekit.llm_call` root span with nested spans from the LiveKit SDK.
+
+**`livekit.llm_call` span (manual root)**
+
 | Attribute | Description |
 | ----- | ----- |
-| `livekit.agent_name` | Name of the agent worker |
-| `livekit.room_name` | LiveKit room the agent joined |
-| `llm_model_name` | LLM model used for responses |
-| `llm_token_count_prompt` | Prompt tokens per LLM turn |
-| `llm_token_count_completion` | Completion tokens per LLM turn |
-| `duration` | Per-turn LLM latency |
-| `span_status` | `OK` or error status |
+| `livekit_question` | User prompt passed to the LLM |
+| `livekit_input_tokens` | Prompt tokens for the call |
+| `livekit_output_tokens` | Completion tokens generated |
+| `livekit_answer_preview` | First 80 characters of the response |
+| `span_status` | `OK` or `ERROR` |
+| `duration` | End-to-end call latency |
+
+**`llm_request` span (auto-instrumented child)**
+
+| Attribute | Description |
+| ----- | ----- |
+| `gen_ai_request_model` | Model requested (e.g. `gpt-4o-mini`) |
+| `gen_ai_response_model` | Model that served the response |
+| `gen_ai_system` | Provider system (e.g. `api.openai.com`) |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `llm_input` | Full input messages as JSON |
+| `llm_output_content` | Full response text |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Each agent session appears as a series of LLM turn spans
-3. Filter by `livekit.room_name` to isolate a specific session
-4. Sort by duration to find the slowest voice turns
+2. Filter by `service_name = livekit-test` to isolate LiveKit spans
+3. Filter by `operation_name = livekit.llm_call` to see the root span for each call
+4. Expand a trace to see the nested `llm_request` and `llm_request_run` spans
+5. Filter by `span_status = ERROR` to find failed calls
+
+![LiveKit traces in OpenObserve](../../../images/integration/ai/livekit.png)
 
 ## **Next Steps**
 
-With LiveKit Agents instrumented, every voice interaction is recorded in OpenObserve. From here you can monitor turn latency, track token usage per session, and set alerts on high-latency turns.
+With LiveKit Agents instrumented, every LLM call is recorded in OpenObserve. From here you can monitor turn latency, track token usage per session, and alert on high-latency or failed calls.
 
 ## **Read More**
 
-- [Pipecat](pipecat.md)
 - [LLM Observability Overview](../llm-applications.md)
+- [Pipecat](pipecat.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
 - [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)

@@ -5,7 +5,7 @@ description: Instrument Parallel AI task runs and send traces to OpenObserve via
 
 # **Parallel → OpenObserve**
 
-Capture task IDs, status, and latency for every Parallel AI workflow execution. Parallel is a platform for running AI tasks and workflows at scale. Instrumentation uses manual OpenTelemetry spans wrapping Parallel REST API calls.
+Capture run IDs, processor tier, status, and latency for every Parallel AI task submission. Parallel does not ship a dedicated OTel instrumentor, so instrumentation uses manual OpenTelemetry spans wrapping the Parallel REST API.
 
 ## **Prerequisites**
 
@@ -33,14 +33,14 @@ PARALLEL_API_KEY=your-parallel-api-key
 
 ## **Instrumentation**
 
-Call `openobserve_init()` **before** making API calls. Wrap each Parallel task submission in a manual span.
+Call `openobserve_init()` before making API calls. Pass `resource_attributes` to set the service name, then wrap each task submission in a manual span.
 
 ```python
 from dotenv import load_dotenv
 load_dotenv()
 
 from openobserve import openobserve_init
-openobserve_init()
+openobserve_init(resource_attributes={"service.name": "my-app"})
 
 from opentelemetry import trace
 import os
@@ -52,52 +52,57 @@ api_key = os.environ["PARALLEL_API_KEY"]
 BASE_URL = "https://api.parallel.ai/v1"
 
 headers = {
-    "Authorization": f"Bearer {api_key}",
+    "x-api-key": api_key,
     "Content-Type": "application/json",
 }
 
-def run_task(task: str):
+def run_task(task: str, processor: str = "core"):
     with tracer.start_as_current_span("parallel.run_task") as span:
         span.set_attribute("parallel.task", task[:100])
+        span.set_attribute("parallel.processor", processor)
         resp = requests.post(
-            f"{BASE_URL}/tasks",
+            f"{BASE_URL}/tasks/runs",
             headers=headers,
-            json={"task": task, "model": "gpt-4o-mini"},
+            json={"input": task, "processor": processor},
             timeout=30,
         )
         resp.raise_for_status()
         data = resp.json()
-        span.set_attribute("parallel.task_id", str(data.get("id", "")))
-        span.set_attribute("parallel.status", str(data.get("status", "")))
-        span.set_attribute("span_status", "OK")
+        span.set_attribute("parallel.run_id", data.get("run_id", ""))
+        span.set_attribute("parallel.status", data.get("status", ""))
         return data
 
 result = run_task("Explain distributed tracing in one sentence.")
 print(result)
 ```
 
+Parallel returns immediately with a `queued` status and a `run_id`. Poll `GET /tasks/runs/{run_id}` to retrieve the completed result. The `processor` field controls the capability tier: `core`, `base`, or `ultra`.
+
 ## **What Gets Captured**
 
 | Attribute | Description |
 | ----- | ----- |
-| `parallel.task` | The task description (truncated to 100 chars) |
-| `parallel.task_id` | Unique identifier for the submitted task |
-| `parallel.status` | Task status returned by the API |
-| `parallel.status_code` | HTTP status code on error responses |
-| `span_status` | `OK` or error status |
-| `error.message` | Error detail on failed requests |
+| `parallel_task` | The task input text (truncated to 100 chars) |
+| `parallel_run_id` | Unique run identifier returned by the API |
+| `parallel_status` | Initial task status, typically `queued` |
+| `parallel_processor` | Processor tier used (`core`, `base`, or `ultra`) |
+| `parallel_status_code` | HTTP status code on error responses |
+| `span_status` | `OK` or `ERROR` |
+| `error_message` | Error detail on failed requests |
 | `duration` | API call latency |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by span name `parallel.run_task` to see all task submissions
-3. Filter by `span_status` `ERROR` to find failed requests
-4. Sort by duration to identify slow task submissions
+2. Filter by service name to find your Parallel spans
+3. Click a `parallel.run_task` span to inspect the run ID, processor tier, and status
+4. Filter by `span_status` = `ERROR` to identify failed submissions
+
+![Parallel task trace in OpenObserve](../../../images/integration/ai/parallel.png)
 
 ## **Next Steps**
 
-With Parallel instrumented, every task run is recorded in OpenObserve. From here you can monitor task submission latency, track status distributions, and set up alerts on failed task executions.
+With Parallel instrumented, every task submission is recorded in OpenObserve. From here you can monitor submission latency, track error rates by processor tier, and correlate Parallel runs with other spans in your pipeline.
 
 ## **Read More**
 

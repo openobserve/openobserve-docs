@@ -5,15 +5,15 @@ description: Instrument LibreChat API calls and send traces to OpenObserve via O
 
 # **LibreChat → OpenObserve**
 
-Capture per-request latency, endpoint, and status codes for every message sent through LibreChat's API. LibreChat is a self-hosted ChatGPT alternative that supports multiple LLM providers including OpenAI, Anthropic, and Ollama. Instrumentation wraps LibreChat's HTTP API in manual OpenTelemetry spans.
+Capture per-conversation latency, endpoint, completion status, and error rates for every message sent through LibreChat's API. LibreChat is a self-hosted multi-provider chat UI supporting OpenAI, Anthropic, Ollama, and others. Instrumentation wraps LibreChat's HTTP API in manual OpenTelemetry spans.
 
 ## **Prerequisites**
 
 * Python 3.8+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
-* A running [LibreChat](https://www.librechat.ai/) instance
-* A LibreChat user JWT token (obtained by logging in)
+* A running [LibreChat](https://www.librechat.ai/) instance (self-hosted via Docker)
+* LibreChat credentials (email and password) for programmatic login
 
 ## **Installation**
 
@@ -30,89 +30,125 @@ OPENOBSERVE_URL=https://api.openobserve.ai/
 OPENOBSERVE_ORG=your_org_id
 OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 LIBRECHAT_BASE_URL=http://localhost:3080
-LIBRECHAT_USER_JWT=your-librechat-jwt-token
-LIBRECHAT_ENDPOINT=openAI
-```
-
-To capture native LibreChat OTLP traces, set these environment variables when starting LibreChat:
-
-```
-OTEL_EXPORTER_OTLP_ENDPOINT=https://api.openobserve.ai/api/your_org_id/v1/traces
-OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic <your_base64_token>
+LIBRECHAT_EMAIL=your@email.com
+LIBRECHAT_PASSWORD=your-password
 ```
 
 ## **Instrumentation**
 
-Call `openobserve_init()` **before** making API calls. Wrap each LibreChat message request in a manual span.
+Call `openobserve_init()` before making API calls. Pass `resource_attributes` to set the service name. The script logs in to LibreChat to obtain a JWT, posts each message to the async chat endpoint, and polls for completion before closing the span.
 
 ```python
 from dotenv import load_dotenv
 load_dotenv()
 
-from openobserve import openobserve_init
-openobserve_init()
+from openobserve import openobserve_init, openobserve_shutdown
+openobserve_init(resource_attributes={"service.name": "my-app"})
 
 from opentelemetry import trace
 import os
+import time
 import requests
 
 tracer = trace.get_tracer(__name__)
 
 base_url = os.environ.get("LIBRECHAT_BASE_URL", "http://localhost:3080")
-jwt_token = os.environ["LIBRECHAT_USER_JWT"]
+email = os.environ["LIBRECHAT_EMAIL"]
+password = os.environ["LIBRECHAT_PASSWORD"]
 endpoint = os.environ.get("LIBRECHAT_ENDPOINT", "openAI")
+
+BROWSER_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/120.0.0.0 Safari/537.36"
+)
+
+
+def login():
+    resp = requests.post(
+        f"{base_url}/api/auth/login",
+        headers={"Content-Type": "application/json"},
+        json={"email": email, "password": password},
+        timeout=15,
+    )
+    resp.raise_for_status()
+    return resp.json()["token"]
+
+
+def wait_for_completion(jwt_token, conversation_id, timeout=30):
+    headers = {"Authorization": f"Bearer {jwt_token}", "User-Agent": BROWSER_UA}
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        resp = requests.get(
+            f"{base_url}/api/agents/chat/status/{conversation_id}",
+            headers=headers,
+            timeout=10,
+        )
+        if not resp.json().get("active", True):
+            return True
+        time.sleep(1)
+    return False
+
+
+jwt_token = login()
 
 headers = {
     "Authorization": f"Bearer {jwt_token}",
     "Content-Type": "application/json",
+    "User-Agent": BROWSER_UA,
 }
 
-def ask(question: str):
-    with tracer.start_as_current_span("librechat.ask") as span:
-        span.set_attribute("librechat.endpoint", endpoint)
-        span.set_attribute("librechat.question", question[:100])
-        resp = requests.post(
-            f"{base_url}/api/ask/{endpoint}",
-            headers=headers,
-            json={
-                "text": question,
-                "model": "gpt-4o-mini",
-                "endpoint": endpoint,
-                "sender": "User",
-                "isCreatedByUser": True,
-            },
-            timeout=30,
-        )
-        resp.raise_for_status()
-        span.set_attribute("librechat.status_code", resp.status_code)
-        span.set_attribute("span_status", "OK")
-        return resp.json()
+with tracer.start_as_current_span("librechat.chat") as span:
+    span.set_attribute("librechat.endpoint", endpoint)
+    span.set_attribute("librechat.question", "What is distributed tracing?")
+    resp = requests.post(
+        f"{base_url}/api/agents/chat",
+        headers=headers,
+        json={"text": "What is distributed tracing?", "endpoint": endpoint, "model": "gpt-4o-mini"},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    conversation_id = data["conversationId"]
+    span.set_attribute("librechat.conversation_id", conversation_id)
+    span.set_attribute("librechat.status_code", resp.status_code)
+    completed = wait_for_completion(jwt_token, conversation_id)
+    span.set_attribute("librechat.completed", completed)
+    span.set_attribute("span_status", "OK")
 
-result = ask("What is distributed tracing?")
-print(result)
+openobserve_shutdown()
 ```
+
+LibreChat's chat API is asynchronous. `POST /api/agents/chat` returns a `conversationId` immediately and processes the response in the background. The `wait_for_completion` helper polls `GET /api/agents/chat/status/:conversationId` until the job finishes, so the span duration reflects the full end-to-end latency including the LLM response time.
+
+LibreChat enforces a browser User-Agent header on the chat endpoint. Requests without a recognisable browser UA are rejected with `Illegal request`.
 
 ## **What Gets Captured**
 
 | Attribute | Description |
 | ----- | ----- |
-| `librechat.endpoint` | The provider endpoint (e.g. `openAI`, `anthropic`) |
-| `librechat.question` | The user's message (truncated to 100 chars) |
-| `librechat.status_code` | HTTP status code from LibreChat API |
-| `span_status` | `OK` or error status |
-| `error.message` | Error detail on failed requests |
-| `duration` | Request latency |
+| `librechat_conversation_id` | Unique ID for the conversation created by the chat request |
+| `librechat_endpoint` | Provider endpoint name (e.g. `openAI`, `anthropic`) |
+| `librechat_question` | User message text, truncated to 100 characters |
+| `librechat_status_code` | HTTP status code from `POST /api/agents/chat` |
+| `librechat_completed` | Whether the async job completed within the timeout |
+| `span_status` | `OK` on success, `ERROR` on failed requests |
+| `error_message` | Error detail when the request fails |
+| `duration` | End-to-end latency including LLM response time |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by span name `librechat.ask` to see all message requests
-3. Filter by `librechat.endpoint` to compare latency across providers
-4. Filter by `span_status` `ERROR` to find failed requests
+2. Filter by `service_name = librechat-test` to isolate LibreChat spans
+3. Click a `librechat.chat` span to inspect the conversation ID and endpoint
+4. Filter by `span_status = ERROR` to identify authentication or connection failures
+5. Sort by `duration` to find the slowest LLM responses
+
+![LibreChat trace in OpenObserve](../../../images/integration/ai/librechat.png)
 
 ## **Next Steps**
 
-With LibreChat instrumented, every API call is recorded in OpenObserve. From here you can monitor latency per provider endpoint, track error rates, and set up alerts when requests fail.
+With LibreChat instrumented, every API call is recorded in OpenObserve. From here you can monitor latency per provider endpoint, track completion rates for async jobs, and alert when requests fail or exceed acceptable latency thresholds.
 
 ## **Read More**
 

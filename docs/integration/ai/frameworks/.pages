@@ -1,5 +1,6 @@
 nav:
     - Agno: agno.md
+    - Amazon Bedrock AgentCore: amazon-bedrock-agentcore.md
     - AutoGen: autogen.md
     - Claude Agent SDK: claude-agent-sdk.md
     - CrewAI: crewai.md
@@ -7,14 +8,24 @@ nav:
     - Google ADK: google-adk.md
     - Haystack: haystack.md
     - Instructor: instructor.md
+    - Koog: koog.md
     - LangChain: langchain.md
+    - LangChain DeepAgents: deepagents.md
     - LangGraph: langgraph.md
     - LiteLLM: litellm.md
+    - Mastra: mastra.md
+    - Microsoft Agent Framework: microsoft-agent-framework.md
     - Mirascope: mirascope.md
     - OpenAI Agents: openai-agents.md
     - Pipecat: pipecat.md
     - Pydantic AI: pydantic-ai.md
+    - Quarkus LangChain4j: quarkus-langchain4j.md
     - Ragas: ragas.md
     - Semantic Kernel: semantic-kernel.md
     - SmolAgents: smolagents.md
+    - Spring AI: spring-ai.md
     - Strands Agents: strands-agents.md
+    - Swiftide: swiftide.md
+    - Vercel AI SDK: vercel-ai-sdk.md
+    - VoltAgent: voltagent.md
+    - Watsonx Orchestrate ADK: watsonx-orchestrate-adk.md

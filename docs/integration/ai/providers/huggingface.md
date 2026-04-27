@@ -5,7 +5,7 @@ description: Instrument Hugging Face Inference API calls and send traces to Open
 
 # **Hugging Face Inference API → OpenObserve**
 
-Automatically capture token usage, latency, and model metadata for every Hugging Face serverless inference call in your Python application. The Hugging Face Inference API exposes an OpenAI-compatible endpoint, so instrumentation uses the standard OpenAI instrumentor pointed at the Hugging Face endpoint.
+Automatically capture token usage, latency, and model metadata for every Hugging Face serverless inference call in your Python application. The Hugging Face Inference Router exposes an OpenAI-compatible endpoint, so instrumentation uses the standard OpenAI instrumentor pointed at the Hugging Face router URL.
 
 ## **Prerequisites**
 
@@ -25,23 +25,15 @@ pip install openobserve-telemetry-sdk openinference-instrumentation-openai opena
 Create a `.env` file in your project root:
 
 ```
-# OpenObserve instance URL
-# Default for self-hosted: http://localhost:5080
 OPENOBSERVE_URL=https://api.openobserve.ai/
-
-# Your OpenObserve organisation slug or ID
 OPENOBSERVE_ORG=your_org_id
-
-# Basic auth token — Base64-encoded "email:password"
 OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
-
-# Hugging Face access token
 HF_TOKEN=hf_your_token_here
 ```
 
 ## **Instrumentation**
 
-Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Use the full Hugging Face Hub model ID as the model string.
+Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the Hugging Face router and use the full Hub model ID as the model string.
 
 ```python
 from dotenv import load_dotenv
@@ -58,37 +50,52 @@ from openai import OpenAI
 
 client = OpenAI(
     api_key=os.environ["HF_TOKEN"],
-    base_url="https://api-inference.huggingface.co/v1",
+    base_url="https://router.huggingface.co/v1",
 )
 
 response = client.chat.completions.create(
-    model="Qwen/Qwen2.5-7B-Instruct",
+    model="meta-llama/Llama-3.1-8B-Instruct",
     messages=[{"role": "user", "content": "Explain distributed tracing in one sentence."}],
     max_tokens=100,
 )
 print(response.choices[0].message.content)
 ```
 
-The model string is the full Hugging Face Hub model ID (e.g. `Qwen/Qwen2.5-7B-Instruct`, `mistralai/Mistral-7B-Instruct-v0.3`). Only models that support the serverless inference endpoint work with this API — check the model page on the Hub for the "Inference API" badge. Some models (such as gated Llama variants) require you to accept the model's license on the Hub before your token will be authorised.
+The model string is the full Hugging Face Hub model ID (e.g. `meta-llama/Llama-3.1-8B-Instruct`, `mistralai/Mistral-7B-Instruct-v0.3`). Only models with an active serverless inference endpoint work with this API. Gated models (such as Llama variants) require accepting the model licence on the Hub before your token is authorised.
 
 ## **What Gets Captured**
 
 | Attribute | Description |
 | ----- | ----- |
-| `llm_model_name` | Full Hub model ID (e.g. `Qwen/Qwen2.5-7B-Instruct`) |
-| `llm_token_count_prompt` | Tokens in the prompt |
-| `llm_token_count_completion` | Tokens in the response |
+| `llm_system` | `openai` (OpenAI-compatible client) |
+| `llm_model_name` | Resolved model name returned by the API (e.g. `llama3.1-8b`) |
+| `llm_request_parameters_model` | Full Hub model ID sent in the request (e.g. `meta-llama/Llama-3.1-8B-Instruct`) |
+| `llm_request_parameters_max_tokens` | `max_tokens` value from the request |
+| `gen_ai_response_model` | Same as `llm_model_name` |
+| `llm_observation_type` | `GENERATION` |
+| `llm_token_count_prompt` | Prompt tokens consumed |
+| `llm_token_count_completion` | Completion tokens returned |
 | `llm_token_count_total` | Total tokens consumed |
-| `llm_system` | `openai` (the client library used) |
+| `llm_token_count_prompt_details_cache_read` | Cached prompt tokens |
+| `llm_token_count_completion_details_reasoning` | Reasoning tokens |
+| `llm_usage_tokens_input` | Input tokens (mirrors `llm_token_count_prompt`) |
+| `llm_usage_tokens_output` | Output tokens (mirrors `llm_token_count_completion`) |
+| `llm_usage_tokens_total` | Total tokens |
 | `openinference_span_kind` | `LLM` |
+| `operation_name` | `ChatCompletion` |
+| `input_mime_type` | `application/json` |
+| `output_mime_type` | `application/json` |
 | `duration` | End-to-end request latency |
-| `error` | Exception details if the request failed |
+| `span_status` | `OK` on success, `ERROR` on failure |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Click any span to inspect token counts and the full request payload
-3. Filter by `llm_model_name` to compare latency across different open-source models
+2. Spans appear with `operation_name: ChatCompletion` and `llm_system: openai`
+3. Note that the Hub model ID (e.g. `meta-llama/Llama-3.1-8B-Instruct`) appears in `llm_request_parameters_model`, while the resolved short name (e.g. `llama3.1-8b`) appears in `llm_model_name`
+4. Filter by `llm_request_parameters_model` to compare latency across different open-source models
+
+![Hugging Face trace in OpenObserve](../../../images/integration/ai/huggingface.png)
 
 ## **Next Steps**
 

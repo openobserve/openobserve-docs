@@ -1,5 +1,12 @@
 nav:
+    - Codename Goose: codename-goose.md
+    - Dify: dify.md
     - Flowise: flowise.md
+    - Langdock: langdock.md
     - Langflow: langflow.md
+    - LibreChat: librechat.md
+    - LobeChat: lobechat.md
     - n8n: n8n.md
     - Open WebUI: openwebui.md
+    - Ragflow: ragflow.md
+    - Vapi: vapi.md
