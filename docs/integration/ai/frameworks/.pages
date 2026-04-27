@@ -1,6 +1,7 @@
 nav:
     - Agno: agno.md
     - AutoGen: autogen.md
+    - BeeAI: beeai.md
     - Claude Agent SDK: claude-agent-sdk.md
     - CrewAI: crewai.md
     - DSPy: dspy.md
@@ -8,10 +9,20 @@ nav:
     - Haystack: haystack.md
     - Instructor: instructor.md
     - LangChain: langchain.md
+    - LangChain DeepAgents: deepagents.md
     - LangGraph: langgraph.md
+    - LangServe: langserve.md
     - LiteLLM: litellm.md
+    - LiveKit: livekit.md
+    - LlamaIndex: llamaindex.md
+    - LlamaIndex Workflows: llamaindex-workflows.md
+    - Mastra: mastra.md
     - Mirascope: mirascope.md
     - OpenAI Agents: openai-agents.md
     - Pydantic AI: pydantic-ai.md
     - Ragas: ragas.md
+    - Restate: restate.md
     - SmolAgents: smolagents.md
+    - Temporal: temporal.md
+    - Vercel AI SDK: vercel-ai-sdk.md
+    - VoltAgent: voltagent.md

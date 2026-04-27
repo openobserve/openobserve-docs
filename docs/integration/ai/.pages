@@ -4,4 +4,6 @@ nav:
     - Frameworks: frameworks
     - Model Providers: providers
     - Tools: tools
+    - Gateways: gateways
+    - No-Code: no-code
     - MCP: mcp

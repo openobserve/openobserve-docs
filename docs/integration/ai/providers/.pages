@@ -1,10 +1,15 @@
 nav:
+    - Anthropic (JS/TS): anthropic-js.md
     - Anthropic (Python): anthropic.md
+    - Databricks: databricks.md
+    - DeepSeek: deepseek.md
     - Fireworks AI: fireworks.md
     - Google Gemini: google-gemini.md
     - Groq: groq.md
+    - HuggingFace: huggingface.md
     - Mistral: mistral.md
     - Ollama: ollama.md
+    - OpenAI (JS/TS): openai-js.md
     - OpenAI (Python): openai.md
     - OpenAI Assistants API: openai-assistants.md
     - xAI Grok: xai-grok.md

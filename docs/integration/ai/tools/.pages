@@ -1,4 +1,7 @@
 nav:
     - Cognee: cognee.md
     - Gradio: gradio.md
+    - mcp-use: mcp-use.md
     - Milvus: milvus.md
+    - Parallel: parallel.md
+    - Zapier: zapier.md
