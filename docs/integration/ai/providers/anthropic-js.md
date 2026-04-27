@@ -19,8 +19,7 @@ Capture LLM call latency, token usage, model name, input and output messages for
 ```shell
 npm install @anthropic-ai/sdk @arizeai/openinference-instrumentation-anthropic \
   @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http \
-  @opentelemetry/sdk-trace-node @opentelemetry/resources \
-  @opentelemetry/semantic-conventions
+  @opentelemetry/sdk-trace-node @opentelemetry/resources
 ```
 
 ## **Configuration**
@@ -41,14 +40,13 @@ Use `require()` to load the Anthropic SDK **after** `sdk.start()`. The instrumen
 const { NodeSDK } = require("@opentelemetry/sdk-node");
 const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-http");
 const { SimpleSpanProcessor } = require("@opentelemetry/sdk-trace-node");
-const { Resource } = require("@opentelemetry/resources");
-const { SEMRESATTRS_SERVICE_NAME } = require("@opentelemetry/semantic-conventions");
+const { resourceFromAttributes } = require("@opentelemetry/resources");
 const { AnthropicInstrumentation } = require("@arizeai/openinference-instrumentation-anthropic");
 
 const authHeader = process.env.OTEL_EXPORTER_OTLP_HEADERS.replace("Authorization=", "");
 
 const sdk = new NodeSDK({
-  resource: new Resource({ [SEMRESATTRS_SERVICE_NAME]: "my-app" }),
+  resource: resourceFromAttributes({ "service.name": "anthropic-js" }),
   spanProcessors: [
     new SimpleSpanProcessor(
       new OTLPTraceExporter({

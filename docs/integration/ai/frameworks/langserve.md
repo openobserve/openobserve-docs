@@ -93,7 +93,7 @@ print(result)
 | `span_status` | `UNSET` on success, `ERROR` on failure |
 | `duration` | End-to-end latency for the remote chain call |
 
-Token counts are not available on the client side — the LLM call happens inside the server. To capture token usage, instrument the server with the same `LangchainInstrumentor` and point it at OpenObserve.
+Token counts are not available on the client side because the LLM call happens inside the server. To capture token usage, instrument the server with the same `LangchainInstrumentor` and point it at OpenObserve.
 
 ## **Viewing Traces**
 

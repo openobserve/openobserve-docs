@@ -34,7 +34,7 @@ DATABRICKS_TOKEN=dapiXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 DATABRICKS_MODEL=databricks-llama-4-maverick
 ```
 
-`DATABRICKS_HOST` is your workspace URL. `DATABRICKS_MODEL` is the serving endpoint name — either a Foundation Model API name (e.g. `databricks-llama-4-maverick`, `databricks-claude-sonnet-4-6`) or a custom endpoint name from your workspace.
+`DATABRICKS_HOST` is your workspace URL. `DATABRICKS_MODEL` is the serving endpoint name: either a Foundation Model API name (e.g. `databricks-llama-4-maverick`, `databricks-claude-sonnet-4-6`) or a custom endpoint name from your workspace.
 
 ## **Instrumentation**
 

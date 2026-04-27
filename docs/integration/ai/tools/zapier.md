@@ -88,7 +88,7 @@ trace.get_tracer_provider().force_flush()
 3. Expand a span to inspect `zapier_topic` and `zapier_question` alongside latency
 4. Filter by `span_status` = `ERROR` to find failed webhook calls
 
-![Zapier trace in OpenObserve](../../../../images/integration/ai/zapier.png)
+![Zapier trace in OpenObserve](../../../images/integration/ai/zapier.png)
 
 ## **Next Steps**
 

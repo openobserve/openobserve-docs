@@ -95,7 +95,7 @@ asyncio.run(main())
 3. Filter by `span_status` = `ERROR` to find failed runs
 4. Sort by duration to identify the slowest agent invocations
 
-![BeeAI trace in OpenObserve](../../../../images/integration/ai/beeai.png)
+![BeeAI trace in OpenObserve](../../../images/integration/ai/beeai.png)
 
 ## **Next Steps**
 

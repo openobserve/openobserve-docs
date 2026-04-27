@@ -39,7 +39,7 @@ TEMPORAL_HOST=localhost:7233
 
 ## **Instrumentation**
 
-Configure an OTLP tracer provider and pass `TracingInterceptor` to both the client and the worker. Keep the OTel setup and `asyncio.run()` inside `main()` or under `if __name__ == "__main__":` — Temporal's workflow sandbox re-executes the module file during worker initialisation, and top-level side effects will cause errors.
+Configure an OTLP tracer provider and pass `TracingInterceptor` to both the client and the worker. Keep the OTel setup and `asyncio.run()` inside `main()` or under `if __name__ == "__main__":`. Temporal's workflow sandbox re-executes the module file during worker initialisation, and top-level side effects will cause errors.
 
 ```python
 from dotenv import load_dotenv
@@ -133,7 +133,7 @@ if __name__ == "__main__":
 2. Workflow start spans appear with `operation_name: StartWorkflow:WorkflowType`
 3. Worker-side spans appear as `RunWorkflow:WorkflowType` and `ExecuteActivity:ActivityName`
 4. Filter by `temporalworkflowid` to follow a specific workflow execution end-to-end
-5. Error spans appear with `span_status: ERROR` — use these to track workflow timeouts and failures
+5. Filter by `span_status: ERROR` to track workflow timeouts and failures
 
 ![Temporal trace in OpenObserve](../../../images/integration/ai/temporal.png)
 

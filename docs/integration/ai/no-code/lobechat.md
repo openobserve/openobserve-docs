@@ -5,7 +5,7 @@ description: Send LobeChat chat traces to OpenObserve using built-in OpenTelemet
 
 # **LobeChat → OpenObserve**
 
-Capture per-request latency and status codes for every chat completion processed by LobeChat. LobeChat is a self-hosted ChatGPT-like application with built-in OpenTelemetry support — pass OTLP environment variables at startup and traces flow directly into OpenObserve.
+Capture per-request latency and status codes for every chat completion processed by LobeChat. LobeChat is a self-hosted ChatGPT-like application with built-in OpenTelemetry support. Pass OTLP environment variables at startup and traces flow directly into OpenObserve.
 
 ## **Prerequisites**
 

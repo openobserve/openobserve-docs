@@ -105,7 +105,7 @@ Each workflow run produces a trace with spans for each step and any LLM calls wi
 4. Filter by `openinference_span_kind` = `LLM` to focus on model calls
 5. Filter by `span_status` = `ERROR` to find failed workflow runs
 
-![LlamaIndex Workflows trace in OpenObserve](../../../../images/integration/ai/llamaindex-workflows.png)
+![LlamaIndex Workflows trace in OpenObserve](../../../images/integration/ai/llamaindex-workflows.png)
 
 ## **Next Steps**
 

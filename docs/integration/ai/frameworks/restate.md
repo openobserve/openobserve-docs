@@ -131,7 +131,7 @@ trace.get_tracer_provider().force_flush()
 3. Use `restate_service` and `restate_handler` to drill into a specific handler
 4. Filter by `span_status` = `ERROR` to find failed invocations
 
-![Restate trace in OpenObserve](../../../../images/integration/ai/restate.png)
+![Restate trace in OpenObserve](../../../images/integration/ai/restate.png)
 
 ## **Next Steps**
 

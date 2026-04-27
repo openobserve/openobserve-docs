@@ -5,7 +5,7 @@ description: Instrument Vercel AI SDK applications and send traces to OpenObserv
 
 # **Vercel AI SDK → OpenObserve**
 
-Capture LLM call latency, token usage, model name, and finish reason for every `generateText`, `streamText`, or `generateObject` call made with the Vercel AI SDK. The SDK has built-in OpenTelemetry support via an `experimental_telemetry` option — configure a standard OTLP exporter and every AI SDK call is automatically traced with no extra instrumentation package required.
+Capture LLM call latency, token usage, model name, and finish reason for every `generateText`, `streamText`, or `generateObject` call made with the Vercel AI SDK. The SDK has built-in OpenTelemetry support via an `experimental_telemetry` option. Configure a standard OTLP exporter and every AI SDK call is automatically traced with no extra instrumentation package required.
 
 ## **Prerequisites**
 
@@ -19,8 +19,7 @@ Capture LLM call latency, token usage, model name, and finish reason for every `
 ```shell
 npm install ai @ai-sdk/openai \
   @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http \
-  @opentelemetry/sdk-trace-node @opentelemetry/resources \
-  @opentelemetry/semantic-conventions
+  @opentelemetry/sdk-trace-node @opentelemetry/resources
 ```
 
 ## **Configuration**
@@ -41,13 +40,12 @@ Set up the NodeSDK with an OTLP exporter, then pass `experimental_telemetry: { i
 const { NodeSDK } = require("@opentelemetry/sdk-node");
 const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-http");
 const { SimpleSpanProcessor } = require("@opentelemetry/sdk-trace-node");
-const { Resource } = require("@opentelemetry/resources");
-const { SEMRESATTRS_SERVICE_NAME } = require("@opentelemetry/semantic-conventions");
+const { resourceFromAttributes } = require("@opentelemetry/resources");
 
 const authHeader = process.env.OTEL_EXPORTER_OTLP_HEADERS.replace("Authorization=", "");
 
 const sdk = new NodeSDK({
-  resource: new Resource({ [SEMRESATTRS_SERVICE_NAME]: "my-app" }),
+  resource: resourceFromAttributes({ "service.name": "vercel-ai" }),
   spanProcessors: [
     new SimpleSpanProcessor(
       new OTLPTraceExporter({

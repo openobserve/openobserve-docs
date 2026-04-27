@@ -82,7 +82,7 @@ calls = list_resource("/call")
 openobserve_shutdown()
 ```
 
-The Vapi private API key is found under **API Keys** in your Vapi dashboard. Use the `Authorization: Bearer` header — Vapi does not use `x-api-key`.
+The Vapi private API key is found under **API Keys** in your Vapi dashboard. Use the `Authorization: Bearer` header. Vapi does not use `x-api-key`.
 
 ## **What Gets Captured**
 
