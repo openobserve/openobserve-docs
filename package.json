@@ -5,6 +5,6 @@
     "build-css-dev": "tailwindcss -i ./input.css -o ./overrides/css/output.css"
   },
   "dependencies": {
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.19"
   }
 }
