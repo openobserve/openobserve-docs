@@ -754,6 +754,10 @@ video {
   height: 0.5rem;
 }
 
+.tw-h-3 {
+  height: 0.75rem;
+}
+
 .tw-h-4 {
   height: 1rem;
 }
@@ -800,6 +804,10 @@ video {
 
 .tw-w-2 {
   width: 0.5rem;
+}
+
+.tw-w-3 {
+  width: 0.75rem;
 }
 
 .tw-w-4 {
