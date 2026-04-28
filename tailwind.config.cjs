@@ -2,7 +2,14 @@
 module.exports = {
   content: ["./docs/**/*.{html,md}", "./overrides/**/*.{html,js}"],
   prefix: "tw-", // 👈 add prefix here
-  safelist: ["tw-w-[500px]", "tw-w-[550px]", "tw-w-[620px]", "tw-w-[700px]"],
+  safelist: [
+    "tw-w-[500px]",
+    "tw-w-[550px]",
+    "tw-w-[560px]",
+    "tw-w-[620px]",
+    "tw-w-[700px]",
+    "tw-w-72",
+  ],
   theme: {
     extend: {},
     container: {
