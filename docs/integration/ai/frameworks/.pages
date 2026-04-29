@@ -17,16 +17,17 @@ nav:
     - LlamaIndex: llamaindex.md
     - LlamaIndex Workflows: llamaindex-workflows.md
     - Mastra: mastra.md
+    - Microsoft Agent Framework: microsoft-agent-framework.md
     - Mirascope: mirascope.md
     - OpenAI Agents: openai-agents.md
-    - Pipecat: pipecat.md
     - Pydantic AI: pydantic-ai.md
+    - Quarkus LangChain4j: quarkus-langchain4j.md
     - Ragas: ragas.md
     - Restate: restate.md
     - SmolAgents: smolagents.md
+    - Spring AI: spring-ai.md
+    - Swiftide: swiftide.md
     - Temporal: temporal.md
+    - Vercel AI Gateway: vercel-ai-gateway.md
     - Vercel AI SDK: vercel-ai-sdk.md
     - VoltAgent: voltagent.md
-    - Semantic Kernel: semantic-kernel.md
-    - SmolAgents: smolagents.md
-    - Strands Agents: strands-agents.md

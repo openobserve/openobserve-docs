@@ -1,5 +1,3 @@
 nav:
     - Kong Gateway: kong-gateway.md
-    - LiteLLM Proxy: litellm-proxy.md
-    - OpenRouter: openrouter.md
-    - Portkey: portkey.md
+    - Anannas: anannas.md
