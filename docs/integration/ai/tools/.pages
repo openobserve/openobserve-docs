@@ -3,11 +3,12 @@ nav:
     - Exa: exa.md
     - Firecrawl: firecrawl.md
     - Gradio: gradio.md
+    - LibreChat: librechat.md
     - mcp-use: mcp-use.md
     - Milvus: milvus.md
-    - Parallel: parallel.md
-    - Zapier: zapier.md
     - Mixpanel: mixpanel.md
+    - Parallel: parallel.md
     - PostHog: posthog.md
     - Promptfoo: promptfoo.md
     - Trubrics: trubrics.md
+    - Zapier: zapier.md
