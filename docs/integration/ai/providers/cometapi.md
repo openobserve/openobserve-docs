@@ -40,10 +40,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from openinference.instrumentation.openai import OpenAIInstrumentor
-from openobserve import openobserve_init
-
 OpenAIInstrumentor().instrument()
-openobserve_init()
+
+from openobserve import openobserve_init
+openobserve_init(service_name="cometapi")
 
 import os
 from openai import OpenAI
@@ -68,7 +68,6 @@ print(response.choices[0].message.content)
 | `llm_system` | `openai` (OpenAI-compatible client) |
 | `llm_model_name` | Resolved model returned by the API (e.g. `claude-haiku-4-5-20251001`) |
 | `llm_request_parameters_model` | Model name sent in the request (e.g. `claude-haiku-4-5-20251001`) |
-| `llm_request_parameters_max_tokens` | `max_tokens` value from the request |
 | `llm_observation_type` | `GENERATION` |
 | `llm_token_count_prompt` | Prompt tokens consumed |
 | `llm_token_count_completion` | Completion tokens returned |
@@ -84,9 +83,10 @@ print(response.choices[0].message.content)
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `operation_name` = `ChatCompletion` to see all inference calls
-3. Use `llm_model_name` to filter by specific model versions
-4. Filter by `span_status` = `ERROR` to find failed requests
+2. Filter by `service_name = cometapi` to isolate CometAPI spans
+3. Filter by `operation_name` = `ChatCompletion` to see all inference calls
+4. Use `llm_model_name` to filter by specific model versions
+5. Filter by `span_status` = `ERROR` to find failed requests
 
 ![CometAPI trace in OpenObserve](../../../images/integration/ai/cometapi.png)
 

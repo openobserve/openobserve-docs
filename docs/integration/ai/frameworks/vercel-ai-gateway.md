@@ -17,7 +17,7 @@ Capture every LLM call routed through the Vercel AI Gateway: model name, token c
 ## **Installation**
 
 ```shell
-pip install openai openinference-instrumentation-openai openobserve python-dotenv
+pip install openai openinference-instrumentation-openai openobserve-telemetry-sdk python-dotenv
 ```
 
 ## **Configuration**

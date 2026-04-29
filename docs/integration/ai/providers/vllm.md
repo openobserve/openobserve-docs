@@ -47,9 +47,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from openinference.instrumentation.openai import OpenAIInstrumentor
-from openobserve import openobserve_init
-
 OpenAIInstrumentor().instrument()
+
+from openobserve import openobserve_init
 openobserve_init(resource_attributes={"service.name": "vllm"})
 
 import os
