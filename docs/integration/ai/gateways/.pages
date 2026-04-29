@@ -4,3 +4,4 @@ nav:
     - LiteLLM Proxy: litellm-proxy.md
     - OpenRouter: openrouter.md
     - Portkey: portkey.md
+    - Vercel AI Gateway: vercel-ai-gateway.md

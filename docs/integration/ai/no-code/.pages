@@ -1,6 +1,5 @@
 nav:
     - Codename Goose: codename-goose.md
-    - LibreChat: librechat.md
     - LobeChat: lobechat.md
     - Vapi: vapi.md
     - Flowise: flowise.md
