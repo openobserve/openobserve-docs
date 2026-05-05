@@ -632,6 +632,10 @@ video {
   left: 50%;
 }
 
+.tw-left-\[40\%\] {
+  left: 40%;
+}
+
 .tw-right-0 {
   right: 0px;
 }
@@ -650,6 +654,10 @@ video {
 
 .tw-top-full {
   top: 100%;
+}
+
+.tw-left-\[35\%\] {
+  left: 35%;
 }
 
 .tw-z-10 {
@@ -896,6 +904,16 @@ video {
 
 .tw--translate-x-1\/2 {
   --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.tw--translate-x-\[40\%\] {
+  --tw-translate-x: -40%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.tw--translate-x-\[35\%\] {
+  --tw-translate-x: -35%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
