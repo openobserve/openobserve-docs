@@ -1,10 +1,12 @@
 nav:
     - Anthropic (JS/TS): anthropic-js.md
     - Anthropic (Python): anthropic.md
-    - Databricks: databricks.md
-    - DeepSeek: deepseek.md
+    - BytePlus ModelArk: byteplus.md
     - Cerebras: cerebras.md
     - Cohere: cohere.md
+    - CometAPI: cometapi.md
+    - Databricks: databricks.md
+    - DeepSeek: deepseek.md
     - Fireworks AI: fireworks.md
     - Google Gemini: google-gemini.md
     - Groq: groq.md
@@ -16,4 +18,5 @@ nav:
     - OpenAI (Python): openai.md
     - OpenAI Assistants API: openai-assistants.md
     - Together AI: together-ai.md
+    - vLLM: vllm.md
     - xAI Grok: xai-grok.md
