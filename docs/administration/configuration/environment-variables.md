@@ -121,8 +121,7 @@ This is particularly useful when you have only one organization, as creating mul
 | ZO_COMPACT_OLD_DATA_STREAMS              | -             | Comma-separated stream list to treat as old data.                                              |
 | ZO_COMPACT_OLD_DATA_MAX_DAYS            | 7             | Maximum age of data to qualify as old in days.                                                 |
 | ZO_COMPACT_OLD_DATA_MIN_HOURS           | 2             | Minimum age of data to qualify as old in hours.                                                |
-| ZO_COMPACT_OLD_DATA_MIN_RECORDS         | 100           | Minimum record count to compact old data.                                                      |
-| ZO_COMPACT_OLD_DATA_MIN_FILES           | 10            | Minimum file count to compact old data.                                                        |
+| ZO_COMPACT_OLD_DATA_MIN_FILES           | 10            | Minimum number of files smaller than half of `ZO_COMPACT_MAX_FILE_SIZE` required in an hour to trigger old-data compaction. |
 | ZO_COMPACT_BATCH_SIZE                     | 0             | Batch size for fetching pending compaction jobs.                                               |
 | ZO_COMPACT_JOB_RUN_TIMEOUT               | 600           | Time limit for one compaction job in seconds. Jobs that exceed this time are marked as failed. |
 | ZO_COMPACT_JOB_CLEAN_WAIT_TIME          | 7200          | Minimum age of finished jobs before cleanup in seconds.                                        |
