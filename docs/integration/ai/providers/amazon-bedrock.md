@@ -31,7 +31,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
-AWS_DEFAULT_REGION=us-east-1
+AWS_DEFAULT_REGION=your-aws-region
 ```
 
 ## **Instrumentation**
@@ -79,19 +79,19 @@ print(response["output"]["message"]["content"][0]["text"])
 | `input_value` | Raw prompt text |
 | `output_value` | Raw response text |
 | `openinference_span_kind` | Always `LLM` |
+| `span_status` | `UNSET` on success, `ERROR` on failure |
 | `duration` | End-to-end request latency |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
-2. Filter by `service_name = amazon-bedrock`
-3. Click any `bedrock.converse` span to inspect token counts, latency, and full request/response content
+2. Click any `bedrock.converse` span to inspect token counts, latency, and full request/response content
 
 ![Amazon Bedrock trace span in OpenObserve](../../../images/integration/ai/amazon-bedrock.png)
 
 ## **Next Steps**
 
-With Amazon Bedrock instrumented, every model call is automatically recorded in OpenObserve. From here you can build dashboards to track token usage over time, set up alerts on latency spikes, and correlate Bedrock spans with the rest of your application traces.
+Every model call is recorded in OpenObserve. Build dashboards to track token usage over time, set alerts on latency spikes, and correlate Bedrock spans with the rest of your application traces.
 
 ## **Read More**
 

@@ -13,7 +13,7 @@ Capture latency and invocation metadata for every Amazon Bedrock AgentCore runti
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * AWS credentials with `BedrockAgentCoreFullAccess` and `AmazonBedrockFullAccess` permissions
-* A deployed AgentCore runtime ARN
+* A deployed AgentCore runtime ARN. See [Get started with AgentCore runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-getting-started.html).
 
 ## **Installation**
 
@@ -32,7 +32,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
-AWS_DEFAULT_REGION=us-east-1
+AWS_DEFAULT_REGION=your-aws-region
 BEDROCK_AGENTCORE_RUNTIME_ARN=arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/your-runtime-id
 ```
 
@@ -89,14 +89,13 @@ with tracer.start_as_current_span("bedrock_agentcore.invoke") as span:
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
-2. Filter by `service_name = amazon-bedrock-agentcore`
-3. Click any `bedrock_agentcore.invoke` span to inspect latency and input/output attributes
+2. Click any `bedrock_agentcore.invoke` span to inspect latency and input/output attributes
 
 ![Amazon Bedrock AgentCore trace in OpenObserve](../../../images/integration/ai/amazon-bedrock-agentcore.png)
 
 ## **Next Steps**
 
-With AgentCore invocations traced, you can track agent latency over time, set up alerts on slow or failing invocations, and correlate agent spans with downstream Bedrock model calls.
+Track agent latency over time, set alerts on slow or failing invocations, and correlate agent spans with downstream Bedrock model calls.
 
 ## **Read More**
 

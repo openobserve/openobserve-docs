@@ -13,7 +13,7 @@ Automatically capture latency and invocation metadata for every Amazon Bedrock A
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * AWS credentials with `AmazonBedrockFullAccess` permissions
-* A Bedrock Agent created in the AWS console (Agent ID and Alias ID)
+* A Bedrock Agent with an Agent ID and Alias ID. See [Create a Bedrock agent](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-create.html).
 
 ## **Installation**
 
@@ -32,7 +32,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
-AWS_DEFAULT_REGION=eu-north-1
+AWS_DEFAULT_REGION=your-aws-region
 BEDROCK_AGENT_ID=your-agent-id
 BEDROCK_AGENT_ALIAS_ID=TSTALIASID
 ```
@@ -87,14 +87,13 @@ print(completion)
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
-2. Filter by `service_name = amazon-bedrock-agents`
-3. Click any `bedrock_agent.invoke_agent` span to inspect latency and input/output content
+2. Click any `bedrock_agent.invoke_agent` span to inspect latency and input/output content
 
 ![Amazon Bedrock Agents trace in OpenObserve](../../../images/integration/ai/amazon-bedrock-agents.png)
 
 ## **Next Steps**
 
-With Bedrock Agents traced, you can track agent response times, monitor failure rates, and correlate agent spans with the rest of your application traces.
+Track agent response times, monitor failure rates, and correlate agent spans with the rest of your application traces.
 
 ## **Read More**
 
