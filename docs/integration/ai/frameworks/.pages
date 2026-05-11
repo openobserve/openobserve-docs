@@ -1,4 +1,6 @@
 nav:
+    - Amazon Bedrock AgentCore: amazon-bedrock-agentcore.md
+    - Amazon Bedrock Agents: amazon-bedrock-agents.md
     - Agno: agno.md
     - AutoGen: autogen.md
     - BeeAI: beeai.md
