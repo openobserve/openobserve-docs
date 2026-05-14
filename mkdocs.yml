@@ -1,10 +1,35 @@
 site_name: OpenObserve Documentation
 site_url: https://openobserve.ai/docs
+site_description: OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces into a single solution, built for petabyte scale with up to 140x lower storage cost than Elasticsearch.
 # https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
 plugins:
   - search
   - awesome-pages
   - material-plausible
+  - llmstxt:
+      sections:
+        Getting started:
+          - index.md
+          - getting-started.md
+          - quickstart.md
+          - architecture.md
+          - downloads.md
+        User guide:
+          - user-guide/*.md
+        Ingestion:
+          - ingestion/*.md
+        Integrations:
+          - integration/*.md
+        Features:
+          - features/*.md
+        Administration:
+          - administration/*.md
+        Reference:
+          - reference/*.md
+        Migration:
+          - migration/*.md
+        Releases:
+          - releases.md
 # nav:
 #   - index.md
 #   - getting-started.md
