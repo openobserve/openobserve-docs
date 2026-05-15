@@ -45,7 +45,7 @@ If RBAC is enabled in OpenObserve Cloud and the enterprise edition:
 - **Viewer:** Can view streams. Cannot create, update, or delete streams.  
 - **User:** Cannot view, create, or modify streams.  
 - **Custom roles**: A user or service account with custom roles can create and manage streams if the required permissions are granted using RBAC.
-> Learn more about [OpenObserve Cloud](https://cloud.openobserve.ai/) and the [Enterprise Edition](https://openobserve.ai/docs/openobserve-enterprise-edition-installation-guide/). 
+> Learn more about [OpenObserve Cloud](https://cloud.openobserve.ai/) and the [Enterprise Edition](https://openobserve.ai/docs/enterprise-setup/). 
 
 ## Create a Stream in OpenObserve
 

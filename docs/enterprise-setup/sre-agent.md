@@ -449,11 +449,11 @@ O2_MCP_PASSWORD: "SecurePassword123"
 
 1. Log into OpenObserve
 2. Click the AI Assistant icon in the sidebar
-![AI Assistant in OpenObserve](../../images/ai-assistant-in-o2.gif)
+![AI Assistant in OpenObserve](../images/ai-assistant-in-o2.gif)
 
 
 3. Navigate to Incidents page in OpenObserve side-menu
-![Incidents UI in OpenObserve](../../images/incidents-in-openobserve.gif)
+![Incidents UI in OpenObserve](../images/incidents-in-openobserve.gif)
 
 
 

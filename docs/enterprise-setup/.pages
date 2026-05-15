@@ -1,0 +1,12 @@
+title: Enterprise Setup
+
+nav:
+    - Overview: index.md
+    - Amazon EKS: amazon-eks.md
+    - Azure AKS: azure-aks.md
+    - Google GKE: google-gke.md
+    - SRE Agent Setup: sre-agent.md
+    - Enterprise Features: enterprise-features.md
+    - License and Pricing: license-and-pricing.md
+    - Capacity Planning: capacity-planning.md
+    - Performance: performance.md
