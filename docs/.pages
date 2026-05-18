@@ -1,7 +1,8 @@
 nav:
 - Overview: overview
 - Architecture: architecture.md
-- Getting started: getting-started.md
+- Quickstart: getting-started.md
+- Enterprise Setup: enterprise-setup
 - Features: features
 - Releases: releases.md
 - User Guide: user-guide

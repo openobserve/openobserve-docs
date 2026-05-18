@@ -428,8 +428,6 @@ html {
   border-radius: 3px !important;
   /* make the active link text bold (applies to the text, not the empty pseudo-element) */
   font-weight: 700 !important;
-  /* leave space on the RIGHT for the indicator that sits against the sidebar border */
-  padding-right: 1.6em !important;
   /* keep a little left padding for text alignment */
   padding-left: 1.1em !important;
   overflow: hidden !important;
