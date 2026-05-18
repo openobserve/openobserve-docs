@@ -52,3 +52,7 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 - **Pipeline remote destinations**: Send processed data to external systems
 
 - **Advanced pipelines**: Enhanced data transformation and routing capabilities
+
+##### Storage & Data Residency
+
+- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket or Azure Blob container to OpenObserve Cloud — keep data in your account, region, and security perimeter – [Learn more](../administration/maintenance/storage-management/bring-your-own-bucket.md)
