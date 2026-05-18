@@ -5,6 +5,7 @@ nav:
     - Amazon EKS: amazon-eks.md
     - Azure AKS: azure-aks.md
     - Google GKE: google-gke.md
+    - Terraform: terraform.md
     - SRE Agent Setup: sre-agent.md
     - Enterprise Features: enterprise-features.md
     - License and Pricing: license-and-pricing.md

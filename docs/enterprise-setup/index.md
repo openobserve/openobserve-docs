@@ -22,6 +22,10 @@ This guide explains how to deploy [OpenObserve Enterprise Edition](https://openo
 - [Azure AKS](azure-aks.md)
 - [Google GKE](google-gke.md)
 
+## Infrastructure-as-Code
+
+- [Terraform](terraform.md) — Deploy OpenObserve and manage its resources with the official Terraform provider and Kubernetes module. OpenTofu supported.
+
 ## Other resources
 
 - [SRE Agent Setup](sre-agent.md)
