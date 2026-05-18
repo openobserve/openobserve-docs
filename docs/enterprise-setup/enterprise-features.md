@@ -49,8 +49,6 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 #####  Data Processing & Integration
 
-- **Actions**: Custom automation and response actions
-
 - **Pipeline remote destinations**: Send processed data to external systems
 
 - **Advanced pipelines**: Enhanced data transformation and routing capabilities
