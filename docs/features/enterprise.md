@@ -1,7 +1,7 @@
 # Enterprise Features
 
 ## Overview
-Enterprise tier includes all standard features plus the following enterprise-specific capabilities. Available free for up to 200 GB of ingestion per day.
+Enterprise tier includes all standard features plus the following enterprise-specific capabilities. Available free for up to 50 GB of ingestion per day.
 
 ## Enterprise-Only Features
 
