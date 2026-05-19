@@ -1599,3 +1599,101 @@ nav.md-grid {
     pointer-events: none !important;
   }
 }
+
+/* === Phase 3: sidebar redesign — START ===
+   - Section labels: uppercase, letter-spaced, muted (paired with mkdocs.yml
+     `navigation.sections` feature so top-level groups render as labels).
+   - Active state: subtle purple-text + light-purple background pill, replacing
+     the prior 4px left bar.
+   - Section chip: small product-area chip at the top of the sidebar, rendered
+     by overrides/partials/section-chip.html.
+   All rules scoped to .md-sidebar--primary to avoid bleeding into the right
+   TOC nav (.md-sidebar--secondary / .md-nav--secondary).
+   === */
+
+/* Section labels (top-level groups under navigation.sections) -------------- */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav__link,
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item--section > label.md-nav__link {
+  /* The label element for a section: uppercase, small, muted */
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: rgba(0, 0, 0, 0.55) !important;
+  padding: 0.85rem 0.75rem 0.35rem !important;
+  margin: 0 !important;
+  cursor: default !important;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav__link,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item--section > label.md-nav__link {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Section labels should not show the hover background or active pill */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav__link:hover,
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item--section > label.md-nav__link:hover {
+  background: transparent !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Active-state pill: overrides the prior 4px left-bar (lines ~424-447) ----- */
+.md-sidebar--primary .md-nav__item--active > .md-nav__link {
+  position: relative !important;
+  background: rgba(124, 58, 237, 0.08) !important;
+  color: #7c3aed !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+  overflow: visible !important;
+}
+/* Kill the prior ::before bar marker */
+.md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
+  content: none !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--active > .md-nav__link {
+  background: rgba(124, 58, 237, 0.18) !important;
+  color: #c4b5fd !important;
+}
+
+/* Subtle hover for non-active items */
+.md-sidebar--primary .md-nav__item:not(.md-nav__item--section):not(.md-nav__item--active) > .md-nav__link:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-radius: 6px !important;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item:not(.md-nav__item--section):not(.md-nav__item--active) > .md-nav__link:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Section chip ------------------------------------------------------------- */
+.md-sidebar--primary .o-section-chip {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.25rem 0.5rem 0.75rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  max-width: calc(100% - 1rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .o-section-chip {
+  background: rgba(124, 58, 237, 0.2);
+  color: #c4b5fd;
+}
+.md-sidebar--primary .o-section-chip__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === Phase 3: sidebar redesign — END === */
