@@ -119,7 +119,6 @@ theme:
     # - navigation.tabs.sticky
     - navigation.instant
     - navigation.tracking
-    - navigation.sections
     - content.code.copy
     - content.code.select
   palette:
