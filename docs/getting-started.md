@@ -8,13 +8,33 @@ Get started with OpenObserve observability platform for logs, metrics, and trace
 
 ## Choose Your Installation Method
 
-=== "OpenObserve Cloud(Recommended)"
+=== "OpenObserve Cloud (Recommended)"
 
     [OpenObserve Cloud](https://cloud.openobserve.ai) is the fastest way to get started and is recommended for most users because:
 
-    - **Zero maintenance:** No need to set up, operate, or upgrade infrastructure — we handle it all for you.
+    - **Zero maintenance:** No need to set up, operate, or upgrade infrastructure. We handle it all for you.
     - **Effortless scaling:** Easily handle growing data volumes without worrying about capacity planning or scaling issues.
     - **Always up-to-date:** Get the latest features, improvements, and security patches automatically.
+
+    ### OpenObserve Cloud Setup
+
+    ??? "Step 1: Create Your Account"
+
+        1. Navigate to [https://cloud.openobserve.ai](https://cloud.openobserve.ai)
+        2. Sign up using social login or create a new account
+
+            ![Sign in page](./images/quickstart/signin.png)
+
+    ??? "Step 2: Get Your Ingestion Credentials"
+
+        1. After logging in, navigate to the **Data Sources** section in the sidebar
+
+            ![Ingestion](./images/quickstart/ingestion_credentials.png)
+
+        2. Copy the provided cURL command - it contains your unique credentials
+        3. Your endpoint will look like: `https://api.openobserve.ai/api/[YOUR_ORG]/default/_json`
+
+        You are ready to ingest data. Now head over to [Load sample data](#load-sample-data) section.
 
 === "Self-Hosted Installation"
 
@@ -24,128 +44,109 @@ Get started with OpenObserve observability platform for logs, metrics, and trace
     - Custom configurations or integrations
     - On-premises deployment requirements
 
+    ### Self-Hosted Installation
 
-## Option 1: OpenObserve Cloud Setup
+    > **Important**: These instructions are for single-node installations. For production high-availability setups, see our [HA deployment guide](administration/deployment/ha-deployment.md).
 
-??? "Step 1: Create Your Account"
+    You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD) on first startup only. They are not required for subsequent runs.
 
-    1. Navigate to [https://cloud.openobserve.ai](https://cloud.openobserve.ai)
-    2. Sign up using social login or create a new account
+    === "Windows"
 
-        ![Sign in page](./images/quickstart/signin.png)
+        **Download and Install**
 
-??? "Step 2: Get Your Ingestion Credentials"
+        1. Download Binaries from [downloads page](https://openobserve.ai/downloads)
+        2. Open Command Prompt or PowerShell as Administrator
+        3. Run the following commands:
 
-    1. After logging in, navigate to the **Data Sources** section in the sidebar
-
-        ![Ingestion](./images/quickstart/ingestion_credentials.png)
-
-    2. Copy the provided cURL command - it contains your unique credentials
-    3. Your endpoint will look like: `https://api.openobserve.ai/api/[YOUR_ORG]/default/_json`
-
-    You are ready to ingest data. Now head over to [Load sample data](#load-sample-data) section.
-
-## Option 2: Self-Hosted Installation
-
-> **Important**: These instructions are for single-node installations. For production high-availability setups, see our [HA deployment guide](administration/deployment/ha-deployment.md).
-
-You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD) on first startup only. They are not required for subsequent runs.
-
-=== "Windows"
-
-    **Download and Install**
-    
-    1. Download Binaries from [downloads page](https://openobserve.ai/downloads)
-    2. Open Command Prompt or PowerShell as Administrator
-    3. Run the following commands:
-
-    ```cmd
-    #command prompt
-    set ZO_ROOT_USER_EMAIL=root@example.com
-    set ZO_ROOT_USER_PASSWORD=Complexpass#123
-    openobserve.exe
-    ```
-
-    ```powershell
-    #powershell
-    $env:ZO_ROOT_USER_EMAIL="root@example.com"
-    $env:ZO_ROOT_USER_PASSWORD="Complexpass#123"
-    .\openobserve.exe
-    ```
-    
-    !!! note
-        You can set email and password based on your preference
-    
-
-=== "MacOS/Linux Binaries"
-
-
-    1. Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads)
-    2. Make it executable: `chmod +x openobserve`
-    3. Run with environment variables as shown:
-    ```bash
-    # Run OpenObserve
-    ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
-    ```
-
-    !!! note
-        If you see an error like `version GLIBC_2.27 not found`, download the `musl` binary instead:
-        
-        - Look for files ending in `-linux-musl.tar.gz` on the releases page
-        - musl binaries have slightly lower performance but no external dependencies
-
-=== "Docker"
-
-    **Prerequisites**: Ensure Docker is installed and running on your system.
-
-    Docker images are available at:
-    
-    - Enterprise: [https://gallery.ecr.aws/zinclabs/openobserve-enterprise](https://gallery.ecr.aws/zinclabs/openobserve-enterprise)
-    - OSS : [https://gallery.ecr.aws/zinclabs/openobserve](https://gallery.ecr.aws/zinclabs/openobserve)
-
-
-    **Linux/macOS:**
-    ```bash
-    docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" o2cr.ai/openobserve/openobserve-enterprise:latest
-    ```
-
-    **Windows:**
-    ```cmd
-    # Windows Command Prompt
-    docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 o2cr.ai/openobserve/openobserve-enterprise:latest
-    ```
-
-    **Docker Image Options:**
-
-    - `latest`: Compatible with most environments
-    - `latest-simd`: Optimized for systems with AVX512 (Intel) or NEON (ARM) for better performance
-
-    !!! Troubleshooting
-
-        If you encounter AWS ECR login issues:
-        ```bash
-        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+        ```cmd
+        #command prompt
+        set ZO_ROOT_USER_EMAIL=root@example.com
+        set ZO_ROOT_USER_PASSWORD=Complexpass#123
+        openobserve.exe
         ```
 
-=== "Kubernetes - Manifest"
+        ```powershell
+        #powershell
+        $env:ZO_ROOT_USER_EMAIL="root@example.com"
+        $env:ZO_ROOT_USER_PASSWORD="Complexpass#123"
+        .\openobserve.exe
+        ```
 
-    **Prerequisites**: Ensure `kubectl` is configured and you have cluster access.
+        !!! note
+            You can set email and password based on your preference
 
-    1. **Create namespace:**
-    ```bash
-    kubectl create namespace openobserve
-    ```
+    === "MacOS/Linux Binaries"
 
-    2. **Deploy OpenObserve:**
-    ```bash
-    kubectl apply -f https://raw.githubusercontent.com/zinclabs/openobserve/main/deploy/k8s/statefulset.yaml
-    ```
+        1. Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads)
+        2. Make it executable: `chmod +x openobserve`
+        3. Run with environment variables as shown:
 
-    3. **Access the service:**
-    ```bash
-    kubectl -n openobserve port-forward svc/openobserve 5080:5080
-    ```
+        ```bash
+        # Run OpenObserve
+        ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
+        ```
 
+        !!! note
+            If you see an error like `version GLIBC_2.27 not found`, download the `musl` binary instead:
+
+            - Look for files ending in `-linux-musl.tar.gz` on the releases page
+            - musl binaries have slightly lower performance but no external dependencies
+
+    === "Docker"
+
+        **Prerequisites**: Ensure Docker is installed and running on your system.
+
+        Docker images are available at:
+
+        - Enterprise: [https://gallery.ecr.aws/zinclabs/openobserve-enterprise](https://gallery.ecr.aws/zinclabs/openobserve-enterprise)
+        - OSS : [https://gallery.ecr.aws/zinclabs/openobserve](https://gallery.ecr.aws/zinclabs/openobserve)
+
+        **Linux/macOS:**
+
+        ```bash
+        docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" o2cr.ai/openobserve/openobserve-enterprise:latest
+        ```
+
+        **Windows:**
+
+        ```cmd
+        # Windows Command Prompt
+        docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 o2cr.ai/openobserve/openobserve-enterprise:latest
+        ```
+
+        **Docker Image Options:**
+
+        - `latest`: Compatible with most environments
+        - `latest-simd`: Optimized for systems with AVX512 (Intel) or NEON (ARM) for better performance
+
+        !!! Troubleshooting
+
+            If you encounter AWS ECR login issues:
+            ```bash
+            aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+            ```
+
+    === "Kubernetes - Manifest"
+
+        **Prerequisites**: Ensure `kubectl` is configured and you have cluster access.
+
+        1. **Create namespace:**
+
+            ```bash
+            kubectl create namespace openobserve
+            ```
+
+        2. **Deploy OpenObserve:**
+
+            ```bash
+            kubectl apply -f https://raw.githubusercontent.com/zinclabs/openobserve/main/deploy/k8s/statefulset.yaml
+            ```
+
+        3. **Access the service:**
+
+            ```bash
+            kubectl -n openobserve port-forward svc/openobserve 5080:5080
+            ```
 
 
 ## Verify Installation
@@ -266,5 +267,7 @@ Now let's explore the data you just loaded.
     - Check available memory and CPU resources
     - For large datasets, consider the high-availability deployment
 
-If you're still having issues, Join our [Slack Community](/marketing-opt-in/){:target="_blank" rel="noopener noreferrer"} for help
+**Need some help?**
 
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)
