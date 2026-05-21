@@ -1,16 +1,15 @@
 ---
 title:  OpenObserve Architecture
 description: >-
-  Deploy OpenObserve in single or HA mode. Learn about architecture, components,
-  storage, data flow and performance optimization features.
+  Learn how OpenObserve is structured: deployment modes (single-node and HA),
+  the role of each component, how data flows through the system, and how
+  durability is handled.
 keywords: 'openobserve, architecture, tutorial'
 ---
 
-> Applicable to open-source and enterprise versions
-
 # Architecture and Deployment Modes
 
-You can run OpenObserve in a single node or in High Availability (HA) mode in a cluster.
+This page explains how OpenObserve is structured: the deployment modes you can run it in, what each component does, how data flows from ingest to query, and how the system keeps your data durable. It is useful if you are sizing a deployment, troubleshooting a cluster, or evaluating OpenObserve against other observability backends.
 
 ## Single-Node Mode
 
@@ -24,17 +23,17 @@ Based on our tests (using an Apple M2 chip), you can ingest data at approximatel
 
 The [Quickstart](./quickstart.md) describes various ways to set up this configuration.
 
-<img src="../images/arch-single-local.jpg" alt="Single node architecture using SQLite and local disk" width="60%"/>
+![Single node architecture using SQLite and local disk](../images/arch-single-local.jpg){ width="60%" }
 
 ### SQLite and Object Storage
 
-<img src="../images/arch-single-s3.jpg" alt="Single node architecture using SQLite and s3" width="60%"/>
+![Single node architecture using SQLite and s3](../images/arch-single-s3.jpg){ width="60%" }
 
 ## High Availability (HA) Mode
 
 HA mode does not support local disk storage. Please refer to [HA Deployment](administration/deployment/ha-deployment.md) for cluster-mode deployment.
 
-<img src="../images/arch-ha.webp" alt="HA architecture using NATS and s3" width="80%"/>
+![HA architecture using NATS and s3](../images/arch-ha.webp){ width="80%" }
 
 To accommodate higher traffic, you can horizontally scale the following nodes:
 
@@ -52,17 +51,20 @@ Object storage (for example, Amazon S3, MinIO or GCS) stores all the parquet fil
 
 ## Durability
 
-Astute users may notice that ingesters temporarily store data for batching before they send it to highly durable S3 (S3 is designed for 99.999999999% durability). Because only one copy of the data is temporarily on the ingester, it may seem vulnerable to loss if there's a disk failure before the data is sent to S3. However, this isn't necessarily true, and when it is, there are ways to handle the lack of redundancy.
+**The short answer:** ingesters batch data briefly in memory and on local disk before flushing it to highly durable object storage. That window of single-copy data sounds risky, but modern infrastructure makes it safe in practice.
 
-Most distributed systems were built in an era when storage was much less reliable than it is today, requiring users to make two or three copies of files to ensure they didn't lose data. Not only is storage more reliable today, you may face penalties for replicating data. In environments like AWS, replicating data across multiple Availability Zones (AZs) results in a cross-AZ data transfer penalty of 2 cents per GB (1 cent in each direction).
+**Why a single in-flight copy is fine.** Most distributed systems were built in an era when storage was much less reliable than it is today, requiring users to make two or three copies of files to ensure they didn't lose data. Not only is storage more reliable today, you may face penalties for replicating data. In environments like AWS, replicating data across multiple Availability Zones (AZs) results in a cross-AZ data transfer penalty of 2 cents per GB (1 cent in each direction). Amazon EBS volumes are already replicated within an AZ: standard GP3 volumes offer 99.8% durability, and the io2 volumes that OpenObserve uses for its cloud service offer 99.999%. At those levels, additional in-app replication mostly adds cost and complexity without meaningfully reducing risk. Once data lands in S3 (99.999999999% durability), it is effectively permanent.
 
-In fact, Amazon EBS volumes are already replicated within an AZ, providing you with highly durable storage. Standard GP3 EBS volumes provide 99.8% durability, which is very high compared to regular disks. The io2 volumes that OpenObserve uses for its cloud service provide 99.999% durability, which is even higher, and at this level, you don't really need to make multiple copies for durability.
+**What this means for you.** Building the system this way lets us offer a simpler and more cost-effective product, with no ongoing data replication to manage.
 
-For self-hosted scenarios, we recommend using RAID 1 to ensure you have redundancy at the disk level.
-
-Building the system like this allows us to offer a much simpler and more cost-effective solution. By eliminating the need to manage ongoing data replication across multiple nodes, we reduce both financial overhead and system complexity.
 
 ## Components
+
+Router → Ingester → Compactor → Querier → AlertManager.
+
+### Router
+
+The Router node dispatches requests to an ingester or a querier. It also responds with the GUI in the browser. A router is a super simple proxy for sending appropriate requests between an ingester and a querier.
 
 ### Ingester
 
@@ -70,7 +72,7 @@ OpenObserve uses Ingester nodes to receive ingest requests, to convert data into
 
 The data ingestion flow is as follows:
 
-<img src="../images/arch-sequence-ingester.svg" alt="Data Ingestion Flow" width="90%"/>
+![Data Ingestion Flow](../images/arch-sequence-ingester.svg){ width="90%" }
 
 1. Receive data from an HTTP or gRPC API request.
 1. Parse data line by line.
@@ -95,13 +97,17 @@ The data ingestion flow is as follows:
 
 All of these need to be queried.
 
+### Compactor
+
+The Compactor node merges small files into big files to make searches more efficient. Compactors also enforce the data retention policy, carry out full stream deletions and update file list indices.
+
 ### Querier
 
 OpenObserve uses Querier nodes to query data. Queriers are fully stateless.
 
 The data query flow is as follows:
 
-<img src="../images/arch-sequence-querier.svg" alt="Query Flow" width="90%"/>
+![Query Flow](../images/arch-sequence-querier.svg){ width="90%" }
 
 1. Receive the search request using HTTP or API. The node receiving the query request becomes `LEADER querier for the query` and other queriers become `WORKER queriers for query`.
 1. `LEADER` parses and verifies SQL.
@@ -111,13 +117,15 @@ The data query flow is as follows:
 1. `LEADER` calls the gRPC service running on each `WORKER` querier to dispatch the search query to the Querier node. Inter-querier communication happens using gRPC.
 1. `LEADER` collects, merges and sends the result back to the user.
 
-Tips:
+!!! tip "Querier caching"
+    - The queriers will cache parquet files in memory by default. Use the `ZO_MEMORY_CACHE_MAX_SIZE` environment variable to configure how much memory a querier uses for caching. By default, queriers use 50% of their available memory for caching.
+    - In a distributed environment, each querier node will just cache a part of the data.
+    - You also have the option to enable caching the latest parquet files in memory. The ingester will notify queriers to cache the file when an ingester generates a new parquet file and uploads it to object storage.
 
-1. The queriers will cache parquet files in memory by default. You can use the `ZO_MEMORY_CACHE_MAX_SIZE` environment variable to configure how much memory a querier uses for caching. By default, queriers use 50% of their available memory for caching.
-1. In a distributed environment, each querier node will just cache a part of the data.
-1. You also have the option to enable caching the latest parquet files in memory. The ingester will notify queriers to cache the file when an ingester generates a new parquet file and uploads it to object storage.
+#### Federated Search
 
-#### Federated Search > `Applicable to enterprise version`
+!!! info "Applies to"
+    Enterprise version only.
 
 The federated search spans over multiple OpenObserve clusters:
 
@@ -127,14 +135,17 @@ The federated search spans over multiple OpenObserve clusters:
 4. `WORKER clusters` execute the query as described above. One of the nodes in each cluster becomes a `LEADER querier` and calls other `WORKER queriers` in the same cluster. The results from all workers and leaders are merged by `LEADER cluster`.
 5. `LEADER cluster` collects, merges and sends the result back to the user.
 
-### Compactor
-
-The Compactor node merges small files into big files to make searches more efficient. Compactors also enforce the data retention policy, carry out full stream deletions and update file list indices.
-
-### Router
-
-The Router node dispatches requests to an ingester or a querier. It also responds with the GUI in the browser. A router is a super simple proxy for sending appropriate requests between an ingester and a querier.
-
 ### AlertManager
 
-The AlertManager node runs the Standard alert queries, reports jobs and sends notifications.
+The AlertManager node runs the standard alert queries, reports jobs and sends notifications.
+
+## Next steps
+
+- [Quickstart](./quickstart.md): get a single-node instance running.
+- [HA Deployment](administration/deployment/ha-deployment.md): deploy a production HA cluster.
+- [Performance tuning](./enterprise-setup/performance.md): sizing, caching, and configuration for high-throughput deployments.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

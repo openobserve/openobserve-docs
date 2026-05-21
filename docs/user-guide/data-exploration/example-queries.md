@@ -1,13 +1,18 @@
 ---
+title: OpenObserve Query Examples | OpenObserve
 description: >-
   Explore sample queries for OpenObserve logs, including full-text search,
-  filtering by code, SQL examples, and charting with P95/P99 percentiles.
+  filtering by code, and SQL examples.
 ---
 # OpenObserve Query Examples
 
 We will use the k8s [sample logs data](https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip) to demonstrate the sample queries that you can use.
 
 To ingest this sample data refer to this [guide.](../../getting-started.md#load-sample-data)
+
+!!! note "Before you start"
+    - Replace `your_stream_name` in the SQL examples with the actual stream name in your OpenObserve setup.
+    - Short snippets like `code = 200` or `match_all('error')` are **filter expressions** for the search bar. Full `SELECT ... FROM ...` examples are **SQL queries** and need the SQL Mode toggle enabled.
 
 
 ## Text Search Queries
@@ -50,9 +55,10 @@ code is not null
     ![Not-Null Numeric Match](../../images/example-queries/is-not-null.png)
 
 
-**Avoid using `code = ''` or `code != ''`** — these do not work properly for numeric fields.
+!!! warning "Avoid `code = ''` or `code != ''`"
+    These do not work properly for numeric fields. Use `is null` / `is not null` instead.
 
-![Inappropriate Numeric Match](../../images/example-queries/inappropriate.png)
+    ![Inappropriate Numeric Match](../../images/example-queries/inappropriate.png)
 
 
 **Logs where `code` is greater than 399:**
@@ -68,9 +74,10 @@ code >= 400
 ```
     ![Greater than Equal to Numeric Match](../../images/example-queries/greater-than-equalto.png)
 
-**`code => 400` is invalid syntax.** Always use SQL-compatible operators like **>=**.
+!!! warning "`code => 400` is invalid syntax"
+    Always use SQL-compatible operators like `>=`.
 
-![Invalid Syntax](../../images/example-queries/equalto-greaterthan-error.png)
+    ![Invalid Syntax](../../images/example-queries/equalto-greaterthan-error.png)
 
 
 ## Filtering using WHERE Clause
@@ -130,6 +137,17 @@ FROM your_stream_name
 GROUP BY ts_histogram
 ```
 
-Replace `your_stream_name` with the actual stream name in your OpenObserve setup.
 - `histogram(_timestamp)` bins timestamps into uniform intervals (e.g. hourly). You can configure the granularity in the UI or query if needed.
     ![Histogram of log timestamps](../../images/example-queries/histogram.png)
+
+## Next steps
+
+- [SQL functions reference](../../reference/sql-functions/index.md): full list of functions you can use in queries.
+- [Full-text search](../../reference/sql-functions/full-text-search.md): how `match_all` and friends work under the hood.
+- [Logs UI](./logs/logs.md): where to run these queries.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)
+
