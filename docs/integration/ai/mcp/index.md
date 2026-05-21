@@ -1,4 +1,5 @@
 ---
+title: Model Context Protocol (MCP) | OpenObserve
 description: >-
   Connect AI agents and IDEs to OpenObserve using the Model Context Protocol (MCP).
   Query logs, metrics, and traces in natural language; create alerts; and explore stream metadata
@@ -15,7 +16,7 @@ You can connect your AI agents and IDEs to your OpenObserve instance to query lo
 - **Agentic operations** like alert creation as part of CI/CD pipelines
 - **AI-assisted troubleshooting** where an agent can pull stream data, correlate traces, and suggest root causes
 
-!!! note
+!!! note "Enterprise only"
     MCP is supported in the Enterprise edition of OpenObserve.
 
 ## Prerequisites
@@ -27,7 +28,7 @@ O2_TOOL_API_URL="http://localhost:5080"
 O2_AI_ENABLED="true"
 ```
 
-!!! note
+!!! note "About `O2_TOOL_API_URL`"
     `O2_TOOL_API_URL` is the address OpenObserve uses to call its own REST API internally. `http://localhost:5080` is correct for a local process. For containerized or remote deployments set it to the address at which the OpenObserve API is reachable from within the same environment (e.g. the service name in Docker Compose).
 
 Your MCP endpoint follows the pattern:
@@ -410,7 +411,7 @@ When connected, your MCP client will see the following tools. Tool names are pre
 
 ## Multi-organization workflows
 
-Each organization in your OpenObserve instance has its own MCP endpoint. You can register multiple servers in a single client to switch contexts:
+Each organization in your OpenObserve instance has its own MCP endpoint. You can register multiple servers in a single client to switch contexts. The example below uses the Claude Code CLI, but the same pattern applies to every client covered above: add one entry per org in the relevant config file (`mcp.json`, `claude_desktop_config.json`, etc.).
 
 ```bash
 claude mcp add o2-prod https://your-instance/api/production/mcp \
@@ -457,9 +458,14 @@ This is useful for keeping production data isolated from development queries, or
     - Verify the user has access to the target organization
     - Confirm the user has the necessary RBAC permissions for stream and alert operations
 
-## Resources
+## Next steps
 
-- [MCP Protocol Specification](https://modelcontextprotocol.io/)
-- [Claude Code MCP setup](claude.md): detailed walkthrough
-- [Community Slack](https://short.openobserve.ai/community)
-- [GitHub Issues](https://github.com/openobserve/openobserve/issues)
+- [Claude Code MCP setup](claude.md): step-by-step walkthrough for the Claude Code CLI.
+- [Building autonomous agents](#building-autonomous-agents): call the MCP server directly from your own agent runtime.
+- [MCP Protocol Specification](https://modelcontextprotocol.io/): the open standard behind every client and server.
+- [GitHub Issues](https://github.com/openobserve/openobserve/issues): file bugs or feature requests.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

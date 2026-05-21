@@ -1,3 +1,7 @@
+---
+title: Comparison with Alternatives | OpenObserve
+description: How OpenObserve compares with Elasticsearch on storage cost, query performance, and operational complexity for observability workloads.
+---
 # Comparison with Alternatives
 
 ## How Does OpenObserve Compare to Elasticsearch?
@@ -35,6 +39,11 @@ This cost comparison pertains only to storage. Amazon EBS storage volumes cost [
 - **Rust Performance:** Performs well and without Java Virtual Machine (JVM) challenges
 - **Purpose-Built:** Built from the ground up as an observability tool, not a general-purpose search engine
 
-## Elasticsearch Compatibility
+### Elasticsearch Compatibility
 
-The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector.
+The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector. This means you can swap OpenObserve in for Elasticsearch with minimal changes to your existing ingestion pipeline.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)
