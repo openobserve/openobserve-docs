@@ -47,7 +47,7 @@ The **Configuration** tab provides options to configure stream-level limits and 
 ![stream-details-configuration](../../../images/stream-details-configuration.png)
 
 ### Data Retention in days
-Sets how long data is retained in this stream. If not configured, the global retention period applies. Default global is 30 days.
+Sets how long data is retained in this stream. If not configured, the global retention period applies. Default global is 3650 days.
 
 ### Max Query Range in hours
 Sets the maximum time span allowed per query. This can help reduce query load. Note that this is stream and org specific.   

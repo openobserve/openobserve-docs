@@ -1,15 +1,15 @@
 ---
+title: Alerts in OpenObserve | OpenObserve
 description: >-
   Learn how alerting works in OpenObserve. Supports scheduled, real-time, and
   anomaly detection alerts with a natural language condition builder, SQL mode,
   live preview, and flexible notification destinations.
 ---
+# Alerts
 
 Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. Define conditions using a natural language builder or custom SQL, receive notifications through webhooks such as Slack, email, or other endpoints, and trigger configured Actions automatically when an alert is activated.
 
 ![Alerts list page with folders, type filter tabs, and alert management table](../../../images/overview-alerts-list.png)
-
----
 
 ## Alert types
 
@@ -18,8 +18,6 @@ OpenObserve supports three types of alerts:
 - **Scheduled alerts**: Run at fixed intervals to evaluate aggregated or historical data. Use for routine monitoring and trend analysis. For example, every 10 minutes, the alert evaluates your data and checks if the average response time exceeds 500ms. If the condition is met, the alert sends a notification.
 - **Real-time alerts**: Monitor data continuously and trigger instantly when conditions are met. Use for critical events requiring instant action. For example, when a specific error pattern appears in your logs, the alert sends a notification within seconds.
 - **Anomaly detection** *(Enterprise and Cloud only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
-
----
 
 ## Alert creation layout
 
@@ -39,8 +37,6 @@ Top Bar: Alert name, Folder, Stream Type, Stream Name, Alert Type
 The right panel displays a live **Preview** of your alert evaluation and an auto-updating **Summary** of your configuration.
 
 ![Alert creation form showing the two-tab layout with condition sentence, preview, and summary panels](../../../images/add-alert-count-mode.png)
-
----
 
 ## Core components
 
@@ -95,16 +91,12 @@ The cooldown period prevents duplicate notifications by temporarily pausing aler
 
 Toggle this on to automatically create an incident in the **Incidents** page when the alert triggers. This enables incident tracking and correlation across multiple alerts.
 
----
-
 ## Live preview and summary
 
 The right panel provides real-time feedback as you configure your alert:
 
 - **Preview**: Evaluates your conditions against recent data and shows whether the alert would trigger. Displays the number of matching data points and whether the threshold is met.
 - **Summary**: Generates a human-readable description of your complete alert configuration. Auto-updates as you change any field. Clickable summary segments jump to the corresponding form field.
-
----
 
 ## Advanced settings
 
@@ -116,23 +108,24 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 
 ![Advanced tab showing Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab.png)
 
----
-
 ## Alert folders
 
 Use folders to organize alerts on the **Alerts** page. All alerts are stored in the **default** folder unless you assign them to a different folder.
 
 To create a folder, click **+** in the **Folders** panel on the Alerts page, enter a name and description, and click **Create**. Use the **Search Folder** input to find folders quickly, or toggle **All Folders** to search alerts across all folders.
 
----
+## Next steps
 
-## Learn more
+- [Scheduled Alerts](scheduled-alerts.md): create scheduled and SQL alerts with advanced configuration.
+- [Real-time Alerts](real-time-alerts.md): create alerts that trigger instantly on ingestion.
+- [Alert Conditions and Filters](alert-conditions.md): deep dive into condition modes, functions, and filters.
+- [Alert History](alert-history.md): view alert trigger history.
+- [Anomaly Detection](anomaly-detection.md): ML-based anomaly alerts.
+- [Import and Export Alerts](import-export-alerts.md): bulk alert management.
+- [Alert Destinations](../../account-administration/management/alert-destinations/index.md): configure notification channels.
+- [Templates](../../account-administration/management/templates/index.md): customize notification content.
 
-- [Scheduled Alerts](scheduled-alerts.md) — Create scheduled and SQL alerts with advanced configuration
-- [Real-time Alerts](real-time-alerts.md) — Create alerts that trigger instantly on ingestion
-- [Alert Conditions and Filters](alert-conditions.md) — Deep dive into condition modes, functions, and filters
-- [Alert History](alert-history.md) — View alert trigger history
-- [Anomaly Detection](anomaly-detection.md) — ML-based anomaly alerts
-- [Import and Export Alerts](import-export-alerts.md) — Bulk alert management
-- [Alert Destinations](../../account-administration/management/alert-destinations/) — Configure notification channels
-- [Templates](../../account-administration/management/templates/) — Customize notification content
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

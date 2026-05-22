@@ -6,6 +6,8 @@ description: >-
 keywords: 'openobserve, sre agent, ai assistant, setup, configuration, incidents, rca'
 ---
 
+# O2 SRE Agent Setup
+
 ## Overview
 
 The O2 SRE Agent is a background service that powers AI-driven features in OpenObserve Enterprise. It handles AI request processing, tool execution, and intelligence for observability workflows.
@@ -13,7 +15,7 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 
 ## Features Enabled by SRE Agent
 
-### 1. AI Assistant
+### AI Assistant
 - Natural language querying of logs, metrics, and traces
 - Automated SQL/PromQL/VRL query generation
 - Resource creation (dashboards, alerts) via chat
@@ -21,7 +23,7 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 - Script generation (Python/VRL)
 - Query validation before execution
 
-### 2. Incident Management & RCA
+### Incident Management & RCA
 - Automated incident detection and grouping
 - AI-powered Root Cause Analysis
 - Alert correlation and event tracking
@@ -30,7 +32,8 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 ## Prerequisites
 
 1. **OpenObserve Enterprise License** (v0.60.0+)
-2. **AI Provider API Key** 
+2. **AI Provider API Key** with available quota (Anthropic, OpenAI, or Google Gemini)
+3. **`O2_AI_ENABLED`** set to `"true"` in your OpenObserve configuration
 
 ## Configuration Methods
 
@@ -60,7 +63,7 @@ Update your `values.yaml` with the following configuration:
 enterprise:
   enabled: true
 
-  # IMPORTANT: Must be set to true if O2_AI_ENABLED is "true"
+  # Required when O2_AI_ENABLED is "true"
   sreagent:
     enabled: true
     config:
@@ -357,9 +360,9 @@ Restart OpenObserve services to apply changes.
 
 For detailed information about all available environment variables and their configurations, refer to the official documentation:
 
-- [SRE Agent Configuration](https://openobserve.ai/docs/environment-variables/#sre-agent-configuration)
-- [AI Integration](https://openobserve.ai/docs/environment-variables/#ai-integration)
-- [Incidents and RCA](https://openobserve.ai/docs/environment-variables/#incidents-and-rca)
+- [SRE Agent Configuration](../administration/configuration/environment-variables.md#sre-agent-configuration)
+- [AI Integration](../administration/configuration/environment-variables.md#ai-integration)
+- [Incidents and RCA](../administration/configuration/environment-variables.md#incidents-and-rca)
 
 ## AI Provider Selection
 
@@ -382,7 +385,7 @@ An AI Gateway provides rate limiting, response caching, load balancing, and usag
 
 ### Configuration Flows
 
-**Flow 1: OpenObserve Built-in Gateway (Recommended)**
+#### Flow 1: OpenObserve Built-in Gateway (Recommended)
 
 Uses the [O2 Envoy Gateway](https://github.com/openobserve/o2-envoy-gateway) for AI request management.
 
@@ -399,7 +402,7 @@ enterprise:
     # Gateway settings auto-configured
 ```
 
-**Flow 2: External/Self-hosted Gateway**
+#### Flow 2: External/Self-hosted Gateway
 
 ```yaml
 enterprise:
@@ -411,7 +414,7 @@ enterprise:
       # O2_AI_PROVIDER not needed
 ```
 
-**Flow 3: Direct API (No Gateway)**
+#### Flow 3: Direct API (No Gateway)
 
 ```yaml
 enterprise:
@@ -430,9 +433,7 @@ Model Context Protocol (MCP) handles communication between the SRE Agent and Ope
 **Recommended for Production:**
 - Enable all validation settings (`O2_MCP_VALIDATION_ENABLED: "true"`)
 
-- Use `hybrid` validation mode for 
-balanced security and flexibility
-
+- Use `hybrid` validation mode for balanced security and flexibility
 - Configure MCP authentication for multi-tenant environments
 
 **Development:** Can disable validation (`O2_MCP_VALIDATION_ENABLED: "false"`) for faster iteration.
@@ -485,103 +486,118 @@ Why is the database connection pool exhausted?
 
 ## Troubleshooting
 
-### 1. SRE Agent Pod Not Starting
+??? "Common issues and fixes"
 
-**Check pod status:**
-```bash
-kubectl get pods -n openobserve | grep sreagent
-kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
-```
+    1. **SRE Agent Pod Not Starting**
 
-**Common causes:**
-- Invalid API key
-- Incorrect AI provider name
-- Network connectivity issues
+        Check pod status:
 
-**Verify configuration:**
-```bash
-# Check API key exists
-kubectl get secret -n openobserve openobserve-auth -o jsonpath='{.data.O2_AI_API_KEY}' | base64 -d
+        ```bash
+        kubectl get pods -n openobserve | grep sreagent
+        kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
+        ```
 
-# Check environment variables
-kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_
-```
+        Common causes:
 
-### 2. AI Assistant Not Responding
+        - Invalid API key
+        - Incorrect AI provider name
+        - Network connectivity issues
 
-**Check connectivity:**
-```bash
-# Health check
-kubectl exec -n openobserve deployment/openobserve-router -- \
-  curl -s http://openobserve-sreagent:8000/health
+        Verify configuration:
 
-# Check logs
-kubectl logs -n openobserve deployment/openobserve-sreagent --tail=50
-```
+        ```bash
+        # Check API key exists
+        kubectl get secret -n openobserve openobserve-auth -o jsonpath='{.data.O2_AI_API_KEY}' | base64 -d
 
-**Common causes:**
-- `O2_AI_ENABLED` not set to `"true"`
-- Network policy blocking communication
-- AI provider API rate limiting
-- Service misconfiguration
+        # Check environment variables
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_
+        ```
 
-### 3. MCP Tool Execution Failures
+    2. **AI Assistant Not Responding**
 
-**Verify MCP endpoint:**
-```bash
-# Check O2_TOOL_API_URL
-kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_TOOL_API_URL
+        Check connectivity:
 
-# Test connectivity
-kubectl exec -n openobserve deployment/openobserve-sreagent -- \
-  curl -s http://openobserve-router:5080/api/default/mcp
-```
+        ```bash
+        # Health check
+        kubectl exec -n openobserve deployment/openobserve-router -- \
+          curl -s http://openobserve-sreagent:8000/health
 
-**Common causes:**
-- Incorrect `O2_TOOL_API_URL` format
-- Wrong organization name in URL
-- Missing MCP credentials
-- Service not reachable
+        # Check logs
+        kubectl logs -n openobserve deployment/openobserve-sreagent --tail=50
+        ```
 
-**Correct URL format:**
-```
-http://<service-name>.<namespace>.svc.cluster.local:<port>/api/<org-name>/mcp
-```
+        Common causes:
 
-### 4. AI Gateway Issues
+        - `O2_AI_ENABLED` not set to `"true"`
+        - Network policy blocking communication
+        - AI provider API rate limiting
+        - Service misconfiguration
 
-**Check gateway:**
-```bash
-# Verify gateway service
-kubectl get svc -n <gateway-namespace> | grep ai-gateway
+    3. **MCP Tool Execution Failures**
 
-# Test connectivity
-kubectl exec -n openobserve deployment/openobserve-sreagent -- \
-  curl -s http://ai-gateway:80
-```
+        Verify MCP endpoint:
 
-**Common causes:**
-- Gateway not deployed
-- Conflicting configuration (both `O2_AI_PROVIDER` and `O2_AI_GATEWAY_ENABLED` set)
-- Wrong gateway URL or port
+        ```bash
+        # Check O2_TOOL_API_URL
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_TOOL_API_URL
 
-**Fix:**
-- With gateway: Remove `O2_AI_PROVIDER`, set `O2_AI_GATEWAY_ENABLED="true"`
-- Without gateway: Remove all `O2_AI_GATEWAY_*` variables, set `O2_AI_PROVIDER`
+        # Test connectivity
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- \
+          curl -s http://openobserve-router:5080/api/default/mcp
+        ```
 
-### 5. Incident Management Not Working
+        Common causes:
 
-**Check configuration:**
-```bash
-kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_INCIDENTS
-```
+        - Incorrect `O2_TOOL_API_URL` format
+        - Wrong organization name in URL
+        - Missing MCP credentials
+        - Service not reachable
 
-**Required settings (in OpenObserve, not SRE Agent):**
-```yaml
-O2_AI_ENABLED: "true"
-O2_INCIDENTS_ENABLED: "true"
-O2_INCIDENTS_RCA_ENABLED: "true"
-```
+        Correct URL format:
+
+        ```
+        http://<service-name>.<namespace>.svc.cluster.local:<port>/api/<org-name>/mcp
+        ```
+
+    4. **AI Gateway Issues**
+
+        Check gateway:
+
+        ```bash
+        # Verify gateway service
+        kubectl get svc -n <gateway-namespace> | grep ai-gateway
+
+        # Test connectivity
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- \
+          curl -s http://ai-gateway:80
+        ```
+
+        Common causes:
+
+        - Gateway not deployed
+        - Conflicting configuration (both `O2_AI_PROVIDER` and `O2_AI_GATEWAY_ENABLED` set)
+        - Wrong gateway URL or port
+
+        Fix:
+
+        - With gateway: Remove `O2_AI_PROVIDER`, set `O2_AI_GATEWAY_ENABLED="true"`
+        - Without gateway: Remove all `O2_AI_GATEWAY_*` variables, set `O2_AI_PROVIDER`
+
+    5. **Incident Management Not Working**
+
+        Check configuration:
+
+        ```bash
+        kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_INCIDENTS
+        ```
+
+        Required settings (in OpenObserve, not SRE Agent):
+
+        ```yaml
+        O2_AI_ENABLED: "true"
+        O2_INCIDENTS_ENABLED: "true"
+        O2_INCIDENTS_RCA_ENABLED: "true"
+        ```
 
 ## Best Practices
 
@@ -593,27 +609,10 @@ O2_INCIDENTS_RCA_ENABLED: "true"
 - **Cost Optimization**: Use AI Gateway with caching to reduce API calls; choose cost-effective models for simple queries
 - **Updates**: Keep SRE Agent image updated; test in non-production environments first
 
-## Support
 
 
-- [Community Slack](https://short.openobserve.ai/community) 
+### Support diagnostics
 
-- [GitHub](https://github.com/openobserve/openobserve)
-
-
-
-**Before contacting support, verify:**
-- SRE Agent pod is running and healthy
-
-- AI API key is valid with available quota
-
-- `O2_AI_ENABLED="true"` in OpenObserve config
-
-- Services can communicate (SRE Agent ↔ OpenObserve)
-
-- No conflicting AI Gateway configuration
-
-**Support diagnostics:**
 ```bash
 # Check pod and logs
 kubectl get pods -n openobserve | grep sreagent
@@ -623,4 +622,15 @@ kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
 kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_
 ```
 
----
+
+## Next steps
+
+- [Model Context Protocol (MCP)](../integration/ai/mcp/index.md): connect IDEs and agents to OpenObserve through the SRE Agent.
+- [AI Integration env vars](../administration/configuration/environment-variables.md#ai-integration): full reference for AI-related settings.
+- [Incidents and RCA env vars](../administration/configuration/environment-variables.md#incidents-and-rca): tune incident detection and root cause analysis.
+
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

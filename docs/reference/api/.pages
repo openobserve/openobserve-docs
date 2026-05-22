@@ -1,4 +1,5 @@
 nav:
+    - Overview: index.md
     - Streams: stream
     - Ingestion: ingestion
     - Search: search
