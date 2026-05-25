@@ -432,7 +432,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 }
 
 .landing-tutorial-title {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.3;
@@ -590,21 +590,21 @@ body:has(.landing-page) .md-sidebar--secondary {
   background-color: rgba(5, 150, 105, 0.15);
 }
 
-.landing-feature-text h3 {
+/* .landing-feature-text h3 {
   font-size: var(--font-size-lg) !important;
   font-weight: 600;
   margin: 0 0 var(--spacing-xs) 0;
   text-align: center;
-}
+} */
 
-.landing-feature-text p {
+/* .landing-feature-text p {
   font-size: var(--font-size-sm) !important;
   font-weight: 400;
   margin: 0;
   text-align: center;
   line-height: 1.4;
   color: var(--text-secondary);
-}
+} */
 
 /* Integration Grid */
 .landing-integration-grid {
@@ -1647,301 +1647,104 @@ body:has(.landing-page) .md-sidebar--secondary {
   margin-top: 0 !important;
 }
 .landing-section-title {
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  margin-bottom: 0.75rem !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 1rem !important;
 }
-
-/* ---------- Uniform, compact card sizing from Features section onward ----
-   One card size + height across Features, Tutorials, Concepts, Migrate,
-   Community. Tight padding and horizontal layouts where possible to keep
-   cards short.
-*/
-.landing-features-catalog {
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 0.75rem !important;
-}
-/* Horizontal layout to match Concepts: icon left, title + description right.
-   Uses CSS grid with named areas so we don't need to change the HTML. */
-.landing-feature-catalog-card {
-  display: grid !important;
-  grid-template-columns: auto minmax(0, 1fr) !important;
-  grid-template-areas: "icon title" "icon desc" !important;
-  column-gap: 0.55rem !important;
-  row-gap: 0.35rem !important;
-  align-items: center !important;
-  padding: 0.55rem 0.7rem !important;
-  height: 64px !important;
-}
-.landing-feature-catalog-icon {
-  grid-area: icon !important;
-  align-self: center !important;
-  width: 24px !important;
-  height: 24px !important;
-  margin: 0 !important;
-  flex: 0 0 auto !important;
-}
-.landing-feature-catalog-icon img {
-  width: 18px !important;
-  height: 18px !important;
-}
-.landing-feature-catalog-card h3 {
-  grid-area: title !important;
-  font-size: 0.78rem !important;
-  line-height: 1.3 !important;
-  margin: 0 !important;
-}
-.landing-feature-catalog-card p {
-  grid-area: desc !important;
+.landing-subsection-title {
   font-size: 0.7rem !important;
-  line-height: 1.35 !important;
-  margin: 0 !important;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: rgba(0, 0, 0, 0.4) !important;
+  margin: 1.25rem 0 0.75rem !important;
+}
+[data-md-color-scheme="slate"] .landing-subsection-title {
+  color: rgba(255, 255, 255, 0.45) !important;
 }
 
-/* Tutorials: flatten the row wrapper so all cards live in one 3-col grid */
+/* ============================================================
+   CARD LAYOUT — readable, fully responsive
+   ============================================================ */
+/* ── Grid containers ── */
+.landing-features-catalog {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
 .landing-tutorial-rows {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 0.75rem !important;
-  justify-content: stretch !important;
+  gap: 1rem !important;
 }
 .landing-tutorial-row {
   display: contents !important;
 }
-.landing-tutorial-row .landing-tutorial-card {
-  max-width: none !important;
-  min-width: 0 !important;
-  padding: 0.55rem 0.7rem !important;
-  text-align: left !important;
-  /* Horizontal: icon left, title + description right (matches Features/Concepts) */
-  display: grid !important;
-  grid-template-columns: auto minmax(0, 1fr) !important;
-  grid-template-areas: "icon title" "icon desc" !important;
-  column-gap: 0.55rem !important;
-  row-gap: 0.35rem !important;
-  align-items: center !important;
-  height: 64px !important;
-}
-.landing-tutorial-card-icon {
-  grid-area: icon;
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 auto;
-}
-.landing-tutorial-card-icon img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-.landing-tutorial-title {
-  grid-area: title !important;
-  font-size: 0.78rem !important;
-  line-height: 1.3 !important;
-  margin: 0 !important;
-}
-.landing-tutorial-description {
-  grid-area: desc !important;
-  font-size: 0.7rem !important;
-  line-height: 1.35 !important;
-  margin: 0 !important;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Concepts: flip from vertical (icon-on-top) to horizontal (icon left, text right)
-   — this is the biggest height saver. Mirror what Community already does. */
 .landing-features-list {
-  gap: 0.75rem !important;
-}
-.landing-feature-item {
-  padding: 0.55rem 0.7rem !important;
-  height: 64px !important;
-  text-align: left !important;
-  align-items: stretch !important;
-}
-.landing-feature-left {
-  flex-direction: row !important;
-  align-items: center !important;
-  text-align: left !important;
-  gap: 0.65rem !important;
-}
-.landing-feature-icon {
-  flex: 0 0 auto !important;
-  width: 24px !important;
-  height: 24px !important;
-  margin-bottom: 0 !important;
-}
-.landing-feature-icon img {
-  width: 18px !important;
-  height: 18px !important;
-}
-.landing-feature-text {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  text-align: left !important;
-}
-.landing-feature-text h3 {
-  font-size: 0.78rem !important;
-  margin: 0 0 0.1rem !important;
-  line-height: 1.3 !important;
-}
-.landing-feature-text p {
-  font-size: 0.7rem !important;
-  line-height: 1.35 !important;
-  margin: 0 !important;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Community grid: same compact pattern */
-.landing-community-support-grid {
-  gap: 0.75rem !important;
-}
-.landing-community-support-item {
-  padding: 0.75rem 0.85rem !important;
-  min-height: 0 !important;
-}
-.landing-community-support-icon {
-  width: 24px !important;
-  height: 24px !important;
-}
-.landing-community-support-text h3 {
-  font-size: 0.9rem !important;
-  margin-bottom: 0.15rem !important;
-}
-.landing-community-support-text p {
-  font-size: 0.78rem !important;
-  line-height: 1.4 !important;
-}
-
-/* Migrate cards (inside the 2-col section right column) */
-.landing-section--two-col .landing-section-right .landing-migrate-grid {
+  display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 0.75rem !important;
-}
-.landing-migrate-card {
-  padding: 0.75rem 0.85rem !important;
-}
-.landing-migrate-icon {
-  width: 28px !important;
-  height: 28px !important;
-}
-.landing-migrate-text h3 {
-  font-size: 0.9rem !important;
-  margin: 0 !important;
+  gap: 1rem !important;
 }
 
-/* Responsive collapse */
-@media (max-width: 1100px) {
-  .landing-features-catalog,
-  .landing-tutorial-rows,
-  .landing-features-list,
-  .landing-community-support-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-}
-@media (max-width: 760px) {
-  .landing-features-catalog,
-  .landing-tutorial-rows,
-  .landing-features-list,
-  .landing-community-support-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-@media (max-width: 480px) {
-  .landing-features-catalog,
-  .landing-tutorial-rows,
-  .landing-features-list,
-  .landing-community-support-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* === END Supabase-flat visual pass === */
-
-/* ---------- Uniform card dimensions across all sections ---------- */
-.landing-feature-catalog-card,
-.landing-tutorial-row .landing-tutorial-card,
-.landing-tutorial-card,
-.landing-feature-item,
-.landing-migrate-card,
-.landing-community-support-item {
-  height: 90px !important;
-  min-height: 90px !important;
-  padding: 0.85rem 1rem !important;
+/* ── Card base: icon-left + text-right (grid) ── */
+.landing-feature-catalog-card {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) !important;
+  grid-template-areas: "icon title" "icon desc" !important;
+  column-gap: 0.75rem !important;
+  row-gap: 0.3rem !important;
+  align-items: center !important;
+  align-content: center !important;
+  padding: 1rem 1.1rem !important;
+  min-height: 84px !important;
+  height: auto !important;
   overflow: hidden !important;
-  box-sizing: border-box !important;
-  /* Top-align content so the title and first description line sit at the same y-coord across cards */
-  align-items: start !important;
-  align-content: start !important;
-  /* Uniform border across all sections */
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
   border-radius: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease !important;
+  box-sizing: border-box !important;
 }
-
-/* Uniform title-to-description spacing for Concepts (which uses flex layout, not grid row-gap) */
-.landing-feature-text h3 {
-  margin: 0 0 0.35rem !important;
+.landing-feature-catalog-card:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.07) !important;
+  background: rgba(124, 58, 237, 0.015) !important;
+  transform: none !important;
 }
-
-/* Normalize Migrate card text sizes to match other cards */
-.landing-migrate-text h3 {
-  font-size: 0.78rem !important;
-  margin: 0 0 0.35rem !important;
-  line-height: 1.3 !important;
-}
-.landing-migrate-text p {
-  font-size: 0.7rem !important;
-  line-height: 1.35 !important;
-  color: var(--text-secondary) !important;
-}
-
-/* Uniform icon sizing + style across all card sections */
-.landing-feature-catalog-icon,
-.landing-tutorial-card-icon,
-.landing-feature-icon,
-.landing-migrate-icon,
-.landing-community-support-icon {
-  width: 24px !important;
-  height: 24px !important;
-  background: transparent !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  flex: 0 0 auto !important;
+/* ── Icon ── */
+.landing-feature-catalog-icon {
+  grid-area: icon !important;
+  align-self: center !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 42px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
-.landing-feature-catalog-icon img,
-.landing-tutorial-card-icon img,
-.landing-feature-icon img,
-.landing-migrate-icon img,
-.landing-community-support-icon img {
-  width: 20px !important;
-  height: 20px !important;
+.landing-feature-catalog-icon img {
+  width: 30px !important;
+  height: 30px !important;
   object-fit: contain !important;
 }
 
-/* Force consistent title clamp + left alignment */
-.landing-feature-catalog-card h3,
-.landing-tutorial-title,
-.landing-feature-text h3,
-.landing-migrate-text h3,
-.landing-community-support-text h3,
-.landing-migrate-card h3 {
+/* ── Title ── */
+.landing-feature-catalog-card h3 {
+  grid-area: title !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  color: inherit !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 1 !important;
   -webkit-box-orient: vertical !important;
@@ -1949,28 +1752,361 @@ body:has(.landing-page) .md-sidebar--secondary {
   text-align: left !important;
 }
 
-/* Reserve exactly 2 lines for descriptions so single-line descriptions still occupy 2 lines worth of vertical space */
-.landing-feature-catalog-card p,
-.landing-tutorial-description,
-.landing-feature-text p,
-.landing-community-support-text p,
-.landing-migrate-text p {
+/* ── Description ── */
+.landing-feature-catalog-card p {
+  grid-area: desc !important;
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.6) !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
-  height: calc(2 * 1.35em) !important;
-  min-height: calc(2 * 1.35em) !important;
   text-align: left !important;
+  height: auto !important;
+  min-height: 0 !important;
 }
 
-/* Add space between title and description in cards */
-.landing-feature-catalog-card,
+/* ── Tutorial cards ── */
 .landing-tutorial-row .landing-tutorial-card {
-  row-gap: 0.55rem !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  text-align: left !important;
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) !important;
+  grid-template-areas: "icon title" "icon desc" !important;
+  column-gap: 0.75rem !important;
+  row-gap: 0.3rem !important;
+  align-items: center !important;
+  align-content: center !important;
+  padding: 1rem 1.1rem !important;
+  min-height: 84px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease !important;
+  box-sizing: border-box !important;
 }
-.landing-feature-text h3,
-.landing-migrate-text h3,
+.landing-tutorial-row .landing-tutorial-card:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.07) !important;
+  background: rgba(124, 58, 237, 0.015) !important;
+  transform: none !important;
+}
+.landing-tutorial-card-icon {
+  grid-area: icon !important;
+  align-self: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 42px !important;
+  height: 42px !important;
+  flex: 0 0 42px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.landing-tutorial-card-icon img {
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+}
+.landing-tutorial-title {
+  grid-area: title !important;
+  font-size: 14px !important; /* overridden by specificity block below */
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  color: inherit !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
+}
+.landing-tutorial-description {
+  grid-area: desc !important;
+  font-size: 12px !important; /* overridden by specificity block below */
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* ── Concepts (.landing-feature-item) flex row ── */
+.landing-feature-item {
+  display: flex !important;
+  align-items: center !important;
+  padding: 1rem 1.1rem !important;
+  min-height: 84px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color 160ms ease !important;
+  box-sizing: border-box !important;
+}
+.landing-feature-item:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  background: rgba(124, 58, 237, 0.015) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.landing-feature-left {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+.landing-feature-icon {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+}
+.landing-feature-icon img {
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+}
+.landing-feature-text {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  text-align: left !important;
+}
+.landing-feature-text h3 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 0 0.3rem !important;
+  color: inherit !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
+}
+.landing-feature-text p {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* ── Community & Support ── */
+.landing-community-support-grid {
+  gap: 1rem !important;
+}
+.landing-community-support-item {
+  min-height: 84px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+}
+.landing-community-support-icon {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.landing-community-support-icon img {
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+}
 .landing-community-support-text h3 {
-  margin-bottom: 0.55rem !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 0 0.3rem !important;
+}
+.landing-community-support-text p {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ── Migrate cards ── */
+.landing-section--two-col .landing-section-right .landing-migrate-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
+.landing-migrate-card {
+  min-height: 84px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+}
+.landing-migrate-icon {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.landing-migrate-icon img {
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+}
+.landing-migrate-text h3 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 0 0.3rem !important;
+}
+.landing-migrate-text p {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ── Dark mode ── */
+[data-md-color-scheme="slate"] .landing-feature-catalog-card,
+[data-md-color-scheme="slate"] .landing-tutorial-row .landing-tutorial-card,
+[data-md-color-scheme="slate"] .landing-tutorial-card,
+[data-md-color-scheme="slate"] .landing-feature-item,
+[data-md-color-scheme="slate"] .landing-migrate-card,
+[data-md-color-scheme="slate"] .landing-community-support-item {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card:hover,
+[data-md-color-scheme="slate"]
+  .landing-tutorial-row
+  .landing-tutorial-card:hover,
+[data-md-color-scheme="slate"] .landing-tutorial-card:hover,
+[data-md-color-scheme="slate"] .landing-feature-item:hover {
+  border-color: rgba(196, 181, 253, 0.5) !important;
+  background: rgba(196, 181, 253, 0.04) !important;
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card p,
+[data-md-color-scheme="slate"] .landing-tutorial-description,
+[data-md-color-scheme="slate"] .landing-feature-text p,
+[data-md-color-scheme="slate"] .landing-migrate-text p,
+[data-md-color-scheme="slate"] .landing-community-support-text p {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Tablet: 2 columns */
+@media (max-width: 960px) {
+  .landing-features-catalog,
+  .landing-tutorial-rows,
+  .landing-features-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+  .landing-features-catalog,
+  .landing-tutorial-rows,
+  .landing-features-list {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .landing-feature-catalog-card,
+  .landing-tutorial-row .landing-tutorial-card,
+  .landing-tutorial-card,
+  .landing-feature-item {
+    min-height: 72px !important;
+    padding: 0.875rem 1rem !important;
+  }
+}
+
+/* ================================================================
+   SPECIFICITY GUARANTEE — ensures card h3/p match tutorial sizing
+   regardless of Material theme's .md-typeset h3 (1.25em) cascade.
+   Uses .landing-main-content parent for higher specificity (0,2,1)
+   vs .md-typeset h3 (0,1,1).
+   ================================================================ */
+.landing-main-content .landing-tutorial-card h3,
+.landing-main-content .landing-feature-item h3,
+.landing-main-content .landing-feature-catalog-card h3,
+.landing-main-content .landing-migrate-card h3,
+.landing-main-content .landing-community-support-item h3 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  letter-spacing: normal !important;
+  margin: 0 0 0.3rem !important;
+  padding: 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
+}
+.landing-main-content .landing-tutorial-card p,
+.landing-main-content .landing-feature-item p,
+.landing-main-content .landing-feature-catalog-card p,
+.landing-main-content .landing-migrate-card p,
+.landing-main-content .landing-community-support-item p {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
 }
