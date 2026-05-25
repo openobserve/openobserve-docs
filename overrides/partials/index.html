@@ -6,124 +6,197 @@
   <div class="landing-container w-full mx-auto">
     <!-- Main Content -->
     <main class="landing-main-content">
-      <!-- Main Documentation Heading -->
-      <h1 class="">OpenObserve Documentation</h1>
-
-      <!-- Hero Card -->
-      <div class="landing-hero-card">
-        <div class="landing-hero-content">
-          <div>
-            <!-- <h1 class="landing-hero-title">OpenObserve Documentation</h1> -->
-            <p class="landing-hero-description">
-              OpenObserve (O2) is a cloud-native observability platform that
-              unifies logs, metrics, and traces into one solution.
-            </p>
-          </div>
+      <!-- Hero: 2-column. Left = identity + tagline + CTAs. Right = Getting Started panel. -->
+      <section class="landing-hero-grid">
+        <div class="landing-hero-id">
+          <h1 class="landing-hero-title">OpenObserve Documentation</h1>
+          <p class="landing-hero-description">
+            Learn how to get up and running with OpenObserve through tutorials,
+            integrations, and references. OpenObserve (O2) unifies logs,
+            metrics, and traces into one cloud-native platform.
+          </p>
           <div class="landing-hero-buttons">
-            <a href="overview/" class="primary-button-hero">
+            <a href="quickstart/" class="primary-button-hero">
               <span class="landing-btn-content">
-                <span class="landing-play-icon">
-                  <img src="/docs/assets/view.svg" alt="" />
-                </span>
-                <span>Overview</span>
+                <span class="landing-play-icon"><img src="/docs/assets/view.svg" alt="" /></span>
+                <span>Quickstart</span>
               </span>
             </a>
             <a href="/downloads/" class="primary-button-hero">
               <span class="landing-btn-content">
-                <span class="landing-play-icon">
-                  <img src="/docs/assets/download.svg" alt="" />
-                </span>
+                <span class="landing-play-icon"><img src="/docs/assets/download.svg" alt="" /></span>
                 <span>Download</span>
               </span>
             </a>
           </div>
         </div>
-      </div>
+        <aside class="landing-getting-started-panel" aria-label="Getting Started">
+          <p class="landing-gs-subtitle">Start ingesting from your data source.</p>
+          <div class="landing-source-grid">
+            <a href="integration/system/k8s/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Kubernetes">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/kubernetes" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Kubernetes</span>
+            </a>
+            <a href="quickstart/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Docker">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/docker" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Docker</span>
+            </a>
+            <a href="ingestion/traces/opentelemetry/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="OpenTelemetry">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/opentelemetry" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">OpenTelemetry</span>
+            </a>
+            <a href="ingestion/logs/fluent-bit/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Fluent Bit">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/fluentbit" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Fluent Bit</span>
+            </a>
+            <a href="ingestion/logs/vector/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Vector">
+              <span class="landing-source-icon"><img src="/docs/assets/source-logos/vector.svg" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Vector</span>
+            </a>
+            <a href="ingestion/metrics/prometheus/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Prometheus">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/prometheus" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Prometheus</span>
+            </a>
+            <a href="integration/servers/nginx/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="NGINX">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/nginx" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">NGINX</span>
+            </a>
+            <a href="integration/ai/claude-code-tracing/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Claude Code">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/claude" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Claude Code</span>
+            </a>
+            <a href="ingestion/logs/python/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Python">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/python" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Python</span>
+            </a>
+            <a href="ingestion/logs/fluentd/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Fluentd">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/fluentd" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Fluentd</span>
+            </a>
+            <a href="ingestion/logs/filebeat/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Filebeat">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/elastic" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Filebeat</span>
+            </a>
+            <a href="ingestion/metrics/telegraf/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Telegraf">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/influxdb" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Telegraf</span>
+            </a>
+            <a href="ingestion/traces/nodejs/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Node.js">
+              <span class="landing-source-icon"><img src="https://cdn.simpleicons.org/nodedotjs" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">Node.js</span>
+            </a>
+            <a href="ingestion/logs/kinesis-firehose/" class="landing-source-tile" data-clarity-event="docs_landing_page_card_click" data-clarity-title="AWS Kinesis">
+              <span class="landing-source-icon"><img src="/docs/assets/source-logos/aws-kinesis.svg" alt="" loading="lazy" onerror="this.style.display='none'" /></span>
+              <span class="landing-source-label">AWS Kinesis</span>
+            </a>
+          </div>
+          <a href="ingestion/" class="landing-source-viewall">View all ingestion sources →</a>
+        </aside>
+      </section>
 
-      <!-- Tutorial Section -->
+      <!-- Features catalog -->
       <section class="landing-section">
-        <h2 class="landing-section-title">Quick Guides</h2>
-        <div class="landing-tutorial-rows">
-          <div class="landing-tutorial-row">
-            <a
-              href="getting-started/"
-              class="landing-tutorial-card"
-              data-clarity-event="docs_landing_page_card_click"
-              data-clarity-title="Getting Started"
-              data-clarity-url="getting-started/"
-            >
-              <h3 class="landing-tutorial-title">Getting Started</h3>
-              <p class="landing-tutorial-description">
-                Get OpenObserve running locally in under 2 minutes with Docker
-              </p>
-            </a>
-            <a
-              href="user-guide/dashboards/dashboards-in-openobserve/"
-              class="landing-tutorial-card"
-              data-clarity-event="docs_landing_page_card_click"
-              data-clarity-title="Create Your First Dashboard"
-              data-clarity-url="user-guide/dashboards/dashboards-in-openobserve/"
-            >
-              <h3 class="landing-tutorial-title">
-                Create Your First Dashboard
-              </h3>
-              <p class="landing-tutorial-description">
-                Build dashboards and visualizations easily
-              </p>
-            </a>
-          </div>
-          <div class="landing-tutorial-row">
-            <a
-              href="features/logs/#storage-performance"
-              class="landing-tutorial-card"
-              data-clarity-event="docs_landing_page_card_click"
-              data-clarity-title="Advanced Log Queries"
-              data-clarity-url="features/logs/#storage-performance"
-            >
-              <h3 class="landing-tutorial-title">Advanced Log Queries</h3>
-              <p class="landing-tutorial-description">
-                Master SQL for powerful log analysis
-              </p>
-            </a>
-            <a
-              href="administration/deployment/ha-deployment/"
-              class="landing-tutorial-card"
-              data-clarity-event="docs_landing_page_card_click"
-              data-clarity-title="Production Deployment"
-              data-clarity-url="administration/deployment/ha-deployment/"
-            >
-              <h3 class="landing-tutorial-title">Production Deployment</h3>
-              <p class="landing-tutorial-description">
-                Deploy OpenObserve with high availability
-              </p>
-            </a>
-            <a
-              href="user-guide/alerts/alerts/"
-              class="landing-tutorial-card"
-              data-clarity-event="docs_landing_page_card_click"
-              data-clarity-title="Set Up Alerts"
-              data-clarity-url="user-guide/alerts/alerts/"
-            >
-              <h3 class="landing-tutorial-title">Set Up Alerts</h3>
-              <p class="landing-tutorial-description">
-                Configure alerts and notifications
-              </p>
-            </a>
-          </div>
+        <h2 class="landing-section-title">Features</h2>
+        <div class="landing-features-catalog">
+          <a href="features/logs/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Logs">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--green">
+              <img src="/docs/assets/user-guides/Log Search.svg" alt="" />
+            </div>
+            <h3>Logs</h3>
+            <p>Search, filter, and analyze logs with SQL and full-text queries at petabyte scale.</p>
+          </a>
+          <a href="features/metrics/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Metrics">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--blue">
+              <img src="/docs/assets/user-guides/status-up.svg" alt="" />
+            </div>
+            <h3>Metrics</h3>
+            <p>Collect, store, and visualize metrics from any Prometheus-compatible source.</p>
+          </a>
+          <a href="features/distributed-tracing/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Traces">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--purple">
+              <img src="/docs/assets/user-guides/ingestion.svg" alt="" />
+            </div>
+            <h3>Traces</h3>
+            <p>Distributed tracing to understand request flow across services.</p>
+          </a>
+          <a href="integration/ai/llm-applications/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="LLM Monitoring">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--purple">
+              <img src="/docs/assets/nav-icons/llm-observability.svg" alt="" />
+            </div>
+            <h3>LLM Monitoring</h3>
+            <p>Track prompts, tokens, latency, and cost across LLM applications.</p>
+          </a>
+          <a href="user-guide/analytics/dashboards/dashboards-in-openobserve/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Dashboards">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--navy">
+              <img src="/docs/assets/user-guides/dashboard.svg" alt="" />
+            </div>
+            <h3>Dashboards</h3>
+            <p>Build interactive dashboards on top of any data stream.</p>
+          </a>
+          <a href="user-guide/analytics/alerts/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Alerts">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--red">
+              <img src="/docs/assets/user-guides/alerts.svg" alt="" />
+            </div>
+            <h3>Alerts</h3>
+            <p>Continuous monitoring with conditional alerts and notifications.</p>
+          </a>
+          <a href="user-guide/data-processing/pipelines/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Pipelines">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--pink">
+              <img src="/docs/assets/user-guides/pipeline.svg" alt="" />
+            </div>
+            <h3>Pipelines</h3>
+            <p>Transform and route data during ingestion with no-code pipelines.</p>
+          </a>
+          <a href="user-guide/data-exploration/rum/setup/" class="landing-feature-catalog-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="RUM">
+            <div class="landing-feature-catalog-icon landing-tutorial-icon--forest">
+              <img src="/docs/assets/user-guides/rum.svg" alt="" />
+            </div>
+            <h3>RUM</h3>
+            <p>Real user monitoring with session replay and error tracking.</p>
+          </a>
         </div>
       </section>
 
-      <!-- Core Features Section -->
+      <!-- User Guides: task-oriented Tutorials + concept-oriented reference -->
       <section class="landing-section">
         <h2 class="landing-section-title">User Guides</h2>
+
+        <h3 class="landing-subsection-title">Tutorials</h3>
+        <div class="landing-tutorial-rows">
+          <div class="landing-tutorial-row">
+            <a href="user-guide/analytics/dashboards/dashboards-in-openobserve/" class="landing-tutorial-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Create Your First Dashboard">
+              <div class="landing-tutorial-card-icon"><img src="/docs/assets/user-guides/dashboard.svg" alt="" /></div>
+              <h3 class="landing-tutorial-title">Create Your First Dashboard</h3>
+              <p class="landing-tutorial-description">Build dashboards and visualizations easily</p>
+            </a>
+            <a href="features/logs/" class="landing-tutorial-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Advanced Log Queries">
+              <div class="landing-tutorial-card-icon"><img src="/docs/assets/user-guides/Log Search.svg" alt="" /></div>
+              <h3 class="landing-tutorial-title">Advanced Log Queries</h3>
+              <p class="landing-tutorial-description">Master SQL syntax to write powerful queries for in-depth log analysis</p>
+            </a>
+          </div>
+          <div class="landing-tutorial-row">
+            <a href="administration/deployment/ha-deployment/" class="landing-tutorial-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Production Deployment">
+              <div class="landing-tutorial-card-icon"><img src="/docs/assets/user-guides/storage-management.svg" alt="" /></div>
+              <h3 class="landing-tutorial-title">Production Deployment</h3>
+              <p class="landing-tutorial-description">Deploy OpenObserve with high availability</p>
+            </a>
+            <a href="user-guide/analytics/alerts/" class="landing-tutorial-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Set Up Alerts">
+              <div class="landing-tutorial-card-icon"><img src="/docs/assets/user-guides/alerts.svg" alt="" /></div>
+              <h3 class="landing-tutorial-title">Set Up Alerts</h3>
+              <p class="landing-tutorial-description">Configure alert conditions and notification channels for proactive monitoring</p>
+            </a>
+            <a href="ingestion/logs/curl/" class="landing-tutorial-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Ingest Your First Logs">
+              <div class="landing-tutorial-card-icon"><img src="/docs/assets/user-guides/ingestion.svg" alt="" /></div>
+              <h3 class="landing-tutorial-title">Ingest Your First Logs</h3>
+              <p class="landing-tutorial-description">Send your first logs to OpenObserve in minutes using a simple curl request</p>
+            </a>
+          </div>
+        </div>
+
+        <h3 class="landing-subsection-title">Concepts</h3>
         <div class="landing-features-list">
-          <a
-            href="user-guide/data-exploration/logs/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Log Search"
-            data-clarity-url="user-guide/data-exploration/logs/"
-          >
+          <a href="user-guide/data-exploration/logs/" class="landing-feature-item" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Log Search">
             <div class="landing-feature-left">
               <div class="landing-feature-icon landing-tutorial-icon--green">
                 <img src="/docs/assets/user-guides/Log Search.svg" alt="" />
@@ -134,30 +207,7 @@
               </div>
             </div>
           </a>
-          <a
-            href="user-guide/data-exploration/metrics/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Metrics"
-            data-clarity-url="user-guide/data-exploration/metrics/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--blue">
-                <img src="/docs/assets/user-guides/status-up.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>Metrics</h3>
-                <p>Analyze file access times and system performance</p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="user-guide/streams/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Streams"
-            data-clarity-url="user-guide/streams/"
-          >
+          <a href="user-guide/streams/" class="landing-feature-item" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Streams">
             <div class="landing-feature-left">
               <div class="landing-feature-icon landing-tutorial-icon--orange">
                 <img src="/docs/assets/user-guides/stream.svg" alt="" />
@@ -168,13 +218,7 @@
               </div>
             </div>
           </a>
-          <a
-            href="ingestion/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Ingestion"
-            data-clarity-url="ingestion/"
-          >
+          <a href="ingestion/" class="landing-feature-item" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Ingestion">
             <div class="landing-feature-left">
               <div class="landing-feature-icon landing-tutorial-icon--purple">
                 <img src="/docs/assets/user-guides/ingestion.svg" alt="" />
@@ -185,270 +229,48 @@
               </div>
             </div>
           </a>
-          <a
-            href="user-guide/data-processing/pipelines/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Pipelines"
-            data-clarity-url="user-guide/data-processing/pipelines/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--pink">
-                <img src="/docs/assets/user-guides/pipeline.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>Pipelines</h3>
-                <p>Configure data processing workflows during ingestion</p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="user-guide/analytics/alerts/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Alerts"
-            data-clarity-url="user-guide/analytics/alerts/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--red">
-                <img src="/docs/assets/user-guides/alerts.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>Alerts</h3>
-                <p>Set continuous monitoring to detect critical issues</p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="user-guide/analytics/dashboards/dashboards-in-openobserve/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Dashboards"
-            data-clarity-url="user-guide/analytics/dashboards/dashboards-in-openobserve/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--navy">
-                <img src="/docs/assets/user-guides/dashboard.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>Dashboards</h3>
-                <p>Visualize and monitor real-time and historical data</p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="user-guide/data-exploration/rum/setup/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="RUM"
-            data-clarity-url="user-guide/data-exploration/rum/setup/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--forest">
-                <img src="/docs/assets/user-guides/rum.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>RUM</h3>
-                <p>
-                  Set performance monitoring, error tracking, and session replay
-                </p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="user-guide/data-processing/actions/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Actions"
-            data-clarity-url="user-guide/data-processing/actions/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--orange">
-                <img src="/docs/assets/user-guides/action.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>Actions</h3>
-                <p>
-                  Create Python scripts to support custom automation workflows
-                </p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="user-guide/account-administration/identity-and-access-management/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="IAM"
-            data-clarity-url="user-guide/account-administration/identity-and-access-management/"
-          >
+          <a href="user-guide/account-administration/identity-and-access-management/" class="landing-feature-item" data-clarity-event="docs_landing_page_card_click" data-clarity-title="IAM">
             <div class="landing-feature-left">
               <div class="landing-feature-icon landing-tutorial-icon--green">
                 <img src="/docs/assets/user-guides/iam.svg" alt="" />
               </div>
               <div class="landing-feature-text">
                 <h3>IAM</h3>
-                <p>Manage user identities and control access to resource</p>
+                <p>Manage user identities and control access to resources</p>
               </div>
             </div>
           </a>
-          <a
-            href="administration/maintenance/storage-management/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Storage Management"
-            data-clarity-url="administration/maintenance/storage-management/"
-          >
+          <a href="administration/maintenance/storage-management/" class="landing-feature-item" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Storage Management">
             <div class="landing-feature-left">
               <div class="landing-feature-icon landing-tutorial-icon--purple">
-                <img
-                  src="/docs/assets/user-guides/storage-management.svg"
-                  alt=""
-                />
+                <img src="/docs/assets/user-guides/storage-management.svg" alt="" />
               </div>
               <div class="landing-feature-text">
                 <h3>Storage Management</h3>
-                <p>
-                  Configure how ingested stream data and metadata are stored
-                </p>
-              </div>
-            </div>
-          </a>
-          <a
-            href="administration/configuration/environment-variables/"
-            class="landing-feature-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Environment Variables"
-            data-clarity-url="administration/configuration/environment-variables/"
-          >
-            <div class="landing-feature-left">
-              <div class="landing-feature-icon landing-tutorial-icon--pink">
-                <img src="/docs/assets/user-guides/env-variable.svg" alt="" />
-              </div>
-              <div class="landing-feature-text">
-                <h3>Environment Variables</h3>
-                <p>Configure threshold or dynamic value variables in O2</p>
+                <p>Configure how ingested stream data and metadata are stored</p>
               </div>
             </div>
           </a>
         </div>
       </section>
 
-      <!-- Popular Integrations Section -->
-      <section class="landing-section">
-        <h2 class="landing-section-title">Popular Integrations</h2>
-        <div class="landing-integration-grid">
-          <a
-            href="integration/cloud/aws/"
-            class="landing-integration-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="AWS"
-            data-clarity-url="integration/cloud/aws/"
-          >
-            <div class="landing-integration-icon landing-tutorial-icon--orange">
-              <!-- Light theme AWS icon -->
-              <img
-                src="/docs/assets/popular-integration/aws.svg"
-                alt=""
-                class="light-theme-icon"
-              />
-              <!-- Dark theme AWS icon -->
-              <img
-                src="/docs/assets/popular-integration/aws-dark.svg"
-                alt=""
-                class="dark-theme-icon"
-              />
-            </div>
-            <div class="landing-integration-text">
-              <h3>AWS</h3>
-            </div>
-          </a>
-          <a
-            href="integration/database/"
-            class="landing-integration-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Databases"
-            data-clarity-url="integration/database/"
-          >
-            <div class="landing-integration-icon landing-tutorial-icon--blue">
-              <!-- Light theme DevOps icon -->
-              <img
-                src="/docs/assets/popular-integration/db.svg"
-                alt=""
-                class="light-theme-icon"
-              />
-              <!-- Dark theme DevOps icon -->
-              <img
-                src="/docs/assets/popular-integration/db-dark.svg"
-                alt=""
-                class="dark-theme-icon"
-              />
-            </div>
-            <div class="landing-integration-text">
-              <h3>DATABASES</h3>
-            </div>
-          </a>
-          <a
-            href="integration/system/k8s/"
-            class="landing-integration-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Kubernetes"
-            data-clarity-url="integration/system/k8s/"
-          >
-            <div class="landing-integration-icon landing-tutorial-icon--purple">
-              <img
-                src="/docs/assets/popular-integration/kubernets.svg"
-                alt=""
-              />
-            </div>
-            <div class="landing-integration-text">
-              <h3>KUBERNETES</h3>
-            </div>
-          </a>
-          <a
-            href="integration/devops/"
-            class="landing-integration-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="DevOps"
-            data-clarity-url="integration/devops/"
-          >
-            <div class="landing-integration-icon landing-tutorial-icon--green">
-              <img
-                src="/docs/assets/popular-integration/devops-2 1.svg"
-                alt=""
-              />
-            </div>
-            <div class="landing-integration-text">
-              <h3>DEVOPS</h3>
-            </div>
-          </a>
-          <a
-            href="integration/system/linux/"
-            class="landing-integration-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Linux"
-            data-clarity-url="integration/system/linux/"
-          >
-            <div class="landing-integration-icon landing-tutorial-icon--navy">
-              <img src="/docs/assets/popular-integration/linux.svg" alt="" />
-            </div>
-            <div class="landing-integration-text">
-              <h3>LINUX</h3>
-            </div>
-          </a>
-          <a
-            href="integration/system/windows/"
-            class="landing-integration-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="Windows"
-            data-clarity-url="integration/system/windows/"
-          >
-            <div class="landing-integration-icon landing-tutorial-icon--red">
-              <img src="/docs/assets/popular-integration/windows.svg" alt="" />
-            </div>
-            <div class="landing-integration-text">
-              <h3>WINDOWS</h3>
-            </div>
-          </a>
+      <!-- Migrate to OpenObserve (Supabase-style 2-col: description left, cards right) -->
+      <section class="landing-section landing-section--two-col">
+        <div class="landing-section-left">
+          <h2 class="landing-section-title">Migrate to OpenObserve</h2>
+        </div>
+        <div class="landing-section-right">
+          <div class="landing-migrate-grid">
+            <a href="migration/migrate-from-grafana-to-openobserve/" class="landing-migrate-card" data-clarity-event="docs_landing_page_card_click" data-clarity-title="Migrate from Grafana LGTM">
+              <div class="landing-migrate-icon">
+                <img src="/docs/assets/grafana.svg" alt="" />
+              </div>
+              <div class="landing-migrate-text">
+                <h3>From Grafana (LGTM)</h3>
+                <p>Move your Loki, Mimir, and Tempo data into OpenObserve seamlessly</p>
+              </div>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -471,38 +293,8 @@
             </div>
             <div class="landing-community-support-text">
               <h3>Community</h3>
-              <p>Join our discussions</p>
+              <p>Join discussions and connect with fellow observability practitioners</p>
             </div>
-            <div class="landing-community-support-arrow">→</div>
-          </a>
-          <a
-            href="https://github.com/openobserve/openobserve"
-            class="landing-community-support-item"
-            data-clarity-event="docs_landing_page_card_click"
-            data-clarity-title="GitHub"
-            data-clarity-url="https://github.com/openobserve/openobserve"
-          >
-            <div
-              class="landing-community-support-icon landing-tutorial-icon--purple"
-            >
-              <!-- Light theme DevOps icon -->
-              <img
-                src="/docs/assets/github-dark.svg"
-                alt=""
-                class="light-theme-icon"
-              />
-              <!-- Dark theme DevOps icon -->
-              <img
-                src="/docs/assets/github_White.svg"
-                alt=""
-                class="dark-theme-icon"
-              />
-            </div>
-            <div class="landing-community-support-text">
-              <h3>GitHub</h3>
-              <p>Report issues & contribute</p>
-            </div>
-            <div class="landing-community-support-arrow">→</div>
           </a>
           <a
             href="/resources/"
@@ -518,9 +310,8 @@
             </div>
             <div class="landing-community-support-text">
               <h3>Resources</h3>
-              <p>Resources to learn, grow and master</p>
+              <p>Explore guides, videos, and content to learn and grow your expertise</p>
             </div>
-            <div class="landing-community-support-arrow">→</div>
           </a>
           <a
             href="/contact-sales/"
@@ -547,9 +338,8 @@
             </div>
             <div class="landing-community-support-text">
               <h3>Contact Sales</h3>
-              <p>Get in touch with our sales team</p>
+              <p>Get in touch with our team for tailored enterprise solutions</p>
             </div>
-            <div class="landing-community-support-arrow">→</div>
           </a>
         </div>
       </section>

@@ -109,6 +109,10 @@ extra:
     #       note: >-
     #         Thanks for your feedback! Help us improve this page by
     #         using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+# Watch the theme overrides dir so `mkdocs serve` hot-reloads on edits to
+# overrides/partials/*.html and overrides/css/*.css (not watched by default).
+watch:
+  - overrides
 theme:
   favicon: images/logo_circle.png
   name: material

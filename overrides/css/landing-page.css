@@ -351,7 +351,7 @@ body:has(.landing-page) .md-sidebar--secondary {
     sans-serif;
   margin: 0 0 8px 0 !important;
   color: var(--text-primary);
-  text-align: center;
+  text-align: left;
 }
 
 /* Tutorial Grid */
@@ -463,7 +463,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 /* Features List */
 .landing-features-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
   margin-bottom: 0;
 }
@@ -679,7 +679,7 @@ body:has(.landing-page) .md-sidebar--secondary {
 /* Community Support Section */
 .landing-community-support-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
   margin-bottom: 0;
 }
@@ -1073,4 +1073,864 @@ body:has(.landing-page) .md-sidebar--secondary {
     padding: var(--spacing-sm) var(--spacing-md);
     min-height: 60px;
   }
+}
+
+/* 
+   Adds: section subtitle, ingestion source grid, features catalog,
+   subsection titles, migrate card.
+   Sits at end of file so it overrides earlier conflicting rules where needed.
+/* Section header with subtitle */
+.landing-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+.landing-section-header .landing-section-title {
+  margin-bottom: 0;
+}
+.landing-section-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.95rem;
+  margin: 0;
+}
+[data-md-color-scheme="slate"] .landing-section-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Subsection title (Tutorials / Concepts inside User Guides) */
+.landing-subsection-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 1.5rem 0 0.75rem !important;
+}
+[data-md-color-scheme="slate"] .landing-subsection-title {
+  color: rgba(255, 255, 255, 0.55);
+}
+.landing-section > .landing-subsection-title:first-of-type {
+  margin-top: 0.25rem !important;
+}
+
+/* --- Getting Started: ingestion source grid ----------------------------- */
+.landing-source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 0.5rem;
+}
+.landing-source-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.4rem;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  min-height: 64px;
+}
+.landing-source-tile:hover {
+  border-color: #7c3aed;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
+}
+.landing-source-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+}
+.landing-source-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.landing-source-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-align: center;
+  color: inherit;
+  line-height: 1.2;
+}
+[data-md-color-scheme="slate"] .landing-source-tile {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-md-color-scheme="slate"] .landing-source-tile:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 2px 8px rgba(196, 181, 253, 0.12);
+}
+[data-md-color-scheme="slate"] .landing-source-icon img {
+  filter: invert(0.92) hue-rotate(180deg);
+}
+
+.landing-source-viewall {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #7c3aed !important;
+  text-decoration: none !important;
+  font-weight: 500;
+}
+.landing-source-viewall:hover {
+  text-decoration: underline !important;
+}
+[data-md-color-scheme="slate"] .landing-source-viewall {
+  color: #c4b5fd !important;
+}
+
+/* --- Features catalog: large 2-col cards -------------------------------- */
+.landing-features-catalog {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.landing-feature-catalog-card {
+  display: block;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.landing-feature-catalog-card:hover {
+  border-color: #7c3aed;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.1);
+}
+.landing-feature-catalog-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+}
+.landing-feature-catalog-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.landing-feature-catalog-card h3 {
+  margin: 0 0 0.35rem !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: inherit;
+}
+.landing-feature-catalog-card p {
+  margin: 0 !important;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.65);
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 4px 14px rgba(196, 181, 253, 0.12);
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Stack to 1-col on narrow screens */
+@media (max-width: 720px) {
+  .landing-features-catalog {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Migrate to OpenObserve --------------------------------------------- */
+.landing-migrate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1rem;
+}
+.landing-migrate-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.landing-migrate-card:hover {
+  border-color: #7c3aed;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.1);
+}
+.landing-migrate-icon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.landing-migrate-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.landing-migrate-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.landing-migrate-text h3 {
+  margin: 0 0 0.2rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+.landing-migrate-text p {
+  margin: 0 !important;
+  font-size: 0.88rem;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.45;
+}
+.landing-migrate-arrow {
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.4);
+  transition: transform 160ms ease, color 160ms ease;
+}
+.landing-migrate-card:hover .landing-migrate-arrow {
+  color: #7c3aed;
+  transform: translateX(4px);
+}
+[data-md-color-scheme="slate"] .landing-migrate-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-md-color-scheme="slate"] .landing-migrate-card:hover {
+  border-color: #c4b5fd;
+}
+[data-md-color-scheme="slate"] .landing-migrate-text p {
+  color: rgba(255, 255, 255, 0.7);
+}
+[data-md-color-scheme="slate"] .landing-migrate-arrow {
+  color: rgba(255, 255, 255, 0.4);
+}
+[data-md-color-scheme="slate"] .landing-migrate-card:hover .landing-migrate-arrow {
+  color: #c4b5fd;
+}
+
+/* === Supabase-flat visual pass ===========================================
+   Goals:
+   - 2-column hero (identity + Getting Started panel)
+   - Strip colored icon backgrounds (.landing-tutorial-icon--*)
+   - White cards, thin grey borders, no shadows
+   - Smaller section titles, horizontal dividers between sections
+   - Drop the purple-bordered hero card
+   ========================================================================= */
+
+/* ---------- HERO: 2-column ---------- */
+.landing-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+  padding: 1.5rem 0 1.5rem;
+  margin-bottom: 0;
+}
+/* Hero panel shows only the top 9 ingestion sources to keep height aligned with left column */
+.landing-getting-started-panel .landing-source-tile:nth-child(n+10) {
+  display: none;
+}
+.landing-hero-id {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.landing-hero-title {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  line-height: 1.25 !important;
+}
+.landing-hero-id .landing-hero-description {
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  max-width: 46ch;
+}
+[data-md-color-scheme="slate"] .landing-hero-id .landing-hero-description {
+  color: rgba(255, 255, 255, 0.7);
+}
+.landing-hero-id .landing-hero-buttons {
+  margin-top: 0.5rem;
+}
+
+/* Hide the legacy purple-bordered hero card if it ever renders */
+.landing-hero-card {
+  display: none !important;
+}
+
+/* Getting Started panel inside hero (right column) */
+.landing-getting-started-panel {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+[data-md-color-scheme="slate"] .landing-getting-started-panel {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.landing-gs-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.landing-gs-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+[data-md-color-scheme="slate"] .landing-gs-badge {
+  background: rgba(196, 181, 253, 0.18);
+  color: #c4b5fd;
+}
+.landing-gs-title {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+.landing-gs-subtitle {
+  margin: 0 0 0.25rem !important;
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+[data-md-color-scheme="slate"] .landing-gs-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* Tighter grid inside the panel */
+.landing-getting-started-panel .landing-source-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.landing-getting-started-panel .landing-source-tile {
+  padding: 0.6rem 0.4rem;
+  min-height: 72px;
+  background: transparent;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-md-color-scheme="slate"] .landing-getting-started-panel .landing-source-tile {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.landing-getting-started-panel .landing-source-icon {
+  width: 26px;
+  height: 26px;
+}
+.landing-getting-started-panel .landing-source-label {
+  font-size: 0.7rem;
+}
+
+/* Stack hero on narrow screens */
+@media (max-width: 960px) {
+  .landing-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .landing-getting-started-panel .landing-source-grid {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  }
+}
+
+/* ---------- KILL colored icon squares everywhere ---------- */
+.landing-tutorial-icon--green,
+.landing-tutorial-icon--blue,
+.landing-tutorial-icon--orange,
+.landing-tutorial-icon--purple,
+.landing-tutorial-icon--pink,
+.landing-tutorial-icon--red,
+.landing-tutorial-icon--navy,
+.landing-tutorial-icon--forest {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* ---------- FLATTEN: Feature catalog cards ---------- */
+.landing-feature-catalog-card {
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: none !important;
+  padding: 1.25rem !important;
+  border-radius: 10px !important;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.landing-feature-catalog-card:hover {
+  border-color: rgba(124, 58, 237, 0.6) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  background: rgba(124, 58, 237, 0.02) !important;
+}
+.landing-feature-catalog-icon {
+  width: 28px !important;
+  height: 28px !important;
+  margin-bottom: 0.75rem !important;
+}
+.landing-feature-catalog-icon img {
+  width: 22px !important;
+  height: 22px !important;
+}
+.landing-feature-catalog-card h3 {
+  font-size: 1rem !important;
+}
+.landing-feature-catalog-card p {
+  font-size: 0.88rem;
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-md-color-scheme="slate"] .landing-feature-catalog-card:hover {
+  background: rgba(196, 181, 253, 0.04) !important;
+  border-color: rgba(196, 181, 253, 0.5) !important;
+}
+
+/* ---------- FLATTEN: Concepts grid (.landing-feature-item) ---------- */
+.landing-feature-item {
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+}
+.landing-feature-item:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  background: rgba(124, 58, 237, 0.02) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.landing-feature-icon {
+  width: 28px !important;
+  height: 28px !important;
+  background: transparent !important;
+}
+.landing-feature-icon img {
+  width: 22px !important;
+  height: 22px !important;
+}
+[data-md-color-scheme="slate"] .landing-feature-item {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-md-color-scheme="slate"] .landing-feature-item:hover {
+  background: rgba(196, 181, 253, 0.04) !important;
+  border-color: rgba(196, 181, 253, 0.4) !important;
+}
+
+/* ---------- FLATTEN: Tutorial cards ---------- */
+.landing-tutorial-card {
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+  padding: 1.25rem !important;
+}
+.landing-tutorial-card:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  background: rgba(124, 58, 237, 0.02) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+[data-md-color-scheme="slate"] .landing-tutorial-card {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-md-color-scheme="slate"] .landing-tutorial-card:hover {
+  background: rgba(196, 181, 253, 0.04) !important;
+  border-color: rgba(196, 181, 253, 0.4) !important;
+}
+
+/* ---------- FLATTEN: Community & Support cards ---------- */
+.landing-community-support-item {
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: none !important;
+}
+.landing-community-support-item:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  background: rgba(124, 58, 237, 0.02) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.landing-community-support-icon {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+[data-md-color-scheme="slate"] .landing-community-support-item {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ---------- 2-column section layout (Migrate, future Self-Hosting) ---------- */
+.landing-section--two-col {
+  display: block;
+}
+.landing-section--two-col .landing-section-left h2 {
+  margin-top: 0 !important;
+}
+.landing-section--two-col .landing-section-subtitle {
+  margin: 0.5rem 0 0.75rem !important;
+}
+.landing-section--two-col .landing-section-right .landing-migrate-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+@media (max-width: 760px) {
+  .landing-section--two-col {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ---------- Tighter section titles ---------- */
+.landing-section {
+  padding-top: 2.25rem;
+  margin-top: 0 !important;
+}
+.landing-section-title {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* ---------- Uniform, compact card sizing from Features section onward ----
+   One card size + height across Features, Tutorials, Concepts, Migrate,
+   Community. Tight padding and horizontal layouts where possible to keep
+   cards short.
+*/
+.landing-features-catalog {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.75rem !important;
+}
+/* Horizontal layout to match Concepts: icon left, title + description right.
+   Uses CSS grid with named areas so we don't need to change the HTML. */
+.landing-feature-catalog-card {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  grid-template-areas: "icon title" "icon desc" !important;
+  column-gap: 0.55rem !important;
+  row-gap: 0.35rem !important;
+  align-items: center !important;
+  padding: 0.55rem 0.7rem !important;
+  height: 64px !important;
+}
+.landing-feature-catalog-icon {
+  grid-area: icon !important;
+  align-self: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+}
+.landing-feature-catalog-icon img {
+  width: 18px !important;
+  height: 18px !important;
+}
+.landing-feature-catalog-card h3 {
+  grid-area: title !important;
+  font-size: 0.78rem !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+.landing-feature-catalog-card p {
+  grid-area: desc !important;
+  font-size: 0.7rem !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tutorials: flatten the row wrapper so all cards live in one 3-col grid */
+.landing-tutorial-rows {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.75rem !important;
+  justify-content: stretch !important;
+}
+.landing-tutorial-row {
+  display: contents !important;
+}
+.landing-tutorial-row .landing-tutorial-card {
+  max-width: none !important;
+  min-width: 0 !important;
+  padding: 0.55rem 0.7rem !important;
+  text-align: left !important;
+  /* Horizontal: icon left, title + description right (matches Features/Concepts) */
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  grid-template-areas: "icon title" "icon desc" !important;
+  column-gap: 0.55rem !important;
+  row-gap: 0.35rem !important;
+  align-items: center !important;
+  height: 64px !important;
+}
+.landing-tutorial-card-icon {
+  grid-area: icon;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+.landing-tutorial-card-icon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+.landing-tutorial-title {
+  grid-area: title !important;
+  font-size: 0.78rem !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+.landing-tutorial-description {
+  grid-area: desc !important;
+  font-size: 0.7rem !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Concepts: flip from vertical (icon-on-top) to horizontal (icon left, text right)
+   — this is the biggest height saver. Mirror what Community already does. */
+.landing-features-list {
+  gap: 0.75rem !important;
+}
+.landing-feature-item {
+  padding: 0.55rem 0.7rem !important;
+  height: 64px !important;
+  text-align: left !important;
+  align-items: stretch !important;
+}
+.landing-feature-left {
+  flex-direction: row !important;
+  align-items: center !important;
+  text-align: left !important;
+  gap: 0.65rem !important;
+}
+.landing-feature-icon {
+  flex: 0 0 auto !important;
+  width: 24px !important;
+  height: 24px !important;
+  margin-bottom: 0 !important;
+}
+.landing-feature-icon img {
+  width: 18px !important;
+  height: 18px !important;
+}
+.landing-feature-text {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  text-align: left !important;
+}
+.landing-feature-text h3 {
+  font-size: 0.78rem !important;
+  margin: 0 0 0.1rem !important;
+  line-height: 1.3 !important;
+}
+.landing-feature-text p {
+  font-size: 0.7rem !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Community grid: same compact pattern */
+.landing-community-support-grid {
+  gap: 0.75rem !important;
+}
+.landing-community-support-item {
+  padding: 0.75rem 0.85rem !important;
+  min-height: 0 !important;
+}
+.landing-community-support-icon {
+  width: 24px !important;
+  height: 24px !important;
+}
+.landing-community-support-text h3 {
+  font-size: 0.9rem !important;
+  margin-bottom: 0.15rem !important;
+}
+.landing-community-support-text p {
+  font-size: 0.78rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Migrate cards (inside the 2-col section right column) */
+.landing-section--two-col .landing-section-right .landing-migrate-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.75rem !important;
+}
+.landing-migrate-card {
+  padding: 0.75rem 0.85rem !important;
+}
+.landing-migrate-icon {
+  width: 28px !important;
+  height: 28px !important;
+}
+.landing-migrate-text h3 {
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+}
+
+/* Responsive collapse */
+@media (max-width: 1100px) {
+  .landing-features-catalog,
+  .landing-tutorial-rows,
+  .landing-features-list,
+  .landing-community-support-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 760px) {
+  .landing-features-catalog,
+  .landing-tutorial-rows,
+  .landing-features-list,
+  .landing-community-support-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 480px) {
+  .landing-features-catalog,
+  .landing-tutorial-rows,
+  .landing-features-list,
+  .landing-community-support-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* === END Supabase-flat visual pass === */
+
+/* ---------- Uniform card dimensions across all sections ---------- */
+.landing-feature-catalog-card,
+.landing-tutorial-row .landing-tutorial-card,
+.landing-tutorial-card,
+.landing-feature-item,
+.landing-migrate-card,
+.landing-community-support-item {
+  height: 90px !important;
+  min-height: 90px !important;
+  padding: 0.85rem 1rem !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  /* Top-align content so the title and first description line sit at the same y-coord across cards */
+  align-items: start !important;
+  align-content: start !important;
+  /* Uniform border across all sections */
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 10px !important;
+}
+
+/* Uniform title-to-description spacing for Concepts (which uses flex layout, not grid row-gap) */
+.landing-feature-text h3 {
+  margin: 0 0 0.35rem !important;
+}
+
+/* Normalize Migrate card text sizes to match other cards */
+.landing-migrate-text h3 {
+  font-size: 0.78rem !important;
+  margin: 0 0 0.35rem !important;
+  line-height: 1.3 !important;
+}
+.landing-migrate-text p {
+  font-size: 0.7rem !important;
+  line-height: 1.35 !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Uniform icon sizing + style across all card sections */
+.landing-feature-catalog-icon,
+.landing-tutorial-card-icon,
+.landing-feature-icon,
+.landing-migrate-icon,
+.landing-community-support-icon {
+  width: 24px !important;
+  height: 24px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+.landing-feature-catalog-icon img,
+.landing-tutorial-card-icon img,
+.landing-feature-icon img,
+.landing-migrate-icon img,
+.landing-community-support-icon img {
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain !important;
+}
+
+/* Force consistent title clamp + left alignment */
+.landing-feature-catalog-card h3,
+.landing-tutorial-title,
+.landing-feature-text h3,
+.landing-migrate-text h3,
+.landing-community-support-text h3,
+.landing-migrate-card h3 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
+}
+
+/* Reserve exactly 2 lines for descriptions so single-line descriptions still occupy 2 lines worth of vertical space */
+.landing-feature-catalog-card p,
+.landing-tutorial-description,
+.landing-feature-text p,
+.landing-community-support-text p,
+.landing-migrate-text p {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  height: calc(2 * 1.35em) !important;
+  min-height: calc(2 * 1.35em) !important;
+  text-align: left !important;
 }

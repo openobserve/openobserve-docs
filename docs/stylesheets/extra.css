@@ -363,7 +363,7 @@ html {
 
 /* --- FINAL: Sidebar Custom Design --- */
 .md-sidebar--primary {
-  background: rgb(245, 243, 254) !important;
+  background: transparent !important;
   border: 2px solid #7c3aed !important;
   border-radius: 8px !important;
   padding: 1em 0.5em !important;
@@ -390,7 +390,7 @@ html {
   }
 }
 [data-md-color-scheme="slate"] .md-sidebar--primary {
-  background: rgb(23, 20, 29) !important;
+  background: transparent !important;
   border: 2px solid #7c3aed !important;
   border-radius: 8px !important;
   padding: 1em 0.5em !important;
@@ -421,29 +421,24 @@ html {
   background: transparent !important;
 }
 
-/* Highlight selected nav item with purple bar on left */
+/* Active nav item: purple text + thin left border (Supabase pattern) */
 .md-sidebar--primary .md-nav__item--active > .md-nav__link {
   position: relative !important;
   background: transparent !important;
-  border-radius: 3px !important;
-  /* make the active link text bold (applies to the text, not the empty pseudo-element) */
-  font-weight: 700 !important;
-  /* keep a little left padding for text alignment */
-  padding-left: 1.1em !important;
-  overflow: hidden !important;
+  color: #7c3aed !important;
+  font-weight: 600 !important;
+  border-left: 2px solid #7c3aed !important;
+  border-radius: 0 !important;
+  padding-left: 0.85em !important;
+  overflow: visible !important;
 }
 .md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
-  content: "";
-  position: absolute;
-  right: 8px;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 30px;
-  background: #4b237a;
-  border-radius: 3px !important;
-  z-index: 3 !important;
+  /* Kill the prior 4px floating bar marker */
+  content: none !important;
+}
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--active > .md-nav__link {
+  color: #c4b5fd !important;
+  border-left-color: #c4b5fd !important;
 }
 
 /* --- Sidebar: Add right margin for full rounded border visibility --- */
@@ -1599,3 +1594,4 @@ nav.md-grid {
     pointer-events: none !important;
   }
 }
+
