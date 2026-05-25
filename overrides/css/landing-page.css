@@ -62,8 +62,8 @@ body > .landing-page {
   --radius-full: 50%;
 
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+  --font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-size-sm: 12px;
   --font-size-base: 13px;
   --font-size-md: 14px;
@@ -93,7 +93,11 @@ body > .landing-page {
 .landing-page h2 {
   font-size: 20px !important;
   font-weight: 700;
-  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+  font-family:
+    "Inter",
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
     sans-serif;
   margin: 0;
   line-height: 1.3;
@@ -162,7 +166,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 /* Hero Section */
 .landing-hero-card {
   border: 2px solid transparent;
-  background-image: linear-gradient(rgb(247, 247, 247), rgb(247, 247, 247)),
+  background-image:
+    linear-gradient(rgb(247, 247, 247), rgb(247, 247, 247)),
     linear-gradient(
       135deg,
       rgba(99, 102, 241, 0.3) 0%,
@@ -181,7 +186,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Dark theme hero card background */
 [data-md-color-scheme="slate"] .landing-hero-card {
-  background-image: linear-gradient(rgb(10, 8, 19), rgb(10, 8, 19)),
+  background-image:
+    linear-gradient(rgb(10, 8, 19), rgb(10, 8, 19)),
     linear-gradient(
       135deg,
       rgba(99, 102, 241, 0.3) 0%,
@@ -192,7 +198,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 
 /* Light theme hero card background */
 [data-md-color-scheme="default"] .landing-hero-card {
-  background-image: linear-gradient(rgb(247, 247, 247), rgb(247, 247, 247)),
+  background-image:
+    linear-gradient(rgb(247, 247, 247), rgb(247, 247, 247)),
     linear-gradient(
       135deg,
       rgba(99, 102, 241, 0.3) 0%,
@@ -288,7 +295,8 @@ body:has(.landing-page) .md-sidebar--secondary {
 .primary-button-hero:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-image: linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
+  background-image:
+    linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
     linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%);
   box-shadow: none;
   color: white !important;
@@ -347,7 +355,11 @@ body:has(.landing-page) .md-sidebar--secondary {
 .landing-section-title {
   font-size: 20px !important;
   font-weight: 700;
-  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+  font-family:
+    "Inter",
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
     sans-serif;
   margin: 0 0 8px 0 !important;
   color: var(--text-primary);
@@ -1132,7 +1144,10 @@ body:has(.landing-page) .md-sidebar--secondary {
   border-radius: 8px;
   text-decoration: none !important;
   color: inherit !important;
-  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
   min-height: 64px;
 }
 .landing-source-tile:hover {
@@ -1200,7 +1215,10 @@ body:has(.landing-page) .md-sidebar--secondary {
   border-radius: 12px;
   text-decoration: none !important;
   color: inherit !important;
-  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 .landing-feature-catalog-card:hover {
   border-color: #7c3aed;
@@ -1268,7 +1286,10 @@ body:has(.landing-page) .md-sidebar--secondary {
   border-radius: 12px;
   text-decoration: none !important;
   color: inherit !important;
-  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 .landing-migrate-card:hover {
   border-color: #7c3aed;
@@ -1307,7 +1328,9 @@ body:has(.landing-page) .md-sidebar--secondary {
   flex: 0 0 auto;
   font-size: 1.2rem;
   color: rgba(0, 0, 0, 0.4);
-  transition: transform 160ms ease, color 160ms ease;
+  transition:
+    transform 160ms ease,
+    color 160ms ease;
 }
 .landing-migrate-card:hover .landing-migrate-arrow {
   color: #7c3aed;
@@ -1326,7 +1349,9 @@ body:has(.landing-page) .md-sidebar--secondary {
 [data-md-color-scheme="slate"] .landing-migrate-arrow {
   color: rgba(255, 255, 255, 0.4);
 }
-[data-md-color-scheme="slate"] .landing-migrate-card:hover .landing-migrate-arrow {
+[data-md-color-scheme="slate"]
+  .landing-migrate-card:hover
+  .landing-migrate-arrow {
   color: #c4b5fd;
 }
 
@@ -1349,7 +1374,7 @@ body:has(.landing-page) .md-sidebar--secondary {
   margin-bottom: 0;
 }
 /* Hero panel shows only the top 9 ingestion sources to keep height aligned with left column */
-.landing-getting-started-panel .landing-source-tile:nth-child(n+10) {
+.landing-getting-started-panel .landing-source-tile:nth-child(n + 10) {
   display: none;
 }
 .landing-hero-id {
@@ -1441,7 +1466,9 @@ body:has(.landing-page) .md-sidebar--secondary {
   background: transparent;
   border-color: rgba(0, 0, 0, 0.08);
 }
-[data-md-color-scheme="slate"] .landing-getting-started-panel .landing-source-tile {
+[data-md-color-scheme="slate"]
+  .landing-getting-started-panel
+  .landing-source-tile {
   border-color: rgba(255, 255, 255, 0.1);
 }
 .landing-getting-started-panel .landing-source-icon {
@@ -1485,7 +1512,9 @@ body:has(.landing-page) .md-sidebar--secondary {
   box-shadow: none !important;
   padding: 1.25rem !important;
   border-radius: 10px !important;
-  transition: border-color 160ms ease, background 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
 }
 .landing-feature-catalog-card:hover {
   border-color: rgba(124, 58, 237, 0.6) !important;
@@ -1933,4 +1962,15 @@ body:has(.landing-page) .md-sidebar--secondary {
   height: calc(2 * 1.35em) !important;
   min-height: calc(2 * 1.35em) !important;
   text-align: left !important;
+}
+
+/* Add space between title and description in cards */
+.landing-feature-catalog-card,
+.landing-tutorial-row .landing-tutorial-card {
+  row-gap: 0.55rem !important;
+}
+.landing-feature-text h3,
+.landing-migrate-text h3,
+.landing-community-support-text h3 {
+  margin-bottom: 0.55rem !important;
 }

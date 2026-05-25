@@ -447,10 +447,7 @@
                       </a>
                     </li>
                     <li>
-                      <a
-                        href="/whats-new/"
-                        class="submenu-item"
-                      >
+                      <a href="/whats-new/" class="submenu-item">
                         <span
                           class="nav-icon-wrap"
                           style="background-color: #d1fae5"
@@ -474,12 +471,7 @@
           </ul>
         </nav>
         <div class="tw-flex tw-items-center tw-space-x-2">
-          <button
-            class="search-button"
-            id="docs-search-button"
-            title="Search (Ctrl+K)"
-            onclick="document.querySelector('.md-search__input')?.click()"
-          >
+          <label class="search-button" for="__search" title="Search (Ctrl+K)">
             <svg
               class="tw-w-3 tw-h-3"
               fill="none"
@@ -493,7 +485,7 @@
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-          </button>
+          </label>
           <a
             class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-px-3 md:tw-px-5 tw-py-1.5 tw-text-xs primary-button tw-transition-opacity tw-duration-500 tw-ease-in-out tw-opacity-100 tw-visible tw-pointer-events-auto plausible-event-name=Demo+Button"
             href="/demo/"
@@ -625,6 +617,63 @@
           >
             Star
           </a>
+          {% if config.theme.palette %} {% if not config.theme.palette is
+          mapping %}
+          <form class="md-header__option" data-md-component="palette">
+            {% for option in config.theme.palette %} {% set scheme =
+            option.scheme | d("default", true) %}
+            <input
+              class="md-option"
+              data-md-color-media="{{ option.media }}"
+              data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
+              data-md-color-primary="{{ option.primary | d('indigo', true) | replace(' ', '-') }}"
+              data-md-color-accent="{{ option.accent | d('indigo', true) | replace(' ', '-') }}"
+              {%
+              if
+              option.toggle
+              %}aria-label="{{ option.toggle.name }}"
+              {%
+              else
+              %}aria-hidden="true"
+              {%
+              endif
+              %}
+              type="radio"
+              name="__palette"
+              id="__palette_{{ loop.index }}"
+              {%
+              if
+              loop.first
+              %}checked{%
+              endif
+              %}
+            />
+            {% if option.toggle %}
+            <label
+              class="md-header__button md-icon custom-theme-toggle"
+              title="{{ option.toggle.name }}"
+              for="__palette_{{ loop.index0 or loop.length }}"
+              hidden
+            >
+              {% if scheme == "slate" or scheme == "dark" %}
+              <img
+                src="/docs/assets/sun.svg"
+                alt="Light mode"
+                class="custom-icon"
+                style="width: 24px; height: 24px"
+              />
+              {% else %}
+              <img
+                src="/docs/assets/moon.svg"
+                alt="Dark mode"
+                class="custom-icon"
+                style="width: 24px; height: 24px"
+              />
+              {% endif %}
+            </label>
+            {% endif %} {% endfor %}
+          </form>
+          {% endif %} {% endif %}
         </div>
       </div>
     </header>
