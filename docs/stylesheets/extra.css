@@ -252,6 +252,10 @@ html {
   }
 }
 
+.md-content__inner {
+  padding-top: 0 !important;
+}
+
 [data-md-color-scheme="slate"] .md-search__input {
   background-color: #7c3aed !important;
   border: 2px solid #7c3aed !important;
@@ -451,7 +455,7 @@ html {
   box-shadow: none !important;
   z-index: 200 !important;
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   /* Content-based height with increased footer clearance */
   height: auto !important;
   min-height: auto !important;
@@ -477,7 +481,7 @@ html {
   box-shadow: none !important;
   z-index: 200 !important;
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   /* Content-based height with increased footer clearance */
   height: auto !important;
   min-height: auto !important;
@@ -820,7 +824,7 @@ html {
 
 /* Stronger override for primary sidebar positioning */
 .md-sidebar--primary {
-  top: 8rem !important;
+  top: 60px !important;
   position: sticky !important;
 }
 
@@ -843,7 +847,7 @@ html {
 .md-sidebar--primary[data-md-state],
 .md-sidebar--primary[data-md-state="lock"] {
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   transform: none !important;
   transition: none !important;
   will-change: auto !important;
@@ -862,7 +866,7 @@ html {
 /* Additional safety measures to prevent sidebar shifting */
 html .md-sidebar--primary {
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
 }
 
 /* Remove any masking pseudo-elements from primary sidebar - like secondary sidebar */
@@ -888,7 +892,7 @@ html .md-sidebar--primary {
 .md-sidebar--secondary[data-md-state="lock"] {
   /* Match primary's sticky positioning and footer clearance */
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   transform: none !important;
   transition: none !important;
   will-change: auto !important;
