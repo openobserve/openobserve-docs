@@ -1,19 +1,38 @@
 <div
-  class="tw-w-full tw-fixed tw-top-0 tw-z-50 tw-backdrop-blur-md custom-gradient tw-text-black tw-transition-all tw-duration-500"
+  class="tw-w-full tw-fixed tw-top-0 tw-z-50 tw-backdrop-blur-md custom-gradient tw-text-black tw-transition-all tw-duration-500 "
 >
   <!-- Desktop Header -->
   <div class="lg:tw-block tw-hidden">
     <header class="tw-sticky tw-top-0 tw-z-50 tw-w-full">
       <div
-        class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 tw-flex tw-justify-between tw-items-center tw-py-2"
+        class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 tw-flex tw-justify-between tw-items-center tw-py-3"
       >
-        <a class="tw-flex tw-items-center tw-w-40 md:tw-50" href="/">
-          <img
-            src="/docs/assets/o2-logo-readme.svg"
-            alt="OpenObserve"
-            class="tw-w-full tw-h-full tw-py-1"
-          />
-        </a>
+        <div class="tw-flex tw-items-center tw-gap-1">
+          <a
+            class="tw-flex tw-items-center tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
+            href="/"
+          >
+            <img
+              src="/docs/assets/o2-logo-readme.svg"
+              alt="OpenObserve"
+              class="tw-h-8 tw-w-auto"
+            />
+          </a>
+          <span
+            class="tw-text-gray-300 tw-font-light tw-text-lg tw-leading-none tw-select-none"
+            >/</span
+          >
+          <a
+            class="tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
+            href="/docs/"
+          >
+            <span
+              class="tw-text-[15px] tw-font-bold tw-text-[#7c3aed] tw-leading-none"
+              style="letter-spacing: 0.04em"
+              >DOCS</span
+            >
+          </a>
+        </div>
         <nav>
           <ul
             class="tw-flex tw-items-center tw-space-x-0.5 tw-w-full tw-font-semibold tw-text-[15px] header-list-style"
@@ -497,14 +516,14 @@
             <button
               id="login-dropdown-button"
               type="button"
-              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-gap-1.5 tw-px-3 md:tw-px-5 tw-py-1 tw-text-xs secondary-button tw-border !tw-border-gray-200"
+              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-gap-1 tw-px-3 md:tw-px-5 tw-py-1.5 secondary-button tw-text-xs"
               aria-expanded="false"
               aria-haspopup="menu"
             >
               Log In
               <svg
                 id="login-dropdown-icon"
-                class="tw-h-2 tw-w-2 tw-shrink-0 tw-transition-transform tw-duration-200"
+                class="tw-h-3 tw-w-3 tw-shrink-0 tw-transition-transform tw-duration-200"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -1145,15 +1164,13 @@
   /* ── Desktop nav link ── */
   .menu-link {
     position: relative;
-    padding: 0.5rem 0.75rem;
+    padding: .625rem 1rem;
     color: #374151;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    letter-spacing: -.01em;
+    border-radius: .5rem;
+    transition: all .2s cubic-bezier(.4, 0, .2, 1);
     display: inline-block;
-    white-space: nowrap;
-    text-decoration: none;
   }
   .menu-link::after {
     content: "";

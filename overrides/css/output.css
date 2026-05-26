@@ -742,10 +742,6 @@ video {
   height: 3rem;
 }
 
-.tw-h-2 {
-  height: 0.5rem;
-}
-
 .tw-h-3 {
   height: 0.75rem;
 }
@@ -766,6 +762,10 @@ video {
   height: 1.75rem;
 }
 
+.tw-h-8 {
+  height: 2rem;
+}
+
 .tw-h-\[calc\(100vh-120px\)\] {
   height: calc(100vh - 120px);
 }
@@ -780,10 +780,6 @@ video {
 
 .tw-w-12 {
   width: 3rem;
-}
-
-.tw-w-2 {
-  width: 0.5rem;
 }
 
 .tw-w-3 {
@@ -840,6 +836,10 @@ video {
 
 .tw-w-\[760px\] {
   width: 760px;
+}
+
+.tw-w-auto {
+  width: auto;
 }
 
 .tw-w-full {
@@ -906,6 +906,12 @@ video {
   cursor: pointer;
 }
 
+.tw-select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .tw-grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -936,10 +942,6 @@ video {
 
 .tw-gap-1 {
   gap: 0.25rem;
-}
-
-.tw-gap-1\.5 {
-  gap: 0.375rem;
 }
 
 .tw-gap-2 {
@@ -1054,11 +1056,6 @@ video {
 
 .tw-border-t {
   border-top-width: 1px;
-}
-
-.\!tw-border-gray-200 {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1)) !important;
 }
 
 .tw-border-\[\#4a90e2\] {
@@ -1263,6 +1260,10 @@ video {
   font-weight: 700;
 }
 
+.tw-font-light {
+  font-weight: 300;
+}
+
 .tw-font-medium {
   font-weight: 500;
 }
@@ -1275,9 +1276,18 @@ video {
   text-transform: capitalize;
 }
 
+.tw-leading-none {
+  line-height: 1;
+}
+
 .\!tw-text-white {
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
+}
+
+.tw-text-\[\#7c3aed\] {
+  --tw-text-opacity: 1;
+  color: rgb(124 58 237 / var(--tw-text-opacity, 1));
 }
 
 .tw-text-\[rgba\(255\,255\,255\,0\.6\)\] {
@@ -1335,6 +1345,10 @@ video {
 
 .tw-underline {
   text-decoration-line: underline;
+}
+
+.tw-no-underline {
+  text-decoration-line: none;
 }
 
 .tw-placeholder-\[rgba\(255\,255\,255\,0\.6\)\]::-moz-placeholder {
@@ -1488,45 +1502,50 @@ main {
   border: none;
   color: white;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  transition: all 0.3s ease;
-  background-color: rgba(107, 118, 227);
-  /* Creates a 2px border that matches the button color initially */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #5b66e8 0%, #3b82f6 100%);
   border: 1px solid transparent;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   font-size: 12px;
 }
 
 .primary-button:hover {
-  background-color: hsl(233 53% 53%);
+  box-shadow:
+    0 10px 15px -3px rgba(91, 102, 232, 0.4),
+    0 4px 6px -4px rgba(91, 102, 232, 0.3);
+  transform: translateY(-1px);
 }
 
 .primary-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-image: linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
+  background-image:
+    linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
     linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%);
   box-shadow: none;
 }
 
 .secondary-button {
   position: relative;
-  border: none;
-  color: #5764d9;
+  color: #374151;
   cursor: pointer;
-  border-radius: 6px;
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  transition: all 0.3s ease;
-  background-color: white;
-  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
   font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 .secondary-button:hover {
-  /* Transparent border to show gradient */
-  background-color: #f3f4f6;
+  border-color: #a5b4fc;
+  color: #4f46e5;
 }
 
 .secondary-button:disabled {
@@ -1586,6 +1605,10 @@ main {
 .hover\:tw-text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.hover\:tw-opacity-80:hover {
+  opacity: 0.8;
 }
 
 .hover\:tw-shadow-xl:hover {
