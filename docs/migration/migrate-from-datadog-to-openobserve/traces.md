@@ -76,15 +76,22 @@ DD_TRACE_AGENT_PORT=8126
 
 The application code does not change. Only the env vars do. Restart the service to pick up the new agent endpoint.
 
-**Option B: Keep the Datadog Agent, repoint it.** If many services point at the local Datadog Agent and changing env vars across the fleet is awkward, repoint the Agent's APM forwarder at the local Collector:
+**Option B: Keep the Datadog Agent, repoint it.** If many services point at the local Datadog Agent and changing env vars across the fleet is awkward, repoint the Agent's APM forwarder at the local Collector. Because the Agent is already bound to `:8126`, the Collector's `datadog` receiver has to listen on a different port. Bind it to `:18126`:
+
+```yaml
+# OTel Collector
+receivers:
+  datadog:
+    endpoint: "0.0.0.0:18126"
+```
 
 ```yaml
 # /etc/datadog-agent/datadog.yaml
 apm_config:
-  apm_dd_url: http://localhost:8126
+  apm_dd_url: http://localhost:18126
 ```
 
-In this setup the Collector runs on a different port than the Agent (e.g. Agent on `8126`, Collector on `18126`) and the Agent forwards to the Collector, which forwards to OpenObserve.
+The Agent receives `dd-trace` spans on `8126` as before and forwards them to the Collector on `18126`, which translates and ships to OpenObserve.
 
 !!! tip "Send all signals through one Collector"
     If you're also migrating metrics and logs, you can consolidate everything through a single OTel Collector with one `otlphttp/openobserve` exporter: one endpoint, one auth header, all signals.
@@ -96,7 +103,7 @@ If your services already use OpenTelemetry SDKs and ship OTLP, the migration is 
 
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT=https://<your-openobserve-host>
-OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-creds>,stream-name=default"
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-creds>"
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 ```
 

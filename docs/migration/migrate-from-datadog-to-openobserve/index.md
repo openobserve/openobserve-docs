@@ -72,17 +72,17 @@ A migration path exists for every one of these. See the per-signal pages.
 
 Before migrating signal by signal, get OpenObserve running:
 
-> "OpenObserve Cloud"
+=== "OpenObserve Cloud"
 
-Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
+    Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
 
-After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+    After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
 
-> "Self-Hosted"
+=== "Self-Hosted"
 
-Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
+    Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
 
-After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+    After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
 
 ## Migration Strategy
 

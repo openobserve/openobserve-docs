@@ -44,30 +44,11 @@ Common ways logs reach Datadog:
 
 ### From Datadog Agent
 
-If the Datadog Agent is collecting logs (`logs_enabled: true` in `datadog.yaml`, with `logs:` blocks defined per-integration), you have two clean paths:
+If the Datadog Agent is collecting logs (`logs_enabled: true` in `datadog.yaml`, with `logs:` blocks defined per-integration), the Agent will need to be replaced for logs. The Datadog Agent's logs forwarder speaks a proprietary TCP framed protocol that the upstream OTel `datadog` receiver does not accept, so simply repointing `logs_dd_url` at the Collector will not work.
 
-**Option A: Repoint the Agent at a local OTel Collector.** Keep the Agent's `logs:` configs, but ship them to the Collector instead of Datadog SaaS:
+The recommended replacement is **Fluent Bit** (or the [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md)) tailing the same files that the Agent was tailing. The `logs:` configs from `datadog.yaml` map cleanly to Fluent Bit `INPUT tail` sections — same paths, same parsing rules. See the Fluent Bit section below for the output config that ships to OpenObserve.
 
-```yaml
-# /etc/datadog-agent/datadog.yaml
-logs_enabled: true
-logs_config:
-  logs_dd_url: localhost:8126
-  logs_no_ssl: true
-```
-
-The Collector accepts the payloads via the `datadog` receiver and exports via `otlphttp` to OpenObserve. See the metrics page for the receiver/exporter config; the same Collector can handle logs by adding a `logs` pipeline:
-
-```yaml
-service:
-  pipelines:
-    logs:
-      receivers: [datadog]
-      processors: [batch]
-      exporters: [otlphttp/openobserve]
-```
-
-**Option B: Replace Datadog Agent log collection with Fluent Bit** (or the [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md)) tailing the same files. This is a cleaner long-term path because it drops a Datadog-specific dependency. See the Fluent Bit section below.
+You can keep the Datadog Agent running for metrics and APM (as described in the [metrics](metrics.md) and [traces](traces.md) sections) while Fluent Bit handles logs in parallel. Once logs are flowing to OpenObserve, set `logs_enabled: false` in `datadog.yaml` to stop the Agent's log collector.
 
 
 ### From Fluent Bit

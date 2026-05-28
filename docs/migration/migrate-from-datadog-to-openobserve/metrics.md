@@ -79,7 +79,6 @@ exporters:
     endpoint: https://<your-openobserve-host>/api/<org_id>
     headers:
       Authorization: Basic <base64-creds>
-      stream-name: default
 
 service:
   pipelines:
@@ -89,23 +88,17 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-**Cutover options:**
+**Cutover:** Stop the Datadog Agent's DogStatsD listener (set `use_dogstatsd: false` in `/etc/datadog-agent/datadog.yaml`) and start the OTel Collector on UDP port `8125`. Apps continue to send to `localhost:8125`, but the Collector receives instead of the Agent. No app changes.
 
-- **Stop the Datadog Agent's DogStatsD listener** and start the OTel Collector on port `8125`. Apps now send to the Collector directly.
-- **Or forward through the Agent during dual-write**, by setting `dogstatsd_forward_host`/`dogstatsd_forward_port` in `datadog.yaml` to mirror DogStatsD traffic to the Collector while you validate:
+If you want to dual-write to both Datadog and OpenObserve during validation, run the Collector's `statsd` receiver on a **different port** (e.g., `18125`) and forward DogStatsD packets from the Agent to that port:
 
 ```yaml
 # /etc/datadog-agent/datadog.yaml
-use_dogstatsd: true
-dogstatsd_port: 8125
-dogstatsd_non_local_traffic: true
-bind_host: 0.0.0.0
-
 dogstatsd_forward_host: localhost
-dogstatsd_forward_port: 8126   # forward port that the OTel Collector listens on
+dogstatsd_forward_port: 18125
 ```
 
-(Forward DogStatsD on a different port than the receive port so the Agent doesn't loop into itself.)
+Then update the Collector's `statsd` receiver endpoint to `0.0.0.0:18125` to match.
 
 **Datadog-to-OpenTelemetry metric-type mapping** (handled automatically by the receiver):
 
@@ -132,6 +125,8 @@ If the Datadog Agent is doing more than DogStatsD (host metrics, integrations li
 
 **Collector config:**
 
+The contrib `datadog` receiver listens on a single HTTP endpoint and accepts both the Agent's metric series API and the APM trace intake. Wire it into both a `metrics` and a `traces` pipeline:
+
 ```yaml
 receivers:
   datadog:
@@ -154,19 +149,22 @@ service:
       receivers: [datadog]
       processors: [batch]
       exporters: [otlphttp/openobserve]
+    traces:
+      receivers: [datadog]
+      processors: [batch]
+      exporters: [otlphttp/openobserve]
 ```
 
 **Repoint the Datadog Agent at the local Collector.** Edit `/etc/datadog-agent/datadog.yaml`:
 
 ```yaml
-# Send metrics/traces/logs to the local OTel Collector instead of Datadog SaaS
+# Send metrics and APM traces to the local OTel Collector instead of Datadog SaaS
 dd_url: http://localhost:8126
 apm_config:
   apm_dd_url: http://localhost:8126
-logs_config:
-  logs_dd_url: localhost:8126
-  logs_no_ssl: true
 ```
+
+The Datadog Agent's logs forwarder uses a separate TCP framed protocol that the OTel `datadog` receiver does not accept. For logs, use Fluent Bit, Vector, or the OpenObserve Collector instead. See [Migrating Logs](logs.md).
 
 Restart the Agent:
 

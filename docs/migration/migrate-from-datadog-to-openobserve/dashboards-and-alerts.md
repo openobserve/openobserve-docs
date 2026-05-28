@@ -79,7 +79,7 @@ Datadog log search to SQL examples for log panels:
 | `service:api status:error` | `SELECT * FROM default WHERE service = 'api' AND level = 'error'` |
 | `service:api "timeout"` | `SELECT * FROM default WHERE service = 'api' AND match_all('timeout')` |
 | `service:payments @duration:>500` | `SELECT * FROM default WHERE service = 'payments' AND duration > 500` |
-| `service:api status:error | count by status_code` | `SELECT status_code, count(*) FROM default WHERE service = 'api' AND level = 'error' GROUP BY status_code` |
+| `service:api status:error \| count by status_code` | `SELECT status_code, count(*) FROM default WHERE service = 'api' AND level = 'error' GROUP BY status_code` |
 
 !!! tip "Use the AI Assistant"
     Instead of translating queries by hand, use the **AI Assistant** in the OpenObserve UI. Paste a Datadog query and ask: *"Convert this Datadog query to OpenObserve PromQL"* (for metrics) or *"...to OpenObserve SQL"* (for logs). It handles tag-name normalization, function mapping, and aggregation syntax in one shot, which is especially useful for complex multi-condition queries.
