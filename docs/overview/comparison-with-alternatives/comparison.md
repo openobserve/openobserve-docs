@@ -1,10 +1,9 @@
 ---
-title: Comparison with Alternatives | OpenObserve
+title: OpenObserve as an Elasticsearch Alternative | Comparison
 description: How OpenObserve compares with Elasticsearch on storage cost, query performance, and operational complexity for observability workloads.
 ---
-# Comparison with Alternatives
 
-## How Does OpenObserve Compare to Elasticsearch?
+# OpenObserve as an Elasticsearch Alternative
 
 Elasticsearch is a general-purpose search engine for both app search and log search use cases. OpenObserve is built specifically for log search, making it an excellent lightweight alternative to Elasticsearch.
 
@@ -24,7 +23,7 @@ Consider Uber, which [found that 80% of the queries in its production environmen
 
 To compare storage costs, we used Fluent Bit to send real-life log data from our Kubernetes cluster to both Elasticsearch and OpenObserve. The results speak for themselves:
 
-![OpenObserve Vs Elasticsearch storage](../images/zo_vs_es.png)
+![OpenObserve Vs Elasticsearch storage](../../images/zo_vs_es.png)
 
 In this scenario, OpenObserve offers a significant advantage of 140x lower storage costs than Elasticsearch. These figures don't even consider the possibility of unused EBS volume capacity or include monitoring overhead. Your actual results may vary depending on how compressible your specific log data is.
 

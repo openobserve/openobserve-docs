@@ -29,7 +29,7 @@ plugins:
         Reference:
           - reference/*.md
         Migration:
-          - migration/*.md
+          - migration/**/*.md
         Releases:
           - releases.md
 # nav:
@@ -41,6 +41,7 @@ plugins:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/feedback.css
+  - stylesheets/llm-page-actions.css
   - css/output.css
   - css/landing-page.css
 extra_javascript:
@@ -51,6 +52,7 @@ extra_javascript:
   - js/search-close-minimal.js
   - js/search-tracking.js
   - js/theme.js
+  - js/llm-page-actions.js
   # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
   # - js/reo.js
