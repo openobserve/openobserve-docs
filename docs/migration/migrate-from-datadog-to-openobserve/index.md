@@ -27,7 +27,7 @@ Datadog is a capable platform, but for teams running at scale the cost curve, th
 
 Datadog bills per host, per ingested GB of logs, per custom metric, per APM span, and per indexed log. Once you cross even a moderate footprint (a few hundred hosts, a few TB of logs per month, a few thousand custom metrics), the monthly invoice climbs faster than the value most teams get from it. Reserved hosts, log retention tiers, and Watchdog all add line items.
 
-OpenObserve runs on Apache Parquet over object storage (S3, GCS, Azure Blob, local disk). Storage is up to 140x cheaper than typical hosted observability backends, and there are no per-metric, per-span, or per-host fees.
+OpenObserve runs on Apache Parquet over object storage (S3, GCS, Azure Blob, local disk). Storage is **up to 140x more efficient, and therefore cheaper**, than typical hosted observability backends, and there are no per-metric, per-span, or per-host fees.
 
 ### Vendor lock-in
 
@@ -49,7 +49,7 @@ Datadog is sold as a bundle of products (Infrastructure, APM, Logs, RUM, Synthet
 |---|---|---|
 | **Pricing model** | Per-host, per-GB, per-custom-metric, per-span | Storage + compute only, no per-host or per-metric fees |
 | **Storage backend** | Datadog-managed (opaque) | Apache Parquet on S3 / GCS / Azure Blob / local disk |
-| **Storage cost** | High at scale, retention tiers | Up to 140x lower storage cost |
+| **Storage cost** | High at scale, retention tiers | Up to 140x efficient storage |
 | **Query languages** | Datadog query DSL + log search syntax | SQL + PromQL |
 | **Wire protocols** | DogStatsD, Datadog Agent API, trace intake | OTLP (HTTP/gRPC), Prometheus Remote Write, Loki Push API, JSON over HTTP |
 | **Lock-in** | Proprietary formats end-to-end | Open standards; your data sits in your bucket as Parquet |
