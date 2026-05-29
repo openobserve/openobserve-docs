@@ -13,7 +13,7 @@ Splunk is a mature platform with broad enterprise adoption, but for teams runnin
 
 Splunk's pricing is volume-based (per ingested GB) with additional per-host and per-feature line items. Once ingest grows past a modest baseline, the license becomes the dominant cost, often well before infrastructure does. Indexer-tier storage is also expensive because indexers are stateful hosts with hot data on attached storage.
 
-OpenObserve stores raw events as Apache Parquet on object storage (S3, GCS, Azure Blob, or local disk). Storage runs **up to 140x more efficient** than typical indexed-tier observability backends, and there is no per-host or per-user licensing.
+OpenObserve stores raw events as Apache Parquet on object storage (S3, GCS, Azure Blob, or local disk). Storage is **up to 140x more efficient, and therefore cheaper**, than typical indexed-tier observability backends, and there is no per-host or per-user licensing.
 
 ### Operational complexity
 
