@@ -101,3 +101,9 @@ The recommended order:
 - [Migrating Traces](traces.md): migrate Datadog APM to OTLP
 - [Migrating Logs](logs.md): migrate Datadog Agent logs and shipper-based pipelines
 - [Migrating Dashboards & Monitors](dashboards-and-alerts.md): recreate Datadog dashboards and monitors
+
+
+## Need Help?
+
+- Join our [Community Slack](https://short.openobserve.ai/community)
+- Or [Contact support](https://openobserve.ai/contactus/)

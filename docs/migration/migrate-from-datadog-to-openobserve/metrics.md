@@ -318,4 +318,7 @@ Functions like `rate()`, `histogram_quantile()`, `sum by()`, and label matchers 
 - [Migrating Logs](logs.md): migrate your log sources
 
 
-[Back to Overview](index.md) | Previous: [Architecture & Terminology](architecture.md) | Next: [Migrating Traces](traces.md)
+## Need Help?
+
+- Join our [Community Slack](https://short.openobserve.ai/community)
+- Or [Contact support](https://openobserve.ai/contactus/)

@@ -180,4 +180,7 @@ Datadog composite monitors combine other monitors with `&&` / `||`. In OpenObser
 - [OpenObserve Scheduled Pipelines](https://openobserve.ai/docs/user-guide/pipelines/create-and-use-scheduled-pipeline/): pre-aggregate expensive queries for SLOs and dashboards
 
 
-[Back to Overview](index.md) | Previous: [Migrating Logs](logs.md)
+## Need Help?
+
+- Join our [Community Slack](https://short.openobserve.ai/community)
+- Or [Contact support](https://openobserve.ai/contactus/)

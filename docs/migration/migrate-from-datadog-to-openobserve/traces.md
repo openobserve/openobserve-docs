@@ -181,4 +181,7 @@ For the same reason you'd dual-write metrics, you can dual-write traces. `dd-tra
 - [OpenObserve Traces Documentation](https://openobserve.ai/docs/user-guide/traces/): exploring traces, filtering spans, and configuring trace settings in the UI
 
 
-[Back to Overview](index.md) | Previous: [Migrating Metrics](metrics.md) | Next: [Migrating Logs](logs.md)
+## Need Help?
+
+- Join our [Community Slack](https://short.openobserve.ai/community)
+- Or [Contact support](https://openobserve.ai/contactus/)

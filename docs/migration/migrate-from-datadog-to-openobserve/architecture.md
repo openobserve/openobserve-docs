@@ -105,4 +105,7 @@ Datadog and OpenTelemetry use different vocabularies for metric types. The OTel 
 - [Migrating Logs](logs.md): migrate log sources from Datadog
 
 
-[Back to Overview](index.md) | Next: [Migrating Metrics](metrics.md)
+## Need Help?
+
+- Join our [Community Slack](https://short.openobserve.ai/community)
+- Or [Contact support](https://openobserve.ai/contactus/)
