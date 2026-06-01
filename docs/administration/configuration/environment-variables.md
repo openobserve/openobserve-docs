@@ -40,6 +40,7 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_HTTP_IPV6_ENABLED | false | Set this to true to enable IPv6 support for HTTP. |
 | ZO_HTTP_WORKER_NUM | 0 | Number of threads for HTTP services. Default is equal to the number of CPU cores (cpu_num). |
 | ZO_HTTP_WORKER_MAX_BLOCKING | 1024 | Maximum number of blocking connections allowed per HTTP thread. |
+| ZO_HTTP_REAL_IP_SOURCE | XEnvoyExternalAddress,XRealIp,RightmostXForwardedFor | Comma-separated list of sources used to resolve the real client IP when OpenObserve runs behind a proxy or load balancer. Sources are tried in order and the first match wins, with the TCP peer always used as the final fallback. Supported values: `XEnvoyExternalAddress` (Envoy/Istio), `XRealIp` (nginx, Traefik), `RightmostXForwardedFor` (nginx/HAProxy/AWS ALB/GCP LB), `RightmostForwarded` (RFC 7239), `CfConnectingIp` (Cloudflare), `TrueClientIp` (Akamai/Cloudflare Enterprise), `FlyClientIp` (Fly.io), `CloudFrontViewerAddress` (AWS CloudFront), and `ConnectInfo` (TCP peer). Only list sources whose proxy actually sits in front of this server, since clients can spoof any trusted header. |
 | ZO_GRPC_PORT | 5081 | Port number on which the OpenObserve server listens for gRPC requests. |
 | ZO_GRPC_ADDR | | IP address on which the OpenObserve server listens for gRPC requests. |
 | ZO_GRPC_ORG_HEADER_KEY | organization | Header key for sending organization information in traces using OTLP over gRPC. |
