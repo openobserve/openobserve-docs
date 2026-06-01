@@ -48,6 +48,7 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_GRPC_CONNECT_TIMEOUT | 5 | Timeout in seconds for connecting to the gRPC server. |
 | ZO_ROUTE_TIMEOUT | 600 | Timeout value for the router node in seconds. |
 | ZO_ROUTE_MAX_CONNECTIONS | 1024 | Sets the maximum number of simultaneous connections per type of scheme for the Router node role. |
+| ZO_CORS_ALLOWED_ORIGINS | | Comma-separated list of origins allowed to make cross-origin (CORS) requests to the OpenObserve server. When empty, all origins are allowed. Example: `https://app.example.com,https://admin.example.com`. |
 
 
 ## Data Storage and Directories
