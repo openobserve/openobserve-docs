@@ -17,6 +17,7 @@ phases:
       - apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends python3-pip nodejs npm
       - pip3 install mkdocs-material
       - pip3 install mkdocs-awesome-pages-plugin
+      - pip3 install mkdocs-redirects
       - npm install openapi-explorer
   build:
     commands:

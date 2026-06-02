@@ -8,6 +8,12 @@ plugins:
   - search
   - awesome-pages
   - material-plausible
+  - redirects:
+      redirect_maps:
+        'administration/deployment/openobserve-enterprise-edition-installation-guide.md': 'enterprise-setup/index.md'
+        'administration/deployment/capacity-planning.md': 'enterprise-setup/capacity-planning.md'
+        'administration/deployment/performance.md': 'enterprise-setup/performance.md'
+        'administration/deployment/sre-agent-setup-guide.md': 'enterprise-setup/sre-agent.md'
   - llmstxt:
       sections:
         Getting started:
