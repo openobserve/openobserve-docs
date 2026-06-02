@@ -102,9 +102,9 @@ ALTER TABLE file_list ALTER COLUMN id DROP IDENTITY IF EXISTS;
 ALTER TABLE file_list DROP CONSTRAINT IF EXISTS file_list_pkey;
 
 -- 5) Check new index on old table
-CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_idx_idx ON file_list_default (id);
-CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_updated_at_idx ON file_list_default (updated_at);
-CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_date_idx ON file_list_default (date);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_idx_idx ON file_list (id);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_updated_at_idx ON file_list (updated_at);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_date_idx ON file_list (date);
 
 -- 6) Rename old table to DEFAULT partition name
 ALTER TABLE file_list RENAME TO file_list_default;
