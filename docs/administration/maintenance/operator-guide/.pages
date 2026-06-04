@@ -8,3 +8,4 @@ nav:
     - Etcd restore: etcd-restore.md
     - Nginx proxy: nginx-proxy.md
     - Configuration Management: config-management.md
+    - CLI Commands: cli-commands.md

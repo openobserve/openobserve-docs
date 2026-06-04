@@ -1,0 +1,3 @@
+nav:
+    - Azure Integrations Overview: index.md
+    - Azure Activity Logs: activity-logs.md
