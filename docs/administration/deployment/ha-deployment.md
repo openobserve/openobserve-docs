@@ -4,61 +4,49 @@ description: Complete high availability (HA) deployment guide for OpenObserve on
 ---
 # High Availability (HA) Deployment - Kubernetes Production Setup
 
-Deploy OpenObserve in high availability (HA) mode for production observability workloads. This HA deployment guide covers Kubernetes deployment using Helm charts with object storage (S3, Azure Blob) and PostgreSQL for highly available log management and monitoring.
+Deploy OpenObserve in high availability (HA) mode for production observability workloads. This guide walks through deploying on Kubernetes with Helm using object storage (S3, GCS, MinIO, Swift, Civo) and PostgreSQL or MySQL as the metadata store.
 
-While OpenObserve can be installed and run in HA mode on bare metal servers, VMs, Kubernetes and possibly other platforms, we currently provide installation using Helm charts officially for Kubernetes HA deployment. Local disk storage is not supported in HA mode and as such configuring object storage (S3, Azure Blob) is mandatory for high availability deployment.
+While OpenObserve can run in HA mode on bare metal servers, VMs, and other platforms, we officially provide installation via Helm charts for Kubernetes. Local disk storage is not supported in HA mode, so an object store is mandatory.
 
-## Helm charts
+
+**This guide will help you:**
+
+1. Set up prerequisites (CLI tools, operator, bucket).
+2. Download and customize `values.yaml`.
+3. Configure object storage and the metadata store.
+4. Install OpenObserve with Helm.
+5. Verify the deployment.
+
+## Prerequisites
+
+You need:
+
+- A Kubernetes cluster you have admin access to.
+- `kubectl` and `helm` installed locally.
+- An object storage bucket created beforehand (S3, GCS, MinIO, Swift, or Civo). The bucket itself is **not** created by the chart.
+- The [Cloud Native PostgreSQL Operator](https://cloudnative-pg.io/) installed in the cluster. This is required because the chart provisions its PostgreSQL cluster (1 primary + 1 replica) through cnpg.
+
+Install the cnpg operator:
+
+```bash
+kubectl apply --server-side -f \
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
+```
+
+!!! tip "Sizing the cluster"
+    For recommended CPU, memory, and storage values per component, see [Capacity planning](../../enterprise-setup/capacity-planning.md).
+
+## Download values.yaml
 
 For accessing the object store we recommend the best security practice of using IAM roles wherever possible. In case of Amazon EKS you can use IAM roles for Service Accounts (IRSA).
 
-You must download the [values.yaml](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/values.yaml) file and make required changes. At a minimum you must provide the details of bucket to be used for data storage and credentials (IAM role or keys) to access it. You can download the file using following command:
+You must download the [values.yaml](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve/values.yaml) file and make required changes. At a minimum you must provide the details of bucket to be used for data storage and credentials (IAM role or keys) to access it. You can download the file using the following command:
 
-```shell
+```bash
 curl https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/charts/openobserve/values.yaml -o values.yaml
 ```
 
-## Metadata store
-
-You can use `PostgreSQL` or `MySQL` as metadata storage.
-
-The official helm chart (starting Feb 23rd 2024) uses `PostgreSQL` as metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you. cloudnative-pg operator is used to install/manage the PostgreSQL cluster.
-
-
-### PostgreSQL
-
-You don't need to do anything if you are using the official helm chart and want to use bundled PostgreSQL. 
-
-If you want to use external PostgreSQL, you can configure as below. You need to create the database first. In this example we use `openobserve` as database name.
-
-```yaml
-config:
-  ZO_META_STORE: "postgres"
-
-auth:
-  ZO_META_POSTGRES_DSN: "postgres://postgres:12345678@localhost:5432/openobserve"
-
-postgres:
-  enabled: false # disable bundled PostgreSQL
-```
-
-### MySQL
-
-You need create the database first, in the example we use `openobserve` as database name.
-
-```yaml
-config:
-  ZO_META_STORE: "mysql"
-  ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
-```
-
-## NATS Cluster coordinator
-
-NATS is used as cluster coordinator by OpenObserve
-
-While using official helm chart, `NATS` for the cluster is already configured for you. You don't need additional configuration. 
-
-## Configuration
+## Configure object storage
 
 ### Amazon EKS + S3
 
@@ -67,7 +55,7 @@ You must set a minimum of 2 values:
 1. S3 bucket where data will be stored
    ```yaml
    config:
-     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
    ```
 1. IAM role for the serviceAccount to gain AWS IAM credentials to access s3
    ```yaml
@@ -76,11 +64,11 @@ You must set a minimum of 2 values:
        eks.amazonaws.com/role-arn: arn:aws:iam::12345353456:role/zo-s3-eks
    ```
 
-Once you have configured the above in your values.yaml file, you can run the below commands to install OpenObserve.
+Once you have configured the above in your values.yaml file, you can run the commands in [Install OpenObserve](#install-openobserve) below.
 
 Follow [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to enable IRSA and create an IAM role that you can use. You can also refer to the [IRSA introduction blog](https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/).
 
-Sample IAM policy.
+#### Sample IAM policy
 
 ```json
 {
@@ -96,17 +84,16 @@ Sample IAM policy.
         "s3:DeleteObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::mysuperduperbucket/*"
+      "Resource": "arn:aws:s3:::<your-bucket>/*"
     }
   ]
 }
 ```
 
-Watch this video on how to do it:
+!!! tip "Video walkthrough"
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/YZNgi3fIAbY?si=fMnDlTHDGplynOzu" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YZNgi3fIAbY?si=fMnDlTHDGplynOzu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-### Any Kubernetes + s3
+### Any Kubernetes + S3
 
 Add/Modify following to values.yaml
 
@@ -116,11 +103,11 @@ Add/Modify following to values.yaml
      ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
    config:
-     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
      ZO_S3_REGION_NAME: "us-west-1"
    ```
 
-### Any Kubernetes + minio
+### Any Kubernetes + MinIO
 
 Add/Modify following to values.yaml
 
@@ -131,7 +118,7 @@ Add/Modify following to values.yaml
      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
    config:
      ZO_S3_SERVER_URL: "http://minio-server-url"
-     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
      ZO_S3_REGION_NAME: "us-west-1"
      ZO_S3_PROVIDER: "minio"
    ```
@@ -147,7 +134,7 @@ Add/Modify following to values.yaml
      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
    config:
      ZO_S3_SERVER_URL: "https://storage.googleapis.com"
-     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
      ZO_S3_REGION_NAME: "auto"
      ZO_S3_PROVIDER: "s3"
      ZO_S3_FEATURE_HTTP1_ONLY: "true"
@@ -159,11 +146,10 @@ You can generate keys for GCS bucket using following steps:
 1. Make sure you are in the right project.
 1. Access keys for your user account > Click "CREATE A KEY"
 
-Watch this video on how to do it:
+!!! tip "Video walkthrough"
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Q7F9MT3KbvQ?si=kbpBWJRzx_xgZCor" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Q7F9MT3KbvQ?si=kbpBWJRzx_xgZCor" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-### Any Kubernetes + Openstack swift
+### Any Kubernetes + OpenStack Swift
 
 Add/Modify following to values.yaml
 
@@ -174,12 +160,12 @@ Add/Modify following to values.yaml
      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
    config:
      ZO_S3_SERVER_URL: "swift url"
-     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
      ZO_S3_REGION_NAME: "us-west-1"
      ZO_S3_PROVIDER: "s3"
    ```
 
-### Any Kubernetes + civo object store
+### Any Kubernetes + Civo Object Store
 
 Add/Modify following to values.yaml
 
@@ -190,24 +176,52 @@ Add/Modify following to values.yaml
      ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
    config:
      ZO_S3_SERVER_URL: "civo object store url"
-     ZO_S3_BUCKET_NAME: "mysuperduperbucket"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
      ZO_S3_REGION_NAME: "us-west-1"
      ZO_S3_PROVIDER: "s3"
    ```
 
-## Setup
+## Metadata store
 
-### Installation
+You can use `PostgreSQL` or `MySQL` as metadata storage.
 
-Install the Cloud Native PostgreSQL Operator. This is a prerequisite for openobserve helm chart. This helm chart sets up a postgres database cluster (1 primary + 1 replica) and uses it as metadata store of OpenObserve.
-```shell
-kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
+!!! tip "Default: bundled PostgreSQL"
+    The official Helm chart (from Feb 23rd 2024 onward) uses `PostgreSQL` as the metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you via the cnpg operator. You don't need any additional configuration if you want to use the bundled instance.
+
+### PostgreSQL (external)
+
+If you want to use external PostgreSQL, configure as below. Create the database first. In this example we use `openobserve` as the database name.
+
+```yaml
+config:
+  ZO_META_STORE: "postgres"
+
+auth:
+  ZO_META_POSTGRES_DSN: "postgres://postgres:12345678@localhost:5432/openobserve"
+
+postgres:
+  enabled: false # disable bundled PostgreSQL
 ```
 
-Install OpenObserve using the helm chart.
+### MySQL
 
-```shell
+Create the database first. In this example we use `openobserve` as the database name.
+
+```yaml
+config:
+  ZO_META_STORE: "mysql"
+  ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
+```
+
+## NATS cluster coordinator
+
+NATS is used by OpenObserve as the cluster coordinator. The official Helm chart configures NATS for you, so no additional configuration is required.
+
+## Install OpenObserve
+
+Install the chart:
+
+```bash
 helm repo add openobserve https://charts.openobserve.ai
 helm repo update
 
@@ -216,8 +230,58 @@ kubectl create ns openobserve
 helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
 ```
 
-### Uninstallation
+## Verify deployment
 
-```shell
+After running `helm install`, confirm every pod is healthy before pointing traffic at OpenObserve.
+
+??? note "Verify"
+
+    **Verification step**
+
+    ```bash
+    # Watch pods come up (Ctrl+C once everything is Running)
+    kubectl -n openobserve get pods -w
+
+    # Final pod state. Confirm every pod is 1/1 (or 2/2 for NATS) and Running
+    kubectl -n openobserve get pods
+    ```
+
+    **Expected output**
+
+    ```
+    NAME: o2
+    LAST DEPLOYED: <timestamp>
+    NAMESPACE: openobserve
+    STATUS: deployed
+    REVISION: 1
+    ```
+
+    - ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, alertmanager, router, ingester, querier, compactor, openfga-init.
+    - Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>` (or the OSS image, depending on your chart values).
+    - If a pod is stuck in `ImagePullBackOff`, check `kubectl -n openobserve describe pod <name>` and verify outbound internet from the cluster.
+
+Then port-forward the router service to reach the UI:
+
+```bash
+kubectl --namespace openobserve port-forward svc/o2-openobserve-router 5080:5080
+```
+
+Open [http://localhost:5080](http://localhost:5080) and sign in with the credentials you set in `values.yaml`.
+
+## Uninstallation
+
+```bash
 helm --namespace openobserve delete o2
 ```
+
+## Next steps
+
+- [Capacity planning](../../enterprise-setup/capacity-planning.md): sizing CPU, memory, and storage for each component.
+- [Performance tuning](../../enterprise-setup/performance.md): caching, configuration, and high-throughput tuning.
+- [Architecture](../../architecture.md): understand how the components interact.
+- [Environment variables](../../environment-variables.md): full reference for `ZO_*` configuration.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

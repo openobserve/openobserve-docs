@@ -101,10 +101,15 @@ ALTER TABLE file_list DROP COLUMN IF EXISTS created_at;
 ALTER TABLE file_list ALTER COLUMN id DROP IDENTITY IF EXISTS;
 ALTER TABLE file_list DROP CONSTRAINT IF EXISTS file_list_pkey;
 
--- 5) Rename old table to DEFAULT partition name
+-- 5) Check new index on old table
+CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_id_idx ON file_list (id);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_updated_at_idx ON file_list (updated_at);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS file_list_default_date_idx ON file_list (date);
+
+-- 6) Rename old table to DEFAULT partition name
 ALTER TABLE file_list RENAME TO file_list_default;
 
--- 6) Create partitioned parent
+-- 7) Create partitioned parent
 CREATE TABLE file_list (
     id              BIGINT GENERATED ALWAYS AS IDENTITY,
     account         VARCHAR(32) NOT NULL,
@@ -123,18 +128,16 @@ CREATE TABLE file_list (
     updated_at      BIGINT NOT NULL
 ) PARTITION BY RANGE (date);
 
--- 7) Parent indexes
+-- 8) Parent indexes
 CREATE UNIQUE INDEX file_list_stream_file_idx ON file_list (stream, date, file);
 CREATE INDEX file_list_id_idx ON file_list (id);
 CREATE INDEX file_list_stream_ts_idx ON file_list (stream, max_ts, min_ts);
 CREATE INDEX file_list_stream_date_idx ON file_list (stream, date);
 CREATE INDEX file_list_updated_at_idx ON file_list (updated_at);
 
--- 8) Attach DEFAULT partition
+-- 9) Attach DEFAULT partition
 ALTER TABLE file_list ATTACH PARTITION file_list_default DEFAULT;
 
--- 9) Date index on DEFAULT partition
-CREATE INDEX IF NOT EXISTS file_list_default_date_idx ON file_list_default (date);
 
 -- 10) Pre-create future partitions (example: tomorrow + 7 days)
 -- Replace dates as needed in your maintenance window

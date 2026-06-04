@@ -3,6 +3,72 @@
   display: none !important;
 }
 
+/* === DESKTOP SEARCH MODAL ===
+   The md-header is collapsed (height:0) on desktop, so the search must be
+   repositioned as a fixed modal below the custom top header when activated.
+   Uses MkDocs Material's checkbox-state selector for CSS-driven show/hide. */
+@media (min-width: 60em) {
+  /* Inactive: hide entirely so it doesn't overflow from the collapsed header */
+  .md-header .md-search__inner {
+    display: none !important;
+  }
+  .md-header .md-search__overlay {
+    display: none !important;
+  }
+
+  /* Active: show search inner as a centered fixed panel below the custom header */
+  [data-md-toggle="search"]:checked ~ .md-header .md-search__inner {
+    display: block !important;
+    position: fixed !important;
+    top: 5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(640px, 90vw) !important;
+    max-width: 640px !important;
+    float: none !important;
+    z-index: 200 !important;
+    height: auto !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    transition: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  /* Active: dark backdrop covering content area (below custom header) */
+  [data-md-toggle="search"]:checked ~ .md-header .md-search__overlay {
+    display: block !important;
+    position: fixed !important;
+    top: 3.8rem !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    opacity: 0.54 !important;
+    z-index: 100 !important;
+    background-color: rgba(0, 0, 0, 0.54) !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+  /* Search results output */
+  [data-md-toggle="search"]:checked ~ .md-header .md-search__output {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 201 !important;
+    border-radius: 0 0 8px 8px !important;
+  }
+
+  /* Search input fill the modal width */
+  [data-md-toggle="search"]:checked ~ .md-header .md-search__input {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
 /* Login dropdown: hover colors missing from Tailwind build */
 .hover\:tw-bg-orange-50:hover {
   background-color: rgb(255 247 237);
@@ -186,6 +252,10 @@ html {
   }
 }
 
+.md-content__inner {
+  padding-top: 0 !important;
+}
+
 [data-md-color-scheme="slate"] .md-search__input {
   background-color: #7c3aed !important;
   border: 2px solid #7c3aed !important;
@@ -361,9 +431,23 @@ html {
   /* padding: 0.5rem 1rem !important; */
 }
 
+/* Desktop: collapse empty subheader bar (overrides min-height above) */
+@media (min-width: 76.25em) {
+  .md-header {
+    min-height: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+  .md-header nav.md-header__inner {
+    display: none !important;
+  }
+}
+
 /* --- FINAL: Sidebar Custom Design --- */
 .md-sidebar--primary {
-  background: rgb(245, 243, 254) !important;
+  background: transparent !important;
   border: 2px solid #7c3aed !important;
   border-radius: 8px !important;
   padding: 1em 0.5em !important;
@@ -371,7 +455,7 @@ html {
   box-shadow: none !important;
   z-index: 200 !important;
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   /* Content-based height with increased footer clearance */
   height: auto !important;
   min-height: auto !important;
@@ -390,14 +474,14 @@ html {
   }
 }
 [data-md-color-scheme="slate"] .md-sidebar--primary {
-  background: rgb(23, 20, 29) !important;
+  background: transparent !important;
   border: 2px solid #7c3aed !important;
   border-radius: 8px !important;
   padding: 1em 0.5em !important;
   box-shadow: none !important;
   z-index: 200 !important;
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   /* Content-based height with increased footer clearance */
   height: auto !important;
   min-height: auto !important;
@@ -421,31 +505,27 @@ html {
   background: transparent !important;
 }
 
-/* Highlight selected nav item with purple bar on left */
+/* Active nav item: purple text + thin left border (Supabase pattern) */
 .md-sidebar--primary .md-nav__item--active > .md-nav__link {
   position: relative !important;
   background: transparent !important;
-  border-radius: 3px !important;
-  /* make the active link text bold (applies to the text, not the empty pseudo-element) */
-  font-weight: 700 !important;
-  /* leave space on the RIGHT for the indicator that sits against the sidebar border */
-  padding-right: 1.6em !important;
-  /* keep a little left padding for text alignment */
-  padding-left: 1.1em !important;
-  overflow: hidden !important;
+  color: #7c3aed !important;
+  font-weight: 600 !important;
+  border-left: 2px solid #7c3aed !important;
+  border-radius: 0 !important;
+  padding-left: 0.85em !important;
+  overflow: visible !important;
 }
 .md-sidebar--primary .md-nav__item--active > .md-nav__link::before {
-  content: "";
-  position: absolute;
-  right: 8px;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 30px;
-  background: #4b237a;
-  border-radius: 3px !important;
-  z-index: 3 !important;
+  /* Kill the prior 4px floating bar marker */
+  content: none !important;
+}
+[data-md-color-scheme="slate"]
+  .md-sidebar--primary
+  .md-nav__item--active
+  > .md-nav__link {
+  color: #c4b5fd !important;
+  border-left-color: #c4b5fd !important;
 }
 
 /* --- Sidebar: Add right margin for full rounded border visibility --- */
@@ -744,7 +824,7 @@ html {
 
 /* Stronger override for primary sidebar positioning */
 .md-sidebar--primary {
-  top: 8rem !important;
+  top: 60px !important;
   position: sticky !important;
 }
 
@@ -767,7 +847,7 @@ html {
 .md-sidebar--primary[data-md-state],
 .md-sidebar--primary[data-md-state="lock"] {
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   transform: none !important;
   transition: none !important;
   will-change: auto !important;
@@ -786,7 +866,7 @@ html {
 /* Additional safety measures to prevent sidebar shifting */
 html .md-sidebar--primary {
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
 }
 
 /* Remove any masking pseudo-elements from primary sidebar - like secondary sidebar */
@@ -812,7 +892,7 @@ html .md-sidebar--primary {
 .md-sidebar--secondary[data-md-state="lock"] {
   /* Match primary's sticky positioning and footer clearance */
   position: sticky !important;
-  top: 8rem !important;
+  top: 60px !important;
   transform: none !important;
   transition: none !important;
   will-change: auto !important;
@@ -862,10 +942,6 @@ html .md-sidebar--primary {
 .md-header {
   position: fixed !important;
   top: 70px !important;
-}
-
-.md-main__inner {
-  margin-top: 70px !important;
 }
 
 nav.md-grid {

@@ -14,7 +14,7 @@ This guide provides instructions for enabling Role-Based Access Control (RBAC) i
 
 Before enabling RBAC, ensure the following:
 
-- You must have **OpenObserve Enterprise Edition** installed and running. Refer to the [OpenObserve Enterprise Edition Installation Guide](../../../administration/deployment/openobserve-enterprise-edition-installation-guide.md).
+- You must have **OpenObserve Enterprise Edition** installed and running. Refer to the [Enterprise Setup guide](../../../enterprise-setup/index.md).
 - You must have **administrator access** to the system where OpenObserve is deployed.
 - OpenObserve must be running in [High Availability (HA) mode](https://openobserve.ai/docs/ha_deployment/), as RBAC is supported only in HA deployments.
 

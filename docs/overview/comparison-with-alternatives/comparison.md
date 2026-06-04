@@ -1,6 +1,9 @@
-# Comparison with Alternatives
+---
+title: OpenObserve as an Elasticsearch Alternative | Comparison
+description: How OpenObserve compares with Elasticsearch on storage cost, query performance, and operational complexity for observability workloads.
+---
 
-## How Does OpenObserve Compare to Elasticsearch?
+# OpenObserve as an Elasticsearch Alternative
 
 Elasticsearch is a general-purpose search engine for both app search and log search use cases. OpenObserve is built specifically for log search, making it an excellent lightweight alternative to Elasticsearch.
 
@@ -20,7 +23,7 @@ Consider Uber, which [found that 80% of the queries in its production environmen
 
 To compare storage costs, we used Fluent Bit to send real-life log data from our Kubernetes cluster to both Elasticsearch and OpenObserve. The results speak for themselves:
 
-![OpenObserve Vs Elasticsearch storage](../images/zo_vs_es.png)
+![OpenObserve Vs Elasticsearch storage](../../images/zo_vs_es.png)
 
 In this scenario, OpenObserve offers a significant advantage of 140x lower storage costs than Elasticsearch. These figures don't even consider the possibility of unused EBS volume capacity or include monitoring overhead. Your actual results may vary depending on how compressible your specific log data is.
 
@@ -35,6 +38,11 @@ This cost comparison pertains only to storage. Amazon EBS storage volumes cost [
 - **Rust Performance:** Performs well and without Java Virtual Machine (JVM) challenges
 - **Purpose-Built:** Built from the ground up as an observability tool, not a general-purpose search engine
 
-## Elasticsearch Compatibility
+### Elasticsearch Compatibility
 
-The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector.
+The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector. This means you can swap OpenObserve in for Elasticsearch with minimal changes to your existing ingestion pipeline.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

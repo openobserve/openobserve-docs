@@ -4,13 +4,39 @@ description: OpenTelemetry tracing guide for instrumenting applications with Ope
 ---
 # OpenTelemetry Distributed Tracing - APM Instrumentation
 
-Instrument your applications with OpenTelemetry SDKs for distributed tracing and application performance monitoring (APM). You can find examples of how to instrument your code to send traces to OpenObserve using OpenTelemetry SDKs below:
+Instrument your applications with OpenTelemetry SDKs for distributed tracing and application performance monitoring (APM).
 
-1. [Javascript (NodeJS)](./nodejs.md)
-1. [Typescript](./typescript.md)
+## Prerequisites
+
+- An OpenObserve instance (Cloud or self-hosted) and your login credentials.
+
+## Trace ingestion endpoint
+
+Configure your OpenTelemetry SDK or Collector to send traces to:
+
+```
+https://<your-openobserve-host>/api/<your-org>/v1/traces
+```
+
+For self-hosted instances on the default port, this is `http://localhost:5080/api/<your-org>/v1/traces`. Send the `Authorization: Basic <base64(email:password)>` header on each request.
+
+## SDK examples
+
+You can find examples of how to instrument your code to send traces to OpenObserve using OpenTelemetry SDKs below:
+
+1. [JavaScript (Node.js)](./nodejs.md)
+1. [TypeScript](./typescript.md)
 1. [Python](./python.md)
 1. [Go](./go.md)
 
+You can also follow the [OpenTelemetry documentation](https://opentelemetry.io/docs/instrumentation/) for more info.
 
-You can also follow the [Opentelemetry documentation](https://opentelemetry.io/docs/instrumentation/) for more info.
+## Next steps
 
+- [OpenTelemetry Collector / OTLP](../logs/otlp.md): unified ingestion for logs, metrics, and traces.
+- [Ingestion overview](../index.md): all ingestion paths for logs, metrics, and traces.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)

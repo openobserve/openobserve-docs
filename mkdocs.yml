@@ -1,10 +1,43 @@
 site_name: OpenObserve Documentation
 site_url: https://openobserve.ai/docs
+site_description: OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces into a single solution, built for petabyte scale with up to 140x lower storage cost than Elasticsearch.
 # https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin required for nav
+hooks:
+  - hooks/llm_markdown.py
 plugins:
   - search
   - awesome-pages
   - material-plausible
+  - redirects:
+      redirect_maps:
+        'administration/deployment/openobserve-enterprise-edition-installation-guide.md': 'enterprise-setup/index.md'
+        'administration/deployment/capacity-planning.md': 'enterprise-setup/capacity-planning.md'
+        'administration/deployment/performance.md': 'enterprise-setup/performance.md'
+        'administration/deployment/sre-agent-setup-guide.md': 'enterprise-setup/sre-agent.md'
+  - llmstxt:
+      sections:
+        Getting started:
+          - index.md
+          - getting-started.md
+          - quickstart.md
+          - architecture.md
+          - downloads.md
+        User guide:
+          - user-guide/*.md
+        Ingestion:
+          - ingestion/*.md
+        Integrations:
+          - integration/*.md
+        Features:
+          - features/*.md
+        Administration:
+          - administration/*.md
+        Reference:
+          - reference/*.md
+        Migration:
+          - migration/**/*.md
+        Releases:
+          - releases.md
 # nav:
 #   - index.md
 #   - getting-started.md
@@ -14,6 +47,7 @@ plugins:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/feedback.css
+  - stylesheets/llm-page-actions.css
   - css/output.css
   - css/landing-page.css
 extra_javascript:
@@ -24,6 +58,7 @@ extra_javascript:
   - js/search-close-minimal.js
   - js/search-tracking.js
   - js/theme.js
+  - js/llm-page-actions.js
   # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
   # - js/reo.js
@@ -82,6 +117,10 @@ extra:
     #       note: >-
     #         Thanks for your feedback! Help us improve this page by
     #         using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+# Watch the theme overrides dir so `mkdocs serve` hot-reloads on edits to
+# overrides/partials/*.html and overrides/css/*.css (not watched by default).
+watch:
+  - overrides
 theme:
   favicon: images/logo_circle.png
   name: material

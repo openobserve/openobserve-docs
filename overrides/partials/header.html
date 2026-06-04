@@ -1,19 +1,38 @@
 <div
-  class="tw-w-full tw-fixed tw-top-0 tw-z-50 tw-backdrop-blur-md custom-gradient tw-text-black tw-transition-all tw-duration-500"
+  class="tw-w-full tw-fixed tw-top-0 tw-z-50 tw-backdrop-blur-md custom-gradient tw-text-black tw-transition-all tw-duration-500 "
 >
   <!-- Desktop Header -->
   <div class="lg:tw-block tw-hidden">
     <header class="tw-sticky tw-top-0 tw-z-50 tw-w-full">
       <div
-        class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 tw-flex tw-justify-between tw-items-center tw-py-2"
+        class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 tw-flex tw-justify-between tw-items-center tw-py-3"
       >
-        <a class="tw-flex tw-items-center tw-w-40 md:tw-50" href="/">
-          <img
-            src="/docs/assets/o2-logo-readme.svg"
-            alt="OpenObserve"
-            class="tw-w-full tw-h-full tw-py-1"
-          />
-        </a>
+        <div class="tw-flex tw-items-center tw-gap-1">
+          <a
+            class="tw-flex tw-items-center tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
+            href="/"
+          >
+            <img
+              src="/docs/assets/o2-logo-readme.svg"
+              alt="OpenObserve"
+              class="tw-h-8 tw-w-auto"
+            />
+          </a>
+          <span
+            class="tw-text-gray-300 tw-font-light tw-text-lg tw-leading-none tw-select-none"
+            >/</span
+          >
+          <a
+            class="tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
+            href="/docs/"
+          >
+            <span
+              class="tw-text-[15px] tw-font-bold tw-text-[#7c3aed] tw-leading-none"
+              style="letter-spacing: 0.04em"
+              >DOCS</span
+            >
+          </a>
+        </div>
         <nav>
           <ul
             class="tw-flex tw-items-center tw-space-x-0.5 tw-w-full tw-font-semibold tw-text-[15px] header-list-style"
@@ -447,10 +466,7 @@
                       </a>
                     </li>
                     <li>
-                      <a
-                        href="/whats-new/"
-                        class="submenu-item"
-                      >
+                      <a href="/whats-new/" class="submenu-item">
                         <span
                           class="nav-icon-wrap"
                           style="background-color: #d1fae5"
@@ -474,12 +490,7 @@
           </ul>
         </nav>
         <div class="tw-flex tw-items-center tw-space-x-2">
-          <button
-            class="search-button"
-            id="docs-search-button"
-            title="Search (Ctrl+K)"
-            onclick="document.querySelector('.md-search__input')?.click()"
-          >
+          <label class="search-button" for="__search" title="Search (Ctrl+K)">
             <svg
               class="tw-w-3 tw-h-3"
               fill="none"
@@ -493,7 +504,7 @@
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-          </button>
+          </label>
           <a
             class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-px-3 md:tw-px-5 tw-py-1.5 tw-text-xs primary-button tw-transition-opacity tw-duration-500 tw-ease-in-out tw-opacity-100 tw-visible tw-pointer-events-auto plausible-event-name=Demo+Button"
             href="/demo/"
@@ -505,14 +516,14 @@
             <button
               id="login-dropdown-button"
               type="button"
-              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-gap-1.5 tw-px-3 md:tw-px-5 tw-py-1 tw-text-xs secondary-button tw-border !tw-border-gray-200"
+              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-gap-1 tw-px-3 md:tw-px-5 tw-py-1.5 secondary-button tw-text-xs"
               aria-expanded="false"
               aria-haspopup="menu"
             >
               Log In
               <svg
                 id="login-dropdown-icon"
-                class="tw-h-2 tw-w-2 tw-shrink-0 tw-transition-transform tw-duration-200"
+                class="tw-h-3 tw-w-3 tw-shrink-0 tw-transition-transform tw-duration-200"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -625,6 +636,63 @@
           >
             Star
           </a>
+          {% if config.theme.palette %} {% if not config.theme.palette is
+          mapping %}
+          <form class="md-header__option" data-md-component="palette">
+            {% for option in config.theme.palette %} {% set scheme =
+            option.scheme | d("default", true) %}
+            <input
+              class="md-option"
+              data-md-color-media="{{ option.media }}"
+              data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
+              data-md-color-primary="{{ option.primary | d('indigo', true) | replace(' ', '-') }}"
+              data-md-color-accent="{{ option.accent | d('indigo', true) | replace(' ', '-') }}"
+              {%
+              if
+              option.toggle
+              %}aria-label="{{ option.toggle.name }}"
+              {%
+              else
+              %}aria-hidden="true"
+              {%
+              endif
+              %}
+              type="radio"
+              name="__palette"
+              id="__palette_{{ loop.index }}"
+              {%
+              if
+              loop.first
+              %}checked{%
+              endif
+              %}
+            />
+            {% if option.toggle %}
+            <label
+              class="md-header__button md-icon custom-theme-toggle"
+              title="{{ option.toggle.name }}"
+              for="__palette_{{ loop.index0 or loop.length }}"
+              hidden
+            >
+              {% if scheme == "slate" or scheme == "dark" %}
+              <img
+                src="/docs/assets/sun.svg"
+                alt="Light mode"
+                class="custom-icon"
+                style="width: 24px; height: 24px"
+              />
+              {% else %}
+              <img
+                src="/docs/assets/moon.svg"
+                alt="Dark mode"
+                class="custom-icon"
+                style="width: 24px; height: 24px"
+              />
+              {% endif %}
+            </label>
+            {% endif %} {% endfor %}
+          </form>
+          {% endif %} {% endif %}
         </div>
       </div>
     </header>
@@ -1096,15 +1164,13 @@
   /* ── Desktop nav link ── */
   .menu-link {
     position: relative;
-    padding: 0.5rem 0.75rem;
+    padding: .625rem 1rem;
     color: #374151;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    letter-spacing: -.01em;
+    border-radius: .5rem;
+    transition: all .2s cubic-bezier(.4, 0, .2, 1);
     display: inline-block;
-    white-space: nowrap;
-    text-decoration: none;
   }
   .menu-link::after {
     content: "";

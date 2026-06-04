@@ -46,7 +46,7 @@ By default, only root users can access the Quotas settings from the `_meta` orga
 
 Before you use the Quotas feature, ensure that the following are true:
 
-- You are using the Enterprise Edition in High-Availability mode. [Refer to the Enterprise Edition Installation Guide.](../../../../administration/deployment/openobserve-enterprise-edition-installation-guide.md)   
+- You are using the Enterprise Edition in High-Availability mode. [Refer to the Enterprise Setup guide.](../../../../enterprise-setup/index.md)   
 - You have access to **Quotas**.   
 - You have switched to the `_meta` organization in the UI.
 

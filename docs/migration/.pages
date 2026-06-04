@@ -1,2 +1,4 @@
 nav:
-    - Migrate from Grafana (LGTM Stack): migrate-from-grafana-to-openobserve
+- Migrate database: migrate-database.md
+- Migrate file list partition: migrate-file-list-partition.md
+- Migrate from Grafana: migrate-from-grafana-to-openobserve

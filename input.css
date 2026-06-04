@@ -53,45 +53,50 @@ main {
   border: none;
   color: white;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  transition: all 0.3s ease;
-  background-color: rgba(107, 118, 227);
-  /* Creates a 2px border that matches the button color initially */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #5b66e8 0%, #3b82f6 100%);
   border: 1px solid transparent;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   font-size: 12px;
 }
 
 .primary-button:hover {
-  background-color: hsl(233 53% 53%);
+  box-shadow:
+    0 10px 15px -3px rgba(91, 102, 232, 0.4),
+    0 4px 6px -4px rgba(91, 102, 232, 0.3);
+  transform: translateY(-1px);
 }
 
 .primary-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-image: linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
+  background-image:
+    linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%),
     linear-gradient(180deg, #8cc7ff 0%, #7ab7ff 100%);
   box-shadow: none;
 }
 
 .secondary-button {
   position: relative;
-  border: none;
-  color: #5764d9;
+  color: #374151;
   cursor: pointer;
-  border-radius: 6px;
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  transition: all 0.3s ease;
-  background-color: white;
-  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
   font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 .secondary-button:hover {
-  /* Transparent border to show gradient */
-  background-color: #f3f4f6;
+  border-color: #a5b4fc;
+  color: #4f46e5;
 }
 
 .secondary-button:disabled {

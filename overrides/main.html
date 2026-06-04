@@ -1,15 +1,24 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block extrahead %} {{ super() }}
 
-{% block extrahead %}
-{{ super() }}
+<!-- Inter font — matches marketing website (website5 BaseLayout.astro) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap&subset=latin"
+  rel="stylesheet"
+  media="all"
+/>
 
 <!-- Simple theme flash prevention -->
 <script>
-(function() {
-  const savedScheme = localStorage.getItem('theme-preference');
-  if (savedScheme) {
-    document.documentElement.setAttribute('data-md-color-scheme', savedScheme);
-  }
-})();
+  (function () {
+    const savedScheme = localStorage.getItem("theme-preference");
+    if (savedScheme) {
+      document.documentElement.setAttribute(
+        "data-md-color-scheme",
+        savedScheme,
+      );
+    }
+  })();
 </script>
 {% endblock %}

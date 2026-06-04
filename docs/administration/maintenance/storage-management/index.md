@@ -4,3 +4,4 @@ The Storage Management section helps you configure how OpenObserve stores ingest
 
 - [Storage Configuration](storage.md)
 - [Configure Multiple Object Storage Accounts](configure-multiple-storage-accounts.md)
+- [Bring Your Own Bucket](bring-your-own-bucket.md)

@@ -1,0 +1,5 @@
+nav:
+  - OpenObserve vs Elasticsearch: comparison.md
+  - OpenObserve vs Splunk: splunk-alternative.md
+  - OpenObserve vs New Relic: newrelic-alternative.md
+  - OpenObserve vs Datadog: datadog-alternative.md

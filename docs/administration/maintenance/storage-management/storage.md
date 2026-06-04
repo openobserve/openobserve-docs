@@ -1,7 +1,10 @@
 ---
+title: Storage Management | OpenObserve
 description: >-
-  Learn how OpenObserve stores ingested stream data and the metadata for ingested date using disk, SQLite, Postgres, or S3-compatible object storage.
+  Learn how OpenObserve stores ingested stream data and the metadata for ingested data using disk, SQLite, Postgres, or S3-compatible object storage.
 ---
+# Storage
+
 This guide explains how to configure data and metadata storage in OpenObserve. The information applies to both the open-source and enterprise versions.
 
 ## Overview
@@ -13,22 +16,21 @@ There are 2 primary items that need to be stored in OpenObserve.
 By default: 
 
 - Metadata is always stored on disk using **SQLite** in **Local mode**.
-- Metadata is always stored on disk using **postgres** in **Cluster mode**.
-- Stream data can be stored on disk or object storage such as Amazon S3, minIO, Google GCS, Alibaba OSS, or Tencent COS.
+- Metadata is always stored on disk using **PostgreSQL** in **Cluster mode**.
+- Stream data can be stored on disk or object storage such as Amazon S3, MinIO, Google GCS, Alibaba OSS, or Tencent COS.
 
 ## Storage Modes
 
 - OpenObserve runs in **Local mode** by default.
-- To enable **Cluster mode**, set the environment variable `LOCAL_MODE=false`.
+- To enable **Cluster mode**, set the environment variable `ZO_LOCAL_MODE=false`.
 - In **Local mode**, stream data can be stored in S3 by setting `ZO_LOCAL_MODE_STORAGE=s3`.
-- GCS and OSS support the S3 SDK and can be treated as S3-compatible storages. Azure Blob storage is also supported.
+- GCS and OSS support the S3 SDK and can be treated as S3-compatible storages.
+- Azure Blob storage is supported via `ZO_S3_PROVIDER=azure`.
 
-## Data Storage Format
+### Data Storage Format
 
-Stream data is stored in Parquet format. Parquet is columnar storage format optimized for storage efficiency and query performance. 
-
+Stream data is stored in **Parquet** format, a columnar storage format optimized for storage efficiency and query performance.
 ## Stream Data Storage Options
-
 ### Disk
 
 Disk is default storage place for stream data. **Ensure that sufficient disk space is available for storing stream data.**
@@ -61,7 +63,7 @@ Then set the following environment variables:
 | ZO_S3_PROVIDER       | minio | ...                                             |
 
 
-### Openstack Swift
+### OpenStack Swift
 To use OpenStack Swift for storing stream data, first create the bucket in Swift.
 Then set the following environment variables:
 
@@ -72,7 +74,7 @@ Then set the following environment variables:
 | ZO_S3_ACCESS_KEY          | -     | Access key                                      |
 | ZO_S3_SECRET_KEY          | -     | Secret key                                      |
 | ZO_S3_BUCKET_NAME         | -     | Bucket name                                     |
-| ZO_S3_FEATURE_HTTP1_ONLY  | true  | 	Enables compatibility with Swift                                              |
+| ZO_S3_FEATURE_HTTP1_ONLY  | true  | Enables compatibility with Swift                |
 | ZO_S3_PROVIDER            | s3    | Enables S3-compatible API                           |
 | AWS_EC2_METADATA_DISABLED | true  | Disables EC2 metadata access, which is not supported by Swift |
 
@@ -80,7 +82,7 @@ Then set the following environment variables:
 ### Google GCS
 To use GCS for storing stream data, first create the bucket in GCS.
 
-**Using the S3-compatible API:**
+#### Using the S3-compatible API
 
 | Environment Variable     | Value  | Description                                                     |
 | ------------------------ | -------| --------------------------------------------------------------- |
@@ -94,7 +96,7 @@ To use GCS for storing stream data, first create the bucket in GCS.
 
 Refer to [GCS AWS migration documentation](https://cloud.google.com/storage/docs/aws-simple-migration) for more information.
 
-**Using GCS directly:**
+#### Using GCS directly
 
 | Environment Variable     | Value  | Description                                                             |
 | ------------------------ | -------| ----------------------------------------------------------------------- |
@@ -106,7 +108,7 @@ Refer to [GCS AWS migration documentation](https://cloud.google.com/storage/docs
 
 OpenObserve uses the [object_store crate](https://docs.rs/object_store/0.10.1/object_store/gcp/struct.GoogleCloudStorageBuilder.html) to initialize the storage configuration. It calls the with_env() function by default. If the ZO_S3_ACCESS_KEY variable is set, OpenObserve additionally uses the with_service_account_path() function to load the GCP service account key.
 
-### Alibaba OSS (aliyun)
+### Alibaba OSS (Aliyun)
 To use Alibaba OSS for storing stream data, first create the bucket in Alibaba Cloud.
 Then set the following environment variables:
 
@@ -164,15 +166,15 @@ Refer to [Baidu BOS documentation](https://cloud.baidu.com/doc/BOS/s/xjwvyq9l4).
 
 ### Azure Blob
 
-OpenObserve can use azure blob for storing stream data. Following environment variables needs to be setup:
+OpenObserve can use Azure Blob for storing stream data. The following environment variables need to be set:
 
 | Environment Variable       | Value                | Description                                  |
 | -------------------------- | -------------------- | -------------------------------------------- |
-| ZO_S3_PROVIDER             | azure                | Enables Azure Blob storage support                   |
+| ZO_S3_PROVIDER             | azure                | Enables Azure Blob storage support           |
 | ZO_LOCAL_MODE_STORAGE      | s3                   | Required only if running in single node mode |
-| AZURE_STORAGE_ACCOUNT_NAME | Storage account name | Need to provide mandatorily                  |
-| AZURE_STORAGE_ACCOUNT_KEY  | Access key           | Need to provide mandatorily                  |
-| ZO_S3_BUCKET_NAME          | Blob Container name  | Need to provide mandatorily                  |
+| AZURE_STORAGE_ACCOUNT_NAME | Storage account name | Required                                     |
+| AZURE_STORAGE_ACCOUNT_KEY  | Access key           | Required                                     |
+| ZO_S3_BUCKET_NAME          | Blob Container name  | Required                                     |
 
 ### Hetzner Cloud Object Storage
 
@@ -215,17 +217,25 @@ OpenObserve supports multiple metadata store backends, configurable using the `Z
 ### PostgreSQL
 - Set `ZO_META_STORE=postgres`.
 - Recommended for production deployments due to reliability and scalability. 
-- The default Helm chart (after February 23, 2024) uses [cloudnative-pg](https://cloudnative-pg.io/) to create a postgres cluster (primary + replica) which is used as the meta store. These instances provide high availability and backup support.
+- The default Helm chart (after February 23, 2024) uses [cloudnative-pg](https://cloudnative-pg.io/) to create a PostgreSQL cluster (primary + replica) which is used as the meta store. These instances provide high availability and backup support.
 
 ### etcd (Removed)
 
 !!! warning "Removal notice"
-    Etcd support has been removed. Use NATS instead.
-    
-- Set `ZO_META_STORE=etcd`.
-- While etcd is used as the cluster coordinator, it was also the default metadata store in Helm charts released before 23 February 2024. This configuration is now deprecated. Helm charts released after 23 February 2024 use PostgreSQL as the default metadata store.
+    Etcd support has been removed. Use NATS as the cluster coordinator and PostgreSQL (or MySQL) as the metadata store. Helm charts released after 23 February 2024 already use PostgreSQL by default.
 
 ### MySQL (Deprecated)
 - Set `ZO_META_STORE=mysql`.
 - Deprecated. 
 - Use PostgreSQL instead.
+
+## Next steps
+
+- [HA deployment](../../deployment/ha-deployment.md): configure object storage and metadata store in a production cluster.
+- [Environment variables](../../configuration/environment-variables.md): full reference for `ZO_S3_*` and `ZO_META_*` settings.
+- [Capacity planning](../../../enterprise-setup/capacity-planning.md): sizing storage, compute, and memory for each component.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Or [Contact support](https://openobserve.ai/contactus/)
