@@ -32,6 +32,9 @@ In such cases, users can use Refresh Cache and Run Query to invalidate the old c
 
     This clears the cache for the selected query range and reloads results using the latest ingested data.
 
+    !!! note
+        When `ZO_AUTO_QUERY_ENABLED` is enabled, the **Run query** dropdown also exposes an **Auto Run** toggle alongside **Refresh Cache and Run Query**.
+
     **Dashboard panels**:
     ![dashboard-refresh-query](../../../images/dashboard-refresh-query.png)
     

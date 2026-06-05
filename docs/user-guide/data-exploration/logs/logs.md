@@ -21,6 +21,9 @@ To start using the **Logs** page:
 
 This is the minimum setup required to explore log data for the selected time range. 
 
+!!! note "Auto Run"
+    When Auto Run is enabled (an administrator sets `ZO_AUTO_QUERY_ENABLED`), the query re-runs automatically when you change a filter, time range, query, or function, so you do not need to click **Run query** manually.
+
 
 ## Use the Query Editor
 The **Query Editor** allows you to define filters, expressions, and transformations on your log data.
@@ -68,10 +71,24 @@ Click a row to expand the full log record.
 
 ![Logs view row](../../../images/logs-view-row.png)
 
+### Filter by field values
+In the left field list, fields are organized into collapsible groups. **Key Fields** (the high-value fields configured for the stream) appear first, followed by data-type groups (**String**, **Number**, **Boolean**) and semantic or prefix-based groups (for example, Kubernetes and HTTP), with **Other** listed last. When viewing a single stream, the groups are expanded by default.
+
+Expand a field in the left field list to see its values. Use the value search box to find a specific value, then click a value to add it as a filter condition:
+
+- Adding it as an **include** condition applies `field = 'value'`.
+- Adding it as an **exclude** condition applies `field != 'value'`.
+
+Your selections persist when you toggle between include and exclude. The `_timestamp` field also supports include and exclude conditions. Previously used filters are restored from your last session.
+
 ## Use the Histogram and Chart
 - The histogram displays log event distribution over time. Use the **Histogram** toggle to hide it when not needed.
 
     ![Logs histogram disabled](../../../images/logs-histogram-disable.png)
+
+    When the stream contains a recognized category field, such as `severity`, `log_level`, `level`, or `status`, the histogram is automatically rendered as a stacked bar chart, with each category colored separately and a scrollable legend. The set of recognized fields is configurable by an administrator using the `ZO_HISTOGRAM_BREAKDOWN_FIELDS` environment variable.
+
+    In SQL mode, the histogram is not shown for queries that use `LIMIT`, `DISTINCT`, `JOIN`, or CTEs (`WITH`). In these cases, the UI displays the message: **Histogram unavailable for CTEs, DISTINCT, JOIN and LIMIT queries.**
 
 - The **Visualize** toggle enables or disables the chart panel, which allows you to plot logs using the available chart options for visual analysis.
 
@@ -110,6 +127,8 @@ To save a query and its configuration:
 3. Click **Save**.
 
 ![Logs save view](../../../images/logs-save-view.png)
+
+View names must be unique within the organization (case-insensitive); saving with a name that already exists returns an error.
 
 Use the dropdown next to the **Save** icon to reopen saved views at any time.
 
