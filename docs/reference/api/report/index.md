@@ -8,13 +8,15 @@ description: >-
 
 The Reports v2 API lets you manage automated dashboard reports that are organized into folders. Every report belongs to a folder; if you do not specify one, the report is placed in the `default` folder.
 
-These endpoints are served under the `/api/v2/{org_id}/reports` prefix and identify reports by their `report_id` (a KSUID). Folder placement is controlled with the `folder` query parameter.
+These endpoints are served under the `/api/v2/{org_id}/reports` prefix and identify reports by their `report_id` (a KSUID). Folder placement is controlled with the `folder` query parameter. In OpenObserve Enterprise, this parameter is also used for RBAC permission checks and should be sent on every request that targets a report (see [Permissions](#permissions)).
 
 All requests require an authorization header. See the [API Reference](../index.md) for how to build the HTTP basic-auth header.
 
 ## Permissions
 
 Report access is scoped by folder. In RBAC, permissions are evaluated against the `rfolder` (report folder) resource for the folder a report lives in, rather than against individual reports. To list, view, or modify reports in a folder, a user must hold the corresponding permission on that report folder.
+
+> **Enterprise: pass the `folder` parameter for RBAC.** In OpenObserve Enterprise, the permission check is evaluated against the report's folder (`rfolder`). For any request that targets a specific report (create, get, update, delete, enable, and trigger), include the `folder` query parameter set to the report's folder ID so the check resolves against the correct folder. Omitting it can cause the request to be denied or evaluated against the wrong folder. In Open Source (no RBAC), `folder` is optional and defaults to `default`.
 
 ## Endpoints
 
@@ -50,7 +52,7 @@ GET /api/v2/{org_id}/reports
 
 | Parameter      | Type    | Required | Description |
 |----------------|---------|----------|-------------|
-| `folder`       | string  | No       | Folder ID to filter by. When omitted, reports across folders are returned (subject to permissions). |
+| `folder`       | string  | No       | Folder ID to filter by. When omitted, reports across folders are returned (in Enterprise, limited to the folders you have permission on). |
 | `dashboard_id` | string  | No       | Return only reports that target this dashboard. |
 | `cache`        | boolean | No       | When `true`, return only destination-less (cache) reports. |
 
@@ -94,7 +96,7 @@ POST /api/v2/{org_id}/reports
 
 | Parameter | Type   | Required | Description |
 |-----------|--------|----------|-------------|
-| `folder`  | string | No       | Folder ID to create the report in. Defaults to `default`. |
+| `folder`  | string | Enterprise | Folder ID to create the report in. Defaults to `default`. Required in Enterprise so the RBAC create check resolves against the target folder. |
 
 ### Request Body
 
@@ -172,6 +174,12 @@ Returns a single report by ID.
 GET /api/v2/{org_id}/reports/{report_id}
 ```
 
+### Query parameters
+
+| Parameter | Type   | Required   | Description |
+|-----------|--------|------------|-------------|
+| `folder`  | string | Enterprise | The report's folder ID. Required in Enterprise so the RBAC permission check resolves against the correct folder; optional in Open Source. |
+
 ### Response
 Returns the full `Report` object. Returns `404 Not Found` if the report does not exist.
 
@@ -188,7 +196,7 @@ PUT /api/v2/{org_id}/reports/{report_id}
 
 | Parameter | Type   | Required | Description |
 |-----------|--------|----------|-------------|
-| `folder`  | string | No       | Move the report to this folder ID. When omitted, the folder is unchanged. |
+| `folder`  | string | Enterprise | Move the report to this folder ID. When omitted, the folder is unchanged. In Enterprise, the report's folder is also used for the RBAC permission check. |
 
 ### Example request
 ```
@@ -211,6 +219,12 @@ Deletes a single report by ID.
 ```
 DELETE /api/v2/{org_id}/reports/{report_id}
 ```
+
+### Query parameters
+
+| Parameter | Type   | Required   | Description |
+|-----------|--------|------------|-------------|
+| `folder`  | string | Enterprise | The report's folder ID. Required in Enterprise so the RBAC permission check resolves against the correct folder; optional in Open Source. |
 
 ### Response
 ```json
@@ -290,9 +304,10 @@ PATCH /api/v2/{org_id}/reports/{report_id}/enable
 
 ### Query parameters
 
-| Parameter | Type    | Required | Description |
-|-----------|---------|----------|-------------|
-| `value`   | boolean | No       | `true` to enable, `false` to disable. Defaults to `false`. |
+| Parameter | Type    | Required   | Description |
+|-----------|---------|------------|-------------|
+| `folder`  | string  | Enterprise | The report's folder ID. Required in Enterprise so the RBAC permission check resolves against the correct folder; optional in Open Source. |
+| `value`   | boolean | No         | `true` to enable, `false` to disable. Defaults to `false`. |
 
 ### Example request
 ```
@@ -314,6 +329,12 @@ Manually triggers report generation and delivery, independent of its schedule.
 ```
 PUT /api/v2/{org_id}/reports/{report_id}/trigger
 ```
+
+### Query parameters
+
+| Parameter | Type   | Required   | Description |
+|-----------|--------|------------|-------------|
+| `folder`  | string | Enterprise | The report's folder ID. Required in Enterprise so the RBAC permission check resolves against the correct folder; optional in Open Source. |
 
 ### Response
 ```json
