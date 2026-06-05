@@ -21,7 +21,7 @@ Pick the form that matches how you run OpenObserve:
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_ROOT_USER_EMAIL | - | Email ID of the root user. |
-| ZO_ROOT_USER_PASSWORD | - | Password for the root user. |
+| ZO_ROOT_USER_PASSWORD | - | Password for the root user. Must meet the password policy (8–128 characters with at least one lowercase letter, one uppercase letter, one digit, and one special character) or startup fails. |
 | ZO_LOCAL_MODE | true | If local mode is set to true, OpenObserve becomes single node deployment.If it is set to false, it indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure SQLite DB, for cluster mode one needs to configure PostgreSQL (recommended) or MySQL. |
 | ZO_LOCAL_MODE_STORAGE | disk | Applicable only for local mode. By default, local disk is used as storage. OpenObserve supports both disk and S3 in local mode. |
 | ZO_NODE_ROLE | all | Node role assignment. Possible values are ingester, querier, router, compactor, alertmanager, and all. A single node can have multiple roles by specifying them as a comma-separated list. For example, compactor, alertmanager. |
@@ -103,7 +103,7 @@ In high-load environments, alerts or reports might run large, resource-intensive
 ## Indexing
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| ZO_FEATURE_FULLTEXT_EXTRA_FIELDS | - | Automatically enables global full-text indexing on the specified fields if they exist in the ingested log data. By default, OpenObserve applies full-text indexing to the following global fields: log, message, msg, content, data, and JSON. Example: field1,field2 |
+| ZO_FEATURE_FULLTEXT_EXTRA_FIELDS | - | Automatically enables global full-text indexing on the specified fields if they exist in the ingested log data. By default, OpenObserve applies full-text indexing to the following global fields: log, message, msg, content, data, body, json, error, llm_input, llm_output. Example: field1,field2 |
 | ZO_FEATURE_INDEX_EXTRA_FIELDS | - | Automatically enables global secondary indexing on the specified fields if they exist in the ingested log data. Example: field1,field2 |
 | ZO_FEATURE_QUERY_PARTITION_STRATEGY | file_num | Query partition strategy. Possible values are file_num, file_size, file_hash. |
 | ZO_ENABLE_INVERTED_INDEX | true | Enables inverted index creation. |
@@ -114,7 +114,7 @@ In high-load environments, alerts or reports might run large, resource-intensive
 |---------------------|---------------|-------------|
 | ZO_COMPACT_ENABLED | true | Enables compact for small files. |
 | ZO_COMPACT_INTERVAL | 60 | The interval at which job compacts small files into larger files. default is 60s, unit: second |
-| ZO_COMPACT_MAX_FILE_SIZE | 256 | Max file size for a single compacted file, after compaction all files will be below this value. Default is 256MB, unit: MB |
+| ZO_COMPACT_MAX_FILE_SIZE | 2048 | Max file size for a single compacted file; after compaction files stay below this value. Default is `2048` MB (2 GB). |
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM | false | Ignores stream-level file retention settings and applies the global retention policy. |
 | ZO_COMPACT_DATA_RETENTION_DAYS | 3650 | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_COMPACT_SYNC_TO_DB_INTERVAL | 1800 | The interval time in seconds after which compactor sync cache to db is run. |
@@ -144,11 +144,13 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_WEB_URL | - | UI access URL. For example, http://localhost:5080 is used as redirect URL and alert URL. |
 | ZO_BASE_URI | - | If OpenObserve is hosted under a subpath, set the path prefix. Use this for deployments with a Kubernetes NGINX ingress or any reverse proxy that serves OpenObserve under a subpath such as www.example.com/openobserve. |
 | ZO_SWAGGER_ENABLED | true | Generate SWAGGER API documentation by default. |
+| ZO_ENABLE_CROSS_LINKING | false | Enable the cross-linking feature for drill-down links on logs, traces, and dashboard records. |
 
 ## Dashboard
 | Environment Variable                 | Default Value | Description                                       |
 | ------------------------------------ | ------------- | ------------------------------------------------- |
 | ZO_DASHBOARD_SHOW_SYMBOL_ENABLED | false         | Shows the symbol selector in dashboards.          |
+| ZO_DASHBOARD_SHOW_FIELD_AS_JSON_ENABLED | false | Sets the default state of the "Show Field as JSON" toggle for dashboard table fields. |
 | ZO_DASHBOARD_PLACEHOLDER           | `_o2_all_`     | Placeholder stream name used in dashboards.       |
 | ZO_MIN_AUTO_REFRESH_INTERVAL     | 5             | Minimum allowed auto refresh interval in seconds. |
 
@@ -385,6 +387,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_S3_MULTI_PART_UPLOAD_SIZE      | 100           | File size threshold for switching to multi part upload in megabytes. |
 | ZO_S3_FEATURE_HTTP1_ONLY | false         | Uses HTTP 1 only for S3 client connections. |
 | ZO_S3_FEATURE_HTTP2_ONLY | false         | Uses HTTP 2 only for S3 client connections. |
+| ZO_S3_FEATURE_FORCE_INFREQUENT_ACCESS | false | Use the infrequent-access storage class (AWS `STANDARD_IA`, GCS `NEARLINE`, Azure `Cool`) when writing compacted files for streams whose `storage_type` is `compliance`. |
 
 ## SNS
 | Environment Variable        | Default Value | Description                   |
@@ -490,7 +493,11 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_TRACING_HEADER_KEY          | Authorization| Remote trace server endpoint authentication header key.   |
 | ZO_TRACING_HEADER_VALUE        | - / e.g. Basic gjdsgfksgkfjgdskfgsdlfglsjdg | remote trace server endpoint authentication header value. |
 | ZO_TRACING_SEARCH_ENABLED      | false | Enables tracing for search operations. |
+| ZO_TRACING_EXTRA_ENVS          | K8S_CLUSTER,K8S_NAMESPACE_NAME,K8S_NODE_NAME,K8S_CONTAINER_NAME,K8S_POD_NAME | Comma-separated list of environment variable names to include as resource attributes on traces (each added lowercased, only when set and non-empty). |
 | OTEL_OTLP_HTTP_ENDPOINT        | - / e.g. https://api.openobserve.ai/api/default  | Remote trace server endpoint.                             |
+| ZO_MODEL_PRICING_ENABLED       | false | Enables the Model Pricing feature (per-org LLM model pricing used to compute token costs on traces). Gates the Model Pricing UI, sync job, and pricing lookup. |
+| ZO_MODEL_PRICING_SOURCE_URL    | https://raw.githubusercontent.com/openobserve/sdr_patterns/refs/heads/main/llm_pricing.json | Source URL for the built-in LLM model pricing list. |
+| ZO_MODEL_PRICING_SYNC_INTERVAL_SECS | 21600 | Interval (seconds) for syncing built-in model pricing from the source URL. |
 
 ## Tokio Console
 | Environment Variable             | Default Value | Description                                         |
@@ -561,6 +568,8 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_USAGE_REPORTING_CREDS   | -  | The credentials required to send along with the post request to the ZO_USAGE_REPORTING_URL. E.g. - Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=.  |
 | ZO_USAGE_PUBLISH_INTERVAL  | 600   | Duration in seconds after the last reporting usage will be published. |
 
+Individual organizations can also enable writing usage data to their own `usage` stream via **Organization Settings → Enable Usage Stream** in the UI.
+
 ## SMTP
 
 | Environment Variable | Default Value| Description  |
@@ -608,12 +617,14 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_QUERY_TIMEOUT | 600 | Default timeout of query, unit: seconds |
 | ZO_QUERY_INDEX_THREAD_NUM | 0 | Controls thread count for Tantivy index search. Set to 0 to use default: CPU cores × 4. Set a positive integer to override. 0 does not mean unlimited. |
 | ZO_QUERY_OPTIMIZATION_NUM_FIELDS | 1000 | Field count threshold used by query optimizations. |
-| ZO_QUERY_PARTITION_BY_SECS | 10 | Query partition size. Unit is seconds. |
-| ZO_QUERY_GROUP_BASE_SPEED | 768 | Baseline throughput per core for group operations. Unit is MB per second per core. |
+| ZO_QUERY_PARTITION_BY_SECS | 5 | Query partition size. Unit is seconds. |
+| ZO_QUERY_PARTITION_MAX_NUM | 100 | Maximum number of query partitions. |
+| ZO_QUERY_GROUP_BASE_SPEED | 1024 | Baseline throughput per core for group operations. Unit is MB per second per core. |
 | ZO_MEMORY_CIRCUIT_BREAKER_ENABLED   | false         | Enables memory circuit breaker.                                                      |
 | ZO_MEMORY_CIRCUIT_BREAKER_RATIO     | 90            | Memory usage threshold percentage for circuit breaker.                               |
 | ZO_RESTRICTED_ROUTES_ON_EMPTY_DATA | false         | Redirects users to the ingestion page when no stream is found.                       |
 | ZO_QUERY_ON_STREAM_SELECTION        | true          | Triggers search based on a button click event.                                       |
+| ZO_AUTO_QUERY_ENABLED               | false         | Enables the Auto Run feature in the UI; when true, users can toggle auto-running queries on filter/time-range changes from the Run query dropdown on the Logs and Traces pages. |
 | ZO_RESULT_CACHE_ENABLED              | true          | Enables result cache for query results.                                              |
 | ZO_USE_MULTIPLE_RESULT_CACHE        | false         | Uses multiple result caches for query results.                                       |
 | ZO_RESULT_CACHE_SELECTION_STRATEGY  | overlap       | Strategy for selecting result cache. Allowed values include both, overlap, duration. |
@@ -625,6 +636,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_FEATURE_QUERY_INFER_SCHEMA     | false         | Deprecated. Not used by the code. Will be removed.                                                                                         |
 | ZO_FEATURE_DISTINCT_EXTRA_FIELDS  | -             | Reserved for future use. Contact the maintainers for guidance.                                                                             |
 | ZO_HISTOGRAM_ENABLED  | true             | Enables histogram-based query aggregation and visual display for dashboards and log views.                                                                             |
+| ZO_HISTOGRAM_BREAKDOWN_FIELDS  | severity,log_level,level,status             | Comma-separated, ordered list of stream fields used to break the logs histogram into a stacked chart; the first field present in the stream schema is used.                                                                             |
 | ZO_METRICS_CACHE_ENABLED  | true             | Enables metrics cache to store and reuse results for repeated metrics queries.                                                                             |
 | ZO_SHOW_STREAM_DATES_DOCS_NUM  | true             | Displays the date range and document count for streams in the user interface. |
 | ZO_SKIP_FORMAT_BULK_STREAM_NAME  | false             | Keeps the original stream name format when ingesting through bulk APIs.                             |
@@ -636,6 +648,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_USER_DEFINED_SCHEMA_MAX_FIELDS  | 600             | Maximum number of fields allowed in a user-defined schema.                            |
 | ZO_UI_ENABLED  | true             | Enables or disables the OpenObserve web user interface.                            |
 | ZO_PRINT_KEY_EVENT  | false             | Enables printing of key-level events in logs for debugging.                    |
+| ZO_SSRF_ALLOW_LOOPBACK  | false             | When true, allows SSRF-guarded outbound requests (e.g. alert destinations / DNS resolver layer) to target loopback/localhost. Enable only in trusted single-node/CI setups. Does not relax enrichment-table URL validation.                    |
 
 ---
 
@@ -674,7 +687,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_OPENFGA_ENABLED | false| Indicates if openfga is enabled. |
 | O2_OPENFGA_BASE_URL | `http://127.0.0.1:8080/stores` | The base URL of openfga stores server. **Required** when openfga is enabled. |
 | O2_OPENFGA_STORE_NAME  | `openobserve` | OpenFGA store name. **Required** when openfga is enabled. |
-| O2_MAP_GROUP_TO_ROLE  | false | If true, the group claims are mapped into roles in the default org. |
+| O2_MAP_GROUP_TO_ROLE  | false | If true, the group claims are mapped into roles in the default org. Users with no matching custom role/org are still mapped and added to the default org. Orgs that are absent from the current group claim are removed from the user (the default org is retained). |
 | O2_OPENFGA_PAGE_SIZE | `100`| The page size used for openfga queries.                                      |
 | O2_OPENFGA_LIST_ONLY_PERMITTED     | false   | If true, openobserve only lists resources that have `GET` permission. |
 | O2_MAP_GROUP_TO_ROLE_SKIP_CREATION | true | Used with `O2_MAP_GROUP_TO_ROLE`. Skips creating the roles mapped from group claims assuming they already exists. |
@@ -757,6 +770,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_INCIDENTS_ENABLED | false | Enables the incidents management feature for tracking and managing system incidents. |
 | O2_INCIDENTS_RCA_ENABLED | false | Enables root cause analysis (RCA) for incidents to automatically identify potential causes using AI. |
 | O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES | -1 | Time in minutes after which incidents are automatically resolved. Set to -1 to disable auto-resolution. |
+| O2_INCIDENTS_REANALYSIS_COOLDOWN_MINUTES | 30 | Minimum minutes between automatic RCA reanalysis runs for an incident. User-triggered reanalysis bypasses this cooldown. |
 | O2_INCIDENTS_ALERT_GRAPH_ENABLED | false | Enables alert graph visualization in the incidents interface showing related alerts. |
 
 ## Service Graph
@@ -766,9 +780,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| O2_SERVICE_GRAPH_ENABLED | false | Enables service graph feature for visualizing service dependencies and relationships from trace data. |
 | O2_SERVICE_GRAPH_PROCESSING_INTERVAL_SECS | 300 | Interval in seconds at which service graph data is processed and updated (default: 5 minutes). |
-| O2_SERVICE_GRAPH_QUERY_TIME_RANGE_MINUTES | 10 | Time range in minutes for querying and analyzing trace data to build service graph. |
 | O2_SERVICE_GRAPH_EXCLUDE_INTERNAL_SPANS | false | When enabled, excludes internal spans from service graph visualization to focus on external service interactions. |
 
 ## Service Streams
@@ -779,12 +791,8 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | O2_SERVICE_STREAMS_ENABLED | false | Enables service streams feature for automatically correlating logs and metrics with services based on trace data. |
-| O2_SERVICE_STREAMS_SAMPLE_EVERY_NTH_STREAM | 5 | Samples every Nth stream for service correlation analysis to optimize performance and reduce overhead. |
-| O2_SERVICE_STREAMS_SAMPLE_EVERY_NTH_FILE | 50 | Samples every Nth file for service correlation analysis to reduce processing overhead. |
-| O2_SERVICE_STREAMS_MIN_CORRELATION_CONFIDENCE | 0.20 | Minimum confidence threshold (0.0-1.0) for correlating streams with services. Lower values include more potential correlations. |
-| O2_SERVICE_STREAMS_MAX_STREAMS_PER_SERVICE | 100 | Maximum number of streams that can be associated with a single service to prevent unbounded growth. |
+| O2_SERVICE_STREAMS_SAMPLE_RATE | 10 | Sample 1 in N streams for service correlation. |
 | O2_SERVICE_STREAMS_SAMPLE_WINDOW_SECS | 3600 | Time window in seconds (default: 1 hour) for sampling and analyzing service stream correlations. |
-| O2_FQN_PRIORITY_DIMENSIONS | k8s-deployment,k8s-statefulset,k8s-daemonset,k8s-job,aws-ecs-task,service | Comma-separated list of dimension priorities for fully qualified name (FQN) resolution in service identification. Used to determine service identity from resource attributes. |
 
 ## Next steps
 
