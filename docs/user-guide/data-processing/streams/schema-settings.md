@@ -53,6 +53,9 @@ To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEF
 4. Click **Add to Defined Schema**.  
 5. Save your changes using the **Update Settings** button.
 
+!!! note
+    Fields already part of the User Defined Schema cannot be re-added. The **Add to Defined Schema** button is disabled and shows a tooltip ("One or more selected fields are already part of the defined schema") when any selected field is already in the schema.
+
 
 After you save the changes:
 

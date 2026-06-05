@@ -12,6 +12,9 @@ Pipeline History provides visibility into every pipeline run, including its exec
 ![pipeline-history](../../../images/pipeline-history.png)
 The table lists each pipeline run with key execution details.
 
+!!! note "Query range limit"
+    When querying pipeline history over a time range, the range is capped by the `max_query_range` setting on the organization's `triggers` stream. Longer ranges are automatically truncated to the most recent allowed window.
+
 - **Pipeline Name**: Name of the executed pipeline.
 - **Type**: Execution type. The current verified value is Scheduled.
 - **Is Silenced**: Indicates whether the pipeline was silenced during execution. The green speaker icon means it was not silenced.
@@ -34,3 +37,4 @@ The table lists each pipeline run with key execution details.
 - **Source Node**: Node responsible for executing the run. This helps identify where the execution occurred for debugging and performance monitoring.<br>
 Example: <br>
 **Source Node**: `o2-openobserve-alertmanager-0`
+- **Error**: The error message describing why the run failed. Populated for runs with a `failed` status; empty otherwise.

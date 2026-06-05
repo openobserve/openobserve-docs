@@ -30,6 +30,16 @@ The upload flow adapts based on the file size, controlled by the environment var
 - Directly uploads to remote telemetry storage such as S3.
 - No merging or background sync is involved in this path.
 
+### URL source restrictions
+When an enrichment table is loaded from a URL, OpenObserve validates the URL to protect against server-side request forgery (SSRF). A URL-based enrichment table source must use the `http://` or `https://` scheme and may not target:
+
+- localhost or loopback addresses
+- private (RFC 1918) IP ranges
+- link-local or cloud-metadata addresses, such as `169.254.169.254`
+- unspecified addresses
+
+Requests to such hosts are rejected.
+
 
 
 ## Local Disk Cache
