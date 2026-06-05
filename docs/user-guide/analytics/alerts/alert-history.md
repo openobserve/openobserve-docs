@@ -33,6 +33,7 @@ Each row represents one alert evaluation.
     - **Evaluation Time**: The time taken to complete the alert’s search query.
     - **Silenced**: Indicates whether the alert was silenced.
     - **Source Node**: The node that processed the alert. Useful for debugging distributed environments.
+    - **Error**: The error message captured when the evaluation or delivery failed. Shown for records with a `failed` status.
 
 - **Status codes**:
     
@@ -41,7 +42,10 @@ Each row represents one alert evaluation.
     - **condition_not_met**: The configured alert condition was not satisfied for that time range.
     - **skipped**: The scheduled evaluation window was missed due to a delay, and the system evaluated the next aligned window.
 
-- **Alert Details** drawer: Opens when the user clicks an alert in the Alerts list. The drawer displays the alert condition, description, and evaluation history.  
+- **Alert Details** drawer: Opens when the user clicks an alert in the Alerts list. The drawer displays the alert condition, description, and evaluation history. It includes a date-time picker (relative or absolute, defaulting to the last 15 minutes) to filter the evaluation history, replacing the previous fixed window and manual refresh.
+
+!!! note
+    The selected time range is limited by the `max_query_range` setting on the organization's `triggers` stream; ranges larger than this are automatically shortened to the most recent allowed window.
 
 ![Alert details drawer](../../../images/alert-details-drawer.png)
 ## How to debug a failed alert

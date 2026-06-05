@@ -28,7 +28,7 @@ Scheduled alerts evaluate your data at regular intervals and trigger when condit
 
 Fill in the required fields across the top bar:
 
-- **Alert name**: Enter a descriptive name (e.g., "High Error Rate - Production")
+- **Alert name**: Enter a descriptive name (e.g., "High Error Rate - Production"). Alert names cannot contain spaces or the characters `: # ? ' " % & /`. Use underscores (`_`) instead.
 - **Folder**: Select a folder to organize the alert, or click **+** to create a new one
 - **Stream Type**: Select **logs**, **metrics**, or **traces**
 - **Stream Name**: Select the data stream to monitor
@@ -53,6 +53,9 @@ Configure the condition:
 ### Step 4: Set the evaluation schedule
 
 - **Check every**: Enter the frequency in minutes (default: 10). You can switch to a cron expression for precise scheduling using the dropdown next to the minutes input.
+
+!!! note
+    When a scheduled alert uses a cron expression, its first (and every subsequent) run is the next time that matches the cron schedule in the configured timezone. It no longer fires immediately when you create, update, or enable the alert. With a non-cron **Check every N minutes** schedule, the alert still starts at the next interval boundary.
 
 ### Step 5: Add filters (optional)
 

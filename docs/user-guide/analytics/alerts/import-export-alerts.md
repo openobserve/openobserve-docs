@@ -55,6 +55,9 @@ Alert export allows users to download an alert configuration as a JSON file. Thi
 The alert configuration is downloaded as a JSON file.  
 This JSON file can later be imported into another OpenObserve instance, making it easy to transfer or restore alerts.
 
+!!! note
+    The exported alert JSON intentionally omits the alert `id`. On import, any `id` present in the JSON is ignored, so the alert is always created as a new alert in the target instance and is never overwritten by ID. This is why re-importing an alert into the same organization prompts a name conflict (asking you to enter a new alert name) rather than updating the existing alert.
+
 ## Use Cases
 
 - If you manage separate instances, such as development, test, and production environments, you can configure alerts in one environment and import them into others to replicate the monitoring setup.   

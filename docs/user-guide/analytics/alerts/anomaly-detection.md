@@ -11,13 +11,13 @@ Traditional threshold-based alerts require you to define exact conditions for ev
 Configure a detection rule on any logs, metrics, or traces stream. OpenObserve trains a model on your historical data, then runs periodic detection to surface anomalies and optionally send notifications.
 
 !!! note
-    Anomaly Detection is available in OpenObserve Enterprise and Cloud editions.
+    Anomaly Detection is available in OpenObserve Enterprise (self-hosted) edition.
 
 ## Getting started
 
 **Prerequisites:**
 
-- OpenObserve Enterprise or Cloud edition
+- OpenObserve Enterprise edition (not available in Cloud)
 - At least one data stream with historical data for model training
 
 **To access anomaly detection:**
@@ -26,11 +26,13 @@ Configure a detection rule on any logs, metrics, or traces stream. OpenObserve t
 2. Click the **Anomalies** tab in the filter bar
 3. The list displays all anomaly detection rules for the current organization
 
+The alerts list can be filtered by type using the tabs: **All / Scheduled / Realtime / Anomalies**.
+
 ## Key features
 
 ### Model training and retraining
 
-OpenObserve trains an isolation forest model on historical data from your selected stream. You control the training window (minimum 1 day) and the system automatically detects seasonality patterns:
+OpenObserve trains a Random Cut Forest (RCF) model on historical data from your selected stream. You control the training window (minimum 1 day) and the system automatically detects seasonality patterns:
 
 - **Less than 7 days**: hour-of-day seasonality
 - **7 days or more**: hour-of-day + day-of-week seasonality
@@ -47,7 +49,7 @@ The **Detection Config** tab provides a full configuration wizard:
 - **Check every** — how often the detection job runs
 - **Look back window** — how far back each detection run queries
 
-![Detection Config tab showing query builder, scheduling parameters, sensitivity chart with threshold slider, and configuration summary](../../../images/anomaly-detection-edit-config-chart.png)
+![Detection Config tab showing query builder, scheduling parameters, sensitivity chart with Anomaly Score Range slider, and configuration summary](../../../images/anomaly-detection-edit-config-chart.png)
 
 In **SQL** mode, the query editor replaces the visual builder. Your query must return exactly two columns: `time_bucket` and `value`.
 
@@ -55,9 +57,9 @@ In **SQL** mode, the query editor replaces the visual builder. Your query must r
 
 ### Sensitivity tuning
 
-The sensitivity section displays a time series preview of your historical data with adjustable threshold lines. Use the vertical range slider (0–100) to set the anomaly score range. Data points with scores outside this range trigger alerts.
+The sensitivity section displays a time series preview of your historical data. Use the **Anomaly Score Range** control, a chart with a dual-handle slider (0–100), to tune sensitivity. Points with anomaly scores outside the selected range do not trigger alerts. Narrow the range to flag only the most extreme outliers; widen it to flag more points.
 
-Click **Load data** to preview the time series and visually adjust your thresholds.
+Click **Load Data** to preview the time series and visually adjust the range. The **Load Data** button is only available after the rule is first saved (its tooltip reads "Available after saving").
 
 ### Alerting and notifications
 
@@ -98,7 +100,7 @@ Each anomaly detection rule progresses through a status lifecycle:
 
 5. Set the **Training Window** (days of historical data) and **Retrain Every** interval.
 
-6. Click **Load data** to preview the time series, then adjust the **Sensitivity** slider to set your anomaly score range.
+6. After saving the rule, click **Load Data** to preview the time series, then use the **Anomaly Score Range** slider (0–100) to tune which anomaly scores trigger alerts. (The **Load Data** button is only available after the rule is first saved.)
 
 7. Switch to the **Alerting** tab to enable notifications and select destinations.
 
@@ -118,4 +120,5 @@ From the **Anomalies** list, use the three-dot action menu on each row:
 - **Stop Training** — cancel an in-progress training job
 - **Retry** — retry training after a failure (the error message is shown in the dialog)
 - **Edit** — modify the detection configuration, schedule, or alerting settings
+- **Clone**: create a copy of the rule; the clone starts untrained with counters reset
 - **Delete** — permanently remove the rule and its trained model

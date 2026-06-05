@@ -28,7 +28,7 @@ Real-time alerts trigger immediately when matching data is ingested. Unlike sche
 
 Fill in the required fields across the top bar:
 
-- **Alert name**: Enter a descriptive name
+- **Alert name**: Enter a descriptive name. Alert names cannot contain spaces or the characters `: # ? ' " % & /`. Use underscores (`_`) instead.
 - **Folder**: Select a folder to organize the alert, or click **+** to create a new one
 - **Stream Type**: Select **logs**, **metrics**, or **traces**
 - **Stream Name**: Select the data stream to monitor

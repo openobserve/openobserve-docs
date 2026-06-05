@@ -74,6 +74,13 @@ In measure mode, click **+** next to **Group by** to add one or more fields. Whe
 
 For example, grouping by `hostname` with "Alert if avg of cpu_usage >= 80" evaluates CPU usage per host and alerts if any individual host exceeds the threshold.
 
+### Having groups
+
+**Having groups** sets the minimum number of groups that must satisfy the condition for the alert to trigger. For example, with a value of 3, the alert fires only when at least 3 group-by combinations meet the condition.
+
+!!! note
+    When aggregation or group-by is enabled, the right-hand **Preview** panel renders a multi-series chart. When there are three or more group-by fields, the preview is shown as a table instead.
+
 ---
 
 ## Filter conditions
