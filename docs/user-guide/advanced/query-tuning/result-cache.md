@@ -45,6 +45,8 @@ When a query is executed, the node performs the following steps:
 Cache invalidation ensures that query results remain accurate when underlying data changes. <br>
 In OpenObserve, cache retrieval is handled locally by each node, but cache invalidation must still be coordinated across all nodes to maintain consistency. This is done using a dedicated background mechanism that relies on the `delete_result_cache` RPC. The `delete_result_cache` RPC is a remote procedure call (RPC) endpoint that allows nodes in the OpenObserve cluster to coordinate cache invalidation.
 
+> **Note:** Clearing the result cache can be RBAC-controlled via the `logs_cache` resource (Delete permission) when cache RBAC is enabled (Enterprise/Cloud).
+
 ## Configuration
 | Variable            | Default | Description                                                                                                                                                    |
 | ------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |

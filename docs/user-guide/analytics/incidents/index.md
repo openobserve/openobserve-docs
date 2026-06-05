@@ -13,6 +13,9 @@ It brings together alert data, service topology, AI-powered root cause analysis,
 !!! note
     Incident Management is available in OpenObserve Enterprise and Cloud editions.
 
+!!! note
+    On OpenObserve Cloud, automatic incident creation and RCA reanalysis consume AI credits from your organization's free credit pool. Once the pool is exhausted, incidents are not created for unpaid organizations until you subscribe. Alerts continue to fire.
+
 ## Key features
 
 ### Automatic alert correlation
@@ -25,6 +28,16 @@ OpenObserve groups related alert firings into incidents using intelligent correl
 | **Primary Match** | High | Matches alerts sharing primary dimensions (cluster, region, namespace) |
 | **Secondary Match** | Medium | Matches alerts sharing secondary dimensions (service, deployment) |
 | **Alert ID** | Lowest | Isolates alerts by alert rule ID when no dimensional match exists |
+
+### Incident notifications
+
+When an alert has **Creates Incident** enabled, it no longer sends its regular notification. Instead, an incident notification is sent only when:
+
+- A new incident is created.
+- A new alert type joins an existing incident.
+- The incident severity changes.
+
+Repeated firings of the same alert are suppressed, which reduces notification noise. The incident notification is sent to the union of all correlated alerts' destinations and uses an incident JSON payload with the following fields: `id`, `title`, `event`, `service`, `severity`, `alert`, `time`, and `url`.
 
 ### Incident overview dashboard
 
@@ -58,6 +71,12 @@ The right side of the Overview tab contains the management panel:
 The built-in AI SRE Agent analyzes incident data and generates a root cause analysis report. The analysis streams in real-time and includes an incident summary, technical findings, and recommended actions. Use the **Table of Contents** on the left to navigate between sections.
 
 ![AI-powered Incident Analysis with table of contents and structured report](../../../images/incident-detail-incident-analysis.png)
+
+#### Reanalysis
+
+Root cause analysis reruns automatically on key incident lifecycle events: when a new alert type joins the incident, when dimensions upgrade, or when the incident is reopened. You can also re-trigger it after a severity change.
+
+Reanalysis appends delta findings to the existing report rather than restarting it, so prior findings are preserved. An in-flight banner appears while analysis runs.
 
 ### Activity timeline and collaboration
 
@@ -95,6 +114,8 @@ The Alert Graph tab visualizes the topology of alerts within an incident using a
 The **Logs**, **Metrics**, and **Traces** tabs provide direct access to telemetry data related to the incident. OpenObserve uses the incident's correlation dimensions (such as `service_name`, `host`, or `cluster`) to find matching streams automatically.
 
 Each tab filters telemetry by the incident's time window and dimensions, so you can investigate the underlying data without leaving the incident detail view.
+
+The **Metrics** tab uses selection **pills** (Essentials / Compute / Memory / Storage / Network / All) and **Pod / Node** scope chips to choose which metric streams to chart (Essentials is the default when curated streams are available).
 
 !!! note
     Correlated telemetry requires that your logs, metrics, and traces share common dimensions with your alert definitions. Configure dimension names consistently across your alerts and telemetry ingestion for best results.
@@ -137,7 +158,7 @@ Each tab filters telemetry by the incident's time window and dimensions, so you 
 3. View the streaming analysis as it generates. Use the **Table of Contents** on the left to navigate the report.
 
 !!! tip
-    Trigger reanalysis after new alerts are added to get updated findings.
+    Reanalysis reruns automatically when a new alert type joins the incident, when dimensions upgrade, or when the incident is reopened. You can also re-trigger it after a severity change. New findings are appended to the existing report.
 
 ## Edit incident details
 
