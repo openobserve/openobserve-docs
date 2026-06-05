@@ -96,6 +96,58 @@ And we define the `row template` in alert page:
 
 After these, the notification message will be what we expect.
 
+### JSON row templates
+
+When the row template itself is valid JSON and `{rows}` (or `{rows:N}`) appears in a JSON value position, each row is injected as an element of a JSON array instead of being joined into a single newline-separated string.
+
+For example, with this row template:
+
+```
+{"pod": "{k8s_pod_name}", "count": {cnt}}
+```
+
+and an alert template like:
+
+```json
+{
+  "rows": "{rows}"
+}
+```
+
+the notification body becomes a JSON array, one element per row:
+
+```json
+{
+  "rows": [
+    {"pod": "pod1", "count": 1},
+    {"pod": "pod2", "count": 2},
+    {"pod": "pod3", "count": 1}
+  ]
+}
+```
+
+If the row template is itself a JSON array, each row becomes an array element, so the result is an array of arrays.
+
+### Spread syntax
+
+Use `{...rows}` (or `{...rows:N}`) to flatten array-typed row templates into a single one-dimensional array. Where `{rows}` would produce an array of arrays, `{...rows}` merges all the inner arrays into one flat array.
+
+For example, with a JSON array row template like:
+
+```
+["{k8s_pod_name}", {cnt}]
+```
+
+`{...rows}` produces:
+
+```json
+{
+  "rows": ["pod1", 1, "pod2", 2, "pod3", 1]
+}
+```
+
+As with `{rows:N}`, the `N` in `{...rows:N}` limits the number of rows that are included.
+
 Check this video to understand more
 
 <iframe width="760" height="315" src="https://www.youtube.com/embed/tW8VnNnfZBg?si=9bXSzGXgPER2Gbaw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
