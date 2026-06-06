@@ -1,53 +1,31 @@
-<div
-  id="oo-header"
-  class="tw-w-full tw-fixed tw-top-0 tw-z-50 tw-bg-white tw-border-b tw-border-gray-200"
->
-  <!-- =================================================
-       DESKTOP HEADER  (lg and above)
-  ================================================= -->
-  <div class="tw-hidden xl:tw-block">
-    <header
-      class="tw-grid tw-items-center tw-h-[84px] tw-px-14 tw-relative"
-      style="grid-template-columns: 1fr auto 1fr"
-    >
+<div id="oo-header" class="oo-hdr-root">
+  <div class="oo-desktop-hdr">
+    <header class="oo-hdr-inner" style="grid-template-columns: 1fr auto 1fr">
       <!-- Logo / DOCS -->
-      <div class="tw-flex tw-items-center tw-gap-1">
-        <a
-          href="/"
-          class="tw-flex tw-items-center tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
-        >
+      <div class="oo-hdr-logo">
+        <a href="/" class="oo-hdr-logo-link">
           <img
             src="/docs/assets/o2-logo-readme.svg"
             alt="OpenObserve"
-            class="tw-h-8 tw-w-auto"
+            class="oo-hdr-logo-img"
           />
         </a>
-        <span
-          class="tw-text-gray-300 tw-font-light tw-text-lg tw-leading-none tw-select-none"
-          >/</span
-        >
-        <a
-          href="/docs/"
-          class="tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
-        >
-          <span
-            class="tw-text-[15px] tw-font-bold tw-text-[#7c3aed] tw-leading-none"
-            style="letter-spacing: 0.04em"
+        <span class="oo-hdr-slash">/</span>
+        <a href="/docs/" class="oo-hdr-docs-link">
+          <span class="oo-hdr-docs-text" style="letter-spacing: 0.04em"
             >DOCS</span
           >
         </a>
       </div>
 
-      <!-- Nav -->
-      <ul class="header-list-style tw-flex tw-gap-1.5" role="menubar">
-        <!-- Platform -->
-        <li class="tw-relative" id="nav-platform">
+      <ul class="header-list-style oo-hdr-nav" role="menubar">
+        <li class="oo-hdr-nav-item" id="nav-platform">
           <a href="/platform/" class="nav-top-link" id="nav-platform-trigger"
             >Platform</a
           >
           <div
             id="mega-platform"
-            class="mega-menu tw-hidden tw-absolute tw-z-50"
+            class="mega-menu is-hidden oo-mega-wrap"
             style="
               top: calc(100% + 4px);
               left: 50%;
@@ -55,7 +33,7 @@
             "
           >
             <nav
-              class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-[18px] tw-shadow-[0_24px_60px_-20px_rgba(15,18,34,0.18),0_8px_24px_-12px_rgba(15,18,34,0.12)] tw-px-4 tw-py-6 tw-grid tw-gap-4 tw-relative mega-arrow-platform"
+              class="oo-mega-nav oo-mega-platform mega-arrow-platform"
               style="
                 grid-template-columns: 1fr 1fr 1fr 1.05fr;
                 grid-template-rows: 1fr auto;
@@ -63,107 +41,65 @@
               "
               aria-label="Platform menu"
             >
-              <!-- Col 01 Collect -->
-              <section
-                class="tw-p-2 tw-rounded-xl tw-flex tw-flex-col tw-bg-[#fafbff] tw-border tw-border-[#f1f3fb]"
-              >
-                <div
-                  class="tw-flex tw-items-center tw-gap-2.5 tw-px-2 tw-pt-1.5 tw-pb-3.5"
-                >
-                  <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-bg-white tw-text-[#5b5bd6] tw-border tw-border-[#e3e6f0]"
-                    >01</span
-                  >
-                  <div>
-                    <div
-                      class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-[#0f1222]"
-                    >
-                      Collect
-                    </div>
-                    <div class="tw-text-[11px] tw-text-[#6b7088]">Signals</div>
-                  </div>
+              <section class="oo-plat-col">
+                <div class="oo-plat-col-hdr">
+                  <span class="oo-plat-num">01</span>
+                  <div class="oo-plat-col-title">Collect</div>
+                  <div class="oo-plat-col-sub">Signals</div>
                 </div>
-                <div class="tw-flex tw-flex-col tw-gap-0.5">
+                <div class="oo-plat-items">
                   <a href="/platform/logs/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/logs.svg"
                         alt="Logs"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Logs
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Logs</div>
+                      <div class="oo-mega-item-sub">
                         Petabyte-scale ingest &amp; search
                       </div>
                     </div></a
                   >
                   <a href="/platform/metrics/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/metrics.svg"
                         alt="Metrics"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Metrics
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Metrics</div>
+                      <div class="oo-mega-item-sub">
                         Prometheus-native time series
                       </div>
                     </div></a
                   >
                   <a href="/platform/traces/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/traces.svg"
                         alt="Traces"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Traces
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Traces</div>
+                      <div class="oo-mega-item-sub">
                         Distributed tracing &amp; spans
                       </div>
                     </div></a
                   >
                   <a href="/platform/frontend-monitoring/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/frontend-monitoring.svg"
                         alt="Frontend Monitoring"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Frontend Monitoring
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Frontend Monitoring</div>
+                      <div class="oo-mega-item-sub">
                         RUM, Core Web Vitals &amp; replays
                       </div>
                     </div></a
@@ -172,66 +108,37 @@
               </section>
 
               <!-- Col 02 Analyze -->
-              <section
-                class="tw-p-2 tw-rounded-xl tw-flex tw-flex-col tw-bg-[#fafbff] tw-border tw-border-[#f1f3fb]"
-              >
-                <div
-                  class="tw-flex tw-items-center tw-gap-2.5 tw-px-2 tw-pt-1.5 tw-pb-3.5"
-                >
-                  <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-bg-white tw-text-[#5b5bd6] tw-border tw-border-[#e3e6f0]"
-                    >02</span
-                  >
-                  <div>
-                    <div
-                      class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-[#0f1222]"
-                    >
-                      Analyze
-                    </div>
-                    <div class="tw-text-[11px] tw-text-[#6b7088]">
-                      Make sense
-                    </div>
-                  </div>
+              <section class="oo-plat-col">
+                <div class="oo-plat-col-hdr">
+                  <span class="oo-plat-num">02</span>
+                  <div class="oo-plat-col-title">Analyze</div>
+                  <div class="oo-plat-col-sub">Make sense</div>
                 </div>
-                <div class="tw-flex tw-flex-col tw-gap-0.5">
+                <div class="oo-plat-items">
                   <a href="/platform/dashboards/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/visualization.svg"
                         alt="Dashboards"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Dashboards
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Dashboards</div>
+                      <div class="oo-mega-item-sub">
                         Visualize anything in seconds
                       </div>
                     </div></a
                   >
                   <a href="/platform/pipelines/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/pipelines.svg"
                         alt="Pipelines"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Pipelines
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Pipelines</div>
+                      <div class="oo-mega-item-sub">
                         Parse, enrich &amp; route at ingest
                       </div>
                     </div></a
@@ -240,67 +147,40 @@
               </section>
 
               <!-- Col 03 Respond -->
-              <section
-                class="tw-p-2 tw-rounded-xl tw-flex tw-flex-col tw-bg-[#fafbff] tw-border tw-border-[#f1f3fb]"
-              >
-                <div
-                  class="tw-flex tw-items-center tw-gap-2.5 tw-px-2 tw-pt-1.5 tw-pb-3.5"
-                >
-                  <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-bg-white tw-text-[#5b5bd6] tw-border tw-border-[#e3e6f0]"
-                    >03</span
-                  >
-                  <div>
-                    <div
-                      class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-[#0f1222]"
-                    >
-                      Respond
-                    </div>
-                    <div class="tw-text-[11px] tw-text-[#6b7088]">
-                      When it matters
-                    </div>
-                  </div>
+              <section class="oo-plat-col">
+                <div class="oo-plat-col-hdr">
+                  <span class="oo-plat-num">03</span>
+                  <div class="oo-plat-col-title">Respond</div>
+                  <div class="oo-plat-col-sub">When it matters</div>
                 </div>
-                <div class="tw-flex tw-flex-col tw-gap-0.5">
+                <div class="oo-plat-items">
                   <a href="/platform/alerts/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/alerts.svg"
                         alt="Alerts"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5"
-                      >
-                        Alerts
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-title">Alerts</div>
+                      <div class="oo-mega-item-sub">
                         Thresholds, anomalies &amp; routing
                       </div>
                     </div></a
                   >
                   <a href="/platform/incidents/" class="mega-item"
-                    ><span
-                      class="tw-w-8 tw-h-8 tw-rounded-[10px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                    ><span class="oo-mega-icon"
                       ><img
                         src="/docs/assets/nav-icons/incidents.svg"
                         alt="Incidents"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div class="tw-flex tw-items-center tw-gap-1.5 tw-mb-0.5">
-                        <span
-                          class="tw-font-semibold tw-text-sm tw-leading-none"
-                          >Incidents</span
+                      <div class="oo-mega-item-title-row">
+                        <span class="oo-mega-item-title-inline">Incidents</span
                         ><span class="badge-preview">Preview</span>
                       </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#6b7088] tw-leading-tight"
-                      >
+                      <div class="oo-mega-item-sub">
                         Triage, on-call &amp; postmortems
                       </div>
                     </div></a
@@ -310,7 +190,7 @@
 
               <!-- Col 04 O11y 3.0 (dark) -->
               <section
-                class="tw-rounded-[14px] tw-p-3"
+                class="oo-plat-dark-col"
                 style="
                   background: linear-gradient(
                     160deg,
@@ -320,30 +200,22 @@
                   );
                 "
               >
-                <div
-                  class="tw-flex tw-items-center tw-gap-2.5 tw-px-2 tw-pt-1.5 tw-pb-3.5"
-                >
+                <div class="oo-plat-col-hdr">
                   <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-text-white"
+                    class="oo-plat-dark-num"
                     style="
                       background: rgba(255, 255, 255, 0.14);
                       border: 1px solid rgba(255, 255, 255, 0.18);
                     "
                     >04</span
                   >
-                  <div>
-                    <div
-                      class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-white"
-                    >
-                      O11y 3.0
-                    </div>
-                    <div class="tw-text-[11px] tw-text-[#a0a4c0]">Preview</div>
-                  </div>
+                  <div class="oo-plat-dark-col-title">O11y 3.0</div>
+                  <div class="oo-plat-dark-col-sub">Preview</div>
                 </div>
-                <div class="tw-flex tw-flex-col tw-gap-0.5">
+                <div class="oo-plat-items">
                   <a href="/platform/llm-observability/" class="mega-item-ai"
                     ><span
-                      class="tw-w-9 tw-h-9 tw-rounded-[10px] tw-grid tw-place-items-center tw-shrink-0"
+                      class="oo-mega-ai-icon"
                       style="
                         background: rgba(139, 92, 246, 0.35);
                         border: 1px solid rgba(255, 255, 255, 0.14);
@@ -351,24 +223,18 @@
                       ><img
                         src="/docs/assets/nav-icons/llm-observability.svg"
                         alt="LLM Observability"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5 tw-text-[#e6e7ff]"
-                      >
-                        LLM Observability
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#8b8fb8] tw-leading-tight"
-                      >
+                      <div class="oo-mega-ai-title">LLM Observability</div>
+                      <div class="oo-mega-ai-sub">
                         Tokens, cost &amp; prompt traces
                       </div>
                     </div></a
                   >
                   <a href="/platform/ai-assistant/" class="mega-item-ai"
                     ><span
-                      class="tw-w-9 tw-h-9 tw-rounded-[10px] tw-grid tw-place-items-center tw-shrink-0"
+                      class="oo-mega-ai-icon"
                       style="
                         background: rgba(59, 130, 246, 0.35);
                         border: 1px solid rgba(255, 255, 255, 0.14);
@@ -376,24 +242,18 @@
                       ><img
                         src="/docs/assets/nav-icons/ai-assistant.svg"
                         alt="AI Assistant"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5 tw-text-[#e6e7ff]"
-                      >
-                        AI Assistant
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#8b8fb8] tw-leading-tight"
-                      >
+                      <div class="oo-mega-ai-title">AI Assistant</div>
+                      <div class="oo-mega-ai-sub">
                         Ask anything about your telemetry
                       </div>
                     </div></a
                   >
                   <a href="/platform/ai-sre/" class="mega-item-ai"
                     ><span
-                      class="tw-w-9 tw-h-9 tw-rounded-[10px] tw-grid tw-place-items-center tw-shrink-0"
+                      class="oo-mega-ai-icon"
                       style="
                         background: rgba(249, 115, 22, 0.35);
                         border: 1px solid rgba(255, 255, 255, 0.14);
@@ -401,24 +261,18 @@
                       ><img
                         src="/docs/assets/nav-icons/ai-sre.svg"
                         alt="AI SRE"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5 tw-text-[#e6e7ff]"
-                      >
-                        AI SRE
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#8b8fb8] tw-leading-tight"
-                      >
+                      <div class="oo-mega-ai-title">AI SRE</div>
+                      <div class="oo-mega-ai-sub">
                         Autonomous triage &amp; root-cause
                       </div>
                     </div></a
                   >
                   <a href="/platform/mcp-server/" class="mega-item-ai"
                     ><span
-                      class="tw-w-9 tw-h-9 tw-rounded-[10px] tw-grid tw-place-items-center tw-shrink-0"
+                      class="oo-mega-ai-icon"
                       style="
                         background: rgba(20, 184, 166, 0.35);
                         border: 1px solid rgba(255, 255, 255, 0.14);
@@ -426,17 +280,11 @@
                       ><img
                         src="/docs/assets/nav-icons/mcp-server.svg"
                         alt="MCP Server"
-                        class="tw-w-4 tw-h-4"
+                        class="oo-icon-sm"
                     /></span>
                     <div>
-                      <div
-                        class="tw-font-semibold tw-text-sm tw-leading-none tw-mb-0.5 tw-text-[#e6e7ff]"
-                      >
-                        MCP Server
-                      </div>
-                      <div
-                        class="tw-text-[12px] tw-text-[#8b8fb8] tw-leading-tight"
-                      >
+                      <div class="oo-mega-ai-title">MCP Server</div>
+                      <div class="oo-mega-ai-sub">
                         Bring your agents to your data
                       </div>
                     </div></a
@@ -445,40 +293,34 @@
               </section>
 
               <!-- Footer row -->
-              <footer
-                class="tw-col-span-4 tw-py-3.5 tw-px-2 tw-mt-1 tw-border-t tw-border-gray-200 tw-flex tw-justify-between tw-items-center tw-font-medium tw-text-[13px] tw-leading-none tw-text-[#6b7088]"
-              >
-                <div class="tw-flex tw-gap-4">
-                  <a
-                    href="/whats-new/"
-                    class="tw-no-underline tw-text-[#6b7088] hover:tw-text-[#2b2f44] hover:tw-underline"
+              <footer class="oo-mega-footer">
+                <div class="oo-mega-footer-links">
+                  <a href="/whats-new/" class="oo-mega-ftr-link"
                     >What's new &rarr;</a
                   >
                   <a
                     href="https://openobserve.ai/docs/architecture/"
                     target="_blank"
                     rel="noopener"
-                    class="tw-no-underline tw-text-[#6b7088] hover:tw-text-[#2b2f44] hover:tw-underline"
+                    class="oo-mega-ftr-link"
                     >Architecture</a
                   >
                   <a
                     href="https://github.com/openobserve/openobserve"
                     target="_blank"
                     rel="noopener"
-                    class="tw-no-underline tw-text-[#6b7088] hover:tw-text-[#2b2f44] hover:tw-underline"
+                    class="oo-mega-ftr-link"
                     >Open source</a
                   >
                   <a
                     href="https://openobserve.ai/docs/"
                     target="_blank"
                     rel="noopener"
-                    class="tw-no-underline tw-text-[#6b7088] hover:tw-text-[#2b2f44] hover:tw-underline"
+                    class="oo-mega-ftr-link"
                     >Docs</a
                   >
                 </div>
-                <a
-                  href="/comparison/"
-                  class="tw-text-[#2b2f44] tw-no-underline hover:tw-underline"
+                <a href="/comparison/" class="oo-mega-ftr-cta"
                   >Compare to Datadog, Grafana, &amp; More &rarr;</a
                 >
               </footer>
@@ -487,13 +329,13 @@
         </li>
 
         <!-- Solutions -->
-        <li class="tw-relative" id="nav-solutions">
+        <li class="oo-hdr-nav-item" id="nav-solutions">
           <a href="/solutions/" class="nav-top-link" id="nav-solutions-trigger"
             >Solutions</a
           >
           <div
             id="mega-solutions"
-            class="mega-menu tw-hidden tw-absolute tw-z-50"
+            class="mega-menu is-hidden oo-mega-wrap"
             style="
               top: calc(100% + 4px);
               left: 50%;
@@ -501,110 +343,75 @@
             "
           >
             <nav
-              class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-[18px] tw-shadow-[0_24px_60px_-20px_rgba(15,18,34,0.18),0_8px_24px_-12px_rgba(15,18,34,0.12)] tw-px-7 tw-pt-7 tw-pb-[22px] tw-grid tw-gap-7 tw-relative mega-arrow-solutions"
-              style="
-                grid-template-columns: 1fr 1fr 1fr 300px;
-                grid-template-rows: 1fr auto;
-                min-width: 1120px;
-              "
+              class="oo-mega-nav oo-mega-solutions mega-arrow-solutions"
               aria-label="Solutions menu"
             >
               <!-- Col 1 Cloud & Infrastructure -->
               <div>
-                <p
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#6b7088] tw-px-2.5 tw-pb-2.5 tw-m-0 tw-mb-1.5 tw-border-b tw-border-dashed tw-border-gray-200"
-                >
-                  Cloud &amp; Infrastructure
-                </p>
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-px-2.5 tw-m-0 tw-mt-3 tw-mb-1"
-                >
-                  Cloud Monitoring
-                </p>
+                <p class="oo-sol-col-hdr">Cloud &amp; Infrastructure</p>
+                <p class="oo-sol-section-title">Cloud Monitoring</p>
                 <a href="/solutions/aws-monitoring/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/aws.svg"
                       alt="AWS"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm">AWS Monitoring</span></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">AWS Monitoring</span></a
                 >
                 <a href="/solutions/gcp-monitoring/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/gcp.svg"
                       alt="GCP"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm">GCP Monitoring</span></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">GCP Monitoring</span></a
                 >
                 <a href="/solutions/azure-monitoring/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/azure.svg"
                       alt="Azure"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm">Azure Monitoring</span></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">Azure Monitoring</span></a
                 >
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-px-2.5 tw-m-0 tw-mt-3 tw-mb-1"
-                >
-                  Infrastructure Monitoring
-                </p>
+                <p class="oo-sol-section-title">Infrastructure Monitoring</p>
                 <a href="/solutions/kubernetes-monitoring/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/kubernetes.svg"
                       alt="Kubernetes"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm">Kubernetes Monitoring</span></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">Kubernetes Monitoring</span></a
                 >
               </div>
 
               <!-- Col 2 Apps & Services -->
               <div>
-                <p
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#6b7088] tw-px-2.5 tw-pb-2.5 tw-m-0 tw-mb-1.5 tw-border-b tw-border-dashed tw-border-gray-200"
-                >
-                  Apps &amp; Services
-                </p>
+                <p class="oo-sol-col-hdr">Apps &amp; Services</p>
                 <a href="/solutions/network-monitoring/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/metrics.svg"
                       alt="Network"
-                      class="tw-w-4 tw-h-4"
+                      class="oo-icon-sm"
                   /></span>
                   <div>
-                    <div
-                      class="tw-text-sm tw-font-medium tw-leading-none tw-mb-0.5"
-                    >
-                      Network Monitoring
-                    </div>
-                    <div class="tw-text-[12px] tw-text-[#6b7088]">
+                    <div class="oo-sol-item-title">Network Monitoring</div>
+                    <div class="oo-sol-item-sub">
                       Flow logs, latency &amp; DNS
                     </div>
                   </div></a
                 >
                 <a href="/solutions/database-monitoring/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/database.svg"
                       alt="Database"
-                      class="tw-w-4 tw-h-4"
+                      class="oo-icon-sm"
                   /></span>
                   <div>
-                    <div
-                      class="tw-text-sm tw-font-medium tw-leading-none tw-mb-0.5"
-                    >
-                      Database Monitoring
-                    </div>
-                    <div class="tw-text-[12px] tw-text-[#6b7088]">
+                    <div class="oo-sol-item-title">Database Monitoring</div>
+                    <div class="oo-sol-item-sub">
                       Queries, locks &amp; replication lag
                     </div>
                   </div></a
@@ -613,26 +420,17 @@
 
               <!-- Col 3 AI & Telemetry -->
               <div>
-                <p
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#6b7088] tw-px-2.5 tw-pb-2.5 tw-m-0 tw-mb-1.5 tw-border-b tw-border-dashed tw-border-gray-200"
-                >
-                  AI &amp; Telemetry
-                </p>
+                <p class="oo-sol-col-hdr">AI &amp; Telemetry</p>
                 <a href="/solutions/opentelemetry/" class="sol-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/opentelemetry.svg"
                       alt="OpenTelemetry"
-                      class="tw-w-4 tw-h-4"
+                      class="oo-icon-sm"
                   /></span>
                   <div>
-                    <div
-                      class="tw-text-sm tw-font-medium tw-leading-none tw-mb-0.5"
-                    >
-                      OpenTelemetry
-                    </div>
-                    <div class="tw-text-[12px] tw-text-[#6b7088]">
+                    <div class="oo-sol-item-title">OpenTelemetry</div>
+                    <div class="oo-sol-item-sub">
                       Vendor-neutral metrics &amp; traces
                     </div>
                   </div></a
@@ -641,7 +439,7 @@
 
               <!-- Col 4 Feature panel -->
               <aside
-                class="tw-relative tw-overflow-hidden tw-rounded-[14px] tw-p-5 tw-text-white tw-flex tw-flex-col tw-gap-2.5"
+                class="oo-sol-panel"
                 style="
                   background: linear-gradient(
                     160deg,
@@ -651,62 +449,76 @@
                   );
                 "
               >
-                <span
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#a0a4c0]"
-                  >Unified observability</span
-                >
-                <h3
-                  class="tw-m-0 tw-font-semibold tw-text-lg tw-leading-[1.25] tw-tracking-[-0.01em] tw-text-white"
-                >
+                <span class="oo-sol-panel-label">Unified observability</span>
+                <h3 class="oo-sol-panel-h3">
                   One backend for logs, metrics, traces &amp; RUM.
                 </h3>
-                <p
-                  class="tw-text-[13px] tw-text-[#a0a4c0] tw-m-0 tw-leading-relaxed"
-                >
-                  140&times; lower cost than Datadog. Pick a stack or see all in
-                  a single pane.
-                </p>
-                <div class="tw-flex tw-gap-2 tw-mt-auto">
-                  <a
-                    href="/demo/"
-                    class="sol-panel-cta tw-bg-[#5b5bd6] tw-text-white tw-px-4 tw-py-2 tw-rounded-[8px] tw-text-sm tw-font-semibold tw-no-underline"
-                    >Get demo</a
-                  >
-                  <a
-                    href="/docs/"
-                    class="tw-text-[#e6e7ff] tw-text-sm tw-font-medium tw-no-underline hover:tw-underline tw-flex tw-items-center"
+                <!-- Stats badges -->
+                <div class="oo-sol-stats">
+                  <div class="oo-sol-stat">
+                    <span
+                      class="oo-sol-stat-badge"
+                      style="background-color: #7c3aed; border-color: #9d5cf5"
+                      >Extremely Efficient</span
+                    >
+                    <div class="oo-sol-stat-value">140X</div>
+                    <div class="oo-sol-stat-desc">Lower storage cost*</div>
+                  </div>
+                  <div class="oo-sol-stat">
+                    <span
+                      class="oo-sol-stat-badge"
+                      style="background-color: #0284c7; border-color: #38a6e8"
+                      >Highly Performant</span
+                    >
+                    <div>
+                      <div class="oo-sol-stat-prefix">Up to</div>
+                      <div class="oo-sol-stat-value">30X</div>
+                    </div>
+                    <div class="oo-sol-stat-desc">More performant*</div>
+                  </div>
+                  <div class="oo-sol-stat">
+                    <span
+                      class="oo-sol-stat-badge"
+                      style="background-color: #16a34a; border-color: #34c76a"
+                      >Petabyte-scale</span
+                    >
+                    <div class="oo-sol-stat-value">
+                      2.5<span class="oo-sol-stat-unit"> PB/day</span>
+                    </div>
+                    <div class="oo-sol-stat-desc">
+                      Largest customer ingestion
+                    </div>
+                  </div>
+                </div>
+                <div class="oo-sol-panel-ctas">
+                  <a href="/demo/" class="oo-sol-cta-primary">Get demo</a>
+                  <a href="/docs/" class="oo-sol-cta-secondary"
                     >See all &rarr;</a
                   >
                 </div>
-                <div class="sol-feature-glow"></div>
               </aside>
 
               <!-- Footer row -->
-              <div
-                class="tw-col-span-4 tw-mt-1.5 tw-pt-3.5 tw-border-t tw-border-gray-200 tw-flex tw-justify-between tw-items-center tw-font-medium tw-text-[13px] tw-text-[#6b7088]"
-              >
+              <div class="oo-sol-footer">
                 <span
                   >Don't see your stack? OpenObserve ingests any OTel
                   signal.</span
                 >
-                <a
-                  href="/solutions/"
-                  class="tw-text-[#2b2f44] tw-no-underline hover:tw-underline"
+                <a href="/solutions/" class="oo-mega-ftr-cta"
                   >Browse all solutions &rarr;</a
                 >
               </div>
             </nav>
           </div>
         </li>
-
         <!-- Resources -->
-        <li class="tw-relative" id="nav-resources">
+        <li class="oo-hdr-nav-item" id="nav-resources">
           <a href="/resources/" class="nav-top-link" id="nav-resources-trigger"
             >Resources</a
           >
           <div
             id="mega-resources"
-            class="mega-menu tw-hidden tw-absolute tw-z-50"
+            class="mega-menu is-hidden oo-mega-wrap"
             style="
               top: calc(100% + 4px);
               left: 50%;
@@ -714,146 +526,111 @@
             "
           >
             <nav
-              class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-[18px] tw-shadow-[0_24px_60px_-20px_rgba(15,18,34,0.18),0_8px_24px_-12px_rgba(15,18,34,0.12)] tw-px-6 tw-pt-5 tw-pb-6 tw-relative mega-arrow-resources"
-              style="min-width: 640px"
+              class="oo-mega-nav oo-mega-resources mega-arrow-resources"
               aria-label="Resources menu"
             >
-              <div class="tw-grid tw-grid-cols-3 tw-gap-1">
+              <div class="oo-res-grid">
                 <a
                   href="https://openobserve.ai/docs/"
                   target="_blank"
                   rel="noopener"
                   class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/documentation.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Documentation</span
-                  ></a
+                      alt="Documentation"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Documentation</span></a
                 >
                 <a href="/blog/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/blog.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Blog</span
-                  ></a
+                      alt="Blog"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Blog</span></a
                 >
                 <a href="/faqs/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/faqs.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
+                      alt="FAQs"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text"
                     >Frequently Asked Questions</span
                   ></a
                 >
                 <a href="/customer-stories/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/customer-stories.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Customer Stories</span
-                  ></a
+                      alt="Customer Stories"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Customer Stories</span></a
                 >
                 <a href="/downloads/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/downloads.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Downloads</span
-                  ></a
+                      alt="Downloads"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Downloads</span></a
                 >
                 <a href="/webinars/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/videos.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Webinar and Videos</span
-                  ></a
+                      alt="Webinars"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Webinar and Videos</span></a
                 >
                 <a href="/events/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/events.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Events</span
-                  ></a
+                      alt="Events"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Events</span></a
                 >
                 <a href="/startup-program/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/startup.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Startup Program</span
-                  ></a
+                      alt="Startup Program"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Startup Program</span></a
                 >
                 <a href="/partners/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/partners.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Partners</span
-                  ></a
+                      alt="Partners"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Partners</span></a
                 >
                 <a href="/comparison/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/comparison.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >OpenObserve Vs Others</span
-                  ></a
+                      alt="Comparison"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">OpenObserve Vs Others</span></a
                 >
                 <a href="/datadog-bill-analyzer/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/bill-analyzer.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >Datadog Bill Analyzer</span
-                  ></a
+                      alt="Bill Analyzer"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Datadog Bill Analyzer</span></a
                 >
                 <a href="/whats-new/" class="res-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-bg-[#f6f7fb] tw-grid tw-place-items-center tw-shrink-0"
+                  ><span class="oo-res-icon"
                     ><img
                       src="/docs/assets/nav-icons/whats-new.svg"
-                      alt=""
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-[13px] tw-leading-tight"
-                    >What's New</span
-                  ></a
+                      alt="What's New"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">What's New</span></a
                 >
               </div>
             </nav>
@@ -865,11 +642,11 @@
       </ul>
 
       <!-- Right Actions -->
-      <div class="tw-flex tw-items-center tw-justify-end tw-gap-2.5">
+      <div class="oo-hdr-actions">
         <!-- Search -->
         <label
           for="__search"
-          class="tw-w-8 tw-h-8 tw-rounded-full tw-border tw-border-[#e3e6f0] tw-bg-white tw-grid tw-place-items-center tw-cursor-pointer tw-text-[#2b2f44] tw-transition-colors hover:tw-border-[#c0c4d8] hover:tw-text-[#0f1222]"
+          class="oo-hdr-search-btn"
           aria-label="Search (Ctrl+K)"
           title="Search (Ctrl+K)"
         >
@@ -890,24 +667,24 @@
         <!-- Get Demo -->
         <a
           href="/demo/"
-          class="tw-bg-[#5b5bd6] tw-text-white tw-px-[16px] tw-py-[9px] tw-rounded-[10px] tw-font-semibold tw-text-xs tw-leading-none tw-whitespace-nowrap tw-no-underline tw-inline-block plausible-event-name=Demo+Button"
+          class="oo-hdr-demo-btn plausible-event-name=Demo+Button"
           style="transition: background 0.15s"
           >Get Demo</a
         >
 
         <!-- Log In -->
-        <div class="tw-relative" id="login-dropdown">
+        <div class="oo-login-wrap" id="login-dropdown">
           <button
             id="login-dropdown-button"
             type="button"
-            class="tw-bg-white tw-border tw-border-[#c0c4d8] tw-px-[14px] tw-py-[9px] tw-rounded-[10px] tw-font-medium tw-text-xs tw-leading-none tw-cursor-pointer tw-inline-flex tw-items-center tw-gap-1.5 tw-text-[#2b2f44] tw-transition-colors hover:tw-border-[#a0a4c0]"
+            class="oo-hdr-login-btn"
             aria-expanded="false"
             aria-haspopup="menu"
           >
             Log In
             <svg
               id="login-dropdown-icon"
-              class="tw-h-3.5 tw-w-3.5 tw-shrink-0"
+              class="oo-hdr-login-arrow"
               style="transition: transform 0.2s"
               viewBox="0 0 24 24"
               fill="none"
@@ -922,7 +699,7 @@
           </button>
           <div
             id="login-dropdown-menu"
-            class="tw-absolute tw-right-0 tw-top-full tw-mt-1 tw-w-72 tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg tw-shadow-xl tw-z-50 tw-hidden tw-overflow-hidden"
+            class="oo-hdr-login-menu is-hidden"
             role="menu"
             aria-label="Login Region Selector"
           >
@@ -932,20 +709,14 @@
               rel="noopener noreferrer"
               role="menuitem"
               tabindex="-1"
-              class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-group tw-transition-colors hover:tw-bg-orange-50 tw-border-b tw-border-gray-100 tw-no-underline"
+              class="oo-login-item oo-login-orange plausible-event-name=Cloud+Signup"
             >
-              <img
-                src="/docs/assets/aws.svg"
-                alt="AWS"
-                class="tw-w-5 tw-h-5 tw-shrink-0"
-              />
-              <span class="tw-flex tw-flex-col"
-                ><span
-                  class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
+              <img src="/docs/assets/aws.svg" alt="AWS" class="oo-login-icon" />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-orange-name"
                   >US East-2</span
-                ><span class="tw-text-[12px] tw-text-gray-500"
-                  >cloud.openobserve.ai</span
-                ><span class="tw-text-[11px] tw-text-gray-400"
+                ><span class="oo-login-item-url">cloud.openobserve.ai</span
+                ><span class="oo-login-item-region"
                   >Ohio, USA &middot; AWS</span
                 ></span
               >
@@ -956,20 +727,18 @@
               rel="noopener noreferrer"
               role="menuitem"
               tabindex="-1"
-              class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-group tw-transition-colors hover:tw-bg-blue-50 tw-border-b tw-border-gray-100 tw-no-underline"
+              class="oo-login-item oo-login-blue plausible-event-name=Cloud+Signup"
             >
               <img
                 src="/docs/assets/azure.svg"
                 alt="Azure"
-                class="tw-w-5 tw-h-5 tw-shrink-0"
+                class="oo-login-icon"
               />
-              <span class="tw-flex tw-flex-col"
-                ><span
-                  class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-blue-700"
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-blue-name"
                   >US West 2</span
-                ><span class="tw-text-[12px] tw-text-gray-500"
-                  >us2.openobserve.ai</span
-                ><span class="tw-text-[11px] tw-text-gray-400"
+                ><span class="oo-login-item-url">us2.openobserve.ai</span
+                ><span class="oo-login-item-region"
                   >California, USA &middot; Azure</span
                 ></span
               >
@@ -980,20 +749,14 @@
               rel="noopener noreferrer"
               role="menuitem"
               tabindex="-1"
-              class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-group tw-transition-colors hover:tw-bg-orange-50 tw-border-b tw-border-gray-100 tw-no-underline"
+              class="oo-login-item oo-login-orange plausible-event-name=Cloud+Signup"
             >
-              <img
-                src="/docs/assets/aws.svg"
-                alt="AWS"
-                class="tw-w-5 tw-h-5 tw-shrink-0"
-              />
-              <span class="tw-flex tw-flex-col"
-                ><span
-                  class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
+              <img src="/docs/assets/aws.svg" alt="AWS" class="oo-login-icon" />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-orange-name"
                   >EU Central-1</span
-                ><span class="tw-text-[12px] tw-text-gray-500"
-                  >eu1.openobserve.ai</span
-                ><span class="tw-text-[11px] tw-text-gray-400"
+                ><span class="oo-login-item-url">eu1.openobserve.ai</span
+                ><span class="oo-login-item-region"
                   >Frankfurt, Germany &middot; AWS</span
                 ></span
               >
@@ -1004,33 +767,26 @@
               rel="noopener noreferrer"
               role="menuitem"
               tabindex="-1"
-              class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-group tw-transition-colors hover:tw-bg-orange-50 tw-no-underline"
+              class="oo-login-item oo-login-orange plausible-event-name=Cloud+Signup"
             >
-              <img
-                src="/docs/assets/aws.svg"
-                alt="AWS"
-                class="tw-w-5 tw-h-5 tw-shrink-0"
-              />
-              <span class="tw-flex tw-flex-col"
-                ><span
-                  class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
+              <img src="/docs/assets/aws.svg" alt="AWS" class="oo-login-icon" />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-orange-name"
                   >Asia Pacific South-1</span
-                ><span class="tw-text-[12px] tw-text-gray-500"
-                  >ap1.openobserve.ai</span
-                ><span class="tw-text-[11px] tw-text-gray-400"
+                ><span class="oo-login-item-url">ap1.openobserve.ai</span
+                ><span class="oo-login-item-region"
                   >Mumbai, India &middot; AWS</span
                 ></span
               >
             </a>
           </div>
         </div>
-
         <!-- GitHub Star -->
         <a
           href="https://github.com/openobserve/openobserve"
           target="_blank"
           rel="noopener noreferrer"
-          class="tw-inline-flex tw-items-center tw-gap-2 tw-border tw-border-[#c0c4d8] tw-rounded-[10px] tw-px-3 tw-py-[9px] tw-font-medium tw-text-xs tw-leading-none tw-no-underline tw-text-[#2b2f44] tw-whitespace-nowrap tw-transition-colors hover:tw-border-[#a0a4c0] hover:tw-text-[#0f1222]"
+          class="oo-hdr-github-btn"
           aria-label="Star openobserve/openobserve on GitHub"
         >
           <svg
@@ -1045,10 +801,7 @@
             />
           </svg>
           Star
-          <span
-            id="gh-stars"
-            class="tw-bg-[#f6f7fb] tw-px-[7px] tw-py-1 tw-rounded-[6px] tw-tabular-nums tw-font-semibold tw-text-[#2b2f44] tw-text-xs tw-hidden"
-          ></span>
+          <span id="gh-stars" class="oo-gh-stars is-hidden"></span>
         </a>
 
         <!-- Theme toggle (MkDocs) -->
@@ -1114,44 +867,27 @@
   <!-- =================================================
        MOBILE HEADER  (below lg)
   ================================================= -->
-  <div class="xl:tw-hidden tw-block">
-    <header class="tw-flex tw-flex-col tw-z-50 tw-relative">
+  <div class="oo-mobile-hdr">
+    <header class="oo-mob-hdr-inner">
       <!-- Top bar -->
-      <div
-        class="tw-flex tw-justify-between tw-items-center tw-px-4 tw-h-[60px] tw-bg-white tw-border-b tw-border-[#eceef5]"
-      >
-        <div class="tw-flex tw-items-center tw-gap-1">
-          <a
-            href="/"
-            class="tw-flex tw-items-center tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
-          >
+      <div class="oo-mob-topbar">
+        <div class="oo-hdr-logo">
+          <a href="/" class="oo-hdr-logo-link">
             <img
               src="/docs/assets/o2-logo-readme.svg"
               alt="OpenObserve"
-              class="tw-h-7 tw-w-auto"
+              class="oo-hdr-logo-img"
             />
           </a>
-          <span
-            class="tw-text-gray-300 tw-font-light tw-text-lg tw-leading-none tw-select-none"
-            >/</span
-          >
-          <a
-            href="/docs/"
-            class="tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
-          >
-            <span
-              class="tw-text-[14px] tw-font-bold tw-text-[#7c3aed] tw-leading-none"
-              style="letter-spacing: 0.04em"
+          <span class="oo-hdr-slash">/</span>
+          <a href="/docs/" class="oo-hdr-docs-link">
+            <span class="oo-hdr-docs-text" style="letter-spacing: 0.04em"
               >DOCS</span
             >
           </a>
         </div>
-        <div class="tw-flex tw-items-center tw-gap-2">
-          <label
-            for="__search"
-            class="tw-w-9 tw-h-9 tw-rounded-full tw-border tw-border-[#e3e6f0] tw-bg-white tw-grid tw-place-items-center tw-text-[#2b2f44] hover:tw-border-[#c0c4d8] tw-transition-colors tw-cursor-pointer"
-            aria-label="Search"
-          >
+        <div class="oo-mob-actions">
+          <label for="__search" class="oo-mob-search-btn" aria-label="Search">
             <svg
               width="16"
               height="16"
@@ -1168,13 +904,13 @@
           <a
             href="/demo/"
             data-plausible-event="Demo+Button"
-            class="tw-bg-[#5b5bd6] tw-text-white tw-px-3.5 tw-py-2 tw-rounded-[9px] tw-font-semibold tw-text-[13px] tw-no-underline"
+            class="oo-mob-demo-btn"
             style="transition: background 0.15s"
             >Get Demo</a
           >
           <button
             id="mob-toggle"
-            class="tw-w-9 tw-h-9 tw-rounded-full tw-border tw-border-[#e3e6f0] tw-bg-white tw-grid tw-place-items-center tw-text-[#2b2f44] hover:tw-border-[#c0c4d8] tw-transition-colors tw-cursor-pointer"
+            class="oo-mob-toggle-btn"
             aria-label="Open menu"
             aria-expanded="false"
           >
@@ -1192,7 +928,7 @@
             </svg>
             <svg
               id="mob-icon-close"
-              class="tw-hidden"
+              class="is-hidden"
               width="16"
               height="16"
               viewBox="0 0 24 24"
@@ -1208,20 +944,17 @@
       </div>
 
       <!-- Full-screen overlay -->
-      <div
-        id="mobile-menu"
-        class="tw-fixed tw-inset-0 tw-top-[60px] tw-z-50 tw-bg-white tw-overflow-y-auto tw-hidden"
-      >
-        <nav class="tw-px-4 tw-py-2 tw-pb-8">
+      <div id="mobile-menu" class="oo-mob-menu is-hidden">
+        <nav class="oo-mob-nav">
           <!-- Platform accordion -->
-          <div class="tw-border-b tw-border-[#f1f3fb]">
+          <div class="oo-mob-acc-section">
             <button
-              class="mob-acc-btn tw-w-full tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-2 tw-font-medium tw-text-[15px] tw-text-[#2b2f44] tw-bg-transparent tw-border-0 tw-cursor-pointer tw-text-left"
+              class="mob-acc-btn oo-mob-acc-btn"
               data-target="mob-platform"
             >
               Platform
               <svg
-                class="mob-acc-chevron tw-w-4 tw-h-4 tw-text-[#6b7088] tw-shrink-0"
+                class="mob-acc-chevron oo-mob-chevron"
                 style="transition: transform 0.2s"
                 viewBox="0 0 24 24"
                 fill="none"
@@ -1235,185 +968,123 @@
             </button>
             <div
               id="mob-platform"
-              class="tw-hidden tw-pb-4 tw-flex tw-flex-col tw-gap-3"
+              class="oo-mob-panel oo-mob-panel-g3 is-hidden"
             >
-              <div
-                class="tw-border tw-border-[#e8eaf2] tw-rounded-[12px] tw-p-4 tw-text-center"
-              >
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-m-0 tw-mb-1.5"
-                >
+              <div class="oo-mob-promo">
+                <p class="oo-mob-promo-title">
                   Full Stack Observability Platform
                 </p>
-                <a
-                  href="/platform/"
-                  class="tw-text-[#5b5bd6] tw-text-sm tw-font-medium tw-no-underline hover:tw-underline"
+                <a href="/platform/" class="oo-mob-promo-link"
                   >View Platform &rarr;</a
                 >
               </div>
               <!-- 01 Collect -->
-              <div class="tw-rounded-xl">
-                <div
-                  class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1.5 tw-mb-0.5"
-                >
-                  <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-bg-white tw-text-[#5b5bd6] tw-border tw-border-[#e3e6f0]"
-                    >01</span
-                  ><span
-                    class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-[#0f1222]"
-                    >Collect</span
-                  >
+              <div class="oo-mob-section">
+                <div class="oo-mob-section-hdr">
+                  <span class="oo-plat-num">01</span
+                  ><span class="oo-plat-col-title">Collect</span>
                 </div>
                 <a href="/platform/logs/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/logs.svg"
                       alt="Logs"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Logs</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Logs</span></a
                 >
                 <a href="/platform/metrics/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/metrics.svg"
                       alt="Metrics"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Metrics</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Metrics</span></a
                 >
                 <a href="/platform/traces/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/traces.svg"
                       alt="Traces"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Traces</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Traces</span></a
                 >
                 <a href="/platform/frontend-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/frontend-monitoring.svg"
                       alt="Frontend Monitoring"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Frontend Monitoring</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Frontend Monitoring</span></a
                 >
               </div>
               <!-- 02 Analyze -->
-              <div class="tw-rounded-xl">
-                <div
-                  class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1.5 tw-mb-0.5"
-                >
-                  <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-bg-white tw-text-[#5b5bd6] tw-border tw-border-[#e3e6f0]"
-                    >02</span
-                  ><span
-                    class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-[#0f1222]"
-                    >Analyze</span
-                  >
+              <div class="oo-mob-section">
+                <div class="oo-mob-section-hdr">
+                  <span class="oo-plat-num">02</span
+                  ><span class="oo-plat-col-title">Analyze</span>
                 </div>
                 <a href="/platform/dashboards/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/visualization.svg"
                       alt="Dashboards"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Dashboards</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Dashboards</span></a
                 >
                 <a href="/platform/pipelines/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/pipelines.svg"
                       alt="Pipelines"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Pipelines</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Pipelines</span></a
                 >
               </div>
               <!-- 03 Respond -->
-              <div class="tw-rounded-xl">
-                <div
-                  class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1.5 tw-mb-0.5"
-                >
-                  <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-bg-white tw-text-[#5b5bd6] tw-border tw-border-[#e3e6f0]"
-                    >03</span
-                  ><span
-                    class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-[#0f1222]"
-                    >Respond</span
-                  >
+              <div class="oo-mob-section">
+                <div class="oo-mob-section-hdr">
+                  <span class="oo-plat-num">03</span
+                  ><span class="oo-plat-col-title">Respond</span>
                 </div>
                 <a href="/platform/alerts/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/alerts.svg"
                       alt="Alerts"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
-                    >Alerts</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Alerts</span></a
                 >
                 <a href="/platform/incidents/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                  ><span class="oo-mob-item-icon"
                     ><img
                       src="/docs/assets/nav-icons/incidents.svg"
                       alt="Incidents"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span
-                    class="tw-text-sm tw-leading-tight tw-flex-1 tw-text-[#2b2f44]"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text"
                     >Incidents <span class="badge-preview">Preview</span></span
                   ></a
                 >
               </div>
               <!-- 04 O11y 3.0 dark -->
               <div
-                class="tw-rounded-xl tw-p-2.5"
+                class="oo-mob-dark-section"
                 style="
                   background: linear-gradient(165deg, #14163a 0%, #2b1d6e 100%);
                 "
               >
-                <div
-                  class="tw-flex tw-items-center tw-gap-2 tw-px-2 tw-py-1.5 tw-mb-0.5"
-                >
+                <div class="oo-mob-section-hdr">
                   <span
-                    class="tw-w-5 tw-h-5 tw-rounded-[5px] tw-grid tw-place-items-center tw-font-bold tw-text-[10px] tw-leading-none tw-shrink-0 tw-text-white"
+                    class="oo-plat-dark-num"
                     style="
                       background: rgba(255, 255, 255, 0.14);
                       border: 1px solid rgba(255, 255, 255, 0.18);
                     "
                     >04</span
-                  ><span
-                    class="tw-font-bold tw-text-[11px] tw-uppercase tw-tracking-[0.1em] tw-text-white"
-                    >O11y 3.0</span
-                  >
+                  ><span class="oo-plat-dark-col-title">O11y 3.0</span>
                 </div>
                 <a href="/platform/llm-observability/" class="mob-nav-item-dark"
                   ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-grid tw-place-items-center tw-shrink-0"
+                    class="oo-mob-dark-icon"
                     style="
                       background: rgba(139, 92, 246, 0.35);
                       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1421,14 +1092,12 @@
                     ><img
                       src="/docs/assets/nav-icons/llm-observability.svg"
                       alt="LLM Observability"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-leading-tight tw-flex-1"
-                    >LLM Observability</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">LLM Observability</span></a
                 >
                 <a href="/platform/ai-assistant/" class="mob-nav-item-dark"
                   ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-grid tw-place-items-center tw-shrink-0"
+                    class="oo-mob-dark-icon"
                     style="
                       background: rgba(59, 130, 246, 0.35);
                       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1436,14 +1105,12 @@
                     ><img
                       src="/docs/assets/nav-icons/ai-assistant.svg"
                       alt="AI Assistant"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-leading-tight tw-flex-1"
-                    >AI Assistant</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">AI Assistant</span></a
                 >
                 <a href="/platform/ai-sre/" class="mob-nav-item-dark"
                   ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-grid tw-place-items-center tw-shrink-0"
+                    class="oo-mob-dark-icon"
                     style="
                       background: rgba(249, 115, 22, 0.35);
                       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1451,14 +1118,12 @@
                     ><img
                       src="/docs/assets/nav-icons/ai-sre.svg"
                       alt="AI SRE"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-leading-tight tw-flex-1"
-                    >AI SRE</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">AI SRE</span></a
                 >
                 <a href="/platform/mcp-server/" class="mob-nav-item-dark"
                   ><span
-                    class="tw-w-8 tw-h-8 tw-rounded-[9px] tw-grid tw-place-items-center tw-shrink-0"
+                    class="oo-mob-dark-icon"
                     style="
                       background: rgba(20, 184, 166, 0.35);
                       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1466,24 +1131,22 @@
                     ><img
                       src="/docs/assets/nav-icons/mcp-server.svg"
                       alt="MCP Server"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-leading-tight tw-flex-1"
-                    >MCP Server</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">MCP Server</span></a
                 >
               </div>
             </div>
           </div>
 
           <!-- Solutions accordion -->
-          <div class="tw-border-b tw-border-[#f1f3fb]">
+          <div class="oo-mob-acc-section">
             <button
-              class="mob-acc-btn tw-w-full tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-2 tw-font-medium tw-text-[15px] tw-text-[#2b2f44] tw-bg-transparent tw-border-0 tw-cursor-pointer tw-text-left"
+              class="mob-acc-btn oo-mob-acc-btn"
               data-target="mob-solutions"
             >
               Solutions
               <svg
-                class="mob-acc-chevron tw-w-4 tw-h-4 tw-text-[#6b7088] tw-shrink-0"
+                class="mob-acc-chevron oo-mob-chevron"
                 style="transition: transform 0.2s"
                 viewBox="0 0 24 24"
                 fill="none"
@@ -1497,142 +1160,101 @@
             </button>
             <div
               id="mob-solutions"
-              class="tw-hidden tw-pb-4 tw-flex tw-flex-col tw-gap-4"
+              class="oo-mob-panel oo-mob-panel-g4 is-hidden"
             >
-              <div
-                class="tw-border tw-border-[#e8eaf2] tw-rounded-[12px] tw-p-4 tw-text-center"
-              >
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-m-0 tw-mb-1.5"
-                >
+              <div class="oo-mob-promo">
+                <p class="oo-mob-promo-title">
                   Full Stack Observability Solutions
                 </p>
-                <a
-                  href="/solutions/"
-                  class="tw-text-[#5b5bd6] tw-text-sm tw-font-medium tw-no-underline hover:tw-underline"
+                <a href="/solutions/" class="oo-mob-promo-link"
                   >View Solutions &rarr;</a
                 >
               </div>
               <div>
-                <p
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#6b7088] tw-px-2 tw-pb-1.5 tw-mb-1 tw-border-b tw-border-dashed tw-border-gray-200 tw-m-0"
-                >
-                  Cloud &amp; Infrastructure
-                </p>
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-px-2 tw-mb-1 tw-m-0 tw-mt-3"
-                >
-                  Cloud Monitoring
-                </p>
+                <p class="oo-mob-sol-col-hdr">Cloud &amp; Infrastructure</p>
+                <p class="oo-mob-sol-section-title">Cloud Monitoring</p>
                 <a href="/solutions/aws-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#f6f7fb] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/aws.svg"
                       alt="AWS"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-text-[#2b2f44]"
-                    >AWS Monitoring</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">AWS Monitoring</span></a
                 >
                 <a href="/solutions/gcp-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#f6f7fb] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/gcp.svg"
                       alt="GCP"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-text-[#2b2f44]"
-                    >GCP Monitoring</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">GCP Monitoring</span></a
                 >
                 <a href="/solutions/azure-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#f6f7fb] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/azure.svg"
                       alt="Azure"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-text-[#2b2f44]"
-                    >Azure Monitoring</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">Azure Monitoring</span></a
                 >
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-px-2 tw-mb-1 tw-m-0 tw-mt-3"
-                >
+                <p class="oo-mob-sol-section-title">
                   Infrastructure Monitoring
                 </p>
                 <a href="/solutions/kubernetes-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#f6f7fb] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon"
                     ><img
                       src="/docs/assets/nav-icons/kubernetes.svg"
                       alt="Kubernetes"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-text-sm tw-text-[#2b2f44]"
-                    >Kubernetes Monitoring</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">Kubernetes Monitoring</span></a
                 >
               </div>
               <div>
-                <p
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#6b7088] tw-px-2 tw-pb-1.5 tw-mb-1 tw-border-b tw-border-dashed tw-border-gray-200 tw-m-0"
-                >
-                  Apps &amp; Services
-                </p>
+                <p class="oo-mob-sol-col-hdr">Apps &amp; Services</p>
                 <a href="/solutions/network-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#eef0ff] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon-blue"
                     ><img
                       src="/docs/assets/nav-icons/metrics.svg"
                       alt="Network"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-sm tw-text-[#2b2f44]"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-med-text"
                     >Network Monitoring</span
                   ></a
                 >
                 <a href="/solutions/database-monitoring/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#eef0ff] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon-blue"
                     ><img
                       src="/docs/assets/nav-icons/database.svg"
                       alt="Database"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-sm tw-text-[#2b2f44]"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-med-text"
                     >Database Monitoring</span
                   ></a
                 >
               </div>
               <div>
-                <p
-                  class="tw-font-semibold tw-text-[11px] tw-uppercase tw-tracking-[0.09em] tw-text-[#6b7088] tw-px-2 tw-pb-1.5 tw-mb-1 tw-border-b tw-border-dashed tw-border-gray-200 tw-m-0"
-                >
-                  AI &amp; Telemetry
-                </p>
+                <p class="oo-mob-sol-col-hdr">AI &amp; Telemetry</p>
                 <a href="/solutions/opentelemetry/" class="mob-nav-item"
-                  ><span
-                    class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-bg-[#eef0ff] tw-shrink-0"
+                  ><span class="oo-mob-sol-icon-blue"
                     ><img
                       src="/docs/assets/nav-icons/opentelemetry.svg"
                       alt="OpenTelemetry"
-                      class="tw-w-4 tw-h-4" /></span
-                  ><span class="tw-font-medium tw-text-sm tw-text-[#2b2f44]"
-                    >OpenTelemetry</span
-                  ></a
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-med-text">OpenTelemetry</span></a
                 >
               </div>
             </div>
           </div>
 
           <!-- Resources accordion -->
-          <div class="tw-border-b tw-border-[#f1f3fb]">
+          <div class="oo-mob-acc-section">
             <button
-              class="mob-acc-btn tw-w-full tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-2 tw-font-medium tw-text-[15px] tw-text-[#2b2f44] tw-bg-transparent tw-border-0 tw-cursor-pointer tw-text-left"
+              class="mob-acc-btn oo-mob-acc-btn"
               data-target="mob-resources"
             >
               Resources
               <svg
-                class="mob-acc-chevron tw-w-4 tw-h-4 tw-text-[#6b7088] tw-shrink-0"
+                class="mob-acc-chevron oo-mob-chevron"
                 style="transition: transform 0.2s"
                 viewBox="0 0 24 24"
                 fill="none"
@@ -1646,19 +1268,11 @@
             </button>
             <div
               id="mob-resources"
-              class="tw-hidden tw-pb-4 tw-flex tw-flex-col tw-gap-0.5"
+              class="oo-mob-panel oo-mob-panel-g05 is-hidden"
             >
-              <div
-                class="tw-border tw-border-[#e8eaf2] tw-rounded-[12px] tw-p-4 tw-text-center tw-mb-1"
-              >
-                <p
-                  class="tw-font-semibold tw-text-[15px] tw-text-[#0f1222] tw-m-0 tw-mb-1.5"
-                >
-                  Explore All Resources
-                </p>
-                <a
-                  href="/resources/"
-                  class="tw-text-[#5b5bd6] tw-text-sm tw-font-medium tw-no-underline hover:tw-underline"
+              <div class="oo-mob-promo oo-mob-promo-mb">
+                <p class="oo-mob-promo-title">Explore All Resources</p>
+                <a href="/resources/" class="oo-mob-promo-link"
                   >View Resources &rarr;</a
                 >
               </div>
@@ -1667,148 +1281,102 @@
                 target="_blank"
                 rel="noopener"
                 class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/documentation.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Documentation</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Documentation</span></a
               >
               <a href="/blog/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/blog.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Blog</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Blog</span></a
               >
               <a href="/faqs/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/faqs.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text"
                   >Frequently Asked Questions</span
                 ></a
               >
               <a href="/customer-stories/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/customer-stories.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Customer Stories</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Customer Stories</span></a
               >
               <a href="/downloads/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/downloads.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Downloads</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Downloads</span></a
               >
               <a href="/webinars/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/videos.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Webinar and Videos</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Webinar and Videos</span></a
               >
               <a href="/events/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/events.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Events</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Events</span></a
               >
               <a href="/startup-program/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/startup.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Startup Program</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Startup Program</span></a
               >
               <a href="/partners/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/partners.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Partners</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Partners</span></a
               >
               <a href="/comparison/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/comparison.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >OpenObserve Vs Others</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">OpenObserve Vs Others</span></a
               >
               <a href="/datadog-bill-analyzer/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/bill-analyzer.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >Datadog Bill Analyzer</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Datadog Bill Analyzer</span></a
               >
               <a href="/whats-new/" class="mob-nav-item"
-                ><span
-                  class="tw-w-7 tw-h-7 tw-rounded-[8px] tw-grid tw-place-items-center tw-shrink-0 tw-bg-[#f6f7fb]"
+                ><span class="oo-mob-res-icon"
                   ><img
                     src="/docs/assets/nav-icons/whats-new.svg"
                     alt=""
-                    class="tw-w-4 tw-h-4" /></span
-                ><span
-                  class="tw-font-medium tw-text-[13px] tw-leading-tight tw-text-[#2b2f44]"
-                  >What's New</span
-                ></a
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">What's New</span></a
               >
             </div>
           </div>
@@ -1816,17 +1384,17 @@
           <!-- Pricing -->
           <a
             href="/pricing/"
-            class="tw-flex tw-items-center tw-py-4 tw-px-2 tw-font-medium tw-text-[15px] tw-text-[#2b2f44] tw-no-underline tw-border-b tw-border-[#f1f3fb]"
+            class="oo-mob-pricing-link"
             style="transition: color 0.15s"
             >Pricing</a
           >
 
           <!-- CTAs -->
-          <div class="tw-mt-5 tw-flex tw-flex-col tw-gap-2.5">
+          <div class="oo-mob-ctas">
             <a
               href="/demo/"
               data-plausible-event="Demo+Button"
-              class="tw-bg-[#5b5bd6] tw-text-white tw-text-center tw-rounded-[10px] tw-py-3 tw-font-semibold tw-text-sm tw-no-underline"
+              class="oo-mob-cta-demo"
               style="transition: background 0.15s"
               >Get Demo</a
             >
@@ -1834,7 +1402,7 @@
               href="https://cloud.openobserve.ai"
               target="_blank"
               rel="noopener"
-              class="tw-border tw-border-[#e3e6f0] tw-text-[#2b2f44] tw-text-center tw-rounded-[10px] tw-py-3 tw-font-medium tw-text-sm tw-no-underline tw-transition-colors hover:tw-border-[#c0c4d8]"
+              class="oo-mob-cta-login"
               >Log In</a
             >
           </div>
@@ -1863,14 +1431,14 @@
         megaMenus.forEach(function (o) {
           if (o.menu !== m.menu) {
             var el = document.getElementById(o.menu);
-            if (el) el.classList.add("tw-hidden");
+            if (el) el.classList.add("is-hidden");
           }
         });
-        menuEl.classList.remove("tw-hidden");
+        menuEl.classList.remove("is-hidden");
       }
       function hide() {
         timer = setTimeout(function () {
-          menuEl.classList.add("tw-hidden");
+          menuEl.classList.add("is-hidden");
         }, 300);
       }
       liEl.addEventListener("mouseenter", show);
@@ -1888,7 +1456,7 @@
           !liEl.contains(e.target) &&
           !menuEl.contains(e.target)
         )
-          menuEl.classList.add("tw-hidden");
+          menuEl.classList.add("is-hidden");
       });
     });
 
@@ -1907,7 +1475,7 @@
           var el = document.getElementById("gh-stars");
           if (el) {
             el.textContent = s;
-            el.classList.remove("tw-hidden");
+            el.classList.remove("is-hidden");
           }
         }
       })
@@ -1921,7 +1489,7 @@
     if (loginWrap && loginBtn && loginMenu) {
       var items = Array.from(loginMenu.querySelectorAll('[role="menuitem"]'));
       function setLogin(open) {
-        loginMenu.classList.toggle("tw-hidden", !open);
+        loginMenu.classList.toggle("is-hidden", !open);
         loginBtn.setAttribute("aria-expanded", String(open));
         if (loginIcon) loginIcon.style.transform = open ? "rotate(180deg)" : "";
       }
@@ -1965,10 +1533,10 @@
     var mobIconClose = document.getElementById("mob-icon-close");
     if (mobToggle && mobMenu) {
       mobToggle.addEventListener("click", function () {
-        var isOpen = !mobMenu.classList.contains("tw-hidden");
-        mobMenu.classList.toggle("tw-hidden", isOpen);
-        if (mobIconOpen) mobIconOpen.classList.toggle("tw-hidden", !isOpen);
-        if (mobIconClose) mobIconClose.classList.toggle("tw-hidden", isOpen);
+        var isOpen = !mobMenu.classList.contains("is-hidden");
+        mobMenu.classList.toggle("is-hidden", isOpen);
+        if (mobIconOpen) mobIconOpen.classList.toggle("is-hidden", !isOpen);
+        if (mobIconClose) mobIconClose.classList.toggle("is-hidden", isOpen);
         mobToggle.setAttribute("aria-expanded", String(!isOpen));
         mobToggle.setAttribute(
           "aria-label",
@@ -1984,15 +1552,15 @@
         var targetId = btn.getAttribute("data-target");
         var panel = document.getElementById(targetId);
         var chevron = btn.querySelector(".mob-acc-chevron");
-        var isOpen = panel && !panel.classList.contains("tw-hidden");
+        var isOpen = panel && !panel.classList.contains("is-hidden");
         accBtns.forEach(function (b) {
           var p = document.getElementById(b.getAttribute("data-target"));
           var c = b.querySelector(".mob-acc-chevron");
-          if (p) p.classList.add("tw-hidden");
+          if (p) p.classList.add("is-hidden");
           if (c) c.style.transform = "";
         });
         if (!isOpen && panel) {
-          panel.classList.remove("tw-hidden");
+          panel.classList.remove("is-hidden");
           if (chevron) chevron.style.transform = "rotate(180deg)";
         }
       });
@@ -2182,5 +1750,988 @@
   }
   .mob-nav-item-dark:hover {
     background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* ── State utilities ──────────────────────────── */
+  .is-hidden {
+    display: none !important;
+  }
+
+  /* ── Header root / desktop ────────────────────── */
+  .oo-hdr-root {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 50;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .oo-desktop-hdr {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    .oo-desktop-hdr {
+      display: block;
+    }
+  }
+
+  .oo-hdr-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    height: 84px;
+    padding: 0 56px;
+    position: relative;
+  }
+
+  /* ── Logo ─────────────────────────────────────── */
+  .oo-hdr-logo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .oo-hdr-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .oo-hdr-logo-link:hover {
+    opacity: 0.8;
+  }
+  .oo-hdr-logo-img {
+    height: 28px;
+    width: auto;
+  }
+  .oo-hdr-slash {
+    color: #d1d5db;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1;
+    user-select: none;
+  }
+  .oo-hdr-docs-link {
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .oo-hdr-docs-link:hover {
+    opacity: 0.8;
+  }
+  .oo-hdr-docs-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7c3aed;
+    line-height: 1;
+  }
+
+  /* ── Nav bar ─────────────────────────────────── */
+  .oo-hdr-nav {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+  }
+  .oo-hdr-nav-item {
+    position: relative;
+  }
+
+  /* ── Mega menu wrappers ───────────────────────── */
+  .oo-mega-wrap {
+    position: absolute;
+    z-index: 50;
+  }
+  .oo-mega-nav {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 16px;
+    display: grid;
+    position: relative;
+  }
+  .oo-mega-platform {
+    grid-template-columns: 1fr 1fr 1fr 1.05fr;
+    grid-template-rows: 1fr auto;
+    min-width: 1150px;
+    gap: 16px;
+    padding: 16px 16px 24px;
+  }
+  .oo-mega-solutions {
+    grid-template-columns: 1fr 1fr 1fr 380px;
+    grid-template-rows: 1fr auto;
+    min-width: 1120px;
+    padding: 28px 28px 22px;
+    gap: 28px;
+  }
+  .oo-mega-resources {
+    min-width: 780px;
+    padding: 20px 24px 24px;
+  }
+
+  /* ── Platform columns ────────────────────────── */
+  .oo-plat-col {
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background: #fafbff;
+    border: 1px solid #f1f3fb;
+  }
+  .oo-plat-col-hdr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px 14px;
+  }
+  .oo-plat-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    flex-shrink: 0;
+    background: white;
+    color: #5b5bd6;
+    border: 1px solid #e3e6f0;
+  }
+  .oo-plat-col-title {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0f1222;
+  }
+  .oo-plat-col-sub {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7088;
+    margin-left: auto;
+  }
+  .oo-plat-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* ── Mega icon / item ────────────────────────── */
+  .oo-mega-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: #f6f7fb;
+  }
+  .oo-icon-sm {
+    width: 16px;
+    height: 16px;
+  }
+  .oo-mega-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .oo-mega-item-sub {
+    font-size: 12px;
+    color: #6b7088;
+    line-height: 1.25;
+  }
+  .oo-mega-item-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+  .oo-mega-item-title-inline {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* ── Platform dark column (O11y 3.0) ────────── */
+  .oo-plat-dark-col {
+    border-radius: 14px;
+    padding: 12px;
+  }
+  .oo-plat-dark-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: white;
+  }
+  .oo-plat-dark-col-title {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: white;
+  }
+  .oo-plat-dark-col-sub {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #b7baff;
+    margin-left: auto;
+  }
+
+  /* ── AI mega icons ───────────────────────────── */
+  .oo-mega-ai-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-mega-ai-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 2px;
+    color: #e6e7ff;
+  }
+  .oo-mega-ai-sub {
+    font-size: 12px;
+    color: #8b8fb8;
+    line-height: 1.25;
+  }
+
+  /* ── Platform footer row ─────────────────────── */
+  .oo-mega-footer {
+    grid-column: span 4;
+    padding: 14px 8px;
+    margin-top: 4px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    color: #6b7088;
+  }
+  .oo-mega-footer-links {
+    display: flex;
+    gap: 16px;
+  }
+  .oo-mega-ftr-link {
+    text-decoration: none;
+    color: #6b7088;
+  }
+  .oo-mega-ftr-link:hover {
+    color: #2b2f44;
+    text-decoration: underline;
+  }
+  .oo-mega-ftr-cta {
+    color: #2b2f44;
+    text-decoration: none;
+  }
+  .oo-mega-ftr-cta:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Solutions columns ───────────────────────── */
+  .oo-sol-col-hdr {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #6b7088;
+    padding: 0 10px 10px;
+    margin: 0 0 6px;
+    border-bottom: 1px dashed #e5e7eb;
+  }
+  .oo-sol-section-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f1222;
+    padding: 0 10px;
+    margin: 12px 0 4px;
+  }
+  .oo-sol-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #f6f7fb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-sol-text-sm {
+    font-size: 14px;
+  }
+  .oo-sol-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .oo-sol-item-sub {
+    font-size: 12px;
+    color: #6b7088;
+  }
+
+  /* ── Solutions panel stats ─────────────────── */
+  .oo-sol-stats {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .oo-sol-stat {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 9px;
+    padding: 20px 6px 10px;
+    min-width: 0;
+  }
+  .oo-sol-stat-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    line-height: 1.25;
+    white-space: nowrap;
+    border: 1px solid;
+    display: inline-block;
+  }
+  .oo-sol-stat-prefix {
+    font-size: 9px;
+    color: #c8caec;
+    line-height: 1;
+  }
+  .oo-sol-stat-value {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: white;
+  }
+  .oo-sol-stat-unit {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: -0.025em;
+  }
+  .oo-sol-stat-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.25;
+    margin-top: 4px;
+  }
+  .oo-sol-cta-primary {
+    font-weight: 600;
+    font-size: 13px;
+    color: #0f1222;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: white;
+  }
+  .oo-sol-cta-primary:hover {
+    background: #f0f0f8;
+    color: #0f1222;
+  }
+  .oo-sol-cta-secondary {
+    font-weight: 600;
+    font-size: 13px;
+    color: white;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .oo-sol-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  /* ── Solutions panel ─────────────────────────── */
+  .oo-sol-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .oo-sol-panel-label {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #a0a4c0;
+  }
+  .oo-sol-panel-h3 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: white;
+  }
+  .oo-sol-panel-desc {
+    font-size: 13px;
+    color: #a0a4c0;
+    margin: 0;
+    line-height: 1.625;
+  }
+  .oo-sol-panel-ctas {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .oo-sol-demo-btn {
+    background: #5b5bd6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .oo-sol-demo-btn:hover {
+    background: #4e4ec7;
+  }
+  .oo-sol-see-all {
+    color: #e6e7ff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .oo-sol-see-all:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Solutions footer row ────────────────────── */
+  .oo-sol-footer {
+    grid-column: span 4;
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    color: #6b7088;
+  }
+
+  /* ── Resources grid ──────────────────────────── */
+  .oo-res-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .oo-res-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #f6f7fb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-mega-nav .oo-res-text {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+  }
+
+  /* ── Right actions ───────────────────────────── */
+  .oo-hdr-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .oo-hdr-search-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid #e3e6f0;
+    background: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: #2b2f44;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
+  }
+  .oo-hdr-search-btn:hover {
+    border-color: #c0c4d8;
+    color: #0f1222;
+  }
+  .oo-hdr-demo-btn {
+    background: #5b5bd6;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .oo-hdr-demo-btn:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+
+  .oo-login-wrap {
+    position: relative;
+  }
+  .oo-hdr-login-btn {
+    background: white;
+    border: 1px solid #e3e6f0;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2b2f44;
+    transition: border-color 0.15s;
+  }
+  .oo-hdr-login-btn:hover {
+    border-color: #c0c4d8;
+  }
+  .oo-hdr-login-arrow {
+    height: 12px;
+    width: 12px;
+    flex-shrink: 0;
+  }
+  .oo-hdr-login-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    width: 288px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    z-index: 50;
+    overflow: hidden;
+  }
+  .oo-login-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.15s;
+  }
+  .oo-login-orange:hover {
+    background: #fff7ed;
+  }
+  .oo-login-blue:hover {
+    background: #eff6ff;
+  }
+  .oo-login-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .oo-login-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .oo-login-item-name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .oo-login-orange-name {
+    color: #1f2937;
+  }
+  .oo-login-orange:hover .oo-login-orange-name {
+    color: #b45309;
+  }
+  .oo-login-blue-name {
+    color: #1f2937;
+  }
+  .oo-login-blue:hover .oo-login-blue-name {
+    color: #1d4ed8;
+  }
+  .oo-login-item-url {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .oo-login-item-region {
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  .oo-hdr-github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e3e6f0;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    text-decoration: none;
+    color: #2b2f44;
+    white-space: nowrap;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
+  }
+  .oo-hdr-github-btn:hover {
+    border-color: #c0c4d8;
+    color: #0f1222;
+  }
+  .oo-gh-stars {
+    background: #f6f7fb;
+    padding: 4px 7px;
+    border-radius: 6px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: #2b2f44;
+    font-size: 12px;
+  }
+
+  /* ── Theme toggle ─────────────────────────────── */
+  /* Force icons to dark so they stay visible on the always-white header */
+  .oo-hdr-root .custom-theme-toggle {
+    color: #2b2f44;
+  }
+  .oo-hdr-root .custom-icon {
+    filter: brightness(0) saturate(100%);
+    display: block;
+  }
+
+  /* ── Mobile header ───────────────────────────── */
+  .oo-mobile-hdr {
+    display: block;
+  }
+  @media (min-width: 1280px) {
+    .oo-mobile-hdr {
+      display: none;
+    }
+  }
+
+  .oo-mob-hdr-inner {
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    position: relative;
+  }
+  .oo-mob-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid #eceef5;
+  }
+  .oo-mob-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .oo-mob-search-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    border: 1px solid #e3e6f0;
+    background: white;
+    display: grid;
+    place-items: center;
+    color: #2b2f44;
+    transition: border-color 0.15s;
+    cursor: pointer;
+  }
+  .oo-mob-search-btn:hover {
+    border-color: #c0c4d8;
+  }
+  .oo-mob-demo-btn {
+    background: #5b5bd6;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .oo-mob-demo-btn:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+  .oo-mob-toggle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    border: 1px solid #e3e6f0;
+    background: white;
+    display: grid;
+    place-items: center;
+    color: #2b2f44;
+    transition: border-color 0.15s;
+    cursor: pointer;
+  }
+  .oo-mob-toggle-btn:hover {
+    border-color: #c0c4d8;
+  }
+  .oo-mob-menu {
+    position: fixed;
+    inset: 0;
+    top: 60px;
+    z-index: 50;
+    background: white;
+    overflow-y: auto;
+  }
+  .oo-mob-nav {
+    padding: 8px 16px 32px;
+  }
+  .oo-mob-acc-section {
+    border-bottom: 1px solid #f1f3fb;
+  }
+  .oo-mob-acc-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 8px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #2b2f44;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+  }
+  .oo-mob-chevron {
+    width: 16px;
+    height: 16px;
+    color: #6b7088;
+    flex-shrink: 0;
+  }
+  .oo-mob-panel {
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .oo-mob-panel-g3 {
+    gap: 12px;
+  }
+  .oo-mob-panel-g4 {
+    gap: 16px;
+  }
+  .oo-mob-panel-g05 {
+    gap: 2px;
+  }
+  .oo-mob-promo {
+    border: 1px solid #e8eaf2;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .oo-mob-promo-mb {
+    margin-bottom: 4px;
+  }
+  .oo-mob-promo-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f1222;
+    margin: 0 0 6px;
+  }
+  .oo-mob-promo-link {
+    color: #5b5bd6;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .oo-mob-promo-link:hover {
+    text-decoration: underline;
+  }
+  .oo-mob-section {
+    border-radius: 12px;
+  }
+  .oo-mob-section-hdr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px 6px;
+    margin-bottom: 2px;
+  }
+  .oo-mob-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    border: 1px solid #e5e7eb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: #f6f7fb;
+  }
+  .oo-mob-item-text {
+    font-size: 14px;
+    line-height: 1.25;
+    flex: 1;
+    color: #2b2f44;
+  }
+  .oo-mob-dark-section {
+    border-radius: 12px;
+    padding: 10px;
+  }
+  .oo-mob-dark-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-mob-dark-text {
+    font-size: 14px;
+    line-height: 1.25;
+    flex: 1;
+  }
+  .oo-mob-sol-col-hdr {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #6b7088;
+    padding: 0 8px 6px;
+    margin: 0 0 4px;
+    border-bottom: 1px dashed #e5e7eb;
+  }
+  .oo-mob-sol-section-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f1222;
+    padding: 0 8px;
+    margin: 12px 0 4px;
+  }
+  .oo-mob-sol-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: #f6f7fb;
+    flex-shrink: 0;
+  }
+  .oo-mob-sol-text {
+    font-size: 14px;
+    color: #2b2f44;
+  }
+  .oo-mob-sol-icon-blue {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: #eef0ff;
+    flex-shrink: 0;
+  }
+  .oo-mob-sol-med-text {
+    font-weight: 500;
+    font-size: 14px;
+    color: #2b2f44;
+  }
+  .oo-mob-res-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: #f6f7fb;
+  }
+  .oo-mob-res-text {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.25;
+    color: #2b2f44;
+  }
+  .oo-mob-pricing-link {
+    display: flex;
+    align-items: center;
+    padding: 16px 8px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #2b2f44;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f3fb;
+  }
+  .oo-mob-ctas {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .oo-mob-cta-demo {
+    background: #5b5bd6;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .oo-mob-cta-demo:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+  .oo-mob-cta-login {
+    border: 1px solid #e3e6f0;
+    color: #2b2f44;
+    text-align: center;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .oo-mob-cta-login:hover {
+    border-color: #c0c4d8;
   }
 </style>
