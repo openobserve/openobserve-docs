@@ -22,10 +22,16 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 - Multi-data source correlation and troubleshooting
 - Script generation (Python/VRL)
 - Query validation before execution
+- Context-aware on the Traces page (picks up the current stream, time range, search mode, and selected trace) and presents summarized tool results for readability
+
+### Custom Toolsets & Skills (Enterprise)
+
+The SRE Agent can be extended with org-scoped custom toolsets that are loaded into the agent's available tools for chat and RCA requests. Supported toolset kinds are MCP, CLI, skill, and generic. Manage them under **Management > AI Toolsets**.
 
 ### Incident Management & RCA
 - Automated incident detection and grouping
 - AI-powered Root Cause Analysis
+- Automated RCA reanalysis (append-only delta analysis triggered on incident lifecycle events)
 - Alert correlation and event tracking
 - Incident lifecycle management
 
@@ -171,6 +177,7 @@ enterprise:
     O2_INCIDENTS_RCA_ENABLED: "true"
     O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES: "-1"
     O2_INCIDENTS_ALERT_GRAPH_ENABLED: "true"
+    O2_INCIDENTS_REANALYSIS_COOLDOWN_MINUTES: "30"  # Minimum minutes between automatic reanalysis runs (user-triggered reanalysis bypasses it)
 
 auth:
   O2_AI_API_KEY: "your-api-key-here"

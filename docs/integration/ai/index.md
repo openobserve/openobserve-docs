@@ -9,6 +9,8 @@ OpenObserve provides comprehensive observability for AI and LLM applications, co
 
 These integrations use OpenTelemetry to send traces and metrics to OpenObserve, giving you a unified view of your AI application performance, cost, and reliability.
 
+You can browse these integrations directly in OpenObserve under **Ingestion → AI Integrations**, which provides the connection snippet (endpoint, organization, and auth token) and links to each integration's guide.
+
 ## AI Integration Categories
 
 - [Frameworks](frameworks/index.md): Instrument AI orchestration and agent frameworks (LangChain, CrewAI, LlamaIndex, AutoGen, and more)

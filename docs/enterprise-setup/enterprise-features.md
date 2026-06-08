@@ -55,4 +55,4 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 ##### Storage & Data Residency
 
-- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket or Azure Blob container to OpenObserve Cloud — keep data in your account, region, and security perimeter – [Learn more](../administration/maintenance/storage-management/bring-your-own-bucket.md)
+- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket, Azure Blob container, or Google Cloud Storage (GCS) bucket to OpenObserve Cloud, keeping data in your account, region, and security perimeter. AWS supports both access keys and IAM Role ARN (STS assume-role with External ID) authentication – [Learn more](../administration/maintenance/storage-management/bring-your-own-bucket.md)

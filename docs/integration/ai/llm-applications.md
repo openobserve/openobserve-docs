@@ -158,6 +158,19 @@ The `opentelemetry-instrumentation-openai` library attaches the following attrib
 | `duration` | End-to-end request latency |
 | `error` | Exception details if the request failed |
 
+In addition, OpenObserve computes and stores the following token and cost fields on each LLM span:
+
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `llm_usage_tokens_input` | Int64 | Input (prompt) tokens |
+| `llm_usage_tokens_output` | Int64 | Output (completion) tokens |
+| `llm_usage_tokens_total` | Int64 | Total tokens consumed |
+| `llm_usage_cost_input` | Float64 | Cost of input tokens |
+| `llm_usage_cost_output` | Float64 | Cost of output tokens |
+| `llm_usage_cost_total` | Float64 | Total cost of the LLM call |
+
+The cost fields (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cost_total`) are populated only when the Model Pricing feature is enabled (`ZO_MODEL_PRICING_ENABLED`).
+
 ## **Viewing traces in OpenObserve**
 
 1. Log in to your OpenObserve instance  
@@ -172,6 +185,27 @@ The `opentelemetry-instrumentation-openai` library attaches the following attrib
 ![LLM Traces](../images/llm-applications/llm-span-attributes.png)
 
 
+
+## **LLM Evaluations**
+
+> **Enterprise feature.**
+
+OpenObserve can automatically evaluate your LLM traces using an LLM-evaluation pipeline. This lets you score model responses against criteria such as correctness, relevance, or safety without leaving OpenObserve.
+
+**How it works**
+
+1. Set up an LLM-evaluation pipeline on a traces stream.
+2. As LLM traces arrive, the pipeline runs the configured evaluation and writes the results to a separate output stream named `<stream>_evaluations` (for example, a `default` stream produces `default_evaluations`).
+3. Per-trace evaluation results appear in an **Evaluations** tab in the trace detail view. This tab is shown only for LLM traces that have associated evaluation data.
+
+**Eval Templates**
+
+Evaluation logic is defined by Eval Templates, managed from the enterprise **Eval Templates** tab. Each template specifies:
+
+* **response_type**: the expected shape of the evaluation response
+* **dimensions**: the criteria the trace is evaluated against
+* **content**: the prompt/instructions used to perform the evaluation
+* **versioning**: templates are versioned so you can iterate without losing earlier definitions
 
 ## **Troubleshooting**
 

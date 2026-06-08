@@ -1,16 +1,19 @@
 ---
-title: Bring Your Own Bucket (BYOB) — Use Your Own S3 or Azure Blob Storage | OpenObserve
+title: Bring Your Own Bucket (BYOB) - Use Your Own S3, Azure Blob, or GCS Storage | OpenObserve
 description: >-
   Bring Your Own Bucket (BYOB) lets OpenObserve Cloud write telemetry data
-  directly to an AWS S3 bucket or Azure Blob container in your account, so
-  your data stays in your region and under your security policies.
-keywords: 'openobserve, byob, bring your own bucket, s3, azure blob, data residency, compliance, cloud'
+  directly to an AWS S3 bucket, Azure Blob container, or Google Cloud Storage
+  bucket in your account, so your data stays in your region and under your
+  security policies.
+keywords: 'openobserve, byob, bring your own bucket, s3, azure blob, gcp, gcs, google cloud storage, role arn, sts, external id, data residency, compliance, cloud'
 ---
 # Bring Your Own Bucket (BYOB)
 
 OpenObserve is built around object storage. **Bring Your Own Bucket (BYOB)** lets you decide exactly where that data lives.
 
-Instead of using OpenObserve-managed storage, you can connect your own **AWS S3 bucket** or **Azure Blob container** directly. Your data stays in your account, in your region, and under your own security policies and access controls. OpenObserve handles ingestion, compaction, and queries against it.
+Instead of using OpenObserve-managed storage, you can connect your own **AWS S3 bucket**, **Azure Blob container**, or **Google Cloud Storage (GCS) bucket** directly. Your data stays in your account, in your region, and under your own security policies and access controls. OpenObserve handles ingestion, compaction, and queries against it.
+
+For AWS, you can authenticate using either **access keys** (access key ID and secret access key) or an **IAM Role ARN** (STS assume-role with an External ID). Azure and GCS use their respective account credentials.
 
 !!! tip "Get it enabled!"
     If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact).
@@ -43,9 +46,37 @@ Instead of using OpenObserve-managed storage, you can connect your own **AWS S3 
 
 ## Regional and Provider Constraints
 
-Your storage bucket **must reside in the same region and use the same cloud provider** as the OpenObserve Cloud it's connected to.
+Your storage bucket **must reside in the same region and use the same cloud provider** as the OpenObserve Cloud it's connected to. The region you enter must match the installation's configured region.
 
-**Cross-region and cross-provider configurations are not supported.** For example, an OpenObserve Cloud tier running on AWS `us-west-1` cannot use an S3 bucket in `us-east-1`, and cannot use an Azure Blob container at all.
+**Cross-region and cross-provider configurations are not supported.** For example, an OpenObserve Cloud tier running on AWS `us-west-1` cannot use an S3 bucket in `us-east-1`, and cannot use an Azure Blob container or a GCS bucket at all.
+
+**The provider type cannot be changed after initial setup.** Choose your provider (AWS S3, Azure Blob, or GCS) carefully during the first configuration. You can update the bucket name and credentials later, but switching providers requires reconfiguration with assistance from OpenObserve support.
+
+## Configure Storage (Self-Service)
+
+You can configure your own bucket directly from the OpenObserve UI under **Settings → Storage Settings**, without contacting support.
+
+In the **Storage Settings** tab:
+
+1. **Pick a provider**: choose **AWS S3**, **Azure Blob**, or **Google Cloud Storage (GCS)**.
+2. **Enter the bucket name**: the name of the bucket or container in your account.
+3. **Enter the region**: must match the installation's configured region. See [Regional and provider constraints](#regional-and-provider-constraints).
+4. **Enter credentials**:
+    - **AWS S3**: either an **access key ID** and **secret access key**, or a **Role ARN** plus **External ID** for STS assume-role authentication.
+    - **Azure Blob**: your Azure storage account credentials.
+    - **Google Cloud Storage**: your GCS account credentials.
+
+Remember that the provider type is fixed after the initial setup; only the bucket name, region, and credentials can be updated afterward.
+
+### REST API
+
+Org-level storage configuration is also available through the REST API:
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/{org_id}/storage` | Retrieve the current storage configuration for the organization. |
+| `POST` | `/api/{org_id}/storage` | Create the initial storage configuration. |
+| `PUT` | `/api/{org_id}/storage` | Update the bucket name, region, or credentials. |
 
 ## Availability
 
@@ -66,7 +97,7 @@ Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/con
 
 ??? question "Can I rotate or revoke the credentials?"
 
-    Yes. Update the credentials in the OpenObserve Cloud settings whenever you rotate the underlying IAM role, access key, or SAS token. Revoking access at the cloud-provider level stops OpenObserve from being able to write or read new data.
+    Yes. Update the credentials under **Settings → Storage Settings** (or via the `PUT /api/{org_id}/storage` endpoint) whenever you rotate the underlying IAM role, access key, Role ARN/External ID, SAS token, or GCS credentials. Revoking access at the cloud-provider level stops OpenObserve from being able to write or read new data.
 
 ??? question "What happens to my data if I leave OpenObserve?"
 
@@ -74,7 +105,7 @@ Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/con
 
 ??? question "Is BYOB available on self-hosted OpenObserve?"
 
-    Self-hosted OpenObserve has always supported pointing at any S3-compatible or Azure Blob storage you control — see [Storage Configuration](storage.md). BYOB is the equivalent capability for **OpenObserve Cloud** customers who don't manage their own deployment.
+    Self-hosted OpenObserve has always supported pointing at any S3-compatible, Azure Blob, or Google Cloud Storage you control. See [Storage Configuration](storage.md). BYOB is the equivalent capability for **OpenObserve Cloud** customers who don't manage their own deployment.
 
 
 

@@ -86,8 +86,8 @@ The data ingestion flow is as follows:
     1. The WAL file and Memtable are created in a pair. One WAL file has one Memtable. The WAL files are located at `data/wal/logs`.
 
 1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reaches `ZO_MAX_FILE_SIZE_ON_DISK=128` MB, move the Memtable to Immutable and create a new Memtable and WAL file for writing data.
-1. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds, dump Immutable to local disk. One Immutable will result in multiple parquet files, as it may contain multiple streams and multiple partitions. The parquet files are located at `data/wal/files`.
-1. Every `ZO_FILE_PUSH_INTERVAL=10` seconds, check local parquet files. If any partition's total size is above `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file has been retained for `ZO_MAX_FILE_RETENTION_TIME=600` seconds, merge all such small files in a partition into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=256` MB) and move that file to object storage.
+2. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds, dump Immutable to local disk. One Immutable will result in multiple parquet files, as it may contain multiple streams and multiple partitions. The parquet files are located at `data/wal/files`.
+3. Every `ZO_FILE_PUSH_INTERVAL=10` seconds, check local parquet files. If any partition's total size is above `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file has been retained for `ZO_MAX_FILE_RETENTION_TIME=600` seconds, merge all such small files in a partition into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=2048 MB (2 GB)`) and move that file to object storage.
 
 **Ingesters store data in three parts:**
 
