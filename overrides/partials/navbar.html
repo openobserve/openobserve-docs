@@ -27,13 +27,56 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
 %} {% endif %}
 
 <!-- Header -->
+<style>
+  .oo-nav-container {
+    width: 100%;
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    align-items: center;
+  }
+  @media (min-width: 640px) {
+    .oo-nav-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .oo-nav-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      justify-content: space-between;
+    }
+  }
+  @media (min-width: 1280px) {
+    .oo-nav-container {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+  .oo-nav-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    flex: 1;
+    width: 100%;
+  }
+  .oo-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+</style>
 <header class="{{ class }}" data-md-component="header">
   <nav
-    class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 md-header__inner tw-items-center lg:tw-justify-between tw-max-w-[70rem]"
+    class="md-header__inner oo-nav-container"
     aria-label="{{ lang.t('header') }}"
   >
     <!-- Left section (Logo + Docs Title) -->
-    <div class="tw-flex tw-items-center tw-flex-shrink-0 tw-flex-1 tw-w-full">
+    <div class="oo-nav-left">
       <!-- Drawer button -->
       <label class="md-header__button md-icon" for="__drawer">
         {% include ".icons/material/menu.svg" %}
@@ -53,7 +96,7 @@ set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
     </div>
 
     <!-- Right section (language selector only) -->
-    <div class="tw-flex tw-items-center tw-gap-2 tw-flex-shrink-0">
+    <div class="oo-nav-right">
       {% if config.extra.alternate %}
       <div class="md-header__option">
         <div class="md-select">

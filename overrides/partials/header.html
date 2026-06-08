@@ -1,1046 +1,1391 @@
-<div
-  class="tw-w-full tw-fixed tw-top-0 tw-z-50 tw-backdrop-blur-md custom-gradient tw-text-black tw-transition-all tw-duration-500 "
->
-  <!-- Desktop Header -->
-  <div class="lg:tw-block tw-hidden">
-    <header class="tw-sticky tw-top-0 tw-z-50 tw-w-full">
-      <div
-        class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8 xl:tw-px-10 tw-flex tw-justify-between tw-items-center tw-py-3"
-      >
-        <div class="tw-flex tw-items-center tw-gap-1">
-          <a
-            class="tw-flex tw-items-center tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
-            href="/"
+<div id="oo-header" class="oo-hdr-root">
+  <div class="oo-desktop-hdr">
+    <header class="oo-hdr-inner" style="grid-template-columns: 1fr auto 1fr">
+      <div class="oo-hdr-logo">
+        <a href="/" class="oo-hdr-logo-link">
+          <img
+            src="/docs/assets/o2-logo-readme.svg"
+            alt="OpenObserve"
+            class="oo-hdr-logo-img"
+          />
+        </a>
+        <span class="oo-hdr-slash">/</span>
+        <a href="/docs/" class="oo-hdr-docs-link">
+          <span class="oo-hdr-docs-text" style="letter-spacing: 0.04em"
+            >DOCS</span
           >
+        </a>
+      </div>
+
+      <ul class="header-list-style oo-hdr-nav" role="menubar">
+        <li class="oo-hdr-nav-item" id="nav-platform">
+          <a href="/platform/" class="nav-top-link" id="nav-platform-trigger"
+            >Platform</a
+          >
+          <div
+            id="mega-platform"
+            class="mega-menu is-hidden oo-mega-wrap"
+            style="
+              top: calc(100% + 10px);
+              left: 50%;
+              transform: translateX(-50%);
+            "
+          >
+            <nav
+              class="oo-mega-nav oo-mega-platform mega-arrow-platform"
+              style="
+                grid-template-columns: 1fr 1fr 1fr 1.05fr;
+                grid-template-rows: 1fr auto;
+                min-width: 1150px;
+              "
+              aria-label="Platform menu"
+            >
+              <section class="oo-plat-col">
+                <div class="oo-plat-col-hdr">
+                  <span class="oo-plat-num">01</span>
+                  <div class="oo-plat-col-title">Collect</div>
+                  <div class="oo-plat-col-sub">Signals</div>
+                </div>
+                <div class="oo-plat-items">
+                  <a href="/platform/logs/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/logs.svg"
+                        alt="Logs"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Logs</div>
+                      <div class="oo-mega-item-sub">
+                        Petabyte-scale ingest &amp; search
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/metrics/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/metrics.svg"
+                        alt="Metrics"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Metrics</div>
+                      <div class="oo-mega-item-sub">
+                        Prometheus-native time series
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/traces/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/traces.svg"
+                        alt="Traces"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Traces</div>
+                      <div class="oo-mega-item-sub">
+                        Distributed tracing &amp; spans
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/frontend-monitoring/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/frontend-monitoring.svg"
+                        alt="Frontend Monitoring"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Frontend Monitoring</div>
+                      <div class="oo-mega-item-sub">
+                        RUM, Core Web Vitals &amp; replays
+                      </div>
+                    </div></a
+                  >
+                </div>
+              </section>
+
+              <section class="oo-plat-col">
+                <div class="oo-plat-col-hdr">
+                  <span class="oo-plat-num">02</span>
+                  <div class="oo-plat-col-title">Analyze</div>
+                  <div class="oo-plat-col-sub">Make sense</div>
+                </div>
+                <div class="oo-plat-items">
+                  <a href="/platform/dashboards/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/visualization.svg"
+                        alt="Dashboards"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Dashboards</div>
+                      <div class="oo-mega-item-sub">
+                        Visualize anything in seconds
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/pipelines/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/pipelines.svg"
+                        alt="Pipelines"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Pipelines</div>
+                      <div class="oo-mega-item-sub">
+                        Parse, enrich &amp; route at ingest
+                      </div>
+                    </div></a
+                  >
+                </div>
+              </section>
+
+              <section class="oo-plat-col">
+                <div class="oo-plat-col-hdr">
+                  <span class="oo-plat-num">03</span>
+                  <div class="oo-plat-col-title">Respond</div>
+                  <div class="oo-plat-col-sub">When it matters</div>
+                </div>
+                <div class="oo-plat-items">
+                  <a href="/platform/alerts/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/alerts.svg"
+                        alt="Alerts"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Alerts</div>
+                      <div class="oo-mega-item-sub">
+                        Thresholds, anomalies &amp; routing
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/incidents/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="/docs/assets/nav-icons/incidents.svg"
+                        alt="Incidents"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title-row">
+                        <span class="oo-mega-item-title-inline">Incidents</span
+                        ><span class="badge-preview">Preview</span>
+                      </div>
+                      <div class="oo-mega-item-sub">
+                        Triage, on-call &amp; postmortems
+                      </div>
+                    </div></a
+                  >
+                </div>
+              </section>
+
+              <section
+                class="oo-plat-dark-col"
+                style="
+                  background: linear-gradient(
+                    160deg,
+                    #0f1330 0%,
+                    #1e2255 60%,
+                    #5b5bd6 130%
+                  );
+                "
+              >
+                <div class="oo-plat-col-hdr">
+                  <span
+                    class="oo-plat-dark-num"
+                    style="
+                      background: rgba(255, 255, 255, 0.14);
+                      border: 1px solid rgba(255, 255, 255, 0.18);
+                    "
+                    >04</span
+                  >
+                  <div class="oo-plat-dark-col-title">O11y 3.0</div>
+                  <div class="oo-plat-dark-col-sub">Preview</div>
+                </div>
+                <div class="oo-plat-items">
+                  <a href="/platform/llm-observability/" class="mega-item-ai"
+                    ><span
+                      class="oo-mega-ai-icon"
+                      style="
+                        background: rgba(139, 92, 246, 0.35);
+                        border: 1px solid rgba(255, 255, 255, 0.14);
+                      "
+                      ><img
+                        src="/docs/assets/nav-icons/llm-observability.svg"
+                        alt="LLM Observability"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-ai-title">LLM Observability</div>
+                      <div class="oo-mega-ai-sub">
+                        Tokens, cost &amp; prompt traces
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/ai-assistant/" class="mega-item-ai"
+                    ><span
+                      class="oo-mega-ai-icon"
+                      style="
+                        background: rgba(59, 130, 246, 0.35);
+                        border: 1px solid rgba(255, 255, 255, 0.14);
+                      "
+                      ><img
+                        src="/docs/assets/nav-icons/ai-assistant.svg"
+                        alt="AI Assistant"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-ai-title">AI Assistant</div>
+                      <div class="oo-mega-ai-sub">
+                        Ask anything about your telemetry
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/ai-sre/" class="mega-item-ai"
+                    ><span
+                      class="oo-mega-ai-icon"
+                      style="
+                        background: rgba(249, 115, 22, 0.35);
+                        border: 1px solid rgba(255, 255, 255, 0.14);
+                      "
+                      ><img
+                        src="/docs/assets/nav-icons/ai-sre.svg"
+                        alt="AI SRE"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-ai-title">AI SRE</div>
+                      <div class="oo-mega-ai-sub">
+                        Autonomous triage &amp; root-cause
+                      </div>
+                    </div></a
+                  >
+                  <a href="/platform/mcp-server/" class="mega-item-ai"
+                    ><span
+                      class="oo-mega-ai-icon"
+                      style="
+                        background: rgba(20, 184, 166, 0.35);
+                        border: 1px solid rgba(255, 255, 255, 0.14);
+                      "
+                      ><img
+                        src="/docs/assets/nav-icons/mcp-server.svg"
+                        alt="MCP Server"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-ai-title">MCP Server</div>
+                      <div class="oo-mega-ai-sub">
+                        Bring your agents to your data
+                      </div>
+                    </div></a
+                  >
+                </div>
+              </section>
+
+              <footer class="oo-mega-footer">
+                <div class="oo-mega-footer-links">
+                  <a href="/whats-new/" class="oo-mega-ftr-link"
+                    >What's new &rarr;</a
+                  >
+                  <a
+                    href="https://openobserve.ai/docs/architecture/"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-mega-ftr-link"
+                    >Architecture</a
+                  >
+                  <a
+                    href="https://github.com/openobserve/openobserve"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-mega-ftr-link"
+                    >Open source</a
+                  >
+                  <a
+                    href="https://openobserve.ai/docs/"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-mega-ftr-link"
+                    >Docs</a
+                  >
+                </div>
+                <a href="/comparison/" class="oo-mega-ftr-cta"
+                  >Compare to Datadog, Grafana, &amp; More &rarr;</a
+                >
+              </footer>
+            </nav>
+          </div>
+        </li>
+
+        <li class="oo-hdr-nav-item" id="nav-solutions">
+          <a href="/solutions/" class="nav-top-link" id="nav-solutions-trigger"
+            >Solutions</a
+          >
+          <div
+            id="mega-solutions"
+            class="mega-menu is-hidden oo-mega-wrap"
+            style="
+              top: calc(100% + 10px);
+              left: 50%;
+              transform: translateX(-50%);
+            "
+          >
+            <nav
+              class="oo-mega-nav oo-mega-solutions mega-arrow-solutions"
+              aria-label="Solutions menu"
+            >
+              <div>
+                <p class="oo-sol-col-hdr">Cloud &amp; Infrastructure</p>
+                <p class="oo-sol-section-title">Cloud Monitoring</p>
+                <a href="/solutions/aws-monitoring/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/aws.svg"
+                      alt="AWS"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">AWS Monitoring</span></a
+                >
+                <a href="/solutions/gcp-monitoring/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/gcp.svg"
+                      alt="GCP"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">GCP Monitoring</span></a
+                >
+                <a href="/solutions/azure-monitoring/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/azure.svg"
+                      alt="Azure"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">Azure Monitoring</span></a
+                >
+                <p class="oo-sol-section-title">Infrastructure Monitoring</p>
+                <a href="/solutions/kubernetes-monitoring/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/kubernetes.svg"
+                      alt="Kubernetes"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-sol-text-sm">Kubernetes Monitoring</span></a
+                >
+              </div>
+
+              <div>
+                <p class="oo-sol-col-hdr">Apps &amp; Services</p>
+                <a href="/solutions/network-monitoring/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/metrics.svg"
+                      alt="Network"
+                      class="oo-icon-sm"
+                  /></span>
+                  <div>
+                    <div class="oo-sol-item-title">Network Monitoring</div>
+                    <div class="oo-sol-item-sub">
+                      Flow logs, latency &amp; DNS
+                    </div>
+                  </div></a
+                >
+                <a href="/solutions/database-monitoring/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/database.svg"
+                      alt="Database"
+                      class="oo-icon-sm"
+                  /></span>
+                  <div>
+                    <div class="oo-sol-item-title">Database Monitoring</div>
+                    <div class="oo-sol-item-sub">
+                      Queries, locks &amp; replication lag
+                    </div>
+                  </div></a
+                >
+              </div>
+
+              <div>
+                <p class="oo-sol-col-hdr">AI &amp; Telemetry</p>
+                <a href="/solutions/opentelemetry/" class="sol-item"
+                  ><span class="oo-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/opentelemetry.svg"
+                      alt="OpenTelemetry"
+                      class="oo-icon-sm"
+                  /></span>
+                  <div>
+                    <div class="oo-sol-item-title">OpenTelemetry</div>
+                    <div class="oo-sol-item-sub">
+                      Vendor-neutral metrics &amp; traces
+                    </div>
+                  </div></a
+                >
+              </div>
+
+              <aside class="oo-sol-panel" style="background: #1e2255">
+                <span class="oo-sol-panel-label">Unified observability</span>
+                <h3 class="oo-sol-panel-h3">
+                  One backend for logs, metrics, traces &amp; RUM.
+                </h3>
+                <div class="oo-sol-stats">
+                  <div class="oo-sol-stat">
+                    <span
+                      class="oo-sol-stat-badge"
+                      style="background-color: #7c3aed; border-color: #9d5cf5"
+                      >Extremely Efficient</span
+                    >
+                    <div>
+                      <div class="oo-sol-stat-prefix">Up to</div>
+                      <div class="oo-sol-stat-value">140X</div>
+                    </div>
+                    <div class="oo-sol-stat-desc">Lower storage cost*</div>
+                  </div>
+                  <div class="oo-sol-stat">
+                    <span
+                      class="oo-sol-stat-badge"
+                      style="background-color: #0284c7; border-color: #38a6e8"
+                      >Highly Performant</span
+                    >
+                    <div>
+                      <div class="oo-sol-stat-prefix">Up to</div>
+                      <div class="oo-sol-stat-value">30X</div>
+                    </div>
+                    <div class="oo-sol-stat-desc">More performant*</div>
+                  </div>
+                  <div class="oo-sol-stat">
+                    <span
+                      class="oo-sol-stat-badge"
+                      style="background-color: #16a34a; border-color: #34c76a"
+                      >Petabyte-scale</span
+                    >
+                    <div class="oo-sol-stat-value">
+                      2.5<span class="oo-sol-stat-unit"> PB/day</span>
+                    </div>
+                    <div class="oo-sol-stat-desc">
+                      Largest customer ingestion
+                    </div>
+                  </div>
+                </div>
+                <div class="oo-sol-panel-ctas">
+                  <a
+                    href="https://cloud.openobserve.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="oo-sol-cta-primary"
+                    >Get Started Free</a
+                  >
+                  <a href="/demo/" class="oo-sol-cta-secondary"
+                    >Talk to a Human</a
+                  >
+                </div>
+              </aside>
+
+              <div class="oo-sol-footer">
+                <span
+                  >Don't see your stack? OpenObserve ingests any OTel
+                  signal.</span
+                >
+                <a href="/solutions/" class="oo-mega-ftr-cta"
+                  >Browse all solutions &rarr;</a
+                >
+              </div>
+            </nav>
+          </div>
+        </li>
+        <li class="oo-hdr-nav-item" id="nav-resources">
+          <a href="/resources/" class="nav-top-link" id="nav-resources-trigger"
+            >Resources</a
+          >
+          <div
+            id="mega-resources"
+            class="mega-menu is-hidden oo-mega-wrap"
+            style="
+              top: calc(100% + 10px);
+              left: 50%;
+              transform: translateX(-50%);
+            "
+          >
+            <nav
+              class="oo-mega-nav oo-mega-resources mega-arrow-resources"
+              aria-label="Resources menu"
+            >
+              <div class="oo-res-grid">
+                <a
+                  href="https://openobserve.ai/docs/"
+                  target="_blank"
+                  rel="noopener"
+                  class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/documentation.svg"
+                      alt="Documentation"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Documentation</span></a
+                >
+                <a href="/blog/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/blog.svg"
+                      alt="Blog"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Blog</span></a
+                >
+                <a href="/faqs/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/faqs.svg"
+                      alt="FAQs"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text"
+                    >Frequently Asked Questions</span
+                  ></a
+                >
+                <a href="/customer-stories/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/customer-stories.svg"
+                      alt="Customer Stories"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Customer Stories</span></a
+                >
+                <a href="/downloads/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/downloads.svg"
+                      alt="Downloads"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Downloads</span></a
+                >
+                <a href="/webinars-videos/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/videos.svg"
+                      alt="Webinars"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Webinar and Videos</span></a
+                >
+                <a href="/events/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/events.svg"
+                      alt="Events"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Events</span></a
+                >
+                <a href="/startup/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/startup.svg"
+                      alt="Startup Program"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Startup Program</span></a
+                >
+                <a href="/partners/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/partners.svg"
+                      alt="Partners"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Partners</span></a
+                >
+                <a href="/comparison/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/comparison.svg"
+                      alt="Comparison"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">OpenObserve Vs Others</span></a
+                >
+                <a href="/datadog-bill-analyzer/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/bill-analyzer.svg"
+                      alt="Bill Analyzer"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">Datadog Bill Analyzer</span></a
+                >
+                <a href="/whats-new/" class="res-item"
+                  ><span class="oo-res-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/whats-new.svg"
+                      alt="What's New"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-res-text">What's New</span></a
+                >
+              </div>
+            </nav>
+          </div>
+        </li>
+
+        <li><a href="/pricing/" class="nav-top-link">Pricing</a></li>
+      </ul>
+
+      <div class="oo-hdr-actions">
+        <label
+          for="__search"
+          class="oo-hdr-search-btn"
+          aria-label="Search (Ctrl+K)"
+          title="Search (Ctrl+K)"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </label>
+
+        <a
+          href="/demo/"
+          class="oo-hdr-demo-btn plausible-event-name=Demo+Button"
+          style="transition: background 0.15s"
+          >Get Demo</a
+        >
+
+        <!-- Log In -->
+        <div class="oo-login-wrap" id="login-dropdown">
+          <button
+            id="login-dropdown-button"
+            type="button"
+            class="oo-hdr-login-btn"
+            aria-expanded="false"
+            aria-haspopup="menu"
+          >
+            Log In
+            <svg
+              id="login-dropdown-icon"
+              class="oo-hdr-login-arrow"
+              style="transition: transform 0.2s"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div
+            id="login-dropdown-menu"
+            class="oo-hdr-login-menu is-hidden"
+            role="menu"
+            aria-label="Login Region Selector"
+          >
+            <a
+              href="https://cloud.openobserve.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="menuitem"
+              tabindex="-1"
+              class="oo-login-item oo-login-orange plausible-event-name=Cloud+Signup"
+            >
+              <img src="/docs/assets/aws.svg" alt="AWS" class="oo-login-icon" />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-orange-name"
+                  >US East-2</span
+                ><span class="oo-login-item-url">cloud.openobserve.ai</span
+                ><span class="oo-login-item-region"
+                  >Ohio, USA &middot; AWS</span
+                ></span
+              >
+            </a>
+            <a
+              href="https://us2.openobserve.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="menuitem"
+              tabindex="-1"
+              class="oo-login-item oo-login-blue plausible-event-name=Cloud+Signup"
+            >
+              <img
+                src="/docs/assets/azure.svg"
+                alt="Azure"
+                class="oo-login-icon"
+              />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-blue-name"
+                  >US West 2</span
+                ><span class="oo-login-item-url">us2.openobserve.ai</span
+                ><span class="oo-login-item-region"
+                  >California, USA &middot; Azure</span
+                ></span
+              >
+            </a>
+            <a
+              href="https://eu1.openobserve.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="menuitem"
+              tabindex="-1"
+              class="oo-login-item oo-login-orange plausible-event-name=Cloud+Signup"
+            >
+              <img src="/docs/assets/aws.svg" alt="AWS" class="oo-login-icon" />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-orange-name"
+                  >EU Central-1</span
+                ><span class="oo-login-item-url">eu1.openobserve.ai</span
+                ><span class="oo-login-item-region"
+                  >Frankfurt, Germany &middot; AWS</span
+                ></span
+              >
+            </a>
+            <a
+              href="https://ap1.openobserve.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="menuitem"
+              tabindex="-1"
+              class="oo-login-item oo-login-orange plausible-event-name=Cloud+Signup"
+            >
+              <img src="/docs/assets/aws.svg" alt="AWS" class="oo-login-icon" />
+              <span class="oo-login-item-text"
+                ><span class="oo-login-item-name oo-login-orange-name"
+                  >Asia Pacific South-1</span
+                ><span class="oo-login-item-url">ap1.openobserve.ai</span
+                ><span class="oo-login-item-region"
+                  >Mumbai, India &middot; AWS</span
+                ></span
+              >
+            </a>
+          </div>
+        </div>
+        <!-- GitHub Star -->
+        <a
+          href="https://github.com/openobserve/openobserve"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="oo-hdr-github-btn"
+          aria-label="Star openobserve/openobserve on GitHub"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.15v3.18c0 .31.21.68.8.56C20.21 21.38 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"
+            />
+          </svg>
+          Star
+          <span id="gh-stars" class="oo-gh-stars is-hidden"></span>
+        </a>
+
+        <!-- Theme toggle (MkDocs) -->
+        {% if config.theme.palette %} {% if not config.theme.palette is mapping
+        %}
+        <form class="md-header__option" data-md-component="palette">
+          {% for option in config.theme.palette %} {% set scheme = option.scheme
+          | d("default", true) %}
+          <input
+            class="md-option"
+            data-md-color-media="{{ option.media }}"
+            data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
+            data-md-color-primary="{{ option.primary | d('indigo', true) | replace(' ', '-') }}"
+            data-md-color-accent="{{ option.accent | d('indigo', true) | replace(' ', '-') }}"
+            {%
+            if
+            option.toggle
+            %}aria-label="{{ option.toggle.name }}"
+            {%
+            else
+            %}aria-hidden="true"
+            {%
+            endif
+            %}
+            type="radio"
+            name="__palette"
+            id="__palette_{{ loop.index }}"
+            {%
+            if
+            loop.first
+            %}checked{%
+            endif
+            %}
+          />
+          {% if option.toggle %}
+          <label
+            class="md-header__button md-icon custom-theme-toggle"
+            title="{{ option.toggle.name }}"
+            for="__palette_{{ loop.index0 or loop.length }}"
+            hidden
+          >
+            {% if scheme == "slate" or scheme == "dark" %}<img
+              src="/docs/assets/sun.svg"
+              alt="Light mode"
+              class="custom-icon"
+              style="width: 24px; height: 24px"
+            />
+            {% else %}<img
+              src="/docs/assets/moon.svg"
+              alt="Dark mode"
+              class="custom-icon"
+              style="width: 24px; height: 24px"
+            />
+            {% endif %}
+          </label>
+          {% endif %} {% endfor %}
+        </form>
+        {% endif %} {% endif %}
+      </div>
+    </header>
+  </div>
+
+  <div class="oo-mobile-hdr">
+    <header class="oo-mob-hdr-inner">
+      <!-- Top bar -->
+      <div class="oo-mob-topbar">
+        <div class="oo-hdr-logo">
+          <a href="/" class="oo-hdr-logo-link">
             <img
               src="/docs/assets/o2-logo-readme.svg"
               alt="OpenObserve"
-              class="tw-h-8 tw-w-auto"
+              class="oo-hdr-logo-img"
             />
           </a>
-          <span
-            class="tw-text-gray-300 tw-font-light tw-text-lg tw-leading-none tw-select-none"
-            >/</span
-          >
-          <a
-            class="tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
-            href="/docs/"
-          >
-            <span
-              class="tw-text-[15px] tw-font-bold tw-text-[#7c3aed] tw-leading-none"
-              style="letter-spacing: 0.04em"
+          <span class="oo-hdr-slash">/</span>
+          <a href="/docs/" class="oo-hdr-docs-link">
+            <span class="oo-hdr-docs-text" style="letter-spacing: 0.04em"
               >DOCS</span
             >
           </a>
         </div>
-        <nav>
-          <ul
-            class="tw-flex tw-items-center tw-space-x-0.5 tw-w-full tw-font-semibold tw-text-[15px] header-list-style"
-          >
-            <!-- PLATFORM -->
-            <li class="tw-group tw-relative">
-              <a href="/platform/" class="menu-link">Platform</a>
-              <div
-                class="tw-absolute tw-left-[35%] tw--translate-x-[35%] tw-top-full tw-pt-2 tw-w-[760px] tw-hidden group-hover:tw-block"
-              >
-                <div
-                  class="tw-p-5 tw-bg-white tw-rounded-xl tw-border tw-border-gray-200 tw-shadow-lg"
-                >
-                  <ul class="tw-grid tw-grid-cols-3 tw-gap-2 tw-w-full">
-                    <li>
-                      <a href="/logs/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #e0e7ff"
-                          ><img
-                            src="/docs/assets/nav-icons/logs.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Logs
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/metrics/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #dbeafe"
-                          ><img
-                            src="/docs/assets/nav-icons/metrics.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Metrics
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/traces/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ede9fe"
-                          ><img
-                            src="/docs/assets/nav-icons/traces.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Traces
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/frontend-monitoring/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #f3e8ff"
-                          ><img
-                            src="/docs/assets/nav-icons/frontend-monitoring.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Frontend Monitoring
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/pipelines/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fdf4ff"
-                          ><img
-                            src="/docs/assets/nav-icons/pipelines.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Pipelines
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/alerts/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fee2e2"
-                          ><img
-                            src="/docs/assets/nav-icons/alerts.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Alerts
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/visualization-and-dashboards/"
-                        class="submenu-item"
-                      >
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #cffafe"
-                          ><img
-                            src="/docs/assets/nav-icons/visualization.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Visualization &amp; Dashboards
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/llm-observability/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ede9fe"
-                          ><img
-                            src="/docs/assets/nav-icons/llm-observability.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        LLM Observability
-                        <span class="preview-chip">Preview</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/ai-assistant/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #e0f2fe"
-                          ><img
-                            src="/docs/assets/nav-icons/ai-assistant.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        AI Assistant
-                        <span class="preview-chip">Preview</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/incidents/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fee2e2"
-                          ><img
-                            src="/docs/assets/nav-icons/incidents.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Incidents
-                        <span class="preview-chip">Preview</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/ai-sre/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #f3e8ff"
-                          ><img
-                            src="/docs/assets/nav-icons/ai-sre.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        AI SRE
-                        <span class="preview-chip">Preview</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/mcp-server/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #f3e8ff"
-                          ><img
-                            src="/docs/assets/nav-icons/mcp-server.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        MCP Server
-                        <span class="preview-chip">Preview</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-
-            <!-- SOLUTIONS -->
-            <li class="tw-group tw-relative">
-              <a href="/solutions/" class="menu-link">Solutions</a>
-              <div
-                class="tw-absolute tw-left-1/2 tw--translate-x-1/2 tw-top-full tw-pt-2 tw-w-[580px] tw-hidden group-hover:tw-block"
-              >
-                <div
-                  class="tw-p-5 tw-bg-white tw-rounded-xl tw-border tw-border-gray-200 tw-shadow-lg"
-                >
-                  <ul class="tw-grid tw-grid-cols-2 tw-gap-2 tw-w-full">
-                    <li>
-                      <a href="/aws-monitoring/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ffedd5"
-                          ><img
-                            src="/docs/assets/nav-icons/aws.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        AWS Monitoring
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/azure-monitoring/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #dbeafe"
-                          ><img
-                            src="/docs/assets/nav-icons/azure.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Azure Monitoring
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/gcp-monitoring/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fee2e2"
-                          ><img
-                            src="/docs/assets/nav-icons/gcp.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        GCP Monitoring
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/kubernetes-monitoring/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #e0f2fe"
-                          ><img
-                            src="/docs/assets/nav-icons/kubernetes.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Kubernetes Monitoring
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/database-monitoring/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #d1fae5"
-                          ><img
-                            src="/docs/assets/nav-icons/database.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Database Monitoring
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/opentelemetry/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #e0e7ff"
-                          ><img
-                            src="/docs/assets/nav-icons/opentelemetry.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        OpenTelemetry
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-
-            <!-- RESOURCES -->
-            <li class="tw-group tw-relative">
-              <a href="/resources/" class="menu-link">Resources</a>
-              <div
-                class="tw-absolute tw-left-1/2 tw--translate-x-1/2 tw-top-full tw-pt-2 tw-w-[640px] tw-hidden group-hover:tw-block"
-              >
-                <div
-                  class="tw-p-5 tw-bg-white tw-rounded-xl tw-border tw-border-gray-200 tw-shadow-lg"
-                >
-                  <ul class="tw-grid tw-grid-cols-2 tw-gap-2 tw-w-full">
-                    <li>
-                      <a href="/docs/" target="_blank" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fef3c7"
-                          ><img
-                            src="/docs/assets/nav-icons/documentation.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Documentation
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/customer-stories/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fce7f3"
-                          ><img
-                            src="/docs/assets/nav-icons/customer-stories.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Customer Stories
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/blog/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ffe4e6"
-                          ><img
-                            src="/docs/assets/nav-icons/blog.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Blog
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/faqs/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ccfbf1"
-                          ><img
-                            src="/docs/assets/nav-icons/faqs.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Frequently Asked Questions
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/webinars-videos/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #fee2e2"
-                          ><img
-                            src="/docs/assets/nav-icons/videos.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Webinar and Videos
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/partners/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #e0e7ff"
-                          ><img
-                            src="/docs/assets/nav-icons/partners.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Partners
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/events/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ffedd5"
-                          ><img
-                            src="/docs/assets/nav-icons/events.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Events
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/downloads/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #dcfce7"
-                          ><img
-                            src="/docs/assets/nav-icons/downloads.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Downloads
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/comparison/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #e0f2fe"
-                          ><img
-                            src="/docs/assets/nav-icons/comparison.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        OpenObserve Vs Others
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/startup/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #ede9fe"
-                          ><img
-                            src="/docs/assets/nav-icons/startup.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Startup Program
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/datadog_pricing_comparison/"
-                        class="submenu-item"
-                      >
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #d1fae5"
-                          ><img
-                            src="/docs/assets/nav-icons/bill-analyzer.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        Datadog Bill Analyzer
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/whats-new/" class="submenu-item">
-                        <span
-                          class="nav-icon-wrap"
-                          style="background-color: #d1fae5"
-                          ><img
-                            src="/docs/assets/nav-icons/whats-new.svg"
-                            alt=""
-                            class="tw-w-3 tw-h-3"
-                        /></span>
-                        What's New
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-
-            <!-- PRICING -->
-            <li class="tw-relative">
-              <a href="/pricing/" class="menu-link">Pricing</a>
-            </li>
-          </ul>
-        </nav>
-        <div class="tw-flex tw-items-center tw-space-x-2">
-          <label class="search-button" for="__search" title="Search (Ctrl+K)">
+        <div class="oo-mob-actions">
+          <label for="__search" class="oo-mob-search-btn" aria-label="Search">
             <svg
-              class="tw-w-3 tw-h-3"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
             </svg>
           </label>
           <a
-            class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-px-3 md:tw-px-5 tw-py-1.5 tw-text-xs primary-button tw-transition-opacity tw-duration-500 tw-ease-in-out tw-opacity-100 tw-visible tw-pointer-events-auto plausible-event-name=Demo+Button"
             href="/demo/"
-            target="_self"
+            data-plausible-event="Demo+Button"
+            class="oo-mob-demo-btn"
+            style="transition: background 0.15s"
+            >Get Demo</a
           >
-            Get Demo
-          </a>
-          <div id="login-dropdown" class="tw-relative">
-            <button
-              id="login-dropdown-button"
-              type="button"
-              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-gap-1 tw-px-3 md:tw-px-5 tw-py-1.5 secondary-button tw-text-xs"
-              aria-expanded="false"
-              aria-haspopup="menu"
+          <button
+            id="mob-toggle"
+            class="oo-mob-toggle-btn"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <svg
+              id="mob-icon-open"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
             >
-              Log In
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg
+              id="mob-icon-close"
+              class="is-hidden"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Full-screen overlay -->
+      <div id="mobile-menu" class="oo-mob-menu is-hidden">
+        <nav class="oo-mob-nav">
+          <!-- Platform accordion -->
+          <div class="oo-mob-acc-section">
+            <button
+              class="mob-acc-btn oo-mob-acc-btn"
+              data-target="mob-platform"
+            >
+              Platform
               <svg
-                id="login-dropdown-icon"
-                class="tw-h-3 tw-w-3 tw-shrink-0 tw-transition-transform tw-duration-200"
+                class="mob-acc-chevron oo-mob-chevron"
+                style="transition: transform 0.2s"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                aria-hidden="true"
-                width="16"
-                height="16"
               >
-                <polyline points="6 9 12 15 18 9" />
+                <path d="m6 9 6 6 6-6" />
               </svg>
             </button>
-
             <div
-              id="login-dropdown-menu"
-              class="tw-absolute tw-right-0 tw-top-full tw-mt-1 tw-w-72 tw-bg-white tw-border tw-border-gray-300 tw-rounded-lg tw-shadow-xl tw-ring-1 tw-ring-black/5 tw-z-50 tw-hidden tw-overflow-hidden"
-              role="menu"
-              aria-label="Login Region Selector"
+              id="mob-platform"
+              class="oo-mob-panel oo-mob-panel-g3 is-hidden"
             >
-              <a
-                href="https://cloud.openobserve.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                tabindex="-1"
-                class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-transition-colors tw-duration-150 tw-group focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-inset focus-visible:tw-ring-indigo-500 hover:tw-bg-orange-50 tw-rounded-t-lg tw-border-b tw-border-gray-100"
+              <div class="oo-mob-promo">
+                <p class="oo-mob-promo-title">
+                  Full Stack Observability Platform
+                </p>
+                <a href="/platform/" class="oo-mob-promo-link"
+                  >View Platform &rarr;</a
+                >
+              </div>
+              <!-- 01 Collect -->
+              <div class="oo-mob-section">
+                <div class="oo-mob-section-hdr">
+                  <span class="oo-plat-num">01</span
+                  ><span class="oo-plat-col-title">Collect</span>
+                </div>
+                <a href="/platform/logs/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/logs.svg"
+                      alt="Logs"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Logs</span></a
+                >
+                <a href="/platform/metrics/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/metrics.svg"
+                      alt="Metrics"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Metrics</span></a
+                >
+                <a href="/platform/traces/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/traces.svg"
+                      alt="Traces"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Traces</span></a
+                >
+                <a href="/platform/frontend-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/frontend-monitoring.svg"
+                      alt="Frontend Monitoring"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Frontend Monitoring</span></a
+                >
+              </div>
+              <!-- 02 Analyze -->
+              <div class="oo-mob-section">
+                <div class="oo-mob-section-hdr">
+                  <span class="oo-plat-num">02</span
+                  ><span class="oo-plat-col-title">Analyze</span>
+                </div>
+                <a href="/platform/dashboards/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/visualization.svg"
+                      alt="Dashboards"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Dashboards</span></a
+                >
+                <a href="/platform/pipelines/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/pipelines.svg"
+                      alt="Pipelines"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Pipelines</span></a
+                >
+              </div>
+              <!-- 03 Respond -->
+              <div class="oo-mob-section">
+                <div class="oo-mob-section-hdr">
+                  <span class="oo-plat-num">03</span
+                  ><span class="oo-plat-col-title">Respond</span>
+                </div>
+                <a href="/platform/alerts/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/alerts.svg"
+                      alt="Alerts"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Alerts</span></a
+                >
+                <a href="/platform/incidents/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/incidents.svg"
+                      alt="Incidents"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text"
+                    >Incidents <span class="badge-preview">Preview</span></span
+                  ></a
+                >
+              </div>
+              <!-- 04 O11y 3.0 dark -->
+              <div
+                class="oo-mob-dark-section"
+                style="
+                  background: linear-gradient(165deg, #14163a 0%, #2b1d6e 100%);
+                "
               >
-                <img
-                  src="/docs/assets/aws.svg"
-                  alt="AWS"
-                  class="tw-w-5 tw-h-5 tw-shrink-0"
-                />
-                <span class="tw-flex tw-flex-col">
+                <div class="oo-mob-section-hdr">
                   <span
-                    class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
-                    >US East-2</span
-                  >
-                  <span class="tw-text-[12px] tw-text-gray-500"
-                    >cloud.openobserve.ai</span
-                  >
-                  <span class="tw-text-[12px] tw-text-gray-400"
-                    >Ohio, USA · AWS</span
-                  >
-                </span>
-              </a>
-
-              <a
-                href="https://us2.openobserve.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                tabindex="-1"
-                class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-transition-colors tw-duration-150 tw-group focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-inset focus-visible:tw-ring-indigo-500 hover:tw-bg-blue-50 tw-border-b tw-border-gray-100"
-              >
-                <img
-                  src="/docs/assets/azure.svg"
-                  alt="Azure"
-                  class="tw-w-5 tw-h-5 tw-shrink-0"
-                />
-                <span class="tw-flex tw-flex-col">
-                  <span
-                    class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-blue-700"
-                    >US West 2</span
-                  >
-                  <span class="tw-text-[12px] tw-text-gray-500"
-                    >us2.openobserve.ai</span
-                  >
-                  <span class="tw-text-[12px] tw-text-gray-400"
-                    >California, USA · Azure</span
-                  >
-                </span>
-              </a>
-
-              <a
-                href="https://eu1.openobserve.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                tabindex="-1"
-                class="plausible-event-name=Cloud+Signup tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-transition-colors tw-duration-150 tw-group focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-inset focus-visible:tw-ring-indigo-500 hover:tw-bg-orange-50 tw-rounded-b-lg"
-              >
-                <img
-                  src="/docs/assets/aws.svg"
-                  alt="AWS"
-                  class="tw-w-5 tw-h-5 tw-shrink-0"
-                />
-                <span class="tw-flex tw-flex-col">
-                  <span
-                    class="tw-text-[14px] tw-font-medium tw-text-gray-800 group-hover:tw-text-orange-700"
-                    >EU Central-1</span
-                  >
-                  <span class="tw-text-[12px] tw-text-gray-500"
-                    >eu1.openobserve.ai</span
-                  >
-                  <span class="tw-text-[12px] tw-text-gray-400"
-                    >Frankfurt, Germany · AWS</span
-                  >
-                </span>
-              </a>
+                    class="oo-plat-dark-num"
+                    style="
+                      background: rgba(255, 255, 255, 0.14);
+                      border: 1px solid rgba(255, 255, 255, 0.18);
+                    "
+                    >04</span
+                  ><span class="oo-plat-dark-col-title">O11y 3.0</span>
+                </div>
+                <a href="/platform/llm-observability/" class="mob-nav-item-dark"
+                  ><span
+                    class="oo-mob-dark-icon"
+                    style="
+                      background: rgba(139, 92, 246, 0.35);
+                      border: 1px solid rgba(255, 255, 255, 0.14);
+                    "
+                    ><img
+                      src="/docs/assets/nav-icons/llm-observability.svg"
+                      alt="LLM Observability"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">LLM Observability</span></a
+                >
+                <a href="/platform/ai-assistant/" class="mob-nav-item-dark"
+                  ><span
+                    class="oo-mob-dark-icon"
+                    style="
+                      background: rgba(59, 130, 246, 0.35);
+                      border: 1px solid rgba(255, 255, 255, 0.14);
+                    "
+                    ><img
+                      src="/docs/assets/nav-icons/ai-assistant.svg"
+                      alt="AI Assistant"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">AI Assistant</span></a
+                >
+                <a href="/platform/ai-sre/" class="mob-nav-item-dark"
+                  ><span
+                    class="oo-mob-dark-icon"
+                    style="
+                      background: rgba(249, 115, 22, 0.35);
+                      border: 1px solid rgba(255, 255, 255, 0.14);
+                    "
+                    ><img
+                      src="/docs/assets/nav-icons/ai-sre.svg"
+                      alt="AI SRE"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">AI SRE</span></a
+                >
+                <a href="/platform/mcp-server/" class="mob-nav-item-dark"
+                  ><span
+                    class="oo-mob-dark-icon"
+                    style="
+                      background: rgba(20, 184, 166, 0.35);
+                      border: 1px solid rgba(255, 255, 255, 0.14);
+                    "
+                    ><img
+                      src="/docs/assets/nav-icons/mcp-server.svg"
+                      alt="MCP Server"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-dark-text">MCP Server</span></a
+                >
+              </div>
             </div>
           </div>
-          <a
-            class="github-button tw-py-1.5"
-            href="https://github.com/openobserve/openobserve"
-            data-color-scheme="light"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Star openobserve/openobserve on GitHub"
-          >
-            Star
-          </a>
-          {% if config.theme.palette %} {% if not config.theme.palette is
-          mapping %}
-          <form class="md-header__option" data-md-component="palette">
-            {% for option in config.theme.palette %} {% set scheme =
-            option.scheme | d("default", true) %}
-            <input
-              class="md-option"
-              data-md-color-media="{{ option.media }}"
-              data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
-              data-md-color-primary="{{ option.primary | d('indigo', true) | replace(' ', '-') }}"
-              data-md-color-accent="{{ option.accent | d('indigo', true) | replace(' ', '-') }}"
-              {%
-              if
-              option.toggle
-              %}aria-label="{{ option.toggle.name }}"
-              {%
-              else
-              %}aria-hidden="true"
-              {%
-              endif
-              %}
-              type="radio"
-              name="__palette"
-              id="__palette_{{ loop.index }}"
-              {%
-              if
-              loop.first
-              %}checked{%
-              endif
-              %}
-            />
-            {% if option.toggle %}
-            <label
-              class="md-header__button md-icon custom-theme-toggle"
-              title="{{ option.toggle.name }}"
-              for="__palette_{{ loop.index0 or loop.length }}"
-              hidden
-            >
-              {% if scheme == "slate" or scheme == "dark" %}
-              <img
-                src="/docs/assets/sun.svg"
-                alt="Light mode"
-                class="custom-icon"
-                style="width: 24px; height: 24px"
-              />
-              {% else %}
-              <img
-                src="/docs/assets/moon.svg"
-                alt="Dark mode"
-                class="custom-icon"
-                style="width: 24px; height: 24px"
-              />
-              {% endif %}
-            </label>
-            {% endif %} {% endfor %}
-          </form>
-          {% endif %} {% endif %}
-        </div>
-      </div>
-    </header>
-  </div>
 
-  <!-- Mobile Header -->
-  <div class="lg:tw-hidden tw-block">
-    <header class="tw-flex tw-flex-col tw-z-50 tw-relative">
-      <div class="tw-relative">
-        <!-- Top Navbar -->
-        <div
-          class="tw-flex tw-justify-between tw-items-center tw-p-2 tw-container tw-mx-auto"
-        >
+          <!-- Solutions accordion -->
+          <div class="oo-mob-acc-section">
+            <button
+              class="mob-acc-btn oo-mob-acc-btn"
+              data-target="mob-solutions"
+            >
+              Solutions
+              <svg
+                class="mob-acc-chevron oo-mob-chevron"
+                style="transition: transform 0.2s"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div
+              id="mob-solutions"
+              class="oo-mob-panel oo-mob-panel-g4 is-hidden"
+            >
+              <div class="oo-mob-promo">
+                <p class="oo-mob-promo-title">
+                  Full Stack Observability Solutions
+                </p>
+                <a href="/solutions/" class="oo-mob-promo-link"
+                  >View Solutions &rarr;</a
+                >
+              </div>
+              <div>
+                <p class="oo-mob-sol-col-hdr">Cloud &amp; Infrastructure</p>
+                <p class="oo-mob-sol-section-title">Cloud Monitoring</p>
+                <a href="/solutions/aws-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/aws.svg"
+                      alt="AWS"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">AWS Monitoring</span></a
+                >
+                <a href="/solutions/gcp-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/gcp.svg"
+                      alt="GCP"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">GCP Monitoring</span></a
+                >
+                <a href="/solutions/azure-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/azure.svg"
+                      alt="Azure"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">Azure Monitoring</span></a
+                >
+                <p class="oo-mob-sol-section-title">
+                  Infrastructure Monitoring
+                </p>
+                <a href="/solutions/kubernetes-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon"
+                    ><img
+                      src="/docs/assets/nav-icons/kubernetes.svg"
+                      alt="Kubernetes"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-text">Kubernetes Monitoring</span></a
+                >
+              </div>
+              <div>
+                <p class="oo-mob-sol-col-hdr">Apps &amp; Services</p>
+                <a href="/solutions/network-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon-blue"
+                    ><img
+                      src="/docs/assets/nav-icons/metrics.svg"
+                      alt="Network"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-med-text"
+                    >Network Monitoring</span
+                  ></a
+                >
+                <a href="/solutions/database-monitoring/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon-blue"
+                    ><img
+                      src="/docs/assets/nav-icons/database.svg"
+                      alt="Database"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-med-text"
+                    >Database Monitoring</span
+                  ></a
+                >
+              </div>
+              <div>
+                <p class="oo-mob-sol-col-hdr">AI &amp; Telemetry</p>
+                <a href="/solutions/opentelemetry/" class="mob-nav-item"
+                  ><span class="oo-mob-sol-icon-blue"
+                    ><img
+                      src="/docs/assets/nav-icons/opentelemetry.svg"
+                      alt="OpenTelemetry"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-sol-med-text">OpenTelemetry</span></a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Resources accordion -->
+          <div class="oo-mob-acc-section">
+            <button
+              class="mob-acc-btn oo-mob-acc-btn"
+              data-target="mob-resources"
+            >
+              Resources
+              <svg
+                class="mob-acc-chevron oo-mob-chevron"
+                style="transition: transform 0.2s"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div
+              id="mob-resources"
+              class="oo-mob-panel oo-mob-panel-g05 is-hidden"
+            >
+              <div class="oo-mob-promo oo-mob-promo-mb">
+                <p class="oo-mob-promo-title">Explore All Resources</p>
+                <a href="/resources/" class="oo-mob-promo-link"
+                  >View Resources &rarr;</a
+                >
+              </div>
+              <a
+                href="https://openobserve.ai/docs/"
+                target="_blank"
+                rel="noopener"
+                class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/documentation.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Documentation</span></a
+              >
+              <a href="/blog/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/blog.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Blog</span></a
+              >
+              <a href="/faqs/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/faqs.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text"
+                  >Frequently Asked Questions</span
+                ></a
+              >
+              <a href="/customer-stories/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/customer-stories.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Customer Stories</span></a
+              >
+              <a href="/downloads/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/downloads.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Downloads</span></a
+              >
+              <a href="/webinars-videos/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/videos.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Webinar and Videos</span></a
+              >
+              <a href="/events/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/events.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Events</span></a
+              >
+              <a href="/startup/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/startup.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Startup Program</span></a
+              >
+              <a href="/partners/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/partners.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Partners</span></a
+              >
+              <a href="/comparison/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/comparison.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">OpenObserve Vs Others</span></a
+              >
+              <a href="/datadog-bill-analyzer/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/bill-analyzer.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">Datadog Bill Analyzer</span></a
+              >
+              <a href="/whats-new/" class="mob-nav-item"
+                ><span class="oo-mob-res-icon"
+                  ><img
+                    src="/docs/assets/nav-icons/whats-new.svg"
+                    alt=""
+                    class="oo-icon-sm" /></span
+                ><span class="oo-mob-res-text">What's New</span></a
+              >
+            </div>
+          </div>
+
+          <!-- Pricing -->
           <a
-            class="tw-flex tw-items-center tw-h-12 tw-w-40 md:tw-w-52"
-            href="/"
+            href="/pricing/"
+            class="oo-mob-pricing-link"
+            style="transition: color 0.15s"
+            >Pricing</a
           >
-            <img
-              src="/docs/assets/o2-logo-readme.svg"
-              alt="OpenObserve"
-              class="tw-w-full tw-h-full tw-py-1"
-            />
-          </a>
-          <div class="tw-flex tw-items-center tw-justify-center tw-space-x-1">
+
+          <!-- CTAs -->
+          <div class="oo-mob-ctas">
             <a
-              class="tw-flex tw-capitalize tw-text-nowrap tw-text-center tw-justify-center tw-items-center tw-px-1.5 md:tw-px-5 tw-py-1.5 tw-text-xs primary-button tw-transition-opacity tw-duration-500 tw-ease-in-out plausible-event-name=Demo+Button"
               href="/demo/"
-              target="_self"
+              data-plausible-event="Demo+Button"
+              class="oo-mob-cta-demo"
+              style="transition: background 0.15s"
+              >Get Demo</a
             >
-              Get Demo
-            </a>
             <a
-              class="github-button"
-              href="https://github.com/openobserve/openobserve"
-              data-color-scheme="light"
-              data-size="small"
-              data-show-count="true"
-              aria-label="Star openobserve/openobserve on GitHub"
-              >Star</a
+              href="https://cloud.openobserve.ai"
+              target="_blank"
+              rel="noopener"
+              class="oo-mob-cta-login"
+              >Log In</a
             >
-
-            <!-- Toggle Icon -->
-            <div
-              id="mobile-menu-toggle"
-              class="tw-cursor-pointer tw-h-7 tw-w-7 tw-flex tw-items-center"
-            >
-              <img
-                id="menu-icon"
-                src="/docs/assets/navmenu.svg"
-                alt="Open Menu"
-                class="tw-block"
-              />
-              <img
-                id="close-icon"
-                src="/docs/assets/close.svg"
-                alt="Close Menu"
-                class="tw-hidden"
-              />
-            </div>
           </div>
-        </div>
-
-        <!-- Mobile Fullscreen Menu -->
-        <div
-          id="mobile-menu"
-          class="tw-w-full tw-fixed tw-top-[120px] tw-z-50 tw-h-[calc(100vh-120px)] tw-overflow-y-auto tw-bg-white tw-hidden"
-        >
-          <!-- Menu Items -->
-          <div
-            class="tw-w-full tw-flex tw-flex-col tw-items-center tw-space-y-4 tw-bg-white tw-h-full tw-overflow-y-auto tw-mt-2"
-          >
-            <ul class="tw-w-full tw-flex tw-flex-col tw-space-y-4 tw-p-4">
-              <!-- PLATFORM -->
-              <li class="tw-flex tw-flex-col tw-space-y-2">
-                <div
-                  class="tw-flex tw-items-center tw-justify-between tw-text-gray-500 tw-text-base tw-font-semibold tw-w-full tw-text-left toggle-btn"
-                >
-                  <span>Platform</span>
-                  <img
-                    src="/docs/assets/submenu-icon.svg"
-                    alt="Arrow"
-                    class="arrow tw-w-3 tw-h-3 tw-transition-transform"
-                  />
-                </div>
-                <div class="submenu tw-hidden tw-space-y-4 tw-mt-2">
-                  <div
-                    class="tw-border tw-rounded-md tw-p-4 tw-text-center tw-flex tw-flex-col tw-space-y-2"
-                  >
-                    <p class="tw-font-medium tw-text-xs tw-text-black">
-                      Full Stack Observability Platform
-                    </p>
-                    <a
-                      href="/platform/"
-                      class="tw-text-xs gradient-hover tw-font-medium tw-underline"
-                      >View Platform</a
-                    >
-                  </div>
-                  <ul
-                    class="tw-text-[15px] tw-text-gray-500 tw-font-semibold tw-space-y-1"
-                  >
-                    <li>
-                      <a href="/logs/" class="tw-block hover:tw-text-black"
-                        >Logs</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/metrics/" class="tw-block hover:tw-text-black"
-                        >Metrics</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/traces/" class="tw-block hover:tw-text-black"
-                        >Traces</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/frontend-monitoring/"
-                        class="tw-block hover:tw-text-black"
-                        >Frontend Monitoring</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/pipelines/" class="tw-block hover:tw-text-black"
-                        >Pipelines</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/alerts/" class="tw-block hover:tw-text-black"
-                        >Alerts</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/visualization-and-dashboards/"
-                        class="tw-block hover:tw-text-black"
-                        >Visualization & Dashboards</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/llm-observability/"
-                        class="tw-block hover:tw-text-black"
-                        >LLM Observability
-                        <span class="preview-chip">Preview</span></a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/ai-assistant/"
-                        class="tw-block hover:tw-text-black"
-                        >AI Assistant
-                        <span class="preview-chip">Preview</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="/incidents/" class="tw-block hover:tw-text-black"
-                        >Incidents <span class="preview-chip">Preview</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="/ai-sre/" class="tw-block hover:tw-text-black"
-                        >AI SRE <span class="preview-chip">Preview</span></a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  class="tw-w-full tw-flex tw-justify-center tw-h-0.5 tw-mt-1"
-                  style="
-                    background: linear-gradient(
-                      90deg,
-                      rgba(255, 255, 255, 0) 0%,
-                      #c0c0c0 25.5%,
-                      #c0c0c0 70%,
-                      rgba(255, 255, 255, 0) 100%
-                    );
-                  "
-                ></div>
-              </li>
-
-              <!-- SOLUTIONS -->
-              <li class="tw-flex tw-flex-col tw-space-y-2">
-                <div
-                  class="tw-flex tw-items-center tw-justify-between tw-text-gray-500 tw-text-base tw-font-semibold tw-w-full tw-text-left toggle-btn"
-                >
-                  <span>Solutions</span>
-                  <img
-                    src="/docs/assets/submenu-icon.svg"
-                    alt="Arrow"
-                    class="arrow tw-w-3 tw-h-3 tw-transition-transform"
-                  />
-                </div>
-                <div class="submenu tw-hidden tw-space-y-4 tw-mt-2">
-                  <div
-                    class="tw-border tw-rounded-md tw-p-4 tw-text-center tw-flex tw-flex-col tw-space-y-2"
-                  >
-                    <p class="tw-font-medium tw-text-xs tw-text-black">
-                      Full Stack Observability Solutions
-                    </p>
-                    <a
-                      href="/solutions/"
-                      class="tw-text-xs gradient-hover tw-font-medium tw-underline"
-                      >View Solutions</a
-                    >
-                  </div>
-                  <ul
-                    class="tw-text-[15px] tw-text-gray-500 tw-font-semibold tw-space-y-1"
-                  >
-                    <li>
-                      <a
-                        href="/aws-monitoring/"
-                        class="tw-block hover:tw-text-black"
-                        >AWS Monitoring</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/azure-monitoring/"
-                        class="tw-block hover:tw-text-black"
-                        >Azure Monitoring</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/gcp-monitoring/"
-                        class="tw-block hover:tw-text-black"
-                        >GCP Monitoring</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/kubernetes-monitoring/"
-                        class="tw-block hover:tw-text-black"
-                        >Kubernetes Monitoring</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/database-monitoring/"
-                        class="tw-block hover:tw-text-black"
-                        >Database Monitoring</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/opentelemetry/"
-                        class="tw-block hover:tw-text-black"
-                        >OpenTelemetry</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  class="tw-w-full tw-flex tw-justify-center tw-h-0.5"
-                  style="
-                    background: linear-gradient(
-                      90deg,
-                      rgba(255, 255, 255, 0) 0%,
-                      #c0c0c0 25.5%,
-                      #c0c0c0 70%,
-                      rgba(255, 255, 255, 0) 100%
-                    );
-                  "
-                ></div>
-              </li>
-
-              <!-- RESOURCES -->
-              <li class="tw-flex tw-flex-col tw-space-y-2">
-                <div
-                  class="tw-flex tw-items-center tw-justify-between tw-text-gray-500 tw-text-base tw-font-semibold tw-w-full tw-text-left toggle-btn"
-                >
-                  <span>Resources</span>
-                  <img
-                    src="/docs/assets/submenu-icon.svg"
-                    alt="Arrow"
-                    class="arrow tw-w-3 tw-h-3 tw-transition-transform"
-                  />
-                </div>
-                <div class="submenu tw-hidden tw-space-y-4 tw-mt-2">
-                  <div class="tw-border tw-rounded-md tw-p-4 tw-text-center">
-                    <p
-                      class="tw-font-medium tw-text-xs tw-text-black tw-flex tw-flex-col tw-space-y-2"
-                    >
-                      Full Stack Observability Resources
-                    </p>
-                    <a
-                      href="/resources/"
-                      class="tw-text-xs gradient-hover tw-font-medium tw-underline"
-                      >View Resources</a
-                    >
-                  </div>
-                  <ul
-                    class="tw-text-[15px] tw-text-gray-500 tw-font-semibold tw-space-y-1"
-                  >
-                    <li>
-                      <a href="/docs/" target="_blank">Documentation</a>
-                    </li>
-                    <li>
-                      <a href="/customer-stories/">Customer Stories</a>
-                    </li>
-                    <li><a href="/blog/">Blog</a></li>
-                    <li><a href="/faqs/">Frequently Asked Questions</a></li>
-                    <li>
-                      <a href="/webinars-videos/">Webinar and Videos</a>
-                    </li>
-                    <li><a href="/partners/">Partners</a></li>
-                    <li><a href="/events/">Events</a></li>
-                    <li><a href="/downloads/">Downloads</a></li>
-                    <li><a href="/comparison/">OpenObserve Vs Others</a></li>
-                    <li><a href="/startup/">Startup Program</a></li>
-                    <li>
-                      <a href="/datadog_pricing_comparison/"
-                        >Datadog Bill Analyzer</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/whats-new/">What's New</a>
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  class="tw-w-full tw-flex tw-justify-center tw-h-0.5 tw-mt-1"
-                  style="
-                    background: linear-gradient(
-                      90deg,
-                      rgba(255, 255, 255, 0) 0%,
-                      #c0c0c0 25.5%,
-                      #c0c0c0 70%,
-                      rgba(255, 255, 255, 0) 100%
-                    );
-                  "
-                ></div>
-              </li>
-            </ul>
-
-            <!-- Pricing Button -->
-            <div
-              class="tw-flex tw-flex-col tw-justify-center tw-w-full tw-items-center tw-space-y-4 tw-pt-4 tw-px-10"
-            >
-              <a
-                class="tw-p-3 tw-border tw-border-black tw-rounded-md tw-w-full tw-text-center tw-text-black tw-text-xs hover:tw-bg-gray-100"
-                href="/pricing/"
-                >Pricing</a
-              >
-            </div>
-          </div>
-        </div>
+        </nav>
       </div>
     </header>
   </div>
@@ -1049,224 +1394,1351 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // ✅ Mobile Menu Toggle
-    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const menuIcon = document.getElementById("menu-icon");
-    const closeIcon = document.getElementById("close-icon");
-
-    if (menuIcon && closeIcon && mobileMenu) {
-      menuIcon.addEventListener("click", () => {
-        mobileMenu.classList.remove("tw-hidden");
-        menuIcon.classList.add("tw-hidden");
-        closeIcon.classList.remove("tw-hidden");
-      });
-
-      closeIcon.addEventListener("click", () => {
-        mobileMenu.classList.add("tw-hidden");
-        menuIcon.classList.remove("tw-hidden");
-        closeIcon.classList.add("tw-hidden");
-      });
-    }
-
-    // ✅ Mobile Submenu Accordion
-    const toggleButtons = document.querySelectorAll(".toggle-btn");
-
-    toggleButtons.forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const isOpen = this.nextElementSibling.classList.contains("tw-hidden");
-
-        // Close all submenus
-        document
-          .querySelectorAll(".submenu")
-          .forEach((menu) => menu.classList.add("tw-hidden"));
-        document
-          .querySelectorAll(".arrow")
-          .forEach((icon) => icon.classList.remove("tw-rotate-90"));
-
-        // Open clicked submenu
-        if (isOpen) {
-          this.nextElementSibling.classList.remove("tw-hidden");
-          this.querySelector(".arrow").classList.add("tw-rotate-90");
-        }
+    // Desktop mega-menu hover with delay
+    var megaMenus = [
+      { li: "nav-platform", menu: "mega-platform" },
+      { li: "nav-solutions", menu: "mega-solutions" },
+      { li: "nav-resources", menu: "mega-resources" },
+    ];
+    megaMenus.forEach(function (m) {
+      var liEl = document.getElementById(m.li);
+      var menuEl = document.getElementById(m.menu);
+      if (!liEl || !menuEl) return;
+      var timer;
+      function show() {
+        clearTimeout(timer);
+        megaMenus.forEach(function (o) {
+          if (o.menu !== m.menu) {
+            var el = document.getElementById(o.menu);
+            if (el) el.classList.add("is-hidden");
+          }
+        });
+        menuEl.classList.remove("is-hidden");
+      }
+      function hide() {
+        timer = setTimeout(function () {
+          menuEl.classList.add("is-hidden");
+        }, 300);
+      }
+      liEl.addEventListener("mouseenter", show);
+      liEl.addEventListener("mouseleave", hide);
+      menuEl.addEventListener("mouseenter", show);
+      menuEl.addEventListener("mouseleave", hide);
+    });
+    document.addEventListener("click", function (e) {
+      megaMenus.forEach(function (m) {
+        var liEl = document.getElementById(m.li);
+        var menuEl = document.getElementById(m.menu);
+        if (
+          liEl &&
+          menuEl &&
+          !liEl.contains(e.target) &&
+          !menuEl.contains(e.target)
+        )
+          menuEl.classList.add("is-hidden");
       });
     });
 
-    // ✅ Desktop Login Dropdown
-    const loginDropdown = document.getElementById("login-dropdown");
-    const loginDropdownButton = document.getElementById(
-      "login-dropdown-button",
-    );
-    const loginDropdownMenu = document.getElementById("login-dropdown-menu");
-    const loginDropdownIcon = document.getElementById("login-dropdown-icon");
-
-    if (loginDropdown && loginDropdownButton && loginDropdownMenu) {
-      const loginMenuItems = Array.from(
-        loginDropdownMenu.querySelectorAll('[role="menuitem"]'),
-      );
-
-      const setLoginDropdownState = (isOpen) => {
-        loginDropdownMenu.classList.toggle("tw-hidden", !isOpen);
-        loginDropdownButton.setAttribute("aria-expanded", String(isOpen));
-        if (loginDropdownIcon) {
-          loginDropdownIcon.classList.toggle("tw-rotate-180", isOpen);
+    // GitHub Stars
+    fetch("https://api.github.com/repos/openobserve/openobserve")
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (d) {
+        var n = d.stargazers_count;
+        if (n) {
+          var s =
+            n >= 1000
+              ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k"
+              : String(n);
+          var el = document.getElementById("gh-stars");
+          if (el) {
+            el.textContent = s;
+            el.classList.remove("is-hidden");
+          }
         }
-      };
+      })
+      .catch(function () {});
 
-      loginDropdownButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const isOpen =
-          loginDropdownButton.getAttribute("aria-expanded") === "true";
-        setLoginDropdownState(!isOpen);
+    // Login dropdown
+    var loginWrap = document.getElementById("login-dropdown");
+    var loginBtn = document.getElementById("login-dropdown-button");
+    var loginMenu = document.getElementById("login-dropdown-menu");
+    var loginIcon = document.getElementById("login-dropdown-icon");
+    if (loginWrap && loginBtn && loginMenu) {
+      var items = Array.from(loginMenu.querySelectorAll('[role="menuitem"]'));
+      function setLogin(open) {
+        loginMenu.classList.toggle("is-hidden", !open);
+        loginBtn.setAttribute("aria-expanded", String(open));
+        if (loginIcon) loginIcon.style.transform = open ? "rotate(180deg)" : "";
+      }
+      loginBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        setLogin(loginBtn.getAttribute("aria-expanded") !== "true");
       });
-
-      loginDropdownButton.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowDown") {
-          event.preventDefault();
-          setLoginDropdownState(true);
-          loginMenuItems[0]?.focus();
-        } else if (event.key === "Escape") {
-          setLoginDropdownState(false);
-        }
+      loginBtn.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          setLogin(true);
+          items[0] && items[0].focus();
+        } else if (e.key === "Escape") setLogin(false);
       });
-
-      loginMenuItems.forEach((item, index) => {
-        item.addEventListener("keydown", (event) => {
-          if (event.key === "ArrowDown") {
-            event.preventDefault();
-            loginMenuItems[(index + 1) % loginMenuItems.length]?.focus();
-          } else if (event.key === "ArrowUp") {
-            event.preventDefault();
-            loginMenuItems[
-              index <= 0 ? loginMenuItems.length - 1 : index - 1
-            ]?.focus();
-          } else if (event.key === "Escape") {
-            setLoginDropdownState(false);
-            loginDropdownButton.focus();
+      items.forEach(function (item, i) {
+        item.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            items[(i + 1) % items.length].focus();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            items[i <= 0 ? items.length - 1 : i - 1].focus();
+          } else if (e.key === "Escape") {
+            setLogin(false);
+            loginBtn.focus();
           }
         });
-
-        item.addEventListener("click", () => {
-          setLoginDropdownState(false);
+        item.addEventListener("click", function () {
+          setLogin(false);
         });
       });
-
-      document.addEventListener("click", (event) => {
-        if (!loginDropdown.contains(event.target)) {
-          setLoginDropdownState(false);
-        }
+      document.addEventListener("click", function (e) {
+        if (!loginWrap.contains(e.target)) setLogin(false);
       });
     }
+
+    // Mobile toggle
+    var mobToggle = document.getElementById("mob-toggle");
+    var mobMenu = document.getElementById("mobile-menu");
+    var mobIconOpen = document.getElementById("mob-icon-open");
+    var mobIconClose = document.getElementById("mob-icon-close");
+    if (mobToggle && mobMenu) {
+      function setMobileMenuOpenState(open) {
+        document.body.classList.toggle("oo-mobile-menu-open", open);
+      }
+
+      mobToggle.addEventListener("click", function () {
+        var isOpen = !mobMenu.classList.contains("is-hidden");
+        mobMenu.classList.toggle("is-hidden", isOpen);
+        if (mobIconOpen) mobIconOpen.classList.toggle("is-hidden", !isOpen);
+        if (mobIconClose) mobIconClose.classList.toggle("is-hidden", isOpen);
+        mobToggle.setAttribute("aria-expanded", String(!isOpen));
+        mobToggle.setAttribute(
+          "aria-label",
+          isOpen ? "Open menu" : "Close menu",
+        );
+        setMobileMenuOpenState(!isOpen);
+      });
+
+      // Ensure state is consistent on initial render.
+      setMobileMenuOpenState(!mobMenu.classList.contains("is-hidden"));
+    }
+
+    // Mobile accordion
+    var accBtns = document.querySelectorAll(".mob-acc-btn");
+    accBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var targetId = btn.getAttribute("data-target");
+        var panel = document.getElementById(targetId);
+        var chevron = btn.querySelector(".mob-acc-chevron");
+        var isOpen = panel && !panel.classList.contains("is-hidden");
+        accBtns.forEach(function (b) {
+          var p = document.getElementById(b.getAttribute("data-target"));
+          var c = b.querySelector(".mob-acc-chevron");
+          if (p) p.classList.add("is-hidden");
+          if (c) c.style.transform = "";
+        });
+        if (!isOpen && panel) {
+          panel.classList.remove("is-hidden");
+          if (chevron) chevron.style.transform = "rotate(180deg)";
+        }
+      });
+    });
   });
 </script>
 
 <style>
-  /* ── Desktop nav link ── */
-  .menu-link {
-    position: relative;
-    padding: .625rem 1rem;
-    color: #374151;
-    font-weight: 500;
-    letter-spacing: -.01em;
-    border-radius: .5rem;
-    transition: all .2s cubic-bezier(.4, 0, .2, 1);
-    display: inline-block;
-  }
-  .menu-link::after {
+  .mega-arrow-platform::before,
+  .mega-arrow-solutions::before,
+  .mega-arrow-resources::before {
     content: "";
     position: absolute;
-    bottom: 0.3rem;
+    top: -8px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-left: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 3px 0 0 0;
+    z-index: 1;
+  }
+  .mega-arrow-platform::before {
     left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 60%;
-    height: 2px;
-    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
-    border-radius: 2px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .menu-link:hover {
-    color: #6366f1;
-    background: rgba(99, 102, 241, 0.05);
+  .mega-arrow-solutions::before {
+    left: 50%;
   }
-  .menu-link:hover::after {
-    transform: translateX(-50%) scaleX(1);
+  .mega-arrow-resources::before {
+    left: 50%;
   }
 
-  /* ── Dropdown submenu item ── */
-  .submenu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    color: #4b5563;
-    font-size: 0.75rem;
+  .header-list-style {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-top-link {
     font-weight: 500;
-    border-radius: 0.5rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    white-space: nowrap;
+    font-size: 15px;
+    line-height: 1;
+    color: #2b2f44;
+    padding: 12px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    letter-spacing: -0.005em;
     text-decoration: none;
-  }
-  .submenu-item:hover {
-    color: #1f2937;
-    background: rgba(99, 102, 241, 0.06);
-  }
-  .submenu-item::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%) scaleX(0);
-    width: 3px;
-    height: 60%;
-    background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
-    border-radius: 0 2px 2px 0;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .submenu-item:hover::before {
-    transform: translateY(-50%) scaleX(1);
-  }
-
-  /* ── Nav icon wrapper ── */
-  .nav-icon-wrap {
-    padding: 6px;
-    border-radius: 8px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* ── Preview chip ── */
-  .preview-chip {
     display: inline-flex;
     align-items: center;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    font-size: 10px;
+    transition:
+      color 0.15s,
+      background 0.15s;
+  }
+  .nav-top-link:hover {
+    color: #5b5bd6;
+    background: #eef0ff;
+  }
+
+  .mega-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #2b2f44;
+    transition:
+      background 0.15s,
+      box-shadow 0.15s;
+  }
+  .mega-item:hover {
+    background: #fff;
+    box-shadow:
+      0 1px 0 #eceef5 inset,
+      0 0 0 1px #eceef5;
+  }
+
+  .mega-item-ai {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e6e7ff;
+    transition: background 0.15s;
+  }
+  .mega-item-ai:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .sol-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #2b2f44;
+    transition:
+      background 0.15s,
+      color 0.15s;
+  }
+  .sol-item:hover {
+    background: #f7f8fc;
+    color: #0f1222;
+  }
+
+  .res-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #2b2f44;
+    transition:
+      background 0.15s,
+      color 0.15s;
+  }
+  .res-item:hover {
+    background: #f7f8fc;
+    color: #0f1222;
+  }
+
+  .sol-panel-cta {
+    transition: background 0.15s;
+  }
+  .sol-panel-cta:hover {
+    background: #4e4ec7;
+  }
+
+  .sol-feature-glow {
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      rgba(91, 91, 214, 0.55),
+      transparent 70%
+    );
+    filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .badge-preview {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    font-size: 9px;
     font-weight: 600;
-    background: #4f46e5;
-    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f0a429;
+    background: rgba(240, 164, 41, 0.14);
     line-height: 1;
   }
 
-  /* ── Search button ── */
-  .search-button {
+  .mob-nav-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    color: #6b7280;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.8);
+    gap: 12px;
+    padding: 10px 8px;
+    border-radius: 9px;
+    text-decoration: none;
+    transition: background 0.15s;
   }
-  .search-button:hover {
-    color: #6366f1;
-    border-color: #c7d2fe;
-    background: rgba(99, 102, 241, 0.05);
+  .mob-nav-item:hover {
+    background: #f7f8fc;
+  }
+
+  .mob-nav-item-dark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #e6e7ff;
+    transition: background 0.15s;
+  }
+  .mob-nav-item-dark:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* ── State utilities ──────────────────────────── */
+  .is-hidden {
+    display: none !important;
+  }
+
+  /* ── Header root / desktop ────────────────────── */
+  .oo-hdr-root {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1200;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .oo-desktop-hdr {
+    display: none;
+  }
+  @media (min-width: 1280px) {
+    .oo-desktop-hdr {
+      display: block;
+    }
+  }
+
+  .oo-hdr-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    height: 84px;
+    padding: 0 56px;
+    position: relative;
+  }
+
+  /* ── Logo ─────────────────────────────────────── */
+  .oo-hdr-logo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .oo-hdr-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .oo-hdr-logo-link:hover {
+    opacity: 0.8;
+  }
+  .oo-hdr-logo-img {
+    height: 36px;
+    width: auto;
+  }
+  .oo-hdr-slash {
+    color: #d1d5db;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1;
+    user-select: none;
+  }
+  .oo-hdr-docs-link {
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .oo-hdr-docs-link:hover {
+    opacity: 0.8;
+  }
+  .oo-hdr-docs-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7c3aed;
+    line-height: 1;
+  }
+
+  /* ── Nav bar ─────────────────────────────────── */
+  .oo-hdr-nav {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+  }
+  .oo-hdr-nav-item {
+    position: relative;
+  }
+
+  /* ── Mega menu wrappers ───────────────────────── */
+  .oo-mega-wrap {
+    position: absolute;
+    z-index: 50;
+  }
+  .oo-mega-nav {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 16px;
+    display: grid;
+    position: relative;
+  }
+  .oo-mega-platform {
+    grid-template-columns: 1fr 1fr 1fr 1.05fr;
+    grid-template-rows: 1fr auto;
+    min-width: 1150px;
+    gap: 16px;
+    padding: 16px 16px 24px;
+  }
+  .oo-mega-solutions {
+    grid-template-columns: 1fr 1fr 1fr 380px;
+    grid-template-rows: 1fr auto;
+    min-width: 1120px;
+    padding: 28px 28px 22px;
+    gap: 28px;
+  }
+  .oo-mega-resources {
+    min-width: 780px;
+    padding: 20px 24px 24px;
+  }
+
+  /* ── Platform columns ────────────────────────── */
+  .oo-plat-col {
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background: #fafbff;
+    border: 1px solid #f1f3fb;
+  }
+  .oo-plat-col-hdr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px 14px;
+  }
+  .oo-plat-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    flex-shrink: 0;
+    background: white;
+    color: #5b5bd6;
+    border: 1px solid #e3e6f0;
+  }
+  .oo-plat-col-title {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0f1222;
+  }
+  .oo-plat-col-sub {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7088;
+    margin-left: auto;
+  }
+  .oo-plat-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* ── Mega icon / item ────────────────────────── */
+  .oo-mega-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: #f6f7fb;
+  }
+  .oo-icon-sm {
+    width: 16px;
+    height: 16px;
+  }
+  .oo-mega-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .oo-mega-item-sub {
+    font-size: 12px;
+    color: #6b7088;
+    line-height: 1.25;
+  }
+  .oo-mega-item-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+  .oo-mega-item-title-inline {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* ── Platform dark column (O11y 3.0) ────────── */
+  .oo-plat-dark-col {
+    border-radius: 14px;
+    padding: 12px;
+  }
+  .oo-plat-dark-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: white;
+  }
+  .oo-plat-dark-col-title {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: white;
+  }
+  .oo-plat-dark-col-sub {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #b7baff;
+    margin-left: auto;
+  }
+
+  /* ── AI mega icons ───────────────────────────── */
+  .oo-mega-ai-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-mega-ai-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 2px;
+    color: #e6e7ff;
+  }
+  .oo-mega-ai-sub {
+    font-size: 12px;
+    color: #8b8fb8;
+    line-height: 1.25;
+  }
+
+  /* ── Platform footer row ─────────────────────── */
+  .oo-mega-footer {
+    grid-column: span 4;
+    padding: 14px 8px;
+    margin-top: 4px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    color: #6b7088;
+  }
+  .oo-mega-footer-links {
+    display: flex;
+    gap: 16px;
+  }
+  .oo-mega-ftr-link {
+    text-decoration: none;
+    color: #6b7088;
+  }
+  .oo-mega-ftr-link:hover {
+    color: #4e4ec7;
+    text-decoration: underline;
+  }
+  .oo-mega-ftr-cta {
+    color: #5b5bd6;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .oo-mega-ftr-cta:hover {
+    color: #4e4ec7;
+    text-decoration: underline;
+  }
+
+  /* ── Solutions columns ───────────────────────── */
+  .oo-sol-col-hdr {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #6b7088;
+    padding: 0 10px 10px;
+    margin: 0 0 6px;
+    border-bottom: 1px dashed #e5e7eb;
+  }
+  .oo-sol-section-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f1222;
+    padding: 0 10px;
+    margin: 12px 0 4px;
+  }
+  .oo-sol-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #f6f7fb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-sol-text-sm {
+    font-size: 14px;
+  }
+  .oo-sol-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .oo-sol-item-sub {
+    font-size: 12px;
+    color: #6b7088;
+  }
+
+  /* ── Solutions panel stats ─────────────────── */
+  .oo-sol-stats {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .oo-sol-stat {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 9px;
+    padding: 20px 6px 10px;
+    min-width: 0;
+  }
+  .oo-sol-stat-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    line-height: 1.25;
+    white-space: nowrap;
+    border: 1px solid;
+    display: inline-block;
+  }
+  .oo-sol-stat-prefix {
+    font-size: 9px;
+    color: #c8caec;
+    line-height: 1;
+  }
+  .oo-sol-stat-value {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: white;
+  }
+  .oo-sol-stat-unit {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: -0.025em;
+  }
+  .oo-sol-stat-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.25;
+    margin-top: 4px;
+  }
+  .oo-sol-cta-primary {
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #5b5bd6;
+    transition: background-color 0.15s;
+  }
+  .oo-sol-cta-primary:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+  .oo-sol-cta-secondary {
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: background-color 0.15s;
+  }
+  .oo-sol-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  /* ── Solutions panel ─────────────────────────── */
+  .oo-sol-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .oo-sol-panel-label {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #a0a4c0;
+  }
+  .oo-sol-panel-h3 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: white;
+  }
+  .oo-sol-panel-desc {
+    font-size: 13px;
+    color: #a0a4c0;
+    margin: 0;
+    line-height: 1.625;
+  }
+  .oo-sol-panel-ctas {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .oo-sol-demo-btn {
+    background: #5b5bd6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .oo-sol-demo-btn:hover {
+    background: #4e4ec7;
+  }
+  .oo-sol-see-all {
+    color: #e6e7ff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .oo-sol-see-all:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Solutions footer row ────────────────────── */
+  .oo-sol-footer {
+    grid-column: span 4;
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    color: #6b7088;
+  }
+
+  /* ── Resources grid ──────────────────────────── */
+  .oo-res-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .oo-res-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #f6f7fb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-mega-nav .oo-res-text {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+  }
+
+  /* ── Right actions ───────────────────────────── */
+  .oo-hdr-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .oo-hdr-search-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid #e3e6f0;
+    background: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: #2b2f44;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
+  }
+  .oo-hdr-search-btn:hover {
+    border-color: #c0c4d8;
+    color: #0f1222;
+  }
+  .oo-hdr-demo-btn {
+    background: #5b5bd6;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .oo-hdr-demo-btn:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+
+  .oo-login-wrap {
+    position: relative;
+  }
+  .oo-hdr-login-btn {
+    background: white;
+    border: 1px solid #e3e6f0;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2b2f44;
+    transition: border-color 0.15s;
+  }
+  .oo-hdr-login-btn:hover {
+    border-color: #c0c4d8;
+  }
+  .oo-hdr-login-arrow {
+    height: 12px;
+    width: 12px;
+    flex-shrink: 0;
+  }
+  .oo-hdr-login-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    width: 288px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    z-index: 50;
+    overflow: hidden;
+  }
+  .oo-login-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.15s;
+  }
+  .oo-login-orange:hover {
+    background: #fff7ed;
+  }
+  .oo-login-blue:hover {
+    background: #eff6ff;
+  }
+  .oo-login-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .oo-login-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .oo-login-item-name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .oo-login-orange-name {
+    color: #1f2937;
+  }
+  .oo-login-orange:hover .oo-login-orange-name {
+    color: #b45309;
+  }
+  .oo-login-blue-name {
+    color: #1f2937;
+  }
+  .oo-login-blue:hover .oo-login-blue-name {
+    color: #1d4ed8;
+  }
+  .oo-login-item-url {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .oo-login-item-region {
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  .oo-hdr-github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e3e6f0;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    text-decoration: none;
+    color: #2b2f44;
+    white-space: nowrap;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
+  }
+  .oo-hdr-github-btn:hover {
+    border-color: #c0c4d8;
+    color: #0f1222;
+  }
+  .oo-gh-stars {
+    background: #f6f7fb;
+    padding: 4px 7px;
+    border-radius: 6px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: #2b2f44;
+    font-size: 12px;
+  }
+
+  /* ── Theme toggle ─────────────────────────────── */
+  /* Force icons to dark so they stay visible on the always-white header */
+  .oo-hdr-root .custom-theme-toggle {
+    color: #2b2f44;
+  }
+  .oo-hdr-root .custom-icon {
+    filter: brightness(0) saturate(100%);
+    display: block;
+  }
+
+  /* ── Mobile header ───────────────────────────── */
+  @media (max-width: 1279px) {
+    body.oo-mobile-menu-open .md-header {
+      display: none !important;
+    }
+  }
+
+  .oo-mobile-hdr {
+    display: block;
+    width: 100vw;
+    overflow: visible;
+  }
+  @media (min-width: 1280px) {
+    .oo-mobile-hdr {
+      display: none;
+    }
+  }
+
+  .oo-mob-hdr-inner {
+    display: flex;
+    flex-direction: column;
+    z-index: 1201;
+    position: relative;
+    width: 100vw;
+    overflow: visible;
+  }
+  .oo-mob-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid #eceef5;
+  }
+  .oo-mob-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .oo-mob-search-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    border: 1px solid #e3e6f0;
+    background: white;
+    display: grid;
+    place-items: center;
+    color: #2b2f44;
+    transition: border-color 0.15s;
+    cursor: pointer;
+  }
+  .oo-mob-search-btn:hover {
+    border-color: #c0c4d8;
+  }
+  .oo-mob-demo-btn {
+    background: #5b5bd6;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .oo-mob-demo-btn:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+  .oo-mob-toggle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    border: 1px solid #e3e6f0;
+    background: white;
+    display: grid;
+    place-items: center;
+    color: #2b2f44;
+    transition: border-color 0.15s;
+    cursor: pointer;
+  }
+  .oo-mob-toggle-btn:hover {
+    border-color: #c0c4d8;
+  }
+  .oo-mob-menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 60px;
+    width: 100vw;
+    height: calc(100dvh - 60px);
+    max-height: calc(100dvh - 60px);
+    z-index: 1202;
+    background: white;
+    padding-top: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .oo-mob-nav {
+    padding: 0 16px 32px;
+  }
+  .oo-mob-acc-section {
+    border-bottom: 1px solid #f1f3fb;
+  }
+  .oo-mob-acc-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 8px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #2b2f44;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+  }
+  .oo-mob-chevron {
+    width: 16px;
+    height: 16px;
+    color: #6b7088;
+    flex-shrink: 0;
+  }
+  .oo-mob-panel {
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .oo-mob-panel-g3 {
+    gap: 12px;
+  }
+  .oo-mob-panel-g4 {
+    gap: 16px;
+  }
+  .oo-mob-panel-g05 {
+    gap: 2px;
+  }
+  .oo-mob-promo {
+    border: 1px solid #e8eaf2;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .oo-mob-promo-mb {
+    margin-bottom: 4px;
+  }
+  .oo-mob-promo-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f1222;
+    margin: 0 0 6px;
+  }
+  .oo-mob-promo-link {
+    color: #5b5bd6;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .oo-mob-promo-link:hover {
+    text-decoration: underline;
+  }
+  .oo-mob-section {
+    border-radius: 12px;
+  }
+  .oo-mob-section-hdr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px 6px;
+    margin-bottom: 2px;
+  }
+  .oo-mob-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    border: 1px solid #e5e7eb;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: #f6f7fb;
+  }
+  .oo-mob-item-text {
+    font-size: 14px;
+    line-height: 1.25;
+    flex: 1;
+    color: #2b2f44;
+  }
+  .oo-mob-dark-section {
+    border-radius: 12px;
+    padding: 10px;
+  }
+  .oo-mob-dark-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .oo-mob-dark-text {
+    font-size: 14px;
+    line-height: 1.25;
+    flex: 1;
+  }
+  .oo-mob-sol-col-hdr {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #6b7088;
+    padding: 0 8px 6px;
+    margin: 0 0 4px;
+    border-bottom: 1px dashed #e5e7eb;
+  }
+  .oo-mob-sol-section-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f1222;
+    padding: 0 8px;
+    margin: 12px 0 4px;
+  }
+  .oo-mob-sol-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: #f6f7fb;
+    flex-shrink: 0;
+  }
+  .oo-mob-sol-text {
+    font-size: 14px;
+    color: #2b2f44;
+  }
+  .oo-mob-sol-icon-blue {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: #eef0ff;
+    flex-shrink: 0;
+  }
+  .oo-mob-sol-med-text {
+    font-weight: 500;
+    font-size: 14px;
+    color: #2b2f44;
+  }
+  .oo-mob-res-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: #f6f7fb;
+  }
+  .oo-mob-res-text {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.25;
+    color: #2b2f44;
+  }
+  .oo-mob-pricing-link {
+    display: flex;
+    align-items: center;
+    padding: 16px 8px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #2b2f44;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f3fb;
+  }
+  .oo-mob-ctas {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .oo-mob-cta-demo {
+    background: #5b5bd6;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .oo-mob-cta-demo:hover {
+    background: #4e4ec7;
+    color: white;
+  }
+  .oo-mob-cta-login {
+    border: 1px solid #e3e6f0;
+    color: #2b2f44;
+    text-align: center;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .oo-mob-cta-login:hover {
+    border-color: #c0c4d8;
   }
 </style>
