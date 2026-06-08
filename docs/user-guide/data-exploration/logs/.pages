@@ -5,5 +5,6 @@ nav:
     - Search Around: search-around.md
     - Insights: insights.md
     - Quick Mode and Interesting Fields: quickmode.md
+    - Log Patterns: log-patterns.md
     - Explain and Analyze Query: explain-analyze-query.md
 
