@@ -91,6 +91,9 @@ The following charts are supported in Dashboards:
 17. Markdown
 18. Sankey
 19. Custom Charts
+20. Table: Display data in rows and columns, with optional pivot mode.
+
+The **Table** chart supports a pivot mode: add a **Breakdown** field (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Dynamic Columns** are disabled while pivot mode is active.
 
 ### Tabs
 Tabs help organize your Panels into different sections within a **Dashboard**. For example, you might have one Tab for Performance, another for Errors, and another for Traffic Analysis.

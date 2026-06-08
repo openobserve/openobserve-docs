@@ -123,6 +123,21 @@ A toggle switch that controls gridline visibility on the chart.
 When gridlines are disabled, the chart displays without reference lines, providing a cleaner appearance.
 
 
+## Axis configuration
+
+The following options control how x-axis labels are displayed.
+
+### Label Rotate
+
+Rotate x-axis label text by a chosen angle (in degrees) to improve readability when labels are long or crowded.
+
+### Label Truncate
+
+Truncate x-axis labels to a specified width in pixels.
+
+**Note:** Label Truncate is not supported for time-series x-axis fields.
+
+
 ## Chart type support
 
 ### Legend options

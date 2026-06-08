@@ -30,6 +30,10 @@ To create a variable:
 
     - **Type of Variable**: Query Values
     - **Name**: pod
+
+        !!! Note
+            Variable names must be unique within a dashboard. If you enter a name that already exists, OpenObserve shows `Variable with same name already exists.` and does not save the variable.
+
     - **Label**: Pod
     - **Stream Type**: logs
     - **Stream**: `default`
@@ -69,6 +73,23 @@ To apply the variable to a panel:
 
 The panel is now dynamically filtered using the **Pod** variable. When users select a value from the **Pod** dropdown on the dashboard, the panel updates to display data for that pod only.
 ![Variable in Dashboard](../../../../images/query-variable-results.png)
+
+### Variable Substitution Syntax
+
+You can reference a variable in panel queries (and in HTML panels) using any of the following syntaxes, where `var` is the variable name:
+
+- `$var`
+- `${var}`
+- `{{var}}` (mustache)
+
+Surrounding spaces are tolerated, so `{{ var }}` and `${ var }` are also valid.
+
+For multi-value variables, you can apply format modifiers to control how the selected values are joined:
+
+- `{{var:csv}}` or `${var:csv}`: joins the values with commas.
+- `{{var:pipe}}` or `${var:pipe}`: joins the values with pipes.
+- `{{var:doublequote}}` or `${var:doublequote}`: wraps each value in double quotes.
+- `{{var:singlequote}}` or `${var:singlequote}`: wraps each value in single quotes.
 
 ## Advanced Configuration
 After creating and applying a variable, you can further refine its behavior using advanced settings.
