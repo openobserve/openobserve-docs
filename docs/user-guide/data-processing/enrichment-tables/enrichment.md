@@ -83,6 +83,12 @@ stderr,Standard Error – error or diagnostic logs
 
 The enrichment table is now available for use in VRL.
 
+!!! note "Naming and uniqueness"
+    Enrichment table names must be unique within an organization, regardless of how the table is created (URL or file upload).
+
+    - Names are normalized before they are stored: they are lowercased and special characters are replaced. As a result, names such as `My_Table` and `my_table` are treated as the same name and will collide.
+    - Creating a table whose name matches an existing table of the other source type (for example, creating a file-upload table that matches an existing URL table, or vice versa) is rejected. Use the matching update flow for that table type instead.
+
 ### Step 4: Use the Enrichment Table in a VRL Function
 1. Go to the **Logs** page.
 2. Select the relevant log stream.
@@ -152,6 +158,9 @@ To add more data to an existing enrichment table, enable the **Append data to ex
 5. Select **Save** to upload and append the new data to the existing table.
 <br>
 ![Append Data to an Existing Table](../../../images/enrichment-table-append.png)
+
+!!! note
+    OpenObserve does not silently overwrite existing data. Re-adding a URL that is already present in a table, or re-creating a URL-based table that already exists without using the append/reload flow, returns an error instead of overwriting the existing data.
 
 ## Storage Limit
 The maximum size of an enrichment table is controlled by the environment variable `ZO_ENRICHMENT_TABLE_LIMIT`.
