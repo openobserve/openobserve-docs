@@ -1,9 +1,10 @@
 ---
 title: Alerts in OpenObserve | OpenObserve
 description: >-
-  Learn how alerting works in OpenObserve. Supports scheduled, real-time, and
-  anomaly detection alerts with a natural language condition builder, SQL mode,
-  live preview, and flexible notification destinations.
+  Learn how alerting works in OpenObserve. Supports scheduled and real-time
+  alerts, plus anomaly detection alerts on Enterprise self-hosted, with a
+  natural language condition builder, SQL mode, live preview, and flexible
+  notification destinations.
 ---
 # Alerts
 
@@ -17,7 +18,7 @@ OpenObserve supports three types of alerts:
 
 - **Scheduled alerts**: Run at fixed intervals to evaluate aggregated or historical data. Use for routine monitoring and trend analysis. For example, every 10 minutes, the alert evaluates your data and checks if the average response time exceeds 500ms. If the condition is met, the alert sends a notification.
 - **Real-time alerts**: Monitor data continuously and trigger instantly when conditions are met. Use for critical events requiring instant action. For example, when a specific error pattern appears in your logs, the alert sends a notification within seconds.
-- **Anomaly detection** *(Enterprise and Cloud only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
+- **Anomaly detection** *(Enterprise self-hosted only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
 
 ## Alert creation layout
 
@@ -69,7 +70,7 @@ OpenObserve supports three query modes for defining conditions:
 How often the alert evaluation runs. Set the interval in minutes, or switch to a cron expression for precise scheduling. Real-time alerts run continuously and do not have a frequency setting.
 
 !!! note
-    OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. For example, if the current time is 23:03 and frequency is 5 minutes, the next run is at 23:05.
+    OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. For example, if the current time is 23:03 and frequency is 5 minutes, the next run is at 23:05. When you use a cron expression instead, the next run is the next time that matches the cron schedule in the configured timezone; the alert does not trigger immediately on save or enable.
 
 ### Look back window (period)
 
