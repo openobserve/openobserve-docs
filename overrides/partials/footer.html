@@ -1,3 +1,562 @@
+<!-- Footer Styles -->
+<style>
+  /* Utility */
+  .is-hidden {
+    display: none !important;
+  }
+  .is-flex {
+    display: flex !important;
+  }
+
+  /* Footer */
+  .oo-footer {
+    position: relative;
+    background-color: #0f172a;
+    width: 100%;
+  }
+  .oo-footer-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .oo-footer-wrap {
+    position: relative;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px 16px;
+  }
+  @media (min-width: 640px) {
+    .oo-footer-wrap {
+      max-width: 640px;
+    }
+  }
+  @media (min-width: 768px) {
+    .oo-footer-wrap {
+      max-width: 768px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .oo-footer-wrap {
+      max-width: 1024px;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+  @media (min-width: 1280px) {
+    .oo-footer-wrap {
+      max-width: 1280px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+  @media (min-width: 1536px) {
+    .oo-footer-wrap {
+      max-width: 1536px;
+    }
+  }
+  @media (min-width: 1700px) {
+    .oo-footer-wrap {
+      max-width: 1700px;
+    }
+  }
+
+  .oo-footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  @media (min-width: 1024px) {
+    .oo-footer-inner {
+      flex-direction: row;
+      margin-top: 32px;
+    }
+  }
+
+  .oo-footer-cols {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  @media (min-width: 640px) {
+    .oo-footer-cols {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .oo-footer-cols {
+      width: 75%;
+      flex: 0 0 75%;
+      max-width: 75%;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  /* Newsletter */
+  .oo-newsletter-wrap {
+    border-radius: 8px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+  @media (min-width: 1024px) {
+    .oo-newsletter-wrap {
+      width: 25%;
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+  }
+  .oo-newsletter-title {
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 8px;
+    position: relative;
+    display: inline-block;
+  }
+  .oo-newsletter-underline {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    display: block;
+  }
+  .oo-newsletter-desc {
+    color: #d1d5db;
+    font-size: 16px;
+    transition: all 0.3s;
+    margin-bottom: 24px;
+  }
+  .oo-newsletter-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .oo-newsletter-input-wrap {
+    font-size: 14px;
+    text-align: left;
+    color: #fff;
+    caret-color: white;
+  }
+  .oo-newsletter-input {
+    flex: 1;
+    padding: 12px 16px;
+    width: 100%;
+    border-radius: 9999px;
+    border: 1px solid #4a90e2;
+    background: transparent;
+    color: #fff !important;
+    caret-color: white;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  .oo-newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .oo-newsletter-error {
+    text-align: left;
+    margin-left: 8px;
+    margin-top: 2px;
+    color: #f87171;
+    font-size: 14px;
+    display: none;
+  }
+  .oo-newsletter-error:not(.is-hidden) {
+    display: block;
+  }
+  .oo-newsletter-submit-wrap {
+    padding: 0;
+    border-radius: 9999px;
+    background: transparent;
+  }
+  .oo-newsletter-submit-wrap:hover {
+    background: transparent;
+  }
+  .oo-newsletter-submit {
+    transition: all 0.15s;
+    width: 100%;
+    cursor: pointer;
+    background-color: #7782ff;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-family: inherit;
+  }
+  .oo-newsletter-submit:hover {
+    background-color: #6672fa;
+  }
+  .oo-newsletter-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .oo-recaptcha-wrap {
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .oo-recaptcha-wrap.is-flex {
+    display: flex;
+  }
+  .oo-recaptcha-inner {
+    position: relative;
+  }
+  .oo-recaptcha-scale {
+    transform: scale(0.9);
+    transform-origin: top left;
+  }
+  .oo-captcha-loader {
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .oo-captcha-loader.is-flex {
+    display: flex;
+  }
+  .oo-captcha-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    border-top-color: transparent;
+    border-radius: 9999px;
+    animation: oo-spin 0.8s linear infinite;
+  }
+  @keyframes oo-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .oo-newsletter-legal {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Toast */
+  .oo-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 8px;
+    background-color: #7782ff;
+    color: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    z-index: 50;
+    transition: opacity 0.3s;
+    font-size: 15px;
+  }
+
+  /* Badges */
+  .oo-footer-badges-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 1024px) {
+    .oo-footer-badges-row {
+      justify-content: flex-end;
+      padding: 0 32px;
+    }
+  }
+  .oo-footer-badges {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .oo-badge-iso {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .oo-badge-soc-wrap {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    filter: grayscale(100%);
+  }
+  .oo-badge-soc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .oo-badge-text {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+  }
+  .oo-badge-soc2 {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  .oo-badge-cert {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  .oo-github-btn-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  @media (min-width: 768px) {
+    .oo-github-btn-wrap {
+      justify-content: flex-start;
+    }
+  }
+
+  /* Bottom footer */
+  .oo-footer-bottom {
+    border-top: 1px solid #374151;
+    margin-top: 20px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    gap: 16px;
+  }
+  @media (min-width: 1024px) {
+    .oo-footer-bottom {
+      flex-direction: row;
+    }
+  }
+  .oo-footer-copyright {
+    text-align: center;
+    font-size: 12px;
+  }
+  @media (min-width: 1024px) {
+    .oo-footer-copyright {
+      text-align: left;
+    }
+  }
+  .oo-footer-copyright-text {
+    color: #fff;
+  }
+  .oo-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+    color: #d1d5db;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+  }
+  @media (min-width: 768px) {
+    .oo-footer-links {
+      font-size: 14px;
+    }
+  }
+  .oo-footer-links a {
+    color: #d1d5db;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .oo-footer-links a:hover {
+    color: #7782ff;
+  }
+  .oo-footer-link-item:hover {
+    color: #7782ff;
+  }
+  .oo-footer-social {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .oo-social-item {
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .oo-social-item:hover {
+    background-color: white/90;
+  }
+  .oo-social-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  /* Footer column (JS-generated) */
+  .oo-footer-col-title {
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .oo-footer-col-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 16px;
+    color: #d1d5db;
+  }
+  .oo-footer-col-item a {
+    display: inline-block;
+    color: #d1d5db;
+    font-size: 16px;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .oo-footer-col-item a:hover {
+    color: #7782ff;
+  }
+
+  /* Webinar banner */
+  .oo-webinar-section {
+    background: linear-gradient(135deg, #5b66e8 0%, #3b82f6 50%, #14b8a6 100%);
+    position: relative;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 0 8px;
+    margin-top: 8px;
+  }
+  .oo-webinar-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 20% 50%,
+        rgba(91, 102, 232, 0.3) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 50%,
+        rgba(59, 130, 246, 0.3) 0%,
+        transparent 50%
+      );
+    pointer-events: none;
+  }
+  .oo-webinar-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 12px;
+  }
+  @media (min-width: 768px) {
+    .oo-webinar-inner {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  .oo-webinar-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: white;
+    gap: 6px;
+  }
+  @media (min-width: 1024px) {
+    .oo-webinar-content {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+  .oo-webinar-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  @media (min-width: 768px) {
+    .oo-webinar-title-group {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+  .oo-webinar-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fde047;
+    white-space: nowrap;
+  }
+  .oo-webinar-badge svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .oo-webinar-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: white;
+    margin: 0;
+  }
+  .oo-webinar-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .oo-webinar-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .oo-webinar-meta-item svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  .oo-webinar-cta {
+    flex-shrink: 0;
+  }
+  .oo-webinar-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: white;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 4px 12px;
+    height: 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .oo-webinar-cta a:hover {
+    background: #eff6ff;
+    color: #2563eb;
+  }
+  .oo-webinar-cta svg {
+    width: 14px;
+    height: 14px;
+  }
+</style>
+
 <!-- Newsletter Form -->
 <!--
   Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
@@ -21,10 +580,10 @@
   IN THE SOFTWARE.
 -->
 
-<footer class="tw-relative tw-bg-[#121212] tw-w-full">
+<footer class="oo-footer" id="oo-footer">
   <!-- Background SVG -->
   <svg
-    class="tw-absolute tw-inset-0 tw-w-full tw-h-full"
+    class="oo-footer-bg"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1221 684"
     fill="none"
@@ -73,18 +632,13 @@
     </defs>
   </svg>
 
-  <div
-    class="tw-relative tw-container tw-mx-auto tw-px-4 tw-py-10 lg:tw-px-8 xl:tw-px-12"
-  >
-    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-6">
+  <div class="oo-footer-wrap">
+    <div class="oo-footer-inner">
       <!-- Footer Grid -->
-      <div
-        id="footer-columns"
-        class="tw-w-full lg:tw-w-[75%] tw-grid tw-grid-cols-2 sm:tw-grid-cols-3 lg:tw-grid-cols-4 tw-gap-6"
-      ></div>
+      <div id="footer-columns" class="oo-footer-cols"></div>
 
       <!-- Newsletter -->
-      <div class="tw-rounded-lg tw-text-center tw-mx-auto">
+      <div class="oo-newsletter-wrap">
         <form
           id="newsletter-form"
           name="newsletter"
@@ -92,24 +646,14 @@
           method="post"
           action="javascript:void(0)"
         >
-          <div
-            class="tw-text-white tw-font-medium tw-text-lg tw-mb-2 tw-relative tw-inline-block"
-          >
+          <div class="oo-newsletter-title">
             Stay Updated
-            <span
-              class="tw-absolute tw-bottom-[-5px] tw-left-0 tw-w-full tw-h-0.5 tw-bg-white tw-block"
-            ></span>
+            <span class="oo-newsletter-underline"></span>
           </div>
-          <p
-            class="tw-text-gray-300 tw-text-sm tw-transition tw-duration-300 tw-mb-6"
-          >
-            Get the latest OpenObserve insights
-          </p>
+          <p class="oo-newsletter-desc">Get the latest OpenObserve insights</p>
 
-          <div class="tw-flex tw-flex-col tw-gap-2.5 tw-mb-4">
-            <div
-              class="tw-text-xs tw-rounded-full tw-border tw-border-[#4a90e2] tw-text-left !tw-text-white tw-caret-white"
-            >
+          <div class="oo-newsletter-fields">
+            <div class="oo-newsletter-input-wrap">
               <input
                 type="email"
                 name="email"
@@ -117,23 +661,23 @@
                 placeholder="Enter your email"
                 required
                 aria-label="Email address"
-                class="tw-flex-1 tw-px-4 tw-py-2 tw-w-full tw-rounded-full tw-bg-transparent !tw-text-white tw-caret-white tw-outline-none tw-placeholder-[rgba(255,255,255,0.6)]"
+                class="oo-newsletter-input"
               />
             </div>
             <div
               id="newsletter-error"
-              class="tw-text-left tw-ml-2 tw-text-red-400 tw-text-sm tw-hidden"
+              class="oo-newsletter-error is-hidden"
             ></div>
 
             <!-- Submit button container - can be hidden during subscription -->
             <div
               id="newsletter-submit-container"
-              class="tw-px-6 tw-py-2 tw-rounded-full tw-bg-[#7782FF] tw-text-white tw-text-sm tw-font-medium hover:tw-bg-[#6672fa]"
+              class="oo-newsletter-submit-wrap"
             >
               <button
                 type="submit"
                 id="newsletter-submit"
-                class="tw-transition active:tw-scale-98 tw-w-full tw-cursor-pointer"
+                class="oo-newsletter-submit"
               >
                 Subscribe
               </button>
@@ -142,34 +686,29 @@
             <!-- reCAPTCHA v2 Container - Hidden by default -->
             <div
               id="newsletter-recaptcha-container"
-              class="tw-justify-center tw-my-2 tw-hidden"
+              class="oo-recaptcha-wrap is-hidden"
             >
-              <div class="tw-relative">
+              <div class="oo-recaptcha-inner">
                 <!-- Captcha -->
-                <div id="newsletter-recaptcha" class="tw-scale-90"></div>
+                <div id="newsletter-recaptcha" class="oo-recaptcha-scale"></div>
 
                 <!-- Loader Overlay -->
                 <div
                   id="newsletter-captcha-loader"
-                  class="tw-absolute tw-inset-0 tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-60 tw-hidden"
+                  class="oo-captcha-loader is-hidden"
                 >
-                  <div
-                    class="tw-w-10 tw-h-10 tw-border-4 tw-border-t-transparent tw-border-white tw-border-opacity-80 tw-rounded-full tw-animate-spin"
-                  ></div>
+                  <div class="oo-captcha-spinner"></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <p class="tw-text-xs tw-text-[rgba(255,255,255,0.6)]">
+          <p class="oo-newsletter-legal">
             By subscribing, you agree to receive product and marketing related
             updates from OpenObserve.
           </p>
         </form>
-        <div
-          id="newsletter-toast"
-          class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-base"
-        ></div>
+        <div id="newsletter-toast" class="oo-toast is-hidden"></div>
       </div>
 
       <script>
@@ -359,22 +898,22 @@
             "newsletter-submit-container",
           );
           if (submitContainer) {
-            submitContainer.classList.remove("tw-hidden");
+            submitContainer.classList.remove("is-hidden");
           }
 
           const container = document.getElementById(
             "newsletter-recaptcha-container",
           );
           if (container) {
-            container.classList.add("tw-hidden");
-            container.classList.remove("tw-flex");
+            container.classList.add("is-hidden");
+            container.classList.remove("is-flex");
           }
 
           // Hide loader
           const loader = document.getElementById("newsletter-captcha-loader");
           if (loader) {
-            loader.classList.add("tw-hidden");
-            loader.classList.remove("tw-flex");
+            loader.classList.add("is-hidden");
+            loader.classList.remove("is-flex");
           }
 
           resetRecaptcha();
@@ -389,7 +928,7 @@
             "newsletter-submit-container",
           );
           if (submitContainer) {
-            submitContainer.classList.add("tw-hidden");
+            submitContainer.classList.add("is-hidden");
           }
 
           const container = document.getElementById(
@@ -398,8 +937,8 @@
           const recaptchaDiv = document.getElementById("newsletter-recaptcha");
 
           if (container) {
-            container.classList.remove("tw-hidden");
-            container.classList.add("tw-flex");
+            container.classList.remove("is-hidden");
+            container.classList.add("is-flex");
           }
 
           // Wait for DOM update, then render reCAPTCHA
@@ -440,11 +979,7 @@
               "newsletter-submit-container",
             );
             if (submitContainer) {
-              submitContainer.classList.remove("tw-hidden");
-            }
-            subscribeBtn.disabled = false;
-            subscribeBtn.textContent = "Subscribe";
-            return;
+                submitContainer.classList.remove("is-hidden");
           }
 
           try {
@@ -467,7 +1002,7 @@
                 "newsletter-submit-container",
               );
               if (submitContainer) {
-                submitContainer.classList.remove("tw-hidden");
+                submitContainer.classList.remove("is-hidden");
               }
               subscribeBtn.disabled = false;
               subscribeBtn.textContent = "Subscribe";
@@ -545,13 +1080,13 @@
 
           const isError = type === "error";
           toast.textContent = message;
-          toast.classList.remove("tw-hidden");
+          toast.classList.remove("is-hidden");
           toast.style.opacity = "1";
           toast.style.backgroundColor = isError ? "#ef4444" : "#7782FF";
 
           setTimeout(() => {
             toast.style.opacity = "0";
-            setTimeout(() => toast.classList.add("tw-hidden"), 300);
+            setTimeout(() => toast.classList.add("is-hidden"), 300);
           }, 4000);
         }
 
@@ -575,12 +1110,12 @@
             e.preventDefault(); // Prevent form submission and URL changes
             e.stopPropagation(); // Stop event bubbling
 
-            emailError.classList.add("tw-hidden");
+            emailError.classList.add("is-hidden");
 
             const email = emailInput.value.trim();
             if (!validateEmail(email)) {
               emailError.textContent = "Invalid email address";
-              emailError.classList.remove("tw-hidden");
+              emailError.classList.remove("is-hidden");
               return false; // Prevent further processing
             }
 
@@ -599,7 +1134,7 @@
                 "newsletter-submit-container",
               );
               if (submitContainer) {
-                submitContainer.classList.remove("tw-hidden");
+                submitContainer.classList.remove("is-hidden");
               }
               subscribeBtn.disabled = false;
               subscribeBtn.textContent = "Subscribe";
@@ -612,17 +1147,22 @@
     </div>
 
     <!-- Toast -->
-    <div
-      id="newsletter-toast"
-      class="tw-fixed tw-bottom-5 tw-right-2 tw-transform tw-bg-[#7782FF] tw-text-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-z-50 tw-hidden tw-transition-opacity tw-duration-300 tw-text-[15px]"
-    ></div>
+    <div id="newsletter-toast" class="oo-toast is-hidden"></div>
 
-    <div class="tw-flex tw-justify-center lg:tw-justify-end">
-      <div class="tw-flex tw-items-center tw-gap-4">
-        <div class="tw-w-12 tw-h-12 tw-flex-shrink-0 tw-grayscale">
+    <div class="oo-footer-badges-row">
+      <div class="oo-footer-badges">
+        <img
+          src="https://openobserve.ai/img/logo/ISO-27001-Certification-Novolyze 2.png"
+          alt="ISO 27001 Certified"
+          class="oo-badge-iso"
+          loading="lazy"
+          width="48"
+          height="48"
+        />
+        <div class="oo-badge-soc-wrap">
           <img
             src="/docs/assets/soc.webp"
-            class="tw-w-full tw-h-full tw-object-contain"
+            class="oo-badge-soc-img"
             alt="Official AICPA SOC badge"
             loading="lazy"
             width="48"
@@ -630,13 +1170,11 @@
           />
         </div>
 
-        <div class="tw-flex tw-flex-col tw-text-white">
-          <p class="tw-whitespace-nowrap tw-text-sm">SOC2 Type II</p>
-          <p class="tw-whitespace-nowrap tw-text-xs">Certified</p>
+        <div class="oo-badge-text">
+          <p class="oo-badge-soc2">SOC2 Type II</p>
+          <p class="oo-badge-cert">Certified</p>
         </div>
-        <div
-          class="tw-flex tw-flex-wrap tw-justify-center md:tw-justify-start tw-gap-2"
-        >
+        <div class="oo-github-btn-wrap">
           <a
             class="github-button"
             href="https://github.com/openobserve/openobserve"
@@ -650,23 +1188,14 @@
         </div>
       </div>
     </div>
-    <!-- <div>
-      <section class="tw-hero-gradient tw-w-full tw-rounded-md">
-        <div
-          class="tw-flex tw-flex-col md:tw-flex-row md:tw-items-start lg:tw-items-center md:tw-justify-between tw-gap-4 tw-p-2"
-        >
-          <div
-            class="tw-flex tw-flex-col lg:tw-flex-row tw-w-full tw-text-white tw-gap-1 md:tw-gap-1 lg:tw-gap-4"
-          >
-            <div
-              class="tw-flex tw-flex-col md:tw-flex-row md:tw-items-center tw-gap-1 md:tw-gap-3 lg:tw-gap-4"
-            >
-              <div
-                class="tw-flex tw-items-center tw-gap-2 tw-text-xs tw-font-semibold tw-text-yellow-300"
-              >
+    <div>
+      <section class="oo-webinar-section">
+        <div class="oo-webinar-inner">
+          <div class="oo-webinar-content">
+            <div class="oo-webinar-title-group">
+              <div class="oo-webinar-badge">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="tw-w-5 tw-h-5 md:tw-w-4 md:tw-h-4 tw-shrink-0"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -678,21 +1207,16 @@
                     d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
-                Upcoming Webinar
+                Upcoming Webinar:
               </div>
-
-              <h2
-                class="tw-font-bold tw-text-white tw-text-xs md:tw-font-semibold md:tw-text-white md:tw-mt-0 md:tw-max-w-fit"
-              >
-                From Zero to Observability in 30 Minutes
-              </h2>
+              <p class="oo-webinar-name">
+                Troubleshooting Kubernetes: From Alert to Root Cause
+              </p>
             </div>
-
-            <div class="tw-flex tw-gap-4 tw-text-xs md:tw-flex-row md:tw-gap-2">
-              <div class="tw-flex tw-items-center tw-gap-2 tw-text-white/90">
+            <div class="oo-webinar-meta">
+              <div class="oo-webinar-meta-item">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="tw-w-5 tw-h-5 md:tw-w-4 md:tw-h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -704,13 +1228,11 @@
                     d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z"
                   />
                 </svg>
-                July 29, 2025
+                June 30, 2026
               </div>
-
-              <div class="tw-flex tw-items-center tw-gap-2 tw-text-white/90">
+              <div class="oo-webinar-meta-item">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="tw-w-5 tw-h-5 md:tw-w-4 md:tw-h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -722,92 +1244,79 @@
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                01:30 AM ET
+                03:00 PM IST
               </div>
             </div>
           </div>
-
-          <div class="tw-flex tw-flex-col tw-text-blue-600 tw-text-xs">
+          <div class="oo-webinar-cta">
             <a
-              href="/webinars-videos/zero-to-observability-in-30-minutes/"
+              href="https://openobserve.ai/webinars-videos/troubleshooting-kubernetes-from-alert-to-root-cause/"
               target="_blank"
-              class="tw-ring-offset-background focus-visible:tw-outline-none focus-visible:tw-ring-ring tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-whitespace-nowrap tw-rounded-md focus-visible:tw-ring-2 focus-visible:tw-ring-offset-2 disabled:tw-pointer-events-none disabled:tw-opacity-50 [&_svg]:tw-size-4 [&_svg]:tw-shrink-0 tw-h-6 md:tw-h-7 tw-bg-white hover:tw-bg-blue-50 tw-font-semibold tw-px-3 tw-py-1 tw-shadow-lg hover:tw-shadow-xl tw-transition-all tw-duration-300 group tw-cursor-pointer"
             >
-              Register Now
+              Register
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
                 fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-arrow-right tw-ml-1 tw-w-4 tw-h-4 tw-transition-transform tw-duration-200 tw-transform group-hover:tw-translate-x-1"
               >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
               </svg>
             </a>
           </div>
         </div>
       </section>
-    </div> -->
+    </div>
     <!-- Bottom Footer -->
-    <div
-      class="tw-border-t tw-border-gray-700 tw-mt-5 tw-pt-5 tw-flex tw-flex-col lg:tw-flex-row tw-justify-between tw-items-center tw-text-white tw-gap-4"
-    >
-      <div class="tw-text-center tw-text-xs lg:tw-text-left">
-        <p class="tw-text-white">
+    <div class="oo-footer-bottom">
+      <div class="oo-footer-copyright">
+        <p class="oo-footer-copyright-text">
           OpenObserve Inc. © <span id="current-year"></span>
         </p>
         <p>3000 Sand Hill Rd Building 1, Suite 260, Menlo Park, CA 94025</p>
       </div>
-      <ul class="tw-flex tw-flex-wrap tw-gap-4 tw-text-xs tw-text-gray-300">
-        <li class="hover:tw-text-[#7782FF] header-list-style">
+      <ul class="oo-footer-links">
+        <li class="header-list-style">
           <a href="/policies/terms-of-service/" target="_blank"
             >Terms of Service</a
           >
         </li>
-        <li class="hover:tw-text-[#7782FF] header-list-style">
+        <li class="header-list-style">
           <a href="/policies/privacy-policy/" target="_blank">Privacy Policy</a>
         </li>
-        <li class="hover:tw-text-[#7782FF] header-list-style">
+        <li class="header-list-style">
           <a href="/legal/subprocessors/" target="_blank">Subprocessors</a>
         </li>
-        <li class="hover:tw-text-[#7782FF] header-list-style">
+        <li class="header-list-style">
           <a href="/security-compliance/" target="_blank"
-            >Security & Compliance</a
+            >Security &amp; Compliance</a
           >
         </li>
       </ul>
-      <ul class="tw-flex tw-gap-2">
-        <li
-          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
-        >
+      <ul class="oo-footer-social">
+        <li class="oo-social-item header-list-style">
           <a href="https://short.openobserve.ai/community" target="_blank">
             <img
               src="/docs/assets/slack-icon.svg"
               alt="slack"
-              class="tw-w-5 tw-h-5"
+              class="oo-social-icon"
             />
           </a>
         </li>
-        <li
-          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
-        >
+        <li class="oo-social-item header-list-style">
           <a href="https://twitter.com/OpenObserve" target="_blank">
             <img
               src="/docs/assets/twitter-icon.svg"
               alt="twitter"
-              class="tw-w-5 tw-h-5"
+              class="oo-social-icon"
             />
           </a>
         </li>
-        <li
-          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
-        >
+        <li class="oo-social-item header-list-style">
           <a
             href="https://www.linkedin.com/company/openobserve"
             target="_blank"
@@ -815,29 +1324,25 @@
             <img
               src="/docs/assets/linkdin-icon.svg"
               alt="linkedin"
-              class="tw-w-5 tw-h-5"
+              class="oo-social-icon"
             />
           </a>
         </li>
-        <li
-          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
-        >
+        <li class="oo-social-item header-list-style">
           <a href="https://github.com/openobserve/openobserve" target="_blank">
             <img
               src="/docs/assets/github-dark.svg"
               alt="github"
-              class="tw-w-5 tw-h-5"
+              class="oo-social-icon"
             />
           </a>
         </li>
-        <li
-          class="tw-p-2 tw-rounded-lg tw-transition-all tw-duration-200 hover:tw-bg-white hover:tw-bg-opacity-10 header-list-style"
-        >
+        <li class="oo-social-item header-list-style">
           <a href="https://www.youtube.com/@openobserve" target="_blank">
             <img
               src="/docs/assets/youtube-icon.svg"
               alt="youtube"
-              class="tw-w-5 tw-h-5"
+              class="oo-social-icon"
             />
           </a>
         </li>
@@ -904,6 +1409,7 @@
             { text: "Kubernetes Monitoring", link: "/kubernetes-monitoring/" },
             { text: "Database Monitoring", link: "/database-monitoring/" },
             { text: "OpenTelemetry", link: "/opentelemetry/" },
+            { text: "Network Monitoring", link: "/network-monitoring/" },
           ],
         },
         {
@@ -942,27 +1448,44 @@
             },
           ],
         },
+        {
+          title: "Compare",
+          items: [
+            { text: "OpenObserve vs Datadog", link: "/datadog-alternative/" },
+            { text: "OpenObserve vs Splunk", link: "/splunk-alternative/" },
+            {
+              text: "OpenObserve vs New Relic",
+              link: "/newrelic-alternative/",
+            },
+            { text: "OpenObserve vs Elastic", link: "/elastic-alternative/" },
+            { text: "OpenObserve vs Grafana", link: "/grafana-alternative/" },
+          ],
+        },
       ];
 
       footerData.forEach((section) => {
         const column = document.createElement("div");
         column.innerHTML = `
-    <div class="tw-text-white tw-font-medium tw-text-base tw-mb-3">
+    <div class="oo-footer-col-title">
       ${section.title}
     </div>
-    <ul class="tw-space-y-2 tw-text-gray-300 tw-text-xs header-list-style">
+    <ul class="oo-footer-col-list header-list-style">
       ${section.items
         .map((item) => {
           const plausibleAttr =
             item.text === "Request Demo"
               ? 'plausible-event-name="Demo+Button"'
               : "";
+          const label =
+            item.text && item.text.toLowerCase() === "openobserve vs others"
+              ? "Comparisons"
+              : item.text;
           return `
-            <li class="hover:tw-text-[#7782FF]">
+            <li class="oo-footer-col-item">
               <a href="${item.link}" target="${
                 item.target || ""
               }" ${plausibleAttr}>
-                ${item.text}
+                ${label}
               </a>
             </li>
           `;
