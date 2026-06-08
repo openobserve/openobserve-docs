@@ -101,6 +101,8 @@ Click "Fields (X)" button to:
 - Ensure search results are loaded (> 0 results)
 - Click "Run query" first
 
+> **Note:** If `logs_insights` RBAC is enabled (Enterprise/Cloud), your role needs Get permission on the relevant logs stream's `logs_insights` resource to use Insights.
+
 **No dimensions shown**
 - Click "Fields (X)" and manually select dimensions
 

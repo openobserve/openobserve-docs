@@ -25,7 +25,7 @@ match_all('error')
 
 ![Full text Search](../../images/example-queries/match-all-error.png)
 
-- `match_all` searches only the fields configured for full-text search. By default, these include: `log`, `message`, `msg`, `content`, `data`, and `json`.
+- `match_all` searches only the fields configured for full-text search. By default, these include: `log`, `message`, `msg`, `content`, `data`, `body`, `json`, `error`, `llm_input`, `llm_output`.
 - If you want more fields to be scanned, configure them under stream settings.
 
 **Search for "error" in just the `log` field (more efficient):**
