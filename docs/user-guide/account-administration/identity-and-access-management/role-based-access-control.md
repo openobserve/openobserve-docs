@@ -43,6 +43,21 @@ RBAC permissions define what actions users can perform:
 - **Update**: Modify existing resources.
 - **Delete**: Remove resources.
 
+### Per-Stream Resources
+
+!!! info "Availability"
+    These resources are available in Enterprise Edition and Cloud. Not available in Open Source.
+
+In addition to the standard resources, OpenObserve exposes the following per-stream RBAC resources. Each resource is scoped to an individual stream, allowing you to grant or restrict access on a stream-by-stream basis:
+
+- **`logs_pattern`**: Controls access to the logs patterns extract action. Exposes the **Get** and **All** actions only.
+- **`logs_insights`**: Controls access to the logs Insights feature. Exposes the **Get** and **All** actions only.
+- **`logs_cache`**: Controls access to clearing or refreshing the result cache. Exposes the **Delete** and **All** actions only.
+
+**Note:** When the corresponding RBAC toggle is enabled, users need explicit permission on these resources to use Insights, pattern extraction, and cache clearing, respectively. Generic stream search or PUT access is not sufficient.
+
+**Note:** Report permissions are now granted per **report folder** (resource `rfolder`). When editing a custom role, these permissions appear under the report folder hierarchy, allowing you to grant or restrict report access on a folder-by-folder basis.
+
 ## Roles
 
 ### Predefined User Roles
@@ -85,14 +100,15 @@ A service account in OpenObserve is a non-human account used for API access, aut
 2. Click **Add Service Account**.
 3. Enter the **Email, First Name,** and **Last Name**.
 4. Click **Save**.
-5. A **token** is generated for the service account.
+5. A **token** is generated and shown only once in the create response. Copy and store the token securely at creation. It cannot be viewed again later; only a redacted version is shown (the first 4 characters followed by `*`).
 6. After the service account is created, assign the necessary **roles** and **permissions**. This step is required for the service account to make API calls and access specific services in OpenObserve.
 
 ![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
 
 **Note:**
 
-- You can generate a new token at any time by selecting the appropriate service account from the Service Accounts page and clicking the refresh icon next to it.
+- You can rotate the token at any time by selecting the appropriate service account from the Service Accounts page and clicking the refresh icon next to it. A rotated token is also shown only once, so copy and store it securely.
+- Rotating a service account token requires the **Admin** or **Root** role (or, with RBAC/OpenFGA enabled, explicit permission). Users without sufficient privileges receive a `403` error.
 - Ensure that the assigned roles provide only the minimum required access based on the use case.
 
 ## User Groups
@@ -132,7 +148,11 @@ If the entered email address already belongs to an existing user, the system wil
 ![Create User and Set Password](../../../images/create-user-IAM-password.png)
 
 After you save the changes, the new user gets listed in the **Users** page.<br>
-Use the Actions column to edit and delete the user. 
+Use the Actions column to edit and delete the user. You can also edit an existing user's role assignments from the Actions column.
+
+**Note:** The Users list includes an **Auth** column and a **Roles** column. The **Auth** column shows **Native** for local users and **SSO** for externally provisioned users. The **Roles** column lists the assigned predefined role along with any custom-role chips.
+
+**Note:** For SSO/external users, custom-role assignment is read-only in OpenObserve and must be changed in the source system.
 
 **Note:** In the **Cloud version**, any user can invite new users by entering their email addresses, separated by commas or semicolons, selecting a role, and clicking **Send Invite**. <br>
 ![Invite_users_o2cloud](../../../images/rbac-invite-users-o2cloud.png)

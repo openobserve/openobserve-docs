@@ -42,7 +42,7 @@ If you are locked out of the root account, you can reset the root password from 
 1. Set environment variables for the new root credentials:
     ```bash
     export ZO_ROOT_USER_EMAIL="root@example.com"
-    export ZO_ROOT_USER_PASSWORD="NewStrongPassword123"
+    export ZO_ROOT_USER_PASSWORD="Complexpass#123"
     ```
 
 2. Run the reset command from your OpenObserve installation directory:

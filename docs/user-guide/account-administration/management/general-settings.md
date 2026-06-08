@@ -7,6 +7,7 @@ General settings provides the following configuration options:
 - Scrape interval
 - Theme configuration for light and dark modes
 - Enterprise branding features such as custom logo text and custom logo
+- Enable Usage Stream
 
 !!! note "Note"
     `_meta` organizations can access all settings. Regular organizations see only the options allowed for their specific license and permissions.
@@ -16,6 +17,9 @@ General settings provides the following configuration options:
 
 ![theme-config](../../../images/theme-config.png)
 The scrape interval defines how often the monitoring system collects metrics. Enter the number of seconds and select Save.
+
+### Enable Usage Stream
+**Enable Usage Stream**: when enabled, OpenObserve writes this organization's usage/billing data into its own `usage` stream so you can view per-organization ingestion and usage locally. Enable in **Organization Settings**.
 
 ### Theme configuration
 Theme configuration allows you to manage the default colors for light mode and dark mode for your organization. When you save these values, they are applied across the UI for all users in the organization.
