@@ -1,7 +1,6 @@
 <div id="oo-header" class="oo-hdr-root">
   <div class="oo-desktop-hdr">
     <header class="oo-hdr-inner" style="grid-template-columns: 1fr auto 1fr">
-      <!-- Logo / DOCS -->
       <div class="oo-hdr-logo">
         <a href="/" class="oo-hdr-logo-link">
           <img
@@ -27,7 +26,7 @@
             id="mega-platform"
             class="mega-menu is-hidden oo-mega-wrap"
             style="
-              top: calc(100% + 4px);
+              top: calc(100% + 10px);
               left: 50%;
               transform: translateX(-50%);
             "
@@ -107,7 +106,6 @@
                 </div>
               </section>
 
-              <!-- Col 02 Analyze -->
               <section class="oo-plat-col">
                 <div class="oo-plat-col-hdr">
                   <span class="oo-plat-num">02</span>
@@ -146,7 +144,6 @@
                 </div>
               </section>
 
-              <!-- Col 03 Respond -->
               <section class="oo-plat-col">
                 <div class="oo-plat-col-hdr">
                   <span class="oo-plat-num">03</span>
@@ -188,7 +185,6 @@
                 </div>
               </section>
 
-              <!-- Col 04 O11y 3.0 (dark) -->
               <section
                 class="oo-plat-dark-col"
                 style="
@@ -292,7 +288,6 @@
                 </div>
               </section>
 
-              <!-- Footer row -->
               <footer class="oo-mega-footer">
                 <div class="oo-mega-footer-links">
                   <a href="/whats-new/" class="oo-mega-ftr-link"
@@ -328,7 +323,6 @@
           </div>
         </li>
 
-        <!-- Solutions -->
         <li class="oo-hdr-nav-item" id="nav-solutions">
           <a href="/solutions/" class="nav-top-link" id="nav-solutions-trigger"
             >Solutions</a
@@ -337,7 +331,7 @@
             id="mega-solutions"
             class="mega-menu is-hidden oo-mega-wrap"
             style="
-              top: calc(100% + 4px);
+              top: calc(100% + 10px);
               left: 50%;
               transform: translateX(-50%);
             "
@@ -346,7 +340,6 @@
               class="oo-mega-nav oo-mega-solutions mega-arrow-solutions"
               aria-label="Solutions menu"
             >
-              <!-- Col 1 Cloud & Infrastructure -->
               <div>
                 <p class="oo-sol-col-hdr">Cloud &amp; Infrastructure</p>
                 <p class="oo-sol-section-title">Cloud Monitoring</p>
@@ -385,7 +378,6 @@
                 >
               </div>
 
-              <!-- Col 2 Apps & Services -->
               <div>
                 <p class="oo-sol-col-hdr">Apps &amp; Services</p>
                 <a href="/solutions/network-monitoring/" class="sol-item"
@@ -418,7 +410,6 @@
                 >
               </div>
 
-              <!-- Col 3 AI & Telemetry -->
               <div>
                 <p class="oo-sol-col-hdr">AI &amp; Telemetry</p>
                 <a href="/solutions/opentelemetry/" class="sol-item"
@@ -437,7 +428,6 @@
                 >
               </div>
 
-              <!-- Col 4 Feature panel -->
               <aside
                 class="oo-sol-panel"
                 style="
@@ -453,7 +443,6 @@
                 <h3 class="oo-sol-panel-h3">
                   One backend for logs, metrics, traces &amp; RUM.
                 </h3>
-                <!-- Stats badges -->
                 <div class="oo-sol-stats">
                   <div class="oo-sol-stat">
                     <span
@@ -491,14 +480,19 @@
                   </div>
                 </div>
                 <div class="oo-sol-panel-ctas">
-                  <a href="/demo/" class="oo-sol-cta-primary">Get demo</a>
-                  <a href="/docs/" class="oo-sol-cta-secondary"
-                    >See all &rarr;</a
+                  <a
+                    href="https://cloud.openobserve.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="oo-sol-cta-primary"
+                    >Get Started Free</a
+                  >
+                  <a href="/demo/" class="oo-sol-cta-secondary"
+                    >Talk to a Human</a
                   >
                 </div>
               </aside>
 
-              <!-- Footer row -->
               <div class="oo-sol-footer">
                 <span
                   >Don't see your stack? OpenObserve ingests any OTel
@@ -511,7 +505,6 @@
             </nav>
           </div>
         </li>
-        <!-- Resources -->
         <li class="oo-hdr-nav-item" id="nav-resources">
           <a href="/resources/" class="nav-top-link" id="nav-resources-trigger"
             >Resources</a
@@ -520,7 +513,7 @@
             id="mega-resources"
             class="mega-menu is-hidden oo-mega-wrap"
             style="
-              top: calc(100% + 4px);
+              top: calc(100% + 10px);
               left: 50%;
               transform: translateX(-50%);
             "
@@ -637,13 +630,10 @@
           </div>
         </li>
 
-        <!-- Pricing -->
         <li><a href="/pricing/" class="nav-top-link">Pricing</a></li>
       </ul>
 
-      <!-- Right Actions -->
       <div class="oo-hdr-actions">
-        <!-- Search -->
         <label
           for="__search"
           class="oo-hdr-search-btn"
@@ -664,7 +654,6 @@
           </svg>
         </label>
 
-        <!-- Get Demo -->
         <a
           href="/demo/"
           class="oo-hdr-demo-btn plausible-event-name=Demo+Button"
@@ -864,9 +853,6 @@
     </header>
   </div>
 
-  <!-- =================================================
-       MOBILE HEADER  (below lg)
-  ================================================= -->
   <div class="oo-mobile-hdr">
     <header class="oo-mob-hdr-inner">
       <!-- Top bar -->
@@ -1532,6 +1518,10 @@
     var mobIconOpen = document.getElementById("mob-icon-open");
     var mobIconClose = document.getElementById("mob-icon-close");
     if (mobToggle && mobMenu) {
+      function setMobileMenuOpenState(open) {
+        document.body.classList.toggle("oo-mobile-menu-open", open);
+      }
+
       mobToggle.addEventListener("click", function () {
         var isOpen = !mobMenu.classList.contains("is-hidden");
         mobMenu.classList.toggle("is-hidden", isOpen);
@@ -1542,7 +1532,11 @@
           "aria-label",
           isOpen ? "Open menu" : "Close menu",
         );
+        setMobileMenuOpenState(!isOpen);
       });
+
+      // Ensure state is consistent on initial render.
+      setMobileMenuOpenState(!mobMenu.classList.contains("is-hidden"));
     }
 
     // Mobile accordion
@@ -1762,7 +1756,7 @@
     width: 100%;
     position: fixed;
     top: 0;
-    z-index: 50;
+    z-index: 1200;
     background: white;
     border-bottom: 1px solid #e5e7eb;
   }
@@ -1800,7 +1794,7 @@
     opacity: 0.8;
   }
   .oo-hdr-logo-img {
-    height: 28px;
+    height: 32px;
     width: auto;
   }
   .oo-hdr-slash {
@@ -2035,14 +2029,16 @@
     color: #6b7088;
   }
   .oo-mega-ftr-link:hover {
-    color: #2b2f44;
+    color: #4e4ec7;
     text-decoration: underline;
   }
   .oo-mega-ftr-cta {
-    color: #2b2f44;
+    color: #5b5bd6;
     text-decoration: none;
+    font-weight: 600;
   }
   .oo-mega-ftr-cta:hover {
+    color: #4e4ec7;
     text-decoration: underline;
   }
 
@@ -2147,29 +2143,30 @@
   }
   .oo-sol-cta-primary {
     font-weight: 600;
-    font-size: 13px;
-    color: #0f1222;
+    font-size: 14px;
+    color: white;
     text-decoration: none;
-    padding: 9px 12px;
+    padding: 12px 20px;
     border-radius: 8px;
-    background: white;
+    background: #5b5bd6;
+    transition: background-color 0.15s;
   }
   .oo-sol-cta-primary:hover {
-    background: #f0f0f8;
-    color: #0f1222;
+    background: #4e4ec7;
+    color: white;
   }
   .oo-sol-cta-secondary {
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px;
     color: white;
     text-decoration: none;
-    padding: 9px 12px;
+    padding: 12px 20px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: background-color 0.15s;
   }
   .oo-sol-cta-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
   }
 
@@ -2444,8 +2441,16 @@
   }
 
   /* ── Mobile header ───────────────────────────── */
+  @media (max-width: 1279px) {
+    body.oo-mobile-menu-open .md-header {
+      display: none !important;
+    }
+  }
+
   .oo-mobile-hdr {
     display: block;
+    width: 100vw;
+    overflow: visible;
   }
   @media (min-width: 1280px) {
     .oo-mobile-hdr {
@@ -2456,8 +2461,10 @@
   .oo-mob-hdr-inner {
     display: flex;
     flex-direction: column;
-    z-index: 50;
+    z-index: 1201;
     position: relative;
+    width: 100vw;
+    overflow: visible;
   }
   .oo-mob-topbar {
     display: flex;
@@ -2518,14 +2525,21 @@
   }
   .oo-mob-menu {
     position: fixed;
-    inset: 0;
+    left: 0;
+    right: 0;
     top: 60px;
-    z-index: 50;
+    width: 100vw;
+    height: calc(100dvh - 60px);
+    max-height: calc(100dvh - 60px);
+    z-index: 1202;
     background: white;
+    padding-top: 8px;
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
   .oo-mob-nav {
-    padding: 8px 16px 32px;
+    padding: 0 16px 32px;
   }
   .oo-mob-acc-section {
     border-bottom: 1px solid #f1f3fb;

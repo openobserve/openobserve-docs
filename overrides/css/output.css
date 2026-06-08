@@ -1434,6 +1434,10 @@ video {
   line-height: 1.25;
 }
 
+.tw-tracking-\[-0\.005em\] {
+  letter-spacing: -0.005em;
+}
+
 .tw-tracking-\[-0\.01em\] {
   letter-spacing: -0.01em;
 }
@@ -1557,6 +1561,12 @@ video {
 
 .tw-opacity-80 {
   opacity: 0.8;
+}
+
+.tw-shadow-\[0_1px_0_rgba\(15\,18\,34\,0\.04\)\,0_24px_60px_-20px_rgba\(15\,18\,34\,0\.18\)\,0_8px_24px_-12px_rgba\(15\,18\,34\,0\.12\)\] {
+  --tw-shadow: 0 1px 0 rgba(15,18,34,0.04),0 24px 60px -20px rgba(15,18,34,0.18),0 8px 24px -12px rgba(15,18,34,0.12);
+  --tw-shadow-colored: 0 1px 0 var(--tw-shadow-color), 0 24px 60px -20px var(--tw-shadow-color), 0 8px 24px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .tw-shadow-\[0_24px_60px_-20px_rgba\(15\,18\,34\,0\.18\)\,0_8px_24px_-12px_rgba\(15\,18\,34\,0\.12\)\] {
