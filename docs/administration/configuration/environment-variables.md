@@ -495,7 +495,6 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_TRACING_SEARCH_ENABLED      | false | Enables tracing for search operations. |
 | ZO_TRACING_EXTRA_ENVS          | K8S_CLUSTER,K8S_NAMESPACE_NAME,K8S_NODE_NAME,K8S_CONTAINER_NAME,K8S_POD_NAME | Comma-separated list of environment variable names to include as resource attributes on traces (each added lowercased, only when set and non-empty). |
 | OTEL_OTLP_HTTP_ENDPOINT        | - / e.g. https://api.openobserve.ai/api/default  | Remote trace server endpoint.                             |
-| ZO_MODEL_PRICING_ENABLED       | false | Enables the Model Pricing feature (per-org LLM model pricing used to compute token costs on traces). Gates the Model Pricing UI, sync job, and pricing lookup. |
 | ZO_MODEL_PRICING_SOURCE_URL    | https://raw.githubusercontent.com/openobserve/sdr_patterns/refs/heads/main/llm_pricing.json | Source URL for the built-in LLM model pricing list. |
 | ZO_MODEL_PRICING_SYNC_INTERVAL_SECS | 21600 | Interval (seconds) for syncing built-in model pricing from the source URL. |
 
