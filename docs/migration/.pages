@@ -2,3 +2,4 @@ nav:
 - Migrate database: migrate-database.md
 - Migrate file list partition: migrate-file-list-partition.md
 - Migrate from Grafana: migrate-from-grafana-to-openobserve
+- Migrate from Datadog: migrate-from-datadog-to-openobserve
