@@ -61,14 +61,18 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     
     Each row shows:
 
-    - The service and operation name
+    - Separate **Service** and **Operation name** columns. The first span determines these values.
     - The number of spans
-    - The request timestamp
-    - The total duration
+    - The request **Timestamp**
+    - The total **Duration**
     - Badges for the services involved
-    - The first span determines the label.
-    
+
+    The **Timestamp** and **Duration** column headers are clickable to sort the list in ascending or descending order. The list header shows a badge with the total count of traces found and a separate **Error Traces** count badge. A pagination control lets you choose the number of rows per page (`10`, `25`, `50`, or `100`) and navigate between pages.
     ![trace-list](../../../images/trace-list.png)
+
+    **Customize columns**: Toggle a field's visibility icon in the field sidebar to add or remove it as a table column, drag column headers to reorder them, and click the X on a column header to remove it. Column choices are remembered separately for Traces and Spans modes. Hover any cell to copy its value or add it as an include/exclude filter.
+
+    In the field sidebar, fields are organized into groups: **Key Fields** first, then type groups (**String**, **Number**, **Boolean**), semantic/prefix groups (for example, Kubernetes and HTTP), and **Other** last. For a single stream, the groups are expanded by default.
 
     **Timeline:** Shows spans as color-coded horizontal bars. Parent spans contain child spans. Parent time includes the time of child spans, which may run in parallel.
     ![Timeline](../../../images/timeline.png)
@@ -254,6 +258,11 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     4. Click **Run query**. 
     5. From the query result, select the desired trace. 
 
+    Use the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar to switch the result list between individual spans and aggregated traces (the default view is **Spans**), with **Service Graph** and **Service Catalog** available on Enterprise. In **Spans** mode, the result list shows a **Spans Found** count, and selecting a span row opens its trace with that span focused. **Service Catalog** shows a per-service metrics table (requests, error rate, latency percentiles, and health status); clicking a service opens **Traces** filtered by `service_name`. See [Service Catalog](service-catalog.md) for details.
+
+    !!! note "Flame Graph"
+        A **Flame Graph** view is also available for inspecting a trace. Selecting a span in the flame graph opens that span's details in a resizable bottom panel.
+
 
     ## Use Trace Timeline and Service Map
     Use Trace Timeline and Service Map to inspect performance and find slow spans:
@@ -280,7 +289,22 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     8. The detailed span view opens, showing the complete context for that span.  
     ![span-view](../../../images/span-view.png)
     9. If log and trace correlation is configured, select **View Logs** in the span details panel to open the related logs for further investigation.   
-    
+
+    ## Filter by duration
+    Click the `duration` field in the field sidebar to view its duration statistics: `P25`, `P50`, `P75`, `P95`, `P99`, and `Max` (the maximum observed duration). Each statistic provides one-click buttons to add a `duration >= <value>` or `duration <= <value>` filter to the query.
+
+    Duration filters also accept human-readable unit suffixes, for example:
+
+    - `duration >= '1.50ms'`
+    - `duration >= '2 seconds'`
+    - `duration <= '100us'`
+    - `duration >= '1.50m'`
+
+    The accepted units are `us` (or `µs`), `ms`, `s`, and `m`. OpenObserve auto-converts these values to microseconds.
+
+    !!! note "Enterprise"
+        While a query runs, a **Cancel** button replaces **Run query**, allowing you to abort in-flight queries.
+
     ## Explore the detailed span view
     ![detailed-span-view](../../../images/detailed-span-view.png)
 
@@ -290,3 +314,9 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     | Process | Compact identity of the emitting process (service, instance, version). | Confirm the exact instance/version for rollbacks or targeted restarts. |
     | Events | Time-ordered records emitted inside the span (INFO/ERROR messages with context). | Read the span's timeline narrative and error messages without leaving the trace. |
     | Attributes | The full JSON document is stored for this span. | Copy/paste into tickets, verify raw values, or see fields not surfaced elsewhere. |
+    | Error | Consolidated error indicators for the span: HTTP status, gRPC status/name/message, exception events, error type, DB response status, and process exit code. | Quickly assess what failed and why without scanning across multiple tabs. |
+    | DB | Database call details: DB system, the query/statement (syntax-highlighted by `db_system`), collection/table, rows returned, batch size, response status code, and a query summary. Appears only when the span has `db_*` attributes. | Inspect the database operation a span performed. |
+    | Metrics | Correlated metric streams for the span's service. Use the selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) together with the **Pod** / **Node** scope chips to choose which metrics to display. **Essentials** is the default when curated streams exist. | Inspect the resource health of the service that emitted the span without leaving the trace. When no matching metrics exist, the view reads **No Data Found**. |
+
+    !!! note "Enterprise"
+        For LLM traces that have an associated LLM-evaluation pipeline producing evaluation records, the trace detail view shows an additional **Evaluations** tab. It displays the evaluation results for the trace. This tab appears only when such evaluation records exist for the trace.

@@ -62,6 +62,18 @@ curl -X POST "https://<host>/api/{org}/sourcemaps" \
 
 **RUM → Error Tracking → select an error** — stack frames now show original source locations (e.g. `src/components/Checkout.vue:42`).
 
+## Using the UI
+
+You can also upload source maps without the API:
+
+1. Navigate to **RUM → Source Maps**.
+2. Click **Upload Source Maps**.
+3. Fill in **Service**, **Env**, and **Version**.
+4. Attach the source-map ZIP.
+5. Submit.
+
+Resolved stack traces then appear in **Error Tracking**.
+
 ## API Reference
 
 ### List source maps
@@ -84,6 +96,7 @@ curl "https://<host>/api/{org}/sourcemaps/values" -H "Authorization: Basic <toke
   "service": "my-web-app",
   "env": "production",
   "version": "1.4.2",
+  "file_type": "javascript",
   "source_file_name": "main.abc123.js",
   "source_map_file_name": "main.abc123.js.map",
   "created_at": 1743000000
@@ -118,8 +131,18 @@ curl -X POST "https://<host>/api/{org}/sourcemaps/stacktrace" \
 ```json
 {
   "stacktrace": {
-    "frames": [
-      { "file": "src/components/Checkout.vue", "function": "handleSubmit", "line": 42, "col": 8 }
+    "error": "<error message>",
+    "stack": [
+      {
+        "line": "<original stack line>",
+        "source_info": {
+          "source": "<source file>",
+          "source_line_start": <n>,
+          "source_line_end": <n>,
+          "stack_line": <n>,
+          "stack_col": <n>
+        }
+      }
     ]
   }
 }
