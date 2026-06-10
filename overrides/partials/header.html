@@ -1657,6 +1657,9 @@
     background: #f7f8fc;
     color: #0f1222;
   }
+  .sol-item:hover .oo-sol-icon {
+    background: #eceef8;
+  }
 
   .res-item {
     display: flex;
@@ -1673,6 +1676,9 @@
   .res-item:hover {
     background: #f7f8fc;
     color: #0f1222;
+  }
+  .res-item:hover .oo-res-icon {
+    background: #eceef8;
   }
 
   .sol-panel-cta {
@@ -1848,7 +1854,7 @@
   .oo-mega-solutions {
     grid-template-columns: 1fr 1fr 1fr 380px;
     grid-template-rows: 1fr auto;
-    min-width: 1120px;
+    min-width: 1160px;
     padding: 28px 28px 22px;
     gap: 28px;
   }
@@ -2061,6 +2067,7 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
+    transition: background 0.15s;
   }
   .oo-sol-text-sm {
     font-size: 14px;
@@ -2253,6 +2260,7 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
+    transition: background 0.15s;
   }
   .oo-mega-nav .oo-res-text {
     font-weight: 500;
