@@ -182,6 +182,20 @@
                       </div>
                     </div></a
                   >
+                  <a href="/integrations/" class="mega-item"
+                    ><span class="oo-mega-icon"
+                      ><img
+                        src="https://openobserve.ai/img/nav-icons/integrations.svg"
+                        alt="Integrations"
+                        class="oo-icon-sm"
+                    /></span>
+                    <div>
+                      <div class="oo-mega-item-title">Integrations</div>
+                      <div class="oo-mega-item-sub">
+                        Slack, PagerDuty, Jira &amp; 60+ more
+                      </div>
+                    </div></a
+                  >
                 </div>
               </section>
 
@@ -511,112 +525,290 @@
               transform: translateX(-50%);
             "
           >
+            <!-- DESKTOP RESOURCES MEGA MENU — replace existing nav.oo-mega-resources -->
             <nav
               class="oo-mega-nav oo-mega-resources mega-arrow-resources"
               aria-label="Resources menu"
             >
-              <div class="oo-res-grid">
-                <a
-                  href="https://openobserve.ai/docs/"
-                  target="_blank"
-                  rel="noopener"
-                  class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/documentation.svg"
-                      alt="Documentation"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Documentation</span></a
-                >
-                <a href="/blog/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/blog.svg"
-                      alt="Blog"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Blog</span></a
-                >
-                <a href="/faqs/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/faqs.svg"
-                      alt="FAQs"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text"
-                    >Frequently Asked Questions</span
-                  ></a
-                >
-                <a href="/customer-stories/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/customer-stories.svg"
-                      alt="Customer Stories"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Customer Stories</span></a
-                >
-                <a href="/downloads/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/downloads.svg"
-                      alt="Downloads"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Downloads</span></a
-                >
-                <a href="/webinars-videos/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/videos.svg"
-                      alt="Webinars"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Webinar and Videos</span></a
-                >
-                <a href="/events/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/events.svg"
-                      alt="Events"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Events</span></a
-                >
-                <a href="/startup/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/startup.svg"
-                      alt="Startup Program"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Startup Program</span></a
-                >
-                <a href="/partners/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/partners.svg"
-                      alt="Partners"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Partners</span></a
-                >
-                <a href="/comparison/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/comparison.svg"
-                      alt="Comparison"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">OpenObserve Vs Others</span></a
-                >
-                <a href="/datadog_pricing_comparison/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/bill-analyzer.svg"
-                      alt="Bill Analyzer"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">Datadog Bill Analyzer</span></a
-                >
-                <a href="/whats-new/" class="res-item"
-                  ><span class="oo-res-icon"
-                    ><img
-                      src="/docs/assets/nav-icons/whats-new.svg"
-                      alt="What's New"
-                      class="oo-icon-sm" /></span
-                  ><span class="oo-res-text">What's New</span></a
+              <div class="oo-res-layout">
+                <!-- Col 1: Learn -->
+                <div class="oo-res-col">
+                  <p class="oo-res-col-head">Learn</p>
+                  <div class="oo-res-items">
+                    <a
+                      href="https://openobserve.ai/docs/"
+                      target="_blank"
+                      rel="noopener"
+                      class="res-item"
+                    >
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/documentation.svg"
+                          alt="Documentation"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Documentation</span>
+                        <span class="res-item-desc"
+                          >Guides, references &amp; quickstarts</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/blog/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/blog.svg"
+                          alt="Blog"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Blog</span>
+                        <span class="res-item-desc"
+                          >Engineering &amp; product deep-dives</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/faqs/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/faqs.svg"
+                          alt="FAQ"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">FAQ</span>
+                        <span class="res-item-desc"
+                          >Quick answers to common questions</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/whats-new/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/whats-new.svg"
+                          alt="What's New"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label"
+                          >What's New
+                          <span class="res-badge res-badge-green"
+                            >Changelog</span
+                          ></span
+                        >
+                        <span class="res-item-desc"
+                          >Latest releases &amp; features</span
+                        >
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Col 2: Watch & Connect -->
+                <div class="oo-res-col">
+                  <p class="oo-res-col-head">Watch &amp; Connect</p>
+                  <div class="oo-res-items">
+                    <a href="/webinars-videos/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/videos.svg"
+                          alt="Webinars &amp; Videos"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label"
+                          >Webinars &amp; Videos</span
+                        >
+                        <span class="res-item-desc"
+                          >Live sessions &amp; on-demand demos</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/events/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/events.svg"
+                          alt="Events"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Events</span>
+                        <span class="res-item-desc"
+                          >Meet us at conferences &amp; meetups</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/customer-stories/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/customer-stories.svg"
+                          alt="Customer Stories"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Customer Stories</span>
+                        <span class="res-item-desc"
+                          >Success with O2</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/partners/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/partners.svg"
+                          alt="Partners"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Partner</span>
+                        <span class="res-item-desc"
+                          >Become a partner</span
+                        >
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Col 3: Evaluate & Tools -->
+                <div class="oo-res-col">
+                  <p class="oo-res-col-head">Evaluate &amp; Tools</p>
+                  <div class="oo-res-items">
+                    <a href="/comparison/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/comparison.svg"
+                          alt="OpenObserve vs. Others"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label"
+                          >OpenObserve vs. Others</span
+                        >
+                        <span class="res-item-desc"
+                          >Compare with alternatives</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/datadog_pricing_comparison/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/bill-analyzer.svg"
+                          alt="Datadog Bill Analyzer"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label"
+                          >Datadog Bill Analyzer</span
+                        >
+                        <span class="res-item-desc"
+                          >See your savings in minutes</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/downloads/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/downloads.svg"
+                          alt="Downloads"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Downloads</span>
+                        <span class="res-item-desc"
+                          >Run Enterprise/OSS Binaries, Docker, K8s</span
+                        >
+                      </span>
+                    </a>
+
+                    <a href="/startup/" class="res-item">
+                      <span class="res-item-icon"
+                        ><img
+                          src="/docs/assets/nav-icons/startup.svg"
+                          alt="Startup Program"
+                          class="oo-icon-sm"
+                      /></span>
+                      <span class="res-item-body">
+                        <span class="res-item-label">Startup Program</span>
+                        <span class="res-item-desc"
+                          >Credits &amp; perks for startups</span
+                        >
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Col 4: Feature panel — Upcoming Webinar -->
+                <aside class="oo-res-feature">
+                  <span class="oo-res-feature-eyebrow">
+                    <span class="oo-res-feature-dot"></span>
+                    Upcoming Webinar
+                  </span>
+                  <h3 class="oo-res-feature-heading">
+                    Troubleshooting Kubernetes with OpenObserve
+                  </h3>
+                  <p class="oo-res-feature-meta">
+                    Jun 30 &middot; 3:00 PM IST &middot; 45 min
+                  </p>
+                  <p class="oo-res-feature-body">
+                    Live walkthrough of debugging noisy K8s clusters — with
+                    Q&amp;A.
+                  </p>
+                  <div class="oo-res-feature-actions">
+                    <a
+                      href="/webinars-videos/troubleshooting-kubernetes-from-alert-to-root-cause/"
+                      class="oo-res-cta-primary"
+                      >Register</a
+                    >
+                    <a href="/events/" class="oo-res-cta-secondary"
+                      >All events &rarr;</a
+                    >
+                  </div>
+                </aside>
+              </div>
+              <!-- /.oo-res-layout -->
+
+              <!-- Footer row -->
+              <div class="oo-res-footer">
+                <div class="oo-res-footer-links">
+                  <a
+                    href="https://openobserve.ai/docs/"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-res-footer-link"
+                    >Documentation &rarr;</a
+                  >
+                  <a
+                    href="https://short.openobserve.ai/community"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-res-footer-link"
+                    >Community Slack</a
+                  >
+                  <a
+                    href="https://github.com/openobserve/openobserve"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-res-footer-link"
+                    >GitHub</a
+                  >
+                  <a
+                    href="https://status.openobserve.ai"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-res-footer-link"
+                    >Status</a
+                  >
+                </div>
+                <a href="/demo/" class="oo-mega-ftr-cta"
+                  >Get a guided demo &rarr;</a
                 >
               </div>
             </nav>
@@ -1043,6 +1235,14 @@
                     >Incidents <span class="badge-preview">Preview</span></span
                   ></a
                 >
+                <a href="/integrations/" class="mob-nav-item"
+                  ><span class="oo-mob-item-icon"
+                    ><img
+                      src="https://openobserve.ai/img/nav-icons/integrations.svg"
+                      alt="Integrations"
+                      class="oo-icon-sm" /></span
+                  ><span class="oo-mob-item-text">Integrations</span></a
+                >
               </div>
               <!-- 04 O11y 3.0 dark -->
               <div
@@ -1112,6 +1312,38 @@
                       alt="MCP Server"
                       class="oo-icon-sm" /></span
                   ><span class="oo-mob-dark-text">MCP Server</span></a
+                >
+              </div>
+
+              <div class="oo-mob-platform-footer">
+                <div class="oo-mob-platform-links">
+                  <a href="/whats-new/" class="oo-mob-platform-link"
+                    >What's new</a
+                  >
+                  <a
+                    href="https://openobserve.ai/docs/architecture/"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-mob-platform-link"
+                    >Architecture</a
+                  >
+                  <a
+                    href="https://github.com/openobserve/openobserve"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-mob-platform-link"
+                    >Open source</a
+                  >
+                  <a
+                    href="https://openobserve.ai/docs/"
+                    target="_blank"
+                    rel="noopener"
+                    class="oo-mob-platform-link"
+                    >Docs</a
+                  >
+                </div>
+                <a href="/comparison/" class="oo-mob-platform-cta"
+                  >Compare to Datadog, Grafana, &amp; More &rarr;</a
                 >
               </div>
             </div>
@@ -1225,7 +1457,6 @@
             </div>
           </div>
 
-          <!-- Resources accordion -->
           <div class="oo-mob-acc-section">
             <button
               class="mob-acc-btn oo-mob-acc-btn"
@@ -1245,119 +1476,168 @@
                 <path d="m6 9 6 6 6-6" />
               </svg>
             </button>
-            <div
-              id="mob-resources"
-              class="oo-mob-panel oo-mob-panel-g05 is-hidden"
-            >
-              <div class="oo-mob-promo oo-mob-promo-mb">
-                <p class="oo-mob-promo-title">Explore All Resources</p>
-                <a href="/resources/" class="oo-mob-promo-link"
-                  >View Resources &rarr;</a
-                >
-              </div>
-              <a
-                href="https://openobserve.ai/docs/"
-                target="_blank"
-                rel="noopener"
-                class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/documentation.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Documentation</span></a
-              >
-              <a href="/blog/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/blog.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Blog</span></a
-              >
-              <a href="/faqs/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/faqs.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text"
-                  >Frequently Asked Questions</span
-                ></a
-              >
-              <a href="/customer-stories/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/customer-stories.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Customer Stories</span></a
-              >
-              <a href="/downloads/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/downloads.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Downloads</span></a
-              >
-              <a href="/webinars-videos/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/videos.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Webinar and Videos</span></a
-              >
-              <a href="/events/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/events.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Events</span></a
-              >
-              <a href="/startup/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/startup.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Startup Program</span></a
-              >
-              <a href="/partners/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/partners.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Partners</span></a
-              >
-              <a href="/comparison/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/comparison.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">OpenObserve Vs Others</span></a
-              >
-              <a href="/datadog_pricing_comparison/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/bill-analyzer.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">Datadog Bill Analyzer</span></a
-              >
-              <a href="/whats-new/" class="mob-nav-item"
-                ><span class="oo-mob-res-icon"
-                  ><img
-                    src="/docs/assets/nav-icons/whats-new.svg"
-                    alt=""
-                    class="oo-icon-sm" /></span
-                ><span class="oo-mob-res-text">What's New</span></a
+          <!-- Resources accordion -->
+          <div
+            id="mob-resources"
+            class="oo-mob-panel oo-mob-panel-g05 is-hidden"
+          >
+            <div class="oo-mob-promo oo-mob-promo-mb">
+              <p class="oo-mob-promo-title">Explore All Resources</p>
+              <a href="/resources/" class="oo-mob-promo-link"
+                >View Resources &rarr;</a
               >
             </div>
+
+            <!-- Learn -->
+            <p class="oo-mob-res-col-head">Learn</p>
+            <a
+              href="https://openobserve.ai/docs/"
+              target="_blank"
+              rel="noopener"
+              class="mob-nav-item"
+            >
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/documentation.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Documentation</span>
+            </a>
+            <a href="/blog/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/blog.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Blog</span>
+            </a>
+            <a href="/faqs/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/faqs.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">FAQ</span>
+            </a>
+            <a href="/whats-new/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/whats-new.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text"
+                >What's New
+                <span class="res-badge res-badge-green" style="font-size: 9px"
+                  >Changelog</span
+                ></span
+              >
+            </a>
+
+            <!-- Watch & Connect -->
+            <p class="oo-mob-res-col-head" style="margin-top: 12px">
+              Watch &amp; Connect
+            </p>
+            <a href="/webinars-videos/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/videos.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Webinars &amp; Videos</span>
+            </a>
+            <a href="/events/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/events.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Events</span>
+            </a>
+            <a href="/customer-stories/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/customer-stories.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Customer Stories</span>
+            </a>
+            <a href="/partners/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/partners.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Partner</span>
+            </a>
+
+            <!-- Evaluate & Tools -->
+            <p class="oo-mob-res-col-head" style="margin-top: 12px">
+              Evaluate &amp; Tools
+            </p>
+            <a href="/comparison/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/comparison.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">OpenObserve vs. Others</span>
+            </a>
+            <a href="/datadog_pricing_comparison/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/bill-analyzer.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Datadog Bill Analyzer</span>
+            </a>
+            <a href="/downloads/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/downloads.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Downloads</span>
+            </a>
+            <a href="/startup/" class="mob-nav-item">
+              <span class="oo-mob-res-icon"
+                ><img
+                  src="/docs/assets/nav-icons/startup.svg"
+                  alt=""
+                  class="oo-icon-sm"
+              /></span>
+              <span class="oo-mob-res-text">Startup Program</span>
+            </a>
+
+            <!-- Upcoming webinar card -->
+            <!-- <div class="oo-mob-res-webinar">
+              <span class="oo-res-feature-eyebrow" style="font-size: 10px">
+                <span class="oo-res-feature-dot"></span>
+                Upcoming Webinar
+              </span>
+              <p class="oo-mob-res-webinar-title">
+                Troubleshooting Kubernetes with OpenObserve
+              </p>
+              <p class="oo-mob-res-webinar-meta">
+                Jun 18 &middot; 3:00 PM IST &middot; 45 min
+              </p>
+              <a
+                href="/webinars-videos/troubleshooting-kubernetes-from-alert-to-root-cause/"
+                class="oo-mob-res-webinar-cta"
+                >Register &rarr;</a
+              >
+            </div> -->
+          </div>
           </div>
 
           <!-- Pricing -->
@@ -2638,6 +2918,42 @@
     line-height: 1.25;
     flex: 1;
   }
+  .oo-mob-platform-footer {
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .oo-mob-platform-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .oo-mob-platform-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7088;
+    text-decoration: none;
+    line-height: 1.2;
+  }
+  .oo-mob-platform-link:hover {
+    color: #4e4ec7;
+    text-decoration: underline;
+  }
+  .oo-mob-platform-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5b5bd6;
+    text-decoration: none;
+    line-height: 1.3;
+  }
+  .oo-mob-platform-cta:hover {
+    color: #4e4ec7;
+    text-decoration: underline;
+  }
   .oo-mob-sol-col-hdr {
     font-weight: 600;
     font-size: 11px;
@@ -2741,4 +3057,228 @@
   .oo-mob-cta-login:hover {
     border-color: #c0c4d8;
   }
+  /* ── Resources mega menu redesign ─────────────── */
+  .oo-mega-resources {
+    min-width: 1140px;
+    padding: 20px 20px 0;
+  }
+  .oo-res-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 300px;
+    gap: 24px;
+    padding-bottom: 20px;
+  }
+  .oo-res-col {
+  }
+  .oo-res-col-head {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #6b7088;
+    padding: 0 8px 12px;
+    margin: 0 0 6px;
+    border-bottom: 1px dashed #e3e6f0;
+  }
+  .oo-res-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .res-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 8px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #2b2f44;
+    transition:
+      background 0.15s,
+      color 0.15s;
+  }
+  .res-item:hover {
+    background: #f7f8fc;
+    color: #0f1222;
+  }
+  .res-item-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: #f6f7fb;
+    flex-shrink: 0;
+  }
+  .res-item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .res-item-label {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #0f1222;
+    letter-spacing: -0.005em;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .res-item-desc {
+    font-size: 12px;
+    line-height: 1.35;
+    color: #6b7088;
+  }
+  .res-badge {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 6px;
+    border-radius: 999px;
+  }
+  .res-badge-green {
+    color: #14b87a;
+    background: rgba(20, 184, 122, 0.14);
+  }
+
+  /* Feature panel */
+  .oo-res-feature {
+    background: #1e2255;
+    border-radius: 14px;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .oo-res-feature::after {
+    content: "";
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    filter: blur(4px);
+    pointer-events: none;
+  }
+  .oo-res-feature-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #b7baff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .oo-res-feature-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #14b87a;
+    box-shadow: 0 0 0 3px rgba(20, 184, 122, 0.25);
+    flex-shrink: 0;
+  }
+  .oo-res-feature-heading {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .oo-res-feature-meta {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    color: #b7baff;
+  }
+  .oo-res-feature-body {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #d6d8f5;
+  }
+  .oo-res-feature-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  .oo-res-cta-primary {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    color: #0f1222;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 8px;
+    background: #fff;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .oo-res-cta-primary:hover {
+    background: #eef0ff;
+    color: #0f1222;
+  }
+  .oo-res-cta-secondary {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .oo-res-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+
+  /* Footer row */
+  .oo-res-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 8px;
+    border-top: 1px solid #eceef5;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7088;
+  }
+  .oo-res-footer-links {
+    display: flex;
+    gap: 16px;
+  }
+  .oo-res-footer-link {
+    text-decoration: none;
+    color: #6b7088;
+    transition: color 0.15s;
+  }
+  .oo-res-footer-link:hover {
+    color: #5b5bd6;
+  }
+
+.oo-mob-res-col-head {
+  padding-left: 8px;      /* px-2 */
+  padding-right: 8px;     /* px-2 */
+  padding-top: 12px;      /* pt-3 */
+  padding-bottom: 4px;    /* pb-1 */
+  font-size: 12px;        /* text-xs */
+  line-height: 16px;      /* text-xs default line-height */
+  font-weight: 600;       /* font-semibold */
+  color: #6b7280;         /* text-gray-500 */
+  text-transform: uppercase; /* uppercase */
+}
 </style>
