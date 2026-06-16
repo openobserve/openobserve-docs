@@ -624,7 +624,7 @@ Individual organizations can also enable writing usage data to their own `usage`
 | ZO_RESTRICTED_ROUTES_ON_EMPTY_DATA | false         | Redirects users to the ingestion page when no stream is found.                       |
 | ZO_QUERY_ON_STREAM_SELECTION        | true          | Triggers search based on a button click event.                                       |
 | ZO_AUTO_QUERY_ENABLED               | false         | Enables the Auto Run feature in the UI; when true, users can toggle auto-running queries on filter/time-range changes from the Run query dropdown on the Logs and Traces pages. |
-| ZO_RESULT_CACHE_ENABLED              | true          | Enables result cache for query results.                                              |
+| ZO_RESULT_CACHE_ENABLED              | true          | Enables result cache for query results. effects logs/metrics/traces      |
 | ZO_USE_MULTIPLE_RESULT_CACHE        | false         | Uses multiple result caches for query results.                                       |
 | ZO_RESULT_CACHE_SELECTION_STRATEGY  | overlap       | Strategy for selecting result cache. Allowed values include both, overlap, duration. |
 | ZO_ALIGN_PARTITIONS_FOR_INDEX       | false         | Uses large partitions for index across all streams.                                  |
@@ -636,7 +636,6 @@ Individual organizations can also enable writing usage data to their own `usage`
 | ZO_FEATURE_DISTINCT_EXTRA_FIELDS  | -             | Reserved for future use. Contact the maintainers for guidance.                                                                             |
 | ZO_HISTOGRAM_ENABLED  | true             | Enables histogram-based query aggregation and visual display for dashboards and log views.                                                                             |
 | ZO_HISTOGRAM_BREAKDOWN_FIELDS  | severity,log_level,level,status             | Comma-separated, ordered list of stream fields used to break the logs histogram into a stacked chart; the first field present in the stream schema is used.                                                                             |
-| ZO_METRICS_CACHE_ENABLED  | true             | Enables metrics cache to store and reuse results for repeated metrics queries.                                                                             |
 | ZO_SHOW_STREAM_DATES_DOCS_NUM  | true             | Displays the date range and document count for streams in the user interface. |
 | ZO_SKIP_FORMAT_BULK_STREAM_NAME  | false             | Keeps the original stream name format when ingesting through bulk APIs.                             |
 | ZO_METRICS_CACHE_MAX_ENTRIES  | 10000             | Maximum number of entries stored in the metrics cache.                              |
