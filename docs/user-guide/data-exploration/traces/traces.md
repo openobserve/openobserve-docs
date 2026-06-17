@@ -298,7 +298,6 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     - `duration >= '1.50ms'`
     - `duration >= '2 seconds'`
     - `duration <= '100us'`
-    - `duration >= '1.50m'`
 
     The accepted units are `us` (or `µs`), `ms`, `s`, and `m`. OpenObserve auto-converts these values to microseconds.
 

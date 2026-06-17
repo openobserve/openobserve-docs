@@ -31,7 +31,7 @@ The background group uses its own queue and resource limits. This ensures that s
 
 
 ## Slot-based admission (v2)
-OpenObserve includes an optional slot-based distributed admission control model for search and PromQL queries. When enabled, it limits how many queries run concurrently by reserving execution slots on querier nodes before a query begins.
+OpenObserve includes an optional slot-based distributed admission control model for search (SQL) and PromQL queries. When enabled, it limits how many queries run concurrently by reserving execution slots on querier nodes before a query begins.
 
 With slot-based admission:
 
