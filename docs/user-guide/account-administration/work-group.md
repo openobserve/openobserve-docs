@@ -30,6 +30,18 @@ The background work group handles system tasks that run independently of user ac
 The background group uses its own queue and resource limits. This ensures that system tasks do not interfere with user query performance.
 
 
+## Slot-based admission (v2)
+OpenObserve includes an optional slot-based distributed admission control model for search (SQL) and PromQL queries. When enabled, it limits how many queries run concurrently by reserving execution slots on querier nodes before a query begins.
+
+With slot-based admission:
+
+- Each query may be confined to a subset of querier nodes rather than spreading across the entire cluster. The subset is selected consistently, so queries for the same organization or stream tend to route to the same nodes.
+- Before a query runs, the selected nodes reserve execution slots for it. A query is admitted only when the required slots are available; otherwise it waits until slots free up.
+- Short queries and long queries are handled separately, so that heavy long-running queries do not exhaust the capacity reserved for fast interactive queries.
+
+This capability is off by default, and the default behavior of work groups is unchanged unless it is explicitly enabled. Configuration is performed through enterprise settings.
+
+
 ## Environment variables
 Work groups rely on the following environment variables for resource management and concurrency limits.
 
