@@ -2,6 +2,7 @@ nav:
     - Amazon Bedrock: amazon-bedrock.md
     - Anthropic (JS/TS): anthropic-js.md
     - Anthropic (Python): anthropic.md
+    - Azure AI Foundry: azure-ai-foundry.md
     - BytePlus ModelArk: byteplus.md
     - Cerebras: cerebras.md
     - Cohere: cohere.md
