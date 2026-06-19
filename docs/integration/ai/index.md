@@ -23,4 +23,4 @@ You can browse these integrations directly in OpenObserve under **Ingestion → 
 ## Additional Guides
 
 - [LLM Applications](llm-applications.md): General guide for instrumenting LLM-powered applications
-- [Claude Code Tracing](claude-code-tracing.md): Trace Claude Code CLI sessions with OpenObserve
+- [Claude Code](claude-code-tracing.md): Monitor Claude Code with native OpenTelemetry metrics and events, plus optional per-turn tracing
