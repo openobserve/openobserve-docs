@@ -1,17 +1,273 @@
 ---
-title: Claude Code Tracing
-description: Send trace data from Claude Code sessions to OpenObserve via OpenTelemetry hooks.
+title: Claude Code
+description: Send Claude Code usage, cost, and activity to OpenObserve with native OpenTelemetry metrics and events, plus optional full per-turn tracing.
 ---
 
-# Claude Code → OpenObserve Tracing Hook
+# Claude Code → OpenObserve
 
-Send trace data from your [Claude Code](https://docs.anthropic.com/en/docs/claude-code) sessions to [OpenObserve](https://openobserve.ai) via OpenTelemetry.
+Monitor your team's [Claude Code](https://docs.claude.com/en/docs/claude-code) usage in [OpenObserve](https://openobserve.ai) using OpenTelemetry.
 
-Each conversation turn (user prompt → assistant response → tool calls) is exported as a structured trace, giving you full observability into how Claude Code works on your behalf.
+Claude Code exports three OTLP signals (**metrics**, **events**, and **traces**) and can send them straight to OpenObserve. There are two ways to set this up:
 
-## How It Works
+| Approach | Signals | Setup | Notes |
+|---|---|---|---|
+| [**Native OpenTelemetry**](#native-opentelemetry-monitoring) (recommended) | Metrics, events, and traces | Environment variables, no code | Traces are a beta feature; start here |
+| [**Stop hook**](#per-turn-tracing-via-a-stop-hook) (alternative) | Traces only | A custom Python hook | Per-turn traces **without** the beta flag, with full control over span shape |
 
-Claude Code supports [hooks](https://docs.anthropic.com/en/docs/claude-code/hooks) — shell commands that run at specific lifecycle points. This project uses the **Stop** hook, which fires after every Claude Code response.
+Both send data over OTLP and can run side by side. All telemetry goes **only** to the endpoint you configure. Nothing is sent to Anthropic.
+
+## Native OpenTelemetry monitoring
+
+Claude Code is itself an OpenTelemetry (OTLP) client. Point it at OpenObserve's OTLP endpoint and it streams **metrics**, **events**, and (in beta) **traces** directly, with no custom hook and no OpenTelemetry Collector required.
+
+### What you get
+
+| Signal | Examples | Stored in OpenObserve as |
+|---|---|---|
+| **Metrics** | session count, token usage, cost (USD), lines added/removed, commits, PRs, tool-accept/reject decisions, active time | Metric streams (one per metric name) |
+| **Events** (logs) | user prompts, tool results, API requests, API errors, tool permission decisions | A log stream you name |
+| **Traces** (beta) | per-turn span tree: interaction → LLM request + tool calls | A traces stream |
+
+### How it works
+
+```
+Claude Code (OTLP exporter)
+  → metrics       → POST <openobserve>/api/<org>/v1/metrics
+  → events        → POST <openobserve>/api/<org>/v1/logs
+  → traces (beta) → POST <openobserve>/api/<org>/v1/traces
+                                  ↓
+                        OpenObserve streams
+                     (dashboards, alerts, search)
+```
+
+Claude Code exports on an interval (metrics every 60s, events every 5s by default), so data appears continuously while sessions are active.
+
+### Prerequisites
+
+- Claude Code installed and authenticated.
+- An OpenObserve instance (Cloud or self-hosted) and your login credentials.
+
+No SDK to install and no collector to deploy.
+
+### Setup
+
+#### 1. Get your OpenObserve endpoint and auth token
+
+OpenObserve accepts OTLP over HTTP at:
+
+```
+https://<your-openobserve-host>/api/<your-org>/v1/{metrics,logs,traces}
+```
+
+The OpenTelemetry exporter appends the `/v1/metrics`, `/v1/logs`, and `/v1/traces` suffixes itself, so you configure Claude Code with the **base** endpoint `https://<your-openobserve-host>/api/<your-org>` (no trailing slash).
+
+Generate the `Authorization` value, which is `Basic <base64(email:password)>`:
+
+```bash
+echo -n 'your-email:your-password' | base64
+# cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
+```
+
+!!! note "Find your host and org"
+    For **OpenObserve Cloud**, the host and organization are shown under **Ingestion → Custom → OpenTelemetry** in the UI. For **self-hosted**, the default host is `http://localhost:5080` and the default org is `default`.
+
+#### 2. Configure Claude Code
+
+Set the OpenTelemetry environment variables. The recommended place is the `env` block of `~/.claude/settings.json` (persists across all projects); for a quick test you can export them in your shell instead.
+
+=== "settings.json (recommended)"
+
+    Add to `~/.claude/settings.json`:
+
+    ```json
+    {
+      "env": {
+        "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+        "OTEL_METRICS_EXPORTER": "otlp",
+        "OTEL_LOGS_EXPORTER": "otlp",
+        "OTEL_TRACES_EXPORTER": "otlp",
+        "CLAUDE_CODE_ENHANCED_TELEMETRY_BETA": "1",
+        "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "https://<your-openobserve-host>/api/<your-org>",
+        "OTEL_EXPORTER_OTLP_HEADERS": "Authorization=Basic <base64-token>,stream-name=<your-stream>"
+      }
+    }
+    ```
+
+=== "Shell export"
+
+    ```bash
+    export CLAUDE_CODE_ENABLE_TELEMETRY=1
+    export OTEL_METRICS_EXPORTER=otlp
+    export OTEL_LOGS_EXPORTER=otlp
+    export OTEL_TRACES_EXPORTER=otlp
+    export CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1
+    export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+    export OTEL_EXPORTER_OTLP_ENDPOINT="https://<your-openobserve-host>/api/<your-org>"
+    export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>,stream-name=<your-stream>"
+    ```
+
+Restart Claude Code (or open a new session) after changing settings.
+
+!!! warning "No trailing slash on the endpoint"
+    `OTEL_EXPORTER_OTLP_ENDPOINT` must not end with `/`. The exporter appends `/v1/metrics`, `/v1/logs`, and `/v1/traces`; a trailing slash produces a 404.
+
+**Core environment variables**
+
+| Variable | Description | Example |
+|---|---|---|
+| `CLAUDE_CODE_ENABLE_TELEMETRY` | Master switch (set to `1`) | `1` |
+| `OTEL_METRICS_EXPORTER` | Metrics exporter | `otlp` |
+| `OTEL_LOGS_EXPORTER` | Events/logs exporter | `otlp` |
+| `OTEL_TRACES_EXPORTER` | Traces exporter (beta) | `otlp` |
+| `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA` | Required to enable traces (beta) | `1` |
+| `OTEL_EXPORTER_OTLP_PROTOCOL` | Transport: `http/protobuf` or `grpc` | `http/protobuf` |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | OpenObserve base endpoint (no trailing slash) | `https://host/api/default` |
+| `OTEL_EXPORTER_OTLP_HEADERS` | Comma-separated headers; include `Authorization` and a `stream-name` for events | `Authorization=Basic ...,stream-name=<your-stream>` |
+
+!!! note "Where events land"
+    The `stream-name` header names the **log and traces streams** that events and spans are written to (`<your-stream>` is any name you choose, e.g. `claude_code`). Metrics ignore it: they're stored as separate **metric streams** named after each metric (e.g. `claude_code.session.count`).
+
+!!! note "Traces are beta"
+    Trace export needs `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` (metrics and logs do not) and is off in Claude Code by default; the span schema may still change. To capture per-turn traces without the beta flag, use the [Stop hook](#per-turn-tracing-via-a-stop-hook) instead.
+
+**Alternative: OTLP over gRPC**
+
+OpenObserve's gRPC endpoint listens on port `5081`. To use it, switch the protocol and add the `organization` header:
+
+```bash
+export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://<your-openobserve-host>:5081"
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>,organization=<your-org>,stream-name=<your-stream>"
+```
+
+HTTP is simpler and works through most proxies; gRPC offers higher throughput. Both are fully supported.
+
+#### 3. Verify
+
+1. Run a Claude Code session and send it a prompt or two.
+2. Check the telemetry config is active:
+
+    ```bash
+    claude doctor
+    ```
+
+3. In the OpenObserve UI:
+    - Open **Metrics** and look for streams prefixed `claude_code.` (e.g. `claude_code.token.usage`).
+    - Open **Logs**, select the `<your-stream>` stream, and you should see `claude_code.user_prompt` and `claude_code.api_request` events within a few seconds.
+    - Open **Traces**, select the `<your-stream>` stream, and you should see per-turn `claude_code.interaction` spans.
+
+If nothing appears, see [Troubleshooting](#troubleshooting).
+
+### What gets exported
+
+**Metrics**
+
+| Metric | Unit | Description | Notable attributes |
+|---|---|---|---|
+| `claude_code.session.count` | count | CLI sessions started |  |
+| `claude_code.token.usage` | tokens | Tokens consumed | `type` (input, output, cacheRead, cacheCreation), `model` |
+| `claude_code.cost.usage` | USD | Estimated session cost | `model` |
+| `claude_code.lines_of_code.count` | count | Lines changed | `type` (added, removed) |
+| `claude_code.commit.count` | count | Git commits created by Claude Code |  |
+| `claude_code.pull_request.count` | count | Pull requests created |  |
+| `claude_code.code_edit_tool.decision` | count | Edit/Write permission decisions | `tool_name`, `decision` (accept, reject), `language` |
+| `claude_code.active_time.total` | s | Active (non-idle) time |  |
+
+!!! note "Cost is an estimate"
+    `claude_code.cost.usage` is approximate and intended for trend analysis, not billing. Use your official billing source for invoicing.
+
+**Events** (emitted when `OTEL_LOGS_EXPORTER=otlp` is set)
+
+| Event | Fires when | Notable attributes |
+|---|---|---|
+| `claude_code.user_prompt` | User submits a prompt | `prompt_length`, `prompt` (redacted by default) |
+| `claude_code.tool_result` | A tool finishes | `tool_name`, `success`, `duration_ms` |
+| `claude_code.tool_decision` | A permission decision is made | `tool_name`, `decision`, `source` |
+| `claude_code.api_request` | A request to the model completes | `model`, `cost_usd`, `duration_ms`, `input_tokens`, `output_tokens` |
+| `claude_code.api_error` | A model request fails | `model`, `status_code`, `error`, `duration_ms` |
+
+Claude Code emits additional events (MCP connections, compaction, auth, plugin/skill activity, and more). All events share standard attributes such as `session.id`, `organization.id`, `user.email` (when authenticated), and `terminal.type`.
+
+**Traces** (beta, emitted when `OTEL_TRACES_EXPORTER=otlp` and `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` are set)
+
+Each user turn becomes a `claude_code.interaction` root span, with a `claude_code.llm_request` child per model call (tokens, time-to-first-token, `stop_reason`) and a `claude_code.tool` child per tool call. Spans link across subprocesses and outbound API calls via W3C trace context, and land in the `<your-stream>` traces stream.
+
+### Privacy and cardinality
+
+Sensitive content is **redacted by default**. Opt in only what you need:
+
+| Variable | Effect | Default |
+|---|---|---|
+| `OTEL_LOG_USER_PROMPTS` | Include the full prompt text in `user_prompt` events | off (length only) |
+| `OTEL_LOG_TOOL_DETAILS` | Include tool parameters and command names | off |
+| `OTEL_LOG_TOOL_CONTENT` | Include tool input/output in trace spans (requires traces) | off |
+| `OTEL_METRICS_INCLUDE_SESSION_ID` | Add `session.id` to metric attributes | `true` |
+| `OTEL_METRICS_INCLUDE_VERSION` | Add `app.version` to metric attributes | `false` |
+| `OTEL_METRICS_INCLUDE_ACCOUNT_UUID` | Add account UUID to metric attributes | `true` |
+
+!!! warning "Prompt logging carries PII risk"
+    Leave `OTEL_LOG_USER_PROMPTS` off unless you have a deliberate reason to capture prompt text, and ensure your OpenObserve retention and access controls match your data-handling policy.
+
+For high-volume fleets, dropping high-cardinality attributes (e.g. session ID) keeps metric stream sizes manageable.
+
+### Org-wide rollout
+
+To enable monitoring for an entire team, distribute the same `env` block via **managed settings** so it can't be turned off by individual users. See Anthropic's [managed settings](https://docs.claude.com/en/docs/claude-code/settings) for how to push `settings.json` through MDM/device management. The OpenObserve configuration is identical to the per-user setup above.
+
+### Route through an OpenTelemetry Collector (optional)
+
+Pointing Claude Code straight at OpenObserve is the simplest path. If you already run an [OpenTelemetry Collector](../../ingestion/logs/otlp.md) for buffering, retries, or fan-out to multiple backends, send Claude Code to the collector instead and configure an OpenObserve exporter there:
+
+```yaml
+exporters:
+  otlphttp/openobserve:
+    endpoint: https://<your-openobserve-host>/api/<your-org>
+    headers:
+      Authorization: Basic <base64-token>
+      stream-name: <your-stream>
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [otlphttp/openobserve]
+    logs:
+      receivers: [otlp]
+      exporters: [otlphttp/openobserve]
+```
+
+Then set `OTEL_EXPORTER_OTLP_ENDPOINT` on Claude Code to your collector's address (commonly `http://localhost:4318` for HTTP).
+
+### Troubleshooting
+
+??? note "Common issues and quick checks (click to expand)"
+
+    **For faster feedback while testing**, shorten the export intervals so data shows up almost immediately, then reset for production:
+
+    ```bash
+    export OTEL_METRIC_EXPORT_INTERVAL=10000   # 10s (default 60000)
+    export OTEL_LOGS_EXPORT_INTERVAL=5000      # 5s  (default 5000)
+    ```
+
+    **Common issues**
+
+    | Symptom | Cause | Fix |
+    |---|---|---|
+    | No data at all | `CLAUDE_CODE_ENABLE_TELEMETRY` not set | Set it to `1` and start a new session |
+    | `404` on export | Trailing slash on the endpoint | Remove the trailing `/`; use `.../api/<org>` |
+    | `401`/`403` errors | Wrong auth header | Re-encode `email:password` and use `Authorization=Basic <base64>` |
+    | Metrics but no events | `OTEL_LOGS_EXPORTER` unset | Set `OTEL_LOGS_EXPORTER=otlp` |
+    | Events go to the wrong stream | Missing `stream-name` header | Add `stream-name=<your-stream>` to `OTEL_EXPORTER_OTLP_HEADERS` |
+    | Config not applied | Old session still running | Restart Claude Code after editing `settings.json` |
+
+    Run `claude doctor` to confirm the telemetry configuration Claude Code has loaded.
+
+## Per-turn tracing via a Stop hook
+
+This is an **alternative** to Claude Code's native [trace export](#2-configure-claude-code) above. It produces the same per-turn span tree using a custom hook. Use it when you want traces **without enabling the beta flag**, or when you need full control over the span shape and attributes.
+
+Claude Code supports [hooks](https://docs.anthropic.com/en/docs/claude-code/hooks), shell commands that run at specific lifecycle points. This approach uses the **Stop** hook, which fires after every Claude Code response.
 
 When triggered, the hook:
 
@@ -28,7 +284,7 @@ Stop hook fires
   → Export as OTel traces to OpenObserve
 ```
 
-## Prerequisites
+### Prerequisites
 
 - Python 3.9+
 - [openobserve-telemetry-sdk](https://pypi.org/project/openobserve-telemetry-sdk/)
@@ -37,9 +293,9 @@ Stop hook fires
 pip install openobserve-telemetry-sdk
 ```
 
-## Setup
+### Setup
 
-### 1. Register the hook globally
+#### 1. Register the hook globally
 
 Add the Stop hook to `~/.claude/settings.json`:
 
@@ -62,70 +318,68 @@ Add the Stop hook to `~/.claude/settings.json`:
 
 This makes the hook run after every Claude Code response across all projects.
 
-### 2. Configure environment variables
+#### 2. Configure environment variables
 
-You can set the required environment variables at the **global** level (all projects) or **per-project** level.
+Set the required environment variables at the **global** level (all projects) or **per-project** level.
 
-#### Option A: Global (all projects)
+=== "Global (all projects)"
 
-Add env vars to `~/.claude/settings.json` alongside the hook definition:
+    Add env vars to `~/.claude/settings.json` alongside the hook definition:
 
-```json
-{
-  "env": {
-    "TRACE_TO_OPENOBSERVE": "true",
-    "OPENOBSERVE_URL": "http://localhost:5080",
-    "OPENOBSERVE_ORG": "default",
-    "OPENOBSERVE_AUTH_TOKEN": "Basic <base64-encoded user:password>"
-  },
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
+    ```json
+    {
+      "env": {
+        "TRACE_TO_OPENOBSERVE": "true",
+        "OPENOBSERVE_URL": "http://localhost:5080",
+        "OPENOBSERVE_ORG": "default",
+        "OPENOBSERVE_AUTH_TOKEN": "Basic <base64-encoded user:password>"
+      },
+      "hooks": {
+        "Stop": [
           {
-            "type": "command",
-            "command": "python3 ~/.claude/hooks/openobserve_hooks.py"
+            "hooks": [
+              {
+                "type": "command",
+                "command": "python3 ~/.claude/hooks/openobserve_hooks.py"
+              }
+            ]
           }
         ]
       }
-    ]
-  }
-}
-```
+    }
+    ```
 
-#### Option B: Per-project
+=== "Per-project"
 
-Enable tracing selectively by adding env vars to each project's `.claude/settings.local.json`:
+    Enable tracing selectively by adding env vars to each project's `.claude/settings.local.json`:
 
-```json
-{
-  "env": {
-    "TRACE_TO_OPENOBSERVE": "true",
-    "OPENOBSERVE_URL": "http://localhost:5080",
-    "OPENOBSERVE_ORG": "default",
-    "OPENOBSERVE_AUTH_TOKEN": "Basic <base64-encoded user:password>",
-    "CC_OPENOBSERVE_DEBUG": "true"
-  }
-}
-```
+    ```json
+    {
+      "env": {
+        "TRACE_TO_OPENOBSERVE": "true",
+        "OPENOBSERVE_URL": "http://localhost:5080",
+        "OPENOBSERVE_ORG": "default",
+        "OPENOBSERVE_AUTH_TOKEN": "Basic <base64-encoded user:password>",
+        "CC_OPENOBSERVE_DEBUG": "true"
+      }
+    }
+    ```
 
-### Environment Variables
+**Environment variables**
 
 | Variable | Description | Required | Default |
 |---|---|---|---|
-| `TRACE_TO_OPENOBSERVE` | Set to `"true"` to enable tracing | Yes | — |
-| `OPENOBSERVE_URL` | OpenObserve base URL | Yes | — |
-| `OPENOBSERVE_ORG` | OpenObserve organization | Yes | — |
-| `OPENOBSERVE_AUTH_TOKEN` | `Basic <base64>` or Bearer token | Yes | — |
+| `TRACE_TO_OPENOBSERVE` | Set to `"true"` to enable tracing | Yes |  |
+| `OPENOBSERVE_URL` | OpenObserve base URL | Yes |  |
+| `OPENOBSERVE_ORG` | OpenObserve organization | Yes |  |
+| `OPENOBSERVE_AUTH_TOKEN` | `Basic <base64>` or Bearer token | Yes |  |
 | `OPENOBSERVE_TRACES_STREAM_NAME` | Target stream name | No | `"default"` |
 | `OPENOBSERVE_PROTOCOL` | `"http/protobuf"` or `"grpc"` | No | `"http/protobuf"` |
 | `OPENOBSERVE_USER_ID` | User identifier (added as resource attribute) | No | `None` |
 | `CC_OPENOBSERVE_DEBUG` | Set to `"true"` for verbose logging | No | `"false"` |
 | `CC_OPENOBSERVE_MAX_CHARS` | Max characters per text field before truncation | No | `20000` |
 
-### Generating the auth token
-
-The token is a Base64-encoded `email:password` string. For example, with `root@example.com` / `Complexpass#123`:
+**Generating the auth token.** The token is a Base64-encoded `email:password` string. For example, with `root@example.com` / `Complexpass#123`:
 
 ```bash
 echo -n "root@example.com:Complexpass#123" | base64
@@ -134,49 +388,47 @@ echo -n "root@example.com:Complexpass#123" | base64
 
 Then set `OPENOBSERVE_AUTH_TOKEN` to `Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`.
 
-## Troubleshooting
+### Troubleshooting
 
-### Check the log file
+??? note "Diagnostics and common issues (click to expand)"
 
-```bash
-tail -f ~/.claude/state/openobserve_hook.log
-```
+    **Check the log file**
 
-Enable debug logging by setting `CC_OPENOBSERVE_DEBUG=true` in your project's env config.
+    ```bash
+    tail -f ~/.claude/state/openobserve_hook.log
+    ```
 
-### Test the hook manually
+    Enable debug logging by setting `CC_OPENOBSERVE_DEBUG=true` in your project's env config.
 
-```bash
-echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
-  TRACE_TO_OPENOBSERVE=true \
-  OPENOBSERVE_URL=http://localhost:5080 \
-  OPENOBSERVE_ORG=default \
-  OPENOBSERVE_AUTH_TOKEN="Basic ..." \
-  python3 ~/.claude/hooks/openobserve_hooks.py
-```
+    **Test the hook manually**
 
-### Common issues
+    ```bash
+    echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
+      TRACE_TO_OPENOBSERVE=true \
+      OPENOBSERVE_URL=http://localhost:5080 \
+      OPENOBSERVE_ORG=default \
+      OPENOBSERVE_AUTH_TOKEN="Basic ..." \
+      python3 ~/.claude/hooks/openobserve_hooks.py
+    ```
 
-| Symptom | Cause | Fix |
-|---|---|---|
-| No traces appear | `TRACE_TO_OPENOBSERVE` not set | Add env vars to `.claude/settings.local.json` |
-| Hook silently exits | Missing `openobserve-telemetry-sdk` | Run `pip install openobserve-telemetry-sdk` |
-| Auth errors in log | Wrong token format | Ensure token is `Basic <base64>` format |
-| Partial traces | OpenObserve unreachable | Verify `OPENOBSERVE_URL` and that the service is running |
+    **Common issues**
 
-### State files
+    | Symptom | Cause | Fix |
+    |---|---|---|
+    | No traces appear | `TRACE_TO_OPENOBSERVE` not set | Add env vars to `.claude/settings.local.json` |
+    | Hook silently exits | Missing `openobserve-telemetry-sdk` | Run `pip install openobserve-telemetry-sdk` |
+    | Auth errors in log | Wrong token format | Ensure token is `Basic <base64>` format |
+    | Partial traces | OpenObserve unreachable | Verify `OPENOBSERVE_URL` and that the service is running |
 
-The hook maintains incremental state in `~/.claude/state/`:
+    **State files.** The hook maintains incremental state in `~/.claude/state/`:
 
-- `openobserve_state.json` — per-session offsets and turn counts
-- `openobserve_state.lock` — file lock for concurrent access
-- `openobserve_hook.log` — debug/info log
+    - `openobserve_state.json`: per-session offsets and turn counts
+    - `openobserve_state.lock`: file lock for concurrent access
+    - `openobserve_hook.log`: debug and info log
 
-### Limitations
+    **Limitations.** System prompts are not included in Claude Code's conversation transcripts, so they are not part of the trace.
 
-- System prompts are not included in Claude Code's conversation transcripts, so they are not part of the trace.
-
-## Hook Source Code
+### Hook source code
 
 The complete `openobserve_hooks.py` script is included below. Save it to `~/.claude/hooks/openobserve_hooks.py`.
 
@@ -789,3 +1041,14 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
     if __name__ == "__main__":
         sys.exit(main())
     ```
+
+## Related
+
+- [OTLP / OpenTelemetry ingestion](../../ingestion/logs/otlp.md): endpoint and collector reference.
+- [Quickstart](../../quickstart.md): get OpenObserve running if you haven't yet.
+
+**Need some help?**
+
+- Join our [Community Slack](https://short.openobserve.ai/community)
+- Or [Contact support](https://openobserve.ai/contactus/)
+
