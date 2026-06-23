@@ -12,7 +12,7 @@ Capture token usage, latency, cost, and model metadata for every call to a model
 ## **Prerequisites**
 
 * Python 3.8+
-* An [OpenObserve](https://openobserve.ai/) instance, with your **organization ID** and **Base64 auth token**
+* An [OpenObserve Cloud account](https://openobserve.ai/) or self-hosted instance, with your **organization ID** and **Base64 auth token**
 * An Azure AI Foundry deployment, with its **endpoint**, **API key**, and **deployment name** (from the *Endpoint* tab in [ai.azure.com](https://ai.azure.com/))
 
 ## **Installation**
@@ -37,6 +37,10 @@ AZURE_OPENAI_DEPLOYMENT=your-deployment-name
 ```
 
 `AZURE_OPENAI_DEPLOYMENT` is the **deployment name** you chose, not the base model name.
+
+Find your `OPENOBSERVE_ORG` and `OPENOBSERVE_AUTH_TOKEN` on the OpenObserve **Ingestion** page, under *Data Sources*:
+
+![Where to find your OpenObserve organization ID and auth token](../../../images/integration/ai/azure-ai-foundry-credentials.png)
 
 ## **Instrumentation**
 
