@@ -13,6 +13,7 @@ These integrations use OpenInference or OpenTelemetry instrumentors for each pro
 
 - [Anthropic (Python)](anthropic.md)
 - [Anthropic (JavaScript)](anthropic-js.md)
+- [Azure AI Foundry](azure-ai-foundry.md)
 - [BytePlus](byteplus.md)
 - [Cerebras](cerebras.md)
 - [Cohere](cohere.md)
