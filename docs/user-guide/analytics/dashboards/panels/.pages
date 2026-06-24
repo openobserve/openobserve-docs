@@ -2,4 +2,5 @@ nav:
 
 - Panels Overview: index.md 
 - Manage Panels: panel-management.md
+- Multi-Query Support: multi-query-support.md
 - Troubleshooting: troubleshooting.md
