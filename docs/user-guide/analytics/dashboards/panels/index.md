@@ -3,4 +3,5 @@ This section provides complete guidance on using and managing panels in the dash
 **Learn more:**
 
 - [Manage Panels](panel-management.md)
+- [Multi-Query Support](multi-query-support.md)
 - [Troubleshooting](troubleshooting.md)
