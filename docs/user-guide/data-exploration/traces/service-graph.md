@@ -35,6 +35,8 @@
     - A summary of recent requests  
     - A colour that reflects the recent error behaviour  
 
+    Instrumented services appear as solid nodes. Inferred (uninstrumented) dependencies appear as dotted nodes with a type icon indicating the dependency category.
+
     ??? "Colours"
     ### Colours
     Colours indicate the health of each service.
@@ -45,7 +47,24 @@
 
     ??? "Edges"
     ### Edges
-    Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
+    Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate. Instrumented service-to-service edges appear as solid lines. Edges to inferred dependencies appear as dotted lines with a type icon.
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    OpenObserve can detect uninstrumented dependencies—services that participate in distributed traces but do not emit spans directly. These dependencies include databases, message queues, external APIs, and RPC backends.
+
+    ![TODO: screenshot of service graph showing inferred dependency nodes with dotted borders and type icons](images/placeholder.png)
+
+    Inferred dependencies appear in the service graph as dotted nodes with a type icon that indicates the dependency category:
+
+    - **Database** — relational databases, key-value stores, and other data stores  
+    - **Queue** — message queues and streaming platforms  
+    - **RPC** — remote procedure call backends  
+    - **External** — external third-party APIs and services  
+
+    Instrumented services (those that emit spans directly) appear as solid nodes without a type icon. This visual distinction helps you quickly identify which parts of your system are directly observed and which are inferred from span relationships.
+
+    The `_o2_service_graph` internal index stores a `connection_type` field on each edge record. For edges written by the inferred-services pipeline, this field carries the category. For instrumented edges, the field is absent. The service graph topology builder reads this field and propagates it to both the edge and the target node, so the UI renders the appropriate visual treatment.
 
     ??? "Topology behaviour"
     ### Topology behaviour
