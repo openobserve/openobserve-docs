@@ -34,6 +34,7 @@
     - The service name  
     - A summary of recent requests  
     - A colour that reflects the recent error behaviour  
+    - A service type icon for uninstrumented dependencies such as databases, queues, external APIs, and RPC backends  
 
     ??? "Colours"
     ### Colours
@@ -47,9 +48,26 @@
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
+    Instrumented edges (between services that send trace data) are displayed with solid lines. Inferred edges (to uninstrumented dependencies such as databases, queues, external APIs, and RPC backends) are displayed with dotted lines and a type icon.
+
     ??? "Topology behaviour"
     ### Topology behaviour
     Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    Service graph automatically detects uninstrumented dependencies from trace data. When OpenObserve observes communication from an instrumented service to an endpoint that does not produce trace spans itself, those targets are classified as inferred dependencies.
+
+    Inferred dependency nodes display with a dashed/dotted border and the edge uses a dotted line. A type icon indicates the dependency category:
+
+    - **database** — databases such as PostgreSQL, MySQL, Redis, MongoDB  
+    - **queue** — message queues such as Kafka, RabbitMQ, NATS  
+    - **rpc** — RPC backends that do not emit OTLP spans  
+    - **external** — external APIs and third-party services  
+
+    Instrumented services (those that send trace data) remain unchanged and display with solid borders and edges.
+
+    ![TODO: screenshot of inferred dependency nodes and edges in service graph](images/placeholder.png)
 
 
     ## Data source
