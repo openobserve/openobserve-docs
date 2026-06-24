@@ -47,6 +47,28 @@
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    When your distributed traces include spans that reference services without OpenTelemetry instrumentation — such as databases, message queues, RPC backends, or external APIs — the service graph infers these dependencies and displays them differently from instrumented services.
+
+    **Inferred nodes** appear with a type icon that identifies their dependency category. **Inferred edges** are drawn as dotted lines to distinguish them from the solid edges of instrumented service-to-service calls.
+
+    The supported dependency categories are:
+
+    | Category   | Detected from                                         |
+    |------------|-------------------------------------------------------|
+    | `database` | Database spans and connection attributes in traces    |
+    | `queue`    | Message queue spans and messaging system attributes   |
+    | `rpc`      | RPC framework spans from uninstrumented RPC backends  |
+    | `external` | Outbound HTTP calls to external or third-party APIs   |
+
+    Instrumented services — those sending their own trace data — have no dependency category and appear as normal service nodes with solid edges. This distinction helps you quickly spot which parts of your topology are directly observable and which are inferred from span attributes.
+
+    !!! note
+        Inferred dependencies require that your instrumented services export span attributes for the uninstrumented targets they call. The service graph derives the `connection_type` field from the `_o2_service_graph` stream. Existing records written before this feature default to instrumented behaviour and require no migration.
+
+    ![TODO: screenshot of service graph showing inferred dependency nodes (dotted, with type icons) alongside instrumented services](images/placeholder.png)
+
     ??? "Topology behaviour"
     ### Topology behaviour
     Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
