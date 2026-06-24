@@ -17,7 +17,8 @@
     !!! note "Where to find this"
 
         1. Sign in to OpenObserve.
-        2. Select **Traces** in the left navigation panel, then choose **Service Graph** from the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar (Enterprise only).
+        2. Select **Traces** in the left navigation panel.
+        3. The **Service graph** icon that appears at the top-left corner of the page.
 
         The topology loads automatically when recent trace activity is available.
         If there is no trace activity, the section displays a message indicating that no service graph data is available.
@@ -28,7 +29,12 @@
 
     ??? "Services"
     ### Services
-    Each service represents an application component discovered from distributed traces. The view displays:
+    Each service represents an application component discovered from distributed traces. Services appear as either **instrumented** or **inferred**:
+
+    - **Instrumented services** are your own applications that send traces to OpenObserve. They appear as solid nodes in the graph.
+    - **Inferred dependencies** are downstream systems (databases, queues, external APIs, RPC backends) that your applications call but that do not send traces themselves. OpenObserve infers their existence from trace spans and renders them as dotted nodes with a type icon. For details, see [Inferred dependencies](#inferred-dependencies).
+
+    For every service the view displays:
 
     - The service name  
     - A summary of recent requests  
@@ -42,11 +48,37 @@
     - Yellow and orange show increased errors  
     - Red shows repeated failures  
 
-    An always-visible legend on the graph canvas maps these colours to error-rate thresholds: Healthy (<1%), Degraded (1–5%), Warning (5–10%), and Critical (>10%). The legend labels these as **Requests** and **Errors**. In Graph view, node size reflects request volume.
-
     ??? "Edges"
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
+
+    Edges appear in two styles:
+
+    - **Instrumented edges** connect two instrumented services. They are rendered as solid lines.
+    - **Inferred edges** connect an instrumented service to an inferred dependency. They are rendered as dotted lines and display a connection type icon. For details, see [Inferred dependencies](#inferred-dependencies).
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+
+    When your instrumented services communicate with systems that do not send traces — such as databases, message queues, external HTTP APIs, or RPC backends — OpenObserve detects these interactions from trace spans and surfaces them as **inferred dependencies** in the service graph.
+
+    Inferred dependencies are visualised differently from instrumented services:
+
+    - **Nodes** are shown as dotted outlines with a type icon that indicates the category.
+    - **Edges** are shown as dotted lines, also marked with the connection type.
+
+    ![TODO: screenshot of service graph with inferred dependency nodes and edges](images/placeholder.png)
+
+    OpenObserve supports the following inferred dependency types:
+
+    | Connection type | Description |
+    |-----------------|-------------|
+    | `database` | A database system such as PostgreSQL, Redis, or MongoDB |
+    | `queue` | A message broker or queue such as Kafka, RabbitMQ, or NATS |
+    | `rpc` | An RPC backend that is not sending its own traces |
+    | `external` | An external HTTP or HTTPS API |
+
+    Inferred dependencies are detected automatically. You do not need to configure anything — any trace span that references an uninstrumented downstream system is classified and displayed with the appropriate type. Instrumented services that send traces continue to appear as solid nodes; the inferred-dependency styling is applied only to systems that are not sending trace data themselves.
 
     ??? "Topology behaviour"
     ### Topology behaviour
@@ -89,15 +121,7 @@
     Graph view arranges services as a network. It uses a physics based simulation to maintain stable spacing between services. Force directed layouts group related services together. Circular layouts arrange services around a circle.
 
     ## Interaction
-    You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Click a service node to open a node detail side panel. Filters and layouts can be combined to focus on specific sections of the topology.
-
-    ### Node detail panel
-    Clicking a service node opens a side panel with details for that service. When a single stream is selected, the panel shows the following tabs:
-
-    - **Operations**, **Nodes**, and **Pods** tabs, where Nodes and Pods reflect the Kubernetes node and pod. Each tab is a table showing request count, errors, and the p50, p75, p95, and p99 latency percentiles. These tables can be sorted by column, and the latency percentile columns sort by numeric value.
-    - **Metrics** tab, which uses selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) along with **Pod** / **Node** scope chips.
-
-    A **View Traces** action opens the Spans view pre-filtered by service, operation, node, pod, errors, and duration.
+    You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Filters and layouts can be combined to focus on specific sections of the topology.
 
 === "How-to"
     ## Filter the graph by service
