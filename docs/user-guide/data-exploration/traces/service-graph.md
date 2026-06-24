@@ -67,7 +67,7 @@
     !!! note
         Inferred dependencies require that your instrumented services export span attributes for the uninstrumented targets they call. The service graph derives the `connection_type` field from the `_o2_service_graph` stream. Existing records written before this feature default to instrumented behaviour and require no migration.
 
-    ![TODO: screenshot of service graph showing inferred dependency nodes (dotted, with type icons) alongside instrumented services](images/placeholder.png)
+![service graph showing inferred dependency nodes (dotted, with type icons) alongside instrumented services](images/service-graph-inferred-dependencies-1.png)
 
     ??? "Topology behaviour"
     ### Topology behaviour
