@@ -54,7 +54,7 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 
 - **Share Metrics Views**: Share an exact metrics view with your team by copying a URL from the **Share** button in the metrics toolbar. The URL encodes your current panel configuration — chart type, queries (PromQL or SQL), stream selection, time range, and refresh interval — so recipients see the same chart and data. Opening a shared link auto-restores the view and runs the query immediately.
 
-![TODO: screenshot of Share button in metrics page toolbar](images/placeholder.png)
+![Share button in metrics page toolbar](images/metrics-share-url-1.png)
 
 The share URL carries the full panel state as a versioned base64 blob in the `metrics_data` query parameter. The metrics page also accepts lightweight deep-link overrides (`chart_type`, `query_type`, `stream_name`, `query`) for programmatic linking from alerts, dashboards, and other pages.
 
