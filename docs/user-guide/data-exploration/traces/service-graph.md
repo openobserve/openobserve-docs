@@ -17,7 +17,8 @@
     !!! note "Where to find this"
 
         1. Sign in to OpenObserve.
-        2. Select **Traces** in the left navigation panel, then choose **Service Graph** from the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar (Enterprise only).
+        2. Select **Traces** in the left navigation panel.
+        3. The **Service graph** icon that appears at the top-left corner of the page.
 
         The topology loads automatically when recent trace activity is available.
         If there is no trace activity, the section displays a message indicating that no service graph data is available.
@@ -34,6 +35,8 @@
     - A summary of recent requests  
     - A colour that reflects the recent error behaviour  
 
+    Instrumented services appear as solid nodes. Inferred (uninstrumented) dependencies appear as dotted nodes with a type icon indicating the dependency category.
+
     ??? "Colours"
     ### Colours
     Colours indicate the health of each service.
@@ -42,11 +45,26 @@
     - Yellow and orange show increased errors  
     - Red shows repeated failures  
 
-    An always-visible legend on the graph canvas maps these colours to error-rate thresholds: Healthy (<1%), Degraded (1–5%), Warning (5–10%), and Critical (>10%). The legend labels these as **Requests** and **Errors**. In Graph view, node size reflects request volume.
-
     ??? "Edges"
     ### Edges
-    Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
+    Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate. Instrumented service-to-service edges appear as solid lines. Edges to inferred dependencies appear as dotted lines with a type icon.
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    OpenObserve can detect uninstrumented dependencies—services that participate in distributed traces but do not emit spans directly. These dependencies include databases, message queues, external APIs, and RPC backends.
+
+    ![TODO: screenshot of service graph showing inferred dependency nodes with dotted borders and type icons](images/placeholder.png)
+
+    Inferred dependencies appear in the service graph as dotted nodes with a type icon that indicates the dependency category:
+
+    - **Database** — relational databases, key-value stores, and other data stores  
+    - **Queue** — message queues and streaming platforms  
+    - **RPC** — remote procedure call backends  
+    - **External** — external third-party APIs and services  
+
+    Instrumented services (those that emit spans directly) appear as solid nodes without a type icon. This visual distinction helps you quickly identify which parts of your system are directly observed and which are inferred from span relationships.
+
+    The `_o2_service_graph` internal index stores a `connection_type` field on each edge record. For edges written by the inferred-services pipeline, this field carries the category. For instrumented edges, the field is absent. The service graph topology builder reads this field and propagates it to both the edge and the target node, so the UI renders the appropriate visual treatment.
 
     ??? "Topology behaviour"
     ### Topology behaviour
@@ -89,15 +107,7 @@
     Graph view arranges services as a network. It uses a physics based simulation to maintain stable spacing between services. Force directed layouts group related services together. Circular layouts arrange services around a circle.
 
     ## Interaction
-    You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Click a service node to open a node detail side panel. Filters and layouts can be combined to focus on specific sections of the topology.
-
-    ### Node detail panel
-    Clicking a service node opens a side panel with details for that service. When a single stream is selected, the panel shows the following tabs:
-
-    - **Operations**, **Nodes**, and **Pods** tabs, where Nodes and Pods reflect the Kubernetes node and pod. Each tab is a table showing request count, errors, and the p50, p75, p95, and p99 latency percentiles. These tables can be sorted by column, and the latency percentile columns sort by numeric value.
-    - **Metrics** tab, which uses selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) along with **Pod** / **Node** scope chips.
-
-    A **View Traces** action opens the Spans view pre-filtered by service, operation, node, pod, errors, and duration.
+    You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Filters and layouts can be combined to focus on specific sections of the topology.
 
 === "How-to"
     ## Filter the graph by service
