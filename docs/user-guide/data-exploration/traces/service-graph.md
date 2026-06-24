@@ -17,14 +17,15 @@
     !!! note "Where to find this"
 
         1. Sign in to OpenObserve.
-        2. Select **Traces** in the left navigation panel, then choose **Service Graph** from the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar (Enterprise only).
+        2. Select **Traces** in the left navigation panel.
+        3. The **Service graph** icon that appears at the top-left corner of the page.
 
         The topology loads automatically when recent trace activity is available.
         If there is no trace activity, the section displays a message indicating that no service graph data is available.
 
 
     ## What service graph displays
-    Service graph displays the services in your system and the communication observed between them.
+    Service graph displays the services in your system and the communication observed between them. It distinguishes between **instrumented services** that emit spans and **inferred dependencies** that do not (databases, queues, external APIs, and RPC backends).
 
     ??? "Services"
     ### Services
@@ -42,15 +43,27 @@
     - Yellow and orange show increased errors  
     - Red shows repeated failures  
 
-    An always-visible legend on the graph canvas maps these colours to error-rate thresholds: Healthy (<1%), Degraded (1–5%), Warning (5–10%), and Critical (>10%). The legend labels these as **Requests** and **Errors**. In Graph view, node size reflects request volume.
-
     ??? "Edges"
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
-    ??? "Topology behaviour"
-    ### Topology behaviour
-    Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
+    - **Solid edges** connect instrumented services that emit spans.  
+    - **Dotted edges** connect to inferred dependencies and display a type icon indicating the dependency category (`database`, `queue`, `rpc`, or `external`).
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    OpenObserve detects services that do not emit spans but are called by your instrumented services. These **inferred dependencies** appear as dotted nodes with a type icon and include:
+
+    - **Databases** (`database`)  
+    - **Message queues** (`queue`)  
+    - **RPC backends** (`rpc`)  
+    - **External APIs** (`external`)  
+
+    Inferred nodes are tagged with a `service_type` label and connected by dotted edges that carry a `connection_type` label. Instrumented services keep the default solid rendering with no type tag.
+
+    ![TODO: screenshot of service graph with inferred database and queue nodes](images/placeholder.png)
+
+    Existing service graph records written before this feature are treated as instrumented by default, so previously captured topologies continue to render without interruption.
 
 
     ## Data source
@@ -89,15 +102,7 @@
     Graph view arranges services as a network. It uses a physics based simulation to maintain stable spacing between services. Force directed layouts group related services together. Circular layouts arrange services around a circle.
 
     ## Interaction
-    You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Click a service node to open a node detail side panel. Filters and layouts can be combined to focus on specific sections of the topology.
-
-    ### Node detail panel
-    Clicking a service node opens a side panel with details for that service. When a single stream is selected, the panel shows the following tabs:
-
-    - **Operations**, **Nodes**, and **Pods** tabs, where Nodes and Pods reflect the Kubernetes node and pod. Each tab is a table showing request count, errors, and the p50, p75, p95, and p99 latency percentiles. These tables can be sorted by column, and the latency percentile columns sort by numeric value.
-    - **Metrics** tab, which uses selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) along with **Pod** / **Node** scope chips.
-
-    A **View Traces** action opens the Spans view pre-filtered by service, operation, node, pod, errors, and duration.
+    You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Filters and layouts can be combined to focus on specific sections of the topology.
 
 === "How-to"
     ## Filter the graph by service
