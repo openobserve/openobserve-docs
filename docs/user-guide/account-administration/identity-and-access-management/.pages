@@ -4,5 +4,6 @@ nav:
     - Enable Role-Based Access Control (RBAC) in Enterprise Edition: enable-rbac-in-openobserve-enterprise.md
     - Single Sign-On (SSO): sso.md
     - Organizations: organizations.md
+    - Ingestion Tokens: ingestion-tokens.md
     - Quotas: quotas
     - Manage Users & Passwords: update-password.md
