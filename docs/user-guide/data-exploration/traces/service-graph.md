@@ -25,7 +25,7 @@
 
 
     ## What service graph displays
-    Service graph displays the services in your system and the communication observed between them.
+    Service graph displays the services in your system and the communication observed between them. It distinguishes between **instrumented services** that emit spans and **inferred dependencies** that do not (databases, queues, external APIs, and RPC backends).
 
     ??? "Services"
     ### Services
@@ -47,9 +47,23 @@
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
-    ??? "Topology behaviour"
-    ### Topology behaviour
-    Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
+    - **Solid edges** connect instrumented services that emit spans.  
+    - **Dotted edges** connect to inferred dependencies and display a type icon indicating the dependency category (`database`, `queue`, `rpc`, or `external`).
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    OpenObserve detects services that do not emit spans but are called by your instrumented services. These **inferred dependencies** appear as dotted nodes with a type icon and include:
+
+    - **Databases** (`database`)  
+    - **Message queues** (`queue`)  
+    - **RPC backends** (`rpc`)  
+    - **External APIs** (`external`)  
+
+    Inferred nodes are tagged with a `service_type` label and connected by dotted edges that carry a `connection_type` label. Instrumented services keep the default solid rendering with no type tag.
+
+    ![TODO: screenshot of service graph with inferred database and queue nodes](images/placeholder.png)
+
+    Existing service graph records written before this feature are treated as instrumented by default, so previously captured topologies continue to render without interruption.
 
 
     ## Data source
