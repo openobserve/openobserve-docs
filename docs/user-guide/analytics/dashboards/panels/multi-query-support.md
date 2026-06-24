@@ -22,7 +22,7 @@ Multi-query is supported for all SQL-based chart types: **bar**, **line**, **are
 
 ## Adding, Switching, and Removing Queries
 
-![TODO: screenshot of panel editor with multiple query tabs](images/placeholder.png)
+![panel editor with multiple query tabs](images/multi-query-dashboard-support-1.png)
 
 ### Add a Query
 
@@ -49,7 +49,7 @@ Renamed tab names persist after you save and reopen the panel. Tab names also ap
 
 When a panel has two or more queries, an **eye icon** appears on each query tab:
 
-![TODO: screenshot of eye icon toggling query visibility on tabs](images/placeholder.png)
+![eye icon toggling query visibility on tabs](images/multi-query-dashboard-support-2.png)
 
 - Click the eye icon to **hide** a query's data from the chart. The query configuration is preserved but excluded from rendering.
 - Click again to **show** the data.
@@ -60,13 +60,13 @@ Hidden queries are also excluded from the X-axis alias consistency check (see be
 
 In the **Config** panel, each query gets its own **Legend Label** field. The legend label fields appear only when the panel has multiple queries. Use these to identify each query's data series in the chart legend and tooltips.
 
-![TODO: screenshot of config panel with per-query legend label fields](images/placeholder.png)
+![config panel with per-query legend label fields](images/multi-query-dashboard-support-3.png)
 
 ## Query Inspector
 
 The **Query Inspector** shows the generated SQL for all queries in the panel. Open it from the panel toolbar dropdown menu:
 
-![TODO: screenshot of query inspector showing SQL for multiple queries](images/placeholder.png)
+![query inspector showing SQL for multiple queries](images/multi-query-dashboard-support-4.png)
 
 Each query is grouped under its tab name, making it easy to inspect and debug individual queries.
 
@@ -76,7 +76,7 @@ For chart types with an X-axis (**bar**, **line**, **area**, **scatter**), mixin
 
 A **warning icon** appears in the panel editor header when your visible queries use inconsistent X-axis aggregations:
 
-![TODO: screenshot of x-axis alias inconsistency warning icon in panel header](images/placeholder.png)
+![x-axis alias inconsistency warning icon in panel header](images/multi-query-dashboard-support-5.png)
 
 The warning updates reactively as you modify fields — no need to click **Apply** first. Hidden queries are excluded from the check.
 
