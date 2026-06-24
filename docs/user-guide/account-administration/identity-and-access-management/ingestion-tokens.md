@@ -19,7 +19,7 @@ A **default** token is created automatically when a new organization is provisio
 
 Navigate to **IAM > Ingestion Tokens** to view and manage org-level tokens.
 
-![TODO: screenshot of Ingestion Tokens page with token list](images/placeholder.png)
+![Ingestion Tokens page with token list](images/org-level-ingestion-tokens-1.png)
 
 The page lists all tokens for the current organization with these columns:
 
@@ -36,11 +36,11 @@ The page lists all tokens for the current organization with these columns:
    - **Description** (optional) — free-text notes about the token's purpose.
 3. Click **Create**.
 
-![TODO: screenshot of Create Token dialog](images/placeholder.png)
+![Create Token dialog](images/org-level-ingestion-tokens-2.png)
 
 The full token value is displayed once immediately after creation. **Copy it now** — it will not be shown again.
 
-![TODO: screenshot of New Token Generated reveal dialog](images/placeholder.png)
+![New Token Generated reveal dialog](images/org-level-ingestion-tokens-3.png)
 
 ### Enable or disable a token
 
@@ -50,7 +50,7 @@ Click the **pause**/**play** toggle in the **Actions** column to disable or enab
 
 When you visit the **Ingestion** page, a token selector dropdown appears above the curl examples. The dropdown lists all enabled org-level ingestion tokens for the current organization. Select a token to populate the curl commands with that credential.
 
-![TODO: screenshot of Ingestion page showing token selector dropdown](images/placeholder.png)
+![Ingestion page showing token selector dropdown](images/org-level-ingestion-tokens-4.png)
 
 Click **Manage Tokens** next to the selector to jump directly to the **IAM > Ingestion Tokens** page.
 
