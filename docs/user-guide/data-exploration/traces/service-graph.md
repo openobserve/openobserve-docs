@@ -47,6 +47,19 @@
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+    Service graph detects uninstrumented dependencies, such as databases, message queues, external APIs, and RPC backends, by analysing trace spans where the server side was not directly instrumented.
+
+    These inferred dependencies appear differently from instrumented services:
+
+    - **Dotted nodes** with a type icon indicating the category of the dependency (`database`, `queue`, `rpc`, or `external`).
+    - **Dotted edges** connecting the calling service to the inferred dependency, also labelled with the dependency type.
+
+    This lets you visualise parts of your architecture that are not directly traced, giving you a more complete picture of your system topology. Instrumented services and their edges stay unchanged.
+
+    Inferred-dependency detection works automatically whenever trace data includes spans that reference uninstrumented targets.
+
     ??? "Topology behaviour"
     ### Topology behaviour
     Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
