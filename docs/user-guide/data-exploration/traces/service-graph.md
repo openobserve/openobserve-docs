@@ -47,6 +47,22 @@
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+
+    When OpenObserve detects communication with services that are not directly instrumented — such as **databases**, **message queues**, **external APIs**, or **RPC backends** — the service graph represents them as **inferred dependency** nodes.
+
+    Inferred dependencies are visually distinct from instrumented services:
+
+    - Nodes show a **dotted border** and a **type icon** identifying the dependency category (`database`, `queue`, `rpc`, or `external`).
+    - Edges connecting to inferred dependencies are drawn as **dotted lines** to reflect that the relationship is inferred rather than measured from both sides.
+
+    Instrumented services and their edges remain unchanged and render with solid borders and lines.
+
+    Inferred dependencies let you see the full topology of your system even when some downstream services do not send their own traces.
+
+    ![TODO: screenshot of an inferred dependency node with dotted border and type icon in service graph](images/placeholder.png)
+
     ??? "Topology behaviour"
     ### Topology behaviour
     Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
