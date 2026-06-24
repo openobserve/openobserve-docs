@@ -29,7 +29,12 @@
 
     ??? "Services"
     ### Services
-    Each service represents an application component discovered from distributed traces. The view displays:
+    Each service represents an application component discovered from distributed traces. Services appear as either **instrumented** or **inferred**:
+
+    - **Instrumented services** are your own applications that send traces to OpenObserve. They appear as solid nodes in the graph.
+    - **Inferred dependencies** are downstream systems (databases, queues, external APIs, RPC backends) that your applications call but that do not send traces themselves. OpenObserve infers their existence from trace spans and renders them as dotted nodes with a type icon. For details, see [Inferred dependencies](#inferred-dependencies).
+
+    For every service the view displays:
 
     - The service name  
     - A summary of recent requests  
@@ -46,6 +51,34 @@
     ??? "Edges"
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
+
+    Edges appear in two styles:
+
+    - **Instrumented edges** connect two instrumented services. They are rendered as solid lines.
+    - **Inferred edges** connect an instrumented service to an inferred dependency. They are rendered as dotted lines and display a connection type icon. For details, see [Inferred dependencies](#inferred-dependencies).
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+
+    When your instrumented services communicate with systems that do not send traces — such as databases, message queues, external HTTP APIs, or RPC backends — OpenObserve detects these interactions from trace spans and surfaces them as **inferred dependencies** in the service graph.
+
+    Inferred dependencies are visualised differently from instrumented services:
+
+    - **Nodes** are shown as dotted outlines with a type icon that indicates the category.
+    - **Edges** are shown as dotted lines, also marked with the connection type.
+
+    ![TODO: screenshot of service graph with inferred dependency nodes and edges](images/placeholder.png)
+
+    OpenObserve supports the following inferred dependency types:
+
+    | Connection type | Description |
+    |-----------------|-------------|
+    | `database` | A database system such as PostgreSQL, Redis, or MongoDB |
+    | `queue` | A message broker or queue such as Kafka, RabbitMQ, or NATS |
+    | `rpc` | An RPC backend that is not sending its own traces |
+    | `external` | An external HTTP or HTTPS API |
+
+    Inferred dependencies are detected automatically. You do not need to configure anything — any trace span that references an uninstrumented downstream system is classified and displayed with the appropriate type. Instrumented services that send traces continue to appear as solid nodes; the inferred-dependency styling is applied only to systems that are not sending trace data themselves.
 
     ??? "Topology behaviour"
     ### Topology behaviour
