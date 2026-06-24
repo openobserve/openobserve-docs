@@ -4,5 +4,6 @@ The following guides provide details on managing user identities and controlling
 - [Enable Role-Based Access Control (RBAC) in Enterprise Edition](../identity-and-access-management/enable-rbac-in-openobserve-enterprise/)
 - [Single Sign-On (SSO)](../identity-and-access-management/sso/)
 - [Organizations](../identity-and-access-management/organizations/)
+- [Ingestion Tokens](../identity-and-access-management/ingestion-tokens.md)
 - [Quotas](../identity-and-access-management/quotas/)
 - [Manage Users & Passwords](../identity-and-access-management/update-password.md)
