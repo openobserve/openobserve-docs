@@ -22,7 +22,7 @@ These integrations use OpenTelemetry to send traces and metrics to OpenObserve, 
 
 The AI Data Sources tab in OpenObserve provides a guided setup experience for each AI integration. Instead of a generic code snippet, each integration now has a rich, content-driven card that walks you through installation, paste the instrumentation into your app, and verifying that telemetry is flowing.
 
-![TODO: screenshot of the AI Data Sources tab showing the category sidebar with provider logos](images/placeholder.png)
+![the AI Data Sources tab showing the category sidebar with provider logos](images/ai-integration-rich-setup-1.png)
 
 ### Category Tabs and the Popular Section
 
@@ -38,7 +38,7 @@ When you select an integration that has rich content, the detail panel displays 
 2. **Paste into your app** — a code snippet you add to your application to initialize tracing
 3. **Test** — a live span-detection check that confirms telemetry is arriving in OpenObserve
 
-![TODO: screenshot of rich setup card with stepped installation wizard and Test button](images/placeholder.png)
+![rich setup card with stepped installation wizard and Test button](images/ai-integration-rich-setup-2.png)
 
 Each code block includes a **Copy** button that copies the raw command (with real values), and optional **Reveal/Hide** toggle when sensitive tokens are pre-filled. A **Download .env** button is available on install steps that set environment variables.
 
