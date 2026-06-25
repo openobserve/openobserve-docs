@@ -47,9 +47,67 @@
     ### Edges
     Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
+    Edges to inferred dependencies (such as databases, queues, or external APIs) appear as dotted lines with a type icon. Instrumented service-to-service edges appear as solid lines.
+
     ??? "Topology behaviour"
     ### Topology behaviour
     Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
+
+    ??? "Inferred dependencies"
+    ### Inferred dependencies
+
+    OpenObserve automatically discovers uninstrumented dependencies — databases, message queues, RPC backends, and external APIs — from your trace spans and surfaces them in the service graph, even when those dependencies have no instrumentation of their own.
+
+    When your application calls an uninstrumented dependency (such as a PostgreSQL database, a Kafka topic, or a third-party API), the OpenTelemetry SDK creates a CLIENT or PRODUCER span for that call. The dependency itself has no server span. OpenObserve derives a minimal identity for each dependency from the span's peer attributes and displays it alongside your instrumented services.
+
+    **How derivation works**
+
+    At ingestion time, OpenObserve examines every CLIENT and PRODUCER span. When the span carries peer attributes that identify the dependency, three fields are written into the span:
+
+    | Field | Purpose | Example |
+    |-------|---------|---------|
+    | `infer_service_name` | Dependency identity | `orders-db`, `api.stripe.com`, `checkout-events` |
+    | `infer_service_type` | Coarse category | `database`, `queue`, `rpc`, or `external` |
+    | `infer_service_system` | Concrete system | `postgresql`, `kafka`, `grpc`, `http` |
+
+    The naming logic follows OpenTelemetry semantic conventions and resolves attributes in priority order. The explicit `peer.service` attribute always wins — set it on your spans if you want a specific name for a dependency. If no host name is usable (for example, an IP address that would create a separate node per pod), the system redacts it and falls through to the next available name.
+
+    **Supported categories**
+
+    Inferred dependency nodes appear with a dotted border and a type icon that indicates the category. Edges connecting to inferred dependencies are also rendered as dotted lines.
+
+    - **Database** — databases such as PostgreSQL, MySQL, Redis, and MongoDB. Recognized when the span carries `db.system` / `db.system.name` or `db.name` / `db.namespace`.
+    - **Queue** — message queues such as Kafka, RabbitMQ, and NATS. Recognized when the span carries `messaging.system` or `messaging.destination.name`.
+    - **RPC** — RPC backends such as gRPC services and AWS API. Recognized when the span carries `rpc.system` or `rpc.service`.
+    - **External** — external HTTP APIs and generic network peers. Recognized by `server.address`, `net.peer.name`, `http.host`, or `url.full` / `http.url`.
+
+    ![Inferred dependency nodes showing dotted borders, type icons, and dotted edges in the service graph](images/service-graph-inferred-dependencies-1.png)
+
+    Because the dependency has no server span of its own, its latency is measured as the client span's duration (the time the instrumented service spent waiting on the dependency). The graph's anti-join logic ensures that a dependency that is instrumented elsewhere in the same time window is not double-counted — it appears only as its instrumented self.
+
+    Inferred dependency metadata is stored with a `connection_type` field in the `_o2_service_graph` stream. This field is backward compatible — edges recorded before the `connection_type` field existed deserialize to `None` and are treated as instrumented service-to-service edges.
+
+    **Supported span attributes**
+
+    Inferred service derivation recognizes both current and legacy OpenTelemetry attribute names, in dotted and flattened (underscore) forms:
+
+    - **Peer identity** — `peer.service` (explicit; wins naming for all types)
+    - **Database** — `db.system`, `db.system.name`, `db.name`, `db.namespace`
+    - **Messaging** — `messaging.system`, `messaging.destination`, `messaging.destination.name`
+    - **RPC** — `rpc.system`, `rpc.service`
+    - **Network** — `server.address`, `net.peer.name`, `http.host`, `url.full`, `http.url`, `http.request.method`, `http.method`
+
+    !!! note "About CONSUMER spans"
+        CONSUMER spans (span kind `5`) are deliberately excluded from inferred dependency derivation. Their duration represents processing time inside the instrumented service, not time spent in the queue.
+
+    !!! note "Automatic and backward compatible"
+        Inferred service derivation is fully automatic and requires no configuration. It activates when a trace stream's schema contains the `infer_service_name` field. Streams that predate the feature — or never call an uninstrumented dependency — continue to work unchanged.
+
+    **Inferred services in the trace list**
+
+    Inferred dependencies also appear in the per-service time and cost breakdown when you open a trace in the **Traces** list. Inferred entities are rendered with a dotted style and a type icon so you can visually distinguish them from instrumented services. Each inferred service in the trace summary shows its name, span count, duration, and type.
+
+    ![TODO: screenshot of trace list showing inferred service badges in the per-service breakdown](images/placeholder.png)
 
 
     ## Data source
