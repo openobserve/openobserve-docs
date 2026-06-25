@@ -1,12 +1,10 @@
 nav:
     - LLM Applications: llm-applications.md
     - LLM Evaluations: llm-evaluations.md
-    - Claude Code: claude-code-tracing.md
+    - Claude Code Tracing: claude-code-tracing.md
     - Frameworks: frameworks
     - Model Providers: providers
     - Gateways: gateways
     - No-Code Agent Builders: no-code
     - Tools: tools
     - MCP: mcp
-    - Model Pricing: model-pricing.md
-    - Custom AI Toolsets: custom-toolsets.md
