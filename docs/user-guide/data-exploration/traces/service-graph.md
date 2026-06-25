@@ -107,7 +107,7 @@
 
     Inferred dependencies also appear in the per-service time and cost breakdown when you open a trace in the **Traces** list. Inferred entities are rendered with a dotted style and a type icon so you can visually distinguish them from instrumented services. Each inferred service in the trace summary shows its name, span count, duration, and type.
 
-    ![TODO: screenshot of trace list showing inferred service badges in the per-service breakdown](images/placeholder.png)
+    ![trace list showing inferred service badges in the per-service breakdown](images/inferred-service-dependencies-1.png)
 
 
     ## Data source
