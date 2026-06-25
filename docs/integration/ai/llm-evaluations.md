@@ -15,7 +15,7 @@ The Online Evaluations system has four core resources, each building on the prev
 
 When you activate an eval job, the system creates a system-managed evaluation pipeline that runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
 
-![TODO: screenshot of the Online Evaluations dashboard listing eval jobs](images/placeholder.png)
+![the Online Evaluations dashboard listing eval jobs](images/online-evaluations-1.png)
 
 ## Enable Online Evaluations
 
@@ -35,7 +35,7 @@ A Provider stores the connection details for an LLM API. You configure one provi
 
 Navigate to **Evaluations > Providers** and click **Add Provider**.
 
-![TODO: screenshot of the Providers list page](images/placeholder.png)
+![the Providers list page](images/online-evaluations-2.png)
 
 | Field | Description |
 |---|---|
@@ -47,7 +47,7 @@ Navigate to **Evaluations > Providers** and click **Add Provider**.
 | **Auth Config** | Credentials in JSON format (e.g., `{"api_key": "sk-..."}`). Masked in API responses. |
 | **Is Default** | When set, this provider is preselected when creating new LLM Judge scorers. |
 
-![TODO: screenshot of the Add Provider form](images/placeholder.png)
+![the Add Provider form](images/online-evaluations-3.png)
 
 ### Test a provider
 
@@ -75,7 +75,7 @@ Navigate to **Evaluations > Score Configs** and click **Add Score Config**.
 | **Categories** | For categorical scores: a list of valid category labels. |
 | **Healthy Threshold** | Defines the boundary for healthy scores (e.g., `{"direction": "gte", "value": 0.7}` means scores ≥ 0.7 are healthy). |
 
-![TODO: screenshot of the Score Configs list page](images/placeholder.png)
+![the Score Configs list page](images/online-evaluations-4.png)
 
 ### Versioning
 
@@ -94,7 +94,7 @@ A Scorer is the executable evaluation unit. It contains a prompt **template** wi
 
 Navigate to **Evaluations > Scorers** and click **Add Scorer**.
 
-![TODO: screenshot of the Scorers list page](images/placeholder.png)
+![the Scorers list page](images/online-evaluations-5.png)
 
 | Field | Description |
 |---|---|
@@ -117,7 +117,7 @@ For **LLM Judge**, you also configure:
 | **Include Reasoning** | When enabled, the LLM is prompted to include reasoning alongside the score. |
 | **Extra Metadata Fields** | Additional fields the LLM should return beyond the score (e.g., failure mode classification). |
 
-![TODO: screenshot of the Add Scorer form for LLM Judge](images/placeholder.png)
+![the Add Scorer form for LLM Judge](images/online-evaluations-6.png)
 
 For **Remote**, you configure:
 
@@ -135,7 +135,7 @@ For **Remote**, you configure:
 
 From the scorer detail page, use the **Test** button. Provide values for the template variables, and the system executes a one-off evaluation. The response shows the score, reasoning, model used, latency, and token usage.
 
-![TODO: screenshot of the Scorer Test dialog showing results](images/placeholder.png)
+![the Scorer Test dialog showing results](images/online-evaluations-7.png)
 
 ### Preview output schema
 
@@ -153,7 +153,7 @@ An Eval Job is the execution unit that runs scorers against incoming traces. It 
 
 Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 
-![TODO: screenshot of the Eval Jobs list page](images/placeholder.png)
+![the Eval Jobs list page](images/online-evaluations-8.png)
 
 | Field | Description |
 |---|---|
@@ -167,7 +167,7 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 | **Sampling Mode** | `all` (evaluate everything), `rate` (evaluate a percentage, e.g., `0.1` for 10%), or `fixed` (evaluate N per time window). |
 | **Sampling Value** | The sampling parameter value corresponding to the selected mode. |
 
-![TODO: screenshot of the Add Eval Job form](images/placeholder.png)
+![the Add Eval Job form](images/online-evaluations-9.png)
 
 ### Job lifecycle
 
@@ -190,7 +190,7 @@ draft → active ⇄ paused
 
 Use the action buttons on the job detail page to manage lifecycle transitions.
 
-![TODO: screenshot of the Eval Job detail page showing status and actions](images/placeholder.png)
+![the Eval Job detail page showing status and actions](images/online-evaluations-10.png)
 
 ### Update a job
 
