@@ -12,13 +12,13 @@ To open the Column Formatting dialog:
 2. In the panel **Config** sidebar, locate the **Field Overrides** section.
 3. Click the **Configure column formatting** button.
 
-![TODO: screenshot of Config panel showing the Configure column formatting button in Field Overrides section](images/placeholder.png)
+![Config panel showing the Configure column formatting button in Field Overrides section](images/dashboard-table-column-formatting-1.png)
 
 ### Add a field
 
 On first open, the dialog shows an empty state with an **Add field** button. Click it to see a dropdown of the panel's columns, each marked with a **NUM** or **TEXT** badge to indicate its detected data type.
 
-![TODO: screenshot of Column Formatting dialog empty state with Add field dropdown](images/placeholder.png)
+![Column Formatting dialog empty state with Add field dropdown](images/dashboard-table-column-formatting-2.png)
 
 Select a column to add it to the formatting list. The dialog switches to a three-pane layout:
 
@@ -26,7 +26,7 @@ Select a column to add it to the formatting list. The dialog switches to a three
 - **Middle pane** — formatting controls for the selected field.
 - **Right pane** — a live preview of the column rendered with your current settings.
 
-![TODO: screenshot of Column Formatting dialog with a field selected, showing the three-pane layout](images/placeholder.png)
+![Column Formatting dialog with a field selected, showing the three-pane layout](images/dashboard-table-column-formatting-3.png)
 
 ### Formatting controls
 
@@ -81,7 +81,7 @@ Supported operators: `<`, `>`, `<=`, `>=`, `=`, `!=`.
 
 Rules are evaluated in order; when multiple rules match a value, the **last matching rule** wins. This lets you layer conditions — for example, a rule for values `> 400` (amber) followed by one for `> 1000` (red) means values above 1000 will show red, not amber.
 
-![TODO: screenshot of conditional styling section with multiple rules defined](images/placeholder.png)
+![conditional styling section with multiple rules defined](images/dashboard-table-column-formatting-4.png)
 
 Click **Add rule** to create a new condition, or the **X** button on a rule to remove it.
 
@@ -95,7 +95,7 @@ Formatting settings are persisted with the dashboard and survive page reloads.
 
 Column filtering provides Excel-style dropdowns in table column headers, letting you filter the visible rows by one or more distinct column values.
 
-![TODO: screenshot of a table panel with column filter dropdown open showing checkbox list](images/placeholder.png)
+![a table panel with column filter dropdown open showing checkbox list](images/dashboard-table-column-formatting-5.png)
 
 ### Enable column filtering
 
