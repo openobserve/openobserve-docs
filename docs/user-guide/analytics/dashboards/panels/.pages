@@ -1,5 +1,6 @@
 nav:
 
 - Panels Overview: index.md 
+- Table Chart: table-chart.md
 - Manage Panels: panel-management.md
 - Troubleshooting: troubleshooting.md
