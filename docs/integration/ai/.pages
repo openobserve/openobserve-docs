@@ -1,5 +1,6 @@
 nav:
     - LLM Applications: llm-applications.md
+    - LLM Evaluations: llm-evaluations.md
     - Claude Code Tracing: claude-code-tracing.md
     - Frameworks: frameworks
     - Model Providers: providers
