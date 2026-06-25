@@ -1,146 +1,276 @@
 # LLM Evaluations
 
-LLM Evaluations let you automatically score the quality of your LLM traces using an LLM-as-judge pipeline, with results surfaced per trace inside OpenObserve.
-
-> **Enterprise feature.** LLM Evaluations and Eval Templates are available in OpenObserve Enterprise.
+Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
 
 ## Overview
 
-LLM Evaluations build on [LLM Observability](llm-applications.md). Once your application is exporting LLM traces to OpenObserve, an evaluation pipeline can grade each LLM response against criteria such as correctness, relevance, or safety. A second LLM acts as the judge, so you get continuous, automated quality scoring without manual review or a separate evaluation tool.
+The Online Evaluations system has four core resources, each building on the previous:
 
-This is for teams running LLM-powered applications in production who need to monitor not just latency, tokens, and cost, but also the quality of the responses their models produce. Evaluations run server-side as part of a traces pipeline, so they apply to live traffic as it arrives.
+| Resource | What it does |
+|---|---|
+| **Provider** | An LLM API configuration (OpenAI, Anthropic, etc.) with credentials and available models. Used by LLM Judge scorers to call an LLM. |
+| **Score Config** | Defines the shape of a score - its data type (numeric, categorical, boolean), valid range or categories, and a healthy/unhealthy threshold. |
+| **Scorer** | The evaluation logic: a template with `{{variables}}`, parameters for execution, and a link to a score config that describes the output it produces. Two types exist: **LLM Judge** (calls an LLM via a provider) and **Remote** (calls an external HTTP endpoint). |
+| **Eval Job** | A running evaluation pipeline: binds one or more scorers to a specific stream, defines which traces/spans to evaluate (filter), how many to sample, and manages the lifecycle (draft, active, paused, archived). |
 
-At a high level, the feature has three parts: an **LLM-evaluation pipeline node** that runs the judge on incoming traces, **Eval Templates** that define what the judge evaluates and how, and an **Evaluations** view in the trace detail page where you read the results.
+When you activate an eval job, the system creates a system-managed evaluation pipeline that runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
 
-## How evaluations work
+![the Online Evaluations dashboard listing eval jobs](images/online-evaluations-1.png)
 
-An LLM evaluation runs as a node inside a pipeline attached to a traces stream:
+## Enable Online Evaluations
 
-1. You add an LLM-evaluation node to a pipeline whose source is a traces stream that contains LLM spans.
-2. As traces arrive, the node identifies LLM spans, optionally samples them, and sends them to the LLM judge.
-3. The judge scores each trace using an Eval Template. OpenObserve either uses a template you select by name or auto-resolves one by `response_type`.
-4. The evaluation results are written to a separate output stream named `<stream>_evaluations`. For example, evaluating a stream called `default` produces a `default_evaluations` stream.
-5. Per-trace results appear in an **Evaluations** tab in the trace detail view. This tab is shown only for LLM traces that have associated evaluation records.
+Online Evaluations is an enterprise feature. Set the configuration flag to enable it:
 
-Only LLM spans are evaluated. The pipeline pre-filters incoming spans and keeps LLM spans, tool spans, and root spans, dropping pure infrastructure spans (such as HTTP, database, or cache spans) that would never be evaluated.
+```env
+ZO_ONLINE_EVALS_ENABLED=true
+```
 
-## Setting up an evaluation pipeline
+When enabled, the **Evaluations** top-level navigation appears in the UI. When disabled, all evaluation pages and settings are hidden; backend API endpoints remain reachable.
 
-### Prerequisites
+## Providers
 
-- LLM traces are being ingested into a traces stream. See [LLM Observability](llm-applications.md) to instrument your application.
-- An OpenObserve Enterprise instance with the LLM judge configured.
-- Optionally, an Eval Template created in advance (see [Eval Templates](#eval-templates)). If you do not select one, OpenObserve auto-resolves a template by `response_type`.
+A Provider stores the connection details for an LLM API. You configure one provider per AI service you want your LLM Judge scorers to use.
 
-### Add an LLM-evaluation node
+### Create a provider
 
-1. Create or open a pipeline whose source is the traces stream that contains your LLM spans.
-2. Add an **LLM Evaluation** node to the pipeline.
-3. Configure the node parameters described below.
-4. Save the pipeline. The node begins evaluating traces as new data is ingested.
+Navigate to **Evaluations > Providers** and click **Add Provider**.
 
-### Node parameters
+![the Providers list page](images/online-evaluations-2.png)
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| **`enable_llm_judge`** | Turns LLM-as-judge evaluation on for the node. | `true` |
-| **`sampling_rate`** | Fraction of LLM traces to evaluate, from `0.0` to `1.0`. Use a lower rate to control cost on high-volume streams. A value of `0.0` disables sampling. | `0.01` |
-| **`llm_span_identifier`** | Span field used to detect LLM spans. Only spans that contain this field with a non-empty value are treated as LLM spans. | `llm_input` |
-| **`eval_template`** | Optional template to use for evaluation, selected by name. When set, it overrides auto-resolution by `response_type`. Leave empty to auto-resolve. | None |
+| Field | Description |
+|---|---|
+| **Name** | Display name for the provider. |
+| **Provider Type** | The provider kind (`openai`, `anthropic`, `azure`, `gemini`, etc.). Determines the API protocol. |
+| **Endpoint** | Override the default API base URL. Leave empty to use the provider's standard endpoint. |
+| **Default Model** | The model used when no model is specified on the scorer. |
+| **Available Models** | List of model IDs this provider supports. Used for model selection in scorers. |
+| **Auth Config** | Credentials in JSON format (e.g., `{"api_key": "sk-..."}`). Masked in API responses. |
+| **Is Default** | When set, this provider is preselected when creating new LLM Judge scorers. |
 
-> **Tip**: Start with a low `sampling_rate` on busy production streams to validate your template and judge configuration before scaling up to evaluate every trace.
+![the Add Provider form](images/online-evaluations-3.png)
 
-When you update a pipeline that contains an LLM-evaluation node, OpenObserve refreshes the running evaluation so changes such as a new `eval_template` take effect on the next batch of ingested traces.
+### Test a provider
 
-## Eval Templates
+From the provider detail page, use the **Test** button to verify connectivity. The system sends a test request using the configured endpoint and credentials.
 
-An Eval Template defines what the LLM judge evaluates and how it scores a response. Templates are managed from the enterprise **Eval Templates** tab, located alongside **Functions** and **Enrichment Tables**.
+### Manage providers
 
-### Template fields
+- **Update**: Edit any field. The provider is updated in-place.
+- **Delete**: Removes the provider. Scorers referencing a deleted provider will fail until reassigned.
 
-Each template specifies:
+## Score Configs
 
-- **`response_type`**: The expected shape of the evaluation result, for example a numeric score in the range `0.0` to `1.0`. The `response_type` is also used to auto-resolve a template for a pipeline node when no template is explicitly selected.
-- **`name`**: A human-readable name used to select the template from a pipeline node.
-- **`description`**: An optional summary of what the template evaluates.
-- **`content`**: The prompt and instructions the judge uses to perform the evaluation.
-- **`dimensions`**: The criteria the trace is evaluated against. At least one dimension is required.
+A Score Config describes what a score looks like and when it is considered healthy.
+
+### Create a score config
+
+Navigate to **Evaluations > Score Configs** and click **Add Score Config**.
+
+| Field | Description |
+|---|---|
+| **Name** | A label for this config (e.g., "Faithfulness", "Accuracy"). |
+| **Data Type** | `numeric`, `categorical`, or `boolean` - the type of score value. |
+| **Description** | Optional description of what the score measures. |
+| **Numeric Range** | For numeric scores: `{"min": 0.0, "max": 1.0}`. |
+| **Categories** | For categorical scores: a list of valid category labels. |
+| **Healthy Threshold** | Defines the boundary for healthy scores (e.g., `{"direction": "gte", "value": 0.7}` means scores ≥ 0.7 are healthy). |
+
+![the Score Configs list page](images/online-evaluations-4.png)
 
 ### Versioning
 
-Templates are versioned. Editing a template creates a new version and preserves the original creation time, so you can iterate on a template without losing earlier definitions. New templates start at version `1`.
+Score configs are versioned. Each config has a stable **entity ID** that stays the same across versions, and a unique **ID** per version. Updating a score config creates a new version and bumps the version number. Scorers that reference a score config can pin to a specific version or always use the latest.
 
-### Per-template statistics
+## Scorers
 
-Each template surfaces usage statistics so you can see how it is performing:
+A Scorer is the executable evaluation unit. It contains a prompt **template** with `{{variable}}` placeholders, execution **parameters**, and an optional link to a **score config** that describes its output.
 
-- **Total Evaluations**: The number of evaluations the template has produced.
-- **Average Quality Score**: The mean quality score across those evaluations, shown as a percentage.
+### Scorer types
 
-A template that has been created but not yet used reports zero evaluations and a zero average quality score.
+- **LLM Judge**: Sends the rendered template to an LLM via a configured provider. Supports temperature, max tokens, timeout, output parsing, and optional reasoning.
+- **Remote**: Sends the rendered template as an HTTP request to an external evaluation service. Supports bearer token auth, API keys, basic auth, custom headers, timeouts, and retries.
 
-### Managing templates through the API
+### Create a scorer
 
-Eval Templates can also be managed through a CRUD REST API scoped to an organization:
+Navigate to **Evaluations > Scorers** and click **Add Scorer**.
+
+![the Scorers list page](images/online-evaluations-5.png)
+
+| Field | Description |
+|---|---|
+| **Name** | Display name. |
+| **Description** | Optional description. |
+| **Scorer Type** | Choose **LLM Judge** or **Remote**. |
+| **Produces Score Config** | (Optional) Link to a score config that describes this scorer's output. |
+| **Template** | The evaluation prompt with `{{variable}}` placeholders that will be populated at runtime. |
+| **Output Schema** | (LLM Judge only) JSON Schema for structured output parsing. |
+
+For **LLM Judge**, you also configure:
+
+| Field | Description |
+|---|---|
+| **Provider** | The provider to use for the LLM call. |
+| **Model** | Override the provider's default model. |
+| **Temperature** | LLM temperature (0-2). |
+| **Max Tokens** | Maximum completion tokens. |
+| **Timeout** | Request timeout in milliseconds. |
+| **Include Reasoning** | When enabled, the LLM is prompted to include reasoning alongside the score. |
+| **Extra Metadata Fields** | Additional fields the LLM should return beyond the score (e.g., failure mode classification). |
+
+![the Add Scorer form for LLM Judge](images/online-evaluations-6.png)
+
+For **Remote**, you configure:
+
+| Field | Description |
+|---|---|
+| **Endpoint** | The URL of the remote scoring service. |
+| **HTTP Method** | `POST` or `PUT`. |
+| **Auth** | `none`, `bearer` (token), `basic` (username/password), or `api_key` (token + header name). |
+| **Custom Headers** | Additional HTTP headers to send. |
+| **Content Type** | Request content type (defaults to `application/json`). |
+| **Timeout** | Request timeout in milliseconds. |
+| **Max Retries** | Number of retry attempts on failure. |
+
+### Test a scorer
+
+From the scorer detail page, use the **Test** button. Provide values for the template variables, and the system executes a one-off evaluation. The response shows the score, reasoning, model used, latency, and token usage.
+
+![the Scorer Test dialog showing results](images/online-evaluations-7.png)
+
+### Preview output schema
+
+For LLM Judge scorers, the **Preview Schema** endpoint shows the derived output schema based on the score config and extra metadata fields, helping you understand what structure the LLM will return.
+
+### Versioning
+
+Like score configs, scorers are versioned. Each scorer has a stable **entity ID** and a version number. Updating a scorer creates a new version. Eval jobs can reference a scorer by entity ID (always latest) or pin to a specific version.
+
+## Eval Jobs
+
+An Eval Job is the execution unit that runs scorers against incoming traces. It manages the lifecycle of a system-managed evaluation pipeline.
+
+### Create a job
+
+Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
+
+![the Eval Jobs list page](images/online-evaluations-8.png)
+
+| Field | Description |
+|---|---|
+| **Name** | Display name for the job. |
+| **Description** | Optional description. |
+| **Stream** | The stream whose traces or spans to evaluate. |
+| **Stream Type** | `logs`, `traces`, or `metrics`. |
+| **Filter Condition** | A JSON filter expression. Only spans matching this filter are evaluated. |
+| **Scorers** | One or more scorer references (by entity ID). The system evaluates each matching span against every listed scorer. |
+| **Input Mapping** | Per-scorer mapping of template variables to span attribute paths (e.g., `"input": "{{gen_ai_input_messages}}", "output": "{{gen_ai_output_messages}}"`). |
+| **Sampling Mode** | `all` (evaluate everything), `rate` (evaluate a percentage, e.g., `0.1` for 10%), or `fixed` (evaluate N per time window). |
+| **Sampling Value** | The sampling parameter value corresponding to the selected mode. |
+
+![the Add Eval Job form](images/online-evaluations-9.png)
+
+### Job lifecycle
+
+Jobs follow a defined state machine:
+
+```
+draft → active ⇄ paused
+          ↓
+       degraded → active
+          ↓
+       archived
+```
+
+| Action | Description |
+|---|---|
+| **Activate** | Creates the underlying evaluation pipeline and starts scoring. Allowed from `draft`, `paused`, or `degraded`. |
+| **Pause** | Temporarily stops evaluation. The pipeline is preserved. Allowed from `active` or `degraded`. |
+| **Resume** | Restarts evaluation from `paused` or `degraded` state. |
+| **Archive** | Permanently stops evaluation. The job is retained for audit but no longer processes data. |
+
+Use the action buttons on the job detail page to manage lifecycle transitions.
+
+![the Eval Job detail page showing status and actions](images/online-evaluations-10.png)
+
+### Update a job
+
+Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, the underlying pipeline is automatically reconciled with the new configuration.
+
+### Scoring pipeline
+
+When a job is activated, the system creates a `PipelineKind::Evaluation` pipeline behind the scenes. This pipeline is:
+
+- **Hidden** from the main Pipeline UI - it is managed exclusively by the eval jobs subsystem.
+- **Coexisting** with user pipelines on the same stream (no "one pipeline per stream" conflict).
+- **Automatically reconciled** when the job is updated.
+
+Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreRecord` entries, and evaluator telemetry (latency, tokens, status) is recorded as OTLP spans in the `_evaluator` traces stream.
+
+## RBAC
+
+Online Evaluations resources have their own OFGA permissions:
+
+| Resource | OFGA Type | Permissions |
+|---|---|---|
+| Providers | `provider` | GET, LIST, POST, PUT, DELETE |
+| Score Configs | `score_config` | GET, LIST, POST, PUT, DELETE |
+| Scorers | `scorer` | GET, LIST, POST, PUT, DELETE |
+| Eval Jobs | `eval_job` | GET, LIST, POST, PUT, DELETE |
+
+Assign the appropriate roles in **Identity & Access Management > Roles** to control access to evaluation resources.
+
+## API Reference
+
+All endpoints are prefixed with `/api/{org_id}`.
+
+### Providers
 
 | Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/{org_id}/eval_templates` | List all templates for the organization. |
-| `POST` | `/api/{org_id}/eval_templates` | Create a new template. |
-| `GET` | `/api/{org_id}/eval_templates/{template_id}` | Retrieve a single template. |
-| `PUT` | `/api/{org_id}/eval_templates/{template_id}` | Update a template, creating a new version. |
-| `DELETE` | `/api/{org_id}/eval_templates/{template_id}` | Delete a template. |
-| `GET` | `/api/{org_id}/eval_templates/{template_id}/stats` | Get usage statistics for a template. |
+|---|---|---|
+| `GET` | `/providers` | List all providers |
+| `POST` | `/providers` | Create a provider |
+| `GET` | `/providers/{id}` | Get a provider |
+| `PUT` | `/providers/{id}` | Update a provider |
+| `DELETE` | `/providers/{id}` | Delete a provider |
+| `POST` | `/providers/{id}/test` | Test provider connectivity |
 
-A template that is referenced by a pipeline cannot be deleted. The delete request returns a conflict response listing the pipelines that still use it; update or remove those pipelines first.
+### Score Configs
 
-## Viewing results
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/score_configs` | List score configs |
+| `POST` | `/score_configs` | Create a score config |
+| `GET` | `/score_configs/{id}` | Get a score config |
+| `PUT` | `/score_configs/{id}` | Update a score config (version bump) |
+| `DELETE` | `/score_configs/{id}` | Delete a score config |
+| `GET` | `/score_configs/{id}/versions` | List all versions |
 
-Evaluation results are stored in the `<stream>_evaluations` output stream and surfaced per trace in the UI:
+### Scorers
 
-1. Navigate to **Traces** in the left sidebar.
-2. Open an LLM trace that has been evaluated.
-3. Select the **Evaluations** tab in the trace detail view to see the scores and dimensions for that trace.
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/scorers?scorer_type=llm_judge` | List scorers (optionally filtered by type) |
+| `POST` | `/scorers` | Create a scorer |
+| `GET` | `/scorers/{id}` | Get a scorer |
+| `PUT` | `/scorers/{id}` | Update a scorer (version bump) |
+| `DELETE` | `/scorers/{id}` | Delete a scorer |
+| `POST` | `/scorers/{id}/test` | Test a scorer with input variables |
+| `GET` | `/scorers/{id}/versions` | List all versions |
 
-The **Evaluations** tab appears only for LLM traces that have associated evaluation records. Traces without evaluations, or non-LLM traces, do not show the tab.
+### Eval Jobs
 
-You can also query the `<stream>_evaluations` stream directly from **Logs** or build dashboards on it to track quality trends over time.
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/eval_jobs?status=active` | List jobs (optionally filtered by status) |
+| `POST` | `/eval_jobs` | Create a job (draft) |
+| `GET` | `/eval_jobs/{id}` | Get a job |
+| `PUT` | `/eval_jobs/{id}` | Update a job |
+| `DELETE` | `/eval_jobs/{id}` | Delete a job and its pipeline |
+| `POST` | `/eval_jobs/{id}/activate` | Activate the job |
+| `POST` | `/eval_jobs/{id}/pause` | Pause the job |
+| `POST` | `/eval_jobs/{id}/resume` | Resume the job |
+| `POST` | `/eval_jobs/{id}/archive` | Archive the job |
 
-## Best practices
+## Super Cluster
 
-- Confirm LLM traces are flowing and visible under **Traces** before adding an evaluation node, since the judge only evaluates LLM spans.
-- Begin with a low `sampling_rate` to validate your template and judge, then increase it once results look correct.
-- Define clear, focused `dimensions` in each template so scores are easy to interpret and act on.
-- Use template versioning to refine evaluation prompts over time instead of recreating templates.
-- Remove or update pipelines that reference a template before attempting to delete it.
-
-## Troubleshooting
-
-### The Evaluations tab does not appear on a trace
-
-**Problem**: You open a trace but there is no **Evaluations** tab.
-
-**Solution**:
-
-1. Confirm the trace is an LLM trace. Non-LLM traces never show the tab.
-2. Verify the evaluation pipeline is attached to the correct traces stream and is enabled.
-3. Check that `sampling_rate` is not `0.0`, since a zero sampling rate means no traces are evaluated.
-4. Confirm the `llm_span_identifier` matches a field present on your LLM spans, so the spans are recognized as LLM spans.
-5. Look for records in the `<stream>_evaluations` output stream. If none exist, the pipeline has not produced evaluations yet.
-
-### A template cannot be deleted
-
-**Problem**: Deleting a template returns a conflict error.
-
-**Solution**:
-
-1. Note the pipeline names listed in the error message.
-2. Update those pipelines to use a different template, or remove their LLM-evaluation nodes.
-3. Retry the delete once no pipeline references the template.
-
-> **Note**: Evaluation cost scales with the number of traces the judge processes. Use `sampling_rate` to balance coverage against the cost of running the judge model. To track the cost of the underlying LLM calls themselves, see [Model Pricing](model-pricing.md).
-
-## Read more
-
-- [LLM Observability with OpenObserve](llm-applications.md)
-- [Model Pricing](model-pricing.md)
+In multi-node deployments, evaluation resources are synchronized across the super cluster via dedicated queue topics (`eval_provider`, `eval_score_config`, `eval_scorer`, `eval_job`). Changes made on any node propagate automatically.
