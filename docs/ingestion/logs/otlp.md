@@ -87,7 +87,7 @@ If no data appears, double-check that the endpoint has no trailing slash, the `A
 
 ## Next steps
 
-- [Quickstart](../../quickstart.md): get OpenObserve running if you haven't yet.
+- [Quickstart](../../getting-started.md): get OpenObserve running if you haven't yet.
 - [Logs UI](../../user-guide/data-exploration/logs/logs.md): search and explore ingested logs.
 - [Other log ingestion options](./index.md): Vector, Fluent Bit, syslog, language SDKs.
 

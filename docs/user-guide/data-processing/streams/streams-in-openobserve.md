@@ -51,7 +51,7 @@ If RBAC is enabled in OpenObserve Cloud and the enterprise edition:
 
 ### Prerequisite
 
-- You have set up OpenObserve using [OpenObserve Cloud](https://cloud.openobserve.ai/) or the [self hosted](https://openobserve.ai/docs/quickstart/) option.   
+- You have set up OpenObserve using [OpenObserve Cloud](https://cloud.openobserve.ai/) or the [self hosted](https://openobserve.ai/docs/getting-started/) option.   
 - You have created the organization where you plan to create the stream.
 - For self-hosted deployment, ensure that the `ZO_ALLOW_USER_DEFINED_SCHEMAS` environment variable is enabled. 
 
@@ -125,7 +125,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
 
 ## Ingest Data into Stream
 
-- [Ingest Data Using curl](https://openobserve.ai/docs/quickstart/#load-sample-data). 
+- [Ingest Data Using curl](https://openobserve.ai/docs/getting-started/#load-sample-data). 
 - Ingest Data Using API in [JSON formatted logs](https://openobserve.ai/docs/api/ingestion/logs/json/) and [multiple records in a batch with multiple JSON lines](https://openobserve.ai/docs/api/ingestion/logs/multi/). 
 - [Ingest Data Continuously Using Data Sources](../../../index.md). 
 

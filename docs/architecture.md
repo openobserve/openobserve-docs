@@ -13,7 +13,7 @@ This page explains how OpenObserve is structured: the deployment modes you can r
 
 ## Single-Node Mode
 
-Please refer to the [Quickstart](./quickstart.md) for single-node deployments.
+Please refer to the [Quickstart](./getting-started.md) for single-node deployments.
 
 ### SQLite and Local Disk
 
@@ -21,7 +21,7 @@ This is the default mode for running OpenObserve. Use it for light usage and tes
 
 Based on our tests (using an Apple M2 chip), you can ingest data at approximately 31 MB per second with the default configuration. This is equivalent to 1.8 GB per minute or 2.6 TB per day. 
 
-The [Quickstart](./quickstart.md) describes various ways to set up this configuration.
+The [Quickstart](./getting-started.md) describes various ways to set up this configuration.
 
 ![Single node architecture using SQLite and local disk](../images/arch-single-local.jpg){ width="60%" }
 
@@ -141,7 +141,7 @@ The AlertManager node runs the standard alert queries, reports jobs and sends no
 
 ## Next steps
 
-- [Quickstart](./quickstart.md): get a single-node instance running.
+- [Quickstart](./getting-started.md): get a single-node instance running.
 - [HA Deployment](administration/deployment/ha-deployment.md): deploy a production HA cluster.
 - [Performance tuning](./enterprise-setup/performance.md): sizing, caching, and configuration for high-throughput deployments.
 
