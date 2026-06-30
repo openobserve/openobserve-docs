@@ -1045,7 +1045,7 @@ The complete `openobserve_hooks.py` script is included below. Save it to `~/.cla
 ## Related
 
 - [OTLP / OpenTelemetry ingestion](../../ingestion/logs/otlp.md): endpoint and collector reference.
-- [Quickstart](../../quickstart.md): get OpenObserve running if you haven't yet.
+- [Quickstart](../../getting-started.md): get OpenObserve running if you haven't yet.
 
 **Need some help?**
 

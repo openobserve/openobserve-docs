@@ -14,14 +14,14 @@ plugins:
         'administration/deployment/capacity-planning.md': 'enterprise-setup/capacity-planning.md'
         'administration/deployment/performance.md': 'enterprise-setup/performance.md'
         'administration/deployment/sre-agent-setup-guide.md': 'enterprise-setup/sre-agent.md'
+        'quickstart.md': 'getting-started.md'
+        'downloads.md': 'getting-started.md'
   - llmstxt:
       sections:
         Getting started:
           - index.md
           - getting-started.md
-          - quickstart.md
           - architecture.md
-          - downloads.md
         User guide:
           - user-guide/*.md
         Ingestion:

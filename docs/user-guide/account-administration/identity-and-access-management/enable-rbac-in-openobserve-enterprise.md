@@ -91,7 +91,7 @@ If you prefer not to use Helm, OpenFGA can be installed and run using other meth
 
 **Impportant Note:** 
 
-When installing OpenFGA using the alternative methods, you must run the OpenFGA and OpenObserve servers separately. Refer to the respective installation links for instructions on running the OpenFGA server. Ensure that you run the `openfga migrate` command before running the `openfga run` command. Check the [Quickstart guide](https://openobserve.ai/docs/quickstart/#openobserve-cloud) for steps to run the OpenObserve server.
+When installing OpenFGA using the alternative methods, you must run the OpenFGA and OpenObserve servers separately. Refer to the respective installation links for instructions on running the OpenFGA server. Ensure that you run the `openfga migrate` command before running the `openfga run` command. Check the [Quickstart guide](https://openobserve.ai/docs/getting-started/#openobserve-cloud-setup) for steps to run the OpenObserve server.
 <br>If you are installing OpenFGA with Helm charts, deploying the Helm chart is sufficient.
 
 ## Step 2: Configure OpenFGA Environment Variables
