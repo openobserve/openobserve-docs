@@ -2,4 +2,5 @@ nav:
     - Index: index.md
     - Prometheus: prometheus.md
     - OTEL Collector: /docs/ingestion/logs/otlp/
+    - OBI (eBPF zero-code): /docs/ingestion/traces/obi/
     - Telegraf: telegraf.md

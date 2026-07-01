@@ -3,6 +3,7 @@ site
 .idea
 
 venv
+.venv*
 
 # .gitognore for python
 *.py[cod]

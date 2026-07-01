@@ -1,6 +1,7 @@
 nav:
     - Index: index.md
     - OpenTelemetry: opentelemetry.md
+    - OBI (eBPF zero-code): obi.md
     - Typescript: typescript.md
     - Node.js: nodejs.md
     - Python: python.md
