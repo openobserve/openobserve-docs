@@ -10,5 +10,6 @@ OpenObserve supports multiple metrics ingestion methods for comprehensive infras
 
 1. [Prometheus](prometheus) - Prometheus remote write for Kubernetes monitoring and time-series metrics
 1. [OTLP / OTEL collector](../logs/otlp) - OpenTelemetry Collector for unified metrics collection
+1. [OBI (eBPF zero-code)](../traces/obi) - Automatic application RED metrics via eBPF, no code changes
 1. [Telegraf](telegraf) - System metrics and infrastructure monitoring agent
     

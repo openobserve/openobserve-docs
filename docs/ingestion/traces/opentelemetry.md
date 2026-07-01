@@ -29,6 +29,8 @@ You can find examples of how to instrument your code to send traces to OpenObser
 1. [Python](./python.md)
 1. [Go](./go.md)
 
+Prefer not to change code? Use [OBI (eBPF zero-code instrumentation)](./obi.md) to capture traces and metrics automatically, with no SDK.
+
 You can also follow the [OpenTelemetry documentation](https://opentelemetry.io/docs/instrumentation/) for more info.
 
 ## Next steps
