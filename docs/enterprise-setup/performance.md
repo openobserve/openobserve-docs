@@ -51,6 +51,13 @@ OpenObserve uses columnar storage format (parquet) which allows it to read only 
 
 ### Predicate pushdown
 
+!!! warning "Partition keys are a serious feature. Do not use them casually."
+    Custom partition keys (KeyValue or Hash) are an advanced optimization that requires a solid understanding of your data distribution and query patterns. If you have not fully understood how partitioning works, do not experiment with it — in most cases you will end up with a **negative optimization**: many small parquet files, poor compression, slower searches, and higher storage costs.
+
+    Also note that **partition keys are immutable by design**. Once a field is set as a partition key, it cannot be changed to a different partition type, switched to another index type (Full Text Search, Bloom Filter, Secondary Index), or removed — existing data is already partitioned by the original key, and changing it would break queries on historical data. Deleting the field from the stream schema and re-adding it does not reset this either. The only way to change the partitioning strategy is to create a new stream with the desired configuration and ingest new data there. See [issue #12965](https://github.com/openobserve/openobserve/issues/12965) for details.
+
+    The default time range partitioning already works well for most workloads. Before adding a partition key, make sure your queries actually filter on that field, the field has suitable cardinality, and each resulting partition still produces parquet files above 5 MB. When in doubt, test on a non-production stream first.
+
 #### Standard Partitioning (KeyValue partitions)
 
 !!! note
