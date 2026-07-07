@@ -262,7 +262,7 @@ spec:
   - [Alert Examples](../user-guide/alerts/alerts.md)
   - [Alert Template Examples](samples/alerttemplates/)
   - [Destination Examples](samples/destinations/)
-  - [Pipeline Examples](../user-guide/pipelines/index.md)
+  - [Pipeline Examples](../../../user-guide/data-processing/pipelines/index.md)
   - [Function Examples](../user-guide/functions/index.md)
   - [Function Template Reference](samples/functions/functions.template) -->
 - [Troubleshooting](o2-operator-troubleshoot.md)

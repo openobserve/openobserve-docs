@@ -89,10 +89,10 @@ In OpenObserve, open **Traces**, then click any span to inspect token counts, la
 ## **Read More**
 
 - [LLM Observability Overview](../llm-applications.md)
-- [OpenObserve Python SDK](https://openobserve.ai/docs/opentelemetry/openobserve-python-sdk/)
+- [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)
 
 **Need some help?**
 

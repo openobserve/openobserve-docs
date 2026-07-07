@@ -140,4 +140,4 @@ With Anthropic instrumented, every Claude API call in your application is automa
 ## **Read More**
 
 - [LLM Observability Overview](../llm-applications.md)
-- [OpenObserve Python SDK](https://openobserve.ai/docs/opentelemetry/openobserve-python-sdk/)
+- [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

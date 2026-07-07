@@ -225,4 +225,4 @@ Evaluation logic is defined by Eval Templates, managed from the enterprise **Eva
 * Run: `uv pip install openobserve-telemetry-sdk`
 
 ## Read More
-- [OpenObserve Python SDK](https://openobserve.ai/docs/opentelemetry/openobserve-python-sdk/)
+- [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

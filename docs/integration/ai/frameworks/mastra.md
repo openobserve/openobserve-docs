@@ -145,5 +145,5 @@ With Mastra instrumented, every agent run is recorded in OpenObserve. From here 
 - [LLM Observability Overview](../llm-applications.md)
 - [Vercel AI SDK](./vercel-ai-sdk.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

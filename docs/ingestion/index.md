@@ -18,7 +18,7 @@ Ship application and infrastructure logs to OpenObserve through agents, HTTP API
 1. [Filebeat](logs/filebeat.md)
 1. [Fluent Bit](logs/fluent-bit.md)
 1. [Fluentd](logs/fluentd.md)
-1. [Amazon Kinesis Firehose](logs/kinesis_firehose.md)
+1. [Amazon Kinesis Firehose](logs/kinesis-firehose.md)
 1. [Syslog](logs/syslog.md)
 1. [Python](logs/python.md)
 1. [Go](logs/go.md)

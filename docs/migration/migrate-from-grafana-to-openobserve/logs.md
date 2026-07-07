@@ -207,7 +207,7 @@ If your logs are JSON, OpenObserve auto-parses them into columns. Check that exp
 ## Next Steps
 
 - [OpenObserve Logs User Guide](https://openobserve.ai/docs/user-guide/logs/) — exploring streams, running queries, and configuring stream settings in the UI
-- [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/sql-functions/full-text-search/) — complete reference for `match_all()`, `str_match()`, `re_match()`, and more
+- [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/reference/sql-functions/full-text-search/) — complete reference for `match_all()`, `str_match()`, `re_match()`, and more
 
 ---
 

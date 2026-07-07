@@ -12,7 +12,7 @@ Scheduled alerts evaluate your data at regular intervals and trigger when condit
 ### Prerequisites
 
 - At least one data stream (logs, metrics, or traces) with ingested data
-- At least one notification [destination](../../account-administration/management/alert-destinations/) configured
+- At least one notification [destination](../../account-administration/management/alert-destinations.md) configured
 - Appropriate permissions to create alerts
 
 ---

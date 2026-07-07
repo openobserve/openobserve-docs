@@ -118,7 +118,7 @@ Click "Fields (X)" button to:
 
 - **Detailed guide with examples**: [From Symptoms to Quick Insights blog post](https://openobserve.ai/blog/observability-insights-troubleshooting-guide)
 - **Logs guide**: [Logs documentation](https://openobserve.ai/docs/user-guide/logs/)
-- **Traces guide**: [Traces documentation](https://openobserve.ai/docs/user-guide/traces/)
+- **Traces guide**: [Traces documentation](https://openobserve.ai/docs/user-guide/data-exploration/traces/)
 - **Alerts setup**: [Alerts documentation](https://openobserve.ai/docs/user-guide/alerts/)
 
 

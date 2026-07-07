@@ -8,7 +8,7 @@ This guide shows you how to create and use real-time and scheduled pipelines in 
 ### Prerequisites
 
 - Your OpenObserve Cloud or the self-hosted instance is up and running.
-- You have a functioning [**Stream**](https://openobserve.ai/docs/user-guide/streams/) where data gets ingested. This **Stream** will be used as a source stream in the pipeline.
+- You have a functioning [**Stream**](https://openobserve.ai/docs/user-guide/data-processing/streams/) where data gets ingested. This **Stream** will be used as a source stream in the pipeline.
 
 ### Step 1: Open the pipeline editor
 1. Log in to OpenObserve.
@@ -34,7 +34,7 @@ This opens up the pipeline editor.
         - In the **Build Query** section, select the **Stream Type** (Logs, Metrics, or Traces) and **Stream Name**. Use the seach bar to search for the desired field in the source stream. 
         - In the **SQL Query** section, write a query to fetch data from a source. For **Metrics**, you also have the option to write **PromQL**.
         ![scheduled pipeline](../../../images/create-pipeline-sch-query.png)
-        - Under **Set Variables**, schedule the query execution by setting the **Frequency** and **Period**. For more details, visit [Pipelines in OpenObserve](../pipelines/).
+        - Under **Set Variables**, schedule the query execution by setting the **Frequency** and **Period**. For more details, visit [Pipelines in OpenObserve](index.md).
         - Adjust the time filter and click **Run Query** to view the output.
         ![scheduled pipeline](../../../images/create-pipeline-sch-output.png) 
         <br>In the above example, data is ingested periodically into the stream `default`. The query runs every 6 minutes and fetches all data that was ingested into the stream `default` in the preceding 6-minute interval.

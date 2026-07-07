@@ -135,4 +135,4 @@ With LiveKit Agents instrumented, every LLM call is recorded in OpenObserve. Fro
 - [LLM Observability Overview](../llm-applications.md)
 - [VoltAgent](voltagent.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

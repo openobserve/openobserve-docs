@@ -2,15 +2,15 @@ The Management section includes tools for maintaining and securing OpenObserve o
 
 !!! note "Learn more"
 
-    - ### [Streaming Search](../management/streaming-search/)
-    - ### [Streaming Aggregation](../management/aggregation-cache/)
-    - ### [Query Management](../management/query-management/)
-    - ### [Alert Destinations](../management/alert-destinations/)
-    - ### [Templates](../management/templates/)
-    - ### [Audit trail](../management/audit-trail/)
-    - ### [Cipher Keys](../management/cipher-keys/)
-    - ### [Nodes in OpenObserve](../management/nodes/)
-    - ### [SSO Domain Restrictions](../management/sso-domain-restrictions/)
-    - ### [Sensitive Data Redaction](../management/sensitive-data-redaction/)
+    - ### [Streaming Search](streaming-search.md)
+    - ### [Streaming Aggregation](aggregation-cache.md)
+    - ### [Query Management](query-management.md)
+    - ### [Alert Destinations](alert-destinations.md)
+    - ### [Templates](templates.md)
+    - ### [Audit trail](audit-trail.md)
+    - ### [Cipher Keys](cipher-keys.md)
+    - ### [Nodes in OpenObserve](nodes.md)
+    - ### [SSO Domain Restrictions](sso-domain-restrictions.md)
+    - ### [Sensitive Data Redaction](sensitive-data-redaction.md)
 
 

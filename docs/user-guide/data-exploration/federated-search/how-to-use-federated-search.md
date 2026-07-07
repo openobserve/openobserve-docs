@@ -2,7 +2,7 @@
 title: Federated Search in OpenObserve - How-to Guide
 description: Step-by-step instructions for querying your current cluster and performing federated searches across one or more clusters in a supercluster setup.
 ---
-This document explains how to query your current cluster and how to perform [federated searches](../) across one or more different clusters in a supercluster setup.
+This document explains how to query your current cluster and how to perform [federated searches](index.md) across one or more different clusters in a supercluster setup.
 
 !!! info "Availability"
     This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
@@ -27,7 +27,7 @@ Query your current cluster when you know the data is in your cluster or when you
 4. Select one specific cluster from the **Region** dropdown.
 5. Select **Run query**.
 
-> For detailed explanation, see **Normal cluster query execution** in the [Federated Search Architecture](https://openobserve.ai/docs/user-guide/federated-search/federated-search-architecture/) page.
+> For detailed explanation, see **Normal cluster query execution** in the [Federated Search Architecture](https://openobserve.ai/docs/user-guide/data-exploration/federated-search/federated-search-architecture/) page.
 <br>
 
 **Result**<br>
@@ -54,7 +54,7 @@ Use federated search when you need data from multiple clusters.
 4. Leave the **Region** dropdown unselected, or select multiple clusters.
 5. Select **Run query**.
 
-> For detailed explanation, see **Federated search for one different cluster** and **Federated search for multiple clusters** in the [Federated search architecture](https://openobserve.ai/docs/user-guide/federated-search/federated-search-architecture/) page.
+> For detailed explanation, see **Federated search for one different cluster** and **Federated search for multiple clusters** in the [Federated search architecture](https://openobserve.ai/docs/user-guide/data-exploration/federated-search/federated-search-architecture/) page.
 <br>
 
 **Result**<br>
@@ -75,4 +75,4 @@ Use this quick reference to understand how region selection affects query execut
 
 **Next step**
 
-- [Federated search architecture](https://openobserve.ai/docs/user-guide/federated-search/federated-search-architecture/)
+- [Federated search architecture](https://openobserve.ai/docs/user-guide/data-exploration/federated-search/federated-search-architecture/)

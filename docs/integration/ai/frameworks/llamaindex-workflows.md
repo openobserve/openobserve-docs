@@ -115,5 +115,5 @@ With LlamaIndex Workflows instrumented, every pipeline run is recorded in OpenOb
 
 - [LlamaIndex](llamaindex.md)
 - [LLM Observability Overview](../llm-applications.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

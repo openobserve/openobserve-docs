@@ -109,4 +109,4 @@ With vLLM instrumented, every inference call is recorded in OpenObserve. From he
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenAI (Python)](./openai.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

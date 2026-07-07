@@ -1,4 +1,4 @@
-This guide extends the previous page on [building custom charts using a single PromQL query](https://openobserve.ai/docs/user-guide/dashboards/custom-charts/custom-charts-for-metrics-using-promql/).
+This guide extends the previous page on [building custom charts using a single PromQL query](https://openobserve.ai/docs/user-guide/analytics/dashboards/custom-charts/custom-charts-for-metrics-using-promql/).
 You will now learn how to add multiple PromQL queries in the same panel, inspect their combined results, and build a chart that displays the output of several queries together.
 
 !!! note "Note" 

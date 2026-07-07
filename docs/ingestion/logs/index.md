@@ -9,13 +9,13 @@ OpenObserve supports multiple log ingestion methods to collect, aggregate, and c
 
 ## Supported Log Ingestion Methods
 
-1. [otel-collector](otlp) - OpenTelemetry Collector for unified observability
-1. [Vector](vector) - High-performance log aggregation and routing
-1. [Filebeat](filebeat) - Lightweight log shipper for file-based log collection
-1. [Fluent-bit](fluent-bit) - Fast and lightweight log processor for cloud-native environments
-1. [Fluentd](fluentd) - Unified logging layer for log aggregation
-1. [Kinesis Firehose](kinesis_firehose) - AWS log streaming for cloud log ingestion
-1. [Syslog](syslog) - Traditional syslog protocol for system logs
-1. [Python](python) - Python SDK for application log ingestion
-1. [Go](go) - Go SDK for structured logging
-1. [Curl](curl) - Direct HTTP log ingestion
+1. [otel-collector](otlp.md) - OpenTelemetry Collector for unified observability
+1. [Vector](vector.md) - High-performance log aggregation and routing
+1. [Filebeat](filebeat.md) - Lightweight log shipper for file-based log collection
+1. [Fluent-bit](fluent-bit.md) - Fast and lightweight log processor for cloud-native environments
+1. [Fluentd](fluentd.md) - Unified logging layer for log aggregation
+1. [Kinesis Firehose](kinesis-firehose.md) - AWS log streaming for cloud log ingestion
+1. [Syslog](syslog.md) - Traditional syslog protocol for system logs
+1. [Python](python.md) - Python SDK for application log ingestion
+1. [Go](go.md) - Go SDK for structured logging
+1. [Curl](curl.md) - Direct HTTP log ingestion

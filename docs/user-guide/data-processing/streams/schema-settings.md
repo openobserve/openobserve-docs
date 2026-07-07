@@ -25,7 +25,7 @@ For example:
 ## Index type
 You can modify or assign an index type to a field to improve search performance. Indexing can reduce the amount of data that must be scanned during queries. 
 
-To learn more, visit the [Fields and Index in Streams](https://openobserve.ai/docs/user-guide/streams/data-type-and-index-type-in-streams/) page.
+To learn more, visit the [Fields and Index in Streams](https://openobserve.ai/docs/user-guide/data-processing/streams/data-type-and-index-type-in-streams/) page.
 
 !!! Warning  
     Changing the index after storing data may lead to inconsistent query results or data retrieval failures.
@@ -69,7 +69,7 @@ You can also manually add a field to the schema using the **Add Field(s)** butto
 ## Sensitive Data Redaction (SDR)
 Sensitive Data Redaction (SDR) lets you redact or drop sensitive data during ingestion or at query time using regex-based rules.
 
-For detailed steps to create and manage SDR rules, refer to the [Sensitive Data Redaction](https://openobserve.ai/docs/user-guide/management/sensitive-data-redaction/) guide. 
+For detailed steps to create and manage SDR rules, refer to the [Sensitive Data Redaction](https://openobserve.ai/docs/user-guide/account-administration/management/sensitive-data-redaction/) guide. 
 
 
 ## Manage fields in Schema Settings

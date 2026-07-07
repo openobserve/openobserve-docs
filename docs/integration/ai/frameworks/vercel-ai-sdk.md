@@ -134,5 +134,5 @@ With the Vercel AI SDK instrumented, every `generateText`, `streamText`, and `ge
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenAI (JS/TS)](../providers/openai-js.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

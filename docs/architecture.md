@@ -23,17 +23,17 @@ Based on our tests (using an Apple M2 chip), you can ingest data at approximatel
 
 The [Quickstart](./getting-started.md) describes various ways to set up this configuration.
 
-![Single node architecture using SQLite and local disk](../images/arch-single-local.jpg){ width="60%" }
+![Single node architecture using SQLite and local disk](images/arch-single-local.jpg){ width="60%" }
 
 ### SQLite and Object Storage
 
-![Single node architecture using SQLite and s3](../images/arch-single-s3.jpg){ width="60%" }
+![Single node architecture using SQLite and s3](images/arch-single-s3.jpg){ width="60%" }
 
 ## High Availability (HA) Mode
 
 HA mode does not support local disk storage. Please refer to [HA Deployment](administration/deployment/ha-deployment.md) for cluster-mode deployment.
 
-![HA architecture using NATS and s3](../images/arch-ha.webp){ width="80%" }
+![HA architecture using NATS and s3](images/arch-ha.webp){ width="80%" }
 
 To accommodate higher traffic, you can horizontally scale the following nodes:
 
@@ -72,7 +72,7 @@ OpenObserve uses Ingester nodes to receive ingest requests, to convert data into
 
 The data ingestion flow is as follows:
 
-![Data Ingestion Flow](../images/arch-sequence-ingester.svg){ width="90%" }
+![Data Ingestion Flow](images/arch-sequence-ingester.svg){ width="90%" }
 
 1. Receive data from an HTTP or gRPC API request.
 1. Parse data line by line.
@@ -107,7 +107,7 @@ OpenObserve uses Querier nodes to query data. Queriers are fully stateless.
 
 The data query flow is as follows:
 
-![Query Flow](../images/arch-sequence-querier.svg){ width="90%" }
+![Query Flow](images/arch-sequence-querier.svg){ width="90%" }
 
 1. Receive the search request using HTTP or API. The node receiving the query request becomes `LEADER querier for the query` and other queriers become `WORKER queriers for query`.
 1. `LEADER` parses and verifies SQL.

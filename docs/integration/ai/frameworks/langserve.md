@@ -113,4 +113,4 @@ With LangServe instrumented, every remote chain call is recorded in OpenObserve.
 - [LangChain](langchain.md)
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

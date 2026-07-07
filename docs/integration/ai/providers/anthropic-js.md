@@ -120,5 +120,5 @@ With the Anthropic JS SDK instrumented, every API call is recorded in OpenObserv
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Anthropic (Python)](./anthropic.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

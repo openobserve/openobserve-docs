@@ -112,4 +112,4 @@ With LiteLLM Proxy instrumented, every proxied request is recorded in OpenObserv
 - [LiteLLM SDK](../frameworks/litellm.md)
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

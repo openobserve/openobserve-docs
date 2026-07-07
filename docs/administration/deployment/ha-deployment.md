@@ -279,7 +279,7 @@ helm --namespace openobserve delete o2
 - [Capacity planning](../../enterprise-setup/capacity-planning.md): sizing CPU, memory, and storage for each component.
 - [Performance tuning](../../enterprise-setup/performance.md): caching, configuration, and high-throughput tuning.
 - [Architecture](../../architecture.md): understand how the components interact.
-- [Environment variables](../../environment-variables.md): full reference for `ZO_*` configuration.
+- [Environment variables](../configuration/environment-variables.md): full reference for `ZO_*` configuration.
 
 **Need some help?**
 

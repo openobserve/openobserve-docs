@@ -1,6 +1,6 @@
 This guide provides information about how the Pipeline History feature in OpenObserve works, where the data originates from, who can access it, and how to interpret the pipeline execution records.
 
-> For information on other pipeline management options, see the [Manage Pipelines](../pipelines/manage-pipelines/) page. 
+> For information on other pipeline management options, see the [Manage Pipelines](manage-pipelines.md) page. 
 
 ## Overview
 Pipeline History provides visibility into every pipeline run, including its execution time, status, and duration. Each record represents one instance of a scheduled or manually triggered pipeline execution.

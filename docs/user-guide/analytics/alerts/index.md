@@ -123,8 +123,8 @@ To create a folder, click **+** in the **Folders** panel on the Alerts page, ent
 - [Alert History](alert-history.md): view alert trigger history.
 - [Anomaly Detection](anomaly-detection.md): ML-based anomaly alerts.
 - [Import and Export Alerts](import-export-alerts.md): bulk alert management.
-- [Alert Destinations](../../account-administration/management/alert-destinations/index.md): configure notification channels.
-- [Templates](../../account-administration/management/templates/index.md): customize notification content.
+- [Alert Destinations](../../account-administration/management/alert-destinations.md): configure notification channels.
+- [Templates](../../account-administration/management/templates.md): customize notification content.
 
 **Need some help?**
 

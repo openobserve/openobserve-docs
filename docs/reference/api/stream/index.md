@@ -1,6 +1,6 @@
 # API Index - Stream
 
-1. [List](list)
-1. [Schema](schema)
-1. [Setting](setting)
-1. [Delete](delete)
+1. [List](list.md)
+1. [Schema](schema.md)
+1. [Setting](setting.md)
+1. [Delete](delete.md)

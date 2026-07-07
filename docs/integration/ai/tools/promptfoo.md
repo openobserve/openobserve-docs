@@ -107,5 +107,5 @@ With Promptfoo eval cases in OpenObserve, you can track pass rates over time, al
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Alerts](../../../user-guide/analytics/alerts/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Alerts](../../../user-guide/analytics/alerts/index.md)

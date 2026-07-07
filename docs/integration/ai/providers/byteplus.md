@@ -118,5 +118,5 @@ With BytePlus ModelArk instrumented, every inference call is recorded in OpenObs
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenAI (Python)](./openai.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

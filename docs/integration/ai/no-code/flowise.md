@@ -114,5 +114,5 @@ With Flowise traces in OpenObserve, you can track chatflow latency over time, co
 
 - [LLM Observability Overview](../llm-applications.md)
 - [LangChain](../frameworks/langchain.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

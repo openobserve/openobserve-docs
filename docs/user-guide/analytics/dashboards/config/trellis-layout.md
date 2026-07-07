@@ -25,7 +25,7 @@ Trellis Layout supports:
 ## Apply Trellis Layout to a Panel
 Follow these steps:
 
-1. Open or [create a panel](https://openobserve.ai/docs/user-guide/dashboards/dashboards-in-openobserve/#panels). 
+1. Open or [create a panel](https://openobserve.ai/docs/user-guide/analytics/dashboards/dashboards-in-openobserve/#panels). 
 2. Click **Add Panel** to create a new panel and choose a supported chart type. 
 Alternatively, select **Edit Panel** from the dropdown menu on an existing panel. 
 3. Under **Fields**, choose a stream type and a stream name. 

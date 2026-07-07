@@ -50,7 +50,7 @@ A real-time pipeline processes incoming data as soon as it is ingested into the 
 
     - **Stream**: The supported destination stream types are Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
     ![Pipelines in OpenObserve](../../../images/pipeline-new-realtime-destination.png)
-    - **Remote**: Select **Remote** if you wish to send data from the pipeline to [external destinations](https://openobserve.ai/docs/user-guide/pipelines/remote-destination/).
+    - **Remote**: Select **Remote** if you wish to send data from the pipeline to [external destinations](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/).
     <br>
     **Default destination added automatically** <br>
     When you select a source stream for a real-time pipeline, OpenObserve automatically adds a destination that points back to the same stream. This ensures that your original data continues to be stored in the source stream even when you add filters or functions in the pipeline.
@@ -97,7 +97,7 @@ A scheduled pipeline processes historical data from an existing stream at user-d
     The transformed data is written to one or more destinations.
 
     - **Stream** destinations can be Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
-    - **Remote** destinations send data to external systems. To learn more about remote destinations, click [here](https://openobserve.ai/docs/user-guide/pipelines/remote-destination/).
+    - **Remote** destinations send data to external systems. To learn more about remote destinations, click [here](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/).
 
 ### When to use scheduled pipelines
 Use scheduled pipelines for tasks that require processing at fixed intervals instead of continuously, such as generating periodic reports and processing historical data in batches.

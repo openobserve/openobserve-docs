@@ -114,6 +114,6 @@ With mcp-use instrumented, every agent run connecting to MCP servers is recorded
 ## **Read More**
 
 - [LLM Observability Overview](../llm-applications.md)
-- [MCP Integration](../mcp/)
+- [MCP Integration](../mcp/index.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

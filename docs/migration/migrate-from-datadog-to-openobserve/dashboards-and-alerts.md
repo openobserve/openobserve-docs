@@ -175,9 +175,9 @@ Datadog composite monitors combine other monitors with `&&` / `||`. In OpenObser
 ## Next Steps
 
 - [OpenObserve Alerts Documentation](https://openobserve.ai/docs/user-guide/alerts/): full reference for alert rule types, conditions, and notification channels
-- [OpenObserve Dashboards Documentation](https://openobserve.ai/docs/user-guide/dashboards/): dashboard builder, panel types, and variables
-- [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/sql-functions/full-text-search/): SQL function reference for log queries (`match_all()`, `str_match()`, `re_match()`)
-- [OpenObserve Scheduled Pipelines](https://openobserve.ai/docs/user-guide/pipelines/create-and-use-scheduled-pipeline/): pre-aggregate expensive queries for SLOs and dashboards
+- [OpenObserve Dashboards Documentation](https://openobserve.ai/docs/user-guide/analytics/dashboards/): dashboard builder, panel types, and variables
+- [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/reference/sql-functions/full-text-search/): SQL function reference for log queries (`match_all()`, `str_match()`, `re_match()`)
+- [OpenObserve Scheduled Pipelines](https://openobserve.ai/docs/user-guide/data-processing/pipelines/create-and-use-scheduled-pipeline/): pre-aggregate expensive queries for SLOs and dashboards
 
 
 ## Need Help?

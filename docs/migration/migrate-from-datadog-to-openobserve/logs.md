@@ -219,8 +219,8 @@ You can normalize these with an OpenObserve **Pipeline** (VRL) at ingest time so
 ## Next Steps
 
 - [OpenObserve Logs User Guide](https://openobserve.ai/docs/user-guide/logs/): exploring streams, running queries, and configuring stream settings in the UI
-- [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/sql-functions/full-text-search/): reference for `match_all()`, `str_match()`, `re_match()`, and more
-- [OpenObserve Pipelines](https://openobserve.ai/docs/user-guide/pipelines/): parse, enrich, route, and transform logs at ingest
+- [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/reference/sql-functions/full-text-search/): reference for `match_all()`, `str_match()`, `re_match()`, and more
+- [OpenObserve Pipelines](https://openobserve.ai/docs/user-guide/data-processing/pipelines/): parse, enrich, route, and transform logs at ingest
 
 
 ## Need Help?
