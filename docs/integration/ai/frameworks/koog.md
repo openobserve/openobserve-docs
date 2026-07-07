@@ -181,6 +181,6 @@ With Koog instrumented, every agent run is recorded in OpenObserve. From here yo
 ## **Read More**
 
 - [LLM Observability Overview](../llm-applications.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

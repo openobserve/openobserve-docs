@@ -10,7 +10,7 @@ In OpenObserve, functions are VRL (Vector Remap Language) scripts that transform
 **Learn more**:
 
 - [Functions in OpenObserve](functions-in-openobserve.md)
-- [Create and Manage Functions Using API](../../reference/api/function)
+- [Create and Manage Functions Using API](../../../reference/api/function/index.md)
 
 **Related link**:
 

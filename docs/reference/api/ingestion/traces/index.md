@@ -1,3 +1,3 @@
 # API Index - Traces Ingestion
 
-1. [OTLP](otlp)
+1. [OTLP](otlp.md)

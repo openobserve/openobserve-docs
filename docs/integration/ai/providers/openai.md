@@ -130,4 +130,4 @@ With OpenAI instrumented, every model call in your application is automatically 
 ## **Read More**
 
 - [LLM Observability Overview](../llm-applications.md)
-- [OpenObserve Python SDK](https://openobserve.ai/docs/opentelemetry/openobserve-python-sdk/)
+- [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

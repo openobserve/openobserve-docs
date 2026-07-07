@@ -186,5 +186,5 @@ With Spring AI instrumented, every `ChatClient` call is recorded in OpenObserve.
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion](../../../ingestion/traces/index.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

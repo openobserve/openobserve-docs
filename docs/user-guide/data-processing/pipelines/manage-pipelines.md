@@ -91,11 +91,11 @@ You can filter, search, view, edit, pause, resume, or delete pipelines from a si
     ## Pipeline history
     You can view past executions, errors, and performance statistics in the Pipeline History page.
 
-    The [Pipeline History](https://openobserve.ai/docs/user-guide/pipelines/pipeline-history/) page provides a complete timeline of runs with detailed execution information.
+    The [Pipeline History](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipeline-history/) page provides a complete timeline of runs with detailed execution information.
 
 ??? "Import and export pipelines"
     ## Import and export pipelines
-    You can export any pipeline and import pipeline configurations through the Import and **Export** options. For more details, see [Import and export pipelines](https://openobserve.ai/docs/user-guide/pipelines/import-and-export-pipelines/).
+    You can export any pipeline and import pipeline configurations through the Import and **Export** options. For more details, see [Import and export pipelines](https://openobserve.ai/docs/user-guide/data-processing/pipelines/import-and-export-pipelines/).
 
 ??? "Sort columns"
     ## Sort columns
@@ -105,8 +105,8 @@ You can filter, search, view, edit, pause, resume, or delete pipelines from a si
 
 
 ## Related links
-- [Pipelines in OpenObserve](../pipelines/pipelines/)
-- [Create and Use Real-time Pipeline](../pipelines/create-and-use-real-time-pipeline/)
-- [Create and Use Scheduled Pipeline](../pipelines/create-and-use-scheduled-pipeline/)
-- [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
-- [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
+- [Pipelines in OpenObserve](index.md)
+- [Create and Use Real-time Pipeline](create-and-use-real-time-pipeline.md)
+- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Import and Export Pipelines](import-and-export-pipelines.md)
+- [Configurable Delay in Scheduled Pipelines](configurable-delay-in-scheduled-pipelines.md)

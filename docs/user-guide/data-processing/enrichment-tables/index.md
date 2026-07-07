@@ -2,5 +2,5 @@ Enrichment tables in OpenObserve allow you to add meaningful context to your log
 
 Learn more: 
 
-- [Enrichment Tables](../enrichment-tables/enrichment/)
-- [Upload, Caching, and Restart Behavior](../enrichment-tables/enrichment-table-upload-recovery/)
+- [Enrichment Tables](enrichment.md)
+- [Upload, Caching, and Restart Behavior](enrichment-table-upload-recovery.md)

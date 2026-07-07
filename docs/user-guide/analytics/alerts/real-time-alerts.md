@@ -11,7 +11,7 @@ Real-time alerts trigger immediately when matching data is ingested. Unlike sche
 ### Prerequisites
 
 - At least one data stream (logs, metrics, or traces) with ingested data
-- At least one notification [destination](../../account-administration/management/alert-destinations/) configured
+- At least one notification [destination](../../account-administration/management/alert-destinations.md) configured
 - Appropriate permissions to create alerts
 
 ---

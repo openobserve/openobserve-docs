@@ -1,6 +1,6 @@
 Use this guide to create and run real-time pipelines. Real-time pipelines process data immediately after it is ingested into a source stream. They allow you to apply conditions and functions and then route the processed data to one or more destinations.
 
-> Visit the [Pipelines in OpenObserve](https://openobserve.ai/docs/user-guide/pipelines/pipelines/) page before starting. It explains pipeline concepts, types, and components used in this guide.
+> Visit the [Pipelines in OpenObserve](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipelines/) page before starting. It explains pipeline concepts, types, and components used in this guide.
 
 ## Prerequisites
 - Your OpenObserve Cloud or self-hosted instance is running.
@@ -119,7 +119,7 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
     2. In the **External Destination** panel, either select an existing destination or enable **Create new Destination** and fill in the required details such as name, URL, method, output format, and headers.
     4. Click **Save**.
 
-    > For detailed steps on configuring external destinations, see the [Remote Destination](https://openobserve.ai/docs/user-guide/pipelines/remote-destination/) guide. 
+    > For detailed steps on configuring external destinations, see the [Remote Destination](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/) guide. 
 
 
 ??? "Step 6: Connect the nodes"
@@ -152,8 +152,8 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
     3. Click **Run query** to view the result. 
 
 ## Related links
-- [Pipelines in OpenObserve](../pipelines/pipelines/)
-- [Create and Use Scheduled Pipeline](../pipelines/create-and-use-scheduled-pipeline/)
-- [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
-- [Manage Pipelines](../pipelines/manage-pipelines/)
-- [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
+- [Pipelines in OpenObserve](index.md)
+- [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
+- [Import and Export Pipelines](import-and-export-pipelines.md)
+- [Manage Pipelines](manage-pipelines.md)
+- [Configurable Delay in Scheduled Pipelines](configurable-delay-in-scheduled-pipelines.md)

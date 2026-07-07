@@ -126,7 +126,7 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
 ## Ingest Data into Stream
 
 - [Ingest Data Using curl](https://openobserve.ai/docs/getting-started/#load-sample-data). 
-- Ingest Data Using API in [JSON formatted logs](https://openobserve.ai/docs/api/ingestion/logs/json/) and [multiple records in a batch with multiple JSON lines](https://openobserve.ai/docs/api/ingestion/logs/multi/). 
+- Ingest Data Using API in [JSON formatted logs](https://openobserve.ai/docs/reference/api/ingestion/logs/json/) and [multiple records in a batch with multiple JSON lines](https://openobserve.ai/docs/reference/api/ingestion/logs/multi/). 
 - [Ingest Data Continuously Using Data Sources](../../../index.md). 
 
 !!! Note

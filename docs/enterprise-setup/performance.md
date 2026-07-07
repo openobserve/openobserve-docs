@@ -271,7 +271,7 @@ OpenObserve improves query responsiveness by processing large result sets in sma
 
 Partitioning introduces a tradeoff. Smaller partitions return early results and improve responsiveness, but they also increase the number of operations the system must perform. This can extend the total time required to complete the query. OpenObserve addresses this by combining partitioning with a streaming delivery model based on **HTTP2**.
 
-To learn more, visit the [Steaming Aggregation](https://openobserve.ai/docs/user-guide/management/aggregation-cache/) page. 
+To learn more, visit the [Steaming Aggregation](https://openobserve.ai/docs/user-guide/account-administration/management/aggregation-cache/) page. 
 
 ## Mini-partition
 OpenObserve uses a mini-partition to return the first set of results faster. The mini-partition is a smaller slice of the first partition and is controlled by the environment variable `ZO_MINI_SEARCH_PARTITION_DURATION_SECS`, which defines the mini-partition duration in seconds. The default value is sixty seconds.

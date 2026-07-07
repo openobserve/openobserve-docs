@@ -5,8 +5,8 @@ description: >-
 ---
 # API Index - Function
 
-1. [Create](create)
-1. [Update](update)
-1. [Delete](delete)
-1. [List](list)
-1. [Examples](examples)
+1. [Create](create.md)
+1. [Update](update.md)
+1. [Delete](delete.md)
+1. [List](list.md)
+1. [Examples](examples.md)

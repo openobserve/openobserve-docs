@@ -1,5 +1,5 @@
 # API Index - Search
 
-1. [Search](search)
-1. [Value](value)
-1. [Around](around)
+1. [Search](search.md)
+1. [Value](value.md)
+1. [Around](around.md)

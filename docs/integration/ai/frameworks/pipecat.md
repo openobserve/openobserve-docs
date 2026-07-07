@@ -113,4 +113,4 @@ With Pipecat instrumented, every voice pipeline turn is recorded in OpenObserve.
 - [LiveKit](livekit.md)
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

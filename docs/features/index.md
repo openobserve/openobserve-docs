@@ -9,11 +9,11 @@ OpenObserve provides a complete suite of observability tools designed for perfor
 
 ## Explore Features
 
-- [Logs](../features/logs/)
-- [Metrics](../features/metrics/)
-- [Distributed Tracing](../features/distributed-tracing/)
-- [Frontend Observability](../features/frontend/)
-- [Enterprise Features](../features/enterprise/)
+- [Logs](logs.md)
+- [Metrics](metrics.md)
+- [Distributed Tracing](distributed-tracing.md)
+- [Frontend Observability](frontend.md)
+- [Enterprise Features](enterprise.md)
 
 
 

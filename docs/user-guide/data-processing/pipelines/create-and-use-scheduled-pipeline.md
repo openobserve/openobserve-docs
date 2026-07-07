@@ -1,6 +1,6 @@
 Use this guide to create and run scheduled pipelines. Scheduled pipelines run at a fixed interval. They query existing data from a stream using SQL or PromQL, apply optional transformations, and write the results to a destination stream or external system.
 
-> Visit the [Pipelines overview](https://openobserve.ai/docs/user-guide/pipelines/pipelines/) page before starting. 
+> Visit the [Pipelines overview](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipelines/) page before starting. 
 
 ## Prerequisites
 - Your OpenObserve Cloud or self-hosted instance is running.
@@ -41,8 +41,8 @@ Use this guide to create and run scheduled pipelines. Scheduled pipelines run at
         - **Period**: The data window to process. Period must equal Frequency.  
         - **Delay**: How many minutes the pipeline waits after the scheduled time before execution. 
         
-        > See the [Pipelines overview](https://openobserve.ai/docs/user-guide/pipelines/pipelines/) page to learn more about frequency, period, and cron.
-        > See the [Configurable Delay in Scheduled Pipelines](https://openobserve.ai/docs/user-guide/pipelines/configurable-delay-in-scheduled-pipelines/) page to learn how to configure delay in scheduled-pipelines.
+        > See the [Pipelines overview](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipelines/) page to learn more about frequency, period, and cron.
+        > See the [Configurable Delay in Scheduled Pipelines](https://openobserve.ai/docs/user-guide/data-processing/pipelines/configurable-delay-in-scheduled-pipelines/) page to learn how to configure delay in scheduled-pipelines.
 
         ![variables](../../../images/scheduled-variables.png)
 
@@ -115,7 +115,7 @@ Use this guide to create and run scheduled pipelines. Scheduled pipelines run at
     2. In the **External Destination** panel, either select an existing destination or enable **Create new Destination** and fill in the required details such as name, URL, method, output format, and headers.
     4. Click **Save**.
 
-    > For detailed steps on configuring external destinations, see the [Remote Destination](https://openobserve.ai/docs/user-guide/pipelines/remote-destination/) guide. 
+    > For detailed steps on configuring external destinations, see the [Remote Destination](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/) guide. 
 
 
 ??? "Step 6: Connect the nodes"
@@ -147,8 +147,8 @@ Use this guide to create and run scheduled pipelines. Scheduled pipelines run at
     3. Click **Run query** to view the result. 
 
 ## Related links
-- [Pipelines in OpenObserve](../pipelines/pipelines/)
-- [Create and Use Real-time Pipeline](../pipelines/create-and-use-real-time-pipeline/)
-- [Import and Export Pipelines](../pipelines/import-and-export-pipelines/)
-- [Manage Pipelines](../pipelines/manage-pipelines/)
-- [Configurable Delay in Scheduled Pipelines](../pipelines/configurable-delay-in-scheduled-pipelines/)
+- [Pipelines in OpenObserve](index.md)
+- [Create and Use Real-time Pipeline](create-and-use-real-time-pipeline.md)
+- [Import and Export Pipelines](import-and-export-pipelines.md)
+- [Manage Pipelines](manage-pipelines.md)
+- [Configurable Delay in Scheduled Pipelines](configurable-delay-in-scheduled-pipelines.md)

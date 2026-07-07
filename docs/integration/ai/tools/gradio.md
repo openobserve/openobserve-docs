@@ -127,4 +127,4 @@ With Gradio instrumented, every user interaction in your ML demo is recorded in 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenAI (Python)](../providers/openai.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

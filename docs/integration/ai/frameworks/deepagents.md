@@ -113,4 +113,4 @@ With DeepAgents instrumented, every agent run is recorded in OpenObserve. From h
 - [LLM Observability Overview](../llm-applications.md)
 - [LangChain](./langchain.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

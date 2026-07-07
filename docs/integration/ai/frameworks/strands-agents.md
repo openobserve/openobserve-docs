@@ -140,4 +140,4 @@ With Strands Agents instrumented, every agent run is recorded in OpenObserve. Fr
 - [LLM Observability Overview](../llm-applications.md)
 - [Anthropic (Python)](../providers/anthropic.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)

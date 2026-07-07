@@ -122,5 +122,5 @@ With the Vercel AI Gateway instrumented, every routed LLM call is recorded in Op
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenAI (Python)](../providers/openai.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

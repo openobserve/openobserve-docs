@@ -188,5 +188,5 @@ With Quarkus LangChain4j instrumented, every AI service call is recorded in Open
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Spring AI](./spring-ai.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)

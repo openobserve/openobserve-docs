@@ -145,8 +145,8 @@ This page explains what streaming aggregation is and how it improves query perfo
     - [approx_median](https://datafusion.apache.org/user-guide/sql/aggregate_functions.html#approx-median)
     - [approx_percentile_cont](https://datafusion.apache.org/user-guide/sql/aggregate_functions.html#approx-percentile-cont)
     - [approx_percentile_cont_with_weight](https://datafusion.apache.org/user-guide/sql/aggregate_functions.html#approx-percentile-cont-with-weight)
-    - [approx_topk](https://openobserve.ai/docs/sql-functions/approximate-aggregate/approx-topk/)
-    - [approx_topk_distinct](https://openobserve.ai/docs/sql-functions/approximate-aggregate/approx-topk-distinct/)
+    - [approx_topk](https://openobserve.ai/docs/reference/sql-functions/approximate-aggregate/approx-topk/)
+    - [approx_topk_distinct](https://openobserve.ai/docs/reference/sql-functions/approximate-aggregate/approx-topk-distinct/)
 
     ---
     ## Aggregation cache metrics
@@ -173,7 +173,7 @@ This page explains what streaming aggregation is and how it improves query perfo
     You can apply the aggregation query in any place where queries are executed, such as Logs or Dashboards. To measure load time, check cacheability, and verify cache usage, use your browser’s developer tools. 
     Right-click the browser, select **Inspect**, open the **Network** tab, and filter by **Fetch/XHR**.
 
-    The following example is performed with [Streaming Search](https://openobserve.ai/docs/user-guide/streams/summary-streams/) enabled. Aggregation cache works the same when Streaming Search is disabled.
+    The following example is performed with [Streaming Search](https://openobserve.ai/docs/user-guide/data-processing/streams/summary-streams/) enabled. Aggregation cache works the same when Streaming Search is disabled.
 
     **Step 1: Run the aggregation query** <br>
 

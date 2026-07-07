@@ -2,7 +2,7 @@
 title: Federated Search in OpenObserve - Architecture
 description: Technical explanation of OpenObserve deployment modes, normal cluster query execution, and how federated search works across single and multiple clusters.
 ---
-This document explains the technical architecture of OpenObserve deployments, how queries execute in normal clusters, and how [federated search](../) coordinates queries across clusters in a supercluster.
+This document explains the technical architecture of OpenObserve deployments, how queries execute in normal clusters, and how [federated search](index.md) coordinates queries across clusters in a supercluster.
 
 !!! info "Availability"
     This feature is available in Enterprise Edition. Not available in Open Source and Cloud.

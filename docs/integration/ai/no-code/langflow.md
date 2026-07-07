@@ -115,6 +115,6 @@ With Langflow flow executions in OpenObserve, you can track end-to-end latency p
 ## **Read More**
 
 - [LLM Observability Overview](../llm-applications.md)
-- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/)
-- [Building Dashboards](../../../user-guide/analytics/dashboards/)
-- [Alerts](../../../user-guide/analytics/alerts/)
+- [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
+- [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)
+- [Alerts](../../../user-guide/analytics/alerts/index.md)
