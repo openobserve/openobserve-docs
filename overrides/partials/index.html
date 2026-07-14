@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main.html" %}
 
 <!-- Hide only the table of contents (right sidebar) for landing page -->
 {% block content_nav %}{% endblock %} {% block content %}
@@ -10,6 +10,13 @@
       <section class="landing-hero-grid">
         <div class="landing-hero-id">
           <h1 class="landing-hero-title">OpenObserve Documentation</h1>
+          <p class="landing-hero-lede">
+            <strong
+              >OpenObserve is an open-source, unified, petabyte-scale
+              observability platform for logs, metrics, and traces, built in
+              Rust, with SQL and PromQL.</strong
+            >
+          </p>
           <p class="landing-hero-description">
             Learn how to get up and running with OpenObserve through tutorials,
             integrations, and references. OpenObserve (O2) unifies logs,
@@ -259,9 +266,80 @@
         </aside>
       </section>
 
+      <!-- Canonical journey: Install → Ingest → Query → Visualize → Alert -->
+      <section
+        class="landing-section landing-journey"
+        aria-label="Start here: the OpenObserve journey"
+      >
+        <h2 class="landing-section-title">Start here</h2>
+        <p class="landing-section-subtitle">
+          Follow these 5 steps in order to go from zero to a working
+          observability setup.
+        </p>
+        <ol class="landing-journey-steps">
+          <li class="landing-journey-step">
+            <a href="quickstart/">
+              <span class="landing-journey-head">
+                <span class="landing-journey-num">1</span>
+                <span class="landing-journey-label">Install</span>
+              </span>
+              <span class="landing-journey-desc"
+                >Run OpenObserve locally or deploy to Kubernetes</span
+              >
+            </a>
+          </li>
+          <li class="landing-journey-step">
+            <a href="ingestion/">
+              <span class="landing-journey-head">
+                <span class="landing-journey-num">2</span>
+                <span class="landing-journey-label">Ingest</span>
+              </span>
+              <span class="landing-journey-desc"
+                >Send your first logs, metrics, or traces</span
+              >
+            </a>
+          </li>
+          <li class="landing-journey-step">
+            <a href="user-guide/data-exploration/logs/">
+              <span class="landing-journey-head">
+                <span class="landing-journey-num">3</span>
+                <span class="landing-journey-label">Analyze</span>
+              </span>
+              <span class="landing-journey-desc"
+                >Search and filter with SQL and full-text</span
+              >
+            </a>
+          </li>
+          <li class="landing-journey-step">
+            <a
+              href="user-guide/analytics/dashboards/dashboards-in-openobserve/"
+            >
+              <span class="landing-journey-head">
+                <span class="landing-journey-num">4</span>
+                <span class="landing-journey-label">Visualize</span>
+              </span>
+              <span class="landing-journey-desc"
+                >Build your first dashboard</span
+              >
+            </a>
+          </li>
+          <li class="landing-journey-step">
+            <a href="user-guide/analytics/alerts/">
+              <span class="landing-journey-head">
+                <span class="landing-journey-num">5</span>
+                <span class="landing-journey-label">Monitor</span>
+              </span>
+              <span class="landing-journey-desc"
+                >Set conditions and notification channels</span
+              >
+            </a>
+          </li>
+        </ol>
+      </section>
+
       <!-- Features catalog -->
       <section class="landing-section">
-        <h2 class="landing-section-title">Features</h2>
+        <h2 class="landing-section-title">Explore by pillar</h2>
         <div class="landing-features-catalog">
           <a
             href="features/logs/"
@@ -610,6 +688,16 @@
             </a>
           </div>
         </div>
+      </section>
+
+      <!-- Closing takeaway banner -->
+      <section class="landing-section landing-closing-banner">
+        <h2 class="landing-section-title">Ready to start?</h2>
+        <p>
+          Begin with the <a href="quickstart/">Quickstart</a>, then
+          <a href="ingestion/logs/curl/">ingest your first data</a> and
+          <a href="user-guide/data-exploration/logs/">run your first query</a>.
+        </p>
       </section>
 
       <!-- Community Section -->

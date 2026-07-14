@@ -59,6 +59,7 @@ extra_javascript:
   - js/search-tracking.js
   - js/theme.js
   - js/llm-page-actions.js
+  - js/image-lightbox.js
   # - js/toc-highlight.js
   - https://buttons.github.io/buttons.js
   # - js/reo.js
