@@ -6,7 +6,7 @@ description: Browse and explore metrics with a visual card grid, build PromQL qu
 
 The Metrics Explorer provides two connected views for working with metrics data. Click **Metrics** in the sidebar to open the browse grid at `/metrics` — a visual overview of every metric family in your organization. Click any metric card or navigate to `/metrics/editor` to open the panel editor with PromQL input, chart visualization, and dashboard controls.
 
-![TODO: screenshot of the Metrics Explorer browse grid showing metric cards with type badges, prefix/suffix/type filter rail, and search](images/placeholder.png)
+![the Metrics Explorer browse grid showing metric cards with type badges, prefix/suffix/type filter rail, and search](images/metrics-explorer-revamp-1.png)
 
 ## Browse grid
 
@@ -16,7 +16,7 @@ The browse grid gives you a fast, visual overview of all metric families. Each c
 
 Cards are fetched lazily as you scroll. A card queries its default aggregation only when it enters the viewport, so opening the grid on a large org never fires hundreds of queries at once.
 
-![TODO: screenshot of a single metric card showing the sparkline chart, metric name, type badge, and footer with function label](images/placeholder.png)
+![a single metric card showing the sparkline chart, metric name, type badge, and footer with function label](images/metrics-explorer-revamp-2.png)
 
 **Card defaults by type:**
 
@@ -30,7 +30,7 @@ Cards are fetched lazily as you scroll. A card queries its default aggregation o
 
 You can override a card's function for individual metrics via the **gear (⚙) icon** on the card. The override is saved per-browser and persists across sessions.
 
-![TODO: screenshot of the gear icon override dialog showing variant options and a preview tile](images/placeholder.png)
+![the gear icon override dialog showing variant options and a preview tile](images/metrics-explorer-revamp-3.png)
 
 **Star a metric** to pin it. Use the **Favorites** toggle in the toolbar to narrow the grid to starred metrics only.
 
@@ -42,7 +42,7 @@ The left rail exposes three filter panels:
 - **Suffix** — group by the last underscore-delimited segment. Surfaces common units (`_bytes`, `_seconds`, `_total`) alongside domain suffixes.
 - **Type** — filter by metric type: Counter, Gauge, Histogram, Summary, or Other.
 
-![TODO: screenshot of the filter rail open on prefix grouping, showing prefix groups with counts](images/placeholder.png)
+![the filter rail open on prefix grouping, showing prefix groups with counts](images/metrics-explorer-revamp-4.png)
 
 The **search bar** filters cards by name or help text. The **sort** toggle switches between A-Z and Z-A ordering. The **"With data" toggle** (on by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics. A count below the grid shows how many cards are hidden; click the count to show them.
 
@@ -50,13 +50,13 @@ The **search bar** filters cards by name or help text. The **sort** toggle switc
 
 When the grid has loaded stream schemas (triggered by the first filter interaction), you can add label matchers via the **Label** chip input. Cards are then narrowed to metrics whose effective streams carry every selected label — so a `status=~"5.."` chip safely limits the grid to metrics that actually have a `status` label.
 
-![TODO: screenshot of the label filter chip input with label name and value fields, and chips shown in the toolbar](images/placeholder.png)
+![the label filter chip input with label name and value fields, and chips shown in the toolbar](images/metrics-explorer-revamp-5.png)
 
 ## Query editor
 
 The panel editor at `/metrics/editor` is where you build queries, visualize results, and configure dashboard panels. It opens with the same layout as a dashboard panel editor.
 
-![TODO: screenshot of the metrics query editor showing stream selector with type badges, PromQL input, chart, time picker, Apply, and Add to Dashboard](images/placeholder.png)
+![the metrics query editor showing stream selector with type badges, PromQL input, chart, time picker, Apply, and Add to Dashboard](images/metrics-explorer-revamp-6.png)
 
 ### Stream selector
 
@@ -70,7 +70,7 @@ The stream dropdown shows metric names with **type badges** — a single letter 
 | **S** | Summary | Orange |
 | **O** | Other | Grey |
 
-![TODO: screenshot of the stream selector dropdown showing metric names with colored type badges](images/placeholder.png)
+![the stream selector dropdown showing metric names with colored type badges](images/metrics-explorer-revamp-7.png)
 
 The badge colors match the same palette used in the Metrics Explorer browse grid, so a type looks the same wherever you see it.
 
@@ -80,7 +80,7 @@ The builder lets you construct PromQL queries step by step without writing raw P
 
 When you pick a metric, the builder auto-seeds a default query based on its type: `sum(rate(counter[4m]))` for a counter, `avg(gauge)` for a gauge, `histogram_quantile(...)` for a histogram. You can then add or remove operations (rate, sum, avg, topk, etc.) and label filters.
 
-![TODO: screenshot of the PromQL builder showing operation chips (Rate, Sum) and label filter editor](images/placeholder.png)
+![the PromQL builder showing operation chips (Rate, Sum) and label filter editor](images/metrics-explorer-revamp-8.png)
 
 **Operations** are organized into groups: Rate & range, Aggregation, Math, and more. Each operation is rendered as a draggable chip. Drag to reorder; the query string updates live.
 
@@ -102,7 +102,7 @@ Click **Apply** to run the query against the selected range. The **refresh inter
 
 The editor supports the same chart types available for dashboard panels: line, bar, area, scatter, table, heatmap, and more. Switch the chart type from the dropdown above the chart.
 
-![TODO: screenshot of the chart visualization with a line chart showing time series data](images/placeholder.png)
+![the chart visualization with a line chart showing time series data](images/metrics-explorer-revamp-9.png)
 
 ### Add to Dashboard
 
