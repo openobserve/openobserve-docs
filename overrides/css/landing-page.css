@@ -2110,3 +2110,256 @@ body:has(.landing-page) .md-sidebar--secondary {
   overflow: hidden !important;
   text-align: left !important;
 }
+
+/* ============================================================
+   UX audit additions — hero lede, animated journey strip,
+   closing banner
+   ============================================================ */
+
+/* --- Hero liftable lede (entity-first sentence under H1) ----------------- */
+.landing-hero-id .landing-hero-lede {
+  margin: 0 !important;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.82);
+  max-width: 52ch;
+}
+.landing-hero-id .landing-hero-lede strong {
+  font-weight: 600;
+}
+[data-md-color-scheme="slate"] .landing-hero-id .landing-hero-lede {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* --- Journey strip: horizontal steps joined by animated connectors.
+   Each gap holds a faint track and a chevron that loops step→step, so the
+   row reads as a flowing path: Install → Ingest → Query → Visualize → Alert.
+   Tokens: --journey-gap doubles as the flex gap AND the connector width;
+   --rail-y is the vertical center of the badge row. */
+.landing-journey .landing-journey-steps {
+  --journey-badge: 30px;
+  --journey-pad-t: 1.15rem;
+  --journey-gap: 1.75rem;
+  --rail-y: calc(var(--journey-pad-t) + (var(--journey-badge) / 2));
+  list-style: none;
+  margin: 1.25rem 0 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: var(--journey-gap);
+  position: relative;
+}
+.landing-journey-step {
+  margin: 0 !important;
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  z-index: 1;
+}
+/* Gap connector: a faint static track (::before) spanning the gap between two
+   cards at badge height, plus a chevron (::after) that loops left→right along
+   it — a "moving arrow" flowing from one step into the next. */
+.landing-journey-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: var(--rail-y);
+  left: 100%;
+  width: var(--journey-gap); /* fills the flex gap */
+  height: 2px;
+  transform: translateY(-1px);
+  background: linear-gradient(
+    90deg,
+    rgba(99, 102, 241, 0.25) 0%,
+    rgba(139, 92, 246, 0.25) 100%
+  );
+  z-index: 2;
+}
+/* Arrowhead drawn as a CSS border-triangle (not a text glyph) so its center
+   sits exactly on the connector line — no font-metric drift. */
+.landing-journey-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: var(--rail-y);
+  left: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 7px; /* right-pointing triangle */
+  border-color: transparent transparent transparent
+    var(--color-primary-purple);
+  z-index: 3;
+  /* Travel across the gap on an infinite loop; staggered per step below. */
+  animation: journey-arrow-travel 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+/* Stagger each gap so the motion reads as a forward wave: 1→2→3→4→5 */
+.landing-journey-step:nth-child(1)::after {
+  animation-delay: 0s;
+}
+.landing-journey-step:nth-child(2)::after {
+  animation-delay: 0.35s;
+}
+.landing-journey-step:nth-child(3)::after {
+  animation-delay: 0.7s;
+}
+.landing-journey-step:nth-child(4)::after {
+  animation-delay: 1.05s;
+}
+@keyframes journey-arrow-travel {
+  0% {
+    transform: translate(2px, -50%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    /* End at the far side of the gap, just before the next badge */
+    transform: translate(calc(var(--journey-gap) - 9px), -50%);
+    opacity: 0;
+  }
+}
+/* Respect users who prefer reduced motion: static arrow, no travel loop */
+@media (prefers-reduced-motion: reduce) {
+  .landing-journey-step:not(:last-child)::after {
+    animation: none;
+    transform: translate(calc((var(--journey-gap) / 2) - 3px), -50%);
+    opacity: 1;
+  }
+}
+.landing-journey-step a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  height: 100%;
+  padding: var(--journey-pad-t) 0.9rem 0.95rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+.landing-journey-step a:hover {
+  border-color: var(--color-primary-purple);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.16);
+  transform: translateY(-3px);
+}
+[data-md-color-scheme="slate"] .landing-journey-step a {
+  background: #14121d;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+[data-md-color-scheme="slate"] .landing-journey-step a:hover {
+  box-shadow: 0 6px 18px rgba(196, 181, 253, 0.16);
+}
+/* Header row: badge + step label side by side */
+.landing-journey-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+/* Gradient badge that visually sits ON the rail (opaque, ringed) */
+.landing-journey-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--journey-badge);
+  height: var(--journey-badge);
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    135deg,
+    var(--primary-blue) 0%,
+    var(--color-primary-purple) 100%
+  );
+  color: #fff !important;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  /* White ring separates the badge from the rail passing behind it */
+  box-shadow:
+    0 0 0 4px #fff,
+    0 2px 6px rgba(124, 58, 237, 0.3);
+}
+[data-md-color-scheme="slate"] .landing-journey-num {
+  box-shadow:
+    0 0 0 4px #14121d,
+    0 2px 6px rgba(0, 0, 0, 0.5);
+}
+.landing-journey-label {
+  font-size: 0.9rem !important;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+[data-md-color-scheme="default"] .landing-journey-label {
+  color: #1f2937;
+}
+[data-md-color-scheme="slate"] .landing-journey-label {
+  color: #ffffff;
+}
+.landing-journey-desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.6);
+}
+[data-md-color-scheme="slate"] .landing-journey-desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* --- Closing takeaway banner --------------------------------------------- */
+.landing-closing-banner {
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+}
+[data-md-color-scheme="slate"] .landing-closing-banner {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.28);
+}
+.landing-closing-banner p {
+  margin: 0.4rem 0 0 !important;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.75);
+}
+[data-md-color-scheme="slate"] .landing-closing-banner p {
+  color: rgba(255, 255, 255, 0.8);
+}
+.landing-closing-banner a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.landing-closing-banner a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive: wrap/stack journey + facts on narrow screens ------------ */
+@media (max-width: 960px) {
+  /* Once the row wraps, the connectors + moving arrows no longer align —
+     hide them and let the numbered badges carry the sequence. */
+  .landing-journey .landing-journey-steps {
+    flex-wrap: wrap;
+  }
+  .landing-journey-step {
+    flex: 1 1 calc(33.333% - var(--journey-gap));
+  }
+  /* Hide both the connector line and the chevron once the row wraps */
+  .landing-journey-step:not(:last-child)::before,
+  .landing-journey-step:not(:last-child)::after {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .landing-journey-step {
+    flex: 1 1 100%;
+  }
+}

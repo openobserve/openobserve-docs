@@ -7,7 +7,9 @@ description: >-
 keywords: 'openobserve, architecture, tutorial'
 ---
 
-# Architecture and Deployment Modes
+# OpenObserve Architecture and Deployment Modes
+
+OpenObserve is an observability platform with a distributed architecture composed of five node types — Router, Ingester, Compactor, Querier, and AlertManager — that runs in either single-node mode (SQLite with local disk or object storage) or high-availability mode (NATS, PostgreSQL, and object storage).
 
 This page explains how OpenObserve is structured: the deployment modes you can run it in, what each component does, how data flows from ingest to query, and how the system keeps your data durable. It is useful if you are sizing a deployment, troubleshooting a cluster, or evaluating OpenObserve against other observability backends.
 
@@ -17,7 +19,7 @@ Please refer to the [Quickstart](./getting-started.md) for single-node deploymen
 
 ### SQLite and Local Disk
 
-This is the default mode for running OpenObserve. Use it for light usage and testing or if you don't require HA. You can still ingest and search over 2 TB on a single machine per day. 
+Single-node mode with SQLite and local disk is the default way to run OpenObserve. Use it for light usage and testing or if you don't require HA. You can still ingest and search over 2 TB on a single machine per day. 
 
 Based on our tests (using an Apple M2 chip), you can ingest data at approximately 31 MB per second with the default configuration. This is equivalent to 1.8 GB per minute or 2.6 TB per day. 
 
@@ -27,15 +29,25 @@ The [Quickstart](./getting-started.md) describes various ways to set up this con
 
 ### SQLite and Object Storage
 
+Single-node mode with SQLite and object storage runs OpenObserve on one node but stores parquet files in durable object storage (for example, Amazon S3, GCS, MinIO, or Azure Blob) instead of local disk. Use it when you want the simplicity of a single node but need the durability and elasticity of object storage — for example, so data survives the loss of the node's local volume, or to keep local disk small. Compared with the local-disk variant, it trades slightly higher read latency and a storage dependency for much higher durability and effectively unbounded capacity. Configure the object-storage backend with the `ZO_LOCAL_MODE_STORAGE` and related S3/GCS environment variables; see [Environment variables](administration/configuration/environment-variables.md) for the full list.
+
 ![Single node architecture using SQLite and s3](images/arch-single-s3.jpg){ width="60%" }
 
 ## High Availability (HA) Mode
 
 HA mode does not support local disk storage. Please refer to [HA Deployment](administration/deployment/ha-deployment.md) for cluster-mode deployment.
 
+**Requirements.** Running OpenObserve in HA mode requires:
+
+- Kubernetes (with Helm) to orchestrate the nodes
+- Object storage (Amazon S3, GCS, MinIO, or Azure Blob) for parquet files
+- PostgreSQL for metadata
+- NATS for cluster coordination
+- At least one node of each type (Router, Ingester, Compactor, Querier, AlertManager)
+
 ![HA architecture using NATS and s3](images/arch-ha.webp){ width="80%" }
 
-To accommodate higher traffic, you can horizontally scale the following nodes:
+In OpenObserve HA mode, the following node types can be scaled horizontally to accommodate higher traffic:
 
 - Router
 - Querier
@@ -53,14 +65,30 @@ Object storage (for example, Amazon S3, MinIO or GCS) stores all the parquet fil
 
 **The short answer:** ingesters batch data briefly in memory and on local disk before flushing it to highly durable object storage. That window of single-copy data sounds risky, but modern infrastructure makes it safe in practice.
 
-**Why a single in-flight copy is fine.** Most distributed systems were built in an era when storage was much less reliable than it is today, requiring users to make two or three copies of files to ensure they didn't lose data. Not only is storage more reliable today, you may face penalties for replicating data. In environments like AWS, replicating data across multiple Availability Zones (AZs) results in a cross-AZ data transfer penalty of 2 cents per GB (1 cent in each direction). Amazon EBS volumes are already replicated within an AZ: standard GP3 volumes offer 99.8% durability, and the io2 volumes that OpenObserve uses for its cloud service offer 99.999%. At those levels, additional in-app replication mostly adds cost and complexity without meaningfully reducing risk. Once data lands in S3 (99.999999999% durability), it is effectively permanent.
+**Why a single in-flight copy is fine.** Most distributed systems were built in an era when storage was much less reliable than it is today, requiring users to make two or three copies of files to ensure they didn't lose data. Not only is storage more reliable today, you may face penalties for replicating data. In environments like AWS, replicating data across multiple Availability Zones (AZs) results in a cross-AZ data transfer penalty of 2 cents per GB (1 cent in each direction). Amazon EBS volumes are already replicated within an AZ, and object storage is more durable still. Typical storage durability:
+
+- **Amazon EBS GP3:** 99.8%
+- **Amazon EBS io2** (used by OpenObserve Cloud): 99.999%
+- **Amazon S3:** 99.999999999% (11 nines)
+
+At the EBS levels, additional in-app replication mostly adds cost and complexity without meaningfully reducing risk. Once data lands in S3, it is effectively permanent.
 
 **What this means for you.** Building the system this way lets us offer a simpler and more cost-effective product, with no ongoing data replication to manage.
 
 
 ## Components
 
+At a high level, data and requests move through these components:
+
 Router → Ingester → Compactor → Querier → AlertManager.
+
+| Component | Role | Stateful? | Scales horizontally? |
+| --- | --- | --- | --- |
+| Router | Proxies requests to ingesters or queriers and serves the GUI | No | Yes |
+| Ingester | Receives ingest requests, converts data to parquet, and writes it to object storage | Yes (buffers in WAL, Memtable, and local parquet) | Yes |
+| Compactor | Merges small files into big files, enforces retention, and updates file list indices | No | Yes |
+| Querier | Executes search queries | No (fully stateless) | Yes |
+| AlertManager | Runs alert queries and report jobs and sends notifications | No | Yes |
 
 ### Router
 
@@ -68,7 +96,7 @@ The Router node dispatches requests to an ingester or a querier. It also respond
 
 ### Ingester
 
-OpenObserve uses Ingester nodes to receive ingest requests, to convert data into parquet format and to store it in object storage. Ingesters store data temporarily in WAL before transferring it to object storage.
+OpenObserve uses Ingester nodes to receive ingest requests, to convert data into Parquet format and to store it in object storage. Parquet is a columnar, compressed on-disk file format optimized for analytical queries. Ingesters store data temporarily in a WAL (write-ahead log — an append-only file on disk that lets in-flight data be recovered after a crash) before transferring it to object storage.
 
 The data ingestion flow is as follows:
 
@@ -80,14 +108,14 @@ The data ingestion flow is as follows:
 1. Check for a timestamp field and either convert the timestamp to microseconds or, if no timestamp field is present in the record, set it to the current timestamp.
 1. Check the stream schema to identify whether the schema needs evolution. If the schema needs to be updated (to add new fields or change the data type of existing fields), acquire `lock` to update the schema.
 1. Evaluate real time alerts, if any are defined for the stream.
-1. Write to WAL file by timestamp in hourly buckets. Then, convert records in a request to Arrow RecordBatch and write into Memtable.
+1. Write to WAL file by timestamp in hourly buckets. Then, convert records in a request to Arrow RecordBatch and write into the Memtable (an in-memory, writable buffer of recently ingested records).
 
     1. Create one Memtable per `organization/stream_type`. If data is being ingested only for `logs`, there would be only one Memtable.
     1. The WAL file and Memtable are created in a pair. One WAL file has one Memtable. The WAL files are located at `data/wal/logs`.
 
-1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reaches `ZO_MAX_FILE_SIZE_ON_DISK=128` MB, move the Memtable to Immutable and create a new Memtable and WAL file for writing data.
-2. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds, dump Immutable to local disk. One Immutable will result in multiple parquet files, as it may contain multiple streams and multiple partitions. The parquet files are located at `data/wal/files`.
-3. Every `ZO_FILE_PUSH_INTERVAL=10` seconds, check local parquet files. If any partition's total size is above `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file has been retained for `ZO_MAX_FILE_RETENTION_TIME=600` seconds, merge all such small files in a partition into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=2048 MB (2 GB)`) and move that file to object storage.
+1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reaches `ZO_MAX_FILE_SIZE_ON_DISK=128` MB, move the Memtable to an Immutable (a read-only, sealed snapshot of a Memtable that is waiting to be flushed to disk) and create a new Memtable and WAL file for writing data.
+1. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds, dump Immutable to local disk. One Immutable will result in multiple parquet files, as it may contain multiple streams and multiple partitions. The parquet files are located at `data/wal/files`.
+1. Every `ZO_FILE_PUSH_INTERVAL=10` seconds, check local parquet files. If any partition's total size is above `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file has been retained for `ZO_MAX_FILE_RETENTION_TIME=600` seconds, merge all such small files in a partition into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=2048 MB (2 GB)`) and move that file to object storage.
 
 **Ingesters store data in three parts:**
 

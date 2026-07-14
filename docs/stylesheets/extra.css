@@ -1677,3 +1677,65 @@ nav.md-grid {
     pointer-events: none !important;
   }
 }
+
+/* Give standalone content images breathing room from surrounding text.
+   A standalone image renders as its own <p><img></p>; center it and add
+   generous vertical spacing so diagrams don't sit flush against paragraphs. */
+.md-typeset p > img:only-child {
+  display: block;
+  margin: 1.75rem auto;
+}
+/* Zoomable content images invite a click (see js/image-lightbox.js) */
+.md-typeset p > img.o2-zoomable {
+  cursor: zoom-in;
+}
+
+/* --- Image lightbox: click a diagram to read it enlarged ----------------- */
+.o2-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  cursor: zoom-out;
+  overflow: auto;
+}
+.o2-lightbox.is-open {
+  display: flex;
+}
+.o2-lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+.o2-lightbox__close {
+  position: fixed;
+  top: 1rem;
+  right: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.o2-lightbox__close:hover,
+.o2-lightbox__close:focus {
+  background: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+/* Prevent the page behind the overlay from scrolling while it's open */
+body.o2-lightbox-open {
+  overflow: hidden;
+}

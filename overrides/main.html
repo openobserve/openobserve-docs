@@ -1,5 +1,58 @@
 {% extends "base.html" %} {% block extrahead %} {{ super() }}
 
+<!-- LLM discovery: point crawlers to the machine-readable summary -->
+<link
+  rel="alternate"
+  type="text/markdown"
+  title="LLM summary"
+  href="/docs/llms.txt"
+/>
+
+<!-- Structured data: Organization + WebSite + BreadcrumbList (+ TechArticle on child pages) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://openobserve.ai/#org",
+      "name": "OpenObserve",
+      "url": "https://openobserve.ai/",
+      "logo": "https://openobserve.ai/img/logo/logo.svg",
+      "description": "OpenObserve is an open-source observability platform for logs, metrics, and traces, built in Rust, with SQL and PromQL.",
+      "sameAs": [
+        "https://github.com/openobserve/openobserve",
+        "https://short.openobserve.ai/community",
+        "https://x.com/OpenObserve"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://openobserve.ai/docs/#website",
+      "url": "https://openobserve.ai/docs/",
+      "name": "OpenObserve Documentation",
+      "publisher": { "@id": "https://openobserve.ai/#org" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "OpenObserve", "item": "https://openobserve.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "Docs", "item": "https://openobserve.ai/docs/" }{% if page and page.url and page.url != '' %},
+        { "@type": "ListItem", "position": 3, "name": "{{ page.title|e }}", "item": "https://openobserve.ai/docs/{{ page.url }}" }{% endif %}
+      ]
+    }{% if page and page.url and page.url != '' %},
+    {
+      "@type": "TechArticle",
+      "headline": "{{ page.title|e }}",
+      "url": "https://openobserve.ai/docs/{{ page.url }}",
+      "isPartOf": { "@id": "https://openobserve.ai/docs/#website" },
+      "publisher": { "@id": "https://openobserve.ai/#org" }
+    }{% endif %}
+  ]
+}
+</script>
+
 <!-- Inter font — matches marketing website (website5 BaseLayout.astro) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
