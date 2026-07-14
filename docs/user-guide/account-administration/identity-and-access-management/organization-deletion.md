@@ -26,12 +26,12 @@ When you initiate deletion, the organization enters one of two paths depending o
 2. Go to **Settings** > **General Settings**.
 3. Scroll to the **Danger Zone** section at the bottom.
 
-![TODO: screenshot of General Settings Danger Zone section with delete button](images/placeholder.png)
+![General Settings Danger Zone section with delete button](images/org-deletion-1.png)
 
 4. Click **Delete organization**.
 5. In the confirmation dialog, type the organization name to confirm, then click **Delete organization** again.
 
-![TODO: screenshot of delete organization confirmation dialog with type-to-confirm](images/placeholder.png)
+![delete organization confirmation dialog with type-to-confirm](images/org-deletion-2.png)
 
 The organization is scheduled for deletion and becomes immediately inaccessible. Anyone still on it is automatically switched to another organization.
 
@@ -39,7 +39,7 @@ The organization is scheduled for deletion and becomes immediately inaccessible.
 
 **_meta** organization administrators can manage deletions across all organizations from the **IAM > Organizations** page. This view includes a **Status** column showing the current lifecycle phase and grace-period countdown for each organization.
 
-![TODO: screenshot of _meta Organizations page with status column showing pending_deletion and deleting states](images/placeholder.png)
+![_meta Organizations page with status column showing pending_deletion and deleting states](images/org-deletion-3.png)
 
 ### Resurrect an Organization
 
@@ -50,7 +50,7 @@ While an organization is in `pending_deletion` status — and before the grace p
 3. Locate the organization with `pending_deletion` status.
 4. Click the **Resurrect** (undo) action button.
 
-![TODO: screenshot of _meta Organizations page with resurrect button on a pending_deletion row](images/placeholder.png)
+![_meta Organizations page with resurrect button on a pending_deletion row](images/org-deletion-4.png)
 
 The organization returns to `active` status, its data is untouched, and all members regain access.
 
@@ -63,7 +63,7 @@ When an organization is in `deleting` status, you can inspect the cleanup task l
 3. Locate the organization with `deleting` status.
 4. Click the **View deletion progress** (history) action button.
 
-![TODO: screenshot of Org Cleanup Tasks dialog showing progress bar, step list, and status badges](images/placeholder.png)
+![Org Cleanup Tasks dialog showing progress bar, step list, and status badges](images/org-deletion-5.png)
 
 The dialog shows each cleanup step with its status (**pending**, **running**, **done**, or **failed**), attempt count, and any error details. Per-stream deletion tasks are grouped into a collapsible "Delete Streams" row. The dialog auto-refreshes every 5 seconds while the deletion is in progress.
 
