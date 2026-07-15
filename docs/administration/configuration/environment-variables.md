@@ -292,6 +292,8 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_DISK_CACHE_SKIP_SIZE | - | Default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB |
 | ZO_DISK_CACHE_RELEASE_SIZE | - | Default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB |
 | ZO_DISK_CACHE_STRATEGY | lru | Disk data cache strategy, values are lru, time_lru, fifo |
+| ZO_MEMORY_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the memory cache. Files whose data is older than this value are skipped — queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
+| ZO_DISK_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the disk cache. Files whose data is older than this value are skipped — queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
 
 
 ## HTTP TLS
