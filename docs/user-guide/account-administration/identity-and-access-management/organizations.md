@@ -87,5 +87,6 @@ When enabled:
 - **Identifier Visibility in UI**: The organization list in the UI displays both the name and the identifier, helping you distinguish between organizations with the same name.
 - **Switching Organizations**: Use the dropdown in the top navigation bar to switch between organizations you have access to. All actions, such as queries and configurations, apply only to the selected organization.
 - **Search by Name**: You can search for organizations by name using the search bar on the Organizations page.
-- **Rename and Delete Restrictions**: Organizations cannot be renamed or deleted. 
+- **Rename Restrictions**: Organizations cannot be renamed.
+- **Organization Deletion**: In cloud deployments, organizations can be deleted with a configurable grace period. See [Organization Deletion](organization-deletion.md).
 
