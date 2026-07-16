@@ -399,6 +399,16 @@ When connected, your MCP client will see the following tools. Tool names are pre
     | `UpdateStreamSettings` | Update stream settings ⚠️ |
     | `StreamDelete` | Delete a stream ⚠️ |
 
+??? "Traces (5 tools)"
+
+    | Tool | Description |
+    | --- | --- |
+    | `GetLatestTraces` | List recent traces with summaries (trace_id, span count, service names, duration). Supports filter and sort by start_time/duration (`pinned`) |
+    | `GetLatestSessions` | List recent LLM sessions from a trace stream: session_id, trace count, token usage, cost, error count |
+    | `GetSessionDetails` | Get per-turn trace summaries for a single LLM session by session_id |
+    | `GetLatestUsers` | List recent LLM users from a trace stream: user_id, event count, token usage, cost |
+    | `GetTraceDAG` | Get the span DAG (nodes and parent-child edges) for a specific trace by trace_id |
+
 ??? "Users (5 tools)"
 
     | Tool | Description |
