@@ -144,7 +144,7 @@ You'll use this token in every client below.
     MCP is an open protocol supported by many clients (Cline, Zed, Continue, and more). Consult your client's documentation for the exact config format. The values you'll need:
 
     - **URL:** `https://your-instance/api/{org_id}/mcp`
-    - **Transport:** Streamable HTTP (`POST` for requests, `GET` for the event stream, `DELETE` to terminate a session)
+    - **Transport:** HTTP
     - **Auth header:** `Authorization: Basic <YOUR_BASE64_TOKEN>`
 
 ## Building autonomous agents
@@ -184,14 +184,6 @@ EOF
 ```
 
 This pattern works with [OpenAI's Responses API](https://platform.openai.com/docs/guides/tools-remote-mcp), Anthropic's API, and any agent runtime that supports remote MCP servers.
-
-### Transport and protocol version
-
-The server speaks MCP protocol version `2025-11-25` over Streamable HTTP.
-
-- Non-`initialize` requests should send the header `MCP-Protocol-Version: 2025-11-25`. A version mismatch returns `400`.
-- JSON-RPC notifications (requests without an `id`) return `202` with no body.
-- Clients may send `DELETE /api/{org_id}/mcp` to terminate a session, which returns `204`. The OpenObserve MCP server is stateless, so this is a no-op beyond acknowledging the request.
 
 ## Available tools
 
@@ -407,6 +399,16 @@ When connected, your MCP client will see the following tools. Tool names are pre
     | `UpdateStreamSettings` | Update stream settings ⚠️ |
     | `StreamDelete` | Delete a stream ⚠️ |
 
+??? "Traces (5 tools)"
+
+    | Tool | Description |
+    | --- | --- |
+    | `GetLatestTraces` | List recent traces with summaries (trace_id, span count, service names, duration). Supports filter and sort by start_time/duration (`pinned`) |
+    | `GetLatestSessions` | List recent LLM sessions from a trace stream: session_id, trace count, token usage, cost, error count |
+    | `GetSessionDetails` | Get per-turn trace summaries for a single LLM session by session_id |
+    | `GetLatestUsers` | List recent LLM users from a trace stream: user_id, event count, token usage, cost |
+    | `GetTraceDAG` | Get the span DAG (nodes and parent-child edges) for a specific trace by trace_id |
+
 ??? "Users (5 tools)"
 
     | Tool | Description |
@@ -416,15 +418,6 @@ When connected, your MCP client will see the following tools. Tool names are pre
     | `UserUpdate` | Update user details |
     | `AddUserToOrg` | Add user to organization |
     | `RemoveUserFromOrg` | Remove user from organization ⚠️ |
-
-### Tool response format
-
-By default, search and list tools return a summarized response to keep results compact:
-
-- **Search tools** (`SearchSQL`, `SearchAround`) return only `hits`, `total`, `took`, `columns`, `scan_size`, and `function_error`, with hits capped at 100. To retrieve the full result set, add a `LIMIT` clause in your SQL or request `detail='full'`.
-- **List tools** return only the fields declared in each tool's `summary_fields`.
-
-Pass `detail='full'` to receive the complete, unsummarized response.
 
 ## Multi-organization workflows
 
