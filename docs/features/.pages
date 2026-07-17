@@ -3,5 +3,6 @@ nav:
   - Metric Monitoring: metrics.md
   - Distributed Tracing: distributed-tracing.md
   - Frontend Observability: frontend.md
+  - Synthetic Monitoring: synthetics.md
   - Enterprise Features: enterprise.md
   - What's next: upcoming.md
