@@ -10,7 +10,7 @@ Workflows let you define automated chains of operations that execute in response
 
 Workflows are an **enterprise** feature, gated by the `O2_WORKFLOWS_ENABLED` configuration flag (enabled by default in enterprise editions). They share the same visual node-edge builder as pipelines but introduce workflow-specific node types: **Trigger**, **Query**, **Function** (JavaScript only), **Condition**, and **Destination**.
 
-![TODO: screenshot of workflows list page](images/placeholder.png)
+![workflows list page](images/workflows-1.png)
 
 To navigate to workflows, select your organization and click **Pipelines > Workflows** in the left navigation.
 
@@ -38,7 +38,7 @@ A workflow graph is built from the following nodes connected by edges:
 
 ## Create a workflow
 
-![TODO: screenshot of workflow builder with nodes and edges](images/placeholder.png)
+![workflow builder with nodes and edges](images/workflows-2.png)
 
 1. Navigate to **Pipelines > Workflows** and click **Add Workflow**.
 2. Enter a **Name** and optional **Description**.
@@ -72,7 +72,7 @@ You can test a workflow without waiting for an alert to trigger it.
 3. Optionally specify a **from node** ID to start execution from an intermediate node (useful for debugging a specific node).
 4. Click **Run Test**. The results show per-node errors, if any.
 
-![TODO: screenshot of workflow test results](images/placeholder.png)
+![workflow test results](images/workflows-3.png)
 
 The test endpoint is also available via the API at `POST /api/{org_id}/workflows/{id}/test`.
 
@@ -80,7 +80,7 @@ The test endpoint is also available via the API at `POST /api/{org_id}/workflows
 
 To have a workflow execute when an alert fires, link it in the alert configuration.
 
-![TODO: screenshot of alert form showing workflows field](images/placeholder.png)
+![alert form showing workflows field](images/workflows-4.png)
 
 1. Open an existing alert or create a new one.
 2. In the **Alert Rules** tab, find the **Workflows** field under destinations.
@@ -126,7 +126,7 @@ A workflow trigger payload looks like:
 
 The workflow history page shows every execution of a workflow triggered by alerts, with timing and status.
 
-![TODO: screenshot of workflow execution history](images/placeholder.png)
+![workflow execution history](images/workflows-5.png)
 
 1. Open a workflow and click the **History** tab.
 2. Use the time range picker to filter executions. The default range is the last 7 days (subject to the `max_query_range` setting on the `triggers` stream).
@@ -152,7 +152,7 @@ When a workflow run produces node-level errors, the errors and the input data th
    - The input data that reached each errored node.
    - The complete initial input data for the run.
 
-![TODO: screenshot of workflow error details with input data](images/placeholder.png)
+![workflow error details with input data](images/workflows-6.png)
 
 ### Retry a failed run
 
