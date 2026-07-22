@@ -22,7 +22,10 @@ Replace `{stream}` in the SQL examples below with your stream name (e.g. `defaul
         "size": 0
     },
     "search_type": "ui",
-    "timeout": 0
+    "timeout": 0,
+    "agent_options": {
+        "output_format": "csv"
+    }
 }
 ```
 
@@ -38,6 +41,8 @@ Description
 | query.size | int64     | 0             | limit in SQL  |
 | search_type | string   | -             | default is empty, support: `ui`, `dashboards`, `reports`, `alerts` |
 | timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
+| agent_options | object | -             | optional agent-oriented response options (see below) |
+| agent_options.output_format | string | `json`  | render `hits` as a compact string block: `json`, `csv`, or `md_table`. `csv` saves ~40% tokens vs JSON; `md_table` adds aligned columns (~8% more than csv). See [Agent Output Formats](#agent-output-formats). |
 
 ## Response
 
@@ -96,6 +101,10 @@ Description
 | size       | int64     | 0             | value from `query.size` |
 | scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
 | hits       | array     | -             | records for query, each record is a log row what you ingested. |
+| columns    | array     | -             | column names in order, set when `agent_options.output_format` is `csv` or `md_table`. |
+| format     | string    | -             | format used: `csv`, `md_table`, or `ndjson` (automatic fallback). Set only when `agent_options.output_format` is active. |
+| data       | string    | -             | formatted result block when `format` is set; `hits` is emptied. |
+| advisory   | string    | -             | note about server-side formatting decisions (e.g. sparse fallback reason). |
 
 
 ## SQL Syntax
@@ -212,6 +221,80 @@ Here list some common examples, if you want more example please create a issue t
     }
 }
 ```
+
+## Agent Output Formats
+
+When consumed by an AI agent or MCP tool, a standard JSON `hits` array repeats column keys on every row, wasting tokens. Set `agent_options.output_format` to `csv` or `md_table` to receive a compact string block instead — typically **~40% fewer tokens** than equivalent JSON.
+
+Formatting runs at the serialization edge only: the search engine and result cache always store the original JSON hits, so a UI query (`json`) and an agent query (`csv`) share the same cache entry.
+
+### Request
+
+```json
+{
+    "query": {
+        "sql": "SELECT * FROM {stream}",
+        "start_time": 1674789786006000,
+        "end_time": 1674789786006000,
+        "from": 0,
+        "size": 5
+    },
+    "agent_options": {
+        "output_format": "csv"
+    }
+}
+```
+
+### CSV response
+
+```json
+{
+    "took": 12,
+    "total": 27179431,
+    "from": 0,
+    "size": 5,
+    "columns": ["_timestamp", "log", "stream"],
+    "format": "csv",
+    "data": "_timestamp,log,stream\n1674213225158000,\"[2023-01-20T11:13:45Z INFO  ...]\",stderr\n1674213225159000,\"[2023-01-20T11:13:45Z WARN  ...]\",stdout\n1674213225160000,\"[2023-01-20T11:13:46Z ERROR ...]\",stderr\n1674213225161000,\"[2023-01-20T11:13:46Z INFO  ...]\",stdout\n1674213225162000,\"[2023-01-20T11:13:47Z DEBUG ...]\",stdout"
+}
+```
+
+### Markdown table response
+
+Set `output_format` to `md_table`:
+
+```json
+{
+    "format": "md_table",
+    "data": "| _timestamp | log | stream |\n| --- | --- | --- |\n| 1674213225158000 | [2023-01-20T11:13:45Z INFO ...] | stderr |\n| 1674213225159000 | [2023-01-20T11:13:45Z WARN ...] | stdout |"
+}
+```
+
+### Escaping rules
+
+| Feature | Behavior |
+|---|---|
+| **Newlines** | Converted to a literal `\n` so every record stays on one physical line (multi-line cells confuse LLMs). |
+| **Commas / quotes** | Standard CSV quoting: values containing `,` or `"` are wrapped in double quotes, internal `"` are doubled. |
+| **Pipes (md_table)** | Escaped as `\|` to preserve table structure. |
+| **Nested objects/arrays** | Minified JSON in the cell. |
+| **Missing / null cells** | Rendered as empty. |
+
+### Column order
+
+The server sets `columns` in this order:
+1. Server-provided columns (if any) appear first.
+2. Remaining keys appear in first-seen order across rows.
+3. `_timestamp` is promoted to the front (when server didn't provide an explicit order).
+
+### Automatic fallback to NDJSON
+
+The server automatically falls back to newline-delimited JSON (`format: "ndjson"`) in two cases:
+
+- **Sparse results**: 20 or more columns with over 50% empty cells — a wide, sparse grid as a table would be mostly empty cells and harder to parse.
+- **Non-object hits**: some queries return scalar rows (e.g. `SELECT count(*)`) that cannot be laid out as a table.
+
+The `advisory` field explains the reason. You can detect a fallback by checking `format == "ndjson"`.
 
 ## Next steps
 
