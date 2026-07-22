@@ -56,6 +56,12 @@ Use this guide to create a **Browser Test**. A browser check replays a multi-ste
 
     3. Click **Open & Record** to start recording, or select **Skip -- I'll build the steps manually**.
 
+    Recording opens your starting URL in a fresh incognito window with the recorder attached. A banner reads **OpenObserve Synthetics Recorder started debugging this browser**, and the recorder highlights each element as you point at it, showing the selector it captured.
+
+    ![Recorder attached to an incognito window, showing a captured selector for a link](images/recorder-in-action.png)
+
+    Use the site as a user would. The recorder captures each click, entry, and navigation as a step.
+
     !!! note "Recording runs in incognito"
         Recording and replay open a separate incognito window, which is why the extension must be allowed in incognito mode. The extension replays the journey on your own machine, not from a probe location.
 
@@ -66,7 +72,11 @@ Use this guide to create a **Browser Test**. A browser check replays a multi-ste
 
     ![Empty journey with the Record journey and Add a step manually buttons](images/journey-empty-state.png)
 
-    Use the toolbar to work on the journey:
+    While recording is running, the list fills in live and the header shows a red **Recording** indicator. Click **Stop** when the journey is complete.
+
+    ![Journey editor recording live, with steps appearing and a Stop button](images/journey-recording.png)
+
+    Use the toolbar to work on the journey once recording stops:
 
     - **Add Step** appends an empty step for you to fill in.
     - **Record** reopens the recorder to capture more steps.
