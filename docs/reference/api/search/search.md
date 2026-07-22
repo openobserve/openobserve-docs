@@ -38,6 +38,9 @@ Description
 | query.size | int64     | 0             | limit in SQL  |
 | search_type | string   | -             | default is empty, support: `ui`, `dashboards`, `reports`, `alerts` |
 | timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
+| agent_options | object    | -             | options for agent/MCP clients |
+| agent_options.mode | string | `default` | query execution mode: `default` (result cache path) or `partition` (streaming partition loop, see below) |
+| agent_options.output_format | string | `json` | response format for hits: `json`, `csv`, or `md_table` |
 
 ## Response
 
@@ -97,6 +100,43 @@ Description
 | scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
 | hits       | array     | -             | records for query, each record is a log row what you ingested. |
 
+
+## Agent options
+
+### `output_format`
+
+Controls how hits are formatted in the response. Useful for agent/MCP clients that pay per token.
+
+| Value       | Description |
+|-------------|-------------|
+| `json`      | Default. Hits returned as a JSON array of objects. |
+| `csv`       | Tabular hits as a compact CSV block (~40% fewer tokens than JSON). |
+| `md_table`  | Tabular hits as a Markdown table. Best for small result sets. |
+
+### `mode: partition`
+
+Set `agent_options.mode` to `partition` to run search through the streaming backend pipeline. The server scans time partitions one by one and stops early once enough rows are collected, which reduces data scanned for top-N queries. For aggregation queries, the server accumulates reusable cache partition by partition, so repeated queries against shifting time windows hit progressively warmer cache instead of invalidating a monolithic entry.
+
+This mode is designed for agent/MCP clients that speak plain request-response and cannot consume SSE — it exposes the same partitioned execution that the streaming `_search_stream` endpoint uses, collected into a single response.
+
+| Value       | Description |
+|-------------|-------------|
+| `default`   | (default) Single search through the result cache path. Behavior is byte-for-byte unchanged. |
+| `partition` | Partitioned execution with per-partition early termination and streaming-agg caching, collected into one response. |
+
+**Key behaviors in partition mode:**
+
+- **Early termination**: scanning stops once the query has enough rows; useful for `SELECT ... LIMIT 100`-style queries scanning a wide time range.
+- **Progressive aggregation cache**: aggregation queries (histogram, term counts, etc.) build up the streaming-agg cache partition by partition, so follow-up queries with similar time windows reuse cached work.
+- **Cancellation**: if the HTTP client disconnects (drops the request), the per-partition loop stops — you are not billed for scanning partitions you never see.
+- **No SSE required**: the response is a plain JSON `Response` identical in shape to `default` mode, with all hit pages and scan counters folded together.
+
+**When to use partition mode:**
+
+- Your client cannot consume SSE (MCP tools, REST clients, curl-based scripts).
+- You are scanning a large time range but only need a few rows (top-N or sample).
+- You run exploratory queries that shift their time window with each call — the progressive cache rewards this pattern.
+- **Do NOT** split the time range yourself and call `_search` in a loop. Let the server do it with one call in `partition` mode.
 
 ## SQL Syntax
 
@@ -212,6 +252,45 @@ Here list some common examples, if you want more example please create a issue t
     }
 }
 ```
+
+### Partition mode with CSV output
+
+Run a top-N query across a wide time window with partition mode, returning hits as compact CSV:
+
+```json
+{
+    "query": {
+        "sql": "SELECT * FROM {stream} WHERE code=500 ORDER BY _timestamp DESC",
+        "start_time": 1674000000000000,
+        "end_time": 1675000000000000,
+        "from": 0,
+        "size": 50
+    },
+    "agent_options": {
+        "mode": "partition",
+        "output_format": "csv"
+    }
+}
+```
+
+With `mode: partition`, the server scans partitions one by one and stops early once it has 50 rows, instead of scanning the full time range through the cache path.
+
+### Partition mode for aggregation
+
+```json
+{
+    "query": {
+        "sql": "SELECT kubernetes_namespace_name, COUNT(*) AS cnt FROM {stream} GROUP BY kubernetes_namespace_name ORDER BY cnt DESC LIMIT 10",
+        "start_time": 1674000000000000,
+        "end_time": 1675000000000000
+    },
+    "agent_options": {
+        "mode": "partition"
+    }
+}
+```
+
+Each partition's aggregation result accumulates into a progressively merged cache entry. Follow-up queries with slightly shifted time windows reuse that cached work.
 
 ## Next steps
 
