@@ -213,6 +213,71 @@ Here list some common examples, if you want more example please create a issue t
 }
 ```
 
+## Error Responses
+
+When a search request fails, the API returns a standard error body. For certain error codes, the response includes **self-correcting guidance** to help you (or an AI agent) fix the query without manual investigation.
+
+### Error Response Body
+
+| Field name   | Data type     | Always present | Description |
+|-------------|---------------|----------------|-------------|
+| code         | int           | yes            | Numeric error code (see below) |
+| message      | string        | yes            | Human-readable problem description |
+| error_detail | string        | no             | Raw technical detail (omitted when `hint`/`suggestions` are present) |
+| hint         | string        | no             | One-line guidance on how to fix the error |
+| suggestions  | array[string] | no             | Closest valid alternatives (up to 3), ranked by similarity |
+
+The `hint` and `suggestions` fields appear only when the server has enough information to offer useful guidance. Existing clients that ignore these optional fields are unaffected.
+
+### Field Not Found (`code: 20004`)
+
+When you reference a field that doesn't exist in the stream schema:
+
+```json
+{
+  "code": 20004,
+  "message": "unknown field 'servce'",
+  "suggestions": ["service"]
+}
+```
+
+The `suggestions` list contains the closest matching field names ranked by edit distance. If no close match is found, `hint` provides a fallback:
+
+- **Small schemas** (10 fields or fewer): the `hint` lists all valid fields.
+- **Large schemas**: the `hint` directs you to use the [stream schema endpoint](../stream/schema.md).
+- **UDS violations** (the field exists in the raw stream but not in the User-Defined Schema): the `hint` explains that the field is excluded by the UDS and suggests adding it in stream settings.
+
+### Function Not Defined (`code: 20005`)
+
+When you call a function that doesn't exist:
+
+```json
+{
+  "code": 20005,
+  "message": "unknown function 'str_mach'",
+  "hint": "usage: str_match(field, 'v')",
+  "suggestions": ["str_match", "str_match_ignore_case"]
+}
+```
+
+Suggestions cover both OpenObserve UDFs and DataFusion built-in functions. When a top suggestion is found, the `hint` carries a usage example for the closest match.
+
+### Other Error Codes
+
+| Code  | Name                          | Description |
+|-------|-------------------------------|-------------|
+| 20001 | `ServerInternalError`         | Internal server error |
+| 20002 | `SearchSQLNotValid`           | SQL syntax is invalid |
+| 20003 | `SearchStreamNotFound`        | Stream does not exist |
+| 20004 | `SearchFieldNotFound`         | Field name not found (with suggestions) |
+| 20005 | `SearchFunctionNotDefined`    | Function name not found (with suggestions) |
+| 20008 | `SearchSQLExecuteError`       | SQL execution failed |
+| 20009 | `SearchCancelQuery`           | Query was cancelled |
+| 20010 | `SearchTimeout`               | Query timed out |
+| 20011 | `InvalidParams`               | Invalid request parameters |
+| 20012 | `RatelimitExceeded`           | Rate limit exceeded |
+| 20013 | `SearchHistogramNotAvailable` | Histogram data unavailable |
+
 ## Next steps
 
 - [Example queries](../../../user-guide/data-exploration/example-queries.md): copy-paste SQL examples to try.
