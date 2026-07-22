@@ -169,7 +169,7 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 
 ![the Add Eval Job form](images/online-evaluations-9.png)
 
-![TODO: screenshot of eval job form with target scope selector](images/placeholder.png)
+![eval job form with target scope selector](images/trace-session-evaluations-1.png)
 
 ### Target scope
 
@@ -214,7 +214,7 @@ The end signal is a standard condition expression, using the same filter syntax 
 
 When an end signal is configured, the target is evaluated when the signal span arrives OR when max age is reached, whichever occurs first.
 
-![TODO: screenshot of trace config with end signal](images/placeholder.png)
+![trace config with end signal](images/trace-session-evaluations-2.png)
 
 ### Span selectors (trace scope)
 
@@ -233,7 +233,7 @@ A span selector defines:
 
 Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. Every scorer in a trace-scope job must have a binding before the job can be activated.
 
-![TODO: screenshot of span selector configuration](images/placeholder.png)
+![span selector configuration](images/trace-session-evaluations-3.png)
 
 ### Manual evaluation
 
@@ -299,13 +299,13 @@ Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreReco
 
 The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams.
 
-![TODO: screenshot of quality page KPI cards with scope breakdown](images/placeholder.png)
+![quality page KPI cards with scope breakdown](images/trace-session-evaluations-4.png)
 
 ### Scope filtering
 
 When you drill into a specific score config from the quality page, the detail drawer includes a **scope selector** that lets you filter KPI cards, trend charts, and the evaluation runs table by target scope: **All**, **Span**, **Trace**, or **Session**. Switching the scope re-runs all queries within the drawer so you see metrics scoped to the selected granularity.
 
-![TODO: screenshot of quality detail drawer with scope selector](images/placeholder.png)
+![quality detail drawer with scope selector](images/trace-session-evaluations-5.png)
 
 ### Evaluation runs
 
@@ -313,7 +313,7 @@ The score config detail drawer includes an **Evaluation Runs** table that lists 
 
 The runs table supports pagination and filtering (all runs or unhealthy only). Scope selector drilling works with the runs table — changing scope narrows the listed runs to only the selected target granularity.
 
-![TODO: screenshot of evaluation runs table in quality detail](images/placeholder.png)
+![evaluation runs table in quality detail](images/trace-session-evaluations-6.png)
 
 ## RBAC
 
