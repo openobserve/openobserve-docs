@@ -1,3 +1,7 @@
+---
+description: "Enrich log data in OpenObserve using VRL functions and CSV enrichment tables, with hands-on examples for protocol lookups and MaxMind GeoIP location data."
+---
+
 # Enrichment Examples
 
 ## Introduction 

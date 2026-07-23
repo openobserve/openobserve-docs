@@ -1,3 +1,7 @@
+---
+description: "RUM error tracking automatically captures frontend JavaScript, network, and resource errors with stack traces, then links each one to its session replay."
+---
+
 # Error Tracking
 
 Error tracking is crucial for maintaining application quality and user experience. Unlike server-side errors, frontend errors often go unnoticed unless you have proper monitoring in place. OpenObserve RUM automatically captures and tracks all frontend errors, giving you complete visibility into issues affecting your users.

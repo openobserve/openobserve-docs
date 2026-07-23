@@ -1,3 +1,7 @@
+---
+description: "Manage OpenObserve users by inviting members, creating accounts, assigning admin or member roles, and updating user details across one or many organizations."
+---
+
 # Users
 Users are individuals using OpenObserve by logging in with appropriate credentials. 
 

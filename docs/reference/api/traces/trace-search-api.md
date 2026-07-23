@@ -1,3 +1,7 @@
+---
+description: "Retrieve the latest traces from OpenObserve with the GET traces/latest endpoint, using time range, pagination, and filter parameters to fetch trace spans."
+---
+
 ## Get Latest Traces
 
 Retrieve traces within a specified time range.

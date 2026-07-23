@@ -1,3 +1,7 @@
+---
+description: "Anomaly Detection uses Random Cut Forest machine learning to flag unusual patterns in logs, metrics, and traces automatically, with no manual threshold tuning."
+---
+
 # Anomaly Detection
 
 Anomaly Detection automatically identifies unusual patterns in your data streams using machine learning, alerting you to deviations before they become incidents.

@@ -1,3 +1,7 @@
+---
+description: "Define stream fields in OpenObserve with data types (utf8, int64, boolean) and index types like full-text search, bloom filter, and partitions to speed queries."
+---
+
 This guide explains how to define and configure stream fields in OpenObserve, including supported field types and index options. 
 
 

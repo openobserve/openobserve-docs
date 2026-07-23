@@ -1,3 +1,7 @@
+---
+description: "Incident Management correlates related alert firings into unified incidents with AI root cause analysis, alert graphs, and correlated logs, metrics, and traces."
+---
+
 # Incident Management
 
 Incident Management automatically groups related alert firings into unified incidents, reducing alert noise and helping you focus on root causes instead of individual alerts.

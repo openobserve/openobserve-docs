@@ -1,3 +1,7 @@
+---
+description: "Create scheduled pipelines in OpenObserve that run at set intervals, querying data with SQL or PromQL to transform and load results into a destination stream."
+---
+
 Use this guide to create and run scheduled pipelines. Scheduled pipelines run at a fixed interval. They query existing data from a stream using SQL or PromQL, apply optional transformations, and write the results to a destination stream or external system.
 
 > Visit the [Pipelines overview](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipelines/) page before starting. 

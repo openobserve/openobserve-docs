@@ -1,3 +1,7 @@
+---
+description: "Reports schedule recurring PDF, PNG, or CSV exports of OpenObserve dashboards, delivered by email with folders, inline or file attachments, and custom sizes."
+---
+
 The Reports section allows users to create and manage recurring reports from dashboard visualizations. Reports can be configured as either Scheduled or Cached.
 
 ## Organize reports into folders

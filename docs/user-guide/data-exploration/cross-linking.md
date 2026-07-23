@@ -1,3 +1,7 @@
+---
+description: "Cross-Linking creates drill-down links from log records, trace records, and dashboard panels to external URLs using templates that substitute field values."
+---
+
 # Cross-Linking
 
 Cross-Linking lets you define drill-down links that take you from a log or trace record, or a dashboard panel, directly to an external URL. Use it to connect OpenObserve data with related systems such as APM tools, ticketing systems, runbooks, or internal dashboards.
