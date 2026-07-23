@@ -1,21 +1,21 @@
 ---
 description: >-
-  Use the monitor results and run detail views in OpenObserve to review synthetic
-  check pass rate, response time, failing steps, and screenshots.
+  Use the results and run detail views in OpenObserve to review browser check
+  pass rate, response time, failing steps, and screenshots.
 ---
 # Analyze Check Results
 
-Use this guide to review how a synthetic check has behaved over time, find the runs that failed, and inspect the step that broke.
+Use this guide to review how a browser check has behaved over time, find the runs that failed, and inspect the step that broke.
 
-> Visit the [Synthetic Monitoring in OpenObserve](https://openobserve.ai/docs/user-guide/analytics/synthetics/synthetic-monitoring-in-openobserve/) page before starting. It explains the concepts used in this guide.
+> Visit the [Browser Checks in OpenObserve](https://openobserve.ai/docs/user-guide/analytics/synthetics/synthetic-monitoring-in-openobserve/) page before starting. It explains the concepts used in this guide.
 
 !!! info "Availability"
-    This feature is available only in Enterprise Edition and Cloud.
+    Browser checks are available on OpenObserve Cloud and are currently in preview.
 
 ## Prerequisites
 
-- A synthetic check exists and has completed at least one run.
-- You have permissions to work with synthetic checks. Access is controlled from IAM > Roles > Permissions.
+- A browser check exists and has completed at least one run.
+- You have permissions to work with browser checks. Access is controlled from IAM > Roles > Permissions.
 
 ## Open the results
 
@@ -104,7 +104,7 @@ OpenObserve keeps screenshots and traces in object storage and serves them throu
 
 ## Related Links
 
-- [Synthetic Monitoring in OpenObserve](synthetic-monitoring-in-openobserve.md)
+- [Browser Checks in OpenObserve](synthetic-monitoring-in-openobserve.md)
 - [Create a Browser Check](create-a-browser-check.md)
 
 **Need help:**

@@ -1,15 +1,15 @@
 ---
 description: >-
-  Understand public and private synthetic monitoring locations in OpenObserve,
+  Understand public and private browser check locations in OpenObserve,
   how probe agents connect to a private location, and how location health is
   determined.
 ---
 # Locations and Probe Agents
 
-This guide explains where synthetic checks run from, the difference between public and private locations, and how probe agents serve a private location.
+This guide explains where browser checks run from, the difference between public and private locations, and how probe agents serve a private location.
 
 !!! info "Availability"
-    This feature is available only in Enterprise Edition and Cloud.
+    Browser checks are available on OpenObserve Cloud and are currently in preview.
 
 ## Locations
 
@@ -26,10 +26,8 @@ Use a private location to check a target that a public location cannot reach, su
 
 A location record carries a name, a provider (AWS, GCP, Azure, or custom), a region, and an enabled flag. In the check form, locations appear as `{name} · {region}`.
 
-!!! note "No locations are registered by default"
-    A new deployment starts with an empty location registry, and check creation fails until at least one location exists. The error tells you that no locations are registered on this deployment and asks you to register one before creating synthetics.
-
-    Only the root user can create or edit public locations.
+!!! note "At least one location is required"
+    A check cannot be created until at least one location is available to select. OpenObserve Cloud provides public locations. To run checks from your own environment, add a private location and connect a probe agent to it.
 
 ## View private locations
 
@@ -84,7 +82,7 @@ Click **Set up an agent** on the **Private Locations** tab. OpenObserve walks yo
 
 ## Related Links
 
-- [Synthetic Monitoring in OpenObserve](synthetic-monitoring-in-openobserve.md)
+- [Browser Checks in OpenObserve](synthetic-monitoring-in-openobserve.md)
 - [Create a Browser Check](create-a-browser-check.md)
 
 **Need help:**
