@@ -62,6 +62,34 @@ Click the time range selector to define a time window for your query:
 
 This setting limits the query to logs that fall within the selected time range, which helps reduce the amount of data scanned and improves query speed.
 
+### Copy and Paste Time Ranges
+
+The time range picker includes **Copy** and **Paste** buttons so you can transfer a time range between browser tabs, share it with a teammate, or reuse a saved time window.
+
+<kbd>
+![TODO: screenshot of date time picker with copy and paste buttons](images/placeholder.png)
+</kbd>
+
+**Copy a time range**
+
+Click the **Copy** (content-copy) icon in the time range picker toolbar. The selected range is copied to your clipboard as a JSON object containing start and end epoch timestamps in microseconds, which avoids any timezone ambiguity when pasted.
+
+**Paste a time range**
+
+Click the **Paste** (content-paste) icon. If your clipboard contains a valid date range, the picker switches to the **Absolute** tab and applies it. Supported paste formats include:
+
+| Format | Example |
+|--------|---------|
+| **Copy-emitted JSON** | `{"start_date":1721557986000000,"end_date":1721565186000000}` |
+| **ISO 8601 range** | `2026-07-21T13:33:06Z - 2026-07-21T15:33:06Z` |
+| **Human log format** | `Jul 21, 2026 13:33:06.000 +0000 - Jul 21, 2026 15:33:06.000 +0000` |
+| **Absolute date range** | `2026/07/21 13:33:06 - 2026/07/21 15:33:06` |
+| **Epoch timestamps** | `1721557986000000 - 1721565186000000` (µs, ms, or seconds) |
+
+You can also paste a **single date-time value** (any of the above formats without the ` - second_value` part). The picker applies it to whichever side of the current range it sits closer to — adjusting the start or end accordingly.
+
+If the pasted text cannot be parsed, an error toast appears with the message **Could not parse date range**.
+
 ## View and Explore Logs
 After the query runs successfully, the results table shows all log entries that match the selected stream, time range, and query conditions.
 Click a row to expand the full log record.
