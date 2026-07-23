@@ -67,7 +67,7 @@ This setting limits the query to logs that fall within the selected time range, 
 The time range picker includes **Copy** and **Paste** buttons so you can transfer a time range between browser tabs, share it with a teammate, or reuse a saved time window.
 
 <kbd>
-![TODO: screenshot of date time picker with copy and paste buttons](images/placeholder.png)
+![date time picker with copy and paste buttons](images/date-time-picker-copy-paste-1.png)
 </kbd>
 
 **Copy a time range**
