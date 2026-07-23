@@ -8,16 +8,16 @@ description: >-
 
 Use this guide to create a **Browser Test**. A browser check replays a multi-step user journey in a real browser from your selected locations, and reports where the journey broke.
 
-> Visit the [Synthetic Monitoring in OpenObserve](https://openobserve.ai/docs/user-guide/analytics/synthetics/synthetic-monitoring-in-openobserve/) page before starting. It explains the concepts used in this guide.
+> Visit the [Browser Checks in OpenObserve](https://openobserve.ai/docs/user-guide/analytics/synthetics/synthetic-monitoring-in-openobserve/) page before starting. It explains the concepts used in this guide.
 
 !!! info "Availability"
-    This feature is available only in Enterprise Edition and Cloud.
+    Browser checks are available on OpenObserve Cloud and are currently in preview.
 
 ## Prerequisites
 
-- Your OpenObserve Cloud or self-hosted instance is running.
-- You have permissions to work with synthetic checks. Access is controlled from IAM > Roles > Permissions.
-- At least one location is registered on the deployment.
+- You have access to OpenObserve Cloud.
+- You have permissions to work with browser checks. Access is controlled from IAM > Roles > Permissions.
+- At least one location is available to select. OpenObserve Cloud provides public locations.
 - To record a journey rather than build it by hand, install the **OpenObserve Recorder** Chrome extension and allow it in incognito mode.
 
 ## Steps to create a browser check
@@ -178,7 +178,7 @@ Use this guide to create a **Browser Test**. A browser check replays a multi-ste
     2. In **Browsers & Devices**, tick the combinations to run. The grid lists a row per browser and a column per device, and defaults to Chromium on Desktop.
 
     !!! note "Which browsers you see"
-        The browsers and devices offered are reported by the probe agents serving your locations, so the grid differs between deployments. A deployment whose agents run only Chromium shows a single browser row.
+        The browsers and devices offered are reported by the probe agents serving your locations, so the grid depends on those locations. If the agents run only Chromium, the grid shows a single browser row.
 
     !!! note "Each combination is a separate execution"
         A check runs once per location per browser and device combination. Three locations and two combinations produce six executions per run, so add combinations deliberately.
@@ -206,7 +206,7 @@ Use this guide to create a **Browser Test**. A browser check replays a multi-ste
 
 ## Related Links
 
-- [Synthetic Monitoring in OpenObserve](synthetic-monitoring-in-openobserve.md)
+- [Browser Checks in OpenObserve](synthetic-monitoring-in-openobserve.md)
 - [Locations and Probe Agents](locations-and-probe-agents.md)
 
 **Need help:**

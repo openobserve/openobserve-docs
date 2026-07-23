@@ -1,22 +1,24 @@
 ---
 description: >-
-  Understand browser checks in OpenObserve Synthetic Monitoring, including
-  scheduling, locations, statuses, alerting behavior, and where results are stored.
+  Understand browser checks in OpenObserve, including scheduling, locations,
+  statuses, alerting behavior, and where results are stored.
 ---
-# Synthetic Monitoring in OpenObserve
+# Browser Checks in OpenObserve
 
-This guide explains what synthetic browser checks are and the concepts used when you create and analyze them.
+This guide explains what browser checks are and the concepts used when you create and analyze them.
 
 !!! info "Availability"
-    This feature is available only in Enterprise Edition and Cloud.
+    Browser checks are available on OpenObserve Cloud and are currently in preview.
 
-## What is Synthetic Monitoring
+## What is a browser check
 
-Synthetic monitoring runs scripted checks against a target on a schedule, from one or more probe locations. Unlike monitoring that waits for real user traffic, synthetic checks generate their own traffic, so you learn about an outage as soon as it happens.
+A browser check replays a multi-step user journey in a real browser on a schedule, from one or more probe locations. You record the journey with a Chrome extension or build it step by step, then OpenObserve replays it from each location you choose.
 
-Each execution of a check records a status, a response time, and per-step results for the journey it replayed.
+A browser check generates its own traffic instead of waiting for real user traffic, so you learn about an outage as soon as it happens. OpenObserve times every step and lets you assert on it, so a failure names the step that broke instead of reporting only that the site is down.
 
-## How to access Synthetic Monitoring
+Each run records a status, a response time, and per-step results for the journey it replayed.
+
+## How to access browser checks
 
 1. Sign in to OpenObserve.
 2. Select the desired organization from the top navigation bar.
@@ -36,12 +38,6 @@ Each row has actions to pause, edit, and duplicate the check. The **⋮** menu a
 
 !!! note "Private Locations"
     The **Private Locations** tab on this page is where you manage the locations your own probe agents serve. See [Locations and Probe Agents](locations-and-probe-agents.md).
-
-## Browser checks
-
-A **Browser Test** replays a multi-step user journey in a real browser, across the browser and device combinations you select. You record the journey with a Chrome extension or build it step by step, then OpenObserve replays it on a schedule from each location you choose.
-
-OpenObserve times every step and lets you assert on it, so a failure names the step that broke instead of reporting only that the site is down.
 
 ## Scheduling
 

@@ -1,20 +1,18 @@
 ---
 description: >-
-  Learn how Synthetic Monitoring in OpenObserve proactively checks uptime,
-  performance, and user journeys from probe locations on a schedule.
+  Learn how browser checks in OpenObserve replay scripted user journeys from
+  probe locations on a schedule to catch problems before your users do.
 ---
-# Synthetic Monitoring Overview
+# Browser Checks Overview
 
-**Synthetic Monitoring** in OpenObserve replays scripted browser journeys against your application on a schedule, from probe locations you choose, so you find problems before your users report them.
+**Browser checks** in OpenObserve replay scripted user journeys against your application on a schedule, from probe locations you choose, so you find problems before your users report them.
 
 !!! info "Availability"
-    This feature is available only in Enterprise Edition and Cloud.
-
-    In self-hosted deployments, synthetic monitoring must also be enabled with the `O2_SYNTHETICS_ENABLED` environment variable. When it is disabled, the **Synthetic** menu item is hidden and the synthetics API returns 404.
+    Browser checks are available on OpenObserve Cloud and are currently in preview.
 
 **Learn more:**
 
-- [Synthetic Monitoring in OpenObserve](synthetic-monitoring-in-openobserve.md)
+- [Browser Checks in OpenObserve](synthetic-monitoring-in-openobserve.md)
 - [Create a Browser Check](create-a-browser-check.md)
 - [Locations and Probe Agents](locations-and-probe-agents.md)
 - [Analyze Check Results](analyze-check-results.md)
