@@ -1,7 +1,0 @@
-title: Synthetic Monitoring
-nav:
-    - Synthetic Monitoring Overview: index.md
-    - Synthetic Monitoring in OpenObserve: synthetic-monitoring-in-openobserve.md
-    - Create a Browser Check: create-a-browser-check.md
-    - Locations and Probe Agents: locations-and-probe-agents.md
-    - Analyze Check Results: analyze-check-results.md
