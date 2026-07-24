@@ -1,3 +1,7 @@
+---
+description: "Troubleshoot dashboard panel warnings and errors, including restricted query range, cached data, series limits, and incomplete data from interrupted queries."
+---
+
 This page provides instructions on the warning or error icons displayed on the panel toolbar, explains how to identify and troubleshoot these warnings. 
 
 ??? "1. Error: When the query duration is modified due to the query range is restricted"

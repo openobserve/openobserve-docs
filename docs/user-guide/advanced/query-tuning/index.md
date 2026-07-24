@@ -1,3 +1,7 @@
+---
+description: "Optimize OpenObserve query performance and resource usage with the download manager, disk cache metrics, cache eviction strategies, and the Tantivy index."
+---
+
 The Performance section provides tools and configurations to optimize query execution and resource usage in OpenObserve. It includes documentation for managing the download queue, monitoring disk cache utilization, and setting disk cache eviction strategies. 
 
 **Learn more:** 

@@ -1,3 +1,7 @@
+---
+description: "OpenObserve dashboard variable types include Query Values, Constant, Textbox, and Custom, each with configuration and use cases for dynamic panel filtering."
+---
+
 This page describes the types of [variables](./variables-in-openobserve.md), their use cases, and the configuration required for each type.
 
 OpenObserve supports the following variable types:

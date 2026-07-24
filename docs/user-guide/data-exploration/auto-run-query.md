@@ -1,3 +1,7 @@
+---
+description: "Auto Run re-executes your Logs and Traces search automatically when you change the stream, time range, filters, or function, skipping the Run query click."
+---
+
 # Auto Run
 
 Auto Run automatically re-executes your search whenever you change a query input, so you see updated results without clicking **Run query**. It is available on the **Logs** and **Traces** search bars.

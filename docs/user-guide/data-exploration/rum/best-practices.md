@@ -1,3 +1,7 @@
+---
+description: "RUM best practices for production: initialize early, optimize sampling for cost, protect PII, manage consent, filter error noise, and a deployment checklist."
+---
+
 # Best Practices
 
 This guide covers production-ready best practices for deploying and managing OpenObserve RUM at scale.

@@ -1,3 +1,7 @@
+---
+description: "Complete reference of every RUM metric OpenObserve collects: Web Vitals, navigation and resource timing, user actions, session, error, and custom metrics."
+---
+
 # Metrics Reference
 
 This document provides a comprehensive reference of all metrics collected by OpenObserve RUM. Understanding these metrics will help you analyze and optimize your application's performance and user experience.

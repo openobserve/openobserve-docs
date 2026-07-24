@@ -1,3 +1,7 @@
+---
+description: "Build custom metric charts with a single PromQL query, transforming the matrix JSON response into timestamp-value pairs to render line, bar, or scatter charts."
+---
+
 This guide explains how to build custom charts for metrics in OpenObserve using PromQL. The goal is to help new and advanced users understand how raw metrics data transforms into a fully rendered chart through predictable and repeatable steps.
 
 ## How metric data flows into a chart

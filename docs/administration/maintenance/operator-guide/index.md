@@ -1,3 +1,7 @@
+---
+description: "Operate and maintain OpenObserve with guides for systemd services, SIMD, mimalloc, the Grafana plugin, etcd maintenance and restore, and Nginx proxy setup."
+---
+
 Learn more:
 
 - [Systemd](systemd.md)

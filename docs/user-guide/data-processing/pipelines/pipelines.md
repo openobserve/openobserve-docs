@@ -1,3 +1,7 @@
+---
+description: "Pipelines in OpenObserve are data processing workflows that transform, filter, and route logs, metrics, and traces during ingestion or before storage."
+---
+
 This page provides an overview of pipelines, their types, and how they work.<br>
 
 ## Overview
