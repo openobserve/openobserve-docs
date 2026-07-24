@@ -1,9 +1,6 @@
 {% extends "base.html" %} {% block extrahead %} {{ super() }}
 
-<!-- Content freshness signals for search engines and AI crawlers (dates from git history) -->
-{% if page and page.meta and page.meta.git_creation_date_localized_raw_iso_datetime %}
-<meta property="article:published_time" content="{{ page.meta.git_creation_date_localized_raw_iso_datetime | replace(' ', 'T') }}Z" />
-{% endif %}
+<!-- Content freshness signal for search engines and AI crawlers (date from git history) -->
 {% if page and page.meta and page.meta.git_revision_date_localized_raw_iso_datetime %}
 <meta property="article:modified_time" content="{{ page.meta.git_revision_date_localized_raw_iso_datetime | replace(' ', 'T') }}Z" />
 {% endif %}
@@ -55,8 +52,7 @@
       "headline": "{{ page.title|e }}",
       "url": "https://openobserve.ai/docs/{{ page.url }}",
       "isPartOf": { "@id": "https://openobserve.ai/docs/#website" },
-      "publisher": { "@id": "https://openobserve.ai/#org" }{% if page.meta and page.meta.git_creation_date_localized_raw_iso_datetime %},
-      "datePublished": "{{ page.meta.git_creation_date_localized_raw_iso_datetime | replace(' ', 'T') }}Z"{% endif %}{% if page.meta and page.meta.git_revision_date_localized_raw_iso_datetime %},
+      "publisher": { "@id": "https://openobserve.ai/#org" }{% if page.meta and page.meta.git_revision_date_localized_raw_iso_datetime %},
       "dateModified": "{{ page.meta.git_revision_date_localized_raw_iso_datetime | replace(' ', 'T') }}Z"{% endif %}
     }{% endif %}
   ]

@@ -7,7 +7,6 @@ hooks:
 plugins:
   - search
   - git-revision-date-localized:
-      enable_creation_date: true
       type: date
       timezone: UTC
       fallback_to_build_date: true
