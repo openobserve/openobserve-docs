@@ -1,3 +1,7 @@
+---
+description: "General Settings configure OpenObserve scrape interval, light and dark theme colors, usage stream, and Enterprise branding like custom logo and logo text."
+---
+
 ## General settings
 This page explains how to use the settings available under General Settings in OpenObserve. These settings allow you to configure scrape interval, theme colors, and Enterprise branding. 
 

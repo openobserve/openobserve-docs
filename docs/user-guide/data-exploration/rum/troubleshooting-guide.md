@@ -1,3 +1,7 @@
+---
+description: "Troubleshoot common RUM problems such as no data appearing, session replay not recording, missing errors, high data volume, and browser compatibility issues."
+---
+
 # Troubleshooting Guide
 
 This guide helps you diagnose and resolve common issues with OpenObserve RUM.

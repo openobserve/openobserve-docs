@@ -1,3 +1,7 @@
+---
+description: "Configure multiple S3-compatible object storage accounts in OpenObserve using environment variables and stream strategies to route each stream to a bucket."
+---
+
 This guide explains how to configure OpenObserve to store data in multiple object storage accounts. It also covers how to set environment variables to specify which stream should be stored in each account.
 
 ## Why Use Multiple Object Storage Accounts

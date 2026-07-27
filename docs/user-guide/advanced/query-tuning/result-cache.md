@@ -1,3 +1,7 @@
+---
+description: "Result cache stores query results locally on each OpenObserve node using consistent hashing, cutting network overhead and speeding up repeated query response."
+---
+
 ## Overview
 Previously, when a query was executed, the system used gRPC calls to check whether other nodes in the cluster already had cached results for that query. This required distributed coordination across all nodes.<br>
 OpenObserve now implements a local result caching system that improves query performance by storing query results on the same node where the query is executed. The caching system relies on **consistent hashing**, which ensures that identical queries are always routed to the same node. This deterministic routing enables each node to maintain and reuse its own cached results without requiring cross-node communication. <br>

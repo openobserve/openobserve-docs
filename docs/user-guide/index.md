@@ -1,3 +1,7 @@
+---
+description: "OpenObserve User Guide covering log search, metrics, RUM, organizations, users, streams, ingestion, pipelines, alerts, dashboards, functions, and management."
+---
+
 # User Guide
 
 1. [Log Search](data-exploration/logs/index.md)

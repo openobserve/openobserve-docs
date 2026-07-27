@@ -1,3 +1,7 @@
+---
+description: "Pipeline History in OpenObserve tracks every pipeline run with execution time, status, duration, retries, and error details to help monitor and debug failures."
+---
+
 This guide provides information about how the Pipeline History feature in OpenObserve works, where the data originates from, who can access it, and how to interpret the pipeline execution records.
 
 > For information on other pipeline management options, see the [Manage Pipelines](manage-pipelines.md) page. 

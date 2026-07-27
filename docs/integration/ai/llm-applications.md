@@ -1,3 +1,7 @@
+---
+description: "Monitor, trace, and debug LLM apps in production with OpenObserve and OpenTelemetry: track token usage, latency, cost, model metadata, and errors per call."
+---
+
 # **LLM Observability with OpenObserve**
 
 Monitor, trace, and debug your LLM-powered applications in production using OpenObserve and OpenTelemetry.

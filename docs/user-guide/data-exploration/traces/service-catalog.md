@@ -1,3 +1,7 @@
+---
+description: "Service Catalog is a sortable per-service table built from distributed traces, summarizing request volume, error rate, and latency percentiles to rank health."
+---
+
 === "Overview"
     Service Catalog provides a per-service metrics table built from your distributed traces. It summarizes request volume, error behaviour, and latency for every service in the selected trace stream so that you can compare services side by side and decide where to investigate next.
 

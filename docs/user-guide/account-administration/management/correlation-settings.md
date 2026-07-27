@@ -1,3 +1,7 @@
+---
+description: "Correlation Settings tune how OpenObserve maps logs, metrics, and traces to services using semantic field groups, field aliases, and service identity rules."
+---
+
 # Correlation Settings
 
 This page explains how to use Correlation Settings in OpenObserve. These organization-level settings control how OpenObserve correlates your telemetry, mapping logs, metrics, and traces to the services they belong to.

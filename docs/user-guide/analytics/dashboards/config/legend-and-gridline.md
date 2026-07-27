@@ -1,3 +1,7 @@
+---
+description: "Legend and gridline settings control legend position, type, height, width, chart alignment, gridline visibility, and axis label rotation in OpenObserve panels."
+---
+
 This document describes the legend and gridline configuration options available in OpenObserve dashboard panels.
 
 ## Overview

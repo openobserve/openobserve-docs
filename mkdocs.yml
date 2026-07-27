@@ -6,6 +6,10 @@ hooks:
   - hooks/llm_markdown.py
 plugins:
   - search
+  - git-revision-date-localized:
+      type: date
+      timezone: UTC
+      fallback_to_build_date: true
   - awesome-pages
   - material-plausible
   - redirects:

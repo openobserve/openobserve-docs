@@ -1,3 +1,7 @@
+---
+description: "OpenObserve pipelines read data from a source, transform it, and write to a destination; compare real-time and scheduled types and when to use each one."
+---
+
 In OpenObserve, pipelines are data processing workflows used to transform logs, metrics, or traces during ingestion or before storage.
 
 **Learn more:**

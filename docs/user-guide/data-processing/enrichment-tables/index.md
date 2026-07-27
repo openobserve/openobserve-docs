@@ -1,3 +1,7 @@
+---
+description: "Enrichment tables in OpenObserve add context to log data by joining it with external reference data uploaded as CSV, used during ingestion or at query time."
+---
+
 Enrichment tables in OpenObserve allow you to add meaningful context to your log data by joining it with external reference data. These tables are uploaded as CSV files and can be used during ingestion or at query time to add or modify fields.
 
 Learn more: 

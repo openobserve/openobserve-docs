@@ -1,3 +1,7 @@
+---
+description: "RUM performance monitoring tracks Core Web Vitals like LCP, FID, and CLS plus page load, API response times, and slow resources in a real-time dashboard."
+---
+
 # Performance Monitoring
 
 Performance monitoring helps you understand how fast your application loads and responds for real users. OpenObserve RUM tracks various performance metrics automatically and displays them in an easy-to-understand dashboard.

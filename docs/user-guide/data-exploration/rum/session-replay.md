@@ -1,3 +1,7 @@
+---
+description: "RUM session replay reconstructs user sessions as video-like playback, showing every click, scroll, and error so you can watch exactly what led to a bug."
+---
+
 # Session Replay
 
 Session replay is one of the most powerful features of OpenObserve RUM. It allows you to watch a video-like playback of user sessions, showing exactly what users saw and did in your application. This is invaluable for debugging issues, understanding user behavior, and improving user experience.

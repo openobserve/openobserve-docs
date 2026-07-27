@@ -1,3 +1,7 @@
+---
+description: "Monitor real user experience with OpenObserve frontend observability: Core Web Vitals, JavaScript error tracking, and session replay via a lightweight SDK."
+---
+
 # Frontend Observability
 
 OpenObserve provides robust frontend observability tools that help monitor user experience, track performance metrics, and capture errors in web applications. With minimal overhead, you can gain deep visibility into how users interact with your frontend—ensuring smooth performance across devices and browsers.

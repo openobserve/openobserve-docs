@@ -1,3 +1,7 @@
+---
+description: "Extend the OpenObserve AI agent with organization-scoped custom toolsets: MCP servers, CLI tools, Markdown skills, and generic configs for the SRE Agent."
+---
+
 # Custom AI Toolsets
 
 Custom AI Toolsets let you define organization-scoped tools and skills that the OpenObserve AI agent loads into its set of available capabilities, so the SRE Agent and AI Assistant can act on systems and knowledge specific to your environment.

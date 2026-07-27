@@ -1,3 +1,7 @@
+---
+description: "Stream Cloudflare HTTP request logs, response codes, and security events into OpenObserve using the GraphQL API or Logpush to monitor traffic and threats."
+---
+
 # Integration with Cloudflare
 This guide provides step-by-step instructions to integrate Cloudflare with OpenObserve.
 

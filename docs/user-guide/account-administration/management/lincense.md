@@ -1,3 +1,7 @@
+---
+description: "OpenObserve Enterprise license page to view, request, add, and update license keys, set daily ingestion capacity, and manage license access by user role."
+---
+
 This page explains how OpenObserve Enterprise licenses work and how users can view, request, add, and update licenses. The guide is role based so that each user clearly understands what they can do and how to do it.
 
 ## Overview 

@@ -1,3 +1,7 @@
+---
+description: "Dashboard variables filter OpenObserve panels dynamically; create them, apply to panels, and use substitution syntax, multi-select, type-ahead, and defaults."
+---
+
 This page provides a comprehensive overview of variables in OpenObserve dashboards, including instructions on how to create your first variable, apply it to panels, and configure different variable options. 
 
 ## What Are Variables?
