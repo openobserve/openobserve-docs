@@ -58,7 +58,7 @@ If you are locked out of the root account, you can reset the root password from 
 ## Best Practices
 
 * Update usernames, passwords, or roles via the UI whenever possible.
-* Update root and user passwords periodically; rotate API keys or service accounts.
+* Update root and user passwords periodically; rotate service account tokens and ingestion tokens on a regular schedule.
 * Use long, complex, and unique passwords. Avoid reusing passwords across environments.
 * Back up your metadata database, especially before manual or DB-level changes.
 * Use dedicated users with least privilege; reserve root for emergencies.

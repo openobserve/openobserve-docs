@@ -86,30 +86,11 @@ Admins can create custom user roles in OpenObserve to define more granular acces
 
 ![Custom roles in OpenObserve](../../../images/rbac1-custom_roles.png)
 
-## Service Accounts  
+## Service Accounts
 
-A service account in OpenObserve is a non-human account used for API access, automation, and integrations. Each service account is assigned a **token** for authentication.
+A service account is a non-human identity used for API access, automation, and integrations. You assign it roles and permissions just like a user, and it is issued a **token** for authentication. On Enterprise, service accounts have no permissions until you assign them a role or add them to a group.
 
-- **Enterprise version**: Service accounts have no permission by default. Admins must assign roles to the service accounts explicitly.
-- **Open-source version**: Service accounts have full access by default.
-- **Cloud version**: Service accounts are not supported.
-
-**To add a service account**:
-
-1. From the **IAM** panel, select **Service Accounts**.
-2. Click **Add Service Account**.
-3. Enter the **Email, First Name,** and **Last Name**.
-4. Click **Save**.
-5. A **token** is generated and shown only once in the create response. Copy and store the token securely at creation. It cannot be viewed again later; only a redacted version is shown (the first 4 characters followed by `*`).
-6. After the service account is created, assign the necessary **roles** and **permissions**. This step is required for the service account to make API calls and access specific services in OpenObserve.
-
-![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
-
-**Note:**
-
-- You can rotate the token at any time by selecting the appropriate service account from the Service Accounts page and clicking the refresh icon next to it. A rotated token is also shown only once, so copy and store it securely.
-- Rotating a service account token requires the **Admin** or **Root** role (or, with RBAC/OpenFGA enabled, explicit permission). Users without sufficient privileges receive a `403` error.
-- Ensure that the assigned roles provide only the minimum required access based on the use case.
+For full details on creating service accounts, granting access, authenticating with the token, and rotation, see [Service Accounts](service-accounts.md).
 
 ## User Groups
 
