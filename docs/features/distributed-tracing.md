@@ -1,3 +1,7 @@
+---
+description: "Track requests across microservices with OpenObserve distributed tracing: OpenTelemetry-native ingestion, Gantt views, service maps, and fast trace search."
+---
+
 # Distributed Tracing
 
 OpenObserve provides powerful distributed tracing capabilities that enable you to track requests as they flow through your microservices architecture, identify performance bottlenecks, and troubleshoot complex distributed systems with ease.

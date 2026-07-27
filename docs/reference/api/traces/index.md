@@ -1,3 +1,7 @@
+---
+description: "Search and retrieve distributed traces and spans from OpenObserve using the trace API, exploring the full execution path of requests across your services."
+---
+
 
 This documentation provides comprehensive guidance on using the OpenObserve API to search and retrieve traces from your application. Traces in OpenObserve represent the complete operational flow of requests through your system, showing the full tree of operations and their sub-operations (spans).
 

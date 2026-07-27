@@ -1,3 +1,7 @@
+---
+description: "Advanced RUM features let you attach global and view context, add custom timings, manage tracking consent, tune sampling, and filter events with beforeSend."
+---
+
 # Advanced Features
 
 This guide covers advanced RUM features for power users who want to get the most out of OpenObserve RUM monitoring.

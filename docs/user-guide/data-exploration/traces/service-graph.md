@@ -1,3 +1,7 @@
+---
+description: "Service Graph visualizes how services communicate as a real-time topology from distributed traces, with health colors, call edges, and inferred dependencies."
+---
+
 === "Overview"
     Service graph provides a real time visual overview of how your services communicate with each other. It reads distributed traces and identifies which services call downstream services, how many requests flow between them, and how healthy those interactions are.
 

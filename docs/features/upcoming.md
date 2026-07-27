@@ -1,3 +1,7 @@
+---
+description: "The OpenObserve product roadmap: upcoming features across logs, metrics, traces, RUM, error tracking, and session replay, shaped by the community on GitHub."
+---
+
 # Product Roadmap
 
 Our vision is to build the most performant and cost-effective observability platform that scales from startup to enterprise. We're committed to delivering lightning-fast analytics across logs, metrics, traces, RUM, error tracking, and session replay while keeping your storage costs 140x lower than traditional solutions.

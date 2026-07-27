@@ -1,3 +1,7 @@
+---
+description: "OpenObserve's Python SDK exports OpenTelemetry logs, metrics, and traces with minimal setup, plus auto-instrumentation for OpenAI, Anthropic, and LangChain."
+---
+
 # OpenObserve Telemetry SDK
 
 A simple and lightweight Python SDK for exporting OpenTelemetry logs, metrics, and traces to [OpenObserve](https://openobserve.ai/).

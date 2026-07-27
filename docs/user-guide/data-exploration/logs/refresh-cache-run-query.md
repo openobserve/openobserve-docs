@@ -1,3 +1,7 @@
+---
+description: "Refresh Cache and Run Query clears outdated cached results and re-runs your query against the latest data, fixing gaps from delayed ingestion or cache issues."
+---
+
 # Refresh Cache and Run Query
 
 ## Overview

@@ -1,3 +1,7 @@
+---
+description: "Configure how OpenObserve stores stream data and metadata, optimize object storage across accounts and providers, and bring your own bucket for ingested data."
+---
+
 The Storage Management section helps you configure how OpenObserve stores ingested stream data and metadata. It also includes guidance on optimizing storage across different object storage accounts or providers.
 
 **Learn more:**

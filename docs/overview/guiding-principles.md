@@ -1,3 +1,7 @@
+---
+description: "OpenObserve's core principles: instant value in minutes, self-healing operations, unified logs, metrics and traces, low costs, and real-world performance."
+---
+
 # Our Principles
 
 We are building the best observability software in the world. These principles guide every decision we make:

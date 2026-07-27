@@ -1,3 +1,7 @@
+---
+description: "Create real-time pipelines in OpenObserve to process data instantly on ingestion, applying conditions and functions to filter and route events to destinations."
+---
+
 Use this guide to create and run real-time pipelines. Real-time pipelines process data immediately after it is ingested into a source stream. They allow you to apply conditions and functions and then route the processed data to one or more destinations.
 
 > Visit the [Pipelines in OpenObserve](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipelines/) page before starting. It explains pipeline concepts, types, and components used in this guide.

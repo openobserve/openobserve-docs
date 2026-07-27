@@ -1,3 +1,7 @@
+---
+description: "Real-world RUM use cases with code for e-commerce checkout flows, SaaS feature usage, conversion funnels, A/B testing, and performance budget monitoring."
+---
+
 # Use Cases and Real-World Examples
 
 This guide demonstrates practical applications of OpenObserve RUM in real-world scenarios. Each use case includes complete implementation examples and analysis strategies.

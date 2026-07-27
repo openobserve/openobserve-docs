@@ -1,3 +1,7 @@
+---
+description: "Alert History records every alert evaluation in OpenObserve's triggers stream, letting you read status codes and retries and debug failed or skipped alerts."
+---
+
 
 This guide provides information about how the Alert History feature in OpenObserve works, where the data originates from, who can access it, how to interpret the Alert History table, and how to debug failed or skipped alerts.
 

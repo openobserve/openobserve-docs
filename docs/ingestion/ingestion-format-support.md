@@ -1,3 +1,7 @@
+---
+description: "Ingest logs into OpenObserve in JSON or HEC format through simple cURL endpoints, making it easy to migrate from Splunk or ship HEC-formatted log files."
+---
+
 OpenObserve supports ingestion in both JSON and HEC formats. 
 
 === "Ingest JSON-formatted Logs"

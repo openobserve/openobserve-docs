@@ -1,3 +1,7 @@
+---
+description: "RUM session tracking captures complete user journeys, showing session duration, page views, errors, and device or location for every visit to your app."
+---
+
 # Session Tracking
 
 Session tracking helps you understand user behavior by capturing complete user journeys through your application. A session represents a single visit by a user, from the moment they land on your site until they leave or become inactive.
