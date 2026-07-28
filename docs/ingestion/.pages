@@ -2,4 +2,5 @@ nav:
     - Ingestion Overview: index.md
     - Logs: logs
     - Metrics: metrics
+    - Metrics Streams: metrics-streams.md
     - Traces: traces
