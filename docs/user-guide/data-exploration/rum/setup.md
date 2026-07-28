@@ -1,20 +1,25 @@
 ---
-description: "RUM setup installs the OpenObserve browser SDK, configures your client token, and initializes monitoring in React, Vue, Angular, or vanilla JavaScript apps."
+title: RUM Setup Guide
+description: Step-by-step instructions for integrating OpenObserve Real User Monitoring into browser and React Native applications.
 ---
+This guide walks you through setting up OpenObserve RUM for both **browser** (web) and **React Native** (iOS / Android) applications.
 
-# RUM Setup Guide
+From the **Ingestion > RUM** page, use the **Browser** / **React Native** platform switch in the card header to toggle between the two setup guides. Both platforms share the same RUM token, generated from the page header, and send data to the same `_rumdata` stream.
 
-This guide will walk you through setting up OpenObserve RUM in your web application.
+![TODO: screenshot of RUM setup page with Browser/React Native platform switcher](images/placeholder.png)
 
 ## Prerequisites
 
 - A running OpenObserve instance
-- A web application where you want to add RUM monitoring
-- npm or yarn package manager
+- Your organization's RUM token (generated from the **Ingestion > RUM** page header)
 
-## Step 1: Install Required Packages
+---
 
-Install the OpenObserve browser packages:
+## Browser Setup
+
+Install the OpenObserve browser RUM SDK into your web application.
+
+### Step 1: Install Required Packages
 
 ```bash
 npm install @openobserve/browser-rum @openobserve/browser-logs
@@ -26,14 +31,16 @@ Or using yarn:
 yarn add @openobserve/browser-rum @openobserve/browser-logs
 ```
 
-## Step 2: Get Your Client Token
+### Step 2: Get Your Client Token
 
 1. Log in to your OpenObserve instance
-2. Navigate to **Ingestion** menu
-3. Select **RUM** or **Custom** ingestion
-4. Copy your client token - you'll need this for configuration
+2. Navigate to **Ingestion > RUM**
+3. Select **Generate RUM Token** to create your org's RUM token
+4. Copy the token — you'll need it for configuration
 
-## Step 3: Initialize RUM
+![TODO: screenshot of browser RUM setup card showing install and init steps](images/placeholder.png)
+
+### Step 3: Initialize RUM
 
 Add the following code to your application's entry point (e.g., `main.js`, `index.js`, or `App.vue`):
 
@@ -94,9 +101,9 @@ openobserveRum.setUser({
 openobserveRum.startSessionReplayRecording();
 ```
 
-## Step 4: Configuration Options
+### Step 4: Configuration Options
 
-### RUM Configuration Options
+#### RUM Configuration Options
 
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
@@ -114,7 +121,7 @@ openobserveRum.startSessionReplayRecording();
 | `insecureHTTP` | boolean | No | Set to true for HTTP, false for HTTPS. Default: false |
 | `apiVersion` | string | No | API version to use. Default: 'v1' |
 
-### Privacy Levels
+#### Privacy Levels
 
 Choose the appropriate privacy level for your application:
 
@@ -122,7 +129,7 @@ Choose the appropriate privacy level for your application:
 - **`mask-user-input`**: Mask form inputs but show other content (recommended)
 - **`mask`**: Mask all user input and text content
 
-### Logs Configuration Options
+#### Logs Configuration Options
 
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
@@ -136,7 +143,7 @@ Choose the appropriate privacy level for your application:
 | `insecureHTTP` | boolean | No | Set to true for HTTP. Default: false |
 | `apiVersion` | string | No | API version. Default: 'v1' |
 
-## Step 5: Set User Context (Optional)
+### Step 5: Set User Context (Optional)
 
 You can associate RUM data with specific users by setting user context:
 
@@ -157,11 +164,11 @@ To clear user context (e.g., on logout):
 openobserveRum.clearUser();
 ```
 
-## Step 6: Start Session Replay
+### Step 6: Start Session Replay
 
 Session replay recording can be started in two ways:
 
-### Automatic Recording
+#### Automatic Recording
 
 Start recording for all sessions:
 
@@ -169,7 +176,7 @@ Start recording for all sessions:
 openobserveRum.startSessionReplayRecording();
 ```
 
-### Conditional Recording
+#### Conditional Recording
 
 Start recording only for specific sessions (e.g., when an error occurs):
 
@@ -180,7 +187,7 @@ if (userEncounteredError) {
 }
 ```
 
-### Stopping Session Replay
+#### Stopping Session Replay
 
 To stop recording:
 
@@ -188,9 +195,9 @@ To stop recording:
 openobserveRum.stopSessionReplayRecording();
 ```
 
-## Framework-Specific Integration
+### Framework-Specific Integration (Browser)
 
-### Vue.js
+#### Vue.js
 
 Add initialization in your `main.js` or `main.ts`:
 
@@ -213,7 +220,7 @@ const app = createApp(App)
 app.mount('#app')
 ```
 
-### React
+#### React
 
 Add initialization in your `index.js` or `index.tsx`:
 
@@ -236,7 +243,7 @@ openobserveLogs.init({
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-### Angular
+#### Angular
 
 Add initialization in your `main.ts`:
 
@@ -258,7 +265,7 @@ openobserveLogs.init({
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-### Vanilla JavaScript
+#### Vanilla JavaScript
 
 Add the script in your HTML file or main JavaScript file:
 
@@ -290,51 +297,178 @@ Add the script in your HTML file or main JavaScript file:
 </html>
 ```
 
-## Step 7: Verify Installation
+---
 
-After deploying your application with RUM enabled:
+## React Native Setup
 
-1. Open your application in a browser
-2. Perform some interactions (navigate pages, click buttons, etc.)
-3. Log in to OpenObserve
-4. Navigate to the **RUM** section
-5. You should see data appearing in:
-   - Performance tab (metrics and web vitals)
-   - Sessions tab (your session)
-   - Error Tracking tab (if any errors occurred)
+Install the OpenObserve React Native SDK to monitor your iOS and Android applications.
 
-## Troubleshooting
+### Step 1: Install the React Native SDK
 
-### No Data Appearing
+Add the core SDK plus the optional session-replay and navigation packages. On iOS, run `npx pod-install` afterwards so the native modules are linked.
 
-If you don't see any RUM data:
+```bash
+npm install @openobserve/mobile-react-native \
+  @openobserve/mobile-react-native-session-replay \
+  @openobserve/mobile-react-navigation
 
-1. **Check console for errors**: Open browser DevTools and look for any error messages
-2. **Verify client token**: Ensure your client token is correct
-3. **Check network requests**: Look for requests to your OpenObserve instance in the Network tab
-4. **Verify site URL**: Ensure the `site` option matches your OpenObserve instance URL
-5. **Check CORS settings**: Make sure your OpenObserve instance allows requests from your application domain
+# iOS only — link the native pods after installing.
+npx pod-install
+```
 
-### Session Replay Not Recording
+Or using yarn:
 
-If session replay is not working:
+```bash
+yarn add @openobserve/mobile-react-native \
+  @openobserve/mobile-react-native-session-replay \
+  @openobserve/mobile-react-navigation
 
-1. **Verify initialization**: Ensure `startSessionReplayRecording()` is called after `openobserveRum.init()`
-2. **Check privacy settings**: `defaultPrivacyLevel` affects what is recorded
-3. **Browser compatibility**: Ensure you're using a modern browser that supports session replay
-4. **Force recording**: If session is sampled out of replay, apply `{ force: true }` to force recording:
-   ```javascript
-   openobserveRum.startSessionReplayRecording({ force: true });
-   ```
+# iOS only — link the native pods after installing.
+npx pod-install
+```
 
-### Performance Impact
+The session-replay and navigation packages are optional — drop either line if you do not need screen recording or automatic view tracking.
 
-RUM is designed to have minimal impact on your application:
+![TODO: screenshot of React Native RUM setup card showing install step](images/placeholder.png)
 
-- **Asynchronous**: Data collection happens asynchronously
-- **Batching**: Events are batched before sending
-- **Small bundle size**: The RUM SDK is lightweight
-- **Sampling**: You can configure sampling rates to reduce data volume
+### Step 2: Initialize RUM + Logs
+
+Wrap your app in `OpenObserveProvider`. The SDK appends `/rum` and `/logs` to the base URL automatically. Adjust `applicationId`, `service` and `env` to describe your app.
+
+```tsx
+import React from 'react';
+import {
+  OpenObserveProvider,
+  OpenObserveProviderConfiguration,
+  TrackingConsent,
+} from '@openobserve/mobile-react-native';
+
+const config = new OpenObserveProviderConfiguration(
+  'your-rum-token', // clientToken — this org's RUM token
+  'production', // env
+  TrackingConsent.GRANTED,
+  {
+    rumConfiguration: {
+      applicationId: 'my-mobile-app', // any string identifying your app
+      customEndpoint: 'https://your-instance.example.com/rum/v1/default',
+      sessionSampleRate: 100, // track 100% of sessions
+      trackInteractions: true,
+      trackResources: true,
+      trackErrors: true,
+      nativeCrashReportEnabled: true,
+    },
+    logsConfiguration: {
+      customEndpoint: 'https://your-instance.example.com/rum/v1/default',
+    },
+  },
+);
+
+config.service = 'my-mobile-app';
+
+export default function App() {
+  return (
+    <OpenObserveProvider configuration={config}>
+      {/* your app */}
+    </OpenObserveProvider>
+  );
+}
+```
+
+Initialize as early as possible — the provider must mount before the screens you want measured.
+
+The `clientToken` is your **RUM token** (generated from the **Ingestion > RUM** page header), not the ingestion passcode. If the token is rotated, regenerate it and rebuild the app.
+
+For plain HTTP endpoints (local development), add the Android cleartext configuration:
+
+```tsx
+additionalConfiguration: { '_dd.needsClearTextHttp': true },
+```
+
+### Step 3: Enable Session Replay
+
+Session Replay is configured **separately** from RUM and does **not** inherit `rumConfiguration.customEndpoint`. It also does not append a path, so it needs the full `/replay` URL. Getting this wrong is the usual reason RUM events arrive but replays never do.
+
+```tsx
+import { OpenObserveProvider } from '@openobserve/mobile-react-native';
+import {
+  SessionReplay,
+  TextAndInputPrivacyLevel,
+  ImagePrivacyLevel,
+  TouchPrivacyLevel,
+} from '@openobserve/mobile-react-native-session-replay';
+
+<OpenObserveProvider
+  configuration={config}
+  onInitialization={() => {
+    SessionReplay.enable({
+      replaySampleRate: 100, // record 100% of sampled sessions
+      startRecordingImmediately: true,
+      // Must be the FULL URL ending in /replay — not the RUM base URL.
+      customEndpoint: 'https://your-instance.example.com/rum/v1/default/replay',
+      textAndInputPrivacyLevel: TextAndInputPrivacyLevel.MASK_SENSITIVE_INPUTS,
+      imagePrivacyLevel: ImagePrivacyLevel.MASK_NONE,
+      touchPrivacyLevel: TouchPrivacyLevel.SHOW,
+    }).catch(() => {});
+  }}
+>
+  {/* your app */}
+</OpenObserveProvider>
+```
+
+Session Replay on React Native is currently verified on Android. On iOS the SDK appends its own path to the replay URL, so replay uploads do not yet reach OpenObserve — RUM, logs and crashes are unaffected.
+
+### Step 4: Track Screens Automatically (Optional)
+
+If you use React Navigation, hand the SDK your navigation ref and every route change is recorded as a RUM view — no per-screen code.
+
+```tsx
+import { useRef } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { OoRumReactNavigationTracking } from '@openobserve/mobile-react-navigation';
+
+const navigationRef = useRef(null);
+
+<NavigationContainer
+  ref={navigationRef}
+  onReady={() => {
+    OoRumReactNavigationTracking.startTrackingViews(navigationRef.current);
+  }}
+>
+  {/* your screens */}
+</NavigationContainer>
+```
+
+Without this you can still record views manually with `OoRum.startView()` / `OoRum.stopView()`.
+
+### Step 5: Verify Data in OpenObserve
+
+Run the app on a simulator, emulator or device, move between a few screens, then check OpenObserve:
+
+1. Log in to OpenObserve
+2. Navigate to the **RUM** section
+3. You should see data appearing in:
+   - **Sessions** — your mobile session
+   - **Views** — screen views for each route
+   - **User Actions** — taps, scrolls, and interactions
+   - **Errors** — JavaScript and native crashes
+   - **Session Replay** — recorded screen sessions (Android)
+
+### Host Resolution for Mobile Devices
+
+`localhost` inside an emulator or on a physical device is the device itself, not your machine — the most common reason nothing arrives at all. Use the right host for where the app runs:
+
+```bash
+# Android emulator  → your machine is 10.0.2.2
+https://10.0.2.2:5080/rum/v1/default
+
+# iOS simulator    → localhost works as-is
+https://localhost:5080/rum/v1/default
+
+# Physical device  → your machine's LAN IP, reachable from the same network
+https://192.168.1.10:5080/rum/v1/default
+```
+
+---
 
 ## Advanced Configuration
 
@@ -376,10 +510,85 @@ openobserveRum.addAction('button_clicked', {
 });
 ```
 
+---
+
+## Troubleshooting
+
+### Browser — No Data Appearing
+
+If you don't see any RUM data:
+
+1. **Check console for errors**: Open browser DevTools and look for any error messages
+2. **Verify client token**: Ensure your client token is correct
+3. **Check network requests**: Look for requests to your OpenObserve instance in the Network tab
+4. **Verify site URL**: Ensure the `site` option matches your OpenObserve instance URL
+5. **Check CORS settings**: Make sure your OpenObserve instance allows requests from your application domain
+
+### Browser — Session Replay Not Recording
+
+If session replay is not working:
+
+1. **Verify initialization**: Ensure `startSessionReplayRecording()` is called after `openobserveRum.init()`
+2. **Check privacy settings**: `defaultPrivacyLevel` affects what is recorded
+3. **Browser compatibility**: Ensure you're using a modern browser that supports session replay
+4. **Force recording**: If session is sampled out of replay, apply `{ force: true }` to force recording:
+   ```javascript
+   openobserveRum.startSessionReplayRecording({ force: true });
+   ```
+
+### React Native — RUM Events Arrive but No Session Replay
+
+Almost always the endpoint. Session Replay is configured separately and does **not** inherit `rumConfiguration.customEndpoint`; left unset it defaults to an empty string and uploads go nowhere. Pass the full URL explicitly:
+
+```
+customEndpoint: 'https://your-instance.example.com/rum/v1/default/replay'
+```
+
+Note the trailing `/replay`, which the core SDK's base URL does not have.
+
+### React Native — Session Replay Works on Android but Not iOS
+
+Known limitation of the current React Native SDK: on iOS it appends its own path to the session-replay `customEndpoint`, so uploads miss OpenObserve's `/replay` route. Android uses the URL verbatim and works. RUM events, logs and crash reporting are unaffected on both platforms.
+
+### React Native — Nothing Arrives from an Emulator or Device
+
+Check the host first. `localhost` resolves to the device, not your machine: use `10.0.2.2` on the Android emulator, `localhost` on the iOS simulator, and your machine's LAN IP on a physical device.
+
+### React Native — Android Sends Nothing over Plain HTTP
+
+Android blocks cleartext traffic by default. For an `http://` endpoint set `additionalConfiguration: { '_dd.needsClearTextHttp': true }` in the SDK config, and allow cleartext for your host in the app's network security config. Prefer HTTPS outside local development.
+
+### React Native — iOS Build Fails or Native Module Is Missing
+
+Run `npx pod-install` (or `cd ios && pod install`) after adding the packages, then rebuild from Xcode or `npx react-native run-ios`. A Metro-only reload will not pick up new native modules.
+
+### React Native — Replays Render but Everything Is Masked
+
+That is the default. `textAndInputPrivacyLevel`, `imagePrivacyLevel` and `touchPrivacyLevel` all default to their strictest setting (`MASK_ALL`). Relax them only as far as your privacy policy allows — `MASK_SENSITIVE_INPUTS` keeps passwords and card fields hidden while showing the rest.
+
+### React Native — Requests Return 401 or 403
+
+The `clientToken` is your org's **RUM token**, not the ingestion passcode. If it was rotated, regenerate it from the **Ingestion > RUM** page header and rebuild the app.
+
+### React Native — Sessions Appear but All Screens Have the Same Name
+
+View tracking is not wired up. Either pass your navigation ref to `OoRumReactNavigationTracking.startTrackingViews()` (see Step 4 above), or call `OoRum.startView()` / `OoRum.stopView()` yourself on each screen.
+
+### Performance Impact
+
+RUM is designed to have minimal impact on your application:
+
+- **Asynchronous**: Data collection happens asynchronously
+- **Batching**: Events are batched before sending
+- **Small bundle size**: The RUM SDK is lightweight
+- **Sampling**: You can configure sampling rates to reduce data volume
+
+---
+
 ## Next Steps
 
-- [Performance Monitoring](./performance-monitoring.md) - Learn about performance metrics
-- [Session Tracking](./sessions.md) - Understand session data
-- [Error Tracking](./error-tracking.md) - Track and debug errors
-- [Session Replay](./session-replay.md) - Use session replay effectively
-- [Metrics Reference](./metrics-reference.md) - Complete metrics documentation
+- [Performance Monitoring](./performance-monitoring.md) — Learn about performance metrics
+- [Session Tracking](./sessions.md) — Understand session data across platforms
+- [Error Tracking](./error-tracking.md) — Track and debug errors
+- [Session Replay](./session-replay.md) — Use session replay effectively
+- [Metrics Reference](./metrics-reference.md) — Complete metrics documentation
