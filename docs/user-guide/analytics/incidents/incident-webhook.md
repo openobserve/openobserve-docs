@@ -62,9 +62,17 @@ Response:
 | `dedup_key` | No | Idempotency key. Two deliveries carrying the same key inside 30 minutes are treated as one firing. |
 | `severity` | No | Severity in the originating system's vocabulary. See [Severity mapping](#severity-mapping). |
 | `status` | No | `firing` (default) or `resolved`. |
-| `timestamp` | No | Firing time in epoch **microseconds**. Defaults to receipt time. |
+| `timestamp` | No | Firing time in epoch **microseconds**. Defaults to receipt time. Values outside 2000–2100 are rejected — see [Timestamps](#timestamps). |
 | `annotations` | No | Display-only context such as summary or runbook. Never used for correlation. Same size limits as `labels`. |
-| `external_url` | No | Deep link back into the originating system. Max 2048 characters. |
+| `external_url` | No | Deep link back into the originating system. Must be `http://` or `https://`. Max 2048 characters. |
+
+### Timestamps
+
+`timestamp` is **microseconds**, not seconds or milliseconds — the unit most systems hand you.
+
+Values outside the year 2000–2100 range are rejected with a `400` that names the likely mistake. This is deliberate: a seconds-precision value would place the incident in 1970, where the auto-resolve sweep treats it as long stale and closes it immediately. You would see a `200`, and the alert would silently disappear. Failing the request is the kinder outcome.
+
+Omit the field entirely to use receipt time, which is correct for most senders.
 
 ## How correlation works
 
@@ -122,6 +130,9 @@ curl -u "$EMAIL:$PASSCODE" https://your-instance:5080/api/v2/default/alerts/inci
 
 The incident resolves once **every** alert in it has resolved. If other alerts are still firing, the incident stays open and you get `alert_resolved` rather than `incident_resolved`.
 
+!!! note
+    An incident that also contains alerts OpenObserve evaluated itself will not auto-close this way. Native alerts have no upstream "resolved" signal, so they never count as resolved here and the incident stays open for a human to close or for the auto-resolve timeout. This is deliberate — closing an incident because its external half recovered would hide a native alert that is still firing.
+
 | `action` | Meaning |
 |---|---|
 | `alert_resolved` | This alert resolved; the incident still has others firing |
@@ -178,7 +189,7 @@ The endpoint, ready-to-run examples, and your organization's credentials are ava
 
 | Status | Cause |
 |---|---|
-| `400` | Payload failed validation — blank `source` or `alert_name`, or a labels/annotations map over the size limits. The response body names the offending field. |
+| `400` | Payload failed validation — blank `source` or `alert_name`, a labels/annotations map over the size limits, a non-`http(s)` `external_url`, or a `timestamp` that is not plausible microseconds. The response body names the offending field. |
 | `403` | Incident correlation is disabled (`O2_INCIDENTS_ENABLED`), or you are on an edition without Incident Management. |
 
 ## Related
