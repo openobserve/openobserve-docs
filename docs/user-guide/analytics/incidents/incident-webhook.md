@@ -59,7 +59,7 @@ Response:
 | `source` | Yes | Originating system, e.g. `alertmanager`. Namespaces the alert so two systems' identically-named alerts stay distinct. Max 128 characters. |
 | `alert_name` | Yes | Name of the alert rule in the originating system. Max 512 characters. |
 | `labels` | No | Identity labels. **This is the only field that drives correlation.** Max 64 entries, 1024 characters per key or value. |
-| `dedup_key` | No | Idempotency key. Two deliveries carrying the same key inside 30 minutes are treated as one firing. |
+| `dedup_key` | No | Idempotency key. Two deliveries carrying the same key inside 30 minutes are treated as one firing. Omit it and **nothing is deduplicated** — see [Idempotency](#idempotency). |
 | `severity` | No | Severity in the originating system's vocabulary. See [Severity mapping](#severity-mapping). |
 | `status` | No | `firing` (default) or `resolved`. |
 | `timestamp` | No | Firing time in epoch **microseconds**. Defaults to receipt time. Values outside 2000–2100 are rejected — see [Timestamps](#timestamps). |
@@ -146,7 +146,9 @@ The incident resolves once **every** alert in it has resolved. If other alerts a
 
 Senders retry. Pass a `dedup_key` that is stable for a given firing — Alertmanager's `fingerprint` works well — and redeliveries inside a 30-minute window are dropped instead of inflating the incident's alert count.
 
-Without a `dedup_key`, deliveries are deduplicated on `(source, alert_name)` alone within the same window. That is safe, but it also means two genuinely distinct firings of the same rule minutes apart collapse into one. Send a key if you care about the distinction.
+**Without a `dedup_key` there is no deduplication at all.** Every delivery is recorded as a separate firing. This is deliberate: with no key, nothing distinguishes a retry from a genuine re-fire of the same rule, and silently swallowing the latter would lose real signal.
+
+So if your sender retries — and most do — supply a key. Alertmanager's `fingerprint` is a good fit; anything stable for the lifetime of one firing works.
 
 ## Forwarding from Alertmanager
 
