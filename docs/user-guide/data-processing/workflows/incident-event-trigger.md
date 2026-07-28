@@ -31,7 +31,7 @@ This lets you build automations such as:
 
 ## Create an incident-event workflow
 
-![TODO: screenshot of workflow trigger picker showing Alert Fired and Incident Event options](images/placeholder.png)
+![workflow trigger picker showing Alert Fired and Incident Event options](images/incident-workflow-triggers-1.png)
 
 1. Navigate to **Pipelines > Workflows** and click **Add Workflow**.
 2. When the empty canvas shows the **"Choose a Trigger"** start node, click it to open the trigger picker.
@@ -115,7 +115,7 @@ Depending on the `event_type`, additional fields are present. Use the **Incident
 
 ## View the event payload
 
-![TODO: screenshot of incident trigger node drawer with split view showing common and event-specific fields](images/placeholder.png)
+![incident trigger node drawer with split view showing common and event-specific fields](images/incident-workflow-triggers-2.png)
 
 1. Click the **Incident Trigger** node on the canvas.
 2. The drawer shows a read-only reference of the payload structure, split into:
@@ -127,7 +127,7 @@ Depending on the `event_type`, additional fields are present. Use the **Incident
 
 You can use a **Condition** node to route different incident events to different destinations. The Condition builder offers the flattened `meta_*` fields as filterable column suggestions specific to the incident trigger.
 
-![TODO: screenshot of condition node showing incident payload fields as filterable columns](images/placeholder.png)
+![condition node showing incident payload fields as filterable columns](images/incident-workflow-triggers-3.png)
 
 **Example: route severity upgrades to Slack**
 
@@ -157,7 +157,7 @@ The Events panel in the Function node is seeded with the incident event's sample
 
 ## Test an incident workflow
 
-![TODO: screenshot of test dialog seeded with incident event sample payload](images/placeholder.png)
+![test dialog seeded with incident event sample payload](images/incident-workflow-triggers-4.png)
 
 1. Open the incident workflow and click **Test**.
 2. The test input is seeded with the incident-event sample payload (a `created` event by default).
@@ -168,7 +168,7 @@ You can also test at the API level with `POST /api/{org_id}/workflows/{id}/test`
 
 ## View incident workflows in the list
 
-![TODO: screenshot of workflow list showing Incident Event label in the trigger column](images/placeholder.png)
+![workflow list showing Incident Event label in the trigger column](images/incident-workflow-triggers-5.png)
 
 In the workflow list, the **Trigger** column shows **Incident Event** for incident-triggered workflows and **Alert Fired** for alert-triggered ones. You can filter, search, enable, disable, or delete incident workflows just like any other workflow.
 
