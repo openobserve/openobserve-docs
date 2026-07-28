@@ -49,8 +49,14 @@ Dashboards are stored in folders. By default, the **default** folder is created.
 Inside each folder, you can create one or more **Dashboards**. Dashboards hold Panels, which represent visualizations of your data.
 
 !!! info "Create Dashboards"
-    To create a new Dashboard, click the **New Dashboard** button, add Name and Description for the Dashboard, and select an existing folder or create a new folder to organize the Dashboard. Use the **Import** button to import an existing Dashboard.  
+    To create a new Dashboard, click the **New Dashboard** button, add Name and Description for the Dashboard, and select an existing folder or create a new folder to organize the Dashboard.  
     <br>
+    To bring in existing dashboards, click the **Import** button and choose one of the following options:
+
+    - **Custom**: Import a dashboard from a JSON file or URL.
+    - **Templates**: Open the **Add Dashboard from Gallery** drawer. Browse prebuilt dashboards grouped by category, search them, select one or more, and choose a destination folder.
+    - **Migrate from Datadog**, **Migrate from Grafana**, **Migrate from Kibana**, and **Migrate from CloudWatch**: Open the migration tool that converts dashboards from that platform.
+
     Dashboards can contain one or more Panels for visualizing various data points or metrics.
 
 ![create dashboards](../../../images/dashboard-4.png)
@@ -96,7 +102,7 @@ The following charts are supported in Dashboards:
 The **Table** chart supports a pivot mode: add a **Breakdown** field (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Dynamic Columns** are disabled while pivot mode is active.
 
 ### Tabs
-Tabs help organize your Panels into different sections within a **Dashboard**. For example, you might have one Tab for Performance, another for Errors, and another for Traffic Analysis.
+Tabs help organize your Panels into different sections within a **Dashboard**. For example, use one Tab for Performance, another for Errors, and another for Traffic Analysis.
 By default, Panels are added to the **Default** tab.  
 !!! info "Create New Tabs" 
     To create a new Tab, click the + icon next to the default Tab and enter a Tab name. You can create new Tabs from the **Tabs** menu under the **Dashboard Settings**.

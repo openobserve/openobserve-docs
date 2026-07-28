@@ -45,6 +45,9 @@ SELECT * FROM "default" where k8s_namespace_name = 'openobserve'
 
 Toggling between these modes updates the behavior and syntax of the query editor.
 
+### Query error handling
+If a query references a field that does not exist in the stream, the results area shows a **Field not found** error state. If a query calls a function that is not defined, the error state shows **Function not defined**. In both cases the editor underlines the unknown name. Select **Show details** to view additional information from the server, such as the list of valid field names, and use **Copy error details** to copy the full error. When AI features are enabled, use **Ask AI to fix my query** to send the query and the error to the AI assistant for a correction.
+
 
 ## Set Time Range
 Click the time range selector to define a time window for your query:
@@ -86,13 +89,14 @@ Click the **Paste** (content-paste) icon. If your clipboard contains a valid dat
 | **Absolute date range** | `2026/07/21 13:33:06 - 2026/07/21 15:33:06` |
 | **Epoch timestamps** | `1721557986000000 - 1721565186000000` (µs, ms, or seconds) |
 
-You can also paste a **single date-time value** (any of the above formats without the ` - second_value` part). The picker applies it to whichever side of the current range it sits closer to — adjusting the start or end accordingly.
+You can also paste a **single date-time value** (any of the above formats without the ` - second_value` part). The picker applies it to whichever side of the current range it sits closer to and adjusts the start or end accordingly.
 
 If the pasted text cannot be parsed, an error toast appears with the message **Could not parse date range**.
 
 ## View and Explore Logs
 After the query runs successfully, the results table shows all log entries that match the selected stream, time range, and query conditions.
-Click a row to expand the full log record.
+
+Click a row to open the **Source Details** panel for that record. The panel opens on the **Table** tab, which lists the record's fields and values. Switch to the **JSON** tab to view the raw record. Drag a tab to reorder the tab bar; the order is saved in the browser. In Enterprise Edition, the panel also shows correlated **Logs**, **Metrics**, and **Traces** tabs when telemetry correlation is enabled. See [Correlation Settings](../../account-administration/management/correlation-settings.md).
 
 ![Logs view row](../../../images/logs-view-row.png)
 
@@ -140,6 +144,9 @@ To save a query and its configuration:
 ![Logs save view](../../../images/logs-save-view.png)
 
 Use the dropdown next to the **Save** icon to reopen saved views at any time.
+
+## Share a Search
+Click **Share Link** in the search bar to copy a shortened URL for the current search. The link restores the stream, query, time range, and display settings when opened. Relative time ranges are converted to absolute start and end times, so the link opens the same data every time.
 
 ## Export and Schedule Searches
 
