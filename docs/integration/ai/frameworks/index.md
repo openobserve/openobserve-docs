@@ -12,6 +12,8 @@ These integrations capture token usage, latency per step, agent reasoning traces
 ## Framework Integration Guides
 
 - [Agno](agno.md)
+- [Amazon Bedrock AgentCore](amazon-bedrock-agentcore.md)
+- [Amazon Bedrock Agents](amazon-bedrock-agents.md)
 - [AutoGen](autogen.md)
 - [BeeAI](beeai.md)
 - [Claude Agent SDK](claude-agent-sdk.md)

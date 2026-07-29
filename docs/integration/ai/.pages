@@ -2,6 +2,7 @@ nav:
     - LLM Applications: llm-applications.md
     - LLM Evaluations: llm-evaluations.md
     - Claude Code: claude-code-tracing.md
+    - GitHub Copilot: github-copilot-tracing.md
     - Frameworks: frameworks
     - Model Providers: providers
     - Gateways: gateways
