@@ -1,5 +1,5 @@
 ---
-description: Overview of OpenObserve Enterprise Edition features — Security & Access Control, Performance & Scalability, AI & Intelligence, Data Processing & Integration.
+description: Overview of OpenObserve Enterprise Edition features, including Security & Access Control, Performance & Scalability, AI & Intelligence, and Data Processing & Integration.
 ---
 #### Enterprise Features
 
@@ -7,9 +7,9 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Single Sign-On (SSO)**: OIDC, OAuth, SAML 2.0, LDAP/AD, and integration with major identity providers (Okta, Azure Entra, Google, GitHub, GitLab, Keycloak)
 
-- **Advanced RBAC**: Granular role-based access control with custom roles and permissions – [Learn more](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/)
+- **Advanced RBAC**: Granular role-based access control with custom roles and permissions. [Learn more](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/)
 
-- **Audit trails**: Comprehensive immutable audit logs with configurable retention
+- **Audit trails**: Immutable audit logs with configurable retention
 
 - **Sensitive Data Redaction (SDR)**: Automatically redact PII and sensitive data during ingestion and queries
 
@@ -43,7 +43,7 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Log Patterns**: Automatic pattern extraction and anomaly identification
 
-- **MCP server**: Model Context Protocol server for AI integrations
+- **OAuth 2.0 sign-in for MCP**: OAuth-based authentication for the [Model Context Protocol server](https://openobserve.ai/docs/integration/ai/mcp/), with Dex as the identity provider
 
 - **Logs, metrics, and traces correlation**: Automated detection and correlation across telemetry signals
 
@@ -55,4 +55,4 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 ##### Storage & Data Residency
 
-- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket, Azure Blob container, or Google Cloud Storage (GCS) bucket to OpenObserve Cloud, keeping data in your account, region, and security perimeter. AWS supports both access keys and IAM Role ARN (STS assume-role with External ID) authentication – [Learn more](../administration/maintenance/storage-management/bring-your-own-bucket.md)
+- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket, Azure Blob container, or Google Cloud Storage (GCS) bucket to OpenObserve Cloud, keeping data in your account, region, and security perimeter. AWS supports both access keys and IAM Role ARN (STS assume-role with External ID) authentication. [Learn more](../administration/maintenance/storage-management/bring-your-own-bucket.md)

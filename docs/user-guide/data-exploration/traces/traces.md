@@ -23,7 +23,7 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
     - Parent and child relationships between spans make it clear which operation triggered which.
 
     ## How OpenObserve helps
-    OpenObserve collects and stores spans from your services. It then reconstructs the request flow in the Traces UI, where you can see how the request moved across different services, how long each step took, and where issues may have occurred.
+    OpenObserve collects and stores spans from your services. It then reconstructs the request flow in the Traces UI, where you can see how the request moved across different services, how long each step took, and where issues occurred.
     <br><br>
     **Example: Retail Application** <br>
     Imagine a customer clicks **place order** in your online shop. That single action triggers work across several services:
@@ -74,10 +74,11 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
 
     In the field sidebar, fields are organized into groups: **Key Fields** first, then type groups (**String**, **Number**, **Boolean**), semantic/prefix groups (for example, Kubernetes and HTTP), and **Other** last. For a single stream, the groups are expanded by default.
 
-    **Timeline:** Shows spans as color-coded horizontal bars. Parent spans contain child spans. Parent time includes the time of child spans, which may run in parallel.
-    ![Timeline](../../../images/timeline.png)
-    **Service map:** Shows all services involved in the trace and how long each took.
-    ![Service map](../../../images/service-map.png)
+    **Waterfall:** Shows spans as color-coded horizontal bars. Parent spans contain child spans. Parent time includes the time of child spans, which can run in parallel. Waterfall is the default view when you open a trace.
+    ![Waterfall](../../../images/timeline.png)
+    **Flame Graph:** Shows the trace as a flame graph. Selecting a span in the flame graph opens that span's details in a resizable bottom panel.
+    **Trace Graph:** Shows all services involved in the trace and how long each took.
+    ![Trace Graph](../../../images/service-map.png)
     **Span details:** Provide metadata such as file path, code line, service version, thread ID, and additional attributes. Events and error messages appear when available.
     ![Span details](../../../images/span-details.png)
 === "How-to"
@@ -260,22 +261,20 @@ This document explains how to use OpenObserve to collect, view, and analyze dist
 
     Use the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar to switch the result list between individual spans and aggregated traces (the default view is **Spans**), with **Service Graph** and **Service Catalog** available on Enterprise. In **Spans** mode, the result list shows a **Spans Found** count, and selecting a span row opens its trace with that span focused. **Service Catalog** shows a per-service metrics table (requests, error rate, latency percentiles, and health status); clicking a service opens **Traces** filtered by `service_name`. See [Service Catalog](service-catalog.md) for details.
 
-    !!! note "Flame Graph"
-        A **Flame Graph** view is also available for inspecting a trace. Selecting a span in the flame graph opens that span's details in a resizable bottom panel.
+    !!! note "Trace view tabs"
+        A trace opens in the **Waterfall** view. The trace view also provides **Flame Graph** and **Trace Graph** tabs, and traces that contain LLM spans additionally show **DAG** and **Thread** tabs. Drag a tab to reorder the tab bar. Your tab order and last selected tab are saved in the browser, and a saved selection takes precedence over the Waterfall default the next time you open a trace.
 
-
-    ## Use Trace Timeline and Service Map
-    Use Trace Timeline and Service Map to inspect performance and find slow spans:
-    ![trace-timeline](../../../images/trace-timeline.png)
+    ## Use Waterfall and Trace Graph
+    Use the Waterfall and Trace Graph views to inspect performance and find slow spans:
+    ![trace-waterfall](../../../images/trace-timeline.png)
     1. Go to **Traces**. 
     2. From the stream selector, select the trace stream.
     3. Set a time range.
     4. Select **Run query**.
-    5. From the list of traces, open a trace.
-    6. In the trace view, select the Timeline toggle at the top right corner. 
-    7. In **Operation Name**, expand the tree and look for the longest bars. The longest bar indicates the most time consuming span. The duration is shown at the right edge of each bar.
-    8. Switch to **Service Map** toggle next to **Timeline** at the top right corner.
-    9. The nodes show which services participated and their time contribution for this trace.
+    5. From the list of traces, open a trace. The trace opens in the **Waterfall** view.
+    6. In **Operation Name**, expand the tree and look for the longest bars. The longest bar indicates the most time consuming span. The duration is shown at the right edge of each bar.
+    7. Switch to the **Trace Graph** tab at the top of the trace view.
+    8. The nodes show which services participated and their time contribution for this trace.
 
     ## Use filters to find the related logs
     1. Go to **Traces**. 

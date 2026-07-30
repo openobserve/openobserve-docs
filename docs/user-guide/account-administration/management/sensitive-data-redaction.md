@@ -1,15 +1,17 @@
 ---
 title: Sensitive Data Redaction in OpenObserve Enterprise
-description: Learn how to redact, hash, or drop sensitive data using regex patterns during log ingestion or query time in OpenObserve Enterprise Edition.
+description: Learn how to redact, hash, or drop sensitive data in logs and traces using regex patterns at ingestion or query time in OpenObserve Enterprise Edition.
 ---
 
 This document explains how to configure and manage regex patterns to redact, hash, and drop sensitive data in OpenObserve.
 
 !!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+    This feature is available only in Enterprise Edition and Cloud.
 
 ## Overview 
 The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted**, **hashed**, or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.
+
+Sensitive Data Redaction applies to log streams and trace streams. During trace ingestion, span attributes are flattened into top-level fields, so field-level patterns apply to them the same way they apply to log fields. Associate patterns with a trace stream's fields from the stream settings, the same way you do for a log stream. The examples in this guide use log streams.
 
 **Ingestion time**
 
@@ -59,7 +61,7 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 
 ??? "Step 1: Discover sensitive data"
     ### Step 1: Discover sensitive data
-    Identify which fields may contain sensitive data. 
+    Identify which fields contain sensitive data. 
 
     1. From the left-hand menu, select **Logs**. 
     2. In the stream selection dropdown, select the stream. 
@@ -436,7 +438,7 @@ OpenObserve provides a built-in library of 147+ pre-configured regex patterns th
 - **Pattern Matching Engine**: OpenObserve uses the Intel Hyperscan library for regex evaluation. All Hyperscan limitations apply to pattern syntax and matching behavior.
 - **Field Type Restrictions**: Regex patterns can only be applied to fields with a UTF8 data type. Other field types are not supported.
 - **Data Requirements**: Patterns can only be applied after the stream has ingested data. Empty streams will not show any fields in the Stream Settings tab for pattern association.
-- **Performance**: Complex patterns may impact ingestion speed, but overall performance remains faster than VRL-based redaction. 
+- **Performance**: Complex patterns can slow ingestion, but overall performance remains faster than VRL-based redaction. 
 
 ## Troubleshooting
 | **Issue**                                                | **Cause**                             | **Solution**                                                                              |

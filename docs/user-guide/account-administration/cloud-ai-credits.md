@@ -1,16 +1,17 @@
 ---
-description: "AI Credits give every OpenObserve Cloud organization a shared free-credit pool for AI chat and incident analysis, with usage tracking and pay-as-you-go billing."
+description: "AI Credits give every OpenObserve Cloud organization its own free-credit pool for AI chat and incident analysis, with per-organization limits, usage tracking, and pay-as-you-go billing."
 ---
 
 # AI Credits (Cloud)
 
-AI Credits are a shared pool of free credits that every OpenObserve Cloud organization can spend on AI-powered features such as AI chat and incident analysis.
+AI Credits are a pool of free credits that each OpenObserve Cloud organization can spend on AI-powered features such as AI chat and incident analysis.
 
-> **Note**: AI Credits apply to **OpenObserve Cloud only**. They are not available in self-hosted deployments.
+!!! info "Availability"
+    This feature is available only in OpenObserve Cloud.
 
 ## Overview
 
-Every OpenObserve Cloud organization receives a single, shared lifetime pool of free AI credits. This pool is drawn down as you use AI features across the organization, and it is shared by all members and all AI features rather than allocated per user or per feature.
+Every OpenObserve Cloud organization receives its own lifetime pool of free AI credits. The pool is drawn down as you use AI features, and within the organization it is shared by all members and all AI features rather than allocated per user or per feature. Administrators can adjust each organization's credit limit; see [Manage organization credit limits](#manage-organization-credit-limits).
 
 AI Credits let you try OpenObserve's AI features without configuring billing first. You can monitor how much of the pool you have consumed at any time, both in the user interface and through the API.
 
@@ -32,7 +33,7 @@ When an alert correlates into a new incident, OpenObserve performs AI analysis a
 
 Re-running root cause analysis (RCA) on an existing incident consumes credits. This applies to reanalysis runs that happen after an incident is first created, whether triggered automatically by the incident lifecycle or manually by a user.
 
-> **Note**: All AI features draw from the same shared pool. There is no separate per-feature allowance.
+> **Note**: All AI features in an organization draw from the same pool. There is no separate per-feature allowance.
 
 ## Credit exhaustion behavior
 
@@ -83,13 +84,13 @@ Retrieve current AI credit usage programmatically with the following endpoint:
 GET /api/{org_id}/ai/usage
 ```
 
-The response reports the single shared pool for the organization:
+The response reports the organization's pool:
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `mode` | string | Current usage mode: `free`, `pay_as_you_go`, or `exhausted`. |
 | `credits_used` | number | Credits consumed from the pool. |
-| `credits_limit` | number | Total size of the free credit pool. |
+| `credits_limit` | number | The organization's total credit allowance. |
 | `credits_remaining` | number | Credits still available in the pool. |
 
 The `mode` field is derived from the organization's state:
@@ -107,6 +108,32 @@ AI credit activity is recorded in the `_usage` stream, so you can build your own
 | `AiChat` | Recorded for AI chat activity. |
 | `AiFreeCredits` | Informational record of credits drawn from the free pool. Not billed. |
 | `AiCredits` | Billable pay-as-you-go usage for paid organizations after the free pool is exhausted. Billed to your subscription. |
+
+## Manage organization credit limits
+
+Administrators of the `_meta` organization can view every organization's AI credit consumption and set each organization's credit allowance from the **Organization Management** page. <!-- TODO: verify the exact navigation path to Organization Management in the Cloud UI -->
+
+The organization list shows **AI credits used** and **AI credits total** columns. To change an organization's allowance:
+
+1. Switch to the `_meta` organization.
+2. Open **Organization Management** and find the organization in the list.
+3. Click **Set AI credits**.
+4. In the dialog, enter the organization's lifetime AI credit allowance and save.
+
+Raising an organization's limit resets its notification checkpoints, so administrators are notified again as usage approaches the new limit.
+
+You can also set the limit through the API. The endpoint is served from the `_meta` organization:
+
+```
+PUT /api/_meta/ai/usage_limit
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `org_id` | string | Identifier of the organization to update. |
+| `credits_limit` | number | The organization's lifetime AI credit allowance. |
+
+The response returns the organization's current usage in the same shape as `GET /api/{org_id}/ai/usage`.
 
 ## Notifications
 
