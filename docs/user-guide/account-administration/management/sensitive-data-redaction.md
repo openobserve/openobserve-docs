@@ -6,7 +6,7 @@ description: Learn how to redact, hash, or drop sensitive data in logs and trace
 This document explains how to configure and manage regex patterns to redact, hash, and drop sensitive data in OpenObserve.
 
 !!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud.
+    This feature is available only in Enterprise Edition and Cloud.
 
 ## Overview 
 The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted**, **hashed**, or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.

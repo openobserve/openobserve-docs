@@ -43,7 +43,7 @@ description: Overview of OpenObserve Enterprise Edition features, including Secu
 
 - **Log Patterns**: Automatic pattern extraction and anomaly identification
 
-- **OAuth 2.0 sign-in for MCP**: OAuth-based authentication for the Model Context Protocol server, with Dex as the identity provider. The MCP server itself is available in all editions.
+- **OAuth 2.0 sign-in for MCP**: OAuth-based authentication for the [Model Context Protocol server](https://openobserve.ai/docs/integration/ai/mcp/), with Dex as the identity provider
 
 - **Logs, metrics, and traces correlation**: Automated detection and correlation across telemetry signals
 
