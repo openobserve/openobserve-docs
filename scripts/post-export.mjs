@@ -15,7 +15,8 @@ import path from 'node:path';
 
 const DOCS = path.resolve('docs');
 const OUT = path.resolve('out');
-const SITE = 'https://openobserve.ai/docs';
+const BASE_PATH = '/docs';
+const SITE = `https://openobserve.ai${BASE_PATH}`;
 
 if (!fs.existsSync(OUT)) {
   console.error('[post-export] out/ not found - run `next build` first.');
@@ -64,7 +65,11 @@ const REDIRECTS = {
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {
-  const target = `${SITE}/${to}/`;
+  // The hop itself is root-relative so it stays on whatever host is serving the
+  // page: an old URL on staging must land on staging, not bounce to production.
+  // Only the canonical is absolute, because that has to name the real page.
+  const target = `${BASE_PATH}/${to}/`;
+  const canonical = `${SITE}/${to}/`;
   const dest = path.join(OUT, from, 'index.html');
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.writeFileSync(
@@ -74,12 +79,12 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
 <head>
 <meta charset="utf-8">
 <title>Redirecting&hellip;</title>
-<link rel="canonical" href="${target}">
+<link rel="canonical" href="${canonical}">
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url=${target}">
 </head>
 <body>
-<p>Redirecting to <a href="${target}">${target}</a>&hellip;</p>
+<p>Redirecting to <a href="${target}">${canonical}</a>&hellip;</p>
 <script>location.replace(${JSON.stringify(target)} + location.hash);</script>
 </body>
 </html>

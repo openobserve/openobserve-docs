@@ -15,6 +15,12 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   const { body: MDX, toc, lastModified } = page.data;
 
+  // Most pages open with their own SEO-tuned H1, carried over from MkDocs, and
+  // that heading is rendered as authored. Around 135 pages have no `# H1` at
+  // all, though — Material for MkDocs injected `<h1>{{ page.title }}</h1>` for
+  // exactly those, so without this they would render with no heading whatsoever.
+  const hasOwnHeading = toc.some((item) => item.depth === 1);
+
   return (
     <DocsPage toc={toc} full={false}>
       <PageStructuredData
@@ -25,12 +31,12 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <div className="mb-4 flex justify-end">
         <LlmPageActions markdownPath={page.path} />
       </div>
-      {/*
-        The frontmatter title is deliberately NOT rendered as an <h1>: every page
-        already opens with its own SEO-tuned H1 in the body, carried over from
-        MkDocs. Rendering both would duplicate the heading.
-      */}
       <DocsBody>
+        {/*
+          Rendered inside DocsBody, not as <DocsTitle>, so the fallback heading
+          picks up the same prose styling as an authored one.
+        */}
+        {hasOwnHeading ? null : <h1>{page.data.title}</h1>}
         <MDX components={getMDXComponents()} />
       </DocsBody>
       <Feedback pageUrl={page.url} />

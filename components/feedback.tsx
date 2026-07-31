@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { isTelemetryEnabled } from '@/lib/telemetry';
 
 /**
  * "Was this page helpful?" — the MkDocs Material feedback widget, reimplemented.
@@ -21,6 +22,14 @@ function anonymousId(): string {
 }
 
 function track(properties: Record<string, unknown>) {
+  // Same guard as the analytics tags: a thumbs-up clicked while working locally
+  // must not land in the production feedback pipeline.
+  if (!isTelemetryEnabled()) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('[feedback] not sent (telemetry disabled locally):', properties);
+    }
+    return;
+  }
   try {
     void fetch(SEGMENT_PROXY_URL, {
       method: 'POST',
