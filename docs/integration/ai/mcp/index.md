@@ -1,7 +1,7 @@
 ---
 title: MCP Overview
 metaTitle: Model Context Protocol (MCP) | OpenObserve
-description: Connect AI agents and IDEs to OpenObserve using the Model Context Protocol (MCP). Query logs, metrics, and traces in natural language; create alerts; and explore stream metadata from Cursor, VS Code, Claude Code, Claude Desktop, Windsurf, ChatGPT, or custom agents.
+description: "Connect AI agents and IDEs to OpenObserve over the Model Context Protocol. Query logs, metrics, and traces in natural language and create alerts."
 ---
 
 # Model Context Protocol (MCP)

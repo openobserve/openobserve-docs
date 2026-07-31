@@ -1,7 +1,7 @@
 ---
 title: Amazon Relational Database Service (RDS)
 metaTitle: AWS RDS Database Monitoring - MySQL, PostgreSQL Database Logs | OpenObserve
-description: Complete AWS RDS database monitoring guide for collecting MySQL and PostgreSQL database logs, slow query logs, and error logs via CloudWatch and Kinesis Firehose for database performance monitoring.
+description: "Collect MySQL and PostgreSQL logs, slow query logs, and error logs from AWS RDS via CloudWatch and Kinesis Firehose for database performance monitoring."
 ---
 
 # AWS RDS Database Monitoring - MySQL & PostgreSQL Log Collection

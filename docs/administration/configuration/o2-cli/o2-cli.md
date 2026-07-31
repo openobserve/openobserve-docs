@@ -1,7 +1,7 @@
 ---
 title: OpenObserve CLI
 metaTitle: OpenObserve O2 CLI
-description: Manage OpenObserve resources directly from the command line using O2 CLI. Configure alerts, pipelines, destinations, functions, and templates across multiple environments with automation-friendly, CI/CD-ready workflows.
+description: "Manage OpenObserve alerts, pipelines, destinations, functions, and templates from the command line across environments, with CI/CD-ready workflows."
 keywords: |
   openobserve cli, o2 cli, openobserve command line, observability cli, openobserve automation, openobserve enterprise cli, observability as code, openobserve devops
 ---

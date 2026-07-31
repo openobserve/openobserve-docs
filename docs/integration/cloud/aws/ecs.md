@@ -1,7 +1,7 @@
 ---
 title: Amazon Elastic Container Service (ECS)
 metaTitle: AWS ECS Container Monitoring with FireLens - Fargate and EC2 Logs | OpenObserve
-description: Complete AWS ECS container monitoring guide for collecting container logs from ECS Fargate and EC2 using AWS FireLens with Fluent Bit for containerized application monitoring and observability.
+description: "Collect container logs from AWS ECS on Fargate and EC2 using AWS FireLens with Fluent Bit for containerized application monitoring."
 ---
 
 # AWS ECS Container Monitoring - Fargate & EC2 Log Collection

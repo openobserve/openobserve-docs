@@ -1,6 +1,6 @@
 ---
 title: Google GKE
-description: Install OpenObserve Enterprise on Google Kubernetes Engine (GKE) using GCS for object storage and CloudNativePG for the metadata database. Step-by-step guide with CLI and Console paths, per-step troubleshooting, verification, and a consolidated troubleshooting reference.
+description: "Install OpenObserve Enterprise on Google GKE with GCS object storage and CloudNativePG. Step-by-step CLI and Console paths, with verification and troubleshooting."
 ---
 
 # Install OpenObserve Enterprise on Google Kubernetes Engine (GKE)
@@ -27,7 +27,7 @@ This page covers the **Google GKE** install. For other Kubernetes platforms, see
 
 Complete every item in this section before starting Step 1.
 
-### Required CLI tools
+## Required CLI tools
 
 All commands in this guide assume these are on your `PATH`:
 
@@ -38,7 +38,7 @@ All commands in this guide assume these are on your `PATH`:
 | Helm v3 | `brew install helm` | [install guide](https://helm.sh/docs/intro/install/) | `helm version` |
 | gke-gcloud-auth-plugin | `gcloud components install gke-gcloud-auth-plugin` | `gcloud components install gke-gcloud-auth-plugin` | `gke-gcloud-auth-plugin --version` |
 
-### GCP project and authentication
+## GCP project and authentication
 
 Create a GCP project with billing enabled and these APIs enabled (Cloud Console → APIs and Services):
 
@@ -54,7 +54,7 @@ gcloud config set project <PROJECT_ID>
 gcloud config set compute/region us-central1
 ```
 
-### Compute Engine SSD quota
+## Compute Engine SSD quota
 
 Ensure you have a quota of at least **1000 GB** of `SSD_TOTAL_GB` in your target region. New projects start with 500 GB, which causes silent failures in this setup (two pods stay `Pending` after install with no obvious error).
 
@@ -67,7 +67,7 @@ gcloud compute regions describe us-central1 \
 
 If the limit is below 1000, raise it: Cloud Console → IAM & Admin → Quotas & System Limits → filter `SSD_TOTAL_GB`, your region → **Edit Quotas** → request 2000 GB. Small or new accounts may not get auto-approval.
 
-### Environment variables
+## Environment variables
 
 ```sh
 export CLUSTER_NAME=oo-cluster
@@ -131,7 +131,7 @@ oo-cluster  us-central1  1.x.x-gke.xxxx   ...   RUNNING
 
 Use `--region` for regional clusters and `--zone` for zonal. Mixing them up gives a confusing `404 Not found` even when the cluster exists.
 
-### Command
+## Command
 
 ```sh
 gcloud container clusters get-credentials oo-cluster --region us-central1
@@ -238,7 +238,7 @@ state:    ACTIVE
 
 OpenObserve uses Postgres for metadata. The chart provisions it via CNPG, which must be installed cluster-wide first.
 
-### Command
+## Command
 
 ```sh
 kubectl apply --server-side -f \
@@ -266,7 +266,7 @@ cnpg-controller-manager-xxxxxxxxxx-yyyyy   1/1     Running   0          30s
 
 ::::accordion[Step 5. Add the Helm repo and fetch `values.yaml`]
 
-### Command
+## Command
 
 ```sh
 helm repo add openobserve https://charts.openobserve.ai
@@ -300,7 +300,7 @@ Update Complete. ⎈Happy Helming!⎈
 
 Open `values.yaml`. Line numbers below match chart version `1.7.x`; if yours differs, search by key name.
 
-### 6a. Root user credentials (~line 178)
+## 6a. Root user credentials (~line 178)
 
 ```yaml
 auth:
@@ -308,14 +308,14 @@ auth:
   ZO_ROOT_USER_PASSWORD: "supercomplexpass12"     # change me
 ```
 
-### 6b. GCS HMAC credentials (~lines 183-184)
+## 6b. GCS HMAC credentials (~lines 183-184)
 
 ```yaml
   ZO_S3_ACCESS_KEY: "GOOG...accessId from Step 3..."
   ZO_S3_SECRET_KEY: "secret from Step 3"
 ```
 
-### 6c. GCS storage configuration (~lines 378-381)
+## 6c. GCS storage configuration (~lines 378-381)
 
 ```yaml
 config:
@@ -327,7 +327,7 @@ config:
 
 `ZO_S3_PROVIDER` must stay `"s3"` even though we're using GCS. See the troubleshooting entry below if you're tempted to change it.
 
-### 6d. (Optional) Enable RBAC and SSO (~lines 870-882)
+## 6d. (Optional) Enable RBAC and SSO (~lines 870-882)
 
 ```yaml
 enterprise:
@@ -360,7 +360,7 @@ grep -E "ZO_ROOT_USER_EMAIL|ZO_S3_PROVIDER|ZO_S3_BUCKET_NAME|ZO_S3_SERVER_URL" v
 
 ::::accordion[Step 7. Install OpenObserve]
 
-### Command
+## Command
 
 ```sh
 kubectl create namespace openobserve
@@ -408,7 +408,7 @@ The router shows **1 restart**. Its readiness probe runs before its dependencies
 
 ::::accordion[Step 8. Open the OpenObserve UI]
 
-### Command
+## Command
 
 The router service is named `oo-openobserve-router` (release prefix + chart's router name).
 

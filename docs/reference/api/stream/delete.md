@@ -1,5 +1,6 @@
 ---
 title: Delete
+metaTitle: Delete a Stream - OpenObserve API
 description: Delete OpenObserve streams via API. Deletion is async and handled by the compactor. Configure auto-deletion with data retention environment settings.
 ---
 

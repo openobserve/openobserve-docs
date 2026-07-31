@@ -1,7 +1,7 @@
 ---
 title: Overview
 metaTitle: Migrate from Datadog to OpenObserve | Complete Migration Guide
-description: Step-by-step guide to migrate metrics, traces, logs, dashboards, and monitors from Datadog to OpenObserve. Use the OpenTelemetry Collector to route Datadog Agent, DogStatsD, APM, and log data into OpenObserve without rewriting your applications.
+description: "Migrate metrics, traces, logs, dashboards, and monitors from Datadog to OpenObserve using the OpenTelemetry Collector, without rewriting applications."
 ---
 
 # Migrate from Datadog to OpenObserve

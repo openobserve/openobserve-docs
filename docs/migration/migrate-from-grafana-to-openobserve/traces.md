@@ -1,7 +1,7 @@
 ---
 title: Migrating Traces
 metaTitle: Migrate Traces from Tempo (LGTM Stack) to OpenObserve
-description: Migrate distributed traces from Grafana Tempo to OpenObserve. Switch OTLP endpoints, update OTel Collector and application SDK configs, and migrate from Jaeger and Zipkin to OpenObserve.
+description: "Migrate distributed traces from Grafana Tempo to OpenObserve. Switch OTLP endpoints, update Collector and SDK configs, and move off Jaeger and Zipkin."
 ---
 
 # Migrating Traces

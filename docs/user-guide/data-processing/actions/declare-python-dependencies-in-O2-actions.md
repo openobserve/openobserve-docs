@@ -53,7 +53,7 @@ Pre-install all needed libraries into a dependencies folder using the uv package
 
 - Larger ZIP file. You upload all packages at once, **but only once**.
 
-### How to create the `dependencies` folder  
+## How to create the `dependencies` folder  
 ```  
 uv pip install package1 package2 --target dependencies  
 ```  

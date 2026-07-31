@@ -1,5 +1,6 @@
 ---
 title: List
+metaTitle: List Functions - OpenObserve API
 description: List all data transformation functions for your org via GET /api/{org}/functions, including stream, name, order, and function body details.
 ---
 

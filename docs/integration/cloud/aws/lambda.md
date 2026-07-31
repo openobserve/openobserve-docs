@@ -1,7 +1,7 @@
 ---
 title: Amazon Lambda Function
 metaTitle: AWS Lambda Monitoring - Serverless Function Logs and Metrics | OpenObserve
-description: Complete AWS Lambda monitoring guide for collecting serverless function logs, metrics, and performance data using Lambda Extension, bypassing CloudWatch for cost-effective serverless monitoring.
+description: "Collect AWS Lambda function logs, metrics, and performance data with the Lambda Extension, bypassing CloudWatch for cost-effective serverless monitoring."
 ---
 
 # AWS Lambda Monitoring - Serverless Application Observability

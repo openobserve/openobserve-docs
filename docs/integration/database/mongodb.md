@@ -1,7 +1,7 @@
 ---
 title: MongoDB
 metaTitle: MongoDB Database Monitoring - NoSQL Performance Metrics and Query Optimization | OpenObserve
-description: Complete MongoDB database monitoring guide for collecting MongoDB performance metrics, NoSQL database monitoring, and query performance using OpenTelemetry for MongoDB monitoring and database observability.
+description: "Collect MongoDB performance metrics and query statistics with OpenTelemetry for NoSQL database monitoring and observability in OpenObserve."
 ---
 
 # MongoDB Database Monitoring - NoSQL Performance & Query Optimization

@@ -1,7 +1,7 @@
 ---
 title: Amazon EC2
 metaTitle: AWS EC2 Monitoring - Server Metrics and Logs Collection | OpenObserve
-description: Complete AWS EC2 monitoring guide for collecting server metrics, system logs, and performance data from EC2 Linux instances using OpenTelemetry for infrastructure monitoring and observability.
+description: "Collect server metrics, system logs, and performance data from EC2 Linux instances using OpenTelemetry for AWS infrastructure monitoring."
 ---
 
 # AWS EC2 Monitoring - Infrastructure & Server Monitoring

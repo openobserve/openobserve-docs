@@ -14,9 +14,18 @@ import type { ReactNode } from 'react';
  * barely distinguishable from the page, which read as inert rather than
  * clickable. See `.oo-details` in app/global.css.
  */
-export function Details({ title, children }: { title?: string; children?: ReactNode }) {
+export function Details({
+  title,
+  id,
+  children,
+}: {
+  title?: string;
+  /** Slug of the title, so `#some-block` links to this collapsible. */
+  id?: string;
+  children?: ReactNode;
+}) {
   return (
-    <details className="oo-details">
+    <details className="oo-details" id={id}>
       <summary>
         <span className="oo-details-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12">

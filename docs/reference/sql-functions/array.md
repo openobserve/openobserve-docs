@@ -1,7 +1,7 @@
 ---
 title: Array Functions
 metaTitle: Array Functions in OpenObserve
-description: This page lists all supported array functions in OpenObserve, along with their syntax, descriptions, and usage examples. These functions operate on fields that contain stringified JSON arrays, enabling users to sort, count, extract subsets, join, and combine array elements. Functions such as arrsort, arrjoin, arrindex, arrzip, spath, and cast_to_arr help process and transform array data effectively.
+description: "Array functions for stringified JSON arrays in OpenObserve: sort, count, extract, join, and combine elements with arrsort, arrjoin, arrindex, and more."
 ---
 
 This page lists the array functions supported in OpenObserve, along with their usage formats, descriptions, and examples.
@@ -14,7 +14,7 @@ Although the value appears as a valid array, it is stored as a string. The array
 
 --- 
 
-### `arr_descending`
+## `arr_descending`
 **Syntax**: `arr_descending(field)`<br>
 **Description**: <br>
 
@@ -33,7 +33,7 @@ In this query, the emails field contains a stringified JSON array such as `["jim
 
 ---
 
-### `arrcount`
+## `arrcount`
 **Syntax**: `arrcount(arrfield)`<br>
 **Description**: <br>
 Counts the number of elements in a stringified JSON array stored in the specified field. The field must contain a valid JSON array as a string.
@@ -48,7 +48,7 @@ In this query, the `emails` field contains a value such as `["jim@email.com", "j
 
 ---
 
-### `arrindex`
+## `arrindex`
 **Syntax**: `arrindex(field, start, end)`<br>
 **Description:**
 
@@ -66,7 +66,7 @@ In this query, the `emails` field contains a value such as `["jim@email.com", "j
 
 ---
 
-### `arrjoin`
+## `arrjoin`
 **Syntax**: `arrjoin(field, delimiter)`<br>
 **Description:**
 
@@ -83,7 +83,7 @@ In this query, the `emails` field contains a value such as `["jim@email.com", "j
 
 ---
 
-### `arrsort`
+## `arrsort`
 **Syntax**: `arrsort(field)`<br>
 **Description:** 
 
@@ -101,7 +101,7 @@ In this query, the emails field contains a value such as `["jim@email.com", "joh
 
 ---
 
-### `arrzip`
+## `arrzip`
 **Syntax**: `arrzip(field1, field2, delimiter)`<br>
 **Description:**
 
@@ -120,7 +120,7 @@ The result is:
 
 ---
 
-### `spath`
+## `spath`
 **Syntax**: `spath(field, path)`<br>
 **Description:**
 
@@ -147,7 +147,7 @@ Running SQL query using spath():
 
 ---
 
-### `cast_to_arr`
+## `cast_to_arr`
 **Syntax**: `cast_to_arr(field)`<br>
 **Description:**
 
@@ -177,7 +177,7 @@ In this query:
 
 ---
 
-### `to_array_string`
+## `to_array_string`
 **Syntax**: `to_array_string(array)`<br>
 **Description:**
 

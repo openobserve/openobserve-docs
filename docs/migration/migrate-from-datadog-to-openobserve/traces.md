@@ -1,7 +1,7 @@
 ---
 title: Migrating Traces
 metaTitle: Migrate Traces from Datadog APM to OpenObserve
-description: Migrate Datadog APM traces to OpenObserve. Use the OpenTelemetry Collector's datadog receiver to accept dd-trace spans, or switch application SDKs to OpenTelemetry. Step-by-step examples and verification.
+description: "Migrate Datadog APM traces to OpenObserve using the OTel Collector's datadog receiver, or by switching application SDKs to OpenTelemetry."
 ---
 
 # Migrating Traces

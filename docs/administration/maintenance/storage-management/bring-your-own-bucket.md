@@ -1,7 +1,7 @@
 ---
 title: Bring Your Own Bucket
 metaTitle: Bring Your Own Bucket (BYOB) - Use Your Own S3, Azure Blob, or GCS Storage | OpenObserve
-description: Bring Your Own Bucket (BYOB) lets OpenObserve Cloud write telemetry data directly to an AWS S3 bucket, Azure Blob container, or Google Cloud Storage bucket in your account, so your data stays in your region and under your security policies.
+description: "Bring Your Own Bucket lets OpenObserve Cloud write telemetry straight to your own S3, Azure Blob, or Google Cloud Storage, keeping data in your account."
 keywords: openobserve, byob, bring your own bucket, s3, azure blob, gcp, gcs, google cloud storage, role arn, sts, external id, data residency, compliance, cloud
 ---
 

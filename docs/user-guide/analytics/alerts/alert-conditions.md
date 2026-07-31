@@ -1,6 +1,6 @@
 ---
 title: Alert Conditions and Filters
-description: Define alert conditions in OpenObserve using the natural language condition builder. Covers count mode, measure mode, aggregation functions, group-by, and filter conditions.
+description: "Define alert conditions in OpenObserve with the natural language builder: count and measure modes, aggregation functions, group-by, and filters."
 ---
 
 This guide explains how to define alert conditions in OpenObserve using the condition sentence builder and filter system.

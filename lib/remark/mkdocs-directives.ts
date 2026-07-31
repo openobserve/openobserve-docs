@@ -56,9 +56,32 @@ function toText(nodes: AnyNode[] | null): string {
   return out;
 }
 
+/**
+ * GitHub-style slug, matching how heading ids are generated: lowercase, drop
+ * anything that isn't a word character, space or hyphen, then hyphenate.
+ */
+function slugify(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+/** Suffix repeats so two blocks with the same title don't share an id. */
+function uniqueSlug(seen: Map<string, number>, text: string): string {
+  const base = slugify(text) || 'details';
+  const n = seen.get(base) ?? 0;
+  seen.set(base, n + 1);
+  return n === 0 ? base : `${base}-${n}`;
+}
+
 export const remarkMkdocsDirectives: Plugin<[], Root> = () => {
   return (tree, file) => {
     const unknown = new Set<string>();
+    const slugs = new Map<string, number>();
 
     visit(tree, (node: AnyNode) => {
       if (node.type !== 'containerDirective') return;
@@ -99,10 +122,15 @@ export const remarkMkdocsDirectives: Plugin<[], Root> = () => {
       // ----- accordions -----------------------------------------------------
       if (name === 'accordion') {
         const { label, rest } = takeLabel(node);
+        const title = toText(label) || 'Details';
+        // Give collapsibles the same kind of slug id headings get, so a link
+        // like `#teardown` resolves to the block titled "Teardown". MkDocs
+        // rendered no id here, leaving such links dead.
+        const id = uniqueSlug(slugs, title);
         Object.assign(node, {
           type: 'mdxJsxFlowElement',
           name: 'Details',
-          attributes: [attr('title', toText(label) || 'Details')],
+          attributes: [attr('title', title), attr('id', id)],
           children: rest,
         });
         return;

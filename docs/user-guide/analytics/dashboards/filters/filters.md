@@ -1,5 +1,6 @@
 ---
 title: Filters
+metaTitle: Apply Filters to Dashboard Panels
 description: Filters narrow dashboard panel data using static list values, dynamic variables, and operators, combining conditions with AND or OR logic in nested groups.
 ---
 

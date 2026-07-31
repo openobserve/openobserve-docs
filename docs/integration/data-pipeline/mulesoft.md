@@ -1,7 +1,7 @@
 ---
 title: Integrating MuleSoft AMC Logs with OpenObserve
 metaTitle: MuleSoft AMC Logs Integration Guide
-description: This guide explains how to fetch logs from MuleSoft Anypoint Monitoring Console (AMC) and stream them into OpenObserve. It covers authenticating with Anypoint, fetching logs via the AMC API, pushing logs to OpenObserve, and automating the workflow.
+description: "Fetch logs from the MuleSoft Anypoint Monitoring Console and stream them into OpenObserve. Covers authentication, the AMC API, and automating the workflow."
 ---
 
 # Integrating MuleSoft AMC Logs with OpenObserve

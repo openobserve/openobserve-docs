@@ -54,25 +54,25 @@ systemctl enable openobserve
 
 Then, you can use systemctl control OpenObserve as a system service.
 
-#### Start OpenObserve
+### Start OpenObserve
 
 ```shell
 systemctl start openobserve
 ```
 
-#### Stop OpenObserve
+### Stop OpenObserve
 
 ```shell
 systemctl stop openobserve
 ```
 
-#### Status of OpenObserve
+### Status of OpenObserve
 
 ```shell
 systemctl status openobserve
 ```
 
-#### Test service
+### Test service
 
 ```shell
 curl -v http://localhost:5080/healthz

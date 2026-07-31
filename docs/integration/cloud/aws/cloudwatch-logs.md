@@ -1,7 +1,7 @@
 ---
 title: AWS Cloudwatch logs
 metaTitle: AWS CloudWatch Logs Monitoring - Stream CloudWatch Logs to OpenObserve | OpenObserve
-description: Complete AWS CloudWatch Logs monitoring guide for streaming CloudWatch application logs and infrastructure logs using Kinesis Firehose for centralized AWS log management and cloud observability.
+description: "Stream AWS CloudWatch application and infrastructure logs to OpenObserve using Kinesis Firehose for centralized AWS log management."
 ---
 
 # AWS CloudWatch Logs Monitoring - Centralized AWS Log Management

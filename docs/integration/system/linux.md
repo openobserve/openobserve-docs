@@ -1,7 +1,7 @@
 ---
 title: Linux Server Monitoring - System Logs & Performance Metrics
 metaTitle: Linux Server Monitoring - System Logs and Performance Metrics | OpenObserve
-description: Complete Linux server monitoring guide for collecting Linux system logs, server metrics, and performance data using OpenObserve Collector for Linux monitoring and server observability.
+description: "Collect Linux system logs, server metrics, and performance data with the OpenObserve Collector for Linux server monitoring."
 ---
 
 # Linux Server Monitoring - System Logs & Performance Metrics

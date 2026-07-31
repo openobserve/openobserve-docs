@@ -1,7 +1,7 @@
 ---
 title: Snowflake
 metaTitle: Snowflake Data Warehouse Monitoring - Query Performance and Cost Analytics | OpenObserve
-description: Complete Snowflake monitoring guide for cloud data warehouse performance metrics, query analytics, cost optimization, and storage monitoring using OpenTelemetry for Snowflake observability.
+description: "Monitor Snowflake with OpenTelemetry: data warehouse performance metrics, query analytics, cost optimization, and storage observability."
 ---
 
 # Snowflake Data Warehouse Monitoring - Performance & Cost Optimization

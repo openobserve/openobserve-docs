@@ -1,7 +1,7 @@
 ---
 title: Cassandra
 metaTitle: Cassandra Metrics and Logs Integration Guide
-description: This guide explains how to monitor Apache Cassandra by collecting metrics via the OpenTelemetry JMX receiver and logs via file-based collection, and forward them to OpenObserve for visualization and analysis.
+description: "Monitor Apache Cassandra by collecting metrics with the OpenTelemetry JMX receiver and logs from files, then forwarding both to OpenObserve."
 ---
 
 # Integration with Cassandra Metrics and Logs

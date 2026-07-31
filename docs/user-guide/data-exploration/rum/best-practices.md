@@ -1,5 +1,6 @@
 ---
 title: Best Practices
+metaTitle: RUM Best Practices - Sampling, Privacy, and Consent
 description: "RUM best practices for production: initialize early, optimize sampling for cost, protect PII, manage consent, filter error noise, and a deployment checklist."
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Gateways
 metaTitle: AI Gateway Observability - Portkey, LiteLLM Proxy, OpenRouter, Kong | OpenObserve
-description: Monitor AI gateway traffic with OpenObserve. Trace requests through Portkey, LiteLLM Proxy, OpenRouter, Kong AI Gateway, and Vercel AI Gateway to capture token usage, latency, and model routing metadata via OpenTelemetry.
+description: "Monitor AI gateway traffic with OpenObserve. Trace Portkey, LiteLLM Proxy, OpenRouter, Kong, and Vercel AI Gateway for token usage, latency, and routing."
 ---
 
 # AI Gateway Observability Integrations

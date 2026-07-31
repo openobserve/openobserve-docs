@@ -1,7 +1,7 @@
 ---
 title: Apache Zookeeper
 metaTitle: Zookeeper Metrics Integration Guide
-description: This guide explains how to monitor Apache Zookeeper metrics using the OpenTelemetry Collector with the Zookeeper receiver, and forward them to OpenObserve for visualization and analysis.
+description: "Monitor Apache Zookeeper metrics using the OpenTelemetry Collector's Zookeeper receiver and forward them to OpenObserve for visualization."
 ---
 
 # Integration with Zookeeper Metrics

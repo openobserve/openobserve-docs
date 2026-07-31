@@ -1,7 +1,7 @@
 ---
 title: PostgreSQL
 metaTitle: PostgreSQL Database Monitoring - Performance Metrics and Query Analysis | OpenObserve
-description: Complete PostgreSQL database monitoring guide for collecting PostgreSQL performance metrics, query analysis, and database health using OpenTelemetry for PostgreSQL monitoring and database observability.
+description: "Collect PostgreSQL performance metrics, query analysis, and database health with OpenTelemetry for PostgreSQL monitoring in OpenObserve."
 ---
 
 # PostgreSQL Database Monitoring - Performance & Query Analysis

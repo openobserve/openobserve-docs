@@ -19,7 +19,7 @@ OpenObserve actively maintains this Grafana plugin.
 :::
 
 :::note[Quick start]
-If you are familiar with the Grafana plugin installation process, proceed to download the plugin from [here](https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz) and move to [this](#use-grafana-plugin) step. 
+If you are familiar with the Grafana plugin installation process, proceed to download the plugin from [here](https://zincsearch-releases.s3.us-west-2.amazonaws.com/zo_gp/zo_gp.tar.gz) and move to [this](#use-the-openobserve-plugin-in-grafana) step. 
 :::
 
 

@@ -1,6 +1,6 @@
 ---
 title: Logs Overview
-metaTitle: Logs in OpenObserve | OpenObserve
+metaTitle: Logs Overview - Explore and Query Log Data in OpenObserve
 description: Explore log data in OpenObserve. View and filter logs by time and fields, run SQL queries, transform with VRL, save views, and schedule recurring searches.
 ---
 

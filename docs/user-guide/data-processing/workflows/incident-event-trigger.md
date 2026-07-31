@@ -1,7 +1,7 @@
 ---
 title: Incident-Event-Triggered Workflows
 metaTitle: Incident-Event-Triggered Workflows — How-to Guide
-description: Trigger automated workflows from incident lifecycle events — created, alert added, status changed, severity upgraded, and more. Build incident-aware automations that react to real-time incident changes across your organization.
+description: "Trigger automated workflows from incident lifecycle events such as created, alert added, status changed, and severity upgraded."
 ---
 
 # Incident-Event-Triggered Workflows

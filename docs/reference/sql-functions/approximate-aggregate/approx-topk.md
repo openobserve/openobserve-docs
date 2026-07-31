@@ -1,7 +1,7 @@
 ---
 title: approx_topk
 metaTitle: approx_topk() Function in OpenObserve
-description: This page explains how to use the approx_topk() function in OpenObserve to identify the most frequent values in high-cardinality fields. It provides the SQL syntax, a usage example, result structure, and comparison with the traditional GROUP BY approach. The guide includes a detailed performance comparison and highlights memory efficiency in distributed query processing.
+description: "Use approx_topk() to find the most frequent values in high-cardinality fields. Syntax, example, result structure, and comparison with GROUP BY."
 ---
 
 This page provides instructions on using the `approx_topk()` function and explains its performance benefits compared to the traditional `GROUP BY` method.

@@ -1,7 +1,7 @@
 ---
 title: Kafka
 metaTitle: Apache Kafka Monitoring - Stream Processing and Message Broker Metrics | OpenObserve
-description: Complete Apache Kafka monitoring guide for collecting Kafka metrics, message broker monitoring, stream processing performance, and Kafka cluster monitoring with OpenTelemetry for real-time observability.
+description: "Collect Apache Kafka metrics with OpenTelemetry for message broker, stream processing, and cluster monitoring in OpenObserve."
 ---
 
 # Apache Kafka Monitoring - Stream Processing & Message Broker Monitoring

@@ -1,6 +1,6 @@
 ---
 title: Variable Dependencies
-description: Create interactive dashboards with variable dependencies in OpenObserve—filter data dynamically using parent-child variable relationships like Namespace > Pod > Container.
+description: "Build interactive dashboards with variable dependencies, filtering data through parent-child relationships such as Namespace, Pod, and Container."
 ---
 
 OpenObserve Dashboards support dynamic filtering through variables. Variables enable users to interactively select values that filter and control what data is displayed in Panels.

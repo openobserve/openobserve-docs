@@ -1,5 +1,6 @@
 ---
 title: Best Practices
+metaTitle: OpenObserve Best Practices - Deployment and Query Tuning
 description: Best practices for deploying and managing OpenObserve, including preventing UI crashes from large queries and ensuring your S3 storage configuration is correct.
 ---
 

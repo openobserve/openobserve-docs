@@ -1,5 +1,6 @@
 ---
 title: Streams
+metaTitle: Streams in OpenObserve - Ingestion, Storage, and Querying
 description: Learn how streams in OpenObserve handle data ingestion, storage, and querying. Get started with setup, schema settings, and extended retention options.
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Nginx
 metaTitle: NGINX Monitoring - Web Server Logs and Access Log Analysis | OpenObserve
-description: Complete NGINX monitoring guide for collecting NGINX access logs, error logs, and web server performance metrics using Fluent Bit for NGINX log analysis and web server monitoring.
+description: "Collect NGINX access logs, error logs, and web server performance metrics with Fluent Bit for NGINX log analysis in OpenObserve."
 ---
 
 # NGINX Monitoring - Web Server Log Analysis & Performance Monitoring

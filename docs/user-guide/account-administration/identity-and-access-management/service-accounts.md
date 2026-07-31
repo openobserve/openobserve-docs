@@ -1,6 +1,6 @@
 ---
 title: Service Accounts
-description: Create and manage service accounts in OpenObserve — non-human identities that give applications, automation, and integrations scoped, role-based API access through a rotatable token.
+description: "Create and manage service accounts in OpenObserve: non-human identities giving applications and automation scoped API access through a rotatable token."
 ---
 
 This guide explains how to create, manage, and authenticate with **service accounts** in OpenObserve.

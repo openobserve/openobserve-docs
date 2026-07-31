@@ -1,6 +1,6 @@
 ---
 title: Azure AKS
-description: Install OpenObserve Enterprise on Azure Kubernetes Service (AKS) using Azure Blob Storage and CloudNativePG. Step-by-step guide with CLI and Azure Portal paths, per-step troubleshooting, verification, and a consolidated troubleshooting reference.
+description: "Install OpenObserve Enterprise on Azure AKS with Azure Blob Storage and CloudNativePG. Step-by-step CLI and Portal paths, with verification and troubleshooting."
 ---
 
 # Install OpenObserve Enterprise on Azure AKS
@@ -26,7 +26,7 @@ This page covers the **Azure AKS** install. For other Kubernetes platforms, see 
 
 Complete every item in this section before starting Step 1.
 
-### Required CLI tools
+## Required CLI tools
 
 All commands in this guide assume these are on your `PATH`:
 
@@ -36,11 +36,11 @@ All commands in this guide assume these are on your `PATH`:
 | kubectl | `brew install kubectl` | [install guide](https://kubernetes.io/docs/tasks/tools/) | `kubectl version --client` |
 | Helm v3 | `brew install helm` | [install guide](https://helm.sh/docs/intro/install/) | `helm version` |
 
-### Azure subscription
+## Azure subscription
 
 You need a **Pay-As-You-Go** subscription. Free Trial, Student, and MSDN subscriptions can't self-serve a vCPU quota increase from the Quotas page; they can only request one via a support ticket.
 
-### vCPU quota
+## vCPU quota
 
 A 3-node `Standard_B4s_v2` cluster needs **12 vCPUs** each of `Total Regional vCPUs` and `Standard Bsv2 Family vCPUs`, in your target region. Request both at [Quotas → Compute](https://portal.azure.com/#view/Microsoft_Azure_Capacity/QuotaMenuBlade/~/myQuotas) (filter by Compute and your region), then confirm:
 
@@ -49,7 +49,7 @@ az vm list-usage --location <region> \
   --query "[?contains(name.value, 'cores') || contains(name.value, 'Bsv2')]" -o table
 ```
 
-### Login and resource provider
+## Login and resource provider
 
 ```bash
 az login
@@ -59,7 +59,7 @@ az provider register --namespace Microsoft.Storage   # required for Step 5; one-
 
 If you have multiple subscriptions: `az account set --subscription "<id-or-name>"`.
 
-### Environment variables
+## Environment variables
 
 ```bash
 export RESOURCE_GROUP=openobserve-rg
@@ -151,7 +151,7 @@ JSON for the AKS cluster. Look for `"provisioningState": "Succeeded"` and a non-
 
 ::::accordion[Step 3. Connect kubectl to the cluster]
 
-### Command
+## Command
 
 ```bash
 az aks get-credentials \
@@ -183,7 +183,7 @@ aks-nodepool1-...-vmss000002  Ready    <none>   3m    v1.34.X
 
 The chart provisions Postgres via CNPG, which must be installed cluster-wide first.
 
-### Command
+## Command
 
 ```bash
 kubectl apply --server-side -f \
@@ -213,7 +213,7 @@ cnpg-controller-manager-XXXXXXXXXX-XXXXX   1/1     Running   0          1m
 
 OpenObserve writes telemetry data to Azure Blob via the S3-compatible API.
 
-### Command
+## Command
 
 Pick a globally unique storage account name (3 to 24 chars, lowercase letters and digits only, no hyphens):
 
@@ -263,7 +263,7 @@ echo "Key length: ${#SA_KEY}"
 
 ::::accordion[Step 6. Add the Helm repo and fetch `values.yaml`]
 
-### Command
+## Command
 
 ```bash
 helm repo add openobserve https://charts.openobserve.ai
@@ -292,7 +292,7 @@ ls -lh values.yaml
 
 Open `values.yaml` in your editor. The fields to set are in the active (uncommented) sections. Be careful not to edit the commented `# AZURE_STORAGE_*` example block at the top of the file (around lines 163 to 167).
 
-### 7a. Auth section (~line 186 to 187)
+## 7a. Auth section (~line 186 to 187)
 
 ```yaml
 auth:
@@ -302,7 +302,7 @@ auth:
 
 Keep the default email/password for testing (`root@example.com` / `Complexpass#123`), or change them.
 
-### 7b. Config section (~line 378 to 381)
+## 7b. Config section (~line 378 to 381)
 
 ```yaml
 config:
@@ -310,7 +310,7 @@ config:
   ZO_S3_BUCKET_NAME: "openobserve-data"
 ```
 
-### 7c. Multi-node defaults (verify they remain set)
+## 7c. Multi-node defaults (verify they remain set)
 
 ```yaml
 nats:
@@ -327,7 +327,7 @@ config:
   ZO_NATS_REPLICAS: "3"
 ```
 
-### 7d. (Optional) Enable RBAC and SSO
+## 7d. (Optional) Enable RBAC and SSO
 
 ```yaml
 enterprise:
@@ -353,7 +353,7 @@ Your storage account name is set, `ZO_S3_PROVIDER: "azure"`, `ZO_S3_BUCKET_NAME:
 
 ::::accordion[Step 8. Install OpenObserve]
 
-### Command
+## Command
 
 ```bash
 kubectl create namespace $NAMESPACE
@@ -398,7 +398,7 @@ openobserve-router-XXXXXXXXX-XXXXX       1/1     Running   0          5m
 
 ::::accordion[Step 9. Open the OpenObserve UI]
 
-### Command
+## Command
 
 ```bash
 kubectl --namespace $NAMESPACE port-forward svc/openobserve-router 5080:5080

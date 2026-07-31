@@ -1,5 +1,6 @@
 ---
 title: Metrics
+metaTitle: Metrics Ingestion API - Prometheus and JSON
 description: Ingest metrics into OpenObserve using the Prometheus remote write API or the JSON endpoint to send time-series metric data from your monitored applications.
 ---
 

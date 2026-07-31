@@ -1,7 +1,7 @@
 ---
 title: Pivot Table
 metaTitle: Pivot Table in OpenObserve Dashboards
-description: Learn how to enable pivot mode on the dashboard Table chart in OpenObserve to cross-tabulate data, turn breakdown values into column headers, and configure row and column totals.
+description: "Enable pivot mode on the dashboard Table chart to cross-tabulate data, turn breakdown values into column headers, and configure row and column totals."
 ---
 
 This guide describes how to use **Pivot Table** mode on the **Table** chart in OpenObserve dashboards. Pivot mode cross-tabulates your data by turning the values of a breakdown field into column headers, so you can summarize one metric across two or more dimensions in a single grid.

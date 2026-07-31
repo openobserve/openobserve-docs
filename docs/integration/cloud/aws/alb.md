@@ -1,7 +1,7 @@
 ---
 title: Application Load Balancer(ALB)
 metaTitle: AWS Application Load Balancer Logs Integration Guide
-description: This guide explains how to enable Application Load Balancer access logs, store them in S3, and forward them to OpenObserve for monitoring. Supports both manual setup and automated deployment.
+description: "Enable AWS Application Load Balancer access logs, store them in S3, and forward them to OpenObserve. Covers manual setup and automated deployment."
 ---
 
 # Integration with AWS Application Load Balancer

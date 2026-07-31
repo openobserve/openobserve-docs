@@ -1,7 +1,7 @@
 ---
 title: Migrating Dashboards & Monitors
 metaTitle: Migrate Dashboards & Monitors from Datadog to OpenObserve
-description: Migrate Datadog dashboards and monitors to OpenObserve. Translate Datadog query syntax to PromQL and SQL, set up notification channels, and use the OpenObserve AI Assistant to speed up migration.
+description: "Migrate Datadog dashboards and monitors to OpenObserve. Translate queries to PromQL and SQL, set up notification channels, and use the AI Assistant."
 ---
 
 # Migrating Dashboards & Monitors

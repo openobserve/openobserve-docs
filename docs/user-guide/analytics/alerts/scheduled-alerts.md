@@ -1,6 +1,6 @@
 ---
 title: Scheduled Alerts
-description: Step-by-step guide to creating scheduled and SQL alerts in OpenObserve. Covers the condition builder, SQL mode, Compare with Past, deduplication, and advanced configuration.
+description: "Create scheduled and SQL alerts in OpenObserve. Covers the condition builder, SQL mode, Compare with Past, deduplication, and advanced configuration."
 ---
 
 ## Create a scheduled alert

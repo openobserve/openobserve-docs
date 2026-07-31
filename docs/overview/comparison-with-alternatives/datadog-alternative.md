@@ -1,7 +1,7 @@
 ---
 title: OpenObserve vs Datadog
 metaTitle: OpenObserve as a Datadog Alternative | Comparison
-description: How OpenObserve compares to Datadog on per-host pricing, custom metrics fees, vendor lock-in, OpenTelemetry support, and data ownership. Feature comparison and migration guidance for teams moving off Datadog.
+description: "How OpenObserve compares to Datadog on pricing, custom metrics fees, vendor lock-in, OpenTelemetry support, and data ownership, with migration guidance."
 ---
 
 # OpenObserve as a Datadog Alternative

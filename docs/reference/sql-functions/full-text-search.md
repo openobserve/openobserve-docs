@@ -112,7 +112,7 @@ This query returns all logs in the `default` stream where the keyword `openobser
 
 ![match_all](../../images/sql-reference/match-all.png)
 
-#### More pattern support
+### More pattern support
 
 The `match_all` function also supports the following patterns for flexible searching:
 

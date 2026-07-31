@@ -1,7 +1,7 @@
 ---
 title: Terraform
 metaTitle: Terraform Support — Infrastructure-as-Code for OpenObserve | OpenObserve
-description: Deploy OpenObserve on Kubernetes and manage its resources (streams, dashboards, users, organizations) as code with the official Terraform provider and Kubernetes module. OpenTofu supported. Apache 2.0 licensed.
+description: "Deploy OpenObserve on Kubernetes and manage streams, dashboards, users, and organizations as code with the official Terraform provider. OpenTofu supported."
 keywords: openobserve, terraform, iac, opentofu, helm, kubernetes, eks, provider, module
 ---
 

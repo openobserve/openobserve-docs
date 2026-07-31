@@ -6,7 +6,7 @@ description: Visually compare current vs. past data in OpenObserve dashboards us
 The **Comparison Against** feature in OpenObserve **Dashboards** allows you to visually compare your **current data** with **data from a selected point in time in the past**.
 It is useful for trend analysis and identifying patterns over time.
 
-### Where to Find This Feature
+## Where to Find This Feature
 The **Comparison Against** feature is available for the following chart types in **Dashboards**:
 
 - Area  
@@ -18,7 +18,7 @@ The **Comparison Against** feature is available for the following chart types in
 - Stacked  
 - Horizontal Stacked
 
-### How it Works
+## How it Works
 
 | Step | Without Comparison Against | With Comparison Against |
 |------|------------------------|---------------------|
@@ -29,7 +29,7 @@ The **Comparison Against** feature is available for the following chart types in
 | **Visualization** | Chart shows current data only. | Chart shows both current and past data side by side for comparison. |
 
 
-### How to Use the Compare Against Feature
+## How to Use the Compare Against Feature
 For example, you want to compare **the error trends for the last 15 mins today** with **the error trends for the same time period, 2 days ago**. 
 
 Let's say,

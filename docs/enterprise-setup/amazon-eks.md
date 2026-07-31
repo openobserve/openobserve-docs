@@ -26,7 +26,7 @@ This page covers the **Amazon EKS** install. For other Kubernetes platforms, see
 
 ::::accordion[Pre-requisites]
 
-### Required CLI tools
+## Required CLI tools
 
 All commands in this guide assume these are on your `PATH`:
 
@@ -43,7 +43,7 @@ All commands in this guide assume these are on your `PATH`:
 `wget` is **not** preinstalled on macOS. This guide uses `curl -O` instead. If you prefer `wget`, install with `brew install wget`.
 :::
 
-### AWS account and authentication
+## AWS account and authentication
 
 You need an AWS account with permissions to create EKS clusters, S3 buckets, IAM roles, OIDC providers, and managed policies.
 
@@ -59,7 +59,7 @@ Set your default region to where the cluster will live. Otherwise resources land
 aws configure set region <region>
 ```
 
-### Verify before continuing
+## Verify before continuing
 
 ```bash
 aws sts get-caller-identity      # returns your account + ARN
@@ -275,7 +275,7 @@ The OpenObserve chart expects two prerequisites already installed in the cluster
 - **CloudNativePG operator**. Manages the PostgreSQL replicas OpenObserve uses for metadata.
 - **gp3 storage class**. Every PVC the chart creates references this; without it, pods stay `Pending` forever.
 
-### Command
+## Command
 
 ```bash
 # CloudNativePG operator
@@ -325,7 +325,7 @@ Update Complete. ⎈Happy Helming!⎈
 
 Download the chart's default `values.yaml` and modify four required values. The file already contains every key you need. You are **modifying existing values**, not adding new sections.
 
-### Download
+## Download
 
 ```bash
 curl -O https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/main/charts/openobserve/values.yaml
@@ -334,7 +334,7 @@ curl -O https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/mai
 cp values.yaml values.yaml.orig
 ```
 
-### Modify the four required values
+## Modify the four required values
 
 ::::tabs
 :::tab[Scripted (yq, recommended)]
@@ -436,7 +436,7 @@ diff values.yaml.orig values.yaml | head -40
 
 This step creates the namespace and installs the chart. **Pods take ~5 minutes to all reach `Running`.**
 
-### Command
+## Command
 
 ```bash
 kubectl create namespace $NAMESPACE
@@ -479,7 +479,7 @@ REVISION: 1
 
 ::::accordion[Step 6. Open the OpenObserve UI]
 
-### Command
+## Command
 
 ```bash
 kubectl --namespace $NAMESPACE port-forward svc/o2-openobserve-router 5080:5080

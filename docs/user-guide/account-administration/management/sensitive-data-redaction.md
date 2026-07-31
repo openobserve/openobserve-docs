@@ -18,14 +18,14 @@ The **Sensitive Data Redaction** feature helps prevent accidental exposure of se
 > **Note**: Use ingestion time redaction, hash, or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it is redacted, hashed, or dropped during ingestion.
 
 - **Redact**: Sensitive data is masked before being stored on disk.
-- **Hash**: Sensitive data is replaced with a [searchable](#search-hashed-values-uusing-match_all_hash) hash before being stored on disk.  
+- **Hash**: Sensitive data is replaced with a [searchable](#search-hashed-values-using-match_all_hash) hash before being stored on disk.  
 - **Drop**: Sensitive data is removed before being stored on disk.
 
 **Query time**
 > **Note**: If you have already ingested sensitive data and it is stored on disk, you can use query time redaction or drop to protect it. This allows you to apply sensitive data redaction to existing data.
 
 - **Redaction**: Sensitive data is read from disk but masked before results are displayed.
-- **Hash**: Sensitive data is read from disk but masked with a [searchable](#search-hashed-values-uusing-match_all_hash) hash before results are displayed.
+- **Hash**: Sensitive data is read from disk but masked with a [searchable](#search-hashed-values-using-match_all_hash) hash before results are displayed.
 - **Drop**: Sensitive data is read from disk but excluded from the query results.
 
 :::note[Where to find]

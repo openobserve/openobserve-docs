@@ -1,7 +1,7 @@
 ---
 title: Logs in OpenObserve
-metaTitle: Logs in OpenObserve | OpenObserve
-description: Run your first log search in OpenObserve. Filter by stream and time range, switch between non-SQL and SQL mode, transform results with VRL, save views, and export or schedule searches.
+metaTitle: Run Your First Log Search in OpenObserve
+description: "Run your first log search in OpenObserve: filter by stream and time range, switch between non-SQL and SQL mode, transform with VRL, and save views."
 ---
 
 # Logs

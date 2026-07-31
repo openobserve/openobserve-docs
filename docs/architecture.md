@@ -1,7 +1,7 @@
 ---
 title: Architecture
 metaTitle: OpenObserve Architecture
-description: "Learn how OpenObserve is structured: deployment modes (single-node and HA), the role of each component, how data flows through the system, and how durability is handled."
+description: "How OpenObserve is structured: single-node and HA deployment modes, the role of each component, how data flows through the system, and how durability works."
 keywords: openobserve, architecture, tutorial
 ---
 
