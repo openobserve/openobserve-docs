@@ -15,7 +15,14 @@ export function MkTabs({ children }: { children?: ReactNode }) {
     .filter(isValidElement)
     .map((child) => String((child.props as { title?: string }).title ?? ''));
 
-  return <Tabs items={items}>{children}</Tabs>;
+  // `oo-tabs` is a stable hook for the styling in app/global.css, which restores
+  // the coloured active tab and drops the heavy grey container Fumadocs wraps
+  // tab sets in. Relying on Fumadocs' utility classes would break on upgrade.
+  return (
+    <Tabs items={items} className="oo-tabs">
+      {children}
+    </Tabs>
+  );
 }
 
 export function MkTab({ title, children }: { title: string; children?: ReactNode }) {
