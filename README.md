@@ -146,8 +146,13 @@ Redirect stubs and the 404 are excluded from it, and both carry `noindex`.
 
 Each page emits a canonical URL, a meta description, Open Graph and Twitter card
 tags, `article:modified_time`, and JSON-LD (`BreadcrumbList` + `TechArticle`).
-Markdown images get their intrinsic `width`/`height` at build time so the layout
-does not shift while they load.
+The breadcrumb data is built from the page tree, so it lists the same trail the
+reader sees rather than a flat Docs > Page.
+
+Images are handled in `lib/remark/docs-images.ts`: every one gets its intrinsic
+`width`/`height` read from the file at build time so the layout doesn't shift as
+it loads, and the first image on a page is fetched eagerly at high priority
+because it is the likely largest-contentful-paint element.
 
 ### Analytics
 

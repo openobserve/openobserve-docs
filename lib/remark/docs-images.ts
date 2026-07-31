@@ -65,33 +65,59 @@ export const remarkDocsImages: Plugin<[DocsImagesOptions?], Root> = (options = {
     if (!filePath) return;
     const fileDir = path.dirname(filePath);
 
-    visit(tree, 'image', (node: any) => {
-      const next = rewrite(node.url, fileDir);
-      if (next) node.url = next;
+    // Markdown images and raw <img> tags are handled in a single document-order
+    // pass so that "first image on the page" is decided across both. A page
+    // whose first image is raw HTML would otherwise keep lazy-loading its
+    // largest paint.
+    let seen = 0;
 
-      // `next` is `/docs/<rel>`; the file itself lives at `docs/<rel>`.
-      const publicPath = next ?? node.url;
-      if (typeof publicPath !== 'string' || !publicPath.startsWith(`${BASE_PATH}/`)) return;
-      const size = intrinsicSize(path.join(DOCS_DIR, publicPath.slice(BASE_PATH.length + 1)));
-      if (!size) return;
-      node.data = node.data ?? {};
-      node.data.hProperties = { ...(node.data.hProperties ?? {}), width: size.width, height: size.height };
-    });
+    /** Dimensions for a rewritten `/docs/...` URL, if the file can be measured. */
+    const sizeFor = (url: string) => {
+      if (!url.startsWith(`${BASE_PATH}/`)) return null;
+      return intrinsicSize(path.join(DOCS_DIR, url.slice(BASE_PATH.length + 1)));
+    };
 
-    // Raw <img src="..."> inside HTML blocks, which MkDocs also allowed.
-    visit(tree, 'html', (node: any) => {
+    visit(tree, (node: any) => {
+      if (node.type === 'image') {
+        const next = rewrite(node.url, fileDir);
+        if (next) node.url = next;
+
+        node.data = node.data ?? {};
+        const props: Record<string, unknown> = { ...(node.data.hProperties ?? {}) };
+
+        // The first image is the likely LCP element, and every image here is
+        // lazy by default, which delays the largest paint.
+        if (seen++ === 0) {
+          props.loading = 'eager';
+          props.fetchpriority = 'high';
+        }
+
+        const size = sizeFor(String(next ?? node.url));
+        if (size) {
+          props.width = size.width;
+          props.height = size.height;
+        }
+        node.data.hProperties = props;
+        return;
+      }
+
+      // Raw <img src="..."> inside HTML blocks, which MkDocs also allowed.
+      if (node.type !== 'html' || typeof node.value !== 'string') return;
       node.value = node.value.replace(
         /(<img\b)([^>]*?\bsrc=)(["'])(.*?)\3/gi,
         (match: string, tag: string, prefix: string, quote: string, src: string) => {
           const next = rewrite(src, fileDir);
           const url = next ?? src;
-          let dims = '';
-          // Only add dimensions when the author hasn't set their own.
-          if (!/\bwidth=/i.test(match) && !/\bheight=/i.test(match) && url.startsWith(`${BASE_PATH}/`)) {
-            const size = intrinsicSize(path.join(DOCS_DIR, url.slice(BASE_PATH.length + 1)));
-            if (size) dims = ` width="${size.width}" height="${size.height}"`;
+          let extra = '';
+          if (seen++ === 0 && !/\bloading=/i.test(match)) {
+            extra += ' loading="eager" fetchpriority="high"';
           }
-          return next ? `${tag}${dims}${prefix}${quote}${next}${quote}` : `${tag}${dims}${prefix}${quote}${src}${quote}`;
+          // Only add dimensions when the author hasn't set their own.
+          if (!/\bwidth=/i.test(match) && !/\bheight=/i.test(match)) {
+            const size = sizeFor(url);
+            if (size) extra += ` width="${size.width}" height="${size.height}"`;
+          }
+          return `${tag}${extra}${prefix}${quote}${url}${quote}`;
         },
       );
     });

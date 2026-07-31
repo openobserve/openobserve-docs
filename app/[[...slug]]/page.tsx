@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { DocsBody, DocsPage } from 'fumadocs-ui/layouts/docs/page';
+import { getBreadcrumbItems } from 'fumadocs-core/breadcrumb';
 import { source } from '@/lib/source';
 import { getMDXComponents } from '@/components/mdx-components';
 import { Feedback } from '@/components/feedback';
@@ -21,12 +22,24 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   // exactly those, so without this they would render with no heading whatsoever.
   const hasOwnHeading = toc.some((item) => item.depth === 1);
 
+  // The same trail the rendered breadcrumb shows, reused for the BreadcrumbList
+  // structured data so the two agree. `name` is a ReactNode in the general case,
+  // but every node in this tree is a plain string from meta.json/frontmatter.
+  const breadcrumbAncestors = getBreadcrumbItems(page.url, source.pageTree, {
+    includeRoot: false,
+    includePage: false,
+  })
+    .filter((item) => typeof item.name === 'string')
+    .map((item) => ({ name: item.name as string, url: item.url }));
+
   return (
     <DocsPage toc={toc} full={false}>
       <PageStructuredData
         title={page.data.title}
         pageUrl={page.url}
+        description={page.data.description}
         lastModified={lastModified}
+        ancestors={breadcrumbAncestors}
       />
       <div className="mb-4 flex justify-end">
         <LlmPageActions markdownPath={page.path} />

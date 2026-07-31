@@ -1,4 +1,4 @@
-import { SITE_URL, BASE_PATH, absoluteUrl } from '@/lib/constants';
+import { SITE_URL, BASE_PATH, absoluteUrl, SOCIAL_IMAGE } from '@/lib/constants';
 
 const DOCS_URL = `${SITE_URL}${BASE_PATH}/`;
 
@@ -36,26 +36,44 @@ export function SiteStructuredData() {
 
 /**
  * Per-page BreadcrumbList + TechArticle, ported from `overrides/main.html`.
+ *
+ * The breadcrumb lists the page's real ancestors rather than a flat
+ * OpenObserve > Docs > Page. Google expects structured data to match what the
+ * reader sees, and the rendered breadcrumb already shows the full trail
+ * (User Guide > Analytics > Alerts), so the flat version contradicted it.
  */
 export function PageStructuredData({
   title,
   pageUrl,
+  description,
   lastModified,
+  ancestors = [],
 }: {
   title: string;
   pageUrl: string;
+  description?: string;
   lastModified?: Date;
+  /** Ancestor trail from the page tree, nearest root first, excluding the page. */
+  ancestors?: { name: string; url?: string }[];
 }) {
   const isRoot = pageUrl === '/' || pageUrl === '';
   const url = absoluteUrl(pageUrl);
 
-  const itemListElement: unknown[] = [
-    { '@type': 'ListItem', position: 1, name: 'OpenObserve', item: `${SITE_URL}/` },
-    { '@type': 'ListItem', position: 2, name: 'Docs', item: DOCS_URL },
+  const trail: { name: string; item?: string }[] = [
+    { name: 'OpenObserve', item: `${SITE_URL}/` },
+    { name: 'Docs', item: DOCS_URL },
+    // Sections without a landing page have no URL; schema.org allows a final
+    // or intermediate item to omit `item`, so they are still listed by name.
+    ...ancestors.map((a) => ({ name: a.name, item: a.url ? absoluteUrl(a.url) : undefined })),
   ];
-  if (!isRoot) {
-    itemListElement.push({ '@type': 'ListItem', position: 3, name: title, item: url });
-  }
+  if (!isRoot) trail.push({ name: title, item: url });
+
+  const itemListElement = trail.map((entry, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: entry.name,
+    ...(entry.item ? { item: entry.item } : {}),
+  }));
 
   const graph: Record<string, unknown>[] = [{ '@type': 'BreadcrumbList', itemListElement }];
 
@@ -64,6 +82,9 @@ export function PageStructuredData({
       '@type': 'TechArticle',
       headline: title,
       url,
+      ...(description ? { description } : {}),
+      image: SOCIAL_IMAGE.url,
+      inLanguage: 'en',
       isPartOf: { '@id': `${DOCS_URL}#website` },
       publisher: { '@id': `${SITE_URL}/#org` },
       ...(lastModified ? { dateModified: lastModified.toISOString() } : {}),
