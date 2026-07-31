@@ -129,6 +129,14 @@ and CloudFront serves ~37 MB uncompressed instead of ~4 MB gzipped.
 CI checks out with `fetch-depth: 0` because each page's "last updated" date is
 read from git history.
 
+### Analytics
+
+Google Tag Manager, GA4, the Segment proxy and OpenObserve RUM load only in
+production builds served from a non-localhost hostname, so local work never
+reports into production analytics. Append `?analytics=1` to force them on for
+verification — expect console errors from the third-party tags, which reject a
+localhost origin.
+
 ## Repo layout
 
 | Path | What it is |
