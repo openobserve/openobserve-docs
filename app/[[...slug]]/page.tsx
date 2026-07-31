@@ -6,7 +6,7 @@ import { getMDXComponents } from '@/components/mdx-components';
 import { Feedback } from '@/components/feedback';
 import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
-import { absoluteUrl, markdownUrl } from '@/lib/constants';
+import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -88,11 +88,18 @@ export async function generateMetadata(props: {
       url: absoluteUrl(page.url),
       siteName: 'OpenObserve Documentation',
       type: 'article',
+      images: [SOCIAL_IMAGE],
+      // `article:modified_time` is a freshness signal for search engines and AI
+      // crawlers; overrides/main.html emitted it on every page under MkDocs.
+      ...(page.data.lastModified
+        ? { modifiedTime: new Date(page.data.lastModified).toISOString() }
+        : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description: page.data.description,
+      images: [SOCIAL_IMAGE.url],
     },
   };
 }

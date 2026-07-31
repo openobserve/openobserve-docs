@@ -133,7 +133,21 @@ has no file extension, so without it S3 labels it `binary/octet-stream` and
 CloudFront serves ~37 MB uncompressed instead of ~4 MB gzipped.
 
 CI checks out with `fetch-depth: 0` because each page's "last updated" date is
-read from git history.
+read from git history. The same history feeds `<lastmod>` in the sitemap and the
+`article:modified_time` tag, so a shallow clone degrades those too.
+
+### SEO
+
+`scripts/post-export.mjs` writes `out/sitemap.xml` (plus a gzipped copy) with one
+entry per page. This is not optional: <https://openobserve.ai/sitemap-index.xml>
+points at `https://openobserve.ai/docs/sitemap.xml`, and the deploy's
+`aws s3 sync --delete` would otherwise remove the file that is already there.
+Redirect stubs and the 404 are excluded from it, and both carry `noindex`.
+
+Each page emits a canonical URL, a meta description, Open Graph and Twitter card
+tags, `article:modified_time`, and JSON-LD (`BreadcrumbList` + `TechArticle`).
+Markdown images get their intrinsic `width`/`height` at build time so the layout
+does not shift while they load.
 
 ### Analytics
 

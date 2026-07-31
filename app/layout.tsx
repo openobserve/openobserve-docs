@@ -9,7 +9,7 @@ import { baseOptions } from '@/app/layout.config';
 import { Analytics, GtmNoScript } from '@/components/analytics';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
-import { BASE_PATH, SITE_URL } from '@/lib/constants';
+import { BASE_PATH, SITE_URL, SOCIAL_IMAGE } from '@/lib/constants';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -22,6 +22,14 @@ export const metadata: Metadata = {
   description:
     'OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces into a single solution, built for petabyte scale with up to 140x lower storage cost than Elasticsearch.',
   icons: { icon: `${BASE_PATH}/images/logo_circle.png` },
+  // Default share card, so routes without their own metadata (the 404) still
+  // get one. Doc pages restate it alongside their per-page OG data.
+  openGraph: {
+    siteName: 'OpenObserve Documentation',
+    type: 'website',
+    images: [SOCIAL_IMAGE],
+  },
+  twitter: { card: 'summary_large_image', images: [SOCIAL_IMAGE.url] },
   alternates: {
     types: {
       // LLM discovery, matching the MkDocs `overrides/main.html` hint. Doc pages
