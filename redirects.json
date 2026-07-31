@@ -1,0 +1,15 @@
+{
+  "$comment": [
+    "Transcribed once from the `redirects` plugin's redirect_maps in mkdocs.yml (§6.1).",
+    "Keys and values are docs-relative source paths, exactly as MkDocs wrote them;",
+    "scripts/emit-redirects.mts turns them into the URLs and the stub pages."
+  ],
+  "redirects": {
+    "administration/deployment/openobserve-enterprise-edition-installation-guide.md": "enterprise-setup/index.md",
+    "administration/deployment/capacity-planning.md": "enterprise-setup/capacity-planning.md",
+    "administration/deployment/performance.md": "enterprise-setup/performance.md",
+    "administration/deployment/sre-agent-setup-guide.md": "enterprise-setup/sre-agent.md",
+    "quickstart.md": "getting-started.md",
+    "downloads.md": "getting-started.md"
+  }
+}

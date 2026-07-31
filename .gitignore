@@ -13,3 +13,22 @@ __pycache__/
 /node_modules
 
 .playwright*
+
+# --- Fumadocs / Next.js build artefacts (never committed) ---
+# fumadocs-mdx generated entry files
+/.source
+# generated meta.json navigation tree (from docs/**/.pages) — Rule S-1
+/.fumadocs-gen
+# next build output / static export (deploy artifact)
+/.next
+/out
+# next dev asset links into docs/ (created by scripts/link-assets.mts)
+/public
+# Phase 0 baseline: the pre-migration MkDocs build and extracted artefacts
+/site-baseline
+/baseline
+/verify-report.md
+
+next-env.d.ts
+*.tsbuildinfo
+*.log

@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+@import './lightbox.css';
+
+/* Tailwind v4 is CSS-first: content sources are declared here, not in a config
+   file. `overrides/` is deliberately excluded — it belongs to the MkDocs build
+   that Phase 9 removes. */
+@source '../app';
+@source '../lib';
+
+:root {
+  --fd-layout-width: 1400px;
+}
+
+/* ── MkDocs collapsibles (`???`) ───────────────────────────────────────────────
+   `remark-mkdocs-admonition` renders these as a native <details> rather than
+   fumadocs' Accordion, so the body stays in the DOM while collapsed (see that
+   file for why). These rules give it the accordion's appearance. */
+.prose .mkdocs-details {
+  margin-block: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-fd-card);
+}
+
+.prose .mkdocs-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  color: var(--color-fd-card-foreground);
+}
+
+.prose .mkdocs-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Disclosure triangle, rotating on open. */
+.prose .mkdocs-details > summary::before {
+  content: '';
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: currentColor;
+  transition: transform 150ms;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.prose .mkdocs-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.prose .mkdocs-details > summary:hover {
+  background-color: var(--color-fd-accent);
+}
+
+/* Body padding, applied to everything except the summary. */
+.prose .mkdocs-details > *:not(summary) {
+  margin-inline: 0.875rem;
+}
+.prose .mkdocs-details > *:not(summary):first-of-type {
+  margin-top: 0;
+}
+.prose .mkdocs-details > *:last-child {
+  margin-bottom: 0.875rem;
+}
+
+/* Force-mounted tab panels are hidden by fumadocs' own
+   `data-[state=inactive]:hidden`; make sure nothing re-reveals them. */
+.prose [role='tabpanel'][data-state='inactive'] {
+  display: none;
+}

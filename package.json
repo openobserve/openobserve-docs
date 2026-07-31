@@ -1,10 +1,50 @@
 {
+  "name": "openobserve-docs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
-    "build-css": "tailwindcss -i ./input.css -o ./overrides/css/output.css --watch",
-    "build-css-prod": "tailwindcss -i ./input.css -o ./overrides/css/output.css --minify",
-    "build-css-dev": "tailwindcss -i ./input.css -o ./overrides/css/output.css"
+    "gen:nav": "tsx scripts/gen-nav.mts",
+    "predev": "tsx scripts/link-assets.mts && npm run gen:nav",
+    "dev": "next dev --port 8000",
+    "prebuild": "tsx scripts/link-assets.mts --clean && npm run gen:nav",
+    "build": "next build && npm run postbuild:all",
+    "postbuild:all": "tsx scripts/sync-assets.mts && tsx scripts/copy-raw-markdown.mts && tsx scripts/emit-redirects.mts && tsx scripts/gen-sitemap.mts",
+    "capture:baseline": "tsx scripts/capture-baseline.mts",
+    "verify": "tsx scripts/verify-urls.mts",
+    "verify:nav": "tsx scripts/verify-nav.mts",
+    "measure:search": "tsx scripts/measure-search-index.mts",
+    "check:rules": "tsx scripts/check-rules.mts",
+    "test:plugins": "node --import tsx --test tests/*.test.mts"
   },
   "dependencies": {
-    "tailwindcss": "^3.4.19"
+    "fumadocs-core": "16.14.0",
+    "fumadocs-mdx": "15.2.1",
+    "fumadocs-ui": "16.14.0",
+    "lucide-react": "^1.28.0",
+    "next": "16.2.12",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@shikijs/transformers": "^4.4.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^20.19.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "cheerio": "^1.1.0",
+    "fast-glob": "^3.3.3",
+    "rehype-raw": "^7.0.0",
+    "tailwindcss": "4.3.3",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "unist-util-visit": "^5.0.0",
+    "yaml": "^2.8.0",
+    "zod": "4.4.3"
   }
 }

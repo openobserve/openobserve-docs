@@ -1,4 +1,4 @@
-name: Deploy MkDocs Site to S3
+name: Deploy Docs Site to S3 (staging)
 
 on:
   push:
@@ -16,16 +16,19 @@ jobs:
     - name: Checkout source code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0   # full history so git-revision-date-localized can read per-page commit dates
+        fetch-depth: 0   # full history so `lastModified` can read per-page commit dates
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Set up Node
+      uses: actions/setup-node@v4
       with:
-        python-version: '3.10'
+        # Node 22 is required, not preferred: fumadocs-mdx ships its bundler
+        # loaders as ESM and the loader runner require()s them, which needs
+        # Node's require(esm) support (20.19+ / 22.12+).
+        node-version: 22
+        cache: npm
 
-    - name: Install Python dependencies
-      run: |
-        pip install -r requirements.txt
+    - name: Install dependencies
+      run: npm ci
 
     - name: Install AWS CLI
       run: |
@@ -44,14 +47,19 @@ jobs:
         role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
         aws-region: us-east-2  # or your preferred region
 
-    - name: Build MkDocs site
+    - name: Build docs site
+      # gen-nav → next build → asset sync, raw markdown, redirects, sitemap.
       run: |
-        rm -rf site
-        mkdocs build
+        rm -rf out
+        npm run build
+
+    - name: Check strict rules
+      # S-1: docs/ must be unmodified by the build. S-2: no .mdx under docs/.
+      run: npm run check:rules
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./site s3://openobserve-website-staging/docs --exclude=".git/*" --delete
+        aws s3 sync ./out s3://openobserve-website-staging/docs --exclude=".git/*" --delete
 
     - name: Invalidate CloudFront cache
       run: |

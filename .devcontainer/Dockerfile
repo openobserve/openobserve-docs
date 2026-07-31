@@ -4,13 +4,16 @@
 ARG VARIANT="jammy"
 FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
-# [Optional] Uncomment this section to install additional OS packages.
+# Node 22 from NodeSource rather than the distro package: fumadocs-mdx ships its
+# bundler loaders as ESM and the loader runner require()s them, which needs
+# Node's require(esm) support (20.19+ / 22.12+). Jammy packages Node 12.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends python3-pip nodejs npm
-
-RUN pip3 install mkdocs-material
-RUN pip3 install mkdocs-awesome-pages-plugin
-RUN pip3 install material-plausible-plugin
-
-RUN npm install -g openapi-explorer
-RUN npm install -g live-server
+    && apt-get -y install --no-install-recommends ca-certificates curl gnupg \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+       | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" \
+       > /etc/apt/sources.list.d/nodesource.list \
+    && apt-get update \
+    && apt-get -y install --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*

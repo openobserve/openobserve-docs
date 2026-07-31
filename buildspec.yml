@@ -1,35 +1,34 @@
 version: 0.2
 
+# Docs are built with Fumadocs (Next.js static export), not MkDocs.
+#
+# Node 22 is required, not merely preferred: fumadocs-mdx ships its bundler
+# loaders as ESM and the loader runner `require()`s them, which needs Node's
+# require(esm) support — Node 20.19 or 22.12 and above. On older Node every one
+# of the 456 content files fails to load.
+
 phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+
   pre_build:
     commands:
-      
-      # - echo Logging in to Amazon ECR...
-      # - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/zinclabs
-      # Install AWS CLI
-      # - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      # - unzip awscliv2.zip
-      # - ./aws/install
-      # - rm awscliv2.zip
-      # - rm -rf aws
+      - node --version
+      - npm ci
 
-      # install buildx
-      - apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends python3-pip nodejs npm
-      - pip3 install mkdocs-material
-      - pip3 install mkdocs-awesome-pages-plugin
-      - pip3 install mkdocs-redirects
-      - npm install openapi-explorer
   build:
     commands:
       - GIT_COMMIT_HASH="$(git rev-parse --short HEAD)"
-      - mkdocs build
-      - aws s3 cp ./site s3://zincdocs-dev/$GIT_COMMIT_HASH/ --recursive
+      # `npm run build` runs, in order: gen-nav → next build → asset sync,
+      # raw-markdown endpoints, redirect stubs, sitemap.
+      - npm run build
+      # Rules S-1 and S-2: docs/ must be untouched and free of .mdx.
+      - npm run check:rules
+      # Deploy artifact is out/, not site/.
+      - aws s3 cp ./out s3://zincdocs-dev/$GIT_COMMIT_HASH/ --recursive
       - echo "Deployed to http://zincdocs-dev.s3-website-us-west-2.amazonaws.com/$GIT_COMMIT_HASH/"
-      
-      # Build binary and container images using goreleaser
-      
-  # post_build:
-  #   commands:
-  #     - echo Build completed on `date`
 
-
+cache:
+  paths:
+    - node_modules/**/*
