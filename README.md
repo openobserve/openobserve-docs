@@ -48,8 +48,9 @@ description: …                     # meta description
 search-engine-facing headline in `metaTitle`; when it's omitted, `title` is used
 for the `<title>` tag as well.
 
-The page's own `# H1` in the body is rendered as written and is *not* generated
-from frontmatter, so each page still needs one.
+A page's own `# H1` in the body is rendered as written. If a page has no `# H1`
+at all, the frontmatter `title` is rendered as the heading instead, so a page
+never ends up with none — matching what Material for MkDocs did.
 
 ### Sidebar order
 
@@ -121,10 +122,15 @@ served through CloudFront:
 | `main` | production — <https://openobserve.ai/docs> |
 | `dev`  | staging |
 
-See `.github/workflows/`. `deploy2.sh` and `deploy3.sh` do the same thing
-manually. Both set an explicit content type on `out/api/search`: the search
-index has no file extension, so without it S3 labels it `binary/octet-stream`
-and CloudFront serves ~37 MB uncompressed instead of ~4 MB gzipped.
+See `.github/workflows/`. `deploy-docs.sh` and `deploy-docs-staging.sh` do the
+same thing manually, against the same buckets and distributions, and are the
+only supported way to deploy by hand. The one difference is that the workflows
+pass `--delete` to `aws s3 sync` and the scripts do not, so a manual deploy will
+not clear files that no longer exist in the build.
+
+Every path sets an explicit content type on `out/api/search`: the search index
+has no file extension, so without it S3 labels it `binary/octet-stream` and
+CloudFront serves ~37 MB uncompressed instead of ~4 MB gzipped.
 
 CI checks out with `fetch-depth: 0` because each page's "last updated" date is
 read from git history.
