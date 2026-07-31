@@ -6,7 +6,7 @@ import { getMDXComponents } from '@/components/mdx-components';
 import { Feedback } from '@/components/feedback';
 import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
-import { absoluteUrl } from '@/lib/constants';
+import { absoluteUrl, markdownUrl } from '@/lib/constants';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -69,7 +69,13 @@ export async function generateMetadata(props: {
   return {
     title,
     description: page.data.description,
-    alternates: { canonical: absoluteUrl(page.url) },
+    alternates: {
+      canonical: absoluteUrl(page.url),
+      // Point LLM crawlers at this page's Markdown source, published alongside
+      // the HTML by scripts/copy-assets.mjs. This has to be set per page:
+      // Next replaces the layout's `alternates` wholesale rather than merging it.
+      types: { 'text/markdown': markdownUrl(page.path) },
+    },
     openGraph: {
       title,
       description: page.data.description,

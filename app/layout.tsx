@@ -24,8 +24,11 @@ export const metadata: Metadata = {
   icons: { icon: `${BASE_PATH}/images/logo_circle.png` },
   alternates: {
     types: {
-      // LLM discovery, matching the MkDocs `overrides/main.html` hint.
-      'text/markdown': `${BASE_PATH}/llms.txt`,
+      // LLM discovery, matching the MkDocs `overrides/main.html` hint. Doc pages
+      // override this with their own Markdown source. Absolute because Next
+      // resolves `alternates` against `metadataBase`, which already ends in
+      // `/docs` — a `/docs/...` value would come out as `/docs/docs/...`.
+      'text/markdown': `${SITE_URL}${BASE_PATH}/llms.txt`,
     },
   },
 };

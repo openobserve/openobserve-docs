@@ -18,3 +18,15 @@ export function absoluteUrl(pageUrl: string): string {
   const path = pageUrl === '/' ? '/' : pageUrl.replace(/\/$/, '') + '/';
   return `${SITE_URL}${BASE_PATH}${path === '/' ? '/' : path}`;
 }
+
+/**
+ * Absolute URL of a page's published Markdown source, e.g.
+ * `overview/guiding-principles.md`.
+ *
+ * Absolute rather than root-relative on purpose: Next resolves `alternates`
+ * against `metadataBase`, which already ends in `/docs`, so a `/docs/...` value
+ * would come out as `/docs/docs/...`.
+ */
+export function markdownUrl(docPath: string): string {
+  return `${SITE_URL}${BASE_PATH}/${docPath.replace(/^\//, '')}`;
+}
