@@ -1,7 +1,9 @@
 ---
-title: Go Distributed Tracing - OpenTelemetry for Golang APM | OpenObserve
+title: Go
+metaTitle: Go Distributed Tracing - OpenTelemetry for Golang APM | OpenObserve
 description: Complete Go/Golang distributed tracing guide using OpenTelemetry SDK for Go application performance monitoring and trace instrumentation.
 ---
+
 # Go (Golang) Distributed Tracing - OpenTelemetry APM
 
 Setup distributed tracing for your Go application using OpenTelemetry for Go application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Golang applications.
@@ -17,7 +19,7 @@ git clone https://github.com/openobserve/sample-tracing-golang
 If you don't have Go installed, please install it and then follow below steps.
 
 Open `pkg/tel/otel_helper_http.go` file from that repository. and make changes to the highlighted lines below
-```go linenums="1" hl_lines="29 38 36"
+```go lineNumbers {29,38,36}
 
 package tel
 

@@ -1,6 +1,8 @@
 ---
+title: Enterprise Features
 description: Overview of OpenObserve Enterprise Edition features — Security & Access Control, Performance & Scalability, AI & Intelligence, Data Processing & Integration.
 ---
+
 #### Enterprise Features
 
 ##### Security & Access Control

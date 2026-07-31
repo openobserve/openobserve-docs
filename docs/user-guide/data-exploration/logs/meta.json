@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "index",
+    "logs",
+    "refresh-cache-run-query",
+    "search-around",
+    "insights",
+    "quickmode",
+    "log-patterns",
+    "explain-analyze-query"
+  ]
+}

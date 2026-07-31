@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "index",
+    "prevent-ui-crashes-from-large-queries",
+    "ensure-the-S3-Configuration-is-correct"
+  ]
+}

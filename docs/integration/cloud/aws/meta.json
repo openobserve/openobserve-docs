@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "index",
+    "quick-setup",
+    "ec2",
+    "alb",
+    "vpc-flow",
+    "cognito",
+    "network-firewall",
+    "cloudwatch-logs",
+    "cloudwatch-metrics",
+    "rds",
+    "lambda",
+    "ecs",
+    "route-53",
+    "waf",
+    "api-gateway",
+    "cdn",
+    "eventbridge"
+  ]
+}

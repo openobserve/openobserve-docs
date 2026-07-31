@@ -1,5 +1,6 @@
 ---
-description: "RUM setup installs the OpenObserve browser SDK, configures your client token, and initializes monitoring in React, Vue, Angular, or vanilla JavaScript apps."
+title: Setup Guide
+description: RUM setup installs the OpenObserve browser SDK, configures your client token, and initializes monitoring in React, Vue, Angular, or vanilla JavaScript apps.
 ---
 
 # RUM Setup Guide

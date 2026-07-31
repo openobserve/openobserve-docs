@@ -1,8 +1,8 @@
 ---
-description: >-
-  Learn what anonymized telemetry data OpenObserve collects, how it’s used to
-  improve the product, and how to disable or request deletion at any time.
+title: Telemetry
+description: Learn what anonymized telemetry data OpenObserve collects, how it’s used to improve the product, and how to disable or request deletion at any time.
 ---
+
 # Telemetry
 
 ## Why do you collect telemetry data?

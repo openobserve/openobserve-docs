@@ -1,4 +1,5 @@
 ---
+title: Metrics Reference
 description: "Complete reference of every RUM metric OpenObserve collects: Web Vitals, navigation and resource timing, user actions, session, error, and custom metrics."
 ---
 

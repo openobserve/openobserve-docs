@@ -1,5 +1,6 @@
 ---
-title: OpenObserve as an Elasticsearch Alternative | Comparison
+title: OpenObserve vs Elasticsearch
+metaTitle: OpenObserve as an Elasticsearch Alternative | Comparison
 description: How OpenObserve compares with Elasticsearch on storage cost, query performance, and operational complexity for observability workloads.
 ---
 

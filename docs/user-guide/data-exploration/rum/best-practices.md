@@ -1,4 +1,5 @@
 ---
+title: Best Practices
 description: "RUM best practices for production: initialize early, optimize sampling for cost, protect PII, manage consent, filter error noise, and a deployment checklist."
 ---
 

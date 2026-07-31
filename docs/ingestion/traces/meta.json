@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "index",
+    "opentelemetry",
+    "obi",
+    "typescript",
+    "nodejs",
+    "python",
+    "go",
+    "rust"
+  ]
+}

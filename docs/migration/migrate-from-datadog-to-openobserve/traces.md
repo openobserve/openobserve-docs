@@ -1,5 +1,6 @@
 ---
-title: Migrate Traces from Datadog APM to OpenObserve
+title: Migrating Traces
+metaTitle: Migrate Traces from Datadog APM to OpenObserve
 description: Migrate Datadog APM traces to OpenObserve. Use the OpenTelemetry Collector's datadog receiver to accept dd-trace spans, or switch application SDKs to OpenTelemetry. Step-by-step examples and verification.
 ---
 
@@ -93,8 +94,9 @@ apm_config:
 
 The Agent receives `dd-trace` spans on `8126` as before and forwards them to the Collector on `18126`, which translates and ships to OpenObserve.
 
-!!! tip "Send all signals through one Collector"
-    If you're also migrating metrics and logs, you can consolidate everything through a single OTel Collector with one `otlphttp/openobserve` exporter: one endpoint, one auth header, all signals.
+:::tip[Send all signals through one Collector]
+If you're also migrating metrics and logs, you can consolidate everything through a single OTel Collector with one `otlphttp/openobserve` exporter: one endpoint, one auth header, all signals.
+:::
 
 
 ### From OpenTelemetry SDKs

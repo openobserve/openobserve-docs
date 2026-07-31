@@ -1,11 +1,9 @@
 ---
-title: Alerts in OpenObserve | OpenObserve
-description: >-
-  Learn how alerting works in OpenObserve. Supports scheduled and real-time
-  alerts, plus anomaly detection alerts on Enterprise self-hosted, with a
-  natural language condition builder, SQL mode, live preview, and flexible
-  notification destinations.
+title: Alerts Overview
+metaTitle: Alerts in OpenObserve | OpenObserve
+description: Learn how alerting works in OpenObserve. Supports scheduled and real-time alerts, plus anomaly detection alerts on Enterprise self-hosted, with a natural language condition builder, SQL mode, live preview, and flexible notification destinations.
 ---
+
 # Alerts
 
 Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. Define conditions using a natural language builder or custom SQL, receive notifications through webhooks such as Slack, email, or other endpoints, and trigger configured Actions automatically when an alert is activated.
@@ -69,8 +67,9 @@ OpenObserve supports three query modes for defining conditions:
 
 How often the alert evaluation runs. Set the interval in minutes, or switch to a cron expression for precise scheduling. Real-time alerts run continuously and do not have a frequency setting.
 
-!!! note
-    OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. For example, if the current time is 23:03 and frequency is 5 minutes, the next run is at 23:05. When you use a cron expression instead, the next run is the next time that matches the cron schedule in the configured timezone; the alert does not trigger immediately on save or enable.
+:::note[Note]
+OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. For example, if the current time is 23:03 and frequency is 5 minutes, the next run is at 23:05. When you use a cron expression instead, the next run is the next time that matches the cron schedule in the configured timezone; the alert does not trigger immediately on save or enable.
+:::
 
 ### Look back window (period)
 

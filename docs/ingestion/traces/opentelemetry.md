@@ -1,7 +1,9 @@
 ---
-title: OpenTelemetry Tracing SDKs - Distributed Tracing for Applications | OpenObserve
+title: OpenTelemetry
+metaTitle: OpenTelemetry Tracing SDKs - Distributed Tracing for Applications | OpenObserve
 description: OpenTelemetry tracing guide for instrumenting applications with OpenTelemetry SDKs in Node.js, TypeScript, Python, and Go for distributed tracing and APM.
 ---
+
 # OpenTelemetry Distributed Tracing - APM Instrumentation
 
 Instrument your applications with OpenTelemetry SDKs for distributed tracing and application performance monitoring (APM).

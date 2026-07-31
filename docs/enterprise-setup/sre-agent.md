@@ -1,9 +1,8 @@
 ---
-title: O2 SRE Agent Setup Guide
-description: >-
-  Set up and configure the O2 SRE Agent for OpenObserve. Enable AI Assistant,
-  incident management, and RCA features with Helm or manual deployment methods.
-keywords: 'openobserve, sre agent, ai assistant, setup, configuration, incidents, rca'
+title: SRE Agent Setup
+metaTitle: O2 SRE Agent Setup Guide
+description: Set up and configure the O2 SRE Agent for OpenObserve. Enable AI Assistant, incident management, and RCA features with Helm or manual deployment methods.
+keywords: openobserve, sre agent, ai assistant, setup, configuration, incidents, rca
 ---
 
 # O2 SRE Agent Setup
@@ -493,118 +492,119 @@ Why is the database connection pool exhausted?
 
 ## Troubleshooting
 
-??? "Common issues and fixes"
+:::accordion[Common issues and fixes]
 
-    1. **SRE Agent Pod Not Starting**
+1. **SRE Agent Pod Not Starting**
 
-        Check pod status:
+    Check pod status:
 
-        ```bash
-        kubectl get pods -n openobserve | grep sreagent
-        kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
-        ```
+    ```bash
+    kubectl get pods -n openobserve | grep sreagent
+    kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
+    ```
 
-        Common causes:
+    Common causes:
 
-        - Invalid API key
-        - Incorrect AI provider name
-        - Network connectivity issues
+    - Invalid API key
+    - Incorrect AI provider name
+    - Network connectivity issues
 
-        Verify configuration:
+    Verify configuration:
 
-        ```bash
-        # Check API key exists
-        kubectl get secret -n openobserve openobserve-auth -o jsonpath='{.data.O2_AI_API_KEY}' | base64 -d
+    ```bash
+    # Check API key exists
+    kubectl get secret -n openobserve openobserve-auth -o jsonpath='{.data.O2_AI_API_KEY}' | base64 -d
 
-        # Check environment variables
-        kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_
-        ```
+    # Check environment variables
+    kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_
+    ```
 
-    2. **AI Assistant Not Responding**
+2. **AI Assistant Not Responding**
 
-        Check connectivity:
+    Check connectivity:
 
-        ```bash
-        # Health check
-        kubectl exec -n openobserve deployment/openobserve-router -- \
-          curl -s http://openobserve-sreagent:8000/health
+    ```bash
+    # Health check
+    kubectl exec -n openobserve deployment/openobserve-router -- \
+      curl -s http://openobserve-sreagent:8000/health
 
-        # Check logs
-        kubectl logs -n openobserve deployment/openobserve-sreagent --tail=50
-        ```
+    # Check logs
+    kubectl logs -n openobserve deployment/openobserve-sreagent --tail=50
+    ```
 
-        Common causes:
+    Common causes:
 
-        - `O2_AI_ENABLED` not set to `"true"`
-        - Network policy blocking communication
-        - AI provider API rate limiting
-        - Service misconfiguration
+    - `O2_AI_ENABLED` not set to `"true"`
+    - Network policy blocking communication
+    - AI provider API rate limiting
+    - Service misconfiguration
 
-    3. **MCP Tool Execution Failures**
+3. **MCP Tool Execution Failures**
 
-        Verify MCP endpoint:
+    Verify MCP endpoint:
 
-        ```bash
-        # Check O2_TOOL_API_URL
-        kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_TOOL_API_URL
+    ```bash
+    # Check O2_TOOL_API_URL
+    kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_TOOL_API_URL
 
-        # Test connectivity
-        kubectl exec -n openobserve deployment/openobserve-sreagent -- \
-          curl -s http://openobserve-router:5080/api/default/mcp
-        ```
+    # Test connectivity
+    kubectl exec -n openobserve deployment/openobserve-sreagent -- \
+      curl -s http://openobserve-router:5080/api/default/mcp
+    ```
 
-        Common causes:
+    Common causes:
 
-        - Incorrect `O2_TOOL_API_URL` format
-        - Wrong organization name in URL
-        - Missing MCP credentials
-        - Service not reachable
+    - Incorrect `O2_TOOL_API_URL` format
+    - Wrong organization name in URL
+    - Missing MCP credentials
+    - Service not reachable
 
-        Correct URL format:
+    Correct URL format:
 
-        ```
-        http://<service-name>.<namespace>.svc.cluster.local:<port>/api/<org-name>/mcp
-        ```
+    ```
+    http://<service-name>.<namespace>.svc.cluster.local:<port>/api/<org-name>/mcp
+    ```
 
-    4. **AI Gateway Issues**
+4. **AI Gateway Issues**
 
-        Check gateway:
+    Check gateway:
 
-        ```bash
-        # Verify gateway service
-        kubectl get svc -n <gateway-namespace> | grep ai-gateway
+    ```bash
+    # Verify gateway service
+    kubectl get svc -n <gateway-namespace> | grep ai-gateway
 
-        # Test connectivity
-        kubectl exec -n openobserve deployment/openobserve-sreagent -- \
-          curl -s http://ai-gateway:80
-        ```
+    # Test connectivity
+    kubectl exec -n openobserve deployment/openobserve-sreagent -- \
+      curl -s http://ai-gateway:80
+    ```
 
-        Common causes:
+    Common causes:
 
-        - Gateway not deployed
-        - Conflicting configuration (both `O2_AI_PROVIDER` and `O2_AI_GATEWAY_ENABLED` set)
-        - Wrong gateway URL or port
+    - Gateway not deployed
+    - Conflicting configuration (both `O2_AI_PROVIDER` and `O2_AI_GATEWAY_ENABLED` set)
+    - Wrong gateway URL or port
 
-        Fix:
+    Fix:
 
-        - With gateway: Remove `O2_AI_PROVIDER`, set `O2_AI_GATEWAY_ENABLED="true"`
-        - Without gateway: Remove all `O2_AI_GATEWAY_*` variables, set `O2_AI_PROVIDER`
+    - With gateway: Remove `O2_AI_PROVIDER`, set `O2_AI_GATEWAY_ENABLED="true"`
+    - Without gateway: Remove all `O2_AI_GATEWAY_*` variables, set `O2_AI_PROVIDER`
 
-    5. **Incident Management Not Working**
+5. **Incident Management Not Working**
 
-        Check configuration:
+    Check configuration:
 
-        ```bash
-        kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_INCIDENTS
-        ```
+    ```bash
+    kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_INCIDENTS
+    ```
 
-        Required settings (in OpenObserve, not SRE Agent):
+    Required settings (in OpenObserve, not SRE Agent):
 
-        ```yaml
-        O2_AI_ENABLED: "true"
-        O2_INCIDENTS_ENABLED: "true"
-        O2_INCIDENTS_RCA_ENABLED: "true"
-        ```
+    ```yaml
+    O2_AI_ENABLED: "true"
+    O2_INCIDENTS_ENABLED: "true"
+    O2_INCIDENTS_RCA_ENABLED: "true"
+    ```
+:::
 
 ## Best Practices
 

@@ -1,8 +1,8 @@
 ---
-description: >-
-  Enable Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition
-  using OpenFGA to manage access and enforce permissions across resources.
+title: Enable Role-Based Access Control (RBAC) in Enterprise Edition
+description: Enable Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition using OpenFGA to manage access and enforce permissions across resources.
 ---
+
 This guide provides instructions for enabling Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition. OpenObserve uses OpenFGA to manage RBAC.
 
 #### Before You Begin
@@ -37,7 +37,7 @@ Ensure you have **Kubernetes** and the **OpenObserve Helm Chart** installed.
 <br><br>1. Set `openfga.enabled: true` in `values.yaml` file.<br> 
 Navigate to the `values.yaml` file in the OpenObserve Helm chart repository and update this configuration as follows:
 
-```yml linenums="1"
+```yml lineNumbers
 openfga:
     enabled: true
     parameters:

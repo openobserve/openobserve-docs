@@ -1,5 +1,6 @@
 ---
-title: AI & LLM Observability Integrations - Frameworks, Providers, Gateways | OpenObserve
+title: AI
+metaTitle: AI & LLM Observability Integrations - Frameworks, Providers, Gateways | OpenObserve
 description: Comprehensive AI and LLM observability integrations for tracing AI frameworks (LangChain, CrewAI, LlamaIndex), LLM providers (OpenAI, Anthropic, Gemini), AI gateways (Portkey, LiteLLM), no-code tools (n8n, Flowise), and AI developer tools with OpenObserve.
 ---
 

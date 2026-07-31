@@ -1,8 +1,6 @@
 ---
-description: >-
-  Define alert conditions in OpenObserve using the natural language condition
-  builder. Covers count mode, measure mode, aggregation functions, group-by,
-  and filter conditions.
+title: Alert Conditions and Filters
+description: Define alert conditions in OpenObserve using the natural language condition builder. Covers count mode, measure mode, aggregation functions, group-by, and filter conditions.
 ---
 
 This guide explains how to define alert conditions in OpenObserve using the condition sentence builder and filter system.
@@ -78,8 +76,9 @@ For example, grouping by `hostname` with "Alert if avg of cpu_usage >= 80" evalu
 
 **Having groups** sets the minimum number of groups that must satisfy the condition for the alert to trigger. For example, with a value of 3, the alert fires only when at least 3 group-by combinations meet the condition.
 
-!!! note
-    When aggregation or group-by is enabled, the right-hand **Preview** panel renders a multi-series chart. When there are three or more group-by fields, the preview is shown as a table instead.
+:::note[Note]
+When aggregation or group-by is enabled, the right-hand **Preview** panel renders a multi-series chart. When there are three or more group-by fields, the preview is shown as a table instead.
+:::
 
 ---
 
@@ -106,8 +105,9 @@ Click **+ Condition Group** to create a grouped block of conditions. Groups supp
 
 `(level = error AND service = api) OR (level = warn AND response_time > 5000)`
 
-!!! note
-    Condition groups can be nested up to three levels deep. This limit ensures alert logic remains readable while allowing sufficient flexibility for advanced use cases.
+:::note[Note]
+Condition groups can be nested up to three levels deep. This limit ensures alert logic remains readable while allowing sufficient flexibility for advanced use cases.
+:::
 
 ### SQL preview
 
@@ -131,8 +131,9 @@ Click the **SQL** tab to switch to SQL mode. The condition sentence is replaced 
 
 ![SQL mode with editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode.png)
 
-!!! warning
-    Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::warning[Warning]
+Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::
 
 ### PromQL mode
 

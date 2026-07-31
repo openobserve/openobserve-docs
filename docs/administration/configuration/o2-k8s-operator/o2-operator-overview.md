@@ -1,10 +1,8 @@
 ---
-title: OpenObserve Kubernetes Operator
-description: >-
-  Manage OpenObserve observability as code using the Kubernetes Operator.
-  Define alerts, pipelines, functions, destinations, and templates declaratively
-  with GitOps-ready workflows for scalable Kubernetes environments.
-keywords: 'openobserve, kubernetes operator, observability as code, gitops, kubernetes observability, openobserve enterprise'
+title: K8s Operator Overview
+metaTitle: OpenObserve Kubernetes Operator
+description: Manage OpenObserve observability as code using the Kubernetes Operator. Define alerts, pipelines, functions, destinations, and templates declaratively with GitOps-ready workflows for scalable Kubernetes environments.
+keywords: openobserve, kubernetes operator, observability as code, gitops, kubernetes observability, openobserve enterprise
 ---
 
 # OpenObserve Kubernetes Operator (v1.0.6)

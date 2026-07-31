@@ -1,5 +1,6 @@
 ---
-title: Datadog vs OpenObserve Architecture - Migration Path & Terminology | OpenObserve
+title: Architecture & Terminology
+metaTitle: Datadog vs OpenObserve Architecture - Migration Path & Terminology | OpenObserve
 description: How Datadog Agent, DogStatsD, and APM components map to OpenObserve. Architecture comparison, terminology reference, and protocol compatibility for migrating off Datadog.
 ---
 

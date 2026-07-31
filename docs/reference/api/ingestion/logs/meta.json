@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "json",
+    "bulk",
+    "multi",
+    "loki",
+    "otlp"
+  ]
+}

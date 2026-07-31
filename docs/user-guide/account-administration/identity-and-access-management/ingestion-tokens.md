@@ -1,7 +1,8 @@
 ---
-description: >-
-  Manage organization-level ingestion tokens to securely send logs, metrics, and traces into OpenObserve without tying credentials to individual users.
+title: Ingestion Tokens
+description: Manage organization-level ingestion tokens to securely send logs, metrics, and traces into OpenObserve without tying credentials to individual users.
 ---
+
 This guide explains how to create, manage, and use organization-level ingestion tokens. These tokens decouple ingestion credentials from individual user accounts, ensuring your data pipelines keep working even when users leave the organization.
 
 ## Overview

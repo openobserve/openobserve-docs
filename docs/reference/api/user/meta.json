@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "create",
+    "update",
+    "add-user",
+    "delete",
+    "list"
+  ]
+}

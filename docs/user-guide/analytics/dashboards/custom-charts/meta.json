@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "index",
+    "what-are-custom-charts",
+    "custom-charts-flat-data",
+    "custom-charts-nested-data",
+    "custom-charts-event-handlers-and-custom-functions",
+    "custom-charts-for-metrics-using-promql",
+    "custom-charts-for-metrics-using-multiple-promql-queries"
+  ]
+}

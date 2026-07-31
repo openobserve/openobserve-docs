@@ -1,92 +1,96 @@
 ---
-title: Syslog Server Integration for System Log Collection | OpenObserve
+title: Syslog
+metaTitle: Syslog Server Integration for System Log Collection | OpenObserve
 description: Configure syslog server integration for collecting system logs, server logs, and network device logs using TCP/UDP protocols with OpenObserve for centralized logging.
 ---
+
 # Syslog Server - System & Network Log Collection
 
-!!! warning "Deprecation Notice"
-    Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of August 2025** and is no longer available in OpenObserve.
+:::warning[Deprecation Notice]
+Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of August 2025** and is no longer available in OpenObserve.
 
-    **Recommended alternatives:**
+**Recommended alternatives:**
 
-    - [AxoSyslog](https://axoflow.com/docs/axosyslog-core/chapter-destinations/openobserve/)
-    - [syslog-ng](https://www.syslog-ng.com/community/b/blog/posts/sending-logs-to-openobserve-using-syslog-ng)
-    - [Vector](../logs/vector.md)
-    - [Fluent Bit](../logs/fluent-bit.md)
+- [AxoSyslog](https://axoflow.com/docs/axosyslog-core/chapter-destinations/openobserve/)
+- [syslog-ng](https://www.syslog-ng.com/community/b/blog/posts/sending-logs-to-openobserve-using-syslog-ng)
+- [Vector](../logs/vector.md)
+- [Fluent Bit](../logs/fluent-bit.md)
 
-    We suggest using **AxoSyslog or syslog-ng** if you want protocol-native support for Syslog.
+We suggest using **AxoSyslog or syslog-ng** if you want protocol-native support for Syslog.
+:::
 
-??? "Legacy reference (pre-August 2025)"
+:::accordion[Legacy reference (pre-August 2025)]
 
-    The configuration below is preserved for historical context. Use one of the alternatives above for new deployments.
+The configuration below is preserved for historical context. Use one of the alternatives above for new deployments.
 
-    
-    OpenObserve can act as a syslog server. This means that you can send logs to OpenObserve using the syslog protocol. OpenObserve supports both UDP and TCP syslog.
 
-    ### Enable syslog
+OpenObserve can act as a syslog server. This means that you can send logs to OpenObserve using the syslog protocol. OpenObserve supports both UDP and TCP syslog.
 
-    Before you can send logs to OpenObserve, you need to enable OpenObserve to act as a syslog server. This is done by enabling syslog in the `Ingestion > Logs > Syslog` section of the OpenObserve UI.
+### Enable syslog
 
-    [![Enable syslog](./images/syslog.png)](./images/syslog.png)
+Before you can send logs to OpenObserve, you need to enable OpenObserve to act as a syslog server. This is done by enabling syslog in the `Ingestion > Logs > Syslog` section of the OpenObserve UI.
 
-    ### Subnets to allow traffic from
+[![Enable syslog](./images/syslog.png)](./images/syslog.png)
 
-    OpenObserve will only accept syslog traffic from the subnets that you specify. You must specify a minimum of 3 things:
+### Subnets to allow traffic from
 
-    - Organization
-    - Stream name
-    - Subnets
+OpenObserve will only accept syslog traffic from the subnets that you specify. You must specify a minimum of 3 things:
 
-    ### Configuration
+- Organization
+- Stream name
+- Subnets
 
-    Default port: `5514`
+### Configuration
 
-    You can change the default port number using the following environment variables:
+Default port: `5514`
 
-    - `ZO_TCP_PORT` - TCP port number to listen on. Default: `5514`
-    - `ZO_UDP_PORT` - UDP port number to listen on. Default: `5514`
+You can change the default port number using the following environment variables:
 
-    You can also configure the TLS settings for syslog TCP server using the following environment variables:
+- `ZO_TCP_PORT` - TCP port number to listen on. Default: `5514`
+- `ZO_UDP_PORT` - UDP port number to listen on. Default: `5514`
 
-    - `ZO_TCP_TLS_ENABLED` - Enable TLS for TCP syslog server. If enabled, `ZO_TCP_PORT` will be used for the TLS connection over TCP. Default: `false`
+You can also configure the TLS settings for syslog TCP server using the following environment variables:
 
-    If `ZO_TCP_TLS_ENABLED` is set to `true`, then ensure all the below variables are set:
+- `ZO_TCP_TLS_ENABLED` - Enable TLS for TCP syslog server. If enabled, `ZO_TCP_PORT` will be used for the TLS connection over TCP. Default: `false`
 
-    - `ZO_TCP_TLS_CERT_PATH` - Path to the TLS certificate file to be used on the server.
-    - `ZO_TCP_TLS_KEY_PATH` - Path to the TLS key file to be used on the server.
-    - `ZO_TCP_TLS_CA_CERT_PATH` - Path to the TLS CA certificate file to be used on the server.
+If `ZO_TCP_TLS_ENABLED` is set to `true`, then ensure all the below variables are set:
 
-    ### Testing
+- `ZO_TCP_TLS_CERT_PATH` - Path to the TLS certificate file to be used on the server.
+- `ZO_TCP_TLS_KEY_PATH` - Path to the TLS key file to be used on the server.
+- `ZO_TCP_TLS_CA_CERT_PATH` - Path to the TLS CA certificate file to be used on the server.
 
-    Select an organization and stream. Then set the subnet to `0.0.0.0/0`. This config allows accepting syslog data from any IP address.
+### Testing
 
-    You can then use the syslog generator script from [this repo](https://github.com/openobserve/syslog_log_generator) to test if you are able to accept syslog data in OpenObserve.
+Select an organization and stream. Then set the subnet to `0.0.0.0/0`. This config allows accepting syslog data from any IP address.
 
-    Steps:
+You can then use the syslog generator script from [this repo](https://github.com/openobserve/syslog_log_generator) to test if you are able to accept syslog data in OpenObserve.
 
-    #### Clone the repo
+Steps:
 
-    ```bash
-    git clone https://github.com/openobserve/syslog_log_generator
-    cd syslog_log_generator
-    ```
+#### Clone the repo
 
-    #### Modify the script
+```bash
+git clone https://github.com/openobserve/syslog_log_generator
+cd syslog_log_generator
+```
 
-    file `generate_logs.sh`
+#### Modify the script
 
-    ```bash
-    #!/bin/sh
-    python syslog_gen.py --host 127.0.0.1 --port 5514 --file sample_logs.txt --count 1000
-    ```
+file `generate_logs.sh`
 
-    Modify the file with the appropriate IP address.
+```bash
+#!/bin/sh
+python syslog_gen.py --host 127.0.0.1 --port 5514 --file sample_logs.txt --count 1000
+```
 
-    #### Start generating test syslog data
+Modify the file with the appropriate IP address.
 
-    ```bash
-    ./generate_logs.sh
-    ```
+#### Start generating test syslog data
+
+```bash
+./generate_logs.sh
+```
+:::
 
 
 **Need some help?**

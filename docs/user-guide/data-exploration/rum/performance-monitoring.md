@@ -1,5 +1,6 @@
 ---
-description: "RUM performance monitoring tracks Core Web Vitals like LCP, FID, and CLS plus page load, API response times, and slow resources in a real-time dashboard."
+title: Performance Monitoring
+description: RUM performance monitoring tracks Core Web Vitals like LCP, FID, and CLS plus page load, API response times, and slow resources in a real-time dashboard.
 ---
 
 # Performance Monitoring

@@ -1,4 +1,5 @@
 ---
+title: Screenshots
 description: "A visual tour of the OpenObserve UI through screenshots: the home dashboard, log search, real-time and standard alerts, dashboards, streams, and users."
 ---
 

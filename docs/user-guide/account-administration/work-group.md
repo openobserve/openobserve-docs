@@ -1,11 +1,13 @@
 ---
+title: work-group
 description: Manage query performance in enterprise with Work Group settings—optimize CPU, memory, and concurrency for long and short queries in OpenObserve streams.
 ---
 
 Work groups control how OpenObserve allocates CPU, memory, and concurrency for different types of search tasks. They help maintain consistent performance when multiple users and system processes run searches at the same time. 
 
-!!! note "Note"
-    This feature is available in the Enterprise Edition.
+:::note[Note]
+This feature is available in the Enterprise Edition.
+:::
 
 
 ## Overview
@@ -17,8 +19,9 @@ OpenObserve uses three work groups:
 - Long
 - Background
 
-!!! note "Note"
-    Short and long groups manage user queries. The background group handles system tasks.
+:::note[Note]
+Short and long groups manage user queries. The background group handles system tasks.
+:::
 
 ## Background work group
 The background work group handles system tasks that run independently of user activity. These tasks include:
@@ -94,11 +97,12 @@ The estimation uses the following values:
 
 - The amount of memory available to a single search request in a group equals: `O2_SEARCH_GROUP_x_MAX_MEMORY / O2_SEARCH_GROUP_x_MAX_CONCURRENCY`
 
-!!! note "Example" 
+:::note[Example]
 
-    - If total system memory is `10GB` then Datafusion can use `50%`, DataFusion has `5GB`.  
-    - If the long group has `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%`, it can use `2.5GB`. 
-    - With `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`, each long query can use up to `1.25GB` of memory.
+- If total system memory is `10GB` then Datafusion can use `50%`, DataFusion has `5GB`.  
+- If the long group has `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%`, it can use `2.5GB`. 
+- With `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`, each long query can use up to `1.25GB` of memory.
+:::
 
 - A search request uses all CPU cores assigned to its work group as defined by `O2_SEARCH_GROUP_x_MAX_CPU`.
 - When a search request exceeds the concurrency defined by `O2_SEARCH_GROUP_x_MAX_CONCURRENCY`, it is placed in a queue and executed later in first-in, first-out order.
@@ -128,7 +132,7 @@ OpenObserve uses base speed and base seconds to estimate the expected execution 
 
 OpenObserve uses the following logic:
 
-```rust linenums="1"
+```rust lineNumbers
 let cpu_cores = max(2, CLUSTER_TOTAL_CPU_CORES * O2_SEARCH_GROUP_SHORT_MAX_CPU);
 let predict_secs = scan_size / O2_SEARCH_GROUP_BASE_SPEED / cpu_cores;
 if predict_secs > O2_SEARCH_GROUP_BASE_SECS {

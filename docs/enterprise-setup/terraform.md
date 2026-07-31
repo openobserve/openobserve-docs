@@ -1,16 +1,15 @@
 ---
-title: Terraform Support — Infrastructure-as-Code for OpenObserve | OpenObserve
-description: >-
-  Deploy OpenObserve on Kubernetes and manage its resources (streams,
-  dashboards, users, organizations) as code with the official Terraform
-  provider and Kubernetes module. OpenTofu supported. Apache 2.0 licensed.
-keywords: 'openobserve, terraform, iac, opentofu, helm, kubernetes, eks, provider, module'
+title: Terraform
+metaTitle: Terraform Support — Infrastructure-as-Code for OpenObserve | OpenObserve
+description: Deploy OpenObserve on Kubernetes and manage its resources (streams, dashboards, users, organizations) as code with the official Terraform provider and Kubernetes module. OpenTofu supported. Apache 2.0 licensed.
+keywords: openobserve, terraform, iac, opentofu, helm, kubernetes, eks, provider, module
 ---
+
 # Terraform Support
 
 Manage OpenObserve as code. OpenObserve ships **two complementary Terraform modules** that together cover the full lifecycle: deploying the platform itself, and managing the resources that run inside it.
 
-> For support, reach out in the [Slack channel](/marketing-opt-in/){:target="_blank" rel="noopener noreferrer"}.
+> For support, reach out in the [Slack channel](/marketing-opt-in/).
 
 | Module | Purpose | Source |
 |---|---|---|
@@ -107,8 +106,9 @@ terraform apply
 
 The `app-logs` stream will appear in the OpenObserve UI under **Streams**, with the retention policy, full-text search keys, and index fields you declared.
 
-!!! tip "Store credentials securely"
-    Avoid committing `username` and `password` directly. Set `OPENOBSERVE_USERNAME` and `OPENOBSERVE_PASSWORD` as environment variables, use Terraform variables backed by a `.tfvars` file outside version control, or pull from a secrets backend such as AWS Secrets Manager or HashiCorp Vault.
+:::tip[Store credentials securely]
+Avoid committing `username` and `password` directly. Set `OPENOBSERVE_USERNAME` and `OPENOBSERVE_PASSWORD` as environment variables, use Terraform variables backed by a `.tfvars` file outside version control, or pull from a secrets backend such as AWS Secrets Manager or HashiCorp Vault.
+:::
 
 ## Kubernetes Module
 

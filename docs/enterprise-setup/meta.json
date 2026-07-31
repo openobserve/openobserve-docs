@@ -1,0 +1,15 @@
+{
+  "title": "Enterprise Setup",
+  "pages": [
+    "index",
+    "amazon-eks",
+    "azure-aks",
+    "google-gke",
+    "terraform",
+    "sre-agent",
+    "enterprise-features",
+    "license-and-pricing",
+    "capacity-planning",
+    "performance"
+  ]
+}

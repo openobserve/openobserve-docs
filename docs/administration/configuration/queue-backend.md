@@ -1,8 +1,8 @@
 ---
-description: >-
-  Choose and configure the queue backend (NATS or in-memory) that OpenObserve
-  uses for internal event coordination, rate limiting, and cluster operations.
+title: Queue Backend
+description: Choose and configure the queue backend (NATS or in-memory) that OpenObserve uses for internal event coordination, rate limiting, and cluster operations.
 ---
+
 # Queue Backend
 
 OpenObserve uses an internal message queue for coordinating cluster events, rate limiting, and synchronizing state across nodes. You can choose between two queue backends by setting `ZO_QUEUE_STORE`.

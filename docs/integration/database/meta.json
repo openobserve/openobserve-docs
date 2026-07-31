@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "index",
+    "postgresql",
+    "oracle",
+    "snowflake",
+    "mysql",
+    "mongodb",
+    "redis",
+    "dynamodb",
+    "zookeeper",
+    "cassandra",
+    "aerospike"
+  ]
+}

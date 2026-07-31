@@ -1,7 +1,9 @@
 ---
-title: SQL Functions Reference | OpenObserve
+title: SQL Functions Overview
+metaTitle: SQL Functions Reference | OpenObserve
 description: Reference for all SQL functions supported in OpenObserve, grouped by category - full-text search, secondary index, array, aggregate, and approximate aggregate functions.
 ---
+
 # SQL Functions
 
 This section provides documentation for all SQL functions supported in OpenObserve. Functions are grouped by category to help you quickly find the one that fits your use case.

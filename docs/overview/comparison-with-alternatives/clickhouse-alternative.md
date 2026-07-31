@@ -1,5 +1,6 @@
 ---
-title: OpenObserve as a ClickHouse Alternative | Comparison
+title: OpenObserve vs ClickHouse
+metaTitle: OpenObserve as a ClickHouse Alternative | Comparison
 description: How OpenObserve compares to a ClickHouse-based observability stack on assembly effort, operations, storage, and query languages. Feature comparison and guidance for teams weighing build versus buy.
 ---
 

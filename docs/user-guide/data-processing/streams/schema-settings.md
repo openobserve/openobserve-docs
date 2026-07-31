@@ -1,8 +1,8 @@
 ---
-description: >-
-  Manage stream schemas in OpenObserve to optimize query performance. Define
-  field types, set index types, and enable user-defined schemas for efficiency.
+title: Schema Settings
+description: Manage stream schemas in OpenObserve to optimize query performance. Define field types, set index types, and enable user-defined schemas for efficiency.
 ---
+
 The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to inspect and manage the schema used to store and query ingested data. A schema defines the structure of log data within a stream and includes:
 
 - The fields detected during ingestion  
@@ -27,8 +27,9 @@ You can modify or assign an index type to a field to improve search performance.
 
 To learn more, visit the [Fields and Index in Streams](https://openobserve.ai/docs/user-guide/data-processing/streams/data-type-and-index-type-in-streams/) page.
 
-!!! Warning  
-    Changing the index after storing data may lead to inconsistent query results or data retrieval failures.
+:::warning[Warning]
+Changing the index after storing data may lead to inconsistent query results or data retrieval failures.
+:::
 
 ## User-Defined Schema (UDS)
 
@@ -53,8 +54,9 @@ To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEF
 4. Click **Add to Defined Schema**.  
 5. Save your changes using the **Update Settings** button.
 
-!!! note
-    Fields already part of the User Defined Schema cannot be re-added. The **Add to Defined Schema** button is disabled and shows a tooltip ("One or more selected fields are already part of the defined schema") when any selected field is already in the schema.
+:::note[Note]
+Fields already part of the User Defined Schema cannot be re-added. The **Add to Defined Schema** button is disabled and shows a tooltip ("One or more selected fields are already part of the defined schema") when any selected field is already in the schema.
+:::
 
 
 After you save the changes:

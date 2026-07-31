@@ -1,5 +1,6 @@
 ---
-title: Migrate Traces from Tempo (LGTM Stack) to OpenObserve
+title: Migrating Traces
+metaTitle: Migrate Traces from Tempo (LGTM Stack) to OpenObserve
 description: Migrate distributed traces from Grafana Tempo to OpenObserve. Switch OTLP endpoints, update OTel Collector and application SDK configs, and migrate from Jaeger and Zipkin to OpenObserve.
 ---
 
@@ -57,8 +58,9 @@ Copy the exact updated configuration from the **Data Sources UI** in OpenObserve
 ![OpenObserve Data Sources - OTel Collector Traces](../../images/migration/lgtm/opentelemetry.png)
 
 
-!!! tip "Send all signals through one exporter"
-    If you're already migrating metrics or logs, you can consolidate all signals (metrics, logs, traces) into a single `otlphttp/openobserve` exporter — one endpoint, one auth header, all signals.
+:::tip[Send all signals through one exporter]
+If you're already migrating metrics or logs, you can consolidate all signals (metrics, logs, traces) into a single `otlphttp/openobserve` exporter — one endpoint, one auth header, all signals.
+:::
 
 ---
 

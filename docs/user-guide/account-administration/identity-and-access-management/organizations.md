@@ -1,7 +1,8 @@
 ---
-description: >-
- In OpenObserve, organizations group streams, users, and functions. Each user must select an organization to access and manage data and resources.
+title: Organizations
+description: In OpenObserve, organizations group streams, users, and functions. Each user must select an organization to access and manage data and resources.
 ---
+
 This guide explains how organizations work in OpenObserve. It covers organization types, creation methods, identifiers, access control, and limitations. 
 
 ## Overview   
@@ -24,17 +25,18 @@ OpenObserve supports two types of organizations:
 - The **_meta** organization provides visibility into the health and status of the OpenObserve instance, including node metrics, resource usage, and configuration across all organizations. 
 - Use the **IAM > Roles > Permission** in the **_meta** organization to manage users across all organizations and control who can list, create, update, or delete organizations.
 
-!!! note "Who can access"
-    ## Who can access
-    In OpenObserve, access to organization-level operations, such as listing, creating, updating, or deleting organizations, depends on the deployment mode.
+:::note[Who can access]
+## Who can access
+In OpenObserve, access to organization-level operations, such as listing, creating, updating, or deleting organizations, depends on the deployment mode.
 
-    ### Access in the open-source mode 
-    Any authenticated user can create new organizations using the **Add Organization** button in the UI.
-    ### Access in the enterprise mode with RBAC enabled
-    - Access to organization management is strictly controlled through RBAC, which must be configured in the _meta organization.
-    - The **root** user always has unrestricted access to all organizations, including **_meta**.
-    - Only roles defined in **_meta** can include permissions for managing organizations.
-    - The **organization** module is available in the role editor only within the **_meta** organization. 
+### Access in the open-source mode 
+Any authenticated user can create new organizations using the **Add Organization** button in the UI.
+### Access in the enterprise mode with RBAC enabled
+- Access to organization management is strictly controlled through RBAC, which must be configured in the _meta organization.
+- The **root** user always has unrestricted access to all organizations, including **_meta**.
+- Only roles defined in **_meta** can include permissions for managing organizations.
+- The **organization** module is available in the role editor only within the **_meta** organization. 
+:::
 
 ## How to grant organization management access?
 To delegate organization management to users in enterprise mode:

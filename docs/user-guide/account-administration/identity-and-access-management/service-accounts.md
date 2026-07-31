@@ -1,15 +1,17 @@
 ---
-description: >-
-  Create and manage service accounts in OpenObserve — non-human identities that give applications, automation, and integrations scoped, role-based API access through a rotatable token.
+title: Service Accounts
+description: Create and manage service accounts in OpenObserve — non-human identities that give applications, automation, and integrations scoped, role-based API access through a rotatable token.
 ---
+
 This guide explains how to create, manage, and authenticate with **service accounts** in OpenObserve.
 
 ## Overview
 
 A service account is a non-human account used for API access, automation, and integrations. It is an **identity**: you assign it roles and permissions, and it is issued a **token** for authentication. Because permissions attach to the account rather than to the token, you can rotate the token at any time without changing the account's access, and audit logs stay tied to a stable identity across rotations.
 
-!!! tip "Coming from API keys?"
-    If you have used **API keys** in other tools (such as Kubernetes, GCP, or SaaS APIs), a service account is OpenObserve's equivalent — with roles and rotation built in. The **service account** is the identity you grant permissions to, and its **token** is the API key you place in your application.
+:::tip[Coming from API keys?]
+If you have used **API keys** in other tools (such as Kubernetes, GCP, or SaaS APIs), a service account is OpenObserve's equivalent — with roles and rotation built in. The **service account** is the identity you grant permissions to, and its **token** is the API key you place in your application.
+:::
 
 Availability differs by edition:
 

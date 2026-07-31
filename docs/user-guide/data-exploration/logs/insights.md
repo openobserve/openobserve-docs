@@ -1,5 +1,6 @@
 ---
-description: "Insights automates root cause analysis by comparing anomaly periods against baseline across dimensions, ranking which factors drive changes in logs and traces."
+title: Insights
+description: Insights automates root cause analysis by comparing anomaly periods against baseline across dimensions, ranking which factors drive changes in logs and traces.
 ---
 
 # Insights: Interactive Dimension Analysis

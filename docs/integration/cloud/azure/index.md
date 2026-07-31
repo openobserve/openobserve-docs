@@ -1,5 +1,6 @@
 ---
-title: Azure Monitoring Integration | OpenObserve
+title: Azure Integrations Overview
+metaTitle: Azure Monitoring Integration | OpenObserve
 description: Integrate Microsoft Azure with OpenObserve to collect and analyze logs and metrics from Azure services, including Azure Activity Logs.
 ---
 

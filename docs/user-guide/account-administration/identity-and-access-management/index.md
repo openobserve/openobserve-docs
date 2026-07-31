@@ -1,5 +1,6 @@
 ---
-description: "Manage user identities and access in OpenObserve with RBAC, single sign-on, Keycloak SSO, organizations, ingestion tokens, quotas, and user password controls."
+title: Identity and Access Management Overview
+description: Manage user identities and access in OpenObserve with RBAC, single sign-on, Keycloak SSO, organizations, ingestion tokens, quotas, and user password controls.
 ---
 
 The following guides provide details on managing user identities and controlling access to resources in OpenObserve. They include instructions for setting up Role-Based Access Control, managing users and groups, configuring permissions:

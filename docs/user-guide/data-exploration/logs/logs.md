@@ -1,13 +1,16 @@
 ---
-title: Logs in OpenObserve | OpenObserve
+title: Logs in OpenObserve
+metaTitle: Logs in OpenObserve | OpenObserve
 description: Run your first log search in OpenObserve. Filter by stream and time range, switch between non-SQL and SQL mode, transform results with VRL, save views, and export or schedule searches.
 ---
+
 # Logs
 
 This page explains how to run your first log search in OpenObserve, set a time range, execute a query, apply VRL transformations, adjust display settings, and save or export the results. 
 
-!!! note "Before you begin"
-    Make sure you have the required access to use the **Logs** page. Ensure that at least one stream with data is available in your organization. Learn more about [streams](../../data-processing/streams/streams-in-openobserve.md).
+:::note[Before you begin]
+Make sure you have the required access to use the **Logs** page. Ensure that at least one stream with data is available in your organization. Learn more about [streams](../../data-processing/streams/streams-in-openobserve.md).
+:::
 
 ## Get Started with Logs
 To start using the **Logs** page:

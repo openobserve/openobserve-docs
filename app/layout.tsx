@@ -1,0 +1,48 @@
+import './global.css';
+import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { RootProvider } from 'fumadocs-ui/provider/next';
+import { DocsLayout } from 'fumadocs-ui/layouts/docs';
+import { source } from '@/lib/source';
+import { baseOptions } from '@/app/layout.config';
+import { Analytics, GtmNoScript } from '@/components/analytics';
+import { SiteStructuredData } from '@/components/structured-data';
+import SearchDialog from '@/components/search-dialog';
+import { BASE_PATH, SITE_URL } from '@/lib/constants';
+
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(`${SITE_URL}${BASE_PATH}/`),
+  title: {
+    default: 'OpenObserve Documentation',
+    template: '%s',
+  },
+  description:
+    'OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces into a single solution, built for petabyte scale with up to 140x lower storage cost than Elasticsearch.',
+  icons: { icon: `${BASE_PATH}/images/logo_circle.png` },
+  alternates: {
+    types: {
+      // LLM discovery, matching the MkDocs `overrides/main.html` hint.
+      'text/markdown': `${BASE_PATH}/llms.txt`,
+    },
+  },
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" className={inter.className} suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col">
+        <GtmNoScript />
+        <SiteStructuredData />
+        <RootProvider search={{ SearchDialog }}>
+          <DocsLayout tree={source.pageTree} {...baseOptions}>
+            {children}
+          </DocsLayout>
+        </RootProvider>
+        <Analytics />
+      </body>
+    </html>
+  );
+}

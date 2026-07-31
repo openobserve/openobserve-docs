@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "index",
+    "logs",
+    "metrics",
+    "traces"
+  ]
+}

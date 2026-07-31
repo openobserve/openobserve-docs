@@ -1,5 +1,6 @@
 ---
-title: Log Ingestion Methods for Centralized Logging | OpenObserve
+title: Logs
+metaTitle: Log Ingestion Methods for Centralized Logging | OpenObserve
 description: Comprehensive guide to log ingestion using OpenTelemetry, Vector, Filebeat, Fluent-bit, Fluentd, Kinesis Firehose, Syslog, and more for centralized log management.
 ---
 

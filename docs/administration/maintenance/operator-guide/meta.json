@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "index",
+    "systemd",
+    "simd",
+    "mimalloc",
+    "openobserve-plugin-for-grafana",
+    "etcd",
+    "etcd-restore",
+    "nginx-proxy",
+    "config-management",
+    "cli-commands"
+  ]
+}

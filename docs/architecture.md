@@ -1,10 +1,8 @@
 ---
-title:  OpenObserve Architecture
-description: >-
-  Learn how OpenObserve is structured: deployment modes (single-node and HA),
-  the role of each component, how data flows through the system, and how
-  durability is handled.
-keywords: 'openobserve, architecture, tutorial'
+title: Architecture
+metaTitle: OpenObserve Architecture
+description: "Learn how OpenObserve is structured: deployment modes (single-node and HA), the role of each component, how data flows through the system, and how durability is handled."
+keywords: openobserve, architecture, tutorial
 ---
 
 # OpenObserve Architecture and Deployment Modes
@@ -25,13 +23,13 @@ Based on our tests (using an Apple M2 chip), you can ingest data at approximatel
 
 The [Quickstart](./getting-started.md) describes various ways to set up this configuration.
 
-![Single node architecture using SQLite and local disk](images/arch-single-local.jpg){ width="60%" }
+<img src="images/arch-single-local.jpg" alt="Single node architecture using SQLite and local disk" width="60%">
 
 ### SQLite and Object Storage
 
 Single-node mode with SQLite and object storage runs OpenObserve on one node but stores parquet files in durable object storage (for example, Amazon S3, GCS, MinIO, or Azure Blob) instead of local disk. Use it when you want the simplicity of a single node but need the durability and elasticity of object storage — for example, so data survives the loss of the node's local volume, or to keep local disk small. Compared with the local-disk variant, it trades slightly higher read latency and a storage dependency for much higher durability and effectively unbounded capacity. Configure the object-storage backend with the `ZO_LOCAL_MODE_STORAGE` and related S3/GCS environment variables; see [Environment variables](administration/configuration/environment-variables.md) for the full list.
 
-![Single node architecture using SQLite and s3](images/arch-single-s3.jpg){ width="60%" }
+<img src="images/arch-single-s3.jpg" alt="Single node architecture using SQLite and s3" width="60%">
 
 ## High Availability (HA) Mode
 
@@ -45,7 +43,7 @@ HA mode does not support local disk storage. Please refer to [HA Deployment](adm
 - NATS for cluster coordination
 - At least one node of each type (Router, Ingester, Compactor, Querier, AlertManager)
 
-![HA architecture using NATS and s3](images/arch-ha.webp){ width="80%" }
+<img src="images/arch-ha.webp" alt="HA architecture using NATS and s3" width="80%">
 
 In OpenObserve HA mode, the following node types can be scaled horizontally to accommodate higher traffic:
 
@@ -100,7 +98,7 @@ OpenObserve uses Ingester nodes to receive ingest requests, to convert data into
 
 The data ingestion flow is as follows:
 
-![Data Ingestion Flow](images/arch-sequence-ingester.svg){ width="90%" }
+<img src="images/arch-sequence-ingester.svg" alt="Data Ingestion Flow" width="90%">
 
 1. Receive data from an HTTP or gRPC API request.
 1. Parse data line by line.
@@ -135,7 +133,7 @@ OpenObserve uses Querier nodes to query data. Queriers are fully stateless.
 
 The data query flow is as follows:
 
-![Query Flow](images/arch-sequence-querier.svg){ width="90%" }
+<img src="images/arch-sequence-querier.svg" alt="Query Flow" width="90%">
 
 1. Receive the search request using HTTP or API. The node receiving the query request becomes `LEADER querier for the query` and other queriers become `WORKER queriers for query`.
 1. `LEADER` parses and verifies SQL.
@@ -145,15 +143,17 @@ The data query flow is as follows:
 1. `LEADER` calls the gRPC service running on each `WORKER` querier to dispatch the search query to the Querier node. Inter-querier communication happens using gRPC.
 1. `LEADER` collects, merges and sends the result back to the user.
 
-!!! tip "Querier caching"
-    - The queriers will cache parquet files in memory by default. Use the `ZO_MEMORY_CACHE_MAX_SIZE` environment variable to configure how much memory a querier uses for caching. By default, queriers use 50% of their available memory for caching.
-    - In a distributed environment, each querier node will just cache a part of the data.
-    - You also have the option to enable caching the latest parquet files in memory. The ingester will notify queriers to cache the file when an ingester generates a new parquet file and uploads it to object storage.
+:::tip[Querier caching]
+- The queriers will cache parquet files in memory by default. Use the `ZO_MEMORY_CACHE_MAX_SIZE` environment variable to configure how much memory a querier uses for caching. By default, queriers use 50% of their available memory for caching.
+- In a distributed environment, each querier node will just cache a part of the data.
+- You also have the option to enable caching the latest parquet files in memory. The ingester will notify queriers to cache the file when an ingester generates a new parquet file and uploads it to object storage.
+:::
 
 #### Federated Search
 
-!!! info "Applies to"
-    Enterprise version only.
+:::info[Applies to]
+Enterprise version only.
+:::
 
 The federated search spans over multiple OpenObserve clusters:
 

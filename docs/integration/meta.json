@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "index",
+    "ai",
+    "cloud",
+    "data-pipeline",
+    "database",
+    "devops",
+    "message-brokers",
+    "security",
+    "servers",
+    "system"
+  ]
+}

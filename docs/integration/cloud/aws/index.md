@@ -1,5 +1,6 @@
 ---
-title: AWS Monitoring Integration - CloudWatch, EC2, Lambda, ECS | OpenObserve
+title: AWS Integrations Overview
+metaTitle: AWS Monitoring Integration - CloudWatch, EC2, Lambda, ECS | OpenObserve
 description: Comprehensive AWS monitoring integration guide for CloudWatch logs and metrics, EC2 monitoring, Lambda monitoring, ECS container monitoring, RDS, VPC Flow Logs, and more AWS services.
 ---
 

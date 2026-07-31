@@ -1,7 +1,9 @@
 ---
-title: Zero-Code Traces & Metrics with OpenTelemetry eBPF Instrumentation (OBI) | OpenObserve
+title: OBI (eBPF zero-code)
+metaTitle: Zero-Code Traces & Metrics with OpenTelemetry eBPF Instrumentation (OBI) | OpenObserve
 description: Capture application traces and RED metrics without changing code using OpenTelemetry eBPF Instrumentation (OBI) and export them to OpenObserve over OTLP/HTTP.
 ---
+
 # Zero-Code Traces & Metrics with OBI (eBPF)
 
 [OpenTelemetry eBPF Instrumentation (OBI)](https://opentelemetry.io/docs/zero-code/obi/) is an eBPF-based agent that automatically captures application **traces** and **RED metrics** (Rate, Errors, Duration) with **no code changes and no SDK**. It attaches kernel-level eBPF probes to your running processes, reconstructs web and RPC transactions at the syscall and network layer, and exports the resulting telemetry to OpenObserve over OTLP/HTTP.
@@ -41,8 +43,9 @@ https://<your-openobserve-host>/api/<your-org>/v1/metrics
 
 For a self-hosted instance on the default port, the host is `http://localhost:5080`.
 
-!!! warning "Include the `/v1/traces` and `/v1/metrics` path"
-    OBI uses these per-signal endpoints **verbatim** — it does **not** auto-append `/v1/traces` or `/v1/metrics`. If you point OBI at the bare `/api/<your-org>` base URL, OpenObserve rejects the request with a `403`. Always include the full signal path (as shown above), or set the common base URL only via `OTEL_EXPORTER_OTLP_ENDPOINT`, which does get the signal path appended.
+:::warning[Include the `/v1/traces` and `/v1/metrics` path]
+OBI uses these per-signal endpoints **verbatim** — it does **not** auto-append `/v1/traces` or `/v1/metrics`. If you point OBI at the bare `/api/<your-org>` base URL, OpenObserve rejects the request with a `403`. Always include the full signal path (as shown above), or set the common base URL only via `OTEL_EXPORTER_OTLP_ENDPOINT`, which does get the signal path appended.
+:::
 
 ### Authentication and target stream
 

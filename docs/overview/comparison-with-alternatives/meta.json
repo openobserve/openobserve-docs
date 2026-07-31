@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "comparison",
+    "splunk-alternative",
+    "newrelic-alternative",
+    "datadog-alternative",
+    "clickhouse-alternative"
+  ]
+}

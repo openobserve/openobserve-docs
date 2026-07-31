@@ -1,7 +1,9 @@
 ---
-title: Performance Optimization Guide - Ingestion and Query Performance Tuning | OpenObserve
+title: Performance
+metaTitle: Performance Optimization Guide - Ingestion and Query Performance Tuning | OpenObserve
 description: Complete performance optimization guide for OpenObserve ingestion performance, query optimization, and search performance tuning for high-throughput observability.
 ---
+
 # Performance Optimization - Ingestion & Query Performance
 
 Optimize OpenObserve performance for high-throughput log ingestion, fast query performance, and efficient search operations. This performance tuning guide covers ingestion optimization, query performance, and search performance for observability at scale.
@@ -51,17 +53,19 @@ OpenObserve uses columnar storage format (parquet) which allows it to read only 
 
 ### Predicate pushdown
 
-!!! warning "Partition keys are a serious feature. Do not use them casually."
-    Custom partition keys (KeyValue or Hash) are an advanced optimization that requires a solid understanding of your data distribution and query patterns. If you have not fully understood how partitioning works, do not experiment with it — in most cases you will end up with a **negative optimization**: many small parquet files, poor compression, slower searches, and higher storage costs.
+:::warning[Partition keys are a serious feature. Do not use them casually.]
+Custom partition keys (KeyValue or Hash) are an advanced optimization that requires a solid understanding of your data distribution and query patterns. If you have not fully understood how partitioning works, do not experiment with it — in most cases you will end up with a **negative optimization**: many small parquet files, poor compression, slower searches, and higher storage costs.
 
-    Also note that **partition keys are immutable by design**. Once a field is set as a partition key, it cannot be changed to a different partition type, switched to another index type (Full Text Search, Bloom Filter, Secondary Index), or removed — existing data is already partitioned by the original key, and changing it would break queries on historical data. Deleting the field from the stream schema and re-adding it does not reset this either. The only way to change the partitioning strategy is to create a new stream with the desired configuration and ingest new data there. See [issue #12965](https://github.com/openobserve/openobserve/issues/12965) for details.
+Also note that **partition keys are immutable by design**. Once a field is set as a partition key, it cannot be changed to a different partition type, switched to another index type (Full Text Search, Bloom Filter, Secondary Index), or removed — existing data is already partitioned by the original key, and changing it would break queries on historical data. Deleting the field from the stream schema and re-adding it does not reset this either. The only way to change the partitioning strategy is to create a new stream with the desired configuration and ingest new data there. See [issue #12965](https://github.com/openobserve/openobserve/issues/12965) for details.
 
-    The default time range partitioning already works well for most workloads. Before adding a partition key, make sure your queries actually filter on that field, the field has suitable cardinality, and each resulting partition still produces parquet files above 5 MB. When in doubt, test on a non-production stream first.
+The default time range partitioning already works well for most workloads. Before adding a partition key, make sure your queries actually filter on that field, the field has suitable cardinality, and each resulting partition still produces parquet files above 5 MB. When in doubt, test on a non-production stream first.
+:::
 
 #### Standard Partitioning (KeyValue partitions)
 
-!!! note
-    Use for low cardinality fields.
+:::note[Note]
+Use for low cardinality fields.
+:::
 
 OpenObserve uses a technique called predicate pushdown to further reduce the amount of data that needs to be read from disk. This is done by pushing down the filters to the storage layer. By default OpenObserve will partition data by `org/stream/year/month/day/hour`. So when searching, if you know the time range for which you are searching for data you should specify it and OpenObserve will skip data not following in date range and will search across much less data. This will improve search performance and will utilize predicate pushdown. You can also enable additional partitioning for fields on any stream by going to stream settings. Some good candidates for partition keys are host and kubernetes namespace. You can have multiple partition keys for a stream. You can then specify partition keys in your query. e.g. `host='xyz' and kubernetes_namespace='abc'`. This will improve search performance and will utilize predicate pushdown.*** `DO NOT enable partitioning on all/many fields as it may result in many small underlying parquet files which will result in low compression, extremely poor search performance and high s3 storage costs` ***. As a rule of thumb you would want the size of each stored parquet file to be above 5 MB. Order of partitions does not matter. You can partition by `namespace, pod` or `pod, namespace`. 
 
@@ -127,15 +131,17 @@ You can specify the number of buckets (8, 16, 32, 64, 128) in the index in strea
 
 #### Time range partition
 
-!!! note
-    Enabled by default and cannot be disabled.
+:::note[Note]
+Enabled by default and cannot be disabled.
+:::
 
 OpenObserve partitions all data by time range by default in addition to any other partitions that you may have defined. It always makes sense to specify the shortest time range to search for. e.g. if you know that you are looking for data for last 15 minutes, you should specify that in your query by selecting it from the top right corner. This will improve search performance and will utilize predicate pushdown.
 
 ### Bloom filter
 
-!!! note
-    Use for high cardinality fields. Available starting v0.8.0.
+:::note[Note]
+Use for high cardinality fields. Available starting v0.8.0.
+:::
 
 A bloom filter is a space efficient probabilistic data structure that allow you to check if a value exists in a set. It solves proverbial `needle in a haystack` problem. OpenObserve uses bloom filters to check if a value exists in a column. This allows OpenObserve to skip reading the data from disk if the value does not exist in the column. This improves search performance by reducing `search space`. You must specify bloom filter for the specific fields that you want to search.  Fields that are well suited for bloom filter are of very high cardinality .e.g. UUID, request_id, trace_id, device_id, etc. You can specify bloom filter for a field by going to stream settings. You can specify multiple fields for bloom filter. e.g. `request_id` and `trace_id`. You can then use the fields in your query that will utilize bloom filter. e.g. `request_id='abc' and trace_id='xyz'`. Enabling bloom filter on a field with low cardinality will not result in any performance improvement. 
 
@@ -149,8 +155,9 @@ Log search involves full text search. When you try to do a full text search it e
 
 ### Inverted Index
 
-!!! note
-    Available starting v0.10.0.
+:::note[Note]
+Available starting v0.10.0.
+:::
 
 Above mentioned partitioning schemes and bloom filters are good for fields where you are doing equality based searches. e.g. `request_id='abc'`. For full text search in fields that contain longer log lines, OpenObserve in its earlier releases relied on brute force search (how [grep](https://www.gnu.org/software/grep/manual/grep.html) works) which works well for most of the scenarios. However, for very large data sets this can be slow. You can enable inverted index to improve full text search performance for such fields. Do not enable inverted index for fields that are not used for full text search but are used for equality based searches. Bloom filters and hash partitions are better suited for equality based searches.
 

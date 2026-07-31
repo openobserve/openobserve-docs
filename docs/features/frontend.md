@@ -1,4 +1,5 @@
 ---
+title: Frontend Observability
 description: "Monitor real user experience with OpenObserve frontend observability: Core Web Vitals, JavaScript error tracking, and session replay via a lightweight SDK."
 ---
 

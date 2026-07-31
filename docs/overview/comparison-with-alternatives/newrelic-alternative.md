@@ -1,5 +1,6 @@
 ---
-title: OpenObserve as a New Relic Alternative | Comparison
+title: OpenObserve vs New Relic
+metaTitle: OpenObserve as a New Relic Alternative | Comparison
 description: How OpenObserve compares to New Relic on pricing model, query language, OpenTelemetry support, deployment options, and data ownership. Feature comparison and migration guidance for teams moving off New Relic.
 ---
 

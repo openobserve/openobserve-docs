@@ -1,7 +1,8 @@
 ---
-description: >-
- Create and run real-time or scheduled pipelines in OpenObserve to transform and route data between streams using queries, conditions, and functions.
+title: use-pipelines
+description: Create and run real-time or scheduled pipelines in OpenObserve to transform and route data between streams using queries, conditions, and functions.
 ---
+
 This guide shows you how to create and use real-time and scheduled pipelines in OpenObserve.
 
 ## Create a Pipeline
@@ -82,15 +83,16 @@ This opens up the pipeline editor.
 
 ### Step 5: Edit the Destination node
 
-!!! warning "Important"
-    If you create a route with a condition or filter that forwards events to a new destination, only the matching events go there. <br>
-    Events that do not match the condition are dropped. They are not stored in the source stream unless you explicitly add a destination node that points to the source stream.
+:::warning[Important]
+If you create a route with a condition or filter that forwards events to a new destination, only the matching events go there. <br>
+Events that do not match the condition are dropped. They are not stored in the source stream unless you explicitly add a destination node that points to the source stream.
 
-    **Suggested pattern**: Always add two or more routes in your real-time pipeline.
+**Suggested pattern**: Always add two or more routes in your real-time pipeline.
 
-    - Route A: Add a catch-all route without a filter. Point it back to the same source stream to prevent data loss.
-    - Route B: Filter number 1 and forward matching events to destination 1.
-    - Route C: Filter number 2 and forward matching events to destination 2.
+- Route A: Add a catch-all route without a filter. Point it back to the same source stream to prevent data loss.
+- Route B: Filter number 1 and forward matching events to destination 1.
+- Route C: Filter number 2 and forward matching events to destination 2.
+:::
 
 1. Drag a **Stream** node into the editor.
 2. Click the edit icon in the destination **Stream** node.

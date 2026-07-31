@@ -1,5 +1,6 @@
 ---
-title: Migrate from Grafana LGTM Stack to OpenObserve | Complete Migration Guide
+title: Overview
+metaTitle: Migrate from Grafana LGTM Stack to OpenObserve | Complete Migration Guide
 description: Step-by-step guide to migrate from the LGTM stack (Loki, Grafana, Tempo, Mimir) to OpenObserve. Replace 4+ separate systems with one unified platform. Covers metrics, traces, and logs migration.
 ---
 

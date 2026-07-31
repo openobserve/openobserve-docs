@@ -1,12 +1,13 @@
 ---
 title: Keycloak SSO
-description: >-
-  Configure Keycloak as an upstream identity provider for OpenObserve Enterprise SSO through Dex. Step-by-step setup covering Keycloak client, Dex connector, and OpenObserve environment variables.
+description: Configure Keycloak as an upstream identity provider for OpenObserve Enterprise SSO through Dex. Step-by-step setup covering Keycloak client, Dex connector, and OpenObserve environment variables.
 ---
+
 <!-- search: Keycloak, SSO, Dex, OIDC, identity provider -->
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::info[Availability]
+This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::
 
 # Keycloak SSO with Dex
 

@@ -1,16 +1,20 @@
 ---
-title: Distinct Values Stream in OpenObserve
+title: Distinct Values
+metaTitle: Distinct Values Stream in OpenObserve
 description: ollects unique values during ingestion, stores them in metadata streams, and supports faster distinct queries in OpenObserve.
 ---
+
 This document explains how the distinct values feature in OpenObserve works.
 ## Overview
 The distinct values feature automatically collects unique values for a stream when data is ingested. The system writes these values to disk at a defined interval. Distinct values are stored in a special stream named `distinct_values`, which is used to accelerate distinct queries.
-!!! note "Who can access it"
-    By default, the `Root` user has access. Access for other users is managed through **IAM** permissions in the **Metadata** module.
+:::note[Who can access it]
+By default, the `Root` user has access. Access for other users is managed through **IAM** permissions in the **Metadata** module.
 
-    ![access to distinct values stream](../../../images/distinct-values-access.png)
-!!! note "Where to find it"
-    Distinct values are written into automatically created metadata streams. The naming pattern is `distinct_values_<type>_<stream>`. For example, For example: `distinct_values_logs_default` and `distinct_values_logs_k8s_events`.
+![access to distinct values stream](../../../images/distinct-values-access.png)
+:::
+:::note[Where to find it]
+Distinct values are written into automatically created metadata streams. The naming pattern is `distinct_values_<type>_<stream>`. For example, For example: `distinct_values_logs_default` and `distinct_values_logs_k8s_events`.
+:::
 ## Environment Variables
 | Variable                             | Description                                                                                                                                                                                                               | Default |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |

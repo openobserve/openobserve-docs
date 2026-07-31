@@ -1,4 +1,5 @@
 ---
+title: Users
 description: "Manage OpenObserve users through the User API: create and update accounts, add users to and remove them from organizations, and list all existing users."
 ---
 

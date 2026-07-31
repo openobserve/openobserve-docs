@@ -1,5 +1,6 @@
 ---
-title: GCP Monitoring Integration - Google Cloud Platform Logs and Metrics | OpenObserve
+title: GCP Integrations Overview
+metaTitle: GCP Monitoring Integration - Google Cloud Platform Logs and Metrics | OpenObserve
 description: Comprehensive GCP monitoring integration guide for Google Cloud Platform logs, Cloud Run monitoring, GCP metrics collection, and Google Cloud observability with OpenObserve.
 ---
 

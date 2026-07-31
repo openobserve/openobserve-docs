@@ -1,20 +1,22 @@
 ---
-description: >-
-  View and manage detailed stream settings in OpenObserve, including retention,
-  query limits, schema, and usage stats via the Stream Details panel.
+title: Stream Details
+description: View and manage detailed stream settings in OpenObserve, including retention, query limits, schema, and usage stats via the Stream Details panel.
 ---
+
 After After you complete [data ingestion](streams-in-openobserve.md#ingest-data-into-stream), use **Stream Details** to view stream details and manage stream settings.
 
 ## Overview 
 Use **Stream Details** to inspect schemas, apply sensitive-data redaction using regex patterns, set data retention and query limits, and configure ingestion options such as flatten level, storing original data, and enabling distinct values.
 
-!!! note "Where to find it" 
-    1. Go to **Streams**.
-    2. In the **Actions** column, select **Stream Details**.
-    ![stream details access](../../../images/stream-details-access.png) 
+:::note[Where to find it]
+1. Go to **Streams**.
+2. In the **Actions** column, select **Stream Details**.
+![stream details access](../../../images/stream-details-access.png) 
+:::
 
-!!! note "Who can access it" 
-    User roles that have permission to update Streams can modify the stream settings from the **Stream Details** page. The permission needs to be assigned to appropriate user roles using role-based access control (RBAC). 
+:::note[Who can access it]
+User roles that have permission to update Streams can modify the stream settings from the **Stream Details** page. The permission needs to be assigned to appropriate user roles using role-based access control (RBAC). 
+:::
 
 
 ## Stream details

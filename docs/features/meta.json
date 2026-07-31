@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "logs",
+    "metrics",
+    "distributed-tracing",
+    "frontend",
+    "enterprise",
+    "upcoming"
+  ]
+}

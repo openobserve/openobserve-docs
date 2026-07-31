@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "index",
+    "explorer",
+    "file-access-time-metric",
+    "downsampling-metrics"
+  ]
+}

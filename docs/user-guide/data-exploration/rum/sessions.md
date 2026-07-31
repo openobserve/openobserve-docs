@@ -1,5 +1,6 @@
 ---
-description: "RUM session tracking captures complete user journeys, showing session duration, page views, errors, and device or location for every visit to your app."
+title: Session Tracking
+description: RUM session tracking captures complete user journeys, showing session duration, page views, errors, and device or location for every visit to your app.
 ---
 
 # Session Tracking

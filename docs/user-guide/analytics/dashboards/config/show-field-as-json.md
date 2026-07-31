@@ -1,7 +1,9 @@
 ---
-title: Show Field as JSON Option in OpenObserve Dashboards
+title: Show Field as JSON
+metaTitle: Show Field as JSON Option in OpenObserve Dashboards
 description: Learn how to use the Show Field as JSON option to render a field's value as structured, colored JSON in OpenObserve dashboard table panels.
 ---
+
 This guide describes how to use the **Show Field as JSON** option in OpenObserve dashboards to render a field's value as structured, colored JSON in table panels. This setting improves readability when a field contains JSON data, such as logs-derived fields.
 
 ## Supported Panel Type

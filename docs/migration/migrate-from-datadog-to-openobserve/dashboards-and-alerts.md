@@ -1,5 +1,6 @@
 ---
-title: Migrate Dashboards & Monitors from Datadog to OpenObserve
+title: Migrating Dashboards & Monitors
+metaTitle: Migrate Dashboards & Monitors from Datadog to OpenObserve
 description: Migrate Datadog dashboards and monitors to OpenObserve. Translate Datadog query syntax to PromQL and SQL, set up notification channels, and use the OpenObserve AI Assistant to speed up migration.
 ---
 
@@ -81,8 +82,9 @@ Datadog log search to SQL examples for log panels:
 | `service:payments @duration:>500` | `SELECT * FROM default WHERE service = 'payments' AND duration > 500` |
 | `service:api status:error \| count by status_code` | `SELECT status_code, count(*) FROM default WHERE service = 'api' AND level = 'error' GROUP BY status_code` |
 
-!!! tip "Use the AI Assistant"
-    Instead of translating queries by hand, use the **AI Assistant** in the OpenObserve UI. Paste a Datadog query and ask: *"Convert this Datadog query to OpenObserve PromQL"* (for metrics) or *"...to OpenObserve SQL"* (for logs). It handles tag-name normalization, function mapping, and aggregation syntax in one shot, which is especially useful for complex multi-condition queries.
+:::tip[Use the AI Assistant]
+Instead of translating queries by hand, use the **AI Assistant** in the OpenObserve UI. Paste a Datadog query and ask: *"Convert this Datadog query to OpenObserve PromQL"* (for metrics) or *"...to OpenObserve SQL"* (for logs). It handles tag-name normalization, function mapping, and aggregation syntax in one shot, which is especially useful for complex multi-condition queries.
+:::
 
 **Step 3: Recreate in OpenObserve**
 
@@ -148,8 +150,9 @@ See the [OpenObserve Alerts Documentation](https://openobserve.ai/docs/user-guid
 
 Datadog composite monitors combine other monitors with `&&` / `||`. In OpenObserve, create a **composite alert** that references the constituent alerts the same way.
 
-!!! tip "Use the AI Assistant"
-    The same AI Assistant that converts dashboard queries works here. Paste a Datadog monitor query and threshold and ask it to produce the OpenObserve PromQL or SQL equivalent. This is faster and less error-prone than translating complex multi-condition queries by hand.
+:::tip[Use the AI Assistant]
+The same AI Assistant that converts dashboard queries works here. Paste a Datadog monitor query and threshold and ask it to produce the OpenObserve PromQL or SQL equivalent. This is faster and less error-prone than translating complex multi-condition queries by hand.
+:::
 
 ### Step 4: Verify Alerts
 

@@ -1,0 +1,20 @@
+{
+  "title": "Real User Monitoring (RUM)",
+  "pages": [
+    "index",
+    "---Getting Started---",
+    "overview",
+    "setup",
+    "---Core Features---",
+    "performance-monitoring",
+    "sessions",
+    "error-tracking",
+    "session-replay",
+    "---Reference & Advanced---",
+    "metrics-reference",
+    "advanced-features",
+    "use-cases",
+    "best-practices",
+    "troubleshooting-guide"
+  ]
+}

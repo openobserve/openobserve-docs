@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "index",
+    "traces",
+    "service-graph",
+    "service-catalog"
+  ]
+}

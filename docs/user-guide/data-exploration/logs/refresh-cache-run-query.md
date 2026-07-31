@@ -1,5 +1,6 @@
 ---
-description: "Refresh Cache and Run Query clears outdated cached results and re-runs your query against the latest data, fixing gaps from delayed ingestion or cache issues."
+title: Refresh Cache Run Query
+description: Refresh Cache and Run Query clears outdated cached results and re-runs your query against the latest data, fixing gaps from delayed ingestion or cache issues.
 ---
 
 # Refresh Cache and Run Query
@@ -21,42 +22,45 @@ In such cases, users can use Refresh Cache and Run Query to invalidate the old c
 
 ---
 
-!!! note "Where to find it"
-    It is available in both **Logs** and **Dashboards**.
+::::note[Where to find it]
+It is available in both **Logs** and **Dashboards**.
 
-    **Logs page**:
-    ![alt text](../../../images/logs-refresh-query.png)
+**Logs page**:
+![alt text](../../../images/logs-refresh-query.png)
 
-    1. Navigate to **Logs** in the left navigation panel.
-    2. Select the required stream.
-    3. Define your query in the query editor.
-    4. Select your time range.
-    5. Click the dropdown attached to the **Run query** button. 
-    6. Select **Refresh Cache and Run Query**.
+1. Navigate to **Logs** in the left navigation panel.
+2. Select the required stream.
+3. Define your query in the query editor.
+4. Select your time range.
+5. Click the dropdown attached to the **Run query** button. 
+6. Select **Refresh Cache and Run Query**.
 
-    This clears the cache for the selected query range and reloads results using the latest ingested data.
+This clears the cache for the selected query range and reloads results using the latest ingested data.
 
-    !!! note
-        When `ZO_AUTO_QUERY_ENABLED` is enabled, the **Run query** dropdown also exposes an **Auto Run** toggle alongside **Refresh Cache and Run Query**.
+:::note[Note]
+When `ZO_AUTO_QUERY_ENABLED` is enabled, the **Run query** dropdown also exposes an **Auto Run** toggle alongside **Refresh Cache and Run Query**.
+:::
 
-    **Dashboard panels**:
-    ![dashboard-refresh-query](../../../images/dashboard-refresh-query.png)
-    
-    1. Navigate to **Dashboards** from the left navigation panel.
-    2. Open the folder containing your dashboard.
-    3. Select the desired dashboard.
-    4. Locate the panel for which you want to refresh the cache.
-    5. Open the panel configuration dropdown and select **Refresh Cache and Reload**.
+**Dashboard panels**:
+![dashboard-refresh-query](../../../images/dashboard-refresh-query.png)
 
-    This removes any cached data for the query in that panel and re-executes the underlying query to fetch updated results.
+1. Navigate to **Dashboards** from the left navigation panel.
+2. Open the folder containing your dashboard.
+3. Select the desired dashboard.
+4. Locate the panel for which you want to refresh the cache.
+5. Open the panel configuration dropdown and select **Refresh Cache and Reload**.
+
+This removes any cached data for the query in that panel and re-executes the underlying query to fetch updated results.
+::::
 
 ---
 
-!!! note "Who should use this feature"
+:::note[Who should use this feature]
 
-    The feature is primarily designed for system administrators or advanced users who are aware of delayed ingestion or caching anomalies within their clusters or regions. They can use this control to refresh cached data for affected time windows.
+The feature is primarily designed for system administrators or advanced users who are aware of delayed ingestion or caching anomalies within their clusters or regions. They can use this control to refresh cached data for affected time windows.
 
-    Regular users typically do not need to use this option unless instructed by an administrator.
+Regular users typically do not need to use this option unless instructed by an administrator.
+:::
 
 ---
 

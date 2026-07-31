@@ -1,8 +1,7 @@
 ---
-title: RUM (Real User Monitoring)
-description: >-
-  Track real user performance, errors, and sessions with RUM in OpenObserve.
-  Gain insights, debug issues, and optimize your frontend experience easily.
+title: RUM Documentation Has Moved
+metaTitle: RUM (Real User Monitoring)
+description: Track real user performance, errors, and sessions with RUM in OpenObserve. Gain insights, debug issues, and optimize your frontend experience easily.
 hide:
   - navigation
   - toc

@@ -1,7 +1,8 @@
 ---
-description: >-
- Create interactive dashboards with variable dependencies in OpenObserve—filter data dynamically using parent-child variable relationships like Namespace > Pod > Container.
+title: Variable Dependencies
+description: Create interactive dashboards with variable dependencies in OpenObserve—filter data dynamically using parent-child variable relationships like Namespace > Pod > Container.
 ---
+
 OpenObserve Dashboards support dynamic filtering through variables. Variables enable users to interactively select values that filter and control what data is displayed in Panels.
 
 ## Overview
@@ -92,10 +93,11 @@ Configure the second-level dependent variable (`k8s_container_name`) as shown be
 
 ![second-dependent-variable](../../../../images/variable-dependencies-6.png)
 
-!!! Note
+:::note[Note]
 
-    - **`$` Prefix**: Use the `$` symbol when referencing other variables in the filter values.   
-    - Use the **Hide on Dashboard** toggle to hide the variable from the dashboard UI.
+- **`$` Prefix**: Use the `$` symbol when referencing other variables in the filter values.   
+- Use the **Hide on Dashboard** toggle to hide the variable from the dashboard UI.
+:::
 
 ## Variable Dependency Graph  
 The **Variable Dependency Graph** visually maps these relationships, showing how each variable is linked.  

@@ -1,5 +1,6 @@
 ---
-description: "Auto Run re-executes your Logs and Traces search automatically when you change the stream, time range, filters, or function, skipping the Run query click."
+title: Auto Run
+description: Auto Run re-executes your Logs and Traces search automatically when you change the stream, time range, filters, or function, skipping the Run query click.
 ---
 
 # Auto Run

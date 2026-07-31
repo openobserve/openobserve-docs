@@ -1,5 +1,6 @@
 ---
-description: "Advanced RUM features let you attach global and view context, add custom timings, manage tracking consent, tune sampling, and filter events with beforeSend."
+title: Advanced Features
+description: Advanced RUM features let you attach global and view context, add custom timings, manage tracking consent, tune sampling, and filter events with beforeSend.
 ---
 
 # Advanced Features

@@ -1,30 +1,35 @@
 ---
-title: Query Recommendations Stream in OpenObserve 
+title: Query Recommendations Stream
+metaTitle: Query Recommendations Stream in OpenObserve
 description: Understand the purpose, structure, and usage of the query_recommendations stream in the _meta organization in OpenObserve.
 ---
 
 This document explains the function and application of the `query_recommendations` stream within the `_meta` organization in OpenObserve. It provides guidance for users who want to optimize query performance using system-generated recommendations based on observed query patterns.
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition. 
+:::info[Availability]
+This feature is available in Enterprise Edition. 
+:::
 
 ## Overview
 OpenObserve continuously analyzes user queries across streams to identify optimization opportunities. These suggestions are stored in the `query_recommendations` stream under the `_meta` organization. The recommendations focus on improving performance by suggesting secondary indexes when patterns in field access indicate consistent and potentially costly lookups.
 
 
-!!! note "Where to find it"
-    The query recommendations are published into the `query_recommendations` stream under the `_meta` organization.
-    ![select-query-recommendations](../../../images/select-query-recommendations.png)
+:::note[Where to find it]
+The query recommendations are published into the `query_recommendations` stream under the `_meta` organization.
+![select-query-recommendations](../../../images/select-query-recommendations.png)
+:::
 
-!!! note "Who can access it"
-    All Enterprise Edition users with access to the `_meta` organization can access the `query_recommendations` stream. 
+:::note[Who can access it]
+All Enterprise Edition users with access to the `_meta` organization can access the `query_recommendations` stream. 
+:::
 
-!!! note "When to use it"
-    Use this stream when:
+:::note[When to use it]
+Use this stream when:
 
-    - You notice slow query performance for specific fields or patterns.
-    - You are planning schema-level optimizations.
-    - You want to validate whether frequently queried fields would benefit from indexing.
+- You notice slow query performance for specific fields or patterns.
+- You are planning schema-level optimizations.
+- You want to validate whether frequently queried fields would benefit from indexing.
+:::
 
 ## How recommendations are generated
 OpenObserve periodically analyzes recent query usage for each organization and stream. It examines which fields were queried, what operators were used, and how frequently. Based on this analysis, OpenObserve generates system recommendations that appear in the `query_recommendations` stream.
@@ -39,10 +44,11 @@ The following scenarios can trigger a recommendation:
 | **Use full text search**                   | Queries frequently use pattern-based operators (`LIKE` or regex match) on a field.                                  | This pattern suggests that the field would perform better with full-text search enabled.                           |
 
 
-!!! note "Additional details"
-    - Fields used as partition keys are excluded from recommendations.  
-    - The engine estimates distinct value counts for the most active streams to help decide whether indexing will be effective.  
-    - Each recommendation includes the observed operators, total occurrences, and reasoning.
+:::note[Additional details]
+- Fields used as partition keys are excluded from recommendations.  
+- The engine estimates distinct value counts for the most active streams to help decide whether indexing will be effective.  
+- Each recommendation includes the observed operators, total occurrences, and reasoning.
+:::
 
 ## How to use it
 1. Switch to the `_meta` organization in OpenObserve.
@@ -75,8 +81,9 @@ The examples below show how OpenObserve surfaces query patterns and recommends i
 ![example-1-query-recommendations](../../../images/example-1-query-recommendations.png)
 This recommendation indicates that across the last 360000000 hours of query data, the job field in the `default` stream was queried with an equality (`=`) operator 1220 times out of 1220 total queries. Since all queries used this field with the `=` operator, a secondary index could improve performance.
 
-!!! note "Interpretation"
-    Add a secondary index on the `job` field in the `default` stream for improved performance.
+:::note[Interpretation]
+Add a secondary index on the `job` field in the `default` stream for improved performance.
+:::
 
 <br>
 
@@ -84,6 +91,7 @@ This recommendation indicates that across the last 360000000 hours of query data
 ![example-2-query-recommendations](../../../images/example-2-query-recommendations.png)
 This recommendation is for the `status` field in the `alert_test` stream. All 5 queries used `status` with an equality operator. Although the number is small, the uniform pattern indicates a potential for future optimization.
 
-!!! note "Interpretation"
-    Consider indexing status if query volume increases or performance becomes a concern.
+:::note[Interpretation]
+Consider indexing status if query volume increases or performance becomes a concern.
+:::
 

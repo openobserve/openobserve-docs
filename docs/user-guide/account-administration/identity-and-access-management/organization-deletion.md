@@ -1,4 +1,5 @@
 ---
+title: Organization Deletion
 description: Schedule an organization for deletion with a configurable grace period, monitor cleanup progress, and resurrect it before permanent removal.
 ---
 

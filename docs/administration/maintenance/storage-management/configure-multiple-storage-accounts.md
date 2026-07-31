@@ -1,5 +1,6 @@
 ---
-description: "Configure multiple S3-compatible object storage accounts in OpenObserve using environment variables and stream strategies to route each stream to a bucket."
+title: Configure Multiple Object Storage Accounts
+description: Configure multiple S3-compatible object storage accounts in OpenObserve using environment variables and stream strategies to route each stream to a bucket.
 ---
 
 This guide explains how to configure OpenObserve to store data in multiple object storage accounts. It also covers how to set environment variables to specify which stream should be stored in each account.
@@ -47,9 +48,10 @@ ZO_S3_BUCKET_NAME="critical-logs,internal-logs"
 ZO_S3_BUCKET_PREFIX="logs/"
 ```
 
-!!! info "Important"
-    - The first account is treated as the default account. Configure the old account as the first one.
-    - All variables must contain the same number of comma-separated values.
+:::info[Important]
+- The first account is treated as the default account. Configure the old account as the first one.
+- All variables must contain the same number of comma-separated values.
+:::
 
 ### Step 2: Configure Stream Strategy
 Set the `ZO_S3_STREAM_STRATEGY` environment variable to control how streams are assigned to accounts.

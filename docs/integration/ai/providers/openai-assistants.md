@@ -7,8 +7,9 @@ description: Instrument OpenAI Assistants API calls and send traces to OpenObser
 
 Automatically capture thread creation, message handling, and run execution for every OpenAI Assistants API workflow in your Python application using the standard OpenAI instrumentor.
 
-!!! note
-    The Assistants API is deprecated by OpenAI in favour of the Responses API. It continues to function and is fully instrumented by the OpenAI instrumentor.
+:::note[Note]
+The Assistants API is deprecated by OpenAI in favour of the Responses API. It continues to function and is fully instrumented by the OpenAI instrumentor.
+:::
 
 ## **Prerequisites**
 

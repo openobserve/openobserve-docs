@@ -1,8 +1,8 @@
 ---
-description: >-
-  Create heatmaps with custom charts using flat data in OpenObserve. Learn how
-  to query, format, and visualize data with SQL and JavaScript.
+title: Custom Charts with Flat Data
+description: Create heatmaps with custom charts using flat data in OpenObserve. Learn how to query, format, and visualize data with SQL and JavaScript.
 ---
+
 The following step-by-step instructions can help you build a [custom chart that expects flat data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
 ## Use case
@@ -24,7 +24,7 @@ To build a custom chart, you need to bridge two things:
 In OpenObserve, the data ingested into a stream is typically in a flat structure.   
 **Example:** In the following dataset, each row represents a single event or query log with its own timestamp, organization ID, search type, and query duration.
 
-```linenums="1"
+```text lineNumbers
   { "_timestamp": "2025-05-12T09:00:00Z", "organization_id": "test", "search_type": "logs", "query_duration": "10h 51m 13s" },
   { "_timestamp": "2025-05-12T09:01:00Z", "organization_id": "production", "search_type": "alerts", "query_duration": "11h 46m 00s" },
   { "_timestamp": "2025-05-12T09:02:00Z", "organization_id": "test", "search_type": "alerts", "query_duration": "7h 44m 21s" },
@@ -62,7 +62,7 @@ Build a SQL query in the **Query Editor** to fetch and prepare the data:
 - Grouping by `organization_id` and `search_type` 
 - Summing the durations to get a meaningful value per cell in the heatmap
 
-```linenums="1"
+```text lineNumbers
   SELECT
   organization_id,
   search_type,
@@ -87,7 +87,7 @@ Select a time range to fetch the relevant dataset for your chart.
 
 **Expected query result**
 
-```linenums="1"
+```text lineNumbers
 data=[[
   { "organization_id": "production", "search_type": "alerts", "total_seconds": 96711 },
   { "organization_id": "production", "search_type": "logs", "total_seconds": 57911 },
@@ -103,7 +103,7 @@ data=[[
 
 Inspect the queried dataset:
 
-```linenums="1"
+```text lineNumbers
 console.log(data);
 console.log(data[0]);
 ```
@@ -119,7 +119,7 @@ The following script:
 - Creates a [x, y, value] format for each cell  
 - Configures a color gradient using visualMap
 
-```linenums="1"
+```text lineNumbers
 const orgs = [...new Set(data[0].map(row => row.organization_id))];
 const types = [...new Set(data[0].map(row => row.search_type))];
 

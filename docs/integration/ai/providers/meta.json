@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "amazon-bedrock",
+    "anthropic-js",
+    "anthropic",
+    "azure-ai-foundry",
+    "byteplus",
+    "cerebras",
+    "cohere",
+    "cometapi",
+    "databricks",
+    "deepseek",
+    "fireworks",
+    "google-gemini",
+    "groq",
+    "huggingface",
+    "mistral",
+    "novita",
+    "ollama",
+    "openai-js",
+    "openai",
+    "openai-assistants",
+    "together-ai",
+    "vllm",
+    "xai-grok"
+  ]
+}

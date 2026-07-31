@@ -1,5 +1,6 @@
 ---
-title: OpenObserve as a Splunk Alternative | Comparison
+title: OpenObserve vs Splunk
+metaTitle: OpenObserve as a Splunk Alternative | Comparison
 description: How OpenObserve compares to Splunk on cost, query language, architecture, and operational complexity. Feature comparison, pain points, and migration guidance for teams considering a move off Splunk.
 ---
 
