@@ -12,6 +12,72 @@
     'Helvetica Neue', Arial, sans-serif;
 }
 
+/*
+ * Body-copy links.
+ *
+ * Fumadocs renders prose links in the body text colour, leaving them
+ * identifiable only by an underline. Material for MkDocs coloured them indigo
+ * (#4051b5), so that is kept for light mode. Dark mode uses a lighter tint
+ * instead of the same indigo, which only reached ~1.7:1 against the dark
+ * background on the old site.
+ *
+ * Colour *and* underline together, so the links stay distinguishable without
+ * relying on colour alone (WCAG 1.4.1).
+ */
+:root {
+  --oo-link: #4051b5;
+  --oo-link-hover: #2f3d94;
+  /* MkDocs used #ef5552 for inline code, which only reaches ~3:1 on this
+     background; darkened to clear AA while reading as the same colour. */
+  --oo-code: #b3261e;
+}
+
+.dark {
+  --oo-link: #a5b4ff;
+  --oo-link-hover: #c7d0ff;
+  --oo-code: #ff8a80;
+}
+
+/* `data-card` is the anchor Fumadocs wraps around headings; it must stay
+   inherited, as must anything explicitly opted out of prose styling. */
+.prose a:not([data-card]):not(.not-prose a) {
+  color: var(--oo-link);
+  text-decoration-color: color-mix(in oklab, var(--oo-link) 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+.prose a:not([data-card]):not(.not-prose a):hover {
+  color: var(--oo-link-hover);
+  text-decoration-color: currentColor;
+}
+
+/*
+ * Inline code.
+ *
+ * Fumadocs gives it the body text colour on `--color-fd-muted`, which in this
+ * palette is the same value as the page background — leaving a 1px border as
+ * the only cue. MkDocs coloured it instead, so that cue is restored.
+ * `pre code` is excluded: those are syntax highlighted by Shiki.
+ */
+.prose :not(pre) > code {
+  color: var(--oo-code);
+}
+
+/* Inline code inside a link should follow the link, not the code colour. */
+.prose a:not([data-card]):not(.not-prose a) code {
+  color: inherit;
+}
+
+/*
+ * Bold text. Fumadocs renders <strong> at 500, one step above body copy, which
+ * is barely perceptible. These docs lean on **bold** for UI labels ("Click
+ * **New alert**"), and MkDocs rendered it at 700.
+ */
+.prose strong,
+.prose b {
+  font-weight: 700;
+}
+
 /* Markdown images carry no intrinsic dimensions; keep them inside the column. */
 .fd-docs-content img {
   max-width: 100%;
