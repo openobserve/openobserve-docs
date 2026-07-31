@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=20.9"
+  },
   "scripts": {
     "prebuild": "node scripts/copy-assets.mjs",
     "dev": "node scripts/copy-assets.mjs && next dev",

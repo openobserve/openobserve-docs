@@ -18,7 +18,7 @@ aws s3 cp ./out/api/search s3://openobserve-prod-website/docs/api/search \
 # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
 aws s3 cp ./out s3://openobserve-prod-website/docs \
   --recursive --exclude "*" --include "*.md" \
-  --content-type "text/markdown; charset=utf-8" --metadata-directive REPLACE --profile=o2-prod
+  --content-type "text/markdown; charset=utf-8" --profile=o2-prod
 
 # invalidate cloudfront cache so that latest files can be served
 aws cloudfront create-invalidation --distribution-id E2GZJM0TJIDFRM --paths="/docs/*" --profile=o2-prod

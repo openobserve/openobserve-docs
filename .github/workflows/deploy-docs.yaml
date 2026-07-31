@@ -63,7 +63,7 @@ jobs:
         # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
         aws s3 cp ./out s3://openobserve-website-prod/docs \
           --recursive --exclude "*" --include "*.md" \
-          --content-type "text/markdown; charset=utf-8" --metadata-directive REPLACE
+          --content-type "text/markdown; charset=utf-8"
 
     - name: Invalidate CloudFront cache
       run: |

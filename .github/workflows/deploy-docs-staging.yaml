@@ -60,7 +60,7 @@ jobs:
           --content-type application/json
         aws s3 cp ./out s3://openobserve-website-staging/docs \
           --recursive --exclude "*" --include "*.md" \
-          --content-type "text/markdown; charset=utf-8" --metadata-directive REPLACE
+          --content-type "text/markdown; charset=utf-8"
 
     - name: Invalidate CloudFront cache
       run: |

@@ -3,12 +3,20 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends nodejs npm
-      - npm install -g pnpm
+      # Ubuntu's packaged nodejs is far older than Next 16 supports, so Node is
+      # installed from NodeSource rather than apt's default.
+      - apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends ca-certificates curl
+      - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+      - apt-get install -y --no-install-recommends nodejs
+      - npm install -g pnpm@11.9.0
       - pnpm install --frozen-lockfile
   build:
     commands:
       - GIT_COMMIT_HASH="$(git rev-parse --short HEAD)"
+      - rm -rf out
       - pnpm build
       - aws s3 cp ./out s3://zincdocs-dev/$GIT_COMMIT_HASH/ --recursive
+      # Extensionless file: without this it is stored as binary/octet-stream and
+      # served uncompressed (~37 MB instead of ~4 MB).
+      - aws s3 cp ./out/api/search s3://zincdocs-dev/$GIT_COMMIT_HASH/api/search --content-type application/json
       - echo "Deployed to http://zincdocs-dev.s3-website-us-west-2.amazonaws.com/$GIT_COMMIT_HASH/"
