@@ -9,7 +9,7 @@
   },
   "scripts": {
     "prebuild": "node scripts/copy-assets.mjs",
-    "dev": "node scripts/copy-assets.mjs && next dev -pp 3000",
+    "dev": "node scripts/copy-assets.mjs && next dev -p 3000",
     "build": "next build",
     "postbuild": "node scripts/post-export.mjs",
     "start": "next start",
