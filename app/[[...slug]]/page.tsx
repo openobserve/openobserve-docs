@@ -7,6 +7,7 @@ import { getMDXComponents } from '@/components/mdx-components';
 import { Feedback } from '@/components/feedback';
 import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
+import { Landing } from '@/components/landing';
 import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
@@ -31,6 +32,24 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   })
     .filter((item) => typeof item.name === 'string')
     .map((item) => ({ name: item.name as string, url: item.url }));
+
+  // `/docs/` is the landing page. MkDocs rendered it from a theme override that
+  // replaced the page body, so the markdown in docs/index.md was never shown;
+  // that file still supplies the frontmatter title, description and the raw
+  // Markdown served for LLM crawlers.
+  if (page.url === '/') {
+    return (
+      <DocsPage toc={[]} full tableOfContent={{ enabled: false }}>
+        <PageStructuredData
+          title={page.data.title}
+          pageUrl={page.url}
+          description={page.data.description}
+          lastModified={lastModified}
+        />
+        <Landing />
+      </DocsPage>
+    );
+  }
 
   return (
     <DocsPage toc={toc} full={false}>

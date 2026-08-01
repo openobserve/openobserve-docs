@@ -94,12 +94,17 @@
  * tint behind the summary.
  * ------------------------------------------------------------------------- */
 :root {
+  /* OpenObserve brand violet, carried over from the old landing page CSS. */
+  --oo-brand: #7c3aed;
+  --oo-brand-hover: #6d28d9;
   --oo-accent: #448aff;
   --oo-accent-tint: rgb(68 138 255 / 0.1);
   --oo-accent-border: rgb(68 138 255 / 0.9);
 }
 
 .dark {
+  --oo-brand: #a78bfa;
+  --oo-brand-hover: #c4b5fd;
   --oo-accent: #6ba4ff;
   --oo-accent-tint: rgb(68 138 255 / 0.16);
   --oo-accent-border: rgb(68 138 255 / 0.55);
