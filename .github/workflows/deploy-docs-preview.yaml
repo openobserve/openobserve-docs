@@ -15,8 +15,8 @@ jobs:
       id-token: write
       contents: read
     env:
-      PREVIEW_BUCKET: openobserve-website-preview  # TODO: replace with the real preview bucket name
-      PREVIEW_DISTRIBUTION_ID: E0000000000000       # TODO: replace with the real CloudFront distribution ID
+      PREVIEW_BUCKET: openobserve-website-staging  # TODO: replace with the real preview bucket name
+      PREVIEW_DISTRIBUTION_ID: E2GZJM0TJIDFRM       # TODO: replace with the real CloudFront distribution ID
 
     steps:
     - name: Checkout source code
@@ -71,6 +71,6 @@ jobs:
           --recursive --exclude "*" --include "*.md" \
           --content-type "text/markdown; charset=utf-8"
 
-    # - name: Invalidate CloudFront cache
-      # run: |
-        # aws cloudfront create-invalidation --distribution-id "$PREVIEW_DISTRIBUTION_ID" --paths "/docs/*"
+    - name: Invalidate CloudFront cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id "$PREVIEW_DISTRIBUTION_ID" --paths "/docs/*"
