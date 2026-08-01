@@ -1,6 +1,6 @@
 ---
 title: OBI (eBPF zero-code)
-metaTitle: Zero-Code Traces & Metrics with OpenTelemetry eBPF Instrumentation (OBI) | OpenObserve
+metaTitle: Zero-Code Traces and Metrics with OpenTelemetry eBPF (OBI)
 description: Capture application traces and RED metrics without changing code using OpenTelemetry eBPF Instrumentation (OBI) and export them to OpenObserve over OTLP/HTTP.
 ---
 

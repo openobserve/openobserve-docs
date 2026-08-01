@@ -1,6 +1,6 @@
 ---
 title: Snowflake
-metaTitle: Snowflake Data Warehouse Monitoring - Query Performance and Cost Analytics | OpenObserve
+metaTitle: Snowflake Monitoring - Query Performance and Cost Analytics
 description: "Monitor Snowflake with OpenTelemetry: data warehouse performance metrics, query analytics, cost optimization, and storage observability."
 ---
 

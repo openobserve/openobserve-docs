@@ -1,6 +1,6 @@
 ---
 title: MySQL
-metaTitle: MySQL Database Monitoring - Performance Metrics and Query Optimization | OpenObserve
+metaTitle: MySQL Database Monitoring - Performance Metrics and Query Optimization
 description: "Collect MySQL performance metrics, query performance, and database health with OpenTelemetry for MySQL monitoring in OpenObserve."
 ---
 

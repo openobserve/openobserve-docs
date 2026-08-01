@@ -1,6 +1,6 @@
 ---
 title: Curl
-metaTitle: Curl Command Log Ingestion - HTTP API for Quick Log Testing | OpenObserve
+metaTitle: Curl Command Log Ingestion - HTTP API for Quick Log Testing
 description: Simple curl command guide for log ingestion, HTTP API testing, and bulk log upload to OpenObserve for quick log data testing and debugging.
 ---
 

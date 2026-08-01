@@ -1,6 +1,6 @@
 ---
 title: OpenTelemetry
-metaTitle: OpenTelemetry Tracing SDKs - Distributed Tracing for Applications | OpenObserve
+metaTitle: OpenTelemetry Tracing SDKs - Distributed Tracing for Applications
 description: OpenTelemetry tracing guide for instrumenting applications with OpenTelemetry SDKs in Node.js, TypeScript, Python, and Go for distributed tracing and APM.
 ---
 

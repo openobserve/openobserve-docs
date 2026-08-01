@@ -1,6 +1,6 @@
 ---
 title: Redis
-metaTitle: Redis Monitoring - Cache Performance and In-Memory Database Metrics | OpenObserve
+metaTitle: Redis Monitoring - Cache Performance and In-Memory Database Metrics
 description: "Collect Redis cache performance metrics with OpenTelemetry for in-memory database monitoring and performance optimization in OpenObserve."
 ---
 

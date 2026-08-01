@@ -1,6 +1,6 @@
 ---
 title: DevOps Integrations Overview
-metaTitle: DevOps Monitoring Integration - CI/CD, Jenkins, Terraform, GitHub Actions | OpenObserve
+metaTitle: DevOps Monitoring - CI/CD, Jenkins, Terraform, GitHub Actions
 description: "DevOps monitoring integrations for CI/CD pipelines, Jenkins, Terraform, GitHub Actions, and Ansible automation with OpenObserve."
 ---
 

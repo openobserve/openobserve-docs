@@ -1,6 +1,6 @@
 ---
 title: Prometheus
-metaTitle: Prometheus Metrics Monitoring and Remote Write Integration | OpenObserve
+metaTitle: Prometheus Metrics Monitoring and Remote Write Integration
 description: "Configure Prometheus remote write to ingest metrics into OpenObserve for Kubernetes, infrastructure, and application monitoring with SQL and PromQL."
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Kubernetes Monitoring - K8s Cluster & Container Observability
-metaTitle: Kubernetes Monitoring - K8s Cluster Monitoring and Container Observability | OpenObserve
+metaTitle: Kubernetes Monitoring - Cluster and Container Observability
 description: "Kubernetes monitoring with OpenTelemetry and OpenObserve: cluster and container metrics, pod metrics, K8s logs, and microservices observability."
 ---
 

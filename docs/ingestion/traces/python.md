@@ -1,6 +1,6 @@
 ---
 title: Python
-metaTitle: Python Distributed Tracing - OpenTelemetry for Python APM | OpenObserve
+metaTitle: Python Distributed Tracing - OpenTelemetry for Python APM
 description: Complete Python distributed tracing guide using OpenTelemetry SDK for Python application performance monitoring and trace instrumentation.
 ---
 
@@ -54,7 +54,7 @@ trace.set_tracer_provider(tracer_provider)
 ```
 ##Setup up credentials 
 
-You will get `url` and `Authorization` key [here](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
+You will get `url` and `Authorization` key from the [OpenTelemetry ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
 
 Replace the `url` and `Authorization` key in the `tracing.py` file.
 

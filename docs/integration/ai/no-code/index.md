@@ -1,6 +1,6 @@
 ---
 title: No-Code Agent Builders
-metaTitle: No-Code AI Platform Observability - n8n, Flowise, LangFlow, OpenWebUI | OpenObserve
+metaTitle: No-Code AI Platform Observability - n8n, Flowise, LangFlow, OpenWebUI
 description: "Monitor no-code AI platforms with OpenObserve. Trace n8n, Flowise, LangFlow, OpenWebUI, LobeChat, and Vapi voice AI via OpenTelemetry."
 ---
 

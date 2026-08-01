@@ -112,7 +112,7 @@ After the query runs, the retrieved data passes through transform nodes. It allo
 The transformed data is written to one or more destinations.
 
 - **Stream** destinations can be Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
-- **Remote** destinations send data to external systems. To learn more about remote destinations, click [here](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/).
+- **Remote** destinations send data to external systems. To learn more, see [Remote destinations](remote-destination.md).
 :::
 
 ### When to use scheduled pipelines

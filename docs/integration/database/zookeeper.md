@@ -96,7 +96,7 @@ sudo systemctl status otelcol-contrib
 2. Search for Zookeeper metrics.
     ![Visualize Zookeeper Metrics](../images/databases/zookeeper-metrics.png)
 3. Visualize and Analyze data using Dashboards
-> To make it easy, we have a prebuilt zookeeper dashboard that should help you get started with the metrics monitoring which can be found [here](https://github.com/openobserve/dashboards).
+> To make it easy, we have a prebuilt zookeeper dashboard that should help you get started with the metrics monitoring available in the [OpenObserve dashboards repository](https://github.com/openobserve/dashboards).
 :::
 
  

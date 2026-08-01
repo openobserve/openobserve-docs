@@ -1,6 +1,6 @@
 ---
 title: "**Building a SIEM Platform with OpenObserve**"
-metaTitle: SIEM Platform - Security Information and Event Management Solution | OpenObserve
+metaTitle: SIEM Platform - Security Information and Event Management Solution
 description: "Build a SIEM platform on OpenObserve with threat detection, security monitoring, incident response, and SOC operations."
 ---
 

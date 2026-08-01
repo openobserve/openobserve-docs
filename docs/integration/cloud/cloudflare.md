@@ -20,8 +20,8 @@ This integration can help you monitor performance, identify security issues, and
 
 
 :::accordion[Prerequisites]
-- **A Cloudflare account**: Sign up [here](https://dash.cloudflare.com/sign-up).
-- **An OpenObserve account**: Sign up [here](https://openobserve.ai/downloads/).
+- **A Cloudflare account**: [Sign up for Cloudflare](https://dash.cloudflare.com/sign-up).
+- **An OpenObserve account**: [Sign up for OpenObserve](https://openobserve.ai/downloads/).
 - **A Cloudflare API token**: 
 
     - To use the **GraphQL method**, create a token with the **Read analyticsand logs** permission

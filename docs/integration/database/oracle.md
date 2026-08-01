@@ -133,7 +133,7 @@ otelcol-contrib --config /path/to/config.yaml
     - Query executions & rollbacks  
     - CPU and I/O utilization  
 
-> You can make use of pre-built dashboards [here](https://github.com/openobserve/dashboards/tree/main/OracleDB).
+> You can make use of pre-built [OracleDB dashboards](https://github.com/openobserve/dashboards/tree/main/OracleDB).
 :::
 
 ## Troubleshooting

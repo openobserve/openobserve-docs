@@ -1,6 +1,6 @@
 ---
 title: PostgreSQL
-metaTitle: PostgreSQL Database Monitoring - Performance Metrics and Query Analysis | OpenObserve
+metaTitle: PostgreSQL Monitoring - Performance Metrics and Query Analysis
 description: "Collect PostgreSQL performance metrics, query analysis, and database health with OpenTelemetry for PostgreSQL monitoring in OpenObserve."
 ---
 

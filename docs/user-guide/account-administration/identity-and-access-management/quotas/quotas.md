@@ -122,7 +122,7 @@ You can configure quotas in two ways:
 5. Click **Save Changes**.
 
 > **Note**: API limits apply across all roles in the selected organization. <br>
-> **Important:** Rate limiting for the Search module requires special consideration. [Learn more](#quota-consideration-for-search-module). 
+> **Important:** Rate limiting for the Search module requires special consideration. [Learn more about search quotas](#quota-consideration-for-search-module). 
 
 ### Set Role Limits
 

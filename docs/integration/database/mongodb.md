@@ -1,6 +1,6 @@
 ---
 title: MongoDB
-metaTitle: MongoDB Database Monitoring - NoSQL Performance Metrics and Query Optimization | OpenObserve
+metaTitle: MongoDB Monitoring - NoSQL Performance and Query Metrics
 description: "Collect MongoDB performance metrics and query statistics with OpenTelemetry for NoSQL database monitoring and observability in OpenObserve."
 ---
 

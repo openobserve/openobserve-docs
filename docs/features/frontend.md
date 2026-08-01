@@ -49,5 +49,5 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 
 ## Integration
 
-Getting started with [OpenObserve's RUM](../user-guide/rum.md) is straightforward. Add our JavaScript snippet to your application's entry point eg: index.js or main.js, and you'll begin collecting user experience data immediately.
+Getting started with [OpenObserve's RUM](../user-guide/data-exploration/rum/index.md) is straightforward. Add our JavaScript snippet to your application's entry point eg: index.js or main.js, and you'll begin collecting user experience data immediately.
 

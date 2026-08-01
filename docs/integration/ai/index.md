@@ -1,6 +1,6 @@
 ---
 title: AI
-metaTitle: AI & LLM Observability Integrations - Frameworks, Providers, Gateways | OpenObserve
+metaTitle: AI & LLM Observability Integrations - Frameworks, Providers, Gateways
 description: "AI and LLM observability with OpenObserve: trace AI frameworks, LLM providers, AI gateways, no-code tools, and AI developer tools via OpenTelemetry."
 ---
 

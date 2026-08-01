@@ -44,7 +44,7 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ![Compressed Storage](../images/features/data-compression.png)
 
-- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations. Learn more about [Streams](../user-guide/data-processing/streams/streams-in-openobserve.md) and their [details](../user-guide/data-processing/streams/stream-details.md#stream-details).
+- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations. Learn more about [Streams](../user-guide/data-processing/streams/streams-in-openobserve.md) and their [stream details](../user-guide/data-processing/streams/stream-details.md#stream-details).
 
 ![Indexing](../images/features/index.png)
 

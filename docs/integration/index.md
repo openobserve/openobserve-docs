@@ -1,6 +1,6 @@
 ---
 title: Integrations Overview
-metaTitle: Integrations for Monitoring - Kubernetes, AWS, AI/LLM, Databases, and More | OpenObserve
+metaTitle: Monitoring Integrations - Kubernetes, AWS, AI, and Databases
 description: "Integration guides for Kubernetes, AWS, AI and LLM observability, databases, and infrastructure monitoring with OpenObserve logs, metrics, and traces."
 ---
 

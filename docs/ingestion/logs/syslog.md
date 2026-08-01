@@ -30,7 +30,7 @@ OpenObserve can act as a syslog server. This means that you can send logs to Ope
 
 Before you can send logs to OpenObserve, you need to enable OpenObserve to act as a syslog server. This is done by enabling syslog in the `Ingestion > Logs > Syslog` section of the OpenObserve UI.
 
-[![Enable syslog](./images/syslog.png)](./images/syslog.png)
+![Enable syslog](./images/syslog.png)
 
 ## Subnets to allow traffic from
 

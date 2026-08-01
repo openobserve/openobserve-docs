@@ -1,6 +1,6 @@
 ---
 title: otel-collector
-metaTitle: OpenTelemetry Collector (OTEL) - OTLP Log, Metric, and Trace Ingestion | OpenObserve
+metaTitle: OpenTelemetry Collector (OTEL) - OTLP Log, Metric, and Trace Ingestion
 description: Complete OpenTelemetry Collector guide for OTLP log ingestion, metrics collection, and trace ingestion via HTTP and gRPC protocols for unified observability.
 ---
 

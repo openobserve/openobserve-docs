@@ -88,7 +88,7 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 ```
 ## Setup up credentials 
 
-- You will get `url` and `Authorization` key [here](https://cloud.openobserve.ai/web/ingestion/custom/traces/).
+- You will get `url` and `Authorization` key from the [trace ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/).
 - Replace the `url` and `Authorization` key in the `pkg/tel/otel_helper_http.go` file.
 
 ## Setup Service/Application 
@@ -104,7 +104,7 @@ Refresh page couple of times to get more traces exported.
 
 
 
-Traces are captured, you can check these captured traces [here](https://cloud.openobserve.ai/web/traces).
+Traces are captured, you can check these captured traces in the [Traces view](https://cloud.openobserve.ai/web/traces).
 
 
 ![Traces Page](./images/traces_go.png)

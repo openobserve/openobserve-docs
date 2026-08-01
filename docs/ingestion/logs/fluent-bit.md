@@ -1,6 +1,6 @@
 ---
 title: Fluent-bit
-metaTitle: Fluent Bit Log Ingestion for Kubernetes and Cloud-Native Logs | OpenObserve
+metaTitle: Fluent Bit Log Ingestion for Kubernetes and Cloud-Native Logs
 description: Configure Fluent Bit log forwarding to OpenObserve using HTTP or Elasticsearch output for Kubernetes logging, container logs, and cloud-native log collection.
 ---
 

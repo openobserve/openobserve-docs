@@ -1,6 +1,6 @@
 ---
 title: Message Queues
-metaTitle: Message Broker Monitoring - Kafka, RabbitMQ, NATS Metrics | OpenObserve
+metaTitle: Message Broker Monitoring - Kafka, RabbitMQ, NATS Metrics
 description: Comprehensive message broker monitoring integrations for Kafka monitoring, RabbitMQ metrics, NATS observability, and message queue performance monitoring.
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Servers Integrations Overview
-metaTitle: Web Server Monitoring - NGINX, Apache, WebLogic Performance | OpenObserve
+metaTitle: Web Server Monitoring - NGINX, Apache, WebLogic Performance
 description: Comprehensive web server monitoring integrations for NGINX monitoring, Apache server metrics, WebLogic performance, and web server log analysis.
 ---
 

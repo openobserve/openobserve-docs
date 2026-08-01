@@ -1,6 +1,6 @@
 ---
 title: Terraform
-metaTitle: Terraform Support — Infrastructure-as-Code for OpenObserve | OpenObserve
+metaTitle: "Terraform Support \u2014 Infrastructure-as-Code for OpenObserve"
 description: "Deploy OpenObserve on Kubernetes and manage streams, dashboards, users, and organizations as code with the official Terraform provider. OpenTofu supported."
 keywords: openobserve, terraform, iac, opentofu, helm, kubernetes, eks, provider, module
 ---

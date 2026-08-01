@@ -1,6 +1,6 @@
 ---
 title: Typescript
-metaTitle: TypeScript Distributed Tracing - OpenTelemetry for TypeScript APM | OpenObserve
+metaTitle: TypeScript Distributed Tracing - OpenTelemetry for TypeScript APM
 description: Complete TypeScript distributed tracing guide using OpenTelemetry SDK for TypeScript application performance monitoring and trace instrumentation.
 ---
 
@@ -47,7 +47,7 @@ sdk.start();
 </br>
 ## Setup up credentials 
 
-You will get `url` and `Authorization` key [here](http://cloud.openobserve.ai/web/ingestion/traces/).
+You will get `url` and `Authorization` key from the [trace ingestion settings](https://cloud.openobserve.ai/web/ingestion/traces/).
 Replace the `url` and `Authorization` key in the `tracing.js` file.
 
 ## Setup Service/Application

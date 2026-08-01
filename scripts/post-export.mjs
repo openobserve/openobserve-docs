@@ -73,6 +73,7 @@ const REDIRECT_PATHS = new Set([
   'administration/deployment/capacity-planning',
   'administration/deployment/performance',
   'administration/deployment/sre-agent-setup-guide',
+  'user-guide/rum',
   'quickstart',
   'downloads',
 ]);
@@ -125,6 +126,7 @@ const REDIRECTS = {
   'administration/deployment/capacity-planning': 'enterprise-setup/capacity-planning',
   'administration/deployment/performance': 'enterprise-setup/performance',
   'administration/deployment/sre-agent-setup-guide': 'enterprise-setup/sre-agent',
+  'user-guide/rum': 'user-guide/data-exploration/rum',
   quickstart: 'getting-started',
   downloads: 'getting-started',
 };
@@ -143,12 +145,15 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Redirecting&hellip;</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page moved &ndash; OpenObserve Documentation</title>
 <link rel="canonical" href="${canonical}">
 <meta name="robots" content="noindex">
+<meta name="description" content="This documentation page has moved. You are being redirected to its new location.">
 <meta http-equiv="refresh" content="0; url=${target}">
 </head>
 <body>
+<h1>This page has moved</h1>
 <p>Redirecting to <a href="${target}">${canonical}</a>&hellip;</p>
 <script>location.replace(${JSON.stringify(target)} + location.hash);</script>
 </body>
