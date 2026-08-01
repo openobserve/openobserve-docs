@@ -13,7 +13,7 @@ For example, logs from a known incident that occurred last month, you can config
 ![Streams Extended Retention](../../../images/extended-retention.png)
 
 1. From the **Streams** page, select the **Explore** icon from the **Actions** column. 
-2. Navigate to [**Stream Details**](stream-details.md#access-the-stream-details).  
+2. Navigate to [**Stream Details**](stream-details.md#stream-details).  
 3. Select the **Extended Retention** tab.  
 4. Use the date selector to specify a time range in UTC. Click **Apply**.  
 5. Click **Update Settings** to apply the retention policy.

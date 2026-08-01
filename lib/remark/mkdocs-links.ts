@@ -56,12 +56,24 @@ export const remarkMkdocsLinks: Plugin<[MkdocsLinksOptions?], Root> = (options =
       const hashIndex = href.indexOf('#');
       const hash = hashIndex === -1 ? '' : href.slice(hashIndex);
       const target = hashIndex === -1 ? href : href.slice(0, hashIndex);
-      if (!target.endsWith('.md')) return;
 
       const absTarget = path.resolve(fileDir, target);
       const rel = path.relative(DOCS_DIR, absTarget);
       if (rel.startsWith('..')) {
         options.onBrokenLink?.({ from: filePath, href });
+        return;
+      }
+
+      // A relative link to a shipped asset rather than a page — most often an
+      // image wrapped in a link to open it full size. MkDocs rewrote these; left
+      // alone they resolve against the page URL (which ends in a directory) and
+      // 404. Assets keep their extension and live at the mirrored public path.
+      if (!target.endsWith('.md')) {
+        if (fs.existsSync(absTarget) && fs.statSync(absTarget).isFile()) {
+          node.url = `/${rel.replace(/\\/g, '/')}${hash}`;
+        } else {
+          options.onBrokenLink?.({ from: filePath, href });
+        }
         return;
       }
 

@@ -70,7 +70,7 @@ After running, check `/tmp/ansible_log_demo.txt` to confirm logs are generated.
 ```bash
 curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
 ```
-> For manual install or using package managers, refer to [Fluent Bit Docs](https://docs.fluentbit.io/manual/installation/linux/ubuntu)
+> For manual install or using package managers, refer to [Fluent Bit Docs](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit)
 
 2. **Verify installation**:
 ```bash
