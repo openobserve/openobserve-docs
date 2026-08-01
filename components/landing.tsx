@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Anchor } from '@/components/landing-anchor';
 import {
   community,
   concepts,
@@ -35,30 +36,6 @@ function Icon({ item, className = '' }: { item: LandingLink; className?: string 
   if (!src) return null;
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={src} alt="" aria-hidden="true" loading="lazy" className={className} />;
-}
-
-/** Internal hrefs go through next/link; absolute ones open in a new tab. */
-function Anchor({
-  href,
-  className,
-  children,
-}: {
-  href: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  if (/^https?:/.test(href)) {
-    return (
-      <a href={href} className={className} target="_blank" rel="noreferrer noopener">
-        {children}
-      </a>
-    );
-  }
-  return (
-    <Link href={href} className={className}>
-      {children}
-    </Link>
-  );
 }
 
 const CARD =
@@ -100,6 +77,7 @@ export function Landing() {
               <Anchor
                 key={s.title}
                 href={s.href}
+                clarityTitle={s.title}
                 className="flex flex-col items-center gap-2 rounded-xl border border-fd-border p-3 text-center text-xs transition-colors hover:border-[var(--oo-brand)]/40 hover:bg-fd-accent/40"
               >
                 <Icon item={s} className="size-7" />
@@ -141,7 +119,7 @@ export function Landing() {
       <Section title="Explore by pillar">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {pillars.map((p) => (
-            <Anchor key={p.title} href={p.href} className={`${CARD} flex gap-3`}>
+            <Anchor key={p.title} href={p.href} clarityTitle={p.title} className={`${CARD} flex gap-3`}>
               <span
                 className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${
                   TONES[p.tone ?? ''] ?? 'bg-fd-accent'
@@ -164,7 +142,7 @@ export function Landing() {
         </h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {tutorials.map((c) => (
-            <Anchor key={c.title} href={c.href} className={`${CARD} flex gap-3`}>
+            <Anchor key={c.title} href={c.href} clarityTitle={c.title} className={`${CARD} flex gap-3`}>
               <Icon item={c} className="size-6 shrink-0" />
               <span>
                 <span className="block font-semibold">{c.title}</span>
@@ -179,7 +157,7 @@ export function Landing() {
         </h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {concepts.map((c) => (
-            <Anchor key={c.title} href={c.href} className={`${CARD} flex gap-3`}>
+            <Anchor key={c.title} href={c.href} clarityTitle={c.title} className={`${CARD} flex gap-3`}>
               <Icon item={c} className="size-6 shrink-0" />
               <span>
                 <span className="block font-semibold">{c.title}</span>
@@ -226,7 +204,7 @@ export function Landing() {
       <Section title="Community &amp; support">
         <div className="grid gap-3 sm:grid-cols-3">
           {community.map((c) => (
-            <Anchor key={c.title} href={c.href} className={`${CARD} flex gap-3`}>
+            <Anchor key={c.title} href={c.href} clarityTitle={c.title} className={`${CARD} flex gap-3`}>
               <Icon item={c} className="size-6 shrink-0" />
               <span>
                 <span className="block font-semibold">{c.title}</span>

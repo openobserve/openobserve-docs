@@ -13,9 +13,12 @@
  */
 export function isTelemetryEnabled(): boolean {
   if (typeof window === 'undefined') return false;
-  if (process.env.NODE_ENV !== 'production') return false;
 
+  // The override must precede the NODE_ENV check, or it can never force
+  // reporting from a dev server — which is its whole purpose.
   if (new URLSearchParams(window.location.search).get('analytics') === '1') return true;
+
+  if (process.env.NODE_ENV !== 'production') return false;
 
   const { hostname } = window.location;
   const local =

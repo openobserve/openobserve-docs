@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { isTelemetryEnabled } from '@/lib/telemetry';
+import { trackReaction } from '@/lib/introspection';
 
 /**
  * "Was this page helpful?" — the MkDocs Material feedback widget, reimplemented.
@@ -63,6 +64,15 @@ export function Feedback({ pageUrl }: { pageUrl: string }) {
 
   const vote = (rating: 1 | 0) => {
     track({ rating, page: pageUrl, url: window.location.href, title: document.title });
+    // The two destinations a thumb click had on the MkDocs site: a `reaction`
+    // event on the introspection endpoint (via search-tracking.js) and a GA4
+    // `feedback` event (via Material's analytics integration). gtag only
+    // exists once the analytics tags have loaded, hence the guard.
+    trackReaction(rating, window.location.href);
+    (window as { gtag?: (...args: unknown[]) => void }).gtag?.('event', 'feedback', {
+      page: pageUrl,
+      data: rating,
+    });
     setSent(rating);
   };
 
