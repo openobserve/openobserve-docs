@@ -110,6 +110,24 @@
   --oo-accent-border: rgb(68 138 255 / 0.55);
 }
 
+/*
+ * Sidebar and page index (TOC) highlight.
+ *
+ * Fumadocs marks the active sidebar item and the active "On this page" entry
+ * with `--color-fd-primary`, which the neutral theme leaves at plain
+ * black/white. Retinted to the brand violet so the index highlight matches the
+ * purple used for the main text on the landing page.
+ */
+:root {
+  --color-fd-primary: var(--oo-brand);
+  --color-fd-primary-foreground: #fff;
+}
+
+.dark {
+  --color-fd-primary: var(--oo-brand);
+  --color-fd-primary-foreground: hsl(0, 0%, 9%);
+}
+
 .oo-details {
   margin: 1rem 0;
   overflow: hidden;
