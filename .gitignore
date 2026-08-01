@@ -11,6 +11,7 @@ next-env.d.ts
 # scripts/copy-assets.mjs. Never edit or commit these - edit the originals in
 # docs/ instead.
 /public
+.fumadocs-gen
 
 # --- dependencies -----------------------------------------------------------
 /node_modules
@@ -43,3 +44,4 @@ venv
 *.py[cod]
 *$py.class
 __pycache__/
+
