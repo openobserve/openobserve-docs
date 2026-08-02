@@ -1,5 +1,6 @@
 ---
-description: "Define per-organization LLM model pricing in OpenObserve to compute token costs on traces, enriching every LLM span with input, output, and total cost fields."
+title: Model Pricing
+description: Define per-organization LLM model pricing in OpenObserve to compute token costs on traces, enriching every LLM span with input, output, and total cost fields.
 ---
 
 # Model Pricing

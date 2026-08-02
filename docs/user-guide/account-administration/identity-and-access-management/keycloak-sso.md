@@ -1,12 +1,13 @@
 ---
 title: Keycloak SSO
-description: >-
-  Configure Keycloak as an upstream identity provider for OpenObserve Enterprise SSO through Dex. Step-by-step setup covering Keycloak client, Dex connector, and OpenObserve environment variables.
+description: "Configure Keycloak as an upstream identity provider for OpenObserve Enterprise SSO through Dex, covering the client, connector, and environment variables."
 ---
+
 <!-- search: Keycloak, SSO, Dex, OIDC, identity provider -->
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::info[Availability]
+This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::
 
 # Keycloak SSO with Dex
 
@@ -244,7 +245,7 @@ O2_DEX_DEFAULT_ORG=default
 O2_DEX_DEFAULT_ROLE=user
 ```
 
-If you enabled the groups mapper (Step 2.4) and want Keycloak groups to drive OpenObserve org/role assignment, configure the group-claim variables (`O2_DEX_GROUP_CLAIM`, `O2_DEX_GROUP_ATTRIBUTE`, `O2_DEX_ROLE_ATTRIBUTE`) per the [OpenObserve SSO docs](https://openobserve.ai/docs/sso/). The parsing convention differs between LDAP-style DNs and flat group names, so match it to how the groups appear in the token.
+If you enabled the groups mapper (Step 2.4) and want Keycloak groups to drive OpenObserve org/role assignment, configure the group-claim variables (`O2_DEX_GROUP_CLAIM`, `O2_DEX_GROUP_ATTRIBUTE`, `O2_DEX_ROLE_ATTRIBUTE`) per the [OpenObserve SSO docs](sso.md). The parsing convention differs between LDAP-style DNs and flat group names, so match it to how the groups appear in the token.
 
 Restart OpenObserve after changing env vars:
 
@@ -295,7 +296,7 @@ kubectl -n openobserve rollout restart statefulset/o2-openobserve-router   # or 
 | Dex discovery | `https://dev-dex.cluster1.example.com/dex/.well-known/openid-configuration` |
 | Dex callback (register in Keycloak) | `https://dev-dex.cluster1.example.com/dex/callback` |
 | Keycloak discovery | `https://keycloak.cluster1.example.com/realms/o2/.well-known/openid-configuration` |
-| OpenObserve SSO docs | `https://openobserve.ai/docs/sso/` |
+| OpenObserve SSO docs | [SSO](sso.md) |
 | Dex OIDC connector docs | `https://dexidp.io/docs/connectors/oidc/` |
 | Keycloak docs | `https://www.keycloak.org/documentation` |
 

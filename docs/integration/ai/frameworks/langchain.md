@@ -1,5 +1,6 @@
 ---
-title: LangChain / LangGraph
+title: LangChain
+metaTitle: LangChain / LangGraph
 description: Instrument LangChain and LangGraph applications and send traces to OpenObserve via OpenTelemetry.
 ---
 

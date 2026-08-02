@@ -1,7 +1,9 @@
 ---
-title: High Availability Deployment Guide - HA Setup on Kubernetes | OpenObserve
+title: High Availability (HA) Deployment - Kubernetes Production Setup
+metaTitle: High Availability Deployment Guide - HA Setup on Kubernetes
 description: Complete high availability (HA) deployment guide for OpenObserve on Kubernetes using Helm charts with object storage and PostgreSQL for production observability.
 ---
+
 # High Availability (HA) Deployment - Kubernetes Production Setup
 
 Deploy OpenObserve in high availability (HA) mode for production observability workloads. This guide walks through deploying on Kubernetes with Helm using object storage (S3, GCS, MinIO, Swift, Civo) and PostgreSQL or MySQL as the metadata store.
@@ -33,8 +35,9 @@ kubectl apply --server-side -f \
   https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
 ```
 
-!!! tip "Sizing the cluster"
-    For recommended CPU, memory, and storage values per component, see [Capacity planning](../../enterprise-setup/capacity-planning.md).
+:::tip[Sizing the cluster]
+For recommended CPU, memory, and storage values per component, see [Capacity planning](../../enterprise-setup/capacity-planning.md).
+:::
 
 ## Download values.yaml
 
@@ -90,8 +93,9 @@ Follow [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/iam-
 }
 ```
 
-!!! tip "Video walkthrough"
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/YZNgi3fIAbY?si=fMnDlTHDGplynOzu" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+:::tip[Video walkthrough]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YZNgi3fIAbY?si=fMnDlTHDGplynOzu" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+:::
 
 ### Any Kubernetes + S3
 
@@ -146,8 +150,9 @@ You can generate keys for GCS bucket using following steps:
 1. Make sure you are in the right project.
 1. Access keys for your user account > Click "CREATE A KEY"
 
-!!! tip "Video walkthrough"
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/Q7F9MT3KbvQ?si=kbpBWJRzx_xgZCor" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+:::tip[Video walkthrough]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q7F9MT3KbvQ?si=kbpBWJRzx_xgZCor" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+:::
 
 ### Any Kubernetes + OpenStack Swift
 
@@ -185,8 +190,9 @@ Add/Modify following to values.yaml
 
 You can use `PostgreSQL` or `MySQL` as metadata storage.
 
-!!! tip "Default: bundled PostgreSQL"
-    The official Helm chart (from Feb 23rd 2024 onward) uses `PostgreSQL` as the metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you via the cnpg operator. You don't need any additional configuration if you want to use the bundled instance.
+:::tip[Default: bundled PostgreSQL]
+The official Helm chart (from Feb 23rd 2024 onward) uses `PostgreSQL` as the metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you via the cnpg operator. You don't need any additional configuration if you want to use the bundled instance.
+:::
 
 ### PostgreSQL (external)
 
@@ -234,31 +240,32 @@ helm --namespace openobserve -f values.yaml install o2 openobserve/openobserve
 
 After running `helm install`, confirm every pod is healthy before pointing traffic at OpenObserve.
 
-??? note "Verify"
+:::accordion[Verify]
 
-    **Verification step**
+**Verification step**
 
-    ```bash
-    # Watch pods come up (Ctrl+C once everything is Running)
-    kubectl -n openobserve get pods -w
+```bash
+# Watch pods come up (Ctrl+C once everything is Running)
+kubectl -n openobserve get pods -w
 
-    # Final pod state. Confirm every pod is 1/1 (or 2/2 for NATS) and Running
-    kubectl -n openobserve get pods
-    ```
+# Final pod state. Confirm every pod is 1/1 (or 2/2 for NATS) and Running
+kubectl -n openobserve get pods
+```
 
-    **Expected output**
+**Expected output**
 
-    ```
-    NAME: o2
-    LAST DEPLOYED: <timestamp>
-    NAMESPACE: openobserve
-    STATUS: deployed
-    REVISION: 1
-    ```
+```
+NAME: o2
+LAST DEPLOYED: <timestamp>
+NAMESPACE: openobserve
+STATUS: deployed
+REVISION: 1
+```
 
-    - ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, alertmanager, router, ingester, querier, compactor, openfga-init.
-    - Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>` (or the OSS image, depending on your chart values).
-    - If a pod is stuck in `ImagePullBackOff`, check `kubectl -n openobserve describe pod <name>` and verify outbound internet from the cluster.
+- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, alertmanager, router, ingester, querier, compactor, openfga-init.
+- Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>` (or the OSS image, depending on your chart values).
+- If a pod is stuck in `ImagePullBackOff`, check `kubectl -n openobserve describe pod <name>` and verify outbound internet from the cluster.
+:::
 
 Then port-forward the router service to reach the UI:
 

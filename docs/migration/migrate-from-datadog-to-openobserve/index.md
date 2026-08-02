@@ -1,6 +1,7 @@
 ---
-title: Migrate from Datadog to OpenObserve | Complete Migration Guide
-description: Step-by-step guide to migrate metrics, traces, logs, dashboards, and monitors from Datadog to OpenObserve. Use the OpenTelemetry Collector to route Datadog Agent, DogStatsD, APM, and log data into OpenObserve without rewriting your applications.
+title: Overview
+metaTitle: Migrate from Datadog to OpenObserve | Complete Migration Guide
+description: "Migrate metrics, traces, logs, dashboards, and monitors from Datadog to OpenObserve using the OpenTelemetry Collector, without rewriting applications."
 ---
 
 # Migrate from Datadog to OpenObserve
@@ -72,17 +73,20 @@ A migration path exists for every one of these. See the per-signal pages.
 
 Before migrating signal by signal, get OpenObserve running:
 
-=== "OpenObserve Cloud"
+::::tabs
+:::tab[OpenObserve Cloud]
 
-    Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
+Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
 
-    After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+:::
+:::tab[Self-Hosted]
 
-=== "Self-Hosted"
+Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
 
-    Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
-
-    After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+:::
+::::
 
 ## Migration Strategy
 

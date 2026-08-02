@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "migrate-database",
+    "migrate-file-list-partition",
+    "migrate-from-grafana-to-openobserve",
+    "migrate-from-datadog-to-openobserve"
+  ]
+}

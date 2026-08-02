@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "general-settings",
+    "index",
+    "streaming-search",
+    "aggregation-cache",
+    "query-management",
+    "alert-destinations",
+    "templates",
+    "audit-trail",
+    "cipher-keys",
+    "nodes",
+    "sso-domain-restrictions",
+    "sensitive-data-redaction",
+    "correlation-settings",
+    "lincense"
+  ]
+}

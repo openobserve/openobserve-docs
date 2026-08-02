@@ -1,5 +1,6 @@
 ---
-description: "Manage dashboard panels with toolbar controls for full screen, refresh, edit layout, resize, duplicate, move, query inspector, CSV/JSON export, and annotations."
+title: Manage Panels
+description: Manage dashboard panels with toolbar controls for full screen, refresh, edit layout, resize, duplicate, move, query inspector, CSV/JSON export, and annotations.
 ---
 
 This guide explains how to use and manage panels in the dashboard. It includes features available in the panel toolbar, step-by-step instructions, and troubleshooting tips for common issues.

@@ -1,8 +1,7 @@
 ---
-title: Environment Variables Reference | OpenObserve
-description: >-
-  Configure OpenObserve with flexible environment variables for roles, storage,
-  performance, and scaling across open source and enterprise deployments.
+title: Environment Variables
+metaTitle: Environment Variables Reference | OpenObserve
+description: Configure OpenObserve with flexible environment variables for roles, storage, performance, and scaling across open source and enterprise deployments.
 ---
 
 # Environment Variables

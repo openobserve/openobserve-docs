@@ -1,12 +1,13 @@
 ---
-description: >-
-  How to avoid UI crashes by limiting long-range queries with small intervals
-  and large text fields. Optimize dashboards to stay responsive.
+title: Prevent UI Crashes From Large Queries
+description: How to avoid UI crashes by limiting long-range queries with small intervals and large text fields. Optimize dashboards to stay responsive.
 ---
+
 OpenObserve does not restrict the number of records returned or the length of the time range in a query. You can query a few minutes or a longer time range, depending on your data retention settings (by default, 1 year, may vary by configuration).
 
-!!! warning
-    Queries that return a **large number of records** or **generate a large payload size** can overload the browser. This may cause the UI to crash, particularly on the **Log Search** page or in **Dashboard panels**.
+:::warning[Warning]
+Queries that return a **large number of records** or **generate a large payload size** can overload the browser. This may cause the UI to crash, particularly on the **Log Search** page or in **Dashboard panels**.
+:::
 
 This typically happens when:
 
@@ -28,7 +29,7 @@ Each bucket becomes a row in the query result. If the query returns a large numb
 
 Example: 
 
-```sql linenums="1"
+```sql lineNumbers
 
 SELECT histogram(_timestamp, '5m') AS log_time_interval,
        COUNT(*) AS total_logs
@@ -40,20 +41,21 @@ ORDER BY log_time_interval ASC
 The above query returns the number of logs collected every 5 minutes. When run over a 7-day period, it generates more than 2,000 time buckets, each representing a row that the browser must load and render. This volume of data can cause the UI to become unresponsive or crash.
 
 
-!!! Note
-    **In Dashboard Panels- Breakdown Fields Multiply the Problem**
+:::note[Note]
+**In Dashboard Panels- Breakdown Fields Multiply the Problem**
 
-    In dashboard panels, if you add a breakdown to the query (e.g., by `log.level`), it multiplies the number of rows. If the query is long range and has small time interval, adding breakdown to the Panels would further worsen the problem. 
-    <br> For example,
+In dashboard panels, if you add a breakdown to the query (e.g., by `log.level`), it multiplies the number of rows. If the query is long range and has small time interval, adding breakdown to the Panels would further worsen the problem. 
+<br> For example,
 
-    - You already have 2,000 time buckets  
-    - `log.level` has 5 unique values: `INFO`, `ERROR`, `DEBUG`, `WARN`, `TRACE`
+- You already have 2,000 time buckets  
+- `log.level` has 5 unique values: `INFO`, `ERROR`, `DEBUG`, `WARN`, `TRACE`
 
-    The result becomes: 2,000 time buckets × 5 breakdown values = 10,000 rows
+The result becomes: 2,000 time buckets × 5 breakdown values = 10,000 rows
 
-    That is 5X more data than without the breakdown. 
+That is 5X more data than without the breakdown. 
 
-    All of it must be fetched, loaded, and rendered in your browser. It ends up crashing the UI. 
+All of it must be fetched, loaded, and rendered in your browser. It ends up crashing the UI. 
+:::
 
 ## 2. Tables that Include Large Text Fields 
 

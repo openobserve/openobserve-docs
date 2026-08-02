@@ -1,5 +1,6 @@
 ---
-title: Data Ingestion Guide - Logs, Metrics, and Traces Collection | OpenObserve
+title: Ingestion Overview
+metaTitle: Data Ingestion Guide - Logs, Metrics, and Traces Collection
 description: Comprehensive data ingestion guide for collecting logs, metrics, and traces using OpenTelemetry, Prometheus, log forwarders, and APIs for complete observability.
 ---
 

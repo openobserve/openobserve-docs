@@ -1,7 +1,9 @@
 ---
-title: Full-Text Search Functions in OpenObserve
+title: Full-Text Search Functions
+metaTitle: Full-Text Search Functions in OpenObserve
 description: This page describes the full-text search functions supported in OpenObserve, including their syntax, behavior, and examples.
 ---
+
 # Full-text search functions
 
 The full-text search functions allow you to filter records based on keyword or pattern matches within one or more fields. This page lists the full-text search functions supported in OpenObserve, along with their usage formats, descriptions, and examples.
@@ -96,10 +98,11 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 - Filters logs by searching for the keyword across all fields that have the Index Type set to Full Text Search in the [stream settings](../../user-guide/data-processing/streams/schema-settings.md).
 - This function is case-insensitive and returns matches regardless of the keyword's casing.
 
-!!! note "Inverted index support"
-    To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](../api/stream/setting.md).
+:::note[Inverted index support]
+To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](../api/stream/setting.md).
 
-    The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
+The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
+:::
 
 **Example**:
 ```sql
@@ -109,7 +112,7 @@ This query returns all logs in the `default` stream where the keyword `openobser
 
 ![match_all](../../images/sql-reference/match-all.png)
 
-#### More pattern support
+### More pattern support
 
 The `match_all` function also supports the following patterns for flexible searching:
 
@@ -130,8 +133,9 @@ The `match_all` function also supports the following patterns for flexible searc
 - This function is case-insensitive and excludes matches regardless of the keyword's casing.
 - Provides significant performance improvements when used with indexed fields.
 
-!!! warning "Only Full Text Search fields are evaluated"
-    `NOT match_all` only searches fields configured as Full Text Search fields. Other fields in the record are not evaluated.
+:::warning[Only Full Text Search fields are evaluated]
+`NOT match_all` only searches fields configured as Full Text Search fields. Other fields in the record are not evaluated.
+:::
 
 **Example**:
 ```sql

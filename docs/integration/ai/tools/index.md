@@ -1,6 +1,7 @@
 ---
-title: AI Developer Tools Observability - Promptfoo, Milvus, Firecrawl, PostHog | OpenObserve
-description: Integrate AI developer tools and utilities with OpenObserve. Trace Promptfoo evaluations, Milvus vector searches, Firecrawl web scraping, Gradio demos, LibreChat sessions, MCP-Use agent calls, and more via OpenTelemetry.
+title: Tools
+metaTitle: AI Developer Tool Observability - Promptfoo, Milvus, Firecrawl
+description: "Trace AI developer tools with OpenObserve: Promptfoo evaluations, Milvus vector search, Firecrawl scraping, Gradio, LibreChat, and MCP-Use agent calls."
 ---
 
 # AI Developer Tools Observability Integrations

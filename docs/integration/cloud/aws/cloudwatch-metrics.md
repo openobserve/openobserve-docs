@@ -1,5 +1,6 @@
 ---
-title: AWS CloudWatch Metrics Integration Guide
+title: AWS Cloudwatch metrics
+metaTitle: AWS CloudWatch Metrics Integration Guide
 description: Stream AWS CloudWatch metrics to OpenObserve via Metric Streams and Kinesis Data Streams for real-time infrastructure monitoring.
 ---
 
@@ -13,59 +14,65 @@ CloudWatch Metric Streams allow efficient, near real-time delivery of metrics to
 
 ## Steps to Integrate
 
-??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or[Self-Hosted](../../../getting-started.md#self-hosted-installation))
-    - AWS IAM permissions for:
-        - CloudWatch: `ListMetrics`, `GetMetricData`, `GetMetricStatistics`
-        - Kinesis Data Streams: `CreateStream`, `PutRecord`
-    - OpenObserve ingestion URL and Access Key
+:::accordion[Prerequisites]
+- OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or[Self-Hosted](../../../getting-started.md#self-hosted-installation))
+- AWS IAM permissions for:
+    - CloudWatch: `ListMetrics`, `GetMetricData`, `GetMetricStatistics`
+    - Kinesis Data Streams: `CreateStream`, `PutRecord`
+- OpenObserve ingestion URL and Access Key
+:::
 
-??? "Step 1: Get OpenObserve Ingestion URL and Access Key"
+:::accordion[Step 1: Get OpenObserve Ingestion URL and Access Key]
 
-    1. In OpenObserve: go to **Data Sources → Recommended → AWS**
-    2. Copy the ingestion HTTP URL and Access Key
+1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+2. Copy the ingestion HTTP URL and Access Key
 
-        ![Fetch OpenObserve Ingestion URL](../../images/aws-integrations/vpc-flow/fetch-url.png)
+    ![Fetch OpenObserve Ingestion URL](../../images/aws-integrations/vpc-flow/fetch-url.png)
 
-    > Example format:
-    > ```
-    > https://<your-openobserve-domain>/aws/default/cloudwatch-logs/_kinesis_firehose
-    > ```
+> Example format:
+> ```
+> https://<your-openobserve-domain>/aws/default/cloudwatch-logs/_kinesis_firehose
+> ```
+:::
 
-??? "Step 2: Create a Kinesis Firehose Delivery Stream"
+:::accordion[Step 2: Create a Kinesis Firehose Delivery Stream]
 
-    1. In AWS Kinesis Firehose, Create delivery stream.
-    2. Set Source: `Direct PUT` and Destination: `HTTP Endpoint`.
-    3. Provide OpenObserve's HTTP Endpoint URL and Access Key, and set an S3 backup bucket.
-    4. Give the stream a meaningful name and Create it.
+1. In AWS Kinesis Firehose, Create delivery stream.
+2. Set Source: `Direct PUT` and Destination: `HTTP Endpoint`.
+3. Provide OpenObserve's HTTP Endpoint URL and Access Key, and set an S3 backup bucket.
+4. Give the stream a meaningful name and Create it.
 
-    ![Kinesis Firehose Delivery Stream](../../images/databases/firehose-stream.png){: style="height:800px"}
+<img src="../../images/databases/firehose-stream.png" alt="Kinesis Firehose Delivery Stream" style="height:800px">
+:::
 
-??? "Step 3: Create CloudWatch Metric Stream"
+:::accordion[Step 3: Create CloudWatch Metric Stream]
 
-    1. Navigate to **CloudWatch → Metric Streams → Create**
-    2. Choose **Custom** setup
-        ![Create Metric Stream](../../images/aws-integrations/cloudwatch-metrics/custom-setup.png)
-    3. For **Destination**, select **Kinesis Data Stream** → Select your newly created stream
-    4. Choose AWS namespaces to monitor (e.g., `AWS/EC2`, `AWS/RDS`, `AWS/Lambda`)
-    5. Optional: Filter specific metrics
-    6. Name your stream and click **Create Stream**
+1. Navigate to **CloudWatch → Metric Streams → Create**
+2. Choose **Custom** setup
+    ![Create Metric Stream](../../images/aws-integrations/cloudwatch-metrics/custom-setup.png)
+3. For **Destination**, select **Kinesis Data Stream** → Select your newly created stream
+4. Choose AWS namespaces to monitor (e.g., `AWS/EC2`, `AWS/RDS`, `AWS/Lambda`)
+5. Optional: Filter specific metrics
+6. Name your stream and click **Create Stream**
 
-    ![Create Metric Stream](../../images/aws-integrations/cloudwatch-metrics/metric-stream.png){: style="height:500px"}
+<img src="../../images/aws-integrations/cloudwatch-metrics/metric-stream.png" alt="Create Metric Stream" style="height:500px">
+:::
 
 
-??? "Step 4: Verify Metrics in OpenObserve"
+:::accordion[Step 4: Verify Metrics in OpenObserve]
 
-    1. Go to **Logs** → select your stream → Set time range → Click **Run Query**
+1. Go to **Logs** → select your stream → Set time range → Click **Run Query**
 
-    ![Verify Metrics](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets%2Frds_metrics_logs_d773f2b4ef.gif)
+![Verify Metrics](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets%2Frds_metrics_logs_d773f2b4ef.gif)
+:::
 
-??? "Troubleshooting"
+:::accordion[Troubleshooting]
 
-    **No metrics appearing?**
-    
-    - Confirm Kinesis Data Stream exists and is active
-    - Verify Metric Stream configuration in CloudWatch
-    - Check IAM permissions for CloudWatch and Kinesis
-    - Validate ingestion URL and Access Key in OpenObserve
+**No metrics appearing?**
+
+- Confirm Kinesis Data Stream exists and is active
+- Verify Metric Stream configuration in CloudWatch
+- Check IAM permissions for CloudWatch and Kinesis
+- Validate ingestion URL and Access Key in OpenObserve
+:::
 

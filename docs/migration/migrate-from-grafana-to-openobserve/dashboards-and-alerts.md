@@ -1,6 +1,7 @@
 ---
-title: Migrate Dashboards & Alerts from Grafana LGTM Stack to OpenObserve
-description: Migrate Grafana dashboards and Alertmanager alert rules to OpenObserve. Covers query translation from LogQL to SQL, PromQL compatibility, notification channel setup, and how to use OpenObserve AI Assistant to speed up migration.
+title: Migrating Dashboards & Alerts
+metaTitle: Migrate Dashboards & Alerts from Grafana LGTM Stack to OpenObserve
+description: "Migrate Grafana dashboards and Alertmanager rules to OpenObserve. Covers LogQL to SQL translation, PromQL compatibility, and notification channels."
 ---
 
 # Migrating Dashboards & Alerts
@@ -52,8 +53,9 @@ LogQL → SQL translation examples:
 | `count_over_time({service="api", level="error"}[5m])` | `SELECT count(*) FROM default WHERE service = 'api' AND level = 'error'` |
 | `rate({job="nginx"} \|= "timeout"[5m])` | `SELECT count(*) / 300 FROM default WHERE job = 'nginx' AND match_all('timeout')` |
 
-!!! tip "Use the AI Assistant"
-    Instead of translating queries by hand, use the **AI Assistant** (available in the OpenObserve UI) to convert LogQL to SQL. Paste your existing LogQL query and ask: *"Convert this LogQL query to OpenObserve SQL."* It handles the function mapping and syntax differences accurately and quickly, especially for complex filter and aggregation patterns.
+:::tip[Use the AI Assistant]
+Instead of translating queries by hand, use the **AI Assistant** (available in the OpenObserve UI) to convert LogQL to SQL. Paste your existing LogQL query and ask: *"Convert this LogQL query to OpenObserve SQL."* It handles the function mapping and syntax differences accurately and quickly, especially for complex filter and aggregation patterns.
+:::
 
 **Step 3: Recreate in OpenObserve**
 
@@ -111,8 +113,9 @@ See the [OpenObserve Alerts Documentation](https://openobserve.ai/docs/user-guid
 | `count_over_time({level="error", service="api"}[5m]) > 100` | `SELECT count(*) FROM default WHERE level = 'error' AND service = 'api'` with threshold > 100 |
 | `rate({service="payments"} \|= "timeout"[5m]) > 0.05` | `SELECT count(*) / 300 FROM default WHERE service = 'payments' AND match_all('timeout')` with threshold > 0.05 |
 
-!!! tip "Use the AI Assistant"
-    The same AI Assistant that converts LogQL for dashboards works here too. Paste your LogQL alert query and ask it to produce the OpenObserve SQL equivalent. This is faster and less error-prone than translating complex multi-condition LogQL by hand.
+:::tip[Use the AI Assistant]
+The same AI Assistant that converts LogQL for dashboards works here too. Paste your LogQL alert query and ask it to produce the OpenObserve SQL equivalent. This is faster and less error-prone than translating complex multi-condition LogQL by hand.
+:::
 
    
 

@@ -1,7 +1,9 @@
 ---
-title: Metrics Ingestion for Monitoring and Observability | OpenObserve
-description: Comprehensive guide to metrics ingestion using Prometheus, OpenTelemetry Collector, and Telegraf for infrastructure monitoring, application performance monitoring, and observability.
+title: Index
+metaTitle: Metrics Ingestion for Monitoring and Observability | OpenObserve
+description: "Ingest metrics into OpenObserve with Prometheus, the OpenTelemetry Collector, or Telegraf for infrastructure and application performance monitoring."
 ---
+
 # Metrics Ingestion - Infrastructure & Application Monitoring
 
 OpenObserve supports multiple metrics ingestion methods for comprehensive infrastructure monitoring, application performance monitoring (APM), and observability. Collect and analyze metrics from Kubernetes, cloud platforms, servers, and applications using industry-standard protocols.

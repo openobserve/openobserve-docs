@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "schema",
+    "setting",
+    "list",
+    "delete"
+  ]
+}

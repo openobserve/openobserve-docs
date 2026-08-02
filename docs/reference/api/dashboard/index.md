@@ -1,20 +1,22 @@
 ---
-title: Dashboards API | OpenObserve
-description: >-
-  Manage individual dashboard panels via API. Add, update, and delete panels on
-  v8 dashboards with optimistic-concurrency conflict detection.
+title: Dashboards
+metaTitle: Dashboards API | OpenObserve
+description: Manage individual dashboard panels via API. Add, update, and delete panels on v8 dashboards with optimistic-concurrency conflict detection.
 ---
+
 # Dashboards API
 
 OpenObserve exposes panel-level APIs for performing granular create, update, and delete operations on dashboard panels. These endpoints let you modify a single panel without sending the entire dashboard payload.
 
 All requests must include an authorization header. See the [API Index](../index.md) for details on building the header.
 
-!!! note "Version support"
-    Panel operations are supported only for **v8 dashboards**. Calling these endpoints against a dashboard of any other version returns `400 Bad Request` with the message `Panel operations are only supported for v8 dashboards`.
+:::note[Version support]
+Panel operations are supported only for **v8 dashboards**. Calling these endpoints against a dashboard of any other version returns `400 Bad Request` with the message `Panel operations are only supported for v8 dashboards`.
+:::
 
-!!! note "Optimistic concurrency"
-    The `hash` query parameter is **mandatory** on all three endpoints. It carries the current dashboard hash and is used for optimistic-concurrency conflict detection. If the dashboard has changed since the hash was issued, the request fails with `409 Conflict`. Each successful response returns a new `hash` value that you can use for the next chained operation.
+:::note[Optimistic concurrency]
+The `hash` query parameter is **mandatory** on all three endpoints. It carries the current dashboard hash and is used for optimistic-concurrency conflict detection. If the dashboard has changed since the hash was issued, the request fails with `409 Conflict`. Each successful response returns a new `hash` value that you can use for the next chained operation.
+:::
 
 The full dashboard resource (create, get, update, delete, list, move) is also documented in the bundled OpenAPI/Swagger specification, available from the OpenObserve UI.
 

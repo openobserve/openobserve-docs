@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "index",
+    "architecture",
+    "metrics",
+    "traces",
+    "logs",
+    "dashboards-and-alerts"
+  ]
+}

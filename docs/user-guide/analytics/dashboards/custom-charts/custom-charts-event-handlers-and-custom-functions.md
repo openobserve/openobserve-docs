@@ -1,8 +1,8 @@
 ---
-description: >-
-  Add interactivity to custom charts in OpenObserve using event handlers and
-  reusable functions to respond to clicks, hovers, and legend selections.
+title: Event Handlers and Custom Functions
+description: Add interactivity to custom charts in OpenObserve using event handlers and reusable functions to respond to clicks, hovers, and legend selections.
 ---
+
 This guide shows how to make your [custom charts](what-are-custom-charts.md) interactive using event handlers and reusable custom functions (customFn).
 
 ## What are event handlers? 
@@ -24,7 +24,7 @@ Before you begin, note the following:
 
 ### Step 1: Create a basic chart with labels and values
 
-```linenums="1"
+```text lineNumbers
 
 option = {  
   xAxis: { type: "category", data: ["A", "B", "C"] },  
@@ -41,7 +41,7 @@ At this point, clicking on the chart does nothing.
 This tells the chart what kind of user action (event) you want to respond to.  
 Here, we want to respond to a `click` event:
 
-```linenums="1"
+```text lineNumbers
 
 option = {  
   xAxis: { type: "category", data: ["A", "B", "C"] },  
@@ -57,7 +57,7 @@ To make the above code snippet work, you need to define the `handleClick` functi
 ### Step 3: Write the event handler function  
 This function runs every time the user clicks a bar.
 
-```linenums="9"  
+```text lineNumbers=9
 function handleClick(params, chart) {  
   console.log("You clicked:", params.name, params.value);  
 }  
@@ -84,7 +84,7 @@ You clicked: A 10
 ### Step 5 (optional): Add more events  
 Further, you can add more event handlers such as `mousemove`, `legendchanged` like this:  
 
-```linenums="1"  
+```text lineNumbers
 o2_events: {  
   click: handleClick,  
   mousemove: handleHover  
@@ -111,7 +111,7 @@ You can write that logic as a custom function and call that function from the `c
 
 ### Step 1: Add a `customFn` block inside your chart’s `option` object
 
-```linenums="1"
+```text lineNumbers
 
 option = {  
   xAxis: { type: "category", data: ["A", "B", "C"] },  
@@ -131,7 +131,7 @@ option = {
 ### Step 2: Write the custom function  
 This function takes a label and value, and returns a readable message.
 
-```linenums="12"
+```text lineNumbers=12
 function formatMessage(label, value) {  
   return `You selected ${label} with value ${value}`;  
 }  
@@ -141,7 +141,7 @@ function formatMessage(label, value) {
 ### Step 3: Update the event handler to use `customFn`  
 Update your `click` handler to call this reusable function:
 
-```linenums="15"
+```text lineNumbers=15
 function handleClick(params, chart) {  
   const label = params.name;  
   const value = params.value;

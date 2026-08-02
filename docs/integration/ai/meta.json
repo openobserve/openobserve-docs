@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "llm-applications",
+    "llm-evaluations",
+    "claude-code-tracing",
+    "github-copilot-tracing",
+    "frameworks",
+    "providers",
+    "gateways",
+    "no-code",
+    "tools",
+    "mcp"
+  ]
+}

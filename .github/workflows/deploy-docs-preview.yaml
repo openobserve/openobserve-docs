@@ -1,0 +1,76 @@
+name: Deploy Docs Site to S3 (preview)
+
+# Preview environment for the Fumadocs site. Deploys to a dedicated preview
+# bucket/distribution, hardcoded below like the staging and prod workflows.
+on:
+  push:
+    branches:
+      - migrate-to-fumadocs   # Change this to your preview branch
+  workflow_dispatch:          # allow deploying any branch by hand
+
+jobs:
+  deploy:
+    runs-on: org-openobserve-standard-4
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      PREVIEW_BUCKET: openobserve-website-staging  # TODO: replace with the real preview bucket name
+      PREVIEW_DISTRIBUTION_ID: E2GZJM0TJIDFRM       # TODO: replace with the real CloudFront distribution ID
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0   # full history so the per-page "last updated" dates resolve
+
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Install AWS CLI
+      run: |
+        if ! command -v aws &> /dev/null; then
+          echo "AWS CLI not found. Installing..."
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+        else
+          echo "AWS CLI already installed."
+        fi
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
+        aws-region: us-east-2  # or your preferred region
+
+    - name: Build static site
+      run: |
+        rm -rf out
+        pnpm build
+
+    - name: Deploy to S3
+      run: |
+        aws s3 sync ./out "s3://$PREVIEW_BUCKET/docs" --exclude=".git/*" --delete
+        # The search index has no file extension, so `sync` labels it
+        # binary/octet-stream and CloudFront then refuses to compress it
+        # (~37 MB raw vs ~4 MB gzipped). Re-upload it with the right type.
+        aws s3 cp ./out/api/search "s3://$PREVIEW_BUCKET/docs/api/search" \
+          --content-type application/json
+        # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
+        aws s3 cp ./out "s3://$PREVIEW_BUCKET/docs" \
+          --recursive --exclude "*" --include "*.md" \
+          --content-type "text/markdown; charset=utf-8"
+
+    - name: Invalidate CloudFront cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id "$PREVIEW_DISTRIBUTION_ID" --paths "/docs/*"

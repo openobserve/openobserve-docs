@@ -1,5 +1,7 @@
 ---
-description: "Manage OpenObserve streams through the Stream API to list streams, view stream schema, update stream settings, and delete streams and their stored data."
+title: Streams
+metaTitle: Stream API - List, Schema, Settings, and Delete
+description: Manage OpenObserve streams through the Stream API to list streams, view stream schema, update stream settings, and delete streams and their stored data.
 ---
 
 # API Index - Stream

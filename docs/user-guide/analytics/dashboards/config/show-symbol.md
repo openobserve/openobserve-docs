@@ -1,7 +1,9 @@
 ---
-title: Show Symbol Option in OpenObserve Dashboards
+title: Show Symbol
+metaTitle: Show Symbol Option in OpenObserve Dashboards
 description: Learn how to configure the Show Symbol option in supported chart types to display or hide data point markers in OpenObserve dashboards.
 ---
+
 This guide describes how to use the **Show Symbol** option in OpenObserve dashboards to display or hide data point markers in supported chart types. This setting improves visual clarity when analyzing time-series data by highlighting values along a plotted line or area.
 
 ## Supported Chart Types

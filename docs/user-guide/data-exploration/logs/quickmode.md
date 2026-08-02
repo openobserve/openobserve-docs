@@ -1,7 +1,9 @@
 ---
-title: Quick Mode and Interesting Fields in OpenObserve
+title: Quick Mode and Interesting Fields
+metaTitle: Quick Mode and Interesting Fields in OpenObserve
 description: Learn how Quick Mode and Interesting Fields speed up log searches in OpenObserve by scanning only selected fields.
 ---
+
 This guide explains how to use Quick Mode with Interesting Fields in OpenObserve to optimize log searches and improve query performance.
 
 ## Overview

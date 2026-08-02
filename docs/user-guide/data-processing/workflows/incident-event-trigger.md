@@ -1,10 +1,9 @@
 ---
-title: Incident-Event-Triggered Workflows — How-to Guide
-description: >-
-  Trigger automated workflows from incident lifecycle events — created, alert
-  added, status changed, severity upgraded, and more. Build incident-aware
-  automations that react to real-time incident changes across your organization.
+title: Incident-Event-Triggered Workflows
+metaTitle: Incident-Event-Triggered Workflows — How-to Guide
+description: "Trigger automated workflows from incident lifecycle events such as created, alert added, status changed, and severity upgraded."
 ---
+
 # Incident-Event-Triggered Workflows
 
 A workflow can now start from an **Incident Event** trigger instead of an alert. When an incident lifecycle event occurs — an incident is created, an alert is added, a status changes, a severity upgrades, a user posts a comment, or AI analysis completes — OpenObserve fires the associated workflow, handing it a payload with the incident's common metadata plus event-specific fields.
@@ -15,8 +14,9 @@ This lets you build automations such as:
 - Trigger a webhook when an incident reaches a critical alert count
 - Branch on `event_type` to run different destinations for different lifecycle stages
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition.
+:::info[Availability]
+This feature is available in Enterprise Edition.
+:::
 
 ## How incident-event workflows differ from alert-fired workflows
 

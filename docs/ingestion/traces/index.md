@@ -1,7 +1,9 @@
 ---
-title: Distributed Tracing with OpenTelemetry for APM | OpenObserve
-description: Configure OpenTelemetry distributed tracing for application performance monitoring, microservices tracing, and observability using HTTP or gRPC protocols with OpenObserve.
+title: Index
+metaTitle: Distributed Tracing with OpenTelemetry for APM | OpenObserve
+description: "Configure OpenTelemetry distributed tracing over HTTP or gRPC with OpenObserve for application performance monitoring and microservices observability."
 ---
+
 # Distributed Tracing - Application Performance Monitoring
 
 OpenObserve supports OpenTelemetry-compatible distributed tracing for application performance monitoring (APM) and microservices observability. Instrument your applications using OpenTelemetry SDKs or auto-instrumentation to send traces to OpenObserve for end-to-end transaction tracking and performance analysis.
@@ -46,6 +48,6 @@ Authorization: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
 
 ## GRPC
 
-OpenObserve also supports sending traces with gRPC as explained [here](../logs/otlp.md).
+OpenObserve also supports sending traces with gRPC as explained in the [OTLP ingestion guide](../logs/otlp.md).
 
 

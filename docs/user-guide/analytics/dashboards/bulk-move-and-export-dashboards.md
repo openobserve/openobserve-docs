@@ -1,8 +1,8 @@
 ---
-description: >-
-  Move or export multiple dashboards in bulk in OpenObserve to organize them
-  efficiently or back them up using the dashboard list view.
+title: Move and Export Dashboards in Bulk
+description: Move or export multiple dashboards in bulk in OpenObserve to organize them efficiently or back them up using the dashboard list view.
 ---
+
 OpenObserve allows you to move or export multiple dashboards at once using the dashboard list view. This helps you organize your dashboards efficiently or back them up when needed.  
 
 ![Move dashboards in bulk](../../../images/dashboard-bulk-move.png)
@@ -34,5 +34,6 @@ The selected dashboards will be moved to the specified folder.
 
 A success message will confirm that the dashboards were exported.
 
-!!! Note  
-    The exported dashboards are downloaded in **JSON** format, which can be saved or imported later.
+:::note[Note]
+The exported dashboards are downloaded in **JSON** format, which can be saved or imported later.
+:::

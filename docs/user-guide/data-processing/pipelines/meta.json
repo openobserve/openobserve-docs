@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "index",
+    "pipelines",
+    "create-and-use-real-time-pipeline",
+    "create-and-use-scheduled-pipeline",
+    "remote-destination",
+    "import-and-export-pipelines",
+    "manage-pipelines",
+    "configurable-delay-in-scheduled-pipelines"
+  ]
+}

@@ -1,11 +1,14 @@
 ---
-title: Log Patterns in OpenObserve
-description: Learn how the Patterns tab in OpenObserve automatically groups your logs into recurring templates, inspects wildcard value distributions, and filters logs by individual values.
+title: Log Patterns
+metaTitle: Log Patterns in OpenObserve
+description: "How the Patterns tab groups logs into recurring templates, shows wildcard value distributions, and lets you filter logs by individual values."
 ---
+
 This guide explains how to use the **Patterns** tab on the Logs page to discover recurring log templates, inspect the values behind each wildcard, and filter your logs by a specific value.
 
-!!! info "Availability"
-    Log Patterns is available in Enterprise Edition.
+:::info[Availability]
+Log Patterns is available in Enterprise Edition.
+:::
 
 ## Overview
 Log Patterns automatically analyzes your log data and groups similar messages into a smaller set of recurring templates. The parts of a message that stay the same across many logs form the template text, and the parts that change from log to log are replaced with wildcard tokens such as `<*>`. This lets you understand the shape of high-volume log streams without reading every individual line.

@@ -1,5 +1,6 @@
 ---
-description: "Manually deploy the OpenObserve Kubernetes operator with kubectl by applying the namespace, CRDs, RBAC, ConfigMap, deployment, and webhook manifests in order."
+title: Manual Deployment
+description: Manually deploy the OpenObserve Kubernetes operator with kubectl by applying the namespace, CRDs, RBAC, ConfigMap, deployment, and webhook manifests in order.
 ---
 
 

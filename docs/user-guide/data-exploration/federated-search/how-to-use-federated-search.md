@@ -1,22 +1,26 @@
 ---
-title: Federated Search in OpenObserve - How-to Guide
+title: How to Use Federated Search
+metaTitle: Federated Search in OpenObserve - How-to Guide
 description: Step-by-step instructions for querying your current cluster and performing federated searches across one or more clusters in a supercluster setup.
 ---
+
 This document explains how to query your current cluster and how to perform [federated searches](index.md) across one or more different clusters in a supercluster setup.
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+:::info[Availability]
+This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+:::
 
 ## How to query your current cluster in a supercluster
 
 Query your current cluster when you know the data is in your cluster or when you need the fastest query performance.
 
-!!! note "What you need to know:"
+:::note[What you need to know:]
 
-    - This is not federated search
-    - You are querying the current cluster.
-    - No cross-cluster communication occurs.
-    - Results will include data from the current cluster only.
+- This is not federated search
+- You are querying the current cluster.
+- No cross-cluster communication occurs.
+- Results will include data from the current cluster only.
+:::
 <br>
 **Steps:**
 ![current-cluster-query](../../../images/current-cluster-query.png)
@@ -39,10 +43,11 @@ Data from the selected cluster only.
 
 Use federated search when you need data from multiple clusters.
 
-!!! note "What you need to know"
+:::note[What you need to know]
 
-    - Multiple clusters will process your query simultaneously.
-    - Results will combine data from all selected clusters.
+- Multiple clusters will process your query simultaneously.
+- Results will combine data from all selected clusters.
+:::
 
 **Steps**
 <br>

@@ -1,7 +1,9 @@
 ---
-title: Logs in OpenObserve | OpenObserve
+title: Logs Overview
+metaTitle: Logs Overview - Explore and Query Log Data in OpenObserve
 description: Explore log data in OpenObserve. View and filter logs by time and fields, run SQL queries, transform with VRL, save views, and schedule recurring searches.
 ---
+
 # Logs
 
 ## Overview
@@ -15,10 +17,11 @@ You can use the Logs page to:
 - Save views and schedule recurring searches
 - Export logs for offline analysis
 
-!!! note "Who can access"
+:::note[Who can access]
 
-    - **Enterprise** and **Cloud** editions support Role-Based Access Control (RBAC) to restrict log access per stream and role.
-    - **Open Source** edition provides full access to all logs for all users.
+- **Enterprise** and **Cloud** editions support Role-Based Access Control (RBAC) to restrict log access per stream and role.
+- **Open Source** edition provides full access to all logs for all users.
+:::
 
 ## Next steps
 

@@ -1,9 +1,8 @@
 ---
-description: >-
-  Define automated workflows that execute when alerts fire. Use a visual
-  node-edge builder to transform data, call functions, evaluate conditions,
-  and send results to pipeline destinations.
+title: Workflows
+description: "Define automated workflows that run when alerts fire. Use the visual builder to transform data, call functions, evaluate conditions, and route results."
 ---
+
 # Workflows
 
 Workflows let you define automated chains of operations that execute in response to alert triggers. When an alert fires, the linked workflow runs through a sequence of nodes — querying data, transforming it with JavaScript functions, evaluating conditions, and routing results to a pipeline destination or back into a stream.

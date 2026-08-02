@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "index",
+    "stream",
+    "ingestion",
+    "search",
+    "function",
+    "user",
+    "cluster",
+    "traces",
+    "dashboard",
+    "report"
+  ]
+}

@@ -1,5 +1,6 @@
 ---
-title: Apache Airflow Integration Guide
+title: Integration with Apache Airflow
+metaTitle: Apache Airflow Integration Guide
 description: Collect and monitor Apache Airflow logs and metrics with OpenTelemetry Collector and visualize them in OpenObserve.
 ---
 
@@ -18,123 +19,131 @@ With OpenTelemetry and OpenObserve, you gain **real-time observability** into Ai
 
 ## Steps to Integrate
 
-??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md#self-hosted-installation))
-    - Apache Airflow installed and running
-    - Basic understanding of Airflow configs (`airflow.cfg`)
-    - OpenTelemetry Collector installed
+:::accordion[Prerequisites]
+- OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md#self-hosted-installation))
+- Apache Airflow installed and running
+- Basic understanding of Airflow configs (`airflow.cfg`)
+- OpenTelemetry Collector installed
+:::
 
-??? "Step 1: Configure Airflow for OpenTelemetry"
+:::accordion[Step 1: Configure Airflow for OpenTelemetry]
 
-    Edit `airflow.cfg` to enable OTel metrics:
+Edit `airflow.cfg` to enable OTel metrics:
 
-    ```ini
-    [metrics]
-    otel_on = True
-    otel_host = localhost
-    otel_port = 4318
-    ```
+```ini
+[metrics]
+otel_on = True
+otel_host = localhost
+otel_port = 4318
+```
 
-    Restart Airflow services after updating config:
+Restart Airflow services after updating config:
 
+```bash
+airflow db migrate
+airflow scheduler -D
+airflow webserver -D
+```
+:::
+
+:::accordion[Step 2: Install OpenTelemetry Collector]
+
+1. Download and install the OTel Collector:
     ```bash
-    airflow db migrate
-    airflow scheduler -D
-    airflow webserver -D
+    wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/latest/download/otelcol-linux-amd64
+    chmod +x otelcol-linux-amd64
+    sudo mv otelcol-linux-amd64 /usr/local/bin/otelcol
     ```
 
-??? "Step 2: Install OpenTelemetry Collector"
-
-    1. Download and install the OTel Collector:
-        ```bash
-        wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/latest/download/otelcol-linux-amd64
-        chmod +x otelcol-linux-amd64
-        sudo mv otelcol-linux-amd64 /usr/local/bin/otelcol
-        ```
-
-    2. Verify installation:
-        ```bash
-        otelcol --version
-        ```
-
-??? "Step 3: Get OpenObserve Endpoint and Token"
-
-    1. In OpenObserve: go to **Data Sources → Otel Collector**  
-    2. Copy the **Ingestion URL** and **Access Token**  
-    ![Get OpenObserve Ingestion URL and Token](../images/messagebroker/otel-metrics-source.png)
-
-??? "Step 4: Configure OpenTelemetry Collector"
-
-    1. Create/edit config file:
-        ```bash
-        sudo vi /etc/otel-config.yaml
-        ```
-
-    2. Add Airflow configuration:
-        ```yaml
-        receivers:
-          filelog/std:
-            include:
-              - /airflow/logs/*/*.log
-              - /airflow/logs/scheduler/*/*/*/*.log
-            start_at: beginning
-          otlp:
-            protocols:
-              grpc:
-              http:
-
-        processors:
-          batch:
-
-        exporters:
-          otlphttp/openobserve:
-            endpoint: OPENOBSERVE_ENDPOINT
-            headers:
-              Authorization: "OPENOBSERVE_TOKEN"
-              stream-name: airflow
-
-        service:
-          pipelines:
-            metrics:
-              receivers: [otlp]
-              processors: [batch]
-              exporters: [otlphttp/openobserve]
-            logs:
-              receivers: [filelog/std, otlp]
-              processors: [batch]
-              exporters: [otlphttp/openobserve]
-            traces:
-              receivers: [otlp]
-              processors: [batch]
-              exporters: [otlphttp/openobserve]
-        ```
-
-    Replace placeholders with your OpenObserve details:
-
-    - `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-    - `OPENOBSERVE_TOKEN` → Access token
-
-??? "Step 5: Start OpenTelemetry Collector"
-
+2. Verify installation:
     ```bash
-    sudo systemctl start otel-collector
-    sudo systemctl status otel-collector
-    journalctl -u otel-collector -f
+    otelcol --version
+    ```
+:::
+
+:::accordion[Step 3: Get OpenObserve Endpoint and Token]
+
+1. In OpenObserve: go to **Data Sources → Otel Collector**  
+2. Copy the **Ingestion URL** and **Access Token**  
+![Get OpenObserve Ingestion URL and Token](../images/messagebroker/otel-metrics-source.png)
+:::
+
+:::accordion[Step 4: Configure OpenTelemetry Collector]
+
+1. Create/edit config file:
+    ```bash
+    sudo vi /etc/otel-config.yaml
     ```
 
-    > Check logs to confirm data is being sent to OpenObserve.
+2. Add Airflow configuration:
+    ```yaml
+    receivers:
+      filelog/std:
+        include:
+          - /airflow/logs/*/*.log
+          - /airflow/logs/scheduler/*/*/*/*.log
+        start_at: beginning
+      otlp:
+        protocols:
+          grpc:
+          http:
 
-??? "Step 6: Visualize Logs in OpenObserve"
+    processors:
+      batch:
 
-    1. Go to **Streams → airflow** in OpenObserve to query logs. Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
-     
-     ![Visualize Logs in OpenObserve](../images/airflow-logs.png)
+    exporters:
+      otlphttp/openobserve:
+        endpoint: OPENOBSERVE_ENDPOINT
+        headers:
+          Authorization: "OPENOBSERVE_TOKEN"
+          stream-name: airflow
+
+    service:
+      pipelines:
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlphttp/openobserve]
+        logs:
+          receivers: [filelog/std, otlp]
+          processors: [batch]
+          exporters: [otlphttp/openobserve]
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlphttp/openobserve]
+    ```
+
+Replace placeholders with your OpenObserve details:
+
+- `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
+- `OPENOBSERVE_TOKEN` → Access token
+:::
+
+:::accordion[Step 5: Start OpenTelemetry Collector]
+
+```bash
+sudo systemctl start otel-collector
+sudo systemctl status otel-collector
+journalctl -u otel-collector -f
+```
+
+> Check logs to confirm data is being sent to OpenObserve.
+:::
+
+:::accordion[Step 6: Visualize Logs in OpenObserve]
+
+1. Go to **Streams → airflow** in OpenObserve to query logs. Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
+
+ ![Visualize Logs in OpenObserve](../images/airflow-logs.png)
+:::
     
 
-!!! tip "Prebuilt Dashboards"
+:::tip[Prebuilt Dashboards]
 
-    </br>
-    [Prebuilt Airflow dashboards](https://github.com/openobserve/dashboards/tree/main/Airflow) are available. You can download the JSON file and import it.
+</br>
+[Prebuilt Airflow dashboards](https://github.com/openobserve/dashboards/tree/main/Airflow) are available. You can download the JSON file and import it.
+:::
 
 ## Troubleshooting
 

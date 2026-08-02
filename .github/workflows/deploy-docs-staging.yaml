@@ -1,4 +1,4 @@
-name: Deploy MkDocs Site to S3
+name: Deploy Docs Site to S3 (staging)
 
 on:
   push:
@@ -16,16 +16,19 @@ jobs:
     - name: Checkout source code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0   # full history so git-revision-date-localized can read per-page commit dates
+        fetch-depth: 0   # full history so the per-page "last updated" dates resolve
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
       with:
-        python-version: '3.10'
+        node-version: '22'
+        cache: 'pnpm'
 
-    - name: Install Python dependencies
-      run: |
-        pip install -r requirements.txt
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
 
     - name: Install AWS CLI
       run: |
@@ -44,14 +47,20 @@ jobs:
         role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
         aws-region: us-east-2  # or your preferred region
 
-    - name: Build MkDocs site
+    - name: Build static site
       run: |
-        rm -rf site
-        mkdocs build
+        rm -rf out
+        pnpm build
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./site s3://openobserve-website-staging/docs --exclude=".git/*" --delete
+        aws s3 sync ./out s3://openobserve-website-staging/docs --exclude=".git/*" --delete
+        # Extensionless file: give it a compressible content type (see prod workflow).
+        aws s3 cp ./out/api/search s3://openobserve-website-staging/docs/api/search \
+          --content-type application/json
+        aws s3 cp ./out s3://openobserve-website-staging/docs \
+          --recursive --exclude "*" --include "*.md" \
+          --content-type "text/markdown; charset=utf-8"
 
     - name: Invalidate CloudFront cache
       run: |

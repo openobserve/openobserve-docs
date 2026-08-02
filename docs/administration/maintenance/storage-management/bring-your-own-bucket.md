@@ -1,12 +1,10 @@
 ---
-title: Bring Your Own Bucket (BYOB) - Use Your Own S3, Azure Blob, or GCS Storage | OpenObserve
-description: >-
-  Bring Your Own Bucket (BYOB) lets OpenObserve Cloud write telemetry data
-  directly to an AWS S3 bucket, Azure Blob container, or Google Cloud Storage
-  bucket in your account, so your data stays in your region and under your
-  security policies.
-keywords: 'openobserve, byob, bring your own bucket, s3, azure blob, gcp, gcs, google cloud storage, role arn, sts, external id, data residency, compliance, cloud'
+title: Bring Your Own Bucket
+metaTitle: Bring Your Own Bucket - Use Your Own S3, Azure Blob, or GCS
+description: "Bring Your Own Bucket lets OpenObserve Cloud write telemetry straight to your own S3, Azure Blob, or Google Cloud Storage, keeping data in your account."
+keywords: openobserve, byob, bring your own bucket, s3, azure blob, gcp, gcs, google cloud storage, role arn, sts, external id, data residency, compliance, cloud
 ---
+
 # Bring Your Own Bucket (BYOB)
 
 OpenObserve is built around object storage. **Bring Your Own Bucket (BYOB)** lets you decide exactly where that data lives.
@@ -15,8 +13,9 @@ Instead of using OpenObserve-managed storage, you can connect your own **AWS S3 
 
 For AWS, you can authenticate using either **access keys** (access key ID and secret access key) or an **IAM Role ARN** (STS assume-role with an External ID). Azure and GCS use their respective account credentials.
 
-!!! tip "Get it enabled!"
-    If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact).
+:::tip[Get it enabled!]
+If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact).
+:::
 
 ## Use Cases
 
@@ -91,21 +90,25 @@ Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/con
 
 ## Frequently Asked Questions
 
-??? question "Does enabling BYOB migrate my existing data?"
+:::accordion[Does enabling BYOB migrate my existing data?]
 
-    BYOB applies to data written *after* the bucket is connected. If you need historical data moved into your bucket, contact OpenObserve support to discuss a one-time migration.
+BYOB applies to data written *after* the bucket is connected. If you need historical data moved into your bucket, contact OpenObserve support to discuss a one-time migration.
+:::
 
-??? question "Can I rotate or revoke the credentials?"
+:::accordion[Can I rotate or revoke the credentials?]
 
-    Yes. Update the credentials under **Settings → Storage Settings** (or via the `PUT /api/{org_id}/storage` endpoint) whenever you rotate the underlying IAM role, access key, Role ARN/External ID, SAS token, or GCS credentials. Revoking access at the cloud-provider level stops OpenObserve from being able to write or read new data.
+Yes. Update the credentials under **Settings → Storage Settings** (or via the `PUT /api/{org_id}/storage` endpoint) whenever you rotate the underlying IAM role, access key, Role ARN/External ID, SAS token, or GCS credentials. Revoking access at the cloud-provider level stops OpenObserve from being able to write or read new data.
+:::
 
-??? question "What happens to my data if I leave OpenObserve?"
+:::accordion[What happens to my data if I leave OpenObserve?]
 
-    The data remains in your bucket. OpenObserve writes telemetry as Parquet files using the same format documented in [Storage Configuration](storage.md), so you retain access to the raw data independent of the platform.
+The data remains in your bucket. OpenObserve writes telemetry as Parquet files using the same format documented in [Storage Configuration](storage.md), so you retain access to the raw data independent of the platform.
+:::
 
-??? question "Is BYOB available on self-hosted OpenObserve?"
+:::accordion[Is BYOB available on self-hosted OpenObserve?]
 
-    Self-hosted OpenObserve has always supported pointing at any S3-compatible, Azure Blob, or Google Cloud Storage you control. See [Storage Configuration](storage.md). BYOB is the equivalent capability for **OpenObserve Cloud** customers who don't manage their own deployment.
+Self-hosted OpenObserve has always supported pointing at any S3-compatible, Azure Blob, or Google Cloud Storage you control. See [Storage Configuration](storage.md). BYOB is the equivalent capability for **OpenObserve Cloud** customers who don't manage their own deployment.
+:::
 
 
 

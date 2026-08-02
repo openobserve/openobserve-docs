@@ -1,7 +1,9 @@
 ---
-title: Logs in OpenObserve | OpenObserve
-description: Collect, store, search, and analyze logs at scale with OpenObserve. Multiple ingestion protocols, full-text and SQL search, compressed storage, and configurable retention.
+title: Log Management
+metaTitle: Log Management Features - Collect, Search, and Analyze Logs
+description: "Collect, store, search, and analyze logs at scale with OpenObserve: multiple ingestion protocols, full-text and SQL search, and configurable retention."
 ---
+
 # Logs
 
 OpenObserve provides powerful log management capabilities for collecting, storing, and analyzing log data from your applications and infrastructure.
@@ -42,7 +44,7 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ![Compressed Storage](../images/features/data-compression.png)
 
-- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations. Learn more about [Streams](../user-guide/data-processing/streams/streams-in-openobserve.md) and their [details](../user-guide/data-processing/streams/stream-details.md#stream-details).
+- **Fast Retrieval**: Optimized indexing for quick log searches and aggregations. Learn more about [Streams](../user-guide/data-processing/streams/streams-in-openobserve.md) and their [stream details](../user-guide/data-processing/streams/stream-details.md#stream-details).
 
 ![Indexing](../images/features/index.png)
 

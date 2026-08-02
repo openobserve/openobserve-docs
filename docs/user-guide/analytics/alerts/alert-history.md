@@ -1,5 +1,6 @@
 ---
-description: "Alert History records every alert evaluation in OpenObserve's triggers stream, letting you read status codes and retries and debug failed or skipped alerts."
+title: Alert History
+description: Alert History records every alert evaluation in OpenObserve's triggers stream, letting you read status codes and retries and debug failed or skipped alerts.
 ---
 
 
@@ -11,11 +12,13 @@ OpenObserve records alert evaluation events in a dedicated stream called `trigge
 > An evaluation is the system checking whether the alert’s condition is true. For scheduled alerts, this check happens at the set frequency. For real time alerts, the check happens whenever new data arrives. The condition defines what should trigger the alert. 
 A trigger happens when the evaluation finds the condition to be true. This creates a firing event and can send a notification if one is set.
 
-!!! note "Who can access it"
-    Any user who has permission to view, update, or delete alerts can also access Alert History. Users do not need access to the `_meta` organization to view alert history for their own organization. Access to the `_meta` organization is only required when administrators need to review alert evaluation events across all organizations.
+:::note[Who can access it]
+Any user who has permission to view, update, or delete alerts can also access Alert History. Users do not need access to the `_meta` organization to view alert history for their own organization. Access to the `_meta` organization is only required when administrators need to review alert evaluation events across all organizations.
+:::
 
-!!! note "Environment variable"
-    `ZO_USAGE_REPORT_TO_OWN_ORG`: Controls where alert evaluation events are stored. When it is enabled, OpenObserve writes each evaluation event to the organization’s own `triggers` stream and also keeps a copy in the `_meta` organization. This allows users to view their alert history within their own organization without requiring access to `_meta`, while still supporting organization level debugging from the `_meta` organization.
+:::note[Environment variable]
+`ZO_USAGE_REPORT_TO_OWN_ORG`: Controls where alert evaluation events are stored. When it is enabled, OpenObserve writes each evaluation event to the organization’s own `triggers` stream and also keeps a copy in the `_meta` organization. This allows users to view their alert history within their own organization without requiring access to `_meta`, while still supporting organization level debugging from the `_meta` organization.
+:::
 
 ## How to interpret the Alert History table
 ![alert-history](../../../images/alert-history.png)
@@ -48,8 +51,9 @@ Each row represents one alert evaluation.
 
 - **Alert Details** drawer: Opens when the user clicks an alert in the Alerts list. The drawer displays the alert condition, description, and evaluation history. It includes a date-time picker (relative or absolute, defaulting to the last 15 minutes) to filter the evaluation history, replacing the previous fixed window and manual refresh.
 
-!!! note
-    The selected time range is limited by the `max_query_range` setting on the organization's `triggers` stream; ranges larger than this are automatically shortened to the most recent allowed window.
+:::note[Note]
+The selected time range is limited by the `max_query_range` setting on the organization's `triggers` stream; ranges larger than this are automatically shortened to the most recent allowed window.
+:::
 
 ![Alert details drawer](../../../images/alert-details-drawer.png)
 ## How to debug a failed alert

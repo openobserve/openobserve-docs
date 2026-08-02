@@ -1,5 +1,6 @@
 ---
-description: "The Config tab customizes OpenObserve dashboard panel behavior, layout, and appearance through collapsible sections for legend, data, axis, labels, and more."
+title: Config Overview
+description: The Config tab customizes OpenObserve dashboard panel behavior, layout, and appearance through collapsible sections for legend, data, axis, labels, and more.
 ---
 
 The Config tab in OpenObserve dashboards allows users to customize the behavior, layout, and appearance of individual panels.

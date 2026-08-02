@@ -1,5 +1,6 @@
 ---
-description: "Deploy the OpenObserve Kubernetes operator using deploy.sh with options for install, uninstall, custom image and tag, dry-run, and certificate generation."
+title: Deployment Script
+description: Deploy the OpenObserve Kubernetes operator using deploy.sh with options for install, uninstall, custom image and tag, dry-run, and certificate generation.
 ---
 
 

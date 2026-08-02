@@ -1,4 +1,5 @@
 ---
+title: Introduction
 description: "Meet OpenObserve (O2): enterprise-grade observability at up to 140x lower storage cost than Elasticsearch, with petabyte scale, SIMD speed, and one unified UI."
 ---
 

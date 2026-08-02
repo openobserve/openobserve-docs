@@ -1,8 +1,8 @@
 ---
-description: >-
-  Build a custom Sunburst chart in OpenObserve using nested data. Learn how to
-  transform flat query logs into hierarchical visual insights.
+title: Custom Charts with Nested Data
+description: Build a custom Sunburst chart in OpenObserve using nested data. Learn how to transform flat query logs into hierarchical visual insights.
 ---
+
 The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
 
 This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md#build-the-chart). 
@@ -31,7 +31,7 @@ OpenObserve stores ingested data in a flat structure.
 
 **Example:** In the following dataset, each row represents a single event or query log, with its own timestamp, organization ID, search type, and query duration.
 
-```linenums="1"
+```text lineNumbers
   { "_timestamp": "2025-05-12T09:00:00Z", "organization_id": "test", "search_type": "logs", "query_duration": "10h 51m 13s" },
   { "_timestamp": "2025-05-12T09:01:00Z", "organization_id": "production", "search_type": "alerts", "query_duration": "11h 46m 00s" },
   { "_timestamp": "2025-05-12T09:02:00Z", "organization_id": "test", "search_type": "alerts", "query_duration": "7h 44m 21s" },
@@ -66,7 +66,7 @@ Write a SQL query in the Query Editor to fetch and prepare the data:
 
 **SQL Query**
 
-```linenums="1"
+```text lineNumbers
 SELECT
   organization_id,
   search_type,
@@ -92,7 +92,7 @@ Select a time range to fetch the relevant dataset for your chart.
 
 **Expected query result**
 
-```linenums="1"
+```text lineNumbers
 data = [[
   {
     "organization_id": "test",
@@ -128,7 +128,7 @@ data = [[
 
 Inspect the queried dataset before reshaping:
 
-```linenums="1"
+```text lineNumbers
 console.log(data);
 console.log(data[0]);
 ```
@@ -143,7 +143,7 @@ This helps confirm:
 
 In the JavaScript editor, write a script to convert the queried result into a nested array suitable for a Sunburst chart:
 
-```linenums="1"
+```text lineNumbers
 const grouped = {};
 
 data[0].forEach(row => {
@@ -169,7 +169,7 @@ Note: In the `option` object, use the reshaped `treeData` array as the data fiel
 
 Construct the [`option` object](what-are-custom-charts.md#the-option-object) in the JavaScript code to define the reshaped dataset and configure how the chart should appear. 
 
-```linenums="17"
+```text lineNumbers=17
 option = {
   tooltip: {
     trigger: 'item',

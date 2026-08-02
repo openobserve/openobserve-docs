@@ -1,5 +1,6 @@
 ---
-title: Microsoft 365 Integration Guide
+title: Microsoft 365
+metaTitle: Microsoft 365 Integration Guide
 description: Learn how to ingest Microsoft 365 logs into OpenObserve using Azure Event Hub and Azure Functions.
 ---
 
@@ -14,89 +15,95 @@ This guide shows you how to stream Microsoft 365 logs into **OpenObserve** using
 
 ## Steps to Integrate
 
-???  "Prerequisites"
+:::accordion[Prerequisites]
 
-    - Active **Azure subscription**  
-    - Familiarity with **Azure Functions**  
-    - [Visual Studio Code](https://code.visualstudio.com/) with Azure Functions extension installed  
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
-
-
-???  "Step 1: Create an Azure Event Hub"
-
-    1. In the Azure Portal, search for **Event Hubs** → click **+ Add** to create a namespace.  
-
-        - **Resource Group:** choose existing or create new  
-        - **Namespace Name:** e.g., `m365-eventhub`  
-        - **Pricing Tier:** select based on log volume  
-        - Click **Review + Create**  
-
-         ![Event Hub Namespace](../images/security/m365/namespace.png){:style="height:500px"}
-
-    2. Once the namespace is created, click **+ Event Hub** inside it.  
-
-        - Name it (e.g., `o2`)  
-        - Leave default settings for partitions and retention and Save  
-
-            ![Event Hub](../images/security/m365/create-eventhub.png){:style="height:500px"}
-
-    3. Under the namespace, go to **Shared Access Policies** → create a policy with **Manage** permission.
-
-        - Save and note the **Connection String**  
-
-       ![Shared Access Policy](../images/security/m365/shared-policy.png)
-
-???  "Step 2: Enable Microsoft 365 Diagnostics Logging"
-
-    1. Navigate to the **Microsoft 365 Entra Admin Center**.  
-    2. In the Azure Portal, go to **Monitoring health → Diagnostic Settings**.  
-    3. Create a new diagnostic setting: 
-
-        - Name: `m365-diagnostics`  
-        - Categories: **AuditLogs**, **SignInLogs**, etc.  
-        - Destination: **Stream to an Event Hub**  
-        - Provide the Event Hub namespace and connection string  
-
-        ![Diagnostics](../images/security/m365/diagnostic.png)
+- Active **Azure subscription**  
+- Familiarity with **Azure Functions**  
+- [Visual Studio Code](https://code.visualstudio.com/) with Azure Functions extension installed  
+- OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
+:::
 
 
-???  "Step 3: Deploy Azure Functions to Process Logs"
+:::accordion[Step 1: Create an Azure Event Hub]
 
-    Use Azure Functions to forward logs from Event Hub into OpenObserve.
+1. In the Azure Portal, search for **Event Hubs** → click **+ Add** to create a namespace.  
 
-    1. In the Azure Portal, create a **Function App** 
+    - **Resource Group:** choose existing or create new  
+    - **Namespace Name:** e.g., `m365-eventhub`  
+    - **Pricing Tier:** select based on log volume  
+    - Click **Review + Create**  
 
-        - Select runtime stack and pricing tier  
-        - Deploy to your subscription  
+     <img src="../images/security/m365/namespace.png" alt="Event Hub Namespace" style="height:500px">
 
-        ![Function App](../images/security/m365/function-app.png){:style="height:500px"}
+2. Once the namespace is created, click **+ Event Hub** inside it.  
 
-    2. Clone the prebuilt function code from our [repository](https://github.com/openobserve/azure-function-openobserve/tree/feature/o365).  
-    3. Open in **VS Code** and configure:  
+    - Name it (e.g., `o2`)  
+    - Leave default settings for partitions and retention and Save  
 
-        - `local.settings.json` → update with Event Hub Connection String  
-        - In `index.js`, replace `<O2_ENDPOINT>` with your OpenObserve endpoint  
-        - Add your OpenObserve **auth details** (`O2_USER`, `O2_PASSWORD`)  
+        <img src="../images/security/m365/create-eventhub.png" alt="Event Hub" style="height:500px">
 
-        > Make sure to add your OpenObserve auth details in the App's environment.
+3. Under the namespace, go to **Shared Access Policies** → create a policy with **Manage** permission.
 
-    4. Deploy the function:  
+    - Save and note the **Connection String**  
 
-        - In VS Code, click **Deploy to Function App**  
-        - Select your subscription and resource group  
+   ![Shared Access Policy](../images/security/m365/shared-policy.png)
+:::
 
-        > Follow the [deployment guide](https://learn.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=node-v4%2Cpython-v2%2Cisolated-process%2Cquick-create&pivots=programming-language-javascript) for detailed instructions.
+:::accordion[Step 2: Enable Microsoft 365 Diagnostics Logging]
 
-???  "Step 4: Validate and Ingest Logs into OpenObserve"
+1. Navigate to the **Microsoft 365 Entra Admin Center**.  
+2. In the Azure Portal, go to **Monitoring health → Diagnostic Settings**.  
+3. Create a new diagnostic setting: 
 
-    - Ensure the Function is running and streaming logs.  
-    - In OpenObserve, go to **Logs → Streams → m365** to query ingested logs.  
-        ![Logs](https://openobserve.ai/assets%2Foffice_logs_8c60c3d9d8.gif)
+    - Name: `m365-diagnostics`  
+    - Categories: **AuditLogs**, **SignInLogs**, etc.  
+    - Destination: **Stream to an Event Hub**  
+    - Provide the Event Hub namespace and connection string  
 
-    >  Use tailored queries for categories like **AuditLogs** or **SignInLogs**.  
+    ![Diagnostics](../images/security/m365/diagnostic.png)
+:::
 
-!!! tip "Pre-built Dashboards"
-     You can [import dashboards from the OpenObserve community repository](https://github.com/openobserve/dashboards/tree/main/Microsoft_O365) for quick insights
+
+:::accordion[Step 3: Deploy Azure Functions to Process Logs]
+
+Use Azure Functions to forward logs from Event Hub into OpenObserve.
+
+1. In the Azure Portal, create a **Function App** 
+
+    - Select runtime stack and pricing tier  
+    - Deploy to your subscription  
+
+    <img src="../images/security/m365/function-app.png" alt="Function App" style="height:500px">
+
+2. Clone the prebuilt function code from our [repository](https://github.com/openobserve/azure-function-openobserve/tree/feature/o365).  
+3. Open in **VS Code** and configure:  
+
+    - `local.settings.json` → update with Event Hub Connection String  
+    - In `index.js`, replace `<O2_ENDPOINT>` with your OpenObserve endpoint  
+    - Add your OpenObserve **auth details** (`O2_USER`, `O2_PASSWORD`)  
+
+    > Make sure to add your OpenObserve auth details in the App's environment.
+
+4. Deploy the function:  
+
+    - In VS Code, click **Deploy to Function App**  
+    - Select your subscription and resource group  
+
+    > Follow the [deployment guide](https://learn.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=node-v4%2Cpython-v2%2Cisolated-process%2Cquick-create&pivots=programming-language-javascript) for detailed instructions.
+:::
+
+:::accordion[Step 4: Validate and Ingest Logs into OpenObserve]
+
+- Ensure the Function is running and streaming logs.  
+- In OpenObserve, go to **Logs → Streams → m365** to query ingested logs.  
+    ![Logs](https://openobserve.ai/assets%2Foffice_logs_8c60c3d9d8.gif)
+
+>  Use tailored queries for categories like **AuditLogs** or **SignInLogs**.  
+:::
+
+:::tip[Pre-built Dashboards]
+ You can [import dashboards from the OpenObserve community repository](https://github.com/openobserve/dashboards/tree/main/Microsoft_O365) for quick insights
+:::
 
 
 ## Troubleshooting

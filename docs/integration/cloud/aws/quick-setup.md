@@ -1,6 +1,7 @@
 ---
-title: Complete AWS Integration (Quick Setup) | OpenObserve
-description: Deploy monitoring for all your AWS services from OpenObserve using the Quick Setup wizard. Supports single-region CloudFormation deployments and multi-region CloudFormation StackSets.
+title: Complete AWS Integration (Quick Setup)
+metaTitle: Complete AWS Integration (Quick Setup) | OpenObserve
+description: "Deploy monitoring for all your AWS services from OpenObserve with the Quick Setup wizard, using CloudFormation or multi-region StackSets."
 ---
 
 # Complete AWS Integration (Quick Setup)

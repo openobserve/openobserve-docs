@@ -1,5 +1,6 @@
 ---
-description: "AI Credits give every OpenObserve Cloud organization a shared free-credit pool for AI chat and incident analysis, with usage tracking and pay-as-you-go billing."
+title: AI Credits (Cloud)
+description: AI Credits give every OpenObserve Cloud organization a shared free-credit pool for AI chat and incident analysis, with usage tracking and pay-as-you-go billing.
 ---
 
 # AI Credits (Cloud)

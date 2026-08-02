@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "otlp",
+    "vector",
+    "filebeat",
+    "fluent-bit",
+    "fluentd",
+    "kinesis-firehose",
+    "syslog",
+    "python",
+    "go",
+    "curl"
+  ]
+}

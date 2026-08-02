@@ -1,8 +1,8 @@
 ---
-description: >-
-  Analyze file access age in OpenObserve to gauge query performance. Buckets
-  track how recently files were accessed, revealing hot vs. cold data trends.
+title: File Access Time
+description: Analyze file access age in OpenObserve to gauge query performance. Buckets track how recently files were accessed, revealing hot vs. cold data trends.
 ---
+
 ## What is file access time metric?
 
 This histogram metric helps analyze the age of files accessed by the querier. This helps in understanding the distribution of file access times across queries and evaluating system performance.

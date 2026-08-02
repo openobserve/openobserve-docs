@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "overview",
+    "architecture",
+    "getting-started",
+    "enterprise-setup",
+    "features",
+    "releases",
+    "user-guide",
+    "ingestion",
+    "integration",
+    "administration",
+    "reference",
+    "migration"
+  ]
+}

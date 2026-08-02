@@ -1,7 +1,6 @@
 ---
-description: >-
-  Step-by-step guide to creating real-time alerts in OpenObserve. Real-time
-  alerts trigger instantly when matching data is ingested.
+title: Real-time Alerts
+description: Step-by-step guide to creating real-time alerts in OpenObserve. Real-time alerts trigger instantly when matching data is ingested.
 ---
 
 ## Create a real-time alert
@@ -52,8 +51,9 @@ Click the **filters** dropdown and define filters that match the events you want
 
 Click **Save** at the bottom.
 
-!!! note
-    Real-time alerts do not have a look back window or evaluation frequency since they evaluate each event as it arrives.
+:::note[Note]
+Real-time alerts do not have a look back window or evaluation frequency since they evaluate each event as it arrives.
+:::
 
 ---
 
@@ -68,8 +68,9 @@ The **Advanced** tab provides additional options for real-time alerts. Click **A
 - **Description**: Free-text description for the alert
 - **Row Template**: Customize the format of individual data rows in notifications. Toggle between **String** and **JSON** template types
 
-!!! note
-    Compare with Past and Deduplication are available for scheduled alerts only. See [Scheduled Alerts](scheduled-alerts.md) for those features.
+:::note[Note]
+Compare with Past and Deduplication are available for scheduled alerts only. See [Scheduled Alerts](scheduled-alerts.md) for those features.
+:::
 
 ---
 

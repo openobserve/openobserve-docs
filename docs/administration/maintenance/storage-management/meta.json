@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "index",
+    "storage",
+    "configure-multiple-storage-accounts",
+    "bring-your-own-bucket"
+  ]
+}

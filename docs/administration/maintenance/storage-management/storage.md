@@ -1,8 +1,9 @@
 ---
-title: Storage Management | OpenObserve
-description: >-
-  Learn how OpenObserve stores ingested stream data and the metadata for ingested data using disk, SQLite, Postgres, or S3-compatible object storage.
+title: Storage Configuration
+metaTitle: Storage Management | OpenObserve
+description: Learn how OpenObserve stores ingested stream data and the metadata for ingested data using disk, SQLite, Postgres, or S3-compatible object storage.
 ---
+
 # Storage
 
 This guide explains how to configure data and metadata storage in OpenObserve. The information applies to both the open-source and enterprise versions.
@@ -221,8 +222,9 @@ OpenObserve supports multiple metadata store backends, configurable using the `Z
 
 ### etcd (Removed)
 
-!!! warning "Removal notice"
-    Etcd support has been removed. Use NATS as the cluster coordinator and PostgreSQL (or MySQL) as the metadata store. Helm charts released after 23 February 2024 already use PostgreSQL by default.
+:::warning[Removal notice]
+Etcd support has been removed. Use NATS as the cluster coordinator and PostgreSQL (or MySQL) as the metadata store. Helm charts released after 23 February 2024 already use PostgreSQL by default.
+:::
 
 ### MySQL (Deprecated)
 - Set `ZO_META_STORE=mysql`.

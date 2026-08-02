@@ -1,7 +1,9 @@
 ---
-title: Python Log Ingestion SDK - Application Logging and Log Forwarding | OpenObserve
+title: Python
+metaTitle: Python Log Ingestion SDK - Application Logging and Log Forwarding
 description: Python SDK guide for application log ingestion, structured logging, and log forwarding to OpenObserve using HTTP API for Python application monitoring.
 ---
+
 ## Python Log Ingestion - Application Logging
 
 ```py

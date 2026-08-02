@@ -1,4 +1,5 @@
 ---
+title: Distributed Tracing
 description: "Track requests across microservices with OpenObserve distributed tracing: OpenTelemetry-native ingestion, Gantt views, service maps, and fast trace search."
 ---
 

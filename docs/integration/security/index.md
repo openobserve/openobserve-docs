@@ -1,5 +1,6 @@
 ---
-description: "Integrate security data sources with OpenObserve to centralize audit logs, identity activity, and security events for unified compliance and anomaly detection."
+title: Security Integraions
+description: Integrate security data sources with OpenObserve to centralize audit logs, identity activity, and security events for unified compliance and anomaly detection.
 ---
 
 The following user guides provide step-by-step instructions to integrate **security data sources** with OpenObserve.  

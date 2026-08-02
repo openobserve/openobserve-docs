@@ -1,4 +1,5 @@
 ---
+title: Metrics Explorer
 description: Browse and explore metrics with a visual card grid, build PromQL queries in builder or code mode, and drill into dashboards.
 ---
 

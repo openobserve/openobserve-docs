@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "index",
+    "table-chart",
+    "panel-management",
+    "multi-query-support",
+    "troubleshooting"
+  ]
+}

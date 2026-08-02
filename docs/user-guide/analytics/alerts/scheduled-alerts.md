@@ -1,8 +1,6 @@
 ---
-description: >-
-  Step-by-step guide to creating scheduled and SQL alerts in OpenObserve. Covers
-  the condition builder, SQL mode, Compare with Past, deduplication, and
-  advanced configuration.
+title: Scheduled Alerts
+description: "Create scheduled and SQL alerts in OpenObserve. Covers the condition builder, SQL mode, Compare with Past, deduplication, and advanced configuration."
 ---
 
 ## Create a scheduled alert
@@ -54,8 +52,9 @@ Configure the condition:
 
 - **Check every**: Enter the frequency in minutes (default: 10). You can switch to a cron expression for precise scheduling using the dropdown next to the minutes input.
 
-!!! note
-    When a scheduled alert uses a cron expression, its first (and every subsequent) run is the next time that matches the cron schedule in the configured timezone. It no longer fires immediately when you create, update, or enable the alert. With a non-cron **Check every N minutes** schedule, the alert still starts at the next interval boundary.
+:::note[Note]
+When a scheduled alert uses a cron expression, its first (and every subsequent) run is the next time that matches the cron schedule in the configured timezone. It no longer fires immediately when you create, update, or enable the alert. With a non-cron **Check every N minutes** schedule, the alert still starts at the next interval boundary.
+:::
 
 ### Step 5: Add filters (optional)
 
@@ -104,8 +103,9 @@ Enter a SQL query in the inline editor, or click **Open Full Editor** for a full
 - AI assistance for query suggestions
 - Query results preview on the right
 
-!!! warning
-    Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::warning[Warning]
+Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::
 
 ### Step 3: Set the threshold
 
@@ -224,8 +224,9 @@ The alert manager will run two queries at runtime:
 
 Click the function toggle in the SQL editor to write VRL logic that compares the windows.
 
-!!! warning
-    Always start your VRL function with `#ResultArray#` when using Multi-window Selector. This ensures your function receives a multi-dimensional array where `result[0]` = current window and `result[1]` = past window.
+:::warning[Warning]
+Always start your VRL function with `#ResultArray#` when using Multi-window Selector. This ensures your function receives a multi-dimensional array where `result[0]` = current window and `result[1]` = past window.
+:::
 
 **VRL function example** — alert if purchase retries increased by more than 5%:
 

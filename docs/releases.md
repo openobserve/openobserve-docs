@@ -1,9 +1,9 @@
 ---
-title: Releases | OpenObserve
-description: >-
-  Access OpenObserve binary and container releases, including stable builds and
-  dev images with the latest features at GitHub and AWS ECR repositories.
+title: Releases
+metaTitle: Releases | OpenObserve
+description: Access OpenObserve binary and container releases, including stable builds and dev images with the latest features at GitHub and AWS ECR repositories.
 ---
+
 # Releases
 
 OpenObserve binaries and container images are published to the locations below.

@@ -1,7 +1,9 @@
 ---
-title: Node.js Distributed Tracing - OpenTelemetry for Node.js APM | OpenObserve
+title: Node.js
+metaTitle: Node.js Distributed Tracing - OpenTelemetry for Node.js APM
 description: Complete Node.js distributed tracing guide using OpenTelemetry SDK for Node.js application performance monitoring and trace instrumentation.
 ---
+
 # Node.js Distributed Tracing - OpenTelemetry APM
 
 Setup distributed tracing for your Node.js application using OpenTelemetry for Node.js application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Node.js applications.
@@ -16,7 +18,7 @@ git clone https://github.com/openobserve/sample-tracing-nodejs-javascript
 If you don't have node.js installed, please install it and then follow below steps.
 
 Open `tracing.js` file from that repository. and make changes to the highlighted lines below
-```javascript linenums="1" hl_lines="17 19"
+```javascript lineNumbers {17,19}
 
 const opentelemetry = require("@opentelemetry/sdk-node");
 const {
@@ -48,7 +50,7 @@ sdk.start();
 </br>
 ##Setup up credentials </br>
 
-You will get `url` and `Authorization` key [here](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
+You will get `url` and `Authorization` key from the [OpenTelemetry ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
 
 Replace the `url` and `Authorization` key in the `tracing.js` file.
 
@@ -72,7 +74,7 @@ Refresh page couple of times to get more traces exported.
 </br>
 </br>
 
-Traces are captured, you can check these captured traces [here](https://cloud.openobserve.ai/web/traces)
+Traces are captured, you can check these captured traces in the [Traces view](https://cloud.openobserve.ai/web/traces)
 </br>
 
 ![Traces Page](./images/traces_js.png)

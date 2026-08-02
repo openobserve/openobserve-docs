@@ -1,8 +1,9 @@
 ---
-description: >-
-  Create a data transformation function via POST /api/{org}/functions using VRL
-  to drop fields, convert types, or filter records before ingestion.
+title: Create
+metaTitle: Create a Function - OpenObserve API
+description: Create a data transformation function via POST /api/{org}/functions using VRL to drop fields, convert types, or filter records before ingestion.
 ---
+
 # Create function
 
 Endpoint: `POST /api/{organization}/functions`

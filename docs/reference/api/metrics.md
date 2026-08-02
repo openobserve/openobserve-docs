@@ -1,5 +1,7 @@
 ---
-description: "Expose OpenObserve's internal metrics in Prometheus format through the GET /metrics endpoint, enabled by setting ZO_PROMETHEUS_ENABLE=true for scraping."
+title: Metrics
+metaTitle: Internal Metrics Endpoint in Prometheus Format
+description: Expose OpenObserve's internal metrics in Prometheus format through the GET /metrics endpoint, enabled by setting ZO_PROMETHEUS_ENABLE=true for scraping.
 ---
 
 # Metrics

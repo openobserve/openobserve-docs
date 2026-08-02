@@ -1,13 +1,15 @@
 ---
+title: Enterprise Features
 description: Overview of OpenObserve Enterprise Edition features — Security & Access Control, Performance & Scalability, AI & Intelligence, Data Processing & Integration.
 ---
-#### Enterprise Features
 
-##### Security & Access Control
+## Enterprise Features
+
+### Security & Access Control
 
 - **Single Sign-On (SSO)**: OIDC, OAuth, SAML 2.0, LDAP/AD, and integration with major identity providers (Okta, Azure Entra, Google, GitHub, GitLab, Keycloak)
 
-- **Advanced RBAC**: Granular role-based access control with custom roles and permissions – [Learn more](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/)
+- **Advanced RBAC**: Granular role-based access control with custom roles and permissions – [Learn more about role-based access control](../user-guide/account-administration/identity-and-access-management/role-based-access-control.md)
 
 - **Audit trails**: Comprehensive immutable audit logs with configurable retention
 
@@ -17,7 +19,7 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Rate limit**: Control API request rates and protect against abuse
 
-##### Performance & Scalability
+### Performance & Scalability
 
 - **Query performance**: 100x improvement for many queries
 
@@ -33,7 +35,7 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Metrics auto downsampling**: Automatic downsampling for long-term metrics retention
 
-##### AI & Intelligence
+### AI & Intelligence
 
 - **Incident management**: Automated incident creation and tracking from alerts
 
@@ -47,12 +49,12 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Logs, metrics, and traces correlation**: Automated detection and correlation across telemetry signals
 
-#####  Data Processing & Integration
+###  Data Processing & Integration
 
 - **Pipeline remote destinations**: Send processed data to external systems
 
 - **Advanced pipelines**: Enhanced data transformation and routing capabilities
 
-##### Storage & Data Residency
+### Storage & Data Residency
 
-- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket, Azure Blob container, or Google Cloud Storage (GCS) bucket to OpenObserve Cloud, keeping data in your account, region, and security perimeter. AWS supports both access keys and IAM Role ARN (STS assume-role with External ID) authentication – [Learn more](../administration/maintenance/storage-management/bring-your-own-bucket.md)
+- **Bring Your Own Bucket (BYOB)**: Connect your own AWS S3 bucket, Azure Blob container, or Google Cloud Storage (GCS) bucket to OpenObserve Cloud, keeping data in your account, region, and security perimeter. AWS supports both access keys and IAM Role ARN (STS assume-role with External ID) authentication – [Learn more about Bring Your Own Bucket](../administration/maintenance/storage-management/bring-your-own-bucket.md)

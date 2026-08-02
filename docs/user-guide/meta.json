@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "data-exploration",
+    "data-processing",
+    "analytics",
+    "account-administration",
+    "advanced"
+  ]
+}

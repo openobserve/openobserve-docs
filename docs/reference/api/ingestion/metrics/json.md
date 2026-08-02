@@ -1,15 +1,16 @@
 ---
-description: >-
-  Ingest JSON metrics in batch via POST /api/{org}/ingest/metrics/_json.
-  Supports counters, gauges, histograms, summaries, and custom labels.
+title: JSON
+metaTitle: Ingest Metrics as JSON - OpenObserve API
+description: Ingest JSON metrics in batch via POST /api/{org}/ingest/metrics/_json. Supports counters, gauges, histograms, summaries, and custom labels.
 ---
+
 # Metrics Ingestion - JSON
 
 Endpoint: `POST /api/{organization}/ingest/metrics/_json`
 
 This will upload multiple records in batch with standard json format.
 
-### Data structure
+## Data structure
 
 ```json
 [
@@ -24,14 +25,14 @@ This will upload multiple records in batch with standard json format.
 ]
 ```
 
-### Limitation
+## Limitation
 
 - must use `__name__` set stream name.
 - must use `__type__` set metrics type. and the type can't be updated after first record
 - `_timestamp` needs UNIX timestamp or empty will fill by current timestamp
 - `value` should be float64 or int64
 
-### Metrics type
+## Metrics type
 
 - counter
 - guage

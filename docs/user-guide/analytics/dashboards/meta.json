@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "index",
+    "dashboards-in-openobserve",
+    "manage-dashboards",
+    "bulk-move-and-export-dashboards",
+    "panels",
+    "config",
+    "variables",
+    "filters",
+    "comparison-against-in-dashboards",
+    "custom-charts",
+    "histogram-caching"
+  ]
+}

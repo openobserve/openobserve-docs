@@ -1,13 +1,15 @@
 ---
-description: "Correlation Settings tune how OpenObserve maps logs, metrics, and traces to services using semantic field groups, field aliases, and service identity rules."
+title: Correlation Settings
+description: Correlation Settings tune how OpenObserve maps logs, metrics, and traces to services using semantic field groups, field aliases, and service identity rules.
 ---
 
 # Correlation Settings
 
 This page explains how to use Correlation Settings in OpenObserve. These organization-level settings control how OpenObserve correlates your telemetry, mapping logs, metrics, and traces to the services they belong to.
 
-!!! note "Enterprise feature"
-    Correlation Settings is an Enterprise feature. The options described on this page are available only when Enterprise features are enabled for your organization.
+:::note[Enterprise feature]
+Correlation Settings is an Enterprise feature. The options described on this page are available only when Enterprise features are enabled for your organization.
+:::
 
 ## Overview
 
@@ -35,8 +37,9 @@ To work with custom groups:
 - Use **Export to JSON** to download your current groups and **Import from JSON** to load a group definition, which is useful for sharing configurations across organizations.
 - Use the **Category** filter to narrow the list to a single category while editing.
 
-!!! note "Note"
-    The built-in `service` group is always present and cannot be deleted. It is used implicitly for correlation.
+:::note[Note]
+The built-in `service` group is always present and cannot be deleted. It is used implicitly for correlation.
+:::
 
 ## Field aliases
 
@@ -48,8 +51,9 @@ The **Field Mappings** editor uses an explicit save-and-discard workflow:
 - The **Save** button is highlighted only when there are unsaved changes. Adding an empty group without filling in any details does not enable saving.
 - If you switch tabs or leave the page with unsaved changes, OpenObserve prompts you to confirm before discarding them. You can choose **Discard changes** to leave or **Cancel** to stay and keep editing.
 
-!!! note "Note"
-    Saving field aliases takes effect immediately for correlation across logs, traces, and metrics.
+:::note[Note]
+Saving field aliases takes effect immediately for correlation across logs, traces, and metrics.
+:::
 
 ## Correlate without service attribute
 
@@ -61,8 +65,9 @@ You configure this option as part of the per-service identity setup, on the **De
 
 When this setting is enabled, OpenObserve relies on the disambiguation fields you define, such as cluster, namespace, or environment, to identify which telemetry belongs together.
 
-!!! note "Note"
-    Enabling this setting can cause multiple services in the same namespace or cluster to collapse into a single correlated group. Enable it only when your streams genuinely share an identity through their infrastructure attributes.
+:::note[Note]
+Enabling this setting can cause multiple services in the same namespace or cluster to collapse into a single correlated group. Enable it only when your streams genuinely share an identity through their infrastructure attributes.
+:::
 
 ## Best practices
 

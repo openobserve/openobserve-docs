@@ -37,39 +37,42 @@ echo -n 'your-email:your-password' | base64
 
 ### 2. Configure GitHub Copilot
 
-=== "Copilot CLI"
+::::tabs
+:::tab[Copilot CLI]
 
-    Export the OTLP environment variables before starting `copilot` (add to your shell profile to persist):
+Export the OTLP environment variables before starting `copilot` (add to your shell profile to persist):
 
-    ```bash
-    export COPILOT_OTEL_ENABLED=true
-    export COPILOT_OTEL_EXPORTER_TYPE=otlp-http
-    export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-    export OTEL_EXPORTER_OTLP_ENDPOINT="https://<your-openobserve-host>/api/<your-org>"
-    export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>"
-    export OTEL_SERVICE_NAME=github-copilot
-    ```
+```bash
+export COPILOT_OTEL_ENABLED=true
+export COPILOT_OTEL_EXPORTER_TYPE=otlp-http
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://<your-openobserve-host>/api/<your-org>"
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>"
+export OTEL_SERVICE_NAME=github-copilot
+```
 
-    All three of the first variables matter: without `COPILOT_OTEL_EXPORTER_TYPE=otlp-http` the CLI writes telemetry to a local file exporter instead of sending OTLP, and without `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf` it sends OTLP JSON, which OpenObserve rejects with a `400`.
+All three of the first variables matter: without `COPILOT_OTEL_EXPORTER_TYPE=otlp-http` the CLI writes telemetry to a local file exporter instead of sending OTLP, and without `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf` it sends OTLP JSON, which OpenObserve rejects with a `400`.
+:::
+:::tab[VS Code (Copilot Chat)]
 
-=== "VS Code (Copilot Chat)"
+Add to VS Code `settings.json`:
 
-    Add to VS Code `settings.json`:
+```json
+{
+  "github.copilot.chat.otel.enabled": true,
+  "github.copilot.chat.otel.exporterType": "otlp-http",
+  "github.copilot.chat.otel.otlpEndpoint": "https://<your-openobserve-host>/api/<your-org>"
+}
+```
 
-    ```json
-    {
-      "github.copilot.chat.otel.enabled": true,
-      "github.copilot.chat.otel.exporterType": "otlp-http",
-      "github.copilot.chat.otel.otlpEndpoint": "https://<your-openobserve-host>/api/<your-org>"
-    }
-    ```
+The auth header cannot be set in `settings.json` — it comes from the environment, so launch VS Code with the variable set:
 
-    The auth header cannot be set in `settings.json` — it comes from the environment, so launch VS Code with the variable set:
-
-    ```bash
-    export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>"
-    code .
-    ```
+```bash
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>"
+code .
+```
+:::
+::::
 
 **Environment variables**
 
@@ -85,11 +88,13 @@ echo -n 'your-email:your-password' | base64
 | `COPILOT_OTEL_CAPTURE_CONTENT` | Capture full prompt/response text | `false` |
 | `COPILOT_OTEL_LOG_LEVEL` | Minimum event level (`trace`…`error`) | `info` |
 
-!!! note "OTLP over HTTP only for the CLI"
-    The Copilot CLI exports over OTLP HTTP only — if `grpc` is configured it silently falls back to HTTP. Use the HTTP endpoint form shown above.
+:::note[OTLP over HTTP only for the CLI]
+The Copilot CLI exports over OTLP HTTP only — if `grpc` is configured it silently falls back to HTTP. Use the HTTP endpoint form shown above.
+:::
 
-!!! warning "Prompt capture is off by default"
-    `COPILOT_OTEL_CAPTURE_CONTENT=true` includes full prompt and response text in the telemetry. Leave it off unless you have a deliberate reason, and make sure OpenObserve retention and access controls match your data-handling policy.
+:::warning[Prompt capture is off by default]
+`COPILOT_OTEL_CAPTURE_CONTENT=true` includes full prompt and response text in the telemetry. Leave it off unless you have a deliberate reason, and make sure OpenObserve retention and access controls match your data-handling policy.
+:::
 
 ### 3. Verify
 

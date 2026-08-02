@@ -1,5 +1,6 @@
 ---
-description: "Ingest distributed traces into OpenObserve using the OpenTelemetry OTLP protocol to capture spans and monitor request flows across your distributed services."
+title: Traces
+description: Ingest distributed traces into OpenObserve using the OpenTelemetry OTLP protocol to capture spans and monitor request flows across your distributed services.
 ---
 
 # API Index - Traces Ingestion

@@ -1,12 +1,13 @@
 ---
-description: >-
-  Restore a broken etcd cluster in OpenObserve by restarting pods, resetting
-  data, and rejoining members using CLI and updated Helm configs.
+title: Etcd restore
+description: Restore a broken etcd cluster in OpenObserve by restarting pods, resetting data, and rejoining members using CLI and updated Helm configs.
 ---
+
 # Etcd Cluster Restore (Removed)
 
-!!! warning "Removal notice"
-    Etcd support has been removed. Use NATS instead.
+:::warning[Removal notice]
+Etcd support has been removed. Use NATS instead.
+:::
 
 Many users ran into the case only one of the 3 pods of etcd cluster can works. The other 2 pods always restart and can't back to work.
 
@@ -22,7 +23,7 @@ Let's help the cluster back to work.
 
 > If you only have one pod can't work, just delete the PVC of the pod and delete the pod, then it should be work.
 
-### 1. Start the etcd cluster with bash
+## 1. Start the etcd cluster with bash
 
 Because the etcd can't start, we need to start to etcd pod with `bash`. like this:
 
@@ -63,7 +64,7 @@ etcd:
     enabled: false
 ```
 
-### 2. Start the pod which still can work
+## 2. Start the pod which still can work
 
 Normally, at least you have one pod still can work. we should start the pod first, because it should have the latest data.
 
@@ -120,7 +121,7 @@ Let's add a new member to this cluster:
 
 We use the information from `ENV`. Here we add the member `openobserve-etcd-0`. of course you can choose `etcd-1`, it doesn't matter, but the next you need restore this node first.
 
-### 3. Start other pods which can't work
+## 3. Start other pods which can't work
 
 Earlier we add `etcd-0` to the cluster, so we need restore it first, Let's login into the pod.
 

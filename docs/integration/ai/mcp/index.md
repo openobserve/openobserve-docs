@@ -1,9 +1,7 @@
 ---
-title: Model Context Protocol (MCP) | OpenObserve
-description: >-
-  Connect AI agents and IDEs to OpenObserve using the Model Context Protocol (MCP).
-  Query logs, metrics, and traces in natural language; create alerts; and explore stream metadata
-  from Cursor, VS Code, Claude Code, Claude Desktop, Windsurf, ChatGPT, or custom agents.
+title: MCP Overview
+metaTitle: Model Context Protocol (MCP) | OpenObserve
+description: "Connect AI agents and IDEs to OpenObserve over the Model Context Protocol. Query logs, metrics, and traces in natural language and create alerts."
 ---
 
 # Model Context Protocol (MCP)
@@ -16,8 +14,9 @@ You can connect your AI agents and IDEs to your OpenObserve instance to query lo
 - **Agentic operations** like alert creation as part of CI/CD pipelines
 - **AI-assisted troubleshooting** where an agent can pull stream data, correlate traces, and suggest root causes
 
-!!! note "Enterprise only"
-    MCP is supported in the Enterprise edition of OpenObserve.
+:::note[Enterprise only]
+MCP is supported in the Enterprise edition of OpenObserve.
+:::
 
 ## Prerequisites
 
@@ -28,8 +27,9 @@ O2_TOOL_API_URL="http://localhost:5080"
 O2_AI_ENABLED="true"
 ```
 
-!!! note "About `O2_TOOL_API_URL`"
-    `O2_TOOL_API_URL` is the address OpenObserve uses to call its own REST API internally. `http://localhost:5080` is correct for a local process. For containerized or remote deployments set it to the address at which the OpenObserve API is reachable from within the same environment (e.g. the service name in Docker Compose).
+:::note[About `O2_TOOL_API_URL`]
+`O2_TOOL_API_URL` is the address OpenObserve uses to call its own REST API internally. `http://localhost:5080` is correct for a local process. For containerized or remote deployments set it to the address at which the OpenObserve API is reachable from within the same environment (e.g. the service name in Docker Compose).
+:::
 
 Your MCP endpoint follows the pattern:
 
@@ -47,105 +47,108 @@ You'll use this token in every client below.
 
 ## Connect to OpenObserve's MCP server
 
-=== "Cursor"
+::::tabs
+:::tab[Cursor]
 
-    Add the following to `~/.cursor/mcp.json`. See the [Cursor documentation](https://cursor.com/docs/mcp) for more details.
+Add the following to `~/.cursor/mcp.json`. See the [Cursor documentation](https://cursor.com/docs/mcp) for more details.
 
-    ```json
-    {
-      "mcpServers": {
-        "openobserve": {
-          "url": "https://your-instance/api/default/mcp",
-          "headers": {
-            "Authorization": "Basic <YOUR_BASE64_TOKEN>"
-          }
-        }
+```json
+{
+  "mcpServers": {
+    "openobserve": {
+      "url": "https://your-instance/api/default/mcp",
+      "headers": {
+        "Authorization": "Basic <YOUR_BASE64_TOKEN>"
       }
     }
-    ```
+  }
+}
+```
+:::
+:::tab[VS Code]
 
-=== "VS Code"
+Add the following to `.vscode/mcp.json` in your workspace. See the [VS Code documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
 
-    Add the following to `.vscode/mcp.json` in your workspace. See the [VS Code documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
-
-    ```json
-    {
-      "servers": {
-        "openobserve": {
-          "type": "http",
-          "url": "https://your-instance/api/default/mcp",
-          "headers": {
-            "Authorization": "Basic <YOUR_BASE64_TOKEN>"
-          }
-        }
+```json
+{
+  "servers": {
+    "openobserve": {
+      "type": "http",
+      "url": "https://your-instance/api/default/mcp",
+      "headers": {
+        "Authorization": "Basic <YOUR_BASE64_TOKEN>"
       }
     }
-    ```
+  }
+}
+```
+:::
+:::tab[Claude Code]
 
-=== "Claude Code"
+Add the server with one command. See the [Claude Code documentation](https://docs.claude.com/en/docs/claude-code/mcp).
 
-    Add the server with one command. See the [Claude Code documentation](https://docs.claude.com/en/docs/claude-code/mcp).
+```bash
+claude mcp add openobserve https://your-instance/api/default/mcp \
+  -t http \
+  --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
+```
 
-    ```bash
-    claude mcp add openobserve https://your-instance/api/default/mcp \
-      -t http \
-      --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
-    ```
+Verify the connection:
 
-    Verify the connection:
+```bash
+claude mcp list
+```
+:::
+:::tab[Claude Desktop]
 
-    ```bash
-    claude mcp list
-    ```
+Add the following to `claude_desktop_config.json`. On macOS this lives at `~/Library/Application Support/Claude/`. See the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
 
-=== "Claude Desktop"
-
-    Add the following to `claude_desktop_config.json`. On macOS this lives at `~/Library/Application Support/Claude/`. See the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
-
-    ```json
-    {
-      "mcpServers": {
-        "openobserve": {
-          "url": "https://your-instance/api/default/mcp",
-          "headers": {
-            "Authorization": "Basic <YOUR_BASE64_TOKEN>"
-          }
-        }
+```json
+{
+  "mcpServers": {
+    "openobserve": {
+      "url": "https://your-instance/api/default/mcp",
+      "headers": {
+        "Authorization": "Basic <YOUR_BASE64_TOKEN>"
       }
     }
-    ```
+  }
+}
+```
+:::
+:::tab[Windsurf]
 
-=== "Windsurf"
+Add the following to `~/.codeium/windsurf/mcp_config.json`. See the [Windsurf documentation](https://docs.windsurf.com/windsurf/cascade/mcp).
 
-    Add the following to `~/.codeium/windsurf/mcp_config.json`. See the [Windsurf documentation](https://docs.windsurf.com/windsurf/cascade/mcp).
-
-    ```json
-    {
-      "mcpServers": {
-        "openobserve": {
-          "url": "https://your-instance/api/default/mcp",
-          "headers": {
-            "Authorization": "Basic <YOUR_BASE64_TOKEN>"
-          }
-        }
+```json
+{
+  "mcpServers": {
+    "openobserve": {
+      "url": "https://your-instance/api/default/mcp",
+      "headers": {
+        "Authorization": "Basic <YOUR_BASE64_TOKEN>"
       }
     }
-    ```
+  }
+}
+```
+:::
+:::tab[ChatGPT]
 
-=== "ChatGPT"
+Custom MCP connectors are available on ChatGPT Pro, Plus, Business, Enterprise, and Education accounts. Follow OpenAI's setup instructions and use these settings:
 
-    Custom MCP connectors are available on ChatGPT Pro, Plus, Business, Enterprise, and Education accounts. Follow OpenAI's setup instructions and use these settings:
+- **Server URL:** `https://your-instance/api/default/mcp`
+- **Authentication:** Custom header: `Authorization: Basic <YOUR_BASE64_TOKEN>`
+:::
+:::tab[Other]
 
-    - **Server URL:** `https://your-instance/api/default/mcp`
-    - **Authentication:** Custom header: `Authorization: Basic <YOUR_BASE64_TOKEN>`
+MCP is an open protocol supported by many clients (Cline, Zed, Continue, and more). Consult your client's documentation for the exact config format. The values you'll need:
 
-=== "Other"
-
-    MCP is an open protocol supported by many clients (Cline, Zed, Continue, and more). Consult your client's documentation for the exact config format. The values you'll need:
-
-    - **URL:** `https://your-instance/api/{org_id}/mcp`
-    - **Transport:** HTTP
-    - **Auth header:** `Authorization: Basic <YOUR_BASE64_TOKEN>`
+- **URL:** `https://your-instance/api/{org_id}/mcp`
+- **Transport:** HTTP
+- **Auth header:** `Authorization: Basic <YOUR_BASE64_TOKEN>`
+:::
+::::
 
 ## Building autonomous agents
 
@@ -191,233 +194,251 @@ When connected, your MCP client will see the following tools. Tool names are pre
 
 **Legend:** `pinned` = visible at the top of tool listings · ⚠️ = destructive (modifies or deletes data)
 
-??? "Alerts (28 tools)"
+:::accordion[Alerts (28 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `CreateAlert` | Create a new alert rule |
-    | `GetAlert` | Get alert details by ID |
-    | `ExportAlert` | Export alert as JSON |
-    | `UpdateAlert` | Update an existing alert |
-    | `DeleteAlert` | Delete an alert by ID ⚠️ |
-    | `ListAlerts` | List all alerts |
-    | `EnableAlert` | Enable or disable an alert |
-    | `TriggerAlert` | Manually trigger an alert |
-    | `MoveAlerts` | Move alerts to another folder |
-    | `GenerateSql` | Generate SQL from natural language |
-    | `TestDestination` | Test alert destination connectivity |
-    | `CreateDestination` | Create alert/pipeline destination |
-    | `UpdateDestination` | Update alert destination |
-    | `GetDestination` | Get destination details |
-    | `ListDestinations` | List all alert destinations |
-    | `DeleteAlertDestination` | Delete alert destination ⚠️ |
-    | `ListPrebuiltDestinations` | List prebuilt destination templates |
-    | `ListIncidents` | List all incidents |
-    | `GetIncident` | Get incident details (`pinned`) |
-    | `UpdateIncident` | Update incident title/severity |
-    | `GetIncidentStats` | Get incident statistics |
-    | `TriggerIncidentRca` | Manually trigger incident RCA |
-    | `CreateTemplate` | Create alert template |
-    | `UpdateTemplate` | Update alert template |
-    | `GetTemplate` | Get template details |
-    | `ListTemplates` | List all alert templates |
-    | `DeleteAlertTemplate` | Delete alert template ⚠️ |
-    | `GetSystemTemplates` | Get system prebuilt templates |
+| Tool | Description |
+| --- | --- |
+| `CreateAlert` | Create a new alert rule |
+| `GetAlert` | Get alert details by ID |
+| `ExportAlert` | Export alert as JSON |
+| `UpdateAlert` | Update an existing alert |
+| `DeleteAlert` | Delete an alert by ID ⚠️ |
+| `ListAlerts` | List all alerts |
+| `EnableAlert` | Enable or disable an alert |
+| `TriggerAlert` | Manually trigger an alert |
+| `MoveAlerts` | Move alerts to another folder |
+| `GenerateSql` | Generate SQL from natural language |
+| `TestDestination` | Test alert destination connectivity |
+| `CreateDestination` | Create alert/pipeline destination |
+| `UpdateDestination` | Update alert destination |
+| `GetDestination` | Get destination details |
+| `ListDestinations` | List all alert destinations |
+| `DeleteAlertDestination` | Delete alert destination ⚠️ |
+| `ListPrebuiltDestinations` | List prebuilt destination templates |
+| `ListIncidents` | List all incidents |
+| `GetIncident` | Get incident details (`pinned`) |
+| `UpdateIncident` | Update incident title/severity |
+| `GetIncidentStats` | Get incident statistics |
+| `TriggerIncidentRca` | Manually trigger incident RCA |
+| `CreateTemplate` | Create alert template |
+| `UpdateTemplate` | Update alert template |
+| `GetTemplate` | Get template details |
+| `ListTemplates` | List all alert templates |
+| `DeleteAlertTemplate` | Delete alert template ⚠️ |
+| `GetSystemTemplates` | Get system prebuilt templates |
+:::
 
-??? "Authorization (4 tools)"
+:::accordion[Authorization (4 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `CreateRoles` | Create a role |
-    | `DeleteRole` | Delete a role ⚠️ |
-    | `ListRoles` | List all roles |
-    | `UpdateRoles` | Update a role |
+| Tool | Description |
+| --- | --- |
+| `CreateRoles` | Create a role |
+| `DeleteRole` | Delete a role ⚠️ |
+| `ListRoles` | List all roles |
+| `UpdateRoles` | Update a role |
+:::
 
-??? "Dashboards (20 tools)"
+:::accordion[Dashboards (20 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `CreateDashboard` | Create a dashboard with panels |
-    | `UpdateDashboard` | Update an existing dashboard |
-    | `ListDashboards` | List all dashboards in org |
-    | `GetDashboard` | Get dashboard details by ID |
-    | `DeleteDashboard` | Delete a dashboard ⚠️ |
-    | `MoveDashboard` | Move dashboard to another folder |
-    | `MoveDashboards` | Move multiple dashboards to folder |
-    | `AddPanel` | Add a panel to a dashboard |
-    | `UpdatePanel` | Update a single panel |
-    | `DeletePanel` | Delete a single panel ⚠️ |
-    | `CreateReport` | Create a scheduled report |
-    | `UpdateReport` | Update a report |
-    | `ListReports` | List all reports |
-    | `GetReport` | Get report details |
-    | `DeleteReport` | Delete a report ⚠️ |
-    | `CreateAnnotations` | Create time annotations |
-    | `GetAnnotations` | Get annotations |
-    | `DeleteAnnotations` | Delete annotations ⚠️ |
-    | `UpdateAnnotations` | Update annotations |
-    | `RemoveTimedAnnotationFromPanel` | Remove annotation from panel ⚠️ |
+| Tool | Description |
+| --- | --- |
+| `CreateDashboard` | Create a dashboard with panels |
+| `UpdateDashboard` | Update an existing dashboard |
+| `ListDashboards` | List all dashboards in org |
+| `GetDashboard` | Get dashboard details by ID |
+| `DeleteDashboard` | Delete a dashboard ⚠️ |
+| `MoveDashboard` | Move dashboard to another folder |
+| `MoveDashboards` | Move multiple dashboards to folder |
+| `AddPanel` | Add a panel to a dashboard |
+| `UpdatePanel` | Update a single panel |
+| `DeletePanel` | Delete a single panel ⚠️ |
+| `CreateReport` | Create a scheduled report |
+| `UpdateReport` | Update a report |
+| `ListReports` | List all reports |
+| `GetReport` | Get report details |
+| `DeleteReport` | Delete a report ⚠️ |
+| `CreateAnnotations` | Create time annotations |
+| `GetAnnotations` | Get annotations |
+| `DeleteAnnotations` | Delete annotations ⚠️ |
+| `UpdateAnnotations` | Update annotations |
+| `RemoveTimedAnnotationFromPanel` | Remove annotation from panel ⚠️ |
+:::
 
-??? "Enrichment Tables (2 tools)"
+:::accordion[Enrichment Tables (2 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `CreateUpdateEnrichmentTable` | Create/update enrichment table |
-    | `CreateEnrichmentTableFromUrl` | Create table from URL |
+| Tool | Description |
+| --- | --- |
+| `CreateUpdateEnrichmentTable` | Create/update enrichment table |
+| `CreateEnrichmentTableFromUrl` | Create table from URL |
+:::
 
-??? "Folders (6 tools)"
+:::accordion[Folders (6 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `CreateFolder` | Create a new folder |
-    | `UpdateFolder` | Update folder properties |
-    | `ListFolders` | List all folders |
-    | `GetFolder` | Get folder details by ID |
-    | `GetFolderByName` | Get folder by name |
-    | `DeleteFolder` | Delete a folder by ID ⚠️ |
+| Tool | Description |
+| --- | --- |
+| `CreateFolder` | Create a new folder |
+| `UpdateFolder` | Update folder properties |
+| `ListFolders` | List all folders |
+| `GetFolder` | Get folder details by ID |
+| `GetFolderByName` | Get folder by name |
+| `DeleteFolder` | Delete a folder by ID ⚠️ |
+:::
 
-??? "Functions (6 tools)"
+:::accordion[Functions (6 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `createFunction` | Create a VRL function |
-    | `listFunctions` | List all functions |
-    | `deleteFunction` | Delete a function ⚠️ |
-    | `updateFunction` | Update a VRL function |
-    | `functionPipelineDependency` | Check function dependencies |
-    | `testFunction` | Test a VRL function |
+| Tool | Description |
+| --- | --- |
+| `createFunction` | Create a VRL function |
+| `listFunctions` | List all functions |
+| `deleteFunction` | Delete a function ⚠️ |
+| `updateFunction` | Update a VRL function |
+| `functionPipelineDependency` | Check function dependencies |
+| `testFunction` | Test a VRL function |
+:::
 
-??? "KV Store (4 tools)"
+:::accordion[KV Store (4 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `GetKVValue` | Get value by key |
-    | `SetKVValue` | Set key-value pair |
-    | `RemoveKVValue` | Delete key-value pair ⚠️ |
-    | `ListKVKeys` | List all keys |
+| Tool | Description |
+| --- | --- |
+| `GetKVValue` | Get value by key |
+| `SetKVValue` | Set key-value pair |
+| `RemoveKVValue` | Delete key-value pair ⚠️ |
+| `ListKVKeys` | List all keys |
+:::
 
-??? "Logs (1 tool)"
+:::accordion[Logs (1 tool)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `LogsIngestionJson` | Ingest logs via JSON array |
+| Tool | Description |
+| --- | --- |
+| `LogsIngestionJson` | Ingest logs via JSON array |
+:::
 
-??? "Organizations & System Settings (12 tools)"
+:::accordion[Organizations & System Settings (12 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `AssumeServiceAccount` | Assume service account identity |
-    | `GetUserOrganizations` | Get user organizations |
-    | `GetOrganizationSummary` | Get organization summary |
-    | `CreateOrganization` | Create an organization |
-    | `OrganizationSettingCreate` | Create/update org settings |
-    | `OrganizationSettingGet` | Get organization settings |
-    | `SystemSettingGetResolved` | Get resolved system setting |
-    | `SystemSettingListResolved` | List resolved system settings |
-    | `SystemSettingSetOrg` | Set org-level system setting |
-    | `SystemSettingSetUser` | Set user-level system setting |
-    | `SystemSettingDeleteOrg` | Delete org system setting ⚠️ |
-    | `SystemSettingDeleteUser` | Delete user system setting ⚠️ |
+| Tool | Description |
+| --- | --- |
+| `AssumeServiceAccount` | Assume service account identity |
+| `GetUserOrganizations` | Get user organizations |
+| `GetOrganizationSummary` | Get organization summary |
+| `CreateOrganization` | Create an organization |
+| `OrganizationSettingCreate` | Create/update org settings |
+| `OrganizationSettingGet` | Get organization settings |
+| `SystemSettingGetResolved` | Get resolved system setting |
+| `SystemSettingListResolved` | List resolved system settings |
+| `SystemSettingSetOrg` | Set org-level system setting |
+| `SystemSettingSetUser` | Set user-level system setting |
+| `SystemSettingDeleteOrg` | Delete org system setting ⚠️ |
+| `SystemSettingDeleteUser` | Delete user system setting ⚠️ |
+:::
 
-??? "Patterns (1 tool)"
+:::accordion[Patterns (1 tool)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `ExtractPatterns` | Extract log patterns |
+| Tool | Description |
+| --- | --- |
+| `ExtractPatterns` | Extract log patterns |
+:::
 
-??? "Pipelines (7 tools)"
+:::accordion[Pipelines (7 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `createPipeline` | Create a data pipeline |
-    | `listPipelines` | List all pipelines |
-    | `getPipeline` | Get pipeline details by ID |
-    | `getStreamsWithPipeline` | List streams using pipelines |
-    | `deletePipeline` | Delete a pipeline ⚠️ |
-    | `updatePipeline` | Update an existing pipeline |
-    | `enablePipeline` | Enable or disable a pipeline |
+| Tool | Description |
+| --- | --- |
+| `createPipeline` | Create a data pipeline |
+| `listPipelines` | List all pipelines |
+| `getPipeline` | Get pipeline details by ID |
+| `getStreamsWithPipeline` | List streams using pipelines |
+| `deletePipeline` | Delete a pipeline ⚠️ |
+| `updatePipeline` | Update an existing pipeline |
+| `enablePipeline` | Enable or disable a pipeline |
+:::
 
-??? "PromQL / Metrics (7 tools)"
+:::accordion[PromQL / Metrics (7 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `PrometheusQuery` | Execute PromQL instant query |
-    | `PrometheusRangeQuery` | Execute PromQL range query (`pinned`) |
-    | `PrometheusMetadata` | Get Prometheus metadata |
-    | `PrometheusSeries` | Get Prometheus series |
-    | `PrometheusLabels` | Get Prometheus label names |
-    | `PrometheusLabelValues` | Get Prometheus label values |
-    | `PrometheusFormatQuery` | Format PromQL query |
+| Tool | Description |
+| --- | --- |
+| `PrometheusQuery` | Execute PromQL instant query |
+| `PrometheusRangeQuery` | Execute PromQL range query (`pinned`) |
+| `PrometheusMetadata` | Get Prometheus metadata |
+| `PrometheusSeries` | Get Prometheus series |
+| `PrometheusLabels` | Get Prometheus label names |
+| `PrometheusLabelValues` | Get Prometheus label values |
+| `PrometheusFormatQuery` | Format PromQL query |
+:::
 
-??? "Search (17 tools)"
+:::accordion[Search (17 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `SearchSQL` | Search data with SQL (`pinned`) |
-    | `SearchAround` | Search logs around a timestamp |
-    | `SearchValues` | Get distinct values for a field |
-    | `SearchPartition` | Get search partitions |
-    | `SearchHistory` | Get search history |
-    | `GetSavedView` | Get saved view details |
-    | `ListSavedViews` | List all saved views |
-    | `DeleteSavedViews` | Delete a saved view ⚠️ |
-    | `CreateSavedViews` | Create a saved view |
-    | `UpdateSavedViews` | Update a saved view |
-    | `SubmitSearchJob` | Submit async search job |
-    | `ListSearchJobs` | List all search jobs |
-    | `GetSearchJobStatus` | Get search job status |
-    | `CancelSearchJob` | Cancel a running search job |
-    | `GetSearchJobResult` | Get search job results |
-    | `DeleteSearchJob` | Delete a search job ⚠️ |
-    | `RetrySearchJob` | Retry a failed search job |
+| Tool | Description |
+| --- | --- |
+| `SearchSQL` | Search data with SQL (`pinned`) |
+| `SearchAround` | Search logs around a timestamp |
+| `SearchValues` | Get distinct values for a field |
+| `SearchPartition` | Get search partitions |
+| `SearchHistory` | Get search history |
+| `GetSavedView` | Get saved view details |
+| `ListSavedViews` | List all saved views |
+| `DeleteSavedViews` | Delete a saved view ⚠️ |
+| `CreateSavedViews` | Create a saved view |
+| `UpdateSavedViews` | Update a saved view |
+| `SubmitSearchJob` | Submit async search job |
+| `ListSearchJobs` | List all search jobs |
+| `GetSearchJobStatus` | Get search job status |
+| `CancelSearchJob` | Cancel a running search job |
+| `GetSearchJobResult` | Get search job results |
+| `DeleteSearchJob` | Delete a search job ⚠️ |
+| `RetrySearchJob` | Retry a failed search job |
+:::
 
-??? "Service Accounts (4 tools)"
+:::accordion[Service Accounts (4 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `ServiceAccountsList` | List service accounts |
-    | `ServiceAccountSave` | Create service account |
-    | `ServiceAccountUpdate` | Update service account |
-    | `RemoveServiceAccount` | Delete service account ⚠️ |
+| Tool | Description |
+| --- | --- |
+| `ServiceAccountsList` | List service accounts |
+| `ServiceAccountSave` | Create service account |
+| `ServiceAccountUpdate` | Update service account |
+| `RemoveServiceAccount` | Delete service account ⚠️ |
+:::
 
-??? "Sourcemaps (4 tools)"
+:::accordion[Sourcemaps (4 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `SourcemapList` | List sourcemaps |
-    | `SourcemapDelete` | Delete sourcemap ⚠️ |
-    | `SourcemapStacktrace` | Resolve sourcemap stacktrace |
-    | `SourcemapValuesList` | List sourcemap values |
+| Tool | Description |
+| --- | --- |
+| `SourcemapList` | List sourcemaps |
+| `SourcemapDelete` | Delete sourcemap ⚠️ |
+| `SourcemapStacktrace` | Resolve sourcemap stacktrace |
+| `SourcemapValuesList` | List sourcemap values |
+:::
 
-??? "Streams (5 tools)"
+:::accordion[Streams (5 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `StreamList` | List all streams (logs, metrics, traces) (`pinned`) |
-    | `StreamSchema` | Get stream schema (`pinned`) |
-    | `StreamCreate` | Create a new stream |
-    | `UpdateStreamSettings` | Update stream settings ⚠️ |
-    | `StreamDelete` | Delete a stream ⚠️ |
+| Tool | Description |
+| --- | --- |
+| `StreamList` | List all streams (logs, metrics, traces) (`pinned`) |
+| `StreamSchema` | Get stream schema (`pinned`) |
+| `StreamCreate` | Create a new stream |
+| `UpdateStreamSettings` | Update stream settings ⚠️ |
+| `StreamDelete` | Delete a stream ⚠️ |
+:::
 
-??? "Traces (5 tools)"
+:::accordion[Traces (5 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `GetLatestTraces` | List recent traces with summaries (trace_id, span count, service names, duration). Supports filter and sort by start_time/duration (`pinned`) |
-    | `GetLatestSessions` | List recent LLM sessions from a trace stream: session_id, trace count, token usage, cost, error count |
-    | `GetSessionDetails` | Get per-turn trace summaries for a single LLM session by session_id |
-    | `GetLatestUsers` | List recent LLM users from a trace stream: user_id, event count, token usage, cost |
-    | `GetTraceDAG` | Get the span DAG (nodes and parent-child edges) for a specific trace by trace_id |
+| Tool | Description |
+| --- | --- |
+| `GetLatestTraces` | List recent traces with summaries (trace_id, span count, service names, duration). Supports filter and sort by start_time/duration (`pinned`) |
+| `GetLatestSessions` | List recent LLM sessions from a trace stream: session_id, trace count, token usage, cost, error count |
+| `GetSessionDetails` | Get per-turn trace summaries for a single LLM session by session_id |
+| `GetLatestUsers` | List recent LLM users from a trace stream: user_id, event count, token usage, cost |
+| `GetTraceDAG` | Get the span DAG (nodes and parent-child edges) for a specific trace by trace_id |
+:::
 
-??? "Users (5 tools)"
+:::accordion[Users (5 tools)]
 
-    | Tool | Description |
-    | --- | --- |
-    | `UserList` | List all users |
-    | `UserSave` | Create a new user |
-    | `UserUpdate` | Update user details |
-    | `AddUserToOrg` | Add user to organization |
-    | `RemoveUserFromOrg` | Remove user from organization ⚠️ |
+| Tool | Description |
+| --- | --- |
+| `UserList` | List all users |
+| `UserSave` | Create a new user |
+| `UserUpdate` | Update user details |
+| `AddUserToOrg` | Add user to organization |
+| `RemoveUserFromOrg` | Remove user from organization ⚠️ |
+:::
 
 ## Multi-organization workflows
 
@@ -444,29 +465,32 @@ This is useful for keeping production data isolated from development queries, or
 
 ## Troubleshooting
 
-??? "Connection fails / 404"
+:::accordion[Connection fails / 404]
 
-    - Confirm the endpoint path includes `/api/{org_id}/mcp`
-    - Confirm `O2_AI_ENABLED=true` is set on the server
-    - Test the base URL with `curl` to verify network reachability
+- Confirm the endpoint path includes `/api/{org_id}/mcp`
+- Confirm `O2_AI_ENABLED=true` is set on the server
+- Test the base URL with `curl` to verify network reachability
+:::
 
-??? "401 Unauthorized"
+:::accordion[401 Unauthorized]
 
-    ```bash
-    # Verify your Base64 token decodes correctly
-    echo "<YOUR_BASE64_TOKEN>" | base64 -d
-    # Should print: your-email@example.com:your-password
+```bash
+# Verify your Base64 token decodes correctly
+echo "<YOUR_BASE64_TOKEN>" | base64 -d
+# Should print: your-email@example.com:your-password
 
-    # Test credentials against the meta endpoint
-    curl -u "username:password" https://your-instance/api/default/_meta
-    ```
+# Test credentials against the meta endpoint
+curl -u "username:password" https://your-instance/api/default/_meta
+```
+:::
 
-??? "Tools don't appear in client"
+:::accordion[Tools don't appear in client]
 
-    - Restart the MCP client after editing config
-    - Check the client's MCP server status panel; inside a Claude session run `/mcp`
-    - Verify the user has access to the target organization
-    - Confirm the user has the necessary RBAC permissions for stream and alert operations
+- Restart the MCP client after editing config
+- Check the client's MCP server status panel; inside a Claude session run `/mcp`
+- Verify the user has access to the target organization
+- Confirm the user has the necessary RBAC permissions for stream and alert operations
+:::
 
 ## Next steps
 

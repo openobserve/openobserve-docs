@@ -1,4 +1,5 @@
 ---
+title: What's next
 description: "The OpenObserve product roadmap: upcoming features across logs, metrics, traces, RUM, error tracking, and session replay, shaped by the community on GitHub."
 ---
 

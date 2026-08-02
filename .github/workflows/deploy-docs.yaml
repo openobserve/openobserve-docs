@@ -1,9 +1,12 @@
-name: Deploy MkDocs Site to S3
+name: Deploy Docs Site to S3
 
+# Production environment for the Fumadocs site. Deploys to the prod
+# bucket/distribution, hardcoded below like the staging and preview workflows.
 on:
   push:
     branches:
       - main   # Change this to your deployment branch
+  workflow_dispatch:          # allow deploying by hand
 
 jobs:
   deploy:
@@ -11,21 +14,27 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      PROD_BUCKET: openobserve-website-prod
+      PROD_DISTRIBUTION_ID: EZ2SEJVXM7NXL
 
     steps:
     - name: Checkout source code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0   # full history so git-revision-date-localized can read per-page commit dates
+        fetch-depth: 0   # full history so the per-page "last updated" dates resolve
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
       with:
-        python-version: '3.10'
+        node-version: '22'
+        cache: 'pnpm'
 
-    - name: Install Python dependencies
-      run: |
-        pip install -r requirements.txt
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
 
     - name: Install AWS CLI
       run: |
@@ -44,15 +53,24 @@ jobs:
         role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
         aws-region: us-west-2  # or your preferred region
 
-    - name: Build MkDocs site
+    - name: Build static site
       run: |
-        rm -rf site
-        mkdocs build
+        rm -rf out
+        pnpm build
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./site s3://openobserve-website-prod/docs --exclude=".git/*" --delete
+        aws s3 sync ./out "s3://$PROD_BUCKET/docs" --exclude=".git/*" --delete
+        # The search index has no file extension, so `sync` labels it
+        # binary/octet-stream and CloudFront then refuses to compress it
+        # (~37 MB raw vs ~4 MB gzipped). Re-upload it with the right type.
+        aws s3 cp ./out/api/search "s3://$PROD_BUCKET/docs/api/search" \
+          --content-type application/json
+        # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
+        aws s3 cp ./out "s3://$PROD_BUCKET/docs" \
+          --recursive --exclude "*" --include "*.md" \
+          --content-type "text/markdown; charset=utf-8"
 
     - name: Invalidate CloudFront cache
       run: |
-        aws cloudfront create-invalidation --distribution-id EZ2SEJVXM7NXL --paths "/docs/*"
+        aws cloudfront create-invalidation --distribution-id "$PROD_DISTRIBUTION_ID" --paths "/docs/*"

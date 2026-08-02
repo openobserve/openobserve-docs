@@ -1,5 +1,6 @@
 ---
-description: "Enrich log data in OpenObserve using VRL functions and CSV enrichment tables, with hands-on examples for protocol lookups and MaxMind GeoIP location data."
+title: Example functions
+description: Enrich log data in OpenObserve using VRL functions and CSV enrichment tables, with hands-on examples for protocol lookups and MaxMind GeoIP location data.
 ---
 
 # Enrichment Examples
@@ -43,7 +44,7 @@ You will notice that protocol number. Looking at it immediately does not tell yo
 
 The enrichment table will look like this:
 
-```csv linenums="1" title="protocols.csv"
+```csv lineNumbers title="protocols.csv"
 protocol_number,keyword,protocol_description
 0,HOPOPT,IPv6 Hop-by-Hop Option
 1,ICMP,Internet Control Message
@@ -132,7 +133,7 @@ Now that you have the data and the enrichment table set, lets head  over to logs
 
 Adde the below VRL function in the VRL function box and click on `Run query` button.
 
-```javascript linenums="1" title="VRL function"
+```javascript lineNumbers title="VRL function"
 protocol, err = get_enrichment_table_record("protocols",
 {
   "protocol_number": to_string!(.protocol)

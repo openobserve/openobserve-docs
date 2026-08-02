@@ -1,9 +1,9 @@
 ---
-title: Monitor Node Health and Performance
-description: >-
-  Monitor node health and performance in OpenObserve clusters, including CPU,
-  memory, and TCP connections across ingesters, queriers, and other node types.
+title: Nodes in OpenObserve
+metaTitle: Monitor Node Health and Performance
+description: Monitor node health and performance in OpenObserve clusters, including CPU, memory, and TCP connections across ingesters, queriers, and other node types.
 ---
+
 This document explains how to monitor the health and performance of nodes in OpenObserve clusters.
 
 ## Overview
@@ -16,13 +16,15 @@ A group of such nodes working together is called a cluster. Clusters allow OpenO
 
 This guide explains how to monitor the health and performance of each node in your OpenObserve deployment.
 
-!!! note "Where to find"
-    The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
+:::note[Where to find]
+The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
+:::
 
-!!! note "Who can access"
-    In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
+:::note[Who can access]
+In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
 
-    By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
+By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
+:::
 
 ## Nodes interface
 **For Single-Cluster Setup**<br> 

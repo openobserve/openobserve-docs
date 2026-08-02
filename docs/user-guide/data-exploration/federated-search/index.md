@@ -1,11 +1,14 @@
 ---
-title: Federated Search in OpenObserve - Overview
+title: Federated Search Overview
+metaTitle: Federated Search in OpenObserve - Overview
 description: Learn what federated search is, key concepts, prerequisites, and when to use it.
 ---
+
 This document provides an overview of federated search in OpenObserve.
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+:::info[Availability]
+This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+:::
     
 ## What is federated search?
 
@@ -15,10 +18,11 @@ Federated search enables querying across multiple OpenObserve clusters that are 
 Without federated search, investigating issues across regions requires logging into each cluster separately, running the same query multiple times, and manually combining results. This wastes time during critical incidents.
 With federated search, you query once and receive unified results from all clusters.
 
-!!! note "Prerequisites"
+:::note[Prerequisites]
 
-    - OpenObserve Enterprise edition
-    - Multiple clusters configured as a supercluster
+- OpenObserve Enterprise edition
+- Multiple clusters configured as a supercluster
+:::
 
 ## How to verify if your environment is in a supercluster
 Check whether the Region dropdown appears on the Logs page. If visible, your clusters are configured as a supercluster.

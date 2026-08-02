@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "index",
+    "streams-in-openobserve",
+    "stream-details",
+    "schema-settings",
+    "extended-retention",
+    "summary-streams",
+    "data-type-and-index-type-in-streams",
+    "query-recommendations",
+    "distinct-values"
+  ]
+}
