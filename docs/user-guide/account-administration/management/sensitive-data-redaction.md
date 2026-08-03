@@ -40,7 +40,7 @@ This opens the Sensitive Data Redaction interface, where you can view, create, a
 :::
 
 :::note[Who can access]
-`Root` users have full access to both pattern creation and pattern association by default. For other users, permissions are controlled via the **Regexp Patterns** and **Streams** module in the **IAM** settings, using [role-based access control (RBAC)](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/).
+`Root` users have full access to both pattern creation and pattern association by default. For other users, permissions are controlled via the **Regexp Patterns** and **Streams** module in the **IAM** settings, using [role-based access control (RBAC)](../identity-and-access-management/role-based-access-control.md).
 
 **Pattern Creation:**
 

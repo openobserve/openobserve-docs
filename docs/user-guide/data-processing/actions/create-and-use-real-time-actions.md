@@ -14,7 +14,7 @@ This feature is available in Enterprise Edition and Cloud. Not available in Open
 ## Create a Real-time Action
 :::accordion[Prerequisite]
 Create a Service Account and Assign a Role 
-A [Service Account](https://openobserve.ai/docs/user-guide/identity-and-access-management/role-based-access-control/#service-accounts) in OpenObserve is a way to give specific identity access to system features and data. When you create a service account:
+A [Service Account](../../account-administration/identity-and-access-management/role-based-access-control.md#service-accounts) in OpenObserve is a way to give specific identity access to system features and data. When you create a service account:
 
 - OpenObserve generates a secure token (like a password).  
 - You assign explicit permissions to that account. For example, access to:  

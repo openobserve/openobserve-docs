@@ -108,7 +108,9 @@ Every number in this document was measured against the actual repo or the actual
 
 ---
 
-## 🔴 Correction: the export has 33 broken links, not zero
+## ✅ Correction: the export had 33 broken links, not zero — now fixed
+
+> **Resolved.** All three classes below are fixed, and [scripts/check-links.mjs](scripts/check-links.mjs) runs as part of `postbuild` so they cannot come back silently. The basePath class was fixed at the source — the links were inside headings, which the table of contents copies out as a bare `<a>` — by replacing those hand-written lists with `::child-pages` on the two hub pages and unlinking the headings on `features/frontend.md`. See M5.
 
 The first version of this audit reported **0 broken internal links**. That scan only matched `href="/docs/…"`. Three other href forms appear in the export and none were checked. Re-scanned across all forms (12,635 root-relative + 79 absolute + 26 relative `<a href>`s):
 
@@ -556,9 +558,11 @@ Measure with PageSpeed Insights first — the CLS claim here is inferred from ma
 
 ---
 
-#### M5. Wire up `onBrokenLink` and add a link check over the built HTML → **promoted to High Impact**
+#### M5. Wire up `onBrokenLink` and add a link check over the built HTML → ✅ **post-export check done; `onBrokenLink` still unwired**
 
-**Why:** see the correction section above — there are 33 broken links shipping today, and nothing catches them. The hook in [lib/remark/mkdocs-links.ts:25](lib/remark/mkdocs-links.ts#L25) is never passed a handler.
+[scripts/check-links.mjs](scripts/check-links.mjs) now runs as part of `postbuild` and fails the build on all three classes below. All 33 links are fixed; the checker reports zero against the current export. The remark-stage hook in [lib/remark/mkdocs-links.ts:25](lib/remark/mkdocs-links.ts#L25) is still passed no handler — redundant for catching breakage, but it would move the 4th class earlier and give a file/line rather than a page URL.
+
+**Why:** see the correction section above — there were 33 broken links shipping, and nothing caught them.
 
 Two checks are needed, because they catch different classes:
 
