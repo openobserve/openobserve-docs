@@ -3,7 +3,7 @@ name: Deploy Docs Site to S3 (staging)
 on:
   push:
     branches:
-      - fix/search-dcos   # Change this to your deployment branch
+      - fix/search-docs   # Change this to your deployment branch
 
 jobs:
   deploy:
