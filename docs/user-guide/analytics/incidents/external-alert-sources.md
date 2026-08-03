@@ -33,7 +33,7 @@ Each organization gets a default catch-all integration automatically. You can cr
 1. Navigate to **Alerts** in the left sidebar.
 2. Select the **External Alert Sources** tab.
 
-![TODO: screenshot of External Alert Sources management page](images/placeholder.png)
+![External Alert Sources management page](images/external-alert-sources-1.png)
 
 ## Default integration
 
@@ -58,7 +58,7 @@ When creating an integration you can pin the source type or leave it on auto-det
 
 1. On the External Alert Sources page, click **Add Source**.
 
-   ![TODO: screenshot of Add External Alert Source form](images/placeholder.png)
+   ![Add External Alert Source form](images/external-alert-sources-2.png)
 
 2. Enter a **name** for the integration (max 100 characters).
 3. Select a **source type** from the dropdown: Auto, Grafana, Alertmanager, or Generic.
@@ -112,7 +112,7 @@ The generic schema supports these fields:
 
 The table on the External Alert Sources page shows each sender that has sent alerts through your integrations.
 
-![TODO: screenshot of sender status table with receiving/stale/not-connected badges](images/placeholder.png)
+![sender status table with receiving/stale/not-connected badges](images/external-alert-sources-3.png)
 
 Status badges:
 
@@ -148,7 +148,7 @@ When an external alert arrives, OpenObserve normalizes it and feeds it through t
 
 External alerts appear in the incident's **Alert Triggers** table. Hover over the correlation reason to see whether the alert came from an external source.
 
-![TODO: screenshot of incident Alert Triggers table showing external alert entries](images/placeholder.png)
+![incident Alert Triggers table showing external alert entries](images/external-alert-sources-4.png)
 
 ## View raw payload
 
@@ -158,7 +158,7 @@ To inspect exactly what a source system sent, open the raw payload for an extern
 2. Find an external alert (identified by the external source label).
 3. Click **View raw payload**.
 
-![TODO: screenshot of raw payload viewer showing the original webhook JSON](images/placeholder.png)
+![raw payload viewer showing the original webhook JSON](images/external-alert-sources-5.png)
 
 The raw payload viewer shows the original, unmodified webhook body received from the source system — useful for debugging formatting issues or verifying what fields the source is sending.
 
