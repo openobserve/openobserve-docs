@@ -59,12 +59,13 @@ export function PageStructuredData({
   const isRoot = pageUrl === '/' || pageUrl === '';
   const url = absoluteUrl(pageUrl);
 
-  const trail: { name: string; item?: string }[] = [
+  const trail: { name: string; item: string }[] = [
     { name: 'OpenObserve', item: `${SITE_URL}/` },
     { name: 'Docs', item: DOCS_URL },
-    // Sections without a landing page have no URL; schema.org allows a final
-    // or intermediate item to omit `item`, so they are still listed by name.
-    ...ancestors.map((a) => ({ name: a.name, item: a.url ? absoluteUrl(a.url) : undefined })),
+    // Google requires `item` on every element but the last, so sections
+    // without a landing page (no URL) are dropped rather than listed with a
+    // dangling name-only entry.
+    ...ancestors.filter((a) => a.url).map((a) => ({ name: a.name, item: absoluteUrl(a.url!) })),
   ];
   if (!isRoot) trail.push({ name: title, item: url });
 
@@ -72,7 +73,7 @@ export function PageStructuredData({
     '@type': 'ListItem',
     position: i + 1,
     name: entry.name,
-    ...(entry.item ? { item: entry.item } : {}),
+    item: entry.item,
   }));
 
   const graph: Record<string, unknown>[] = [{ '@type': 'BreadcrumbList', itemListElement }];
