@@ -1,6 +1,6 @@
 ---
 title: Migrating Dashboards & Alerts
-metaTitle: Migrate Dashboards & Alerts from Grafana LGTM Stack to OpenObserve
+metaTitle: "Migrate Dashboards & Alerts from Grafana to OpenObserve"
 description: "Migrate Grafana dashboards and Alertmanager rules to OpenObserve. Covers LogQL to SQL translation, PromQL compatibility, and notification channels."
 ---
 

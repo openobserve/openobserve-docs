@@ -1,6 +1,6 @@
 ---
 title: Amazon EKS
-description: Install OpenObserve Enterprise on Amazon EKS using Helm. Step-by-step guide with CLI and AWS Console paths, per-step troubleshooting, verification, and teardown.
+description: "Install OpenObserve Enterprise on Amazon EKS using Helm. CLI and AWS Console paths, per-step troubleshooting, verification, and teardown."
 ---
 
 # Install OpenObserve Enterprise on Amazon EKS

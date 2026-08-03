@@ -9,6 +9,7 @@ import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
 import { Landing } from '@/components/landing';
 import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
+import { composeTitle } from '@/lib/seo';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -101,8 +102,9 @@ export async function generateMetadata(props: {
   if (!page) notFound();
 
   // `metaTitle` preserves the long MkDocs <title>; `title` is the short sidebar
-  // label. See scripts/migration/convert-frontmatter.mjs.
-  const title = page.data.metaTitle ?? page.data.title;
+  // label. See scripts/migration/convert-frontmatter.mjs. Pages that have only
+  // the short label get the brand appended — see lib/seo.ts.
+  const title = composeTitle(page.data.metaTitle ?? page.data.title);
 
   return {
     title,

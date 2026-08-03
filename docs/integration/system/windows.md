@@ -1,6 +1,6 @@
 ---
 title: Windows Server Monitoring - Event Logs & Performance Metrics
-metaTitle: Windows Server Monitoring - Event Logs and Performance Metrics
+metaTitle: "Windows Server Monitoring - Event Logs and Metrics"
 description: "Collect Windows event logs, server metrics, and performance data with the OpenObserve Collector for Windows server monitoring."
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Amazon Elastic Container Service (ECS)
-metaTitle: AWS ECS Container Monitoring with FireLens - Fargate and EC2 Logs
+metaTitle: "AWS ECS Container Monitoring with FireLens - Fargate Logs"
 description: "Collect container logs from AWS ECS on Fargate and EC2 using AWS FireLens with Fluent Bit for containerized application monitoring."
 ---
 

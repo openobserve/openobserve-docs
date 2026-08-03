@@ -1,5 +1,6 @@
 ---
 title: Enable Role-Based Access Control (RBAC) in Enterprise Edition
+metaTitle: "Enable RBAC - Role-Based Access Control in Enterprise"
 description: Enable Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition using OpenFGA to manage access and enforce permissions across resources.
 ---
 

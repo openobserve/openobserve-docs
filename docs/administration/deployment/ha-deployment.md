@@ -1,7 +1,7 @@
 ---
 title: High Availability (HA) Deployment - Kubernetes Production Setup
 metaTitle: High Availability Deployment Guide - HA Setup on Kubernetes
-description: Complete high availability (HA) deployment guide for OpenObserve on Kubernetes using Helm charts with object storage and PostgreSQL for production observability.
+description: "High availability deployment guide for OpenObserve on Kubernetes using Helm charts with object storage and PostgreSQL for production use."
 ---
 
 # High Availability (HA) Deployment - Kubernetes Production Setup

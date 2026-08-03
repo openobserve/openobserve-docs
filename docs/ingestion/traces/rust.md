@@ -1,6 +1,6 @@
 ---
 title: Rust
-metaTitle: Rust Distributed Tracing - OpenTelemetry for Rust APM | OpenObserve
+metaTitle: "Rust Distributed Tracing - OpenTelemetry Rust APM"
 description: Complete Rust distributed tracing guide using OpenTelemetry SDK for Rust application performance monitoring and trace instrumentation.
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Migrating Logs
-metaTitle: Migrate Logs from Datadog to OpenObserve (Agent, Fluent Bit, Vector)
+metaTitle: "Migrate Logs from Datadog to OpenObserve - Agent & Vector"
 description: "Migrate logs from Datadog to OpenObserve: paths for the Datadog Agent, Fluent Bit, Vector, OTel Collector, Kubernetes, CloudWatch, and Azure Monitor."
 ---
 

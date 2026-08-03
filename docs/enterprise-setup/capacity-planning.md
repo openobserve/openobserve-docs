@@ -1,6 +1,6 @@
 ---
 title: Capacity Planning
-metaTitle: Capacity Planning Guide - Resource Sizing for Production Deployment
+metaTitle: "Capacity Planning - Resource Sizing for Production"
 description: "Capacity planning for OpenObserve: compute, memory, and storage sizing for production observability workloads and high availability clusters."
 ---
 

@@ -8,8 +8,9 @@
     "node": ">=20.9"
   },
   "scripts": {
-    "prebuild": "node scripts/copy-assets.mjs",
-    "dev": "node scripts/copy-assets.mjs && next dev -p 3000",
+    "prebuild": "node scripts/copy-assets.mjs && node scripts/check-seo.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "dev": "node scripts/copy-assets.mjs && next dev -p 3030",
     "build": "next build",
     "postbuild": "node scripts/post-export.mjs",
     "start": "next start",

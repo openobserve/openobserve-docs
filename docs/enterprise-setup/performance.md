@@ -1,7 +1,7 @@
 ---
 title: Performance
 metaTitle: Performance Tuning for Ingestion and Query in OpenObserve
-description: Complete performance optimization guide for OpenObserve ingestion performance, query optimization, and search performance tuning for high-throughput observability.
+description: "Performance tuning guide for OpenObserve: ingestion throughput, query optimization, and search tuning for high-volume observability workloads."
 ---
 
 # Performance Optimization - Ingestion & Query Performance

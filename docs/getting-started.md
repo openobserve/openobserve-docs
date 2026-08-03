@@ -1,7 +1,7 @@
 ---
 title: Quickstart
-metaTitle: Getting Started with OpenObserve - Cloud and Self-Hosted Setup Guide
-description: Complete getting started guide for OpenObserve observability platform setup - cloud deployment and self-hosted installation for logs, metrics, and traces monitoring.
+metaTitle: "Getting Started with OpenObserve - Cloud & Self-Hosted Setup"
+description: "Get started with OpenObserve: cloud signup or self-hosted installation, then ingest and explore your first logs, metrics, and traces."
 ---
 
 # Getting Started with OpenObserve - Observability Platform Setup

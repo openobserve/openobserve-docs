@@ -1,6 +1,6 @@
 ---
 title: Configuration Management
-metaTitle: Custom Configuration File and Dynamic Reloading in OpenObserve
+metaTitle: "Configuration File and Dynamic Reloading in OpenObserve"
 description: Learn how to use custom config paths and dynamic config reloading in OpenObserve to apply changes without restarts.
 ---
 

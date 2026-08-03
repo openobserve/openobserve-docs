@@ -1,6 +1,6 @@
 ---
 title: Overview
-metaTitle: Migrate from Datadog to OpenObserve | Complete Migration Guide
+metaTitle: "Migrate from Datadog to OpenObserve - Migration Guide"
 description: "Migrate metrics, traces, logs, dashboards, and monitors from Datadog to OpenObserve using the OpenTelemetry Collector, without rewriting applications."
 ---
 
