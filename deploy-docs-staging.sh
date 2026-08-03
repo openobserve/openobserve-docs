@@ -34,5 +34,10 @@ aws s3 cp ./out "$BUCKET" \
   --recursive --exclude "*" --include "*.md" \
   --content-type "text/markdown; charset=utf-8" --profile="$PROFILE"
 
+# llms.txt and llms-full.txt: text/plain with a charset (see deploy-docs.sh).
+aws s3 cp ./out "$BUCKET" \
+  --recursive --exclude "*" --include "llms*.txt" \
+  --content-type "text/plain; charset=utf-8" --profile="$PROFILE"
+
 # invalidate cloudfront cache so that latest files can be served
 aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths="/docs/*" --profile="$PROFILE"

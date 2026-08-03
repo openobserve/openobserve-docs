@@ -1,68 +1,72 @@
 name: Deploy Docs Site to S3 (staging)
 
 on:
-  push:
-    branches:
-      - fix/search-docs   # Change this to your deployment branch
+    push:
+        branches:
+            - seo/llms-txt-coverage-and-page-navigation # Change this to your deployment branch
 
 jobs:
-  deploy:
-    runs-on: org-openobserve-standard-4
-    permissions:
-      id-token: write
-      contents: read
+    deploy:
+        runs-on: org-openobserve-standard-4
+        permissions:
+            id-token: write
+            contents: read
 
-    steps:
-    - name: Checkout source code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0   # full history so the per-page "last updated" dates resolve
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0 # full history so the per-page "last updated" dates resolve
 
-    - name: Set up pnpm
-      uses: pnpm/action-setup@v4
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
 
-    - name: Set up Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'pnpm'
+            - name: Set up Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+                  cache: "pnpm"
 
-    - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
-    - name: Install AWS CLI
-      run: |
-        if ! command -v aws &> /dev/null; then
-          echo "AWS CLI not found. Installing..."
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-        else
-          echo "AWS CLI already installed."
-        fi
+            - name: Install AWS CLI
+              run: |
+                  if ! command -v aws &> /dev/null; then
+                    echo "AWS CLI not found. Installing..."
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install
+                  else
+                    echo "AWS CLI already installed."
+                  fi
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
-        aws-region: us-east-2  # or your preferred region
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
+                  aws-region: us-east-2 # or your preferred region
 
-    - name: Build static site
-      run: |
-        rm -rf out
-        pnpm build
+            - name: Build static site
+              run: |
+                  rm -rf out
+                  pnpm build
 
-    - name: Deploy to S3
-      run: |
-        aws s3 sync ./out s3://openobserve-website-staging/docs --exclude=".git/*" \
-          --exclude "api/search.json*" --delete
-        # Search index: published pre-gzipped (see prod workflow).
-        aws s3 cp ./out/api/search.json.gz s3://openobserve-website-staging/docs/api/search.json \
-          --content-type application/json --content-encoding gzip
-        aws s3 cp ./out s3://openobserve-website-staging/docs \
-          --recursive --exclude "*" --include "*.md" \
-          --content-type "text/markdown; charset=utf-8"
+            - name: Deploy to S3
+              run: |
+                  aws s3 sync ./out s3://openobserve-website-staging/docs --exclude=".git/*" \
+                    --exclude "api/search.json*" --delete
+                  # Search index: published pre-gzipped (see prod workflow).
+                  aws s3 cp ./out/api/search.json.gz s3://openobserve-website-staging/docs/api/search.json \
+                    --content-type application/json --content-encoding gzip
+                  aws s3 cp ./out s3://openobserve-website-staging/docs \
+                    --recursive --exclude "*" --include "*.md" \
+                    --content-type "text/markdown; charset=utf-8"
+                  # llms.txt and llms-full.txt: text/plain with a charset (see prod workflow).
+                  aws s3 cp ./out s3://openobserve-website-staging/docs \
+                    --recursive --exclude "*" --include "llms*.txt" \
+                    --content-type "text/plain; charset=utf-8"
 
-    - name: Invalidate CloudFront cache
-      run: |
-        aws cloudfront create-invalidation --distribution-id E2GZJM0TJIDFRM --paths "/docs/*"
+            - name: Invalidate CloudFront cache
+              run: |
+                  aws cloudfront create-invalidation --distribution-id E2GZJM0TJIDFRM --paths "/docs/*"
