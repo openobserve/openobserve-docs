@@ -60,12 +60,13 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./out "s3://$PREVIEW_BUCKET/docs" --exclude=".git/*" --delete
-        # The search index has no file extension, so `sync` labels it
-        # binary/octet-stream and CloudFront then refuses to compress it
-        # (~37 MB raw vs ~4 MB gzipped). Re-upload it with the right type.
-        aws s3 cp ./out/api/search "s3://$PREVIEW_BUCKET/docs/api/search" \
-          --content-type application/json
+        aws s3 sync ./out "s3://$PREVIEW_BUCKET/docs" --exclude=".git/*" \
+          --exclude "api/search.json*" --delete
+        # The search index is ~37 MB and CloudFront only auto-compresses objects
+        # under 10 MB, so the gzipped copy scripts/post-export.mjs writes is
+        # published instead (~4.7 MB). Browsers decode it transparently.
+        aws s3 cp ./out/api/search.json.gz "s3://$PREVIEW_BUCKET/docs/api/search.json" \
+          --content-type application/json --content-encoding gzip
         # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
         aws s3 cp ./out "s3://$PREVIEW_BUCKET/docs" \
           --recursive --exclude "*" --include "*.md" \

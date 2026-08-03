@@ -19,13 +19,15 @@ rm -rf out
 # Generate static website. Files will be placed in the out folder
 pnpm build
 
-# Move the files to S3 bucket for hosting
-aws s3 sync ./out "$BUCKET" --exclude=".git/*" --profile="$PROFILE"
+# Move the files to S3 bucket for hosting. The search index is handled below.
+aws s3 sync ./out "$BUCKET" --exclude=".git/*" \
+  --exclude "api/search.json*" --profile="$PROFILE"
 
-# The search index has no file extension, so `sync` labels it binary/octet-stream
-# and CloudFront then refuses to compress it (~37 MB raw vs ~4 MB gzipped).
-aws s3 cp ./out/api/search "$BUCKET/api/search" \
-  --content-type application/json --profile="$PROFILE"
+# The search index is ~37 MB and CloudFront only auto-compresses objects under
+# 10 MB, so the gzipped copy scripts/post-export.mjs writes is published instead
+# (~4.7 MB). Browsers decode `Content-Encoding: gzip` transparently.
+aws s3 cp ./out/api/search.json.gz "$BUCKET/api/search.json" \
+  --content-type application/json --content-encoding gzip --profile="$PROFILE"
 
 # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
 aws s3 cp ./out "$BUCKET" \

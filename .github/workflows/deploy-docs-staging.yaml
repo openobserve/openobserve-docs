@@ -3,7 +3,7 @@ name: Deploy Docs Site to S3 (staging)
 on:
   push:
     branches:
-      - dev   # Change this to your deployment branch
+      - fix/search-docs   # Change this to your deployment branch
 
 jobs:
   deploy:
@@ -54,10 +54,11 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./out s3://openobserve-website-staging/docs --exclude=".git/*" --delete
-        # Extensionless file: give it a compressible content type (see prod workflow).
-        aws s3 cp ./out/api/search s3://openobserve-website-staging/docs/api/search \
-          --content-type application/json
+        aws s3 sync ./out s3://openobserve-website-staging/docs --exclude=".git/*" \
+          --exclude "api/search.json*" --delete
+        # Search index: published pre-gzipped (see prod workflow).
+        aws s3 cp ./out/api/search.json.gz s3://openobserve-website-staging/docs/api/search.json \
+          --content-type application/json --content-encoding gzip
         aws s3 cp ./out s3://openobserve-website-staging/docs \
           --recursive --exclude "*" --include "*.md" \
           --content-type "text/markdown; charset=utf-8"
