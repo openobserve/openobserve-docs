@@ -127,4 +127,4 @@ OpenObserve maintains a cache for scheduled pipelines to prevent the alert manag
 - [Create and Use Real-time Pipelines](./create-and-use-real-time-pipeline.md)
 - [Create and Use Scheduled Pipeline](./create-and-use-scheduled-pipeline.md)
 - [Manage Pipelines](./manage-pipelines.md)
-- [Environment Variables to Configure Pipelines](https://openobserve.ai/docs/environment-variables/#pipeline)
+- [Environment Variables to Configure Pipelines](../../../administration/configuration/environment-variables.md#pipeline)

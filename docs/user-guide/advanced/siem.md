@@ -116,7 +116,7 @@ if .Operation == "UserLoginFailed" {
 
 Raw logs often lack context. Is IP 1.2.3.4 a customer or a known botnet? OpenObserve allows you to use **Enrichment Tables** to correlate live logs with external Threat Intelligence.
 
-Threat Intel feeds (such as lists of malicious IPs or domains) can be uploaded periodically as CSV files to OpenObserve. For detailed instructions on managing these tables, refer to the [Enrichment Tables Documentation](https://openobserve.ai/docs/user-guide/enrichment-tables/enrichment/).
+Threat Intel feeds (such as lists of malicious IPs or domains) can be uploaded periodically as CSV files to OpenObserve. For detailed instructions on managing these tables, refer to the [Enrichment Tables Documentation](../data-processing/enrichment-tables/enrichment.md).
 
 There are two primary methods to utilize this data:
 

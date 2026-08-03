@@ -95,7 +95,7 @@ OpenObserve supports: **Slack, Email, PagerDuty, and Webhook**.
 
 ![Alert Destinations in OpenObserve](../../images/migration/lgtm/alert-destinations.png)
 
-See the [OpenObserve Alerts Documentation](https://openobserve.ai/docs/user-guide/alerts/) for setup instructions.
+See the [OpenObserve Alerts Documentation](../../user-guide/analytics/alerts/index.md) for setup instructions.
 
 ### Step 3: Recreate Alert Rules
 
@@ -136,7 +136,7 @@ The same AI Assistant that converts LogQL for dashboards works here too. Paste y
 
 ## Next Steps
 
-- [OpenObserve Alerts Documentation](https://openobserve.ai/docs/user-guide/alerts/) — full reference for alert rule types, conditions, and notification channels
+- [OpenObserve Alerts Documentation](../../user-guide/analytics/alerts/index.md) — full reference for alert rule types, conditions, and notification channels
 - [OpenObserve Dashboards Documentation](https://openobserve.ai/docs/user-guide/analytics/dashboards/) — dashboard builder, panel types, and variables
 - [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/reference/sql-functions/full-text-search/) — complete SQL function reference for log queries (`match_all()`, `str_match()`, `re_match()`)
 - [OpenObserve Scheduled Pipelines](https://openobserve.ai/docs/user-guide/data-processing/pipelines/create-and-use-scheduled-pipeline/) — pre-aggregate expensive queries, equivalent to Mimir recording rules

@@ -27,14 +27,16 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 - **Network Insights**: Track HTTP requests and network timing
 
 
-### [Error Tracking](../user-guide/data-exploration/rum/error-tracking.md)
+### Error Tracking
 
 - **JavaScript Errors**: Automatically capture exceptions and errors with full stack traces
 - **Error Context**: Includes user session metadata and browser details
 
 ![Error Tracking](../images/frontend/error-tracking.webp)
 
-### [Session Replay](../user-guide/data-exploration/rum/session-replay.md)
+See [Error Tracking](../user-guide/data-exploration/rum/error-tracking.md) for the full guide.
+
+### Session Replay
 
 - **User Interaction Recording**: Replay user sessions to understand behavior and debug issues
 
@@ -45,6 +47,8 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 ![Event Timeline](../images/features/event-timeline.png)
 
 - **Privacy Features**: Configurable masking for sensitive fields
+
+See [Session Replay](../user-guide/data-exploration/rum/session-replay.md) for the full guide.
 
 
 ## Integration
