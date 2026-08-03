@@ -1,6 +1,6 @@
 ---
 title: Typescript
-metaTitle: TypeScript Distributed Tracing - OpenTelemetry for TypeScript APM
+metaTitle: "TypeScript Distributed Tracing - OpenTelemetry APM"
 description: Complete TypeScript distributed tracing guide using OpenTelemetry SDK for TypeScript application performance monitoring and trace instrumentation.
 ---
 

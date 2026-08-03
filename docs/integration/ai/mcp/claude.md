@@ -1,6 +1,6 @@
 ---
 title: Claude code CLI
-description: Connect OpenObserve as an MCP (Model Context Protocol) server to Claude Code CLI for querying logs, traces, managing alerts, and streams through natural language.
+description: "Connect OpenObserve as an MCP server to Claude Code CLI to query logs and traces, and manage alerts and streams through natural language."
 ---
 
 # OpenObserve MCP Server Setup Guide for Claude Code

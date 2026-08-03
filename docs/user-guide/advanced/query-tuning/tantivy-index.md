@@ -1,7 +1,7 @@
 ---
 title: Tantivy Index
 metaTitle: Tantivy Indexing in OpenObserve
-description: Learn how Tantivy indexing works in OpenObserve, including full-text and secondary indexes, query behaviors with AND and OR operators, and how to verify index usage.
+description: "How Tantivy indexing works in OpenObserve: full-text and secondary indexes, query behavior with AND and OR, and how to verify index usage."
 ---
 
 This document explains Tantivy indexing in OpenObserve, the types of indexes it builds, how to use the correct query patterns for both single-stream and multi-stream queries, and how to verify and configure indexing.

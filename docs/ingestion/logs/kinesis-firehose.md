@@ -1,6 +1,6 @@
 ---
 title: Kinesis Firehose
-metaTitle: AWS Kinesis Firehose Log Ingestion - CloudWatch and AWS Service Logs
+metaTitle: "AWS Kinesis Firehose Log Ingestion - CloudWatch Logs"
 description: Complete AWS Kinesis Firehose guide for ingesting CloudWatch logs, VPC Flow Logs, WAF logs, and AWS service logs to OpenObserve for AWS log management.
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Google GKE
-description: "Install OpenObserve Enterprise on Google GKE with GCS object storage and CloudNativePG. Step-by-step CLI and Console paths, with verification and troubleshooting."
+description: "Install OpenObserve Enterprise on Google GKE with GCS object storage and CloudNativePG. CLI and Console paths, verification, and troubleshooting."
 ---
 
 # Install OpenObserve Enterprise on Google Kubernetes Engine (GKE)

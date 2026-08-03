@@ -1,6 +1,6 @@
 ---
 title: Vector
-metaTitle: Vector Log Aggregation and Routing for High-Performance Logging
+metaTitle: "Vector Log Aggregation and High-Performance Routing"
 description: Configure Vector for high-performance log aggregation, transformation, and routing to OpenObserve with HTTP and Elasticsearch sinks for scalable log management.
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Amazon Virtual Private Cloud
-metaTitle: AWS VPC Flow Logs Monitoring - Network Traffic and Security Analysis
+metaTitle: "AWS VPC Flow Logs - Network Traffic & Security Analysis"
 description: "Send AWS VPC Flow Logs to OpenObserve with Kinesis Firehose for network traffic analysis, security monitoring, and cloud network visibility."
 ---
 

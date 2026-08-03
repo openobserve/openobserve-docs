@@ -1,6 +1,6 @@
 ---
 title: Syslog
-metaTitle: Syslog Server Integration for System Log Collection | OpenObserve
+metaTitle: "Syslog Server Integration for Log Collection | OpenObserve"
 description: "Configure syslog server integration to collect system, server, and network device logs over TCP or UDP with OpenObserve for centralized logging."
 ---
 

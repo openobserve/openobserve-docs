@@ -1,6 +1,6 @@
 ---
 title: Index
-metaTitle: Metrics Ingestion for Monitoring and Observability | OpenObserve
+metaTitle: "Metrics Ingestion for Observability | OpenObserve"
 description: "Ingest metrics into OpenObserve with Prometheus, the OpenTelemetry Collector, or Telegraf for infrastructure and application performance monitoring."
 ---
 

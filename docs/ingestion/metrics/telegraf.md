@@ -1,6 +1,6 @@
 ---
 title: Telegraf
-metaTitle: Telegraf Metrics Collection for System and Infrastructure Monitoring
+metaTitle: "Telegraf Metrics Collection for Infrastructure Monitoring"
 description: Configure Telegraf agent for system metrics collection, server monitoring, and infrastructure metrics ingestion to OpenObserve using Prometheus remote write.
 ---
 

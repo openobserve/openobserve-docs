@@ -1,6 +1,6 @@
 ---
 title: Go
-metaTitle: Go (Golang) Log Ingestion SDK - Structured Logging for Go Applications
+metaTitle: "Go Log Ingestion SDK - Structured Logging for Go Apps"
 description: Go/Golang SDK guide for structured log ingestion, application logging, and log forwarding to OpenObserve using HTTP API for Go application monitoring.
 ---
 

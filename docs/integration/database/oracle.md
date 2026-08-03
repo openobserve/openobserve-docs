@@ -1,6 +1,6 @@
 ---
 title: Oracle Database
-metaTitle: Monitor Your Oracle Database with OpenTelemetry and OpenObserve
+metaTitle: "Oracle Database Monitoring with OpenTelemetry"
 description: Learn how to collect Oracle Database metrics and logs using the OpenTelemetry Collector and visualize them in OpenObserve.
 ---
 

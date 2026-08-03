@@ -1,6 +1,6 @@
 ---
 title: n8n
-description: Send n8n webhook trigger traces to OpenObserve via OpenTelemetry.
+description: "Send n8n webhook trigger traces to OpenObserve via OpenTelemetry to capture workflow latency, status codes, and payload metadata on every run."
 ---
 
 # **n8n → OpenObserve**

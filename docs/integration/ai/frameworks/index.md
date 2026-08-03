@@ -1,6 +1,6 @@
 ---
 title: Frameworks
-metaTitle: AI Framework Observability - LangChain, CrewAI, LlamaIndex, AutoGen
+metaTitle: "AI Framework Observability - LangChain, CrewAI, AutoGen"
 description: "Instrument AI orchestration and agent frameworks with OpenObserve. Trace LangChain, CrewAI, LlamaIndex, AutoGen, and 30+ more via OpenTelemetry."
 ---
 

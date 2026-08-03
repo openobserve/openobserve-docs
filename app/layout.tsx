@@ -19,8 +19,11 @@ export const metadata: Metadata = {
     default: 'OpenObserve Documentation',
     template: '%s',
   },
+  // Fallback for routes with no metadata of their own (the 404). Kept within the
+  // ~160-character search-result limit that scripts/check-seo.mjs enforces on
+  // doc pages; the previous wording ran to 197 and was truncated.
   description:
-    'OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces into a single solution, built for petabyte scale with up to 140x lower storage cost than Elasticsearch.',
+    'OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces, built for petabyte scale at 140x lower storage cost.',
   icons: { icon: `${BASE_PATH}/images/logo_circle.png` },
   // Default share card, so routes without their own metadata (the 404) still
   // get one. Doc pages restate it alongside their per-page OG data.
