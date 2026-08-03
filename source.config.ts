@@ -7,6 +7,7 @@ import remarkDirective from 'remark-directive';
 import { remarkMkdocsDirectives } from './lib/remark/mkdocs-directives';
 import { remarkMkdocsLinks } from './lib/remark/mkdocs-links';
 import { remarkDocsImages } from './lib/remark/docs-images';
+import { remarkChildPages } from './lib/remark/child-pages';
 
 /**
  * Content stays where MkDocs kept it: `docs/`, as `.md`. Sidebar structure lives
@@ -44,6 +45,7 @@ export default defineConfig({
     remarkPlugins: (plugins) => [
       remarkDirective,
       remarkMkdocsDirectives,
+      remarkChildPages,
       remarkMkdocsLinks,
       remarkDocsImages,
       ...plugins,

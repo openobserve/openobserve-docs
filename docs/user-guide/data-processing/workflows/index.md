@@ -216,3 +216,7 @@ Workflow permissions are scoped per organization and support self-parent hierarc
 | `GET` | `/api/{org_id}/workflows/{id}/errors/{run_id}` | Get errors and input data for a specific run |
 | `POST` | `/api/{org_id}/workflows/{id}/retry` | Retry a failed workflow run |
 | `PUT` | `/api/{org_id}/workflows/{id}/enable` | Enable or disable a workflow (`?value=true\|false`) |
+
+## In this section
+
+::child-pages
