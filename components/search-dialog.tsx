@@ -25,7 +25,9 @@ import { trackDocSearch, trackDocSearchClick } from '@/lib/introspection';
  *
  * The `from` URL carries the `basePath` prefix explicitly: the index is fetched
  * with a plain `fetch`, which Next does not rewrite the way it rewrites
- * `next/link` hrefs. Without it the request goes to /api/search and 404s.
+ * `next/link` hrefs. Without it the request goes to /api/search.json and 404s.
+ *
+ * The `.json` suffix is load-bearing — see app/api/search.json/route.ts.
  *
  * This is fumadocs-ui's DefaultSearchDialog recomposed from its parts (we use
  * no tags, links or footer) so that queries and result clicks can be reported
@@ -33,7 +35,7 @@ import { trackDocSearch, trackDocSearchClick } from '@/lib/introspection';
  * event once a query settles, a `doc-search-click` event on selection.
  */
 export default function CustomSearchDialog(props: SharedProps) {
-  const client = useMemo(() => staticClient({ from: `${BASE_PATH}/api/search` }), []);
+  const client = useMemo(() => staticClient({ from: `${BASE_PATH}/api/search.json` }), []);
   const { search, setSearch, query } = useDocsSearch({ client });
 
   const items = query.data !== 'empty' ? query.data : null;
