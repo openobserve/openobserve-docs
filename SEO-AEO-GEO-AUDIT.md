@@ -135,14 +135,11 @@ Nothing linked to this page before, so it never surfaced. Adding prev/next navig
 
 The marketing site (`website5`) and the docs deploy to the same bucket — `s3://…/` and `s3://…/docs` — so four files coexist: `/llms.txt`, `/llms-full.txt`, `/docs/llms.txt`, `/docs/llms-full.txt`. There is no collision; the marketing sync runs with `--exclude "docs/*"`, so it cannot overwrite the docs pair.
 
-They are not cross-linked, though. `website5/public/llms.txt` has an *Optional* section pointing at its own `/llms-full.txt`, and it deep-links ~150 individual docs pages, but it never names `/docs/llms.txt` or `/docs/llms-full.txt`. An agent that fetches the root file therefore has no single-hop route to the full documentation corpus. Two lines in `website5/public/llms.txt` close that gap:
+They were not cross-linked. `website5/public/llms.txt` has an *Optional* section pointing at its own `/llms-full.txt`, and it deep-links ~150 individual docs pages, but it named neither `/docs/llms.txt` nor `/docs/llms-full.txt` — so an agent fetching the root file had no single-hop route to the full documentation corpus.
 
-```markdown
-- [Documentation index for LLMs](https://openobserve.ai/docs/llms.txt): All 455 documentation pages, by section.
-- [Full documentation text for LLMs](https://openobserve.ai/docs/llms-full.txt): Complete text of every documentation page.
-```
+**Ownership.** The generator stays in this repo, because this is where the content is: the two files are derived from the 455 Markdown sources under `docs/`, which `website5` cannot see. The ~150 docs links hand-maintained in the root `llms.txt` are the counter-example — they cover a third of the corpus and drift as pages are added, which is the same failure that left the docs index at 34 of 455. `website5` owns discovery instead: two lines in its *Optional* section point at the generated pair, making the root file the entry point for the whole domain.
 
-That is a change in the `website5` repo, not this one.
+Done on `website5` branch `seo/link-docs-llms-files` (commit `3680d09`), in both `public/llms.txt` and `public/llms-full.txt`.
 
 This makes **M5 (wire up `onBrokenLink`) a High-Impact item, not Medium**: the hook exists in [lib/remark/mkdocs-links.ts:25](lib/remark/mkdocs-links.ts#L25) and is passed no handler, so none of the above fails the build. The check also has to cover the rendered HTML, not just the remark stage — the basePath class is introduced *after* the rewriter runs.
 
