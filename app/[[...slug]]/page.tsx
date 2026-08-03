@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { DocsBody, DocsPage } from 'fumadocs-ui/layouts/docs/page';
 import { getBreadcrumbItems } from 'fumadocs-core/breadcrumb';
+import { findNeighbour } from 'fumadocs-core/page-tree';
 import { source } from '@/lib/source';
 import { getMDXComponents } from '@/components/mdx-components';
 import { Feedback } from '@/components/feedback';
@@ -52,8 +53,27 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     );
   }
 
+  // Previous/next in page-tree order, so the pair matches the sidebar rather
+  // than the order the files happen to sit in on disk.
+  //
+  // Without this the footer slot renders empty, and a leaf page's HTML carries
+  // only the eight top-level sidebar links — collapsed folders are filled in on
+  // the client, so nothing that crawls the static export ever sees them. These
+  // two links are the only in-page path between neighbouring pages.
+  //
+  // One page is linked in a form that does not resolve: `/migration/v0.5.3`.
+  // `trailingSlash: true` normally rewrites every internal href to its directory
+  // form, but Next skips a last segment containing a dot, reading `v0.5.3` as a
+  // filename — and the CloudFront Function in front of the bucket only rewrites
+  // extension-less paths, so it passes that one through to a 404. Setting the
+  // slash here does not help; next/link strips it straight back off. The page is
+  // exported as `v0.5.3/index.html` and its canonical and sitemap entry both
+  // carry the slash, so the fix is to rename the file to a dot-free slug and add
+  // a redirect stub for the old URL — content work, tracked in the audit.
+  const neighbours = findNeighbour(source.pageTree, page.url);
+
   return (
-    <DocsPage toc={toc} full={false}>
+    <DocsPage toc={toc} full={false} footer={{ items: neighbours }}>
       <PageStructuredData
         title={page.data.title}
         pageUrl={page.url}

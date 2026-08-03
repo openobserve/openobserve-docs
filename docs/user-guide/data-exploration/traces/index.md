@@ -9,3 +9,6 @@ Traces help you understand how requests flow across services, identify performan
 - ### [Traces in OpenObserve](traces.md)
 :::
 
+## In this section
+
+::child-pages
