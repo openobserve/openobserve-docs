@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { source } from '@/lib/source';
-import { baseOptions } from '@/app/layout.config';
+import { baseOptions, SidebarSiteLinks } from '@/app/layout.config';
 import { Analytics, GtmNoScript } from '@/components/analytics';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
@@ -51,7 +51,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <GtmNoScript />
         <SiteStructuredData />
         <RootProvider search={{ SearchDialog }}>
-          <DocsLayout tree={source.pageTree} {...baseOptions}>
+          <DocsLayout
+            tree={source.pageTree}
+            {...baseOptions}
+            sidebar={{ footer: <SidebarSiteLinks /> }}
+          >
             {children}
           </DocsLayout>
         </RootProvider>
