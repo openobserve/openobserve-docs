@@ -9,7 +9,7 @@ This guide walks you through setting up OpenObserve RUM across all supported pla
 
 OpenObserve provides an in-app guided setup. From the **Ingestion** menu, select **RUM** and use the platform switcher to pick your target. The UI fills in your endpoint, organization, and RUM token automatically.
 
-![TODO: screenshot of RUM setup platform switcher showing Browser, React Native, Android, and iOS tabs](images/placeholder.png)
+![RUM setup platform switcher showing Browser, React Native, Android, and iOS tabs](images/mobile-rum-sdk-1.png)
 
 ## Prerequisites
 
@@ -551,7 +551,7 @@ After deploying your application with RUM enabled:
    - **Error Tracking** tab — errors and crashes from any platform
    - **Session Replay** — replay recordings of user sessions
 
-![TODO: screenshot of verified RUM setup with green checkmark and detected data](images/placeholder.png)
+![verified RUM setup with green checkmark and detected data](images/mobile-rum-sdk-2.png)
 
 ## Troubleshooting
 
