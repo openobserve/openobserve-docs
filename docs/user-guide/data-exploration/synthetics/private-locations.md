@@ -94,9 +94,9 @@ Public locations use the default token automatically. Create a named token per r
 - **A location cannot be deleted while checks are assigned to it.** Reassign or delete those checks first.
 - **Agents are read-only in the UI.** Configuration lives in the install command, so changing it means re-running that command on the host.
 
-## Troubleshooting
+:::accordion[Troubleshooting]
 
-### A private location will not accept checks
+**A private location will not accept checks**
 
 **Problem**: Your private location does not appear when selecting locations, or shows an offline warning.
 
@@ -107,14 +107,21 @@ Public locations use the default token automatically. Create a named token per r
 3. Confirm the agent's token is still enabled under **IAM > Synthetics Tokens**.
 4. Check that every agent for the location was deployed with the same location name. A typo creates a second location rather than joining the existing one.
 
-### A location cannot be deleted
+**A location cannot be deleted**
 
 **Problem**: The delete action on a private location is disabled.
 
 **Solution**: Checks are still assigned to it. The tooltip reports how many. Reassign or delete those checks first, then delete the location.
 
-### An agent registered as its own location
+**An agent registered as its own location**
 
 **Problem**: You deployed a second agent and a new location appeared instead of the agent joining the existing one.
 
 **Solution**: The location name in the install command did not match. Names must match exactly. Re-run the command on that host with the correct name, then delete the stray location once no checks reference it.
+:::
+
+**Need help:**
+
+  [Community Slack](https://short.openobserve.ai/community)
+  
+  [GitHub issues](https://github.com/openobserve/openobserve/issues)

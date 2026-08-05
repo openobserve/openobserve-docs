@@ -147,9 +147,9 @@ Choosing **Edit** on a browser check reopens the journey with its steps collapse
 
 From the journey editor you can also **Replay** the journey locally through the extension, which reports per-step pass and fail without waiting for a scheduled run.
 
-## Troubleshooting
+:::accordion[Troubleshooting]
 
-### The recorder will not connect
+**The recorder will not connect**
 
 **Problem**: You clicked **Record journey** but the setup screen never reports the recorder as connected.
 
@@ -160,13 +160,13 @@ From the journey editor you can also **Replay** the journey locally through the 
 3. Click the extension icon in your toolbar to inject the recorder into the current tab. Chrome cannot connect automatically to pages that were open before the extension was installed.
 4. If a previous replay is still running, wait for it to finish or reload the extension.
 
-### Saving is blocked with "First step must be Navigate"
+**Saving is blocked with "First step must be Navigate"**
 
 **Problem**: **Continue** or **Save** does nothing and a step is highlighted.
 
 **Solution**: Every journey has to open a page before it can act on one. Change the first step's action to **Navigate**, or add a Navigate step above it. The same validation covers steps missing a name, a locator, or an expected value.
 
-### A check reports failures the application never had
+**A check reports failures the application never had**
 
 **Problem**: Runs fail intermittently but the application is healthy when you check by hand.
 
@@ -176,3 +176,10 @@ From the journey editor you can also **Replay** the journey locally through the 
 2. Open a failed run and check the error. A timeout on an element that exists usually means the step timeout is shorter than the real response time.
 3. Check the locator resolution on the failed step. If a fallback locator matched, the markup has changed and the primary locator needs updating.
 4. If the step depends on something that is not always present, mark it **Optional**.
+:::
+
+**Need help:**
+
+  [Community Slack](https://short.openobserve.ai/community)
+  
+  [GitHub issues](https://github.com/openobserve/openobserve/issues)

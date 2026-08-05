@@ -99,9 +99,9 @@ From the checks table you can:
 - **Use folders and tags to scope access and reporting** as the number of checks grows.
 - **Use a separate token per region** for private agents, so revoking one does not take down every location.
 
-## Troubleshooting
+:::accordion[Troubleshooting]
 
-### The Synthetics entry is missing from the sidebar
+**The Synthetics entry is missing from the sidebar**
 
 **Problem**: You cannot find Synthetics under **Experience**.
 
@@ -110,3 +110,10 @@ From the checks table you can:
 1. Confirm your organization is on an enterprise or cloud plan.
 2. Ask your administrator to enable `O2_SYNTHETICS_ENABLED`.
 3. Reload the page. Navigating directly to the URL while the feature is off redirects you home.
+:::
+
+**Need help:**
+
+  [Community Slack](https://short.openobserve.ai/community)
+  
+  [GitHub issues](https://github.com/openobserve/openobserve/issues)

@@ -116,3 +116,9 @@ Protocol checks share most configuration with browser tests, with these exceptio
 | **Results** | No **Steps** tab; reports a timing breakdown instead |
 
 See [Results](results.md#read-a-protocol-run) for how a protocol run is reported.
+
+**Need help:**
+
+  [Community Slack](https://short.openobserve.ai/community)
+  
+  [GitHub issues](https://github.com/openobserve/openobserve/issues)

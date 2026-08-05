@@ -136,3 +136,9 @@ Available on browser and HTTP checks.
 Variables are referenced anywhere the check accepts one, including the starting URL and step values. Mark a variable as secure to mask its value in the UI.
 
 > **Warning**: Pre-set cookies and basic auth credentials are stored with the check. Use dedicated test accounts rather than real user credentials.
+
+**Need help:**
+
+  [Community Slack](https://short.openobserve.ai/community)
+  
+  [GitHub issues](https://github.com/openobserve/openobserve/issues)

@@ -105,15 +105,15 @@ Protocol runs report a timing breakdown instead of a step timeline, so you can s
 
 A high **TTFB** with low DNS and Connect times points at the application. A high **TLS** time points at handshake or certificate chain cost. A high **DNS** time points at resolution, often outside your control.
 
-## Troubleshooting
+:::accordion[Troubleshooting]
 
-### The Evidence tab is empty
+**The Evidence tab is empty**
 
 **Problem**: You opened Evidence on a run and there is nothing there.
 
 **Solution**: Evidence is retained for failed runs only. On a passing run this is expected. If a failed run's evidence will not load, the bundle may have passed its retention window, or the download link may have expired — reload the run to get a fresh one.
 
-### No runs appear for the selected time range
+**No runs appear for the selected time range**
 
 **Problem**: The results page reports no runs.
 
@@ -123,8 +123,15 @@ A high **TTFB** with low DNS and Connect times points at the application. A high
 2. If it has run before, use **Jump to last run** to move the window to the most recent data.
 3. Confirm the check is **Enabled**. A paused check does not run on its schedule.
 
-### A run reports a probe infrastructure error
+**A run reports a probe infrastructure error**
 
 **Problem**: A run shows an error but no step data.
 
 **Solution**: The probe failed before executing the journey, so there is nothing to attribute. This is infrastructure rather than your application. If it persists across locations, contact support; if it is limited to one private location, check that its agents are healthy.
+:::
+
+**Need help:**
+
+  [Community Slack](https://short.openobserve.ai/community)
+  
+  [GitHub issues](https://github.com/openobserve/openobserve/issues)
