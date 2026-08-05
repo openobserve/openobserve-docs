@@ -118,7 +118,7 @@ When a column has an active filter, its filter icon turns blue to indicate the c
 
 When a cell in a table chart contains an absolute HTTP or HTTPS URL, the value is automatically rendered as a clickable link. This is useful for surfacing external references — such as advisory links, documentation pages, or external dashboards — directly within your table results.
 
-![TODO: screenshot of table chart with URL cells rendered as clickable links](images/placeholder.png)
+![table chart with URL cells rendered as clickable links](images/hyperlink-support-dashboard-table-cells-1.png)
 
 ### How it works
 
