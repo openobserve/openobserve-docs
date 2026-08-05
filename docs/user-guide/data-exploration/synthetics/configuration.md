@@ -80,7 +80,7 @@ Select one or more probe locations. At least one is required.
 
 ![Locations card listing twelve public AWS regions and the private locations section](images/config-locations.png)
 
-Public locations cover twelve AWS regions:
+The locations offered depend on your deployment. On OpenObserve Cloud, public locations cover twelve AWS regions:
 
 | Area | Regions |
 |------|---------|
@@ -95,6 +95,8 @@ Private locations appear once their agents register. OpenObserve only offers a p
 ## Browsers and devices
 
 Browser checks only. Each selected combination runs as a separate execution, and at least one must be selected.
+
+The browsers and devices offered are reported by your deployment, so the list can differ. Where no list is supplied, these three device profiles are used:
 
 | Device | Viewport |
 |--------|----------|

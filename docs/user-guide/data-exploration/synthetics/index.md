@@ -49,7 +49,7 @@ Failed runs keep the failing step, its error and stack trace, the screenshot tak
 
 ### Public and private probe locations
 
-Checks run from twelve OpenObserve-operated AWS regions, from agents inside your own network, or both. See [Private locations](private-locations.md).
+Checks run from OpenObserve-operated public locations, from agents inside your own network, or both. See [Private locations](private-locations.md).
 
 ## Getting started
 

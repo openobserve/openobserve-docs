@@ -43,16 +43,21 @@ An HTTP check issues a request and asserts on the response.
 | **Timeout** | How long to wait for the response | 10000 ms |
 | **Follow redirects** | Whether to follow 3xx responses | On |
 | **Headers** | Headers sent with the request | None |
-| **Request body** | Body sent with the request | Empty |
+| **Request body** | Body sent with the request. Hidden on `GET` and `HEAD`. | Empty |
 | **Assertions** | What a healthy response looks like | `status_code equals 200` |
 
-Assertions combine a field, an operator, and a value:
+Assertions combine a field, an operator, and a value. Three fields are available — **Status code**, **Response body**, and **Response time (ms)** — and each accepts any of the six operators:
 
-| Field | Operators |
-|-------|-----------|
-| **Status code** | equals, not equals, greater than, less than |
-| **Response body** | contains, does not contain, equals, not equals |
-| **Response time (ms)** | greater than, less than, equals, not equals |
+| Operator | Meaning |
+|----------|---------|
+| **equals** | Exact match |
+| **not equals** | Anything but an exact match |
+| **greater than** | Numeric comparison |
+| **less than** | Numeric comparison |
+| **contains** | Substring is present |
+| **does not contain** | Substring is absent |
+
+> **Tip**: The operator list is not filtered by field, so nothing stops you pairing **Response body** with **greater than**. Choose a combination that makes sense for the field you picked.
 
 > **Warning**: If the request never returns a response, assertions are reported as **Not evaluated** rather than passed. A check that cannot reach its target is a failure, not a pass.
 
