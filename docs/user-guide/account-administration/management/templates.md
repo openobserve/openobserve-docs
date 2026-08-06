@@ -28,7 +28,7 @@ When you create a template from **Management > Templates**, select the kind that
 
 Content templates let you design notifications using a structured specification instead of writing raw JSON for each channel. Define your content once, and OpenObserve renders it correctly for every destination.
 
-![TODO: screenshot of creating a content template with title, body, fields, links, and chart toggle](images/placeholder.png)
+![creating a content template with title, body, fields, links, and chart toggle](images/alert-notification-templates-v2-1.png)
 
 A content template includes:
 
@@ -61,7 +61,7 @@ Content templates are stored as a JSON `ContentSpec`. For example:
 
 You can preview how a content template renders for any channel and severity before saving it. The preview uses the exact same rendering code path as sending a live notification, so the output matches production exactly.
 
-![TODO: screenshot of template preview showing rendered card for Slack at critical severity](images/placeholder.png)
+![template preview showing rendered card for Slack at critical severity](images/alert-notification-templates-v2-2.png)
 
 To preview a template:
 
@@ -79,7 +79,7 @@ The preview uses deterministic sample data (e.g., "Sample CPU alert" with synthe
 
 Content templates can include a chart image of the alert data. When you enable the **Chart** toggle in a content template, OpenObserve renders a chart of the alert query results using `plotters` and embeds it in the notification.
 
-![TODO: screenshot of Slack notification with embedded alert chart image](images/placeholder.png)
+![Slack notification with embedded alert chart image](images/alert-notification-templates-v2-3.png)
 
 Chart rendering:
 
@@ -96,7 +96,7 @@ Before relying on a destination for live alerts, use the test send feature to ve
 2. Select a destination from the list.
 3. Click **Test Send** to dispatch a test notification through that destination.
 
-![TODO: screenshot of destination detail page with Test Send button](images/placeholder.png)
+![destination detail page with Test Send button](images/alert-notification-templates-v2-4.png)
 
 The test notification is marked with `[TEST]` so recipients can distinguish it from a real alert. A test send uses the destination's configured template with synthetic sample data, verifying the full pipeline: template rendering, credential substitution, and delivery.
 
