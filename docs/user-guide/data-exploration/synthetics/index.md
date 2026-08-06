@@ -13,11 +13,11 @@ Synthetics runs scripted checks against your applications and infrastructure on 
 
 Real user monitoring tells you what happened to the people who visited your site. Synthetic monitoring tells you what would happen if someone visited right now. OpenObserve Synthetics runs checks continuously from probe locations you choose, records every run, and keeps the evidence needed to explain a failure after the fact.
 
-Synthetics serves two audiences. Site reliability and operations teams use protocol checks to confirm that endpoints answer, ports accept connections, and certificates have not expired. Product and QA teams use browser tests to confirm that a real user journey — sign in, search, add to cart, check out — still works end to end in a real browser.
+Synthetics serves two audiences. Site reliability and operations teams use protocol checks to confirm that endpoints answer, ports accept connections, and certificates have not expired. Product and QA teams use browser tests to confirm that a real user journey (sign in, search, add to cart, check out) still works end to end in a real browser.
 
 Every check produces a run history you can slice by location, browser, and device, with pass rate, latency percentiles, retry and flakiness rates, and per-step timing. When a run fails, the run detail page names the step that broke, shows the screenshot taken at that moment, and reports which locator matched and what the page was doing at the time.
 
-> **Note**: Synthetics is an enterprise feature and is currently in **Beta**. If you do not see it in the sidebar, ask your administrator to enable `O2_SYNTHETICS_ENABLED`.
+> **Note**: Synthetics is currently available only on **OpenObserve Cloud** and is in **Beta**.
 
 ## Check types
 
@@ -55,9 +55,9 @@ Checks run from OpenObserve-operated public locations, from agents inside your o
 
 ### Prerequisites
 
-- An enterprise or cloud OpenObserve organization with Synthetics enabled
+- An OpenObserve Cloud organization with Synthetics enabled
 - Permission to create checks in at least one folder
-- For browser test recording: Google Chrome with the OpenObserve Recorder extension
+- For browser test recording: Google Chrome with the [OpenObserve Synthetics Recorder](https://chromewebstore.google.com/detail/openobserve-synthetics-re/afhgiecgbpohkbobialnajlphbpcgomo) extension
 - For private locations: a host in your network that can run Docker, Kubernetes, or a native binary
 
 ### Accessing Synthetics
@@ -107,7 +107,7 @@ From the checks table you can:
 
 **Solution**:
 
-1. Confirm your organization is on an enterprise or cloud plan.
+1. Confirm your organization is on OpenObserve Cloud. Synthetics is not yet available for self-hosted deployments.
 2. Ask your administrator to enable `O2_SYNTHETICS_ENABLED`.
 3. Reload the page. Navigating directly to the URL while the feature is off redirects you home.
 :::

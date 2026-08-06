@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: Reference for every Synthetics check setting — details, schedule, retries, alerts, locations, browsers and devices, capture, and authentication.
+description: Reference for every Synthetics check setting, including details, schedule, retries, alerts, locations, browsers and devices, capture, and authentication.
 ---
 
 # Configuration
@@ -15,10 +15,10 @@ Identifies the check and says what it targets.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Name** | Identifies the check throughout the UI. Required. | — |
+| **Name** | Identifies the check throughout the UI. Required. | N/A |
 | **Folder** | The folder the check lives in. Also governs access. | `default` |
 | **Enabled** | Whether the check runs on its schedule | On |
-| **Starting URL** / **URL** / **Host** | What the check targets. Browser and HTTP take a URL; TCP, TLS, and SSH take a bare host. Required. | — |
+| **Starting URL** / **URL** / **Host** | What the check targets. Browser and HTTP take a URL; TCP, TLS, and SSH take a bare host. Required. | N/A |
 | **Description** | Free text for your own reference | Empty |
 | **Tags** | Labels for grouping and filtering | None |
 
@@ -33,13 +33,13 @@ Controls how often the check runs and when it starts.
 | Setting | Description | Default | Options |
 |---------|-------------|---------|---------|
 | **Frequency** | How often the check runs | 5 min | 1 min, 5 min, 15 min, 30 min, 1 hour, Custom, Cron |
-| **Custom interval** | Used when Frequency is Custom | — | Minutes, Hours, Days, Weeks, Months |
-| **Cron expression** | Used when Frequency is Cron, with a timezone | — | Any valid cron expression |
+| **Custom interval** | Used when Frequency is Custom | N/A | Minutes, Hours, Days, Weeks, Months |
+| **Cron expression** | Used when Frequency is Cron, with a timezone | N/A | Any valid cron expression |
 | **Start** | When the check becomes active | Schedule now | Schedule now, Schedule later |
 
 ![Schedule card with frequency presets and start type toggle](images/config-schedule.png)
 
-**Schedule later** takes a date and time and activates the check then. The start time must be in the future — a duplicated check whose original start has passed reverts to **Schedule now**.
+**Schedule later** takes a date and time and activates the check then. The start time must be in the future, so a duplicated check whose original start has passed reverts to **Schedule now**.
 
 ## Retries
 
@@ -48,7 +48,7 @@ Controls how many times a failing run is retried before it is reported as failed
 | Setting | Description | Default | Limit |
 |---------|-------------|---------|-------|
 | **Retries on failure** | Extra attempts before the run is called failed | 0 | 2 for browser checks, 3 for protocol checks |
-| **Wait between retries** | Delay before the next attempt | 5 s | — |
+| **Wait between retries** | Delay before the next attempt | 5 s | N/A |
 
 ![Retries card with retry count and wait between retries, plus the maximum retries hint](images/config-retries.png)
 
@@ -56,7 +56,7 @@ Retries run inside the same job, so the whole sequence has to fit the check's ru
 
 The browser limit is lower because each attempt reruns the whole journey on every selected browser and device combination. Three attempts across three combinations is nine journey executions in one job.
 
-> **Tip**: Retries hide flakiness rather than fix it. The **Retry Rate** and **Flaky Rate** tiles on the results page exist so you can see how often they are saving a run — a high retry rate is a signal to fix the journey, not to raise the retry count.
+> **Tip**: Retries hide flakiness rather than fix it. The **Retry Rate** and **Flaky Rate** tiles on the results page exist so you can see how often they are saving a run. A high retry rate is a signal to fix the journey, not to raise the retry count.
 
 ## Alerts
 
@@ -80,7 +80,7 @@ Select one or more probe locations. At least one is required.
 
 ![Locations card listing twelve public AWS regions and the private locations section](images/config-locations.png)
 
-The locations offered depend on your deployment. On OpenObserve Cloud, public locations cover twelve AWS regions:
+Public locations cover twelve AWS regions on OpenObserve Cloud, the only deployment Synthetics currently supports:
 
 | Area | Regions |
 |------|---------|
@@ -120,7 +120,7 @@ Browser checks only. Controls which artifacts each run keeps.
 
 **Always** captures a screenshot at every step, which is what makes the run detail timeline fully visual. **On fail** keeps only the failing step's screenshot.
 
-> **Note**: Evidence — console errors, page errors, and network events — is retained for failed runs only, independently of this setting.
+> **Note**: Evidence (console errors, page errors, and network events) is retained for failed runs only, independently of this setting.
 
 ## Authentication and network
 

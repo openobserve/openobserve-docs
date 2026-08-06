@@ -5,7 +5,7 @@ description: Run Synthetics checks from inside your own network with self-regist
 
 # Private locations
 
-A private location runs checks from inside your own network, so they can reach systems that are not exposed to the internet — an internal API, a staging environment behind a VPN, a database host on a private subnet.
+A private location runs checks from inside your own network, so they can reach systems that are not exposed to the internet, such as an internal API, a staging environment behind a VPN, or a database host on a private subnet.
 
 A location is a pool of interchangeable agents, not a single machine. Deploy several agents with the same location name and they all serve that location, sharing its work and surviving the loss of any one host.
 
@@ -28,7 +28,7 @@ Go to the **Private Locations** tab and click **Set up an agent**.
 
 ### Step 2: Name the location and choose the agent type
 
-Enter a **Location name**. Reuse the same name on every agent that should serve that location. Optionally name the individual agent — left blank, it names itself from its hostname, which is useful when running several agents at one location.
+Enter a **Location name**. Reuse the same name on every agent that should serve that location. Optionally name the individual agent. Left blank, it names itself from its hostname, which is useful when running several agents at one location.
 
 Choose what the agent runs:
 
@@ -47,7 +47,7 @@ Switching to **Browser** changes both the command and the available platforms, s
 
 Pick your platform tab, copy the command, and run it on a host in your network.
 
-> **Warning**: The generated command embeds a live agent token. Treat it as a credential — do not paste it into shared documents, tickets, or chat.
+> **Warning**: The generated command embeds a live agent token. Treat it as a credential, and do not paste it into shared documents, tickets, or chat.
 
 ### Step 4: Assign the location to checks
 
@@ -66,13 +66,13 @@ Once the location is **Online**, select it in the **Locations** card when creati
 | **C/min** | Approximate checks per minute |
 | **Last seen** | When an agent last reported |
 
-**Pending** means the location exists but no agent has registered yet. **Offline** means no agent is currently live — checks assigned here do not run until one returns.
+**Pending** means the location exists but no agent has registered yet. **Offline** means no agent is currently live, so checks assigned here do not run until one returns.
 
 Click a row to open the location detail page, which lists the registered agents and the checks running from them. Agents are read-only there: they self-register, so there is nothing to add or edit by hand.
 
 ## Managing agent tokens
 
-Agents authenticate with org-level `o2syn_` tokens, managed under **IAM > Synthetics Tokens**.
+Every Synthetics probe agent, public and private, authenticates with the same org-level `o2syn_` tokens, managed under **IAM > Synthetics Tokens**. Public locations use the default token automatically; private agents authenticate with whichever token you embed in their install command.
 
 ![Synthetics Tokens page under IAM showing the default token with its status, agent count, and actions](images/step-10-synthetics-tokens.png)
 
@@ -82,9 +82,9 @@ Agents authenticate with org-level `o2syn_` tokens, managed under **IAM > Synthe
 | **Rotate default** | Replace the org default token |
 | **Enable / disable** | Turn a token off without deleting it |
 
-Public locations use the default token automatically. Create a named token per region and embed it in that region's agents to limit the blast radius if one is compromised.
+Create a named token per region and embed it in that region's private agents to limit the blast radius if one is compromised.
 
-> **Note**: A token is shown in full only once, when it is created. Copy it then — afterwards only its prefix is displayed.
+> **Note**: A token is shown in full only once, when it is created. Copy it then, since afterwards only its prefix is displayed.
 
 > **Tip**: Rotating the default token leaves the old one valid until you explicitly disable it, so you can roll agents over gradually rather than taking every location down at once.
 
