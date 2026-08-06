@@ -46,7 +46,7 @@ An HTTP check issues a request and asserts on the response.
 | **Request body** | Body sent with the request. Hidden on `GET` and `HEAD`. | Empty |
 | **Assertions** | What a healthy response looks like | `status_code equals 200` |
 
-Assertions combine a field, an operator, and a value. Three fields are available — **Status code**, **Response body**, and **Response time (ms)** — and each accepts any of the six operators:
+Assertions combine a field, an operator, and a value. Three fields are available, **Status code**, **Response body**, and **Response time (ms)**, and each accepts any of the six operators:
 
 | Operator | Meaning |
 |----------|---------|
@@ -69,11 +69,11 @@ A TCP check confirms that a host accepts a connection on a port.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Port** | Port to connect to | — |
+| **Port** | Port to connect to | N/A |
 | **Timeout** | How long to wait for the connection | 10000 ms |
 | **Response contains** | Optional substring expected in the first response bytes | Empty |
 
-Leave **Response contains** empty to check reachability alone. Set it when the service announces itself on connect — an SMTP banner, for example — and you want to confirm it is the right service answering.
+Leave **Response contains** empty to check reachability alone. Set it when the service announces itself on connect, such as with an SMTP banner, and you want to confirm it is the right service answering.
 
 ## SSL / TLS Certificate
 
@@ -100,9 +100,9 @@ An SSH check confirms that a server accepts an SSH connection and authenticates.
 | Setting | Description | Default |
 |---------|-------------|---------|
 | **Port** | Port to connect to | 22 |
-| **Username** | User to authenticate as | — |
+| **Username** | User to authenticate as | N/A |
 | **Authentication** | Password or private key | Password |
-| **Password** / **Private key** | The credential | — |
+| **Password** / **Private key** | The credential | N/A |
 | **Timeout** | How long to wait | 10000 ms |
 
 > **Warning**: The credential is stored with the check. Use a dedicated monitoring account with the least privilege that still proves the service is reachable.
@@ -113,9 +113,9 @@ Protocol checks share most configuration with browser tests, with these exceptio
 
 | Area | Protocol checks |
 |------|-----------------|
-| **Journey** | None — no steps to author |
+| **Journey** | None, no steps to author |
 | **Browsers and devices** | Not applicable |
-| **Capture** | Not applicable — no screenshots or traces |
+| **Capture** | Not applicable, no screenshots or traces |
 | **Authentication and network** | HTTP only; TCP, TLS, and SSH have no basic auth or cookies |
 | **Retries** | Maximum 3, against 2 for browser checks |
 | **Results** | No **Steps** tab; reports a timing breakdown instead |
