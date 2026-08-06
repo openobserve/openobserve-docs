@@ -7,7 +7,7 @@ description: Record or build a multi-step browser journey, add assertions and re
 
 A browser test replays a multi-step user journey in a real browser from the locations you choose, asserting along the way that the application actually works.
 
-Steps come from one of two places: the OpenObserve Recorder Chrome extension captures your clicks and inputs as you perform them, or you build steps by hand. Either way you end up in the same editor, where each step names an action, the element it acts on, and what should be true afterwards.
+Steps come from one of two places: the OpenObserve Synthetics Recorder Chrome extension captures your clicks and inputs as you perform them, or you build steps by hand. Either way you end up in the same editor, where each step names an action, the element it acts on, and what should be true afterwards.
 
 ## How to create a browser test
 
@@ -19,13 +19,15 @@ Click **New Check**, then select **Browser Test**. The dialog confirms which fol
 
 ### Step 2: Set the starting URL
 
-Enter the **Starting URL** where the journey begins. Optionally set a **Name** — OpenObserve fills this from the page if you leave it blank. The URL accepts variables such as `{{baseUrl}}`, defined under [Authentication and network](configuration.md#authentication-and-network).
+Enter the **Starting URL** where the journey begins. Optionally set a **Name**, which OpenObserve fills from the page if you leave it blank. The URL accepts variables such as `{{baseUrl}}`, defined under [Authentication and network](configuration.md#authentication-and-network).
 
 ![Browser check gate with Starting URL and Name fields, and Record journey and Build manually buttons](images/step-02-browser-gate.png)
 
 ### Step 3: Connect the recorder
 
-Click **Record journey**. If the OpenObserve Recorder extension is not connected yet, a setup screen walks you through installing it, allowing it in Incognito, and clicking its toolbar icon to activate it for the tab.
+Install the [OpenObserve Synthetics Recorder](https://chromewebstore.google.com/detail/openobserve-synthetics-re/afhgiecgbpohkbobialnajlphbpcgomo) extension from the Chrome Web Store if you have not already.
+
+Click **Record journey**. If the extension is not connected yet, a setup screen walks you through allowing it in Incognito and clicking its toolbar icon to activate it for the tab.
 
 Click **Skip -- I'll build the steps manually** to write steps by hand instead.
 
@@ -100,13 +102,13 @@ The two visibility assertions ask only whether the element is there, so they tak
 
 ## Locators
 
-A locator is how a step finds its element. Each step carries an ordered list of candidates, tried top to bottom — the first that matches is used. That fallback is what keeps a check alive through a cosmetic markup change.
+A locator is how a step finds its element. Each step carries an ordered list of candidates, tried top to bottom, and the first that matches is used. That fallback is what keeps a check alive through a cosmetic markup change.
 
 Five locator kinds are available:
 
 | Kind | Example | Durability |
 |------|---------|------------|
-| **Test attribute** | `[data-test="sign-in"]` | Highest — survives redesigns |
+| **Test attribute** | `[data-test="sign-in"]` | Highest, survives redesigns |
 | **Role** | `role=button[name="Sign in"]` | Good, unless labels change |
 | **Text** | `text=Sign in` | Breaks when copy changes |
 | **CSS** | `#login-form .submit` | Breaks when structure or class names change |
@@ -114,7 +116,7 @@ Five locator kinds are available:
 
 Recording produces candidates automatically. You can drag to reorder them, add your own, delete ones you do not want, or combine several into one stricter locator.
 
-> **Warning**: Ordering is not cosmetic. Candidates only agree while the markup is unchanged. Once it changes — the case fallback exists for — a later candidate may match a *different* element.
+> **Warning**: Ordering is not cosmetic. Candidates only agree while the markup is unchanged. Once it changes, which is the case the fallback exists for, a later candidate may match a *different* element.
 
 OpenObserve flags two fragile patterns as you author. A **by position** locator finds the element by counting siblings, so it breaks when the page reorders. A **generated id** locator uses an id minted on every render, so it changes on the next deploy.
 
@@ -130,12 +132,12 @@ Expand **Advanced** on a step to reach these settings.
 |---------|-------------|---------|-------|
 | **Timeout** | How long the step may spend acting | 30 s | 100 ms – 60 s |
 | **Wait for the page to settle** | How long the step may spend waiting for the page to finish after the action | 30 s | 100 ms – 60 s |
-| **Optional** | If this step fails, skip it and keep going. A skipped step never fails the run. | Off | — |
-| **Always run** | Run this step during cleanup even after an earlier step failed | Off | — |
+| **Optional** | If this step fails, skip it and keep going. A skipped step never fails the run. | Off | N/A |
+| **Always run** | Run this step during cleanup even after an earlier step failed | Off | N/A |
 
-Use **Optional** for things that may not appear, such as a cookie banner or a one-time popup. Use **Always run** for teardown, such as signing out — its result never changes the run's verdict.
+Use **Optional** for things that may not appear, such as a cookie banner or a one-time popup. Use **Always run** for teardown, such as signing out, since its result never changes the run's verdict.
 
-Recorded steps also carry **settle signals**: what the page demonstrably did after the step when it was recorded, such as navigating to a URL pattern or receiving a particular response. These are waited for again at run time, which is what replaces fixed sleeps. A recorded signal is advisory by default — if it never arrives the run carries on. Mark one **Required** to make its absence fail the step instead.
+Recorded steps also carry **settle signals**: what the page demonstrably did after the step when it was recorded, such as navigating to a URL pattern or receiving a particular response. These are waited for again at run time, which is what replaces fixed sleeps. A recorded signal is advisory by default, so if it never arrives the run carries on. Mark one **Required** to make its absence fail the step instead.
 
 > **Note**: On **Navigate** and **Assert** steps the maximum timeout equals the default, so an explicit timeout there can only shorten the step.
 
@@ -155,7 +157,7 @@ From the journey editor you can also **Replay** the journey locally through the 
 
 **Solution**:
 
-1. Confirm the OpenObserve Recorder extension is installed in Chrome.
+1. Confirm the [OpenObserve Synthetics Recorder](https://chromewebstore.google.com/detail/openobserve-synthetics-re/afhgiecgbpohkbobialnajlphbpcgomo) extension is installed in Chrome.
 2. Open `chrome://extensions`, click **Details** on the extension, and enable **Allow in Incognito**. Replays run in a clean incognito session and cannot start without this.
 3. Click the extension icon in your toolbar to inject the recorder into the current tab. Chrome cannot connect automatically to pages that were open before the extension was installed.
 4. If a previous replay is still running, wait for it to finish or reload the extension.

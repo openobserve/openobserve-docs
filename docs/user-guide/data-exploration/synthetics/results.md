@@ -17,8 +17,8 @@ Use **Run now** to trigger a manual execution, **Edit Check** to change the conf
 
 The Overview tab reports:
 
-- **Status Timeline** — every run in the window as a pass, warning, or fail band
-- **KPI tiles** — Last Run, Pass Rate, P95 Duration, Retry Rate, Flaky Rate, and Failed Runs
+- **Status Timeline**, showing every run in the window as a pass, warning, or fail band
+- **KPI tiles**, covering Last Run, Pass Rate, P95 Duration, Retry Rate, Flaky Rate, and Failed Runs
 - **Response Time** and **Errors Over Time** charts
 - **Pass Rate by Browser**, **by Location**, and **by Device**
 - The runs table, filterable by status, browser, device, and location
@@ -28,7 +28,7 @@ The Overview tab reports:
 | Tile | Means |
 |------|-------|
 | **Pass Rate** | Share of runs in the window that passed |
-| **P95 Duration** | 95th percentile run duration — the slow tail, not the average |
+| **P95 Duration** | 95th percentile run duration, the slow tail, not the average |
 | **Retry Rate** | Share of runs where at least one attempt failed and was retried |
 | **Flaky Rate** | Share of runs that passed only after a retry |
 | **Failed Runs** | Count of runs that failed after all attempts |
@@ -51,7 +51,7 @@ Open the **Steps** tab on a browser check to compare steps across every run in t
 
 ![Steps tab showing per-step fail rate, flaky rate, and average, p95, and max duration](images/step-12-monitor-results-steps.png)
 
-A step with a high **Fail Rate** is a correctness problem. A step with a high **Max Duration** but a low average is usually a timing problem — the step occasionally waits much longer than normal, which is what eventually trips its timeout.
+A step with a high **Fail Rate** is a correctness problem. A step with a high **Max Duration** but a low average is usually a timing problem, since the step occasionally waits much longer than normal, which is what eventually trips its timeout.
 
 ## Inspect a single run
 
@@ -71,13 +71,13 @@ On a failed run, the header names the failing step and the attempt that decided 
 
 Three things on this view do most of the diagnostic work:
 
-- **Failed at Step N** — which step broke, not merely that the run broke
-- **The attempt selector** — each retry is kept separately, so you can compare the attempt that failed with the one that decided the run
-- **The error message** — states what was expected and what was actually found
+- **Failed at Step N**, which step broke, not merely that the run broke
+- **The attempt selector**, since each retry is kept separately, so you can compare the attempt that failed with the one that decided the run
+- **The error message**, stating what was expected and what was actually found
 
 Two further sections appear when they have something to report. **Locator resolution** shows which candidate matched; if a fallback matched rather than the primary, the markup has changed under that step even though the run may have passed. **Settle signals** flags a recorded signal that never arrived, which is often the real cause of a later step timing out.
 
-> **Tip**: A failing assertion consumes its full timeout before reporting. A run that normally takes a second and suddenly takes a minute has usually not got slower — it has failed a wait.
+> **Tip**: A failing assertion consumes its full timeout before reporting. A run that normally takes a second and suddenly takes a minute has usually not got slower. It has failed a wait.
 
 ## Evidence
 
@@ -111,7 +111,7 @@ A high **TTFB** with low DNS and Connect times points at the application. A high
 
 **Problem**: You opened Evidence on a run and there is nothing there.
 
-**Solution**: Evidence is retained for failed runs only. On a passing run this is expected. If a failed run's evidence will not load, the bundle may have passed its retention window, or the download link may have expired — reload the run to get a fresh one.
+**Solution**: Evidence is retained for failed runs only. On a passing run this is expected. If a failed run's evidence will not load, the bundle may have passed its retention window, or the download link may have expired. Reload the run to get a fresh one.
 
 **No runs appear for the selected time range**
 
