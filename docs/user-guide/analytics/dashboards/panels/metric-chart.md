@@ -11,7 +11,7 @@ Value mappings are available on both **Table** and **Metric** chart types. To op
 1. With the panel config sidebar open, expand the **Value Transformations** section.
 2. Click the **Add Value Mapping** button.
 
-![TODO: screenshot of value mappings dialog on a metric chart](images/placeholder.png)
+![value mappings dialog on a metric chart](images/metric-chart-sparkline-1.png)
 
 ### Mapping types
 
@@ -32,7 +32,7 @@ Each mapping row lets you set:
 - **Text color** — an explicit color for the displayed text, chosen from a swatch picker.
 - **Background color** — a background fill for the metric cell, chosen from a swatch picker.
 
-![TODO: screenshot of mapping row with text and background color swatches](images/placeholder.png)
+![mapping row with text and background color swatches](images/metric-chart-sparkline-2.png)
 
 If only a background color is set (no explicit text color), the metric automatically picks a contrasting text color (white or black) for readability. Legacy mappings with a single `color` field continue to work as background colors.
 
@@ -60,7 +60,7 @@ A sparkline is a compact trend chart (line, area, or bar) drawn inside the metri
 
 When enabled, the sparkline renders behind or below the metric value. Sub-controls appear for chart type, layout, color, line width, and fill opacity.
 
-![TODO: screenshot of sparkline config section with controls visible](images/placeholder.png)
+![sparkline config section with controls visible](images/metric-chart-sparkline-3.png)
 
 ### Chart type
 
@@ -109,4 +109,4 @@ If the histogram is unavailable for a query (for example, queries that use `JOIN
 
 In a multi-query metric panel (a grid of individual metric cells), each cell draws its own sparkline from its query's data. The sparkline config (type, layout, color, etc.) is shared across all cells but each trend is driven by its own query result.
 
-![TODO: screenshot of a metric panel with sparkline enabled](images/placeholder.png)
+![a metric panel with sparkline enabled](images/metric-chart-sparkline-4.png)
