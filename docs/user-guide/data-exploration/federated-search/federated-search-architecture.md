@@ -23,7 +23,7 @@ When you need scale, multiple specialized nodes work together as a cluster. Each
 - **Querier**: Processes queries in parallel with other queriers
 - **Ingester**: Receives and stores data in object storage
 - **Compactor**: Optimizes files and enforces retention
-- **Alertmanager**: Executes alerts and sends notifications
+- **Scheduler**: Executes alerts and sends notifications
 
 A single cluster handles more data and provides higher availability than a single node.
 

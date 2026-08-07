@@ -164,7 +164,7 @@ You can apply this to logs, metrics, or traces.
 
 When a scheduled alert with Multi-window Selector runs:
 
-1. The alert manager executes your SQL query for each window (current + past windows)
+1. The scheduler executes your SQL query for each window (current + past windows)
 2. Results are passed to your VRL function for comparison
 3. The VRL output is checked against your threshold condition
 4. If the condition is met, a notification is sent
@@ -215,7 +215,7 @@ Set the time range to evaluate per run (e.g., last 30 minutes) in the **Compare 
 
 Click **Add Comparison Window** and select the historical window to compare against (e.g., 1 day ago).
 
-The alert manager will run two queries at runtime:
+The scheduler will run two queries at runtime:
 
 1. Current window (e.g., 9:30–10:00 AM today)
 2. Past window (e.g., 9:30–10:00 AM yesterday)
@@ -299,7 +299,7 @@ Select a destination, optionally add a row template with fields from your VRL ou
 
 Yes. Every window — current and past — uses the same duration defined by the period.
 
-**Does the alert manager run multiple queries within one window?**
+**Does the scheduler run multiple queries within one window?**
 
 No. It runs one query per window. Frequency controls *when* the queries run; period controls *what time range* each query covers.
 

@@ -262,7 +262,7 @@ STATUS: deployed
 REVISION: 1
 ```
 
-- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, alertmanager, router, ingester, querier, compactor, openfga-init.
+- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, scheduler, router, ingester, querier, compactor, openfga-init.
 - Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>` (or the OSS image, depending on your chart values).
 - If a pod is stuck in `ImagePullBackOff`, check `kubectl -n openobserve describe pod <name>` and verify outbound internet from the cluster.
 :::

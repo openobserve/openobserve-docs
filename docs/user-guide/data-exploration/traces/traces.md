@@ -130,7 +130,7 @@ Apply the environment variable changes and restart the service.
 3. From the left navigation menu, go to **Traces**. 
 4. Select the trace stream. 
 5. Set the time range to the last few minutes, and open the newest trace. 
-6. You should see spans from services such as querier, ingester, or alertmanager.
+6. You should see spans from services such as querier, ingester, or scheduler.
 :::
 
 ## Configure to monitor an external application
@@ -183,7 +183,7 @@ To configure this:
 2. In your OpenObserve instance, go to Traces. 
 3. Select the trace stream. 
 4. Set the time range to the last few minutes, and open the newest trace. 
-5. You should see spans from services such as querier, ingester, or alertmanager.
+5. You should see spans from services such as querier, ingester, or scheduler.
 :::
 
 ## Configure and view log and trace correlation 
