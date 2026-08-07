@@ -28,7 +28,7 @@ Each row represents one alert evaluation.
 - **Alert Name**: The name of the configured alert.
 - **Type**: Indicates whether the alert is Scheduled or Real-time.
 - **Is Silenced**: Shows whether the alert was silenced during evaluation.
-- **Timestamp**: Time when the alert manager picked up the alert for evaluation.
+- **Timestamp**: Time when the scheduler picked up the alert for evaluation.
 - **Start Time** and **End Time**: The time range of data evaluated.
 - **Duration**: How long the alert condition remained true.
 - **Status**: The result of the alert evaluation.
@@ -82,5 +82,5 @@ This process applies only to users who have access to the `_meta` organization.
 ## Why you might see a skipped status
 A **skipped** status appears when a scheduled alert runs later than its expected window. <br>
 For example, an alert configured with a 5-minute period and 5-minute frequency is scheduled to run at 12:00 PM. <br>It should normally evaluate data from 11:55 to 12:00.
-If the alert manager experiences a delay and runs the job at 12:05 PM, it evaluates the current aligned window (12:00 to 12:05) instead of the earlier one.<br> The earlier window (11:55 to 12:00) is marked as skipped to indicate that evaluation for that range did not occur because of delay in job pickup or data availability.
+If the scheduler experiences a delay and runs the job at 12:05 PM, it evaluates the current aligned window (12:00 to 12:05) instead of the earlier one.<br> The earlier window (11:55 to 12:00) is marked as skipped to indicate that evaluation for that range did not occur because of delay in job pickup or data availability.
 

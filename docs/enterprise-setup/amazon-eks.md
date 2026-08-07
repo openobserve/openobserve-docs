@@ -471,7 +471,7 @@ STATUS: deployed
 REVISION: 1
 ```
 
-- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, alertmanager, router, ingester, querier, compactor, openfga-init.
+- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, scheduler, router, ingester, querier, compactor, openfga-init.
 - Service account annotation: your `ROLE_ARN` from Step 2.
 - Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>`.
 :::
