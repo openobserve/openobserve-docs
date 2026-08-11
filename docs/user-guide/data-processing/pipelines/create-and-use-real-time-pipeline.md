@@ -60,39 +60,40 @@ If you remove this default destination and add only filtered routes, events that
     3. Enter a value in the **Value** input box.
     4. Add more conditions if needed.
 
-    !!! note "Important"
-        **Condition nodes require a stream schema.** <br>
-        If you create a new stream in **Step 3** and do not define any fields, the **Condition** editor does not display field names.
-        To use conditions, add at least one field while creating the source stream or ingest sample data so that the schema is inferred.
-    !!! note "Guidelines"
-        - Use an empty string to check for empty values. For example, `app_name != ""`
-        - Use null to check for null values. For example, `app_name != null`
-        - If the condition does not match, the record is dropped.
-        - If the record does not contain the specified field, it is also dropped.
-
+    :::note[Important]
+    **Condition nodes require a stream schema.** <br>
+    If you create a new stream in **Step 3** and do not define any fields, the **Condition** editor does not display field names.
+    To use conditions, add at least one field while creating the source stream or ingest sample data so that the schema is inferred.
+    :::
+    :::note[Guidelines]
+    - Use an empty string to check for empty values. For example, `app_name != ""`
+    - Use null to check for null values. For example, `app_name != null`
+    - If the condition does not match, the record is dropped.
+    - If the record does not contain the specified field, it is also dropped.
+    :::
 3. If you add a Function node:
 
     Use a Function node to transform events using a VRL function.
     > A Function does not require predefined fields. You can use it even if the source stream has no schema. <br>
-    !!! note "To create a new function:"
-        ![create-new-function](../../../images/create-new-function.png)
+    :::note[To create a new function:]
+    ![create-new-function](../../../images/create-new-function.png)
 
-        1. Enable **Create new function** toggle.
-        2. In the **Associate Function** tab, enter the function name. 
-        3. Open the **Query** tab. 
-        4. Select the stream type, stream name, and duration for which you want to query the data. 
-        5. Click the **Run Query** option at the top-right corner of the **Query** tab. 
-        6. In the **Function** tab, write a VRL function. 
-        7. Click the **Test Function** button at the top-right corner of the screen. 
-        8. Click **Save** to save the function. 
-
+    1. Enable **Create new function** toggle.
+    2. In the **Associate Function** tab, enter the function name. 
+    3. Open the **Query** tab. 
+    4. Select the stream type, stream name, and duration for which you want to query the data. 
+    5. Click the **Run Query** option at the top-right corner of the **Query** tab. 
+    6. In the **Function** tab, write a VRL function. 
+    7. Click the **Test Function** button at the top-right corner of the screen. 
+    8. Click **Save** to save the function. 
+    :::
 4. The **After Flattening** toggle is enabled by default. It ensures the function processes normalized data. Disable this toggle only if you need the original structure.
 
-    !!! note "Guidelines"
-        - **RBF (Run Before Flattening)**: Function executes before data structure is flattened. 
-        - **RAF (Run After Flattening)**: Function executes after data structure is flattened. 
-        ![After flattening](../../../images/after-flattening.png)
-
+    :::note[Guidelines]
+    - **RBF (Run Before Flattening)**: Function executes before data structure is flattened. 
+    - **RAF (Run After Flattening)**: Function executes after data structure is flattened. 
+    ![After flattening](../../../images/after-flattening.png)
+    :::
 5. Click **Save** to confirm the transform node.
 :::
 
@@ -107,21 +108,20 @@ A destination defines where the processed events are written. You can forward da
 2. In the **Associate Stream** panel, configure the destination stream.
 3. Select an existing stream or create a new one. Stream creation follows the same configuration as shown in Step 3.  
 
-    !!! note "Note"
-        - For real-time pipelines, you can select **logs**, **metrics**, or **traces** as the destination stream type.  
-        - **Enrichment_tables** as a destination stream is only available for scheduled pipelines. It cannot be used as a destination in real-time pipelines.
-
-    !!! note "Dynamic stream names"
-        You can configure the stream name dynamically with curly braces.  
-        Example: `static_text_{fieldname}_postfix`  
-        Static text before and after the braces is optional.
-
-    !!! warning "Default destination and data loss"
-        When you select a source stream for a real-time pipeline, OpenObserve automatically adds a destination that points back to the same stream. This default destination ensures that all ingested events continue to be stored in the source stream.  
-        If you remove this default destination and only keep filtered routes, events that do not match any condition are dropped and are not written to the source stream.  
-        Add at least one catch-all route back to the original stream if you want to preserve all events.
-
-
+    :::note[Note]
+    - For real-time pipelines, you can select **logs**, **metrics**, or **traces** as the destination stream type.  
+    - **Enrichment_tables** as a destination stream is only available for scheduled pipelines. It cannot be used as a destination in real-time pipelines.
+    :::
+    :::note[Dynamic stream names]
+    You can configure the stream name dynamically with curly braces.  
+    Example: `static_text_{fieldname}_postfix`  
+    Static text before and after the braces is optional.
+    :::
+    :::warning[Default destination and data loss]
+    When you select a source stream for a real-time pipeline, OpenObserve automatically adds a destination that points back to the same stream. This default destination ensures that all ingested events continue to be stored in the source stream.  
+    If you remove this default destination and only keep filtered routes, events that do not match any condition are dropped and are not written to the source stream.  
+    Add at least one catch-all route back to the original stream if you want to preserve all events.
+    :::
 **To add an external destination:** 
 ![stream-destination](../../../images/stream-destination.png)
 

@@ -7,10 +7,10 @@ description: Mobile RUM privacy controls — tracking consent, PII handling, Ses
 
 Real User Monitoring is powerful precisely because it watches real people use your app — which means it can capture things you never intended to collect. The OpenObserve mobile SDKs are built so that privacy is the default, not an afterthought: nothing is gathered until the user consents, Session Replay masks everything sensitive out of the box, and you can redact or drop any event before it leaves the device. This guide covers the full privacy and data-control surface across [React Native](./react-native.md), [Android](./android.md), and [iOS](./ios.md) so you can integrate RUM without compromising your users' trust or your compliance posture.
 
-!!! warning "Alpha status"
+:::warning[Alpha status]
 
-    The mobile SDKs are early releases (`0.1.0-alpha.x`). The privacy primitives described here — consent, masking, event mappers, encryption at rest — are present today. Pin exact versions and re-verify these controls when you upgrade.
-
+The mobile SDKs are early releases (`0.1.0-alpha.x`). The privacy primitives described here — consent, masking, event mappers, encryption at rest — are present today. Pin exact versions and re-verify these controls when you upgrade.
+:::
 ## The tracking-consent model
 
 Every mobile SDK gates all collection behind a three-state consent value. This is the single most important privacy control, because it decides whether the SDK does anything at all.

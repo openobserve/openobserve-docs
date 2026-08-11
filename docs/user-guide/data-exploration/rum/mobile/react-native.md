@@ -9,10 +9,10 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts (sessions, views, actions, resources, errors) that this guide assumes.
 
-!!! warning "Alpha status"
+:::warning[Alpha status]
 
-    The React Native SDK is currently published as `0.1.0-alpha.5`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
-
+The React Native SDK is currently published as `0.1.0-alpha.5`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
+:::
 ## What you get
 
 Once integrated, OpenObserve RUM automatically captures:
@@ -123,10 +123,10 @@ export default function App() {
 
 That single provider initializes the SDK, enables RUM, and starts the automatic instrumentation you turned on. Data now flows to your OpenObserve instance.
 
-!!! note "Consent gating"
+:::note[Consent gating]
 
-    Nothing is collected until tracking consent is `granted`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `OoSdkReactNative.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
-
+Nothing is collected until tracking consent is `granted`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `OoSdkReactNative.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
+:::
 ## Step 3 — Configuration options
 
 ### Core options

@@ -68,33 +68,33 @@ Scheduled pipelines do not use a **Stream** node as the source. They always begi
     3. Enter a value in the **Value** input box.
     4. Add more conditions if needed.
 
-    !!! note "Guidelines"
-        - Use an empty string to check for empty values. For example, `app_name != ""`
-        - Use null to check for null values. For example, `app_name != null`
-        - If the condition does not match, the record is dropped.
-        - If the record does not contain the specified field, it is also dropped.
-
+    :::note[Guidelines]
+    - Use an empty string to check for empty values. For example, `app_name != ""`
+    - Use null to check for null values. For example, `app_name != null`
+    - If the condition does not match, the record is dropped.
+    - If the record does not contain the specified field, it is also dropped.
+    :::
 3. If you add a Function node:
 
     Use a Function node to transform events using a VRL function.
     > A Function does not require predefined fields. You can use it even if the source stream has no schema. <br>
-    !!! note "To create a new function:"
+    :::note[To create a new function:]
 
-        1. Enable **Create new function** toggle.
-        2. In the **Associate Function** tab, enter the function name. 
-        3. Open the **Query** tab. 
-        4. Select the stream type, stream name, and duration for which you want to query the data. 
-        5. Click the **Run Query** option at the top-right corner of the **Query** tab. 
-        6. In the **Function** tab, write a VRL function. 
-        7. Click the **Test Function** button at the top-right corner of the screen. 
-        8. Click **Save** to save the function. 
-
+    1. Enable **Create new function** toggle.
+    2. In the **Associate Function** tab, enter the function name. 
+    3. Open the **Query** tab. 
+    4. Select the stream type, stream name, and duration for which you want to query the data. 
+    5. Click the **Run Query** option at the top-right corner of the **Query** tab. 
+    6. In the **Function** tab, write a VRL function. 
+    7. Click the **Test Function** button at the top-right corner of the screen. 
+    8. Click **Save** to save the function. 
+    :::
 4. The **After Flattening** toggle is enabled by default. It ensures the function processes normalized data. Disable this toggle only if you need the original structure.
 
-    !!! note "Guidelines"
-        - **RBF (Run Before Flattening)**: Function executes before data structure is flattened. 
-        - **RAF (Run After Flattening)**: Function executes after data structure is flattened. 
-
+    :::note[Guidelines]
+    - **RBF (Run Before Flattening)**: Function executes before data structure is flattened. 
+    - **RAF (Run After Flattening)**: Function executes after data structure is flattened. 
+    :::
 5. Click **Save** to confirm the transform node.
 :::
 

@@ -7,10 +7,10 @@ description: Production guidance for mobile RUM — sampling strategy, batch siz
 
 This guide collects the decisions that separate a mobile RUM setup that just works in a demo from one that is healthy, affordable, and trustworthy in production — across React Native, Android, and iOS. It assumes you have a working integration from one of the [platform guides](./index.md) and focuses on the choices you make around it: how much to sample, how to batch, how to keep cost and volume under control, how to keep releases comparable, and how to verify everything before you ship. Every setting mentioned here maps to a real SDK option; where a platform differs, that is called out.
 
-!!! warning "Alpha status"
+:::warning[Alpha status]
 
-    The mobile SDKs are published as `0.1.0-alpha.x` (React Native `0.1.0-alpha.5`, Android `0.1.0-alpha5`, iOS `0.1.0-alpha.4`). They are ready to integrate and evaluate. Pin exact versions, test upgrades deliberately, and watch release notes — the version-management section below covers this in detail.
-
+The mobile SDKs are published as `0.1.0-alpha.x` (React Native `0.1.0-alpha.5`, Android `0.1.0-alpha5`, iOS `0.1.0-alpha.4`). They are ready to integrate and evaluate. Pin exact versions, test upgrades deliberately, and watch release notes — the version-management section below covers this in detail.
+:::
 ## Sampling strategy — pick each rate for what it costs
 
 The single most important cost-and-value lever in mobile RUM is sampling, and the mistake to avoid is treating it as one number. There are three independent sample rates, and they exist because the three data types they gate have wildly different volume and value.

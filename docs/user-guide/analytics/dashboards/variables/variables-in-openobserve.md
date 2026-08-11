@@ -36,9 +36,9 @@ To create a variable:
     - **Type of Variable**: Query Values
     - **Name**: pod
 
-        !!! Note
-            Variable names must be unique within a dashboard. If you enter a name that already exists, OpenObserve shows `Variable with same name already exists.` and does not save the variable.
-
+        :::note
+        Variable names must be unique within a dashboard. If you enter a name that already exists, OpenObserve shows `Variable with same name already exists.` and does not save the variable.
+        :::
     - **Label**: Pod
     - **Stream Type**: logs
     - **Stream**: `default`
