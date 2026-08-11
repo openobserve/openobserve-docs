@@ -49,8 +49,9 @@ To delegate organization management to users in enterprise mode:
 
     - **Create**: Add new organizations
     - **Update**: Modify organization details
-    !!! note "Note"
-        By default, OpenObserve displays the list of organizations a user belongs to. You do not need to explicitly grant permission to view or retrieve organization details.
+    :::note[Note]
+    By default, OpenObserve displays the list of organizations a user belongs to. You do not need to explicitly grant permission to view or retrieve organization details.
+    :::
 6. Click **Save**. <br>
 ![Grant Organization Management Access in OpenObserve](../../../images/organization-role-permission.png)
 

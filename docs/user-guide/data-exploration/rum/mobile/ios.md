@@ -9,10 +9,10 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts — sessions, views, actions, resources, errors — that this guide assumes.
 
-!!! warning "Alpha status"
+:::warning[Alpha status]
 
-    The iOS SDK is currently published as `0.1.0-alpha.4`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
-
+The iOS SDK is currently published as `0.1.0-alpha.4`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
+:::
 ## What you get
 
 Once integrated, OpenObserve RUM automatically captures:
@@ -118,14 +118,14 @@ RUM.enable(
 
 Those two calls initialize the SDK, enable RUM, and start the automatic instrumentation you configured. Data now flows to your OpenObserve instance, which appends the RUM intake path to your custom endpoint automatically.
 
-!!! note "No organization field"
+:::note[No organization field]
 
-    There is no separate "organization" setting on mobile — your organization is part of the ingestion endpoint URL and token. The built-in managed-cloud `site` presets (`.us1`, `.eu1`, and so on) are still being wired up for OpenObserve Cloud in this alpha; for self-hosted and today's setups, use `customEndpoint` as shown above.
+There is no separate "organization" setting on mobile — your organization is part of the ingestion endpoint URL and token. The built-in managed-cloud `site` presets (`.us1`, `.eu1`, and so on) are still being wired up for OpenObserve Cloud in this alpha; for self-hosted and today's setups, use `customEndpoint` as shown above.
+:::
+:::note[Consent gating]
 
-!!! note "Consent gating"
-
-    Nothing is collected until tracking consent is `.granted`. If you show a consent dialog, initialize with `.pending` and call `OpenObserve.set(trackingConsent: .granted)` once the user agrees. See [Security & Privacy](./security-privacy.md).
-
+Nothing is collected until tracking consent is `.granted`. If you show a consent dialog, initialize with `.pending` and call `OpenObserve.set(trackingConsent: .granted)` once the user agrees. See [Security & Privacy](./security-privacy.md).
+:::
 Set `OpenObserve.verbosityLevel = .debug` during development to see the SDK's internal logs while you verify the integration; lower or remove it in production.
 
 ## Step 3 — Configuration options

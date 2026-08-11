@@ -107,19 +107,18 @@ The new stream appears on the Streams page. Ingest data into the stream to popul
         For detailed information about each field type and index strategy, see [Field and Index Types in Streams](data-type-and-index-type-in-streams.md)
     This creates a user-defined schema at stream creation. Learn more about [user defined schema](schema-settings.md#user-defined-schema-uds).  
 
-    ??? info "Click to see how User-defined Schema works."
-        Let us say you define the following fields while creating a stream:
+    :::accordion[Click to see how User-defined Schema works.]
+    Let us say you define the following fields while creating a stream:
 
-        - job (String)
-        - code (Integer)
-        - message (String)
+    - job (String)
+    - code (Integer)
+    - message (String)
 
-        After you ingest data into this stream:
+    After you ingest data into this stream:
 
-        - These fields (job, code, message) will appear under User Defined Schema in the [Stream Details](stream-details.md) page.
-        - Any additional fields not defined earlier will appear under All Fields.
-
-
+    - These fields (job, code, message) will appear under User Defined Schema in the [Stream Details](stream-details.md) page.
+    - Any additional fields not defined earlier will appear under All Fields.
+    :::
 5. Click **Create Stream**.
 :::
 ::::

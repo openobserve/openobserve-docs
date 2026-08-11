@@ -9,10 +9,10 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts — sessions, views, actions, resources, errors — that this guide assumes.
 
-!!! warning "Alpha status"
+:::warning[Alpha status]
 
-    The Android SDK is currently published as `0.1.0-alpha5`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
-
+The Android SDK is currently published as `0.1.0-alpha5`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
+:::
 ## What you get
 
 Once integrated, OpenObserve RUM automatically captures:
@@ -139,14 +139,14 @@ Register the `Application` class in your manifest so it actually runs:
 
 That is the whole setup. `OpenObserve.initialize` starts the core SDK, `Rum.enable` turns on RUM with the automatic instrumentation you configured, and data begins flowing to your OpenObserve instance.
 
-!!! note "The connection model"
+:::note[The connection model]
 
-    You pass the **client token** to `Configuration.Builder`, the **RUM application id** to `RumConfiguration.Builder`, and point `useCustomEndpoint` at your OpenObserve instance's base URL — the SDK appends the RUM intake path automatically. There is no separate "organization" field; your organization is part of the ingestion endpoint and token. The built-in `useSite(...)` managed-cloud presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in this alpha, so use the custom-endpoint approach for self-hosted and today's setups.
+You pass the **client token** to `Configuration.Builder`, the **RUM application id** to `RumConfiguration.Builder`, and point `useCustomEndpoint` at your OpenObserve instance's base URL — the SDK appends the RUM intake path automatically. There is no separate "organization" field; your organization is part of the ingestion endpoint and token. The built-in `useSite(...)` managed-cloud presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in this alpha, so use the custom-endpoint approach for self-hosted and today's setups.
+:::
+:::note[Consent gating]
 
-!!! note "Consent gating"
-
-    Nothing is collected until tracking consent is `GRANTED`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `OpenObserve.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
-
+Nothing is collected until tracking consent is `GRANTED`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `OpenObserve.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
+:::
 ## Step 3 — Configuration options
 
 ### Core options (`Configuration.Builder`)
@@ -367,10 +367,10 @@ This installs native signal handlers that capture crashes in your native librari
 
 If you ship a release build with R8/ProGuard, your stack traces arrive obfuscated, and NDK crashes arrive as raw addresses. To make them readable, OpenObserve publishes an **Android Gradle plugin** (id `io.openobserve.openobserve-sdk-android-gradle-plugin`) that uploads your R8/ProGuard **mapping files** and **NDK symbol files** as part of your build, so OpenObserve can deobfuscate and symbolicate crash reports automatically.
 
-!!! note
+:::note
 
-    The plugin's build-script configuration DSL is being finalized in the current alpha. Apply the plugin id above, then follow the current setup instructions in the [SDK's GitHub repository](https://github.com/openobserve) for wiring the upload task and credentials — the exact DSL is documented there and evolving quickly. See [Error & Crash Tracking](./error-tracking.md) for how symbolicated crashes appear in OpenObserve.
-
+The plugin's build-script configuration DSL is being finalized in the current alpha. Apply the plugin id above, then follow the current setup instructions in the [SDK's GitHub repository](https://github.com/openobserve) for wiring the upload task and credentials — the exact DSL is documented there and evolving quickly. See [Error & Crash Tracking](./error-tracking.md) for how symbolicated crashes appear in OpenObserve.
+:::
 ## Step 12 — Session Replay (optional)
 
 Add the `o2-sdk-android-session-replay` artifact to record privacy-first playback of user sessions. Enable it with a sample rate and privacy levels:

@@ -9,10 +9,10 @@ Errors and crashes are the highest-signal data your mobile app produces — they
 
 If you are new to the mobile SDKs, start with the [Mobile RUM Overview](./index.md) and the per-platform setup guides for [React Native](./react-native.md), [Android](./android.md), and [iOS](./ios.md) — this page assumes the SDK is already initialized and pointed at your OpenObserve instance.
 
-!!! warning "Alpha status"
+:::warning[Alpha status]
 
-    The mobile SDKs are early releases (`0.1.0-alpha.x`). The error and crash APIs shown here are stable enough to integrate and evaluate, but pin exact versions and expect some rough edges — a few build-time tools are still being finalized, and those are called out explicitly below.
-
+The mobile SDKs are early releases (`0.1.0-alpha.x`). The error and crash APIs shown here are stable enough to integrate and evaluate, but pin exact versions and expect some rough edges — a few build-time tools are still being finalized, and those are called out explicitly below.
+:::
 ## Handled errors vs. crashes
 
 These are two different things, and OpenObserve treats them differently:
