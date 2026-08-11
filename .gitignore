@@ -1,5 +1,6 @@
 # --- Next.js / Fumadocs build output ---------------------------------------
 /.next
+/.next-build
 /out
 /.source
 next-env.d.ts

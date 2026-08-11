@@ -12,7 +12,7 @@
     "check:seo": "node scripts/check-seo.mjs",
     "check:links": "node scripts/check-links.mjs",
     "dev": "node scripts/copy-assets.mjs && next dev -p 3030",
-    "build": "next build",
+    "build": "NEXT_DIST_DIR=.next-build next build",
     "postbuild": "node scripts/post-export.mjs && node scripts/check-links.mjs",
     "start": "next start",
     "postinstall": "fumadocs-mdx"
