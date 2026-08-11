@@ -7,9 +7,9 @@ description: Production guidance for mobile RUM — sampling strategy, batch siz
 
 This guide collects the decisions that separate a mobile RUM setup that just works in a demo from one that is healthy, affordable, and trustworthy in production — across React Native, Android, and iOS. It assumes you have a working integration from one of the [platform guides](./index.md) and focuses on the choices you make around it: how much to sample, how to batch, how to keep cost and volume under control, how to keep releases comparable, and how to verify everything before you ship. Every setting mentioned here maps to a real SDK option; where a platform differs, that is called out.
 
-!!! warning "Alpha status"
+!!! note "Versions"
 
-    The mobile SDKs are published as `0.1.0-alpha.x` (React Native `0.1.0-alpha.5`, Android `0.1.0-alpha5`, iOS `0.1.0-alpha.4`). They are ready to integrate and evaluate. Pin exact versions, test upgrades deliberately, and watch release notes — the version-management section below covers this in detail.
+    The mobile SDKs are on their first stable releases: React Native `0.1.1`, Android `0.1.0`, iOS `0.1.0`. Pin exact versions, test upgrades deliberately, and watch release notes — the version-management section below covers this in detail.
 
 ## Sampling strategy — pick each rate for what it costs
 
@@ -341,28 +341,28 @@ Never let a release be the first time your instrumentation runs against real con
 
 Raise verbosity in non-prod builds and lower or remove it in production — debug logging is for you, not for your users' devices.
 
-## Alpha version management — pin, align, and watch release notes
+## Version management — pin, align, and watch release notes
 
-Because these SDKs are `0.1.0-alpha.x`, treat version management as part of your production hygiene:
+These SDKs are on early `0.1.x` releases, so treat version management as part of your production hygiene:
 
-- **Pin exact versions**, not ranges. Configuration details can change between alpha releases, and a floating range can pull a breaking change into a build without you noticing.
-- **Keep React Native's layers aligned.** The JavaScript package wraps native Android and iOS code, so the npm package version and the native pods / Gradle artifacts it brings in must match. After upgrading the JS package, run `pod install` again and rebuild both platforms so the native side matches the JavaScript side.
+- **Pin exact versions**, not ranges. Configuration details can still change between `0.1.x` releases, and a floating range can pull a breaking change into a build without you noticing.
+- **Keep React Native's layers aligned.** The JavaScript package wraps native Android and iOS code and pins the native versions it needs — these are not the same number as the npm version (React Native `0.1.1` pins Android `0.1.0` and iOS `0.1.0`). Let the package bring its own native versions rather than overriding them, and after upgrading the JS package run `pod install` again and rebuild both platforms so the native side matches.
 - **Test every upgrade in a non-prod build** using the verification steps above before it reaches production.
 - **Read the release notes** for each SDK on every bump and watch for breaking changes to configuration and API surface.
 
 ```bash
-# Pin exact versions — no ^ or ~ ranges on alpha SDKs
-npm install @openobserve/mobile-react-native@0.1.0-alpha.5
+# Pin exact versions — no ^ or ~ ranges
+npm install @openobserve/mobile-react-native@0.1.1
 ```
 
 ```groovy
-// Android — pin the exact alpha coordinate
-implementation "ai.openobserve:o2-sdk-android-rum:0.1.0-alpha5"
+// Android — pin the exact coordinate
+implementation "ai.openobserve:o2-sdk-android-rum:0.1.0"
 ```
 
 ```swift
 // iOS SPM — pin exactly rather than using a floating range
-.package(url: "https://github.com/openobserve/openobserve-sdk-ios.git", exact: "0.1.0-alpha.4")
+.package(url: "https://github.com/openobserve/openobserve-sdk-ios.git", exact: "0.1.0")
 ```
 
 ## Production readiness checklist
@@ -382,7 +382,7 @@ Run this list before you flip a mobile RUM build to production:
 - [ ] **Naming** — views and actions are stable, human-readable, and low-cardinality; ids live in attributes.
 - [ ] **First-party hosts** — your backend hosts marked so `tracecontext` links mobile to backend traces.
 - [ ] **Verbosity** — debug logging disabled in production.
-- [ ] **Versions pinned** — exact alpha versions, RN JS and native layers aligned, release notes reviewed.
+- [ ] **Versions pinned** — exact versions, RN JS and native layers aligned, release notes reviewed.
 - [ ] **Verified in non-prod** — data confirmed in OpenObserve RUM and Error Tracking before promotion.
 
 ## What's next
@@ -418,6 +418,6 @@ Start with automatic instrumentation — it captures screens, taps, network call
 
 Mark your backend hosts as first-party and let the SDK inject W3C tracecontext headers on requests to those hosts. OpenObserve reads tracecontext, so a mobile resource links to the server-side spans it triggered, giving you one continuous trace from tap to backend. If your backend is already sending traces to OpenObserve, this is the single change that connects the two.
 
-### These SDKs are alpha — how should I manage upgrades?
+### How should I manage SDK upgrades?
 
-Pin exact versions rather than version ranges, because configuration details can change between alpha releases. On React Native, keep the JavaScript package version aligned with the native pods and Gradle artifacts it brings in. Test each upgrade in a non-production build, read the release notes for breaking changes, and verify data still appears in OpenObserve before you ship.
+Pin exact versions rather than version ranges, because configuration details can still change between early `0.1.x` releases. On React Native, let the JavaScript package bring in the native pods and Gradle artifacts it pins rather than overriding them. Test each upgrade in a non-production build, read the release notes for breaking changes, and verify data still appears in OpenObserve before you ship.

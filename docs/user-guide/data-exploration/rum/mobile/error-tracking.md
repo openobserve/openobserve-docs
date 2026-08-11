@@ -9,9 +9,9 @@ Errors and crashes are the highest-signal data your mobile app produces — they
 
 If you are new to the mobile SDKs, start with the [Mobile RUM Overview](./index.md) and the per-platform setup guides for [React Native](./react-native.md), [Android](./android.md), and [iOS](./ios.md) — this page assumes the SDK is already initialized and pointed at your OpenObserve instance.
 
-!!! warning "Alpha status"
+!!! note "Versions"
 
-    The mobile SDKs are early releases (`0.1.0-alpha.x`). The error and crash APIs shown here are stable enough to integrate and evaluate, but pin exact versions and expect some rough edges — a few build-time tools are still being finalized, and those are called out explicitly below.
+    The mobile SDKs are on their first stable releases — React Native `0.1.1`, Android `0.1.0`, iOS `0.1.0`. The error and crash APIs shown here are stable, but pin exact versions: a few build-time symbol-upload tools are still being finalized, and those are called out explicitly below.
 
 ## Handled errors vs. crashes
 
@@ -221,7 +221,7 @@ Android release builds are obfuscated by R8 (or ProGuard) and, if you ship nativ
 - **ProGuard/R8 mapping file** (`mapping.txt`) — deobfuscates JVM stack traces back to your original class and method names.
 - **NDK symbol files** — resolve native C/C++ frames back to source.
 
-The **OpenObserve Android Gradle plugin** (id `io.openobserve.openobserve-sdk-android-gradle-plugin`) is the tool that uploads these mapping and symbol files as part of your build, so you do not do it by hand for every release. Its build-script configuration DSL is still being finalized in the current alpha — rather than reproduce a config block that is about to change, add the plugin and follow the current setup instructions in the [SDK's GitHub repository](https://github.com/openobserve/openobserve-sdk-android-gradle-plugin). Once configured, the plugin hooks into your release build and uploads the artifacts automatically, keyed to your app version.
+The **OpenObserve Android Gradle plugin** (id `io.openobserve.openobserve-sdk-android-gradle-plugin`) is the tool that uploads these mapping and symbol files as part of your build, so you do not do it by hand for every release. It is not yet published alongside the `0.1.0` SDK artifacts and its build-script configuration DSL is still being finalized — rather than reproduce a config block that is about to change, add the plugin and follow the current setup instructions in the [SDK's GitHub repository](https://github.com/openobserve/openobserve-sdk-android-gradle-plugin). Once configured, the plugin hooks into your release build and uploads the artifacts automatically, keyed to your app version.
 
 ## Scrubbing sensitive data from errors
 

@@ -9,9 +9,9 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts (sessions, views, actions, resources, errors) that this guide assumes.
 
-!!! warning "Alpha status"
+!!! note "Version"
 
-    The React Native SDK is currently published as `0.1.0-alpha.5`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
+    The React Native SDK is published as `0.1.1` on npm. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
 
 ## What you get
 
@@ -26,7 +26,7 @@ Once integrated, OpenObserve RUM automatically captures:
 
 ## Prerequisites
 
-- A React Native app (`react >= 16.13.1`, `react-native >= 0.63.4`).
+- A React Native app (`react >= 16.13.1`, `react-native >= 0.63.4 < 1.0`).
 - An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough:
 
 ```bash

@@ -9,9 +9,9 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts — sessions, views, actions, resources, errors — that this guide assumes.
 
-!!! warning "Alpha status"
+!!! note "Version"
 
-    The iOS SDK is currently published as `0.1.0-alpha.4`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
+    The iOS SDK is published as `0.1.0` — the first stable release — on both Swift Package Manager and CocoaPods. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
 
 ## What you get
 
@@ -51,7 +51,7 @@ In Xcode, choose **File → Add Package Dependencies…** and enter the reposito
 https://github.com/openobserve/openobserve-sdk-ios.git
 ```
 
-Pin the version to **0.1.0-alpha.4** (Exact Version) and add the products you need. `OpenObserveCore` and `OpenObserveRUM` are required; add the rest for the features you want:
+Pin the version to **0.1.0** (Exact Version) and add the products you need. `OpenObserveCore` and `OpenObserveRUM` are required; add the rest for the features you want:
 
 | Product | Purpose |
 |---------|---------|
@@ -66,7 +66,7 @@ Pin the version to **0.1.0-alpha.4** (Exact Version) and add the products you ne
 If you manage dependencies in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/openobserve/openobserve-sdk-ios.git", from: "0.1.0-alpha.4"),
+.package(url: "https://github.com/openobserve/openobserve-sdk-ios.git", exact: "0.1.0"),
 ```
 
 ### CocoaPods
@@ -74,10 +74,10 @@ If you manage dependencies in `Package.swift`:
 Alternatively, add one pod per module to your `Podfile`, then run `pod install`:
 
 ```bash
-pod 'OpenObserveCore', '0.1.0-alpha.4'
-pod 'OpenObserveRUM', '0.1.0-alpha.4'
-pod 'OpenObserveCrashReporting', '0.1.0-alpha.4'
-pod 'OpenObserveSessionReplay', '0.1.0-alpha.4'
+pod 'OpenObserveCore', '0.1.0'
+pod 'OpenObserveRUM', '0.1.0'
+pod 'OpenObserveCrashReporting', '0.1.0'
+pod 'OpenObserveSessionReplay', '0.1.0'
 ```
 
 ## Step 2 — Initialize OpenObserve RUM
@@ -120,7 +120,7 @@ Those two calls initialize the SDK, enable RUM, and start the automatic instrume
 
 !!! note "No organization field"
 
-    There is no separate "organization" setting on mobile — your organization is part of the ingestion endpoint URL and token. The built-in managed-cloud `site` presets (`.us1`, `.eu1`, and so on) are still being wired up for OpenObserve Cloud in this alpha; for self-hosted and today's setups, use `customEndpoint` as shown above.
+    There is no separate "organization" setting on mobile — your organization is part of the ingestion endpoint URL and token. The built-in managed-cloud `site` presets (`.us1`, `.eu1`, and so on) are still being wired up for OpenObserve Cloud as of `0.1.0`; for self-hosted and today's setups, use `customEndpoint` as shown above.
 
 !!! note "Consent gating"
 
@@ -138,7 +138,7 @@ Set `OpenObserve.verbosityLevel = .debug` during development to see the SDK's in
 | `env` | `String` | — (required) | Environment tag, e.g. `production`, `staging`. |
 | `service` | `String?` | bundle id | Service/app identifier used to group data. |
 | `version` | `String?` | `CFBundleShortVersionString` | Release version — used for release health. |
-| `site` | `OpenObserveSite` | `.us1` | Managed-cloud preset; use `customEndpoint` instead in this alpha. |
+| `site` | `OpenObserveSite` | `.us1` | Managed-cloud preset; use `customEndpoint` instead as of `0.1.0`. |
 | `batchSize` | `BatchSize` | `.medium` | `.small` / `.medium` / `.large` — how much to buffer per upload. |
 | `uploadFrequency` | `UploadFrequency` | `.average` | `.frequent` / `.average` / `.rare` — how often to upload. |
 | `batchProcessingLevel` | `BatchProcessingLevel` | `.medium` | How aggressively batches are processed. |
@@ -177,7 +177,7 @@ Set `OpenObserve.verbosityLevel = .debug` during development to see the SDK's in
 
 Passing `uiKitViewsPredicate` to `RUM.Configuration` (as in Step 2) is all you need for UIKit apps — the SDK starts a RUM view when a `UIViewController` appears and stops it when the next one takes over. `DefaultUIKitRUMViewsPredicate` names views after the view-controller class; provide your own `UIKitRUMViewsPredicate` implementation to customize names or skip controllers you do not want tracked.
 
-SwiftUI view tracking is available via `swiftUIViewsPredicate` but is **experimental** in this alpha — for SwiftUI screens today, prefer manual view calls.
+SwiftUI view tracking is available via `swiftUIViewsPredicate` but is still **experimental** as of `0.1.0` — for SwiftUI screens today, prefer manual view calls.
 
 ### Manually
 
@@ -276,7 +276,7 @@ import OpenObserveCrashReporting
 CrashReporting.enable()
 ```
 
-Crashes are captured on the next launch and attached to the session that crashed, so you see the sequence of views, actions, and errors that led up to them. To turn addresses into readable, symbolicated stack traces, upload your app's **dSYM** files for each release build. Automated dSYM upload tooling is being finalized in the current alpha — until then, keep your dSYMs archived per release; see [Error & Crash Tracking](./error-tracking.md) for the symbolication workflow.
+Crashes are captured on the next launch and attached to the session that crashed, so you see the sequence of views, actions, and errors that led up to them. To turn addresses into readable, symbolicated stack traces, upload your app's **dSYM** files for each release build. Automated dSYM upload tooling is still being finalized as of `0.1.0` — until then, keep your dSYMs archived per release; see [Error & Crash Tracking](./error-tracking.md) for the symbolication workflow.
 
 ## Step 10 — Session Replay (optional)
 
@@ -379,7 +379,7 @@ Both come from **Data → Data Sources → Real User Monitoring** in your OpenOb
 
 ### Does the SDK support tvOS, macOS, and watchOS?
 
-Yes. The Swift package targets iOS 12+, tvOS 12+, macOS 12.6+, and watchOS 7+. The RUM API is the same across platforms, though UIKit-based automatic view and action tracking applies to UIKit targets. SwiftUI view and action tracking is available but experimental in this alpha.
+Yes. The Swift package targets iOS 12+, tvOS 12+, macOS 12.6+, and watchOS 7+. The RUM API is the same across platforms, though UIKit-based automatic view and action tracking applies to UIKit targets. SwiftUI view and action tracking is available but still experimental as of `0.1.0`.
 
 ### How are screens tracked automatically?
 
@@ -395,4 +395,4 @@ Configure urlSessionTracking on RUM.Configuration with firstPartyHostsTracing se
 
 ### Is the iOS SDK production-ready?
 
-It is currently published as 0.1.0-alpha.4. The API is stable enough to integrate and evaluate against, and it produces the same RUM data model as OpenObserve's other SDKs, but you should pin the exact version, test upgrades, and expect some details — managed-cloud endpoint presets and build-time dSYM upload tooling — to be finalized before the stable release.
+It is published as 0.1.0, the first stable release. The API produces the same RUM data model as OpenObserve's other SDKs, but you should pin the exact version, test upgrades, and expect some details — managed-cloud endpoint presets and build-time dSYM upload tooling — to be finalized in a later 0.1.x release.
