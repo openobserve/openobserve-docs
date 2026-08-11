@@ -10,9 +10,9 @@ Performance is what your users actually feel: how long the app takes to open, ho
 
 If you are just getting set up, start with the [Mobile RUM Overview](./index.md) and your platform guide ([React Native](./react-native.md), [Android](./android.md), [iOS](./ios.md)). This page assumes the SDK is already initialized and RUM is enabled.
 
-!!! warning "Alpha status"
+!!! note "Versions (Beta)"
 
-    The mobile SDKs are early releases (`0.1.0-alpha.x`). The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change.
+    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change across early `0.1.x` releases.
 
 ## What performance data you get
 

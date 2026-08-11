@@ -9,9 +9,9 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts — sessions, views, actions, resources, errors — that this guide assumes.
 
-!!! warning "Alpha status"
+!!! note "Version (Beta)"
 
-    The Android SDK is currently published as `0.1.0-alpha5`. It is ready to integrate and evaluate — pin the exact version and test upgrades, since some configuration details may change before the stable release.
+    The Android SDK is published as `0.1.0` on Maven Central. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
 
 ## What you get
 
@@ -49,7 +49,7 @@ The SDK is published to Maven Central under the `ai.openobserve` group. Add the 
 ```groovy
 // app/build.gradle
 dependencies {
-    def openobserveVersion = "0.1.0-alpha5"
+    def openobserveVersion = "0.1.0"
 
     // Required
     implementation "ai.openobserve:o2-sdk-android-core:$openobserveVersion"
@@ -141,7 +141,7 @@ That is the whole setup. `OpenObserve.initialize` starts the core SDK, `Rum.enab
 
 !!! note "The connection model"
 
-    You pass the **client token** to `Configuration.Builder`, the **RUM application id** to `RumConfiguration.Builder`, and point `useCustomEndpoint` at your OpenObserve instance's base URL — the SDK appends the RUM intake path automatically. There is no separate "organization" field; your organization is part of the ingestion endpoint and token. The built-in `useSite(...)` managed-cloud presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in this alpha, so use the custom-endpoint approach for self-hosted and today's setups.
+    You pass the **client token** to `Configuration.Builder`, the **RUM application id** to `RumConfiguration.Builder`, and point `useCustomEndpoint` at your OpenObserve instance's base URL — the SDK appends the RUM intake path automatically. There is no separate "organization" field; your organization is part of the ingestion endpoint and token. The built-in `useSite(...)` managed-cloud presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud as of `0.1.0`, so use the custom-endpoint approach for self-hosted and today's setups.
 
 !!! note "Consent gating"
 
@@ -369,7 +369,7 @@ If you ship a release build with R8/ProGuard, your stack traces arrive obfuscate
 
 !!! note
 
-    The plugin's build-script configuration DSL is being finalized in the current alpha. Apply the plugin id above, then follow the current setup instructions in the [SDK's GitHub repository](https://github.com/openobserve) for wiring the upload task and credentials — the exact DSL is documented there and evolving quickly. See [Error & Crash Tracking](./error-tracking.md) for how symbolicated crashes appear in OpenObserve.
+    The plugin is not yet published alongside the `0.1.0` SDK artifacts, and its build-script configuration DSL is still being finalized. Apply the plugin id above, then follow the current setup instructions in the [SDK's GitHub repository](https://github.com/openobserve) for wiring the upload task and credentials — the exact DSL is documented there and evolving quickly. See [Error & Crash Tracking](./error-tracking.md) for how symbolicated crashes appear in OpenObserve.
 
 ## Step 12 — Session Replay (optional)
 
@@ -435,7 +435,7 @@ If nothing appears, raise the SDK log level (`OpenObserve.setVerbosity(Log.VERBO
 
 ### Which Gradle dependencies do I need for Android RUM?
 
-At minimum you add the core and RUM artifacts from the ai.openobserve Maven group: ai.openobserve:o2-sdk-android-core and ai.openobserve:o2-sdk-android-rum. Optional artifacts add the features you need — o2-sdk-android-okhttp for network tracking, o2-sdk-android-ndk for native crash reporting, o2-sdk-android-logs and o2-sdk-android-trace for logs and tracing, and o2-sdk-android-session-replay for Session Replay. Pin the same version (currently 0.1.0-alpha5) across all of them.
+At minimum you add the core and RUM artifacts from the ai.openobserve Maven group: ai.openobserve:o2-sdk-android-core and ai.openobserve:o2-sdk-android-rum. Optional artifacts add the features you need — o2-sdk-android-okhttp for network tracking, o2-sdk-android-ndk for native crash reporting, o2-sdk-android-logs and o2-sdk-android-trace for logs and tracing, and o2-sdk-android-session-replay for Session Replay. Pin the same version (currently 0.1.0) across all of them.
 
 ### What are the minimum requirements to use the Android SDK?
 
@@ -455,7 +455,7 @@ JVM crashes are captured by default through the core configuration. For native C
 
 ### How do I make stack traces readable after R8/ProGuard obfuscation?
 
-OpenObserve publishes an Android Gradle plugin (id io.openobserve.openobserve-sdk-android-gradle-plugin) that uploads your R8/ProGuard mapping files and NDK symbol files so obfuscated stack traces are deobfuscated in OpenObserve. The plugin's build-script DSL is being finalized in the current alpha, so check the SDK's GitHub repository for the current configuration.
+OpenObserve publishes an Android Gradle plugin (id io.openobserve.openobserve-sdk-android-gradle-plugin) that uploads your R8/ProGuard mapping files and NDK symbol files so obfuscated stack traces are deobfuscated in OpenObserve. The plugin is not yet published alongside the `0.1.0` SDK artifacts and its build-script DSL is still being finalized, so check the SDK's GitHub repository for the current configuration.
 
 ### How do I reduce the volume of RUM data sent to OpenObserve?
 
