@@ -175,9 +175,13 @@ This pattern works with [OpenAI's Responses API](https://platform.openai.com/doc
 
 ## Available tools
 
-When connected, your MCP client will see the following tools. Tool names are prefixed with your server name (e.g. `mcp__openobserve__StreamList`).
+OpenObserve includes the following tools. Tool names are prefixed with your server name (e.g. `mcp__openobserve__StreamList`).
 
-**Legend:** `pinned` = visible at the top of tool listings · ⚠️ = destructive (modifies or deletes data)
+:::note[Tools are discovered on demand]
+The catalog below shows all tools built into OpenObserve, but it is not sent to your MCP client all at once. By default, `tools/list` exposes `tool_search`, `tools_call`, and six frequently used pinned tools: `GetIncident`, `PrometheusRangeQuery`, `SearchSQL`, `StreamList`, `StreamSchema`, and `GetLatestTraces`. The agent uses `tool_search` to discover additional tools as needed, then runs them through `tools_call`. This keeps the initial tool list and model context small.
+:::
+
+**Legend:** `pinned` = exposed directly in the initial `tools/list` response (no search required) · ⚠️ = destructive (modifies or deletes data)
 
 :::accordion[Alerts (28 tools)]
 
