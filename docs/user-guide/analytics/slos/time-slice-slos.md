@@ -39,13 +39,6 @@ not exist for a single row.
 
 ## Configuration
 
-> **Known issue:** in current builds, saving a *new* time-slice SLO from the
-> form fails with `missing field query_language` — the form does not send that
-> field and the API requires it. Until the fix ships, create time-slice SLOs
-> through the API with `"query_language": "sql"` in the config (the example
-> under [Gaps versus failures](#gaps-versus-failures) shows the full shape);
-> editing an API-created time-slice SLO from the form works.
-
 Select **Time slice** as the SLI type, then fill in:
 
 | Field | Required | Meaning |

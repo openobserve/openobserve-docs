@@ -138,23 +138,22 @@ On a 94% SLO with 5-minute slices, the fast-burn card therefore reads ×16.66
 with a 10-minute short window — the ×16.66 from the target, the 10 minutes from
 the slice interval.
 
-### The card's budget percentage is only correct on a 30-day SLO
+### What "fires at N% budget" means
 
-Each card also states the fraction of the error budget its threshold spends over
-the long window — "fires at 2% budget". Those figures are the 30-day values, and
-they are shown unchanged on 7-day and 90-day SLOs, where they are wrong. The
-real fraction is `burn rate × (long window ÷ SLO window)`:
+Each card states the fraction of the error budget its threshold spends over the
+long window — `burn rate × (long window ÷ SLO window)`, computed from the
+clamped threshold, so it is accurate for this SLO's window length and target:
 
 | Preset | 7-day SLO | 30-day SLO | 90-day SLO |
 | --- | --- | --- | --- |
-| Fast burn | **10%** | 2% | **1%** |
-| Mid burn | **20%** | 5% | **3%** |
-| Slow burn | **40%** | 10% | **5%** |
+| Fast burn | ~10% | 2% | ~1% |
+| Mid burn | 20% | 5% | 3% |
+| Slow burn | 40% | 10% | 5% |
 
-So "Slow burn: ticket" on a 7-day SLO fires once **40%** of the budget is gone,
-not 10%. The thresholds and windows on the cards are correct; only the stated
-percentage is not. Work out the fraction yourself before treating a card as a
-policy decision.
+Notice how different the same card is per window: "Slow burn: ticket" on a
+7-day SLO fires once **40%** of the budget is gone, versus 10% on a 30-day SLO.
+Shorter windows tolerate proportionally deeper spend before the slow-burn
+ticket, because the same 24 hours is a larger share of the window.
 
 The recommended shape is the pair: one fast-burn alert to a paging destination,
 one slow-burn alert to a ticket queue, both on the same SLO and the same budget.
