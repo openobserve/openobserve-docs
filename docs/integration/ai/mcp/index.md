@@ -14,22 +14,7 @@ You can connect your AI agents and IDEs to your OpenObserve instance to query lo
 - **Agentic operations** like alert creation as part of CI/CD pipelines
 - **AI-assisted troubleshooting** where an agent can pull stream data, correlate traces, and suggest root causes
 
-:::note[Enterprise only]
-MCP is supported in the Enterprise edition of OpenObserve.
-:::
-
 ## Prerequisites
-
-Set the following environment variables on your OpenObserve instance:
-
-```bash
-O2_TOOL_API_URL="http://localhost:5080"
-O2_AI_ENABLED="true"
-```
-
-:::note[About `O2_TOOL_API_URL`]
-`O2_TOOL_API_URL` is the address OpenObserve uses to call its own REST API internally. `http://localhost:5080` is correct for a local process. For containerized or remote deployments set it to the address at which the OpenObserve API is reachable from within the same environment (e.g. the service name in Docker Compose).
-:::
 
 Your MCP endpoint follows the pattern:
 
@@ -468,7 +453,6 @@ This is useful for keeping production data isolated from development queries, or
 :::accordion[Connection fails / 404]
 
 - Confirm the endpoint path includes `/api/{org_id}/mcp`
-- Confirm `O2_AI_ENABLED=true` is set on the server
 - Test the base URL with `curl` to verify network reachability
 :::
 
