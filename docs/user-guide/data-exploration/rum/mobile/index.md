@@ -46,9 +46,9 @@ OpenObserve ships one SDK per mobile ecosystem. They are independent packages bu
 
 The React Native SDK wraps the native Android and iOS SDKs, so a React Native app gets native crash reporting, native view tracking, and native network instrumentation underneath the JavaScript layer.
 
-!!! note "Versions"
+!!! note "Versions (Beta)"
 
-    The mobile SDKs are on their first stable releases — React Native `0.1.1`, Android `0.1.0`, iOS `0.1.0`. Pin exact versions and expect small configuration details to change across early `0.1.x` releases.
+    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. Pin exact versions and expect small configuration details to change across early `0.1.x` releases.
 
 ## How it connects to OpenObserve
 
@@ -104,7 +104,7 @@ The SDKs are built for production: data is collected asynchronously off the main
 
 ### Are the mobile SDKs production-ready?
 
-The mobile SDKs are on their first stable releases — React Native 0.1.1, Android 0.1.0, and iOS 0.1.0. The API surface is stable and the data model matches OpenObserve's browser RUM, but you should pin exact versions, test upgrades, and expect some configuration details — particularly managed-cloud endpoint presets and build-time symbol upload — to be finalized in upcoming 0.1.x releases.
+The mobile SDKs are in Beta, at React Native 0.1.1, Android 0.1.0, and iOS 0.1.0. The API surface is settled and the data model matches OpenObserve's browser RUM, but you should pin exact versions, test upgrades, and expect some configuration details — particularly managed-cloud endpoint presets and build-time symbol upload — to be finalized in upcoming 0.1.x releases.
 
 ### How is Mobile RUM different from OpenObserve's browser RUM?
 

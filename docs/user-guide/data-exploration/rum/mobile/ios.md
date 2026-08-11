@@ -9,9 +9,9 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts — sessions, views, actions, resources, errors — that this guide assumes.
 
-!!! note "Version"
+!!! note "Version (Beta)"
 
-    The iOS SDK is published as `0.1.0` — the first stable release — on both Swift Package Manager and CocoaPods. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
+    The iOS SDK is published as `0.1.0` on both Swift Package Manager and CocoaPods. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
 
 ## What you get
 
@@ -395,4 +395,4 @@ Configure urlSessionTracking on RUM.Configuration with firstPartyHostsTracing se
 
 ### Is the iOS SDK production-ready?
 
-It is published as 0.1.0, the first stable release. The API produces the same RUM data model as OpenObserve's other SDKs, but you should pin the exact version, test upgrades, and expect some details — managed-cloud endpoint presets and build-time dSYM upload tooling — to be finalized in a later 0.1.x release.
+It is in Beta, published as 0.1.0. The API produces the same RUM data model as OpenObserve's other SDKs, but you should pin the exact version, test upgrades, and expect some details — managed-cloud endpoint presets and build-time dSYM upload tooling — to be finalized in a later 0.1.x release.

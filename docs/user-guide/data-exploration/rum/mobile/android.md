@@ -9,9 +9,9 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts — sessions, views, actions, resources, errors — that this guide assumes.
 
-!!! note "Version"
+!!! note "Version (Beta)"
 
-    The Android SDK is published as `0.1.0` on Maven Central — the first stable release. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
+    The Android SDK is published as `0.1.0` on Maven Central. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
 
 ## What you get
 

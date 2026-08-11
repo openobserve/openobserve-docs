@@ -9,9 +9,9 @@ Errors and crashes are the highest-signal data your mobile app produces — they
 
 If you are new to the mobile SDKs, start with the [Mobile RUM Overview](./index.md) and the per-platform setup guides for [React Native](./react-native.md), [Android](./android.md), and [iOS](./ios.md) — this page assumes the SDK is already initialized and pointed at your OpenObserve instance.
 
-!!! note "Versions"
+!!! note "Versions (Beta)"
 
-    The mobile SDKs are on their first stable releases — React Native `0.1.1`, Android `0.1.0`, iOS `0.1.0`. The error and crash APIs shown here are stable, but pin exact versions: a few build-time symbol-upload tools are still being finalized, and those are called out explicitly below.
+    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. The error and crash APIs shown here are settled, but pin exact versions: a few build-time symbol-upload tools are still being finalized, and those are called out explicitly below.
 
 ## Handled errors vs. crashes
 
