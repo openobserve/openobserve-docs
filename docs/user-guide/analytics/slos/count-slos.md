@@ -1,24 +1,27 @@
 ---
 title: Count SLOs
 metaTitle: Count-based SLOs in OpenObserve | OpenObserve
-description: "Create event-count SLOs in OpenObserve: define good events with a predicate, scope the denominator, and measure availability and success-rate objectives."
+description: "Create count SLOs in OpenObserve from SQL event predicates or PromQL counter expressions, and measure availability and success-rate objectives."
 ---
 
 # Count SLOs
 
-A count SLO measures **good events divided by total events**. It is the right
-choice whenever your data has one row per unit of work — a request, a job, a
-payment, a span — and you can write a predicate that says which of those rows
-succeeded.
+A count SLO measures **good events divided by total events**. Use it when your
+signal represents discrete units of work — requests, jobs, payments, spans —
+and you can identify both the good events and the complete population.
 
 ```
-SLI = 100 × (rows in scope matching "good when") / (rows matching "scope")
+SLI = 100 × good events / total events
 ```
 
-With the form's single-query source, both numbers come from a **single scan** of
-the same rows, so the numerator can never drift from the denominator. (The
-API-only dual-query and PromQL sources trade that atomicity away — see the
-metrics note below.)
+OpenObserve can obtain those counts in two ways:
+
+- **SQL** counts rows in a logs, metrics, or traces stream. A scope defines the
+  denominator and a boolean predicate identifies good rows. In the SLO form,
+  both numbers come from one scan, so they cannot drift apart.
+- **PromQL** evaluates separate good and total expressions over metrics. This
+  is the right shape for monotonic counters, where `increase()` handles resets
+  and turns samples into event counts.
 
 ![New SLO form configured as a count SLI, with scope, good-when predicate, and the good/bad events preview](../../../images/slo-count-form.png)
 
@@ -32,45 +35,32 @@ metrics note below.)
 | Was p95 latency under 300 ms? | No — use a [time-slice SLO](time-slice-slos.md) |
 | Was the disk-space alert quiet? | No — use an [alert-based SLO](alert-based-slos.md) |
 
-The distinguishing test is whether "good" is a property of an individual row. If
-you need to aggregate before you can say good or bad, you need a time-slice SLO.
+The distinguishing test is whether the objective weights **events**. With SQL,
+"good" is a property of an individual row; with PromQL, good and total are
+event counts derived from counters. If you need to aggregate a gauge or latency
+distribution before you can judge a period, use a time-slice SLO.
 
 ## Configuration
 
-Select **Count** as the SLI type, then fill in:
+Select **Count** as the SLI type, then choose a stream type and stream. Logs and
+traces use SQL. For metrics, the **Query language** selector offers **PromQL**
+(the default) and **SQL**.
 
-| Field | Required | Meaning |
+| Language | Fields that define the SLI | Best for |
 | --- | --- | --- |
-| **Stream type** | Yes | Logs or traces. See the note on metrics below. |
-| **Stream** | Yes | The stream that holds the events. |
-| **Scope** | No | A filter applied to the **denominator**. Leave empty to count all rows in the stream. |
-| **Good when** | Yes | A boolean predicate over a single row. Rows in scope that satisfy it are the **numerator**. |
+| **SQL** | Optional **Scope** and required **Good when** predicate | Streams with one event per row, including raw metric samples when each sample is itself the unit you intend to count |
+| **PromQL** | Required **Good events** and **Total events** expressions | Metrics counters that must be converted into per-slice event counts with `increase()` |
+
+:::warning
+SQL can query a metrics stream, but counting its rows usually counts **samples**,
+not the events represented by a counter. Use PromQL for monotonic counters.
+:::
+
+## SQL count configuration
 
 Both expressions are SQL fragments over the stream's fields — the same dialect
 you use in the log search bar. The editor autocompletes field names and values
 for the selected stream.
-
-**Metrics streams are not usable from this form.** The form always submits a SQL
-single-query source, and SQL cannot address a metrics stream, so the save is
-rejected. Counting over metrics needs the PromQL count source, available through
-the API only:
-
-```json
-"config": {
-  "source": {
-    "mode": "prom_ql",
-    "query": {
-      "good": "increase(http_requests_success_total[5m])",
-      "total": "increase(http_requests_total[5m])"
-    }
-  }
-}
-```
-
-Use range selectors matching the slice interval. Note that the two expressions
-are evaluated separately, so this source has weaker atomicity than a
-single-query one — the two evaluations cannot be proven to have seen the same
-instant.
 
 ### Scope is the denominator
 
@@ -117,7 +107,85 @@ severity NOT IN ('ERROR', 'FATAL')
 Fields ingested as strings need an explicit cast before numeric comparison, as
 in the examples above.
 
-## Worked example
+## PromQL count configuration
+
+After selecting a metrics stream, leave **Query language** set to **PromQL**.
+The SQL fields are replaced by two PromQL editors:
+
+| Field | Meaning |
+| --- | --- |
+| **Good events (PromQL)** | The numerator: the counter increase for events that count as good. |
+| **Total events (PromQL)** | The denominator: the counter increase for every event in the population. This is the total, not the complement of the good expression. |
+
+For example, if one request counter carries a status label:
+
+```promql
+# Good events
+sum(increase(http_requests_total{status_code!~"5.."}[5m]))
+
+# Total events
+sum(increase(http_requests_total[5m]))
+```
+
+![New count SLO over a metrics stream using separate good and total PromQL expressions](../../../images/slo-count-promql-form.jpg)
+
+Keep these rules in mind:
+
+- Give both expressions a range selector exactly **one slice wide**:
+  `[1m]` for a 1-minute slice or `[5m]` for a 5-minute slice. OpenObserve
+  evaluates at slice ends; a wider or narrower range silently overcounts or
+  undercounts. If you change the slice interval later, update both range
+  selectors as part of the same edit.
+- Make sure good and total describe the same population and preserve every
+  configured **Group by** label. The two expressions are evaluated separately,
+  so they do not have the single-scan atomicity of the SQL source.
+- Derive good and total from the same counter whenever possible. Subtracting a
+  separate error counter can return no good series in a healthy slice where the
+  error series does not exist. Filter the request counter by a status or outcome
+  label instead.
+- Use `increase()` for counters instead of subtracting raw samples yourself.
+  It accounts for monotonic counter resets. Choose a slice that normally
+  contains at least two samples; a range with too few samples returns no value.
+- The preview plots **Good events** and **Total events**. Unlike the SQL
+  preview, it does not derive bad events as the complement of good rows.
+
+PromQL is accepted only for metrics. To filter it, put label matchers in the
+expressions; the SQL **Scope** field is not part of a PromQL count definition.
+OpenObserve parses both expressions on save and reports invalid PromQL before
+it starts backfill.
+
+:::note
+The selected metrics stream supplies the available **Group by** labels. PromQL
+autocomplete derives metric and label suggestions from the expression itself,
+and the saved PromQL source stores the expressions rather than a stream name.
+When editing an existing PromQL count SLO, reselect a metrics stream if you need
+to repopulate the **Group by** list.
+:::
+
+### PromQL grouping
+
+For a grouped PromQL count SLO, the returned series labels supply the group
+values. If **Group by** contains `region`, return a `region` label from both
+expressions, for example:
+
+```promql
+# Good events
+sum by (region) (
+  increase(http_requests_total{status_code!~"5.."}[5m])
+)
+
+# Total events
+sum by (region) (increase(http_requests_total[5m]))
+```
+
+OpenObserve folds any extra labels down to the configured group grain by
+adding their event counts. If a configured group label is missing, its value is
+recorded as empty. The SLO preview folds all returned series into an overall
+rollup and does not display or validate their labels. Before saving, run the
+expression in **Metrics** and inspect its output labels to make sure both
+expressions preserve every configured group label.
+
+## SQL worked example
 
 **Goal:** the API gateway should serve at least 94% of requests without a server
 error, measured over a rolling 7 days.
@@ -147,10 +215,34 @@ Reading the result:
 
 ![SLO detail page for the api-gateway availability count SLO](../../../images/slo-detail-trend.png)
 
+## PromQL worked example
+
+**Goal:** at least 99.9% of HTTP requests should complete without an error,
+measured from counters over a rolling 30 days.
+
+| Setting | Value |
+| --- | --- |
+| SLI type | Count |
+| Stream | `http_requests_total` (metrics) |
+| Query language | PromQL |
+| Good events | `sum(increase(http_requests_total{status_code!~"5.."}[5m]))` |
+| Total events | `sum(increase(http_requests_total[5m]))` |
+| Target | 99.9% |
+| Time window | 30 days |
+| Slice interval | 5 minutes |
+| Tags | `team:platform` |
+
 ## Choosing the slice interval
 
-For a count SLO the slice interval **does not change the numbers**. The same
-events are counted either way, because both `good` and `total` are sums.
+For a SQL count SLO, the slice interval **does not change the numbers**. The same
+rows are counted either way because both `good` and `total` are sums.
+
+For a PromQL count SLO, changing the slice also changes the evaluation grid and
+requires matching range selectors. Although the expressions are intended to
+cover the same event population, `increase()` extrapolation and sample density
+mean that five 1-minute evaluations do not necessarily equal one 5-minute
+evaluation. Choose a slice that normally contains at least two counter samples,
+and update both range selectors whenever you change it.
 
 Pick 5 minutes unless you have a reason not to: it stores a fifth as much
 history for the same answer. Choose 1 minute only when you want finer resolution
@@ -186,6 +278,15 @@ the denominator, it does not move the SLI either.
 **The query never ran, or failed.** That is a **gap**. It lowers coverage, and
 once coverage drops below `ZO_SLO_MIN_COVERAGE` (default 0.9) the SLO reads as
 **No data** and its alerts freeze.
+
+PromQL count expressions are joined using the total result as the population.
+For each total point, a missing matching good point is stored as zero good
+events; a good-only point with no matching total is ignored. If good exceeds
+total, OpenObserve caps good at total before storing the slice. A successful
+PromQL evaluation with no total points becomes a measured zero-traffic slice,
+not a gap. These rules are another reason to derive good and total from the same
+counter with aligned labels. The preview plots the raw query results, so it can
+differ from the stored values when a join is missing or good exceeds total.
 
 This is the opposite of how a [time-slice SLO](time-slice-slos.md) treats an
 empty period, and the difference is deliberate: counting events over an empty

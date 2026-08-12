@@ -1,7 +1,7 @@
 ---
 title: Time-Slice SLOs
 metaTitle: Time-slice SLOs in OpenObserve | OpenObserve
-description: "Create time-slice SLOs in OpenObserve: score each slice good or bad with an aggregate such as p95 latency, and measure uptime as the share of good slices."
+description: "Create SQL or PromQL time-slice SLOs in OpenObserve: score each slice with an aggregate such as p95 latency and measure uptime as the share of good slices."
 ---
 
 # Time-slice SLOs
@@ -11,7 +11,7 @@ judging individual events, it computes one aggregate per slice, compares it
 against a threshold, and scores the whole slice good or bad.
 
 ```
-per slice:  aggregate(rows in this slice)  comparator  threshold   →  good | bad
+per slice:  aggregate(data in this slice)  comparator  threshold   →  good | bad
 SLI      =  100 × good slices / measured slices
 ```
 
@@ -39,22 +39,39 @@ not exist for a single row.
 
 ## Configuration
 
-Select **Time slice** as the SLI type, then fill in:
+Select **Time slice** as the SLI type, then choose a stream type and stream.
+Logs and traces use SQL. For metrics, use the **Query language** selector to
+choose **PromQL** (the default) or **SQL**.
 
 | Field | Required | Meaning |
 | --- | --- | --- |
-| **Stream type** | Yes | Logs or traces. A metrics stream needs `"query_language": "prom_ql"`, which the form does not offer — use the API. |
-| **Stream** | Yes | The stream to aggregate. |
-| **Aggregate** | Yes | An aggregate expression evaluated once per slice, producing a single number. |
+| **Stream type** | Yes | Logs, metrics, or traces. PromQL is available only for metrics. |
+| **Stream** | Yes | For SQL, the stream to aggregate. For PromQL, an advisory metrics selection that supplies the **Group by** field list; the expression itself names the metrics to query. |
+| **Query language** | Metrics only | PromQL or SQL. The choice changes the expression editor and whether Scope is available. |
+| **Aggregate / PromQL expression** | Yes | An expression evaluated once per slice, producing one number per SLO group. |
 | **Comparator** | Yes | `<`, `<=`, `>`, or `>=`. |
 | **Threshold** | Yes | The number the aggregate is compared against. |
-| **Scope** | No | A filter applied before aggregating. |
+| **Scope** | SQL only | An optional SQL filter applied before aggregating. In PromQL, put label matchers inside the expression. |
 
 The comparator list contains only ordered operators. `=` and `!=` are not
 offered, because a slice with no value is a gap rather than a failure, and
 equality has no severity direction to fall back on.
 
-### Aggregate expressions
+### Choosing SQL or PromQL for metrics
+
+Both languages can query a metrics stream, but they operate at different
+levels:
+
+| Choose | When |
+| --- | --- |
+| **PromQL** | You need counter-aware functions, range functions, histogram quantiles, or normal Prometheus label semantics. |
+| **SQL** | You want to aggregate the metrics stream's raw `value` rows directly, with an optional SQL scope. |
+
+For example, `avg(value)` is a valid SQL aggregate over a gauge metrics stream.
+For a counter rate or histogram quantile, prefer PromQL; SQL over raw counter
+samples does not reproduce `rate()` or `increase()` semantics.
+
+### SQL aggregate expressions
 
 The aggregate is a SQL aggregate over the slice's rows:
 
@@ -79,7 +96,67 @@ That last form is worth noticing: it computes a ratio, but scores the slice as a
 unit. It is not the same objective as the equivalent [count SLO](count-slos.md)
 — see [Time slice or count?](#time-slice-or-count) below.
 
-## Worked example
+### PromQL expressions
+
+A PromQL time-slice SLO carries one expression. OpenObserve evaluates it at the
+end of every slice, compares the returned value with the stored comparator and
+threshold, and then scores the slice. Keep the comparator outside the PromQL
+expression so changing the threshold remains an explicit SLO edit.
+
+Some useful shapes for a 5-minute slice:
+
+```promql
+# p95 request latency, in seconds
+histogram_quantile(
+  0.95,
+  sum by (le) (rate(http_request_duration_seconds_bucket[5m]))
+)
+
+# mean CPU utilization across the whole slice and all returned series
+avg(avg_over_time(cpu_utilization_percent[5m]))
+
+# worst five-minute queue depth
+max(max_over_time(message_queue_depth[5m]))
+```
+
+![New time-slice SLO over a metrics stream using a PromQL histogram quantile](../../../images/slo-timeslice-promql-form.jpg)
+
+Use these rules when writing the expression:
+
+- Make each range selector exactly **one slice wide**. For a 5-minute slice,
+  use `[5m]`. OpenObserve evaluates PromQL at slice ends, so the sample at time
+  T represents `(T − slice interval, T]`. If you change the slice interval,
+  update the selectors too.
+- Prefer range functions such as `avg_over_time(metric[5m])` over a bare
+  instant expression such as `avg(metric)`. The latter measures only the
+  slice-ending instant, not the whole slice.
+- Reduce an ungrouped SLO to **one series per slice**. For a grouped SLO,
+  return one series for each configured group. For example, grouping by
+  `region` requires the expression to preserve `region`:
+
+```promql
+histogram_quantile(
+  0.95,
+  sum by (le, region) (rate(http_request_duration_seconds_bucket[5m]))
+)
+```
+
+OpenObserve does not guess how to combine multiple aggregates. If two series
+land on the same slice and SLO group, that slice is rejected and becomes a
+coverage gap under the default absence policy; two pod-level p95 values cannot
+safely be summed or averaged. The preview warns when an ungrouped expression
+returns multiple series. For a grouped expression, it counts the returned
+series but cannot validate that their labels map uniquely to the configured SLO
+groups. Run the expression in **Metrics**, inspect the output labels, and
+aggregate away every label that is not in **Group by**.
+
+PromQL has no separate **Scope** field. Put label matchers directly in the
+expression, such as `http_request_duration_seconds_bucket{service_name="api"}`.
+OpenObserve parses the expression on save and rejects invalid PromQL before
+backfill begins. It deliberately does not try to infer the output labels at
+save time.
+
+## SQL worked example
 
 **Goal:** the CDN should keep p95 response time under 90 ms in at least 99% of
 five-minute periods over a rolling 7 days.
@@ -102,9 +179,33 @@ A 7-day window at 5-minute slices holds 2,016 slices. A 99% target permits about
 The preview panel plots each slice's aggregate against the threshold line and
 reports how many slices were good, plus how many produced no data at all.
 
+## PromQL worked example
+
+**Goal:** p95 request latency should stay below 300 ms in at least 99% of
+five-minute periods over a rolling 7 days.
+
+| Setting | Value |
+| --- | --- |
+| SLI type | Time slice |
+| Stream | `http_request_duration_seconds_bucket` (metrics) |
+| Query language | PromQL |
+| PromQL expression | `histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))` |
+| Comparator | `<` |
+| Threshold | `0.3` |
+| Target | 99% |
+| Time window | 7 days |
+| Slice interval | 5 minutes |
+
+The expression returns seconds, so the 300 ms objective is entered as `0.3`.
+For an ungrouped SLO, the preview should show one series. If it reports several,
+aggregate the extra labels away or add the intended labels under **Group by**.
+For grouped SLOs, verify the label mapping in the Metrics query result because
+the preview cannot detect group-label collisions.
+
 ## The slice interval is load-bearing here
 
-For a count SLO the slice width is a storage decision. For a time-slice SLO it
+For a SQL count SLO the slice width is a storage decision. For a PromQL count it
+also controls the evaluation grid and range selectors. For a time-slice SLO it
 is part of the objective.
 
 A whole slice is scored good or bad, so **the slice width is the smallest amount
@@ -167,6 +268,13 @@ Notes on `absent_is_bad`:
 - It cannot be combined with grouping. A group absent from an entire pass cannot
   be gap-filled, so a grouped freshness SLO would freeze for exactly the failure
   it is meant to catch. The API rejects the combination.
+
+For PromQL, remember the Prometheus lookback window: a bare gauge can continue
+returning its last value for several minutes after it stops reporting. Use a
+slice-wide range expression such as `avg_over_time(metric[5m])` so a slice with
+no samples returns no value. If absence must spend budget, create the SLO with
+`absent_is_bad: true` through the API; without that flag, the empty slice is a
+gap and lowers coverage instead.
 
 ## Time slice or count?
 

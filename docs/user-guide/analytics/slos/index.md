@@ -129,8 +129,11 @@ and the SLO's overall numbers are the sum over the slices in the window.
 
 Slice width means different things per SLI type:
 
-- For a **count** SLI it does not change the answer. The same events are counted
-  either way; 5-minute slices simply store a fifth as much history.
+- For a **SQL count** SLI it does not change the answer. The same rows are
+  counted either way; 5-minute slices simply store a fifth as much history. For
+  a PromQL count, slice width also changes the evaluation grid and the required
+  range selectors, so sample density and `increase()` extrapolation can change
+  the result.
 - For a **time-slice** SLI it is load-bearing. A whole slice is scored good or
   bad, so the slice width is the smallest amount of budget one failure can
   spend. At 99.9% over 7 days, a single bad 5-minute slice spends about half the
@@ -215,20 +218,41 @@ looks like, not by what you want the dashboard to say.
 
 | Type | `good` / `total` are | Use when |
 | --- | --- | --- |
-| [**Count**](count-slos.md) | good events / total events, from one scan | You have one row per request, job, or transaction, and a predicate that says which ones succeeded. |
-| [**Time slice**](time-slice-slos.md) | good slices / measured slices | Your signal is an aggregate over a period — p95 latency, queue depth, freshness lag — not a per-row verdict. |
+| [**Count**](count-slos.md) | good events / total events, from SQL rows or PromQL counters | You have one row per request, job, or transaction, or metrics counters that represent those events. |
+| [**Time slice**](time-slice-slos.md) | good slices / measured slices | Your SQL or PromQL signal is an aggregate over a period — p95 latency, queue depth, freshness lag — not a per-row verdict. |
 | [**Alert-based**](alert-based-slos.md) | seconds not firing / seconds measured | You already have an alert that defines "broken", and you want its uptime as an SLO without rebuilding the query. |
 
 ![New SLO form with the SLI type selector, count configuration, objective, and live preview](../../../images/slo-count-form.png)
+
+### SQL and PromQL
+
+Count and time-slice SLOs choose their query language from the stream type:
+
+- **Logs and traces use SQL.**
+- **Metrics offer PromQL and SQL**, with PromQL selected by default. PromQL is
+  the natural choice for counters, range functions, and histogram quantiles;
+  SQL is available when you want to aggregate the metrics stream's raw rows.
+- **PromQL is metrics-only.** Put label matchers in the expression; SQL-style
+  scope filters do not apply to PromQL.
+- **Alert-based SLOs run neither language.** They read the source alert's
+  evaluation record.
+
+The field shape also changes with the language. A PromQL count SLO takes
+separate good and total expressions, while a PromQL time-slice SLO takes one
+numeric expression and compares it with the SLO's threshold. See
+[Count SLOs](count-slos.md#promql-count-configuration) and
+[Time-slice SLOs](time-slice-slos.md#promql-expressions) for examples and the
+slice-range rules.
 
 ## Creating an SLO
 
 1. Go to **Reliability > SLOs** and select **New SLO**.
 2. Give it a **name**, an optional description, and optional **tags**. Tags are
    free-form and searchable — `team:payments` is the conventional shape.
-3. Under **SLI: what "good" means**, pick the type and fill in its fields. The
-   preview panel on the right evaluates your definition against recent data as
-   you type.
+3. Under **SLI: what "good" means**, pick the type and fill in its fields. For
+   metrics-based count and time-slice SLIs, also choose **PromQL** or **SQL**.
+   The preview panel on the right evaluates your definition against recent data
+   as you type.
 4. Under **Objective**, set the **target**, the **time window**, and the **slice
    interval**. The form shows the resulting error budget in wall-clock terms.
 5. Optionally set **Group by**.
@@ -294,10 +318,12 @@ Editing splits into two cases, and the form tells you which one you are in.
 existing measurements are still valid — the numbers just get compared against a
 different line.
 
-**Changing what a slice means** — the SLI type, the query, the predicate, the
-threshold, the window, the slice interval, or the grouping — starts a new
-**generation**. The current window's measurements describe a definition that no
-longer exists and are discarded, and backfill starts again.
+**Changing what a slice means** — the SLI type, query language, query,
+predicate, threshold, window, slice interval, or grouping — starts a new
+**generation**. Switching between SQL and PromQL also clears the previous
+language's expressions in the form. When you save, the current window's
+measurements describe a definition that no longer exists and are discarded,
+and backfill starts again.
 
 For an [alert-based SLO](alert-based-slos.md), editing the **source alert's
 condition** starts a new generation too, even though nobody touched the SLO.
