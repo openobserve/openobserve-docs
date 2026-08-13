@@ -1,5 +1,5 @@
 ---
-title: Go
+title: Go SDK
 metaTitle: "Go Distributed Tracing - OpenTelemetry Golang APM"
 description: Complete Go/Golang distributed tracing guide using OpenTelemetry SDK for Go application performance monitoring and trace instrumentation.
 ---

@@ -22,7 +22,7 @@ Ship application and infrastructure logs to OpenObserve through agents, HTTP API
 1. [Amazon Kinesis Firehose](logs/kinesis-firehose.md)
 1. [Syslog](logs/syslog.md)
 1. [Python](logs/python.md)
-1. [Go](logs/go.md)
+1. [Go SDK](logs/go.md)
 1. [Curl](logs/curl.md)
 
 
@@ -41,7 +41,7 @@ You can call the above APIs directly in your code to ingest data.
 
 Here are 2 examples on how you can do it programmatically:
 
-1. [Go](logs/go.md)
+1. [Go SDK](logs/go.md)
 1. [Python](logs/python.md)
 
 ### Curl
@@ -68,7 +68,7 @@ Send distributed traces using OpenTelemetry SDKs or the Collector.
 1. [TypeScript](traces/typescript.md)
 1. [Node.js](traces/nodejs.md)
 1. [Python](traces/python.md)
-1. [Go](traces/go.md)
+1. [Go SDK](traces/go.md)
 
 **Need some help?**
 

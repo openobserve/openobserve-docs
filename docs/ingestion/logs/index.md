@@ -18,5 +18,5 @@ OpenObserve supports multiple log ingestion methods to collect, aggregate, and c
 1. [Kinesis Firehose](kinesis-firehose.md) - AWS log streaming for cloud log ingestion
 1. [Syslog](syslog.md) - Traditional syslog protocol for system logs
 1. [Python](python.md) - Python SDK for application log ingestion
-1. [Go](go.md) - Go SDK for structured logging
+1. [Go SDK](go.md) - Structured logging for Go applications
 1. [Curl](curl.md) - Direct HTTP log ingestion
