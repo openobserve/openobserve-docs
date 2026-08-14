@@ -32,7 +32,7 @@ Anomaly Detection is available in OpenObserve Enterprise (self-hosted) edition.
 2. Click the **Anomalies** tab in the filter bar
 3. The list displays all anomaly detection rules for the current organization
 
-The alerts list can be filtered by type using the tabs: **All / Scheduled / Realtime / Anomalies**.
+The alerts list can be filtered by type using the tabs: **All / Scheduled / Realtime / Composite / Anomalies**.
 
 ## Key features
 

@@ -3,6 +3,7 @@
     "index",
     "scheduled-alerts",
     "real-time-alerts",
+    "composite-alerts",
     "alert-conditions",
     "alert-history",
     "anomaly-detection",
