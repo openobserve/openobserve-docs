@@ -38,7 +38,7 @@ A composite that fires always reports the **Critical** level.
     - **Settings**: choose whether **Warning** counts as firing and how to treat stale children.
 4. Review the live preview and summary on the right, then click **Save**.
 
-![TODO: screenshot of the composite alert creation form showing sub-alert selector, expression builder, and settings](images/placeholder.png)
+![the composite alert creation form showing sub-alert selector, expression builder, and settings](images/composite-alerts-1.png)
 
 ### Expression syntax
 
@@ -64,7 +64,7 @@ As you build the expression, the right panel shows a live **Preview** that evalu
 - A step-by-step breakdown of each operand's level and boolean result.
 - Advisory warnings for children that are **disabled**, **never evaluated**, or **stale**.
 
-![TODO: screenshot of the composite alert live preview showing the verdict and step-by-step evaluation](images/placeholder.png)
+![the composite alert live preview showing the verdict and step-by-step evaluation](images/composite-alerts-2.png)
 
 The preview also exposes warnings such as `child_disabled` and `child_never_evaluated`, so you can catch problems before saving.
 
@@ -77,7 +77,7 @@ Open a composite alert from the list to see its detail view, which includes:
 - A **status timeline** of each child's level transitions over time.
 - A **Configuration** summary of the expression, warning policy, and stale policy.
 
-![TODO: screenshot of the composite alert detail view showing the current evaluation and per-child cards](images/placeholder.png)
+![the composite alert detail view showing the current evaluation and per-child cards](images/composite-alerts-3.png)
 
 If a composite is enabled but has no scheduler job, the detail view shows a warning banner so you can re-save or re-enable the alert to reschedule it.
 
@@ -85,7 +85,7 @@ If a composite is enabled but has no scheduler job, the detail view shows a warn
 
 Composite alerts appear in the **Alerts** list under their own **Composite** filter tab, marked with a **Composite Alert** badge. Each composite row shows its child count and its expression summary instead of a stream/query summary.
 
-![TODO: screenshot of the alerts list showing composite rows with badge, child count, and expression summary](images/placeholder.png)
+![the alerts list showing composite rows with badge, child count, and expression summary](images/composite-alerts-4.png)
 
 ### Referenced by composites
 
