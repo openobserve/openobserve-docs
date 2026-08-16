@@ -1,5 +1,6 @@
 nav:
     - General Settings: general-settings.md
+    - Announcement Banners: announcement-banners.md
     - Management Overview: index.md
     - Streaming Search: streaming-search.md
     - Streaming Aggregation: aggregation-cache.md
