@@ -1,7 +1,7 @@
 ---
 title: Alerts Overview
 metaTitle: Alerts in OpenObserve | OpenObserve
-description: "How alerting works in OpenObserve: scheduled, real-time, composite, and anomaly detection alerts with a natural language condition builder, SQL mode, and live preview."
+description: "How alerting works in OpenObserve: scheduled, real-time, composite, and anomaly alerts with a natural language condition builder, SQL mode, and live preview."
 ---
 
 # Alerts

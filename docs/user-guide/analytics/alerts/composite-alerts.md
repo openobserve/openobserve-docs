@@ -1,6 +1,6 @@
 ---
 title: Composite Alerts
-description: "Combine the current state of existing alerts into a boolean expression to reduce alert noise. Create composite alerts in OpenObserve with AND, OR, NOT logic and parentheses."
+description: "Combine existing alert states into a boolean expression to cut alert noise. Create composite alerts in OpenObserve with AND, OR, NOT logic and parentheses."
 ---
 
 # Composite Alerts
