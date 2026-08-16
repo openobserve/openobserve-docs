@@ -11,15 +11,15 @@ Banners are authored once from the **`_meta` organization** and are read by ever
 
 Announcement banners are configured from the **`_meta`** organization. Open **Settings** → **General**, then select **Configure** next to **Announcement Banners**.
 
-![TODO: screenshot of the Announcement Banners entry in General Settings](images/placeholder.png)
+![the Announcement Banners entry in General Settings](images/announcement-banners-1.png)
 
 The **Announcement Banners** drawer opens. It shows a live **Preview** of how the banners will render, followed by the list of configured banners.
 
-![TODO: screenshot of the Announcement Banners drawer with preview and banner list](images/placeholder.png)
+![the Announcement Banners drawer with preview and banner list](images/announcement-banners-2.png)
 
 Select **Add banner** to create a banner, or the edit/remove icons on an existing banner to modify or delete it.
 
-![TODO: screenshot of the Add banner dialog with its fields](images/placeholder.png)
+![the Add banner dialog with its fields](images/announcement-banners-3.png)
 
 The **Add banner** dialog exposes the following fields:
 
@@ -58,7 +58,7 @@ The **Preview** section in the drawer renders the banners through the same resol
 
 Active banners render as full-width bars directly above the toolbar on every page of the app.
 
-![TODO: screenshot of announcement banners rendering above the app toolbar](images/placeholder.png)
+![announcement banners rendering above the app toolbar](images/announcement-banners-4.png)
 
 Each banner shows its message and, when configured, a call-to-action button and a **Dismiss** button. Users who dismiss a banner stay dismissed across sessions; if an operator edits the banner's message, it reappears for everyone.
 
