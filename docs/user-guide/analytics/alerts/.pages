@@ -6,3 +6,4 @@ nav:
     - Alert History: alert-history.md
     - Anomaly Detection: anomaly-detection.md
     - Import and Export Alerts: import-export-alerts.md
+    - Notification Dependencies: notification-dependencies.md
