@@ -27,7 +27,7 @@ OpenObserve Enterprise Edition depends on several components to support scalable
 
 ## Infrastructure-as-Code
 
-- [Terraform](terraform.md) — Deploy OpenObserve and manage its resources with the official Terraform provider and Kubernetes module. OpenTofu supported.
+- [Terraform and OpenTofu](terraform.md): Manage streams, dashboards, alerts, SLOs, users, and roles with the official provider, and deploy the platform with the Kubernetes module. Alerts and SLOs export straight to Terraform from the UI.
 
 ## Other resources
 
