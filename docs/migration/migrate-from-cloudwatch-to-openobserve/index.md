@@ -1,7 +1,7 @@
 ---
 title: Overview
 metaTitle: Migrate from CloudWatch to OpenObserve
-description: "Migrate AWS CloudWatch dashboards and metrics to OpenObserve. Stream CloudWatch metrics via Firehose in OpenTelemetry format, then convert dashboards with the Dashboard Migrator."
+description: "Migrate AWS CloudWatch dashboards and metrics to OpenObserve via Firehose in OpenTelemetry format and the Dashboard Migrator."
 ---
 
 # Migrate from CloudWatch to OpenObserve

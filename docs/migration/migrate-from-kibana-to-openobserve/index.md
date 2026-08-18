@@ -1,7 +1,7 @@
 ---
 title: Overview
 metaTitle: Migrate from Kibana to OpenObserve
-description: "Migrate Kibana dashboards and visualizations to OpenObserve with the automated Dashboard Migrator. Lucene and KQL queries become SQL, and saved-object exports convert in minutes."
+description: "Migrate Kibana dashboards and visualizations to OpenObserve with the Dashboard Migrator; Lucene and KQL queries become SQL."
 ---
 
 # Migrate from Kibana to OpenObserve

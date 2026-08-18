@@ -1,7 +1,7 @@
 ---
 title: Migrating Dashboards
 metaTitle: Migrate CloudWatch Dashboards to OpenObserve
-description: "Convert AWS CloudWatch dashboards into OpenObserve dashboards with the Dashboard Migrator. Metric widgets become SQL queries over the CloudWatch metrics log stream."
+description: "Convert AWS CloudWatch dashboards to OpenObserve with the Dashboard Migrator. Metric widgets become SQL over the metrics stream."
 ---
 
 # Migrating Dashboards
