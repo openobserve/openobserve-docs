@@ -1,7 +1,7 @@
 ---
 title: Migrating Dashboards & Alerts
 metaTitle: "Migrate Dashboards & Alerts from Grafana to OpenObserve"
-description: "Migrate Grafana dashboards and Alertmanager rules to OpenObserve with the automated Dashboard Migrator, or translate queries by hand. Covers LogQL to SQL translation, PromQL compatibility, contact points, and notification policies."
+description: "Migrate Grafana dashboards and Alertmanager rules to OpenObserve with the Dashboard Migrator, or by hand. Covers LogQL to SQL and PromQL compatibility."
 ---
 
 # Migrating Dashboards & Alerts
