@@ -1,6 +1,7 @@
 nav:
     - Dashboards Overview: index.md
     - Dashboards in OpenObserve: dashboards-in-openobserve.md
+    - Folder Icons: folder-icons.md
     - Manage Dashboards: manage-dashboards.md
     - Move and Export Dashboards in Bulk: bulk-move-and-export-dashboards.md
     - Panels: panels
