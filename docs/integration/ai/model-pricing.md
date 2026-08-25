@@ -1,150 +1,98 @@
 ---
 title: Model Pricing
-description: Define per-organization LLM model pricing in OpenObserve to compute token costs on traces, enriching every LLM span with input, output, and total cost fields.
+description: Configure per-token model pricing definitions to estimate LLM costs from traces. Define regex match patterns, pricing tiers, and time-based peak/off-peak rates.
 ---
 
 # Model Pricing
 
-Model Pricing lets you define per-organization LLM pricing so OpenObserve can compute token costs directly on your traces. With it enabled, every LLM span is enriched with cost fields derived from the model name and token usage.
+Model pricing maps LLM model names to per-token rates so OpenObserve can estimate the cost of your AI workloads from trace data. When a span does not carry an explicit cost, OpenObserve matches the span's model name against your pricing definitions and multiplies token usage by the configured rates.
 
-## Overview
+You manage model pricing from the **Model Pricing** page under **Settings**. Definitions are stored per organization, with optional inherited and built-in entries described below.
 
-When you ingest LLM traces, each span carries token usage and a model name. Model Pricing maps that model name to a pricing definition and calculates the cost of the call, writing the result into the cost fields stored on the span.
+## How a definition matches a span
 
-This feature is for teams running LLM observability who want accurate, up-to-date cost attribution per model, per organization. You can rely on the built-in pricing catalog that OpenObserve maintains, or define your own pricing to match negotiated rates, custom models, or providers not covered by the catalog.
+Each definition has two core fields:
 
-OpenObserve populates the following cost fields on each LLM span when Model Pricing is enabled:
+- **Name** — a human-readable label, e.g. `GPT-4o` or `Claude Sonnet 4.6`.
+- **Match pattern** — a regular expression matched against the model name reported on incoming spans, e.g. `(?i)^gpt-4o` or `claude-sonnet-4-6`.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `llm_usage_cost_input` | Float64 | Cost of input (prompt) tokens |
-| `llm_usage_cost_output` | Float64 | Cost of output (completion) tokens |
-| `llm_usage_cost_total` | Float64 | Total cost of the LLM call |
+A definition also carries a list of **pricing tiers**, each with per-token prices keyed by usage type (see [Pricing tiers](#pricing-tiers)). At ingestion, OpenObserve finds the best matching definition and tier for each span's model name and computes an approximate cost, stored on the span as `gen_ai.usage.cost`.
 
-> **Note**: When Model Pricing is disabled, OpenObserve falls back to a built-in, hardcoded pricing set. The DB pricing lookup, the periodic sync job, and the **Model Pricing** UI tab are all gated behind the enable flag.
+### Match priority
 
-## Key features
+When several definitions match the same model name, OpenObserve resolves them in this order:
 
-### Built-in pricing catalog
+1. **Source** — your org's own definitions beat the meta org's, which beat built-in definitions (`org` > `meta_org` > `built_in`).
+2. **`valid_from`** — among definitions of the same source, the one with the greatest `valid_from` timestamp that is still at or before the span's start time wins. This lets you schedule a price change to take effect on a cutover date.
+3. **`sort_order`** and **name** — final tie-breakers. A lower `sort_order` is checked first.
 
-OpenObserve ships with a built-in catalog of model pricing that is synced periodically from an upstream source. Built-in definitions are read-only.
+In the list view, a definition that is overridden by a higher-priority one is shown as a nested (shadowed) row with a warning, because it will never be used for cost calculation while the parent is active.
 
-- View the full built-in catalog without any setup
-- Clone a built-in definition to customize it for your organization
-- Refresh the catalog on demand from the upstream source
+## Pricing tiers
 
-### Custom pricing definitions
+Every definition has one **default** tier (the first tier) and any number of additional tiers. The default tier has no restrictions and is the fallback when no other tier applies. Additional tiers apply only when their restrictions are met, and are evaluated in order — the first match wins.
 
-Define your own pricing per organization. User-defined pricing takes priority over built-in pricing when both match a model.
+![TODO: screenshot of the Model Pricing editor showing pricing tiers](images/placeholder.png)
 
-- Match incoming model names with a regex pattern (for example, `(?i)^gpt-4o`)
-- Define one or more pricing tiers with per-token rates keyed by usage type (`input`, `output`, and others)
-- Optionally set a validity start time so historical traces keep their original cost calculations
+A tier can be restricted in two ways, which can be combined:
 
-### Test model match
+- A **usage condition** — a comparison on a usage key, e.g. *apply this tier when `input` `>` `200000`* (extended-context pricing). Supported operators are `>`, `>=`, `<`, `<=`, `=`, and `!=`.
+- **UTC time windows** — recurring hours of the day during which the tier applies, for providers that bill peak and off-peak rates (see [Time-based pricing](#time-based-pricing)).
 
-Before relying on a definition, test how a given model name resolves against your configured pricing, and preview the computed cost for a sample token count.
+The default tier must remain unrestricted: OpenObserve rejects a definition where every tier has a condition or time window, since a span outside every window would then have no rate to fall back on.
 
-## Getting started
+Prices are entered as **per-1M-token** dollar amounts in the editor and stored per-token (e.g. `$2.50`/1M becomes `0.0000025`). Common usage keys include `input`, `output`, `cache_read_input_tokens`, `cache_creation_input_tokens`, and `output_reasoning_tokens`. The **Quick setup** chips populate the standard key sets for OpenAI and Anthropic in one click.
 
-### Prerequisites
+## Time-based pricing
 
-- A self-hosted OpenObserve instance where you can set environment variables
-- LLM traces being ingested (see [LLM Observability](llm-applications.md))
+Some providers change their rates with the clock. For example, DeepSeek V4 bills **peak** rates during `01:00–04:00` and `06:00–10:00` UTC and **off-peak** (half the peak rate) at all other hours. Time-based pricing models these recurring rate changes directly on a tier.
 
-### Enabling Model Pricing
+To add time-based pricing, open a non-default tier and click **Add time window**, then set the **From** and **To** times (24-hour UTC). You can add multiple windows to one tier, and a window whose start is later than its end wraps past midnight (e.g. `22:00 → 02:00`).
 
-Model Pricing is controlled by environment variables. The feature is disabled by default.
+![TODO: screenshot of a pricing tier with UTC time windows and the 24-hour preview bar](images/placeholder.png)
 
-Set the following variable to enable it:
+A 24-hour preview bar shows the active hours at a glance, and each window displays a hint in your local timezone. The equivalent JSON for a peak/off-peak definition looks like this:
 
-```shell
-ZO_MODEL_PRICING_ENABLED=true
+```json
+{
+  "name": "DeepSeek V4 Pro",
+  "match_pattern": "(?i)deepseek-v4-pro",
+  "tiers": [
+    { "name": "Off-Peak", "prices": { "input": 6.6e-07, "output": 1.98e-06 } },
+    {
+      "name": "Peak (01:00-04:00, 06:00-10:00 UTC)",
+      "utc_windows": [
+        { "start_minute": 60, "end_minute": 240 },
+        { "start_minute": 360, "end_minute": 600 }
+      ],
+      "prices": { "input": 1.32e-06, "output": 3.96e-06 }
+    }
+  ]
+}
 ```
 
-Enabling this flag turns on three behaviors: it shows the **Model Pricing** tab in the UI, starts the background sync job that pulls built-in pricing, and enables the database pricing lookup during ingestion. When the flag is `false`, OpenObserve skips the database lookup and uses its hardcoded built-in pricing instead.
+Windows are stored as minutes past UTC midnight and are half-open (`[start, end)`), so `01:00–04:00` covers `01:00` through `03:59`. At ingestion, OpenObserve resolves the window against the span's start time. If a span has no start time, the time-restricted tier is skipped in favor of the default tier, so an unknown timestamp never lands a span in the wrong rate.
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| `ZO_MODEL_PRICING_ENABLED` | Enable user-defined model pricing. When `true`, uses database pricing definitions and syncs from the source URL. When `false`, falls back to hardcoded built-in pricing only. | `false` |
-| `ZO_MODEL_PRICING_SOURCE_URL` | URL of the built-in LLM model pricing JSON source. | `https://raw.githubusercontent.com/openobserve/sdr_patterns/refs/heads/main/llm_pricing.json` |
-| `ZO_MODEL_PRICING_SYNC_INTERVAL_SECS` | Interval in seconds for syncing built-in model pricing from the source URL. | `21600` (6 hours) |
+## Test a model match
 
-> **Tip**: Restart your OpenObserve instance after changing these variables so the configuration takes effect.
+To verify which definition and tier a model resolves to — including which peak or off-peak rate applies at a given hour — use the **Test** dialog on the **Model Pricing** page.
 
-## Managing pricing in the UI
+![TODO: screenshot of the Test Model Match dialog showing a matched peak/off-peak tier](images/placeholder.png)
 
-After enabling the feature, manage pricing from the **Settings > Model Pricing** tab. The tab is hidden unless `ZO_MODEL_PRICING_ENABLED` is `true`.
+1. Click **Test**.
+2. Enter the **model name** to test.
+3. Optionally set **Test at UTC time**. Leave it empty to use the current time; pick a specific hour to exercise a peak/off-peak window without waiting for it.
+4. Click **Test match**.
 
-From this tab you can:
+The dialog shows which definition matched (and its source), the winning priority flow, the selected tier with its condition and time windows, and the resulting per-key rates. If nothing matches, it lists troubleshooting tips.
 
-- **View built-in pricing**: Browse the read-only built-in catalog and search by model name.
-- **Refresh built-in pricing**: Trigger an on-demand sync from the configured source URL.
-- **Import**: Bring in pricing definitions to seed your organization's pricing.
-- **Edit**: Create and edit custom pricing definitions in the editor, including the match pattern and pricing tiers.
-- **List**: Review all pricing definitions for your organization.
-- **Test model match**: Enter a model name to see which definition it matches and preview the computed cost.
+## Built-in pricing
 
-### How matching works
+OpenObserve ships a set of built-in pricing definitions for popular models, synced from the community GitHub source into the `_openobserve` org on startup and periodically. Built-in entries are read-only; clone one with the duplicate action to customize it.
 
-For each LLM span, OpenObserve evaluates pricing definitions by their regex `match_pattern` against the model name. User-defined definitions take priority over built-in ones. Within a matched definition, pricing tiers are evaluated in order: tiers with a condition are checked first, and the first tier whose condition is met wins. A tier without a condition acts as the default fallback.
-
-Per-token rates are keyed by usage type, for example `input` and `output`, and are expressed as the price for a single token (for example, `0.000003` equals $3 per 1M tokens).
-
-## API reference
-
-All endpoints are scoped to an organization (`{org_id}`) and use the `model_pricing` resource for authorization.
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/{org_id}/llm/models` | List pricing definitions for the organization |
-| `POST` | `/api/{org_id}/llm/models` | Create a pricing definition |
-| `GET` | `/api/{org_id}/llm/models/{model_id}` | Get a pricing definition by ID |
-| `PUT` | `/api/{org_id}/llm/models/{model_id}` | Update a pricing definition |
-| `DELETE` | `/api/{org_id}/llm/models/{model_id}` | Delete a pricing definition |
-| `GET` | `/api/{org_id}/llm/models/built-in` | Get the read-only built-in pricing catalog |
-| `POST` | `/api/{org_id}/llm/models/refresh-built-in` | Refresh built-in pricing from the source URL |
-| `POST` | `/api/{org_id}/llm/models/test` | Test how a model name matches and preview its cost |
-
-A pricing definition includes a display `name`, a regex `match_pattern` used to match incoming model names, an `enabled` flag, and a list of pricing `tiers`. The test endpoint accepts a `model_name`, an optional `usage` map of token counts (for example, `{"input": 1000, "output": 500}`), and an optional `timestamp` so only definitions valid at that time are considered.
-
-> **Note**: Built-in definitions are read-only. They cannot be created, edited, or deleted directly. Use the refresh endpoint to sync them from the upstream source, and clone a built-in definition if you need to customize it.
-
-## Best practices
-
-- Keep Model Pricing disabled until you are ingesting LLM traces and want cost attribution; the built-in hardcoded pricing still applies as a fallback.
-- Use anchored, case-insensitive regex patterns (for example, `(?i)^gpt-4o`) to avoid unintended matches across model families.
-- Set a validity start time on definitions when rates change, so historical traces retain their original computed costs.
-- Use the test model match tool to confirm a new definition resolves as expected before depending on its cost output.
-
-## Troubleshooting
-
-### Cost fields are empty on LLM traces
-
-**Problem**: Traces show token usage but `llm_usage_cost_*` fields are zero or missing.
-
-**Solution**:
-1. Confirm `ZO_MODEL_PRICING_ENABLED=true` and that the instance was restarted.
-2. Verify the model name on the span matches a definition's `match_pattern` using the test model match tool.
-3. Check that the matched tier defines a per-token price for the usage keys present on the span (for example, `input` and `output`).
-
-### The Model Pricing tab is not visible
-
-**Problem**: The **Model Pricing** tab does not appear under **Settings**.
-
-**Solution**:
-1. Ensure `ZO_MODEL_PRICING_ENABLED=true`; the tab is hidden when the flag is `false`.
-2. Restart the instance so the updated configuration is applied.
-
-### Built-in catalog is out of date
-
-**Problem**: Built-in pricing does not reflect the latest upstream values.
-
-**Solution**:
-1. Trigger a refresh from the **Model Pricing** tab, or call `POST /api/{org_id}/llm/models/refresh-built-in`.
-2. Confirm `ZO_MODEL_PRICING_SOURCE_URL` points to a reachable source.
-3. Review `ZO_MODEL_PRICING_SYNC_INTERVAL_SECS` if you expect more frequent automatic syncs.
+To pull the latest built-in rates on demand, click **Refresh** on the **Model Pricing** page. A model removed upstream is disabled (not deleted) to preserve historical cost calculations.
 
 ## Related
 
-For instrumenting and shipping LLM traces to OpenObserve, see [LLM Observability](llm-applications.md). The cost fields documented there (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cost_total`) are populated by the Model Pricing feature described on this page.
+- [LLM Applications](llm-applications.md): General guide for instrumenting LLM-powered applications
+- [LLM Evaluations](llm-evaluations.md): Evaluate and monitor LLM output quality
