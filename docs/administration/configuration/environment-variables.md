@@ -49,6 +49,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_ROUTE_TIMEOUT | 600 | Timeout value for the router node in seconds. |
 | ZO_ROUTE_MAX_CONNECTIONS | 1024 | Sets the maximum number of simultaneous connections per type of scheme for the Router node role. |
 | ZO_CORS_ALLOWED_ORIGINS | | Comma-separated list of origins allowed to make cross-origin (CORS) requests to the OpenObserve server. When empty, all origins are allowed. Example: `https://app.example.com,https://admin.example.com`. |
+| ZO_SSRF_ALLOW_LOOPBACK | false | Allow outbound requests, such as webhook alert destinations and URL-based enrichment tables, to target loopback addresses (`127.0.0.1`, `localhost`, `::1`). Part of OpenObserve's SSRF (Server-Side Request Forgery) protection, which blocks these targets by default. Does not allow other private network ranges, such as `10.0.0.0/8`, `172.16.0.0/12`, or `192.168.0.0/16`; use `ZO_SKIP_SSRF_CHECKS` for those. Enable only in trusted environments, such as CI/CD pipelines or single-node self-hosted setups where the server needs to send requests to itself. |
+| ZO_SKIP_SSRF_CHECKS | false | Disable SSRF protection for outbound requests made by the server for features that check it, such as webhook alert destinations and URL-based enrichment tables, allowing URLs that target loopback addresses, private network ranges (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), link-local addresses, and cloud metadata endpoints (for example, `169.254.169.254`). Use this in a self-hosted deployment to reach a notification service or another system on a private network, such as a homelab. Enable only when you trust every destination URL configured on this instance. |
 
 
 ## Data Storage and Directories
