@@ -4,5 +4,6 @@ nav:
     - Real-time Alerts: real-time-alerts.md
     - Alert Conditions and Filters: alert-conditions.md
     - Alert History: alert-history.md
+    - Advanced Alert Configuration: advanced-alert-configuration.md
     - Anomaly Detection: anomaly-detection.md
     - Import and Export Alerts: import-export-alerts.md
