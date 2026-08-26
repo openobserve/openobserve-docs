@@ -136,13 +136,11 @@ Outcome values are normalized across the retention window: `firing`, `normal`, `
 
 ## SLO alerts
 
-SLO alerts read precomputed SLO status rather than running a query directly. When you select **SLO** as the query type in the alert form, the alert is bound to an SLO entity. The SLO's burn rate or error budget is evaluated externally, and the alert fires based on the SLO's computed status.
-
-SLO alerts use a dedicated `QueryType::Slo`. Their deduplication identity is the SLO itself (plus its group key when grouped), not columns of a result row — there is no SQL, PromQL, or condition list to draw column names from.
+SLO alerts read precomputed SLO status instead of running a query directly, using a dedicated `QueryType::Slo` whose deduplication identity is the SLO itself rather than result-row columns. They're created and managed from the SLO's own page, not the generic alert form — see [Alerting on SLOs](../slos/slo-alerts.md) and [Service Level Objectives](../slos/index.md) for the full walkthrough.
 
 SLO measurement is behind the feature flag `ZO_SLO_ENABLED` (default `false`). SLO CRUD endpoints live under `/api/{org}/slos` and share the alert folder namespace. When enabled, SLO-based alerts appear as an alert type filter on the alerts list.
 
-![TODO: screenshot of SLO alert creation form with SLO selector](images/placeholder.png)
+![SLO alert form in burn rate mode, showing the fast, mid, and slow suggested configurations](../../../images/slo-alert-burn-rate-form.png)
 
 ## New configuration
 
