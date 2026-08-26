@@ -101,7 +101,7 @@ The following charts are supported in Dashboards:
 The **Table** chart supports a pivot mode: add a **Breakdown** field (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Dynamic Columns** are disabled while pivot mode is active.
 
 ### Tabs
-Tabs help organize your Panels into different sections within a **Dashboard**. For example, you might have one Tab for Performance, another for Errors, and another for Traffic Analysis.
+Tabs help organize your Panels into different sections within a **Dashboard**. For example, use one Tab for Performance, another for Errors, and another for Traffic Analysis.
 By default, Panels are added to the **Default** tab.  
 :::info[Create New Tabs]
 To create a new Tab, click the + icon next to the default Tab and enter a Tab name. You can create new Tabs from the **Tabs** menu under the **Dashboard Settings**.

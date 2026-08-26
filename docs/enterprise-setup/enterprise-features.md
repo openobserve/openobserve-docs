@@ -12,7 +12,7 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Advanced RBAC**: Granular role-based access control with custom roles and permissions – [Learn more about role-based access control](../user-guide/account-administration/identity-and-access-management/role-based-access-control.md)
 
-- **Audit trails**: Comprehensive immutable audit logs with configurable retention
+- **Audit trails**: Immutable audit logs with configurable retention
 
 - **Sensitive Data Redaction (SDR)**: Automatically redact PII and sensitive data during ingestion and queries
 
@@ -46,7 +46,7 @@ description: Overview of OpenObserve Enterprise Edition features — Security & 
 
 - **Log Patterns**: Automatic pattern extraction and anomaly identification
 
-- **MCP server**: Model Context Protocol server for AI integrations
+- **OAuth 2.0 sign-in for MCP**: OAuth-based authentication for the [Model Context Protocol server](https://openobserve.ai/docs/integration/ai/mcp/), with Dex as the identity provider
 
 - **Logs, metrics, and traces correlation**: Automated detection and correlation across telemetry signals
 
