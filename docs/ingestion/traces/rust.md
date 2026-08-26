@@ -1,7 +1,9 @@
 ---
-title: Rust Distributed Tracing - OpenTelemetry for Rust APM | OpenObserve
+title: Rust
+metaTitle: "Rust Distributed Tracing - OpenTelemetry Rust APM"
 description: Complete Rust distributed tracing guide using OpenTelemetry SDK for Rust application performance monitoring and trace instrumentation.
 ---
+
 # Rust Distributed Tracing - OpenTelemetry APM
 
 Setup distributed tracing for your Rust application using OpenTelemetry for Rust application performance monitoring (APM) and trace ingestion. The OpenTelemetry Rust project has several [examples](https://github.com/open-telemetry/opentelemetry-rust/tree/main/examples) for tracing.

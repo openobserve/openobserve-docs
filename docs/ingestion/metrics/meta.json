@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "index",
+    "prometheus",
+    "[OTEL Collector](/ingestion/logs/otlp/)",
+    "[OBI (eBPF zero-code)](/ingestion/traces/obi/)",
+    "telegraf"
+  ]
+}

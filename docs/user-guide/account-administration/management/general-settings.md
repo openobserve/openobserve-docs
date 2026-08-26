@@ -1,5 +1,6 @@
 ---
-description: "General Settings configure OpenObserve scrape interval, light and dark theme colors, usage stream, and Enterprise branding like custom logo and logo text."
+title: General Settings
+description: General Settings configure OpenObserve scrape interval, light and dark theme colors, usage stream, and Enterprise branding like custom logo and logo text.
 ---
 
 ## General settings
@@ -13,8 +14,9 @@ General settings provides the following configuration options:
 - Enterprise branding features such as custom logo text and custom logo
 - Enable Usage Stream
 
-!!! note "Note"
-    `_meta` organizations can access all settings. Regular organizations see only the options allowed for their specific license and permissions.
+:::note[Note]
+`_meta` organizations can access all settings. Regular organizations see only the options allowed for their specific license and permissions.
+:::
 
 ### Scrape interval
 > This setting is available for all organizations.

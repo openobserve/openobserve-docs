@@ -1,7 +1,9 @@
 ---
-title: Custom Configuration File and Dynamic Reloading in OpenObserve
+title: Configuration Management
+metaTitle: "Configuration File and Dynamic Reloading in OpenObserve"
 description: Learn how to use custom config paths and dynamic config reloading in OpenObserve to apply changes without restarts.
 ---
+
 This guide explains how to use custom configuration file locations and
 dynamic configuration reloading in OpenObserve to manage deployments
 without system restarts.
@@ -23,28 +25,30 @@ OpenObserve now provides a custom config file CLI argument (`-c` or
 that monitors the config file and automatically reloads specific
 configurations every 30 seconds without requiring a restart.
 
-!!! note "Who should use this"
-    These features are for you if you:
+:::note[Who should use this]
+These features are for you if you:
 
-    -   Deploy OpenObserve on virtual machines (VMs)
-    -   Run OpenObserve as systemd services or system daemons
-    -   Use custom deployment frameworks without container orchestration tools like Kubernetes
-    -   Need to avoid expensive restarts that cause downtime
+-   Deploy OpenObserve on virtual machines (VMs)
+-   Run OpenObserve as systemd services or system daemons
+-   Use custom deployment frameworks without container orchestration tools like Kubernetes
+-   Need to avoid expensive restarts that cause downtime
+:::
 
-!!! note "Who does NOT need this"
-    You do not need these features if you:
+:::note[Who does NOT need this]
+You do not need these features if you:
 
-    -   Deploy OpenObserve in Kubernetes clusters
-    -   Use container orchestration platforms
+-   Deploy OpenObserve in Kubernetes clusters
+-   Use container orchestration platforms
 
-    **Why Kubernetes users do not need this**
-    <br>
-    In Kubernetes deployments:
+**Why Kubernetes users do not need this**
+<br>
+In Kubernetes deployments:
 
-    -   Configurations are managed through ConfigMaps, Secrets, and environment variables in YAML manifests
-    -   Any configuration change automatically triggers pod restarts and rollouts
-    -   Kubernetes handles configuration updates through its native mechanisms
-    -   The .env file pattern is not used in containerized deployments
+-   Configurations are managed through ConfigMaps, Secrets, and environment variables in YAML manifests
+-   Any configuration change automatically triggers pod restarts and rollouts
+-   Kubernetes handles configuration updates through its native mechanisms
+-   The .env file pattern is not used in containerized deployments
+:::
 
 ## Custom config file CLI argument
 
@@ -56,13 +60,13 @@ variables from different files. Earlier versions strictly looked for the
 
 ### How to use
 
-```bash linenums="1"
+```bash lineNumbers
 # Short form
 ./openobserve -c /path/to/your/config/file
 
 ```
 
-```bash linenums="1"
+```bash lineNumbers
 # Long form
 ./openobserve --config /path/to/your/config/file
 ```

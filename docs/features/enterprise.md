@@ -1,7 +1,9 @@
 ---
-title: Enterprise Features | OpenObserve
-description: Capabilities included in the OpenObserve Enterprise tier - extended retention, federated search, BYOB storage, SSO, RBAC, cipher keys, query management, workload management, and audit trail. Free for up to 50 GB of ingestion per day.
+title: Enterprise Features
+metaTitle: Enterprise Features | OpenObserve
+description: "OpenObserve Enterprise capabilities: extended retention, federated search, BYOB storage, SSO, RBAC, cipher keys, query and workload management, and audit trail."
 ---
+
 # Enterprise Features
 
 ## Overview

@@ -1,10 +1,8 @@
 ---
-title: RUM Source Maps - Deobfuscate JavaScript Error Stack Traces | OpenObserve
-description: >-
-  Upload JavaScript source maps to OpenObserve to resolve minified error stack
-  traces back to original file paths, function names, and line numbers in the
-  RUM Error Tracking UI.
-keywords: 'openobserve, rum, source maps, javascript, error tracking, stack traces, deobfuscation'
+title: RUM Source Maps
+metaTitle: RUM Source Maps - Deobfuscate JavaScript Error Stack Traces
+description: "Upload JavaScript source maps to resolve minified error stack traces back to original files, function names, and line numbers in RUM Error Tracking."
+keywords: openobserve, rum, source maps, javascript, error tracking, stack traces, deobfuscation
 ---
 
 # RUM Source Maps

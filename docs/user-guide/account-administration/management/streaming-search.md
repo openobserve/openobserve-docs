@@ -1,15 +1,18 @@
 ---
-title: OpenObserve Streaming Search 
+title: Streaming Search
+metaTitle: OpenObserve Streaming Search
 description: Learn how OpenObserve's Streaming Search delivers incremental query results using HTTP/2 partitioning for faster log analysis and real-time data processing.
 ---
+
 This user guide provides details on how the **Streaming Search** feature improves query performance and responsiveness.
 
 ## What is Streaming Search?
 
 Streaming Search allows OpenObserve to return query results through a single, persistent HTTP/2 connection. Instead of issuing one HTTP request per partition, the system streams the entire result set over one connection. This reduces overhead, improves dashboard performance, and provides faster response times during long-range queries.
 
-!!! note "Where to Find"
-    This feature is **enabled by default** and automatically optimizes query performance.
+:::note[Where to Find]
+This feature is **enabled by default** and automatically optimizes query performance.
+:::
     
 ## Concepts
 ### Partition
@@ -22,14 +25,15 @@ Based on the environment variable `ZO_MINI_SEARCH_PARTITION_DURATION_SECS`, the 
 
 The environment variable is enabled by default and it defines the duration of the mini-partition in seconds. By default, this is set to 60 seconds.
 
-??? note "See how a mini-partition works:"
-    Suppose you run a query over the past 12 hours.
+:::accordion[See how a mini-partition works:]
+Suppose you run a query over the past 12 hours.
 
-    - The first partition might normally span 1 hour of data.
-    - The mini-partition splits this into a smaller slice, such as 1 minute by default, or according to the configured duration.
-    - This 1-minute slice is processed first and returned quickly, allowing partial results to appear faster, while the rest of the query continues in the background.
+- The first partition might normally span 1 hour of data.
+- The mini-partition splits this into a smaller slice, such as 1 minute by default, or according to the configured duration.
+- This 1-minute slice is processed first and returned quickly, allowing partial results to appear faster, while the rest of the query continues in the background.
 
-    > **Note:** Only the first partition is affected. All subsequent partitions are processed at their normal size.
+> **Note:** Only the first partition is affected. All subsequent partitions are processed at their normal size.
+:::
 
 ### HTTP/2 Streaming
 

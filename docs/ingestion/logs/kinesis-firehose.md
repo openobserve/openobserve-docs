@@ -1,10 +1,12 @@
 ---
-title: AWS Kinesis Firehose Log Ingestion - CloudWatch and AWS Service Logs | OpenObserve
+title: Kinesis Firehose
+metaTitle: "AWS Kinesis Firehose Log Ingestion - CloudWatch Logs"
 description: Complete AWS Kinesis Firehose guide for ingesting CloudWatch logs, VPC Flow Logs, WAF logs, and AWS service logs to OpenObserve for AWS log management.
 ---
+
 # AWS Kinesis Firehose Log Ingestion - AWS Log Streaming
 
-Amazon CloudWatch and [many other AWS services](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html) can send logs to Amazon Kinesis Firehose for streaming AWS logs to OpenObserve. This enables AWS log ingestion and centralized AWS log management. You can find the complete list of AWS services [here](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html).
+Amazon CloudWatch and [many other AWS services](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html) can send logs to Amazon Kinesis Firehose for streaming AWS logs to OpenObserve. This enables AWS log ingestion and centralized AWS log management. You can find the complete list in the [AWS logs and resource policy reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AWS-logs-and-resource-policy.html).
 
 Some of the AWS logs that can be sent to Kinesis firehose are: Amazon Cloudwatch, Amazon Virtual Private Cloud flow logs, AWS Network Firewall logs, AWS WAF logs.
 

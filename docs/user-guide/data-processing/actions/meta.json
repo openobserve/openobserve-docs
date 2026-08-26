@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "index",
+    "actions-in-openobserve",
+    "create-and-use-real-time-actions",
+    "create-and-use-scheduled-actions",
+    "declare-python-dependencies-in-O2-actions",
+    "environment-variables-in-actions"
+  ]
+}

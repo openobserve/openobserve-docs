@@ -1,0 +1,11 @@
+{
+  "title": "Synthetics",
+  "pages": [
+    "index",
+    "browser-tests",
+    "protocol-checks",
+    "configuration",
+    "results",
+    "private-locations"
+  ]
+}

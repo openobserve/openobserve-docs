@@ -1,5 +1,6 @@
 ---
-description: "Dashboard variables filter OpenObserve panels dynamically; create them, apply to panels, and use substitution syntax, multi-select, type-ahead, and defaults."
+title: Variables in OpenObserve
+description: Dashboard variables filter OpenObserve panels dynamically; create them, apply to panels, and use substitution syntax, multi-select, type-ahead, and defaults.
 ---
 
 This page provides a comprehensive overview of variables in OpenObserve dashboards, including instructions on how to create your first variable, apply it to panels, and configure different variable options. 
@@ -107,9 +108,10 @@ The **Default max record size** limits how many records appear in the dropdown l
 
 This allows users to select valid values that may not be included in the default list due to the limit.
 
-!!! Note
+:::note[Note]
 
-    Default max record size is 10. 
+Default max record size is 10. 
+:::
 
 ### Filters
 You can optionally configure [variable dependencies](./variable-dependencies.md) using the **Filters** option.
@@ -161,8 +163,9 @@ You can enter custom values manually when the desired option is not available in
 - In **single-select**, you can select a custom value and refresh the panels to view related data.
 - In **multi-select**, custom values cannot be combined with other dropdown values. You you select the custom value, you cannot select any other value.
 
-!!! Note
-    If a custom value is entered that does not exist in the data, dashboard panels will display no results.
+:::note[Note]
+If a custom value is entered that does not exist in the data, dashboard panels will display no results.
+:::
 
 ### Type-Ahead 
 
@@ -190,8 +193,9 @@ zo2-nats
 zo3-nats
 ```
 
-!!! Note
-    If the input string is not present in the fetched list but exists in the data, you can still select it as a custom value. However, if the input does not match any values in the data, the panel will return no results.
+:::note[Note]
+If the input string is not present in the fetched list but exists in the data, you can still select it as a custom value. However, if the input does not match any values in the data, the panel will return no results.
+:::
 
 
 

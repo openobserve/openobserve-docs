@@ -1,5 +1,6 @@
 ---
-description: "Reports schedule recurring PDF, PNG, or CSV exports of OpenObserve dashboards, delivered by email with folders, inline or file attachments, and custom sizes."
+title: Reports Overview
+description: Reports schedule recurring PDF, PNG, or CSV exports of OpenObserve dashboards, delivered by email with folders, inline or file attachments, and custom sizes.
 ---
 
 The Reports section allows users to create and manage recurring reports from dashboard visualizations. Reports can be configured as either Scheduled or Cached.
@@ -19,8 +20,9 @@ To work with reports across folders:
 - Use the search field together with the **All Folders** toggle to search for reports across all folders instead of only the currently selected folder.
 - To move a report to a different folder, select the report and use the move option to assign it to the target folder.
 
-!!! note
-    A report's folder is set when the report is created. You cannot change a report's folder while editing the report; use the move option instead.
+:::note[Note]
+A report's folder is set when the report is created. You cannot change a report's folder while editing the report; use the move option instead.
+:::
 
 ## Configure the report format
 
@@ -41,15 +43,17 @@ When you create or edit a report, you can control how the report is generated an
 
 You can optionally set custom **width** and **height** values (in pixels) for the generated output. If these fields are left blank, the system default dimensions are used.
 
-!!! note
-    **Email Attachment Style** and **Custom dimensions** apply only to **PDF** and **PNG** reports. They are hidden and not available for **CSV (Data)** reports.
+:::note[Note]
+**Email Attachment Style** and **Custom dimensions** apply only to **PDF** and **PNG** reports. They are hidden and not available for **CSV (Data)** reports.
+:::
 
 **Dashboard preview**
 
 You can optionally include an inline preview image of the dashboard in the email body.
 
-!!! note
-    The **Inline** attachment style is only valid for **PNG** reports. Selecting **Inline** for a **PDF** report returns a save error. For PDF reports, use the **File attachment** style.
+:::note[Note]
+The **Inline** attachment style is only valid for **PNG** reports. Selecting **Inline** for a **PDF** report returns a save error. For PDF reports, use the **File attachment** style.
+:::
 
 ## Report frequency
 

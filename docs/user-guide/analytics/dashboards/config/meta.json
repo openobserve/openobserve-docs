@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "index",
+    "trellis-layout",
+    "show-symbol",
+    "show-field-as-json",
+    "pivot-table"
+  ]
+}

@@ -1,5 +1,6 @@
 ---
-title: Features Overview
+title: Features
+metaTitle: Features Overview
 description: Explore the key observability features offered by OpenObserve, including logs, metrics, traces, and frontend monitoring.
 ---
 

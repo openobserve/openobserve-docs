@@ -1,8 +1,8 @@
 ---
-description: >-
-  Learn how to check CPU support for SIMD (AVX512 or NEON) to use optimized
-  OpenObserve builds, including Docker tags and Kubernetes deployment tips.
+title: SIMD
+description: Learn how to check CPU support for SIMD (AVX512 or NEON) to use optimized OpenObserve builds, including Docker tags and Kubernetes deployment tips.
 ---
+
 # Check your CPU supports SIMD features
 
 OpenObserve supports use the feature `AVX512` on Intel CPU or `NEON` on Arm CPU for SIMD.
@@ -47,7 +47,7 @@ nodeSelector:
   querier: *AVX_NODE_SELECTOR
   compactor: *AVX_NODE_SELECTOR
   router: *AVX_NODE_SELECTOR
-  alertmanager: *AVX_NODE_SELECTOR
+  scheduler: *AVX_NODE_SELECTOR
 ```
 
 ### With `openobserve-standalone`
@@ -59,4 +59,3 @@ image:
 nodeSelector:
   feature.node.kubernetes.io/cpu-cpuid.AVX512F: "true"
 ```
-

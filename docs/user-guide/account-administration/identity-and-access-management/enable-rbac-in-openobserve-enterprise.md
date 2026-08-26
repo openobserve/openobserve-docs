@@ -1,11 +1,12 @@
 ---
-description: >-
-  Enable Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition
-  using OpenFGA to manage access and enforce permissions across resources.
+title: Enable Role-Based Access Control (RBAC) in Enterprise Edition
+metaTitle: "Enable RBAC - Role-Based Access Control in Enterprise"
+description: Enable Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition using OpenFGA to manage access and enforce permissions across resources.
 ---
+
 This guide provides instructions for enabling Role-Based Access Control (RBAC) in OpenObserve Enterprise Edition. OpenObserve uses OpenFGA to manage RBAC.
 
-#### Before You Begin
+## Before You Begin
 
 - Review the [Role-Based Access Control (RBAC) User Guide](role-based-access-control.md) to understand how RBAC works in OpenObserve.
 - Ensure you meet all prerequisites before starting the installation.
@@ -16,7 +17,7 @@ Before enabling RBAC, ensure the following:
 
 - You must have **OpenObserve Enterprise Edition** installed and running. Refer to the [Enterprise Setup guide](../../../enterprise-setup/index.md).
 - You must have **administrator access** to the system where OpenObserve is deployed.
-- OpenObserve must be running in [High Availability (HA) mode](https://openobserve.ai/docs/ha_deployment/), as RBAC is supported only in HA deployments.
+- OpenObserve must be running in [High Availability (HA) mode](../../../administration/deployment/ha-deployment.md), as RBAC is supported only in HA deployments.
 
 ## Step 1: Install OpenFGA
 
@@ -37,7 +38,7 @@ Ensure you have **Kubernetes** and the **OpenObserve Helm Chart** installed.
 <br><br>1. Set `openfga.enabled: true` in `values.yaml` file.<br> 
 Navigate to the `values.yaml` file in the OpenObserve Helm chart repository and update this configuration as follows:
 
-```yml linenums="1"
+```yml lineNumbers
 openfga:
     enabled: true
     parameters:
@@ -101,14 +102,14 @@ After the OpenFGA server is up and running, update the following environment var
 **Note:** If you enabled OpenFGA using Kubernetes with OpenObserve Helm charts, you do not need to set the `O2_OPENFGA_ENABLED` and `O2_OPENFGA_BASE_URL` environment variables manually. Setting OpenFGA in the `values.yaml` file is sufficient.
 
 
-#### **Required Environment Variables**
+### **Required Environment Variables**
 | **Environment Variable** | **Default Value** | **Description** |
 |--------------------------|-------------------|----------------|
 | `O2_OPENFGA_ENABLED` | `false` | Determines whether OpenFGA is enabled. <br>Set this value to `true` to enable OpenFGA. |
 | `O2_OPENFGA_BASE_URL` | N/A | Enter the URL of the OpenFGA server. <br> **Example:** If the OpenFGA server is running locally on port `8080`, set this to: <br> `http://localhost:8080` |
 
 
-#### **Optional Environment Variables**
+### **Optional Environment Variables**
 | **Environment Variable** | **Default Value** | **Description** |
 |--------------------------|-------------------|----------------|
 | `O2_OPENFGA_STORE_NAME` | `openobserve` | Specifies the name of the OpenFGA store. Default value is sufficient. |

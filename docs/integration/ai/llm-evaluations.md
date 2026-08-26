@@ -1,5 +1,6 @@
 ---
-description: "Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs."
+title: LLM Evaluations
+description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
 ---
 
 # LLM Evaluations

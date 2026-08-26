@@ -4,13 +4,11 @@
 ARG VARIANT="jammy"
 FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
-# [Optional] Uncomment this section to install additional OS packages.
+# The docs site is a Next.js / Fumadocs app; Node and pnpm are all it needs.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends python3-pip nodejs npm
+    && apt-get -y install --no-install-recommends ca-certificates curl \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get -y install --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install mkdocs-material
-RUN pip3 install mkdocs-awesome-pages-plugin
-RUN pip3 install material-plausible-plugin
-
-RUN npm install -g openapi-explorer
-RUN npm install -g live-server
+RUN npm install -g pnpm

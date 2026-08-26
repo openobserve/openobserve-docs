@@ -1,7 +1,7 @@
 ---
-title: Updating Usernames and Passwords in OpenObserve
-description: >-
-  Learn how to update usernames and passwords in OpenObserve via the UI or CLI. Includes steps for root password reset, best practices for credential rotation, and secure account management.
+title: Manage Users & Passwords
+metaTitle: Updating Usernames and Passwords in OpenObserve
+description: "Update usernames and passwords in OpenObserve via the UI or CLI, including root password reset and best practices for credential rotation."
 ---
 
 # Updating Usernames and Passwords in OpenObserve
@@ -26,7 +26,7 @@ Use the OpenObserve UI to manage users easily.
 2. Navigate to **IAM → Users**. Click the **Edit** icon under **Actions** for the user you want to update.
     ![](images/users.png)
 3. Enable **Change Password** and enter the new password.
-    ![](images/enable-change-password.png){:style="height:300px"}
+    <img src="images/enable-change-password.png" alt="" style="height:300px">
 4. Click **Save Changes**.
 5. Log out and verify that the updated credentials work.
 

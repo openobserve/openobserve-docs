@@ -1,5 +1,6 @@
 ---
-description: "Manage OpenObserve Enterprise alerts, pipelines, functions, destinations, templates, and configs as Kubernetes CRDs with GitOps, HA, and VRL function support."
+title: Features
+description: Manage OpenObserve Enterprise alerts, pipelines, functions, destinations, templates, and configs as Kubernetes CRDs with GitOps, HA, and VRL function support.
 ---
 
 # OpenObserve Kubernetes Operator Features

@@ -1,5 +1,6 @@
 ---
-description: "Retrieve the latest traces from OpenObserve with the GET traces/latest endpoint, using time range, pagination, and filter parameters to fetch trace spans."
+title: Search Traces
+description: Retrieve the latest traces from OpenObserve with the GET traces/latest endpoint, using time range, pagination, and filter parameters to fetch trace spans.
 ---
 
 ## Get Latest Traces
@@ -83,7 +84,7 @@ Retrieve detailed span information for a specific trace using the traces `/lates
 
 ### Using Search API 
 
-For complex queries, you can use the [search API](https://openobserve.ai/docs/api/search/search/) with SQL queries:
+For complex queries, you can use the [search API](../search/search.md) with SQL queries:
 ```sql
 SELECT * FROM default WHERE trace_id = {trace_id} ORDER BY start_time
 ```

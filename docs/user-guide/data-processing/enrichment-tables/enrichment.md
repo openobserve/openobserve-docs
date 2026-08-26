@@ -1,7 +1,9 @@
 ---
-title: Enrichment Table – OpenObserve
-description: Learn how to enrich incoming or queried log data in OpenObserve using enrichment tables. 
+title: Create and Use Enrichment Tables
+metaTitle: Enrichment Table – OpenObserve
+description: Learn how to enrich incoming or queried log data in OpenObserve using enrichment tables.
 ---
+
 This page explains how to enrich incoming or queried log data in OpenObserve using enrichment tables. 
 
 ## What Is an Enrichment Table 
@@ -14,22 +16,24 @@ You can use enrichment tables during:
 
 **Enrichment is performed using [Vector Remap Language or VRL functions](https://vector.dev/docs/reference/vrl/).**
 
-!!! note "Where to find"
-    To access the enrichment table interface:
+:::note[Where to find]
+To access the enrichment table interface:
 
-    1. Select the appropriate organization from the dropdown in the top-right corner.
-    2. Navigate to the left-hand menu.
-    3. Select **Pipelines > Enrichment Tables**.
-    
-    This opens the enrichment table management interface, where you can view, create, and manage enrichment tables available to the selected organization.
+1. Select the appropriate organization from the dropdown in the top-right corner.
+2. Navigate to the left-hand menu.
+3. Select **Pipelines > Enrichment Tables**.
 
-!!! note "Who can access"
-    Access to enrichment tables is controlled via the **Enrichment Tables** module in the **IAM** settings, using **[role-based access control (RBAC)](../../account-administration/identity-and-access-management/role-based-access-control.md)**.
+This opens the enrichment table management interface, where you can view, create, and manage enrichment tables available to the selected organization.
+:::
 
-    - **Root users** have full access by default.
-    - Other users must be assigned access through **Roles** in **IAM**.
-    - You can assign access to the entire **Enrichment Tables** module.
-    - You can also assign permissions to individual enrichment tables. This allows fine-grained control over who can use or modify specific enrichment tables.
+:::note[Who can access]
+Access to enrichment tables is controlled via the **Enrichment Tables** module in the **IAM** settings, using **[role-based access control (RBAC)](../../account-administration/identity-and-access-management/role-based-access-control.md)**.
+
+- **Root users** have full access by default.
+- Other users must be assigned access through **Roles** in **IAM**.
+- You can assign access to the entire **Enrichment Tables** module.
+- You can also assign permissions to individual enrichment tables. This allows fine-grained control over who can use or modify specific enrichment tables.
+:::
 
 ## Common Use Cases for Enrichment
 
@@ -83,49 +87,51 @@ stderr,Standard Error – error or diagnostic logs
 
 The enrichment table is now available for use in VRL.
 
-!!! note "Naming and uniqueness"
-    Enrichment table names must be unique within an organization, regardless of how the table is created (URL or file upload).
+:::note[Naming and uniqueness]
+Enrichment table names must be unique within an organization, regardless of how the table is created (URL or file upload).
 
-    - Names are normalized before they are stored: they are lowercased and special characters are replaced. As a result, names such as `My_Table` and `my_table` are treated as the same name and will collide.
-    - Creating a table whose name matches an existing table of the other source type (for example, creating a file-upload table that matches an existing URL table, or vice versa) is rejected. Use the matching update flow for that table type instead.
+- Names are normalized before they are stored: they are lowercased and special characters are replaced. As a result, names such as `My_Table` and `my_table` are treated as the same name and will collide.
+- Creating a table whose name matches an existing table of the other source type (for example, creating a file-upload table that matches an existing URL table, or vice versa) is rejected. Use the matching update flow for that table type instead.
+:::
 
 ### Step 4: Use the Enrichment Table in a VRL Function
 1. Go to the **Logs** page.
 2. Select the relevant log stream.
 3. In the **VRL Function Editor**, enter the following:
 
-```js linenums="1"
+```js lineNumbers
 record, err = get_enrichment_table_record("log_stream_labels", {"log_iostream": .log_iostream})
 .stream_type_description = record.stream_type_description
 .
 ```
 
-!!! note "Explanation:"
-    **Line 1:** <br>
+:::note[Explanation:]
+**Line 1:** <br>
 
-    `record, err = get_enrichment_table_record("log_stream_labels", { "log_iostream": .log_iostream })`: 
+`record, err = get_enrichment_table_record("log_stream_labels", { "log_iostream": .log_iostream })`: 
 
-    - This line searches the enrichment table named `log_stream_labels`.
-    - It matches the field `log_iostream` in your log event with the `log_iostream` column in the enrichment table.
-    - If a match is found, the corresponding row from the table is returned as record.
-    - If no match is found or an error occurs, record will be empty and err will contain the error.
+- This line searches the enrichment table named `log_stream_labels`.
+- It matches the field `log_iostream` in your log event with the `log_iostream` column in the enrichment table.
+- If a match is found, the corresponding row from the table is returned as record.
+- If no match is found or an error occurs, record will be empty and err will contain the error.
 
-    **Line 2:** <br>
-    `.stream_type_description = record.stream_type_description`:
+**Line 2:** <br>
+`.stream_type_description = record.stream_type_description`:
 
-    - This creates a new field called `stream_type_description` in your log event.
-    - The value is taken from the `stream_type_description` column in the enrichment table row returned above.
-    - If the enrichment table did not contain a matching entry, this field may not be added.
+- This creates a new field called `stream_type_description` in your log event.
+- The value is taken from the `stream_type_description` column in the enrichment table row returned above.
+- If the enrichment table did not contain a matching entry, this field may not be added.
 
-    **Line 3:** <br>
-    `.`
+**Line 3:** <br>
+`.`
 
-    - This tells OpenObserve to return the modified log event, including the newly added field.
+- This tells OpenObserve to return the modified log event, including the newly added field.
+:::
 
 **Optional** <br>
 If you prefer to replace the original value instead of adding a new field, you can do:
 
-```js linenums="1"
+```js lineNumbers
 record, err = get_enrichment_table_record("log_stream_labels", {"log_iostream": .log_iostream})
 .log_iostream = record.stream_type_description
 .
@@ -145,8 +151,9 @@ In addition to enriching data at query time, you can apply the same enrichment l
 - The VRL function reads from an enrichment table, just like in the **Logs** UI.
 - The enriched field is added before the data is written to storage.
 
-!!! note 
-    Use query-time enrichment when you want flexibility. Use ingestion-time enrichment when you want consistency and speed.
+:::note[Note]
+Use query-time enrichment when you want flexibility. Use ingestion-time enrichment when you want consistency and speed.
+:::
 
 ## Append Data to an Existing Table
 To add more data to an existing enrichment table, enable the **Append data to existing Enrichment Table** option before uploading your new CSV file: 
@@ -159,8 +166,9 @@ To add more data to an existing enrichment table, enable the **Append data to ex
 <br>
 ![Append Data to an Existing Table](../../../images/enrichment-table-append.png)
 
-!!! note
-    OpenObserve does not silently overwrite existing data. Re-adding a URL that is already present in a table, or re-creating a URL-based table that already exists without using the append/reload flow, returns an error instead of overwriting the existing data.
+:::note[Note]
+OpenObserve does not silently overwrite existing data. Re-adding a URL that is already present in a table, or re-creating a URL-based table that already exists without using the append/reload flow, returns an error instead of overwriting the existing data.
+:::
 
 ## Storage Limit
 The maximum size of an enrichment table is controlled by the environment variable `ZO_ENRICHMENT_TABLE_LIMIT`.

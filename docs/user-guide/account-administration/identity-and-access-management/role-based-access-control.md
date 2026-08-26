@@ -1,16 +1,17 @@
 ---
-description: >-
-  Manage fine-grained access in OpenObserve with OpenFGA-based RBAC—roles,
-  permissions, service accounts, and user groups.
+title: Role-Based Access Control (RBAC)
+description: Manage fine-grained access in OpenObserve with OpenFGA-based RBAC—roles, permissions, service accounts, and user groups.
 ---
+
 This guide provides an overview of Role-Based Access Control (RBAC), its features, and how it is implemented in OpenObserve.
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::info[Availability]
+This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
-    - **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
-    - **Cloud version**: RBAC is preconfigured and does not require setup.
-    - **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
+- **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
+- **Cloud version**: RBAC is preconfigured and does not require setup.
+- **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
+:::
 
 ## Overview
 
@@ -45,8 +46,9 @@ RBAC permissions define what actions users can perform:
 
 ### Per-Stream Resources
 
-!!! info "Availability"
-    These resources are available in Enterprise Edition and Cloud. Not available in Open Source.
+:::info[Availability]
+These resources are available in Enterprise Edition and Cloud. Not available in Open Source.
+:::
 
 In addition to the standard resources, OpenObserve exposes the following per-stream RBAC resources. Each resource is scoped to an individual stream, allowing you to grant or restrict access on a stream-by-stream basis:
 

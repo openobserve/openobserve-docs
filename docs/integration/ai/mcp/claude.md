@@ -1,7 +1,6 @@
 ---
-description: >-
-  Connect OpenObserve as an MCP (Model Context Protocol) server to Claude Code CLI
-  for querying logs, traces, managing alerts, and streams through natural language.
+title: Claude code CLI
+description: "Connect OpenObserve as an MCP server to Claude Code CLI to query logs and traces, and manage alerts and streams through natural language."
 ---
 
 # OpenObserve MCP Server Setup Guide for Claude Code
@@ -51,22 +50,23 @@ claude mcp add <server-name> <O2_URL>/api/<ORG_ID>/mcp -t http --header "Authori
 - `--header` - HTTP header for authentication (use `--header`, not `-H`)
 - `/api/<org_id>/mcp` - MCP endpoint (replace `default` with your org_id)
 
-??? "Example Commands"
+:::accordion[Example Commands]
 
-    **For OpenObserve Cloud:**
-    ```bash
-    claude mcp add o2 https://api.openobserve.ai/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
-    ```
+**For OpenObserve Cloud:**
+```bash
+claude mcp add o2 https://api.openobserve.ai/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
+```
 
-    **For Self-Hosted Instance:**
-    ```bash
-    claude mcp add o2 https://your-o2-instance.com/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
-    ```
+**For Self-Hosted Instance:**
+```bash
+claude mcp add o2 https://your-o2-instance.com/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
+```
 
-    **For Local Development:**
-    ```bash
-    claude mcp add o2 http://localhost:5080/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
-    ```
+**For Local Development:**
+```bash
+claude mcp add o2 http://localhost:5080/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
+```
+:::
 
 
 ### Configuration Scope
@@ -183,123 +183,131 @@ Each instance will have its own tool prefix: `mcp__o2-prod__*` and `mcp__o2-stag
 
 ## Troubleshooting
 
-??? "Connection Issues"
+:::accordion[Connection Issues]
 
-    **Problem:** MCP server not showing up or failing to connect
+**Problem:** MCP server not showing up or failing to connect
 
-    **Solutions:**
+**Solutions:**
 
-    1. **Verify the server was added:**
-    ```bash
-    claude mcp list
-    ```
+1. **Verify the server was added:**
+```bash
+claude mcp list
+```
 
-    2. **Check the configuration file:**
-    ```bash
-    cat ~/.claude.json | grep -A 10 "mcpServers"
-    ```
+2. **Check the configuration file:**
+```bash
+cat ~/.claude.json | grep -A 10 "mcpServers"
+```
 
-    3. **Test the endpoint directly:**
-    ```bash
-    curl -H "Authorization: Basic <YOUR_TOKEN>" https://your-o2-instance/api/default/mcp
-    ```
+3. **Test the endpoint directly:**
+```bash
+curl -H "Authorization: Basic <YOUR_TOKEN>" https://your-o2-instance/api/default/mcp
+```
 
-    4. **Check for network/firewall issues:**
+4. **Check for network/firewall issues:**
 
-        - Ensure your machine can reach the O2 instance
-        - Check if there are any IP restrictions on the O2 side
+    - Ensure your machine can reach the O2 instance
+    - Check if there are any IP restrictions on the O2 side
 
-    5. **Restart Claude:**
+5. **Restart Claude:**
 
-        - Exit Claude and start it again
-        - Changes to MCP configuration require restarting Claude
+    - Exit Claude and start it again
+    - Changes to MCP configuration require restarting Claude
+:::
 
-??? "Authentication Issues"
+:::accordion[Authentication Issues]
 
-    **Problem:** Getting 401 Unauthorized errors
+**Problem:** Getting 401 Unauthorized errors
 
-    **Solutions:**
+**Solutions:**
 
-    1. **Verify your Base64 token is correct:**
-    ```bash
-    echo "<YOUR_BASE64_TOKEN>" | base64 -d
-    # Should output: username:password
-    ```
+1. **Verify your Base64 token is correct:**
+```bash
+echo "<YOUR_BASE64_TOKEN>" | base64 -d
+# Should output: username:password
+```
 
-    2. **Check credentials work directly:**
-    ```bash
-    curl -u "username:password" https://your-o2-instance/api/default/_meta
-    ```
+2. **Check credentials work directly:**
+```bash
+curl -u "username:password" https://your-o2-instance/api/default/_meta
+```
 
-    3. **Ensure you're using the correct header format:**
+3. **Ensure you're using the correct header format:**
 
-        - Use `--header "Authorization: Basic <TOKEN>"`
-        - The word "Basic" is required
-        - Ensure no extra spaces in the token
+    - Use `--header "Authorization: Basic <TOKEN>"`
+    - The word "Basic" is required
+    - Ensure no extra spaces in the token
 
-    4. **Verify user has permissions:**
+4. **Verify user has permissions:**
 
-        - User must have access to the specified organization
-        - User needs appropriate permissions for the operations you're trying to perform
+    - User must have access to the specified organization
+    - User needs appropriate permissions for the operations you're trying to perform
+:::
 
-??? "Wrong Organization"
+:::accordion[Wrong Organization]
 
-    **Problem:** Can't access your data or streams
+**Problem:** Can't access your data or streams
 
-    **Solution:**
+**Solution:**
 
-    Replace `default` in the URL with your actual org_id:
-    ```bash
-    claude mcp remove o2
-    claude mcp add o2 https://your-o2-instance/api/YOUR_ORG_ID/mcp -t http --header "Authorization: Basic <TOKEN>"
-    ```
+Replace `default` in the URL with your actual org_id:
+```bash
+claude mcp remove o2
+claude mcp add o2 https://your-o2-instance/api/YOUR_ORG_ID/mcp -t http --header "Authorization: Basic <TOKEN>"
+```
+:::
 
-??? " MCP Tools Not Available"
+:::accordion[ MCP Tools Not Available]
 
-    **Problem:** Claude doesn't show MCP tools or can't use them
+**Problem:** Claude doesn't show MCP tools or can't use them
 
-    **Solutions:**
+**Solutions:**
 
-    1. **Check server is connected:**
-    ```
-    /mcp
-    ```
-    Should show your O2 server with a ✓
+1. **Check server is connected:**
+```
+/mcp
+```
+Should show your O2 server with a ✓
 
-    2. **Restart Claude:**
-    MCP servers are loaded at startup
+2. **Restart Claude:**
+MCP servers are loaded at startup
 
-    3. **Check the server name:**
-    Tools are prefixed with `mcp__<server-name>__*`
+3. **Check the server name:**
+Tools are prefixed with `mcp__<server-name>__*`
+:::
 
 ## Common Use Cases
 
 Once connected, you can ask Claude to:
 
-??? "Query Streams"
+:::accordion[Query Streams]
 
-    - "Show me all log streams"
-    - "List trace streams with their statistics"
-    - "What streams are available in the production organization?"
+- "Show me all log streams"
+- "List trace streams with their statistics"
+- "What streams are available in the production organization?"
+:::
 
-??? "Manage Alerts"
+:::accordion[Manage Alerts]
 
-    - "Create an alert for production errors"
-    - "Show all alerts in the default org"
-    - "Update the alert with ID xyz to change the threshold"
-    - "Delete the test alert"
+- "Create an alert for production errors"
+- "Show all alerts in the default org"
+- "Update the alert with ID xyz to change the threshold"
+- "Delete the test alert"
+:::
 
-??? "Analyze Data"
+:::accordion[Analyze Data]
 
-    - "What are the most recent traces in the default stream?"
-    - "Show me error patterns in logs"
-    - "Get statistics for all streams"
+- "What are the most recent traces in the default stream?"
+- "Show me error patterns in logs"
+- "Get statistics for all streams"
+:::
 
-??? "Manage Destinations"
+:::accordion[Manage Destinations]
 
-    - "List all alert destinations"
-    - "What destinations are available for alerts?"
-    - "Show me the configured Slack destinations"
+- "List all alert destinations"
+- "What destinations are available for alerts?"
+- "Show me the configured Slack destinations"
+:::
 
 ## Best Practices
 

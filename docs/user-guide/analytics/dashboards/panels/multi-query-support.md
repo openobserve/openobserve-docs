@@ -1,10 +1,9 @@
 ---
-title: Multi-Query Support in Dashboard Panels | OpenObserve
-description: >-
-  Configure multiple independent SQL queries within a single dashboard panel in
-  OpenObserve. Compare data from different streams, overlay metrics, and toggle
-  query visibility — all on the same chart.
+title: Multi-Query Support
+metaTitle: Multi-Query Support in Dashboard Panels | OpenObserve
+description: "Configure multiple independent SQL queries in one dashboard panel to compare streams, overlay metrics, and toggle query visibility on the same chart."
 ---
+
 # Multi-Query Support
 
 Configure multiple independent SQL queries within a single dashboard panel. Each query has its own stream, fields, filters, and VRL function — overlaid or displayed side by side on the same chart.

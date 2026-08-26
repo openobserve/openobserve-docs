@@ -1,6 +1,7 @@
 ---
-title: AI Framework Observability - LangChain, CrewAI, LlamaIndex, AutoGen | OpenObserve
-description: Instrument AI orchestration and agent frameworks with OpenObserve. Trace LangChain chains, CrewAI agents, LlamaIndex workflows, AutoGen conversations, and 30+ other AI frameworks via OpenTelemetry.
+title: Frameworks
+metaTitle: "AI Framework Observability - LangChain, CrewAI, AutoGen"
+description: "Instrument AI orchestration and agent frameworks with OpenObserve. Trace LangChain, CrewAI, LlamaIndex, AutoGen, and 30+ more via OpenTelemetry."
 ---
 
 # AI Framework Observability Integrations
@@ -12,6 +13,8 @@ These integrations capture token usage, latency per step, agent reasoning traces
 ## Framework Integration Guides
 
 - [Agno](agno.md)
+- [Amazon Bedrock AgentCore](amazon-bedrock-agentcore.md)
+- [Amazon Bedrock Agents](amazon-bedrock-agents.md)
 - [AutoGen](autogen.md)
 - [BeeAI](beeai.md)
 - [Claude Agent SDK](claude-agent-sdk.md)

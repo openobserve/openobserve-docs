@@ -1,5 +1,6 @@
 ---
-description: "Table chart panels display query results as tables with per-column formatting, units, conditional styling, Excel-style column filtering, and pagination."
+title: Table Chart
+description: Table chart panels display query results as tables with per-column formatting, units, conditional styling, Excel-style column filtering, and pagination.
 ---
 
 # Table Chart

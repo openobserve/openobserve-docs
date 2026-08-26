@@ -1,5 +1,6 @@
 ---
-description: "Manually migrate PostgreSQL file_list tables to partitioned tables in OpenObserve when auto-migration is held, with step-by-step SQL and sequence alignment."
+title: Migrate file list partition
+description: Manually migrate PostgreSQL file_list tables to partitioned tables in OpenObserve when auto-migration is held, with step-by-step SQL and sequence alignment.
 ---
 
 # Migration Guide: PostgreSQL `file_list` Partition Upgrade

@@ -1,7 +1,9 @@
 ---
-title: Upload, Caching, and Restart Behavior – OpenObserve
+title: Upload, Caching, and Restart Behavior
+metaTitle: Upload, Caching, and Restart Behavior – OpenObserve
 description: Explains enrichment table upload, caching, and recovery behavior in OpenObserve based on file size and system settings.
 ---
+
 This page describes how OpenObserve handles [enrichment table](./enrichment.md) uploads, caching, and table loading behavior during node restart.
 
 
@@ -17,12 +19,13 @@ The upload flow adapts based on the file size, controlled by the environment var
     - Create a single Parquet file.
     - Upload the merged file to the remote telemetry storage such as S3.
 
-!!! info "To configure the interval:"
-    Set the `ZO_ENRICHMENT_TABLE_MERGE_INTERVAL` environment variable.
+:::info[To configure the interval:]
+Set the `ZO_ENRICHMENT_TABLE_MERGE_INTERVAL` environment variable.
 
-    - This variable defines how frequently the merge job runs.
-    - The value is in seconds.
-    - Default: 600
+- This variable defines how frequently the merge job runs.
+- The value is in seconds.
+- Default: 600
+:::
 
 ### When the file is 60 MB or larger
 

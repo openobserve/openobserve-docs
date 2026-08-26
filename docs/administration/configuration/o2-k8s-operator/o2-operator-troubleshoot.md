@@ -1,5 +1,6 @@
 ---
-description: "Troubleshoot the OpenObserve operator with kubectl commands to list, patch, and delete stuck resources, remove finalizers, and fix reconciliation failures."
+title: Troubleshooting Guide
+description: Troubleshoot the OpenObserve operator with kubectl commands to list, patch, and delete stuck resources, remove finalizers, and fix reconciliation failures.
 ---
 
 # OpenObserve Operator - Troubleshooting Guide

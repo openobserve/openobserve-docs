@@ -1,5 +1,6 @@
 ---
-description: "Real-world RUM use cases with code for e-commerce checkout flows, SaaS feature usage, conversion funnels, A/B testing, and performance budget monitoring."
+title: Use Cases
+description: Real-world RUM use cases with code for e-commerce checkout flows, SaaS feature usage, conversion funnels, A/B testing, and performance budget monitoring.
 ---
 
 # Use Cases and Real-World Examples

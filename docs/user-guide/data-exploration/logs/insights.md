@@ -1,5 +1,6 @@
 ---
-description: "Insights automates root cause analysis by comparing anomaly periods against baseline across dimensions, ranking which factors drive changes in logs and traces."
+title: Insights
+description: Insights automates root cause analysis by comparing anomaly periods against baseline across dimensions, ranking which factors drive changes in logs and traces.
 ---
 
 # Insights: Interactive Dimension Analysis
@@ -121,9 +122,9 @@ Click "Fields (X)" button to:
 ## Additional Resources
 
 - **Detailed guide with examples**: [From Symptoms to Quick Insights blog post](https://openobserve.ai/blog/observability-insights-troubleshooting-guide)
-- **Logs guide**: [Logs documentation](https://openobserve.ai/docs/user-guide/logs/)
+- **Logs guide**: [Logs documentation](index.md)
 - **Traces guide**: [Traces documentation](https://openobserve.ai/docs/user-guide/data-exploration/traces/)
-- **Alerts setup**: [Alerts documentation](https://openobserve.ai/docs/user-guide/alerts/)
+- **Alerts setup**: [Alerts documentation](../../analytics/alerts/index.md)
 
 
 ---

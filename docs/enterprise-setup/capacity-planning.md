@@ -1,7 +1,9 @@
 ---
-title: Capacity Planning Guide - Resource Sizing for Production Deployment | OpenObserve
-description: Complete capacity planning guide for OpenObserve deployment - compute, memory, and storage sizing for production observability workloads and high availability clusters.
+title: Capacity Planning
+metaTitle: "Capacity Planning - Resource Sizing for Production"
+description: "Capacity planning for OpenObserve: compute, memory, and storage sizing for production observability workloads and high availability clusters."
 ---
+
 # Capacity Planning - Resource Sizing & Deployment Planning
 
 Plan capacity and resource sizing for OpenObserve production deployment. This capacity planning guide helps you size compute, memory, and storage for your observability workloads and high availability clusters.

@@ -1,9 +1,8 @@
 ---
-description: >-
-  Downsampling in OpenObserve summarizes historical metrics data to reduce
-  storage and improve performance. Configure rules by stream, function, and time
-  block.
+title: Downsampling Metrics
+description: Downsampling in OpenObserve summarizes historical metrics data to reduce storage and improve performance. Configure rules by stream, function, and time block.
 ---
+
 This guide provides an overview of downsampling, including its configuration, rule format, and an example.
 
 > **Downsampling is an enterprise feature in OpenObserve. It applies only to metrics data.**
@@ -21,7 +20,7 @@ Downsampling is configured using the following environment variables.:
 
 > Refer to the [Downsampling Rule](#downsampling-rule) section. <br> 
 
-#### Downsampling configuration for Helm Chart users
+### Downsampling configuration for Helm Chart users
 
 Add the environment variables under the `enterprise.parameters` section in your `values.yaml` file:  
 ```  
@@ -32,7 +31,7 @@ enterprise:
     `O2_METRICS_DOWNSAMPLING_RULES`: "o2_cpu_usage:avg:30d:5m"    
 ```
 
-#### Downsampling configuration for Terraform users
+### Downsampling configuration for Terraform users
 
 Set the same variables in your `terraform.tfvars` file:  
 ```  

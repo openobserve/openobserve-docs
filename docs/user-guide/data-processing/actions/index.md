@@ -1,5 +1,6 @@
 ---
-description: "Actions in OpenObserve are user-defined Python scripts that automate custom workflows, run against log data from the Logs UI, or serve as alert destinations."
+title: Actions Overview
+description: Actions in OpenObserve are user-defined Python scripts that automate custom workflows, run against log data from the Logs UI, or serve as alert destinations.
 ---
 
 **Actions** in OpenObserve are user-defined Python scripts that support custom automation workflows. They can be applied to log data directly from the Logs UI or used as alert destinations. 

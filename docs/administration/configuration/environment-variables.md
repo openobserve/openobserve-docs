@@ -1,8 +1,7 @@
 ---
-title: Environment Variables Reference | OpenObserve
-description: >-
-  Configure OpenObserve with flexible environment variables for roles, storage,
-  performance, and scaling across open source and enterprise deployments.
+title: Environment Variables
+metaTitle: Environment Variables Reference | OpenObserve
+description: Configure OpenObserve with flexible environment variables for roles, storage, performance, and scaling across open source and enterprise deployments.
 ---
 
 # Environment Variables
@@ -24,7 +23,7 @@ Pick the form that matches how you run OpenObserve:
 | ZO_ROOT_USER_PASSWORD | - | Password for the root user. |
 | ZO_LOCAL_MODE | true | If local mode is set to true, OpenObserve becomes single node deployment.If it is set to false, it indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure SQLite DB, for cluster mode one needs to configure PostgreSQL (recommended) or MySQL. |
 | ZO_LOCAL_MODE_STORAGE | disk | Applicable only for local mode. By default, local disk is used as storage. OpenObserve supports both disk and S3 in local mode. |
-| ZO_NODE_ROLE | all | Node role assignment. Possible values are ingester, querier, router, compactor, alertmanager, and all. A single node can have multiple roles by specifying them as a comma-separated list. For example, compactor, alertmanager. |
+| ZO_NODE_ROLE | all | Node role assignment. Possible values are ingester, querier, router, compactor, scheduler, and all. A single node can have multiple roles by specifying them as a comma-separated list. For example, compactor, scheduler. |
 | ZO_NODE_ROLE_GROUP | "" | Each query-processing node can be assigned to a specific group using ZO_NODE_ROLE_GROUP. <br>- **interactive**: Handles queries triggered directly by users through the UI. <br>- **background**: Handles automated or scheduled queries, such as alerts and reports. <br>- **empty string** (default): Handles all query types. <br>
 In high-load environments, alerts or reports can run large, resource-intensive queries. By assigning dedicated groups, administrators can prevent such queries from blocking or slowing down real-time user searches. |
 | ZO_NODE_HEARTBEAT_TTL | 30 | Time-to-live (TTL) for node heartbeats in seconds. |
@@ -202,10 +201,10 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 ## Alerts and Reports
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| ZO_ALERT_SCHEDULE_INTERVAL | 10s | Defines how often the alert manager checks for scheduled jobs such as alerts, reports, or scheduled pipelines. The default value is 10 seconds. This means the alert manager fetches and processes alerts, reports, and pipelines every 10 seconds. |
-| ZO_ALERT_SCHEDULE_TIMEOUT           | 90     | The maximum expected time duration in seconds within which the processing of alert by the alert manager should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other alert managers to pick. |
-| ZO_SCHEDULER_WATCH_INTERVAL         | 30    | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by alert managers. |
-| ZO_ALERT_SCHEDULE_CONCURRENCY       | 5   | The number of scheduled jobs the the alert manager will pull at a time from the scheduler for processing |
+| ZO_ALERT_SCHEDULE_INTERVAL | 10s | Defines how often the scheduler checks for scheduled jobs such as alerts, reports, or scheduled pipelines. The default value is 10 seconds. This means the scheduler fetches and processes alerts, reports, and pipelines every 10 seconds. |
+| ZO_ALERT_SCHEDULE_TIMEOUT           | 90     | The maximum expected time duration in seconds within which the processing of alert by the scheduler should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other schedulers to pick. |
+| ZO_SCHEDULER_WATCH_INTERVAL         | 30    | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by schedulers. |
+| ZO_ALERT_SCHEDULE_CONCURRENCY       | 5   | The number of scheduled jobs the the scheduler will pull at a time from the scheduler for processing |
 | ZO_CHROME_ENABLED                   | false  | When true, it looks for chromium executable. Required for dashboard reports. |
 | ZO_CHROME_PATH                      | -  | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
 | ZO_CHROME_CHECK_DEFAULT_PATH        | true | If false, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
@@ -219,11 +218,11 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_SCHEDULER_CLEAN_INTERVAL         | 30   | The interval in seconds after which the scheduler will clean up the completed scheduled jobs. |
 | ZO_REPORT_USER_NAME                 |  | The username that will be used by the headless chromium to login into openobserve and generate report. |
 | ZO_REPORT_USER_PASSWORD             |  | The password that will be used by the headless chromium to login into openobserve and generate report. |
-| ZO_ENABLE_EMBEDDED_REPORT_SERVER    | false  | If true, the alert manager (for which this ENV is enabled) spawns a new report-server running on PORT `5082` (default, can be changed through `ZO_REPORT_SERVER_HTTP_PORT`). |
+| ZO_ENABLE_EMBEDDED_REPORT_SERVER    | false  | If true, the scheduler (for which this ENV is enabled) spawns a new report-server running on PORT `5082` (default, can be changed through `ZO_REPORT_SERVER_HTTP_PORT`). |
 | ZO_REPORT_SERVER_HTTP_PORT          | `5082` | The port used by the newly spawned report-server. |
 | ZO_REPORT_SERVER_HTTP_ADDR          | `127.0.0.1`  | The ip address used by the newly spawned report-server. |
 | ZO_REPORT_SERVER_URL                | `localhost:5082` | The report server server URL. E.g. - `https://report-server.example.com/api`. |
-| ZO_REPORT_SERVER_SKIP_TLS_VERIFY    | false| If true, it will skip tls verification while making request to report-server from alert manager. |
+| ZO_REPORT_SERVER_SKIP_TLS_VERIFY    | false| If true, it will skip tls verification while making request to report-server from scheduler. |
 
 ## Enrichment Tables
 | Environment Variable | Default Value | Description |

@@ -1,4 +1,5 @@
 ---
+title: Frontend Observability
 description: "Monitor real user experience with OpenObserve frontend observability: Core Web Vitals, JavaScript error tracking, and session replay via a lightweight SDK."
 ---
 
@@ -26,14 +27,16 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 - **Network Insights**: Track HTTP requests and network timing
 
 
-### [Error Tracking](../user-guide/rum.md#error-tracking)
+### Error Tracking
 
 - **JavaScript Errors**: Automatically capture exceptions and errors with full stack traces
 - **Error Context**: Includes user session metadata and browser details
 
 ![Error Tracking](../images/frontend/error-tracking.webp)
 
-### [Session Replay](../user-guide/rum.md#session-replay)
+See [Error Tracking](../user-guide/data-exploration/rum/error-tracking.md) for the full guide.
+
+### Session Replay
 
 - **User Interaction Recording**: Replay user sessions to understand behavior and debug issues
 
@@ -45,8 +48,10 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 
 - **Privacy Features**: Configurable masking for sensitive fields
 
+See [Session Replay](../user-guide/data-exploration/rum/session-replay.md) for the full guide.
+
 
 ## Integration
 
-Getting started with [OpenObserve's RUM](../user-guide/rum.md) is straightforward. Add our JavaScript snippet to your application's entry point eg: index.js or main.js, and you'll begin collecting user experience data immediately.
+Getting started with [OpenObserve's RUM](../user-guide/data-exploration/rum/index.md) is straightforward. Add our JavaScript snippet to your application's entry point eg: index.js or main.js, and you'll begin collecting user experience data immediately.
 

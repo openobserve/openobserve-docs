@@ -1,7 +1,9 @@
 ---
-title: Secondary Index Functions in OpenObserve
+title: Secondary Index Functions
+metaTitle: Secondary Index Functions in OpenObserve
 description: This page describes the secondary index functions supported in OpenObserve.
 ---
+
 Secondary index functions allow you to filter and optimize queries using fields that are configured as secondary indexes in stream settings.
 
 ## `!=` (Not Equal)

@@ -1,6 +1,7 @@
 ---
-title: SIEM Platform - Security Information and Event Management Solution | OpenObserve
-description: Complete SIEM platform guide for building Security Information and Event Management system with threat detection, security monitoring, incident response, and SOC operations using OpenObserve.
+title: "**Building a SIEM Platform with OpenObserve**"
+metaTitle: "SIEM - Security Information and Event Management"
+description: "Build a SIEM platform on OpenObserve with threat detection, security monitoring, incident response, and SOC operations."
 ---
 
 # **Building a SIEM Platform with OpenObserve**
@@ -115,7 +116,7 @@ if .Operation == "UserLoginFailed" {
 
 Raw logs often lack context. Is IP 1.2.3.4 a customer or a known botnet? OpenObserve allows you to use **Enrichment Tables** to correlate live logs with external Threat Intelligence.
 
-Threat Intel feeds (such as lists of malicious IPs or domains) can be uploaded periodically as CSV files to OpenObserve. For detailed instructions on managing these tables, refer to the [Enrichment Tables Documentation](https://openobserve.ai/docs/user-guide/enrichment-tables/enrichment/).
+Threat Intel feeds (such as lists of malicious IPs or domains) can be uploaded periodically as CSV files to OpenObserve. For detailed instructions on managing these tables, refer to the [Enrichment Tables Documentation](../data-processing/enrichment-tables/enrichment.md).
 
 There are two primary methods to utilize this data:
 

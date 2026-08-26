@@ -1,11 +1,9 @@
 ---
-title: Alerts in OpenObserve | OpenObserve
-description: >-
-  Learn how alerting works in OpenObserve. Supports scheduled and real-time
-  alerts, plus anomaly detection alerts on Enterprise self-hosted, with a
-  natural language condition builder, SQL mode, live preview, and flexible
-  notification destinations.
+title: Alerts Overview
+metaTitle: Alerts in OpenObserve | OpenObserve
+description: "How alerting works in OpenObserve: scheduled, real-time, composite, and anomaly alerts with a natural language condition builder, SQL mode, and live preview."
 ---
+
 # Alerts
 
 Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. Define conditions using a natural language builder or custom SQL, receive notifications through webhooks such as Slack, email, or other endpoints, and trigger configured Actions automatically when an alert is activated.
@@ -14,10 +12,11 @@ Alerts enable continuous monitoring of log, metric, or trace data to detect crit
 
 ## Alert types
 
-OpenObserve supports three types of alerts:
+OpenObserve supports four types of alerts:
 
 - **Scheduled alerts**: Run at fixed intervals to evaluate aggregated or historical data. Use for routine monitoring and trend analysis. For example, every 10 minutes, the alert evaluates your data and checks if the average response time exceeds 500ms. If the condition is met, the alert sends a notification.
 - **Real-time alerts**: Monitor data continuously and trigger instantly when conditions are met. Use for critical events requiring instant action. For example, when a specific error pattern appears in your logs, the alert sends a notification within seconds.
+- **Composite alerts**: Combine the current state of existing alerts with boolean logic (`AND`, `OR`, `NOT`). Use to reduce alert noise by paging only when several signals line up. See [Composite Alerts](composite-alerts.md) for details.
 - **Anomaly detection** *(Enterprise self-hosted only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
 
 ## Alert creation layout
@@ -69,8 +68,9 @@ OpenObserve supports three query modes for defining conditions:
 
 How often the alert evaluation runs. Set the interval in minutes, or switch to a cron expression for precise scheduling. Real-time alerts run continuously and do not have a frequency setting.
 
-!!! note
-    OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. For example, if the current time is 23:03 and frequency is 5 minutes, the next run is at 23:05. When you use a cron expression instead, the next run is the next time that matches the cron schedule in the configured timezone; the alert does not trigger immediately on save or enable.
+:::note[Note]
+OpenObserve aligns the next run to the nearest upcoming time that is divisible by the frequency, starting from the top of the hour in the configured timezone. For example, if the current time is 23:03 and frequency is 5 minutes, the next run is at 23:05. When you use a cron expression instead, the next run is the next time that matches the cron schedule in the configured timezone; the alert does not trigger immediately on save or enable.
+:::
 
 ### Look back window (period)
 
@@ -119,6 +119,7 @@ To create a folder, click **+** in the **Folders** panel on the Alerts page, ent
 
 - [Scheduled Alerts](scheduled-alerts.md): create scheduled and SQL alerts with advanced configuration.
 - [Real-time Alerts](real-time-alerts.md): create alerts that trigger instantly on ingestion.
+- [Composite Alerts](composite-alerts.md): combine existing alerts into a boolean expression.
 - [Alert Conditions and Filters](alert-conditions.md): deep dive into condition modes, functions, and filters.
 - [Alert History](alert-history.md): view alert trigger history.
 - [Anomaly Detection](anomaly-detection.md): ML-based anomaly alerts.

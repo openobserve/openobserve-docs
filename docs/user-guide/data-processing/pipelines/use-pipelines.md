@@ -1,7 +1,8 @@
 ---
-description: >-
- Create and run real-time or scheduled pipelines in OpenObserve to transform and route data between streams using queries, conditions, and functions.
+title: use-pipelines
+description: Create and run real-time or scheduled pipelines in OpenObserve to transform and route data between streams using queries, conditions, and functions.
 ---
+
 This guide shows you how to create and use real-time and scheduled pipelines in OpenObserve.
 
 ## Create a Pipeline
@@ -76,21 +77,22 @@ This opens up the pipeline editor.
 
     **Note**: In the **Associate Function** fom, the **After Flattening** toggle is enabled by default. Disable it only if necessary.
     <br>The **After Flattening** toggle determines whether the function processes data after it has been transformed into a simpler, flat structure. When enabled (default), the function operates on pre-processed, structured data, making it easier to analyze. Disabling it allows the function to work with the original data.
-    <br>For more details, see the [Functions Guide](https://openobserve.ai/docs/user-guide/functions/).
+    <br>For more details, see the [Functions Guide](../functions/functions-in-openobserve.md).
 
 3. Click **Save** to confirm the transform node.
 
 ### Step 5: Edit the Destination node
 
-!!! warning "Important"
-    If you create a route with a condition or filter that forwards events to a new destination, only the matching events go there. <br>
-    Events that do not match the condition are dropped. They are not stored in the source stream unless you explicitly add a destination node that points to the source stream.
+:::warning[Important]
+If you create a route with a condition or filter that forwards events to a new destination, only the matching events go there. <br>
+Events that do not match the condition are dropped. They are not stored in the source stream unless you explicitly add a destination node that points to the source stream.
 
-    **Suggested pattern**: Always add two or more routes in your real-time pipeline.
+**Suggested pattern**: Always add two or more routes in your real-time pipeline.
 
-    - Route A: Add a catch-all route without a filter. Point it back to the same source stream to prevent data loss.
-    - Route B: Filter number 1 and forward matching events to destination 1.
-    - Route C: Filter number 2 and forward matching events to destination 2.
+- Route A: Add a catch-all route without a filter. Point it back to the same source stream to prevent data loss.
+- Route B: Filter number 1 and forward matching events to destination 1.
+- Route C: Filter number 2 and forward matching events to destination 2.
+:::
 
 1. Drag a **Stream** node into the editor.
 2. Click the edit icon in the destination **Stream** node.
@@ -124,7 +126,7 @@ Ensure that the pipeline is active.
 
 ### Step 1: Ingest Data 
 
-Use `curl` or other [data ingestion options in OpenObserve](https://openobserve.ai/docs/user-guide/ingestion/).
+Use `curl` or other [data ingestion options in OpenObserve](../../../ingestion/index.md).
 
 **Example**: Ingesting new data from the `k8slog_json.json` file into the `k8s_logs` stream, which is under the `default` organization:
 > `curl http://localhost:5080/api/default/k8s_logs/_json -i -u 'root@example.com:Complexpass#123' --data-binary "@k8slog_json.json"`

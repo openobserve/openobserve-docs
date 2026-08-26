@@ -1,7 +1,9 @@
 ---
-title: Telegraf Metrics Collection for System and Infrastructure Monitoring | OpenObserve
+title: Telegraf
+metaTitle: "Telegraf Metrics Collection for Infrastructure Monitoring"
 description: Configure Telegraf agent for system metrics collection, server monitoring, and infrastructure metrics ingestion to OpenObserve using Prometheus remote write.
 ---
+
 # Telegraf - System Metrics & Infrastructure Monitoring
 
 Telegraf is a plugin-driven server agent for collecting and reporting metrics from systems, services, and IoT sensors. Configure Telegraf for system monitoring, infrastructure metrics collection, and application performance monitoring, sending metrics to OpenObserve via Prometheus remote write.

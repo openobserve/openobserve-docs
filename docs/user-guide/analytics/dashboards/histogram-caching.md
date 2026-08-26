@@ -1,5 +1,6 @@
 ---
-title: Histogram Caching in Dashboards
+title: Histogram Caching
+metaTitle: Histogram Caching in Dashboards
 description: Learn how histogram caching in OpenObserve dashboards reuses results for overlapping time ranges, improves query performance.
 ---
 

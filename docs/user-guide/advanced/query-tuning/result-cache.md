@@ -1,5 +1,6 @@
 ---
-description: "Result cache stores query results locally on each OpenObserve node using consistent hashing, cutting network overhead and speeding up repeated query response."
+title: Result Cache
+description: Result cache stores query results locally on each OpenObserve node using consistent hashing, cutting network overhead and speeding up repeated query response.
 ---
 
 ## Overview

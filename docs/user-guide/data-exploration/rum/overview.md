@@ -1,5 +1,6 @@
 ---
-description: "OpenObserve RUM captures real user sessions in production, recording actual interactions, performance metrics, and errors across every device and browser."
+title: RUM Overview
+description: OpenObserve RUM captures real user sessions in production, recording actual interactions, performance metrics, and errors across every device and browser.
 ---
 
 # RUM (Real User Monitoring) - Overview

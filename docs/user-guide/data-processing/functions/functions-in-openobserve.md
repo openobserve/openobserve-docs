@@ -1,8 +1,8 @@
 ---
-description: >-
-  Define and apply VRL functions in OpenObserve for enrichment, parsing,
-  redaction, and more—at ingest or query time for efficient log transformation.
+title: Functions in OpenObserve
+description: Define and apply VRL functions in OpenObserve for enrichment, parsing, redaction, and more—at ingest or query time for efficient log transformation.
 ---
+
 # Functions
 
 ## What are functions?

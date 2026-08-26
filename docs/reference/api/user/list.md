@@ -1,8 +1,9 @@
 ---
-description: >-
-  List all users in an OpenObserve organization, including email, name, and
-  role, with a simple GET request.
+title: List
+metaTitle: List Users - OpenObserve API
+description: List all users in an OpenObserve organization, including email, name, and role, with a simple GET request.
 ---
+
 # List users
 
 Endpoint: `GET /api/{organization}/users`

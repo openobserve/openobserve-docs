@@ -1,8 +1,8 @@
 ---
-description: >-
-  Ingest traces via OTLP JSON Protobuf using POST /api/{org}/traces. Compatible
-  with OpenTelemetry exporters for easy trace collection.
+title: OTLP
+description: Ingest traces via OTLP JSON Protobuf using POST /api/{org}/traces. Compatible with OpenTelemetry exporters for easy trace collection.
 ---
+
 # Traces Ingestion - OTLP
 
 Endpoint: `POST /api/{organization}/traces`

@@ -1,7 +1,9 @@
 ---
-title: Vector Log Aggregation and Routing for High-Performance Logging | OpenObserve
+title: Vector
+metaTitle: "Vector Log Aggregation and High-Performance Routing"
 description: Configure Vector for high-performance log aggregation, transformation, and routing to OpenObserve with HTTP and Elasticsearch sinks for scalable log management.
 ---
+
 # Vector - High-Performance Log Aggregation & Routing
 
 Vector is a high-performance observability data pipeline for log aggregation, transformation, and routing. Use Vector to collect logs from multiple sources, transform log data, and route logs to OpenObserve for centralized log management and analysis.
@@ -15,8 +17,9 @@ OpenObserve supports two Vector sink types:
 
 ## HTTP output
 
-!!! note
-    To ensure Vector checks the health of the OpenObserve service, set both `healthcheck.enabled = true` and provide a `healthcheck.uri` that points to the OpenObserve health-check endpoint.
+:::note[Note]
+To ensure Vector checks the health of the OpenObserve service, set both `healthcheck.enabled = true` and provide a `healthcheck.uri` that points to the OpenObserve health-check endpoint.
+:::
 
 ```toml
 [sinks.openobserve]

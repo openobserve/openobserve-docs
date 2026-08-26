@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "index",
+    "full-text-search",
+    "secondary-index",
+    "array",
+    "aggregate",
+    "approximate-aggregate"
+  ]
+}

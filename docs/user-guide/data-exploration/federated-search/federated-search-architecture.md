@@ -1,11 +1,14 @@
 ---
-title: Federated Search in OpenObserve - Architecture
+title: Federated Search Architecture
+metaTitle: Federated Search in OpenObserve - Architecture
 description: Technical explanation of OpenObserve deployment modes, normal cluster query execution, and how federated search works across single and multiple clusters.
 ---
+
 This document explains the technical architecture of OpenObserve deployments, how queries execute in normal clusters, and how [federated search](index.md) coordinates queries across clusters in a supercluster.
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+:::info[Availability]
+This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
+:::
 
 ## Understanding OpenObserve deployments
 Before diving into how federated search works, you need to understand how OpenObserve can be deployed. OpenObserve scales from a single machine to a globally distributed infrastructure.
@@ -20,15 +23,16 @@ When you need scale, multiple specialized nodes work together as a cluster. Each
 - **Querier**: Processes queries in parallel with other queriers
 - **Ingester**: Receives and stores data in object storage
 - **Compactor**: Optimizes files and enforces retention
-- **Alertmanager**: Executes alerts and sends notifications
+- **Scheduler**: Executes alerts and sends notifications
 
 A single cluster handles more data and provides higher availability than a single node.
 
 ## Supercluster deployment
 When you need to operate across multiple geographical regions, multiple clusters connect as a supercluster. This is where federated search becomes relevant.
 
-!!! note "Key point" 
-    Each cluster in a supercluster operates independently with its own data storage. Data ingested into one cluster stays in that cluster. However, configuration metadata synchronizes across all clusters, allowing unified management.
+:::note[Key point]
+Each cluster in a supercluster operates independently with its own data storage. Data ingested into one cluster stays in that cluster. However, configuration metadata synchronizes across all clusters, allowing unified management.
+:::
 
 ## Region and cluster hierarchy
 In a supercluster, regions organize clusters geographically. A region may contain one or more clusters.

@@ -1,0 +1,103 @@
+name: Deploy Docs Site to S3 (preview)
+
+# Preview environment for the Fumadocs site. Every pull request is built and
+# published to the dedicated preview bucket, and the preview URL is posted back
+# as a PR comment. The bucket is hardcoded below like the staging and prod
+# workflows. No CloudFront sits in front of the preview bucket, so there is
+# nothing to invalidate.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:          # allow deploying any branch by hand
+
+jobs:
+  deploy:
+    runs-on: org-openobserve-standard-4
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+      pull-requests: write
+    env:
+      PREVIEW_BUCKET: openobserve-website-preview
+      PREVIEW_URL: https://openobserve-website-preview.openobserve.ai/docs
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref || github.ref_name || github.sha }}
+        fetch-depth: 0   # full history so the per-page "last updated" dates resolve
+
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Install AWS CLI
+      run: |
+        if ! command -v aws &> /dev/null; then
+          echo "AWS CLI not found. Installing..."
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+        else
+          echo "AWS CLI already installed."
+        fi
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
+        aws-region: us-east-2  # or your preferred region
+
+    - name: Build static site
+      run: |
+        rm -rf out
+        pnpm build
+
+    - name: Deploy to S3
+      run: |
+        aws s3 sync ./out "s3://$PREVIEW_BUCKET/docs" --exclude=".git/*" \
+          --exclude "api/search.json*" --delete
+        # The search index is ~37 MB, so the gzipped copy scripts/post-export.mjs
+        # writes is published instead (~4.7 MB). Browsers decode it transparently.
+        aws s3 cp ./out/api/search.json.gz "s3://$PREVIEW_BUCKET/docs/api/search.json" \
+          --content-type application/json --content-encoding gzip
+        # Raw Markdown is served for LLM crawlers and the "Copy page" menu.
+        aws s3 cp ./out "s3://$PREVIEW_BUCKET/docs" \
+          --recursive --exclude "*" --include "*.md" \
+          --content-type "text/markdown; charset=utf-8"
+        # llms.txt and llms-full.txt: text/plain with a charset (see prod workflow).
+        aws s3 cp ./out "s3://$PREVIEW_BUCKET/docs" \
+          --recursive --exclude "*" --include "llms*.txt" \
+          --content-type "text/plain; charset=utf-8"
+
+    - name: Find existing preview comment
+      if: github.event_name == 'pull_request'
+      uses: peter-evans/find-comment@v3
+      id: find-comment
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: "github-actions[bot]"
+        body-includes: "Preview Ready!"
+
+    - name: Post or update PR preview comment
+      if: github.event_name == 'pull_request'
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        body: |
+          ✅ Preview Ready!
+          🔗 ${{ env.PREVIEW_URL }}
+        edit-mode: replace

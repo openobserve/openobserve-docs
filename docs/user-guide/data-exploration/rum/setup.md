@@ -1,59 +1,58 @@
 ---
-description: "RUM setup installs the OpenObserve browser SDK, configures your client token, and initializes monitoring in React, Vue, Angular, or vanilla JavaScript apps."
+title: RUM Setup Guide
+description: Set up OpenObserve Real User Monitoring (RUM) in your web, React Native, Android, or iOS application for sessions, error tracking, performance metrics, and session replay.
 ---
 
 # RUM Setup Guide
 
-This guide will walk you through setting up OpenObserve RUM in your web application.
+This guide walks you through setting up OpenObserve RUM across all supported platforms: **Browser (Web)**, **React Native**, **Android**, and **iOS**.
+
+OpenObserve provides an in-app guided setup. From the **Ingestion** menu, select **RUM** and use the platform switcher to pick your target. The UI fills in your endpoint, organization, and RUM token automatically.
+
+![RUM setup platform switcher showing Browser, React Native, Android, and iOS tabs](images/mobile-rum-sdk-1.png)
 
 ## Prerequisites
 
 - A running OpenObserve instance
-- A web application where you want to add RUM monitoring
-- npm or yarn package manager
+- A RUM client token (generated from the **Ingestion** &rarr; **RUM** page in OpenObserve)
+- The application you want to monitor
 
-## Step 1: Install Required Packages
+---
 
-Install the OpenObserve browser packages:
+## Browser (Web) Setup
+
+### Install the Packages
 
 ```bash
 npm install @openobserve/browser-rum @openobserve/browser-logs
 ```
 
-Or using yarn:
+Or with yarn:
 
 ```bash
 yarn add @openobserve/browser-rum @openobserve/browser-logs
 ```
 
-## Step 2: Get Your Client Token
+### Initialize the SDK
 
-1. Log in to your OpenObserve instance
-2. Navigate to **Ingestion** menu
-3. Select **RUM** or **Custom** ingestion
-4. Copy your client token - you'll need this for configuration
-
-## Step 3: Initialize RUM
-
-Add the following code to your application's entry point (e.g., `main.js`, `index.js`, or `App.vue`):
+Add the following code to your application's entry point (`main.js`, `index.js`, or `App.vue`):
 
 ```javascript
 import { openobserveRum } from '@openobserve/browser-rum';
 import { openobserveLogs } from '@openobserve/browser-logs';
 
 const options = {
-  clientToken: 'your-client-token-here', // Get this from the Ingestion page
+  clientToken: 'your-client-token-here',
   applicationId: 'web-application-id',
-  site: 'localhost:5080', // Your OpenObserve instance URL
+  site: 'localhost:5080',
   service: 'my-web-application',
-  env: 'production', // or 'development', 'staging', etc.
+  env: 'production',
   version: '0.0.1',
   organizationIdentifier: 'default',
-  insecureHTTP: true, // Set to false if using HTTPS
+  insecureHTTP: true,
   apiVersion: 'v1',
 };
 
-// Initialize RUM
 openobserveRum.init({
   applicationId: options.applicationId,
   clientToken: options.clientToken,
@@ -67,10 +66,9 @@ openobserveRum.init({
   trackUserInteractions: true,
   apiVersion: options.apiVersion,
   insecureHTTP: options.insecureHTTP,
-  defaultPrivacyLevel: 'allow' // 'allow' or 'mask-user-input' or 'mask'
+  defaultPrivacyLevel: 'allow',
 });
 
-// Initialize Logs
 openobserveLogs.init({
   clientToken: options.clientToken,
   site: options.site,
@@ -83,116 +81,91 @@ openobserveLogs.init({
   apiVersion: options.apiVersion,
 });
 
-// Set user context (optional)
 openobserveRum.setUser({
   id: "1",
   name: "Captain Hook",
   email: "captainhook@example.com",
 });
 
-// Start session replay recording
 openobserveRum.startSessionReplayRecording();
 ```
 
-## Step 4: Configuration Options
+### Browser Configuration Options
 
-### RUM Configuration Options
+#### RUM Configuration
 
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
 | `applicationId` | string | Yes | A unique identifier for your application |
-| `clientToken` | string | Yes | Your OpenObserve client token from Ingestion page |
-| `site` | string | Yes | Your OpenObserve instance URL (e.g., 'openobserve.example.com:5080') |
-| `organizationIdentifier` | string | Yes | Your organization identifier (usually 'default') |
+| `clientToken` | string | Yes | Your OpenObserve RUM client token |
+| `site` | string | Yes | Your OpenObserve instance URL (e.g. `openobserve.example.com:5080`) |
+| `organizationIdentifier` | string | Yes | Your organization identifier (usually `default`) |
 | `service` | string | Yes | Name of your service/application |
-| `env` | string | Yes | Environment (e.g., 'production', 'staging', 'development') |
+| `env` | string | Yes | Environment (`production`, `staging`, `development`) |
 | `version` | string | Yes | Version of your application |
-| `trackResources` | boolean | No | Track loading of resources (images, scripts, CSS). Default: false |
-| `trackLongTasks` | boolean | No | Track long-running JavaScript tasks. Default: false |
-| `trackUserInteractions` | boolean | No | Track clicks, form submissions, etc. Default: false |
-| `defaultPrivacyLevel` | string | No | Privacy level: 'allow', 'mask-user-input', or 'mask'. Default: 'mask-user-input' |
-| `insecureHTTP` | boolean | No | Set to true for HTTP, false for HTTPS. Default: false |
-| `apiVersion` | string | No | API version to use. Default: 'v1' |
+| `trackResources` | boolean | No | Track loading of resources (images, scripts, CSS). Default: `false` |
+| `trackLongTasks` | boolean | No | Track long-running JavaScript tasks. Default: `false` |
+| `trackUserInteractions` | boolean | No | Track clicks, form submissions, etc. Default: `false` |
+| `defaultPrivacyLevel` | string | No | Privacy level: `allow`, `mask-user-input`, or `mask`. Default: `mask-user-input` |
+| `insecureHTTP` | boolean | No | Set to `true` for HTTP, `false` for HTTPS. Default: `false` |
+| `apiVersion` | string | No | API version to use. Default: `v1` |
 
-### Privacy Levels
-
-Choose the appropriate privacy level for your application:
-
-- **`allow`**: Record all content including user input
-- **`mask-user-input`**: Mask form inputs but show other content (recommended)
-- **`mask`**: Mask all user input and text content
-
-### Logs Configuration Options
+#### Logs Configuration
 
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
-| `clientToken` | string | Yes | Your OpenObserve client token |
+| `clientToken` | string | Yes | Your OpenObserve RUM client token |
 | `site` | string | Yes | Your OpenObserve instance URL |
 | `organizationIdentifier` | string | Yes | Your organization identifier |
 | `service` | string | Yes | Name of your service |
 | `env` | string | Yes | Environment |
 | `version` | string | Yes | Application version |
-| `forwardErrorsToLogs` | boolean | No | Automatically forward errors to logs. Default: true |
-| `insecureHTTP` | boolean | No | Set to true for HTTP. Default: false |
-| `apiVersion` | string | No | API version. Default: 'v1' |
+| `forwardErrorsToLogs` | boolean | No | Automatically forward errors to logs. Default: `true` |
+| `insecureHTTP` | boolean | No | Set to `true` for HTTP. Default: `false` |
+| `apiVersion` | string | No | API version. Default: `v1` |
 
-## Step 5: Set User Context (Optional)
+#### Privacy Levels
 
-You can associate RUM data with specific users by setting user context:
+- **`allow`**: Record all content including user input
+- **`mask-user-input`**: Mask form inputs but show other content (recommended)
+- **`mask`**: Mask all user input and text content
+
+### User Context
 
 ```javascript
 openobserveRum.setUser({
   id: "user-123",
   name: "John Doe",
   email: "john.doe@example.com",
-  // Add any custom attributes
   plan: "premium",
   signup_date: "2024-01-15"
 });
 ```
 
-To clear user context (e.g., on logout):
+To clear:
 
 ```javascript
 openobserveRum.clearUser();
 ```
 
-## Step 6: Start Session Replay
-
-Session replay recording can be started in two ways:
-
-### Automatic Recording
-
-Start recording for all sessions:
+### Session Replay
 
 ```javascript
+// Automatic
 openobserveRum.startSessionReplayRecording();
-```
 
-### Conditional Recording
-
-Start recording only for specific sessions (e.g., when an error occurs):
-
-```javascript
-// Start recording only when needed
+// Conditional
 if (userEncounteredError) {
   openobserveRum.startSessionReplayRecording({ force: true });
 }
-```
 
-### Stopping Session Replay
-
-To stop recording:
-
-```javascript
+// Stop
 openobserveRum.stopSessionReplayRecording();
 ```
 
-## Framework-Specific Integration
+### Framework-Specific Integration
 
-### Vue.js
-
-Add initialization in your `main.js` or `main.ts`:
+#### Vue.js
 
 ```javascript
 import { createApp } from 'vue'
@@ -200,22 +173,14 @@ import App from './App.vue'
 import { openobserveRum } from '@openobserve/browser-rum'
 import { openobserveLogs } from '@openobserve/browser-logs'
 
-// Initialize RUM
-openobserveRum.init({
-  // ... configuration
-});
-
-openobserveLogs.init({
-  // ... configuration
-});
+openobserveRum.init({ /* ... configuration */ });
+openobserveLogs.init({ /* ... configuration */ });
 
 const app = createApp(App)
 app.mount('#app')
 ```
 
-### React
-
-Add initialization in your `index.js` or `index.tsx`:
+#### React
 
 ```javascript
 import React from 'react';
@@ -224,21 +189,13 @@ import App from './App';
 import { openobserveRum } from '@openobserve/browser-rum';
 import { openobserveLogs } from '@openobserve/browser-logs';
 
-// Initialize RUM
-openobserveRum.init({
-  // ... configuration
-});
-
-openobserveLogs.init({
-  // ... configuration
-});
+openobserveRum.init({ /* ... configuration */ });
+openobserveLogs.init({ /* ... configuration */ });
 
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-### Angular
-
-Add initialization in your `main.ts`:
+#### Angular
 
 ```typescript
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -246,95 +203,425 @@ import { AppModule } from './app/app.module';
 import { openobserveRum } from '@openobserve/browser-rum';
 import { openobserveLogs } from '@openobserve/browser-logs';
 
-// Initialize RUM
-openobserveRum.init({
-  // ... configuration
-});
-
-openobserveLogs.init({
-  // ... configuration
-});
+openobserveRum.init({ /* ... configuration */ });
+openobserveLogs.init({ /* ... configuration */ });
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-### Vanilla JavaScript
+---
 
-Add the script in your HTML file or main JavaScript file:
+## React Native Setup <span class="beta-badge">Beta</span>
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My App</title>
-</head>
-<body>
-  <div id="app"></div>
+### Install the Packages
 
-  <script type="module">
-    import { openobserveRum } from '@openobserve/browser-rum';
-    import { openobserveLogs } from '@openobserve/browser-logs';
-
-    // Initialize RUM
-    openobserveRum.init({
-      // ... configuration
-    });
-
-    openobserveLogs.init({
-      // ... configuration
-    });
-
-    openobserveRum.startSessionReplayRecording();
-  </script>
-</body>
-</html>
+```bash
+npm install @openobserve/mobile-react-native @openobserve/mobile-react-native-session-replay
 ```
 
-## Step 7: Verify Installation
+Or with yarn:
+
+```bash
+yarn add @openobserve/mobile-react-native @openobserve/mobile-react-native-session-replay
+```
+
+### Initialize the SDK
+
+```javascript
+import {
+  OpenObserve,
+  O2Rum,
+  O2Logs,
+  RumConfiguration,
+  LogsConfiguration,
+  TrackingConsent,
+} from '@openobserve/mobile-react-native';
+
+await OpenObserve.initialize(
+  clientToken: 'your-client-token-here',
+  env: 'production',
+  service: 'my-react-native-app',
+  site: 'https://your-instance.example.com',
+  trackingConsent: TrackingConsent.GRANTED,
+);
+
+await O2Rum.enable(
+  RumConfiguration.builder('my-react-native-app')
+    .useCustomEndpoint('https://your-instance.example.com/rum/v1/default/rum')
+    .trackUserInteractions()
+    .trackLongTasks()
+    .build(),
+);
+
+await O2Logs.enable(
+  LogsConfiguration.builder()
+    .useCustomEndpoint('https://your-instance.example.com/rum/v1/default/logs')
+    .build(),
+);
+```
+
+### Navigation Tracking (Optional)
+
+Track screen views automatically with React Navigation:
+
+```bash
+npm install @openobserve/mobile-react-native-navigation
+```
+
+```javascript
+import { O2RumReactNavigationTracking } from '@openobserve/mobile-react-native-navigation';
+
+<NavigationContainer
+  ref={navigationRef}
+  onReady={() => {
+    O2RumReactNavigationTracking.startTrackingViews(navigationRef.current);
+  }}
+>
+  {/* your screens */}
+</NavigationContainer>
+```
+
+Without navigation tracking, you can record views manually with `O2Rum.startView()` / `O2Rum.stopView()`.
+
+### Session Replay
+
+```javascript
+import { O2SessionReplay, SessionReplayConfiguration } from '@openobserve/mobile-react-native-session-replay';
+
+O2SessionReplay.enable(
+  SessionReplayConfiguration.builder(100)
+    .useCustomEndpoint('https://your-instance.example.com/rum/v1/default/replay')
+    .build(),
+);
+```
+
+---
+
+## Android Setup <span class="beta-badge">Beta</span>
+
+### Install the SDK
+
+Add the OpenObserve dependencies to your Gradle build file.
+
+**Kotlin DSL** (`build.gradle.kts`):
+
+```kotlin
+dependencies {
+  implementation("ai.openobserve:o2-sdk-android-rum:0.1.0")
+  implementation("ai.openobserve:o2-sdk-android-logs:0.1.0")
+  // Optional — screen recording.
+  implementation("ai.openobserve:o2-sdk-android-session-replay:0.1.0")
+}
+```
+
+**Groovy** (`build.gradle`):
+
+```groovy
+dependencies {
+  implementation "ai.openobserve:o2-sdk-android-rum:0.1.0"
+  implementation "ai.openobserve:o2-sdk-android-logs:0.1.0"
+  // Optional — screen recording.
+  implementation "ai.openobserve:o2-sdk-android-session-replay:0.1.0"
+}
+```
+
+The session-replay dependency is optional — drop that line if you do not need screen recording.
+
+### Initialize the SDK
+
+Initialize in your `Application` subclass as early as possible:
+
+```kotlin
+import android.app.Application
+import com.openobserve.android.OpenObserve
+import com.openobserve.android.core.configuration.Configuration
+import com.openobserve.android.log.Logs
+import com.openobserve.android.log.LogsConfiguration
+import com.openobserve.android.privacy.TrackingConsent
+import com.openobserve.android.rum.Rum
+import com.openobserve.android.rum.RumConfiguration
+import com.openobserve.android.rum.tracking.ActivityViewTrackingStrategy
+
+class SampleApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        val configuration = Configuration.Builder(
+            clientToken = "your-client-token-here",
+            env = "production",
+            service = "my-android-app",
+        )
+            .build()
+
+        OpenObserve.initialize(this, configuration, TrackingConsent.GRANTED)
+
+        // The native SDK does NOT append a path to a custom endpoint — give each
+        // feature its own FULL intake URL.
+        Rum.enable(
+            RumConfiguration.Builder(applicationId = "my-android-app")
+                .useCustomEndpoint("https://your-instance.example.com/rum/v1/default/rum")
+                .trackUserInteractions()
+                .trackLongTasks()
+                .useViewTrackingStrategy(ActivityViewTrackingStrategy(trackExtras = true))
+                .build(),
+        )
+
+        Logs.enable(
+            LogsConfiguration.Builder()
+                .useCustomEndpoint("https://your-instance.example.com/rum/v1/default/logs")
+                .build(),
+        )
+    }
+}
+```
+
+**Important**: The native Android SDK appends nothing to a custom endpoint — it posts to exactly the URL you pass. Each feature (RUM, Logs, Session Replay) needs its own full intake URL ending in `/rum`, `/logs`, or `/replay`.
+
+If your ingestion endpoint uses plain HTTP (`http://`), allow cleartext traffic:
+
+```kotlin
+// Allow cleartext for the SDK
+Configuration.Builder(...)
+    .let { com.openobserve.android._InternalProxy.allowClearTextHttp(it) }
+    .build()
+```
+
+Also set `android:usesCleartextTraffic="true"` in your manifest. Prefer HTTPS outside local development.
+
+### Session Replay
+
+```kotlin
+import com.openobserve.android.sessionreplay.SessionReplay
+import com.openobserve.android.sessionreplay.SessionReplayConfiguration
+import com.openobserve.android.sessionreplay.TextAndInputPrivacy
+import com.openobserve.android.sessionreplay.ImagePrivacy
+import com.openobserve.android.sessionreplay.TouchPrivacy
+
+SessionReplay.enable(
+    SessionReplayConfiguration.Builder(sampleRate = 100f)
+        .useCustomEndpoint("https://your-instance.example.com/rum/v1/default/replay")
+        .setTextAndInputPrivacy(TextAndInputPrivacy.MASK_SENSITIVE_INPUTS)
+        .setImagePrivacy(ImagePrivacy.MASK_NONE)
+        .setTouchPrivacy(TouchPrivacy.SHOW)
+        .build(),
+)
+```
+
+### Android Emulator Networking
+
+`localhost` inside an emulator refers to the emulator itself. Use `10.0.2.2` to reach your host machine:
+
+```
+https://10.0.2.2:5080/rum/v1/default/rum
+```
+
+On a physical device use your machine's LAN IP.
+
+---
+
+## iOS Setup <span class="beta-badge">Beta</span>
+
+### Install the SDK
+
+**Swift Package Manager** (`Package.swift`):
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/openobserve/openobserve-sdk-ios.git", from: "0.1.0"),
+],
+targets: [
+    .target(
+        name: "MyApp",
+        dependencies: [
+            .product(name: "OpenObserveCore", package: "openobserve-sdk-ios"),
+            .product(name: "OpenObserveRUM", package: "openobserve-sdk-ios"),
+            .product(name: "OpenObserveLogs", package: "openobserve-sdk-ios"),
+            // Optional — screen recording.
+            .product(name: "OpenObserveSessionReplay", package: "openobserve-sdk-ios"),
+        ],
+    ),
+]
+```
+
+Or add the package in Xcode: **File** &rarr; **Add Package Dependencies...** and paste `https://github.com/openobserve/openobserve-sdk-ios.git`.
+
+**CocoaPods** (`Podfile`):
+
+```ruby
+pod 'OpenObserveCore', '0.1.0'
+pod 'OpenObserveRUM', '0.1.0'
+pod 'OpenObserveLogs', '0.1.0'
+# Optional — screen recording.
+pod 'OpenObserveSessionReplay', '0.1.0'
+```
+
+Then run `pod install`.
+
+### Initialize the SDK
+
+```swift
+import OpenObserveCore
+import OpenObserveRUM
+import OpenObserveLogs
+import UIKit
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        let configuration = OpenObserve.Configuration(
+            clientToken: "your-client-token-here",
+            env: "production",
+            service: "my-ios-app"
+        )
+        OpenObserve.initialize(with: configuration, trackingConsent: .granted)
+
+        // The native SDK does NOT append a path to a custom endpoint — give each
+        // feature its own FULL intake URL.
+        RUM.enable(
+            with: RUM.Configuration(
+                applicationID: "my-ios-app",
+                sessionSampleRate: 100,
+                uiKitViewsPredicate: DefaultUIKitRUMViewsPredicate(),
+                customEndpoint: URL(string: "https://your-instance.example.com/rum/v1/default/rum")
+            )
+        )
+
+        Logs.enable(
+            with: Logs.Configuration(
+                customEndpoint: URL(string: "https://your-instance.example.com/rum/v1/default/logs")
+            )
+        )
+
+        return true
+    }
+}
+```
+
+**Important**: The native iOS SDK appends nothing to a `customEndpoint` — it posts to exactly the URL you pass. Each feature (RUM, Logs, Session Replay) needs its own full intake URL ending in `/rum`, `/logs`, or `/replay`.
+
+If your ingestion endpoint uses plain HTTP, iOS blocks cleartext traffic via App Transport Security (ATS). There is no SDK flag — add an `NSAppTransportSecurity` exception for your host in `Info.plist`:
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>your-instance.example.com</key>
+        <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+```
+
+Prefer HTTPS outside local development.
+
+### Session Replay
+
+```swift
+import OpenObserveSessionReplay
+
+SessionReplay.enable(
+    with: SessionReplay.Configuration(
+        replaySampleRate: 100,
+        textAndInputPrivacyLevel: .maskSensitiveInputs,
+        imagePrivacyLevel: .maskNone,
+        touchPrivacyLevel: .show,
+        customEndpoint: URL(string: "https://your-instance.example.com/rum/v1/default/replay")
+    )
+)
+```
+
+---
+
+## Verify Installation
 
 After deploying your application with RUM enabled:
 
-1. Open your application in a browser
-2. Perform some interactions (navigate pages, click buttons, etc.)
-3. Log in to OpenObserve
-4. Navigate to the **RUM** section
-5. You should see data appearing in:
-   - Performance tab (metrics and web vitals)
-   - Sessions tab (your session)
-   - Error Tracking tab (if any errors occurred)
+1. Launch your application and perform interactions
+2. Log in to OpenObserve and navigate to the **RUM** section
+3. In the in-app setup guide, the **Verify** step auto-detects incoming data — look for the green checkmark
+4. Explore your data across:
+   - **Performance** tab — adaptive dashboards showing metrics your stream actually emits. Dashboards automatically remove panels whose columns do not exist in the stream schema (e.g. Web Vitals panels hide for mobile-only apps)
+   - **Sessions** tab — user sessions from all platforms, filterable by `source = 'browser'`, `source = 'android'`, `source = 'ios'`
+   - **Error Tracking** tab — errors and crashes from any platform
+   - **Session Replay** — replay recordings of user sessions
+
+![verified RUM setup with green checkmark and detected data](images/mobile-rum-sdk-2.png)
 
 ## Troubleshooting
 
 ### No Data Appearing
 
-If you don't see any RUM data:
+1. **Check console / logcat / Xcode console** for initialization errors
+2. **Verify the RUM client token**: ensure it matches the token on the **Ingestion** &rarr; **RUM** page
+3. **Check network requests**:
+   - Browser: DevTools &rarr; Network tab
+   - Android: inspect with `adb logcat` or a network profiler
+   - iOS: use Xcode's Network inspector or tools like Proxyman
 
-1. **Check console for errors**: Open browser DevTools and look for any error messages
-2. **Verify client token**: Ensure your client token is correct
-3. **Check network requests**: Look for requests to your OpenObserve instance in the Network tab
-4. **Verify site URL**: Ensure the `site` option matches your OpenObserve instance URL
-5. **Check CORS settings**: Make sure your OpenObserve instance allows requests from your application domain
+### Browser-Specific
+
+- **CORS**: ensure your OpenObserve instance allows requests from your application domain
+- **Privacy settings**: `defaultPrivacyLevel` affects what is recorded
+
+### Mobile: Endpoint URLs
+
+The single most common reason one signal arrives while another does not is an incorrect endpoint URL. On native mobile SDKs (Android, iOS), `useCustomEndpoint` / `customEndpoint` is used verbatim — the SDK appends nothing. Pass the complete per-feature URL:
+
+| Feature | URL suffix |
+|---------|-----------|
+| RUM | `/rum/v1/{org}/rum` |
+| Logs | `/rum/v1/{org}/logs` |
+| Session Replay | `/rum/v1/{org}/replay` |
+
+For example: `https://your-instance.example.com/rum/v1/default/rum`
+
+### Mobile: No Data from Emulator / Device
+
+- **Android emulator**: use `10.0.2.2` instead of `localhost` or `127.0.0.1`
+- **Physical devices**: use your machine's LAN IP on the same network
+
+### Mobile: Plain HTTP (`http://`) Not Working
+
+- **Android**: allow cleartext with `_InternalProxy.allowClearTextHttp(builder)` and set `android:usesCleartextTraffic="true"` in the manifest
+- **iOS**: add an `NSAppTransportSecurity` exception for your host in `Info.plist`
 
 ### Session Replay Not Recording
 
-If session replay is not working:
+- **All platforms**: ensure the session replay feature is enabled *separately* from RUM — it does not inherit RUM's endpoint
+- **Browser**: call `startSessionReplayRecording()` after `openobserveRum.init()`
+- **Mobile**: pass the full `/replay` endpoint to `SessionReplay.enable(...)`, not the RUM endpoint
 
-1. **Verify initialization**: Ensure `startSessionReplayRecording()` is called after `openobserveRum.init()`
-2. **Check privacy settings**: `defaultPrivacyLevel` affects what is recorded
-3. **Browser compatibility**: Ensure you're using a modern browser that supports session replay
-4. **Force recording**: If session is sampled out of replay, apply `{ force: true }` to force recording:
-   ```javascript
-   openobserveRum.startSessionReplayRecording({ force: true });
-   ```
+### Requests Return 401 or 403
+
+The `clientToken` is your org's **RUM token**, not the ingestion passcode. If it was rotated, regenerate it from the **Ingestion** &rarr; **RUM** page and rebuild your app.
+
+### Views / Screens All Named the Same
+
+View tracking may not be wired up:
+
+- **Browser**: views are captured automatically from page navigation
+- **React Native**: pass your navigation ref to `O2RumReactNavigationTracking.startTrackingViews()`, or call `O2Rum.startView()` / `O2Rum.stopView()` manually
+- **Android**: pass `ActivityViewTrackingStrategy(trackExtras = true)` for Activities, or `NavigationViewTrackingStrategy(...)` for Jetpack Compose Navigation
+- **iOS**: pass `uiKitViewsPredicate: DefaultUIKitRUMViewsPredicate()` for UIKit, or a `swiftUIViewsPredicate` for SwiftUI
+
+### Package Resolution Fails (iOS)
+
+Confirm the SPM URL `https://github.com/openobserve/openobserve-sdk-ios.git` and that the version `0.1.0` exists, then in Xcode go to **File** &rarr; **Packages** &rarr; **Reset Package Caches** and resolve again.
 
 ### Performance Impact
 
-RUM is designed to have minimal impact on your application:
+RUM is designed to have minimal impact:
 
-- **Asynchronous**: Data collection happens asynchronously
-- **Batching**: Events are batched before sending
-- **Small bundle size**: The RUM SDK is lightweight
-- **Sampling**: You can configure sampling rates to reduce data volume
+- **Asynchronous**: data collection runs off the main thread
+- **Batching**: events are batched before sending
+- **Lightweight**: SDKs are small and tree-shaken where possible
+- **Sampling**: configure sampling rates to control data volume
 
 ## Advanced Configuration
 
@@ -343,16 +630,16 @@ RUM is designed to have minimal impact on your application:
 Control which sessions are tracked:
 
 ```javascript
+// Browser
 openobserveRum.init({
-  // ... other options
-  sessionSampleRate: 100, // Track 100% of sessions
-  sessionReplaySampleRate: 50, // Record 50% of sessions
+  sessionSampleRate: 100,          // Track 100% of sessions
+  sessionReplaySampleRate: 50,     // Record 50% of sessions
 });
 ```
 
-### Manual Error Tracking
+On native platforms, set the sample rate during `RUM.Configuration` or `SessionReplay.Configuration` construction.
 
-Send custom errors:
+### Manual Error Tracking
 
 ```javascript
 try {
@@ -365,9 +652,9 @@ try {
 }
 ```
 
-### Custom Actions
+On native platforms, use `Logs.logger.error(...)` or your platform's equivalent.
 
-Track custom user actions:
+### Custom Actions
 
 ```javascript
 openobserveRum.addAction('button_clicked', {
@@ -376,10 +663,22 @@ openobserveRum.addAction('button_clicked', {
 });
 ```
 
+### Cross-Platform Data Filtering
+
+All platforms write to the `_rumdata` stream. Filter by `source` to isolate a specific platform:
+
+```sql
+SELECT * FROM "_rumdata" WHERE source = 'android'
+SELECT * FROM "_rumdata" WHERE source = 'ios'
+SELECT * FROM "_rumdata" WHERE source = 'browser'
+```
+
+The performance dashboards automatically adapt to your stream's schema — panels whose columns are absent are dropped, and platform-tagged panels flow to the platforms that have data.
+
 ## Next Steps
 
-- [Performance Monitoring](./performance-monitoring.md) - Learn about performance metrics
-- [Session Tracking](./sessions.md) - Understand session data
-- [Error Tracking](./error-tracking.md) - Track and debug errors
-- [Session Replay](./session-replay.md) - Use session replay effectively
+- [Performance Monitoring](./performance-monitoring.md) - Learn about performance metrics and adaptive dashboards
+- [Session Tracking](./sessions.md) - Understand session data across platforms
+- [Error Tracking](./error-tracking.md) - Track and debug errors and crashes
+- [Session Replay](./session-replay.md) - Use session replay on web and mobile
 - [Metrics Reference](./metrics-reference.md) - Complete metrics documentation

@@ -1,8 +1,8 @@
 ---
-description: >-
-  Monitor file download queues and disk cache hits in OpenObserve to evaluate
-  query performance, cache efficiency, and system responsiveness.
+title: Monitor Download Queue Size and Disk Cache Metrics
+description: Monitor file download queues and disk cache hits in OpenObserve to evaluate query performance, cache efficiency, and system responsiveness.
 ---
+
 # Monitor Download Queue Size and Disk Cache Metrics
 
 This guide helps you monitor internal metrics that measure how efficiently the [**dual queue system in the Download Manager**](download-manager.md) handles file downloads and how often queries are served from disk cache in OpenObserve. 
@@ -18,11 +18,12 @@ OpenObserve emits four key metrics that track how data files are downloaded and 
 - `zo_query_disk_cache_hit_count`: Number of files that were already on disk when the query was executed. 
 - `zo_query_disk_cache_miss_count`: Number of files that were not on disk and had to be downloaded before the query could run.
 
-!!! Note
-    When OpenObserve runs a query, the querier first checks whether the required Parquet files are already available on the local disk:
+:::note[Note]
+When OpenObserve runs a query, the querier first checks whether the required Parquet files are already available on the local disk:
 
-    - If the file is found locally, it results in a **cache hit**. The file is immediately read from the disk and used to serve the query.
-    - If the file is not found, it results in a **cache miss**. The Download Manager is triggered to fetch the file from object storage and save it to the local disk before query execution can proceed.  
+- If the file is found locally, it results in a **cache hit**. The file is immediately read from the disk and used to serve the query.
+- If the file is not found, it results in a **cache miss**. The Download Manager is triggered to fetch the file from object storage and save it to the local disk before query execution can proceed.  
+:::
 
 
 ## Configuration
@@ -45,20 +46,21 @@ This section demonstrates how to plot the `zo_query_disk_cache_hit_count` metric
 After plotting the chart, you will calculate the cache efficiency to evaluate overall cache performance.
 
 
-!!! info "Before you begin"
+:::info[Before you begin]
 
-    ### Understand Your Cluster Architecture
-    When OpenObserve high-availability mode or multi-cluster mode is deployed in Kubernetes:
+### Understand Your Cluster Architecture
+When OpenObserve high-availability mode or multi-cluster mode is deployed in Kubernetes:
 
-    - One cluster may host multiple namespaces.
-    - Each namespace may include multiple nodes or services with different roles, such as querier, ingester, compactor, router, alert manager, and actions. 
-    - Each node or service may be deployed across multiple pods. 
+- One cluster may host multiple namespaces.
+- Each namespace may include multiple nodes or services with different roles, such as querier, ingester, compactor, router, scheduler, and actions.
+- Each node or service may be deployed across multiple pods. 
 
-    > In OpenObserve single node deployment, a single node handles all the roles. 
+> In OpenObserve single node deployment, a single node handles all the roles. 
 
-    ### Understand the Nature of Metrics
-    Each log line (metric entry) contains fields like `timestamp`, `value`, `cluster`, `namespace`, and `pod_name`. Explore the log line using the **Logs** page in the UI. 
-    To isolate useful data, we need to filter and group this information accordingly.
+### Understand the Nature of Metrics
+Each log line (metric entry) contains fields like `timestamp`, `value`, `cluster`, `namespace`, and `pod_name`. Explore the log line using the **Logs** page in the UI. 
+To isolate useful data, we need to filter and group this information accordingly.
+:::
 
 ## Step-by-Step Guide to Plotting the Metrics in Dashboards
 
@@ -114,8 +116,9 @@ Filters narrow the data to a specific cluster and namespace, ensuring the chart 
 
 Repeat the steps above to add a filter for the namespace field. For example, `k8s_namespace_name`. 
 
-!!! Note
-    Ensure both filters are connected using the **AND** operator. 
+:::note[Note]
+Ensure both filters are connected using the **AND** operator. 
+:::
 
 ### Step 7: Add a Breakdown
 To visualize the cache hit count on each pod, add a breakdown for pods. 
@@ -163,8 +166,9 @@ hit_ratio = 9000 / (9000 + 1000) = 0.9 or 90%
 ```
 This means 90 percent of required files were already on disk at the time of query execution.
 
-!!! Note
-    A high cache hit ratio indicates efficient cache usage and reduced query latency.
+:::note[Note]
+A high cache hit ratio indicates efficient cache usage and reduced query latency.
+:::
 
 ## Troubleshooting
 If the metrics do not appear:

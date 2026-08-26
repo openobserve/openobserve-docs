@@ -1,4 +1,5 @@
 ---
+title: Introduction
 description: "Meet OpenObserve (O2): enterprise-grade observability at up to 140x lower storage cost than Elasticsearch, with petabyte scale, SIMD speed, and one unified UI."
 ---
 
@@ -56,3 +57,7 @@ OpenObserve's architectural approach can transform how you handle observability 
 - Join our [Community](https://github.com/openobserve/openobserve/discussions) to connect with other users
 
 *Sleep better at night knowing your observability stack is both powerful and affordable*
+
+## In this section
+
+::child-pages

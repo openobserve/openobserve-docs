@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "index",
+    "jenkins",
+    "ansible",
+    "terraform",
+    "github-actions"
+  ]
+}

@@ -1,6 +1,7 @@
 ---
-title: Azure Activity Logs Integration | OpenObserve
-description: Stream Azure subscription Activity Logs to OpenObserve using the in-product Deploy to Azure flow. Deploy Event Hub infrastructure with an ARM template, then configure diagnostic settings via the Azure Portal or Azure CLI.
+title: Azure Activity Logs
+metaTitle: Azure Activity Logs Integration | OpenObserve
+description: "Stream Azure subscription Activity Logs to OpenObserve with the Deploy to Azure flow, then configure diagnostic settings via the Portal or Azure CLI."
 ---
 
 # Azure Activity Logs

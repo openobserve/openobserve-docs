@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "anannas",
+    "kong-gateway",
+    "litellm-proxy",
+    "openrouter",
+    "portkey",
+    "vercel-ai-gateway"
+  ]
+}

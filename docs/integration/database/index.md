@@ -1,6 +1,7 @@
 ---
-title: Database Monitoring Integration - MySQL, PostgreSQL, MongoDB, Redis | OpenObserve
-description: Comprehensive database monitoring integration guide for MySQL monitoring, PostgreSQL monitoring, MongoDB monitoring, Redis monitoring, and NoSQL database performance monitoring with OpenObserve.
+title: Database Integrations Overview
+metaTitle: "Database Monitoring - MySQL, PostgreSQL, MongoDB, Redis"
+description: "Database monitoring integrations for MySQL, PostgreSQL, MongoDB, Redis, and other SQL and NoSQL databases with OpenObserve."
 ---
 
 # Database Monitoring & Performance Integration

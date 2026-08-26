@@ -1,9 +1,8 @@
 ---
-description: >-
-  Import and export alert rules in OpenObserve as JSON to streamline
-  configuration across environments. Easily reuse, share, and manage alerts at
-  scale.
+title: Import and Export Alerts
+description: Import and export alert rules in OpenObserve as JSON to streamline configuration across environments. Easily reuse, share, and manage alerts at scale.
 ---
+
 This guide provides an overview of the alert import and export feature and explains how to use it. 
 
 The primary goal of the alert import and export feature is to simplify and automate the management of alert configurations across environments. Instead of manually recreating alert rules in each OpenObserve instance, users can export an alert’s definition to a file and import it elsewhere. 
@@ -55,8 +54,17 @@ Alert export allows users to download an alert configuration as a JSON file. Thi
 The alert configuration is downloaded as a JSON file.  
 This JSON file can later be imported into another OpenObserve instance, making it easy to transfer or restore alerts.
 
-!!! note
-    The exported alert JSON intentionally omits the alert `id`. On import, any `id` present in the JSON is ignored, so the alert is always created as a new alert in the target instance and is never overwritten by ID. This is why re-importing an alert into the same organization prompts a name conflict (asking you to enter a new alert name) rather than updating the existing alert.
+:::note[Note]
+The exported alert JSON intentionally omits the alert `id`. On import, any `id` present in the JSON is ignored, so the alert is always created as a new alert in the target instance and is never overwritten by ID. This is why re-importing an alert into the same organization prompts a name conflict (asking you to enter a new alert name) rather than updating the existing alert.
+:::
+
+## Export as Terraform
+
+The export dialog has a second tab. **Terraform** renders the same alert as a ready-to-apply `openobserve_alert` resource for the [OpenObserve Terraform provider](../../../enterprise-setup/terraform.md), which you can copy or download as a `.tf` file. Service level objectives export the same way, as `openobserve_slo` resources.
+
+Unlike the JSON tab, which is meant to be read back by the import screens, the Terraform tab produces something meant to live in a repository: it is already `terraform fmt` canonical, drops read-only fields such as the server-assigned id and the last-triggered timestamp, and omits attributes left at their provider default. Anything the provider schema cannot carry is named in the dialog rather than dropped silently.
+
+The generated file applies under both Terraform and OpenTofu. See [Export an alert or SLO as Terraform](../../../enterprise-setup/terraform.md#export-an-alert-or-slo-as-terraform) for the full behaviour, and for `terraform import` if you want to adopt an existing alert without recreating it.
 
 ## Use Cases
 

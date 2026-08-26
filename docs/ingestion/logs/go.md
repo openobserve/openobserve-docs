@@ -1,7 +1,9 @@
 ---
-title: Go (Golang) Log Ingestion SDK - Structured Logging for Go Applications | OpenObserve
+title: Go
+metaTitle: "Go Log Ingestion SDK - Structured Logging for Go Apps"
 description: Go/Golang SDK guide for structured log ingestion, application logging, and log forwarding to OpenObserve using HTTP API for Go application monitoring.
 ---
+
 ## Go (Golang) Log Ingestion - Application Logging
 
 ```golang

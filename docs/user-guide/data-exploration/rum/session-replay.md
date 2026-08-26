@@ -1,5 +1,6 @@
 ---
-description: "RUM session replay reconstructs user sessions as video-like playback, showing every click, scroll, and error so you can watch exactly what led to a bug."
+title: Session Replay
+description: RUM session replay reconstructs user sessions as video-like playback, showing every click, scroll, and error so you can watch exactly what led to a bug.
 ---
 
 # Session Replay

@@ -1,5 +1,6 @@
 ---
-description: "Incident Management correlates related alert firings into unified incidents with AI root cause analysis, alert graphs, and correlated logs, metrics, and traces."
+title: Incident Management
+description: Incident Management correlates related alert firings into unified incidents with AI root cause analysis, alert graphs, and correlated logs, metrics, and traces.
 ---
 
 # Incident Management
@@ -14,11 +15,13 @@ When multiple alerts fire across your infrastructure, investigating each one ind
 
 It brings together alert data, service topology, AI-powered root cause analysis, and correlated telemetry (logs, metrics, traces) into one place — designed for SRE, DevOps, and platform engineering teams who need to quickly triage and resolve production issues.
 
-!!! note
-    Incident Management is available in OpenObserve Enterprise and Cloud editions.
+:::note[Note]
+Incident Management is available in OpenObserve Enterprise and Cloud editions.
+:::
 
-!!! note
-    On OpenObserve Cloud, automatic incident creation and RCA reanalysis consume AI credits from your organization's free credit pool. Once the pool is exhausted, incidents are not created for unpaid organizations until you subscribe. Alerts continue to fire.
+:::note[Note]
+On OpenObserve Cloud, automatic incident creation and RCA reanalysis consume AI credits from your organization's free credit pool. Once the pool is exhausted, incidents are not created for unpaid organizations until you subscribe. Alerts continue to fire.
+:::
 
 ## Key features
 
@@ -110,8 +113,9 @@ The Alert Graph tab visualizes the topology of alerts within an incident using a
 
 ![Alert Graph showing root cause node (red) connected to downstream alert (blue) via a temporal relationship edge](../../../images/incident-detail-alert-graph-populated.png)
 
-!!! info
-    The Alert Graph requires topology data from service discovery. If no topology data is available for the incident, the tab displays "Service Graph Unavailable."
+:::info[Info]
+The Alert Graph requires topology data from service discovery. If no topology data is available for the incident, the tab displays "Service Graph Unavailable."
+:::
 
 ### Correlated telemetry
 
@@ -121,8 +125,9 @@ Each tab filters telemetry by the incident's time window and dimensions, so you 
 
 The **Metrics** tab uses selection **pills** (Essentials / Compute / Memory / Storage / Network / All) and **Pod / Node** scope chips to choose which metric streams to chart (Essentials is the default when curated streams are available).
 
-!!! note
-    Correlated telemetry requires that your logs, metrics, and traces share common dimensions with your alert definitions. Configure dimension names consistently across your alerts and telemetry ingestion for best results.
+:::note[Note]
+Correlated telemetry requires that your logs, metrics, and traces share common dimensions with your alert definitions. Configure dimension names consistently across your alerts and telemetry ingestion for best results.
+:::
 
 ## Getting started
 
@@ -161,8 +166,9 @@ The **Metrics** tab uses selection **pills** (Essentials / Compute / Memory / St
 2. Click **Analyze Incident** to trigger the AI SRE Agent.
 3. View the streaming analysis as it generates. Use the **Table of Contents** on the left to navigate the report.
 
-!!! tip
-    Reanalysis reruns automatically when a new alert type joins the incident, when dimensions upgrade, or when the incident is reopened. You can also re-trigger it after a severity change. New findings are appended to the existing report.
+:::tip[Tip]
+Reanalysis reruns automatically when a new alert type joins the incident, when dimensions upgrade, or when the incident is reopened. You can also re-trigger it after a severity change. New findings are appended to the existing report.
+:::
 
 ## Edit incident details
 
@@ -186,5 +192,6 @@ The **Metrics** tab uses selection **pills** (Essentials / Compute / Memory / St
 
 Incidents can be auto-resolved after a configurable period of inactivity.
 
-!!! info
-    Severity can upgrade automatically when alert patterns indicate increasing impact. Manual overrides are always respected.
+:::info[Info]
+Severity can upgrade automatically when alert patterns indicate increasing impact. Manual overrides are always respected.
+:::

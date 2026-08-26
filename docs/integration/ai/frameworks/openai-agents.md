@@ -1,5 +1,6 @@
 ---
-title: OpenAI Agents SDK
+title: OpenAI Agents
+metaTitle: OpenAI Agents SDK
 description: Instrument OpenAI Agents SDK applications and send traces to OpenObserve via OpenTelemetry.
 ---
 

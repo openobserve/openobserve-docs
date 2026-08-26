@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "o2-operator-overview",
+    "deploy-script",
+    "manual-deployment",
+    "o2-operator-features",
+    "o2-operator-troubleshoot"
+  ]
+}

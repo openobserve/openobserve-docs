@@ -1,5 +1,6 @@
 ---
-description: "Anomaly Detection uses Random Cut Forest machine learning to flag unusual patterns in logs, metrics, and traces automatically, with no manual threshold tuning."
+title: Anomaly Detection
+description: Anomaly Detection uses Random Cut Forest machine learning to flag unusual patterns in logs, metrics, and traces automatically, with no manual threshold tuning.
 ---
 
 # Anomaly Detection
@@ -14,8 +15,9 @@ Traditional threshold-based alerts require you to define exact conditions for ev
 
 Configure a detection rule on any logs, metrics, or traces stream. OpenObserve trains a model on your historical data, then runs periodic detection to surface anomalies and optionally send notifications.
 
-!!! note
-    Anomaly Detection is available in OpenObserve Enterprise (self-hosted) edition.
+:::note[Note]
+Anomaly Detection is available in OpenObserve Enterprise (self-hosted) edition.
+:::
 
 ## Getting started
 
@@ -30,7 +32,7 @@ Configure a detection rule on any logs, metrics, or traces stream. OpenObserve t
 2. Click the **Anomalies** tab in the filter bar
 3. The list displays all anomaly detection rules for the current organization
 
-The alerts list can be filtered by type using the tabs: **All / Scheduled / Realtime / Anomalies**.
+The alerts list can be filtered by type using the tabs: **All / Scheduled / Realtime / Composite / Anomalies**.
 
 ## Key features
 
@@ -74,8 +76,9 @@ The **Alerting** tab configures what happens when anomalies are detected:
 
 ![Alerting tab showing notifications enabled with a Slack destination configured](../../../images/anomaly-detection-edit-alerting.png)
 
-!!! info
-    Anomaly detection results are always written to the `_anomalies` stream, even when notifications are disabled. You can query this stream directly for analysis.
+:::info[Info]
+Anomaly detection results are always written to the `_anomalies` stream, even when notifications are disabled. You can query this stream directly for analysis.
+:::
 
 ### Status lifecycle
 
@@ -110,8 +113,9 @@ Each anomaly detection rule progresses through a status lifecycle:
 
 8. Click **Save & Train** to create the rule and start model training.
 
-!!! tip
-    Start with a training window of 7–14 days for best seasonality detection. Use a shorter window (1–3 days) for fast-changing data patterns.
+:::tip[Tip]
+Start with a training window of 7–14 days for best seasonality detection. Use a shorter window (1–3 days) for fast-changing data patterns.
+:::
 
 ## Manage anomaly detection rules
 

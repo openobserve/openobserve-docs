@@ -1,8 +1,8 @@
 ---
-description: >-
-  Create custom charts in OpenObserve using SQL and JavaScript for full control
-  over advanced visualizations tailored to your data structure.
+title: What Are Custom Charts
+description: Create custom charts in OpenObserve using SQL and JavaScript for full control over advanced visualizations tailored to your data structure.
 ---
+
 Custom charts in OpenObserve let you create visualizations by using SQL to query the data and JavaScript to define how the chart appears. 
 Custom charts are ideal when you need advanced visualizations or more flexibility than built-in chart types provide.
 
@@ -58,42 +58,48 @@ Creating a custom chart involves these high-level steps:
 
 Use the following table to choose an appropriate chart for your use case and note the data structure expected by the chart: 
 
-=== "Charts That Expect Flat Data"
+::::tabs
+:::tab[Charts That Expect Flat Data]
 
-    | Chart Type         | Usage                                                                 | Data Structure Expected                                |
-    |--------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------|
-    | **Bar Chart**          | Count and compare things like number of errors per service                         | `{"service": "auth", "count": 30}`                  |
-    | **Stacked Bar Chart**  | Break down each bar by another field, like error types within services             | `{"service": "auth", "type": "500", "count": 20}`   |
-    | **Line Chart**         | Track how something changes over time, like CPU usage or latency                   | `{"timestamp": "10:00", "value": 75}`               |
-    | **Multi-Line Chart**   | Compare time trends across multiple sources, like CPU usage by server              | `{"timestamp": "10:00", "server": "A", "value": 75}`|
-    | **Area Chart**         | Visualize total usage or growth over time                                          | Same format as Line Chart                           |
-    | **Stacked Area Chart** | Show cumulative trends grouped by source, like traffic by region                   | Same format as Multi-Line Chart                     |
-    | **Pie Chart**          | Show the share of each category, like how logs are split by type                   | `{"type": "INFO", "count": 120}`                    |
-    | **Funnel Chart**       | Visualize drop-offs through steps, like how many logs reached each stage           | `{"step": "filtered", "count": 8000}`               |
-    | **Gauge Chart**        | Display one key value in real time, like current queue length or uptime            | `{"value": 98.5}`                                   |
-    | **Heatmap**            | Spot hotspots by comparing values across two fields, like errors per host per hour | `{"host": "A", "hour": "10AM", "errors": 12}`       |
-    | **Histogram**          | Group values into ranges to see distribution, like response times in buckets       | `{"bucket": "0–100ms", "count": 150}`               |
-    | **Box Plot**           | Understand value spread and outliers, like latency ranges per API                  | `{"api": "/login", "values": [10, 25, 60, 100]}`    |
-    | **Timeline Chart**     | Show when events started and ended, like deployments or outages                    | `{"start": "10:00", "end": "10:15", "label": "deployment"}` |
-    | **Waterfall Chart**    | Break down total time into phases, like each stage of a request                    | `{"step": "SQL", "duration": 40}`                   |
-    | **Radar Chart**        | Score and compare multiple aspects of something, like API performance              | `{"api": "getUser", "latency": 30, "cpu": 40, "errors": 2}` |
-    | **Scatter Plot**       | Spot relationships between two metrics, like payload size vs. response time        | `{"x": 3000, "y": 150}`                              |
-    | **Step Line Chart**    | Show when something changed, like a feature flag turning on/off                    | `{"timestamp": "10:00", "state": "on"}`             |
-    | **Table**              | Show raw results in a tabular format, like the top 10 slowest queries              | List of records like `{"query": "...", "duration": 1200}` |
+| Chart Type         | Usage                                                                 | Data Structure Expected                                |
+|--------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------|
+| **Bar Chart**          | Count and compare things like number of errors per service                         | `{"service": "auth", "count": 30}`                  |
+| **Stacked Bar Chart**  | Break down each bar by another field, like error types within services             | `{"service": "auth", "type": "500", "count": 20}`   |
+| **Line Chart**         | Track how something changes over time, like CPU usage or latency                   | `{"timestamp": "10:00", "value": 75}`               |
+| **Multi-Line Chart**   | Compare time trends across multiple sources, like CPU usage by server              | `{"timestamp": "10:00", "server": "A", "value": 75}`|
+| **Area Chart**         | Visualize total usage or growth over time                                          | Same format as Line Chart                           |
+| **Stacked Area Chart** | Show cumulative trends grouped by source, like traffic by region                   | Same format as Multi-Line Chart                     |
+| **Pie Chart**          | Show the share of each category, like how logs are split by type                   | `{"type": "INFO", "count": 120}`                    |
+| **Funnel Chart**       | Visualize drop-offs through steps, like how many logs reached each stage           | `{"step": "filtered", "count": 8000}`               |
+| **Gauge Chart**        | Display one key value in real time, like current queue length or uptime            | `{"value": 98.5}`                                   |
+| **Heatmap**            | Spot hotspots by comparing values across two fields, like errors per host per hour | `{"host": "A", "hour": "10AM", "errors": 12}`       |
+| **Histogram**          | Group values into ranges to see distribution, like response times in buckets       | `{"bucket": "0–100ms", "count": 150}`               |
+| **Box Plot**           | Understand value spread and outliers, like latency ranges per API                  | `{"api": "/login", "values": [10, 25, 60, 100]}`    |
+| **Timeline Chart**     | Show when events started and ended, like deployments or outages                    | `{"start": "10:00", "end": "10:15", "label": "deployment"}` |
+| **Waterfall Chart**    | Break down total time into phases, like each stage of a request                    | `{"step": "SQL", "duration": 40}`                   |
+| **Radar Chart**        | Score and compare multiple aspects of something, like API performance              | `{"api": "getUser", "latency": 30, "cpu": 40, "errors": 2}` |
+| **Scatter Plot**       | Spot relationships between two metrics, like payload size vs. response time        | `{"x": 3000, "y": 150}`                              |
+| **Step Line Chart**    | Show when something changed, like a feature flag turning on/off                    | `{"timestamp": "10:00", "state": "on"}`             |
+| **Table**              | Show raw results in a tabular format, like the top 10 slowest queries              | List of records like `{"query": "...", "duration": 1200}` |
+:::
+::::
 
 
-=== "Charts That Expect Nested Data"
+::::tabs
+:::tab[Charts That Expect Nested Data]
 
-    | Chart Type           | Usage                                                                 | Data Structure Expected                                      |
-    |----------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------|
-    | **Sunburst Chart**       | Explore categories within categories, like org → service → error type              | `{"name": "org", "children": [...]}`                      |
-    | **Treemap**              | Compare sizes inside nested groups, like log size by team and service              | Nested structure with `value` at each level               |
-    | **Flame Chart**          | Visualize execution steps with duration, like function or trace spans              | Nested objects with `name`, `start`, `end`, `value`, `children` |
-    | **Nested Pie Chart**     | Show a main category split into subcategories, like env → service → log type       | Nested `children` with `name` and `value`                 |
-    | **Icicle Chart**         | Show categories in a top-down layout, like service → module → function             | Same as sunburst but vertically arranged                  |
-    | **Partition Chart**      | Show side-by-side hierarchy splits, like service trees                             | Same nested format                                        |
-    | **Organization Chart**   | Show ownership or team structures in a hierarchy                                   | Nested `children` structure with `label` fields           |
-    | **Collapsible Tree**     | Let users expand/collapse nested items, like trace paths or nested logs            | Nested structure, same as flame chart                     | 
+| Chart Type           | Usage                                                                 | Data Structure Expected                                      |
+|----------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------|
+| **Sunburst Chart**       | Explore categories within categories, like org → service → error type              | `{"name": "org", "children": [...]}`                      |
+| **Treemap**              | Compare sizes inside nested groups, like log size by team and service              | Nested structure with `value` at each level               |
+| **Flame Chart**          | Visualize execution steps with duration, like function or trace spans              | Nested objects with `name`, `start`, `end`, `value`, `children` |
+| **Nested Pie Chart**     | Show a main category split into subcategories, like env → service → log type       | Nested `children` with `name` and `value`                 |
+| **Icicle Chart**         | Show categories in a top-down layout, like service → module → function             | Same as sunburst but vertically arranged                  |
+| **Partition Chart**      | Show side-by-side hierarchy splits, like service trees                             | Same nested format                                        |
+| **Organization Chart**   | Show ownership or team structures in a hierarchy                                   | Nested `children` structure with `label` fields           |
+| **Collapsible Tree**     | Let users expand/collapse nested items, like trace paths or nested logs            | Nested structure, same as flame chart                     | 
+:::
+::::
 
 ## Know Your Data
 
@@ -120,7 +126,7 @@ The chart building stage involves the following steps:
 
 OpenObserve stores the query result in a global object called ``` data` ``. This is always an **array of an array**:
 
-```linenums="1"
+```text lineNumbers
 data = 
 [
   [ /* all queried data for the selected time range */ ]
@@ -146,13 +152,13 @@ Here are the main components of the `option` object:
 
 **1. `title`: Sets the chart’s title.**
 
-``` linenums="1" 
+```text lineNumbers
 option.title = { text: "My Chart" };  
 ```  
 **Note**: You can also include subtitles, alignment, and styling.
 
 **2. `tooltip`: Enables hover-over tooltips.**  
-```linenums="1"  
+```text lineNumbers
 option.tooltip = { trigger: 'axis' }; // for line/bar charts  
 option.tooltip = { trigger: 'item' }; // for pie or treemap charts  
 ```  
@@ -160,7 +166,7 @@ option.tooltip = { trigger: 'item' }; // for pie or treemap charts
 
 **3. `legend`: Displays the list of series (or categories) in the chart.**
 
-```linenums="1"  
+```text lineNumbers
 option.legend = {   
   data: ['Series 1', 'Series 2'],  
   orient: 'horizontal'   
@@ -170,7 +176,7 @@ option.legend = {
 
 **4.`xAxis` and `yAxis`:** Configure the axes for charts like bar or line.
 
-```linenums="1"  
+```text lineNumbers
 option.xAxis = { type: 'category', data: [...] };  
 option.yAxis = { type: 'value', name: 'Count' };  
 ```  
@@ -182,7 +188,7 @@ option.yAxis = { type: 'value', name: 'Count' };
 - Some charts (like pie or sunburst) do not use axes. In those cases, omit these fields.
 
 **5. `series`: Defines what data to plot and what type of chart to use.**  
-```linenums="1"  
+```text lineNumbers
 option.series = [{  
   type: 'bar',  
   name: 'My Values',  
@@ -196,7 +202,7 @@ option.series = [{
 - Use `type: 'pie'`, `'treemap'`, or `'sunburst'` for hierarchical charts.  
 - You can add multiple series to show multiple lines or bars in one chart. Use your query result (data[0]) to build each series. For example:
 
-```linenums="1"  
+```text lineNumbers
 option.series[0].data = data[0].map(row => row.count);  
 option.series[0].name = 'Errors';
 

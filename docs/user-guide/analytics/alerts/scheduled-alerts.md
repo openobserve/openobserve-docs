@@ -1,8 +1,6 @@
 ---
-description: >-
-  Step-by-step guide to creating scheduled and SQL alerts in OpenObserve. Covers
-  the condition builder, SQL mode, Compare with Past, deduplication, and
-  advanced configuration.
+title: Scheduled Alerts
+description: "Create scheduled and SQL alerts in OpenObserve. Covers the condition builder, SQL mode, Compare with Past, deduplication, and advanced configuration."
 ---
 
 ## Create a scheduled alert
@@ -54,8 +52,9 @@ Configure the condition:
 
 - **Check every**: Enter the frequency in minutes (default: 10). You can switch to a cron expression for precise scheduling using the dropdown next to the minutes input.
 
-!!! note
-    When a scheduled alert uses a cron expression, its first (and every subsequent) run is the next time that matches the cron schedule in the configured timezone. It no longer fires immediately when you create, update, or enable the alert. With a non-cron **Check every N minutes** schedule, the alert still starts at the next interval boundary.
+:::note[Note]
+When a scheduled alert uses a cron expression, its first (and every subsequent) run is the next time that matches the cron schedule in the configured timezone. It no longer fires immediately when you create, update, or enable the alert. With a non-cron **Check every N minutes** schedule, the alert still starts at the next interval boundary.
+:::
 
 ### Step 5: Add filters (optional)
 
@@ -104,8 +103,9 @@ Enter a SQL query in the inline editor, or click **Open Full Editor** for a full
 - AI assistance for query suggestions
 - Query results preview on the right
 
-!!! warning
-    Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::warning[Warning]
+Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::
 
 ### Step 3: Set the threshold
 
@@ -164,7 +164,7 @@ You can apply this to logs, metrics, or traces.
 
 When a scheduled alert with Multi-window Selector runs:
 
-1. The alert manager executes your SQL query for each window (current + past windows)
+1. The scheduler executes your SQL query for each window (current + past windows)
 2. Results are passed to your VRL function for comparison
 3. The VRL output is checked against your threshold condition
 4. If the condition is met, a notification is sent
@@ -215,7 +215,7 @@ Set the time range to evaluate per run (e.g., last 30 minutes) in the **Compare 
 
 Click **Add Comparison Window** and select the historical window to compare against (e.g., 1 day ago).
 
-The alert manager will run two queries at runtime:
+The scheduler will run two queries at runtime:
 
 1. Current window (e.g., 9:30–10:00 AM today)
 2. Past window (e.g., 9:30–10:00 AM yesterday)
@@ -224,8 +224,9 @@ The alert manager will run two queries at runtime:
 
 Click the function toggle in the SQL editor to write VRL logic that compares the windows.
 
-!!! warning
-    Always start your VRL function with `#ResultArray#` when using Multi-window Selector. This ensures your function receives a multi-dimensional array where `result[0]` = current window and `result[1]` = past window.
+:::warning[Warning]
+Always start your VRL function with `#ResultArray#` when using Multi-window Selector. This ensures your function receives a multi-dimensional array where `result[0]` = current window and `result[1]` = past window.
+:::
 
 **VRL function example** — alert if purchase retries increased by more than 5%:
 
@@ -298,7 +299,7 @@ Select a destination, optionally add a row template with fields from your VRL ou
 
 Yes. Every window — current and past — uses the same duration defined by the period.
 
-**Does the alert manager run multiple queries within one window?**
+**Does the scheduler run multiple queries within one window?**
 
 No. It runs one query per window. Frequency controls *when* the queries run; period controls *what time range* each query covers.
 

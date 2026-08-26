@@ -1,8 +1,9 @@
 ---
-description: >-
-  Update an OpenObserve user's name, password, or role using a PUT request. Old
-  password is required to change password.
+title: Update
+metaTitle: Update a User - OpenObserve API
+description: Update an OpenObserve user's name, password, or role using a PUT request. Old password is required to change password.
 ---
+
 # Update user
 
 Endpoint: `PUT /api/{organization}/users/{user_email}`

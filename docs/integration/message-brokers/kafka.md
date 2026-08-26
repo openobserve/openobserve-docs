@@ -1,6 +1,7 @@
 ---
-title: Apache Kafka Monitoring - Stream Processing and Message Broker Metrics | OpenObserve
-description: Complete Apache Kafka monitoring guide for collecting Kafka metrics, message broker monitoring, stream processing performance, and Kafka cluster monitoring with OpenTelemetry for real-time observability.
+title: Kafka
+metaTitle: "Apache Kafka Monitoring - Message Broker and Stream Metrics"
+description: "Collect Apache Kafka metrics with OpenTelemetry for message broker, stream processing, and cluster monitoring in OpenObserve."
 ---
 
 # Apache Kafka Monitoring - Stream Processing & Message Broker Monitoring
@@ -13,101 +14,109 @@ Apache Kafka monitoring is essential for ensuring message broker performance, st
 
 ## Steps to Integrate
 
-??? "Prerequisites"
-    - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
-    - Kafka running 
+:::accordion[Prerequisites]
+- OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md))
+- Kafka running 
+:::
 
-??? "Step 1: Create Test Kafka Topics (Optional)"
+:::accordion[Step 1: Create Test Kafka Topics (Optional)]
 
-    1. Create test topics to simulate workloads:
-        ```bash
-        bin/kafka-topics.sh --create --topic quickstart-events-1 --partitions 3 --bootstrap-server localhost:9092
-        bin/kafka-topics.sh --create --topic quickstart-events-2 --partitions 10 --bootstrap-server localhost:9092
-        bin/kafka-topics.sh --create --topic openobserve --partitions 2 --bootstrap-server localhost:9092
-        ```
-
-    2. List topics to confirm:
-        ```bash
-        bin/kafka-topics.sh --list --bootstrap-server localhost:9092
-        ```
-
-
-??? "Step 2: Install OpenTelemetry Collector Contrib"
-
-    Download and install the latest **otelcol-contrib**.
-
+1. Create test topics to simulate workloads:
     ```bash
-    wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.116.1/otelcol-contrib_0.116.1_linux_amd64.deb
-    sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
+    bin/kafka-topics.sh --create --topic quickstart-events-1 --partitions 3 --bootstrap-server localhost:9092
+    bin/kafka-topics.sh --create --topic quickstart-events-2 --partitions 10 --bootstrap-server localhost:9092
+    bin/kafka-topics.sh --create --topic openobserve --partitions 2 --bootstrap-server localhost:9092
     ```
 
-    > **Note:** Replace version numbers in download links if a newer release is available. Always check the [GitHub Releases](https://github.com/open-telemetry/opentelemetry-collector-releases/releases) page.
-
-??? "Step 3: Get OpenObserve URL and Access Key"
-
-    1. In OpenObserve: go to **Data Sources → Custom → Metrics → Otel Collector **
-    2. Copy the ingestion URL and Access Key
-    ![Get OpenObserve Ingestion URL and Access Key](../images/messagebroker/otel-metrics-source.png)
-
-??? "Step 4: Configure OpenTelemetry Collector"
-
-    1. Edit the configuration file:
-        ```bash
-        sudo vi /etc/otelcol-contrib/config.yaml
-        ```
-    2. Update config for Kafka metrics:
-
-        ```yaml
-        receivers:
-        kafkametrics:
-            brokers: localhost:9092
-            protocol_version: 2.0.0
-            scrapers:
-            - brokers
-            - topics
-            - consumers
-
-        exporters:
-        otlphttp/openobserve:
-            endpoint: OPENOBSERVE_ENDPOINT
-            headers:
-            Authorization: OPENOBSERVE_TOKEN
-            stream-name: OPENOBSERVE_STREAM
-
-        service:
-        pipelines:
-            metrics:
-            receivers: [kafkametrics]
-            exporters: [otlphttp/openobserve]
-        ```
-
-    Replace the following with your OpenObserve details:
-
-    * `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-    * `OPENOBSERVE_TOKEN` → API token
-    * `OPENOBSERVE_STREAM` → Stream name
+2. List topics to confirm:
+    ```bash
+    bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+    ```
+:::
 
 
-??? "Step 5: Start OpenTelemetry Collector"
+:::accordion[Step 2: Install OpenTelemetry Collector Contrib]
 
-    1. Start and check status:
-        ```bash
-        sudo systemctl start otelcol-contrib
-        sudo systemctl status otelcol-contrib
-        ```
-    2. Check logs:
-        ```bash
-        journalctl -u otelcol-contrib --no-pager -n 50
-        ```
+Download and install the latest **otelcol-contrib**.
 
-??? "Step 6: Visualize in OpenObserve"
+```bash
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.116.1/otelcol-contrib_0.116.1_linux_amd64.deb
+sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
+```
 
-    1. Go to **Streams** → select metrics. Expand on any metric stream to see the events.
-    ![Visualize in OpenObserve](../images/messagebroker/kafka-metrics.png)
+> **Note:** Replace version numbers in download links if a newer release is available. Always check the [GitHub Releases](https://github.com/open-telemetry/opentelemetry-collector-releases/releases) page.
+:::
 
-!!! tip
+:::accordion[Step 3: Get OpenObserve URL and Access Key]
 
-    You can use **[prebuilt dashboards](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/kafka_dashboard_e2dc6c8569.json)** to quickly get started with Kafka monitoring. Browse and import dashboards from: [OpenObserve Community Dashboards](https://github.com/openobserve/dashboards)
+1. In OpenObserve: go to **Data Sources → Custom → Metrics → Otel Collector **
+2. Copy the ingestion URL and Access Key
+![Get OpenObserve Ingestion URL and Access Key](../images/messagebroker/otel-metrics-source.png)
+:::
+
+:::accordion[Step 4: Configure OpenTelemetry Collector]
+
+1. Edit the configuration file:
+    ```bash
+    sudo vi /etc/otelcol-contrib/config.yaml
+    ```
+2. Update config for Kafka metrics:
+
+    ```yaml
+    receivers:
+    kafkametrics:
+        brokers: localhost:9092
+        protocol_version: 2.0.0
+        scrapers:
+        - brokers
+        - topics
+        - consumers
+
+    exporters:
+    otlphttp/openobserve:
+        endpoint: OPENOBSERVE_ENDPOINT
+        headers:
+        Authorization: OPENOBSERVE_TOKEN
+        stream-name: OPENOBSERVE_STREAM
+
+    service:
+    pipelines:
+        metrics:
+        receivers: [kafkametrics]
+        exporters: [otlphttp/openobserve]
+    ```
+
+Replace the following with your OpenObserve details:
+
+* `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
+* `OPENOBSERVE_TOKEN` → API token
+* `OPENOBSERVE_STREAM` → Stream name
+:::
+
+
+:::accordion[Step 5: Start OpenTelemetry Collector]
+
+1. Start and check status:
+    ```bash
+    sudo systemctl start otelcol-contrib
+    sudo systemctl status otelcol-contrib
+    ```
+2. Check logs:
+    ```bash
+    journalctl -u otelcol-contrib --no-pager -n 50
+    ```
+:::
+
+:::accordion[Step 6: Visualize in OpenObserve]
+
+1. Go to **Streams** → select metrics. Expand on any metric stream to see the events.
+![Visualize in OpenObserve](../images/messagebroker/kafka-metrics.png)
+:::
+
+:::tip[Tip]
+
+You can use **[prebuilt dashboards](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/kafka_dashboard_e2dc6c8569.json)** to quickly get started with Kafka monitoring. Browse and import dashboards from: [OpenObserve Community Dashboards](https://github.com/openobserve/dashboards)
+:::
 
 
 ## Troubleshooting

@@ -1,5 +1,6 @@
 ---
-title: OpenTelemetry Collector (OTEL) - OTLP Log, Metric, and Trace Ingestion | OpenObserve
+title: otel-collector
+metaTitle: "OpenTelemetry Collector - OTLP Log, Metric, Trace Ingestion"
 description: Complete OpenTelemetry Collector guide for OTLP log ingestion, metrics collection, and trace ingestion via HTTP and gRPC protocols for unified observability.
 ---
 
@@ -19,12 +20,13 @@ OpenObserve supports two OTLP transports:
 - An OpenObserve instance (Cloud or self-hosted) and your login credentials.
 - The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) installed.
 
-!!! note "Generating the `Authorization` header"
-    The `Authorization` header is `Basic <base64(email:password)>`. Generate the value with:
+:::note[Generating the `Authorization` header]
+The `Authorization` header is `Basic <base64(email:password)>`. Generate the value with:
 
-    ```bash
-    echo -n 'your-email:your-password' | base64
-    ```
+```bash
+echo -n 'your-email:your-password' | base64
+```
+:::
 
 ## OTLP/HTTP
 
@@ -45,8 +47,9 @@ exporters:
       stream-name: your-stream
 ```
 
-!!! warning "No trailing slash on `endpoint`"
-    The `endpoint` value must not end with a `/`. The collector appends `/v1/logs` itself, and a trailing slash will produce a 404.
+:::warning[No trailing slash on `endpoint`]
+The `endpoint` value must not end with a `/`. The collector appends `/v1/logs` itself, and a trailing slash will produce a 404.
+:::
 
 ## OTLP/gRPC
 

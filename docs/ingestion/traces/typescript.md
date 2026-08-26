@@ -1,7 +1,9 @@
 ---
-title: TypeScript Distributed Tracing - OpenTelemetry for TypeScript APM | OpenObserve
+title: Typescript
+metaTitle: "TypeScript Distributed Tracing - OpenTelemetry APM"
 description: Complete TypeScript distributed tracing guide using OpenTelemetry SDK for TypeScript application performance monitoring and trace instrumentation.
 ---
+
 # TypeScript Distributed Tracing - OpenTelemetry APM
 
 Setup distributed tracing for your Node.js TypeScript application using OpenTelemetry for TypeScript application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for TypeScript applications.
@@ -16,7 +18,7 @@ git clone https://github.com/openobserve/sample-tracing-nodejs-typescript
 If you don't have node.js installed, please install it and then follow below steps.
 
 Open `tracing.ts` file from that repository. and make changes to the highlighted lines below and make changes to the highlighted lines below.
-```typescript linenums="1" hl_lines="13 15"
+```typescript lineNumbers {13,15}
 
 import  *  as  opentelemetry  from  "@opentelemetry/sdk-node";
 import { getNodeAutoInstrumentations } from  "@opentelemetry/auto-instrumentations-node";
@@ -45,7 +47,7 @@ sdk.start();
 </br>
 ## Setup up credentials 
 
-You will get `url` and `Authorization` key [here](http://cloud.openobserve.ai/web/ingestion/traces/).
+You will get `url` and `Authorization` key from the [trace ingestion settings](https://cloud.openobserve.ai/web/ingestion/traces/).
 Replace the `url` and `Authorization` key in the `tracing.js` file.
 
 ## Setup Service/Application

@@ -1,5 +1,6 @@
 ---
-title: Kong AI Gateway
+title: Kong Gateway
+metaTitle: Kong AI Gateway
 description: Instrument Kong AI Gateway calls and send traces to OpenObserve via OpenTelemetry.
 ---
 

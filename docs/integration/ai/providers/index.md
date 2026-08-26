@@ -1,6 +1,7 @@
 ---
-title: LLM Provider Observability - OpenAI, Anthropic, Gemini, Mistral, Ollama | OpenObserve
-description: Trace LLM provider API calls with OpenObserve. Monitor token usage, latency, and model metadata for OpenAI, Anthropic, Google Gemini, Mistral, Ollama, Groq, Cohere, HuggingFace, and 10+ other LLM providers via OpenTelemetry.
+title: Model Providers
+metaTitle: "LLM Provider Observability - OpenAI, Anthropic, Gemini"
+description: "Trace LLM provider API calls with OpenObserve. Monitor token usage, latency, and model metadata for OpenAI, Anthropic, Gemini, Mistral, Ollama, and more."
 ---
 
 # LLM Provider Observability Integrations

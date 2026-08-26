@@ -1,5 +1,6 @@
 ---
-description: "OpenObserve dashboard variable types include Query Values, Constant, Textbox, and Custom, each with configuration and use cases for dynamic panel filtering."
+title: Variable Types
+description: OpenObserve dashboard variable types include Query Values, Constant, Textbox, and Custom, each with configuration and use cases for dynamic panel filtering.
 ---
 
 This page describes the types of [variables](./variables-in-openobserve.md), their use cases, and the configuration required for each type.
@@ -15,23 +16,24 @@ This variable dynamically fetches values from a selected field in a stream. It s
 **Use Case:** Filter the dashboard panels by Pod name using values from logs.
 
 ![Query variable](../../../../images/variables-query.png)
-!!! Configuration
-    **Basic**:
-    
-    - **Type of Variable**: Query Values
-    - **Name**: pod
-    - **Label (optional)**: Pod 
-    - **Stream Type**: Logs
-    - **Stream**: `default`
-    - **Field**: `k8s_pod_name`
-    - **Default Max Record Size (optional)**: `20`
+:::note[Configuration]
+**Basic**:
 
-    **Advanced:**
+- **Type of Variable**: Query Values
+- **Name**: pod
+- **Label (optional)**: Pod 
+- **Stream Type**: Logs
+- **Stream**: `default`
+- **Field**: `k8s_pod_name`
+- **Default Max Record Size (optional)**: `20`
 
-    - **Allow multiple selection**: Enabled
-    - **By Default Select**: First value
-    - **Hide on Dashboard**: Disabled
-    - **Escape Single Quotes**: Disabled
+**Advanced:**
+
+- **Allow multiple selection**: Enabled
+- **By Default Select**: First value
+- **Hide on Dashboard**: Disabled
+- **Escape Single Quotes**: Disabled
+:::
 
 
 **Result**: 
@@ -40,8 +42,9 @@ This variable dynamically fetches values from a selected field in a stream. It s
 - The variable dropdown will display up to `20` pod names retrieved from the `k8s_pod_name` field in the default log stream. These values are based on the most recently ingested records. 
 - The multi-selection option is enabled. Users can select more than one value, and all dashboard panels using `$pod` will update accordingly.
 
-!!! Note
-    Dropdown menu on the dashboard populated with live values from the data.
+:::note[Note]
+Dropdown menu on the dashboard populated with live values from the data.
+:::
 
 ## 2. Constant
 
@@ -52,18 +55,19 @@ This variable allows you to set a fixed value that cannot be changed by dashboar
 **Use case:** Building a dashboard that focuses only on logs from a specific Kubernetes namespace named ziox.
 ![Constant variable](../../../../images/constant-variable.png)
 
-!!! Configuration
-    **Basic**: 
+:::note[Configuration]
+**Basic**: 
 
-    - **Type of variable**: Constant
-    - **Name**: constant-ziox
-    - **Label (optional)**: Namespace-name-ziox-constant 
-    - **Value**: `ziox`
+- **Type of variable**: Constant
+- **Name**: constant-ziox
+- **Label (optional)**: Namespace-name-ziox-constant 
+- **Value**: `ziox`
 
-    **Advanced**:
+**Advanced**:
 
-    - **Hide on Dashboard**: Disabled
-    - **Escape Single Quotes**: Disabled
+- **Hide on Dashboard**: Disabled
+- **Escape Single Quotes**: Disabled
+:::
 
 **Result**: 
 
@@ -78,18 +82,19 @@ This variable provides a free-form text input field on the dashboard.
 
 **Use Case:** You want users to manually enter the cluster name they want to filter logs by.
 ![Textbox variable](../../../../images/textbox-variable.png)
-!!! Configuration
-    **Basic**:
+:::note[Configuration]
+**Basic**:
 
-    - **Type of variable**: Textbox
-    - **Name**: input-cluster-name
-    - **Label (optional)**: Enter Cluster Name
-    - **Default value (optional)**: `_o2_all_`
+- **Type of variable**: Textbox
+- **Name**: input-cluster-name
+- **Label (optional)**: Enter Cluster Name
+- **Default value (optional)**: `_o2_all_`
 
-    **Advanced**:
+**Advanced**:
 
-    - **Hide On Dashboard**: Disabled
-    - **Escape Single Quotes**: Disabled
+- **Hide On Dashboard**: Disabled
+- **Escape Single Quotes**: Disabled
+:::
 
 
 **Result**: 
@@ -103,10 +108,11 @@ This variable provides a free-form text input field on the dashboard.
 - `_o2_all_` is a special keyword used to **match all values** during query execution.
 - If this is set as the default value, the dashboard will include data from all clusters unless the user enters a specific one.
 
-!!! Notes
+:::note[Notes]
 
-    - No validation is performed on the input. The value is passed directly into the query.
-    - To match all values, users must enter exactly `_o2_all_`. Writing `ALL`, `all`, or `<ALL>` will not match all values.
+- No validation is performed on the input. The value is passed directly into the query.
+- To match all values, users must enter exactly `_o2_all_`. Writing `ALL`, `all`, or `<ALL>` will not match all values.
+:::
 
 
 
@@ -118,27 +124,28 @@ This variable lets you predefine a list of selectable values.
 
 **Use Case:** You want to allow users to select a predefined service from a list, such as openobserve or ingress-nginx. This is useful when the possible values are known and limited, and you want to control what the user can select.
 ![Custom variable](../../../../images/custom-variable.png)
-!!! Configuration
+:::note[Configuration]
 
-    **Basic**: 
+**Basic**: 
 
-    - **Type of variable**: Custom
-    - **Name**: service-name
-    - **Label (optional)**: Service Name
+- **Type of variable**: Custom
+- **Name**: service-name
+- **Label (optional)**: Service Name
 
-        - **Label**: `openobserve`
-        - **Value**: `openobserve`
-        - **Default**: Checked
-    - **Label**: `ingress-nginx`
+    - **Label**: `openobserve`
+    - **Value**: `openobserve`
+    - **Default**: Checked
+- **Label**: `ingress-nginx`
 
-        - **Value**: `ingress-nginx`
-        - **Default**: Unchecked
+    - **Value**: `ingress-nginx`
+    - **Default**: Unchecked
 
-    **Advanced**:
+**Advanced**:
 
-    - **Allow multiple selection**: Disabled
-    - **Hide on Dashboard**: Disabled
-    - **Escape Single Quotes**: Disabled
+- **Allow multiple selection**: Disabled
+- **Hide on Dashboard**: Disabled
+- **Escape Single Quotes**: Disabled
+:::
 
 **Result**: 
 
@@ -146,10 +153,11 @@ This variable lets you predefine a list of selectable values.
 - They can switch to `ingress-nginx` if needed. The multiple selection option is disabled, so only one option can be selected. 
 - All queries using `$service-name` will include the selected value when executed.
 
-!!! Note
-    - One value must be selected as the default.
-    - Labels are shown on the dashboard, while values are used in the query.
-    - The values are injected into queries as-is. No validation or transformation is applied.
+:::note[Note]
+- One value must be selected as the default.
+- Labels are shown on the dashboard, while values are used in the query.
+- The values are injected into queries as-is. No validation or transformation is applied.
+:::
 
 
 

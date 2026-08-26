@@ -1,8 +1,8 @@
 ---
-description: >-
-  Explore OpenObserve's full-text, array, and aggregate functions for advanced
-  querying, filtering, and analysis using SQL and DataFusion support.
+title: SQL Reference
+description: Explore OpenObserve's full-text, array, and aggregate functions for advanced querying, filtering, and analysis using SQL and DataFusion support.
 ---
+
 This guide describes the custom SQL functions supported in OpenObserve for querying and processing logs and time series data. These functions extend the capabilities of standard SQL by enabling full-text search, array processing, and time-based aggregations.
 
 ## Full-text search functions
@@ -77,10 +77,11 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 - Filters logs by searching for the keyword across all fields that have the Index Type set to Full Text Search in the [stream settings](../user-guide/data-processing/streams/schema-settings.md). 
 - This function is case-insensitive and returns matches regardless of the keyword's casing.
 
-!!! Note 
-    To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](api/stream/setting.md).
+:::note[Note]
+To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](api/stream/setting.md).
 
-    The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
+The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
+:::
 
 **Example**:
 ```sql
@@ -404,8 +405,9 @@ Each row in the result shows:
 
 ![histogram](../images/example-queries/histogram.png)
 
-!!! note
-    To avoid unexpected bucket sizes based on internal defaults, always specify the bucket duration explicitly using units. 
+:::note[Note]
+To avoid unexpected bucket sizes based on internal defaults, always specify the bucket duration explicitly using units. 
+:::
 
 ---
 
@@ -465,121 +467,122 @@ ORDER BY request_count DESC
 {"clientip":"192.168.1.150","request_count":1410}
 ```
 
-??? info "The Space-Saving Algorithm Explained:"
-    The Space-Saving algorithm enables efficient top-K queries on high-cardinality data by limiting memory usage during distributed query execution. This approach trades exact precision for system stability and performance. <br> 
-    **Problem Statement** <br>
+:::accordion[The Space-Saving Algorithm Explained:]
+The Space-Saving algorithm enables efficient top-K queries on high-cardinality data by limiting memory usage during distributed query execution. This approach trades exact precision for system stability and performance. <br> 
+**Problem Statement** <br>
 
-    Traditional GROUP BY operations on high-cardinality fields can cause memory exhaustion in distributed systems. Consider this query:
+Traditional GROUP BY operations on high-cardinality fields can cause memory exhaustion in distributed systems. Consider this query:
 
-    ```sql
-    SELECT clientip, count(*) as cnt 
-    FROM default 
-    GROUP BY clientip 
-    ORDER BY cnt DESC 
-    LIMIT 10
-    ```
+```sql
+SELECT clientip, count(*) as cnt 
+FROM default 
+GROUP BY clientip 
+ORDER BY cnt DESC 
+LIMIT 10
+```
 
-    **Challenges:**
+**Challenges:**
 
-    - Dataset contains 3 million unique client IP addresses
-    - Query executes across 60 CPU cores with 60 data partitions
-    - Each core maintains hash tables during aggregation across all partitions
-    - Memory usage: 3M entries × 60 cores × 60 partitions = 10.8 billion hash table entries
+- Dataset contains 3 million unique client IP addresses
+- Query executes across 60 CPU cores with 60 data partitions
+- Each core maintains hash tables during aggregation across all partitions
+- Memory usage: 3M entries × 60 cores × 60 partitions = 10.8 billion hash table entries
 
-    **Typical error message:**
-    ```
-    Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHashAggregateStream[20] with 0 bytes already allocated for this reservation - 51510301 bytes remain available for the total pool
-    ```
+**Typical error message:**
+```
+Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHashAggregateStream[20] with 0 bytes already allocated for this reservation - 51510301 bytes remain available for the total pool
+```
 
-    **Solution: Space-Saving Mechanism** <br>
+**Solution: Space-Saving Mechanism** <br>
 
-    ```sql
-    SELECT approx_topk(clientip, 10) FROM default
-    ```
+```sql
+SELECT approx_topk(clientip, 10) FROM default
+```
 
-    Instead of returning all unique values from each partition, each partition returns only its top 10 results. The leader node then aggregates these partial results to compute the final top 10.
+Instead of returning all unique values from each partition, each partition returns only its top 10 results. The leader node then aggregates these partial results to compute the final top 10.
 
-    **Example: Web Server Log Analysis** <br>
+**Example: Web Server Log Analysis** <br>
 
-    **Scenario** <br>
-    Find the top 10 client IPs by request count from web server logs distributed across 3 follower query nodes.
+**Scenario** <br>
+Find the top 10 client IPs by request count from web server logs distributed across 3 follower query nodes.
 
-    **Raw data distribution** <br>
+**Raw data distribution** <br>
 
-    | Rank | Node 1 | Requests | Node 2 | Requests | Node 3 | Requests |
-    |------|---------|----------|---------|----------|---------|----------|
-    | 1 | 192.168.1.100 | 850 | 192.168.1.100 | 920 | 192.168.1.100 | 880 |
-    | 2 | 10.0.0.5 | 720 | 203.0.113.50 | 780 | 10.0.0.5 | 810 |
-    | 3 | 203.0.113.50 | 680 | 198.51.100.75 | 740 | 203.0.113.50 | 750 |
-    | 4 | 172.16.0.10 | 620 | 10.0.0.5 | 700 | 198.51.100.75 | 690 |
-    | 5 | 192.168.1.200 | 580 | 172.16.0.10 | 660 | 172.16.0.10 | 650 |
-    | 6 | 198.51.100.75 | 540 | 192.168.1.200 | 640 | 192.168.1.200 | 610 |
-    | 7 | 10.0.0.25 | 500 | 203.0.113.80 | 600 | 203.0.113.80 | 570 |
-    | 8 | 172.16.0.30 | 480 | 172.16.0.30 | 580 | 10.0.0.25 | 530 |
-    | 9 | 203.0.113.80 | 460 | 10.0.0.25 | 560 | 172.16.0.30 | 490 |
-    | 10 | 192.168.1.150 | 440 | 192.168.1.150 | 520 | 192.168.1.150 | 450 |
+| Rank | Node 1 | Requests | Node 2 | Requests | Node 3 | Requests |
+|------|---------|----------|---------|----------|---------|----------|
+| 1 | 192.168.1.100 | 850 | 192.168.1.100 | 920 | 192.168.1.100 | 880 |
+| 2 | 10.0.0.5 | 720 | 203.0.113.50 | 780 | 10.0.0.5 | 810 |
+| 3 | 203.0.113.50 | 680 | 198.51.100.75 | 740 | 203.0.113.50 | 750 |
+| 4 | 172.16.0.10 | 620 | 10.0.0.5 | 700 | 198.51.100.75 | 690 |
+| 5 | 192.168.1.200 | 580 | 172.16.0.10 | 660 | 172.16.0.10 | 650 |
+| 6 | 198.51.100.75 | 540 | 192.168.1.200 | 640 | 192.168.1.200 | 610 |
+| 7 | 10.0.0.25 | 500 | 203.0.113.80 | 600 | 203.0.113.80 | 570 |
+| 8 | 172.16.0.30 | 480 | 172.16.0.30 | 580 | 10.0.0.25 | 530 |
+| 9 | 203.0.113.80 | 460 | 10.0.0.25 | 560 | 172.16.0.30 | 490 |
+| 10 | 192.168.1.150 | 440 | 192.168.1.150 | 520 | 192.168.1.150 | 450 |
 
 
-    **Follower query nodes process data** <br>
+**Follower query nodes process data** <br>
 
-    Each follower node executes the query locally and returns only its top 10 results:
+Each follower node executes the query locally and returns only its top 10 results:
 
-    | Rank | Node 1 → Leader | Requests | Node 2 → Leader | Requests | Node 3 → Leader | Requests |
-    |------|-----------------|----------|-----------------|----------|-----------------|----------|
-    | 1 | 192.168.1.100 | 850 | 192.168.1.100 | 920 | 192.168.1.100 | 880 |
-    | 2 | 10.0.0.5 | 720 | 203.0.113.50 | 780 | 10.0.0.5 | 810 |
-    | 3 | 203.0.113.50 | 680 | 198.51.100.75 | 740 | 203.0.113.50 | 750 |
-    | 4 | 172.16.0.10 | 620 | 10.0.0.5 | 700 | 198.51.100.75 | 690 |
-    | 5 | 192.168.1.200 | 580 | 172.16.0.10 | 660 | 172.16.0.10 | 650 |
-    | 6 | 198.51.100.75 | 540 | 192.168.1.200 | 640 | 192.168.1.200 | 610 |
-    | 7 | 10.0.0.25 | 500 | 203.0.113.80 | 600 | 203.0.113.80 | 570 |
-    | 8 | 172.16.0.30 | 480 | 172.16.0.30 | 580 | 10.0.0.25 | 530 |
-    | 9 | 203.0.113.80 | 460 | 10.0.0.25 | 560 | 172.16.0.30 | 490 |
-    | 10 | 192.168.1.150 | 440 | 192.168.1.150 | 520 | 192.168.1.150 | 450 |
+| Rank | Node 1 → Leader | Requests | Node 2 → Leader | Requests | Node 3 → Leader | Requests |
+|------|-----------------|----------|-----------------|----------|-----------------|----------|
+| 1 | 192.168.1.100 | 850 | 192.168.1.100 | 920 | 192.168.1.100 | 880 |
+| 2 | 10.0.0.5 | 720 | 203.0.113.50 | 780 | 10.0.0.5 | 810 |
+| 3 | 203.0.113.50 | 680 | 198.51.100.75 | 740 | 203.0.113.50 | 750 |
+| 4 | 172.16.0.10 | 620 | 10.0.0.5 | 700 | 198.51.100.75 | 690 |
+| 5 | 192.168.1.200 | 580 | 172.16.0.10 | 660 | 172.16.0.10 | 650 |
+| 6 | 198.51.100.75 | 540 | 192.168.1.200 | 640 | 192.168.1.200 | 610 |
+| 7 | 10.0.0.25 | 500 | 203.0.113.80 | 600 | 203.0.113.80 | 570 |
+| 8 | 172.16.0.30 | 480 | 172.16.0.30 | 580 | 10.0.0.25 | 530 |
+| 9 | 203.0.113.80 | 460 | 10.0.0.25 | 560 | 172.16.0.30 | 490 |
+| 10 | 192.168.1.150 | 440 | 192.168.1.150 | 520 | 192.168.1.150 | 450 |
 
-    **Leader query node aggregates results** <br>
+**Leader query node aggregates results** <br>
 
-    | Client IP | Node 1 | Node 2 | Node 3 | Total Requests |
-    |-----------|---------|---------|---------|----------------|
-    | 192.168.1.100 | 850 | 920 | 880 | **2,650** |
-    | 10.0.0.5 | 720 | 700 | 810 | **2,230** |
-    | 203.0.113.50 | 680 | 780 | 750 | **2,210** |
-    | 198.51.100.75 | 540 | 740 | 690 | **1,970** |
-    | 172.16.0.10 | 620 | 660 | 650 | **1,930** |
-    | 192.168.1.200 | 580 | 640 | 610 | **1,830** |
-    | 203.0.113.80 | 460 | 600 | 570 | **1,630** |
-    | 10.0.0.25 | 500 | 560 | 530 | **1,590** |
-    | 172.16.0.30 | 480 | 580 | 490 | **1,550** |
-    | 192.168.1.150 | 440 | 520 | 450 | **1,410** |
+| Client IP | Node 1 | Node 2 | Node 3 | Total Requests |
+|-----------|---------|---------|---------|----------------|
+| 192.168.1.100 | 850 | 920 | 880 | **2,650** |
+| 10.0.0.5 | 720 | 700 | 810 | **2,230** |
+| 203.0.113.50 | 680 | 780 | 750 | **2,210** |
+| 198.51.100.75 | 540 | 740 | 690 | **1,970** |
+| 172.16.0.10 | 620 | 660 | 650 | **1,930** |
+| 192.168.1.200 | 580 | 640 | 610 | **1,830** |
+| 203.0.113.80 | 460 | 600 | 570 | **1,630** |
+| 10.0.0.25 | 500 | 560 | 530 | **1,590** |
+| 172.16.0.30 | 480 | 580 | 490 | **1,550** |
+| 192.168.1.150 | 440 | 520 | 450 | **1,410** |
 
-    **Final top 10 results:**
+**Final top 10 results:**
 
-    | Rank | Client IP | Total Requests |
-    |------|-----------|----------------|
-    | 1 | 192.168.1.100 | 2,650 |
-    | 2 | 10.0.0.5 | 2,230 |
-    | 3 | 203.0.113.50 | 2,210 |
-    | 4 | 198.51.100.75 | 1,970 |
-    | 5 | 172.16.0.10 | 1,930 |
-    | 6 | 192.168.1.200 | 1,830 |
-    | 7 | 203.0.113.80 | 1,630 |
-    | 8 | 10.0.0.25 | 1,590 |
-    | 9 | 172.16.0.30 | 1,550 |
-    | 10 | 192.168.1.150 | 1,410 |
+| Rank | Client IP | Total Requests |
+|------|-----------|----------------|
+| 1 | 192.168.1.100 | 2,650 |
+| 2 | 10.0.0.5 | 2,230 |
+| 3 | 203.0.113.50 | 2,210 |
+| 4 | 198.51.100.75 | 1,970 |
+| 5 | 172.16.0.10 | 1,930 |
+| 6 | 192.168.1.200 | 1,830 |
+| 7 | 203.0.113.80 | 1,630 |
+| 8 | 10.0.0.25 | 1,590 |
+| 9 | 172.16.0.30 | 1,550 |
+| 10 | 192.168.1.150 | 1,410 |
 
-    **Why results are approximate** <br>
+**Why results are approximate** <br>
 
-    The approx_topk function returns approximate results because it relies on each query node sending only its local top N entries to the leader. The leader combines these partial lists to produce the final result.
+The approx_topk function returns approximate results because it relies on each query node sending only its local top N entries to the leader. The leader combines these partial lists to produce the final result.
 
-    If a value appears frequently across all nodes but never ranks in the top N on any individual node, it is excluded. This can cause high-frequency values to be missed globally.
+If a value appears frequently across all nodes but never ranks in the top N on any individual node, it is excluded. This can cause high-frequency values to be missed globally.
 
-    For example, if an IP receives 400, 450, and 500 requests across three nodes but ranks 11th on each, it will not appear in any node’s top 10. Even though the global total is 1,350, it will be missed.
+For example, if an IP receives 400, 450, and 500 requests across three nodes but ranks 11th on each, it will not appear in any node’s top 10. Even though the global total is 1,350, it will be missed.
 
-    **Limitations** <br>
+**Limitations** <br>
 
-    - Results are approximate, not exact.
-    - Accuracy depends on data distribution across partitions.
-    - Filter clauses are not currently supported with approx_topk
+- Results are approximate, not exact.
+- Accuracy depends on data distribution across partitions.
+- Filter clauses are not currently supported with approx_topk
+:::
 
 ---
 
@@ -647,124 +650,125 @@ ORDER BY distinct_count DESC
 {"clientip":"172.16.0.30","distinct_count":790}
 {"clientip":"192.168.1.150","distinct_count":690}
 ```
-??? info "The HyperLogLog Algorithm Explained:" 
-    **Problem Statement**
+:::accordion[The HyperLogLog Algorithm Explained:]
+**Problem Statement**
 
-    Traditional `GROUP BY` operations with `DISTINCT` counts on high-cardinality fields can cause memory exhaustion in distributed systems. Consider this query:
+Traditional `GROUP BY` operations with `DISTINCT` counts on high-cardinality fields can cause memory exhaustion in distributed systems. Consider this query:
 
-    ```sql
-    SELECT clientip, count(distinct clientas) as cnt 
-    FROM default 
-    GROUP BY clientip 
-    ORDER BY cnt DESC 
-    LIMIT 10
-    ```
+```sql
+SELECT clientip, count(distinct clientas) as cnt 
+FROM default 
+GROUP BY clientip 
+ORDER BY cnt DESC 
+LIMIT 10
+```
 
-    **Challenges:**
+**Challenges:**
 
-    - Dataset contains 3 million unique client IP addresses.
-    - Each client IP can have thousands of unique user agents (`clientas`).
-    - Total unique user agents: 100 million values.
-    - Query executes across 60 CPU cores with 60 data partitions.
-    - Memory usage for distinct counting: Potentially unlimited storage for tracking unique values.
-    - Combined with grouping: Memory requirements become exponentially larger.
+- Dataset contains 3 million unique client IP addresses.
+- Each client IP can have thousands of unique user agents (`clientas`).
+- Total unique user agents: 100 million values.
+- Query executes across 60 CPU cores with 60 data partitions.
+- Memory usage for distinct counting: Potentially unlimited storage for tracking unique values.
+- Combined with grouping: Memory requirements become exponentially larger.
 
-    **Typical error message:**
-    ```
-    Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHashAggregateStream[20] with 0 bytes already allocated for this reservation - 51510301 bytes remain available for the total pool
-    ```
+**Typical error message:**
+```
+Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHashAggregateStream[20] with 0 bytes already allocated for this reservation - 51510301 bytes remain available for the total pool
+```
 
-    **Solution: HyperLogLog + Space-Saving Mechanism**
+**Solution: HyperLogLog + Space-Saving Mechanism**
 
-    ```sql
-    SELECT approx_topk_distinct(clientip, clientas, 10) FROM default
-    ```
+```sql
+SELECT approx_topk_distinct(clientip, clientas, 10) FROM default
+```
 
-    **Combined approach:**
+**Combined approach:**
 
-    - **HyperLogLog**: Handles distinct counting using a fixed **16 kilobytes** data structure per group.
-    - **Space-Saving**: Limits the number of groups returned from each partition to top K.
-    - Each partition returns only its top 10 client IPs (by distinct user agent count) to the leader.
+- **HyperLogLog**: Handles distinct counting using a fixed **16 kilobytes** data structure per group.
+- **Space-Saving**: Limits the number of groups returned from each partition to top K.
+- Each partition returns only its top 10 client IPs (by distinct user agent count) to the leader.
 
-    **Example: Web Server User Agent Analysis**
-    Find the top 10 client IPs by unique user agent count from web server logs in the `default` stream.
+**Example: Web Server User Agent Analysis**
+Find the top 10 client IPs by unique user agent count from web server logs in the `default` stream.
 
-    **Raw data distribution**
+**Raw data distribution**
 
-    | Node 1 | Distinct User Agents | Node 2 | Distinct User Agents | Node 3 | Distinct User Agents |
-    |---------|---------------------|---------|---------------------|---------|---------------------|
-    | 192.168.1.100 | 450 | 192.168.1.100 | 520 | 192.168.1.100 | 480 |
-    | 10.0.0.5 | 380 | 203.0.113.50 | 420 | 10.0.0.5 | 410 |
-    | 203.0.113.50 | 350 | 198.51.100.75 | 390 | 203.0.113.50 | 400 |
-    | 172.16.0.10 | 320 | 10.0.0.5 | 370 | 198.51.100.75 | 370 |
-    | 192.168.1.200 | 300 | 172.16.0.10 | 350 | 172.16.0.10 | 340 |
-    | 198.51.100.75 | 280 | 192.168.1.200 | 330 | 192.168.1.200 | 320 |
-    | 10.0.0.25 | 260 | 203.0.113.80 | 310 | 203.0.113.80 | 300 |
-    | 172.16.0.30 | 240 | 172.16.0.30 | 290 | 10.0.0.25 | 280 |
-    | 203.0.113.80 | 220 | 10.0.0.25 | 270 | 172.16.0.30 | 260 |
-    | 192.168.1.150 | 200 | 192.168.1.150 | 250 | 192.168.1.150 | 240 |
+| Node 1 | Distinct User Agents | Node 2 | Distinct User Agents | Node 3 | Distinct User Agents |
+|---------|---------------------|---------|---------------------|---------|---------------------|
+| 192.168.1.100 | 450 | 192.168.1.100 | 520 | 192.168.1.100 | 480 |
+| 10.0.0.5 | 380 | 203.0.113.50 | 420 | 10.0.0.5 | 410 |
+| 203.0.113.50 | 350 | 198.51.100.75 | 390 | 203.0.113.50 | 400 |
+| 172.16.0.10 | 320 | 10.0.0.5 | 370 | 198.51.100.75 | 370 |
+| 192.168.1.200 | 300 | 172.16.0.10 | 350 | 172.16.0.10 | 340 |
+| 198.51.100.75 | 280 | 192.168.1.200 | 330 | 192.168.1.200 | 320 |
+| 10.0.0.25 | 260 | 203.0.113.80 | 310 | 203.0.113.80 | 300 |
+| 172.16.0.30 | 240 | 172.16.0.30 | 290 | 10.0.0.25 | 280 |
+| 203.0.113.80 | 220 | 10.0.0.25 | 270 | 172.16.0.30 | 260 |
+| 192.168.1.150 | 200 | 192.168.1.150 | 250 | 192.168.1.150 | 240 |
 
-    **Note**: Each distinct count is computed using HyperLogLog's 16KB data structure per client IP.
+**Note**: Each distinct count is computed using HyperLogLog's 16KB data structure per client IP.
 
-    **Follower query nodes process data**
+**Follower query nodes process data**
 
-    Each follower node executes the query locally and returns only its top 10 results:
+Each follower node executes the query locally and returns only its top 10 results:
 
-    | Rank | Node 1 → Leader | Distinct Count | Node 2 → Leader | Distinct Count | Node 3 → Leader | Distinct Count |
-    |------|-----------------|----------------|-----------------|----------------|-----------------|----------------|
-    | 1 | 192.168.1.100 | 450 | 192.168.1.100 | 520 | 192.168.1.100 | 480 |
-    | 2 | 10.0.0.5 | 380 | 203.0.113.50 | 420 | 10.0.0.5 | 410 |
-    | 3 | 203.0.113.50 | 350 | 198.51.100.75 | 390 | 203.0.113.50 | 400 |
-    | 4 | 172.16.0.10 | 320 | 10.0.0.5 | 370 | 198.51.100.75 | 370 |
-    | 5 | 192.168.1.200 | 300 | 172.16.0.10 | 350 | 172.16.0.10 | 340 |
-    | 6 | 198.51.100.75 | 280 | 192.168.1.200 | 330 | 192.168.1.200 | 320 |
-    | 7 | 10.0.0.25 | 260 | 203.0.113.80 | 310 | 203.0.113.80 | 300 |
-    | 8 | 172.16.0.30 | 240 | 172.16.0.30 | 290 | 10.0.0.25 | 280 |
-    | 9 | 203.0.113.80 | 220 | 10.0.0.25 | 270 | 172.16.0.30 | 260 |
-    | 10 | 192.168.1.150 | 200 | 192.168.1.150 | 250 | 192.168.1.150 | 240 |
+| Rank | Node 1 → Leader | Distinct Count | Node 2 → Leader | Distinct Count | Node 3 → Leader | Distinct Count |
+|------|-----------------|----------------|-----------------|----------------|-----------------|----------------|
+| 1 | 192.168.1.100 | 450 | 192.168.1.100 | 520 | 192.168.1.100 | 480 |
+| 2 | 10.0.0.5 | 380 | 203.0.113.50 | 420 | 10.0.0.5 | 410 |
+| 3 | 203.0.113.50 | 350 | 198.51.100.75 | 390 | 203.0.113.50 | 400 |
+| 4 | 172.16.0.10 | 320 | 10.0.0.5 | 370 | 198.51.100.75 | 370 |
+| 5 | 192.168.1.200 | 300 | 172.16.0.10 | 350 | 172.16.0.10 | 340 |
+| 6 | 198.51.100.75 | 280 | 192.168.1.200 | 330 | 192.168.1.200 | 320 |
+| 7 | 10.0.0.25 | 260 | 203.0.113.80 | 310 | 203.0.113.80 | 300 |
+| 8 | 172.16.0.30 | 240 | 172.16.0.30 | 290 | 10.0.0.25 | 280 |
+| 9 | 203.0.113.80 | 220 | 10.0.0.25 | 270 | 172.16.0.30 | 260 |
+| 10 | 192.168.1.150 | 200 | 192.168.1.150 | 250 | 192.168.1.150 | 240 |
 
-    **Leader query node aggregates results**
+**Leader query node aggregates results**
 
-    | Client IP | Node 1 | Node 2 | Node 3 | Total Distinct User Agents |
-    |-----------|---------|---------|---------|---------------------------|
-    | 192.168.1.100 | 450 | 520 | 480 | **1,450** |
-    | 10.0.0.5 | 380 | 370 | 410 | **1,160** |
-    | 203.0.113.50 | 350 | 420 | 400 | **1,170** |
-    | 198.51.100.75 | 280 | 390 | 370 | **1,040** |
-    | 172.16.0.10 | 320 | 350 | 340 | **1,010** |
-    | 192.168.1.200 | 300 | 330 | 320 | **950** |
-    | 203.0.113.80 | 220 | 310 | 300 | **830** |
-    | 10.0.0.25 | 260 | 270 | 280 | **810** |
-    | 172.16.0.30 | 240 | 290 | 260 | **790** |
-    | 192.168.1.150 | 200 | 250 | 240 | **690** |
+| Client IP | Node 1 | Node 2 | Node 3 | Total Distinct User Agents |
+|-----------|---------|---------|---------|---------------------------|
+| 192.168.1.100 | 450 | 520 | 480 | **1,450** |
+| 10.0.0.5 | 380 | 370 | 410 | **1,160** |
+| 203.0.113.50 | 350 | 420 | 400 | **1,170** |
+| 198.51.100.75 | 280 | 390 | 370 | **1,040** |
+| 172.16.0.10 | 320 | 350 | 340 | **1,010** |
+| 192.168.1.200 | 300 | 330 | 320 | **950** |
+| 203.0.113.80 | 220 | 310 | 300 | **830** |
+| 10.0.0.25 | 260 | 270 | 280 | **810** |
+| 172.16.0.30 | 240 | 290 | 260 | **790** |
+| 192.168.1.150 | 200 | 250 | 240 | **690** |
 
-    **Final top 10 results:**
+**Final top 10 results:**
 
-    | Rank | Client IP | Total Distinct User Agents |
-    |------|-----------|---------------------------|
-    | 1 | 192.168.1.100 | 1,450 |
-    | 2 | 203.0.113.50 | 1,170 |
-    | 3 | 10.0.0.5 | 1,160 |
-    | 4 | 198.51.100.75 | 1,040 |
-    | 5 | 172.16.0.10 | 1,010 |
-    | 6 | 192.168.1.200 | 950 |
-    | 7 | 203.0.113.80 | 830 |
-    | 8 | 10.0.0.25 | 810 |
-    | 9 | 172.16.0.30 | 790 |
-    | 10 | 192.168.1.150 | 690 |
+| Rank | Client IP | Total Distinct User Agents |
+|------|-----------|---------------------------|
+| 1 | 192.168.1.100 | 1,450 |
+| 2 | 203.0.113.50 | 1,170 |
+| 3 | 10.0.0.5 | 1,160 |
+| 4 | 198.51.100.75 | 1,040 |
+| 5 | 172.16.0.10 | 1,010 |
+| 6 | 192.168.1.200 | 950 |
+| 7 | 203.0.113.80 | 830 |
+| 8 | 10.0.0.25 | 810 |
+| 9 | 172.16.0.30 | 790 |
+| 10 | 192.168.1.150 | 690 |
 
 
-    **Why results are approximate**
-    Results are approximate due to two factors:
+**Why results are approximate**
+Results are approximate due to two factors:
 
-    1. **HyperLogLog approximation:** Distinct counts are estimated, not exact.
-    2. **Space-Saving distribution:** Some globally significant client IPs might not appear in individual nodes' top 10 lists due to uneven data distribution.
+1. **HyperLogLog approximation:** Distinct counts are estimated, not exact.
+2. **Space-Saving distribution:** Some globally significant client IPs might not appear in individual nodes' top 10 lists due to uneven data distribution.
 
-    **Limitations**
+**Limitations**
 
-    - Results are approximate, not exact.
-    - Distinct count accuracy depends on HyperLogLog algorithm precision.
-    - Filter clauses are not currently supported with `approx_topk_distinct`.
+- Results are approximate, not exact.
+- Distinct count accuracy depends on HyperLogLog algorithm precision.
+- Filter clauses are not currently supported with `approx_topk_distinct`.
+:::
 
 
 ---

@@ -1,5 +1,6 @@
 ---
-description: "Cross-Linking creates drill-down links from log records, trace records, and dashboard panels to external URLs using templates that substitute field values."
+title: Cross-Linking
+description: Cross-Linking creates drill-down links from log records, trace records, and dashboard panels to external URLs using templates that substitute field values.
 ---
 
 # Cross-Linking

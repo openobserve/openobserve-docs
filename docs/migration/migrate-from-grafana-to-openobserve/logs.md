@@ -1,6 +1,7 @@
 ---
-title: Migrate Logs from Loki (LGTM Stack) to OpenObserve
-description: Migrate logs from Grafana Loki to OpenObserve. Migration paths for Promtail, OTel Collector, Fluent Bit, Vector, Grafana Alloy, Kubernetes container logs, and AWS CloudWatch logs.
+title: Migrating Logs
+metaTitle: Migrate Logs from Loki (LGTM Stack) to OpenObserve
+description: "Migrate logs from Grafana Loki to OpenObserve: paths for Promtail, OTel Collector, Fluent Bit, Vector, Grafana Alloy, Kubernetes, and CloudWatch."
 ---
 
 # Migrating Logs
@@ -206,7 +207,7 @@ If your logs are JSON, OpenObserve auto-parses them into columns. Check that exp
 
 ## Next Steps
 
-- [OpenObserve Logs User Guide](https://openobserve.ai/docs/user-guide/logs/) — exploring streams, running queries, and configuring stream settings in the UI
+- [OpenObserve Logs User Guide](../../user-guide/data-exploration/logs/index.md) — exploring streams, running queries, and configuring stream settings in the UI
 - [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/reference/sql-functions/full-text-search/) — complete reference for `match_all()`, `str_match()`, `re_match()`, and more
 
 ---

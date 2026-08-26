@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "index",
+    "download-manager",
+    "result-cache",
+    "monitor-download-queue-size-and-disk-cache-metrics",
+    "disk-cache-strategy",
+    "tantivy-index",
+    "broadcast-join"
+  ]
+}

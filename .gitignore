@@ -1,15 +1,49 @@
-site
+# --- Next.js / Fumadocs build output ---------------------------------------
+/.next
+.next-build
+/out
+/.source
+next-env.d.ts
+*.tsbuildinfo
+.turbo
+.vercel
+
+# Mirror of every non-Markdown file under docs/, regenerated on each build by
+# scripts/copy-assets.mjs. Never edit or commit these - edit the originals in
+# docs/ instead.
+/public
+.fumadocs-gen
+
+# --- dependencies -----------------------------------------------------------
+/node_modules
+.pnpm-store
+
+# --- local config and secrets ----------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- logs -------------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- editors and OS ---------------------------------------------------------
 .DS_Store
 .idea
 
+# --- tooling scratch --------------------------------------------------------
+.playwright*
+
+# --- legacy MkDocs toolchain ------------------------------------------------
+# Kept so old local checkouts don't accidentally commit leftovers.
+/site
 venv
 .venv*
-
-# .gitognore for python
 *.py[cod]
 *$py.class
 __pycache__/
 
-/node_modules
 
-.playwright*

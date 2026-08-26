@@ -1,5 +1,6 @@
 ---
-title: Hugging Face Inference API
+title: HuggingFace
+metaTitle: Hugging Face Inference API
 description: Instrument Hugging Face Inference API calls and send traces to OpenObserve via OpenTelemetry.
 ---
 

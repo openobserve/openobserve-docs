@@ -1,5 +1,6 @@
 ---
-description: "Pipeline History in OpenObserve tracks every pipeline run with execution time, status, duration, retries, and error details to help monitor and debug failures."
+title: pipeline-history
+description: Pipeline History in OpenObserve tracks every pipeline run with execution time, status, duration, retries, and error details to help monitor and debug failures.
 ---
 
 This guide provides information about how the Pipeline History feature in OpenObserve works, where the data originates from, who can access it, and how to interpret the pipeline execution records.
@@ -9,15 +10,17 @@ This guide provides information about how the Pipeline History feature in OpenOb
 ## Overview
 Pipeline History provides visibility into every pipeline run, including its execution time, status, and duration. Each record represents one instance of a scheduled or manually triggered pipeline execution.
 
-!!! note "Who can access"
-    Any user who has permission to view, update, or delete pipelines can also view pipeline history. This ensures that users responsible for managing or maintaining pipelines can monitor their performance and investigate failures without requiring elevated access.
+:::note[Who can access]
+Any user who has permission to view, update, or delete pipelines can also view pipeline history. This ensures that users responsible for managing or maintaining pipelines can monitor their performance and investigate failures without requiring elevated access.
+:::
 
 ## How to interpret the Pipeline History table
 ![pipeline-history](../../../images/pipeline-history.png)
 The table lists each pipeline run with key execution details.
 
-!!! note "Query range limit"
-    When querying pipeline history over a time range, the range is capped by the `max_query_range` setting on the organization's `triggers` stream. Longer ranges are automatically truncated to the most recent allowed window.
+:::note[Query range limit]
+When querying pipeline history over a time range, the range is capped by the `max_query_range` setting on the organization's `triggers` stream. Longer ranges are automatically truncated to the most recent allowed window.
+:::
 
 - **Pipeline Name**: Name of the executed pipeline.
 - **Type**: Execution type. The current verified value is Scheduled.
@@ -40,5 +43,5 @@ The table lists each pipeline run with key execution details.
 - **Query Time**: Time taken by the SQL query within the pipeline to execute. This helps measure query performance.
 - **Source Node**: Node responsible for executing the run. This helps identify where the execution occurred for debugging and performance monitoring.<br>
 Example: <br>
-**Source Node**: `o2-openobserve-alertmanager-0`
+**Source Node**: `o2-openobserve-scheduler-0`
 - **Error**: The error message describing why the run failed. Populated for runs with a `failed` status; empty otherwise.

@@ -1,7 +1,9 @@
 ---
-title: Prometheus Metrics Monitoring and Remote Write Integration | OpenObserve
-description: Configure Prometheus remote write to ingest metrics into OpenObserve for Kubernetes monitoring, infrastructure metrics, and application performance monitoring with SQL and PromQL.
+title: Prometheus
+metaTitle: Prometheus Metrics Monitoring and Remote Write Integration
+description: "Configure Prometheus remote write to ingest metrics into OpenObserve for Kubernetes, infrastructure, and application monitoring with SQL and PromQL."
 ---
+
 # Prometheus Metrics - Monitoring & Observability
 
 Prometheus is a leading open-source monitoring system for collecting and storing time-series metrics. Use Prometheus remote write to send metrics to OpenObserve for Kubernetes monitoring, infrastructure monitoring, and application performance monitoring with powerful SQL and PromQL query capabilities. 

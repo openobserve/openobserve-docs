@@ -1,7 +1,7 @@
 ---
-title: OpenObserve - Cloud Native Observability Platform for Logs, Metrics, and Traces
-description: OpenObserve is a cloud native observability platform for unified logs, metrics, and traces monitoring with 140x lower storage costs and petabyte-scale performance.
-template: /partials/index.html
+title: "OpenObserve: Cloud Native Observability Platform"
+metaTitle: OpenObserve - Observability for Logs, Metrics, and Traces
+description: "OpenObserve is a cloud native observability platform for logs, metrics, and traces, with 140x lower storage costs and petabyte-scale performance."
 ---
 
 # OpenObserve: Cloud Native Observability Platform

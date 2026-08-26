@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "index",
+    "role-based-access-control",
+    "enable-rbac-in-openobserve-enterprise",
+    "service-accounts",
+    "sso",
+    "keycloak-sso",
+    "organizations",
+    "organization-deletion",
+    "ingestion-tokens",
+    "quotas",
+    "update-password"
+  ]
+}

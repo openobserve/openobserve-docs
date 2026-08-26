@@ -18,8 +18,6 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-python.vscode-pylance",
-		"ms-python.python",
 		"github.copilot",
 		"eamodio.gitlens"
 	],
@@ -35,7 +33,6 @@
 	"features": {
 		"git": "latest",
 		"aws-cli": "latest",
-		"node": "lts",
-		"python": "3.10"
+		"node": "lts"
 	}
 }

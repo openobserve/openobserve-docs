@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "cognee",
+    "exa",
+    "firecrawl",
+    "gradio",
+    "librechat",
+    "mcp-use",
+    "milvus",
+    "mixpanel",
+    "parallel",
+    "posthog",
+    "promptfoo",
+    "trubrics",
+    "zapier"
+  ]
+}

@@ -1,5 +1,7 @@
 ---
-description: "Filters narrow dashboard panel data using static list values, dynamic variables, and operators, combining conditions with AND or OR logic in nested groups."
+title: Filters
+metaTitle: Apply Filters to Dashboard Panels
+description: Filters narrow dashboard panel data using static list values, dynamic variables, and operators, combining conditions with AND or OR logic in nested groups.
 ---
 
 This guide provides instructions on how to apply filters to narrow the data shown in a dashboard panel by using fixed values, referencing dynamic variables, or combining multiple conditions with logical operators.
@@ -62,17 +64,18 @@ Alternatively, hover over a field in the **Fields** section and select the **+F*
 5. In the **Operator** section, choose an operator. For example, `=`, `>`, `IN`, `str_match`. 
 6. In the **Value** section, you can provide a fixed value or a variable like `$my_variable`. Ensure that the variable named `my_variable` exists. See [Variables in OpenObserve](../variables/variables-in-openobserve.md) to learn how to create a variable.
 7. Click **Save** to save the panel. 
-!!! note "Important"
-      Before you provide a fixed value, know the filed type associated with the value. This helps avoid syntax errors and ensures accurate query generation.
+:::note[Important]
+  Before you provide a fixed value, know the filed type associated with the value. This helps avoid syntax errors and ensures accurate query generation.
 
-      The field type is indicated with `Tt` and `#` in the **Fields** list. 
-      `Tt` represents string fields and `#` represents numeric fields. 
-      ![field type](../../../../images/field-type.png) 
+  The field type is indicated with `Tt` and `#` in the **Fields** list. 
+  `Tt` represents string fields and `#` represents numeric fields. 
+  ![field type](../../../../images/field-type.png) 
 
-      When a filter is applied:
+  When a filter is applied:
 
-      - For string fields, values are automatically quoted in the SQL query. For example, `'123e'`. 
-      - For numeric fields, values are treated as raw numbers. For example, `123e`. 
+  - For string fields, values are automatically quoted in the SQL query. For example, `'123e'`. 
+  - For numeric fields, values are treated as raw numbers. For example, `123e`. 
+:::
 
 ## Add Filter Groups
 1. In the **Filter** section, click **+ > Add Group** to create nested filters. You can add multiple filter conditions inside the group and combine them using **AND** or **OR** operators. 
@@ -80,5 +83,6 @@ Alternatively, hover over a field in the **Fields** section and select the **+F*
 2. After configuring filters, click **Apply** to run the query. 
 3. Click **Save** to save the panel. 
 
-!!! note "Note"
-      You can also combine static and dynamic filters.
+:::note[Note]
+  You can also combine static and dynamic filters.
+:::

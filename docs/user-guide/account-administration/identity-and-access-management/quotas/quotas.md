@@ -1,8 +1,8 @@
 ---
-description: >-
-  Control API usage in OpenObserve with quotas. Set rate limits per org or role,
-  manage access via RBAC, and prevent overload with smart rate limiting.
+title: Quotas
+description: Control API usage in OpenObserve with quotas. Set rate limits per org or role, manage access via RBAC, and prevent overload with smart rate limiting.
 ---
+
 This guide explains what Quotas are, how to configure them, how to navigate the Quotas interface, and how to set quota limits.
 
 ## What Are Quotas
@@ -54,7 +54,7 @@ Before you use the Quotas feature, ensure that the following are true:
 
 Set `O2_RATE_LIMIT_ENABLED` to true in the `enterprise.parameters` section of your `values.yaml` file, as shown below. This activates the Quotas feature in OpenObserve.
 
-```bash linenums="1" 
+```bash lineNumbers
 enterprise:  
 
   enabled: true  
@@ -69,7 +69,7 @@ enterprise:
 
 Set `ZO_QUEUE_STORE` to “nats”  in the `config` section of the values.yaml file. This enables internal queuing through NATS for coordinating rate limiting. 
 
-```bash linenums="1" 
+```bash lineNumbers
 `config:
 
 `ZO_QUEUE_STORE` : “nats”
@@ -122,7 +122,7 @@ You can configure quotas in two ways:
 5. Click **Save Changes**.
 
 > **Note**: API limits apply across all roles in the selected organization. <br>
-> **Important:** Rate limiting for the Search module requires special consideration. [Learn more](#quota-consideration-for-search-module). 
+> **Important:** Rate limiting for the Search module requires special consideration. [Learn more about search quotas](#quota-consideration-for-search-module). 
 
 ### Set Role Limits
 
@@ -156,7 +156,7 @@ To check how your search query is internally split into partitions:
 1. From the left navigation menu, go to the **Logs** page.  
 2. Select the target stream from the stream selector.  
 3. In the SQL editor, write a query to fetch data from the selected stream. For example:  
-   ```sql linenums="1"   
+   ```sql lineNumbers
    SELECT * FROM default  
    ```  
 4. Select the desired time range from the time range selector (top-right corner).  
@@ -167,7 +167,7 @@ To check how your search query is internally split into partitions:
 9. Click the request and view its **Preview** tab.  
 10. In the **Preview** tab, find the **partitions** section, which looks like the following:
 
-``` linenums="1" 
+```text lineNumbers
 
 partitions: [
 

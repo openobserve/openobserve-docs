@@ -1,12 +1,14 @@
 ---
-title: Broadcast Join - OpenObserve Query Optimization Feature
+title: Broadcast Join
+metaTitle: Broadcast Join - OpenObserve Query Optimization Feature
 description: "Broadcast join in OpenObserve: 43% faster queries, 99.9% less network transfer. Automatic optimization for enrichment tables and subqueries."
 ---
 
 This document explains how broadcast join works as an automatic query optimization feature in OpenObserve. 
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition. 
+:::info[Availability]
+This feature is available in Enterprise Edition. 
+:::
 
 ## Overview
 

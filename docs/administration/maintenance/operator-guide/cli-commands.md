@@ -1,7 +1,9 @@
 ---
-title: CLI Commands in OpenObserve
+title: CLI Commands
+metaTitle: CLI Commands in OpenObserve
 description: Reference for the OpenObserve binary maintenance CLI commands operators use to reset data, garbage collect storage, and recover file lists.
 ---
+
 # CLI Commands
 
 The OpenObserve binary (`./openobserve`) ships with a set of maintenance subcommands that operators run from the command line to reset data, clean up storage, migrate metadata, and inspect a running cluster.

@@ -1,5 +1,6 @@
 ---
-description: "OpenObserve User Guide covering log search, metrics, RUM, organizations, users, streams, ingestion, pipelines, alerts, dashboards, functions, and management."
+title: User Guide
+description: OpenObserve User Guide covering log search, metrics, RUM, organizations, users, streams, ingestion, pipelines, alerts, dashboards, functions, and management.
 ---
 
 # User Guide

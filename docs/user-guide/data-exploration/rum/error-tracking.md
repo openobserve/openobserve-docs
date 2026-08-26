@@ -1,5 +1,6 @@
 ---
-description: "RUM error tracking automatically captures frontend JavaScript, network, and resource errors with stack traces, then links each one to its session replay."
+title: Error Tracking
+description: RUM error tracking automatically captures frontend JavaScript, network, and resource errors with stack traces, then links each one to its session replay.
 ---
 
 # Error Tracking

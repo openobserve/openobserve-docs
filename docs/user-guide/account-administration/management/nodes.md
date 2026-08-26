@@ -1,9 +1,9 @@
 ---
-title: Monitor Node Health and Performance
-description: >-
-  Monitor node health and performance in OpenObserve clusters, including CPU,
-  memory, and TCP connections across ingesters, queriers, and other node types.
+title: Nodes in OpenObserve
+metaTitle: Monitor Node Health and Performance
+description: Monitor node health and performance in OpenObserve clusters, including CPU, memory, and TCP connections across ingesters, queriers, and other node types.
 ---
+
 This document explains how to monitor the health and performance of nodes in OpenObserve clusters.
 
 ## Overview
@@ -16,13 +16,15 @@ A group of such nodes working together is called a cluster. Clusters allow OpenO
 
 This guide explains how to monitor the health and performance of each node in your OpenObserve deployment.
 
-!!! note "Where to find"
-    The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
+:::note[Where to find]
+The **Nodes** page is available only when OpenObserve is running in a clustered deployment, either single-cluster or super-cluster.
+:::
 
-!!! note "Who can access"
-    In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
+:::note[Who can access]
+In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
 
-    By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
+By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
+:::
 
 ## Nodes interface
 **For Single-Cluster Setup**<br> 
@@ -37,7 +39,7 @@ This guide explains how to monitor the health and performance of each node in yo
 - **Querier**: Responds to user queries and retrieves data from storage.  
 - **Compactor**: Merges smaller data files and applies retention policies.  
 - **Router**: Routes API requests and serves the OpenObserve user interface.  
-- **Alert Manager**: Manages alerting rules and runs scheduled tasks.
+- **Scheduler**: Manages alerting rules and runs scheduled tasks.
 
 ## View ky metrics
 
@@ -71,7 +73,7 @@ Each node displays the following metrics in a tabular format with progress bars 
 - **Filters**: 
 
     - **Region and Cluster (for super-cluster setup):** View nodes by deployment zone.  
-    - **Node Type**: Filter nodes by type, such as Ingester, Querier, or Alert Manager.  
+    - **Node Type**: Filter nodes by type, such as Ingester, Querier, or Scheduler.
     - **Status:** Show online or offline nodes.  
     - **CPU/Memory Usage:** Set value ranges to find over-utilized or under-utilized nodes.   
     - **TCP Connections**: Filter by connection state or count.  
