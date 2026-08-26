@@ -487,7 +487,6 @@ This is useful for keeping production data isolated from development queries, or
 - **Confirm tool calls before execution** in your MCP client when possible. This protects against prompt injection from untrusted data sources.
 - **Use organization-specific endpoints** to limit blast radius. A token for `org_a` cannot access `org_b`.
 - **Restrict network access** to the MCP endpoint via firewall rules or IP allowlisting where feasible.
-- **Run the latest release** before exposing the MCP endpoint. Earlier Enterprise builds accepted expired identity tokens and allowed a signed-in identity from one organization to reach another organization's data. Both defects are fixed. <!-- TODO: verify the first release that includes openobserve PR #13344 and state the version here -->
 
 ## Troubleshooting
 
