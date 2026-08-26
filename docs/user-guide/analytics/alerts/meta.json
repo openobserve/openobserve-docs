@@ -6,6 +6,7 @@
     "composite-alerts",
     "alert-conditions",
     "alert-history",
+    "advanced-alert-configuration",
     "anomaly-detection",
     "import-export-alerts"
   ]
