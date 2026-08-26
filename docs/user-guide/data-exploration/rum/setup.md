@@ -1,6 +1,6 @@
 ---
 title: RUM Setup Guide
-description: Set up OpenObserve Real User Monitoring (RUM) in your web, React Native, Android, or iOS application for sessions, error tracking, performance metrics, and session replay.
+description: Set up OpenObserve Real User Monitoring (RUM) in web, React Native, Android, or iOS apps for sessions, error tracking, performance metrics, and session replay.
 ---
 
 # RUM Setup Guide
