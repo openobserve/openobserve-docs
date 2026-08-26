@@ -211,7 +211,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 ---
 
-## React Native Setup <span class="beta-badge">Beta</span>
+## React Native Setup (Beta)
 
 ### Install the Packages
 
@@ -297,7 +297,7 @@ O2SessionReplay.enable(
 
 ---
 
-## Android Setup <span class="beta-badge">Beta</span>
+## Android Setup (Beta)
 
 ### Install the SDK
 
@@ -419,7 +419,7 @@ On a physical device use your machine's LAN IP.
 
 ---
 
-## iOS Setup <span class="beta-badge">Beta</span>
+## iOS Setup (Beta)
 
 ### Install the SDK
 
