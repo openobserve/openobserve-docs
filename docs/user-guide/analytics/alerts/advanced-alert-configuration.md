@@ -136,7 +136,7 @@ Outcome values are normalized across the retention window: `firing`, `normal`, `
 
 ## SLO alerts
 
-SLO alerts read precomputed SLO status instead of running a query directly, using a dedicated `QueryType::Slo` whose deduplication identity is the SLO itself rather than result-row columns. They're created and managed from the SLO's own page, not the generic alert form — see [Alerting on SLOs](../slos/slo-alerts.md) and [Service Level Objectives](../slos/index.md) for the full walkthrough.
+SLO alerts read precomputed SLO status instead of running a query directly, using a dedicated `QueryType::Slo` whose deduplication identity is the SLO itself rather than result-row columns. They're created and managed from the SLO's own page, not the generic alert form — see [Alerting on SLOs](https://openobserve.ai/docs/user-guide/analytics/slos/slo-alerts/) and [Service Level Objectives](https://openobserve.ai/docs/user-guide/analytics/slos/) for the full walkthrough.
 
 SLO measurement is behind the feature flag `ZO_SLO_ENABLED` (default `false`). SLO CRUD endpoints live under `/api/{org}/slos` and share the alert folder namespace. When enabled, SLO-based alerts appear as an alert type filter on the alerts list.
 
