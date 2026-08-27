@@ -7,7 +7,7 @@ In OpenObserve, **Destinations** define how and where alert notifications are de
 
 ## Configure Alert Destinations 
 
-The **Destinations** section provides three configuration options. Select a destination type to view configuration instructions.
+The **Destinations** section provides two configuration options. Select a destination type to view configuration instructions.
 
 :::::tabs
 ::::tab[Webhook]
@@ -166,59 +166,6 @@ This allows you to define the content and layout of the alert message.
   6. Click **Save**.
 
 This creates the email as alert destination. 
-::::
-::::tab[Actions]
-## Actions
-When an alert gets triggered, OpenObserve executes a Real-time Action script. Use this destination type when the alert data needs to be processed or routed using custom logic.Action scripts are stateful. They can retain values across executions, enabling more advanced workflows than webhook or email destinations.
-
-:::accordion[View use cases.]
-For example, you can use this destination to:
-
-- Send the alert to Slack, and also ingest a structured copy of the alert into a custom stream in your organization
-- Track how often a specific alert has triggered, then write aggregated metrics, such as trigger count per hour, to a stream for trend analysis.
-:::
-
-### Prerequisites
-
-:::accordion[1. Create the real-time action]
-Create the real-time action script as per your requirement. For more details, visit the [Create and Use Real-time Actions](../../data-processing/actions/create-and-use-real-time-actions.md) page.
-:::
-:::accordion[2. Create the alert template]
-When you configure an Action as the alert destination, OpenObserve passes the alert data to your Real-time Action script through a template.
-The template defines the structure of the alert payload that your Python script will receive as the `data` argument in its `main()` function.
-<br>
-**Note:** Unlike email or webhook templates (which are meant for human-readable or HTTP payload formatting), this template is meant to be machine-readable.
-Hence, it should be a valid JSON object that matches how your script expects to read alert fields.
-
-You can create the template from Management > Templates > Add Template > Web Hook (because Action templates also use JSON structure).
-
-Use the following structure as an example:
-
-{
-"alert_name": "{alert_name}",
-"alert_type": "{alert_type}",
-"stream_name": "{stream_name}",
-"org_name": "{org_name}",
-"alert_period": "{alert_period}",
-"alert_operator": "{alert_operator}",
-"alert_threshold": "{alert_threshold}",
-"alert_start_time": "{alert_start_time}",
-"alert_end_time": "{alert_end_time}",
-"alert_trigger_time": "{alert_trigger_time}"
-}
-This ensures that when the alert triggers, your real-time Action script receives this JSON as `data`.
-Your Python script can then parse these fields directly.
-:::
-
-### Steps to configure actions as alert destination
-![Action Destination](../../../images/action-as-destination.png)
-
-  1. Go to **Management > Alert Destinations**. 
-  2. In the **Add Destination** page, click **Actions**.
-  3. Enter the name of the destination.
-  4. Select the template. 
-  5. Select the real-time action. 
-  6. Click **Save**. 
 ::::
 :::::
      
