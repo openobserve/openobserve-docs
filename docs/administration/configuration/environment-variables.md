@@ -333,12 +333,6 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 
 
 
-## Action
-| Environment Variable      | Default Value | Description                            |
-| ------------------------- | ------------- | -------------------------------------- |
-| O2_ACTION_ENABLED | true             | Enables the Actions feature for running real-time or scheduled automation tasks.       |
-| O2_ACTION_SERVER_TOKEN | -             | Token used by Action Server for authentication during action execution. Previously, O2_SCRIPT_SERVER_TOKEN.       |
-
 ## NATS
 | Environment Variable       | Default Value | Description                                                                           |
 | -------------------------- | ------------- | ------------------------------------------------------------------------------------- |
