@@ -118,7 +118,8 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM | false | Ignores stream-level file retention settings and applies the global retention policy. |
 | ZO_COMPACT_DATA_RETENTION_DAYS | 3650 | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_COMPACT_SYNC_TO_DB_INTERVAL | 1800 | The interval time in seconds after which compactor sync cache to db is run. |
-| ZO_COMPACT_DELETE_FILES_DELAY_HOURS | 2 | The number of hours to delay to delete the pending deleted files by compactor. Value can not be less than 1. |
+| ZO_COMPACT_DELETE_FILES_DELAY_MINUTES | 120 | The number of minutes to delay before the compactor deletes pending deleted files. Value can not be less than 1. |
+| ZO_COMPACT_DELETE_FILES_DELAY_HOURS | 0 | Deprecated since 0.92.2. Use `ZO_COMPACT_DELETE_FILES_DELAY_MINUTES` instead. If explicitly set to a value greater than 0, it is converted to minutes and takes precedence. This variable will be removed in a future release. |
 | ZO_COMPACT_DATA_RETENTION_HISTORY | false | When enabled, this will move the file_list into file_list_history and not delete files from storage. |
 | ZO_COMPACT_BLOCKED_ORGS | | Use comma to split multiple orgs. Blocked organizations will not be able to ingest data |
 | ZO_COMPACT_FAST_MODE | true |Enables fast compaction mode. Uses more memory but improves performance. Disabling reduces memory usage by about 50 percent. |
