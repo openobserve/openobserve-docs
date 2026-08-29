@@ -1,0 +1,15 @@
+nav:
+    - General Settings: general-settings.md
+    - Announcement Banners: announcement-banners.md
+    - Management Overview: index.md
+    - Streaming Search: streaming-search.md
+    - Streaming Aggregation: aggregation-cache.md
+    - Query Management: query-management.md
+    - Alert Destinations: alert-destinations.md
+    - Templates: templates.md
+    - Audit trail: audit-trail.md
+    - Cipher Keys: cipher-keys.md
+    - Nodes in OpenObserve: nodes.md
+    - SSO Domain Restrictions: sso-domain-restrictions.md 
+    - Sensitive Data Redaction: sensitive-data-redaction.md
+    - License Management: lincense.md
