@@ -9,7 +9,7 @@ This guide collects the decisions that separate a mobile RUM setup that just wor
 
 !!! note "Versions (Beta)"
 
-    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. Pin exact versions, test upgrades deliberately, and watch release notes — the version-management section below covers this in detail.
+    The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. Pin exact versions, test upgrades deliberately, and watch release notes — the version-management section below covers this in detail.
 
 ## Sampling strategy — pick each rate for what it costs
 
@@ -238,10 +238,10 @@ Automatic instrumentation already produces reasonable names — screens from you
 
 ```tsx
 // Good: stable, readable view name; variable data goes in attributes
-await OoRum.startView('order-detail', 'Order Detail', { 'order.id': orderId });
+await O2Rum.startView('order-detail', 'Order Detail', { 'order.id': orderId });
 
 // Avoid: id in the name explodes cardinality and breaks aggregation
-await OoRum.startView(orderId, `Order ${orderId}`);
+await O2Rum.startView(orderId, `Order ${orderId}`);
 ```
 
 ## Automatic vs manual instrumentation — start automatic, fill gaps manually
@@ -265,9 +265,9 @@ Ship with consent gating from day one rather than retrofitting it. Every SDK has
 
 ```tsx
 // Initialize pending, then grant after the user agrees
-import { OoSdkReactNative, TrackingConsent } from '@openobserve/mobile-react-native';
+import { O2SdkReactNative, TrackingConsent } from '@openobserve/mobile-react-native';
 
-OoSdkReactNative.setTrackingConsent(TrackingConsent.GRANTED);
+O2SdkReactNative.setTrackingConsent(TrackingConsent.GRANTED);
 ```
 
 ### Android
@@ -346,13 +346,13 @@ Raise verbosity in non-prod builds and lower or remove it in production — debu
 These SDKs are on early `0.1.x` releases, so treat version management as part of your production hygiene:
 
 - **Pin exact versions**, not ranges. Configuration details can still change between `0.1.x` releases, and a floating range can pull a breaking change into a build without you noticing.
-- **Keep React Native's layers aligned.** The JavaScript package wraps native Android and iOS code and pins the native versions it needs — these are not the same number as the npm version (React Native `0.1.1` pins Android `0.1.0` and iOS `0.1.0`). Let the package bring its own native versions rather than overriding them, and after upgrading the JS package run `pod install` again and rebuild both platforms so the native side matches.
+- **Keep React Native's layers aligned.** The JavaScript package wraps native Android and iOS code and pins the native versions it needs — these are not the same number as the npm version (React Native `0.1.2` pins Android `0.1.0` and iOS `0.1.0`). Let the package bring its own native versions rather than overriding them, and after upgrading the JS package run `pod install` again and rebuild both platforms so the native side matches.
 - **Test every upgrade in a non-prod build** using the verification steps above before it reaches production.
 - **Read the release notes** for each SDK on every bump and watch for breaking changes to configuration and API surface.
 
 ```bash
 # Pin exact versions — no ^ or ~ ranges
-npm install @openobserve/mobile-react-native@0.1.1
+npm install @openobserve/mobile-react-native@0.1.2
 ```
 
 ```groovy
