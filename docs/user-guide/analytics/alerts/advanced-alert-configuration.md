@@ -1,13 +1,12 @@
 ---
-title: Advanced Alert Configuration
 description: >-
   Multi-level thresholds, per-group evaluation (multi-alerts), priority scoring,
-  selection tags, and SLO-based alerts in OpenObserve.
+  selection tags, pending periods, and SLO-based alerts in OpenObserve.
 ---
 
 # Advanced Alert Configuration
 
-This page covers advanced alert features: warning thresholds alongside critical thresholds, per-group multi-alert evaluation, priority and tags for triage, and SLO-based alerting.
+This page covers advanced alert features: warning thresholds alongside critical thresholds, per-group multi-alert evaluation, priority and tags for triage, pending periods to delay firing, and SLO-based alerting.
 
 ## Multi-level thresholds
 
@@ -107,11 +106,53 @@ The tags facet endpoint (`GET /v2/{org}/alerts/tags`) returns distinct tags with
 
 ![tags filter dropdown with autocomplete facet](images/alerts-4-0-10.png)
 
+## Pending period (hold before firing)
+
+The **Hold for** setting adds a pending period to scheduled and composite alerts. When a condition first matches, the alert does not fire immediately. Instead it enters a **pending** state and waits — the condition must hold continuously for the configured period before the alert transitions to **firing** and sends a notification.
+
+This prevents flapping: a condition that trips on one bad interval and then recovers never pages anyone, because the alert only fires after the condition has held for the full pending period.
+
+### Configure the pending period
+
+In the alert form's **Settings** section (scheduled alerts) or the settings step (composite alerts), set **Hold for** to a number and pick a unit — **minutes** or **hours**:
+
+- Leave it blank or `0` to fire immediately (the default).
+- A value greater than `0` means the condition must hold that long before the alert fires.
+
+Hover the info icon next to the label to read the tooltip: *"Wait this long before firing, so a condition has to hold rather than trip on one bad interval."*
+
+![TODO: screenshot of the "Hold for" pending period field with the minutes/hours unit selector in the alert settings](images/placeholder.png)
+
+For scheduled alerts, if the pending period is not a multiple of **Check every**, OpenObserve shows a warning — the alert may wait up to one extra evaluation interval before firing. This is only a hint; it does not block saving.
+
+### How the pending state works
+
+When a condition matches and the pending period has not yet elapsed:
+
+- The alert's run state becomes **pending** — a new outcome alongside `firing`, `normal`, `error`, `notify_failed`, and `succeeded`.
+- Notifications are suppressed while the alert is pending.
+- Once the condition has held for the full pending period, the alert transitions to **firing** and notifies. If the condition recovers during the pending period, the alert returns to normal without ever notifying.
+
+### Where the pending period appears
+
+- **Alert summary**: The config summary and the plain-English summary add a **Hold for** entry (for example "Hold for: 10 minutes before firing", or ", after holding for 10 minutes"). A value of `0` reads as "Fires immediately".
+
+![TODO: screenshot of the alert config summary showing the "Hold for" pending period row](images/placeholder.png)
+
+- **Alert history timeline**: Pending evaluations render as their own blue **Pending** bucket, distinct from firing, healthy, and skipped/error states.
+
+![TODO: screenshot of the alert history timeline with the blue "Pending" status bucket](images/placeholder.png)
+
+### Constraints
+
+- The pending period must be `0` or greater. A negative value is rejected with a validation error.
+- Real-time alerts do not support a pending period — the field is not shown, and the value is forced to `0` on save.
+
 ## Run state on the alerts list
 
 The alerts list now includes live run state for each alert, enriched from the durable `alert_states` table:
 
-- **Last outcome**: `firing`, `normal`, `error`, `notify_failed`, or `succeeded` — the result of the last evaluation
+- **Last outcome**: `firing`, `pending`, `normal`, `error`, `notify_failed`, or `succeeded` — the result of the last evaluation
 - **Level**: `ok`, `warning`, or `critical` — a separate severity axis from the outcome. An alert can be `firing` at `warning`
 - **Level since**: how long the alert has been at its current level
 
@@ -130,17 +171,19 @@ Alert history entries now carry value context so each row reads standalone:
 - **Group label**: which group produced the value, for multi-alerts and grouped queries
 - **Value is lower bound**: `≥` marker for legacy capped count fetches
 
-Outcome values are normalized across the retention window: `firing`, `normal`, `error`, `notify_failed`, and `succeeded` replace the older `completed` / `condition_not_met` vocabulary.
+Outcome values are normalized across the retention window: `firing`, `pending`, `normal`, `error`, `notify_failed`, and `succeeded` replace the older `completed` / `condition_not_met` vocabulary.
 
 ![alert history with value context columns](images/alerts-4-0-12.png)
 
 ## SLO alerts
 
-SLO alerts read precomputed SLO status instead of running a query directly, using a dedicated `QueryType::Slo` whose deduplication identity is the SLO itself rather than result-row columns. They're created and managed from the SLO's own page, not the generic alert form — see [Alerting on SLOs](https://openobserve.ai/docs/user-guide/analytics/slos/slo-alerts/) and [Service Level Objectives](https://openobserve.ai/docs/user-guide/analytics/slos/) for the full walkthrough.
+SLO alerts read precomputed SLO status rather than running a query directly. When you select **SLO** as the query type in the alert form, the alert is bound to an SLO entity. The SLO's burn rate or error budget is evaluated externally, and the alert fires based on the SLO's computed status.
+
+SLO alerts use a dedicated `QueryType::Slo`. Their deduplication identity is the SLO itself (plus its group key when grouped), not columns of a result row — there is no SQL, PromQL, or condition list to draw column names from.
 
 SLO measurement is behind the feature flag `ZO_SLO_ENABLED` (default `false`). SLO CRUD endpoints live under `/api/{org}/slos` and share the alert folder namespace. When enabled, SLO-based alerts appear as an alert type filter on the alerts list.
 
-![SLO alert form in burn rate mode, showing the fast, mid, and slow suggested configurations](../../../images/slo-alert-burn-rate-form.png)
+![TODO: screenshot of SLO alert creation form with SLO selector](images/placeholder.png)
 
 ## New configuration
 
