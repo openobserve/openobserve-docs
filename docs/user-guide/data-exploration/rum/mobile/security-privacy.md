@@ -9,7 +9,7 @@ Real User Monitoring is powerful precisely because it watches real people use yo
 
 !!! note "Versions (Beta)"
 
-    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. The privacy primitives described here — consent, masking, event mappers, encryption at rest — are present today. Pin exact versions and re-verify these controls when you upgrade.
+    The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. The privacy primitives described here — consent, masking, event mappers, encryption at rest — are present today. Pin exact versions and re-verify these controls when you upgrade.
 
 ## The tracking-consent model
 
@@ -27,12 +27,12 @@ You can change consent at any point in the app's lifecycle. When a user withdraw
 
 ### React Native
 
-Set consent at init through `OpenObserveProviderConfiguration`, and change it later with the static method on `OoSdkReactNative`:
+Set consent at init through `OpenObserveProviderConfiguration`, and change it later with the static method on `O2SdkReactNative`:
 
 ```tsx
 import {
   OpenObserveProviderConfiguration,
-  OoSdkReactNative,
+  O2SdkReactNative,
   TrackingConsent,
 } from '@openobserve/mobile-react-native';
 
@@ -50,9 +50,9 @@ const config = new OpenObserveProviderConfiguration(
 );
 
 // Later, from your consent dialog handler
-OoSdkReactNative.setTrackingConsent(TrackingConsent.GRANTED);
+O2SdkReactNative.setTrackingConsent(TrackingConsent.GRANTED);
 // Or when the user opts out
-OoSdkReactNative.setTrackingConsent(TrackingConsent.NOT_GRANTED);
+O2SdkReactNative.setTrackingConsent(TrackingConsent.NOT_GRANTED);
 ```
 
 ### Android
@@ -102,16 +102,16 @@ RUM lets you attach a user identity to every session so you can answer "which us
 ### React Native
 
 ```tsx
-import { OoSdkReactNative } from '@openobserve/mobile-react-native';
+import { O2SdkReactNative } from '@openobserve/mobile-react-native';
 
 // After login — id is required, everything else is optional
-OoSdkReactNative.setUserInfo({ id: 'user-123', name: 'Ada', email: 'ada@example.com' });
+O2SdkReactNative.setUserInfo({ id: 'user-123', name: 'Ada', email: 'ada@example.com' });
 
 // On logout
-OoSdkReactNative.clearUserInfo();
+O2SdkReactNative.clearUserInfo();
 
 // On a deletion / full opt-out request
-OoSdkReactNative.clearAllData();
+O2SdkReactNative.clearAllData();
 ```
 
 ### Android
@@ -163,17 +163,18 @@ await SessionReplay.enable({
   textAndInputPrivacyLevel: TextAndInputPrivacyLevel.MASK_ALL,       // default
   imagePrivacyLevel: ImagePrivacyLevel.MASK_ALL,                     // default
   touchPrivacyLevel: TouchPrivacyLevel.HIDE,                         // default
+  customEndpoint: 'https://your-openobserve-instance:5080', // bare base URL — the bridge appends /replay itself (SDK 0.1.2+)
 });
 ```
 
-For finer control, wrap any subtree you never want recorded in `<OoPrivacyView>` — it is hidden from replay regardless of the global level:
+For finer control, wrap any subtree you never want recorded in `<SessionReplayView.Hide>` — it is hidden from replay regardless of the global level. `SessionReplayView.MaskAll`, `.MaskNone`, and the lower-level `.Privacy` are also available:
 
 ```tsx
-import { OoPrivacyView } from '@openobserve/mobile-react-native-session-replay';
+import { SessionReplayView } from '@openobserve/mobile-react-native-session-replay';
 
-<OoPrivacyView>
+<SessionReplayView.Hide>
   <CreditCardForm />
-</OoPrivacyView>
+</SessionReplayView.Hide>
 ```
 
 ### Android
@@ -341,7 +342,7 @@ No. If you initialize with tracking consent set to PENDING, the SDK buffers noth
 
 ### How do I stop tracking a user who opts out later?
 
-Call the tracking-consent setter with NOT_GRANTED at runtime — OoSdkReactNative.setTrackingConsent on React Native, OpenObserve.setTrackingConsent on Android, or OpenObserve.set(trackingConsent:) on iOS. New events stop being collected immediately. To also erase everything already stored on the device but not yet uploaded, call clearAllData().
+Call the tracking-consent setter with NOT_GRANTED at runtime — O2SdkReactNative.setTrackingConsent on React Native, OpenObserve.setTrackingConsent on Android, or OpenObserve.set(trackingConsent:) on iOS. New events stop being collected immediately. To also erase everything already stored on the device but not yet uploaded, call clearAllData().
 
 ### What does Session Replay capture by default, and is it safe?
 

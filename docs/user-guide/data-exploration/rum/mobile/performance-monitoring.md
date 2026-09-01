@@ -12,7 +12,7 @@ If you are just getting set up, start with the [Mobile RUM Overview](./index.md)
 
 !!! note "Versions (Beta)"
 
-    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change across early `0.1.x` releases.
+    The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change across early `0.1.x` releases.
 
 ## What performance data you get
 
@@ -55,17 +55,17 @@ Views are captured automatically when you enable view tracking, and you can also
 
 ```tsx
 // Automatic (recommended) — via @openobserve/mobile-react-navigation
-OoRumReactNavigationTracking.startTrackingViews(navigationRef);
+O2RumReactNavigationTracking.startTrackingViews(navigationRef);
 
 // Manual — name and time a screen yourself
-import { OoRum } from '@openobserve/mobile-react-native';
+import { O2Rum } from '@openobserve/mobile-react-native';
 
-await OoRum.startView('checkout', 'Checkout');
+await O2Rum.startView('checkout', 'Checkout');
 // ...screen is visible...
-await OoRum.stopView('checkout');
+await O2Rum.stopView('checkout');
 
 // Add a custom timing marker within the current view
-await OoRum.addTiming('content_ready');
+await O2Rum.addTiming('content_ready');
 ```
 
 ### Android

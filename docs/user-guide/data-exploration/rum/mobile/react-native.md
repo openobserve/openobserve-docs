@@ -11,7 +11,7 @@ New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) f
 
 !!! note "Version (Beta)"
 
-    The React Native SDK is published as `0.1.1` on npm. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases.
+    The React Native SDK is published as `0.1.2` on npm. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases. Session Replay's `customEndpoint` handling changed in `0.1.2` — see [Step 10](#step-10-session-replay-optional).
 
 ## What you get
 
@@ -125,7 +125,7 @@ That single provider initializes the SDK, enables RUM, and starts the automatic 
 
 !!! note "Consent gating"
 
-    Nothing is collected until tracking consent is `granted`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `OoSdkReactNative.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
+    Nothing is collected until tracking consent is `granted`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `O2SdkReactNative.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
 
 ## Step 3 — Configuration options
 
@@ -173,7 +173,7 @@ Install `@openobserve/mobile-react-navigation` and start tracking once you have 
 ```tsx
 import { useRef } from 'react';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
-import { OoRumReactNavigationTracking } from '@openobserve/mobile-react-navigation';
+import { O2RumReactNavigationTracking } from '@openobserve/mobile-react-navigation';
 
 function Root() {
   const navigationRef = useNavigationContainerRef();
@@ -182,7 +182,7 @@ function Root() {
     <NavigationContainer
       ref={navigationRef}
       onReady={() => {
-        OoRumReactNavigationTracking.startTrackingViews(navigationRef);
+        O2RumReactNavigationTracking.startTrackingViews(navigationRef);
       }}
     >
       {/* screens */}
@@ -191,18 +191,18 @@ function Root() {
 }
 ```
 
-This starts and stops a RUM view automatically on every navigation, including Android hardware back-press exits. Stop tracking with `OoRumReactNavigationTracking.stopTrackingViews(navigationRef)`.
+This starts and stops a RUM view automatically on every navigation, including Android hardware back-press exits. Stop tracking with `O2RumReactNavigationTracking.stopTrackingViews(navigationRef)`.
 
 ### Manually
 
 When automatic tracking does not fit (custom navigators, modals, tab changes you want named yourself), drive views directly:
 
 ```tsx
-import { OoRum } from '@openobserve/mobile-react-native';
+import { O2Rum } from '@openobserve/mobile-react-native';
 
-await OoRum.startView('checkout', 'Checkout');
+await O2Rum.startView('checkout', 'Checkout');
 // ...user is on the screen...
-await OoRum.stopView('checkout');
+await O2Rum.stopView('checkout');
 ```
 
 ## Step 5 — Track user actions
@@ -210,9 +210,9 @@ await OoRum.stopView('checkout');
 With `trackInteractions: true`, taps and gestures are captured automatically and named from the element's `accessibilityLabel` (or a custom `actionNameAttribute` prop you configure). To record actions explicitly:
 
 ```tsx
-import { OoRum, RumActionType } from '@openobserve/mobile-react-native';
+import { O2Rum, RumActionType } from '@openobserve/mobile-react-native';
 
-await OoRum.addAction(RumActionType.TAP, 'Add to cart', { productId: 'sku-42' });
+await O2Rum.addAction(RumActionType.TAP, 'Add to cart', { productId: 'sku-42' });
 ```
 
 `RumActionType` values: `TAP`, `SCROLL`, `SWIPE`, `BACK`, `CUSTOM`.
@@ -224,11 +224,11 @@ With `trackResources: true`, the SDK proxies `fetch` and `XMLHttpRequest` and re
 To record a resource manually (for a non-HTTP transport, for example):
 
 ```tsx
-import { OoRum } from '@openobserve/mobile-react-native';
+import { O2Rum } from '@openobserve/mobile-react-native';
 
-await OoRum.startResource('req-1', 'GET', 'https://api.example.com/cart');
+await O2Rum.startResource('req-1', 'GET', 'https://api.example.com/cart');
 // ...request completes...
-await OoRum.stopResource('req-1', 200, 'fetch', 1024);
+await O2Rum.stopResource('req-1', 200, 'fetch', 1024);
 ```
 
 `propagatorTypes` for first-party hosts can be `tracecontext` (W3C — what OpenObserve reads), `b3`, or `b3multi`.
@@ -238,12 +238,12 @@ await OoRum.stopResource('req-1', 200, 'fetch', 1024);
 With `trackErrors: true`, unhandled JavaScript exceptions are captured automatically. Report handled errors yourself so you can see failures that you caught and recovered from:
 
 ```tsx
-import { OoRum, ErrorSource } from '@openobserve/mobile-react-native';
+import { O2Rum, ErrorSource } from '@openobserve/mobile-react-native';
 
 try {
   await checkout();
 } catch (e) {
-  await OoRum.addError(
+  await O2Rum.addError(
     (e as Error).message,
     ErrorSource.SOURCE,
     (e as Error).stack ?? '',
@@ -259,10 +259,10 @@ try {
 Attach the logged-in user so you can measure user-level impact (respecting consent). `id` is required:
 
 ```tsx
-import { OoSdkReactNative } from '@openobserve/mobile-react-native';
+import { O2SdkReactNative } from '@openobserve/mobile-react-native';
 
 // after login
-OoSdkReactNative.setUserInfo({
+O2SdkReactNative.setUserInfo({
   id: 'user-123',
   name: 'Ada Lovelace',
   email: 'ada@example.com',
@@ -270,14 +270,14 @@ OoSdkReactNative.setUserInfo({
 });
 
 // on logout
-OoSdkReactNative.clearUserInfo();
+O2SdkReactNative.clearUserInfo();
 ```
 
 Add global attributes that attach to every RUM event, log, and span — useful for release channel, feature flags, or A/B buckets:
 
 ```tsx
-OoSdkReactNative.addAttribute('feature_flag.new_checkout', true);
-OoSdkReactNative.addAttribute('build.channel', 'beta');
+O2SdkReactNative.addAttribute('feature_flag.new_checkout', true);
+O2SdkReactNative.addAttribute('build.channel', 'beta');
 ```
 
 ## Step 9 — Logs (optional)
@@ -285,10 +285,10 @@ OoSdkReactNative.addAttribute('build.channel', 'beta');
 The same SDK forwards structured logs to OpenObserve:
 
 ```tsx
-import { OoLogs } from '@openobserve/mobile-react-native';
+import { O2Logs } from '@openobserve/mobile-react-native';
 
-OoLogs.info('Checkout started', { cartValue: 89.9 });
-OoLogs.error('Payment declined', { reason: 'insufficient_funds' });
+O2Logs.info('Checkout started', { cartValue: 89.9 });
+O2Logs.error('Payment declined', { reason: 'insufficient_funds' });
 ```
 
 Logs are correlated with the active RUM session, so you can pivot from a session to its logs in OpenObserve.
@@ -304,10 +304,19 @@ await SessionReplay.enable({
   replaySampleRate: 20, // replay is heavier — sample lower than sessions
   textAndInputPrivacyLevel: TextAndInputPrivacyLevel.MASK_ALL,
   touchPrivacyLevel: TouchPrivacyLevel.HIDE,
+  // Session Replay does NOT inherit rumConfiguration.customEndpoint — give
+  // it its own base URL, same shape as the one above. As of SDK 0.1.2 the
+  // bridge appends /replay itself; appending it here too double-appends the
+  // path and every upload gets rejected with 401.
+  customEndpoint: OPENOBSERVE_ENDPOINT,
 });
 ```
 
-Wrap any subtree you never want recorded in `<OoPrivacyView>`. Replay defaults are privacy-preserving (all text and inputs masked, touches hidden). See [Security & Privacy](./security-privacy.md) for the full privacy model.
+!!! warning "Do not append `/replay` yourself"
+
+    Prior to SDK `0.1.2`, `customEndpoint` here needed the full `/replay` URL spelled out. As of `0.1.2` the bridge appends `/replay` automatically — same as RUM and Logs above. Passing `` `${OPENOBSERVE_ENDPOINT}/replay` `` now double-appends the path and every segment upload is rejected with `401`, which looks exactly like a bad token unless you inspect the actual request URL.
+
+Wrap any subtree you never want recorded in `<SessionReplayView.Hide>` (import `SessionReplayView` from the same package — `SessionReplayView.MaskAll` and `SessionReplayView.MaskNone` are also available for finer-grained control). Replay defaults are privacy-preserving (all text and inputs masked, touches hidden). See [Security & Privacy](./security-privacy.md) for the full privacy model.
 
 ## Performance and overhead
 
@@ -361,7 +370,7 @@ Both come from **Data → Data Sources → Real User Monitoring** in your OpenOb
 
 ### How do I track screens with React Navigation?
 
-Install @openobserve/mobile-react-navigation and call OoRumReactNavigationTracking.startTrackingViews(navigationRef) once you have a navigation container ref. It automatically starts and stops RUM views as the user navigates, including Android hardware back-press exits. You can also track views manually with OoRum.startView / OoRum.stopView.
+Install @openobserve/mobile-react-navigation and call O2RumReactNavigationTracking.startTrackingViews(navigationRef) once you have a navigation container ref. It automatically starts and stops RUM views as the user navigates, including Android hardware back-press exits. You can also track views manually with O2Rum.startView / O2Rum.stopView.
 
 ### Does the React Native SDK capture native crashes?
 
@@ -373,4 +382,4 @@ Use sessionSampleRate (0–100) to keep a percentage of sessions, resourceTraceS
 
 ### Can I attach the logged-in user to RUM sessions?
 
-Yes. Call OoSdkReactNative.setUserInfo({ id, name, email, ...extra }) after login (id is required) and OoSdkReactNative.clearUserInfo() on logout. User info is attached to all subsequent RUM events, logs, and traces. Only collect identifying data with the appropriate consent — set TrackingConsent accordingly.
+Yes. Call O2SdkReactNative.setUserInfo({ id, name, email, ...extra }) after login (id is required) and O2SdkReactNative.clearUserInfo() on logout. User info is attached to all subsequent RUM events, logs, and traces. Only collect identifying data with the appropriate consent — set TrackingConsent accordingly.
