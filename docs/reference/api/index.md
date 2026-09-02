@@ -41,6 +41,7 @@ Make sure that you are sending the requests over HTTPS.
     1. [Delete](user/delete.md)
     1. [List](user/list.md)
 1. [Metrics](metrics.md)
+1. [Cluster](cluster/cluster-info.md)
 
 ## Next steps
 

@@ -94,6 +94,13 @@ A typical move off New Relic runs in three steps:
 
 Teams already on OpenTelemetry can start ingesting into OpenObserve within hours. Full cutover usually lands in days to a few weeks, dominated by dashboard and alert rebuild rather than data movement.
 
+## Compare with other systems
+
+- [OpenObserve vs Elasticsearch](comparison.md)
+- [OpenObserve vs Datadog](datadog-alternative.md)
+- [OpenObserve vs Splunk](splunk-alternative.md)
+- [OpenObserve vs ClickHouse](clickhouse-alternative.md)
+
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)

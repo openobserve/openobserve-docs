@@ -109,6 +109,13 @@ For the detailed, step-by-step procedure, see the [Datadog to OpenObserve Migrat
 - [Migrating Logs](../../migration/migrate-from-datadog-to-openobserve/logs.md)
 - [Migrating Dashboards & Monitors](../../migration/migrate-from-datadog-to-openobserve/dashboards-and-alerts.md)
 
+## Compare with other systems
+
+- [OpenObserve vs Elasticsearch](comparison.md)
+- [OpenObserve vs Splunk](splunk-alternative.md)
+- [OpenObserve vs New Relic](newrelic-alternative.md)
+- [OpenObserve vs ClickHouse](clickhouse-alternative.md)
+
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
