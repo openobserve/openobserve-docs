@@ -1,5 +1,4 @@
 ---
-title: Advanced Alert Configuration
 description: >-
   Multi-level thresholds, per-group evaluation (multi-alerts), priority scoring,
   selection tags, and SLO-based alerts in OpenObserve.
@@ -43,15 +42,44 @@ PromQL alerts add a **Warning value** field alongside the existing condition val
 
 ## Multi-alerts (per-group evaluation)
 
-When an aggregation alert uses **Group by**, you can opt into **per-group evaluation** by enabling **Multi-alert**. Each unique group-by combination gets its own level, state row, and notification path, instead of the alert collapsing every group into a single verdict.
+You can opt into **per-group evaluation** by enabling **Multi-alert** in either query mode that produces grouped results: an aggregation alert with a **Group by** in the builder, or a **SQL** alert whose query includes a `GROUP BY` clause. Each unique group gets its own level, state row, and notification path, instead of the alert collapsing every group into a single verdict.
 
-### Enabling multi-alert
+### Enabling multi-alert (builder)
 
 In the aggregation section, under a non-empty **Group by**, toggle **Multi-alert** on. The operator must be orderable (`>=`, `>`, `<=`, `<` — not `=` or `!=`).
 
 When enabled, the alert evaluates the condition per group. Each group's aggregate value is classified against critical and warning thresholds independently, and the group-count thresholds in **Settings** gate how many groups must match before the alert fires at that level.
 
 ![aggregation section with multi-alert toggle enabled](images/alerts-4-0-4.png)
+
+### SQL multi-alerts
+
+In the **SQL** query mode, toggling **Multi-alert** swaps the simple **Alert if No. of events** condition for an **Alert if [column]** condition that evaluates the query per group. Because the SQL tab has no **Group by** picker, OpenObserve infers the group-by fields from the query's own `GROUP BY` clause and pins the aggregation function to `count`.
+
+To configure a SQL multi-alert:
+
+1. Write a SQL query that aggregates data and includes a `GROUP BY` clause with at least one field.
+2. Toggle **Multi-alert** on below the editor. The **Alert if No. of events** row is replaced by **Alert if [column]**.
+3. Select the **column** to evaluate from the dropdown. The dropdown lists the query's own resolved output columns, refreshed automatically whenever the preview runs. The column you pick must be one of those output columns.
+4. Set the **operator** and **critical** value, then optionally add a **warning** value using the same pattern as builder measure mode.
+
+![TODO: screenshot of SQL tab with Simple/Multi-alert toggle](images/placeholder.png)
+
+![TODO: screenshot of SQL Multi-alert "Alert if column" row with column dropdown, operator, and value](images/placeholder.png)
+
+#### Validation
+
+OpenObserve validates SQL multi-alerts at save time and returns a `400` with a specific message when a rule is violated:
+
+- The query must include at least one `GROUP BY` field.
+- The selected value column must be one of the query's output columns.
+- Every `GROUP BY` field must appear in the `SELECT` list, and must not be aliased.
+
+#### HAVING clauses
+
+If your SQL includes a `HAVING` clause, OpenObserve shows a warning banner in the condition area. The `HAVING` clause runs **before** the alert's **Alert if [column]** condition, so it can filter the result set before the alert condition ever sees it.
+
+![TODO: screenshot of HAVING clause warning banner in SQL multi-alert](images/placeholder.png)
 
 ### Group state and lifecycle
 
@@ -136,11 +164,13 @@ Outcome values are normalized across the retention window: `firing`, `normal`, `
 
 ## SLO alerts
 
-SLO alerts read precomputed SLO status instead of running a query directly, using a dedicated `QueryType::Slo` whose deduplication identity is the SLO itself rather than result-row columns. They're created and managed from the SLO's own page, not the generic alert form — see [Alerting on SLOs](https://openobserve.ai/docs/user-guide/analytics/slos/slo-alerts/) and [Service Level Objectives](https://openobserve.ai/docs/user-guide/analytics/slos/) for the full walkthrough.
+SLO alerts read precomputed SLO status rather than running a query directly. When you select **SLO** as the query type in the alert form, the alert is bound to an SLO entity. The SLO's burn rate or error budget is evaluated externally, and the alert fires based on the SLO's computed status.
+
+SLO alerts use a dedicated `QueryType::Slo`. Their deduplication identity is the SLO itself (plus its group key when grouped), not columns of a result row — there is no SQL, PromQL, or condition list to draw column names from.
 
 SLO measurement is behind the feature flag `ZO_SLO_ENABLED` (default `false`). SLO CRUD endpoints live under `/api/{org}/slos` and share the alert folder namespace. When enabled, SLO-based alerts appear as an alert type filter on the alerts list.
 
-![SLO alert form in burn rate mode, showing the fast, mid, and slow suggested configurations](../../../images/slo-alert-burn-rate-form.png)
+![TODO: screenshot of SLO alert creation form with SLO selector](images/placeholder.png)
 
 ## New configuration
 
