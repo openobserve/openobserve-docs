@@ -94,6 +94,13 @@ Rough sizing of a parallel-run window:
 
 The dominant variable is dashboard/alert count, not data volume.
 
+## Compare with other systems
+
+- [OpenObserve vs Elasticsearch](https://openobserve.ai/docs/overview/comparison-with-alternatives/comparison/)
+- [OpenObserve vs Datadog](https://openobserve.ai/docs/overview/comparison-with-alternatives/datadog-alternative/)
+- [OpenObserve vs New Relic](https://openobserve.ai/docs/overview/comparison-with-alternatives/newrelic-alternative/)
+- [OpenObserve vs ClickHouse](https://openobserve.ai/docs/overview/comparison-with-alternatives/clickhouse-alternative/)
+
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
