@@ -101,6 +101,13 @@ A typical move runs in three steps:
 
 Teams already on OpenTelemetry can start ingesting into OpenObserve within hours; the parallel-run window is driven by dashboard and alert count.
 
+## Compare with other systems
+
+- [OpenObserve vs Elasticsearch](https://openobserve.ai/docs/overview/comparison-with-alternatives/comparison/)
+- [OpenObserve vs Datadog](https://openobserve.ai/docs/overview/comparison-with-alternatives/datadog-alternative/)
+- [OpenObserve vs Splunk](https://openobserve.ai/docs/overview/comparison-with-alternatives/splunk-alternative/)
+- [OpenObserve vs New Relic](https://openobserve.ai/docs/overview/comparison-with-alternatives/newrelic-alternative/)
+
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
