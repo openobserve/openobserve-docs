@@ -22,7 +22,7 @@ You can use this destination to:
 :::
 
 :::warning[Private and local network addresses are blocked by default]
-For SSRF protection, OpenObserve blocks Webhook URLs pointing to loopback or private network addresses, such as a self-hosted Ntfy server on your LAN. In a self-hosted deployment, set `ZO_SKIP_SSRF_CHECKS=true` to allow any private address, or `ZO_SSRF_ALLOW_LOOPBACK=true` for loopback only. See [Network and Communication](../../../administration/configuration/environment-variables.md#network-and-communication).
+For SSRF protection, OpenObserve blocks Webhook URLs pointing to loopback or private network addresses, such as a self-hosted Ntfy server on your LAN. In a self-hosted deployment, set `ZO_SKIP_SSRF_CHECKS=true` to allow any private address, or `ZO_SSRF_ALLOW_LOOPBACK=true` for loopback only. See [Network and Communication](https://openobserve.ai/docs/administration/configuration/environment-variables/#network-and-communication).
 :::
 
 ### Prerequisites
