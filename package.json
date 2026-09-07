@@ -43,5 +43,10 @@
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
     "yaml": "^2.9.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "nanoid": "3.3.18"
+    }
   }
 }
