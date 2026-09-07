@@ -41,7 +41,8 @@ When a user runs a search query, the querier must access all Parquet files that 
 If some files are not cached locally, the querier:
 
 1. Queries metadata to identify required files  
-2. Uses the Download Manager to fetch missing files  
+2. Downloads the small missing files into the cache before the search runs (see [Small File Pre-download](#small-file-pre-download))  
+3. Uses the Download Manager to fetch the larger missing files in the background; until they are cached, the search reads them directly from object storage with range requests  
 
 :::note[Note]
 This is a **reactive caching mechanism**. The querier downloads only the files needed to fulfill the user’s search.
@@ -87,6 +88,31 @@ The classification is based on the file’s **latest timestamp**, which represen
 **Note:** A thread here refers to a background worker process used to perform downloads.
 :::
 
+
+## Small File Pre-download
+
+Starting with version `v0.93.0`, a search no longer range-reads small files from object storage. Reading a small Parquet file that is not cached costs several requests: the file metadata is fetched twice, the data pages once, and the Download Manager fetches the whole file again in the background. For a file of about 1 MB, one full download is as fast as a single range request and replaces all of them.
+
+When a search finds files missing from the cache, it splits them by size:
+
+- Files up to `ZO_FILE_DOWNLOAD_SYNC_MAX_SIZE` are downloaded into the cache before the search runs. All of them are downloaded, however many the search needs; the number of parallel downloads follows `ZO_QUERY_THREAD_NUM`.
+- Larger files are handed to the Download Manager queues described above, and the search reads them from object storage until they are cached.
+
+A file that another search or a Download Manager worker is already downloading is not downloaded twice. The search waits for that download to finish and then reads the file from the cache.
+
+Files that the cache refuses, for example because their data is older than `ZO_DISK_CACHE_MAX_AGE_DAYS` or because the search is larger than `ZO_DISK_CACHE_SKIP_SIZE`, are read from object storage as before.
+
+:::info[The following environment variable controls the pre-download:]
+
+- `ZO_FILE_DOWNLOAD_SYNC_MAX_SIZE`  
+**Type:** Integer (MB)  
+**Default:** `1`  
+**Description:** Files up to this size that are missing from the cache are downloaded before the search runs. Set to `0` to disable and range-read every missing file from object storage.
+:::
+
+:::note[Removed variable]
+`ZO_FILE_DOWNLOAD_MIN_RECORDS` has been removed. Earlier versions skipped caching files with fewer records than this threshold, which kept exactly the small files that benefit most from the cache out of it. Files are no longer excluded from the cache by record count.
+:::
 
 ## File Assignment Examples 
 The following examples illustrate how files are assigned to the priority or normal queue based on their latest timestamps.
@@ -152,7 +178,7 @@ For each missing file, the Download Manager checks its latest timestamp.
 Queue decisions are made by comparing each file’s latest timestamp against the current time and the configured priority window.
 
 :::note[Note]
-The querier does not begin processing the search query until all required files, regardless of whether they were downloaded via the Priority or Normal Queue.
+The search waits only for the files downloaded up front by the [Small File Pre-download](#small-file-pre-download). Files X, Y and Z are larger, so the search reads them from object storage while the Priority and Normal Queues download them into the cache for later searches.
 :::
 ::::
 :::::

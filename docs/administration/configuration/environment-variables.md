@@ -297,6 +297,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_DISK_CACHE_STRATEGY | lru | Disk data cache strategy, values are lru, time_lru, fifo |
 | ZO_MEMORY_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the memory cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
 | ZO_DISK_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the disk cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
+| ZO_FILE_DOWNLOAD_SYNC_MAX_SIZE | 1 | Files up to this size in MB that are missing from the querier cache are downloaded into the cache before a search runs, instead of being range-read from object storage. Larger files are downloaded in the background as before. Set to `0` to disable. |
+| ZO_FILE_DOWNLOAD_MIN_RECORDS | - | Removed. Files are no longer excluded from the cache by record count. |
 
 
 ## HTTP TLS
