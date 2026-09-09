@@ -180,13 +180,23 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 | **Target Scope** | The evaluation granularity: `span` (score each matching span), `trace` (score a whole trace once it completes), or `session` (score an entire conversation session). |
 | **Filter Condition** | A JSON filter expression. Only spans matching this filter are considered. For trace/session scopes, this filter selects which traces or sessions are eligible. |
 | **Scorers** | One or more scorer references (by entity ID). The system evaluates each target against every listed scorer. |
-| **Input Mapping** | Per-scorer mapping of template variables to span attribute paths (e.g., `"input": "{{gen_ai_input_messages}}", "output": "{{gen_ai_output_messages}}"`). |
+| **Input Mapping** | Per-scorer mapping of template variables to a value source (e.g., `"input": "{{gen_ai_input_messages}}", "output": "{{gen_ai_output_messages}}"`). Each variable gets a searchable dropdown that combines **system-provided values** (values OpenObserve builds from the target itself, such as `input`, `output`, `statistics`, `spans`, and `steps`) with **span attributes** from the stream. |
 | **Sampling Mode** | `all` (evaluate everything) or `rate` (evaluate a percentage, e.g., `0.1` for 10%). |
 | **Sampling Value** | A scalar number (0--1) for rate mode, or `null` for all mode. |
 
 ![the Add Eval Job form](images/online-evaluations-9.png)
 
 ![eval job form with target scope selector](images/trace-session-evaluations-1.png)
+
+### Input mapping
+
+For each scorer in a job, the **Input Mapping** section lists every template variable the scorer's prompt declares. Each variable gets its own searchable dropdown that combines two groups of value sources:
+
+- **System-provided values** — values OpenObserve builds automatically for the target being scored. For trace scope these are `input`, `output`, `statistics`, `spans`, and `steps`; for session scope they are `statistics` and `steps`. Use them directly (e.g., `{{ input }}`) without extra configuration.
+- **Span attributes** — columns from the trace stream (e.g., `gen_ai_input_messages`, `gen_ai_output_messages`).
+
+OpenObserve pre-seeds each variable with a sensible default so you can save a job without mapping every field by hand. When a trace-scope variable maps to `{{ spans }}`, the job asks for a Span Selector to choose which spans supply that value.
+
 
 ### Target scope
 
@@ -248,7 +258,7 @@ A span selector defines:
 | **Fields** | (Custom mode) The span attribute columns to include in the payload sent to the scorer. |
 | **Maximum Spans** | The maximum number of matching spans to include (default 5). |
 
-Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. Every scorer in a trace-scope job must have a binding before the job can be activated.
+Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. A trace-scope scorer only requires a binding when its prompt actually uses trace spans — that is, when its template references `{{ spans }}` or a variable mapped to `{{ spans }}`. Scorers that score a trace without reading spans can be activated without any selector.
 
 ![span selector configuration](images/trace-session-evaluations-3.png)
 
@@ -270,19 +280,12 @@ These variables are populated for both automatic evaluations and manual evaluati
 
 You can trigger an evaluation for a specific target on demand, bypassing the automatic sampling and completion logic. This is useful for re-evaluating a trace after changing scorers, or testing a job against a known trace or session.
 
-Send a `POST` to `/api/{org_id}/eval_jobs/{job_id}/manual_eval` with:
+You can launch a manual evaluation directly from the trace or session you are inspecting:
 
-```json
-{
-  "targetId": "trace-abc123",
-  "traceId": "trace-abc123",
-  "sessionId": "session-xyz",
-  "variables": { "input": "custom value" },
-  "reason": "operator retry after scorer update"
-}
-```
+- On the **trace details** page, click **Evaluate trace** in the header to score the whole trace, or open a span's preview and click **Evaluate span** to score a single span.
+- On the **session details** page, click **Evaluate session** in the header to score the entire conversation.
 
-The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run. The response reports the number of durable evaluation tasks created. The triggering user is recorded automatically as the score's `author`, and an optional `reason` is stored alongside each score for audit.
+The buttons appear only for LLM traces/sessions in Enterprise or Cloud deployments where Online Evaluations is enabled. Clicking one opens a dialog where you choose which Eval Job to run; only jobs whose target scope and stream match the target you are viewing are listed. The evaluation worker loads the source telemetry from the target's own time range, so you don't have to specify one manually.
 
 ### Job lifecycle
 
@@ -305,6 +308,8 @@ draft → active ⇄ paused
 
 Use the action buttons on the job detail page to manage lifecycle transitions.
 
+When you create a job or edit a draft, the form offers two submit actions: **Save as Draft** (keep it inactive) and **Save & Activate** (promote it straight to active). Editing a job that already has a run state (`active`, `paused`, or `degraded`) shows a single **Save** button instead, so a config edit never silently flips the job's enablement.
+
 ![the Eval Job detail page showing status and actions](images/online-evaluations-10.png)
 
 ### Update a job
@@ -320,6 +325,10 @@ Evaluated scores are written to the `_llm_scores` system stream, and evaluator t
 The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams.
 
 ![quality page KPI cards with scope breakdown](images/trace-session-evaluations-4.png)
+
+When a scorer fails, the **Scorer Failures** KPI card becomes clickable. Selecting it opens the Traces page filtered to the `_evaluator` stream for evaluator runs in an `error` or `timeout` state, so you can jump straight from a failure count to the failing evaluator executions.
+
+![TODO: screenshot of the Scorer Failures KPI opening the filtered evaluator traces](images/placeholder.png)
 
 ### Scope filtering
 
@@ -450,6 +459,14 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `spanSelectors` | array | (Trace scope only) Named sub-queries that select spans within a trace for each scorer. |
 | `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required for activation. |
 | `samplingValue` | number \| null | A scalar between 0 and 1 for rate mode; `null` for all mode. |
+
+**Manual eval payload fields**:
+
+| Field | Required | Description |
+|---|---|---|
+| `targetId` | Yes | The ID of the target to evaluate (a trace, span, or session ID, depending on the job's scope). |
+| `startTime` / `endTime` | Yes | The source telemetry window, in microseconds. |
+| `traceId` / `sessionId` / `spanId` | No | Pin the evaluation to a specific trace, session, or span. |
 
 ### Experiments
 
