@@ -13,13 +13,13 @@ The Online Evaluations system has four core resources, each building on the prev
 | **Scorer** | The evaluation logic: a template with `{{variables}}`, parameters for execution, and a link to a score config that describes the output it produces. Two types exist: **LLM Judge** (calls an LLM via a provider) and **Remote** (calls an external HTTP endpoint). |
 | **Eval Job** | A running evaluation pipeline: binds one or more scorers to a specific stream, defines a **target scope** (span, trace, or session), which traces/spans to evaluate (filter), how many to sample, and manages the lifecycle (draft, active, paused, archived). |
 
-When you activate an eval job, the system creates a system-managed evaluation pipeline that runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
+When you activate an eval job, OpenObserve runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
 
 ![the Online Evaluations dashboard listing eval jobs](images/online-evaluations-1.png)
 
 ## Enable Online Evaluations
 
-Online Evaluations is an enterprise-only feature:where it is enabled by default. Set the enterprise configuration flag to control it:
+Online Evaluations is an enterprise-only feature, enabled by default. Set the enterprise configuration flag to control it:
 
 ```env
 O2_ONLINE_EVALS_ENABLED=true
@@ -64,15 +64,11 @@ Two provider types connect OpenAI-compatible evaluation endpoints, including sel
 - **`openai_compatible`**: A generic provider for any OpenAI-chat-completions-compatible service (e.g., MiniMax, or your own gateway). Because there is no standard base URL, you must supply the full request URL in **Endpoint** (for example `https://api.minimax.io/v1/chat/completions`). The endpoint is preserved exactly as configured.
 - **`vllm`**: A self-hosted vLLM OpenAI-compatible server. Defaults to `http://localhost:8000/v1/chat/completions`, so you can leave **Endpoint** empty to target a local vLLM instance.
 
-Both types reuse the OpenAI chat-completions request implementation, so any model served behind an OpenAI-compatible API works. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
-
-![the Add Provider form with the OpenAI-compatible provider type selected, showing the optional API key field](images/placeholder.png)
+Both types work with any model served behind an OpenAI-compatible API. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
 
 ### Test a provider
 
 Use the **Test Connection** button on the provider form to verify connectivity against a configuration before you save it. The test sends a lightweight request to the configured endpoint and credentials, and reports **Connected** or **Connection failed**. When editing an existing provider, pass the stored provider ID so the test resolves the saved credentials without you re-entering the API key.
-
-![the Test Connection result on the provider form](images/placeholder.png)
 
 ### Manage providers
 
@@ -198,11 +194,11 @@ The **Target Scope** determines what unit of evaluation the job scores:
 
 | Scope | What is evaluated | Completion logic |
 |---|---|---|
-| **Span** | Each matching span individually | Evaluated as soon as the span arrives. The system creates a hidden evaluation pipeline that processes spans in real time. |
+| **Span** | Each matching span individually | Evaluated in real time, as soon as the span arrives. |
 | **Trace** | An entire trace aggregated from multiple spans | The scheduler waits for the trace to complete (idle window + optional end signal), then assembles the aggregated payload. |
 | **Session** | A full conversation session spanning multiple traces | Uses session ID columns (`session_id`, `gen_ai_conversation_id`, `llm_session_id`, or `gen_ai.conversation.id`) to group traces. Completes on idle window or end signal. |
 
-Only span-scope jobs create a hidden evaluation pipeline. Trace and session jobs are detected by the Eval Scheduler, which polls trace streams for completed targets.
+Span-scope jobs evaluate in real time. Trace- and session-scope jobs are detected by the Eval Scheduler, which polls trace streams for completed targets.
 
 ### Trace and session completion
 
@@ -313,22 +309,11 @@ Use the action buttons on the job detail page to manage lifecycle transitions.
 
 ### Update a job
 
-Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, the underlying configuration is automatically reconciled:
-- Span-scope jobs: the hidden pipeline is updated with new filters, sampling, and scorers.
-- Trace/session jobs: if switching TO a span scope, a pipeline is created; if switching FROM a span scope, the old pipeline is torn down.
+Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, your changes — new filters, sampling, scorers, or a change of target scope — take effect automatically without needing to pause and resume.
 
-### Scoring pipeline
+### Where scores go
 
-Span-scope jobs create a `PipelineKind::Evaluation` pipeline behind the scenes. This pipeline is:
-
-- **Hidden** from the main Pipeline UI — it is managed exclusively by the eval jobs subsystem.
-- **Coexisting** with user pipelines on the same stream (no "one pipeline per stream" conflict).
-- **Automatically reconciled** when the job is updated.
-- **Terminating at an LLM evaluation task publisher** rather than writing to `_llm_scores` directly. Durable evaluation tasks are enqueued and processed asynchronously.
-
-Trace-scope and session-scope jobs do NOT create hidden pipelines. Instead, the Eval Scheduler polls trace streams periodically, detects completed targets using the configured idle window and end signal, and publishes evaluation tasks.
-
-Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreRecord` entries, and evaluator telemetry (latency, tokens, status) is recorded as OTLP spans in the `_evaluator` traces stream.
+Evaluated scores are written to the `_llm_scores` system stream, and evaluator telemetry (latency, tokens, status) is recorded in the `_evaluator` traces stream. You can query both streams directly for debugging or building dashboards.
 
 ## Quality Dashboard
 
@@ -352,67 +337,42 @@ The runs table supports pagination and filtering (all runs or unhealthy only). S
 
 ## Experiments
 
-Experiments run your scorers against a **dataset** - a pinned collection of input cases - and let you compare two runs to measure whether a change improved or regressed your application. While Online Evaluations score live traffic, Experiments score a fixed snapshot of cases, so they are the right tool for offline benchmarking, regression checks, and CI assertions.
+Experiments let you evaluate your LLM application against a dataset and compare a candidate against a baseline. Each experiment pins a dataset snapshot (a version and optional filter), a task (prompt- or SDK-driven), and one or more scorers. The system executes the task across every dataset row and trial, records execution evidence, and produces scores you can compare side-by-side.
 
-### Concepts
+### Experiment summaries
 
-| Resource | What it does |
+The experiments list renders a summary for each experiment from batched evidence. The system groups experiments into batches of 25 and issues three coordinated searches per batch — execution records from `_llm_experiment`, scores from `_llm_scores`, and LLM Judge cost from `_evaluator` — so list and detail views stay fast as the number of experiments grows.
+
+Each summary reports:
+
+| Field | Description |
 |---|---|
-| **Dataset** | A versioned collection of cases (rows). Each case has an `input` and an optional `expected_output`, and can carry metadata for your task to branch on. |
-| **Experiment** | A single run: a **task** (how outputs are produced) plus one or more pinned **scorers** (how those outputs are scored) against a dataset snapshot. |
-| **Trial** | One execution attempt of a case. An experiment can run multiple trials per case to measure variance. |
-| **Slot** | The atomic unit of work - one case × one trial. Task execution produces the output for a slot; scoring produces its scores. |
-| **Baseline** | The reference experiment for a dataset. At most one experiment per dataset is the baseline. |
+| **Status** | A consolidated lifecycle state that combines execution and scoring: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
+| **Execution progress** | Completed, total, and skipped task slots. |
+| **Scoring status** | The scoring phase state: `pending`, `running`, `completed`, or `completed_with_errors`. |
+| **Score summaries** | Per-scorer score distributions and health classification. |
+| **Aggregate summary** | p50 latency and cost totals across the whole experiment. |
 
-An experiment's task is one of three kinds:
+You can also filter the experiments list by dataset to narrow the view to a single dataset's runs.
 
-- **Inline prompt** - messages sent to an LLM through a configured provider.
-- **Remote task** - a pinned `name@version` of a published Remote Task.
-- **SDK** - your own client-side code, identified by a task fingerprint; your process reports the outputs.
-
-![the Experiments list grouped by dataset](images/placeholder.png)
-
-### Status and summary
-
-Every experiment tracks two separate lifecycles: **execution** (producing task outputs) and **scoring** (producing scores from those outputs). The experiment list and detail pages surface a consolidated status that merges the two:
-
-| Status | Meaning |
-|---|---|
-| **Pending** | Execution has not started. |
-| **Running** | Execution is in progress. |
-| **Scoring** | Execution is complete; scoring is still running. |
-| **Completed** | Both execution and scoring finished cleanly. |
-| **Cancelled** | The run was cancelled. |
-| **Execution Failed** | The task phase failed. |
-| **Scoring Failed** | Scoring completed, but at least one score exhausted its attempts. |
-
-Under the hood, `scoringStatus` is one of `pending`, `running`, `completed`, or `completed_with_errors` (completed, but at least one applicable score failed). The stored execution lifecycle remains available separately as `executionStatus` (used by cancel/retry actions).
+![Experiments list showing consolidated status, progress, and cost summary](images/experiment-status.png)
 
 ### Cost breakdown
 
-The experiment detail page reports total cost as the sum of **task cost** (running your task) and **scoring cost** (running your scorers). When scoring cost cannot be fully determined yet, the cost card is labelled **Partial**.
+The aggregate summary separates **task cost** — the LLM calls that execute each dataset row — from **scoring cost** — the LLM Judge calls that produce each score — and reports a single **total cost** that sums the two.
 
-![the experiment detail metric cards including the task/scoring cost breakdown](images/placeholder.png)
-
-### Baseline
-
-Each dataset has a single **baseline** experiment - the fixed reference every other run is compared against. Use the pin button on an experiment row to set or clear it:
-
-- Only a **completed** run can be pinned as baseline; a pending, running, or failed run has no stable results to reference.
-- Clearing a baseline is always allowed.
-- Pinning a baseline automatically selects it for the next comparison.
-
-Marking an experiment as baseline helps you and your team identify the baseline at a glance.
+Scoring cost is aggregated from the `_evaluator` traces stream, scoped to the experiment's LLM Judge spans (`llm_judge.evaluate`). Each billed attempt is counted once: redelivered attempts are deduplicated by span so a retry never bills twice. When any cost is missing — an unpriced call, a delayed trace, or a remote scorer with no observable price — the summary flags the total as **incomplete** rather than silently under-reporting.
 
 ### Comparing experiments
 
-A comparison measures how a **candidate** experiment moved against the **baseline** on the same dataset. Each comparable dimension (a score, cost, or latency) reports a delta, an oriented delta (positive always means improved), and a per-row bucket: **improved**, **regressed**, **unchanged**, or **inconclusive**.
+When you compare a candidate against a baseline, the comparison joins rows by their stable dataset logical ID and classifies each row as **improved**, **regressed**, **unchanged**, **new**, or **missing**.
 
-Use the **Threshold** selector to set the sensitivity: baseline and candidate values within that percentage of each other count as unchanged rather than improved or regressed.
+Two controls shape the verdict:
 
-Use the **Outcome criteria** selector to choose which dimensions actually vote on each row's overall outcome. A dimension is selectable only when it has a comparison policy; other dimensions are still shown but do not affect the outcome. If no dimensions are selected, every comparable row shows as **Not Compared**.
+- **Comparison criteria (outcome dimensions)** — choose which dimensions vote on the outcome. Each selectable dimension has a stable ID (`cost`, `latency`, or a score dimension). Omitting the selection compares every eligible dimension; an empty selection compares none, so every row becomes **inconclusive**. Dimensions you leave unselected still show their values and evidence, but they don't affect the verdict.
+- **Percentage threshold** — the threshold is now expressed as a percentage. Ranged numeric scores use the configured range; cost, latency, and unranged numeric scores use the baseline magnitude; boolean and categorical scores use the healthy-observation fraction. A move away from a zero baseline counts as one full directional change.
 
-![the comparison panel with the outcome criteria and threshold selectors](images/placeholder.png)
+Only gating dimensions vote: a score dimension gates when it is selected and its pinned score config declares a health policy, while cost and latency gate in the lower-is-better direction when selected. A row regresses when any selected dimension exceeds the threshold in the worse direction, and improves only when at least one selected dimension improves and none regress. A row with no gating dimension on either side is **inconclusive**.
 
 ## RBAC
 
