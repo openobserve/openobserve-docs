@@ -1,8 +1,3 @@
----
-title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
----
-
 # LLM Evaluations
 
 Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
@@ -160,6 +155,8 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 
 ![the Eval Jobs list page](images/online-evaluations-8.png)
 
+The list shows each job's **Target Scope** (span, trace, or session) alongside its stream and scorer count, so you can tell at a glance which jobs score spans, traces, or whole sessions.
+
 | Field | Description |
 |---|---|
 | **Name** | Display name for the job. |
@@ -175,6 +172,12 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 ![the Add Eval Job form](images/online-evaluations-9.png)
 
 ![eval job form with target scope selector](images/trace-session-evaluations-1.png)
+
+### Matched targets preview
+
+While you configure a job, the form shows a live **matched targets** count. The filter is evaluated against the spans in the selected stream, and the result is counted at the job's **Target Scope**: matching rows for `span`, distinct `trace_id` values for `trace`, and distinct `session_id` values for `session`. This lets you verify your filter and scope combination before activating the job. The count is an estimate over a recent 24-hour window, since sampling and scoring happen going forward.
+
+![TODO: screenshot of the matched targets preview in the Eval Job form](images/placeholder.png)
 
 ### Target scope
 
@@ -244,6 +247,10 @@ Bind each scorer to a span selector via **span selector bindings** — a mapping
 
 You can trigger an evaluation for a specific target on demand, bypassing the automatic sampling and completion logic. This is useful for re-evaluating a trace after changing scorers, or testing a job against a known trace or session.
 
+You can also trigger this from the job detail page. The **Manual evaluation** section in the detail drawer lets you enter a **Target ID**, an optional **Trace ID**, **Session ID**, or **Span ID** (depending on the job's scope), a **Reason**, and any **Variables** (JSON) to override template inputs. The job detail page also displays the job's **Target Scope** and, for trace/session jobs, its completion window (**Idle window** and **Max age**). Submitting creates durable evaluation tasks for that specific target and reports how many tasks were created.
+
+![TODO: screenshot of the manual evaluation form in the Eval Job detail](images/placeholder.png)
+
 Send a `POST` to `/api/{org_id}/eval_jobs/{job_id}/manual_eval` with:
 
 ```json
@@ -300,21 +307,53 @@ Trace-scope and session-scope jobs do NOT create hidden pipelines. Instead, the 
 
 Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreRecord` entries, and evaluator telemetry (latency, tokens, status) is recorded as OTLP spans in the `_evaluator` traces stream.
 
+Each score record carries a canonical target identity (`target_scope` and `target_id`) plus an `evaluation_key` that groups scores for the same job, scorer, scope, and target. When a target is scored again (for example, a manual re-evaluation), the newer record carries a higher `score_version`, and the Quality Dashboard keeps only the latest version per `evaluation_key`. Each `_evaluator` span likewise records the `target_scope`, `target_id`, `task_id`, and `score_id`, and evaluation runs are grouped under an `online_eval.evaluate` root span.
+
+To survive restarts without re-processing targets, the Eval Scheduler persists per-stream watermarks (the last committed ingest-time position) and resumes from that position with a configured delay rewind. Durable evaluation tasks are delivered with at-least-once semantics — the queue supports progress acknowledgments to extend an in-flight task's visibility deadline and double acknowledgments to complete a delivery.
+
 ## Quality Dashboard
 
-The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams.
+The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams. The page computes metrics over the **latest** score for each target — when a target is re-evaluated (for example, via manual evaluation), only the newest score counts, so your KPIs always reflect current health rather than stale, superseded runs.
+
+### Key metrics
+
+The KPI cards at the top of the page summarize current-window activity:
+
+- **Score Results** — the total number of score records, broken down by **Target Scope** (Span, Trace, Session) so you can see at a glance which granularity your evaluations are producing.
+- **Evaluation Cost** — total USD spent by the evaluator (LLM-judge scorer calls) over the window.
+- **Scorer Success** — percentage of scorer invocations that succeeded, alongside **Scorer Failures** and **Latency (p95)**.
 
 ![quality page KPI cards with scope breakdown](images/trace-session-evaluations-4.png)
 
+### Score config health
+
+The overview table lists every score config with a health classification:
+
+| Column | Description |
+|---|---|
+| **Health** | A status tag — **Healthy**, **Unhealthy**, **No threshold**, or **No data** — derived from the config's healthy threshold over the window, with a summary line showing the unhealthy percentage. |
+| **Quality** | A single representative value: the average for numeric scores, the healthy/true rate for boolean scores, or the top category for categorical scores. |
+| **Total scores** | The number of score results in the window. |
+| **Scope mix** | The count of scores broken down by Span, Trace, and Session. |
+| **Volume trend** | A sparkline of score volume across the window. |
+
+Configs are sorted so unhealthy ones (with the highest unhealthy percentage) surface first. The table renders even when no scores have landed yet, showing each config's shape with "—" placeholders until data arrives.
+
+![TODO: screenshot of the Quality overview table showing health, quality, and scope-mix columns](images/placeholder.png)
+
 ### Scope filtering
 
-When you drill into a specific score config from the quality page, the detail drawer includes a **scope selector** that lets you filter KPI cards, trend charts, and the evaluation runs table by target scope: **All**, **Span**, **Trace**, or **Session**. Switching the scope re-runs all queries within the drawer so you see metrics scoped to the selected granularity.
+When you drill into a specific score config from the quality page, the detail drawer includes a **scope selector** that lets you filter KPI cards, trend charts, and the evaluation runs table by target scope: **All**, **Span**, **Trace**, or **Session**. Each option shows its score count. Switching the scope re-runs all queries within the drawer so you see metrics scoped to the selected granularity.
 
 ![quality detail drawer with scope selector](images/trace-session-evaluations-5.png)
 
+The drawer header shows a health summary banner (healthy or unhealthy status relative to the config's threshold). Alongside the type-specific KPI tiles — average and distribution for numeric, pass rate for boolean, or category breakdown for categorical — the detail drawer includes a **Targets Scored** KPI showing the number of distinct targets (spans, traces, or sessions) that received a score, relative to the total number of score results.
+
+![TODO: screenshot of the Score Config detail drawer showing the health summary and Targets Scored KPI](images/placeholder.png)
+
 ### Evaluation runs
 
-The score config detail drawer includes an **Evaluation Runs** table that lists individual score records — each row shows the score value (numeric, categorical, or boolean), health classification (healthy/unhealthy), the target identity (scope, trace ID, session ID), agent name, and reasoning if available. Click any row to navigate to the evaluator trace in the `_evaluator` stream for deeper debugging.
+The score config detail drawer includes an **Evaluation Runs** table that lists individual score records. Each row shows the score value (numeric, categorical, or boolean), health classification (healthy/unhealthy), the target identity (scope plus trace/span/session ID), the agent name and ID, and the reasoning if available. Unhealthy rows are tinted red so they stand out. Click any row to navigate to the evaluator trace in the `_evaluator` stream for deeper debugging.
 
 The runs table supports pagination and filtering (all runs or unhealthy only). Scope selector drilling works with the runs table — changing scope narrows the listed runs to only the selected target granularity.
 
