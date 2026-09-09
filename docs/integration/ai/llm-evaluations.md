@@ -369,7 +369,7 @@ Each dataset has a single **baseline** experiment - the fixed reference every ot
 - Clearing a baseline is always allowed.
 - Pinning a baseline automatically selects it for the next comparison.
 
-The baseline flag is server-persisted (`isBaseline` on the experiment), so it is shared across users and survives a reload.
+Marking an experiment as baseline helps you and your team identify the baseline at a glance.
 
 ### Comparing experiments
 
