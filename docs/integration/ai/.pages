@@ -1,0 +1,12 @@
+nav:
+    - LLM Applications: llm-applications.md
+    - LLM Evaluations: llm-evaluations.md
+    - LLM Annotations and Datasets: llm-annotations-and-datasets.md
+    - LLM Playground: llm-playground.md
+    - Claude Code Tracing: claude-code-tracing.md
+    - Frameworks: frameworks
+    - Model Providers: providers
+    - Gateways: gateways
+    - No-Code Agent Builders: no-code
+    - Tools: tools
+    - MCP: mcp

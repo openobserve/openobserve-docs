@@ -1,6 +1,6 @@
 # LLM Evaluations
 
-Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
+OpenObserve provides two complementary evaluation capabilities: **Online Evaluations**, which continuously score your LLM application's traces and spans in production, and **Experiments**, which run scorers over a static dataset and compare two runs against each other. Both use configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
 
 ## Overview
 
@@ -19,13 +19,21 @@ When you activate an eval job, OpenObserve runs your scorers against incoming da
 
 ## Enable Online Evaluations
 
-Online Evaluations is an enterprise feature. Set the configuration flag to enable it:
+Online Evaluations is an enterprise-only feature, enabled by default. Set the enterprise configuration flag to control it:
 
 ```env
-ZO_ONLINE_EVALS_ENABLED=true
+O2_ONLINE_EVALS_ENABLED=true
 ```
 
-When enabled, the **Evaluations** top-level navigation appears in the UI. When disabled, all evaluation pages and settings are hidden; backend API endpoints remain reachable.
+When disabled, the **Evaluations** navigation and all evaluation pages are hidden in the UI.
+
+Trace- and session-scope jobs are detected by a background **Eval Scheduler** that periodically polls your trace streams for completed targets. Control how often it polls:
+
+```env
+O2_EVAL_SCHEDULER_POLL_INTERVAL_SECS=45
+```
+
+The default is `45` seconds; values below `1` are clamped to `1` second.
 
 ## Providers
 
@@ -40,22 +48,31 @@ Navigate to **Evaluations > Providers** and click **Add Provider**.
 | Field | Description |
 |---|---|
 | **Name** | Display name for the provider. |
-| **Provider Type** | The provider kind (`openai`, `anthropic`, `azure`, `gemini`, etc.). Determines the API protocol. |
-| **Endpoint** | Override the default API base URL. Leave empty to use the provider's standard endpoint. |
-| **Default Model** | The model used when no model is specified on the scorer. |
+| **Provider Type** | The provider kind (`openai`, `deepseek`, `anthropic`, `ollama`, `openai_compatible`, or `vllm`). Determines the API protocol and default endpoint. |
+| **Endpoint** | The full request URL. For most provider types this overrides the standard endpoint (leave empty to use the default). For `openai_compatible`, an explicit full request URL is required. |
+| **Default Model** | The model used when no model is specified on the scorer. Required for `openai_compatible` and `vllm`, which have no default. |
 | **Available Models** | List of model IDs this provider supports. Used for model selection in scorers. |
-| **Auth Config** | Credentials in JSON format (e.g., `{"api_key": "sk-..."}`). Masked in API responses. |
+| **Auth Config** | Credentials in JSON format (e.g., `{"api_key": "sk-..."}`). Optional for keyless self-hosted providers (`openai_compatible`, `vllm`, `ollama`). The form marks the API key as required (`*`) only for `openai`, `deepseek`, and `anthropic`. Masked in API responses. |
 | **Is Default** | When set, this provider is preselected when creating new LLM Judge scorers. |
 
 ![the Add Provider form](images/online-evaluations-3.png)
 
+### OpenAI-compatible and vLLM providers
+
+Two provider types connect OpenAI-compatible evaluation endpoints, including self-hosted models:
+
+- **`openai_compatible`**: A generic provider for any OpenAI-chat-completions-compatible service (e.g., MiniMax, or your own gateway). Because there is no standard base URL, you must supply the full request URL in **Endpoint** (for example `https://api.minimax.io/v1/chat/completions`). The endpoint is preserved exactly as configured.
+- **`vllm`**: A self-hosted vLLM OpenAI-compatible server. Defaults to `http://localhost:8000/v1/chat/completions`, so you can leave **Endpoint** empty to target a local vLLM instance.
+
+Both types work with any model served behind an OpenAI-compatible API. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
+
 ### Test a provider
 
-From the provider detail page, use the **Test** button to verify connectivity. The system sends a test request using the configured endpoint and credentials.
+Use the **Test Connection** button on the provider form to verify connectivity against a configuration before you save it. The test sends a lightweight request to the configured endpoint and credentials, and reports **Connected** or **Connection failed**. When editing an existing provider, pass the stored provider ID so the test resolves the saved credentials without you re-entering the API key.
 
 ### Manage providers
 
-- **Update**: Edit any field. The provider is updated in-place.
+- **Update**: Edit any field. The provider is updated in-place. If you leave the API key blank when updating, the existing key is preserved (so you don't accidentally clear or rotate it); supply a non-empty `api_key` to replace it.
 - **Delete**: Removes the provider. Scorers referencing a deleted provider will fail until reassigned.
 
 ## Score Configs
@@ -245,6 +262,20 @@ Bind each scorer to a span selector via **span selector bindings** — a mapping
 
 ![span selector configuration](images/trace-session-evaluations-3.png)
 
+### Target view variables (trace/session scope)
+
+For **trace**- and **session**-scope jobs, OpenObserve automatically assembles the target's telemetry into a set of enriched template variables before rendering each scorer template. You can reference these directly in your template (for example `{{input}}`, `{{output}}`, or `{{steps}}`) alongside any variables you map manually via **input mapping**.
+
+| Variable | Scopes | Description |
+|---|---|---|
+| `input` | trace | The LLM input messages from the target's root span (first matching gen-ai input field). |
+| `output` | trace | The LLM output messages from the target's root span. |
+| `spans` | trace | A compact list of spans in the target — up to 5 by default, or the subset selected by a bound **span selector** (capped by its maximum spans). Each entry carries sequence, type, name, status, duration, timestamps, and tool/input/output where present. |
+| `steps` | trace, session | An ordered sequence of up to 50 steps, each classified as an LLM call, tool call, or other span, with `type`, `kind`, `input`/`output`, `tool_input`/`tool_output`, and timing. Omitted steps are folded into a summary. |
+| `statistics` | trace, session | Aggregate counters for the target: span count, LLM calls, tool calls, error count, total duration, total tokens, total cost, distinct tools, and trace/session counts plus event and ingest timestamps. |
+
+These variables are populated for both automatic evaluations and manual evaluations, so the same template works regardless of how the run was triggered. Span-scope jobs do not receive this enrichment — they render templates from the span attributes selected by the job's input mapping.
+
 ### Manual evaluation
 
 You can trigger an evaluation for a specific target on demand, bypassing the automatic sampling and completion logic. This is useful for re-evaluating a trace after changing scorers, or testing a job against a known trace or session.
@@ -255,10 +286,6 @@ You can launch a manual evaluation directly from the trace or session you are in
 - On the **session details** page, click **Evaluate session** in the header to score the entire conversation.
 
 The buttons appear only for LLM traces/sessions in Enterprise or Cloud deployments where Online Evaluations is enabled. Clicking one opens a dialog where you choose which Eval Job to run; only jobs whose target scope and stream match the target you are viewing are listed. The evaluation worker loads the source telemetry from the target's own time range, so you don't have to specify one manually.
-
-![TODO: screenshot of the Manual Evaluation dialog choosing an Eval Job](images/placeholder.png)
-
-Manual evaluation is also available programmatically — see [API Reference](#eval-jobs).
 
 ### Job lifecycle
 
@@ -317,6 +344,45 @@ The runs table supports pagination and filtering (all runs or unhealthy only). S
 
 ![evaluation runs table in quality detail](images/trace-session-evaluations-6.png)
 
+## Experiments
+
+Experiments let you evaluate your LLM application against a dataset and compare a candidate against a baseline. Each experiment pins a dataset snapshot (a version and optional filter), a task (prompt- or SDK-driven), and one or more scorers. The system executes the task across every dataset row and trial, records execution evidence, and produces scores you can compare side-by-side.
+
+### Experiment summaries
+
+The experiments list renders a summary for each experiment from batched evidence. The system groups experiments into batches of 25 and issues three coordinated searches per batch — execution records from `_llm_experiment`, scores from `_llm_scores`, and LLM Judge cost from `_evaluator` — so list and detail views stay fast as the number of experiments grows.
+
+Each summary reports:
+
+| Field | Description |
+|---|---|
+| **Status** | A consolidated lifecycle state that combines execution and scoring: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
+| **Execution progress** | Completed, total, and skipped task slots. |
+| **Scoring status** | The scoring phase state: `pending`, `running`, `completed`, or `completed_with_errors`. |
+| **Score summaries** | Per-scorer score distributions and health classification. |
+| **Aggregate summary** | p50 latency and cost totals across the whole experiment. |
+
+You can also filter the experiments list by dataset to narrow the view to a single dataset's runs.
+
+![Experiments list showing consolidated status, progress, and cost summary](images/experiment-status.png)
+
+### Cost breakdown
+
+The aggregate summary separates **task cost** — the LLM calls that execute each dataset row — from **scoring cost** — the LLM Judge calls that produce each score — and reports a single **total cost** that sums the two.
+
+Scoring cost is aggregated from the `_evaluator` traces stream, scoped to the experiment's LLM Judge spans (`llm_judge.evaluate`). Each billed attempt is counted once: redelivered attempts are deduplicated by span so a retry never bills twice. When any cost is missing — an unpriced call, a delayed trace, or a remote scorer with no observable price — the summary flags the total as **incomplete** rather than silently under-reporting.
+
+### Comparing experiments
+
+When you compare a candidate against a baseline, the comparison joins rows by their stable dataset logical ID and classifies each row as **improved**, **regressed**, **unchanged**, **new**, or **missing**.
+
+Two controls shape the verdict:
+
+- **Comparison criteria (outcome dimensions)** — choose which dimensions vote on the outcome. Each selectable dimension has a stable ID (`cost`, `latency`, or a score dimension). Omitting the selection compares every eligible dimension; an empty selection compares none, so every row becomes **inconclusive**. Dimensions you leave unselected still show their values and evidence, but they don't affect the verdict.
+- **Percentage threshold** — the threshold is now expressed as a percentage. Ranged numeric scores use the configured range; cost, latency, and unranged numeric scores use the baseline magnitude; boolean and categorical scores use the healthy-observation fraction. A move away from a zero baseline counts as one full directional change.
+
+Only gating dimensions vote: a score dimension gates when it is selected and its pinned score config declares a health policy, while cost and latency gate in the lower-is-better direction when selected. A row regresses when any selected dimension exceeds the threshold in the worse direction, and improves only when at least one selected dimension improves and none regress. A row with no gating dimension on either side is **inconclusive**.
+
 ## RBAC
 
 Online Evaluations resources have their own OFGA permissions:
@@ -343,7 +409,7 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `GET` | `/providers/{id}` | Get a provider |
 | `PUT` | `/providers/{id}` | Update a provider |
 | `DELETE` | `/providers/{id}` | Delete a provider |
-| `POST` | `/providers/{id}/test` | Test provider connectivity |
+| `POST` | `/providers/test` | Test a provider configuration without saving it (optionally pass `providerId` to test a stored provider) |
 
 ### Score Configs
 
@@ -401,6 +467,41 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `targetId` | Yes | The ID of the target to evaluate (a trace, span, or session ID, depending on the job's scope). |
 | `startTime` / `endTime` | Yes | The source telemetry window, in microseconds. |
 | `traceId` / `sessionId` / `spanId` | No | Pin the evaluation to a specific trace, session, or span. |
+
+### Experiments
+
+All endpoints are prefixed with `/api/{org_id}`.
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/experiments?includeSummary=true&datasetId={id}` | List experiments, optionally filtered by dataset and enriched with a per-row summary (`status`, progress, scores, cost) |
+| `POST` | `/experiments` | Create an experiment |
+| `GET` | `/experiments/{id}` | Get an experiment, always with its summary, preview, and results page |
+| `POST` | `/experiments/{id}/clone` | Clone an experiment |
+| `DELETE` | `/experiments/{id}` | Delete an experiment |
+| `PUT` | `/experiments/{id}/baseline` | Set this experiment as its dataset's baseline |
+| `DELETE` | `/experiments/{id}/baseline` | Clear this experiment's baseline flag |
+| `GET` | `/experiments/compare?baselineId={id}&candidateId={id}` | Compare a baseline and candidate experiment |
+
+**Compare query parameters**:
+
+| Parameter | Type | Description |
+|---|---|---|
+| `baselineId` | string | The baseline experiment ID (required). |
+| `candidateId` | string | The candidate experiment ID (required). |
+| `threshold` | number | Sensitivity for classifying movement as unchanged (defaults to the comparison policy default). |
+| `outcomeDimensions` | string | Comma-separated dimension IDs that vote on each row's outcome. Omit to use all eligible dimensions; pass an empty value to select none. |
+
+**Experiment summary fields** (returned on `includeSummary` and detail):
+
+| Field | Description |
+|---|---|
+| `status` | Consolidated status: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
+| `scoringStatus` | `pending`, `running`, `completed`, or `completed_with_errors`. |
+| `executionProgress` | `{ completed, total, skipped }` for the task phase. |
+| `scoringProgress` | `{ completed, total, skipped }` for the scoring phase. |
+| `scoreSummaries` | Per-scorer aggregate (`value`, sample/error/pending counts). |
+| `aggregateSummary` | Run-level facts: `p50LatencyMs`, `totalCost`, `taskCost`, `scoringCost`, `costIncomplete`, incomplete counts. |
 
 ## Super Cluster
 
