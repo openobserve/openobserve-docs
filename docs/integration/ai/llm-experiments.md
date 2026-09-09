@@ -1,6 +1,6 @@
 ---
 title: LLM Experiments
-description: Run offline, batch evaluations of your LLM applications in OpenObserve. Build versioned datasets of test cases, run immutable experiments with pinned scorers and trials, and compare results against a baseline.
+description: Run offline, batch LLM evaluations in OpenObserve: build versioned datasets, run pinned experiments, and compare results against a baseline.
 ---
 
 # LLM Experiments

@@ -1,3 +1,8 @@
+---
+title: LLM Evaluations
+description: Continuously score LLM traces and spans in OpenObserve using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
+---
+
 # LLM Evaluations
 
 OpenObserve provides two complementary evaluation capabilities: **Online Evaluations**, which continuously score your LLM application's traces and spans in production, and **Experiments**, which run scorers over a static dataset and compare two runs against each other. Both use configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
