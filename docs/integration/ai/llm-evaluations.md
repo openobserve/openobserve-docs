@@ -13,13 +13,13 @@ The Online Evaluations system has four core resources, each building on the prev
 | **Scorer** | The evaluation logic: a template with `{{variables}}`, parameters for execution, and a link to a score config that describes the output it produces. Two types exist: **LLM Judge** (calls an LLM via a provider) and **Remote** (calls an external HTTP endpoint). |
 | **Eval Job** | A running evaluation pipeline: binds one or more scorers to a specific stream, defines a **target scope** (span, trace, or session), which traces/spans to evaluate (filter), how many to sample, and manages the lifecycle (draft, active, paused, archived). |
 
-When you activate an eval job, the system creates a system-managed evaluation pipeline that runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
+When you activate an eval job, OpenObserve runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
 
 ![the Online Evaluations dashboard listing eval jobs](images/online-evaluations-1.png)
 
 ## Enable Online Evaluations
 
-Online Evaluations is an enterprise-only feature:where it is enabled by default. Set the enterprise configuration flag to control it:
+Online Evaluations is an enterprise-only feature, enabled by default. Set the enterprise configuration flag to control it:
 
 ```env
 O2_ONLINE_EVALS_ENABLED=true
@@ -64,15 +64,11 @@ Two provider types connect OpenAI-compatible evaluation endpoints, including sel
 - **`openai_compatible`**: A generic provider for any OpenAI-chat-completions-compatible service (e.g., MiniMax, or your own gateway). Because there is no standard base URL, you must supply the full request URL in **Endpoint** (for example `https://api.minimax.io/v1/chat/completions`). The endpoint is preserved exactly as configured.
 - **`vllm`**: A self-hosted vLLM OpenAI-compatible server. Defaults to `http://localhost:8000/v1/chat/completions`, so you can leave **Endpoint** empty to target a local vLLM instance.
 
-Both types reuse the OpenAI chat-completions request implementation, so any model served behind an OpenAI-compatible API works. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
-
-![the Add Provider form with the OpenAI-compatible provider type selected, showing the optional API key field](images/placeholder.png)
+Both types work with any model served behind an OpenAI-compatible API. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
 
 ### Test a provider
 
 Use the **Test Connection** button on the provider form to verify connectivity against a configuration before you save it. The test sends a lightweight request to the configured endpoint and credentials, and reports **Connected** or **Connection failed**. When editing an existing provider, pass the stored provider ID so the test resolves the saved credentials without you re-entering the API key.
-
-![the Test Connection result on the provider form](images/placeholder.png)
 
 ### Manage providers
 
@@ -198,11 +194,11 @@ The **Target Scope** determines what unit of evaluation the job scores:
 
 | Scope | What is evaluated | Completion logic |
 |---|---|---|
-| **Span** | Each matching span individually | Evaluated as soon as the span arrives. The system creates a hidden evaluation pipeline that processes spans in real time. |
+| **Span** | Each matching span individually | Evaluated in real time, as soon as the span arrives. |
 | **Trace** | An entire trace aggregated from multiple spans | The scheduler waits for the trace to complete (idle window + optional end signal), then assembles the aggregated payload. |
 | **Session** | A full conversation session spanning multiple traces | Uses session ID columns (`session_id`, `gen_ai_conversation_id`, `llm_session_id`, or `gen_ai.conversation.id`) to group traces. Completes on idle window or end signal. |
 
-Only span-scope jobs create a hidden evaluation pipeline. Trace and session jobs are detected by the Eval Scheduler, which polls trace streams for completed targets.
+Span-scope jobs evaluate in real time. Trace- and session-scope jobs are detected by the Eval Scheduler, which polls trace streams for completed targets.
 
 ### Trace and session completion
 
@@ -313,22 +309,11 @@ Use the action buttons on the job detail page to manage lifecycle transitions.
 
 ### Update a job
 
-Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, the underlying configuration is automatically reconciled:
-- Span-scope jobs: the hidden pipeline is updated with new filters, sampling, and scorers.
-- Trace/session jobs: if switching TO a span scope, a pipeline is created; if switching FROM a span scope, the old pipeline is torn down.
+Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, your changes — new filters, sampling, scorers, or a change of target scope — take effect automatically without needing to pause and resume.
 
-### Scoring pipeline
+### Where scores go
 
-Span-scope jobs create a `PipelineKind::Evaluation` pipeline behind the scenes. This pipeline is:
-
-- **Hidden** from the main Pipeline UI — it is managed exclusively by the eval jobs subsystem.
-- **Coexisting** with user pipelines on the same stream (no "one pipeline per stream" conflict).
-- **Automatically reconciled** when the job is updated.
-- **Terminating at an LLM evaluation task publisher** rather than writing to `_llm_scores` directly. Durable evaluation tasks are enqueued and processed asynchronously.
-
-Trace-scope and session-scope jobs do NOT create hidden pipelines. Instead, the Eval Scheduler polls trace streams periodically, detects completed targets using the configured idle window and end signal, and publishes evaluation tasks.
-
-Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreRecord` entries, and evaluator telemetry (latency, tokens, status) is recorded as OTLP spans in the `_evaluator` traces stream.
+Evaluated scores are written to the `_llm_scores` system stream, and evaluator telemetry (latency, tokens, status) is recorded in the `_evaluator` traces stream. You can query both streams directly for debugging or building dashboards.
 
 ## Quality Dashboard
 
@@ -370,7 +355,7 @@ Each summary reports:
 
 You can also filter the experiments list by dataset to narrow the view to a single dataset's runs.
 
-![TODO: screenshot of the Experiments list showing consolidated status, progress, and cost summary](images/placeholder.png)
+![Experiments list showing consolidated status, progress, and cost summary](images/experiment-status.png)
 
 ### Cost breakdown
 
@@ -388,8 +373,6 @@ Two controls shape the verdict:
 - **Percentage threshold** — the threshold is now expressed as a percentage. Ranged numeric scores use the configured range; cost, latency, and unranged numeric scores use the baseline magnitude; boolean and categorical scores use the healthy-observation fraction. A move away from a zero baseline counts as one full directional change.
 
 Only gating dimensions vote: a score dimension gates when it is selected and its pinned score config declares a health policy, while cost and latency gate in the lower-is-better direction when selected. A row regresses when any selected dimension exceeds the threshold in the worse direction, and improves only when at least one selected dimension improves and none regress. A row with no gating dimension on either side is **inconclusive**.
-
-![TODO: screenshot of the experiment comparison view with selectable comparison criteria and percentage threshold](images/placeholder.png)
 
 ## RBAC
 
