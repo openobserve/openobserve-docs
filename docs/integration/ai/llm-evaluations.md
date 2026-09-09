@@ -19,15 +19,13 @@ When you activate an eval job, the system creates a system-managed evaluation pi
 
 ## Enable Online Evaluations
 
-Online Evaluations is an enterprise-only feature: it is available in the OpenObserve Enterprise build, where it is enabled by default. Set the enterprise configuration flag to control it:
+Online Evaluations is an enterprise-only feature:where it is enabled by default. Set the enterprise configuration flag to control it:
 
 ```env
 O2_ONLINE_EVALS_ENABLED=true
 ```
 
-When enabled (the default), the **Evaluations** top-level navigation appears in the UI and the backend API routes for providers, score configs, scorers, and eval jobs are registered. When disabled, all evaluation pages and settings are hidden in the UI, the backend routes are not registered (requests return `404`), and any LLM evaluation node in a pipeline is skipped.
-
-In the OpenObserve community (OSS) build, Online Evaluations is not compiled in at all: the UI surface, the API endpoints, and the pipeline evaluation node are all absent.
+When disabled, the **Evaluations** navigation and all evaluation pages are hidden in the UI.
 
 ## Providers
 
