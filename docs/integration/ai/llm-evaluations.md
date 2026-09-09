@@ -1,8 +1,3 @@
----
-title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
----
-
 # LLM Evaluations
 
 Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
@@ -88,7 +83,7 @@ Score configs are versioned. Each config has a stable **entity ID** that stays t
 
 ## Scorers
 
-A Scorer is the executable evaluation unit. It contains a prompt **template** with `{{variable}}` placeholders, execution **parameters**, and an optional link to a **score config** that describes its output.
+A Scorer is the executable evaluation unit. It contains a prompt **template** with `{{variable}}` placeholders, execution **parameters**, and an optional link to a **score config** that describes its output. Scorer authoring is scope-agnostic: the template only declares `{{variables}}`, and what supplies each variable's value is mapped later at the **Eval Job** level.
 
 ### Scorer types
 
@@ -168,7 +163,7 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 | **Target Scope** | The evaluation granularity: `span` (score each matching span), `trace` (score a whole trace once it completes), or `session` (score an entire conversation session). |
 | **Filter Condition** | A JSON filter expression. Only spans matching this filter are considered. For trace/session scopes, this filter selects which traces or sessions are eligible. |
 | **Scorers** | One or more scorer references (by entity ID). The system evaluates each target against every listed scorer. |
-| **Input Mapping** | Per-scorer mapping of template variables to span attribute paths (e.g., `"input": "{{gen_ai_input_messages}}", "output": "{{gen_ai_output_messages}}"`). |
+| **Input Mapping** | Per-scorer mapping of each prompt variable to a **system-provided value** or a **span attribute** (e.g., `"input": "{{input}}"`, `"output": "{{gen_ai_output_messages}}"`). See [Input mapping](#input-mapping) below. |
 | **Sampling Mode** | `all` (evaluate everything) or `rate` (evaluate a percentage, e.g., `0.1` for 10%). |
 | **Sampling Value** | A scalar number (0--1) for rate mode, or `null` for all mode. |
 
@@ -236,9 +231,34 @@ A span selector defines:
 | **Fields** | (Custom mode) The span attribute columns to include in the payload sent to the scorer. |
 | **Maximum Spans** | The maximum number of matching spans to include (default 5). |
 
-Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. Every scorer in a trace-scope job must have a binding before the job can be activated.
+Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. A scorer needs a binding only when it actually uses spans: either its template declares `{{ spans }}` directly, or one of its mapped variables resolves to `{{ spans }}`. Scorers that never reference spans don't require a selector, and the job form only shows the Span Selector control for span-using scorers. A trace-scope job cannot be activated until every span-using scorer has a binding.
 
 ![span selector configuration](images/trace-session-evaluations-3.png)
+
+### Input mapping
+
+Each scorer's prompt `{{variables}}` are mapped to their sources per eval job, in the job form's **Prompt variables** section. Every variable the scorer's template declares gets a row with a searchable dropdown that lists the available sources in two groups:
+
+- **System-provided values** — values OpenObserve derives from the evaluated target itself (trace or session scope only).
+- **Span attributes** — fields from the trace stream.
+
+![TODO: screenshot of the eval job Prompt variables section with grouped mapping dropdown](images/placeholder.png)
+
+For span-scope jobs, every variable maps to a span attribute and is seeded with a sensible default (`input` → `{{gen_ai_input_messages}}`, `output` → `{{gen_ai_output_messages}}`, and so on). For trace and session scopes, the variables OpenObserve provides are pre-filled as their own source (for example `{{input}}`, `{{statistics}}`, `{{steps}}`, `{{spans}}`), and you can override any of them to a span attribute instead. Use the copy button next to each dropdown to copy a mapping expression.
+
+The **About system-provided values** link opens a reference drawer that lists every system-provided value for the job's target scope, where it comes from, and what it supplies:
+
+![TODO: screenshot of the About system-provided values reference drawer](images/placeholder.png)
+
+| Value | Trace scope | Session scope |
+|---|---|---|
+| `input` | Input from the trace's root span | — |
+| `output` | Output from the trace's root span | — |
+| `statistics` | Trace metrics: span count, duration, LLM and tool calls, errors, tokens, and cost | Session metrics: trace and turn counts, duration, and errors |
+| `steps` | Spans in time order, with the middle folded for very long traces | Traces in time order, represented as conversation turns |
+| `spans` | A filtered subset of the trace's spans, chosen by the Span Selector | — |
+
+The `spans` value is special: mapping a variable to `{{ spans }}` marks the scorer as span-using and requires a **Span Selector** binding (see [Span selectors](#span-selectors-trace-scope) above). Mappings to system-provided values are persisted with the job, so the system knows exactly which values each scorer consumes.
 
 ### Manual evaluation
 
@@ -394,7 +414,7 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `traceConfig` | object | Completion config for trace-scope jobs: `idleWindowSecs`, `maxAgeSecs`, `endSignal` (optional condition). |
 | `sessionConfig` | object | Completion config for session-scope jobs: `idleWindowSecs`, `maxAgeSecs`, `endSignal` (optional condition). |
 | `spanSelectors` | array | (Trace scope only) Named sub-queries that select spans within a trace for each scorer. |
-| `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required for activation. |
+| `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required only for scorers that use spans. |
 | `samplingValue` | number \| null | A scalar between 0 and 1 for rate mode; `null` for all mode. |
 
 ## Super Cluster
