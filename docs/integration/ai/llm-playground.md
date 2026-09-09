@@ -16,9 +16,9 @@ The Playground is a two-dimensional board:
 
 A **cell** is the intersection of a variant and a case. **Run** a cell to stream the model's answer back live; **score** a cell to run your scorers against it and read each judge's verdict and reasoning.
 
-The Playground is volatile by design. Opening it and running it persist nothing — a run writes no `_llm_scores` row and no evaluator trace, so your drafts never pollute the analytics the Playground exists to improve. Sharing is the single moment state crosses the server boundary: a snapshot copies every column, row, result, and score **by value**, so it keeps rendering even after the dataset, scorer, or provider it came from has changed or been deleted.
+The Playground is volatile by design: opening it and running it persist nothing, so your drafts never affect the analytics the Playground exists to improve. Sharing is the only action that saves anything — it copies every column, row, result, and score into a snapshot, which keeps rendering even after the dataset, scorer, or provider it came from has changed or been deleted.
 
-![TODO: screenshot of the Playground workbench showing variant columns and case rows](images/placeholder.png)
+![Playground workbench showing variant columns and case rows](images/playground-2d.png)
 
 ## Build a variant
 
@@ -29,11 +29,11 @@ Each column is a variant. Configure it with:
 | **Provider** | The LLM provider to call. You can only use providers you are allowed to see. |
 | **Model** | Optional model override. Leave empty to use the provider's default model. |
 | **Messages** | The prompt as an ordered list of `role` + `content` messages. String content is templated with `{{variables}}`; structured content is passed through untouched. |
-| **Parameters** | Sampling parameters. `temperature` and `max_tokens` map to the provider's own fields; every other key rides through untouched, so you can reach provider-specific options without a schema change. |
+| **Parameters** | Sampling parameters. `temperature` and `max_tokens` map to the provider's own fields; any other key is passed through to the provider as-is. |
 | **Tools** | Tool definitions passed to the provider. If the model chooses to call a tool, the call is rendered as the cell's output — nothing is executed. |
 | **Response Format** | An optional structured-output schema for the provider. |
 
-![TODO: screenshot of the variant configuration panel with provider, model, messages, and parameters](images/placeholder.png)
+![The variant configuration panel with provider, model, messages, and parameters](images/playground-variant.png)
 
 ### Variables
 
@@ -58,13 +58,11 @@ Each row is a case. A case supplies the input every variant renders against, and
 
 Running a cell streams the model's answer back as Server-Sent Events. The first event is the **rendered** prompt — exactly what was sent, including how the row's variables were bound — followed by incremental text deltas and a terminal `done` event carrying the model used, latency, and token usage and cost.
 
-Everything that can fail before the first byte (an invisible provider, an unrenderable message, an invalid parameter) resolves up front, so you get a real status code. Once the stream is open, an upstream failure arrives as an `error` frame inside the stream. Upstream rate limits and gateway failures are surfaced faithfully, including the provider's `Retry-After` guidance, and any API key in an upstream error body is redacted before it reaches you.
-
-![TODO: screenshot of a cell streaming the model's answer with the rendered prompt and usage](images/placeholder.png)
+Configuration errors (an inaccessible provider, an unrenderable message, an invalid parameter) are caught before streaming starts and return a normal error response. Once streaming begins, an upstream failure — including rate limits and other gateway errors — arrives as an `error` event in the stream. Any API key in an upstream error is redacted before it reaches you.
 
 ## Score a cell
 
-Scoring a cell runs your scorers against it synchronously and returns one verdict per scorer — nothing is written to `_llm_scores` or the trace stream, so throwaway scores never enter the record that experiments are compared against. Select the scorers you want to apply to a cell, then run them.
+Scoring a cell runs your scorers against it synchronously and returns one verdict per scorer — nothing is saved, so throwaway scores never affect your experiment comparisons. Select the scorers you want to apply to a cell, then run them.
 
 Each result reports one of three outcomes:
 
@@ -76,25 +74,21 @@ Each result reports one of three outcomes:
 
 Scorers are resolved at their **latest** version. Pinning to a specific version happens when you promote a column to an Experiment, not while you are drafting.
 
-![TODO: screenshot of scorer verdicts on a cell showing scores, reasoning, and skipped scorers](images/placeholder.png)
-
 ## Tool calls and structured output
 
 When a variant defines **tools**, a model that chooses to call one returns the call — name and assembled arguments — as the cell's output rather than executing anything. This lets you iterate on tool definitions without wiring up an execution environment.
 
 When a variant sets a **response format**, the provider is asked for structured output, and the returned structure is shown as the result.
 
-![TODO: screenshot of the tools and response format configuration dialog](images/placeholder.png)
-
 ## Share a snapshot
 
-Share captures the entire board — every column, row, result, and score — into an immutable snapshot and returns a short link you can hand to a teammate. Sharing stores the workbench by value, so a snapshot keeps rendering even after the dataset, scorer, or provider it came from changes or is deleted.
+Share captures the entire board — every column, row, result, and score — into an immutable snapshot and returns a short link you can hand to a teammate. The snapshot keeps rendering even after the dataset, scorer, or provider it came from changes or is deleted.
 
-Snapshots are immutable: editing a shared board does not update the existing snapshot — it shares a new one, optionally carrying the previous snapshot as a weak lineage link (`parent_snapshot_id`). Sharing a fork of a snapshot that has since expired still succeeds, so you never lose work you are trying to keep.
+Editing a shared board does not update the existing snapshot — it creates a new one.
 
-A snapshot is visible only to its organization. Hidden snapshots answer as "not found", so their existence cannot be probed.
+A snapshot is visible only within your organization.
 
-![TODO: screenshot of the share snapshot dialog showing the short link](images/placeholder.png)
+![The share snapshot dialog showing the short link](images/share-snapshot.png)
 
 ### Limits and retention
 
@@ -103,8 +97,6 @@ Shared snapshots are subject to workbench limits and a sliding retention window:
 - A snapshot payload may hold up to **4 columns**, **10 rows**, and **1 MB** of data.
 - Snapshots expire after a configurable number of days of **not being opened**; opening one renews its window.
 - Each organization is capped at a configurable number of snapshots; over the cap, the least recently opened are purged first.
-
-A background cleanup job enforces both rules, removing a bounded number of snapshots per pass so a single sweep never holds a long transaction.
 
 ## Promote to a Dataset or Experiment
 
@@ -127,8 +119,8 @@ The Playground is part of the enterprise AI Observability / Online Evaluations s
 
 The Playground has its own OFGA resource type, `playground`, with the standard `GET`, `LIST`, `POST`, `PUT`, and `DELETE` grants. Two details matter:
 
-- **Run** and **Score** persist nothing, but both spend real money — they call a provider or a judge — so they require the write grant (`POST`) rather than a read, preventing a read-only user from driving the organization's spend.
-- You can only use providers and scorers you are allowed to see. An unusable reference is answered as a denial (or "not found") so resource IDs cannot be probed through the Playground.
+- **Run** and **Score** require the write grant (`POST`), even though they persist nothing — both call a provider or judge and spend real money, so a read-only user can't drive the organization's spend.
+- You can only use providers and scorers you have access to.
 
 Assign the appropriate roles in **Identity & Access Management > Roles** to control Playground access.
 
