@@ -1,6 +1,7 @@
 nav:
     - LLM Applications: llm-applications.md
     - LLM Evaluations: llm-evaluations.md
+    - LLM Experiments: llm-experiments.md
     - LLM Annotations and Datasets: llm-annotations-and-datasets.md
     - LLM Playground: llm-playground.md
     - Claude Code Tracing: claude-code-tracing.md
