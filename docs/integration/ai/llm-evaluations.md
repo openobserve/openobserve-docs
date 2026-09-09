@@ -1,6 +1,6 @@
 # LLM Evaluations
 
-Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
+OpenObserve provides two complementary evaluation capabilities: **Online Evaluations**, which continuously score your LLM application's traces and spans in production, and **Experiments**, which run scorers over a static dataset and compare two runs against each other. Both use configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
 
 ## Overview
 
@@ -70,7 +70,9 @@ Both types reuse the OpenAI chat-completions request implementation, so any mode
 
 ### Test a provider
 
-From the provider detail page, use the **Test** button to verify connectivity. The system sends a test request using the configured endpoint and credentials.
+Use the **Test Connection** button on the provider form to verify connectivity against a configuration before you save it. The test sends a lightweight request to the configured endpoint and credentials, and reports **Connected** or **Connection failed**. When editing an existing provider, pass the stored provider ID so the test resolves the saved credentials without you re-entering the API key.
+
+![the Test Connection result on the provider form](images/placeholder.png)
 
 ### Manage providers
 
@@ -348,6 +350,70 @@ The runs table supports pagination and filtering (all runs or unhealthy only). S
 
 ![evaluation runs table in quality detail](images/trace-session-evaluations-6.png)
 
+## Experiments
+
+Experiments run your scorers against a **dataset** - a pinned collection of input cases - and let you compare two runs to measure whether a change improved or regressed your application. While Online Evaluations score live traffic, Experiments score a fixed snapshot of cases, so they are the right tool for offline benchmarking, regression checks, and CI assertions.
+
+### Concepts
+
+| Resource | What it does |
+|---|---|
+| **Dataset** | A versioned collection of cases (rows). Each case has an `input` and an optional `expected_output`, and can carry metadata for your task to branch on. |
+| **Experiment** | A single run: a **task** (how outputs are produced) plus one or more pinned **scorers** (how those outputs are scored) against a dataset snapshot. |
+| **Trial** | One execution attempt of a case. An experiment can run multiple trials per case to measure variance. |
+| **Slot** | The atomic unit of work - one case × one trial. Task execution produces the output for a slot; scoring produces its scores. |
+| **Baseline** | The reference experiment for a dataset. At most one experiment per dataset is the baseline. |
+
+An experiment's task is one of three kinds:
+
+- **Inline prompt** - messages sent to an LLM through a configured provider.
+- **Remote task** - a pinned `name@version` of a published Remote Task.
+- **SDK** - your own client-side code, identified by a task fingerprint; your process reports the outputs.
+
+![the Experiments list grouped by dataset](images/placeholder.png)
+
+### Status and summary
+
+Every experiment tracks two separate lifecycles: **execution** (producing task outputs) and **scoring** (producing scores from those outputs). The experiment list and detail pages surface a consolidated status that merges the two:
+
+| Status | Meaning |
+|---|---|
+| **Pending** | Execution has not started. |
+| **Running** | Execution is in progress. |
+| **Scoring** | Execution is complete; scoring is still running. |
+| **Completed** | Both execution and scoring finished cleanly. |
+| **Cancelled** | The run was cancelled. |
+| **Execution Failed** | The task phase failed. |
+| **Scoring Failed** | Scoring completed, but at least one score exhausted its attempts. |
+
+Under the hood, `scoringStatus` is one of `pending`, `running`, `completed`, or `completed_with_errors` (completed, but at least one applicable score failed). The stored execution lifecycle remains available separately as `executionStatus` (used by cancel/retry actions).
+
+### Cost breakdown
+
+The experiment detail page reports total cost as the sum of **task cost** (running your task) and **scoring cost** (running your scorers). When scoring cost cannot be fully determined yet, the cost card is labelled **Partial**.
+
+![the experiment detail metric cards including the task/scoring cost breakdown](images/placeholder.png)
+
+### Baseline
+
+Each dataset has a single **baseline** experiment - the fixed reference every other run is compared against. Use the pin button on an experiment row to set or clear it:
+
+- Only a **completed** run can be pinned as baseline; a pending, running, or failed run has no stable results to reference.
+- Clearing a baseline is always allowed.
+- Pinning a baseline automatically selects it for the next comparison.
+
+Marking an experiment as baseline helps you and your team identify the baseline at a glance.
+
+### Comparing experiments
+
+A comparison measures how a **candidate** experiment moved against the **baseline** on the same dataset. Each comparable dimension (a score, cost, or latency) reports a delta, an oriented delta (positive always means improved), and a per-row bucket: **improved**, **regressed**, **unchanged**, or **inconclusive**.
+
+Use the **Threshold** selector to set the sensitivity: baseline and candidate values within that percentage of each other count as unchanged rather than improved or regressed.
+
+Use the **Outcome criteria** selector to choose which dimensions actually vote on each row's overall outcome. A dimension is selectable only when it has a comparison policy; other dimensions are still shown but do not affect the outcome. If no dimensions are selected, every comparable row shows as **Not Compared**.
+
+![the comparison panel with the outcome criteria and threshold selectors](images/placeholder.png)
+
 ## RBAC
 
 Online Evaluations resources have their own OFGA permissions:
@@ -374,7 +440,7 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `GET` | `/providers/{id}` | Get a provider |
 | `PUT` | `/providers/{id}` | Update a provider |
 | `DELETE` | `/providers/{id}` | Delete a provider |
-| `POST` | `/providers/{id}/test` | Test provider connectivity |
+| `POST` | `/providers/test` | Test a provider configuration without saving it (optionally pass `providerId` to test a stored provider) |
 
 ### Score Configs
 
@@ -424,6 +490,41 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `spanSelectors` | array | (Trace scope only) Named sub-queries that select spans within a trace for each scorer. |
 | `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required for activation. |
 | `samplingValue` | number \| null | A scalar between 0 and 1 for rate mode; `null` for all mode. |
+
+### Experiments
+
+All endpoints are prefixed with `/api/{org_id}`.
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/experiments?includeSummary=true&datasetId={id}` | List experiments, optionally filtered by dataset and enriched with a per-row summary (`status`, progress, scores, cost) |
+| `POST` | `/experiments` | Create an experiment |
+| `GET` | `/experiments/{id}` | Get an experiment, always with its summary, preview, and results page |
+| `POST` | `/experiments/{id}/clone` | Clone an experiment |
+| `DELETE` | `/experiments/{id}` | Delete an experiment |
+| `PUT` | `/experiments/{id}/baseline` | Set this experiment as its dataset's baseline |
+| `DELETE` | `/experiments/{id}/baseline` | Clear this experiment's baseline flag |
+| `GET` | `/experiments/compare?baselineId={id}&candidateId={id}` | Compare a baseline and candidate experiment |
+
+**Compare query parameters**:
+
+| Parameter | Type | Description |
+|---|---|---|
+| `baselineId` | string | The baseline experiment ID (required). |
+| `candidateId` | string | The candidate experiment ID (required). |
+| `threshold` | number | Sensitivity for classifying movement as unchanged (defaults to the comparison policy default). |
+| `outcomeDimensions` | string | Comma-separated dimension IDs that vote on each row's outcome. Omit to use all eligible dimensions; pass an empty value to select none. |
+
+**Experiment summary fields** (returned on `includeSummary` and detail):
+
+| Field | Description |
+|---|---|
+| `status` | Consolidated status: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
+| `scoringStatus` | `pending`, `running`, `completed`, or `completed_with_errors`. |
+| `executionProgress` | `{ completed, total, skipped }` for the task phase. |
+| `scoringProgress` | `{ completed, total, skipped }` for the scoring phase. |
+| `scoreSummaries` | Per-scorer aggregate (`value`, sample/error/pending counts). |
+| `aggregateSummary` | Run-level facts: `p50LatencyMs`, `totalCost`, `taskCost`, `scoringCost`, `costIncomplete`, incomplete counts. |
 
 ## Super Cluster
 
