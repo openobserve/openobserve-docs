@@ -48,14 +48,25 @@ Navigate to **Evaluations > Providers** and click **Add Provider**.
 | Field | Description |
 |---|---|
 | **Name** | Display name for the provider. |
-| **Provider Type** | The provider kind (`openai`, `anthropic`, `azure`, `gemini`, etc.). Determines the API protocol. |
-| **Endpoint** | Override the default API base URL. Leave empty to use the provider's standard endpoint. |
-| **Default Model** | The model used when no model is specified on the scorer. |
+| **Provider Type** | The provider kind (`openai`, `deepseek`, `anthropic`, `ollama`, `openai_compatible`, or `vllm`). Determines the API protocol and default endpoint. |
+| **Endpoint** | The full request URL. For most provider types this overrides the standard endpoint (leave empty to use the default). For `openai_compatible`, an explicit full request URL is required. |
+| **Default Model** | The model used when no model is specified on the scorer. Required for `openai_compatible` and `vllm`, which have no default. |
 | **Available Models** | List of model IDs this provider supports. Used for model selection in scorers. |
-| **Auth Config** | Credentials in JSON format (e.g., `{"api_key": "sk-..."}`). Masked in API responses. |
+| **Auth Config** | Credentials in JSON format (e.g., `{"api_key": "sk-..."}`). Optional for keyless self-hosted providers (`openai_compatible`, `vllm`, `ollama`). The form marks the API key as required (`*`) only for `openai`, `deepseek`, and `anthropic`. Masked in API responses. |
 | **Is Default** | When set, this provider is preselected when creating new LLM Judge scorers. |
 
 ![the Add Provider form](images/online-evaluations-3.png)
+
+### OpenAI-compatible and vLLM providers
+
+Two provider types connect OpenAI-compatible evaluation endpoints, including self-hosted models:
+
+- **`openai_compatible`**: A generic provider for any OpenAI-chat-completions-compatible service (e.g., MiniMax, or your own gateway). Because there is no standard base URL, you must supply the full request URL in **Endpoint** (for example `https://api.minimax.io/v1/chat/completions`). The endpoint is preserved exactly as configured.
+- **`vllm`**: A self-hosted vLLM OpenAI-compatible server. Defaults to `http://localhost:8000/v1/chat/completions`, so you can leave **Endpoint** empty to target a local vLLM instance.
+
+Both types reuse the OpenAI chat-completions request implementation, so any model served behind an OpenAI-compatible API works. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
+
+![the Add Provider form with the OpenAI-compatible provider type selected, showing the optional API key field](images/placeholder.png)
 
 ### Test a provider
 
@@ -63,7 +74,7 @@ From the provider detail page, use the **Test** button to verify connectivity. T
 
 ### Manage providers
 
-- **Update**: Edit any field. The provider is updated in-place.
+- **Update**: Edit any field. The provider is updated in-place. If you leave the API key blank when updating, the existing key is preserved (so you don't accidentally clear or rotate it); supply a non-empty `api_key` to replace it.
 - **Delete**: Removes the provider. Scorers referencing a deleted provider will fail until reassigned.
 
 ## Score Configs
