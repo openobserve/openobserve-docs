@@ -5,114 +5,90 @@ description: Run offline, batch LLM evaluations in OpenObserve, build versioned 
 
 # LLM Experiments
 
-Experiments bring offline, batch evaluation to OpenObserve's LLM Evaluations. Where [Online Evaluations](llm-evaluations.md) score live traces and spans as they arrive, Experiments run a controlled set of **Dataset cases** through a task and a fixed set of scorers, then let you compare two runs against each other to decide whether a change actually improved your application.
+Experiments bring offline, batch evaluation to LLM Evaluations. Where [Online Evaluations](llm-evaluations.md) score live traces as they arrive, Experiments run a fixed set of **Dataset cases** through a task and scorers, then let you compare two runs to see whether a change actually improved your application.
 
 ## Overview
 
-An Experiment is an immutable evaluation plan: it pins a **Dataset snapshot**, a **task** (what generates the output), a set of **scorers** (what judges the output), and a **trial count** (how many times each case runs). Creating an Experiment produces a deterministic set of **slots** — one per case per trial — which the platform then executes and scores.
-
-The core resources build on each other:
-
 | Resource | What it does |
 |---|---|
-| **Dataset** | A versioned collection of evaluation cases. Each case has an `input`, an optional `expected_output` (a reference answer), metadata, and tags. |
-| **Dataset Item** | One case in a Dataset. Items are append-only — every edit writes a new revision, so any past state can be pinned and reproduced. |
-| **Experiment** | An immutable plan that pins a Dataset snapshot, a task, scorers (each at a specific version), and a trial count. |
-| **Slot** | One unit of work: a single case running a single trial. An Experiment with `N` cases and `T` trials plans `N × T` slots. |
-| **Remote Task** | A published, versioned task (e.g., an external HTTP endpoint) that an Experiment can reference by `name@version`. |
-| **Comparison** | A side-by-side, deterministic comparison of two Experiments on the same Dataset, bucketing each case as regressed, improved, unchanged, new, or missing. |
+| **Dataset** | A versioned collection of evaluation cases (`input`, optional `expected_output`, metadata, tags). |
+| **Dataset Item** | One case in a Dataset. Edits are append-only, so any past version can be reproduced. |
+| **Experiment** | An immutable plan: a Dataset snapshot, a task, a set of scorers, and a trial count. |
+| **Slot** | One unit of work: a case running once. `N` cases × `T` trials = `N × T` slots. |
+| **Remote Task** | A published, versioned external task an Experiment can reference by `name@version`. |
+| **Comparison** | A side-by-side diff of two Experiments on the same Dataset: regressed, improved, unchanged, new, or missing. |
 
 ## Enable Experiments
 
-Experiments are part of the enterprise LLM Evaluations feature. Enable Online Evaluations first:
+Experiments are part of the enterprise LLM Evaluations feature; enable Online Evaluations first:
 
 ```env
 ZO_ONLINE_EVALS_ENABLED=true
 ```
 
-When enabled, the **AI Observability** navigation appears with **Datasets**, **Experiments**, and the **Compare** view. You need at least one **Provider**, **Score Config**, and **Scorer** (see [LLM Evaluations](llm-evaluations.md)) before you can run a meaningful Experiment.
+This adds **AI Observability > Datasets**, **Experiments**, and **Compare** to the navigation. You'll also need at least one **Provider**, **Score Config**, and **Scorer** (see [LLM Evaluations](llm-evaluations.md)).
 
 ## Datasets
 
-A Dataset is the ground truth an Experiment runs against. To create one, navigate to **AI Observability > Datasets**, click **Add Dataset**, and give it a name, an optional description, and tags. You can then add cases manually, pull them from annotated traces, or upsert them programmatically from your own pipeline.
+Navigate to **AI Observability > Datasets > Add Dataset** and give it a name, description, and tags. Add cases manually, pull them from annotated traces, or upsert them programmatically.
 
-### Add cases
+### Cases
 
-A case is the pair of `input` (the prompt or payload) and an optional `expected_output` (the reference answer). The reference answer is now optional: a scorer that only needs `{{input}}` and `{{output}}` — for example a style or safety judge — can run on cases that never declare an expected answer.
-
-Each case records its **source**:
-
-| Source | How the case was created |
-|---|---|
-| **Manual** | Added by hand through the UI or the Dataset item API. |
-| **Trace** | Promoted from a captured trace. |
-| **Annotation** | Adjudicated from an annotation queue (see [LLM Evaluations](llm-evaluations.md)). |
-
-### Dataset detail, source counts, and versioning
-
-The Dataset detail page lists the cases and shows a live item count broken down by source (**trace**, **annotation**, **manual**). The counts always reflect the current, non-deleted cases.
+A case pairs an `input` with an optional `expected_output` (a reference answer). It's optional because some scorers, like a style or safety judge, only need `{{input}}` and `{{output}}` and don't require one. Each case records its source: **Manual**, **Trace** (promoted from a captured trace), or **Annotation** (from an annotation queue).
 
 ![Dataset detail page showing items and source counts](images/dataset-version-history.png)
 
-Every write to a Dataset creates a new version, so you can read the Dataset as it existed at any past point. An Experiment pins a specific snapshot version, so later edits or deletions never affect a run already in progress — a pinned snapshot is stable forever.
+Every write to a Dataset creates a new version, so you can read it as it existed at any past point. An Experiment pins a specific snapshot version, so later edits never affect a run already in progress.
 
 ### Programmatic upserts
 
-For CI pipelines and SDK integrations, the Dataset upsert API creates or updates cases under a client-supplied identity:
+The Dataset upsert API creates or updates cases by a client-supplied `logicalId`. Key fields:
 
 | Field | Description |
 |---|---|
-| `logicalId` | A stable ID for the case. Omit it to append a new case with a server-generated identity. |
-| `input` / `expectedOutput` | The case content. `expectedOutput` may be omitted. |
-| `ifRowId` | The revision you read. Required whenever `logicalId` names a case that already exists — this prevents your update from overwriting a more recent edit. |
-| `restore` | Consent to bring a soft-deleted case back. Without it, updating a deleted case is a conflict. |
-| `idempotencyKey` | A client key that makes the whole batch retry-safe. Re-sending the same key with the same content replays the stored result instead of writing again. |
+| `logicalId` | Stable case ID. Omit to append a new case. |
+| `input` / `expectedOutput` | Case content; `expectedOutput` is optional. |
+| `ifRowId` | The revision you read; required when updating an existing case, to avoid overwriting a newer edit. |
+| `restore` | Required to bring back a soft-deleted case. |
+| `idempotencyKey` | Makes a retried batch safe to re-send. |
 
-The whole batch commits or rolls back atomically, and unchanged content appends no new revision (repeated runs don't inflate the Dataset's version history).
+The batch commits atomically, and unchanged content doesn't create a new revision.
 
 ## Experiments
 
-The Experiments list shows every experiment's consolidated status, execution and scoring progress, and cost summary. Filter it by Dataset to narrow the view to a single dataset's runs.
+The Experiments list shows each run's status, progress, and cost, filterable by Dataset.
 
 ![Experiments list showing consolidated status, progress, and cost summary](images/experiment-status.png)
 
 ### Create an experiment
 
-Navigate to **AI Observability > Experiments** and click **Add Experiment**. The form guides you through the plan:
+Navigate to **AI Observability > Experiments > Add Experiment**.
 
 ![Experiment creation form](images/new-experiment.png)
 
 | Field | Description |
 |---|---|
-| **Name / Description** | Display name and an optional description. |
-| **Dataset** | The Dataset to evaluate, plus the **snapshot version** to pin (defaults to the current version) and an optional **filter** to select a subset of cases. |
-| **Task** | How each case's output is produced — see task types below. |
-| **Scorers** | One or more scorers, each pinned to a specific version. |
-| **Trial Count** | How many times each case runs. Bounded by the `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT` configuration (default `10`). |
+| **Name / Description** | Display name and optional description. |
+| **Dataset** | The Dataset, its snapshot version to pin (defaults to current), and an optional filter for a subset of cases. |
+| **Task** | How output is produced; see task types below. |
+| **Scorers** | One or more scorers, each pinned to a version. |
+| **Trial Count** | Runs per case (default max 10, configurable via `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT`). |
 
 ### Task types
 
-The task is what actually produces the output that scorers judge:
-
 | Type | Description |
 |---|---|
-| **Inline Prompt** | The platform calls an LLM provider with a message template (e.g., `Answer: {{input}}`). You choose a provider, an optional model, and extra parameters. |
-| **Remote Task** | References a published Remote Task by `name@version` (never "latest"), so a run cannot drift from the version a test connection verified. Only `maxConcurrency` and `timeoutMs` may be overridden. |
-| **SDK** | The customer's own process produces the output. The Experiment pins a `taskFingerprint` that every reported execution record must repeat — changed code is a new Experiment, never a continuation of the old one. SDK Experiments may declare no platform scorers and report their own scores instead. |
+| **Inline Prompt** | The platform calls an LLM provider directly with a message template (e.g., `Answer: {{input}}`). |
+| **Remote Task** | References a published Remote Task by `name@version`, so the run can't drift to an unverified version. |
+| **SDK** | Your own process produces the output and reports it back, pinned to a `taskFingerprint`; changed code means a new Experiment. |
 
 ### Preview and cost estimate
 
-Before you commit, the form shows a preview of the plan: the number of rows, slots (`rows × trials`), the pinned scorer versions, and an **applicability** breakdown that flags cases with no reference answer (which a reference-based scorer can't judge).
+Before creating, the form previews the plan: row/slot counts, pinned scorer versions, and any cases missing a reference answer a scorer needs. It also estimates cost in USD (`slots × tokens`, using known model pricing). Above a warning threshold (default $10) you must explicitly confirm. Plans are capped at 10,000 slots.
 
 ![Experiment preview panel showing applicability and cost estimate](images/experiment-status.png)
 
-The preview also shows an order-of-magnitude **cost estimate** in USD: `slots × (task tokens + each judge's tokens)`, priced with the same table used for real calls. Models with no known price are reported as unknown rather than free, and Remote/SDK task execution (which runs in your own environment) is reported as not estimated. Above a warning threshold (default `$10.00`), creation requires an explicit `confirmCostEstimate` acknowledgement — the estimate is a planning aid, not a spending limit.
-
-The plan is capped at `10,000` slots, so an oversized Dataset selection or trial count is rejected up front rather than started.
-
 ### Lifecycle
-
-Experiments follow a state machine:
 
 ```
 pending → running → completed
@@ -122,94 +98,61 @@ pending → running → completed
             failed → (retry) → running
 ```
 
-An Experiment starts **running** as soon as it's created and runs within a 24-hour deadline window. `failed` Experiments stay resumable: a coordinated retry can restart unfinished slots without reopening the whole run.
+An Experiment starts running as soon as it's created, within a 24-hour window. A `failed` run can be retried without restarting finished slots.
 
 ### Baseline and cloning
 
-Each Dataset can have one **Baseline** Experiment — the run every comparison defaults to. Only a completed Experiment with no task errors and settled scoring is eligible. Setting a Baseline replaces the previous one, so a Dataset never has two Baselines at once.
-
-You can also clone an Experiment to reuse its frozen definition. A clone inherits every field from its source; any override you omit is kept, so a bare request reproduces the source exactly (with a `(copy)` name suffix).
+Each Dataset can have one **Baseline** Experiment: the default comparison target. Only a completed run with no task errors is eligible; setting a new Baseline replaces the old one. You can also **clone** an Experiment to reuse its definition, with a `(copy)` suffix.
 
 ## Experiment results
 
-The detail page shows every slot's execution and score evidence in the plan's original order. Slots with no evidence yet stay visible as placeholders, so a live run never hides work it still owes.
+The detail page shows every slot's status and score, in plan order, including slots still pending, so a live run never hides unfinished work.
 
-Each slot reports:
+Each slot reports a **task status** (`pending`, `in_progress`, `ok`, `skipped`, `error`) and a score per pinned scorer (plus any client-reported scores for SDK Experiments). Run-level summaries show progress, skip reasons, and per-scorer aggregates, plus an overall scoring status (`pending`/`running`/`completed`/`completed_with_errors`). Comparisons and CI checks should wait for `completed`.
 
-- A **task status** (`pending`, `in_progress`, `ok`, `skipped`, `error`) derived from its execution record.
-- One **score entry per pinned scorer**, plus any **client scores** the customer's own code reported.
-
-Run-level summaries include task and scoring progress, a skip summary (cases skipped for a missing reference or a missing execution trace), and per-scorer aggregates — numeric means, boolean counts, or categorical counts. A derived **scoring status** (`pending`, `running`, `completed`, `completed_with_errors`) tells you whether scoring has settled; a comparison or CI assertion only becomes final once it has.
-
-For SDK Experiments, results are reported back through the ingest API, which accepts records **per part, not per batch**: one malformed record doesn't discard the good ones beside it, and each accepted part is idempotent (re-sending an acknowledged part is a no-op). A record whose `taskFingerprint` doesn't match, or any new evidence written after the Experiment is sealed, is refused.
+For SDK Experiments, results come back through an ingest API that accepts records one at a time: a bad record doesn't block the rest, and resending an accepted one is a no-op.
 
 ## Comparing experiments
 
-Use the **Compare** view to pit a candidate Experiment against a Baseline on the same Dataset.
-
-Rows are joined by stable dataset `logicalId`. Each case is bucketed:
+Use **Compare** to pit a candidate Experiment against a Baseline on the same Dataset. Cases are matched by `logicalId` and bucketed:
 
 | Bucket | Meaning |
 |---|---|
-| **Regressed** | At least one gating dimension moved past the threshold in the worse direction. |
-| **Improved** | At least one gating dimension improved and none regressed. |
-| **Unchanged** | No gating dimension moved beyond the threshold. |
-| **Inconclusive** | A common case with no gating dimension scored on both sides — there's no evidence to call it either way. |
-| **New / Missing** | Present only on the candidate (new) or only on the baseline (missing). |
+| **Regressed** | A gating dimension got worse past the threshold. |
+| **Improved** | A gating dimension improved, none regressed. |
+| **Unchanged** | No gating dimension moved past the threshold. |
+| **Inconclusive** | No gating dimension was scored on both sides. |
+| **New / Missing** | Present only on the candidate or only on the baseline. |
 
-Direction is never guessed. A score dimension can vote (be **gating**) only when its pinned Score Config declares a comparison policy: a numeric direction (`gte` = higher is better, or `lte` = lower is better), healthy categories, or a healthy boolean value. **Cost** and **latency** are the only dimensions with an intrinsic direction — lower is always better. Everything else is **descriptive**: its change stays visible but never becomes a verdict. Deltas are oriented so positive always means better, and each case's delta is also compared against the dispersion between its own trials (a "within noise" flag) so you can tell a real change from a noisy one.
+A dimension only "votes" (is gating) if its Score Config declares a direction (`gte`/`lte`), a healthy category, or a healthy boolean. Cost and latency always favor lower. Everything else is descriptive: visible, but not a verdict. Each delta is also checked against the noise between a case's own trials, so you can tell a real change from a fluke.
 
 ## Remote Tasks
 
-Remote Tasks let you register an external evaluation endpoint as a published, versioned task that Experiments can reference by `name@version` — creation only accepts a published, verified, active version. See [LLM Evaluations](llm-evaluations.md) for the Remote scorer type; a Remote Task is the versioned, referenceable form of that idea.
+Register an external evaluation endpoint as a published, versioned task that Experiments can reference by `name@version`; only published, verified, active versions are accepted. See [LLM Evaluations](llm-evaluations.md) for the related Remote scorer type.
 
 ## Configuration
 
-Experiment-related settings live under the LLM evaluation configuration:
-
 | Variable | Default | Description |
 |---|---|---|
-| `O2_EVAL_OUTBOUND_MAX_RESPONSE_BYTES` | `1048576` | Maximum response size accepted from an evaluation endpoint. The body is abandoned mid-stream once it exceeds this. |
-| `O2_EVAL_OUTBOUND_CONNECT_TIMEOUT_SECS` | `10` | Connect timeout (seconds) for evaluation endpoint calls. |
-| `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT` | `10` | Maximum `trialCount` an Experiment may request. `0` reads as "unset" and falls back to `10`. |
+| `O2_EVAL_OUTBOUND_MAX_RESPONSE_BYTES` | `1048576` | Max response size accepted from an evaluation endpoint. |
+| `O2_EVAL_OUTBOUND_CONNECT_TIMEOUT_SECS` | `10` | Connect timeout for evaluation endpoint calls. |
+| `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT` | `10` | Max `trialCount` an Experiment may request. |
 
 ## RBAC
 
-Experiment resources have their own OFGA permissions:
-
-| Resource | OFGA Type | Permissions |
-|---|---|---|
-| Datasets | `dataset` | GET, LIST, POST, PUT, DELETE |
-| Experiments | `experiment` | GET, LIST, POST, PUT, DELETE |
-| Remote Tasks | `remote_task` | GET, LIST, POST, PUT, DELETE |
-
-Assign the appropriate roles in **Identity & Access Management > Roles** to control access to experiment resources.
-
-## Super Cluster
-
-In multi-node deployments, experiment and dataset resources are synchronized across the super cluster via dedicated queue topics. Changes made on any node propagate automatically.
+Datasets, Experiments, and Remote Tasks each have their own permissions (GET, LIST, POST, PUT, DELETE). Assign roles in **Identity & Access Management > Roles**.
 
 ## API Reference
 
-All endpoints are prefixed with `/api/{org_id}` and follow the same conventions as the rest of the evaluation API. The experiment surfaces expose:
+All endpoints are prefixed with `/api/{org_id}`.
 
 | Resource | Operations |
 |---|---|
-| **Datasets** | List, create, get, update, delete; list items and item versions; read a pinned snapshot; batch upsert items (idempotent). |
-| **Experiments** | List, create (returns the preview and the created Experiment, replayable via `idempotencyKey`), get, clone; list slots and scorer definitions; set/clear the Baseline. |
-| **Experiment results** | Read slot results, progress, skip and score summaries, and scoring status for an Experiment. |
-| **Comparison** | Compare two Experiments, returning counts, dimension summaries, and per-row buckets. |
-| **Experiment ingest** | (SDK Experiments) Report execution records and client scores per part, with per-part acceptance and idempotent replays. |
-| **Remote Tasks** | List, create, get, update, delete, and verify task versions. |
+| **Datasets** | List, create, get, update, delete; list items/versions; read a snapshot; batch upsert. |
+| **Experiments** | List, create, get, clone; list slots and scorers; set/clear Baseline. |
+| **Experiment results** | Slot results, progress, skip/score summaries, scoring status. |
+| **Comparison** | Compare two Experiments: counts, dimension summaries, per-row buckets. |
+| **Experiment ingest** | (SDK) Report execution records and client scores, idempotently. |
+| **Remote Tasks** | List, create, get, update, delete, verify. |
 
-**Create Experiment payload fields** (in addition to the fields described above):
-
-| Field | Type | Description |
-|---|---|---|
-| `datasetVersion` | number | The Dataset snapshot version to pin. |
-| `datasetFilter` | object | Optional subset filter (`logicalIds`, `sources`, `tags`, `metadata`). |
-| `task` | object | Tagged union: `{ "type": "inline_prompt", ... }`, `{ "type": "remote", ... }`, or `{ "type": "sdk", ... }`. |
-| `scorers` | array | `{ "id": "...", "version": number }` references. |
-| `trialCount` | number | Trials per case (bounded by `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT`). |
-| `idempotencyKey` | string | Optional retry key; replaying the same key with the same definition returns the stored result. |
-| `confirmCostEstimate` | boolean | Required when the cost estimate exceeds the warning threshold. |
+Create-Experiment payload highlights: `datasetVersion`, `datasetFilter` (subset filter), `task` (tagged union: `inline_prompt`/`remote`/`sdk`), `scorers` (id + version), `trialCount`, `idempotencyKey`, `confirmCostEstimate` (required above the cost warning threshold).
