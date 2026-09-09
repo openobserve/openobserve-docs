@@ -1,8 +1,3 @@
----
-title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
----
-
 # LLM Evaluations
 
 Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
@@ -54,9 +49,18 @@ Navigate to **Evaluations > Providers** and click **Add Provider**.
 
 ![the Add Provider form](images/online-evaluations-3.png)
 
-### Test a provider
+### Test a provider connection
 
-From the provider detail page, use the **Test** button to verify connectivity. The system sends a test request using the configured endpoint and credentials.
+Both the **Add Provider** and edit forms include a **Test Connection** button in the footer. It sends a lightweight API call using the current form values — including any unsaved edits — without persisting the provider.
+
+![TODO: screenshot of the Test Connection button and result in the provider form](images/placeholder.png)
+
+When you click **Test Connection**:
+
+- **Create mode** — the connection is tested against the values you have entered. Nothing is saved.
+- **Edit mode** — the current form values are tested. If you leave **API Key** blank, the system tests against the provider's stored credentials (the key is never read back to you), so you can validate a new endpoint or model without re-entering the secret.
+
+The footer shows the result inline: a **Connected** tag with the backend's confirmation message on success, or a **Connection failed** tag with the error message on failure.
 
 ### Manage providers
 
@@ -346,7 +350,7 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `GET` | `/providers/{id}` | Get a provider |
 | `PUT` | `/providers/{id}` | Update a provider |
 | `DELETE` | `/providers/{id}` | Delete a provider |
-| `POST` | `/providers/{id}/test` | Test provider connectivity |
+| `POST` | `/providers/test` | Test an inline provider configuration without saving it (pass the provider's `providerId` to validate against stored credentials when the API key is left blank) |
 
 ### Score Configs
 
