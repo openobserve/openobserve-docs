@@ -100,7 +100,7 @@ Score configs are versioned. Each config has a stable **entity ID** that stays t
 
 ## Scorers
 
-A Scorer is the executable evaluation unit. It contains a prompt **template** with `{{variable}}` placeholders, execution **parameters**, and an optional link to a **score config** that describes its output.
+A Scorer is the executable evaluation unit. It contains a prompt **template** with `{{variable}}` placeholders, execution **parameters**, and an optional link to a **score config** that describes its output. Scorer authoring is scope-agnostic: the template only declares `{{variables}}`, and what supplies each variable's value is mapped later at the **Eval Job** level.
 
 ### Scorer types
 
@@ -258,6 +258,30 @@ A span selector defines:
 | **Fields** | (Custom mode) The span attribute columns to include in the payload sent to the scorer. |
 | **Maximum Spans** | The maximum number of matching spans to include (default 5). |
 
+Bind each scorer to a span selector via **span selector bindings**. Only scorers that use `{{ spans }}` (directly or through a mapped variable) need a binding — the job form only shows the control for those scorers, and a trace-scope job can't be activated until each of them has one.
+
+![span selector configuration](images/trace-session-evaluations-3.png)
+
+### Input mapping
+
+Each scorer's prompt `{{variables}}` are mapped to their sources per eval job, in the job form's **Prompt variables** section. Every variable the scorer's template declares gets a row with a searchable dropdown that lists the available sources in two groups:
+
+- **System-provided values** — values OpenObserve derives from the evaluated target itself (trace or session scope only).
+- **Span attributes** — fields from the trace stream.
+
+For span-scope jobs, every variable maps to a span attribute and is seeded with a sensible default (`input` → `{{gen_ai_input_messages}}`, `output` → `{{gen_ai_output_messages}}`, and so on). For trace and session scopes, the variables OpenObserve provides are pre-filled as their own source (for example `{{input}}`, `{{statistics}}`, `{{steps}}`, `{{spans}}`), and you can override any of them to a span attribute instead. Use the copy button next to each dropdown to copy a mapping expression.
+
+The **About system-provided values** link opens a reference drawer that lists every system-provided value for the job's target scope, where it comes from, and what it supplies:
+
+| Value | Trace scope | Session scope |
+|---|---|---|
+| `input` | Input from the trace's root span | — |
+| `output` | Output from the trace's root span | — |
+| `statistics` | Trace metrics: span count, duration, LLM and tool calls, errors, tokens, and cost | Session metrics: trace and turn counts, duration, and errors |
+| `steps` | Spans in time order, with the middle folded for very long traces | Traces in time order, represented as conversation turns |
+| `spans` | A filtered subset of the trace's spans, chosen by the Span Selector | — |
+
+The `spans` value is special: mapping a variable to `{{ spans }}` marks the scorer as span-using and requires a **Span Selector** binding (see [Span selectors](#span-selectors-trace-scope) above).
 Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. A trace-scope scorer only requires a binding when its prompt actually uses trace spans — that is, when its template references `{{ spans }}` or a variable mapped to `{{ spans }}`. Scorers that score a trace without reading spans can be activated without any selector.
 
 ![span selector configuration](images/trace-session-evaluations-3.png)
@@ -285,6 +309,8 @@ You can launch a manual evaluation directly from the trace or session you are in
 - On the **trace details** page, click **Evaluate trace** in the header to score the whole trace, or open a span's preview and click **Evaluate span** to score a single span.
 - On the **session details** page, click **Evaluate session** in the header to score the entire conversation.
 
+The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run.
+
 The buttons appear only for LLM traces/sessions in Enterprise or Cloud deployments where Online Evaluations is enabled. Clicking one opens a dialog where you choose which Eval Job to run; only jobs whose target scope and stream match the target you are viewing are listed. The evaluation worker loads the source telemetry from the target's own time range, so you don't have to specify one manually.
 
 ### Job lifecycle
@@ -301,8 +327,8 @@ draft → active ⇄ paused
 
 | Action | Description |
 |---|---|
-| **Activate** | Validates the job configuration, applies scope defaults, and starts scoring. For span-scope jobs, creates the underlying evaluation pipeline. For trace/session jobs, registers with the scheduler. Allowed from `draft`, `paused`, or `degraded`. |
-| **Pause** | Temporarily stops evaluation. The pipeline or scheduler registration is preserved. Allowed from `active` or `degraded`. |
+| **Activate** | Validates the job configuration, applies scope defaults, and starts scoring. Allowed from `draft`, `paused`, or `degraded`. |
+| **Pause** | Temporarily stops evaluation without losing your configuration. Allowed from `active` or `degraded`. |
 | **Resume** | Restarts evaluation from `paused` or `degraded` state. |
 | **Archive** | Permanently stops evaluation. The job is retained for audit but no longer processes data. |
 
@@ -457,7 +483,7 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `traceConfig` | object | Completion config for trace-scope jobs: `idleWindowSecs`, `maxAgeSecs`, `endSignal` (optional condition). |
 | `sessionConfig` | object | Completion config for session-scope jobs: `idleWindowSecs`, `maxAgeSecs`, `endSignal` (optional condition). |
 | `spanSelectors` | array | (Trace scope only) Named sub-queries that select spans within a trace for each scorer. |
-| `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required for activation. |
+| `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required only for scorers that use spans. |
 | `samplingValue` | number \| null | A scalar between 0 and 1 for rate mode; `null` for all mode. |
 
 **Manual eval payload fields**:
