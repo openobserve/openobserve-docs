@@ -179,16 +179,6 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 
 ![eval job form with target scope selector](images/trace-session-evaluations-1.png)
 
-### Input mapping
-
-For each scorer in a job, the **Input Mapping** section lists every template variable the scorer's prompt declares. Each variable gets its own searchable dropdown that combines two groups of value sources:
-
-- **System-provided values** — values OpenObserve builds automatically for the target being scored. For trace scope these are `input`, `output`, `statistics`, `spans`, and `steps`; for session scope they are `statistics` and `steps`. Use them directly (e.g., `{{ input }}`) without extra configuration.
-- **Span attributes** — columns from the trace stream (e.g., `gen_ai_input_messages`, `gen_ai_output_messages`).
-
-OpenObserve pre-seeds each variable with a sensible default so you can save a job without mapping every field by hand. When a trace-scope variable maps to `{{ spans }}`, the job asks for a Span Selector to choose which spans supply that value.
-
-
 ### Target scope
 
 The **Target Scope** determines what unit of evaluation the job scores:
@@ -260,22 +250,9 @@ Each scorer's prompt `{{variables}}` are mapped to their sources per eval job, i
 - **System-provided values** — values OpenObserve derives from the evaluated target itself (trace or session scope only).
 - **Span attributes** — fields from the trace stream.
 
-For span-scope jobs, every variable maps to a span attribute and is seeded with a sensible default (`input` → `{{gen_ai_input_messages}}`, `output` → `{{gen_ai_output_messages}}`, and so on). For trace and session scopes, the variables OpenObserve provides are pre-filled as their own source (for example `{{input}}`, `{{statistics}}`, `{{steps}}`, `{{spans}}`), and you can override any of them to a span attribute instead. Use the copy button next to each dropdown to copy a mapping expression.
-
-The **About system-provided values** link opens a reference drawer that lists every system-provided value for the job's target scope, where it comes from, and what it supplies:
-
-| Value | Trace scope | Session scope |
-|---|---|---|
-| `input` | Input from the trace's root span | — |
-| `output` | Output from the trace's root span | — |
-| `statistics` | Trace metrics: span count, duration, LLM and tool calls, errors, tokens, and cost | Session metrics: trace and turn counts, duration, and errors |
-| `steps` | Spans in time order, with the middle folded for very long traces | Traces in time order, represented as conversation turns |
-| `spans` | A filtered subset of the trace's spans, chosen by the Span Selector | — |
+For span-scope jobs, every variable maps to a span attribute and is seeded with a sensible default (`input` → `{{gen_ai_input_messages}}`, `output` → `{{gen_ai_output_messages}}`, and so on). For trace and session scopes, the variables OpenObserve provides are pre-filled as their own source (for example `{{input}}`, `{{statistics}}`, `{{steps}}`, `{{spans}}`), and you can override any of them to a span attribute instead. Use the copy button next to each dropdown to copy a mapping expression. The **About system-provided values** link opens a reference drawer listing what each one supplies — see [Target view variables](#target-view-variables-tracesession-scope) below for the full reference.
 
 The `spans` value is special: mapping a variable to `{{ spans }}` marks the scorer as span-using and requires a **Span Selector** binding (see [Span selectors](#span-selectors-trace-scope) above).
-Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. A trace-scope scorer only requires a binding when its prompt actually uses trace spans — that is, when its template references `{{ spans }}` or a variable mapped to `{{ spans }}`. Scorers that score a trace without reading spans can be activated without any selector.
-
-![span selector configuration](images/trace-session-evaluations-3.png)
 
 ### Target view variables (trace/session scope)
 
@@ -299,8 +276,6 @@ You can launch a manual evaluation directly from the trace or session you are in
 
 - On the **trace details** page, click **Evaluate trace** in the header to score the whole trace, or open a span's preview and click **Evaluate span** to score a single span.
 - On the **session details** page, click **Evaluate session** in the header to score the entire conversation.
-
-The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run.
 
 The buttons appear only for LLM traces/sessions in Enterprise or Cloud deployments where Online Evaluations is enabled. Clicking one opens a dialog where you choose which Eval Job to run; only jobs whose target scope and stream match the target you are viewing are listed. The evaluation worker loads the source telemetry from the target's own time range, so you don't have to specify one manually.
 
@@ -411,44 +386,10 @@ Tune the discovery registry with these environment variables:
 | `O2_GEN_AI_AGENT_REGISTRY_BATCH_MAX_AGENTS` | `1000` | Pending agents per org that trigger an immediate flush. |
 | `O2_GEN_AI_AGENT_REGISTRY_MAX_FLUSH_RETRIES` | `3` | Flush retry attempts before dropping observations. |
 | `O2_GEN_AI_AGENT_REGISTRY_API_MAX_PAGE_SIZE` | `10000` | Maximum page size for the agents list API. |
+
 ## Experiments
 
-Experiments let you evaluate your LLM application against a dataset and compare a candidate against a baseline. Each experiment pins a dataset snapshot (a version and optional filter), a task (prompt- or SDK-driven), and one or more scorers. The system executes the task across every dataset row and trial, records execution evidence, and produces scores you can compare side-by-side.
-
-### Experiment summaries
-
-The experiments list renders a summary for each experiment from batched evidence. The system groups experiments into batches of 25 and issues three coordinated searches per batch — execution records from `_llm_experiment`, scores from `_llm_scores`, and LLM Judge cost from `_evaluator` — so list and detail views stay fast as the number of experiments grows.
-
-Each summary reports:
-
-| Field | Description |
-|---|---|
-| **Status** | A consolidated lifecycle state that combines execution and scoring: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
-| **Execution progress** | Completed, total, and skipped task slots. |
-| **Scoring status** | The scoring phase state: `pending`, `running`, `completed`, or `completed_with_errors`. |
-| **Score summaries** | Per-scorer score distributions and health classification. |
-| **Aggregate summary** | p50 latency and cost totals across the whole experiment. |
-
-You can also filter the experiments list by dataset to narrow the view to a single dataset's runs.
-
-![Experiments list showing consolidated status, progress, and cost summary](images/experiment-status.png)
-
-### Cost breakdown
-
-The aggregate summary separates **task cost** — the LLM calls that execute each dataset row — from **scoring cost** — the LLM Judge calls that produce each score — and reports a single **total cost** that sums the two.
-
-Scoring cost is aggregated from the `_evaluator` traces stream, scoped to the experiment's LLM Judge spans (`llm_judge.evaluate`). Each billed attempt is counted once: redelivered attempts are deduplicated by span so a retry never bills twice. When any cost is missing — an unpriced call, a delayed trace, or a remote scorer with no observable price — the summary flags the total as **incomplete** rather than silently under-reporting.
-
-### Comparing experiments
-
-When you compare a candidate against a baseline, the comparison joins rows by their stable dataset logical ID and classifies each row as **improved**, **regressed**, **unchanged**, **new**, or **missing**.
-
-Two controls shape the verdict:
-
-- **Comparison criteria (outcome dimensions)** — choose which dimensions vote on the outcome. Each selectable dimension has a stable ID (`cost`, `latency`, or a score dimension). Omitting the selection compares every eligible dimension; an empty selection compares none, so every row becomes **inconclusive**. Dimensions you leave unselected still show their values and evidence, but they don't affect the verdict.
-- **Percentage threshold** — the threshold is now expressed as a percentage. Ranged numeric scores use the configured range; cost, latency, and unranged numeric scores use the baseline magnitude; boolean and categorical scores use the healthy-observation fraction. A move away from a zero baseline counts as one full directional change.
-
-Only gating dimensions vote: a score dimension gates when it is selected and its pinned score config declares a health policy, while cost and latency gate in the lower-is-better direction when selected. A row regresses when any selected dimension exceeds the threshold in the worse direction, and improves only when at least one selected dimension improves and none regress. A row with no gating dimension on either side is **inconclusive**.
+For offline, batch evaluation against a versioned dataset — with pinned scorers, trial counts, cost estimates, and baseline comparisons — see [LLM Experiments](llm-experiments.md).
 
 ## RBAC
 
@@ -527,14 +468,6 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required only for scorers that use spans. |
 | `samplingValue` | number \| null | A scalar between 0 and 1 for rate mode; `null` for all mode. |
 
-### Gen-AI Agents
-
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/gen_ai/agents` | List discovered agents. Filter by `start_time`, `end_time`, `source_stream`, and `source_stream_type`; paginate with `from` and `size`. |
-| `GET` | `/settings/gen_ai/agent_mapping` | Get the org-level agent field mapping. |
-| `PUT` | `/settings/gen_ai/agent_mapping` | Save the org-level agent field mapping (`agent_name_fields`, `agent_id_fields`). |
-| `DELETE` | `/settings/gen_ai/agent_registry` | Clear the agent registry, optionally scoped to a `source_stream` and `source_stream_type`. |
 **Manual eval payload fields**:
 
 | Field | Required | Description |
@@ -543,40 +476,18 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `startTime` / `endTime` | Yes | The source telemetry window, in microseconds. |
 | `traceId` / `sessionId` / `spanId` | No | Pin the evaluation to a specific trace, session, or span. |
 
-### Experiments
-
-All endpoints are prefixed with `/api/{org_id}`.
+### Gen-AI Agents
 
 | Method | Path | Description |
 |---|---|---|
-| `GET` | `/experiments?includeSummary=true&datasetId={id}` | List experiments, optionally filtered by dataset and enriched with a per-row summary (`status`, progress, scores, cost) |
-| `POST` | `/experiments` | Create an experiment |
-| `GET` | `/experiments/{id}` | Get an experiment, always with its summary, preview, and results page |
-| `POST` | `/experiments/{id}/clone` | Clone an experiment |
-| `DELETE` | `/experiments/{id}` | Delete an experiment |
-| `PUT` | `/experiments/{id}/baseline` | Set this experiment as its dataset's baseline |
-| `DELETE` | `/experiments/{id}/baseline` | Clear this experiment's baseline flag |
-| `GET` | `/experiments/compare?baselineId={id}&candidateId={id}` | Compare a baseline and candidate experiment |
+| `GET` | `/gen_ai/agents` | List discovered agents. Filter by `start_time`, `end_time`, `source_stream`, and `source_stream_type`; paginate with `from` and `size`. |
+| `GET` | `/settings/gen_ai/agent_mapping` | Get the org-level agent field mapping. |
+| `PUT` | `/settings/gen_ai/agent_mapping` | Save the org-level agent field mapping (`agent_name_fields`, `agent_id_fields`). |
+| `DELETE` | `/settings/gen_ai/agent_registry` | Clear the agent registry, optionally scoped to a `source_stream` and `source_stream_type`. |
 
-**Compare query parameters**:
+### Experiments
 
-| Parameter | Type | Description |
-|---|---|---|
-| `baselineId` | string | The baseline experiment ID (required). |
-| `candidateId` | string | The candidate experiment ID (required). |
-| `threshold` | number | Sensitivity for classifying movement as unchanged (defaults to the comparison policy default). |
-| `outcomeDimensions` | string | Comma-separated dimension IDs that vote on each row's outcome. Omit to use all eligible dimensions; pass an empty value to select none. |
-
-**Experiment summary fields** (returned on `includeSummary` and detail):
-
-| Field | Description |
-|---|---|
-| `status` | Consolidated status: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
-| `scoringStatus` | `pending`, `running`, `completed`, or `completed_with_errors`. |
-| `executionProgress` | `{ completed, total, skipped }` for the task phase. |
-| `scoringProgress` | `{ completed, total, skipped }` for the scoring phase. |
-| `scoreSummaries` | Per-scorer aggregate (`value`, sample/error/pending counts). |
-| `aggregateSummary` | Run-level facts: `p50LatencyMs`, `totalCost`, `taskCost`, `scoringCost`, `costIncomplete`, incomplete counts. |
+See the [LLM Experiments API Reference](llm-experiments.md#api-reference).
 
 ## Super Cluster
 
