@@ -66,12 +66,9 @@ Two provider types connect OpenAI-compatible evaluation endpoints, including sel
 
 Both types work with any model served behind an OpenAI-compatible API. Authentication is optional: if you leave the API key blank (omit `api_key` from **Auth Config**), no `Authorization` header is sent — ideal for keyless self-hosted vLLM and similar deployments.
 
-### Test a provider
-
-Use the **Test Connection** button on the provider form to verify connectivity against a configuration before you save it. The test sends a lightweight request to the configured endpoint and credentials, and reports **Connected** or **Connection failed**. When editing an existing provider, pass the stored provider ID so the test resolves the saved credentials without you re-entering the API key.
-
 ### Manage providers
 
+- **Test**: From the provider detail page, use the **Test** button to verify connectivity with the configured endpoint and credentials.
 - **Update**: Edit any field. The provider is updated in-place. If you leave the API key blank when updating, the existing key is preserved (so you don't accidentally clear or rotate it); supply a non-empty `api_key` to replace it.
 - **Delete**: Removes the provider. Scorers referencing a deleted provider will fail until reassigned.
 
@@ -148,15 +145,9 @@ For **Remote**, you configure:
 | **Timeout** | Request timeout in milliseconds. |
 | **Max Retries** | Number of retry attempts on failure. |
 
-### Test a scorer
-
-From the scorer detail page, use the **Test** button. Provide values for the template variables, and the system executes a one-off evaluation. The response shows the score, reasoning, model used, latency, and token usage.
+From the scorer detail page, use the **Test** button to provide values for the template variables and run a one-off evaluation — the response shows the score, reasoning, model used, latency, and token usage. For LLM Judge scorers, **Preview Schema** shows the derived output structure based on the score config and extra metadata fields.
 
 ![the Scorer Test dialog showing results](images/online-evaluations-7.png)
-
-### Preview output schema
-
-For LLM Judge scorers, the **Preview Schema** endpoint shows the derived output schema based on the score config and extra metadata fields, helping you understand what structure the LLM will return.
 
 ### Versioning
 
@@ -348,7 +339,7 @@ Evaluated scores are written to the `_llm_scores` system stream, and evaluator t
 
 ## Quality Dashboard
 
-The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams.
+The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams. When you drill into a specific score config, the detail drawer includes a **scope selector** that filters its KPI cards, trend charts, and the evaluation runs table by target scope: **All**, **Span**, **Trace**, or **Session**.
 
 ![quality page KPI cards with scope breakdown](images/trace-session-evaluations-4.png)
 
@@ -370,6 +361,56 @@ The runs table supports pagination and filtering (all runs or unhealthy only). S
 
 ![evaluation runs table in quality detail](images/trace-session-evaluations-6.png)
 
+## Gen-AI Agents and Agent-Level Filters
+
+You can group and filter evaluation results by the **agent** that produced the trace being evaluated. OpenObserve auto-discovers Gen-AI agents from your trace telemetry, so you can scope the Quality, LLM Insights, and Sessions views — via an **Agent** selector on each — to a single agent, or choose **All Agents** to see everything. Each score in `_llm_scores` stores `agent_name`/`agent_id`, and each evaluator span in `_evaluator` carries `target_agent_name`/`target_agent_id`, if you want to query them directly.
+
+### How agents are discovered
+
+When an LLM span is ingested, OpenObserve resolves an **agent name** and **agent id** by checking span (and resource) attributes in this order:
+
+| Priority | Name fields | ID fields |
+|---|---|---|
+| **Standard** (OTel GenAI) | `gen_ai.agent.name` | `gen_ai.agent.id` |
+| **Built-in** | `agent.name`, `llm.agent.name` | `agent.id`, `agent_id`, `llm.agent.id`, `llm.agent_id` |
+| **Configured** | Your org-level `agent_name_fields` | Your org-level `agent_id_fields` |
+
+OpenObserve records the resolved identity on the span as `gen_ai_agent_name` and `gen_ai_agent_id`, preferring the agent id when both are present. Discovery runs on **traces** streams only.
+
+Discovered agents populate the agent lists and filters shown across AI observability views.
+
+### Configure agent field mapping
+
+If your telemetry labels agents with non-standard attributes, map them to OpenObserve's canonical agent fields. Navigate to **Settings > GenAI Agent Mapping** (under the **Data & AI** group).
+
+- **Agent Name Fields**: one attribute name per line, used as fallbacks for `gen_ai.agent.name`.
+- **Agent ID Fields**: one attribute name per line, used as fallbacks for `gen_ai.agent.id`.
+- **Environment Fields**: one attribute name per line, used as fallbacks for the agent's environment.
+- **Version Fields**: one attribute name per line, used as fallbacks for the agent's version.
+
+Use **Apply Defaults** to populate a recommended mapping, **Reset to Empty** to clear all lists, and **Clear Registry** to delete all discovered agent data. Click **Save** to persist the mapping.
+
+### Scorer template variables
+
+Agent identity is also available in scorer templates. In addition to the standard variables, span-scope scorers can reference:
+
+| Variable | Description |
+|---|---|
+| `{{agent_name}}` | Resolved agent name of the evaluated span. |
+| `{{agent_id}}` | Resolved agent id of the evaluated span. |
+| `{{pipeline_source_stream_type}}` | Stream type of the evaluated span's source stream. |
+
+### Configuration
+
+Tune the discovery registry with these environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `O2_GEN_AI_AGENT_REGISTRY_MAX_AGENTS_PER_ORG` | `10000` | Maximum agents retained per organization. |
+| `O2_GEN_AI_AGENT_REGISTRY_BATCH_FLUSH_INTERVAL_SECS` | `60` | How often buffered agents are flushed to the DB. |
+| `O2_GEN_AI_AGENT_REGISTRY_BATCH_MAX_AGENTS` | `1000` | Pending agents per org that trigger an immediate flush. |
+| `O2_GEN_AI_AGENT_REGISTRY_MAX_FLUSH_RETRIES` | `3` | Flush retry attempts before dropping observations. |
+| `O2_GEN_AI_AGENT_REGISTRY_API_MAX_PAGE_SIZE` | `10000` | Maximum page size for the agents list API. |
 ## Experiments
 
 Experiments let you evaluate your LLM application against a dataset and compare a candidate against a baseline. Each experiment pins a dataset snapshot (a version and optional filter), a task (prompt- or SDK-driven), and one or more scorers. The system executes the task across every dataset row and trial, records execution evidence, and produces scores you can compare side-by-side.
@@ -420,7 +461,7 @@ Online Evaluations resources have their own OFGA permissions:
 | Scorers | `scorer` | GET, LIST, POST, PUT, DELETE |
 | Eval Jobs | `eval_job` | GET, LIST, POST, PUT, DELETE |
 
-Assign the appropriate roles in **Identity & Access Management > Roles** to control access to evaluation resources.
+Assign the appropriate roles in **Identity & Access Management > Roles** to control access to evaluation resources. The Gen-AI agent mapping and registry endpoints are governed by the `settings` OFGA permission, and the agents list endpoint enforces read access to each source stream.
 
 ## API Reference
 
@@ -486,6 +527,14 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `spanSelectorBindings` | object | (Trace scope only) Mapping of scorer IDs to span selector IDs. Required only for scorers that use spans. |
 | `samplingValue` | number \| null | A scalar between 0 and 1 for rate mode; `null` for all mode. |
 
+### Gen-AI Agents
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/gen_ai/agents` | List discovered agents. Filter by `start_time`, `end_time`, `source_stream`, and `source_stream_type`; paginate with `from` and `size`. |
+| `GET` | `/settings/gen_ai/agent_mapping` | Get the org-level agent field mapping. |
+| `PUT` | `/settings/gen_ai/agent_mapping` | Save the org-level agent field mapping (`agent_name_fields`, `agent_id_fields`). |
+| `DELETE` | `/settings/gen_ai/agent_registry` | Clear the agent registry, optionally scoped to a `source_stream` and `source_stream_type`. |
 **Manual eval payload fields**:
 
 | Field | Required | Description |
