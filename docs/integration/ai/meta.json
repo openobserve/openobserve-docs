@@ -2,6 +2,8 @@
   "pages": [
     "llm-applications",
     "llm-evaluations",
+    "llm-experiments",
+    "llm-playground",
     "claude-code-tracing",
     "github-copilot-tracing",
     "frameworks",
