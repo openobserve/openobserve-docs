@@ -49,12 +49,9 @@ Navigate to **Evaluations > Providers** and click **Add Provider**.
 
 ![the Add Provider form](images/online-evaluations-3.png)
 
-### Test a provider
-
-From the provider detail page, use the **Test** button to verify connectivity. The system sends a test request using the configured endpoint and credentials.
-
 ### Manage providers
 
+- **Test**: From the provider detail page, use the **Test** button to verify connectivity with the configured endpoint and credentials.
 - **Update**: Edit any field. The provider is updated in-place.
 - **Delete**: Removes the provider. Scorers referencing a deleted provider will fail until reassigned.
 
@@ -131,15 +128,9 @@ For **Remote**, you configure:
 | **Timeout** | Request timeout in milliseconds. |
 | **Max Retries** | Number of retry attempts on failure. |
 
-### Test a scorer
-
-From the scorer detail page, use the **Test** button. Provide values for the template variables, and the system executes a one-off evaluation. The response shows the score, reasoning, model used, latency, and token usage.
+From the scorer detail page, use the **Test** button to provide values for the template variables and run a one-off evaluation — the response shows the score, reasoning, model used, latency, and token usage. For LLM Judge scorers, **Preview Schema** shows the derived output structure based on the score config and extra metadata fields.
 
 ![the Scorer Test dialog showing results](images/online-evaluations-7.png)
-
-### Preview output schema
-
-For LLM Judge scorers, the **Preview Schema** endpoint shows the derived output schema based on the score config and extra metadata fields, helping you understand what structure the LLM will return.
 
 ### Versioning
 
@@ -297,13 +288,9 @@ Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreReco
 
 ## Quality Dashboard
 
-The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams.
+The **Quality** tab provides a real-time overview of evaluation health across all your score configs, agents, and streams. When you drill into a specific score config, the detail drawer includes a **scope selector** that filters its KPI cards, trend charts, and the evaluation runs table by target scope: **All**, **Span**, **Trace**, or **Session**.
 
 ![quality page KPI cards with scope breakdown](images/trace-session-evaluations-4.png)
-
-### Scope filtering
-
-When you drill into a specific score config from the quality page, the detail drawer includes a **scope selector** that lets you filter KPI cards, trend charts, and the evaluation runs table by target scope: **All**, **Span**, **Trace**, or **Session**. Switching the scope re-runs all queries within the drawer so you see metrics scoped to the selected granularity.
 
 ![quality detail drawer with scope selector](images/trace-session-evaluations-5.png)
 
@@ -317,7 +304,7 @@ The runs table supports pagination and filtering (all runs or unhealthy only). S
 
 ## Gen-AI Agents and Agent-Level Filters
 
-You can group and filter evaluation results by the **agent** that produced the trace being evaluated. OpenObserve auto-discovers Gen-AI agents from your trace telemetry and maintains an org-level registry of them, so you can scope the Quality dashboard — and other AI observability views — to a single agent.
+You can group and filter evaluation results by the **agent** that produced the trace being evaluated. OpenObserve auto-discovers Gen-AI agents from your trace telemetry, so you can scope the Quality, LLM Insights, and Sessions views — via an **Agent** selector on each — to a single agent, or choose **All Agents** to see everything. Each score in `_llm_scores` stores `agent_name`/`agent_id`, and each evaluator span in `_evaluator` carries `target_agent_name`/`target_agent_id`, if you want to query them directly.
 
 ### How agents are discovered
 
@@ -329,9 +316,9 @@ When an LLM span is ingested, OpenObserve resolves an **agent name** and **agent
 | **Built-in** | `agent.name`, `llm.agent.name` | `agent.id`, `agent_id`, `llm.agent.id`, `llm.agent_id` |
 | **Configured** | Your org-level `agent_name_fields` | Your org-level `agent_id_fields` |
 
-The resolved identity is written back to the span as the canonical fields `gen_ai_agent_name` and `gen_ai_agent_id`. An agent id is preferred when present; otherwise the agent name is used as the identity. Discovery runs on **traces** streams only.
+OpenObserve records the resolved identity on the span as `gen_ai_agent_name` and `gen_ai_agent_id`, preferring the agent id when both are present. Discovery runs on **traces** streams only.
 
-Discovered agents are buffered in memory and flushed to the internal `gen_ai_agents` registry table on a periodic interval (or when a batch threshold is reached), deduplicating agents by org, stream, and identity. The registry powers the agent lists shown in the UI and the agent-filter API.
+Discovered agents populate the agent lists and filters shown across AI observability views.
 
 ### Configure agent field mapping
 
@@ -339,18 +326,10 @@ If your telemetry labels agents with non-standard attributes, map them to OpenOb
 
 - **Agent Name Fields**: one attribute name per line, used as fallbacks for `gen_ai.agent.name`.
 - **Agent ID Fields**: one attribute name per line, used as fallbacks for `gen_ai.agent.id`.
+- **Environment Fields**: one attribute name per line, used as fallbacks for the agent's environment.
+- **Version Fields**: one attribute name per line, used as fallbacks for the agent's version.
 
-Use **Apply Defaults** to populate a recommended mapping, **Reset to Empty** to clear both lists, and **Clear Registry** to delete all persisted agent rows and any buffered observations. Click **Save** to persist the mapping.
-
-![TODO: screenshot of the GenAI Agent Mapping settings page](images/placeholder.png)
-
-### Filter by agent
-
-The Quality dashboard includes an **Agent** selector that scopes every panel — the KPI cards, the score-configs table, the trend charts, and the evaluation runs table — to the selected agent. Choose **All Agents** to view everything.
-
-![TODO: screenshot of the Quality dashboard Agent filter dropdown](images/placeholder.png)
-
-The same agent filter is available on the **LLM Insights** and **Sessions** pages. Agent identity is carried through to every score: each score record in `_llm_scores` stores `agent_name` and `agent_id`, and each evaluator span in `_evaluator` carries `target_agent_name` and `target_agent_id` attributes.
+Use **Apply Defaults** to populate a recommended mapping, **Reset to Empty** to clear all lists, and **Clear Registry** to delete all discovered agent data. Click **Save** to persist the mapping.
 
 ### Scorer template variables
 
