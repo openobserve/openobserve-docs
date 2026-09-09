@@ -1,6 +1,7 @@
 ---
 title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
+metaTitle: Online Evaluations in OpenObserve - Score LLM Applications
+description: Continuously score your LLM application's traces and spans using configurable evaluators - LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
 ---
 
 # LLM Evaluations
