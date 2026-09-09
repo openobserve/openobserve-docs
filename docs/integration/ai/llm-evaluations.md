@@ -19,13 +19,13 @@ When you activate an eval job, the system creates a system-managed evaluation pi
 
 ## Enable Online Evaluations
 
-Online Evaluations is an enterprise feature. Set the configuration flag to enable it:
+Online Evaluations is an enterprise-only feature:where it is enabled by default. Set the enterprise configuration flag to control it:
 
 ```env
-ZO_ONLINE_EVALS_ENABLED=true
+O2_ONLINE_EVALS_ENABLED=true
 ```
 
-When enabled, the **Evaluations** top-level navigation appears in the UI. When disabled, all evaluation pages and settings are hidden; backend API endpoints remain reachable.
+When disabled, the **Evaluations** navigation and all evaluation pages are hidden in the UI.
 
 Trace- and session-scope jobs are detected by a background **Eval Scheduler** that periodically polls your trace streams for completed targets. Control how often it polls:
 
