@@ -1,8 +1,3 @@
----
-title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
----
-
 # LLM Evaluations
 
 Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
@@ -56,7 +51,7 @@ Navigate to **Evaluations > Providers** and click **Add Provider**.
 
 ### Test a provider
 
-From the provider detail page, use the **Test** button to verify connectivity. The system sends a test request using the configured endpoint and credentials.
+From the provider detail page, use the **Test** button to verify connectivity. The connection test sends a request to the configured **endpoint** using the configured **default model** and **auth** for every provider kind — including OpenAI-compatible, vLLM, and Ollama — so the test reflects the exact settings you saved rather than a provider-specific probe URL.
 
 ### Manage providers
 
@@ -320,6 +315,47 @@ The runs table supports pagination and filtering (all runs or unhealthy only). S
 
 ![evaluation runs table in quality detail](images/trace-session-evaluations-6.png)
 
+## Experiments
+
+Experiments let you evaluate your LLM application against a dataset and compare a candidate against a baseline. Each experiment pins a dataset snapshot (a version and optional filter), a task (prompt- or SDK-driven), and one or more scorers. The system executes the task across every dataset row and trial, records execution evidence, and produces scores you can compare side-by-side.
+
+### Experiment summaries
+
+The experiments list renders a summary for each experiment from batched evidence. The system groups experiments into batches of 25 and issues three coordinated searches per batch — execution records from `_llm_experiment`, scores from `_llm_scores`, and LLM Judge cost from `_evaluator` — so list and detail views stay fast as the number of experiments grows.
+
+Each summary reports:
+
+| Field | Description |
+|---|---|
+| **Status** | A consolidated lifecycle state that combines execution and scoring: `pending`, `running`, `scoring`, `completed`, `cancelled`, `execution_failed`, or `scoring_failed`. |
+| **Execution progress** | Completed, total, and skipped task slots. |
+| **Scoring status** | The scoring phase state: `pending`, `running`, `completed`, or `completed_with_errors`. |
+| **Score summaries** | Per-scorer score distributions and health classification. |
+| **Aggregate summary** | p50 latency and cost totals across the whole experiment. |
+
+You can also filter the experiments list by dataset to narrow the view to a single dataset's runs.
+
+![TODO: screenshot of the Experiments list showing consolidated status, progress, and cost summary](images/placeholder.png)
+
+### Cost breakdown
+
+The aggregate summary separates **task cost** — the LLM calls that execute each dataset row — from **scoring cost** — the LLM Judge calls that produce each score — and reports a single **total cost** that sums the two.
+
+Scoring cost is aggregated from the `_evaluator` traces stream, scoped to the experiment's LLM Judge spans (`llm_judge.evaluate`). Each billed attempt is counted once: redelivered attempts are deduplicated by span so a retry never bills twice. When any cost is missing — an unpriced call, a delayed trace, or a remote scorer with no observable price — the summary flags the total as **incomplete** rather than silently under-reporting.
+
+### Comparing experiments
+
+When you compare a candidate against a baseline, the comparison joins rows by their stable dataset logical ID and classifies each row as **improved**, **regressed**, **unchanged**, **new**, or **missing**.
+
+Two controls shape the verdict:
+
+- **Comparison criteria (outcome dimensions)** — choose which dimensions vote on the outcome. Each selectable dimension has a stable ID (`cost`, `latency`, or a score dimension). Omitting the selection compares every eligible dimension; an empty selection compares none, so every row becomes **inconclusive**. Dimensions you leave unselected still show their values and evidence, but they don't affect the verdict.
+- **Percentage threshold** — the threshold is now expressed as a percentage. Ranged numeric scores use the configured range; cost, latency, and unranged numeric scores use the baseline magnitude; boolean and categorical scores use the healthy-observation fraction. A move away from a zero baseline counts as one full directional change.
+
+Only gating dimensions vote: a score dimension gates when it is selected and its pinned score config declares a health policy, while cost and latency gate in the lower-is-better direction when selected. A row regresses when any selected dimension exceeds the threshold in the worse direction, and improves only when at least one selected dimension improves and none regress. A row with no gating dimension on either side is **inconclusive**.
+
+![TODO: screenshot of the experiment comparison view with selectable comparison criteria and percentage threshold](images/placeholder.png)
+
 ## RBAC
 
 Online Evaluations resources have their own OFGA permissions:
@@ -346,7 +382,7 @@ All endpoints are prefixed with `/api/{org_id}`.
 | `GET` | `/providers/{id}` | Get a provider |
 | `PUT` | `/providers/{id}` | Update a provider |
 | `DELETE` | `/providers/{id}` | Delete a provider |
-| `POST` | `/providers/{id}/test` | Test provider connectivity |
+| `POST` | `/providers/test` | Test provider connectivity using an inline config (requires org-level provider create permission) |
 
 ### Score Configs
 
