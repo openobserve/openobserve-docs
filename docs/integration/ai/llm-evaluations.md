@@ -1,8 +1,3 @@
----
-title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
----
-
 # LLM Evaluations
 
 Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
@@ -31,6 +26,14 @@ ZO_ONLINE_EVALS_ENABLED=true
 ```
 
 When enabled, the **Evaluations** top-level navigation appears in the UI. When disabled, all evaluation pages and settings are hidden; backend API endpoints remain reachable.
+
+Trace- and session-scope jobs are detected by the **Eval Scheduler**, which polls trace streams on a fixed interval. Tune the interval if you need faster (or slower) target detection:
+
+```env
+O2_EVAL_SCHEDULER_POLL_INTERVAL_SECS=45
+```
+
+The default is `45` seconds; a value of `0` falls back to the default.
 
 ## Providers
 
@@ -160,6 +163,8 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 
 ![the Eval Jobs list page](images/online-evaluations-8.png)
 
+The list includes a **Target Scope** column showing whether each job scores `span`, `trace`, or `session` targets.
+
 | Field | Description |
 |---|---|
 | **Name** | Display name for the job. |
@@ -175,6 +180,12 @@ Navigate to **Evaluations > Eval Jobs** and click **Add Job**.
 ![the Add Eval Job form](images/online-evaluations-9.png)
 
 ![eval job form with target scope selector](images/trace-session-evaluations-1.png)
+
+### Matched targets preview
+
+While you configure a job, the form shows a live **matched targets** preview. It evaluates the job's stream and filter condition against a recent window and reports how many targets match at the selected scope: total matching rows for `span`, distinct `trace_id` values for `trace`, or distinct `session_id` values for `session`. The preview refreshes automatically as you edit the filter or change the target scope, so you can sanity-check coverage before activating the job.
+
+![TODO: screenshot of the matched targets preview in the Eval Job form](images/placeholder.png)
 
 ### Target scope
 
@@ -221,6 +232,20 @@ When an end signal is configured, the target is evaluated when the signal span a
 
 ![trace config with end signal](images/trace-session-evaluations-2.png)
 
+### System-provided variables
+
+For `trace` and `session` targets, the system assembles an evaluation view from the completed target's spans and exposes it to your scorer template through a set of system-provided variables, alongside your configured **Input Mapping**:
+
+| Variable | Description |
+|---|---|
+| `{{input}}` | The LLM input message(s) extracted from the target's root span (trace scope). |
+| `{{output}}` | The LLM output message(s) extracted from the target's root span (trace scope). |
+| `{{spans}}` | The target's spans (up to 5), projected through your span selector if one is bound (trace scope). |
+| `{{steps}}` | A normalized, ordered list of the target's LLM, tool, and span steps (up to 50). |
+| `{{statistics}}` | Aggregated statistics for the target: span count, LLM/tool call counts, error count, total duration, total tokens, total cost, and event/ingest time ranges. |
+
+Reference these directly in your scorer template placeholders, or map them through **Input Mapping** like any other span attribute. They are populated only for `trace` and `session` scopes; `span` scope scores the incoming span's attributes directly.
+
 ### Span selectors (trace scope)
 
 For trace-scope jobs, scorers may need only a subset of the spans in a trace rather than the entire trace. **Span Selectors** let you define named sub-queries that filter, pick, and limit spans within the trace for each scorer.
@@ -256,7 +281,7 @@ Send a `POST` to `/api/{org_id}/eval_jobs/{job_id}/manual_eval` with:
 }
 ```
 
-The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run. The response reports the number of durable evaluation tasks created.
+The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run. The authenticated user is recorded automatically as the evaluation `author`, and you can attach an optional `reason`. The response reports the number of durable evaluation tasks created.
 
 ### Job lifecycle
 
@@ -299,6 +324,18 @@ Span-scope jobs create a `PipelineKind::Evaluation` pipeline behind the scenes. 
 Trace-scope and session-scope jobs do NOT create hidden pipelines. Instead, the Eval Scheduler polls trace streams periodically, detects completed targets using the configured idle window and end signal, and publishes evaluation tasks.
 
 Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreRecord` entries, and evaluator telemetry (latency, tokens, status) is recorded as OTLP spans in the `_evaluator` traces stream.
+
+### Durable evaluation tasks
+
+Every evaluation — span, trace, or session — is executed as a durable task published to a dedicated NATS queue subject (`eval.task.span`, `eval.task.trace`, or `eval.task.session`). This gives the execution path at-least-once delivery and resilience under load:
+
+- **Acknowledgment on success.** A task is acknowledged only after its score is written and its evaluator trace exported. If a task fails, it is left unacknowledged and redelivered for retry.
+- **Progress reporting.** Long-running tasks (large traces or sessions) periodically report progress to extend the acknowledgment window, so they are not redelivered while still running.
+- **Single-owner scheduler.** The Eval Scheduler elects one node (among ingester, querier, and alert-manager nodes) to poll trace streams, so only that node publishes automatic trace/session tasks.
+- **Resumable watermarks.** The scheduler persists an ingest-time watermark per organization and trace stream, so a restart resumes from the last committed position rather than re-scanning from scratch.
+- **Fail-closed hydration.** When a worker assembles a trace/session target, it queries the authoritative event-time window; partial search results or incomplete session evidence fail the task (and trigger retry) rather than scoring an incomplete target.
+
+Each score record carries its `target_scope`, `target_id`, and an `evaluation_key`, plus a `score_version`. The Quality Dashboard groups by this key so the latest score for a given target, scorer, and score config is always the one surfaced.
 
 ## Quality Dashboard
 
