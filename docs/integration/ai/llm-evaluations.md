@@ -1,8 +1,3 @@
----
-title: LLM Evaluations
-description: Continuously score LLM traces and spans in OpenObserve with online evaluations using LLM-as-a-judge or remote scorers, score configs, and managed eval jobs.
----
-
 # LLM Evaluations
 
 Online Evaluations let you continuously score your LLM application's traces and spans using configurable evaluators - either LLM-as-a-judge powered by your own AI providers, or external remote scoring endpoints.
@@ -31,6 +26,14 @@ ZO_ONLINE_EVALS_ENABLED=true
 ```
 
 When enabled, the **Evaluations** top-level navigation appears in the UI. When disabled, all evaluation pages and settings are hidden; backend API endpoints remain reachable.
+
+Trace- and session-scope jobs are detected by a background **Eval Scheduler** that periodically polls your trace streams for completed targets. Control how often it polls:
+
+```env
+O2_EVAL_SCHEDULER_POLL_INTERVAL_SECS=45
+```
+
+The default is `45` seconds; values below `1` are clamped to `1` second.
 
 ## Providers
 
@@ -240,6 +243,20 @@ Bind each scorer to a span selector via **span selector bindings** — a mapping
 
 ![span selector configuration](images/trace-session-evaluations-3.png)
 
+### Target view variables (trace/session scope)
+
+For **trace**- and **session**-scope jobs, OpenObserve automatically assembles the target's telemetry into a set of enriched template variables before rendering each scorer template. You can reference these directly in your template (for example `{{input}}`, `{{output}}`, or `{{steps}}`) alongside any variables you map manually via **input mapping**.
+
+| Variable | Scopes | Description |
+|---|---|---|
+| `input` | trace | The LLM input messages from the target's root span (first matching gen-ai input field). |
+| `output` | trace | The LLM output messages from the target's root span. |
+| `spans` | trace | A compact list of spans in the target — up to 5 by default, or the subset selected by a bound **span selector** (capped by its maximum spans). Each entry carries sequence, type, name, status, duration, timestamps, and tool/input/output where present. |
+| `steps` | trace, session | An ordered sequence of up to 50 steps, each classified as an LLM call, tool call, or other span, with `type`, `kind`, `input`/`output`, `tool_input`/`tool_output`, and timing. Omitted steps are folded into a summary. |
+| `statistics` | trace, session | Aggregate counters for the target: span count, LLM calls, tool calls, error count, total duration, total tokens, total cost, distinct tools, and trace/session counts plus event and ingest timestamps. |
+
+These variables are populated for both automatic evaluations and manual evaluations, so the same template works regardless of how the run was triggered. Span-scope jobs do not receive this enrichment — they render templates from the span attributes selected by the job's input mapping.
+
 ### Manual evaluation
 
 You can trigger an evaluation for a specific target on demand, bypassing the automatic sampling and completion logic. This is useful for re-evaluating a trace after changing scorers, or testing a job against a known trace or session.
@@ -256,7 +273,7 @@ Send a `POST` to `/api/{org_id}/eval_jobs/{job_id}/manual_eval` with:
 }
 ```
 
-The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run. The response reports the number of durable evaluation tasks created.
+The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run. The response reports the number of durable evaluation tasks created. The triggering user is recorded automatically as the score's `author`, and an optional `reason` is stored alongside each score for audit.
 
 ### Job lifecycle
 
