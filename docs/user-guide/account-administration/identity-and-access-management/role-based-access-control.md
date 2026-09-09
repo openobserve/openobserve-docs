@@ -1,9 +1,10 @@
 ---
+title: Role-Based Access Control (RBAC)
 description: >-
   Manage fine-grained access in OpenObserve with OpenFGA-based RBAC—roles,
   permissions, service accounts, and user groups.
 ---
-This guide provides an overview of Role-Based Access Control (RBAC), its features, and how it is implemented in OpenObserve.
+This guide provides an overview of Role-Based Access Control (RBAC) and its features in OpenObserve.
 
 !!! info "Availability"
     This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
@@ -15,6 +16,7 @@ This guide provides an overview of Role-Based Access Control (RBAC), its feature
 ## Overview
 
 OpenObserve uses RBAC to manage what actions users can perform based on their assigned roles. Instead of giving all users the same level of access, RBAC ensures that each user can only access the features and data relevant to their role.
+
 
 ## How OpenObserve Implements RBAC
 
@@ -28,6 +30,7 @@ OpenObserve uses OpenFGA, an authorization system, to manage role-based access c
 4. OpenFGA evaluates the role relationships and returns a **true** or **false** response:
 <br> **True**: The user can perform the action.
 <br> **False**: The user cannot perform the action.
+
 
 ## RBAC in OpenObserve  
 
@@ -82,7 +85,7 @@ OpenObserve also supports fine-grained RBAC for LLM Evaluations (AI Observabilit
 
 Each of these resources supports entity-level permissions, so you can grant access to a specific provider, scorer, score config, or eval job rather than every entity of that type.
 
-![TODO: screenshot of the custom role editor permission list showing the LLM Evaluations resources (LLM Providers, Score Configs, Scorers, Online Eval Jobs)](images/placeholder.png)
+![Custom role editor permission list showing the LLM Evaluations resources (LLM Providers, Score Configs, Scorers, Online Eval Jobs)](images/llm-rbac.png)
 
 **To grant access to a specific LLM evaluation entity**:
 
@@ -90,7 +93,7 @@ Each of these resources supports entity-level permissions, so you can grant acce
 2. In the permission list, select the resource you want to restrict, for example **LLM Providers**.
 3. Choose the specific entities to grant access to from the entity list.
 
-![TODO: screenshot of the entity selection for LLM Providers within the custom role editor](images/placeholder.png)
+![Entity selection for LLM Providers within the custom role editor](images/llm-provider-rbac.png)
 
 List views respect these permissions: when a user lists providers, score configs, scorers, or eval jobs, OpenObserve returns only the entities the user is permitted to view.
 
