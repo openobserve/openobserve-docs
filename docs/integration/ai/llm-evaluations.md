@@ -13,7 +13,7 @@ The Online Evaluations system has four core resources, each building on the prev
 | **Scorer** | The evaluation logic: a template with `{{variables}}`, parameters for execution, and a link to a score config that describes the output it produces. Two types exist: **LLM Judge** (calls an LLM via a provider) and **Remote** (calls an external HTTP endpoint). |
 | **Eval Job** | A running evaluation pipeline: binds one or more scorers to a specific stream, defines a **target scope** (span, trace, or session), which traces/spans to evaluate (filter), how many to sample, and manages the lifecycle (draft, active, paused, archived). |
 
-When you activate an eval job, the system creates a system-managed evaluation pipeline that runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
+When you activate an eval job, OpenObserve runs your scorers against incoming data. Scores flow into the `_llm_scores` stream; evaluator telemetry flows into the `_evaluator` traces stream.
 
 ![the Online Evaluations dashboard listing eval jobs](images/online-evaluations-1.png)
 
@@ -177,11 +177,11 @@ The **Target Scope** determines what unit of evaluation the job scores:
 
 | Scope | What is evaluated | Completion logic |
 |---|---|---|
-| **Span** | Each matching span individually | Evaluated as soon as the span arrives. The system creates a hidden evaluation pipeline that processes spans in real time. |
+| **Span** | Each matching span individually | Evaluated in real time, as soon as the span arrives. |
 | **Trace** | An entire trace aggregated from multiple spans | The scheduler waits for the trace to complete (idle window + optional end signal), then assembles the aggregated payload. |
 | **Session** | A full conversation session spanning multiple traces | Uses session ID columns (`session_id`, `gen_ai_conversation_id`, `llm_session_id`, or `gen_ai.conversation.id`) to group traces. Completes on idle window or end signal. |
 
-Only span-scope jobs create a hidden evaluation pipeline. Trace and session jobs are detected by the Eval Scheduler, which polls trace streams for completed targets.
+Span-scope jobs evaluate in real time. Trace- and session-scope jobs are detected by the Eval Scheduler, which polls trace streams for completed targets.
 
 ### Trace and session completion
 
@@ -231,7 +231,7 @@ A span selector defines:
 | **Fields** | (Custom mode) The span attribute columns to include in the payload sent to the scorer. |
 | **Maximum Spans** | The maximum number of matching spans to include (default 5). |
 
-Bind each scorer to a span selector via **span selector bindings** — a mapping from scorer ID to selector ID. A scorer needs a binding only when it actually uses spans: either its template declares `{{ spans }}` directly, or one of its mapped variables resolves to `{{ spans }}`. Scorers that never reference spans don't require a selector, and the job form only shows the Span Selector control for span-using scorers. A trace-scope job cannot be activated until every span-using scorer has a binding.
+Bind each scorer to a span selector via **span selector bindings**. Only scorers that use `{{ spans }}` (directly or through a mapped variable) need a binding — the job form only shows the control for those scorers, and a trace-scope job can't be activated until each of them has one.
 
 ![span selector configuration](images/trace-session-evaluations-3.png)
 
@@ -242,13 +242,9 @@ Each scorer's prompt `{{variables}}` are mapped to their sources per eval job, i
 - **System-provided values** — values OpenObserve derives from the evaluated target itself (trace or session scope only).
 - **Span attributes** — fields from the trace stream.
 
-![TODO: screenshot of the eval job Prompt variables section with grouped mapping dropdown](images/placeholder.png)
-
 For span-scope jobs, every variable maps to a span attribute and is seeded with a sensible default (`input` → `{{gen_ai_input_messages}}`, `output` → `{{gen_ai_output_messages}}`, and so on). For trace and session scopes, the variables OpenObserve provides are pre-filled as their own source (for example `{{input}}`, `{{statistics}}`, `{{steps}}`, `{{spans}}`), and you can override any of them to a span attribute instead. Use the copy button next to each dropdown to copy a mapping expression.
 
 The **About system-provided values** link opens a reference drawer that lists every system-provided value for the job's target scope, where it comes from, and what it supplies:
-
-![TODO: screenshot of the About system-provided values reference drawer](images/placeholder.png)
 
 | Value | Trace scope | Session scope |
 |---|---|---|
@@ -258,7 +254,7 @@ The **About system-provided values** link opens a reference drawer that lists ev
 | `steps` | Spans in time order, with the middle folded for very long traces | Traces in time order, represented as conversation turns |
 | `spans` | A filtered subset of the trace's spans, chosen by the Span Selector | — |
 
-The `spans` value is special: mapping a variable to `{{ spans }}` marks the scorer as span-using and requires a **Span Selector** binding (see [Span selectors](#span-selectors-trace-scope) above). Mappings to system-provided values are persisted with the job, so the system knows exactly which values each scorer consumes.
+The `spans` value is special: mapping a variable to `{{ spans }}` marks the scorer as span-using and requires a **Span Selector** binding (see [Span selectors](#span-selectors-trace-scope) above).
 
 ### Manual evaluation
 
@@ -276,7 +272,7 @@ Send a `POST` to `/api/{org_id}/eval_jobs/{job_id}/manual_eval` with:
 }
 ```
 
-The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run. The response reports the number of durable evaluation tasks created.
+The `targetId` is required. Use `traceId` or `sessionId` to pin the evaluation to a specific trace or session. Optional `variables` override template variables for this evaluation run.
 
 ### Job lifecycle
 
@@ -292,8 +288,8 @@ draft → active ⇄ paused
 
 | Action | Description |
 |---|---|
-| **Activate** | Validates the job configuration, applies scope defaults, and starts scoring. For span-scope jobs, creates the underlying evaluation pipeline. For trace/session jobs, registers with the scheduler. Allowed from `draft`, `paused`, or `degraded`. |
-| **Pause** | Temporarily stops evaluation. The pipeline or scheduler registration is preserved. Allowed from `active` or `degraded`. |
+| **Activate** | Validates the job configuration, applies scope defaults, and starts scoring. Allowed from `draft`, `paused`, or `degraded`. |
+| **Pause** | Temporarily stops evaluation without losing your configuration. Allowed from `active` or `degraded`. |
 | **Resume** | Restarts evaluation from `paused` or `degraded` state. |
 | **Archive** | Permanently stops evaluation. The job is retained for audit but no longer processes data. |
 
@@ -303,22 +299,11 @@ Use the action buttons on the job detail page to manage lifecycle transitions.
 
 ### Update a job
 
-Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, the underlying configuration is automatically reconciled:
-- Span-scope jobs: the hidden pipeline is updated with new filters, sampling, and scorers.
-- Trace/session jobs: if switching TO a span scope, a pipeline is created; if switching FROM a span scope, the old pipeline is torn down.
+Edit any field on a draft or active job. Updating bumps the job's version. If the job is active, your changes — new filters, sampling, scorers, or a change of target scope — take effect automatically without needing to pause and resume.
 
-### Scoring pipeline
+### Where scores go
 
-Span-scope jobs create a `PipelineKind::Evaluation` pipeline behind the scenes. This pipeline is:
-
-- **Hidden** from the main Pipeline UI — it is managed exclusively by the eval jobs subsystem.
-- **Coexisting** with user pipelines on the same stream (no "one pipeline per stream" conflict).
-- **Automatically reconciled** when the job is updated.
-- **Terminating at an LLM evaluation task publisher** rather than writing to `_llm_scores` directly. Durable evaluation tasks are enqueued and processed asynchronously.
-
-Trace-scope and session-scope jobs do NOT create hidden pipelines. Instead, the Eval Scheduler polls trace streams periodically, detects completed targets using the configured idle window and end signal, and publishes evaluation tasks.
-
-Evaluated scores are written to the `_llm_scores` system stream as `LlmScoreRecord` entries, and evaluator telemetry (latency, tokens, status) is recorded as OTLP spans in the `_evaluator` traces stream.
+Evaluated scores are written to the `_llm_scores` system stream, and evaluator telemetry (latency, tokens, status) is recorded in the `_evaluator` traces stream. You can query both streams directly for debugging or building dashboards.
 
 ## Quality Dashboard
 
