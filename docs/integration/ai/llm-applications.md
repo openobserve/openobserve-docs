@@ -7,6 +7,8 @@ description: "Monitor, trace, and debug LLM apps in production with OpenObserve 
 
 Monitor, trace, and debug your LLM-powered applications in production using OpenObserve and OpenTelemetry.
 
+> **Note**: LLM Observability is available on both OpenObserve Cloud and self-hosted deployments.
+
 ## **What is LLM Observability?**
 
 LLM Observability gives you visibility into the behaviour of large language model calls inside your application , similar to traditional APM, but purpose-built for AI workloads.
