@@ -1,0 +1,28 @@
+# Secret scanning before every commit.
+#
+# One-time setup per clone:
+#   brew install trufflehog pre-commit   # or: pip install pre-commit
+#   pre-commit install
+#
+# Scans the staged files only, so it stays fast on a repo this size.
+#
+# --results=verified means TruffleHog reports a finding only after the issuing
+# provider confirms the credential is live. That is deliberate: these docs are
+# full of placeholders (postgres://user:password@host:5432, AKIAIOSFODNN7EXAMPLE)
+# and the looser --results=verified,unknown setting fails on every one of them,
+# because "unknown" also covers candidates whose verification errored out --
+# including a DNS lookup failing on the literal hostname "host".
+#
+# Trade-off: a genuine secret whose provider is unreachable at commit time is
+# not caught here. GitHub secret scanning with push protection is the second
+# net for that case, and it runs server-side on every push.
+repos:
+  - repo: local
+    hooks:
+      - id: trufflehog
+        name: TruffleHog
+        description: Block commits containing a verified-live credential.
+        entry: trufflehog filesystem --results=verified --fail --no-update
+        language: system
+        pass_filenames: true
+        stages: ["pre-commit"]
