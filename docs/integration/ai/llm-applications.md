@@ -56,6 +56,10 @@ OPENAI_API_KEY="your-openai-key"
 ANTHROPIC_API_KEY="your-anthropic-key"
 ```
 
+Copy the ready-made endpoint and `Authorization` header for `OPENOBSERVE_URL` and `OPENOBSERVE_AUTH_TOKEN` from **Data Sources → Custom → Traces → OTel Collector** in the OpenObserve UI.
+
+![OTel Collector credentials for Traces](../../images/opentelemetry-collector-for-traces.png)
+
 | Variable | Description | Required |
 | ----- | ----- | ----- |
 | `OPENOBSERVE_URL` | Base URL of your OpenObserve instance | Yes |
