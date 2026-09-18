@@ -7,6 +7,8 @@ description: "Monitor, trace, and debug LLM apps in production with OpenObserve 
 
 Monitor, trace, and debug your LLM-powered applications in production using OpenObserve and OpenTelemetry.
 
+> **Note**: LLM Observability is available on both OpenObserve Cloud and self-hosted deployments.
+
 ## **What is LLM Observability?**
 
 LLM Observability gives you visibility into the behaviour of large language model calls inside your application , similar to traditional APM, but purpose-built for AI workloads.
@@ -25,9 +27,13 @@ With it you can track:
 * Python 3.8+  
 * [`uv`](https://github.com/astral-sh/uv) package manager (or `pip`)  
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)  
-* Your OpenObserve **organisation ID** and **auth token**, copied from **Data Sources → Custom → Traces → OTel Collector** in the OpenObserve UI
+* Your OpenObserve **organisation ID** and **auth token**, copied from **Data Sources → Custom → Traces → OpenTelemetry** in the OpenObserve UI
 
 ## **Configuration**
+
+Go to **Data Sources → Custom → Traces → OpenTelemetry** in the OpenObserve UI and copy the **HTTP Endpoint** and **Authorization** header value under **OTLP HTTP**.
+
+![Data Sources - Traces - OpenTelemetry](../../images/opentelemetry-collector-for-traces.png)
 
 Create a `.env` file in your project root:
 
@@ -39,8 +45,8 @@ OPENOBSERVE_URL=https://api.openobserve.ai/
 # Your OpenObserve organisation slug or ID
 OPENOBSERVE_ORG=your_org_id
 
-# Auth token for OpenObserve
-OPENOBSERVE_AUTH_TOKEN="Basic <your_auth_token>"
+# Auth token: copy the Authorization header value from Data Sources > Custom > Traces > OpenTelemetry
+OPENOBSERVE_AUTH_TOKEN="Basic <token_from_ui>"
 
 # Enable or disable tracing (default: true)
 OPENOBSERVE_ENABLED=true
@@ -58,7 +64,7 @@ Copy the ready-made endpoint and `Authorization` header for `OPENOBSERVE_URL` an
 | ----- | ----- | ----- |
 | `OPENOBSERVE_URL` | Base URL of your OpenObserve instance | Yes |
 | `OPENOBSERVE_ORG` | Organisation slug or ID | Yes |
-| `OPENOBSERVE_AUTH_TOKEN` | Auth token, copied from **Data Sources → Custom → Traces → OTel Collector** | Yes |
+| `OPENOBSERVE_AUTH_TOKEN` | Authorization header value from **Data Sources → Custom → Traces → OpenTelemetry** (`Basic <token>`) | Yes |
 | `OPENOBSERVE_ENABLED` | Toggle tracing on/off | No (default: `true`) |
 | `OPENAI_API_KEY` | Only needed by the bundled OpenAI example | No |
 
@@ -201,7 +207,7 @@ The cost fields (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cos
 
 * Confirm `OPENOBSERVE_ENABLED=true` in your `.env`  
 * Check that `OPENOBSERVE_URL` ends with a trailing `/`  
-* Verify `OPENOBSERVE_AUTH_TOKEN` matches the value copied from **Data Sources → Custom → Traces → OTel Collector**  
+* Verify `OPENOBSERVE_AUTH_TOKEN` matches the Authorization header value from **Data Sources → Custom → Traces → OpenTelemetry** (`Basic <token>`)  
 * Ensure the SDK or tracer provider is initialised before any LLM calls
 
 **`ModuleNotFoundError: No module named 'dotenv'`**
@@ -214,5 +220,5 @@ The cost fields (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cos
 
 ## Read More
 - [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)
-- [LLM Experiments](llm-experiments.md): Run offline, batch evaluations against versioned datasets and compare results across pinned experiments.
-- [LLM Evaluations](llm-evaluations.md): Continuously score LLM traces and spans using LLM-as-a-judge or remote scorers.
+- [LLM Evaluations](https://openobserve.ai/docs/integration/ai/llm-evaluations/): Continuously score live LLM traces using LLM-as-a-judge or remote scorers.
+- [LLM Experiments](https://openobserve.ai/docs/integration/ai/llm-experiments/): Run offline, batch evaluations against versioned datasets and compare results.

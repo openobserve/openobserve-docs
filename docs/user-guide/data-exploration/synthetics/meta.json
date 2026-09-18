@@ -6,6 +6,7 @@
     "protocol-checks",
     "configuration",
     "results",
-    "private-locations"
+    "private-locations",
+    "status-pages"
   ]
 }
