@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * Markdown images, rendered as plain <img> with click-to-zoom.
@@ -30,7 +31,7 @@ export function ZoomableImage(props: React.ImgHTMLAttributes<HTMLImageElement>) 
   }, [zoomed, close]);
 
   return (
-    <>
+    <span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         {...props}
@@ -40,22 +41,25 @@ export function ZoomableImage(props: React.ImgHTMLAttributes<HTMLImageElement>) 
         onClick={() => setZoomed(true)}
         className={`cursor-zoom-in rounded-lg ${props.className ?? ''}`}
       />
-      {zoomed ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={props.alt || 'Expanded image'}
-          onClick={close}
-          className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/80 p-4"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            {...props}
-            alt={props.alt ?? ''}
-            className="max-h-full max-w-full rounded-lg object-contain"
-          />
-        </div>
-      ) : null}
-    </>
+      {zoomed
+        ? createPortal(
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={props.alt || 'Expanded image'}
+              onClick={close}
+              className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/80 p-4"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                {...props}
+                alt={props.alt ?? ''}
+                className="max-h-full max-w-full rounded-lg object-contain"
+              />
+            </div>,
+            document.body,
+          )
+        : null}
+    </span>
   );
 }

@@ -269,6 +269,7 @@ If nothing appears, check `kubectl -n obi logs ds/obi` (or the Docker container 
 - [OpenTelemetry Collector / OTLP](../logs/otlp.md): route logs, metrics, and traces through a Collector.
 - [Distributed tracing overview](./index.md): all trace ingestion paths, including SDK-based instrumentation.
 - [Metrics ingestion](../metrics/index.md): Prometheus, OTLP, and Telegraf.
+- [eBPF profiler](../profiles/ebpf.md): CPU profiles (a different eBPF agent; OBI does not emit OTLP Profiles).
 - [OBI documentation](https://opentelemetry.io/docs/zero-code/obi/): upstream setup, configuration, and feature reference.
 
 **Need some help?**

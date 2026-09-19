@@ -1,12 +1,12 @@
 ---
 title: Ingestion Overview
-metaTitle: Data Ingestion Guide - Logs, Metrics, and Traces Collection
-description: "Ingest logs, metrics, and traces into OpenObserve using OpenTelemetry, Prometheus, log forwarders, and APIs for complete observability."
+metaTitle: Data Ingestion Guide - Logs, Metrics, Traces, and Profiles
+description: "Ingest logs, metrics, traces, and profiles into OpenObserve using OpenTelemetry, Prometheus, log forwarders, and APIs for complete observability."
 ---
 
-# Data Ingestion - Logs, Metrics & Traces Collection
+# Data Ingestion - Logs, Metrics, Traces & Profiles
 
-Collect logs, metrics, and traces into OpenObserve from a variety of data sources for unified observability. This data ingestion guide describes how to ingest observability data from log forwarders, monitoring agents, OpenTelemetry Collector, APIs, and programmatic methods.
+Collect logs, metrics, traces, and profiles into OpenObserve from a variety of data sources for unified observability. This data ingestion guide describes how to ingest observability data from log forwarders, monitoring agents, OpenTelemetry Collector, APIs, and programmatic methods.
 
 ## Logs
 
@@ -69,6 +69,16 @@ Send distributed traces using OpenTelemetry SDKs or the Collector.
 1. [Node.js](traces/nodejs.md)
 1. [Python](traces/python.md)
 1. [Go](traces/go.md)
+
+## Profiles
+
+Send continuous CPU and memory profiles over OTLP Profiles.
+
+1. [OTLP / Collector](profiles/otlp.md)
+1. [Java (async-profiler)](profiles/java.md)
+1. [Go (pprof)](profiles/go.md)
+1. [Rust (eBPF)](profiles/rust.md)
+1. [eBPF profiler](profiles/ebpf.md)
 
 **Need some help?**
 
