@@ -364,13 +364,13 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 ## S3 and Object Storage
 | Environment Variable                   | Default Value | Description                                                                                                                                                           |
 | -------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL               | -             | Default for aws s3 & leave it empty, but for `minIO`, `gcs` one should configure it. |
+| ZO_S3_SERVER_URL               | -             | Default for aws s3 & leave it empty, but for `minIO`, `gcs`, or RustFS one should configure it. |
 | ZO_S3_REGION_NAME              | -             | Region name                                                                          |
 | ZO_S3_ACCESS_KEY               | -             | Access key                                                                           |
 | ZO_S3_SECRET_KEY               | -             | Secret key                                                                           |
 | ZO_S3_BUCKET_NAME              | -             | Bucket name                                                                          |
 | ZO_S3_BUCKET_PREFIX            | -             | You can store data in a sub directory, like: `openobserve/`                          |
-| ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, swift                             |
+| ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, rustfs, swift                             |
 | ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | Feature: `force_hosted_style`.                                                     |
 | AWS_EC2_METADATA_DISABLED      | false         | Feature, default enable for `swift`.                                                 |
 | ZO_S3_FEATURE_BULK_DELETE       | false         | Enables bulk deletion of streams in object stores that support stream deletion. If your object store supports stream delete, you can enable this variable. AWS S3 and Azure ObjectStore are known to support it. When set to **true**, OpenObserve issues a single operation to delete all files under the stream’s storage prefix, reducing deletion time and API usage.                                                                             |

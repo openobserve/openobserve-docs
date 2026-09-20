@@ -38,7 +38,7 @@ Datadog is sold as a bundle of distinct products (Infrastructure, APM, Logs, RUM
 
 In Datadog, raw telemetry lives on Datadog's cluster. You can query it through their UI and API but can't cheaply backfill, re-process, or join it against the rest of your data.
 
-In OpenObserve, raw events live as **Apache Parquet in your bucket**: S3, GCS, Azure Blob, MinIO, or local disk. Any tool that reads Parquet can read your telemetry data.
+In OpenObserve, raw events live as **Apache Parquet in your bucket**: S3, GCS, Azure Blob, MinIO, RustFS, or local disk. Any tool that reads Parquet can read your telemetry data.
 
 ## Feature Comparison
 
@@ -55,7 +55,7 @@ In OpenObserve, raw events live as **Apache Parquet in your bucket**: S3, GCS, A
 | Per-host pricing | $15 to $27 / host / month | $0 |
 | Custom metrics | Per-metric overage above quota | Unlimited, included |
 | Self-hosted option | No | Yes |
-| Bring your own storage | No | Yes (S3, GCS, Azure Blob, MinIO) |
+| Bring your own storage | No | Yes (S3, GCS, Azure Blob, MinIO, RustFS) |
 | IAM & SSO | Enterprise tier only | Included (SAML, OIDC, LDAP, role-based access) |
 
 ## Architectural Differences
