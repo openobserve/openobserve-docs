@@ -18,7 +18,7 @@ By default:
 
 - Metadata is always stored on disk using **SQLite** in **Local mode**.
 - Metadata is always stored on disk using **PostgreSQL** in **Cluster mode**.
-- Stream data can be stored on disk or object storage such as Amazon S3, MinIO, Google GCS, Alibaba OSS, or Tencent COS.
+- Stream data can be stored on disk or object storage such as Amazon S3, MinIO, RustFS, Google GCS, Alibaba OSS, or Tencent COS.
 
 ## Storage Modes
 
@@ -26,6 +26,7 @@ By default:
 - To enable **Cluster mode**, set the environment variable `ZO_LOCAL_MODE=false`.
 - In **Local mode**, stream data can be stored in S3 by setting `ZO_LOCAL_MODE_STORAGE=s3`.
 - GCS and OSS support the S3 SDK and can be treated as S3-compatible storages.
+- RustFS implements the S3 API (including path-style requests) and works through the `s3` provider.
 - Azure Blob storage is supported via `ZO_S3_PROVIDER=azure`.
 
 ### Data Storage Format
@@ -63,6 +64,21 @@ Then set the following environment variables:
 | ZO_S3_BUCKET_NAME    | -     | Bucket name                                     |
 | ZO_S3_PROVIDER       | minio | ...                                             |
 
+
+### RustFS
+To use [RustFS](https://rustfs.com/) for storing stream data, first create the bucket in RustFS — in the RustFS Console (`http://<rustfs-server>:9001/rustfs/console/`) or with the `rc` CLI (`rc mb rustfs/<your-bucket>`).
+Then set the following environment variables:
+
+| Environment Variable | Value | Description                                     |
+| -------------------- | ----- | ----------------------------------------------- |
+| ZO_S3_SERVER_URL     | -     | RustFS server address, such as `http://rustfs:9000` |
+| ZO_S3_REGION_NAME    | -     | Region name, such as `us-east-1`                |
+| ZO_S3_ACCESS_KEY     | -     | Access key                                      |
+| ZO_S3_SECRET_KEY     | -     | Secret key                                      |
+| ZO_S3_BUCKET_NAME    | -     | Bucket name                                     |
+| ZO_S3_PROVIDER       | s3    | Enables S3-compatible API                       |
+
+OpenObserve issues path-style requests by default, which is what RustFS expects, so no additional feature flags are required.
 
 ### OpenStack Swift
 To use OpenStack Swift for storing stream data, first create the bucket in Swift.

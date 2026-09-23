@@ -386,7 +386,7 @@ config:
   ZO_S3_REGION_NAME: "<region from `aws s3api get-bucket-location`>"
 ```
 
-Valid values for `ZO_S3_PROVIDER` include `s3`, `azure`, `minio`, and `gcs`. `ZO_S3_REGION_NAME` must match the bucket's region (not the cluster's region, if they differ).
+Valid values for `ZO_S3_PROVIDER` include `s3`, `azure`, `minio`, `rustfs`, and `gcs`. `ZO_S3_REGION_NAME` must match the bucket's region (not the cluster's region, if they differ).
 
 **3. Root user credentials**. Search for `auth:` (~ line 175):
 

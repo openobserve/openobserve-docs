@@ -405,6 +405,8 @@ module "openobserve" {
 }
 ```
 
+If you run [RustFS](https://rustfs.com/) as the object store instead of the bundled MinIO subchart, deploy it separately (single node or distributed) and point the `ZO_S3_*` variables at its endpoint — see [Any Kubernetes + RustFS](../administration/deployment/ha-deployment.md#any-kubernetes--rustfs).
+
 ### Example: Enterprise Edition
 
 Point the `image` block at the enterprise container repository:
