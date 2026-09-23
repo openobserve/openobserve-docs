@@ -6,7 +6,7 @@ description: Complete OpenTelemetry Collector guide for OTLP log ingestion, metr
 
 # OpenTelemetry Collector (OTEL) / OTLP Log Ingestion
 
-OpenObserve supports the OpenTelemetry Protocol (OTLP) for `logs`, `metrics` and `traces` ingestion using the OpenTelemetry Collector. This page covers log ingestion; for metrics and traces, see the dedicated pages under [Ingestion](../index.md).
+OpenObserve supports the OpenTelemetry Protocol (OTLP) for `logs`, `metrics`, `traces`, and `profiles` ingestion using the OpenTelemetry Collector. This page covers log ingestion; for the other signals, see [metrics](../metrics/index.md), [traces](../traces/index.md), and [profiles](../profiles/index.md).
 
 ## Choose a protocol
 

@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "index",
+    "otlp",
+    "java",
+    "go",
+    "rust",
+    "ebpf"
+  ]
+}
