@@ -43,7 +43,7 @@ openobserveRum.init({
 });
 ```
 
-**CDN async** suits sites without a build step, or where you want the agent loaded out-of-band so it never sits in your critical bundle. The async bundle exposes a global (`OO_RUM`) and an `onReady` queue:
+**CDN async** suits sites without a build step, or where you want the agent loaded out-of-band so it never sits in your critical bundle. The async bundle exposes a global (`O2_RUM`) and an `onReady` queue:
 
 ```html
 <script>
@@ -51,10 +51,10 @@ openobserveRum.init({
     h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
     d=o.createElement(u);d.async=1;d.src=n
     n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
-  })(window,document,'script','https://browsersdk.openobserve.ai/0.3.1/openobserve-rum.js','OO_RUM')
+  })(window,document,'script','https://browsersdk.openobserve.ai/0.4.3/openobserve-rum.js','O2_RUM')
 
-  window.OO_RUM.onReady(function() {
-    window.OO_RUM.init({
+  window.O2_RUM.onReady(function() {
+    window.O2_RUM.init({
       applicationId: 'YOUR_APPLICATION_ID',
       clientToken: 'YOUR_CLIENT_TOKEN',
       site: 'your-openobserve-host.com',
@@ -69,7 +69,7 @@ openobserveRum.init({
 </script>
 ```
 
-With the CDN async setup, any early API call (`setUser`, `startView`, and similar) must run inside `window.OO_RUM.onReady(...)` so it only executes once the SDK has finished loading.
+With the CDN async setup, any early API call (`setUser`, `startView`, and similar) must run inside `window.O2_RUM.onReady(...)` so it only executes once the SDK has finished loading.
 
 ### Protecting Page Load (LCP / INP)
 
@@ -81,7 +81,7 @@ The agent should never be the reason a page feels slow. Three rules:
 
 ### Version Pinning
 
-Pin the CDN URL to an explicit version (`.../0.3.1/openobserve-rum.js`) rather than a floating alias, so a new release can never change behavior under you mid-incident. For NPM, pin the exact version in `package.json` and upgrade deliberately: read the changelog, bump in a branch, and confirm that sessions, replays, and errors still arrive in OpenObserve before you ship.
+Pin the CDN URL to an explicit version (`.../0.4.3/openobserve-rum.js`) rather than a floating alias, so a new release can never change behavior under you mid-incident. For NPM, pin the exact version in `package.json` and upgrade deliberately: read the changelog, bump in a branch, and confirm that sessions, replays, and errors still arrive in OpenObserve before you ship.
 
 ---
 
