@@ -9,11 +9,13 @@ import { Banner } from 'fumadocs-ui/components/banner';
  *
  * The docs are a static export, so the banner can't be baked in at build time
  * without going stale. Instead it is fetched in the browser on every page load
- * from `/banner.json`, which website5 publishes from the same CMS entry its own
+ * from `/banner.json`, which website5 publishes from the same CMS data its own
  * banner renders. Plain `fetch` ignores Next's `basePath`, so the root-relative
- * URL resolves to https://openobserve.ai/banner.json — same origin as the docs,
- * so no CORS is involved. On localhost that path doesn't exist and the banner
- * simply doesn't render, unless NEXT_PUBLIC_BANNER_URL points at a test file.
+ * URL resolves to the site root the docs are served under (openobserve.ai, or
+ * staging) — same origin, so no CORS. Don't make it absolute: CloudFront doesn't
+ * key its cache on `Origin`, so the CORS header on that file comes and goes.
+ * In `next dev` the path is proxied to openobserve.ai (see next.config.mjs);
+ * NEXT_PUBLIC_BANNER_URL can point it at a test file instead.
  */
 const BANNER_URL = process.env.NEXT_PUBLIC_BANNER_URL || '/banner.json';
 
