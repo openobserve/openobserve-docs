@@ -9,6 +9,7 @@ import { baseOptions, SidebarSiteLinks } from '@/app/layout.config';
 import { Analytics, GtmNoScript } from '@/components/analytics';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
+import { AnnouncementBanner } from '@/components/announcement-banner';
 import { BASE_PATH, SITE_URL, SOCIAL_IMAGE } from '@/lib/constants';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <GtmNoScript />
         <SiteStructuredData />
         <RootProvider search={{ SearchDialog }}>
+          <AnnouncementBanner />
           <DocsLayout
             tree={source.pageTree}
             {...baseOptions}
