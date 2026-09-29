@@ -1,5 +1,6 @@
 ---
 title: OTLP
+metaTitle: Traces Ingestion API - OTLP
 description: Ingest traces via OTLP JSON Protobuf using POST /api/{org}/traces. Compatible with OpenTelemetry exporters for easy trace collection.
 ---
 

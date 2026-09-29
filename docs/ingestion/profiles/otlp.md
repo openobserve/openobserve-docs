@@ -1,6 +1,6 @@
 ---
 title: OTLP
-metaTitle: OTLP Profiles Ingestion - OpenTelemetry Collector | OpenObserve
+metaTitle: OTLP Profiles Ingestion via OTel Collector | OpenObserve
 description: Send OpenTelemetry Profiles to OpenObserve over OTLP/HTTP or OTLP/gRPC using the OpenTelemetry Collector.
 ---
 

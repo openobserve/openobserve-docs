@@ -1,6 +1,6 @@
 ---
 title: eBPF profiler
-metaTitle: Zero-Code CPU Profiling with otelcol-ebpf-profiler | OpenObserve
+metaTitle: Zero-Code CPU Profiling with eBPF | OpenObserve
 description: Capture whole-node CPU profiles for Go, Rust, and other native runtimes with otelcol-ebpf-profiler and export OTLP Profiles to OpenObserve.
 ---
 
