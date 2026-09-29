@@ -14,10 +14,9 @@ import { Banner } from 'fumadocs-ui/components/banner';
  * URL resolves to the site root the docs are served under (openobserve.ai, or
  * staging) — same origin, so no CORS. Don't make it absolute: CloudFront doesn't
  * key its cache on `Origin`, so the CORS header on that file comes and goes.
- * In `next dev` the path is proxied to openobserve.ai (see next.config.mjs);
- * NEXT_PUBLIC_BANNER_URL can point it at a test file instead.
+ * In `next dev` the path is proxied to openobserve.ai (see next.config.mjs).
  */
-const BANNER_URL = process.env.NEXT_PUBLIC_BANNER_URL || '/banner.json';
+const BANNER_URL = '/banner.json';
 
 type BannerData = {
   tag: string | null;
