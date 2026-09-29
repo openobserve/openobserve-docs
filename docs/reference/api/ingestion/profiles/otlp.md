@@ -1,5 +1,6 @@
 ---
 title: OTLP
+metaTitle: Profiles Ingestion API - OTLP
 description: Ingest profiles via OTLP JSON or binary Protobuf using POST /api/{org}/v1/profiles. Compatible with OpenTelemetry exporters and the Collector profiles pipeline.
 ---
 

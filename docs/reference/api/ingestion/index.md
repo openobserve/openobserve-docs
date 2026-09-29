@@ -1,6 +1,6 @@
 ---
 title: Ingestion
-description: "Ingest logs, metrics, traces, and profiles into OpenObserve using ingestion APIs: Bulk, JSON, and Multi for logs, Prometheus and JSON for metrics, and OTLP for traces and profiles."
+description: "OpenObserve ingestion APIs: Bulk, JSON, and Multi for logs, Prometheus and JSON for metrics, and OTLP for traces and profiles."
 ---
 
 # API Index - Ingestion
