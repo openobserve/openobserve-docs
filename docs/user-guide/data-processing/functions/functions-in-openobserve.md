@@ -1,8 +1,8 @@
 ---
-title: Functions in OpenObserve
-description: Define and apply VRL functions in OpenObserve for enrichment, parsing, redaction, and more—at ingest or query time for efficient log transformation.
+description: >-
+  Define and apply VRL functions in OpenObserve for enrichment, parsing,
+  redaction, and more—at ingest or query time for efficient log transformation.
 ---
-
 # Functions
 
 ## What are functions?
@@ -21,8 +21,84 @@ List screen details:
 
 - Search in listed functions
 - Create new function
+- Import functions from a JSON file or URL
 - Name of existing function
-- Action — update or delete function
+- Action — export, update, or delete a function
+
+## Import and export functions
+
+You can move function definitions between OpenObserve environments by exporting them to a JSON file and importing them back elsewhere. No backend change is involved — the functions API already returns function bodies and accepts create and update calls.
+
+### Export functions
+
+**Export a single function**
+
+1. From the left navigation menu, go to **Pipelines** > **Functions**.
+2. In the **Actions** column of the function you want to export, click the download icon. On narrow screens, open the row's overflow menu and click **Export**.
+
+The function downloads as a `.json` file named after the function (for example `parse-nginx.json`). A single function is written as a JSON object with the `name`, `function` (the VRL or JavaScript body), `params`, and `transType` fields, so the file is hand-editable and can be pasted straight back into the import editor.
+
+**Export multiple functions**
+
+1. Tick the checkboxes of the functions you want to export.
+2. In the bar that appears at the bottom of the list, click **Export**.
+
+The bundle downloads as a single dated `.json` file (for example `functions-2026-10-01.json`) containing a JSON array of function objects. If a selected function is no longer in the list, OpenObserve re-reads the list once and names any functions it could not find rather than silently exporting a shorter file.
+
+![TODO: screenshot of the Functions list with rows selected and the bulk Export button](images/placeholder.png)
+
+### Import functions
+
+1. From the left navigation menu, go to **Pipelines** > **Functions**.
+2. Click **Import** in the top-right corner (press `i` when no field is focused).
+
+The import screen opens on `pipeline/functions/import`. Like the pipeline and alert import screens, it accepts a JSON document through file upload, a URL, or by typing into the JSON editor. The right-hand pane reports validation errors and import results.
+
+![TODO: screenshot of the Functions import screen showing the JSON editor and validation output pane](images/placeholder.png)
+
+3. Click **Import** to validate and write the functions.
+
+Imported functions are validated against the same name rule the **Add Function** form enforces. Because the backend does not enforce this rule, import rejects names that no VRL call could resolve — such as `my-fn with space` — so you cannot create a function that its own edit form would refuse to save. Duplicate names within the same file are flagged in the same pass.
+
+**Handle name conflicts**
+
+If an imported function's name already exists in the organization, the import pauses on that function instead of failing or forcing a rename:
+
+- **Use existing** (pre-selected) — leave the existing function untouched and skip writing this one.
+- **Override** — replace the existing function. Overriding is organization-wide: it rewrites every pipeline that calls the function, so the prompt lists those pipelines by name before you confirm.
+
+Nothing is written when the conflict first surfaces — only the next press acts on your choice. Conflicts are tracked per name, so a resolved conflict no longer holds up other items, and loading a different file drops every pending choice so an override can never land on a different function that now sits at the same position.
+
+![TODO: screenshot of a function name conflict showing the Use existing and Override options with dependent pipelines](images/placeholder.png)
+
+Under role-based access control (RBAC) the function list is filtered, so a taken name can be invisible in your list. In that case the server's `400` response is promoted into the same conflict prompt instead of a dead failure line.
+
+**Fix validation errors**
+
+Each validation error shows an inline control that fixes it in place, the same way the template and pipeline import screens do:
+
+- **Name** — a rename box, checked live against the name rule, duplicate names in the file, and existing names.
+- **Body** — the same VRL or JavaScript editor the Add form uses, in the language the item declares.
+- **Language** — a VRL / JavaScript selector (JavaScript is available only when your organization is entitled to it).
+- **Params** — the argument names, defaulting to `row`.
+
+Edits are written straight back into the JSON on the left, so the document and the controls never disagree.
+
+After a successful import the screen returns to the Functions list; any function that failed to write stays on screen with its error so you can fix it and import again. A retry updates functions this run already created rather than re-prompting for them.
+
+### Keyboard shortcuts
+
+The Functions list supports the following shortcuts:
+
+| Shortcut | Action |
+|----------|--------|
+| `n` | Add a function |
+| `i` | Import functions |
+| `r` | Refresh the list |
+| `/` | Focus the search box |
+| `e` | Edit the focused row |
+| `x` | Export the focused row |
+| `del` / `⌫` | Delete the focused row |
 
 There are two ways to use function during query:
 
