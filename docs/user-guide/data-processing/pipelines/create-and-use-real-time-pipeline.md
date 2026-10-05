@@ -125,8 +125,6 @@ A destination defines where the processed events are written. You can forward da
 **To add an external destination:** 
 ![stream-destination](../../../images/stream-destination.png)
 
-> **Note**: Remote destinations are available in Enterprise Edition and Cloud only. In Open Source, records sent to a Remote node are dropped.
-
 1. Drag a **Remote** node into the editor.
 2. In the **External Destination** panel, either select an existing destination or enable **Create new Destination** and fill in the required details such as name, URL, method, output format, and headers.
 4. Click **Save**.
