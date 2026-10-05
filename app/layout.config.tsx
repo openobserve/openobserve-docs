@@ -48,8 +48,26 @@ const siteLinks = [
   { text: 'Home', url: 'https://openobserve.ai/', external: true },
   { text: 'Blog', url: 'https://openobserve.ai/blog/', external: true },
   { text: 'Downloads', url: 'https://openobserve.ai/downloads/', external: true },
-  { text: 'Cloud', url: 'https://cloud.openobserve.ai/', external: true },
 ];
+
+/**
+ * Cloud sign-up call to action. Passed as the docs sidebar's `banner`, which
+ * fumadocs renders directly below the search trigger (and at the top of the
+ * mobile drawer), so it replaces the plain "Cloud" entry `siteLinks` used to
+ * carry at the bottom.
+ */
+export function SidebarGetStarted() {
+  return (
+    <a
+      href="https://cloud.openobserve.ai/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="rounded-lg text-center bg-fd-primary px-4 py-2 text-sm font-semibold text-fd-primary-foreground transition-opacity hover:opacity-90"
+    >
+      Get Started Free
+    </a>
+  );
+}
 
 /**
  * Copy of the classes fumadocs' own `SidebarItem` applies to a top-level link
