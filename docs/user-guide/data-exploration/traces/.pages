@@ -1,0 +1,6 @@
+nav:
+
+- Traces Overview: index.md  
+- Traces in OpenObserve: traces.md
+- Service Graph: service-graph.md
+- Analyze Traces: analyze-traces.md
