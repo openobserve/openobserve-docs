@@ -36,6 +36,10 @@ OpenObserve groups related alert firings into incidents using intelligent correl
 | **Secondary Match** | Medium | Matches alerts sharing secondary dimensions (service, deployment) |
 | **Alert ID** | Lowest | Isolates alerts by alert rule ID when no dimensional match exists |
 
+### Alerts from external systems
+
+Correlation is not limited to alerts OpenObserve evaluates itself. Alertmanager, Datadog, Grafana, or anything that can POST JSON can push alerts in over the [Incident Ingest Webhook](incident-webhook.md), and they correlate into the same incidents as native alerts whenever their identity labels agree.
+
 ### Incident notifications
 
 When an alert has **Creates Incident** enabled, it no longer sends its regular notification. Instead, an incident notification is sent only when:
