@@ -119,6 +119,16 @@ The filter panel contains:
 
 When a column has an active filter, its filter icon turns blue to indicate the column is filtered. Filters are applied client-side and do not trigger a new query.
 
+## Hyperlink cells
+
+When a cell in a table chart contains an absolute HTTP or HTTPS URL, the value is automatically rendered as a clickable link. This is useful for surfacing external references — such as advisory links, documentation pages, or external dashboards — directly within your table results.
+
+![table chart with URL cells rendered as clickable links](images/hyperlink-support-dashboard-table-cells-1.png)
+
+### Interaction
+
+Clicking a link cell opens the URL in a new tab. A click on a link cell does **not** propagate to the table row, so it does not interfere with row-level actions or selection.
+
 ## Configuration reference
 
 The following panel config fields control table chart behavior:
