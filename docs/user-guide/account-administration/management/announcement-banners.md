@@ -7,6 +7,8 @@ Announcement banners let you publish a single operator-authored notice that appe
 
 Banners are authored once from the **`_meta` organization** and are read by every organization they target. Each banner can be scoped to specific organizations, scheduled to appear during a window, and dismissed by users.
 
+> **Note:** This feature requires OpenObserve Enterprise.
+
 ## Configure announcement banners
 
 Announcement banners are configured from the **`_meta`** organization. Open **Settings** → **General**, then select **Configure** next to **Announcement Banners**.
