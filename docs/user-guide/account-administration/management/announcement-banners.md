@@ -1,6 +1,6 @@
 ---
 title: Announcement Banners
-description: Publish operator-authored notices — maintenance windows, release notes, policy reminders, and promotions — that render as banners at the top of OpenObserve across every organization.
+description: Publish operator-authored notices such as maintenance windows, release notes, policy reminders, and promotions rendered as banners across every organization.
 ---
 
 Announcement banners let you publish a single operator-authored notice that appears at the top of the app for everyone in your OpenObserve deployment. Use them for scheduled maintenance windows, release notes, policy reminders, or promotions.
