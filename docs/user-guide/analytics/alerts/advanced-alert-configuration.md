@@ -1,4 +1,5 @@
 ---
+title: Advanced Alert Configuration
 description: >-
   Multi-level thresholds, per-group evaluation (multi-alerts), priority scoring,
   selection tags, and SLO-based alerts in OpenObserve.
