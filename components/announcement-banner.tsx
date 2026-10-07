@@ -50,6 +50,26 @@ function bannerId(title: string) {
   return `oo-banner-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
 }
 
+/*
+ * Dismissal lasts for the browser session only, so it lives in sessionStorage.
+ * Fumadocs' `Banner` hard-codes localStorage when given an `id`, so it gets no
+ * `id` here and the close button is ours. Storage can throw (blocked site data),
+ * in which case the banner just isn't remembered as dismissed.
+ */
+function isDismissed(id: string) {
+  try {
+    return sessionStorage.getItem(id) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function rememberDismissed(id: string) {
+  try {
+    sessionStorage.setItem(id, 'true');
+  } catch {}
+}
+
 export function AnnouncementBanner() {
   const [banner, setBanner] = useState<BannerData | null>(null);
 
@@ -57,7 +77,11 @@ export function AnnouncementBanner() {
     const controller = new AbortController();
     fetch(BANNER_URL, { cache: 'no-store', signal: controller.signal })
       .then((res) => (res.ok ? res.json() : null))
-      .then((json) => setBanner(pickCurrent(json?.data)))
+      .then((json) => {
+        const current = pickCurrent(json?.data);
+        // Checked before rendering, so a dismissed banner never flashes.
+        if (current && !isDismissed(bannerId(current.title))) setBanner(current);
+      })
       // Decorative: a failed fetch just means no banner.
       .catch(() => {});
     return () => controller.abort();
@@ -68,9 +92,13 @@ export function AnnouncementBanner() {
   const button = banner.primaryButton;
   const external = button?.target === '_blank';
 
+  function dismiss() {
+    rememberDismissed(bannerId(banner!.title));
+    setBanner(null);
+  }
+
   return (
     <Banner
-      id={bannerId(banner.title)}
       height="3rem"
       className="z-50 gap-3 bg-[#1f0a4b] pe-10 text-xs text-white md:text-sm [&>button]:text-white/70 [&>button:hover]:text-white"
     >
@@ -99,6 +127,26 @@ export function AnnouncementBanner() {
           {banner.title} →
         </a>
       )}
+      <button
+        type="button"
+        aria-label="Close Banner"
+        onClick={dismiss}
+        className="absolute inset-e-2 top-1/2 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-md hover:bg-white/10"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="size-4"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
     </Banner>
   );
 }
