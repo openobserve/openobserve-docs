@@ -1,9 +1,4 @@
----
-title: legend-and-gridline
-description: Legend and gridline settings control legend position, type, height, width, chart alignment, gridline visibility, and axis label rotation in OpenObserve panels.
----
-
-This document describes the legend and gridline configuration options available in OpenObserve dashboard panels.
+This document describes the legend, gridline, and axis label configuration options available in OpenObserve dashboard panels.
 
 ## Overview
 Dashboard panels include configuration options for controlling legend display and gridline visibility. These options help optimize chart readability and space usage.
@@ -128,19 +123,38 @@ A toggle switch that controls gridline visibility on the chart.
 When gridlines are disabled, the chart displays without reference lines, providing a cleaner appearance.
 
 
-## Axis configuration
+## Axis labels
 
-The following options control how x-axis labels are displayed.
+The **Axis Labels** setting controls when axis titles appear on cartesian charts (line, area, bar, scatter, and stacked charts). It is available in the **Axis** section of the panel **Config** tab for SQL builder panels; it is not shown for PromQL queries or for non-cartesian panels such as table, pie, metric, or heatmap.
 
-### Label Rotate
+![TODO: screenshot of the Axis Labels toggle in the panel Config tab](images/placeholder.png)
 
-Rotate x-axis label text by a chosen angle (in degrees) to improve readability when labels are long or crowded.
+| Option | Description |
+|--------|-------------|
+| Auto | Shows an axis title only for a field where you typed a label; blank fields stay untitled (default) |
+| Show | Shows typed labels on the axes |
+| Hide | Hides every axis title, including labels you typed |
 
-### Label Truncate
+### How labels work
 
-Truncate x-axis labels to a specified width in pixels.
+Fields on a new panel — including the default X and Y fields — start with a blank label, so a fresh chart has no axis titles. To title an axis, type a label on its X or Y field and click **Apply**; only that axis gets a title.
 
-**Note:** Label Truncate is not supported for time-series x-axis fields.
+![TODO: screenshot of a chart where a typed label appears on one axis and the other axis is untitled](images/placeholder.png)
+
+A field with a blank label still has a readable name everywhere else in the panel. That name is generated when the panel renders, in this order:
+
+1. A **typed label**, when there is one.
+2. Otherwise a name generated from the field (`small_value` → "Small Value").
+3. For a **Raw** field, its expression (for example `max(fraction) * 100`).
+4. For **custom SQL**, the column alias as written.
+
+The same generated name is used in the legend, tooltip, table and pivot headers, heatmap and metric names, drilldown fields, and the column formatting list.
+
+This behavior applies in the dashboard panel builder and in Logs → **Visualize**.
+
+### Existing panels
+
+Panels saved before this change keep their stored labels and render exactly as before, in dashboards and in the editor. In-app charts such as alert previews behave the same way.
 
 
 ## Chart type support
