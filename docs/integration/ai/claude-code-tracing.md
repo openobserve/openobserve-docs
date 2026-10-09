@@ -299,14 +299,9 @@ Stop hook fires
 - Python 3.9+
 - [openobserve-telemetry-sdk](https://pypi.org/project/openobserve-telemetry-sdk/)
 
-Install the SDK into a dedicated virtual environment. On macOS, Homebrew Python refuses a global `pip install` with an `externally-managed-environment` error, and the hook then exits silently because it cannot import the SDK.
-
 ```bash
-python3 -m venv ~/.claude/hooks/.venv
-~/.claude/hooks/.venv/bin/python -m pip install openobserve-telemetry-sdk
+pip install openobserve-telemetry-sdk
 ```
-
-The hook commands below run the script with this environment's Python.
 
 ### Setup
 
@@ -322,7 +317,7 @@ Add the Stop hook to `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/openobserve_hooks.py"
+            "command": "python3 ~/.claude/hooks/openobserve_hooks.py"
           }
         ]
       }
@@ -357,7 +352,7 @@ Add env vars to `~/.claude/settings.json` alongside the hook definition:
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/openobserve_hooks.py"
+            "command": "python3 ~/.claude/hooks/openobserve_hooks.py"
           }
         ]
       }
@@ -443,7 +438,7 @@ echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
   OPENOBSERVE_URL=http://localhost:5080 \
   OPENOBSERVE_ORG=default \
   OPENOBSERVE_AUTH_TOKEN="Basic ..." \
-  ~/.claude/hooks/.venv/bin/python ~/.claude/hooks/openobserve_hooks.py
+  python3 ~/.claude/hooks/openobserve_hooks.py
 ```
 
 **Common issues**
@@ -451,7 +446,7 @@ echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
 | Symptom | Cause | Fix |
 |---|---|---|
 | No traces appear | `TRACE_TO_OPENOBSERVE` not set | Add env vars to `.claude/settings.local.json` |
-| Hook silently exits | Missing `openobserve-telemetry-sdk` | Install it into the hook's virtual environment: `~/.claude/hooks/.venv/bin/python -m pip install openobserve-telemetry-sdk` |
+| Hook silently exits | Missing `openobserve-telemetry-sdk` | Run `pip install openobserve-telemetry-sdk` |
 | Auth errors in log | Wrong token format | Ensure token is `Basic <base64>` format |
 | Partial traces | OpenObserve unreachable | Verify `OPENOBSERVE_URL` and that the service is running |
 
