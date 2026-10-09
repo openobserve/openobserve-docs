@@ -297,10 +297,10 @@ Stop hook fires
 ### Prerequisites
 
 - Python 3.9+
-- [openobserve-telemetry-sdk](https://pypi.org/project/openobserve-telemetry-sdk/)
+- [openobserve-python-sdk](https://pypi.org/project/openobserve-python-sdk/)
 
 ```bash
-pip install openobserve-telemetry-sdk
+pip install openobserve-python-sdk
 ```
 
 ### Setup
@@ -390,6 +390,8 @@ Enable tracing selectively by adding env vars to each project's `.claude/setting
 | `OPENOBSERVE_TRACES_STREAM_NAME` | Target stream name | No | `"default"` |
 | `OPENOBSERVE_PROTOCOL` | `"http/protobuf"` or `"grpc"` | No | `"http/protobuf"` |
 | `OPENOBSERVE_USER_ID` | User identifier, usually the user's email. Shown as `user_id` on every span, so you can filter traces per user | No | `None` |
+| `OPENOBSERVE_AGENT_ID` | Overrides `gen_ai.agent.id` on every span (SDK 0.2.0 or later) | No | `claude-code/<entrypoint>` |
+| `OPENOBSERVE_AGENT_NAME` | Overrides `gen_ai.agent.name` on every span (SDK 0.2.0 or later) | No | `claude-code` |
 | `CC_OPENOBSERVE_DEBUG` | Set to `"true"` for verbose logging | No | `"false"` |
 | `CC_OPENOBSERVE_MAX_CHARS` | Max characters per text field before truncation | No | `20000` |
 
@@ -446,7 +448,7 @@ echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
 | Symptom | Cause | Fix |
 |---|---|---|
 | No traces appear | `TRACE_TO_OPENOBSERVE` not set | Add env vars to `.claude/settings.local.json` |
-| Hook silently exits | Missing `openobserve-telemetry-sdk` | Run `pip install openobserve-telemetry-sdk` |
+| Hook silently exits | Missing `openobserve-python-sdk` | Run `pip install openobserve-python-sdk` |
 | Auth errors in log | Wrong token format | Ensure token is `Basic <base64>` format |
 | Partial traces | OpenObserve unreachable | Verify `OPENOBSERVE_URL` and that the service is running |
 
