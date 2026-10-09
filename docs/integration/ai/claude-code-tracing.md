@@ -299,9 +299,14 @@ Stop hook fires
 - Python 3.9+
 - [openobserve-telemetry-sdk](https://pypi.org/project/openobserve-telemetry-sdk/)
 
+Install the SDK into a dedicated virtual environment. On macOS, Homebrew Python refuses a global `pip install` with an `externally-managed-environment` error, and the hook then exits silently because it cannot import the SDK.
+
 ```bash
-pip install openobserve-telemetry-sdk
+python3 -m venv ~/.claude/hooks/.venv
+~/.claude/hooks/.venv/bin/python -m pip install openobserve-telemetry-sdk
 ```
+
+The hook commands below run the script with this environment's Python.
 
 ### Setup
 
@@ -317,7 +322,7 @@ Add the Stop hook to `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.claude/hooks/openobserve_hooks.py"
+            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/openobserve_hooks.py"
           }
         ]
       }
@@ -343,7 +348,8 @@ Add env vars to `~/.claude/settings.json` alongside the hook definition:
     "TRACE_TO_OPENOBSERVE": "true",
     "OPENOBSERVE_URL": "http://localhost:5080",
     "OPENOBSERVE_ORG": "default",
-    "OPENOBSERVE_AUTH_TOKEN": "Basic <base64-encoded user:password>"
+    "OPENOBSERVE_AUTH_TOKEN": "Basic <base64-encoded user:password>",
+    "OPENOBSERVE_USER_ID": "you@example.com"
   },
   "hooks": {
     "Stop": [
@@ -351,7 +357,7 @@ Add env vars to `~/.claude/settings.json` alongside the hook definition:
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.claude/hooks/openobserve_hooks.py"
+            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/openobserve_hooks.py"
           }
         ]
       }
@@ -388,7 +394,7 @@ Enable tracing selectively by adding env vars to each project's `.claude/setting
 | `OPENOBSERVE_AUTH_TOKEN` | `Basic <base64>` or Bearer token | Yes |  |
 | `OPENOBSERVE_TRACES_STREAM_NAME` | Target stream name | No | `"default"` |
 | `OPENOBSERVE_PROTOCOL` | `"http/protobuf"` or `"grpc"` | No | `"http/protobuf"` |
-| `OPENOBSERVE_USER_ID` | User identifier (added as resource attribute) | No | `None` |
+| `OPENOBSERVE_USER_ID` | User identifier, usually the user's email. Shown as `user_id` on every span, so you can filter traces per user | No | `None` |
 | `CC_OPENOBSERVE_DEBUG` | Set to `"true"` for verbose logging | No | `"false"` |
 | `CC_OPENOBSERVE_MAX_CHARS` | Max characters per text field before truncation | No | `20000` |
 
@@ -400,6 +406,22 @@ echo -n "root@example.com:Complexpass#123" | base64
 ```
 
 Then set `OPENOBSERVE_AUTH_TOKEN` to `Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`.
+
+### What gets exported
+
+Each turn becomes a `Claude Code - Turn <n>` root span, with a `Claude Response` child span (messages and token usage) and one `Tool: <name>` child span per tool call.
+
+Every span carries the first four attributes below. `session.id` is on the root span.
+
+| Attribute | Value | Field in OpenObserve |
+|---|---|---|
+| `gen_ai.agent.name` | `claude-code` | `gen_ai_agent_name` |
+| `gen_ai.agent.id` | `claude-code/<entrypoint>`, for example `claude-code/claude-desktop` or `claude-code/cli` | `gen_ai_agent_id` |
+| `gen_ai.agent.version` | Claude Code version, read from the transcript | `gen_ai_agent_version` |
+| `user.id` | Value of `OPENOBSERVE_USER_ID` | `user_id` |
+| `session.id` | Claude Code session ID | `session_id` |
+
+OpenObserve agent monitoring reads the `gen_ai.agent.*` attributes. Each Claude Code entrypoint shows up as one agent. To see one person's activity, filter by `user_id`.
 
 ### Troubleshooting
 
@@ -421,7 +443,7 @@ echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
   OPENOBSERVE_URL=http://localhost:5080 \
   OPENOBSERVE_ORG=default \
   OPENOBSERVE_AUTH_TOKEN="Basic ..." \
-  python3 ~/.claude/hooks/openobserve_hooks.py
+  ~/.claude/hooks/.venv/bin/python ~/.claude/hooks/openobserve_hooks.py
 ```
 
 **Common issues**
@@ -429,7 +451,7 @@ echo '{"session_id":"test","transcript_path":"/path/to/transcript.jsonl"}' | \
 | Symptom | Cause | Fix |
 |---|---|---|
 | No traces appear | `TRACE_TO_OPENOBSERVE` not set | Add env vars to `.claude/settings.local.json` |
-| Hook silently exits | Missing `openobserve-telemetry-sdk` | Run `pip install openobserve-telemetry-sdk` |
+| Hook silently exits | Missing `openobserve-telemetry-sdk` | Install it into the hook's virtual environment: `~/.claude/hooks/.venv/bin/python -m pip install openobserve-telemetry-sdk` |
 | Auth errors in log | Wrong token format | Ensure token is `Basic <base64>` format |
 | Partial traces | OpenObserve unreachable | Verify `OPENOBSERVE_URL` and that the service is running |
 
@@ -899,6 +921,13 @@ def emit_turn(tracer: trace.Tracer, session_id: str, turn_num: int, turn: Turn, 
         else:
             c["output"] = None
 
+    # GenAI agent identity, read by OpenObserve agent monitoring
+    agent_attrs = {
+        "gen_ai.agent.name": "claude-code",
+        "gen_ai.agent.id": f"claude-code/{turn.user_msg.get('entrypoint') or 'cli'}",
+        "gen_ai.agent.version": turn.user_msg.get("version") or "unknown",
+    }
+
     # Root span for the turn (summary only — details on children)
     with tracer.start_as_current_span(
         name=f"Claude Code - Turn {turn_num}",
@@ -912,6 +941,7 @@ def emit_turn(tracer: trace.Tracer, session_id: str, turn_num: int, turn: Turn, 
             "gen_ai.provider.name": "anthropic",
             "gen_ai.operation.name": "chat",
             "claude_code.tool_count": len(tool_calls),
+            **agent_attrs,
         },
     ):
         # LLM generation child span (carries full message & usage details)
@@ -933,6 +963,7 @@ def emit_turn(tracer: trace.Tracer, session_id: str, turn_num: int, turn: Turn, 
                 "gen_ai.usage.output_tokens": usage.get("output_tokens", 0) or 0,
                 "gen_ai.usage.cache_read_tokens": usage.get("cache_read_input_tokens", 0) or 0,
                 "gen_ai.usage.cache_write_tokens": usage.get("cache_creation_input_tokens", 0) or 0,
+                **agent_attrs,
             },
         ):
             pass
@@ -957,6 +988,7 @@ def emit_turn(tracer: trace.Tracer, session_id: str, turn_num: int, turn: Turn, 
                     "gen_ai.tool.call.arguments": in_str,
                     "gen_ai.tool.call.result": out_str,
                     "host.name": HOSTNAME,
+                    **agent_attrs,
                 },
             ):
                 pass
