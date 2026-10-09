@@ -1,8 +1,7 @@
 ---
-title: Templates
-description: Create alert notification templates in OpenObserve with variable placeholders and row templates for Slack, email, webhooks, and more.
+description: >-
+  Create alert notification templates in OpenObserve with variable placeholders and row templates for Slack, email, webhooks, and more.
 ---
-
 # Alert Templates
 
 Templates are used when notification is sent for an alert, templates forms body of request being sent to destination, for eg. for slack one can create template like:
@@ -43,6 +42,47 @@ Variables which can be used in templates are:
 You can use `{rows:N}` to limit only top N matched records will be in the actual value.
 
 You also can use `{log:N}` to limit the length of a actual value.
+
+## Formatting modifiers
+
+You can apply a formatting function to any placeholder using the `{field|function}` syntax. This works in custom template **Body** and **Title** fields as well as **row templates**, for every alert type. For example, `{value|humanizePercentage}` renders `0.9123` as `91.23%`.
+
+![TODO: screenshot of the alert template editor showing a formatting modifier in the Body field](images/placeholder.png)
+
+The following functions are available:
+
+| Function | Description | Example input | Example output |
+| -------- | ----------- | ------------- | -------------- |
+| `humanize` | Human-readable number using decimal (SI) prefixes and fractional suffixes (`m`, `u`, `n`, ...) | `1234567` | `1.235M` |
+| `humanize1024` | Human-readable number using binary prefixes (`ki`, `Mi`, `Gi`, ...) | `1048576` | `1Mi` |
+| `humanizeDuration` | Duration in seconds converted to days, hours, minutes, and seconds | `3661.9` | `1h 1m 1s` |
+| `humanizePercentage` | Multiply by 100 and append a `%` sign | `0.9123` | `91.23%` |
+| `humanSize` | Byte count converted to binary size units (`B`, `KiB`, `MiB`, ...) | `1536` | `1.5 KiB` |
+| `formatTimestamp` | Format a Unix timestamp in seconds as a date and time | `0` | `1970-01-01T00:00:00Z` |
+| `formatTimestampMicros` | Format an OpenObserve timestamp in microseconds as a date and time | `1700000000123456` | `2023-11-14T22:13:20.123456Z` |
+
+### Timestamp formats and timezones
+
+`formatTimestamp` and `formatTimestampMicros` accept an optional quoted [Chrono/strftime format](https://docs.rs/chrono/latest/chrono/format/strftime/index.html) string and an optional timezone argument:
+
+```
+{_timestamp|formatTimestampMicros("%Y-%m-%d %H:%M:%S %:z", "Asia/Shanghai")}
+```
+
+- With no arguments, the value is formatted as UTC ISO 8601 (RFC 3339), preserving microsecond precision when present.
+- The timezone argument accepts `UTC`, a fixed offset such as `+08:00` or `-07:30`, or an IANA zone name such as `Asia/Shanghai`, `Asia/Kolkata`, or `America/Chicago`. Fixed offsets and IANA zones resolve the offset at the supplied instant.
+
+:::note[Note]
+Timezone abbreviations are not supported because most are ambiguous. For example, `CST` could mean China Standard Time, US Central Time, or Cuba Standard Time, and `IST` could be India, Israel, or Ireland. `CST` is rejected explicitly so it never silently renders the wrong zone. Prefer full IANA names instead.
+:::
+
+### Invalid input
+
+If a field value or argument cannot be parsed, the placeholder is left unchanged. For example, an unrecognized function, an invalid timezone, or a non-numeric value all leave the original `{field|function}` text in the rendered output rather than producing an error.
+
+:::note[Note]
+Only modifiers you author in the template are executed; a modifier string that arrives inside a data value is treated as plain text. Existing behavior for plain placeholders, escaping, `{field:N}` truncation, field precedence, literal field names that contain `|`, and row aggregation/limits is unchanged.
+:::
 
 ## Row templates
 
@@ -96,58 +136,6 @@ And we define the `row template` in alert page:
 ```
 
 After these, the notification message will be what we expect.
-
-### JSON row templates
-
-When the row template itself is valid JSON and `{rows}` (or `{rows:N}`) appears in a JSON value position, each row is injected as an element of a JSON array instead of being joined into a single newline-separated string.
-
-For example, with this row template:
-
-```
-{"pod": "{k8s_pod_name}", "count": {cnt}}
-```
-
-and an alert template like:
-
-```json
-{
-  "rows": "{rows}"
-}
-```
-
-the notification body becomes a JSON array, one element per row:
-
-```json
-{
-  "rows": [
-    {"pod": "pod1", "count": 1},
-    {"pod": "pod2", "count": 2},
-    {"pod": "pod3", "count": 1}
-  ]
-}
-```
-
-If the row template is itself a JSON array, each row becomes an array element, so the result is an array of arrays.
-
-### Spread syntax
-
-Use `{...rows}` (or `{...rows:N}`) to flatten array-typed row templates into a single one-dimensional array. Where `{rows}` would produce an array of arrays, `{...rows}` merges all the inner arrays into one flat array.
-
-For example, with a JSON array row template like:
-
-```
-["{k8s_pod_name}", {cnt}]
-```
-
-`{...rows}` produces:
-
-```json
-{
-  "rows": ["pod1", 1, "pod2", 2, "pod3", 1]
-}
-```
-
-As with `{rows:N}`, the `N` in `{...rows:N}` limits the number of rows that are included.
 
 Check this video to understand more
 
