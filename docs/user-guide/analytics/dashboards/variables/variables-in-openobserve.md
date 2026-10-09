@@ -1,15 +1,10 @@
----
-title: Variables in OpenObserve
-description: Dashboard variables filter OpenObserve panels dynamically; create them, apply to panels, and use substitution syntax, multi-select, type-ahead, and defaults.
----
-
 This page provides a comprehensive overview of variables in OpenObserve dashboards, including instructions on how to create your first variable, apply it to panels, and configure different variable options. 
 
 ## What Are Variables?
 
 Variables in OpenObserve dashboards let users filter data dynamically. You can use variables to select values from a list or input them manually.
 
-When a value is selected, the variable updates, but the panels do not refresh automatically. To view updated panels, users must click the **Refresh** button manually.
+When a value is selected, the variable updates. By default, panels do not refresh automatically — you must click **Refresh** to apply the change. When **Auto Run** is enabled, variable changes apply automatically without clicking **Refresh**. See [Apply Variables on Change (Auto Run)](#apply-variables-on-change-auto-run).
 
 ## Why Use Variables
 
@@ -35,10 +30,6 @@ To create a variable:
 
     - **Type of Variable**: Query Values
     - **Name**: pod
-
-        !!! Note
-            Variable names must be unique within a dashboard. If you enter a name that already exists, OpenObserve shows `Variable with same name already exists.` and does not save the variable.
-
     - **Label**: Pod
     - **Stream Type**: logs
     - **Stream**: `default`
@@ -79,22 +70,53 @@ To apply the variable to a panel:
 The panel is now dynamically filtered using the **Pod** variable. When users select a value from the **Pod** dropdown on the dashboard, the panel updates to display data for that pod only.
 ![Variable in Dashboard](../../../../images/query-variable-results.png)
 
-### Variable Substitution Syntax
+## Apply Variables on Change (Auto Run)
 
-You can reference a variable in panel queries (and in HTML panels) using any of the following syntaxes, where `var` is the variable name:
+With **Auto Run** enabled, dashboard variable changes apply automatically — no **Refresh** click required. Auto Run reuses the same **Auto Run** setting as Logs and Traces, so turning it on or off in one place changes it everywhere.
 
-- `$var`
-- `${var}`
-- `{{var}}` (mustache)
+### Enable Auto Run
 
-Surrounding spaces are tolerated, so `{{ var }}` and `${ var }` are also valid.
+Auto Run is available when the `ZO_AUTO_QUERY_ENABLED` configuration flag (`auto_query_enabled`) is enabled for your OpenObserve instance. When the flag is on, the **Refresh** button in the dashboard toolbar becomes a split button:
 
-For multi-value variables, you can apply format modifiers to control how the selected values are joined:
+![TODO: screenshot of the split Refresh button with the Auto Run menu open](images/placeholder.png)
 
-- `{{var:csv}}` or `${var:csv}`: joins the values with commas.
-- `{{var:pipe}}` or `${var:pipe}`: joins the values with pipes.
-- `{{var:doublequote}}` or `${var:doublequote}`: wraps each value in double quotes.
-- `{{var:singlequote}}` or `${var:singlequote}`: wraps each value in single quotes.
+1. Click the dropdown arrow next to **Refresh**.
+2. Select **Turn on Auto Run** to enable it, or **Turn off Auto Run** to disable it.
+
+When Auto Run is on, the **Refresh** button shows an auto-renew icon and its tooltip reads **Auto Run enabled**. When it is off, variables work as they always have: the **Refresh** button turns amber when there are unapplied changes, and you click it to apply them.
+
+![TODO: screenshot of the amber Refresh button when Auto Run is off and variable changes are unapplied](images/placeholder.png)
+
+### How Auto Run behaves
+
+When Auto Run is on:
+
+- **Variable changes apply after 300 ms.** OpenObserve waits a short debounce so rapid edits apply together instead of firing a query for every keystroke or click.
+- **Multi-selects apply when the dropdown closes.** Checking individual values does not apply a change; the selection applies when you close the dropdown, whether by clicking away, pressing **Escape**, or choosing **Select all**.
+- **Textboxes apply as you type.** Textbox variables commit after the same 300 ms debounce, so the value applies once you pause typing.
+- **No Refresh is needed.** Panels update automatically as soon as the variable chain settles.
+
+### How panels update
+
+When a variable changes under Auto Run, OpenObserve:
+
+- Waits for the **entire variable chain** to finish loading before running panels, with no time limit. If a dependent variable is slow or fails to load, the panels still update once the chain settles.
+- Runs **only the panels whose query changed**, and runs each of them exactly once. Panels that are unaffected by the change are not re-run.
+
+This same run-once behavior applies on first load and when you click **Refresh**.
+
+### Where Auto Run applies
+
+Auto Run covers the whole dashboard surface:
+
+- **Dashboard variables**, including global, tab, and panel-scoped variables.
+- **Full-screen panel view** — the panel's **Refresh** button also becomes a split button with the Auto Run toggle.
+
+![TODO: screenshot of the full-screen panel view Refresh button with Auto Run options](images/placeholder.png)
+
+- **RUM App Performance** — the **Refresh** button on the RUM App Performance view offers the same Auto Run toggle.
+
+![TODO: screenshot of the RUM App Performance Refresh button with Auto Run options](images/placeholder.png)
 
 ## Advanced Configuration
 After creating and applying a variable, you can further refine its behavior using advanced settings.
@@ -108,10 +130,9 @@ The **Default max record size** limits how many records appear in the dropdown l
 
 This allows users to select valid values that may not be included in the default list due to the limit.
 
-:::note[Note]
+!!! Note
 
-Default max record size is 10. 
-:::
+    Default max record size is 10. 
 
 ### Filters
 You can optionally configure [variable dependencies](./variable-dependencies.md) using the **Filters** option.
@@ -163,9 +184,8 @@ You can enter custom values manually when the desired option is not available in
 - In **single-select**, you can select a custom value and refresh the panels to view related data.
 - In **multi-select**, custom values cannot be combined with other dropdown values. You you select the custom value, you cannot select any other value.
 
-:::note[Note]
-If a custom value is entered that does not exist in the data, dashboard panels will display no results.
-:::
+!!! Note
+    If a custom value is entered that does not exist in the data, dashboard panels will display no results.
 
 ### Type-Ahead 
 
@@ -193,9 +213,8 @@ zo2-nats
 zo3-nats
 ```
 
-:::note[Note]
-If the input string is not present in the fetched list but exists in the data, you can still select it as a custom value. However, if the input does not match any values in the data, the panel will return no results.
-:::
+!!! Note
+    If the input string is not present in the fetched list but exists in the data, you can still select it as a custom value. However, if the input does not match any values in the data, the panel will return no results.
 
 
 
