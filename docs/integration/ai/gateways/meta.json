@@ -1,6 +1,7 @@
 {
   "pages": [
     "anannas",
+    "aisix-ai-gateway",
     "kong-gateway",
     "litellm-proxy",
     "openrouter",
