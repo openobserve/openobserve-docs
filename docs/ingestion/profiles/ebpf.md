@@ -1,14 +1,14 @@
 ---
 title: eBPF profiler
 metaTitle: Zero-Code CPU Profiling with eBPF | OpenObserve
-description: Capture whole-node CPU profiles for Go, Rust, and other native runtimes with otelcol-ebpf-profiler and export OTLP Profiles to OpenObserve.
+description: Capture on-CPU and off-CPU profiles for Java HotSpot, Go, Rust, and other runtimes with otelcol-ebpf-profiler and export OTLP Profiles to OpenObserve.
 ---
 
 # Zero-Code CPU Profiling with otelcol-ebpf-profiler
 
 [`otelcol-ebpf-profiler`](https://github.com/open-telemetry/opentelemetry-collector-releases/releases) is the Collector distribution that embeds the [eBPF profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler) as the `profiling` receiver. It samples on-CPU stacks on a **Linux** host and exports [OTLP Profiles](https://opentelemetry.io/docs/concepts/signals/profiles/). No language SDK and no application restart. Do not use `otelcol-contrib`.
 
-Use it for **Go**, **Rust**, C/C++, and other native runtimes. For Java, prefer [async-profiler](./java.md).
+Use it for **Java HotSpot**, **Go**, **Rust**, C/C++, and other supported runtimes. The default `tracers: all` includes the HotSpot unwinder for Java method and JIT frame names. For JVM-specific allocation and lock events, use [async-profiler](./java.md).
 
 ## Send profiles
 
