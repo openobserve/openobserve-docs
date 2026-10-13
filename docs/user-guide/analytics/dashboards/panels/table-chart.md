@@ -1,8 +1,3 @@
----
-title: Table Chart
-description: Table chart panels display query results as tables with per-column formatting, units, conditional styling, Excel-style column filtering, and pagination.
----
-
 # Table Chart
 
 Table chart panels display query results as a tabular view, with support for per-column formatting, Excel-style column filtering, and pagination.
@@ -51,7 +46,8 @@ Available when the field type is numeric. Select a unit from the dropdown:
 
 - **Default** — inherit the panel-level unit.
 - **Numbers** — display raw numbers.
-- **Locale Format** — use locale-aware number formatting.
+- **Locale Format (Auto)** — use locale-aware number formatting, following the viewer's UI language.
+- **Other Locale** — pin the number format to a fixed locale (see [Choose a locale](#choose-a-locale)).
 - **Bytes**, **Kilobytes**, **Megabytes** — data size units.
 - **Bytes per Second** — throughput.
 - **Seconds**, **Milliseconds**, **Microseconds**, **Nanoseconds** — duration units.
@@ -60,6 +56,31 @@ Available when the field type is numeric. Select a unit from the dropdown:
 - **Custom** — enter a custom unit suffix.
 
 When **Custom** is selected, a text input appears for the custom unit label.
+
+### Choose a locale
+
+By default, **Locale Format (Auto)** formats numbers according to each viewer's UI language. To pin a fixed locale — so every viewer sees the same format, for example Czech `1 234 567,89` — expand the **Other Locale** row directly below it.
+
+The locale choice is available in two places, and works the same in both:
+
+- The **Unit** dropdown in the panel **Config** sidebar (applies to the whole panel).
+- The **Value Formatting** unit dropdown in the Column Formatting dialog (applies to a single column).
+
+![Unit dropdown with the Other Locale row expanded to show the list of locales](images/placeholder.png)
+
+To pin a locale:
+
+1. Select **Locale Format (Auto)** in the unit dropdown.
+2. Click the **Other Locale** row to expand the list of available locales.
+3. Pick a locale, labelled like **English - US (en_US)**.
+
+![Value Formatting unit dropdown in the Column Formatting dialog with a locale selected](images/placeholder.png)
+
+The list offers 46 locales — the 16 UI languages plus 30 additional regions such as `en-GB`, `en-IN`, `de-AT`, `de-CH`, `fr-CA`, `fr-CH`, `es-MX`, `pt-BR`, and `cs-CZ`. Search matches both the locale name and its code.
+
+The **Other Locale** row is a toggle, not a selectable value — clicking it expands or collapses the list without changing your selection. It opens already expanded when a nested locale is currently selected, and the locale names are shown in the viewer's UI language, sorted alphabetically.
+
+A pinned locale is stored in the existing `unit` value as `locale:<tag>` (for example `locale:cs-CZ`), so no schema change or migration is required. The locale applies everywhere the panel renders a number — charts, tables, gauges, tooltips, and PromQL panels. If a pinned locale becomes unusable (for example, after downgrading), the panel falls back to **Locale Format (Auto)** rather than showing an error.
 
 #### Alignment
 
