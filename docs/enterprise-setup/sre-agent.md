@@ -1,8 +1,9 @@
 ---
-title: SRE Agent Setup
-metaTitle: O2 SRE Agent Setup Guide
-description: Set up and configure the O2 SRE Agent for OpenObserve. Enable AI Assistant, incident management, and RCA features with Helm or manual deployment methods.
-keywords: openobserve, sre agent, ai assistant, setup, configuration, incidents, rca
+title: O2 SRE Agent Setup Guide
+description: >-
+  Set up and configure the O2 SRE Agent for OpenObserve. Enable AI Assistant,
+  incident management, and RCA features with Helm or manual deployment methods.
+keywords: 'openobserve, sre agent, ai assistant, setup, configuration, incidents, rca'
 ---
 
 # O2 SRE Agent Setup
@@ -21,16 +22,10 @@ The O2 SRE Agent is a background service that powers AI-driven features in OpenO
 - Multi-data source correlation and troubleshooting
 - Script generation (Python/VRL)
 - Query validation before execution
-- Context-aware on the Traces page (picks up the current stream, time range, search mode, and selected trace) and presents summarized tool results for readability
-
-### Custom Toolsets & Skills (Enterprise)
-
-The SRE Agent can be extended with org-scoped custom toolsets that are loaded into the agent's available tools for chat and RCA requests. Supported toolset kinds are MCP, CLI, skill, and generic. Manage them under **Management > AI Toolsets**.
 
 ### Incident Management & RCA
 - Automated incident detection and grouping
 - AI-powered Root Cause Analysis
-- Automated RCA reanalysis (append-only delta analysis triggered on incident lifecycle events)
 - Alert correlation and event tracking
 - Incident lifecycle management
 
@@ -176,7 +171,6 @@ enterprise:
     O2_INCIDENTS_RCA_ENABLED: "true"
     O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES: "-1"
     O2_INCIDENTS_ALERT_GRAPH_ENABLED: "true"
-    O2_INCIDENTS_REANALYSIS_COOLDOWN_MINUTES: "30"  # Minimum minutes between automatic reanalysis runs (user-triggered reanalysis bypasses it)
 
 auth:
   O2_AI_API_KEY: "your-api-key-here"
@@ -490,121 +484,187 @@ Analyze the root cause of the recent outage
 Why is the database connection pool exhausted?
 ```
 
+## Persistent chat history, sharing, and high availability
+
+The AI Assistant can persist every conversation server-side, so your chats survive a browser refresh or restart and are available from any device or replica. Persisted chats are stored in the `_o2_ai_chat_events` stream and can be reopened, renamed, and shared with teammates.
+
+### Enable persistence
+
+Server-side persistence is off by default. Set `O2_AI_CHAT_PERSISTENCE_ENABLED` to `"true"` in your OpenObserve configuration to switch it on.
+
+### How persistence works
+
+When persistence is enabled, each AI Assistant turn runs as a background task on the OpenObserve server, independent of your browser. The task tees o2-ai's event stream into the `_o2_ai_chat_events` stream, batching durable `sync` events into contiguous sequences and committing the write position with a compare-and-set watermark. Because the storage path never stalls the live response, the AI Assistant keeps streaming even while history is being written.
+
+Large events are split into parts of at most 1 MiB (hard ceiling 64 MiB per event), and every part is checksummed so stored history can be verified and reassembled exactly.
+
+### Browse and restore chats
+
+1. Open the AI Assistant from the sidebar.
+2. Open the chat history list to see your previous conversations.
+3. Select a chat to reopen it — the transcript is restored from storage.
+
+![TODO: screenshot of the AI Assistant chat history list](images/placeholder.png)
+
+### Share a chat
+
+Share a conversation with teammates so they can review the transcript or pick up where you left off:
+
+1. Open the chat you want to share.
+2. Click **Share** and choose who can access it.
+
+![TODO: screenshot of the share chat dialog](images/placeholder.png)
+
+Recipients open a shared chat from its own view:
+
+![TODO: screenshot of a shared chat opened by a recipient](images/placeholder.png)
+
+Sharing is governed by the `ai_chat_share` RBAC resource. By default only organization **admins** can share chats or open shared chats. To let other members share or view shared chats, grant the **AI Chat Sharing** permission to a custom role.
+
+### High availability
+
+In a multi-node deployment, each chat session is owned by a single o2-ai replica. OpenObserve routes every turn to that replica through the NATS session directory. If the owning replica fails, the next turn waits for its claim to expire (up to 45 seconds), then restores the session into a healthy replica and replays the committed history so the conversation continues uninterrupted. A diverged replica copy is rebuilt from scratch, and every call is bounded by a timeout and can be cancelled.
+
+### Turn outcomes and limits
+
+Every persisted turn ends in one of these states: **completed**, **cancelled**, **failed**, **interrupted** (no upstream activity for 45 seconds), or **deleted**. Concurrent turns are capped per user (3), per organization (50), and per node (200); a request that exceeds a cap is rejected with `429 turn_limit`.
+
+### Chat persistence configuration
+
+The following environment variables tune persistence. `0` means unlimited (or "use the default") where noted.
+
+| Environment Variable | Default | Description |
+|----------------------|---------|-------------|
+| O2_AI_CHAT_PERSISTENCE_ENABLED | false | Enables server-side chat persistence. |
+| O2_AI_CHAT_PERSIST_BATCH_SIZE | 16 | Durable events per write batch; batches are also cut on the flush interval. |
+| O2_AI_CHAT_PERSIST_FLUSH_INTERVAL_MS | 500 | Max time (ms) a buffered durable event waits before being written. |
+| O2_AI_CHAT_PERSIST_FINAL_TIMEOUT_SECS | 30 | How long (s) the final flush may take before the turn is reported as not persisted. |
+| O2_AI_CHAT_UI_CHANNEL_CAPACITY | 4096 | Frames the browser may fall behind before it is disconnected from the turn. |
+| O2_AI_CHAT_MAX_EVENT_BYTES | 1048576 | Largest stored row payload (bytes); a bigger durable event is split across rows. |
+| O2_AI_CHAT_MAX_EVENT_TOTAL_BYTES | 67108864 | Largest durable event (bytes) a turn persists; a bigger one fails as `event_too_large`. |
+| O2_AI_CHAT_MAX_PENDING_EVENTS | 5000 | Cap on durable events buffered for one turn while writes are failing. |
+| O2_AI_CHAT_RETENTION_DAYS | 0 | Retention (days) of the `_o2_ai_chat_events` stream; `0` keeps the organization default. |
+| O2_AI_CHAT_TURN_LEASE_WAIT_SECS | 1 | How long (s) admission waits for the session's turn lease before answering `409`. |
+| O2_AI_CHAT_MAX_TURN_SECS | 3600 | Hard ceiling (s) on one persisted turn, browser connected or not. |
+| O2_AI_CHAT_OWNER_WAIT_SECS | 45 | How long (s) a turn waits for another replica to take over a dead owner's session. |
+| O2_AI_CHAT_MAX_ACTIVE_TURNS_PER_USER | 3 | Active persisted turns one user may run. |
+| O2_AI_CHAT_MAX_ACTIVE_TURNS_PER_ORG | 50 | Active persisted turns one organization may run on a node (`0` = unlimited). |
+| O2_AI_CHAT_MAX_ACTIVE_TURNS_PER_NODE | 200 | Active persisted turns one node may run (`0` = unlimited). |
+
 ## Troubleshooting
 
-:::accordion[Common issues and fixes]
+??? "Common issues and fixes"
 
-1. **SRE Agent Pod Not Starting**
+    1. **SRE Agent Pod Not Starting**
 
-    Check pod status:
+        Check pod status:
 
-    ```bash
-    kubectl get pods -n openobserve | grep sreagent
-    kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
-    ```
+        ```bash
+        kubectl get pods -n openobserve | grep sreagent
+        kubectl logs -n openobserve deployment/openobserve-sreagent --tail=100
+        ```
 
-    Common causes:
+        Common causes:
 
-    - Invalid API key
-    - Incorrect AI provider name
-    - Network connectivity issues
+        - Invalid API key
+        - Incorrect AI provider name
+        - Network connectivity issues
 
-    Verify configuration:
+        Verify configuration:
 
-    ```bash
-    # Check API key exists
-    kubectl get secret -n openobserve openobserve-auth -o jsonpath='{.data.O2_AI_API_KEY}' | base64 -d
+        ```bash
+        # Check API key exists
+        kubectl get secret -n openobserve openobserve-auth -o jsonpath='{.data.O2_AI_API_KEY}' | base64 -d
 
-    # Check environment variables
-    kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_
-    ```
+        # Check environment variables
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_
+        ```
 
-2. **AI Assistant Not Responding**
+    2. **AI Assistant Not Responding**
 
-    Check connectivity:
+        Check connectivity:
 
-    ```bash
-    # Health check
-    kubectl exec -n openobserve deployment/openobserve-router -- \
-      curl -s http://openobserve-sreagent:8000/health
+        ```bash
+        # Health check
+        kubectl exec -n openobserve deployment/openobserve-router -- \
+          curl -s http://openobserve-sreagent:8000/health
 
-    # Check logs
-    kubectl logs -n openobserve deployment/openobserve-sreagent --tail=50
-    ```
+        # Check logs
+        kubectl logs -n openobserve deployment/openobserve-sreagent --tail=50
+        ```
 
-    Common causes:
+        Common causes:
 
-    - `O2_AI_ENABLED` not set to `"true"`
-    - Network policy blocking communication
-    - AI provider API rate limiting
-    - Service misconfiguration
+        - `O2_AI_ENABLED` not set to `"true"`
+        - Network policy blocking communication
+        - AI provider API rate limiting
+        - Service misconfiguration
 
-3. **MCP Tool Execution Failures**
+    3. **MCP Tool Execution Failures**
 
-    Verify MCP endpoint:
+        Verify MCP endpoint:
 
-    ```bash
-    # Check O2_TOOL_API_URL
-    kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_TOOL_API_URL
+        ```bash
+        # Check O2_TOOL_API_URL
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- env | grep O2_TOOL_API_URL
 
-    # Test connectivity
-    kubectl exec -n openobserve deployment/openobserve-sreagent -- \
-      curl -s http://openobserve-router:5080/api/default/mcp
-    ```
+        # Test connectivity
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- \
+          curl -s http://openobserve-router:5080/api/default/mcp
+        ```
 
-    Common causes:
+        Common causes:
 
-    - Incorrect `O2_TOOL_API_URL` format
-    - Wrong organization name in URL
-    - Missing MCP credentials
-    - Service not reachable
+        - Incorrect `O2_TOOL_API_URL` format
+        - Wrong organization name in URL
+        - Missing MCP credentials
+        - Service not reachable
 
-    Correct URL format:
+        Correct URL format:
 
-    ```
-    http://<service-name>.<namespace>.svc.cluster.local:<port>/api/<org-name>/mcp
-    ```
+        ```
+        http://<service-name>.<namespace>.svc.cluster.local:<port>/api/<org-name>/mcp
+        ```
 
-4. **AI Gateway Issues**
+    4. **AI Gateway Issues**
 
-    Check gateway:
+        Check gateway:
 
-    ```bash
-    # Verify gateway service
-    kubectl get svc -n <gateway-namespace> | grep ai-gateway
+        ```bash
+        # Verify gateway service
+        kubectl get svc -n <gateway-namespace> | grep ai-gateway
 
-    # Test connectivity
-    kubectl exec -n openobserve deployment/openobserve-sreagent -- \
-      curl -s http://ai-gateway:80
-    ```
+        # Test connectivity
+        kubectl exec -n openobserve deployment/openobserve-sreagent -- \
+          curl -s http://ai-gateway:80
+        ```
 
-    Common causes:
+        Common causes:
 
-    - Gateway not deployed
-    - Conflicting configuration (both `O2_AI_PROVIDER` and `O2_AI_GATEWAY_ENABLED` set)
-    - Wrong gateway URL or port
+        - Gateway not deployed
+        - Conflicting configuration (both `O2_AI_PROVIDER` and `O2_AI_GATEWAY_ENABLED` set)
+        - Wrong gateway URL or port
 
-    Fix:
+        Fix:
 
-    - With gateway: Remove `O2_AI_PROVIDER`, set `O2_AI_GATEWAY_ENABLED="true"`
-    - Without gateway: Remove all `O2_AI_GATEWAY_*` variables, set `O2_AI_PROVIDER`
+        - With gateway: Remove `O2_AI_PROVIDER`, set `O2_AI_GATEWAY_ENABLED="true"`
+        - Without gateway: Remove all `O2_AI_GATEWAY_*` variables, set `O2_AI_PROVIDER`
 
-5. **Incident Management Not Working**
+    5. **Incident Management Not Working**
 
-    Check configuration:
+        Check configuration:
 
-    ```bash
-    kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_INCIDENTS
-    ```
+        ```bash
+        kubectl get configmap -n openobserve openobserve-config -o yaml | grep O2_INCIDENTS
+        ```
 
-    Required settings (in OpenObserve, not SRE Agent):
+        Required settings (in OpenObserve, not SRE Agent):
 
-    ```yaml
-    O2_AI_ENABLED: "true"
-    O2_INCIDENTS_ENABLED: "true"
-    O2_INCIDENTS_RCA_ENABLED: "true"
-    ```
-:::
+        ```yaml
+        O2_AI_ENABLED: "true"
+        O2_INCIDENTS_ENABLED: "true"
+        O2_INCIDENTS_RCA_ENABLED: "true"
+        ```
 
 ## Best Practices
 
