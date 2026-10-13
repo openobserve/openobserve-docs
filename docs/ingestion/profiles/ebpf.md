@@ -12,7 +12,7 @@ Use it for **Go**, **Rust**, C/C++, and other native runtimes. For Java, prefer 
 
 ## Send profiles
 
-Use [otelcol-ebpf-profiler 0.153.0](https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.153.0) on a Linux host. macOS and Windows need a Linux VM; the profiler cannot sample those host kernels.
+Use [otelcol-ebpf-profiler 0.153.0](https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.153.0) on Linux kernel **5.10 or newer**, with root access to load eBPF programs and attach perf events. Both `amd64` and `arm64` packages are available. macOS and Windows need a Linux VM; the profiler cannot sample those host kernels.
 
 Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Save as `ebpf-profiler-config.yaml`:
 
@@ -59,7 +59,7 @@ sudo ./otelcol-ebpf-profiler --feature-gates=+service.profilesSupport --config=e
 
 ### Off-CPU sampling
 
-The configuration above collects on-CPU samples only. To also sample off-CPU waits, add `off_cpu_threshold: 0.1` under `receivers.profiling`. The value is a sampling probability in `[0, 1]`; `0` disables off-CPU profiling. Select the corresponding emitted profile type in OpenObserve.
+The configuration above collects on-CPU samples only. To also sample off-CPU waits, add `off_cpu_threshold: 0.1` under `receivers.profiling`. The value is a sampling probability in `[0, 1]`; `0` disables off-CPU profiling. The exported values are sampled wait durations across threads, rather than the application's wall-clock elapsed time. Select the corresponding emitted profile type in OpenObserve.
 
 ## Native symbols
 
@@ -71,7 +71,7 @@ For Rust function names with the released integrations, use [pprof](./rust.md). 
 
 ## Verify in OpenObserve
 
-Wait for at least one `reporter_interval` (60 seconds above), then open **Profiles** and select the stream, service, and emitted profile type/unit. Check receiver startup and exporter logs; a running Collector alone does not prove that eBPF probes loaded or that OpenObserve accepted profiles.
+Wait for at least one `reporter_interval` (60 seconds above), then open **Profiles** and select the stream and service. On-CPU profiles from this version use **`samples` / `count`**; enabling off-CPU collection also emits **`off_cpu` / `nanoseconds`**. Check receiver startup and exporter logs; a running Collector alone does not prove that eBPF probes loaded or that OpenObserve accepted profiles.
 
 Go demo:
 
