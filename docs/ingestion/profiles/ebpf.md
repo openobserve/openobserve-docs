@@ -12,6 +12,8 @@ Use it for **Go**, **Rust**, C/C++, and other native runtimes. For Java, prefer 
 
 ## Send profiles
 
+Use [otelcol-ebpf-profiler 0.153.0](https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.153.0) on a Linux host. macOS and Windows need a Linux VM; the profiler cannot sample those host kernels.
+
 Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Save as `ebpf-profiler-config.yaml`:
 
 ```yaml
@@ -19,6 +21,14 @@ receivers:
   profiling:
     samples_per_second: 20
     reporter_interval: 60s
+    include_env_vars: OTEL_SERVICE_NAME
+
+processors:
+  transform/service:
+    profile_statements:
+      - context: resource
+        statements:
+          - set(attributes["service.name"], attributes["process.environment_variable.OTEL_SERVICE_NAME"]) where attributes["process.environment_variable.OTEL_SERVICE_NAME"] != nil
 
 exporters:
   otlp_http/openobserve:
@@ -31,10 +41,11 @@ service:
   pipelines:
     profiles:
       receivers: [profiling]
+      processors: [transform/service]
       exporters: [otlp_http/openobserve]
 ```
 
-Do not set `service.name` in the Collector; it merges every process. Name each process instead:
+The receiver exports collected environment variables as `process.environment_variable.*` attributes. The `include_env_vars` option and transform above map each process's `OTEL_SERVICE_NAME` to `service.name`. Set the variable when launching the application; setting it without this mapping does not name profiles in Collector 0.153.0. Avoid upserting one constant service name for the whole host:
 
 ```bash
 OTEL_SERVICE_NAME=my-app ./your-app
@@ -46,21 +57,21 @@ Linux host, run as root:
 sudo ./otelcol-ebpf-profiler --feature-gates=+service.profilesSupport --config=ebpf-profiler-config.yaml
 ```
 
+### Off-CPU sampling
+
+The configuration above collects on-CPU samples only. To also sample off-CPU waits, add `off_cpu_threshold: 0.1` under `receivers.profiling`. The value is a sampling probability in `[0, 1]`; `0` disables off-CPU profiling. Select the corresponding emitted profile type in OpenObserve.
+
 ## Native symbols
 
 `otelcol-ebpf-profiler` does not resolve C/C++/Rust symbols on the host. OpenObserve displays the frames it receives. Kernel frames can still show names (`vfs_write`); userspace stays FileID/native.
 
-[opentelemetry-ebpf-profiler#1388](https://github.com/open-telemetry/opentelemetry-ebpf-profiler/pull/1388) adds an opt-in `symtab` tracer that reads `.symtab` on the host (then `.dynsym`, then a `.gnu_debuglink` debug file). It is **not in `otelcol-ebpf-profiler` releases yet**. After it ships, upgrade the profiler and enable `symtab` (for example `--tracers=all,symtab`). Keep the ELF symbol table. For Rust:
+The [proposal for an on-host `symtab` tracer](https://github.com/open-telemetry/opentelemetry-ebpf-profiler/pull/1388) was closed without merging. Collector 0.153.0 does not support `symtab`; do not add it to the receiver's `tracers` configuration.
 
-```toml
-# Cargo.toml
-[profile.release]
-strip = false
-```
-
-`strip = true` removes `.symtab`. `.dynsym` only has exported symbols, so Rust internals still would not resolve. For Rust function names today, use [pprof](./rust.md).
+For Rust function names with the released integrations, use [pprof](./rust.md). Keeping an ELF symbol table alone does not enable on-host symbolization in this Collector version.
 
 ## Verify in OpenObserve
+
+Wait for at least one `reporter_interval` (60 seconds above), then open **Profiles** and select the stream, service, and emitted profile type/unit. Check receiver startup and exporter logs; a running Collector alone does not prove that eBPF probes loaded or that OpenObserve accepted profiles.
 
 Go demo:
 
@@ -74,7 +85,7 @@ Rust demo:
 
 - [otelcol-ebpf-profiler releases](https://github.com/open-telemetry/opentelemetry-collector-releases/releases): Linux `amd64` / `arm64` packages (`otelcol-ebpf-profiler_*_linux_*.tar.gz`).
 - [OpenTelemetry eBPF Profiler](https://github.com/open-telemetry/opentelemetry-ebpf-profiler): receiver options.
-- [opentelemetry-ebpf-profiler#1388](https://github.com/open-telemetry/opentelemetry-ebpf-profiler/pull/1388): on-host `symtab` tracer (not released).
+- [opentelemetry-ebpf-profiler#1388](https://github.com/open-telemetry/opentelemetry-ebpf-profiler/pull/1388): closed on-host symbolization proposal.
 
 **Need some help?**
 
