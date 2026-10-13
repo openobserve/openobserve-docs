@@ -1,8 +1,8 @@
 ---
-title: Manage Dashboards
-description: Manage and customize OpenObserve Dashboards—add panels, adjust time ranges, auto-refresh, export, share, and edit settings for better data visibility.
+description: >-
+  Manage and customize OpenObserve Dashboards—add panels, adjust time ranges,
+  auto-refresh, export, share, and edit settings for better data visibility.
 ---
-
 This guide explains how to manage Dashboards and use the Dashboard toolbar. 
 
 ## Manage Dashboards
@@ -49,6 +49,7 @@ The Dashboard toolbar provides several options for managing your Dashboard’s b
 9. **Go FullScreen:** Use this button to turn on the fullscreen mode.   
 10. **Scheduled Dashboards**: Use the Scheduled Dashboards option to configure Scheduled and Cached Dashboards.  
 11. **Edit Dashboard JSON**: This option allows you to directly edit the JSON configuration of your Dashboard, giving you advanced control over its structure and settings.
+12. **Edit**: Click the **Edit** button to enter layout edit mode, where you can drag, resize, and reorder Panels and Tabs before saving. See [Edit Dashboard Layout](#edit-dashboard-layout).
 
 ## Dashboard Settings 
 
@@ -74,5 +75,53 @@ In the Variables section, you can edit and delete existing variables, add new va
 In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 
 ![tabs](../../../images/dashboard-manage-5.png)
+
+## Edit Dashboard Layout
+
+A Dashboard opens with its layout **locked** (view mode), so you cannot accidentally move or resize a Panel, or reorder a Tab, just by interacting with the Dashboard. To change the layout, enter layout edit mode.
+
+**Enter layout edit mode**
+
+Click **Edit** in the Dashboard toolbar. An **Editing** badge appears next to the Dashboard name, and the toolbar swaps to layout controls: **Undo**, **Redo**, a live change count, **Discard**, and **Save**.
+
+![TODO: screenshot of a dashboard in layout edit mode showing the Editing badge and the Undo, Redo, change count, Discard, and Save controls](images/placeholder.png)
+
+While editing, you can drag, resize, and reorder Panels and Tabs as before, but your changes are held locally as a draft — nothing is written back until you click **Save**. Panels show a dashed outline and a resize handle in the bottom-right corner so you can tell the layout is editable at a glance.
+
+While in edit mode:
+
+- Panel actions (**Edit panel**, **Duplicate**, **Delete**, **Move to another tab**, and the others) are hidden. The Panel menu shows only **Edit layout**.
+
+![TODO: screenshot of the panel dropdown in edit mode showing only the Edit layout item](images/placeholder.png)
+
+- Tab reordering is enabled, but the tab **+** (add) and rename actions are hidden while editing.
+- The **Add Panel** button and the **Export**, **Share**, **Settings**, and **Edit JSON** actions are hidden until you leave edit mode.
+
+**Save, discard, and undo**
+
+- Click **Save** to persist all drafted changes in a single update. If the save fails (for example, the Dashboard was changed elsewhere), your draft is kept so you can retry.
+- Click **Discard** to revert to the last saved layout. When there are unsaved changes, a confirmation dialog asks whether to **Discard** or **Keep editing**.
+
+![TODO: screenshot of the Discard unsaved layout changes confirmation dialog](images/placeholder.png)
+
+- Use **Undo** and **Redo** to step backwards and forwards through your layout changes; the change count reflects how many unsaved steps remain.
+
+**Keyboard shortcuts**
+
+These shortcuts are active only while you are editing the layout, and **Undo**/**Redo**/**Save** do not fire while you are typing in a text field:
+
+- `Ctrl+Z` / `Cmd+Z`: undo
+- `Ctrl+Shift+Z` / `Shift+Cmd+Z`: redo
+- `Ctrl+S` / `Cmd+S`: save
+- `Esc`: exit layout edit mode
+
+**Leaving with unsaved changes**
+
+OpenObserve asks before you leave the page, reload, or navigate to another Dashboard with unsaved layout changes, so you do not lose your draft by accident.
+
+!!! note "Embedded dashboards"
+    Embedded dashboards (such as RUM, traces, and pinned tabs) keep their existing auto-save behavior and are not affected by layout edit mode.
+
+When you adjust a single Panel through **Edit layout**, the dialog now uses an **Apply** button: it records one draft step, and the **Save** button in the toolbar commits all drafted changes together.
 
 
