@@ -20,21 +20,21 @@ Experiments bring offline, batch evaluation to LLM Evaluations. Where [Online Ev
 
 ## Enable Experiments
 
-Experiments are part of the enterprise LLM Evaluations feature; enable Online Evaluations first:
+Experiments are part of the LLM Evaluations feature in the Enterprise edition and OpenObserve Cloud. It is on by default:
 
 ```env
-ZO_ONLINE_EVALS_ENABLED=true
+O2_EVAL_ENABLED=true
 ```
 
-This adds **AI Observability > Datasets**, **Experiments**, and **Compare** to the navigation. You'll also need at least one **Provider**, **Score Config**, and **Scorer** (see [LLM Evaluations](llm-evaluations.md)).
+This adds **AI > Annotate > Datasets** and **AI > Experiment > Experiments** and **Remote Tasks** to the navigation. You'll also need at least one **Provider**, **Score Config**, and **Scorer** (see [LLM Evaluations](llm-evaluations.md)).
 
 ## Datasets
 
-Navigate to **AI Observability > Datasets > Add Dataset** and give it a name, description, and tags. Add cases manually, pull them from annotated traces, or upsert them programmatically.
+Navigate to **AI > Annotate > Datasets**, click **New Dataset**, and give it a name, description, and tags. Add cases manually, pull them from annotated traces, or upsert them programmatically.
 
 ### Cases
 
-A case pairs an `input` with an optional `expected_output` (a reference answer). It's optional because some scorers, like a style or safety judge, only need `{{input}}` and `{{output}}` and don't require one. Each case records its source: **Manual**, **Trace** (promoted from a captured trace), or **Annotation** (from an annotation queue).
+A case pairs an `input` with an optional `expected_output` (a reference answer). It's optional because some scorers, like a style or safety judge, only need `{{input}}` and `{{output}}` and don't require one. Each case records its source: **Manual**, **Trace** (promoted from a captured trace), **Annotation** (from an annotation queue), or **Playground**.
 
 ![Dataset detail page showing items and source counts](images/dataset-version-history.png)
 
@@ -62,7 +62,7 @@ The Experiments list shows each run's status, progress, and cost, filterable by 
 
 ### Create an experiment
 
-Navigate to **AI Observability > Experiments > Add Experiment**.
+Navigate to **AI > Experiment > Experiments** and click **New Experiment**.
 
 ![Experiment creation form](images/new-experiment.png)
 
@@ -70,21 +70,28 @@ Navigate to **AI Observability > Experiments > Add Experiment**.
 |---|---|
 | **Name / Description** | Display name and optional description. |
 | **Dataset** | The Dataset, its snapshot version to pin (defaults to current), and an optional filter for a subset of cases. |
-| **Task** | How output is produced; see task types below. |
+| **Task Type** | How output is produced; see task types below. |
 | **Scorers** | One or more scorers, each pinned to a version. |
-| **Trial Count** | Runs per case (default max 10, configurable via `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT`). |
+| **Trials per row** | Runs per case, 1 to 10 by default (configurable via `O2_EVAL_EXPERIMENT_MAX_TRIAL_COUNT`). Each trial multiplies cost. |
+
+Click **Create & run** to start the experiment.
 
 ### Task types
 
 | Type | Description |
 |---|---|
 | **Inline Prompt** | The platform calls an LLM provider directly with a message template (e.g., `Answer: {{input}}`). |
+| **Managed Prompt** | Runs a prompt from [Prompts](llm-prompts.md). Pick the prompt and resolve it by **Label** (such as `production`) or **Version**, then click **Resolve**. The experiment pins the exact version it resolved to. You can optionally override the model and temperature. |
 | **Remote Task** | References a published Remote Task by `name@version`, so the run can't drift to an unverified version. |
-| **SDK** | Your own process produces the output and reports it back, pinned to a `taskFingerprint`; changed code means a new Experiment. |
+| **SDK** | API only. Your own process produces the output and reports it back, pinned to a `taskFingerprint`; changed code means a new Experiment. |
+
+![the New Experiment form with a managed prompt resolved by label to an immutable pin](images/experiment-managed-prompt.png)
 
 ### Preview and cost estimate
 
-Before creating, the form previews the plan: row/slot counts, pinned scorer versions, and any cases missing a reference answer a scorer needs. It also estimates cost in USD (`slots × tokens`, using known model pricing). Above a warning threshold (default $10) you must explicitly confirm. Plans are capped at 10,000 slots.
+Before creating, the form previews the plan: row/slot counts, pinned scorer versions, and any cases missing a reference answer a scorer needs. It also estimates cost in USD (`slots × tokens`, using known model pricing). Plans are capped at 10,000 slots.
+
+If the estimate is above the warning threshold (default $10), **Create & run** opens a **Run this costly experiment?** dialog that shows the estimated cost. Click **Create Anyway** to run it.
 
 ![Experiment preview panel showing applicability and cost estimate](images/experiment-status.png)
 
@@ -98,7 +105,7 @@ pending → running → completed
             failed → (retry) → running
 ```
 
-An Experiment starts running as soon as it's created, within a 24-hour window. A `failed` run can be retried without restarting finished slots.
+An Experiment starts running as soon as it's created, within a 24-hour window. A `failed` run can be retried without restarting finished slots. You can also retry a single row: the retry is queued, and the row updates when it finishes.
 
 ### Baseline and cloning
 
@@ -114,7 +121,7 @@ For SDK Experiments, results come back through an ingest API that accepts record
 
 ## Comparing experiments
 
-Use **Compare** to pit a candidate Experiment against a Baseline on the same Dataset. Cases are matched by `logicalId` and bucketed:
+On the Experiments list, select two experiments from the same Dataset and click **Compare** to pit a candidate against a Baseline. Cases are matched by `logicalId` and bucketed:
 
 | Bucket | Meaning |
 |---|---|
@@ -128,7 +135,29 @@ A dimension only "votes" (is gating) if its Score Config declares a direction (`
 
 ## Remote Tasks
 
-Register an external evaluation endpoint as a published, versioned task that Experiments can reference by `name@version`; only published, verified, active versions are accepted. See [LLM Evaluations](llm-evaluations.md) for the related Remote scorer type.
+A Remote Task is an HTTP service that produces the output for each row, such as your RAG pipeline or agent behind an endpoint. You publish it once, and every experiment pins the exact version it ran against. Navigate to **AI > Experiment > Remote Tasks** and click **New Task**.
+
+![the New Remote Task form with the Test Connection panel](images/remote-task-new.png)
+
+| Section | Fields |
+|---|---|
+| **Identity** | **Name** and **Description**. |
+| **Endpoint** | **Method** and **Endpoint URL**. Use `https` for public hosts. Private and loopback hosts may use `http`. URLs with credentials or a fragment are rejected. |
+| **Auth** | **Auth Type**: none, bearer **Token**, basic (**Username** and **Password**), or an API key in a custom header (**Header Name**). |
+| **Request Contract** | **Custom Headers**, a **Body Template** rendered as JSON for every row (placeholders such as `{{input}}`, `{{metadata}}`, and `{{context}}`), and an **Output Path** that says where to read the output in your service's JSON response (default `$.output`). |
+| **Limits** | **Timeout (seconds)** (default 60, max 600), **Max Attempts** (max 3), and **Max Concurrency** (1 to 32, default 4). Each can be overridden per experiment. |
+| **Request Signing** | Turn on **Sign Every Request** to add an HMAC-SHA256 signature in the `x-o2-signature` header. The signing key is shown once, so copy it into your service before you test. |
+
+Use the **Test Connection** panel to send a sample input, from a Dataset or typed in by hand, and see the request and response. Then click **Publish**, or **Save as Draft** to come back later. A draft can't be referenced by an experiment until a test connection passes.
+
+After publishing:
+
+- **Test Run** runs the latest published version against up to ten samples. Nothing is recorded.
+- **Replace Credentials** swaps the stored token or password in place. The task keeps its version, and the stored value is never shown.
+- The **Signing** tab rotates the signing key in four steps: **Create Candidate**, **Test Candidate**, **Activate Candidate**, then let the previous key expire after a grace period of up to 24 hours (or click **End Grace Now**).
+- Deleting a task retires it. Published versions stay for history but can no longer be referenced.
+
+See [LLM Evaluations](llm-evaluations.md) for the related Remote scorer type.
 
 ## Configuration
 
@@ -140,7 +169,7 @@ Register an external evaluation endpoint as a published, versioned task that Exp
 
 ## RBAC
 
-Datasets, Experiments, and Remote Tasks each have their own permissions (GET, LIST, POST, PUT, DELETE). Assign roles in **Identity & Access Management > Roles**.
+Datasets, Experiments, and Remote Tasks each have their own permissions (GET, LIST, POST, PUT, DELETE). Assign roles in **IAM > Roles**.
 
 ## API Reference
 
@@ -149,10 +178,10 @@ All endpoints are prefixed with `/api/{org_id}`.
 | Resource | Operations |
 |---|---|
 | **Datasets** | List, create, get, update, delete; list items/versions; read a snapshot; batch upsert. |
-| **Experiments** | List, create, get, clone; list slots and scorers; set/clear Baseline. |
+| **Experiments** | List, create, get, clone, preview, cancel, finalize; retry a row trial; list slots and scorers; set/clear Baseline. |
 | **Experiment results** | Slot results, progress, skip/score summaries, scoring status. |
 | **Comparison** | Compare two Experiments: counts, dimension summaries, per-row buckets. |
 | **Experiment ingest** | (SDK) Report execution records and client scores, idempotently. |
-| **Remote Tasks** | List, create, get, update, delete, verify. |
+| **Remote Tasks** | `/tasks`: list, create, get, update, delete; drafts and versions; test connection and test run; signing key rotate, activate, and end grace; stats. |
 
-Create-Experiment payload highlights: `datasetVersion`, `datasetFilter` (subset filter), `task` (tagged union: `inline_prompt`/`remote`/`sdk`), `scorers` (id + version), `trialCount`, `idempotencyKey`, `confirmCostEstimate` (required above the cost warning threshold).
+Create-Experiment payload highlights: `datasetVersion`, `datasetFilter` (subset filter), `task` (tagged union: `inline_prompt`/`prompt_ref`/`remote`/`sdk`), `scorers` (id + version), `trialCount`, `idempotencyKey`, `confirmCostEstimate` (required above the cost warning threshold).
