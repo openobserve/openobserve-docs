@@ -247,13 +247,13 @@ Mask sensitive form inputs:
 <input type="tel" name="phone" />
 
 <!-- Manually mask using data attributes -->
-<input type="text" name="ssn" data-dd-privacy="mask" />
-<div class="sensitive-content" data-dd-privacy="mask">
+<input type="text" name="ssn" data-o2-privacy="mask" />
+<div class="sensitive-content" data-o2-privacy="mask">
   Sensitive information here
 </div>
 
 <!-- Hide completely (not recorded in replay) -->
-<div class="internal-notes" data-dd-privacy="hidden">
+<div class="internal-notes" data-o2-privacy="hidden">
   Internal notes not visible in replay
 </div>
 ```
