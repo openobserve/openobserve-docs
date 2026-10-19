@@ -17,7 +17,7 @@ Synthetics serves two audiences. Site reliability and operations teams use proto
 
 Every check produces a run history you can slice by location, browser, and device, with pass rate, latency percentiles, retry and flakiness rates, and per-step timing. When a run fails, the run detail page names the step that broke, shows the screenshot taken at that moment, and reports which locator matched and what the page was doing at the time.
 
-> **Note**: Synthetics is currently available only on **OpenObserve Cloud** and is in **Beta**.
+> **Note**: Synthetics is in **Beta**. It runs on OpenObserve Cloud, or on a self-hosted deployment with probes you deploy to AWS Lambda. See [AWS Lambda setup](aws-lambda-setup.md).
 
 ## Check types
 
@@ -55,7 +55,7 @@ Checks run from OpenObserve-operated public locations, from agents inside your o
 
 ### Prerequisites
 
-- An OpenObserve Cloud organization with Synthetics enabled
+- An OpenObserve Cloud organization with Synthetics enabled, or a self-hosted deployment set up as described in [AWS Lambda setup](aws-lambda-setup.md)
 - Permission to create checks in at least one folder
 - For browser test recording: Google Chrome with the [OpenObserve Synthetics Recorder](https://chromewebstore.google.com/detail/openobserve-synthetics-re/afhgiecgbpohkbobialnajlphbpcgomo) extension
 - For private locations: a host in your network that can run Docker, Kubernetes, or a native binary
@@ -107,8 +107,8 @@ From the checks table you can:
 
 **Solution**:
 
-1. Confirm your organization is on OpenObserve Cloud. Synthetics is not yet available for self-hosted deployments.
-2. Ask your administrator to enable `O2_SYNTHETICS_ENABLED`.
+1. On a self-hosted deployment, confirm Synthetics is set up as described in [AWS Lambda setup](aws-lambda-setup.md).
+2. Ask your administrator to set `ZO_SYNTHETICS_ENABLED=true` and restart OpenObserve.
 3. Reload the page. Navigating directly to the URL while the feature is off redirects you home.
 :::
 

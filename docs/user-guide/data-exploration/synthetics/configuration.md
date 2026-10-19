@@ -80,13 +80,15 @@ Select one or more probe locations. At least one is required.
 
 ![Locations card listing twelve public AWS regions and the private locations section](images/config-locations.png)
 
-Public locations cover twelve AWS regions on OpenObserve Cloud, the only deployment Synthetics currently supports:
+On OpenObserve Cloud, public locations cover twelve AWS regions:
 
 | Area | Regions |
 |------|---------|
 | **North America** | N. Virginia, Ohio, N. California, Oregon, Montreal |
 | **Europe** | Frankfurt, London, Paris, Stockholm |
 | **Asia Pacific** | Mumbai, Singapore, Sydney |
+
+On a self-hosted deployment, the list shows the locations your root user has registered. See [AWS Lambda setup](aws-lambda-setup.md#step-6-register-a-location).
 
 Private locations appear once their agents register. OpenObserve only offers a private location for checks its live agents can run, so a browser test does not list a location served only by network agents. See [Private locations](private-locations.md).
 
