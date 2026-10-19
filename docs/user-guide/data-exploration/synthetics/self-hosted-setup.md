@@ -96,16 +96,37 @@ aws ecr get-login-password --region $AWS_REGION \
 
 aws ecr create-repository --region $AWS_REGION --repository-name o2-synthetics-net-probe
 aws ecr create-repository --region $AWS_REGION --repository-name o2-synthetics-browser-probe
+```
 
-# Protocol probe: arm64
-docker pull --platform linux/arm64 ghcr.io/openobserve/openobserve-synthetic-net-probe:$PROBE_VERSION
-docker tag ghcr.io/openobserve/openobserve-synthetic-net-probe:$PROBE_VERSION $ECR/o2-synthetics-net-probe:$PROBE_VERSION
-docker push $ECR/o2-synthetics-net-probe:$PROBE_VERSION
+### Browser probe
 
-# Browser probe: amd64
+The browser image runs on Lambda as published. Pull the `amd64` image, tag it, and push it:
+
+```bash
 docker pull --platform linux/amd64 ghcr.io/openobserve/openobserve-synthetics-browser-probe:$PROBE_VERSION
 docker tag ghcr.io/openobserve/openobserve-synthetics-browser-probe:$PROBE_VERSION $ECR/o2-synthetics-browser-probe:$PROBE_VERSION
 docker push $ECR/o2-synthetics-browser-probe:$PROBE_VERSION
+```
+
+### Protocol probe
+
+The published net image is the agent build. It runs as a non-root user with a private home directory, and Lambda refuses to start it. Wrap the binary in the official Lambda base image instead. Create a file named `Dockerfile` with this content:
+
+```dockerfile
+ARG PROBE_VERSION=v0.0.12
+FROM ghcr.io/openobserve/openobserve-synthetic-net-probe:${PROBE_VERSION} AS probe
+FROM public.ecr.aws/lambda/provided:al2023
+COPY --from=probe /usr/local/bin/probe ${LAMBDA_RUNTIME_DIR}/bootstrap
+CMD ["bootstrap"]
+```
+
+Build it for `arm64` and push it. Keep both `--provenance=false` and `--sbom=false`. Without them, BuildKit adds an attestation manifest, and Lambda rejects the image with `The image manifest, config or layer media type for the source image ... is not supported`.
+
+```bash
+docker buildx build --platform linux/arm64 --provenance=false --sbom=false \
+  --build-arg PROBE_VERSION=$PROBE_VERSION \
+  -t $ECR/o2-synthetics-net-probe:$PROBE_VERSION --load .
+docker push $ECR/o2-synthetics-net-probe:$PROBE_VERSION
 ```
 
 Make sure that both images are in ECR:
@@ -117,13 +138,13 @@ aws ecr describe-images --region $AWS_REGION \
   --repository-name o2-synthetics-browser-probe --query 'imageDetails[].imageTags'
 ```
 
-Both images detect Lambda mode at start, from the `AWS_LAMBDA_FUNCTION_NAME` variable that Lambda sets. The same images also run as private agents on Enterprise.
+Both probes detect Lambda mode at start, from the `AWS_LAMBDA_FUNCTION_NAME` variable that Lambda sets. The same GHCR images also run as private agents on Enterprise.
 
 ## Step 2: Create the Lambda functions
 
 ### Execution role
 
-Create the role once per account. The probes make no AWS API calls of their own, so the role only needs CloudWatch Logs.
+Create the role once per account. The probes make no AWS API calls of their own, so the role only needs CloudWatch Logs. If the role already exists, the first command fails with `EntityAlreadyExists`. Skip it and run the second one.
 
 ```bash
 aws iam create-role --role-name o2-synthetics-probe-role \
@@ -178,8 +199,11 @@ aws lambda create-function \
   --role arn:aws:iam::$ACCT:role/o2-synthetics-probe-role \
   --architectures x86_64 \
   --timeout 840 \
-  --memory-size 2048
+  --memory-size 2048 \
+  --image-config Command=index.handler
 ```
+
+The browser function needs `--image-config Command=index.handler`. Lambda turns it into the `_HANDLER` variable that the Node runtime client reads. Without it, every invoke fails at init with `_HANDLER environment variable is not set`.
 
 These are the values that OpenObserve Cloud runs:
 
@@ -214,6 +238,8 @@ aws lambda update-function-code --region $AWS_REGION \
   --function-name o2-synthetics-net-probe \
   --image-uri $ECR/o2-synthetics-net-probe:$PROBE_VERSION
 ```
+
+An image update keeps the function timeout and the image command. Make sure that they are still `840` and `index.handler` after any change in the AWS console.
 
 ## Step 3: Let OpenObserve invoke the functions
 
@@ -268,10 +294,11 @@ The full list is in [Environment variables](#environment-variables).
 
 On the Helm chart, put the variables under `config:` in `values.yaml`. The chart sets no `ZO_SYNTHETICS_*` key by default.
 
-Make sure that the server picked up the change:
+Make sure that the server picked up the change. The flags are on the organization route `/api/{org}/config`, which needs a sign-in:
 
 ```bash
-curl -s https://openobserve.example.com/config | jq '{build_type, synthetics_enabled, synthetics_private_locations_enabled}'
+curl -s -u "$ROOT_USER:$ROOT_PASS" https://openobserve.example.com/api/default/config \
+  | jq '{build_type, synthetics_enabled, synthetics_private_locations_enabled}'
 ```
 
 Expected on Open Source:
@@ -280,7 +307,7 @@ Expected on Open Source:
 { "build_type": "opensource", "synthetics_enabled": true, "synthetics_private_locations_enabled": false }
 ```
 
-If `synthetics_enabled` is `false`, the restart did not pick up the variable.
+If `synthetics_enabled` is `false`, the restart did not pick up the variable. The unauthenticated `/config` route returns only the fields that the login page needs, so it does not show these flags.
 
 ## Step 5: Make your API reachable from AWS
 
@@ -301,7 +328,7 @@ This variable is reloadable. Tunnel URLs change on every restart, so update the 
 Make sure that the endpoint answers from outside your network:
 
 ```bash
-curl -s https://openobserve.example.com/config | jq .synthetics_enabled
+curl -s -u "$ROOT_USER:$ROOT_PASS" https://openobserve.example.com/api/default/config | jq .synthetics_enabled
 ```
 
 If this fails from a machine on the public internet, it also fails from Lambda.
@@ -410,11 +437,11 @@ curl -s -u "$AUTH" "$O2/api/default/synthetics" \
   | jq -r '.checks[] | "\(.name)\t\(.type)\t\(.status)\t\(.last_response_ms)"'
 ```
 
-A working setup looks like this:
+A working setup looks like this. These are the numbers from the run that tested this page, on OpenObserve v1.1.0 Open Source with the `v0.0.12` probes in `us-west-2`:
 
 ```
-first-http      http     passed   17
-first-browser   browser  passed   13810
+first-browser   browser  passed   3354
+first-http      http     passed   27
 ```
 
 The server log shows the whole path in four lines:
@@ -423,8 +450,10 @@ The server log shows the whole path in four lines:
 [synthetics scheduler]  firing synthetic synthetics_id=... run_id=... job_count=1
 [synthetics scheduler]  job enqueued job_id=... location=aws-us-west-1
 [synthetics dispatcher] attempting Lambda invoke: job_id=... fn=o2-synthetics-net-probe region=us-west-1
-[synthetics dispatcher] Lambda invoked status_code=200
+[synthetics dispatcher] Lambda invoked job_id=... synthetics_name=first-http pool=net-aws-us-west-1 region=us-west-1 fn_name=o2-synthetics-net-probe status_code=200
 ```
+
+Between the last two lines, the access log shows the probe calling back: `POST /api/default/synthetics/jobs/resolve`, `POST /api/default/synthetics_results/_json`, and `POST /api/default/synthetics/jobs/ack`, each with status 200.
 
 If `status` stays `unknown`, or a check fails, go to [Troubleshooting](#troubleshooting). Every abandoned dispatch records why, in both the run detail and the `synthetics_results` stream.
 
@@ -515,6 +544,10 @@ Failures are recorded, not guessed. Look in three places: the run detail in the 
 | `Lambda does not have permission to access the ECR image` | Missing repository pull policy | Step 2 |
 | Invoked, then a lease timeout about 15 minutes later with no result | The probe cannot reach your API | Step 5. Also look at VPC and NAT. |
 | `exec format error` in the Lambda error payload | Wrong `--architectures` | `arm64` for net, `x86_64` for browser. Step 2 |
+| `Runtime.InvalidEntrypoint` with `ProcessPermissionDenied` on the net function | The function runs the GHCR agent image directly | Build the wrapper image. Step 1 |
+| `Runtime.ExitError` on the browser function, log says `_HANDLER environment variable is not set` | `--image-config Command=index.handler` is missing | Step 2 |
+| `The image manifest, config or layer media type ... is not supported` | The image was pushed with a BuildKit attestation manifest | Rebuild with `--provenance=false --sbom=false`. Step 1 |
+| `EntityAlreadyExists` on `create-role` | The role exists from an earlier setup | Skip the create and attach the policy. Step 2 |
 | Check killed mid-run although the target was healthy | Function timeout below the check budget | The timeout budget |
 | Browser check passes but screenshots are missing | Presigned URLs not reachable from Lambda | Artifacts and object storage |
 | `no enabled ingest token for this organisation` | The organization has no ingestion token | See below |
