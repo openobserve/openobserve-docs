@@ -313,11 +313,27 @@ A location is a place that a check runs from. OpenObserve ships with no location
 ### In the UI
 
 1. Switch to the `_meta` organization.
-2. Open **Settings**, then **Synthetics Locations**.
-3. Click **Add location**. Set the provider to **AWS** and the region to the AWS region where you created the functions, for example `us-west-1`.
-4. Save, and make sure that the location is enabled.
+2. Open **Settings**, then **Locations** under **Synthetics**.
 
-The location id becomes `aws-<region>`, for example `aws-us-west-1`. The dispatcher reads the region from this id. The page also accepts a JSON file with several locations at once, with `provider` and `region` for each entry.
+![Locations settings page listing registered public locations with Import, Export, and Add Location actions](images/self-hosted-locations-list.png)
+
+3. Click **Add Location**. Leave **Provider** as **AWS**, set **Region** to the AWS region where you created the functions, for example `us-west-1`, and enter a **Label** such as `AWS US West (N. California)`. All three are required.
+4. Keep **Enabled** on and click **Create & Close**.
+
+![Add Location drawer with AWS as the provider, region eu-west-1, and the derived location ID aws-eu-west-1](images/self-hosted-location-form.png)
+
+The **Location ID** fills in as `aws-<region>`, for example `aws-us-west-1`. The dispatcher reads the region from this id, so choosing **AWS** as the provider is what makes routing work.
+
+To add several regions at once, click **Import** and paste a JSON array, or upload it as a file. Each entry needs `provider`, `region`, and `label`. The preview shows the location ID each entry gets before you import.
+
+```json
+[
+  { "provider": "aws", "region": "eu-west-1", "label": "AWS EU West (Ireland)" },
+  { "provider": "aws", "region": "ap-south-1", "label": "AWS Asia Pacific (Mumbai)" }
+]
+```
+
+![Import page with a JSON array of two AWS regions and a preview of their derived location IDs](images/self-hosted-locations-import.png)
 
 ### With the API
 
@@ -336,6 +352,8 @@ curl -u "$AUTH" -X POST "$O2/api/default/synthetics/locations" \
        "label":"AWS US West 1",
        "enabled":true}'
 ```
+
+Set `kind` to `public`. It defaults to `private`, which Open Source refuses. To register several regions in one request, send `{"locations": [ ... ]}` with one such object per region.
 
 One location serves both probes. Protocol checks use a pool named `net-<location id>`. Browser checks always use the `aws-browser` pool. You do not set the pool by hand.
 
