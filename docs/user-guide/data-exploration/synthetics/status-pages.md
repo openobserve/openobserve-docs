@@ -1,139 +1,181 @@
 ---
 title: Status Pages
-description: Publish public status pages that surface the live health of your services from synthetic monitoring. Track components, automate incident detection, post updates, and serve pages on a branded page or your own custom domain.
+description: Publish a public status page from your synthetic checks, with automatic incidents, manual updates, and custom domains.
 ---
 
 # Status Pages
 
-Status Pages turn your synthetic monitoring checks into a public, branded page your customers can check to see whether your services are up. Map checks to components, let OpenObserve automatically open and resolve incidents from check failures, and post manual updates during outages or scheduled maintenance.
+Status Pages turn your synthetic checks into a public, branded page that your customers can open to see whether your services are up. You group checks into components, and OpenObserve opens and resolves incidents automatically as those checks fail and recover. You can also post manual updates during an outage.
 
-:::note[Note]
-Status Pages ship as part of **Synthetics**. Enable synthetic monitoring (`ZO_SYNTHETICS_ENABLED`) before you use them. Base page management, automatic incidents, and public serving are available in the open-source build; **manual notices**, **custom domains**, and **logo upload** require the Enterprise tier.
+![Status Pages list](images/status-pages-list.png)
+
+:::note[Availability]
+Status Pages are part of **Synthetics**, which is off by default. Set `ZO_SYNTHETICS_ENABLED=true` to turn it on. Creating pages, automatic incidents, and public serving work in every edition. **Manual updates**, **custom domains**, and **logo upload** require OpenObserve Enterprise or OpenObserve Cloud. In the open-source edition, these options show a lock icon.
 :::
 
-## How Status Pages Work
+## How status pages work
 
-A status page is a snapshot of the health of your components, rebuilt on a fixed cadence (`ZO_STATUS_PAGE_REBUILD_INTERVAL`, default `60` seconds). Each component maps to one or more synthetics checks. A background rebuilder observes those checks, opens and resolves **automatic incidents** as checks fail and recover, and computes uptime percentages from the resulting downtime.
+Each status page is a snapshot of the health of its components, rebuilt every 60 seconds by default. Each component maps to one or more synthetic checks. As those checks fail and recover, OpenObserve opens and resolves **automatic incidents** and computes uptime from the downtime they record.
 
-The page is served publicly over a small set of unauthenticated read routes, and you can reach it either by its OpenObserve URL (`/status/<slug>`) or, on Enterprise, by a **custom domain** you own.
+Visitors reach a public page at `/status/<slug>` on your OpenObserve host or, on Enterprise and Cloud, on a custom domain that you own.
 
-## Create a Status Page
+## Open Status Pages
 
-To create a status page:
+1. In the left navigation, select **Experience** > **Synthetics**.
+2. Select the **Status Pages** tab.
 
-1. Open **Synthetics** from the left navigation and select the **Status Pages** tab.
-2. Click **Add Status Page**.
-3. Enter a **Name** and, optionally, a **Description**.
-4. Click **Save** to create the page.
+The list shows each page's **Name**, **Health**, **Visibility**, number of **Components**, and public **URL**. **Health** is one of *Operational*, *Degraded*, *Partial outage*, *Major outage*, *Maintenance*, or *No data*. Use **Search status pages** to filter the list. The **More actions** (⋯) menu on each row has **Edit**, **Post update**, **View updates**, **Copy URL**, **Manage domains**, and **Delete**.
 
-![TODO: screenshot of the Status Pages list view](images/placeholder.png)
+## Create a status page
 
-Each page is assigned a random public **slug** used in its URL. You can regenerate it at any time from the page editor.
+1. On the **Status Pages** tab, click **New status page**.
+2. Enter a **Name** and, optionally, a **Description**.
+3. Click **Create**.
 
-![TODO: screenshot of the Create Status Page dialog](images/placeholder.png)
+![New status page dialog](images/status-pages-create-dialog.png)
 
-## Add Components
+The page opens in the editor. Every new page starts as a **Draft**, so visitors can't see it until you publish it. Each page gets a random URL slug. To change the slug, click **Rotate URL** in the editor. The old URL stops working once you save. Click **Copy URL** to copy the public URL.
 
-A component is a named unit of your service (for example, *API*, *Web App*, or *Database*) that visitors see on the page. Each component maps to one or more synthetics checks whose status drives the component's health.
+## Edit a status page
 
-1. Open the page and go to the **Components** section of the editor.
-2. Add a component and give it a **Name** and optional **Description**.
-3. Select the synthetics **checks** to map to it.
+The editor has the settings on the left and a live **Preview** on the right. The preview updates as you type and uses sample uptime data. Click **Save** to apply your changes.
 
-![TODO: screenshot of the Status Page editor Components section](images/placeholder.png)
+![Status page editor with live preview](images/status-pages-editor.png)
 
-:::note[Note]
-When you map a check to a component, OpenObserve verifies that you have **read access** to that check's synthetics folder. A status page can never publish the status of a check you cannot read.
+### Details
+
+- **Name** and **Description** appear at the top of the public page.
+- **Brand name**, **Accent color** (a `#RRGGBB` value), and **Logo** control branding. Logo upload requires Enterprise or Cloud. On self-hosted Enterprise, the logo defaults to your organization's logo. Click **Revert to org logo** to go back to it.
+
+### Visibility
+
+| Option | What visitors see |
+| --- | --- |
+| **Draft** | Nothing. The page isn't served. |
+| **Public** | Anyone with the URL can view the page. |
+| **Password** | Visitors must enter a password first. |
+
+For **Password** pages, the password is stored as a hash and is never shown again. When you edit the page, leave the field blank to keep the current password.
+
+### Display
+
+- **Show uptime percentage** and **Show timeline bars** are on by default.
+- **Discourage search indexing** asks search engines not to index the page. It is on by default.
+
+### Confirmation
+
+- **Confirm failures** is the number of consecutive failed runs before an incident opens. The default is `2`.
+- **Confirm recovery** is the number of consecutive passing runs before the incident resolves. The default is `2`.
+
+Both values accept `1` to `10`. Higher values prevent a single failed run from showing an outage.
+
+### Components
+
+A component is a part of your service that visitors see on the page, such as *API*, *Web App*, or *Database*.
+
+1. In the **Components** section, click **Add component**.
+2. Enter a **Component name**.
+3. Under **Checks**, select the synthetic checks that drive the component's health.
+
+![Components section of the editor](images/status-pages-components.png)
+
+:::note
+On Enterprise, you can only add a check to a component if you have read access to that check's folder. A status page can never publish the status of a check that you can't read.
 :::
 
-## Configure the Page
+## Automatic incidents
 
-The editor's **Settings** section controls how the page is published and branded:
+OpenObserve watches the checks on each page and turns failures into incidents:
 
-- **Visibility** — `Draft` (hidden), `Public` (open to anyone), or `Password protected`.
-- **Password** — for password-protected pages. The password is hashed with Argon2id at rest and is never returned by the API.
-- **Branding** — **Brand name**, **Accent color**, and a **Logo** image.
-- **Display options** — toggle the **Uptime percentage**, **Timeline bars**, and **Response time** sections.
-- **Incident thresholds** — the number of consecutive **failures** before an incident opens and the number of consecutive **recoveries** before it resolves, plus an optional time-based confirmation window.
-- **Hide from search engines** — sets `noindex` on the page.
+- An incident opens after the **Confirm failures** count of consecutive failures.
+- It resolves after the **Confirm recovery** count of consecutive recoveries.
+- If the check fails again within 10 minutes, the same incident reopens instead of a new one being created. A flapping check stays a single incident.
+- Only incidents with an impact of **partial outage** or worse count as downtime. Overlapping incidents are never counted twice.
 
-![TODO: screenshot of the Status Page editor Settings section](images/placeholder.png)
+Uptime covers the last 90 days. For a new page, uptime is counted from the first time the page left **Draft**, so a young page never shows a misleading long history.
 
-## Automatic Incidents
+## Post a manual update
 
-OpenObserve watches the checks mapped to a page and turns failures into incidents automatically:
-
-- An incident opens after **2 consecutive failures** (configurable per page).
-- It resolves after **2 consecutive recoveries** (configurable per page).
-- A re-failure within a **10-minute merge window** reopens the same incident as a new downtime segment rather than creating a separate one, so a flapping check stays a single incident.
-- Downtime accrues only inside incident notices with an impact of **partial outage** or higher, computed as a union of segments (overlaps are never double-counted).
-
-Uptime is tracked over a rolling 90-day history, and the denominator is capped at the page's `tracking_since` date so a young page never fabricates a long uptime figure.
-
-## Post Manual Updates
-
-:::note[Enterprise]
-Manual notices require the Enterprise tier.
+:::note[Enterprise and Cloud]
+Manual updates require OpenObserve Enterprise or OpenObserve Cloud.
 :::
 
-Use manual updates to communicate during incidents, scheduled maintenance, or informational announcements that are not driven by a check:
+Use a manual update to tell visitors about a problem that your checks don't catch, or to add detail to an ongoing incident.
 
-1. Open the page and click **Post Update**.
-2. Choose a **Kind** — *Incident*, *Maintenance*, or *Info*.
-3. Set the **Impact** — *None*, *Degraded*, *Partial outage*, or *Major outage*.
-4. Enter a **Title** and **Body**, and pick the affected **components** (defaults to every component on the page).
-5. For maintenance, set a **Start time** in the future to schedule it.
+1. On the **Status Pages** tab, open the page's **More actions** (⋯) menu and select **Post update**.
+2. Choose the **Impact**: *Degraded*, *Partial outage*, or *Major outage*.
+3. Under **Affected components**, all components are selected by default. Clear the ones that aren't affected. At least one must stay selected.
+4. Enter a **Title** and a **Message**.
+5. Click **Post**.
 
-![TODO: screenshot of the Post Update dialog](images/placeholder.png)
+![Post update dialog](images/status-pages-post-update.png)
 
-You can edit a notice's narrative or impact, append timestamped updates to its public timeline, or resolve it manually. To override an automatic incident you believe is a false positive, use **Mark as false positive** — this resolves the incident, excludes it from uptime math, and snoozes the underlying check for a period you choose so the same flap does not immediately reopen it.
+If the page already has an active incident, the dialog shows an **Update type** choice:
 
-Past updates for a page appear in the **Notice History** dialog.
+- **Add to existing incident** appends your message to that incident's timeline. Use **Escalate impact** to raise its impact, or keep **No change**.
+- **Post as new incident** opens a separate incident.
 
-![TODO: screenshot of the Notice History dialog](images/placeholder.png)
+### View and remove updates
 
-## Preview and Publish
+Open the page's **More actions** (⋯) menu and select **View updates**. The dialog lists every update with its state (*Scheduled*, *Active*, or *Resolved*) and the components it affects. To remove an update from the public page, delete it from this list.
 
-Before publishing, click **Preview** to render the page exactly as visitors will see it. When you switch the page to **Public**, it is served at `/status/<slug>` and the JSON snapshot at `/api/status_pages_public/<slug>`.
+![Updates dialog](images/status-pages-view-updates.png)
 
-![TODO: screenshot of a published public status page](images/placeholder.png)
+## Publish a status page
 
-Visitors can also consume the page programmatically:
+1. In the editor, set **Visibility** to **Public** or **Password**.
+2. Click **Save**.
 
-- **Status badge** — `/api/status_pages_public/<slug>/badge.svg` returns a Shields-style SVG badge showing the overall status.
-- **Atom feed** — `/api/status_pages_public/<slug>/feed.xml` returns the page's notices as a feed.
+The page is now served at `/status/<slug>`. It shows the overall status, any active updates, and each component's uptime for the last 24 hours, 7 days, 30 days, and 90 days. Visitors can pick a **Display timezone** for the timestamps. The page refreshes itself, so visitors see new status without reloading.
 
-Password-protected pages return `404` for the badge and feed so no state leaks to unauthenticated callers.
+![Published status page](images/status-pages-public.png)
 
-## Custom Domains
+Visitors and tools can also read the page through these public endpoints:
 
-:::note[Enterprise]
-Custom domains require the Enterprise tier.
+| Endpoint | Returns |
+| --- | --- |
+| `/api/status_pages_public/<slug>` | The page snapshot as JSON |
+| `/api/status_pages_public/<slug>/badge.svg` | An SVG badge with the overall status |
+| `/api/status_pages_public/<slug>/feed.xml` | An Atom feed of the page's updates |
+
+The badge and feed return `404` for draft pages, password-protected pages, and unknown slugs, so they never reveal anything to visitors who aren't signed in. Public endpoints are rate-limited per IP address. Visitors who go over the limit get HTTP `429`.
+
+## Use a custom domain
+
+:::note[Enterprise and Cloud]
+Custom domains require OpenObserve Enterprise or OpenObserve Cloud.
 :::
 
-Serve a status page on a domain you own instead of your OpenObserve host:
+You can serve a status page on your own domain, such as `status.example.com`, instead of your OpenObserve host.
 
-1. Open the page and go to the **Domains** section.
-2. Enter the domain you want to claim (for example, `status.example.com`).
-3. Copy the generated DNS **TXT record** — a `_o2-verify.<domain>` record containing a verification token.
-4. Add the record to your DNS and click **Verify now**, or wait for the periodic check (`ZO_STATUS_PAGE_DOMAIN_VERIFY_INTERVAL`, default `30` seconds).
+1. On the **Status Pages** tab, open the page's **More actions** (⋯) menu and select **Manage domains**.
+2. Under **Add a domain**, enter your domain and click **Add**.
+3. Copy the **Record name** (`_o2-verify.<your-domain>`) and the **Record value**, and add them as a DNS `TXT` record.
+4. Click **Verify now**, or wait for the automatic check, which runs every 30 seconds by default. The domain moves from *Pending* to *Verified*. If it shows *Failed*, the dialog shows the reason.
+5. After the domain is verified, add a `CNAME` record that points your domain at your OpenObserve host.
 
-![TODO: screenshot of the Domains dialog showing a pending domain and its TXT record](images/placeholder.png)
+![Custom domains dialog](images/status-pages-domains.png)
 
-Once the record is confirmed, the domain is **verified** and requests to that host are routed to the page ahead of normal routing, so the domain can serve the page even at the root path. A claimed-but-unverified domain is intercepted but serves no tenant content. Domain uniqueness is global: no two organizations can claim the same domain.
+Two organizations can never claim the same domain. After you verify or remove a domain, it can take up to about 30 seconds to take effect. Your OpenObserve host itself is never treated as a status page domain.
 
-HTTPS termination for a custom domain is your own responsibility — point your reverse proxy or CDN at OpenObserve and forward the original `Host` header.
+:::note[Self-hosted HTTPS]
+On a self-hosted deployment, you handle HTTPS for the custom domain. Point your reverse proxy or CDN at OpenObserve and forward the original `Host` header.
+:::
 
 ## Permissions
 
-Status Pages use the OpenFGA `status_page` resource type for role-based access control. It is a top-level, organization-scoped resource, so you can grant permissions per page independently of other synthetics permissions. The public read routes sit outside authentication and are not RBAC-gated.
+On Enterprise, status pages appear as **Status Pages** in role permissions. You can grant access to each page separately from your other Synthetics permissions. The public page and its endpoints don't require sign-in.
 
-## Configuration Reference
+## Billing
 
-The following environment variables control Status Pages:
+On OpenObserve Cloud, protocol checks that are added to a status page draw on a separate monthly allowance of free status-page steps. Status-page checks first use any steps left in your one-time free protocol allowance, then the monthly allowance, which resets each month. If both run out, extra steps are billed as regular protocol steps. When your one-time protocol allowance runs out, status-page checks keep running on the monthly allowance. Browser checks don't get the monthly allowance, even when they are on a status page.
+
+## Configuration reference
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `ZO_STATUS_PAGE_REBUILD_INTERVAL` | `60` | Seconds between status-page snapshot rebuild ticks. |
-| `ZO_STATUS_PAGE_DOMAIN_VERIFY_INTERVAL` | `30` | Seconds between custom-domain DNS ownership verification ticks. |
-| `ZO_STATUS_PAGE_PUBLIC_RPM` | `240` | Per-IP requests per minute for the public read routes. Set to `0` to disable the limiter. |
+| `ZO_SYNTHETICS_ENABLED` | `false` | Turns on Synthetics, including Status Pages. |
+| `ZO_STATUS_PAGE_REBUILD_INTERVAL` | `60` | Seconds between status page snapshot rebuilds. |
+| `ZO_STATUS_PAGE_DOMAIN_VERIFY_INTERVAL` | `30` | Seconds between custom domain DNS checks. |
+| `ZO_STATUS_PAGE_PUBLIC_RPM` | `240` | Requests per minute per IP for public endpoints. Set to `0` to turn off the limit. Requires a restart to change. |
+| `O2_SYNTHETICS_FREE_STATUS_STEP_POOL` | `43200` | Enterprise: monthly free protocol steps for checks on a status page. |
