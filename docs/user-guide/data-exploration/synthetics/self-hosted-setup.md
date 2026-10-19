@@ -27,7 +27,7 @@ Synthetics ships in the Open Source edition. A small part of it stays Enterprise
 | Super cluster (checks shared across regions) | No | Yes |
 | Custom domains for status pages | No | Yes |
 
-On Open Source, checks run from public locations only. A public location is an AWS region where you deploy the two probe functions. If you need checks that run inside a private network, you need Enterprise and [Private locations](private-locations.md).
+Today, public locations run on AWS Lambda only. A public location is an AWS region where you deploy the two probe functions. There is no probe for another cloud yet. On Open Source, checks run from public locations only. If you need checks that run inside a private network, you need Enterprise and [Private locations](private-locations.md).
 
 On Open Source, a failing check records the failure and shows it in the UI. It does not send a notification to a destination. The alert fields on a check are accepted but have no effect.
 
@@ -349,7 +349,7 @@ A location is a place that a check runs from. OpenObserve ships with no location
 
 ![Add Location drawer with AWS as the provider, region eu-west-1, and the derived location ID aws-eu-west-1](images/self-hosted-location-form.png)
 
-The **Location ID** fills in as `aws-<region>`, for example `aws-us-west-1`. The dispatcher reads the region from this id, so choosing **AWS** as the provider is what makes routing work.
+The **Location ID** fills in as `aws-<region>`, for example `aws-us-west-1`. The dispatcher reads the region from this id, so choosing **AWS** as the provider is what makes routing work. The form also offers **GCP**, **Azure**, and **Other**, but no probe exists for them yet. A location with one of those providers accepts checks that never run.
 
 To add several regions at once, click **Import** and paste a JSON array, or upload it as a file. Each entry needs `provider`, `region`, and `label`. The preview shows the location ID each entry gets before you import.
 
