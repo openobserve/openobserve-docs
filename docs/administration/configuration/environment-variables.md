@@ -718,8 +718,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| O2_AI_ENABLED | true | Enables AI-powered features such as the AI assistant, query assistance, anomaly detection, and root cause analysis. On by default; set to `false` to opt out. The assistant is only available when an agent is reachable too: set `O2_AGENT_URL` (or `O2_AI_HA_ENABLED=true`). |
-| O2_AI_MODEL_ALLOWLIST | - | Comma-separated models a chat request may choose instead of the default model. Unset leaves the choice unrestricted; once set, any other model is refused with `400 invalid_request`. |
+| O2_AI_ENABLED | false | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires o2-sre-agent to be deployed. |
 | O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: http://o2-openobserve-router:5080 |
 | O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: http://o2-sre-agent:8000 |
 
