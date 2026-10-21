@@ -1,3 +1,8 @@
+---
+title: Table Chart
+description: Configure dashboard table chart panels with per-column formatting, conditional styling, Excel-style column filters, and pagination.
+---
+
 # Table Chart
 
 Table chart panels display query results as a tabular view, with support for per-column formatting, Excel-style column filtering, and pagination.
