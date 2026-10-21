@@ -118,48 +118,18 @@ Examples of a Dashboard with Panels organized in different Tabs:
 
 ## Time Range and Auto Run
 
-Dashboards now apply time-range changes the same way the rest of the product does, and with **Auto Run** enabled, opening a dashboard ends on the latest data instead of the last cached result.
-
-### Auto Run on dashboards
-
-**Auto Run** is a per-deployment feature (enabled with the `ZO_AUTO_QUERY_ENABLED=true` environment variable) that re-runs queries automatically. On dashboards it controls what happens when a dashboard opens and when you change the time range or filters.
-
-When **Auto Run** is on and a panel uses a relative time range:
-
-- The panel shows its cached result immediately, then re-queries in the background.
-- The cached chart stays on screen until the fresh result is complete.
-- The panel's loading line runs while the query is in flight, and the panel's "Xm ago" age keeps the previous value until the fresh data lands.
-
-Only visible panels query, and each tab refreshes once per visit. Opening a dashboard from the list, a browser reload, and returning from **Edit Panel** each count as a new visit.
-
-The **Auto Run** menu item now reads **Runs queries on open and on filter/time changes** and **Applies to all dashboards, Logs and Traces**, making it clear that the switch is not per dashboard:
+**Auto Run** re-runs dashboard queries automatically when a dashboard opens and when you change the time range or filters. Enable it for your deployment with `ZO_AUTO_QUERY_ENABLED=true`. The setting applies to all dashboards, Logs, and Traces.
 
 ![the Auto Run menu item describing when queries run](images/dashboard-fresh-on-open-1.png)
 
-### Time pickers without an Apply button
+When Auto Run is on, panels with a relative time range show their cached result first, then refresh in the background with the latest data.
 
-The dashboard toolbar picker, the per-panel time pickers, and the **View Panel** dialog picker no longer have an **Apply** button. Instead, the picked range either applies at once or waits for a refresh, depending on **Auto Run**:
+Dashboard time pickers apply the selected range based on Auto Run:
 
-- **Auto Run on**: a picked range applies at once. Relative presets, the previous/next arrows, and a time-zone change apply immediately; typed absolute times apply after a 2.5 s pause (as Logs does) or when the picker closes.
-- **Auto Run off** (or `ZO_AUTO_QUERY_ENABLED` unset): the picked range waits. The **Refresh** button turns yellow (**Refresh to apply the time range**), and clicking **Refresh**, the auto-refresh interval, or pressing the **R** shortcut applies it. A per-panel picker marks that panel's refresh icon instead, and the **View Panel** dialog marks its own **Refresh**.
-
-![the dashboard toolbar time picker without an Apply button](images/dashboard-fresh-on-open-2.png)
-
-Panels, tab switches, a panel's own refresh, and variables always use the applied range, never a waiting one. The URL and **Share** link change only when a range is applied. Picking the applied range again clears the waiting state, and turning **Auto Run** on applies a waiting range.
-
-An invalid range (start after end, or an empty field) is never applied; when the picker closes, its label returns to the applied range.
+- **Auto Run on**: The range applies immediately.
+- **Auto Run off**: The **Refresh** button turns yellow. Click **Refresh** or press **R** to apply the range.
 
 ![the yellow Refresh button indicating a waiting time range](images/dashboard-fresh-on-open-3.png)
-
-The **Add/Edit Panel** page keeps its **Apply** button, and **Logs**, **Traces**, and other pages that share the picker are unchanged.
-
-### Behavior on every dashboard
-
-These changes apply whether **Auto Run** is on or off:
-
-- An interrupted run (leaving the dashboard, cancelling, or switching tabs) no longer overwrites a panel's last complete cache entry with a partial one, so the next open no longer shows **No Data** until the query returns.
-- A panel with an absolute time range restores from cache only when the cached window is the same window.
-- A panel body stays blank until its first load settles (cache restored, or the first query finished, failed, or was cancelled), instead of briefly showing **No Data** on every open. An empty result still shows **No Data**.
 
 ## FAQ
 
