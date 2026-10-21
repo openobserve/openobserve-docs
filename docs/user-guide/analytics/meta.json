@@ -1,3 +1,10 @@
 {
-  "title": "Analytics"
+  "title": "Analytics",
+  "pages": [
+    "alerts",
+    "slos",
+    "dashboards",
+    "incidents",
+    "reports"
+  ]
 }

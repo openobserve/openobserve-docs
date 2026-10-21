@@ -23,9 +23,9 @@ Pick the form that matches how you run OpenObserve:
 | ZO_ROOT_USER_PASSWORD | - | Password for the root user. |
 | ZO_LOCAL_MODE | true | If local mode is set to true, OpenObserve becomes single node deployment.If it is set to false, it indicates cluster mode deployment which supports multiple nodes with different roles. For local mode one needs to configure SQLite DB, for cluster mode one needs to configure PostgreSQL (recommended) or MySQL. |
 | ZO_LOCAL_MODE_STORAGE | disk | Applicable only for local mode. By default, local disk is used as storage. OpenObserve supports both disk and S3 in local mode. |
-| ZO_NODE_ROLE | all | Node role assignment. Possible values are ingester, querier, router, compactor, alertmanager, and all. A single node can have multiple roles by specifying them as a comma-separated list. For example, compactor, alertmanager. |
+| ZO_NODE_ROLE | all | Node role assignment. Possible values are ingester, querier, router, compactor, scheduler, and all. A single node can have multiple roles by specifying them as a comma-separated list. For example, compactor, scheduler. |
 | ZO_NODE_ROLE_GROUP | "" | Each query-processing node can be assigned to a specific group using ZO_NODE_ROLE_GROUP. <br>- **interactive**: Handles queries triggered directly by users through the UI. <br>- **background**: Handles automated or scheduled queries, such as alerts and reports. <br>- **empty string** (default): Handles all query types. <br>
-In high-load environments, alerts or reports might run large, resource-intensive queries. By assigning dedicated groups, administrators can prevent such queries from blocking or slowing down real-time user searches. |
+In high-load environments, alerts or reports can run large, resource-intensive queries. By assigning dedicated groups, administrators can prevent such queries from blocking or slowing down real-time user searches. |
 | ZO_NODE_HEARTBEAT_TTL | 30 | Time-to-live (TTL) for node heartbeats in seconds. |
 | ZO_INSTANCE_NAME | - | In the cluster mode, each node has a instance name. Default is instance hostname. |
 | ZO_CLUSTER_COORDINATOR | nats | Defines how nodes in the cluster discover each other. |
@@ -49,6 +49,8 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_ROUTE_TIMEOUT | 600 | Timeout value for the router node in seconds. |
 | ZO_ROUTE_MAX_CONNECTIONS | 1024 | Sets the maximum number of simultaneous connections per type of scheme for the Router node role. |
 | ZO_CORS_ALLOWED_ORIGINS | | Comma-separated list of origins allowed to make cross-origin (CORS) requests to the OpenObserve server. When empty, all origins are allowed. Example: `https://app.example.com,https://admin.example.com`. |
+| ZO_SSRF_ALLOW_LOOPBACK | false | Allow outbound requests, such as webhook alert destinations and URL-based enrichment tables, to target loopback addresses (`127.0.0.1`, `localhost`, `::1`). Part of OpenObserve's SSRF (Server-Side Request Forgery) protection, which blocks these targets by default. Does not allow other private network ranges, such as `10.0.0.0/8`, `172.16.0.0/12`, or `192.168.0.0/16`; use `ZO_SKIP_SSRF_CHECKS` for those. Enable only in trusted environments, such as CI/CD pipelines or single-node self-hosted setups where the server needs to send requests to itself. |
+| ZO_SKIP_SSRF_CHECKS | false | Disable SSRF protection for outbound requests made by the server for features that check it, such as webhook alert destinations and URL-based enrichment tables, allowing URLs that target loopback addresses, private network ranges (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), link-local addresses, and cloud metadata endpoints (for example, `169.254.169.254`). Use this in a self-hosted deployment to reach a notification service or another system on a private network, such as a homelab. Enable only when you trust every destination URL configured on this instance. |
 
 
 ## Data Storage and Directories
@@ -59,6 +61,8 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_DATA_WAL_DIR | ./data/openobserve/wal/ | Directory for storing Write-Ahead Log (WAL) data. |
 | ZO_DATA_STREAM_DIR | ./data/openobserve/stream/ | Directory for storing stream data locally. Applicable only in local mode. |
 | ZO_DATA_IDX_DIR | | Local WAL Idx directory. |
+| ZO_FILE_FORMAT | parquet | File format for data storage: `parquet` or `vortex`. Changing the value affects newly written files. Existing files keep their format and remain queryable, and a single query can read both formats. Metrics streams are written as Parquet on ingesters regardless of this setting and use the configured format only during compaction. |
+| ZO_VORTEX_THREAD_NUM | 0 | Number of worker threads for the Vortex runtime. The default `0` uses one worker per CPU core. |
 
 
 ## Ingestion and Schema Management
@@ -134,7 +138,7 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_COMPACT_PENDING_JOBS_METRIC_INTERVAL | 300           | Interval to publish pending job metrics in seconds.                                            |
 | ZO_COMPACT_MAX_GROUP_FILES               | 10000         | Maximum number of files allowed in a compaction group.                                         |
 | ZO_COMPACT_FILE_LIST_DELETED_BATCH_SIZE | 1000                       | Controls the batch size used when deleting entries from `file_list` during compaction and data retention.                                                                            |
-| ZO_COMPACT_RETENTION_ALLOWED_HOURS      | "" (empty, no restriction) | Specifies the UTC hours during which data retention jobs are allowed to start. Provide a comma-separated list of hours (e.g., `5,6,7,8` to allow retention between 05:00–08:00 UTC). |
+| ZO_COMPACT_RETENTION_ALLOWED_HOURS      | "" (empty, no restriction) | Specifies the UTC hours during which data retention jobs are allowed to start. Provide a comma-separated list of hours (e.g., `5,6,7,8` to allow retention between 05:00 and 08:00 UTC). |
 
 ## UI and Web
 | Environment Variable | Default Value | Description |
@@ -199,10 +203,10 @@ In high-load environments, alerts or reports might run large, resource-intensive
 ## Alerts and Reports
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| ZO_ALERT_SCHEDULE_INTERVAL | 10s | Defines how often the alert manager checks for scheduled jobs such as alerts, reports, or scheduled pipelines. The default value is 10 seconds. This means the alert manager fetches and processes alerts, reports, and pipelines every 10 seconds. |
-| ZO_ALERT_SCHEDULE_TIMEOUT           | 90     | The maximum expected time duration in seconds within which the processing of alert by the alert manager should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other alert managers to pick. |
-| ZO_SCHEDULER_WATCH_INTERVAL         | 30    | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by alert managers. |
-| ZO_ALERT_SCHEDULE_CONCURRENCY       | 5   | The number of scheduled jobs the the alert manager will pull at a time from the scheduler for processing |
+| ZO_ALERT_SCHEDULE_INTERVAL | 10s | Defines how often the scheduler checks for scheduled jobs such as alerts, reports, or scheduled pipelines. The default value is 10 seconds. This means the scheduler fetches and processes alerts, reports, and pipelines every 10 seconds. |
+| ZO_ALERT_SCHEDULE_TIMEOUT           | 90     | The maximum expected time duration in seconds within which the processing of alert by the scheduler should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other schedulers to pick. |
+| ZO_SCHEDULER_WATCH_INTERVAL         | 30    | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by schedulers. |
+| ZO_ALERT_SCHEDULE_CONCURRENCY       | 5   | The number of scheduled jobs the the scheduler will pull at a time from the scheduler for processing |
 | ZO_CHROME_ENABLED                   | false  | When true, it looks for chromium executable. Required for dashboard reports. |
 | ZO_CHROME_PATH                      | -  | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
 | ZO_CHROME_CHECK_DEFAULT_PATH        | true | If false, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
@@ -216,11 +220,11 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_SCHEDULER_CLEAN_INTERVAL         | 30   | The interval in seconds after which the scheduler will clean up the completed scheduled jobs. |
 | ZO_REPORT_USER_NAME                 |  | The username that will be used by the headless chromium to login into openobserve and generate report. |
 | ZO_REPORT_USER_PASSWORD             |  | The password that will be used by the headless chromium to login into openobserve and generate report. |
-| ZO_ENABLE_EMBEDDED_REPORT_SERVER    | false  | If true, the alert manager (for which this ENV is enabled) spawns a new report-server running on PORT `5082` (default, can be changed through `ZO_REPORT_SERVER_HTTP_PORT`). |
+| ZO_ENABLE_EMBEDDED_REPORT_SERVER    | false  | If true, the scheduler (for which this ENV is enabled) spawns a new report-server running on PORT `5082` (default, can be changed through `ZO_REPORT_SERVER_HTTP_PORT`). |
 | ZO_REPORT_SERVER_HTTP_PORT          | `5082` | The port used by the newly spawned report-server. |
 | ZO_REPORT_SERVER_HTTP_ADDR          | `127.0.0.1`  | The ip address used by the newly spawned report-server. |
 | ZO_REPORT_SERVER_URL                | `localhost:5082` | The report server server URL. E.g. - `https://report-server.example.com/api`. |
-| ZO_REPORT_SERVER_SKIP_TLS_VERIFY    | false| If true, it will skip tls verification while making request to report-server from alert manager. |
+| ZO_REPORT_SERVER_SKIP_TLS_VERIFY    | false| If true, it will skip tls verification while making request to report-server from scheduler. |
 
 ## Enrichment Tables
 | Environment Variable | Default Value | Description |
@@ -291,8 +295,10 @@ In high-load environments, alerts or reports might run large, resource-intensive
 | ZO_DISK_CACHE_SKIP_SIZE | - | Default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB |
 | ZO_DISK_CACHE_RELEASE_SIZE | - | Default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB |
 | ZO_DISK_CACHE_STRATEGY | lru | Disk data cache strategy, values are lru, time_lru, fifo |
-| ZO_MEMORY_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the memory cache. Files whose data is older than this value are skipped — queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
-| ZO_DISK_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the disk cache. Files whose data is older than this value are skipped — queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
+| ZO_MEMORY_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the memory cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
+| ZO_DISK_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the disk cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
+| ZO_FILE_DOWNLOAD_SYNC_MAX_SIZE | 1 | Files up to this size in MB that are missing from the querier cache are downloaded into the cache before a search runs, instead of being range-read from object storage. Larger files are downloaded in the background as before. Set to `0` to disable. |
+| ZO_FILE_DOWNLOAD_MIN_RECORDS | - | Removed. Files are no longer excluded from the cache by record count. |
 
 
 ## HTTP TLS
@@ -331,12 +337,6 @@ In high-load environments, alerts or reports might run large, resource-intensive
 
 
 
-## Action
-| Environment Variable      | Default Value | Description                            |
-| ------------------------- | ------------- | -------------------------------------- |
-| O2_ACTION_ENABLED | true             | Enables the Actions feature for running real-time or scheduled automation tasks.       |
-| O2_ACTION_SERVER_TOKEN | -             | Token used by Action Server for authentication during action execution. Previously, O2_SCRIPT_SERVER_TOKEN.       |
-
 ## NATS
 | Environment Variable       | Default Value | Description                                                                           |
 | -------------------------- | ------------- | ------------------------------------------------------------------------------------- |
@@ -364,13 +364,13 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 ## S3 and Object Storage
 | Environment Variable                   | Default Value | Description                                                                                                                                                           |
 | -------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL               | -             | Default for aws s3 & leave it empty, but for `minIO`, `gcs` one should configure it. |
+| ZO_S3_SERVER_URL               | -             | Default for aws s3 & leave it empty, but for `minIO`, `gcs`, or RustFS one should configure it. |
 | ZO_S3_REGION_NAME              | -             | Region name                                                                          |
 | ZO_S3_ACCESS_KEY               | -             | Access key                                                                           |
 | ZO_S3_SECRET_KEY               | -             | Secret key                                                                           |
 | ZO_S3_BUCKET_NAME              | -             | Bucket name                                                                          |
 | ZO_S3_BUCKET_PREFIX            | -             | You can store data in a sub directory, like: `openobserve/`                          |
-| ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, swift                             |
+| ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, rustfs, swift                             |
 | ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | Feature: `force_hosted_style`.                                                     |
 | AWS_EC2_METADATA_DISABLED      | false         | Feature, default enable for `swift`.                                                 |
 | ZO_S3_FEATURE_BULK_DELETE       | false         | Enables bulk deletion of streams in object stores that support stream deletion. If your object store supports stream delete, you can enable this variable. AWS S3 and Azure ObjectStore are known to support it. When set to **true**, OpenObserve issues a single operation to delete all files under the stream’s storage prefix, reducing deletion time and API usage.                                                                             |
@@ -638,8 +638,6 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_UI_ENABLED  | true             | Enables or disables the OpenObserve web user interface.                            |
 | ZO_PRINT_KEY_EVENT  | false             | Enables printing of key-level events in logs for debugging.                    |
 
----
-
 ## Super-Cluster
 
 > The following environment variables are available only in the Enterprise edition.
@@ -720,7 +718,8 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| O2_AI_ENABLED | false | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires o2-sre-agent to be deployed. |
+| O2_AI_ENABLED | true | Enables AI-powered features such as the AI assistant, query assistance, anomaly detection, and root cause analysis. On by default; set to `false` to opt out. The assistant is only available when an agent is reachable too: set `O2_AGENT_URL` (or `O2_AI_HA_ENABLED=true`). |
+| O2_AI_MODEL_ALLOWLIST | - | Comma-separated models a chat request may choose instead of the default model. Unset leaves the choice unrestricted; once set, any other model is refused with `400 invalid_request`. |
 | O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: http://o2-openobserve-router:5080 |
 | O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: http://o2-sre-agent:8000 |
 

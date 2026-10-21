@@ -43,8 +43,8 @@ This guide uses `cluster1.example.com` as the example domain. Replace hostnames,
 - **OpenObserve Enterprise** deployed (SSO/Dex is an Enterprise feature), `https://dev.cluster1.example.com`
 - A **Dex** deployment reachable by both the user's browser and OpenObserve
 - A **Keycloak** instance (v26.x in this setup) with admin access
-  - Local dev: [docker-compose.yml](docker-compose.yml) (Keycloak 26.1 + Postgres 16)
-  - Cluster: [k8s-deployment.yml](k8s-deployment.yml) + [httproute.yml](httproute.yml) (Envoy Gateway route on `keycloak.cluster1.example.com`)
+  - Local dev: `docker-compose.yml` (Keycloak 26.1 + Postgres 16)
+  - Cluster: `k8s-deployment.yml` + `httproute.yml` (Envoy Gateway route on `keycloak.cluster1.example.com`)
 - All three endpoints served over **HTTPS** with mutually trusted certificates
 - Network connectivity: browser to all three; Dex to Keycloak; OpenObserve to Dex
 
@@ -145,7 +145,7 @@ Confirm the JSON loads and note the `issuer` value. The Dex connector must use i
 
 ### Step 3.1: Add the Keycloak connector
 
-The dev configuration lives in [dev-dex-config.yaml](dev-dex-config.yaml). The relevant pieces:
+The dev configuration lives in `dev-dex-config.yaml`. The relevant pieces:
 
 ```yaml
 issuer: https://dev-dex.cluster1.example.com/dex
@@ -274,7 +274,7 @@ kubectl -n openobserve rollout restart statefulset/o2-openobserve-router   # or 
 | `x509: certificate signed by unknown authority` in Dex logs | Dex does not trust Keycloak's TLS cert | Mount the CA into Dex and set `rootCAs: [/etc/dex/ca.pem]` in the connector config. |
 | User lands in the wrong org/role | Group mapping not applied | Re-check Step 2.4, `insecureEnableGroups: true`, and the `O2_DEX_GROUP_*` variables. Decode the token to confirm the `groups` claim shape. |
 | Login loops or immediately fails | Wrong Keycloak client secret in Dex | Re-copy the secret from Keycloak's Credentials tab into the connector config and restart Dex. |
-| Keycloak issues tokens with the in-cluster URL | Frontend hostname not set | Set `KC_HOSTNAME=keycloak.cluster1.example.com` (already in [k8s-deployment.yml](k8s-deployment.yml)). |
+| Keycloak issues tokens with the in-cluster URL | Frontend hostname not set | Set `KC_HOSTNAME=keycloak.cluster1.example.com` (already in `k8s-deployment.yml`). |
 
 ## Security Checklist
 

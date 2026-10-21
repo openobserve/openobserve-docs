@@ -25,7 +25,7 @@ With it you can track:
 * Python 3.8+  
 * [`uv`](https://github.com/astral-sh/uv) package manager (or `pip`)  
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)  
-* Your OpenObserve **organisation ID** and **Base64-encoded auth token**
+* Your OpenObserve **organisation ID** and **auth token**, copied from **Data Sources → Custom → Traces → OTel Collector** in the OpenObserve UI
 
 ## **Configuration**
 
@@ -39,8 +39,8 @@ OPENOBSERVE_URL=https://api.openobserve.ai/
 # Your OpenObserve organisation slug or ID
 OPENOBSERVE_ORG=your_org_id
 
-# Basic auth token — Base64-encoded "email:password"
-OPENOBSERVE_AUTH_TOKEN="Basic <your_base64_token>"
+# Auth token for OpenObserve
+OPENOBSERVE_AUTH_TOKEN="Basic <your_auth_token>"
 
 # Enable or disable tracing (default: true)
 OPENOBSERVE_ENABLED=true
@@ -50,11 +50,15 @@ OPENAI_API_KEY="your-openai-key"
 ANTHROPIC_API_KEY="your-anthropic-key"
 ```
 
+Copy the ready-made endpoint and `Authorization` header for `OPENOBSERVE_URL` and `OPENOBSERVE_AUTH_TOKEN` from **Data Sources → Custom → Traces → OTel Collector** in the OpenObserve UI.
+
+![OTel Collector credentials for Traces](../../images/opentelemetry-collector-for-traces.png)
+
 | Variable | Description | Required |
 | ----- | ----- | ----- |
 | `OPENOBSERVE_URL` | Base URL of your OpenObserve instance | Yes |
 | `OPENOBSERVE_ORG` | Organisation slug or ID | Yes |
-| `OPENOBSERVE_AUTH_TOKEN` | `Basic <base64(email:password)>` | Yes |
+| `OPENOBSERVE_AUTH_TOKEN` | Auth token, copied from **Data Sources → Custom → Traces → OTel Collector** | Yes |
 | `OPENOBSERVE_ENABLED` | Toggle tracing on/off | No (default: `true`) |
 | `OPENAI_API_KEY` | Only needed by the bundled OpenAI example | No |
 
@@ -191,34 +195,13 @@ The cost fields (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cos
 
 
 
-## **LLM Evaluations**
-
-> **Enterprise feature.**
-
-OpenObserve can automatically evaluate your LLM traces using an LLM-evaluation pipeline. This lets you score model responses against criteria such as correctness, relevance, or safety without leaving OpenObserve.
-
-**How it works**
-
-1. Set up an LLM-evaluation pipeline on a traces stream.
-2. As LLM traces arrive, the pipeline runs the configured evaluation and writes the results to a separate output stream named `<stream>_evaluations` (for example, a `default` stream produces `default_evaluations`).
-3. Per-trace evaluation results appear in an **Evaluations** tab in the trace detail view. This tab is shown only for LLM traces that have associated evaluation data.
-
-**Eval Templates**
-
-Evaluation logic is defined by Eval Templates, managed from the enterprise **Eval Templates** tab. Each template specifies:
-
-* **response_type**: the expected shape of the evaluation response
-* **dimensions**: the criteria the trace is evaluated against
-* **content**: the prompt/instructions used to perform the evaluation
-* **versioning**: templates are versioned so you can iterate without losing earlier definitions
-
 ## **Troubleshooting**
 
 **Traces are not appearing in OpenObserve**
 
 * Confirm `OPENOBSERVE_ENABLED=true` in your `.env`  
 * Check that `OPENOBSERVE_URL` ends with a trailing `/`  
-* Verify `OPENOBSERVE_AUTH_TOKEN` is correctly Base64-encoded (`Basic <token>`)  
+* Verify `OPENOBSERVE_AUTH_TOKEN` matches the value copied from **Data Sources → Custom → Traces → OTel Collector**  
 * Ensure the SDK or tracer provider is initialised before any LLM calls
 
 **`ModuleNotFoundError: No module named 'dotenv'`**
@@ -231,3 +214,5 @@ Evaluation logic is defined by Eval Templates, managed from the enterprise **Eva
 
 ## Read More
 - [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)
+- [LLM Experiments](llm-experiments.md): Run offline, batch evaluations against versioned datasets and compare results across pinned experiments.
+- [LLM Evaluations](llm-evaluations.md): Continuously score LLM traces and spans using LLM-as-a-judge or remote scorers.

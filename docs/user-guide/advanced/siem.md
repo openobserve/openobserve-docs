@@ -1,6 +1,6 @@
 ---
 title: "**Building a SIEM Platform with OpenObserve**"
-metaTitle: SIEM Platform - Security Information and Event Management Solution
+metaTitle: "SIEM - Security Information and Event Management"
 description: "Build a SIEM platform on OpenObserve with threat detection, security monitoring, incident response, and SOC operations."
 ---
 
@@ -116,7 +116,7 @@ if .Operation == "UserLoginFailed" {
 
 Raw logs often lack context. Is IP 1.2.3.4 a customer or a known botnet? OpenObserve allows you to use **Enrichment Tables** to correlate live logs with external Threat Intelligence.
 
-Threat Intel feeds (such as lists of malicious IPs or domains) can be uploaded periodically as CSV files to OpenObserve. For detailed instructions on managing these tables, refer to the [Enrichment Tables Documentation](https://openobserve.ai/docs/user-guide/enrichment-tables/enrichment/).
+Threat Intel feeds (such as lists of malicious IPs or domains) can be uploaded periodically as CSV files to OpenObserve. For detailed instructions on managing these tables, refer to the [Enrichment Tables Documentation](../data-processing/enrichment-tables/enrichment.md).
 
 There are two primary methods to utilize this data:
 
@@ -340,7 +340,7 @@ A SIEM is not just for alerting; it is for investigation. You should create dash
 
 ## **9. Retention and Compliance**
 
-One of OpenObserve's biggest strengths as a SIEM is cost-effective long-term retention via Object Storage (S3). OpenObserve automatically manages data lifecycle, ensuring that recent data is instantly accessible while older data is stored efficiently on object storage (S3/MinIO/GCS/Azure Blob) for compliance and historical analysis.
+One of OpenObserve's biggest strengths as a SIEM is cost-effective long-term retention via Object Storage (S3). OpenObserve automatically manages data lifecycle, ensuring that recent data is instantly accessible while older data is stored efficiently on object storage (S3/MinIO/RustFS/GCS/Azure Blob) for compliance and historical analysis.
 
 * **Unified Storage:** No manual tiering is required. OpenObserve transparently handles the movement of data to object storage, allowing you to query petabytes of historical data as easily as real-time logs
 * **Compliance:** Retain data for 1 year (or any required compliance period) at the cost of S3 storage, significantly cheaper than block storage

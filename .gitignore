@@ -1,5 +1,6 @@
 # --- Next.js / Fumadocs build output ---------------------------------------
 /.next
+.next-build
 /out
 /.source
 next-env.d.ts
@@ -44,4 +45,5 @@ venv
 *.py[cod]
 *$py.class
 __pycache__/
+
 

@@ -1,6 +1,6 @@
 ---
 title: Open WebUI
-description: Send Open WebUI chat traces to OpenObserve via OpenTelemetry.
+description: "Send Open WebUI chat traces to OpenObserve via OpenTelemetry to capture chat completion spans with model, question, and response metadata."
 ---
 
 # **Open WebUI → OpenObserve**

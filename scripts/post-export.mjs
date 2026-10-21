@@ -9,6 +9,10 @@
  *  2. Redirect stubs replacing the `mkdocs-redirects` plugin. A static bucket
  *     can't issue 30x responses, so each retired URL becomes a meta-refresh page
  *     carrying a canonical link to its replacement.
+ *  3. A gzipped copy of the search index, which the deploy uploads in place of
+ *     the raw one. CloudFront only auto-compresses objects under 10 MB and the
+ *     index is ~37 MB, so without this every visitor who opens search downloads
+ *     the whole thing uncompressed.
  *
  * Everything else the old MkDocs hooks produced - the raw Markdown from
  * `hooks/llm_markdown.py` and the `llms.txt` index - is written by
@@ -162,8 +166,38 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
   );
 }
 
+// ---------------------------------------------------------------------------
+// 3. Search index
+//
+// `app/api/search.json/route.ts` exports the prebuilt index here. The name has
+// to keep its extension: the CloudFront Function in front of the bucket 301s
+// every extension-less path to its trailing-slash form, which for the old
+// `/docs/api/search` meant a redirect to a directory with no `index.html` - the
+// 404 page - and search failed to load entirely. Fail the build rather than
+// ship an export whose search cannot work.
+// ---------------------------------------------------------------------------
+const SEARCH_INDEX = path.join(OUT, 'api', 'search.json');
+
+if (!fs.existsSync(SEARCH_INDEX)) {
+  console.error(
+    '[post-export] out/api/search.json not found. The search route must export ' +
+      'to a path with a file extension - see app/api/search.json/route.ts.',
+  );
+  process.exit(1);
+}
+
+// Uploaded by the deploy as `api/search.json` with `Content-Encoding: gzip`;
+// browsers decode it transparently. CloudFront's own compression stops at
+// 10 MB, so this is the only thing keeping the download off ~37 MB.
+const rawIndex = fs.readFileSync(SEARCH_INDEX);
+const gzippedIndex = zlib.gzipSync(rawIndex, { level: 9 });
+fs.writeFileSync(`${SEARCH_INDEX}.gz`, gzippedIndex);
+
+const mb = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+
 console.log(
   `[post-export] sitemap.xml (${sitemapEntries.length} urls), ` +
     `${Object.keys(REDIRECTS).length} redirect stubs, ` +
-    `${pages.length} markdown files verified -> out/`,
+    `${pages.length} markdown files verified, ` +
+    `search.json.gz (${mb(rawIndex.length)} -> ${mb(gzippedIndex.length)}) -> out/`,
 );

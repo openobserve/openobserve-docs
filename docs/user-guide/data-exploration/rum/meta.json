@@ -10,9 +10,11 @@
     "sessions",
     "error-tracking",
     "session-replay",
+    "mobile",
     "---Reference & Advanced---",
     "metrics-reference",
     "advanced-features",
+    "optimization",
     "use-cases",
     "best-practices",
     "troubleshooting-guide"

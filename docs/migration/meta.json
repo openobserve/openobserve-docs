@@ -3,6 +3,8 @@
     "migrate-database",
     "migrate-file-list-partition",
     "migrate-from-grafana-to-openobserve",
-    "migrate-from-datadog-to-openobserve"
+    "migrate-from-datadog-to-openobserve",
+    "migrate-from-kibana-to-openobserve",
+    "migrate-from-cloudwatch-to-openobserve"
   ]
 }

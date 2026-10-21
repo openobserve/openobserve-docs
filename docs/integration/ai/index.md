@@ -1,6 +1,6 @@
 ---
 title: AI
-metaTitle: AI & LLM Observability Integrations - Frameworks, Providers, Gateways
+metaTitle: "AI & LLM Observability - Frameworks, Providers, Gateways"
 description: "AI and LLM observability with OpenObserve: trace AI frameworks, LLM providers, AI gateways, no-code tools, and AI developer tools via OpenTelemetry."
 ---
 
@@ -24,4 +24,11 @@ You can browse these integrations directly in OpenObserve under **Ingestion → 
 ## Additional Guides
 
 - [LLM Applications](llm-applications.md): General guide for instrumenting LLM-powered applications
+- [LLM Monitoring](llm-monitoring.md): Track cost, tokens, latency, and errors, and replay agent sessions turn by turn
+- [LLM Evaluations](llm-evaluations.md): Score live traces with LLM-as-a-judge or remote scorers
+- [LLM Annotations and Datasets](llm-annotations-and-datasets.md): Review traces in queues and build golden datasets
+- [LLM Prompts](llm-prompts.md): Version prompts and release them with labels
+- [LLM Playground](llm-playground.md): Try prompts, models, and scorers side by side
+- [LLM Experiments](llm-experiments.md): Run offline evaluations on datasets and compare runs
+- [Model Pricing](model-pricing.md): Define how token costs are calculated on LLM spans
 - [Claude Code](claude-code-tracing.md): Monitor Claude Code with native OpenTelemetry metrics and events, plus optional per-turn tracing

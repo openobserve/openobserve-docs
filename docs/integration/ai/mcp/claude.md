@@ -1,6 +1,6 @@
 ---
 title: Claude code CLI
-description: Connect OpenObserve as an MCP (Model Context Protocol) server to Claude Code CLI for querying logs, traces, managing alerts, and streams through natural language.
+description: "Connect OpenObserve as an MCP server to Claude Code CLI to query logs and traces, and manage alerts and streams through natural language."
 ---
 
 # OpenObserve MCP Server Setup Guide for Claude Code
@@ -17,6 +17,15 @@ This guide shows how to connect OpenObserve (O2) as an MCP (Model Context Protoc
 - Base64 encoded authorization token
 
 ## Getting Your Authorization Token
+
+!!! info "OAuth 2.0 sign-in"
+    In Enterprise Edition with Dex enabled, you can skip the Base64 token. Add the server without an authorization header, and Claude Code opens a browser window for sign-in:
+
+    ```bash
+    claude mcp add o2 <O2_URL>/api/<ORG_ID>/mcp -t http
+    ```
+
+    See [OAuth 2.0 sign-in](index.md#oauth-20-sign-in) for the flow and server requirements. The rest of this guide uses Basic authentication.
 
 Your authorization token should be Base64 encoded in the format: `username:password`
 
@@ -357,5 +366,4 @@ If you encounter issues:
    - [GitHub Issues](https://github.com/openobserve/openobserve/issues)
    - [Slack Community](https://short.openobserve.ai/community)
 
----
-**Last Updated:** December 2025
+**Last Updated:** July 2026

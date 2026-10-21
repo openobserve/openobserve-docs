@@ -1,6 +1,6 @@
 ---
 title: Amazon Relational Database Service (RDS)
-metaTitle: AWS RDS Database Monitoring - MySQL, PostgreSQL Database Logs
+metaTitle: "AWS RDS Monitoring - MySQL and PostgreSQL Database Logs"
 description: "Collect MySQL and PostgreSQL logs, slow query logs, and error logs from AWS RDS via CloudWatch and Kinesis Firehose for database performance monitoring."
 ---
 

@@ -373,14 +373,14 @@ Re-run `kubectl get pods` every minute or so for about 5 minutes. Progression:
 
 1. Pods start in `Init:0/1` or `Pending`.
 2. NATS, OpenFGA, and Postgres come up first.
-3. Ingester, querier, alertmanager, compactor, and router follow once Postgres is ready.
+3. Ingester, querier, scheduler, compactor, and router follow once Postgres is ready.
 4. Final state: every pod `1/1 Running` (or `2/2` for NATS) with stable `RESTARTS`.
 
 **Expected output**
 
 ```
 NAME                                     READY   STATUS    RESTARTS   AGE
-openobserve-alertmanager-0               1/1     Running   0          5m
+openobserve-scheduler-0               1/1     Running   0          5m
 openobserve-compactor-XXXXXXXXX-XXXXX    1/1     Running   0          5m
 openobserve-ingester-0                   1/1     Running   0          5m
 openobserve-nats-0                       2/2     Running   0          5m

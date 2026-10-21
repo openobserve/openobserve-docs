@@ -52,7 +52,7 @@ After plotting the chart, you will calculate the cache efficiency to evaluate ov
 When OpenObserve high-availability mode or multi-cluster mode is deployed in Kubernetes:
 
 - One cluster may host multiple namespaces.
-- Each namespace may include multiple nodes or services with different roles, such as querier, ingester, compactor, router, alert manager, and actions. 
+- Each namespace may include multiple nodes or services with different roles, such as querier, ingester, compactor, router, scheduler, and actions.
 - Each node or service may be deployed across multiple pods. 
 
 > In OpenObserve single node deployment, a single node handles all the roles. 

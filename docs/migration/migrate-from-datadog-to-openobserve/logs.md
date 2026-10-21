@@ -1,6 +1,6 @@
 ---
 title: Migrating Logs
-metaTitle: Migrate Logs from Datadog to OpenObserve (Agent, Fluent Bit, Vector)
+metaTitle: "Migrate Logs from Datadog to OpenObserve - Agent & Vector"
 description: "Migrate logs from Datadog to OpenObserve: paths for the Datadog Agent, Fluent Bit, Vector, OTel Collector, Kubernetes, CloudWatch, and Azure Monitor."
 ---
 
@@ -219,7 +219,7 @@ You can normalize these with an OpenObserve **Pipeline** (VRL) at ingest time so
 
 ## Next Steps
 
-- [OpenObserve Logs User Guide](https://openobserve.ai/docs/user-guide/logs/): exploring streams, running queries, and configuring stream settings in the UI
+- [OpenObserve Logs User Guide](../../user-guide/data-exploration/logs/index.md): exploring streams, running queries, and configuring stream settings in the UI
 - [OpenObserve Full-Text Search Functions](https://openobserve.ai/docs/reference/sql-functions/full-text-search/): reference for `match_all()`, `str_match()`, `re_match()`, and more
 - [OpenObserve Pipelines](https://openobserve.ai/docs/user-guide/data-processing/pipelines/): parse, enrich, route, and transform logs at ingest
 

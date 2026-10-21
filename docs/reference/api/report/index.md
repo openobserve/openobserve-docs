@@ -1,7 +1,7 @@
 ---
 title: Reports
 metaTitle: Reports API | OpenObserve
-description: Manage folder-aware dashboard reports in OpenObserve via the v2 REST API. List, create, get, update, move, delete, enable, and trigger reports scoped to folders.
+description: "Manage folder-aware dashboard reports via the OpenObserve v2 REST API: list, create, get, update, move, delete, enable, and trigger reports."
 ---
 
 # Reports API

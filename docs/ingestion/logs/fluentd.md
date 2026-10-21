@@ -1,7 +1,7 @@
 ---
 title: Fluentd
-metaTitle: Fluentd Log Aggregation for Unified Logging Layer | OpenObserve
-description: Configure Fluentd unified logging layer for log aggregation, log collection, and centralized log management with OpenObserve using HTTP output and JSON formatting.
+metaTitle: "Fluentd Log Aggregation & Unified Logging | OpenObserve"
+description: "Configure Fluentd for log aggregation and centralized log management with OpenObserve, using the HTTP output plugin and JSON formatting."
 ---
 
 # Fluentd - Unified Logging Layer & Log Aggregation

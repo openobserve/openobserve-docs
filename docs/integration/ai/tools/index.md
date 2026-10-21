@@ -1,6 +1,6 @@
 ---
 title: Tools
-metaTitle: AI Developer Tool Observability - Promptfoo, Milvus, Firecrawl
+metaTitle: "AI Developer Tool Observability - Promptfoo, Milvus"
 description: "Trace AI developer tools with OpenObserve: Promptfoo evaluations, Milvus vector search, Firecrawl scraping, Gradio, LibreChat, and MCP-Use agent calls."
 ---
 

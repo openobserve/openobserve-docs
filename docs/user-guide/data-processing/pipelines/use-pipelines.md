@@ -77,7 +77,7 @@ This opens up the pipeline editor.
 
     **Note**: In the **Associate Function** fom, the **After Flattening** toggle is enabled by default. Disable it only if necessary.
     <br>The **After Flattening** toggle determines whether the function processes data after it has been transformed into a simpler, flat structure. When enabled (default), the function operates on pre-processed, structured data, making it easier to analyze. Disabling it allows the function to work with the original data.
-    <br>For more details, see the [Functions Guide](https://openobserve.ai/docs/user-guide/functions/).
+    <br>For more details, see the [Functions Guide](../functions/functions-in-openobserve.md).
 
 3. Click **Save** to confirm the transform node.
 
@@ -126,7 +126,7 @@ Ensure that the pipeline is active.
 
 ### Step 1: Ingest Data 
 
-Use `curl` or other [data ingestion options in OpenObserve](https://openobserve.ai/docs/user-guide/ingestion/).
+Use `curl` or other [data ingestion options in OpenObserve](../../../ingestion/index.md).
 
 **Example**: Ingesting new data from the `k8slog_json.json` file into the `k8s_logs` stream, which is under the `default` organization:
 > `curl http://localhost:5080/api/default/k8s_logs/_json -i -u 'root@example.com:Complexpass#123' --data-binary "@k8slog_json.json"`

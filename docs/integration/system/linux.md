@@ -1,6 +1,6 @@
 ---
 title: Linux Server Monitoring - System Logs & Performance Metrics
-metaTitle: Linux Server Monitoring - System Logs and Performance Metrics
+metaTitle: "Linux Server Monitoring - System Logs and Metrics"
 description: "Collect Linux system logs, server metrics, and performance data with the OpenObserve Collector for Linux server monitoring."
 ---
 

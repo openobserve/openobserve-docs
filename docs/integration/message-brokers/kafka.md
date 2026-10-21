@@ -1,6 +1,6 @@
 ---
 title: Kafka
-metaTitle: Apache Kafka Monitoring - Stream Processing and Message Broker Metrics
+metaTitle: "Apache Kafka Monitoring - Message Broker and Stream Metrics"
 description: "Collect Apache Kafka metrics with OpenTelemetry for message broker, stream processing, and cluster monitoring in OpenObserve."
 ---
 

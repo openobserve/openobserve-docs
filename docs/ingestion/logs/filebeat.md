@@ -1,6 +1,6 @@
 ---
 title: Filebeat
-metaTitle: Filebeat Log Shipper Integration for Log Collection | OpenObserve
+metaTitle: "Filebeat Log Shipper Integration | OpenObserve"
 description: Set up Filebeat log shipper to collect and forward logs from files, servers, and applications to OpenObserve for centralized log management and analysis.
 ---
 

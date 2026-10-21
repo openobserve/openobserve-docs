@@ -3,6 +3,7 @@ import type { MDXComponents } from 'mdx/types';
 import { MkTab, MkTabs } from '@/components/mk-tabs';
 import { ZoomableImage } from '@/components/zoomable-image';
 import { Details } from '@/components/details';
+import { ChildPages } from '@/components/child-pages';
 
 /**
  * Components referenced by the migrated content. The MkDocs-specific ones are
@@ -17,6 +18,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Details,
     MkTabs,
     MkTab,
+    ChildPages,
     ...components,
   };
 }

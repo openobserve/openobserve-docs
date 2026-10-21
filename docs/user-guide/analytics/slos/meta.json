@@ -1,0 +1,10 @@
+{
+  "title": "SLOs",
+  "pages": [
+    "index",
+    "count-slos",
+    "time-slice-slos",
+    "alert-based-slos",
+    "slo-alerts"
+  ]
+}

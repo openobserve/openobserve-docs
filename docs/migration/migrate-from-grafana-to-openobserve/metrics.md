@@ -1,6 +1,6 @@
 ---
 title: Migrating Metrics
-metaTitle: Migrate Metrics from LGTM Stack (Mimir/Prometheus) to OpenObserve
+metaTitle: "Migrate Metrics from Mimir & Prometheus to OpenObserve"
 description: "Migrate Prometheus and Mimir metrics to OpenObserve: remote write, OTel Collector, kube-prometheus-stack, Grafana Alloy, Telegraf, and CloudWatch."
 ---
 

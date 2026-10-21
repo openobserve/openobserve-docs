@@ -3,6 +3,7 @@
     "general-settings",
     "index",
     "streaming-search",
+    "announcement-banners",
     "aggregation-cache",
     "query-management",
     "alert-destinations",
