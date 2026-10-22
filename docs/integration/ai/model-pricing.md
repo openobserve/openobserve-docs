@@ -91,6 +91,14 @@ For each LLM span, OpenObserve evaluates pricing definitions by their regex `mat
 
 Per-token rates are keyed by usage type, for example `input` and `output`, and are expressed as the price for a single token (for example, `0.000003` equals $3 per 1M tokens).
 
+### Time-based pricing
+
+For providers that bill peak and off-peak rates, restrict a tier to recurring UTC hours. In the editor, open a non-default tier, click **Add time window**, and set **From** and **To** in 24-hour UTC. A tier can have several windows, and a window whose start is later than its end wraps past midnight (for example, `22:00` to `02:00`). A tier with both a condition and windows applies only when both match.
+
+![TODO: screenshot of a pricing tier with UTC time windows](images/placeholder.png)
+
+Windows are resolved against the span's start time; a span without one uses the default tier. Every definition still needs one tier with no condition and no window as the fallback. To check which rate applies at a given hour, set **Test at UTC time** in the test model match dialog.
+
 ## API reference
 
 All endpoints are scoped to an organization (`{org_id}`) and use the `model_pricing` resource for authorization.
