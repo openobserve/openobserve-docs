@@ -85,3 +85,16 @@ The function outputs the record below:
 The function can be saved using save button on top of vrl function editor, additional one can select existing function to try.
 
 The same function can be associated with a stream to get applied at ingestion. 
+
+## Import and export functions
+
+To export one function, open its row's overflow menu and click **Export**, or focus the row and press `x`. To export several, select their rows and use the bulk **Export**. Both save a JSON file you can import into another organization or environment.
+
+To import, click **Import** on the Functions list, or press `i`, then upload a JSON file or enter a URL. Names must follow the same rule as the **Add Function** form, and duplicate names in the file are flagged.
+
+![TODO: screenshot of the Functions import screen with a name conflict](images/placeholder.png)
+
+If a function with the same name already exists, choose one of these for that name:
+
+- **Use existing** (default): keep the existing function and skip this one.
+- **Override**: replace the existing function. This updates every pipeline that uses it, so OpenObserve lists those pipelines before you choose.
