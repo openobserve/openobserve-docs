@@ -49,6 +49,7 @@ The Dashboard toolbar provides several options for managing your Dashboard’s b
 9. **Go FullScreen:** Use this button to turn on the fullscreen mode.   
 10. **Scheduled Dashboards**: Use the Scheduled Dashboards option to configure Scheduled and Cached Dashboards.  
 11. **Edit Dashboard JSON**: This option allows you to directly edit the JSON configuration of your Dashboard, giving you advanced control over its structure and settings.
+12. **Edit**: Unlock the layout to move, resize, and reorder Panels and Tabs. See [Edit Dashboard Layout](#edit-dashboard-layout).
 
 ## Dashboard Settings 
 
@@ -75,4 +76,23 @@ In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 
 ![tabs](../../../images/dashboard-manage-5.png)
 
+## Edit Dashboard Layout
 
+Dashboards open with the layout locked. Click **Edit** in the toolbar to drag and resize Panels, reorder Tabs, or change a Panel's layout. Changes stay local until you click **Save**.
+
+![TODO: screenshot of a dashboard in layout edit mode with the Undo, Redo, change count, Discard, and Save controls](images/placeholder.png)
+
+While editing, the toolbar shows **Undo**, **Redo**, an "N changes" count, **Discard**, and **Save**. Panel actions and adding, renaming, or deleting Tabs are hidden until you leave edit mode.
+
+| Shortcut | Action |
+| -------- | ------ |
+| `Ctrl+Z` / `Cmd+Z` | Undo |
+| `Ctrl+Shift+Z` / `Cmd+Shift+Z` | Redo |
+| `Ctrl+S` / `Cmd+S` | Save |
+| `Esc` | Exit edit mode |
+
+Shortcuts are skipped while you type in an input. If you try to leave the Dashboard with unsaved changes, OpenObserve asks you to confirm first.
+
+:::note[Embedded dashboards]
+Dashboards embedded in RUM, traces, and pinned tabs keep saving layout changes automatically.
+:::
