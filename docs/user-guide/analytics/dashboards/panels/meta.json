@@ -4,6 +4,7 @@
     "table-chart",
     "panel-management",
     "multi-query-support",
+    "exemplars",
     "troubleshooting"
   ]
 }
