@@ -11,6 +11,8 @@ Variables in OpenObserve dashboards let users filter data dynamically. You can u
 
 When a value is selected, the variable updates, but the panels do not refresh automatically. To view updated panels, users must click the **Refresh** button manually.
 
+To apply changes automatically, turn on [Auto Run](#apply-variables-on-change-auto-run).
+
 ## Why Use Variables
 
 Use variables to:
@@ -95,6 +97,20 @@ For multi-value variables, you can apply format modifiers to control how the sel
 - `{{var:pipe}}` or `${var:pipe}`: joins the values with pipes.
 - `{{var:doublequote}}` or `${var:doublequote}`: wraps each value in double quotes.
 - `{{var:singlequote}}` or `${var:singlequote}`: wraps each value in single quotes.
+
+## Apply Variables on Change (Auto Run)
+
+When the `ZO_AUTO_QUERY_ENABLED` flag is on, **Refresh** becomes a split button. Open its menu and select **Turn on Auto Run** or **Turn off Auto Run**. This is the same setting as in Logs and Traces, so changing it in one place changes it everywhere.
+
+![TODO: screenshot of the split Refresh button with the Auto Run menu open](images/placeholder.png)
+
+With Auto Run on, you do not need to click **Refresh**:
+
+- Variable changes apply after 300 ms.
+- Multi-select variables apply when the dropdown closes, including by **Escape** or **Select all**.
+- Panels run only after the whole variable chain has loaded, and only the panels whose query changed run, once each.
+
+With Auto Run off, **Refresh** turns amber when there are unapplied changes. Auto Run covers global, tab, and panel variables, the full-screen panel view, and RUM App Performance.
 
 ## Advanced Configuration
 After creating and applying a variable, you can further refine its behavior using advanced settings.
