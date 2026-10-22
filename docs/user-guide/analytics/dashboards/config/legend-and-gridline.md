@@ -142,6 +142,8 @@ Truncate x-axis labels to a specified width in pixels.
 
 **Note:** Label Truncate is not supported for time-series x-axis fields.
 
+**Axis Labels**: Fields added to a panel start with a blank label, so a new chart has no axis titles. Type a label on an X or Y field and click **Apply** to show it on that axis, or set **Axis Labels** to **Hide** to hide all axis titles. Legends and tooltips name unlabelled fields from the field name, for example `small_value` becomes "Small Value". Panels saved earlier keep their labels.
+
 
 ## Chart type support
 
