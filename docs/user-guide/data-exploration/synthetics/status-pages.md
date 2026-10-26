@@ -9,11 +9,11 @@ A status page turns your Synthetics checks into a public-facing page that report
 
 ## Overview
 
-A status page is built from **components** — named groups such as "API" or "Dashboard" — each mapped to one or more Synthetics checks. A component's status is the worst status of any check mapped to it, and the page's overall status is the worst status of any component.
+A status page is built from **components** - named groups such as "API" or "Dashboard" - each mapped to one or more Synthetics checks. A component's status is the worst status of any check mapped to it, and the page's overall status is the worst status of any component.
 
 When a mapped check fails enough consecutive times, the page opens an **incident** automatically, without anyone touching the page. When the check recovers, the incident resolves the same way. You can also post updates, schedule maintenance, and share informational notices by hand.
 
-> **Note**: Status Pages requires Synthetics to be enabled (see [Accessing Synthetics](index.md#accessing-synthetics)). **Posting updates, custom domains, and a custom logo are Enterprise features** — draft/publish, components, automatic incidents, and the public page itself are not.
+> **Note**: Status Pages requires Synthetics to be enabled (see [Accessing Synthetics](index.md#accessing-synthetics)). **Posting updates, custom domains, and a custom logo are Enterprise features** - draft/publish, components, automatic incidents, and the public page itself are not.
 
 ## Creating a status page
 
@@ -31,7 +31,7 @@ The page editor has these sections:
 | **Details** | Name, description |
 | **Visibility** | Draft, Public, or Password (see [Visibility](#visibility)) |
 | **Display** | Brand name, accent color, logo, whether to show the uptime percentage and timeline bars, and whether to add a `noindex` tag so search engines skip the page |
-| **Confirmation** | **Confirm failures** and **Confirm recovery** — how many consecutive failing (or passing) runs are required before a component's status changes |
+| **Confirmation** | **Confirm failures** and **Confirm recovery** - how many consecutive failing (or passing) runs are required before a component's status changes |
 
 Confirm failures and confirm recovery both default to 2 consecutive runs, so a single flaky run does not flip a component's public status.
 
@@ -43,11 +43,11 @@ Add one component per thing you want visitors to see as a unit (for example, one
 
 | Visibility | Who can view |
 |---|---|
-| **Draft** | No one — the page is not served at any URL |
+| **Draft** | No one - the page is not served at any URL |
 | **Public** | Anyone with the URL |
 | **Password** | Anyone with the URL and the page password |
 
-Public and password-protected pages are both served from a per-page slug at `/status/<slug>`. Use **Rotate URL** to change the slug and invalidate the old one — useful if a link leaked before you meant it to be shared. **Copy URL** copies the current public URL.
+Public and password-protected pages are both served from a per-page slug at `/status/<slug>`. Use **Rotate URL** to change the slug and invalidate the old one - useful if a link leaked before you meant it to be shared. **Copy URL** copies the current public URL.
 
 A password-protected page issues visitors a signed unlock cookie valid for 24 hours after a correct password, so they are not re-prompted on every visit. Password attempts are rate-limited per visitor IP.
 
@@ -70,8 +70,8 @@ Every notice keeps a chronological list of updates (the "investigating / identif
 
 A published page serves:
 
-- **Current status** — overall status and per-component status, refreshed as checks report in.
-- **Uptime percentage** and **timeline bars** — 90 days of daily grades (OK / minor / major / severe / maintenance / no data), if enabled in Display. Uptime is capped at the page's tracking start date, so a page only a few days old reports honestly rather than showing a fabricated 90-day number.
+- **Current status** - overall status and per-component status, refreshed as checks report in.
+- **Uptime percentage** and **timeline bars** - 90 days of daily grades (OK / minor / major / severe / maintenance / no data), if enabled in Display. Uptime is capped at the page's tracking start date, so a page only a few days old reports honestly rather than showing a fabricated 90-day number.
 - **Incident and maintenance history** with their update timelines.
 - A status **badge** (`/api/status_pages_public/<slug>/badge.svg`) you can embed elsewhere, and an **Atom feed** (`/api/status_pages_public/<slug>/feed.xml`) of notices for subscribers.
 
@@ -101,15 +101,15 @@ A domain only serves content once ownership verification passes; an unverified o
 
 **Solution**: Check the failure reason shown:
 
-- *TXT record not found* — the record has not propagated yet, or was not created at the name shown.
-- *TXT record found, but the value doesn't match* — re-copy the value shown; a partial paste is the most common cause.
-- *DNS resolution failed* — your DNS provider could not be queried; retry once propagation has had time to complete.
+- *TXT record not found* - the record has not propagated yet, or was not created at the name shown.
+- *TXT record found, but the value doesn't match* - re-copy the value shown; a partial paste is the most common cause.
+- *DNS resolution failed* - your DNS provider could not be queried; retry once propagation has had time to complete.
 
 **The status page shows "building"**
 
 **Problem**: A newly published page briefly shows a building state instead of its status.
 
-**Solution**: This is expected for a few seconds after first publishing — the snapshot the public page reads from has not been generated yet. Reload after a moment.
+**Solution**: This is expected for a few seconds after first publishing - the snapshot the public page reads from has not been generated yet. Reload after a moment.
 
 **A component shows no data**
 
