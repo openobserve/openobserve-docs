@@ -17,7 +17,7 @@ Synthetics serves two audiences. Site reliability and operations teams use proto
 
 Every check produces a run history you can slice by location, browser, and device, with pass rate, latency percentiles, retry and flakiness rates, and per-step timing. When a run fails, the run detail page names the step that broke, shows the screenshot taken at that moment, and reports which locator matched and what the page was doing at the time.
 
-> **Note**: Synthetics is available on both **OpenObserve Cloud** and **self-hosted** deployments, and is in **Beta**.
+> **Note**: Synthetics is in **Beta**. It is available on OpenObserve Cloud and on self-hosted deployments. For a self-hosted deployment, follow [Self-hosted setup](self-hosted-setup.md) first.
 
 ## Check types
 
@@ -59,7 +59,7 @@ Publish check results as a status page, public or password-protected, with autom
 
 ### Prerequisites
 
-- An OpenObserve organization (Cloud or self-hosted) with Synthetics enabled
+- An OpenObserve Cloud organization with Synthetics enabled, or a self-hosted deployment set up as in [Self-hosted setup](self-hosted-setup.md)
 - Permission to create checks in at least one folder
 - For browser test recording: Google Chrome with the [OpenObserve Synthetics Recorder](https://chromewebstore.google.com/detail/openobserve-synthetics-re/afhgiecgbpohkbobialnajlphbpcgomo) extension
 - For private locations: a host in your network that can run Docker, Kubernetes, or a native binary
