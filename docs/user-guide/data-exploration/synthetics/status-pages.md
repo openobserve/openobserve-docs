@@ -55,7 +55,7 @@ A password-protected page issues visitors a signed unlock cookie valid for 24 ho
 
 A **notice** is anything posted to the page's timeline: an incident, a scheduled maintenance window, or a plain informational note.
 
-**Automatic incidents** open and resolve on their own, driven by the confirm failures/confirm recovery thresholds on the mapped checks. If an automatic incident was a false alarm, resolve it and **snooze** the underlying check for a set number of hours so it does not immediately reopen the same incident.
+**Automatic incidents** open and resolve on their own, driven by the confirm failures/confirm recovery thresholds on the mapped checks. If an automatic incident was a false alarm, you can mark it as a false positive, which resolves it and **snoozes** the underlying check for a set number of hours so it does not immediately reopen the same incident. Marking a false positive is an Enterprise feature and is currently available only through the API, not the UI.
 
 **Post update** (Enterprise) lets you write to the page by hand:
 
