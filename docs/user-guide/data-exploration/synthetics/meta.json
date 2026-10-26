@@ -2,6 +2,7 @@
   "title": "Synthetics",
   "pages": [
     "index",
+    "self-hosted-setup",
     "browser-tests",
     "protocol-checks",
     "configuration",

@@ -32,7 +32,7 @@ OpenObserve is **OpenTelemetry-native** end to end. Instrumentation done with OT
 
 New Relic is delivered as a cloud service only. For workloads with data-residency, air-gap, or regulated-environment requirements, that can be a blocker.
 
-OpenObserve runs as **self-hosted** (single binary or Helm chart) or **OpenObserve Cloud**. Self-hosted means raw telemetry stays in your bucket (S3, GCS, Azure Blob, MinIO, or local disk).
+OpenObserve runs as **self-hosted** (single binary or Helm chart) or **OpenObserve Cloud**. Self-hosted means raw telemetry stays in your bucket (S3, GCS, Azure Blob, MinIO, RustFS, or local disk).
 
 ### APM agent overhead
 
@@ -54,7 +54,7 @@ The New Relic APM agents are proprietary, language-specific, and heavier than th
 | OpenTelemetry native | Partial | Full |
 | Self-hosted option | No | Yes |
 | Monthly per-seat cost | Per-user fees on higher tiers | $0 |
-| Bring your own storage | No | Yes (S3, GCS, Azure Blob, MinIO) |
+| Bring your own storage | No | Yes (S3, GCS, Azure Blob, MinIO, RustFS) |
 | Open source | No | Yes |
 
 ## Architectural Differences
@@ -63,7 +63,7 @@ The New Relic APM agents are proprietary, language-specific, and heavier than th
 |---|---|---|
 | Ingest agents | New Relic APM agents (per language) + Infrastructure agent | OpenTelemetry Collector, OTel SDKs, Fluent Bit, Vector |
 | Wire protocol | Proprietary New Relic ingest APIs | OTLP, Prometheus Remote Write, Loki Push API, JSON over HTTP |
-| Storage | New Relic-managed (opaque) | Apache Parquet on object storage (S3/GCS/Azure/MinIO/local) |
+| Storage | New Relic-managed (opaque) | Apache Parquet on object storage (S3/GCS/Azure/MinIO/RustFS/local) |
 | Query | NRQL to New Relic backend | SQL/PromQL to stateless queriers reading Parquet |
 | Visualization | New Relic One | OpenObserve UI (built-in) |
 | Deployment | SaaS only | Self-host or OpenObserve Cloud |

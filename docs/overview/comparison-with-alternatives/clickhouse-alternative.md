@@ -32,7 +32,7 @@ OpenObserve nodes are stateless. Data durability comes from object storage, so s
 
 Self-hosted ClickHouse stores data on the disks of stateful nodes. S3-backed disks and tiered storage exist, but full separation of compute and storage (SharedMergeTree) is available in ClickHouse Cloud. On your own hardware, retention growth means disk growth on database hosts, replicated across replicas.
 
-OpenObserve stores raw events as **Apache Parquet in your bucket**: S3, GCS, Azure Blob, MinIO, or local disk. Long retention costs object-storage rates, and any tool that reads Parquet can read your telemetry data.
+OpenObserve stores raw events as **Apache Parquet in your bucket**: S3, GCS, Azure Blob, MinIO, RustFS, or local disk. Long retention costs object-storage rates, and any tool that reads Parquet can read your telemetry data.
 
 ### Metrics without PromQL
 
@@ -55,7 +55,7 @@ OpenObserve runs **PromQL natively** for metrics alongside SQL for logs and trac
 | Query language | SQL (ClickHouse dialect) | SQL + PromQL |
 | Schema | Designed and maintained per table | Schema inferred per stream |
 | Retention | TTL clauses per table | Retention setting per stream |
-| Storage model | Stateful nodes with attached disks; S3 disks optional | Object storage (S3 / GCS / Azure Blob / MinIO / local disk) |
+| Storage model | Stateful nodes with attached disks; S3 disks optional | Object storage (S3 / GCS / Azure Blob / MinIO / RustFS / local disk) |
 | Replication | ClickHouse Keeper / ZooKeeper coordination | None needed; durability from object storage |
 | IAM & SSO | Database users, roles, and row policies | SAML, OIDC, LDAP, role-based access |
 | Deployment | Self-host or ClickHouse Cloud | Self-host or OpenObserve Cloud |

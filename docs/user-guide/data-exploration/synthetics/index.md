@@ -111,8 +111,9 @@ From the checks table you can:
 
 **Solution**:
 
-1. Ask your administrator to enable `ZO_SYNTHETICS_ENABLED`.
-2. Reload the page. Navigating directly to the URL while the feature is off redirects you home.
+1. On a self-hosted deployment, ask your administrator to set `ZO_SYNTHETICS_ENABLED=true` and restart OpenObserve. See [Self-hosted setup](self-hosted-setup.md).
+2. On OpenObserve Cloud, make sure that Synthetics is enabled for your organization.
+3. Reload the page. Navigating directly to the URL while the feature is off redirects you home.
 :::
 
 **Need help:**

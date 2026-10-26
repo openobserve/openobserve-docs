@@ -116,6 +116,21 @@ Examples of a Dashboard with Panels organized in different Tabs:
   <img src="../../../../images/dashboard-9.png" alt="dashboard with panels in multiple tabs, view 2" style="flex: 1 1 320px; max-width: 100%;" />
 </div>
 
+## Time Range and Auto Run
+
+**Auto Run** re-runs dashboard queries automatically when a dashboard opens and when you change the time range or filters. Enable it for your deployment with `ZO_AUTO_QUERY_ENABLED=true`. The setting applies to all dashboards, Logs, and Traces.
+
+![the Auto Run menu item describing when queries run](images/dashboard-fresh-on-open-1.png)
+
+When Auto Run is on, panels with a relative time range show their cached result first, then refresh in the background with the latest data.
+
+Dashboard time pickers apply the selected range based on Auto Run:
+
+- **Auto Run on**: The range applies immediately.
+- **Auto Run off**: The **Refresh** button turns yellow. Click **Refresh** or press **R** to apply the range.
+
+![the yellow Refresh button indicating a waiting time range](images/dashboard-fresh-on-open-3.png)
+
 ## FAQ
 
 ### Why does my dashboard chart say "No data"?
