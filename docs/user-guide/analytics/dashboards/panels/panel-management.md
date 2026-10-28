@@ -1,3 +1,8 @@
+---
+title: Manage Panels
+description: Manage dashboard panels with toolbar controls for full screen, refresh, edit layout, resize, duplicate, move, query inspector, CSV/JSON export, and annotations.
+---
+
 This guide explains how to use and manage panels in the dashboard. It includes features available in the panel toolbar, step-by-step instructions, and troubleshooting tips for common issues.
 
 The panel toolbar offers the following controls to adjust, organize, and customize your panels:
@@ -62,9 +67,13 @@ Allows you to resize and reposition the panel using the available drag handles. 
 
 ## Live Chart Preview
 
-When you create or edit a panel, the editor renders a chart right away and keeps it in step with the query builder. As you change fields, aggregations, filters, and chart options, the preview re-runs automatically after a short delay — no need to click **Apply** after every edit.
+When you create or edit a panel, the editor renders a chart right away and keeps it in step with the query builder. As you change fields, aggregations, filters, and chart options, the preview re-runs automatically after a short delay, so you do not need to click **Apply** after every edit.
 
-![TODO: screenshot of the panel editor showing the live chart preview alongside the query builder](images/placeholder.png)
+:::note[Note]
+Live preview runs only when [Auto Run](../../../data-exploration/auto-run-query.md) is available and turned on. Auto Run is available when the deployment sets `ZO_AUTO_QUERY_ENABLED=true` (default `false`). Without it, every edit waits for **Apply**.
+:::
+
+![Panel editor with severity added as a breakdown; the chart re-ran automatically without clicking Apply](images/dashboard-panel-live-preview.png)
 
 ### Default stream for a new panel
 
@@ -72,60 +81,55 @@ A new panel opens on the most useful stream automatically:
 
 1. The stream you last saved a panel on (remembered per organization and stream type).
 2. Otherwise, the last stream you explored for that type (Logs, Traces, or Metrics).
-3. Otherwise, the most recently ingested non-internal stream.
+3. Otherwise, the most recently ingested stream whose name does not start with an underscore (`_`).
 4. Otherwise, the first stream in the list.
 
 ### How live preview runs
 
-- Edits are **debounced** — a burst of changes runs as a single query once you pause (about 600 ms).
+- Edits are **debounced**: a burst of changes runs as a single query once you pause (about 600 ms).
 - When you make another edit before a run finishes, the earlier query is **cancelled** and the new one runs instead. On enterprise and cloud, the superseded query is also cancelled on the server; OpenObserve OSS has no server-side cancel route.
 
 ### When live preview does not run
 
-Live preview re-runs automatically for builder edits, but it deliberately waits for **Apply** (or **Ctrl/Cmd+Enter**) in these cases:
+Live preview re-runs automatically for builder edits, but it waits for **Apply** (or **Ctrl/Cmd+Enter**) in these cases:
 
-- **Typed query text** — custom SQL, PromQL, or VRL you type by hand.
-- **An incomplete builder** — for example, a filter you have added but not finished. It runs once the filter is complete or removed.
-- **Apply-only settings** — time shift, PromQL instant/range, a formula, or a newly enabled sparkline.
-- **After a slow query** — if a run takes longer than 10 seconds, further auto-runs pause until you click **Apply**.
+- **Typed query text**: custom SQL, PromQL, or VRL you type by hand.
+- **An incomplete builder**: for example, a filter you have added but not finished. It runs once the filter is complete or removed.
+- **Apply-only settings**: time shift, PromQL instant/range, a formula, or a newly enabled sparkline.
+- **After a slow query**: if a run takes longer than 10 seconds, further auto-runs pause until you click **Apply**.
 
 ### Time picker
 
-The time picker applies directly — it has no **Apply** button of its own:
+The panel editor's time picker applies directly; it has no **Apply** button of its own:
 
 - With **Auto Run** on, picking a range, using the previous/next arrows, or zooming the chart re-runs immediately.
 - With **Auto Run** off, the picked range waits for **Apply**.
-- Relative ranges are recalculated before every run, so "Past 15 Minutes" always ends at now.
-
-![TODO: screenshot of the panel time picker](images/placeholder.png)
+- Relative ranges are recalculated before every run, so "Past 15 Minutes" always ends at the current time.
 
 ### Apply button
 
-The **Apply** button changes to reflect whether the chart matches the editor:
+The **Apply** button shows whether the chart matches the editor:
 
 | State | Appearance |
 |-------|------------|
 | Chart up to date | Normal theme colour |
-| Chart behind the editor | **Yellow** — the tooltip explains why (changes not run, typed query, finish the builder fields, paused after a slow query) |
+| Chart behind the editor | **Yellow**. The tooltip explains why: changes not run, typed query, builder fields to finish, or paused after a slow query. |
 | Query running (enterprise) | **Red Cancel** |
 
-![TODO: screenshot of the yellow Apply button with its tooltip explaining why the chart is behind](images/placeholder.png)
+![Yellow Apply button with the tooltip "Finish the builder fields to update the chart" after adding an incomplete filter](images/dashboard-panel-apply-pending.png)
 
-The **Apply** button stays normal while a live run is queued, so it does not flash yellow before every auto-run. The "chart is not up to date" banner has been removed — pending changes now show on the **Apply** button instead.
+The **Apply** button stays normal while a live run is queued, so it does not flash yellow before every auto-run.
 
-### Auto Run
+### Auto Run toggle
 
-Live preview follows the dashboard's **Auto Run** switch, shared with Logs and Traces:
+Live preview follows the same **Auto Run** setting as the dashboard, Logs, and Traces:
 
 - With **Auto Run** on, edits run automatically as described above.
 - With **Auto Run** off, edits wait for **Apply**.
 
-The **Apply** dropdown carries the same **Auto Run** toggle as the dashboard. On OSS the dropdown appears only when **Auto Run** is available; on enterprise it always appears, alongside **Refresh Cache & Apply**.
+The **Apply** dropdown includes a **Turn on Auto Run** / **Turn off Auto Run** item when Auto Run is available. On enterprise the dropdown is always shown and also contains **Refresh Cache & Apply**; on OSS it appears only when Auto Run is available.
 
-![TODO: screenshot of the Apply dropdown showing the Auto Run toggle](images/placeholder.png)
-
-The **Refresh** button in full-screen mode is no longer cut off when the panel toolbar is at its widest.
-
+![Apply dropdown showing Refresh Cache & Apply and Turn off Auto Run](images/dashboard-panel-apply-menu.png)
 
 ## Panel Lifecycle Management  
 ### Duplicate  
