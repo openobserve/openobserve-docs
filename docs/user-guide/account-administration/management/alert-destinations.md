@@ -32,10 +32,10 @@ This allows you to define the content and layout of the alert message.
 1. In OpenObserve, go to **Reliability > Destination Templates**.
 2. Click **New template** to create a new template. 
 3. In the template creation screen:
-  ![Alert Destination -Webhook](../../../images/webhook-template-for-alert.png)
+  ![New template in Raw payload mode with Web Hook selected and a JSON body](../../../images/webhook-template-for-alert-v2.png)
 
     - Enter a name for the template.
-    - Select **Webhook** as the template type.
+    - Select **Raw payload**, then **Web Hook** as the template type.
     - Fill in the **Body** fields.
 
     Body Example:
@@ -50,9 +50,9 @@ This allows you to define the content and layout of the alert message.
 **Steps to configure webhooks as alert destination** 
 
 1. Go to **Reliability > Notification Destinations** and click **New destination**. 
-2. Choose **Webhook** as the destination type.
+2. Choose **Custom Destination**, then **Web Hook**.
 3. Fill in the following details:
-  ![Add Destinations](../../../images/webook-as-alert-destination.png) 
+  ![New Destination form for a Custom Destination of type Web Hook](../../../images/webook-as-alert-destination-v2.png) 
 
     - **Name**: Enter a descriptive name for the Webhook destination. For example, SlackNotifications. Note that characters such as `,`, `:`, `?`, `/`, `#`, and `spaces` are not allowed.
     - **Template**: Choose a predefined alert message template from the dropdown menu.
@@ -130,9 +130,9 @@ This allows you to define the content and layout of the alert message.
 1. In OpenObserve, go to **Reliability > Destination Templates**.
 2. Click **New template** to create a new email template. 
 3. In the template creation screen:
-  ![Alert Destination](../../../images/email-template-for-alert.png)
+  ![New template in Raw payload mode with Email selected, a title and a JSON body](../../../images/email-template-for-alert-v2.png)
 
-    - Select **Email** as the template type.
+    - Select **Raw payload**, then **Email** as the template type.
     - Enter a name for the template.
     - Fill in the **Title** and **Body** fields.
 
@@ -160,7 +160,7 @@ This allows you to define the content and layout of the alert message.
   After the user is added, they become eligible to receive email alerts.
 
 ### Steps to configure emails as alert destination 
-![Alert Destination](../../../images/alert-email-destination.png)
+![New Destination form for the Email type with a recipient and a template](../../../images/alert-email-destination-v2.png)
 
   1. Go to **Reliability** > **Notification Destinations** and click **New destination**. 
   2. Choose **Email** as the destination type.
