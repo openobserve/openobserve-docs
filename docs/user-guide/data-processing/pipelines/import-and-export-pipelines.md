@@ -13,17 +13,17 @@ To export an existing pipeline configuration:
 1. From the left navigation menu, go to **Data > Pipelines**.  
 2. In the **Pipelines** tab, locate the pipeline you want to export.   
 3. In the **Actions** column of the pipeline, click **More actions** (⋮) and select **Export**. You can also hover over the row and press `x`. To export several pipelines at once, select their rows and click **Export** in the selection bar.  
-![download-pipeline](../../../images/download-pipeline-json.png)
+![More actions menu of a pipeline row with Export, Delete and Create Backfill](../../../images/download-pipeline-json-v2.png)
 The downloaded file is named `<pipeline-name>.json` for one pipeline, or `pipelines_export_<date>.json` for several. It contains the pipeline configuration and can be used to import the pipeline into another environment. It also carries the functions the pipeline uses, so the import can create them in the target organization.<br>
 Exporting the pipeline `scheduled-pipeline-demo` generates a JSON file similar to the following:  
-![json-file-pipeline-export](../../../images/json-file-pipeline-export.png)
+![Exported pipeline JSON (organization IDs blurred)](../../../images/json-file-pipeline-export-v2.png)
 
 ## Import a pipeline
 To import a previously exported pipeline:
-![alt text](../../../images/import-pipelines.png)
+![Import page with the File Upload / JSON and URL Import tabs](../../../images/import-pipelines-v2.png)
 
 1. Go to **Data > Pipelines**.  
-2. Click **Import** in the top-right corner, or press `i`.<br>  
+2. Open the **More actions** menu (☰) in the top-right corner and select **Import**, or press `i`.<br>  
 3. Choose one of the supported import methods:  
 
     - **File Upload / JSON**: Upload one or more JSON files containing pipeline configurations from your local system, or paste the JSON pipeline definition in the JSON editor.  
