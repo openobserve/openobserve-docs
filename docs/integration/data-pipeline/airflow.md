@@ -65,7 +65,7 @@ airflow webserver -D
 
 1. In OpenObserve: go to **Data > Data sources > Custom > Logs > OTEL Collector**  
 2. Copy the `endpoint` and the `Authorization` header value  
-![Get OpenObserve Ingestion URL and Token](../images/messagebroker/otel-metrics-source.png)
+![OTEL Collector config under Custom > Metrics](../images/messagebroker/otel-metrics-source-v2.png)
 :::
 
 :::accordion[Step 4: Configure OpenTelemetry Collector]

@@ -10,7 +10,7 @@ OpenObserve provides comprehensive monitoring integrations to collect logs, metr
 
 Monitor Kubernetes clusters, AWS services, LLM providers ([OpenAI](ai/providers/openai.md), [Anthropic](ai/providers/anthropic.md), [Gemini](ai/providers/google-gemini.md)), AI frameworks ([LangChain](ai/frameworks/langchain.md), [CrewAI](ai/frameworks/crewai.md), [LlamaIndex](ai/frameworks/llamaindex.md)), databases ([MySQL](database/mysql.md), [PostgreSQL](database/postgresql.md), [MongoDB](database/mongodb.md)), message brokers ([Kafka](message-brokers/kafka.md)), web servers ([NGINX](servers/nginx.md)), and more with unified observability for cloud-native and AI applications.
 
-![Data Sources](../images/data-sources.png)
+![Data sources page in OpenObserve](../images/data-sources-v2.png)
 
 ## Available Integration Guides
 

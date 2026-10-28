@@ -51,7 +51,7 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
 
 1. In OpenObserve: go to **Data > Data sources > Custom > Metrics > OTEL Collector**
 2. Copy the ingestion URL and Access Key
-![Get OpenObserve Ingestion URL and Access Key](../images/messagebroker/otel-metrics-source.png)
+![OTEL Collector config under Custom > Metrics](../images/messagebroker/otel-metrics-source-v2.png)
 :::
 
 :::accordion[Step 4: Configure OpenTelemetry Collector]

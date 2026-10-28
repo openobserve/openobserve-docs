@@ -99,7 +99,7 @@ service:
 
 Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with values from OpenObserve’s **Data > Data sources > Custom > Metrics > OTEL Collector**.
 
-![OpenObserve Cassandra Creds](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 :::
 
 :::accordion[Step 4: Restart the OpenTelemetry Collector]

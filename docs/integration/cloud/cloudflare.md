@@ -40,7 +40,7 @@ To stream Cloudflare logs, log in to OpenObserve and follow these steps:
 1. From the left menu, select **Data > Data sources > Custom > Logs > Curl**.
 2. Extract the following details from the sample curl command: 
 
-![Extract endpoint and credentials](../images/extract-creds-from-data-sources.png)
+![Curl command with endpoint and credentials under Custom > Logs](../images/extract-creds-from-data-sources-v2.png)
 
 - **Endpoint**: `https://api.openobserve.ai/api/<organization_name>/<stream_name>/_json`. 
 Replace `organization_name` with your organization ID, as shown in the Curl command. Replace the `stream_name` with **cloudflare_logs**.

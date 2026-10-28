@@ -37,7 +37,7 @@ Stream server metrics and system logs from AWS EC2 Linux instances to OpenObserv
   2. Execute the command on your EC2 instance.
 
 
-  ![Install OpenObserve Collector](../../images/aws-integrations/get_auth_token_linux.png)
+  ![Linux card with the install command](../../images/aws-integrations/get_auth_token_linux-v2.png)
 :::
 
 

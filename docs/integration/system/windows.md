@@ -39,7 +39,7 @@ Before we begin, ensure you have:
 
 1. Log in to your OpenObserve instance. 
 2. Navigate to **Data > Data sources > Recommended > Windows**.
-![windows-integration](../../images/windows-integration.png)
+![Windows card on the Data sources page](../../images/windows-integration-v2.png)
 3. Copy the provided PowerShell command. 
 4. Open PowerShell as Administrator and execute the command:
 

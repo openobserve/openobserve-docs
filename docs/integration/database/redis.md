@@ -83,7 +83,7 @@ service:
 
 Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your OpenObserve details.
 
-![OpenObserve Redis Creds](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 
 > A full list of metrics collected is available in the [Redis receiver documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/redisreceiver).
 :::

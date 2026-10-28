@@ -25,7 +25,7 @@ The integration flow is: **Google Cloud Logs → Log Router Sink → Pub/Sub →
 1. In OpenObserve: go to **Data > Data sources > Recommended > Google Cloud Platform(GCP)**
 2. Copy the ingestion URL and API Key
 
-![Get OpenObserve GCP Endpoint](image.png)
+![Google Cloud Platform(GCP) on the Data sources page](image-v2.png)
 
 Example format:
 ```

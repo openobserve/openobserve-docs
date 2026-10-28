@@ -101,7 +101,7 @@ vi nginx-fluent-bit.conf
 ```
     - Adjust the access log path if you're using macOS (`/opt/homebrew/var/...`)
     - Replace `<org_id>`, `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the values from **Data > Data sources > Custom > Logs > FluentBit**.  
-    ![Openobserve-Fluent Bit](../images/servers/nginx/fetch-creds.png)
+    ![FluentBit output config under Custom > Logs](../images/servers/nginx/fetch-creds-v2.png)
 :::
 
 

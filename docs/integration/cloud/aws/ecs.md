@@ -31,7 +31,7 @@ We will run our tasks using fargate for this demonstration.
 
 You can find the config details under **Data > Data sources > Custom > Logs > FluentBit**
 
-![Ingestion config](../../images/firelens/data_sources.png)
+![FluentBit output config under Custom > Logs](../../images/firelens/data_sources-v2.png)
 
 You can use the configuration details from this section in your task definition
 :::

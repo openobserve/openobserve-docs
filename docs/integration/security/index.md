@@ -8,7 +8,7 @@ These integrations allow you to centralize audit logs, identity activity, and se
 
 <br>
 Each guide corresponds to a security integration that appears under the **Security** tab of **Data > Data sources** in OpenObserve.  
-![security integrations](security-datasources.png)  
+![Security tab on the Data sources page](security-datasources-v2.png)  
 <br>
 
 Learn more:

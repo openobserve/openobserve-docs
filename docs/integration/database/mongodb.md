@@ -74,7 +74,7 @@ service:
 
 Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your actual OpenObserve API endpoint and authentication token, which you can find in **Data > Data sources > Databases > MongoDB**
 
-![Collect OpenObserve Credentials](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 :::
 
 :::accordion[Step 3: Run the Collector]

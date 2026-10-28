@@ -39,7 +39,7 @@ By combining **Fluent Bit** for collection with **OpenObserve VRL pipelines** fo
 2. Open **Custom > Logs > FluentBit**
 3. Copy the entire **output section** snippet for Fluent Bit.
 
-    ![Collect OpenObserve Credentials](../images/servers/weblogic/data-sources.png)
+    ![FluentBit output config under Custom > Logs](../images/servers/weblogic/data-sources-v2.png)
 :::
 
 :::accordion[Step 2: Configure Fluent Bit]

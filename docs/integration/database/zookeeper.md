@@ -77,7 +77,7 @@ service:
 
 Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your actual OpenObserve details.  
 
-![OpenObserve Creds](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 :::
 
 :::accordion[Step 4: Run the Collector]

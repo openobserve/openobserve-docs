@@ -10,7 +10,7 @@ OpenObserve provides comprehensive GCP monitoring integrations to collect logs, 
 
 These GCP monitoring integrations enable Google Cloud observability, cloud infrastructure monitoring, and application performance monitoring across your Google Cloud workloads.
 
-![GCP Data source page](image.png)
+![Google Cloud Platform(GCP) on the Data sources page](image-v2.png)
 
 ## GCP Services Integration Guides
 
