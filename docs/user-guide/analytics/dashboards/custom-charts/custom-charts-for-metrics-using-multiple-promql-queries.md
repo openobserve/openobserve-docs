@@ -156,7 +156,7 @@ Each legend item ends with a suffix such as Q1 or Q2 so that users can identify 
 :::accordion[Step 4: View the result]
 ### Step 4: View the result
 Click **Apply** to view the result. 
-![view-promql-chart-result](view-promql-chart-result.png)
+![view-promql-chart-result](view-promql-chart-result-v2.png)
 Each metric appears as a separate line in the chart.
 You can toggle lines using the legend.
 :::
