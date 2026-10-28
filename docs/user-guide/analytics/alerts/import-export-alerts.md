@@ -21,7 +21,7 @@ You can import alerts individually or in bulk using pre-defined templates. The i
 
 ### Steps to Import an Alert
 
-1. From the left-hand navigation, select **Alerts**.  
+1. In the left navigation, go to **Reliability > All Alerts**.  
 2. Click the **Import** button. 
 3. Choose one of the supported import methods using the tabs at the top: 
 
@@ -47,7 +47,7 @@ Alert export allows users to download an alert configuration as a JSON file. Thi
 
 ### Steps to Export an Alert
 
-1. Navigate to the **Alerts** page.  
+1. Go to **Reliability > All Alerts**.  
 2. Locate the alert you want to export.  
 3. Click the **more options** menu (three-dot icon) in the **Actions** column and select **Export**.
 

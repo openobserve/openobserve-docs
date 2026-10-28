@@ -17,21 +17,18 @@ Real-time alerts trigger immediately when matching data is ingested. Unlike sche
 
 ### Step 1: Select real-time type
 
-1. Go to **Alerts** in the left sidebar.
+1. In the left navigation, go to **Reliability > All Alerts**.
 2. Click **New alert** in the top-right corner.
-3. In the top bar, change **Alert Type** to **Realtime**. The form simplifies — the condition sentence and evaluation schedule are hidden.
+3. Change **Alert Type** to **Realtime**. The form simplifies — the condition sentence and evaluation schedule are hidden.
 
 ![Real-time alert showing simplified UI](../../../images/add-alert-realtime-mode.png)
 
-### Step 2: Configure the top bar
+### Step 2: Name the alert and choose the stream
 
-Fill in the required fields across the top bar:
-
-- **Alert name**: Enter a descriptive name. Alert names cannot contain spaces or the characters `: # ? ' " % & /`. Use underscores (`_`) instead.
-- **Folder**: Select a folder to organize the alert, or click **+** to create a new one
+- **Alert name**: The name is the page heading. OpenObserve generates one until you click it and type your own. Alert names cannot contain spaces or the characters `: # ? ' " % & /`. Use underscores (`_`) instead.
+- **Folder**: Use the folder selector under the name to choose a folder, or create a **New Folder**
 - **Stream Type**: Select **logs**, **metrics**, or **traces**
 - **Stream Name**: Select the data stream to monitor
-- **Alert Type**: Select **Realtime**
 
 ### Step 3: Add filter conditions
 
@@ -47,7 +44,7 @@ Click the **filters** dropdown and define filters that match the events you want
 
 - **Cooldown period**: Minimum time between repeated notifications (default: 10 minutes)
 - **Destination**: Select one or more notification destinations. Click the refresh icon to reload, or **Add Destination** to create a new one.
-- **Creates Incident**: Toggle on to automatically create an incident when the alert triggers
+- **Creates Incident**: Toggle on to automatically create an incident when the alert triggers. Shown only when [incidents](../incidents/index.md) are enabled.
 
 Click **Save** at the bottom.
 
@@ -67,6 +64,7 @@ The **Advanced** tab provides additional options for real-time alerts. Click **A
 - **Additional Variables**: Add key-value pairs available in notification templates via the **Add Variable** button
 - **Description**: Free-text description for the alert
 - **Row Template**: Customize the format of individual data rows in notifications. Toggle between **String** and **JSON** template types
+- **Priority** and **Tags**: Triage metadata. See [Advanced Alert Configuration](advanced-alert-configuration.md#alert-priority).
 
 :::note[Note]
 Compare with Past and Deduplication are available for scheduled alerts only. See [Scheduled Alerts](scheduled-alerts.md) for those features.
@@ -76,8 +74,8 @@ Compare with Past and Deduplication are available for scheduled alerts only. See
 
 ## Edit an existing alert
 
-1. Go to **Alerts** in the left sidebar.
-2. Click the alert name in the table to open it.
+1. Go to **Reliability > All Alerts**.
+2. Click **Edit** (pencil icon) in the alert's **Actions** column. Clicking the row instead opens the alert's detail page, which also has an **Edit** button.
 3. Modify any fields. Note that **Stream Type**, **Stream Name**, and **Alert Type** are read-only for existing alerts.
 4. Click **Save** to apply changes.
 
@@ -93,7 +91,7 @@ Compare with Past and Deduplication are available for scheduled alerts only. See
 
 1. Verify the **Stream Name** has recent data being ingested.
 2. Check that the filter conditions match the incoming data.
-3. Ensure the alert is enabled in the alerts list (toggle in the **Status** column).
+3. Ensure the alert is not paused: the **Status** column shows its state, and the pause/start button in the **Actions** column resumes it.
 
 ### Too many notifications
 
@@ -111,5 +109,5 @@ Compare with Past and Deduplication are available for scheduled alerts only. See
 **Solution**:
 
 1. Click the **refresh** icon next to the destination dropdown.
-2. Verify the destination exists in **Alerts > Destinations**.
+2. Verify the destination exists on the **Notification Destinations** tab of the Alerts page.
 3. Click **Add Destination** to create one directly from the alert form.

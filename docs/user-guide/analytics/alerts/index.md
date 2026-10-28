@@ -6,7 +6,9 @@ description: "How alerting works in OpenObserve: scheduled, real-time, composite
 
 # Alerts
 
-Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. Define conditions using a natural language builder or custom SQL, receive notifications through webhooks such as Slack, email, or other endpoints, and trigger configured Actions automatically when an alert is activated.
+Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. Define conditions using a natural language builder or custom SQL, and receive notifications through email or webhooks such as Slack.
+
+To open alerts, go to **Reliability** in the left navigation and select **All Alerts**. The **Alerts** page has four tabs: **All Alerts**, **Notification Destinations**, **Destination Templates**, and **Alert Library**.
 
 ![Alerts list page with folders, type filter tabs, and alert management table](../../../images/overview-alerts-list.png)
 
@@ -24,15 +26,18 @@ OpenObserve supports four types of alerts:
 The alert creation form uses a flat, two-tab layout:
 
 ```
-Top Bar: Alert name, Folder, Stream Type, Stream Name, Alert Type
+Header: alert name (click to rename) and the folder it is saved in
+Alert Type: Scheduled, Realtime, Anomaly, Composite; then Stream Type and Stream Name
 ├── Alert Rules tab (required)
 │   ├── Conditions: query mode, condition sentence, filters, schedule
-│   └── Settings: look back window, cooldown, destinations, incidents
+│   └── Settings: look back window, hold for, cooldown, destinations, incidents
 └── Advanced tab
     ├── Compare with Past (scheduled only)
     ├── Deduplication (scheduled only)
-    └── Additional Settings (templates, variables, description)
+    └── Additional Settings (templates, variables, description, priority, tags)
 ```
+
+Until you rename it, a new alert's name is generated from the stream and condition and updates as you change them.
 
 The right panel displays a live **Preview** of your alert evaluation and an auto-updating **Summary** of your configuration.
 
@@ -42,7 +47,7 @@ The right panel displays a live **Preview** of your alert evaluation and an auto
 
 ### Stream
 
-The data source being monitored. Select a stream type (**logs**, **metrics**, or **traces**) and a specific stream name in the top bar.
+The data source being monitored. Select a stream type (**logs**, **metrics**, or **traces**) and a specific stream name below the **Alert Type** selector.
 
 ### Condition sentence
 
@@ -81,8 +86,9 @@ The time window of data evaluated per alert run. If the look back window is 30 m
 Where alert notifications are sent. Choose one or combine multiple:
 
 - **Email**: Send to team members or distribution lists. Requires SMTP configuration.
-- **Webhook**: Send to external systems via HTTP. Integrates with Slack, Microsoft Teams, Jira, ServiceNow, and more.
-- **Actions**: Execute custom Python scripts. Most flexible; can send to Slack AND log to stream simultaneously. Supports stateful workflows.
+- **Webhook**: Send to external systems via HTTP. Prebuilt destinations cover Slack, Microsoft Teams, PagerDuty, Opsgenie, ServiceNow, and Discord.
+
+In Enterprise editions, the destination picker also lists **Workflows** that the alert can start.
 
 ### Cooldown period
 
@@ -105,7 +111,7 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 
 - **Compare with Past**: Compare current alert evaluations against historical reference windows to detect relative changes. See [Compare with Past](scheduled-alerts.md#compare-with-past) for details.
 - **Deduplication**: Group similar alerts by fingerprint fields and time window to reduce notification noise.
-- **Additional Settings**: Override notification templates, add context variables, set a description, and customize row templates.
+- **Additional Settings**: Override notification templates, add context variables, set a description, customize row templates, and set a **Priority** and **Tags**. See [Advanced Alert Configuration](advanced-alert-configuration.md).
 
 ![Advanced tab showing Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab.png)
 
@@ -113,7 +119,7 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 
 Use folders to organize alerts on the **Alerts** page. All alerts are stored in the **default** folder unless you assign them to a different folder.
 
-To create a folder, click **+** in the **Folders** panel on the Alerts page, enter a name and description, and click **Create**. Use the **Search Folder** input to find folders quickly, or toggle **All Folders** to search alerts across all folders.
+To create a folder, click **+** in the **Folders** panel on the Alerts page, enter a name and description, and click **Save**. Use the **Search Folder** box to find a folder. You can also pick or create a folder from the folder selector under the alert name while creating an alert. In the alert search box, choose **This folder** or **All folders** to search the current folder or every folder.
 
 ## Next steps
 
@@ -122,6 +128,7 @@ To create a folder, click **+** in the **Folders** panel on the Alerts page, ent
 - [Composite Alerts](composite-alerts.md): combine existing alerts into a boolean expression.
 - [Alert Conditions and Filters](alert-conditions.md): deep dive into condition modes, functions, and filters.
 - [Alert History](alert-history.md): view alert trigger history.
+- [Downtimes](downtimes.md): silence notifications during maintenance windows.
 - [Anomaly Detection](anomaly-detection.md): ML-based anomaly alerts.
 - [Import and Export Alerts](import-export-alerts.md): bulk alert management.
 - [Alert Destinations](../../account-administration/management/alert-destinations.md): configure notification channels.

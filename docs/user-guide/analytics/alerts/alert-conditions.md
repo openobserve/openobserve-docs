@@ -90,13 +90,13 @@ Filters narrow which data the alert evaluates. Click the **filters** dropdown in
 
 1. Click **+ Condition** to add a new filter row.
 2. Select a **field** from the stream's available columns.
-3. Select an **operator**: `=`, `!=`, `>=`, `<=`, `>`, `<`, `Contains`, `NotContains`.
-4. Enter a **value** to match.
+3. Select an **operator**: `=`, `!=`, `>=`, `<=`, `>`, `<`, `Contains`, `NotContains`, `Is Null`, `Is Not Null`, `Is Empty`, or `Is Not Empty`.
+4. Enter a **value** to match. The four null and empty operators take no value.
 
 ### Multiple filters
 
 - The first condition is labeled **if**.
-- Additional conditions are labeled **and** — all conditions must be true for a record to match.
+- Additional conditions are joined with **and** by default, so all conditions must be true for a record to match. Click the toggle button next to the label to switch between **and** and **or**.
 - Click the **x** button on any condition row to remove it.
 
 ### Filter groups
@@ -106,7 +106,7 @@ Click **+ Condition Group** to create a grouped block of conditions. Groups supp
 `(level = error AND service = api) OR (level = warn AND response_time > 5000)`
 
 :::note[Note]
-Condition groups can be nested up to three levels deep. This limit ensures alert logic remains readable while allowing sufficient flexibility for advanced use cases.
+Condition groups can be nested two levels below the top-level conditions. At that depth the **Condition Group** button is disabled.
 :::
 
 ### SQL preview

@@ -16,7 +16,7 @@ When multiple alerts fire across your infrastructure, investigating each one ind
 It brings together alert data, service topology, AI-powered root cause analysis, and correlated telemetry (logs, metrics, traces) into one place — designed for SRE, DevOps, and platform engineering teams who need to quickly triage and resolve production issues.
 
 :::note[Note]
-Incident Management is available in OpenObserve Enterprise and Cloud editions.
+Incident Management is available in OpenObserve Enterprise and Cloud editions. On self-hosted Enterprise, your operator enables it with `O2_INCIDENTS_ENABLED=true` (default `false`).
 :::
 
 :::note[Note]
@@ -48,9 +48,13 @@ When an alert has **Creates Incident** enabled, it no longer sends its regular n
 
 Repeated firings of the same alert are suppressed, which reduces notification noise. The incident notification is sent to the union of all correlated alerts' destinations and uses an incident JSON payload with the following fields: `id`, `title`, `event`, `service`, `severity`, `alert`, `time`, and `url`.
 
+### Incident detail tabs
+
+The incident detail view has these tabs, in this order by default: **Incident Analysis**, **Overview**, **Activity**, **Alert Graph**, **Alert Triggers**, **Logs**, **Metrics**, and **Traces**. It opens on the first tab. Drag a tab to reorder them; your order is remembered in this browser.
+
 ### Incident overview dashboard
 
-The Overview tab provides a real-time summary of the incident with five hero metric cards:
+The **Overview** tab provides a real-time summary of the incident with five hero metric cards:
 
 - **Total Alerts** — total number of alert firings correlated to this incident
 - **Unique Alerts** — number of distinct alert rules that fired
@@ -77,7 +81,14 @@ The right side of the Overview tab contains the management panel:
 
 ### AI-powered root cause analysis
 
-The built-in AI SRE Agent analyzes incident data and generates a root cause analysis report. The analysis streams in real-time and includes an incident summary, technical findings, and recommended actions. Use the **Table of Contents** on the left to navigate between sections.
+The built-in AI SRE Agent checks the incident's alerts, topology, recent changes, traces, logs, and metrics, then writes a root cause analysis report on the **Incident Analysis** tab. While it runs, you can follow its work in the **Investigation thread**. The report lists:
+
+- **Hypotheses** it considered, with their status.
+- **Evidence** behind them, filterable to decisive or supporting evidence.
+- **Proposed actions**. These are suggestions only; nothing runs automatically.
+- **Blind spots**: what the agent could not check, with a suggested fix for each.
+
+Open **Full report** for the complete write-up. From the analysis bar you can **Re-analyze**, open **Report history**, **Copy report**, **Download as Markdown**, or **Ask about this analysis**.
 
 ![AI-powered Incident Analysis with table of contents and structured report](../../../images/incident-detail-incident-analysis.png)
 
@@ -89,23 +100,23 @@ Reanalysis appends delta findings to the existing report rather than restarting 
 
 ### Activity timeline and collaboration
 
-Every status change, severity update, AI analysis event, and user comment is recorded in a chronological activity timeline. Post comments to collaborate with your team directly within the incident.
+On the **Activity** tab, every status change, severity update, AI analysis event, and user comment is recorded in a chronological activity timeline. Post comments to collaborate with your team directly within the incident.
 
 - System events appear with colored icons (green for resolution, orange for acknowledgment, purple for AI analysis)
 - User actions display the email of the person who performed the action
-- The comment input at the bottom allows team members to share findings and context
+- The **Write a comment...** box at the bottom allows team members to share findings and context
 
 ![Activity timeline showing status changes, AI analysis events, and user actions](../../../images/incident-detail-activity-rich.png)
 
 ### Alert triggers
 
-The Alert Triggers tab lists every alert firing correlated to the incident, showing the alert name, timestamp, and correlation reason. Click an alert row to view its details in the side panel.
+The **Alert Triggers** tab lists every alert firing correlated to the incident, showing the alert name, timestamp, and correlation reason. Click an alert row to view its details in the side panel.
 
 ![Alert Triggers table showing correlated alerts with firing times and correlation reasons](../../../images/incident-detail-alert-triggers.png)
 
 ### Alert graph
 
-The Alert Graph tab visualizes the topology of alerts within an incident using an interactive D3 force-directed graph. Nodes represent unique alert-service pairs and edges show relationships between them.
+The **Alert Graph** tab visualizes the topology of alerts within an incident using an interactive D3 force-directed graph. Nodes represent unique alert-service pairs and edges show relationships between them.
 
 - **Red nodes** indicate root cause candidates
 - **Orange nodes** indicate high-frequency alerts
@@ -140,33 +151,33 @@ Correlated telemetry requires that your logs, metrics, and traces share common d
 
 **To access incidents:**
 
-1. Click **Incidents** in the left sidebar
+1. In the left navigation, go to **Reliability > Incidents**
 2. The incidents list displays all incidents for the current organization
 
 ## Triage an incident
 
 1. Click any row in the incidents list to open the detail view.
 
-2. Review the **Overview** tab for hero metrics, the incident timeline, and the alert activity chart.
+2. Open the **Overview** tab for hero metrics, the incident timeline, and the alert activity chart.
 
 3. Check the **Manage** panel on the right to see the current status, severity, dimensions, and related alerts.
 
 4. Click the **Alert Triggers** tab to see every correlated alert firing and why it was grouped into this incident.
 
-5. Use the **Incident Analysis** tab to run AI root cause analysis, or check the **Alert Graph** for a visual topology of alert relationships.
+5. Use the **Incident Analysis** tab to run AI root cause analysis, check the **Activity** tab for the timeline and comments, or check the **Alert Graph** for a visual topology of alert relationships.
 
 6. Explore correlated data in the **Logs**, **Metrics**, or **Traces** tabs.
 
 7. Update the status using the **Manage** panel or header buttons:
-    - **Acknowledged** — investigation has started
-    - **Resolved** — incident is closed
+    - **Acknowledge** — investigation has started
+    - **Resolve** — incident is closed
     - **Reopen** — reactivate a resolved incident
 
 ## Run AI root cause analysis
 
 1. Open the incident and click the **Incident Analysis** tab.
-2. Click **Analyze Incident** to trigger the AI SRE Agent.
-3. View the streaming analysis as it generates. Use the **Table of Contents** on the left to navigate the report.
+2. Click **Analyze incident** to trigger the AI SRE Agent.
+3. Follow the agent's progress in the **Investigation thread**. When it finishes, review the hypotheses, evidence, proposed actions, and blind spots, or open **Full report**.
 
 :::tip[Tip]
 Reanalysis reruns automatically when a new alert type joins the incident, when dimensions upgrade, or when the incident is reopened. You can also re-trigger it after a severity change. New findings are appended to the existing report.
@@ -174,7 +185,7 @@ Reanalysis reruns automatically when a new alert type joins the incident, when d
 
 ## Edit incident details
 
-- **Title**: Click **Edit** in the header, modify the title, and click **Save**.
+- **Title**: Click the incident title in the header, edit it, and press Enter to save.
 - **Severity**: In the **Manage** panel, click a severity level:
 
 | Severity | Description |
@@ -192,7 +203,7 @@ Reanalysis reruns automatically when a new alert type joins the incident, when d
 | **Acknowledged** | A team member is investigating | Resolve, Edit |
 | **Resolved** | Incident is closed (manually or auto-resolved) | Reopen, Edit |
 
-Incidents can be auto-resolved after a configurable period of inactivity.
+Incidents auto-resolve after a period with no new alerts, set by `O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES` (default `4320`, 3 days; `-1` disables auto-resolve).
 
 :::info[Info]
 Severity can upgrade automatically when alert patterns indicate increasing impact. Manual overrides are always respected.
