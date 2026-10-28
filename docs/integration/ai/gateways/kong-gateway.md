@@ -19,7 +19,7 @@ Automatically capture token usage, latency, and model metadata for every request
 ## Installation
 
 ```shell
-pip install openobserve openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
 ## Configuration
