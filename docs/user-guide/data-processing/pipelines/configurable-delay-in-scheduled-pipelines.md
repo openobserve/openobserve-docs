@@ -11,7 +11,7 @@ This feature allows you to delay the execution of a scheduled pipeline by a set 
 When editing the **Associate Query** page:
 
 1. In the **Set Variables** section, add **Delay**. Delay defines how many minutes the system waits after the scheduled trigger time. The pipeline runs only after this waiting period completes.
-![configurable-delay](../../../images/scheduled-pipeline-config-delay.png)
+![Set Variables with Delay set to 2 minutes](../../../images/scheduled-pipeline-config-delay-v2.png)
 
 2. Select **Validate and Close**.
 
