@@ -1,8 +1,6 @@
 ---
-description: >-
-  Define alert conditions in OpenObserve using the natural language condition
-  builder. Covers count mode, measure mode, aggregation functions, group-by,
-  and filter conditions.
+title: Alert Conditions and Filters
+description: "Define alert conditions in OpenObserve with the natural language builder: count and measure modes, aggregation functions, group-by, and filters."
 ---
 
 This guide explains how to define alert conditions in OpenObserve using the condition sentence builder and filter system.
@@ -74,6 +72,14 @@ In measure mode, click **+** next to **Group by** to add one or more fields. Whe
 
 For example, grouping by `hostname` with "Alert if avg of cpu_usage >= 80" evaluates CPU usage per host and alerts if any individual host exceeds the threshold.
 
+### Having groups
+
+**Having groups** sets the minimum number of groups that must satisfy the condition for the alert to trigger. For example, with a value of 3, the alert fires only when at least 3 group-by combinations meet the condition.
+
+:::note[Note]
+When aggregation or group-by is enabled, the right-hand **Preview** panel renders a multi-series chart. When there are three or more group-by fields, the preview is shown as a table instead.
+:::
+
 ---
 
 ## Filter conditions
@@ -99,8 +105,9 @@ Click **+ Condition Group** to create a grouped block of conditions. Groups supp
 
 `(level = error AND service = api) OR (level = warn AND response_time > 5000)`
 
-!!! note
-    Condition groups can be nested up to three levels deep. This limit ensures alert logic remains readable while allowing sufficient flexibility for advanced use cases.
+:::note[Note]
+Condition groups can be nested up to three levels deep. This limit ensures alert logic remains readable while allowing sufficient flexibility for advanced use cases.
+:::
 
 ### SQL preview
 
@@ -124,8 +131,9 @@ Click the **SQL** tab to switch to SQL mode. The condition sentence is replaced 
 
 ![SQL mode with editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode.png)
 
-!!! warning
-    Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::warning[Warning]
+Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
+:::
 
 ### PromQL mode
 
@@ -133,45 +141,33 @@ Available for **metrics** stream types only. Click the **PromQL** tab to enter a
 
 #### Rule mode
 
-PromQL mode offers a **Rule mode** toggle for authoring Prometheus-style alerting rules. In rule mode the PromQL expression itself decides when to fire — the alert triggers whenever the expression returns **any** series, so there is no separate Critical/Warning value threshold to configure.
+Turn on the **Rule mode** switch below the PromQL editor to let the expression decide when the alert fires. In rule mode, the alert matches whenever the expression returns **any** series, so you write the threshold into the expression itself instead of setting separate Critical or Warning values.
 
-![TODO: screenshot of the PromQL query config with Rule mode enabled, showing the toggle and the removed value-threshold controls](images/placeholder.png)
+![PromQL alert with Rule mode turned on, the Alert aggregation choice, and the Preview panel reporting how many series match](images/promql-rule-mode.png)
 
-To use rule mode:
+To create a rule-mode alert:
 
-1. Select the **PromQL** tab.
+1. Set the stream type to **metrics** and select the **PromQL** tab.
 2. Turn on **Rule mode**.
-3. Enter the full expression that should match, for example `rate(http_requests_total[5m]) > 4`.
-4. Optionally leave **Stream Name** empty — OpenObserve infers the metrics stream referenced by the expression.
+3. Enter the full matching expression, for example `rate(http_requests_total[5m]) > 4`.
+4. Optionally leave the stream name empty. OpenObserve infers it from the metrics streams the expression references.
 
-Turning **Rule mode** on clears any value thresholds and the series-count gate; the expression alone owns the match. The **Preview** panel runs an instant query and reports how many series match now (for example, "2 returned series match now").
+Turning on rule mode clears and hides the value-threshold controls and the **Having series** count. Each evaluation runs the expression as an instant query at the scheduled time. The **Preview** panel shows how many series currently match, for example "10 returned series match now".
 
-![TODO: screenshot of the alert preview panel showing the rule-mode match count for a PromQL alert](images/placeholder.png)
+**Alert aggregation** controls how many alerts rule mode produces:
 
-##### Single vs Multi alert
+- **Simple alert** tracks one alert for the whole rule. It stays firing while any series is returned and clears when the expression returns no series.
+- **Multi alert (per series)** tracks each returned series (each distinct label set) separately, so every series fires and recovers on its own.
 
-Rule mode controls how many alerts you receive:
+When **Hold for** (the pending period, in the **Settings** section) is greater than zero, **Multi alert** is selected and locked, because each series keeps its own pending timer. A series must keep matching for the full period before it fires. If it stops matching, its timer resets and restarts when the series returns. Set **Hold for** to zero to choose between **Simple alert** and **Multi alert** again.
 
-- With the **pending period** set to **0**, choose **Single** or **Multi** alert. **Single** fires once for the rule; **Multi** fires once per matched series (each distinct label set).
-- With a **pending period** greater than **0**, **Multi** alert is required and locked, because each series keeps its own pending timer. You cannot disable **Multi** while a pending period is set.
+![Rule mode with Hold for set to 10 minutes, so Multi alert is selected and locked](images/promql-rule-mode-hold-for-multi.png)
 
-##### Pending period (for)
+PromQL can return special values such as `NaN`, `+Inf` and `-Inf`. Rule mode treats any returned series as a match, including these values, and keeps them as-is in notifications and [alert history](alert-history.md).
 
-The pending period works like a Prometheus `for:` clause. A series must keep matching continuously for the full period before it fires. Pending is tracked per series, so a series that stops matching briefly restarts its own timer while other series can still fire.
-
-##### Values in history
-
-PromQL results can include special values such as `NaN`, `+Inf`, and `-Inf`. Rule mode preserves these as raw strings in the alert group history instead of dropping them, so the history shows the exact value the expression returned. See [Alert History](alert-history.md) for details.
-
-##### Limitations
-
-Rule mode cannot be combined with:
-
-- Critical or Warning value thresholds
-- Aggregation
-- Compare with Past (multi-time-range comparisons)
-
-Rule mode requires a **metrics** stream type and a non-empty PromQL expression.
+:::note[Note]
+Rule mode works only with **metrics** streams and the **PromQL** tab. It cannot be combined with Critical or Warning value thresholds or with **Compare with Past**.
+:::
 
 ---
 
