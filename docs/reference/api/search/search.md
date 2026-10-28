@@ -31,12 +31,12 @@ Description
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
 | query      | object    | -             | query params |
-| query.sql  | string    | -             | use SQL query data, and filter data by `start_time` and `end_time`, and default order by _timestamp, you can use order by override order, and fetch offset limit by `form` and `size` |
+| query.sql  | string    | -             | use SQL query data, and filter data by `start_time` and `end_time`, and default order by _timestamp, you can use order by override order, and fetch offset limit by `from` and `size` |
 | query.start_time | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
 | query.end_time   | int64 | 0           | unit: microseconds, filter data by time range, you need always provide this value |
 | query.from | int64     | 0             | offset in SQL |
 | query.size | int64     | 0             | limit in SQL  |
-| search_type | string   | -             | default is empty, support: `ui`, `dashboards`, `reports`, `alerts` |
+| search_type | string   | -             | optional, labels the query for usage reports: `ui`, `dashboards`, `reports`, `alerts`, `values`, `rum`, `derived_stream`, `search_job`, `download`, `insights`, `public_dashboard`, `other` |
 | timeout    | int       | 0             | default value based on `ZO_QUERY_TIMEOUT=600` |
 | agent_options | object    | -             | options for agent/MCP clients |
 | agent_options.mode | string | `default` | query execution mode: `default` (result cache path) or `partition` (streaming partition loop, see below) |
@@ -97,7 +97,7 @@ Description
 | took       | int64     | -             | unit: milliseconds, query execute time |
 | from       | int64     | 0             | value from `query.from` |
 | size       | int64     | 0             | value from `query.size` |
-| scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
+| scan_size  | int64     | 0             | unit: MB, the amount of data scanned by the query. |
 | hits       | array     | -             | records for query, each record is a log row what you ingested. |
 
 
@@ -345,11 +345,14 @@ Suggestions cover both OpenObserve UDFs and DataFusion built-in functions. When 
 
 | Code  | Name                          | Description |
 |-------|-------------------------------|-------------|
-| 20001 | `ServerInternalError`         | Internal server error |
-| 20002 | `SearchSQLNotValid`           | SQL syntax is invalid |
-| 20003 | `SearchStreamNotFound`        | Stream does not exist |
+| 10001 | `ServerInternalError`         | Internal server error |
+| 20001 | `SearchSQLNotValid`           | SQL syntax is invalid |
+| 20002 | `SearchStreamNotFound`        | Stream does not exist |
+| 20003 | `FullTextSearchFieldNotFound` | No full-text search field for `match_all` |
 | 20004 | `SearchFieldNotFound`         | Field name not found (with suggestions) |
 | 20005 | `SearchFunctionNotDefined`    | Function name not found (with suggestions) |
+| 20006 | `SearchParquetFileNotFound`   | A data file was not found |
+| 20007 | `SearchFieldHasNoCompatibleDataType` | Field has no compatible data type |
 | 20008 | `SearchSQLExecuteError`       | SQL execution failed |
 | 20009 | `SearchCancelQuery`           | Query was cancelled |
 | 20010 | `SearchTimeout`               | Query timed out |

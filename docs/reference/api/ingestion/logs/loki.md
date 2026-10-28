@@ -54,11 +54,9 @@ Content-Type: `application/json`
 
 ## Response
 
-```json
-{}
-```
+HTTP status `204 No Content` with an empty body indicates success, matching the standard Loki push API behavior.
 
-An empty JSON object `{}` with HTTP status `204 No Content` indicates success, matching the standard Loki push API behavior.
+The endpoint also accepts Protobuf (`Content-Type: application/x-protobuf`, snappy-compressed, as sent by Promtail). JSON bodies may be gzip-compressed.
 
 ## Authentication
 

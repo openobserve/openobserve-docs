@@ -26,15 +26,15 @@ Description
 |------------|-----------|---------------|-------------|
 | first_name | string    | -             | first name |
 | last_name  | string    | -             | last name |
-| old_password   | string    | -         | old password for user, it shouldn't pass if you don't want to change password. |
-| new_password   | string    | -         | new password for user, it shouldn't pass if you don't want to change password. |
-| role       | string    | -             | user role, supported: admin / user |
+| old_password   | string    | -         | current password. Required when you change your own password; omit it otherwise. |
+| new_password   | string    | -         | new password. Omit it if you don't want to change the password. A root user or admin can set it for another user without `old_password`. |
+| role       | string    | -             | user role: `admin`, `editor`, `viewer`, `user` or `service_account` |
 
 ## Response
 
 ```json
 {
 	"code": 200,
-	"message": "User saved successfully"
+	"message": "User updated successfully"
 }
 ```

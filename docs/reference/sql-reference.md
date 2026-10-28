@@ -78,7 +78,7 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 - This function is case-insensitive and returns matches regardless of the keyword's casing.
 
 :::note[Note]
-To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](api/stream/setting.md).
+Inverted index generation is controlled by the environment variable `ZO_ENABLE_INVERTED_INDEX`, which is `true` by default. You can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](api/stream/setting.md).
 
 The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
 :::
@@ -415,6 +415,7 @@ To avoid unexpected bucket sizes based on internal defaults, always specify the 
 
 **Description:**
 
+- Optional third argument: `approx_topk(field, k, cap)`, where `cap` is how many candidates each partition keeps (default: the larger of `k × 4` and `1000`). `field` must be a string field and `k` at most 100,000.
 - Returns the top `K` most frequent values for a specified field using the **Space-Saving algorithm** optimized for high-cardinality data.
 - Results are approximate due to distributed processing. Globally significant values may be missed if they do not appear in enough partitions' local top-K results.
 
@@ -429,25 +430,25 @@ It returns the `10` most frequently occurring client IP addresses from the `defa
 ```json
 {
   "item": [
-    {"clientip": "192.168.1.100", "request_count": 2650},
-    {"clientip": "10.0.0.5", "request_count": 2230},
-    {"clientip": "203.0.113.50", "request_count": 2210},
-    {"clientip": "198.51.100.75", "request_count": 1970},
-    {"clientip": "172.16.0.10", "request_count": 1930},
-    {"clientip": "192.168.1.200", "request_count": 1830},
-    {"clientip": "203.0.113.80", "request_count": 1630},
-    {"clientip": "10.0.0.25", "request_count": 1590},
-    {"clientip": "172.16.0.30", "request_count": 1550},
-    {"clientip": "192.168.1.150", "request_count": 1410}
+    {"value": "192.168.1.100", "count": 2650},
+    {"value": "10.0.0.5", "count": 2230},
+    {"value": "203.0.113.50", "count": 2210},
+    {"value": "198.51.100.75", "count": 1970},
+    {"value": "172.16.0.10", "count": 1930},
+    {"value": "192.168.1.200", "count": 1830},
+    {"value": "203.0.113.80", "count": 1630},
+    {"value": "10.0.0.25", "count": 1590},
+    {"value": "172.16.0.30", "count": 1550},
+    {"value": "192.168.1.150", "count": 1410}
   ]
 }
 ```
 **Use the `unnest()` to extract usable results:**
 
 ```sql
-SELECT item.clientip as clientip, item.request_count as request_count
+SELECT item.value as clientip, item.count as request_count
 FROM (
-  SELECT unnest(approx_topk(clientip, 10)) 
+  SELECT unnest(approx_topk(clientip, 10)) as item
   FROM "default"
 )
 ORDER BY request_count DESC
@@ -603,25 +604,25 @@ For example, if an IP receives 400, 450, and 500 requests across three nodes but
 **Example:**
 
 ```sql
-SELECT approx_topk_distinct(clientip, clientas, 3) FROM "default" ORDER BY _timestamp DESC
+SELECT approx_topk_distinct(clientip, clientas, 10) FROM "default"
 ```
-It returns the top 3 client IP addresses that have the most unique user agents.
+It returns the top 10 client IP addresses that have the most unique `clientas` values.
 
 **Function result (returns an object with an array):**
 
 ```json
 {
   "item": [
-    {"clientip": "192.168.1.100", "distinct_count": 1450},
-    {"clientip": "203.0.113.50", "distinct_count": 1170},
-    {"clientip": "10.0.0.5", "distinct_count": 1160},
-    {"clientip": "198.51.100.75", "distinct_count": 1040},
-    {"clientip": "172.16.0.10", "distinct_count": 1010},
-    {"clientip": "192.168.1.200", "distinct_count": 950},
-    {"clientip": "203.0.113.80", "distinct_count": 830},
-    {"clientip": "10.0.0.25", "distinct_count": 810},
-    {"clientip": "172.16.0.30", "distinct_count": 790},
-    {"clientip": "192.168.1.150", "distinct_count": 690}
+    {"value": "192.168.1.100", "count": 1450},
+    {"value": "203.0.113.50", "count": 1170},
+    {"value": "10.0.0.5", "count": 1160},
+    {"value": "198.51.100.75", "count": 1040},
+    {"value": "172.16.0.10", "count": 1010},
+    {"value": "192.168.1.200", "count": 950},
+    {"value": "203.0.113.80", "count": 830},
+    {"value": "10.0.0.25", "count": 810},
+    {"value": "172.16.0.30", "count": 790},
+    {"value": "192.168.1.150", "count": 690}
   ]
 }
 ```
@@ -629,7 +630,7 @@ It returns the top 3 client IP addresses that have the most unique user agents.
 **Use the `unnest()`, to extract usable results:**
 
 ```sql
-SELECT item.clientip as clientip, item.distinct_count as distinct_count 
+SELECT item.value as clientip, item.count as distinct_count 
 FROM (
   SELECT unnest(approx_topk_distinct(clientip, clientas, 10)) as item
   FROM "default" 

@@ -27,7 +27,10 @@ Here:
 
 - `field1`: The field to group by and return top results for.
 - `field2`: The field whose distinct values are counted per field1.
-- `K`: Number of top results to return.
+- `K`: Number of top results to return (at most 100,000).
+- An optional fourth argument, `cap`, sets how many candidate values each partition keeps in memory (default: the larger of `K × 4` and `1000`).
+
+Both `field1` and `field2` must be string fields.
 - `stream_name`: The stream containing the data
 
 **Example**

@@ -1,6 +1,6 @@
 ---
 title: Around
-description: Search around a specific timestamp to fetch nearby log records using GET /_around with forward and backward context in a 5-minute window.
+description: Search around a specific timestamp to fetch nearby log records using GET /_around with forward and backward context in a 15-minute window.
 ---
 
 # Search around
@@ -14,8 +14,12 @@ Description
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
 | stream     | string    | -             | stream name |
-| key        | int64     | 0             | the `_timestamp` of the record what you want to search around |
-| size       | int64     | 0             | how many records do you want to response around the record, we will search the record forward & backward 5 minutes |
+| key        | int64     | -             | the `_timestamp` (microseconds) of the record you want to search around |
+| size       | int64     | -             | how many records to return around the record (must be a positive number); half are taken before and half after the key, searching up to 15 minutes in each direction |
+| type       | string    | logs          | stream type (optional) |
+| timeout    | int64     | -             | optional timeout in seconds |
+
+`POST /api/{organization}/{stream}/_around?size=10` is also available: send the full log record as the JSON body instead of passing `key`, so OpenObserve can match the record's context more precisely.
 
 ## Response
 
@@ -72,5 +76,5 @@ Description
 | took       | int64     | -             | unit: milliseconds, query execute time |
 | from       | int64     | 0             | value from `query.from` |
 | size       | int64     | 0             | value from `query.size` |
-| scan_size  | int64     | 0             | unit: MB, it response the data size scale when execute the query. |
+| scan_size  | int64     | 0             | unit: MB, the amount of data scanned by the query. |
 | hits       | array     | -             | records for query, each record is a log row what you ingested. |
