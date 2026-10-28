@@ -17,13 +17,13 @@ To open the Column Formatting dialog:
 2. In the panel **Config** sidebar, locate the **Column Formatting** section.
 3. Click the **Configure column formatting** button.
 
-![Config panel showing the Configure column formatting button in Field Overrides section](images/dashboard-table-column-formatting-1.png)
+![Config panel showing the Configure column formatting button in the Column Formatting section](images/dashboard-table-column-formatting-1-v2.png)
 
 ### Add a field
 
 On first open, the dialog shows an empty state with an **Add field** button. Click it to see a dropdown of the panel's columns, each marked with a **Num** or **Text** badge to indicate its detected data type.
 
-![Column Formatting dialog empty state with Add field dropdown](images/dashboard-table-column-formatting-2.png)
+![Column Formatting dialog empty state with the Add field dropdown listing Namespace and Pod (Text) and Count (Num)](images/dashboard-table-column-formatting-2-v2.png)
 
 Select a column to add it to the formatting list. The dialog switches to a three-pane layout:
 
@@ -31,7 +31,7 @@ Select a column to add it to the formatting list. The dialog switches to a three
 - **Middle pane** — formatting controls for the selected field.
 - **Right pane** — a live preview of the column rendered with your current settings.
 
-![Column Formatting dialog with a field selected, showing the three-pane layout](images/dashboard-table-column-formatting-3.png)
+![Column Formatting dialog with the Count field selected, showing the field list, formatting controls and live preview](images/dashboard-table-column-formatting-3-v2.png)
 
 ### Formatting controls
 
@@ -69,7 +69,7 @@ The locale choice is available in two places, and works the same in both:
 - The **Unit** dropdown in the panel **Config** sidebar (applies to the whole panel).
 - The **Value Formatting** unit dropdown in the Column Formatting dialog (applies to a single column).
 
-![Unit dropdown with the Other Locale row expanded to show the list of locales](images/placeholder.png)
+![Unit dropdown with the Other Locale row expanded to show the list of locales](images/dashboard-table-unit-other-locale.png)
 
 To pin a locale:
 
@@ -77,7 +77,7 @@ To pin a locale:
 2. Click the **Other Locale** row to expand the list of available locales.
 3. Pick a locale, labelled like **English - US (en_US)**.
 
-![Value Formatting unit dropdown in the Column Formatting dialog with a locale selected](images/placeholder.png)
+![Value Formatting set to Czech - CZ (cs_CZ), with the preview showing 18 743,00](images/dashboard-table-unit-locale-selected.png)
 
 The list offers 46 locales — the 16 UI languages plus 30 additional regions such as `en-GB`, `en-IN`, `de-AT`, `de-CH`, `fr-CA`, `fr-CH`, `es-MX`, `pt-BR`, and `cs-CZ`. Search matches both the locale name and its code.
 
@@ -110,7 +110,7 @@ Supported operators: **less than**, **greater than**, **less than or equal to**,
 
 Rules are evaluated in order; when multiple rules match a value, the **last matching rule** wins. This lets you layer conditions — for example, a rule for values `> 400` (amber) followed by one for `> 1000` (red) means values above 1000 will show red, not amber.
 
-![conditional styling section with multiple rules defined](images/dashboard-table-column-formatting-4.png)
+![Conditional Styling with two rules, greater than 5000 in amber and greater than 15000 in red](images/dashboard-table-column-formatting-4-v2.png)
 
 Click **+ Add rule** to create a new condition, or the **X** button on a rule to remove it.
 
@@ -124,7 +124,7 @@ Formatting settings are persisted with the dashboard and survive page reloads.
 
 Column filtering provides Excel-style dropdowns in table column headers, letting you filter the visible rows by one or more distinct column values.
 
-![a table panel with column filter dropdown open showing checkbox list](images/dashboard-table-column-formatting-5.png)
+![Table panel with the Namespace column filter open and default and shop selected](images/dashboard-table-column-formatting-5-v2.png)
 
 ### Enable column filtering
 
