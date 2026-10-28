@@ -107,16 +107,16 @@ Refresh page couple of times to get more traces exported.
 Traces are captured, you can check these captured traces in the [Traces view](https://cloud.openobserve.ai/web/traces).
 
 
-![Traces Page](./images/traces_go.png)
+![Traces page with spans from the sample services](./images/traces_go-v2.png)
 
 Filter traces with your service name `otel1-gin-gonic`
 
-![Filter traces with service name](./images/filter_traces_go.png)
+![Spans filtered by service_name otel1-gin-gonic](./images/filter_traces_go-v2.png)
 
 Click on any trace to check trace data
 
-![Trace details](./images/trace_details_1.png)
+![Trace details in the Waterfall view](./images/trace_details_1-v2.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](./images/trace_details_2.png)
+![Span details panel with the span attributes](./images/trace_details_2-v2.png)
