@@ -10,7 +10,7 @@ Alerts enable continuous monitoring of log, metric, or trace data to detect crit
 
 To open alerts, go to **Reliability** in the left navigation and select **All Alerts**. The **Alerts** page has four tabs: **All Alerts**, **Notification Destinations**, **Destination Templates**, and **Alert Library**.
 
-![Alerts list page with folders, type filter tabs, and alert management table](../../../images/overview-alerts-list.png)
+![All Alerts page with the folder list, type tabs, status counters and the alert table with Last Outcome, Priority, Groups and Tags](../../../images/overview-alerts-list-v2.png)
 
 ## Alert types
 
@@ -41,7 +41,7 @@ Until you rename it, a new alert's name is generated from the stream and conditi
 
 The right panel displays a live **Preview** of your alert evaluation and an auto-updating **Summary** of your configuration.
 
-![Alert creation form showing the two-tab layout with condition sentence, preview, and summary panels](../../../images/add-alert-count-mode-v2.png)
+![New alert form with the Alert Rules and Advanced tabs, the condition sentence, the Preview chart and the Summary](../../../images/add-alert-count-mode-v2.png)
 
 ## Core components
 
@@ -113,7 +113,7 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 - **Deduplication**: Group similar alerts by fingerprint fields and time window to reduce notification noise.
 - **Additional Settings**: Override notification templates, add context variables, set a description, customize row templates, and set a **Priority** and **Tags**. See [Advanced Alert Configuration](advanced-alert-configuration.md).
 
-![Advanced tab showing Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab-v2.png)
+![Advanced tab with Additional Settings (Template Override, Priority, Tags, Description, Row Template), Compare with Past and Deduplication](../../../images/add-alert-advanced-tab-v2.png)
 
 ## Alert folders
 
