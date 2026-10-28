@@ -11,7 +11,7 @@ Use **Stream Details** to inspect schemas, apply sensitive-data redaction using 
 :::note[Where to find it]
 1. Go to **Streams**.
 2. In the **Actions** column, select the **Stream Detail** icon. The stream details open in a side panel titled with the stream name.
-![stream details access](../../../images/stream-details-access.png) 
+![Streams list with the Stream Detail icon highlighted on a stream row](../../../images/stream-details-access-v2.png) 
 :::
 
 :::note[Who can access it]
@@ -23,9 +23,9 @@ User roles that have permission to update Streams can modify the stream settings
 The header cards in the **Stream Details** panel show high-level status for the selected stream:
 
 - **Stream Name**: Name of the selected stream, shown as the panel title.
-![stream name](../../../images/stream-name.png) 
+![Stream Detail drawer header with the stream name](../../../images/stream-name-v2.png) 
 - **Events**: Total number of ingested events.
-![stream details](../../../images/stream-details.png)   
+![Stream Detail summary cards for Events, Ingested Data, Compressed Size and Index Size](../../../images/stream-details-v2.png)   
 - **Ingested Data**: Uncompressed size of the stored data.  
 - **Compressed Size**: Storage space used after compression.  
 - **Index Size**: Size of the tantivy files generated for full text search index. Other index types, such as KeyValue filters and hash partitions, do not affect this value.   
@@ -34,19 +34,19 @@ The header cards in the **Stream Details** panel show high-level status for the 
 OpenObserve Cloud does not show the **Compressed Size** and **Index Size** cards.
 :::
 
-![stream-start-end-time](../../../images/stream-start-end-time.png)
+![Time range of the data in the stream, shown next to the drawer title](../../../images/stream-start-end-time-v2.png)
 - **Time range**: Start time is the timestamp of the oldest data and end time is the timestamp of the newest data. If the ingested data has a `_timestamp` field, it will be according to that. If the ingested data does not have a ` _timestamp` field, then the start time will be the oldest time of ingestion and end time will be the newest time of ingestion.  
 
 ## Schema Settings
 Inspect and manage the schema of a stream. <br>
 This tab allows you to review detected fields, assign index types, define user-defined schemas, and apply sensitive data redaction patterns. <br>
-![schema settings](../../../images/stream-details-schema-settings.png)
+![Schema Settings tab of the Stream Detail drawer listing fields with their type and index type](../../../images/stream-details-schema-settings-v2.png)
 <br>
 To learn more about Schema Settings, visit the [Schema Settings](https://openobserve.ai/docs/user-guide/data-processing/streams/schema-settings/) page. 
 
 
 ## Extended Retention
-![extended retention](../../../images/extended-retention.png)
+![Extended Retention tab with the extension banner and the Select Date picker](../../../images/extended-retention-v2.png)
 Allows you to retain specific segments of your stream data beyond the configured stream-level or global retention period. To learn more, see the [Extended Retention](https://openobserve.ai/docs/user-guide/data-processing/streams/extended-retention/) page.
 
 ## Cross-Linking
@@ -54,7 +54,7 @@ When cross-linking is enabled (`ZO_ENABLE_CROSS_LINKING=true`), logs streams sho
 
 ## Configuration
 The **Configuration** tab provides options to configure stream-level limits and ingestion behavior.
-![stream-details-configuration](../../../images/stream-details-configuration.png)
+![Configuration tab with Data Retention (days), Max Query Range (hours), Flatten Level and the stream toggles](../../../images/stream-details-configuration-v2.png)
 
 ### Data Retention (days)
 Sets how long data is retained in this stream. If not configured, the global retention period applies. The global default is 3650 days, set by `ZO_COMPACT_DATA_RETENTION_DAYS`.
