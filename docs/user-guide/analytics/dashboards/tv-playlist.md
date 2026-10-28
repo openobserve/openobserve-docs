@@ -5,7 +5,7 @@ description: "Rotate multiple dashboards on a TV using OpenObserve TV playlists:
 
 # TV Playlist
 
-A TV playlist rotates a set of dashboards on a wall-mounted TV, showing each one for a set duration, with a compact header for pausing, stepping and exiting. Playlists are not saved objects: you build one from the dashboard list and open it in a new tab, or share it as a link.
+A TV playlist rotates a set of dashboards on a wall-mounted TV, showing each one for a set duration, with a compact header for pausing, stepping and exiting. Playlists are not saved objects: you build one from the dashboard list and open it in a new tab, or share it as a link. To keep a single dashboard on screen, use [TV mode](tv-mode.md) instead.
 
 ## Create a TV playlist
 
