@@ -1,6 +1,6 @@
 ---
 title: Templates
-description: Create alert notification templates in OpenObserve with variable placeholders and row templates for Slack, email, webhooks, and more.
+description: "Create alert notification templates in OpenObserve: content templates with preview and chart images, or raw payloads with variables and row templates."
 ---
 
 # Alert Templates
@@ -15,6 +15,81 @@ Templates are used when notification is sent for an alert, templates forms body 
 ```
 
 When a notification is being sent, OpenObserve will replace placeholders like {stream_name}, {alert_name} etc with actual values of stream name, alert name.
+
+## Template kinds
+
+Templates are managed from the **Destination Templates** tab on the **Alerts** page. When you create a template, choose one of two kinds:
+
+- **Template** (a content template, the default for new templates in the UI): you write a title, a Markdown body, fields, links, and optional matching rows and chart image once, and OpenObserve renders the right payload for each destination type.
+- **Raw payload**: a free-form JSON or text body with `{var}` placeholders, sent exactly as written after the variables are substituted. Templates created before content templates existed, and templates created through the API without a `kind`, are raw-payload templates. Open one in the editor and select **Start a content version** to convert it.
+
+## Content templates
+
+A content template is stored as JSON with `"kind": "content"` on the template. In the editor you fill in these parts:
+
+- **Title**: a one-line headline, such as the Slack headline or the email subject. Under **Channel title overrides** you can set a different title for specific channels, for example a shorter email subject.
+- **Body**: Markdown with `{var}` placeholders. OpenObserve converts it to each channel's format: Slack mrkdwn for Slack, HTML (with a plain-text alternative) for email, and plain text where a channel does not support formatting.
+- **Fields**: label and value pairs shown beside the message, such as the observed value and the threshold. Use **Show for severity** to show a field only at certain severity levels. This applies only to multi-level alerts.
+- **Links**: action links with a label and a URL. URLs must use `http`, `https` or `mailto`, or be a relative path or a `{variable}`. **Show for severity** works the same way as for fields. A **View in OpenObserve** link to the alert is always appended.
+- **Rows**: turn on **Show matching rows** to include the rows that triggered the alert. **Max rows** caps how many are shown (default 5). **Row format (optional)** builds one line per row from that row's field names, for example `{level} {message}`; leave it empty to show every field.
+- **Chart**: turn on **Include chart image** to attach a chart of the alert's recent values. See [Chart images](#chart-images).
+
+![Content template editor with the Template and Raw payload toggle, title, Markdown body, and the Slack preview beside it](images/content-template-editor.png)
+
+The stored body of a content template looks like this:
+
+```json
+{
+  "title": "{alert_name} fired",
+  "title_overrides": { "email": "[{alert_level}] {alert_name}" },
+  "body": "**{alert_name}** exceeded its threshold on `{stream_name}`.\nObserved value: {alert_agg_value}",
+  "fields": [
+    { "label": "Stream", "value": "{stream_name}" },
+    { "label": "Runbook", "value": "https://wiki.example.com/runbooks/cpu", "show_when": { "levels": ["critical"] } }
+  ],
+  "links": [
+    { "label": "Dashboard", "url": "https://dashboards.example.com/cpu" }
+  ],
+  "rows": { "enabled": true, "max": 10 },
+  "chart": { "enabled": false }
+}
+```
+
+## Preview a template
+
+The preview panel beside the editor shows how the template renders before you save it. It uses the same rendering code as a real notification, with fixed sample data (an alert named "Sample CPU alert"), so a template always previews the same way.
+
+1. Under **Preview (not sent anywhere)**, pick a **Channel**: Slack, Teams (Adaptive Card), Teams (MessageCard), Email, Webhook, Discord, PagerDuty, Opsgenie, ServiceNow or SNS.
+2. Pick a **Severity**: Single-level (no level), Critical, Warning, Ok or No data. Fields and links with **Show for severity** appear or disappear to match.
+3. Switch between the tabs:
+    - **Preview**: a card showing how the message looks.
+    - **Payload**: the exact body that is sent to the channel.
+
+If the template uses a `{variable}` that OpenObserve does not recognise, the panel lists it under **Unknown variables**, so you can fix typos before an alert fires.
+
+![Template preview for Slack at Critical severity, showing a field that appears only for critical alerts](images/template-preview-critical-severity.png)
+
+## Send a test message
+
+To check a destination end to end, use **Send a real test message** in the same panel: pick a **Destination** and select **Send test**. OpenObserve renders the template, including unsaved changes, with the sample data and posts it to that destination's real channel. The title or subject is prefixed with `[TEST]`.
+
+- Sending a test requires permission to edit the destination.
+- Each user can send up to 6 test messages per minute on each node. Set `ZO_ALERT_TEST_SEND_PER_MINUTE` to change the limit, or `0` to remove it.
+
+## Chart images
+
+When **Include chart image** is on, notifications include a PNG chart of the alert's evaluated value over time, with the warning and critical thresholds drawn as lines and the firing point marked. The chart covers 20 evaluation periods, with a minimum of 6 hours and a maximum of 24 hours. Charts are supported on Slack, Teams, Email, Discord, PagerDuty and Webhook destinations.
+
+![Alert chart image showing the evaluated value over time, the dashed warning and critical thresholds, and the firing point](images/alert-chart-image.png)
+
+- The chart is built once per firing and shared by every destination of that alert.
+- Slack, Teams, PagerDuty and webhook payloads link to the image through a signed URL, `/api/v2/{org_id}/alerts/charts/render`. The chart data is carried in the URL itself, nothing is stored, and the link expires after 24 hours. The endpoint needs no login, so anyone who has the link can view the image until it expires.
+- Email embeds the image inline and Discord uploads it with the message.
+- The preview panel does not draw the chart, because it has no evaluation history.
+- If a chart cannot be produced, for example when there is not enough history yet or the node is busy, the notification is sent without one.
+- Set `ZO_ALERT_CHART_ENABLED=false` to turn chart images off for the whole deployment. It defaults to `true`.
+
+## Template variables
 
 Variables which can be used in templates are:
 
@@ -35,6 +110,12 @@ Variables which can be used in templates are:
 | alert_url                | URL                       | A link can back to the UI and check the detail data. need configure `ZO_WEB_URL` |
 | alert_trigger_time       | _timestamp                | Represents the timestamp in microseconds when the alert was evaluated |
 | alert_trigger_time_str   | _timestamp                | Formatted `alert_trigger_time`. E.g. - `2024-12-02T11:27:40` |
+| alert_level              | Severity level            | `critical`, `warning`, `ok` or `no_data`; empty for single-level alerts |
+| alert_priority           | Priority                  | `P1` to `P5`; empty when the alert has no priority |
+| alert_tags               | Tags                      | The alert's tags, comma-separated, e.g. `infra,prod` |
+| alert_threshold_crit     | Critical threshold        | Threshold for the critical level of a multi-level alert |
+| alert_threshold_warn     | Warning threshold         | Threshold for the warning level of a multi-level alert |
+| alert_description        | Description               | The alert's description |
 | rows                     | mutiple lines of row template values | based on `row template` in alert page |
 | all of the stream fields | the field value                      | Default we `select * from stream` if you custom sql then it will be only the fields that you selected. |
 
@@ -43,6 +124,30 @@ Variables which can be used in templates are:
 You can use `{rows:N}` to limit only top N matched records will be in the actual value.
 
 You also can use `{log:N}` to limit the length of a actual value.
+
+## Formatting modifiers
+
+Apply a function to a placeholder with `{field|function}`. Modifiers work in the body and email **Title** of a **Raw payload** template, and in the row template of an alert. Content templates (see [Template kinds](#template-kinds)) do not apply them. For example, `{value|humanizePercentage}` renders `0.9123` as `91.23%`.
+
+![Raw payload template editor with formatting modifiers such as humanizePercentage, humanizeDuration and formatTimestampMicros in the Body](images/alert-template-formatting-modifiers.png)
+
+| Function | Converts | Example |
+| -------- | -------- | ------- |
+| `humanize` | Number to SI prefixes | `1234567` → `1.235M` |
+| `humanize1024` | Number to binary prefixes | `1048576` → `1Mi` |
+| `humanizeDuration` | Seconds to a duration | `3661.9` → `1h 1m 1s` |
+| `humanizePercentage` | Ratio to a percentage | `0.9123` → `91.23%` |
+| `humanSize` | Bytes to size units | `1536` → `1.5 KiB` |
+| `formatTimestamp` | Unix seconds to a date | `0` → `1970-01-01T00:00:00Z` |
+| `formatTimestampMicros` | Microseconds to a date | `1700000000123456` → `2023-11-14T22:13:20.123456Z` |
+
+Both timestamp functions take an optional [strftime format](https://docs.rs/chrono/latest/chrono/format/strftime/index.html) followed by an optional timezone. To set a timezone, also pass a format. Without arguments, they output an ISO 8601 timestamp in UTC:
+
+```
+{_timestamp|formatTimestampMicros("%Y-%m-%d %H:%M:%S %:z", "Asia/Shanghai")}
+```
+
+The timezone can be `UTC`, an offset such as `+08:00`, or an IANA name such as `Asia/Kolkata`. Use IANA names rather than abbreviations: `CST` is rejected because it is ambiguous, and most other abbreviations are not recognized. If a value or argument cannot be parsed, the placeholder is left unchanged.
 
 ## Row templates
 

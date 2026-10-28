@@ -1,6 +1,6 @@
 ---
 title: LLM Playground
-description: Experiment with prompts, models, and scorers in the OpenObserve LLM Playground, then promote your results to datasets and experiments.
+description: Try prompts, models, and scorers side by side in the OpenObserve LLM Playground, then save them as prompts or turn them into experiments.
 ---
 
 # LLM Playground
@@ -16,9 +16,20 @@ The Playground is a two-dimensional board:
 
 A **cell** is the intersection of a variant and a case. **Run** a cell to stream the model's answer back live; **score** a cell to run your scorers against it and read each judge's verdict and reasoning.
 
-The Playground is volatile by design: opening or running it saves nothing, so drafts never affect your evaluation analytics. **Share** is the only action that saves anything: it copies every column, row, result, and score into a snapshot, which keeps rendering even after the underlying dataset, scorer, or provider changes or is deleted.
+The Playground doesn't save to the server as you work, so drafts never affect your evaluation analytics. Your recent drafts are kept in your browser only (see **Recent Drafts** below). **Share** is the only action that saves to the server: it copies every column, row, result, and score into a snapshot, which keeps rendering even after the underlying dataset, scorer, or provider changes or is deleted.
 
 ![Playground workbench showing variant columns and case rows](images/playground-2d.png)
+
+## Open the Playground
+
+Navigate to **AI > Experiment > Playground**, or start from something you already have:
+
+- **From a prompt**: on a prompt in [Prompts](llm-prompts.md), click **Open in Playground**. The column loads that prompt version, and a chip such as `support-answer@v3` shows where it came from.
+- **From a trace**: open an LLM span in trace details and click **Open in Playground**. The span's messages load into a column marked **From trace span**.
+
+![the Playground with a managed prompt loaded and a completed run](images/prompts-playground.png)
+
+The toolbar holds the board-wide actions: **Recent Drafts** (the last 10 boards in this browser), **Reset**, a counter of variant windows (up to 4), **Score**, **Share**, and **Run All**.
 
 ## Build a variant
 
@@ -41,6 +52,8 @@ Templates in message content bind variables from the row's input:
 
 - A string input binds `{{input}}`.
 - An object input binds each of its fields by name.
+
+Type `{{` in a message to get a list of the variables you can use. The **Variables** menu shows every variable the board uses, lets you set test values, and lets you add new ones. `{{expected_output}}` is never available in task prompts; reference answers only feed scorers.
 
 Only string content is templated. Structured content (multimodal parts and tool results) is passed through as-is, so its structure is never corrupted.
 
@@ -78,13 +91,21 @@ Scorers run at their **latest** version in the Playground. Pinning to a specific
 
 When a variant defines **tools**, a model that chooses to call one returns the call (name and arguments) as the cell's output rather than executing anything. This lets you iterate on tool definitions without wiring up an execution environment.
 
-When a variant sets a **response format**, the provider is asked for structured output, and the returned structure is shown as the result.
+When a variant sets a **response format**, the provider is asked for structured output, and the returned structure is shown as the result. Open **Structured Output** on a column and turn on **Constrain output to a JSON schema** to set one.
+
+Not every provider supports JSON schemas, so the column badge tells you what happens to yours:
+
+| Badge | Meaning |
+|---|---|
+| **Schema · On** | The provider enforces the schema. |
+| **Schema · Approximated by this provider** | The provider only supports a JSON mode, so the output is JSON but isn't strictly checked against your schema. DeepSeek works this way. |
+| **Schema · Ignored by this provider** | The provider has no structured-output field. The schema stays on the column but isn't sent, and the model answers in plain text. |
 
 ## Share a snapshot
 
 Share captures the entire board, every column, row, result, and score, into an immutable snapshot and returns a short link you can hand to a teammate. The snapshot keeps rendering even after the dataset, scorer, or provider it came from changes or is deleted.
 
-Editing a shared board doesn't update the existing snapshot; it creates a new one. A snapshot is visible only within your organization.
+Editing a shared board doesn't update the existing snapshot; it creates a new one. A snapshot is visible only within your organization. To build on a snapshot someone shared with you, open it and click **Continue From This**. You then work on a copy, and the original stays unchanged.
 
 ![The share snapshot dialog showing the short link](images/share-snapshot.png)
 
@@ -94,16 +115,18 @@ Editing a shared board doesn't update the existing snapshot; it creates a new on
 - Snapshots expire after a configurable number of days of not being opened; opening one renews the window.
 - Each organization is capped at a configurable number of snapshots; over the cap, the least recently opened are purged first.
 
-## Promote to a Dataset or Experiment
+## Save a prompt or create an experiment
 
-The Playground is a drafting surface for the rest of the LLM evaluations suite. When you're happy with a result, promote it:
+The Playground is a drafting surface for the rest of the LLM evaluations suite. When you're happy with a column:
 
-- Promote a **result cell** into a Dataset, where it becomes a reference case recorded with source `playground`.
-- Promote a **column** into an Experiment, which is the moment a scorer is pinned to a specific version.
+- Click **Save as Prompt** to store it in [Prompts](llm-prompts.md). Choose **Create a new prompt**, or **Append to an existing prompt** to save it as that prompt's next version.
+- Click **Create Experiment** to turn the column into an [Experiment](llm-experiments.md). This is the moment each scorer is pinned to a specific version.
+
+To use cases from a Dataset, click **Sample from Dataset**. The sampled rows fill your variables, such as `{{input}}` and `{{expected_output}}`, so you can run the board against real cases.
 
 ## Configuration
 
-The Playground is part of the enterprise AI Observability / Online Evaluations suite.
+The Playground is part of AI Observability in the Enterprise edition and OpenObserve Cloud.
 
 | Variable | Default | Description |
 |---|---|---|
@@ -118,7 +141,7 @@ The Playground has its own permissions (GET, LIST, POST, PUT, DELETE). Two thing
 - **Run** and **Score** require the write grant, even though they save nothing, since both call a provider or judge and spend real money.
 - You can only use providers and scorers you have access to.
 
-Assign the appropriate roles in **Identity & Access Management > Roles** to control Playground access.
+Assign the appropriate roles in **IAM > Roles** to control Playground access.
 
 ## API Reference
 

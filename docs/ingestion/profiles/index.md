@@ -12,7 +12,7 @@ OpenObserve accepts [OpenTelemetry Profiles](https://opentelemetry.io/docs/conce
 
 | Language | Path |
 |---|---|
-| **Java** | [async-profiler](./java.md) |
+| **Java** | [async-profiler](./java.md), [eBPF profiler](./java.md#java-with-ebpf) |
 | **Go** | [pprof](./go.md), [eBPF profiler](./ebpf.md) |
 | **Rust** | [pprof](./rust.md), [eBPF profiler](./ebpf.md) |
 | **Any OTLP source** | [OTLP / Collector](./otlp.md) |

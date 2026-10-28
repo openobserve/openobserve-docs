@@ -2,10 +2,12 @@
   "title": "Synthetics",
   "pages": [
     "index",
+    "self-hosted-setup",
     "browser-tests",
     "protocol-checks",
     "configuration",
     "results",
-    "private-locations"
+    "private-locations",
+    "status-pages"
   ]
 }
