@@ -38,26 +38,26 @@ Alternatively, select **Edit Panel** from the dropdown menu on an existing panel
     For example, `k8s_container_name`.
     > Note: You can select more than one Y-axis fields.  
     <br>
-    ![Select Y-axis](../../../../images/trellis-layout-panel-creation.png)
+    ![Select Y-axis](../../../../images/trellis-layout-panel-creation-v2.png)
     - To select a **Breakdown** field, hover over a field and click the **+B** icon. 
     Choose a groupable field. For example, `k8s_app_instance`.
     <br>
-    ![Select Breakdown](../../../../images/select-breakdown.png)
+    ![Select Breakdown](../../../../images/select-breakdown-v2.png)
     This enables the **Trellis Layout** configuration options in the **Config** sidebar. Every query in the panel needs a breakdown field. 
 
 6. Open the **Config** sidebar and expand the **Layout** section to configure **Trellis Layout**. <br> 
 7. Under **Trellis Layout**, choose how panels should be arranged:
 
     - **None**: No panel splitting 
-    ![Trellis Layout](../../../../images/trellis-layout-config.png)
+    ![Trellis Layout](../../../../images/trellis-layout-config-v2.png)
     - **Auto**: Automatically arranges the layout
-    ![Trellis Layout Auto](../../../../images/trellis-layout-auto.png)
+    ![Trellis Layout Auto](../../../../images/trellis-layout-auto-v2.png)
     - **Vertical**: Stacks panels vertically
-    ![Trellis Layout Vertical](../../../../images/trellis-layout-vertical.gif)
+    ![Trellis Layout Vertical](../../../../images/trellis-layout-vertical-v2.png)
     - **Custom**: Allows you to specify the number of panels per row    
 
 8. If you choose **Custom**, enter a number (up to 16) in the **Columns per Row** field to control how many charts appear in each row.
-![Trellis Layout Custom](../../../../images/trellis-custom.png)
+![Trellis Layout Custom](../../../../images/trellis-custom-v2.png)
 9. Click **Apply** to view the updated layout.
 10. Click **Save** to preserve the changes.
 
@@ -70,9 +70,9 @@ Trellis Layout is not available while **Comparison Against** (time shift) is set
 If your panel includes multiple Y-axis fields and a **Breakdown** field, use the **Group multi Y-axis for trellis** toggle to control how panels are created:
 
 **Disabled**: Creates separate panels for each combination of Y-axis field and breakdown value. <br>
-![Trellis Multiple Y-axis](../../../../images/trellis-multiple-yaxis.png)
+![Trellis with two Y-axis fields, grouping off](../../../../images/trellis-multiple-yaxis-v2.png)
 **Enabled**: Creates one panel per breakdown value, showing multiple Y-axis series in each panel. <br>
-![Trellis Multiple Y-axis](../../../../images/trellis-multiple-yaxis-grouping.png)
+![Trellis with two Y-axis fields and Group multi Y-axis for trellis on](../../../../images/trellis-multiple-yaxis-grouping-v2.png)
 
 
 
