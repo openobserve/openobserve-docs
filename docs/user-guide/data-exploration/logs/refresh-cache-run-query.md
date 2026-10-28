@@ -26,7 +26,7 @@ In such cases, users can use Refresh Cache and Run Query to invalidate the old c
 It is available in both **Logs** and **Dashboards**.
 
 **Logs page**:
-![alt text](../../../images/logs-refresh-query.png)
+![Run query dropdown with Refresh Cache & Run Query](../../../images/logs-refresh-query-v2.png)
 
 1. Navigate to **Logs** in the left navigation panel.
 2. Select the required stream.
@@ -42,7 +42,7 @@ When `ZO_AUTO_QUERY_ENABLED` is enabled, the **Run query** dropdown also shows *
 :::
 
 **Dashboard panels**:
-![dashboard-refresh-query](../../../images/dashboard-refresh-query.png)
+![Dashboard panel menu with Refresh Cache & Reload](../../../images/dashboard-refresh-query-v2.png)
 
 1. Navigate to **Dashboards** from the left navigation panel.
 2. Open the folder containing your dashboard.
