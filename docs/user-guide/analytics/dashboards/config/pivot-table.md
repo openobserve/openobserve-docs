@@ -18,7 +18,7 @@ Pivot mode activates when the Table chart has at least one row field, at least o
 
 1. In the **Panel Editor**, set the chart type to **Table**.
 2. Add one or more fields to the row area and at least one field to the value area.
-3. In the field list, hover over the field you want to pivot on and click the **+P** button (**Add to Pivot Field**) to add it as a breakdown field.
+3. In the field list, hover over the field you want to pivot on and click the **+P** button to add it to the **Pivot Field** area.
 
 When a breakdown field is present, the panel switches to pivot mode. The distinct values of the breakdown field become column headers, and each value field is summarized within those columns.
 
@@ -28,12 +28,12 @@ When a breakdown field is present, the panel switches to pivot mode. The distinc
 The labels on the field areas change to reflect the active mode:
 
 - In non-pivot mode, the row and value areas are labeled **First Column** and **Other Columns**.
-- In pivot mode, the same areas are labeled **Row Fields** and **Value Fields**, and the breakdown area holds the pivoted fields.
+- In pivot mode, the same areas are labeled **Row Fields** and **Value Fields**, and the **Pivot Field** area holds the pivoted fields.
 
 When you remove the last breakdown field, the panel reverts to non-pivot mode and the labels return to **First Column** and **Other Columns**.
 
 ## Configuration options
-When pivot mode is active, a **Pivot Options** group appears in the panel **Config** sidebar with the following toggles. All toggles are off by default.
+When pivot mode is active, a **Pivot Table** section appears in the panel **Config** sidebar with the following toggles. All toggles are off by default.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
@@ -56,7 +56,7 @@ These settings are saved with the panel in the dashboard JSON under the followin
 - Pivot mode is supported only on the **Table** chart.
 - A pivot table requires row fields, at least one breakdown field, and at least one value field.
 - You can add up to three breakdown (pivot) fields. The **+P** button is disabled once three pivot fields are added.
-- **Transpose** and **Dynamic Columns** are disabled while pivot mode is active. They become available again when you remove all breakdown fields.
+- **Transpose** and **Allow Dynamic Columns** are disabled while pivot mode is active. They become available again when you remove all breakdown fields.
 - The sticky totals toggles appear only when the matching totals toggle is enabled: **Sticky Column Totals** requires **Show Row Totals**, and **Sticky Row Totals** requires **Show Column Totals**.
 
 ## Next steps

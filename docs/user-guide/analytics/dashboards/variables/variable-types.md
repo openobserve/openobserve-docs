@@ -17,21 +17,21 @@ This variable dynamically fetches values from a selected field in a stream. It s
 
 ![Query variable](../../../../images/variables-query.png)
 :::note[Configuration]
-**Basic**:
+**General**:
 
-- **Type of Variable**: Query Values
+- **Type of variable**: Query Values
 - **Name**: pod
 - **Label (optional)**: Pod 
 - **Stream Type**: Logs
 - **Stream**: `default`
 - **Field**: `k8s_pod_name`
-- **Default Max Record Size (optional)**: `20`
+- **Default max record size (optional)**: `20`
 
-**Advanced:**
+**Options:**
 
 - **Allow multiple selection**: Enabled
-- **By Default Select**: First value
-- **Hide on Dashboard**: Disabled
+- **By Default Select:** First value
+- **Hide On Dashboard**: Disabled
 - **Escape Single Quotes**: Disabled
 :::
 
@@ -56,16 +56,16 @@ This variable allows you to set a fixed value that cannot be changed by dashboar
 ![Constant variable](../../../../images/constant-variable.png)
 
 :::note[Configuration]
-**Basic**: 
+**General**: 
 
 - **Type of variable**: Constant
 - **Name**: constant-ziox
 - **Label (optional)**: Namespace-name-ziox-constant 
 - **Value**: `ziox`
 
-**Advanced**:
+**Options**:
 
-- **Hide on Dashboard**: Disabled
+- **Hide On Dashboard**: Disabled
 - **Escape Single Quotes**: Disabled
 :::
 
@@ -83,14 +83,14 @@ This variable provides a free-form text input field on the dashboard.
 **Use Case:** You want users to manually enter the cluster name they want to filter logs by.
 ![Textbox variable](../../../../images/textbox-variable.png)
 :::note[Configuration]
-**Basic**:
+**General**:
 
 - **Type of variable**: Textbox
 - **Name**: input-cluster-name
 - **Label (optional)**: Enter Cluster Name
 - **Default value (optional)**: `_o2_all_`
 
-**Advanced**:
+**Options**:
 
 - **Hide On Dashboard**: Disabled
 - **Escape Single Quotes**: Disabled
@@ -126,7 +126,7 @@ This variable lets you predefine a list of selectable values.
 ![Custom variable](../../../../images/custom-variable.png)
 :::note[Configuration]
 
-**Basic**: 
+**General**: 
 
 - **Type of variable**: Custom
 - **Name**: service-name
@@ -140,10 +140,10 @@ This variable lets you predefine a list of selectable values.
     - **Value**: `ingress-nginx`
     - **Default**: Unchecked
 
-**Advanced**:
+**Options**:
 
 - **Allow multiple selection**: Disabled
-- **Hide on Dashboard**: Disabled
+- **Hide On Dashboard**: Disabled
 - **Escape Single Quotes**: Disabled
 :::
 

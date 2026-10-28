@@ -57,7 +57,7 @@ Hidden queries are also excluded from the X-axis alias consistency check (see be
 
 ## Per-Query Legend Labels
 
-In the **Config** panel, each query gets its own **Legend Label** field. The legend label fields appear only when the panel has multiple queries. Use these to identify each query's data series in the chart legend and tooltips.
+In the **Config** panel, each query gets its own **Query Label** field, a custom name for that query in legends (for example, `Production`). The label fields appear only when the panel has multiple queries. Use these to identify each query's data series in the chart legend and tooltips.
 
 ![config panel with per-query legend label fields](images/multi-query-dashboard-support-3.png)
 
@@ -89,7 +89,7 @@ Each query supports its own independent VRL function. The VRL editor content is 
 
 ## Trellis Layout
 
-The **Trellis** chart option is disabled when a panel has multiple queries. Remove additional query tabs to re-enable it.
+**Trellis Layout** works with multiple queries, but every query needs a **Breakdown** field; until then the option is disabled. Series from different queries that share a breakdown value are drawn in the same subplot. See [Trellis Layout](../config/trellis-layout.md).
 
 ## Chart Type Compatibility
 
@@ -101,7 +101,7 @@ The **Trellis** chart option is disabled when a panel has multiple queries. Remo
 | Gauge | Full support |
 | Heatmap | Full support |
 | Metric | Full support |
-| Pivot Table | Limited — warning banner shown; pivot breakdown applies to first query only |
+| Pivot Table | Limited: a warning banner (**Only Query 1 is rendered for Pivot Table**) is shown, and only the first query is rendered |
 
 ## Error Handling
 

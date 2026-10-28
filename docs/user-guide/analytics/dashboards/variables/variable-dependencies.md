@@ -41,7 +41,7 @@ In the above image:
 
 ### Step 1: Navigate to Variables Configuration Page
 
-1. From the Dashboard toolbar, select **Dashboard Settings**. 
+1. From the Dashboard toolbar, select **Dashboard Settings** (gear icon), then select **Variables**. 
 ![Dashboard Settings](../../../../images/variable-dependencies-2.png)
 
 2. Click **Add Variable.**
@@ -96,9 +96,9 @@ Configure the second-level dependent variable (`k8s_container_name`) as shown be
 :::note[Note]
 
 - **`$` Prefix**: Use the `$` symbol when referencing other variables in the filter values.   
-- Use the **Hide on Dashboard** toggle to hide the variable from the dashboard UI.
+- Use the **Hide On Dashboard** toggle to hide the variable from the dashboard UI.
 :::
 
 ## Variable Dependency Graph  
-The **Variable Dependency Graph** visually maps these relationships, showing how each variable is linked.  
+In **Dashboard Settings** > **Variables**, click **Show Dependencies** to open the **Variables Dependency Graph**, which visually maps these relationships, showing how each variable is linked.  
 ![Variable Dependency Graph](../../../../images/variable-dependencies-7.png)

@@ -1,5 +1,5 @@
 ---
-title: legend-and-gridline
+title: Legend and Gridline
 description: Legend and gridline settings control legend position, type, height, width, chart alignment, gridline visibility, and axis label rotation in OpenObserve panels.
 ---
 
@@ -9,7 +9,7 @@ This document describes the legend and gridline configuration options available 
 Dashboard panels include configuration options for controlling legend display and gridline visibility. These options help optimize chart readability and space usage.
 
 ## Legend configuration options
-The following options are available in the panel configuration sidebar under the legend section.
+The following options are available in the panel **Config** sidebar under the **Legend** section. Except for **Show Legends**, they appear only when **Show Legends** is on and no **Trellis Layout** is set.
 
 ### Legends positions
 
@@ -72,7 +72,7 @@ The scroll type includes navigation arrows and a page indicator (shown as "1/2" 
 
 - **Input:** Enter numeric input.
 - **Units:** Choose between px (pixels) or % (percentage). 
-- **Availability:** Enabled only when Legends Position is set to Auto or Bottom and Legend Type is set to Plain.
+- **Availability:** Enabled only when **Legends Positions** is set to **Auto** or **Bottom** and **Legends Type** is set to **Plain**.
 - **Purpose:** Overrides the default height of the legend area. 
 
 **Example: Legend height configuration**
@@ -84,7 +84,7 @@ The scroll type includes navigation arrows and a page indicator (shown as "1/2" 
 
 - **Input:** Enter numeric input.
 - **Units:** Choose between px (pixels) or % (percentage). 
-- **Availability:** Enabled only when Legends Position is set to Right and Legend Type is set to Plain. 
+- **Availability:** Enabled only when **Legends Positions** is set to **Right** and **Legends Type** is set to **Plain**. 
 - **Purpose:** Overrides the default width of the legend area. 
 
 **Example: Legend width configuration**
@@ -102,13 +102,13 @@ Controls the horizontal alignment of the chart within its container.
 | Left | Aligns the chart to the left |
 | Center | Centers the chart |
 
-**Note:** This option is only available for pie and donut charts when legends position is set to "Right".
+**Note:** This option is only available for pie and donut charts when **Legends Positions** is set to **Right**.
 
 **Example: Chart align options for pie chart**
 
 ![Chart align dropdown showing Auto, Left, and Center options](../../../../images/chart-align-options.png)
 
-Legends Position is set to Right and Legend Type is set to Plain. You can select how the chart is horizontally aligned within the remaining space.
+In this example, **Legends Positions** is set to **Right** and **Legends Type** to **Plain**. You can select how the chart is horizontally aligned within the remaining space.
 
 
 ## Gridline configuration
@@ -176,6 +176,8 @@ Legend configuration is not available for:
 - Geomap chart
 - Sankey chart
 - Map chart
+- State timeline
+- Host map
 
 ### Gridlines option
 
@@ -198,3 +200,4 @@ The show gridlines option is not available for:
 - Geomap chart
 - Sankey chart
 - Map chart
+- Host map

@@ -29,9 +29,9 @@ Each entry keeps the same matrix format that you saw in the single-query guide.
 1. Open or create a dashboard.
 2. Add a panel and select **Custom Chart** mode.
 3. In the **Fields** section, set **Stream Type** to **metrics** and choose the correct metrics stream.
-4. At the bottom right corner of the editor, click **PromQL**.
+4. In the query editor, select **PromQL** in the **SQL** / **PromQL** toggle.
 5. Enter your first PromQL query. Example: `container_cpu_time{}`
-6. Click the plus icon to add another query.
+6. Click the **+** (plus) icon next to the query tabs to add another query.
 7. Enter your second PromQL query. Example: `container_cpu_usage{}`
 :::
 

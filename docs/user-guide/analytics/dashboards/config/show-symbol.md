@@ -19,7 +19,7 @@ The **Show Symbol** setting is available only for the following chart types:
 To configure the **Show Symbol** option:
 
 1. In the **Panel Editor**, select a supported chart type. 
-2. Expand the **Config** section on the right side of the screen.
+2. Open the **Config** sidebar on the right side of the screen and expand the **Line Style** section.
 3. Locate the **Show Symbol** dropdown.
 4. From the **Show Symbol** dropdown, select Yes or No:
 

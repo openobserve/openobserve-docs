@@ -15,10 +15,10 @@ OpenObserve allows you to move or export multiple dashboards at once using the d
 
 ![Select folder to move dashboards in bulk](../../../images/dashboard-bulk-move-select-folder.png)
 
-4. In the side panel:
+4. In the **Move Dashboard** dialog:
 
     - Use the **Select Folder** dropdown to choose the destination folder.  
-    - To create a new folder, click the **+** icon and enter a name.  
+    - To create a new folder, click the **+** (**New Folder**) icon next to the dropdown and enter a name.  
     - Click **Move** to complete the operation.
 
 The selected dashboards will be moved to the specified folder.
@@ -37,3 +37,5 @@ A success message will confirm that the dashboards were exported.
 :::note[Note]
 The exported dashboards are downloaded in **JSON** format, which can be saved or imported later.
 :::
+
+The same bar also offers **TV playlist**, to rotate the selected dashboards on a screen (see [TV Playlist](tv-playlist.md)), and **Delete**, to delete the selected dashboards.

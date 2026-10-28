@@ -55,7 +55,7 @@ Open the dashboard panel that already contains a runnable query.
 
 1. Right-click anywhere on the page and select **Inspect**.
 2. Select the **Network** tab.
-3. Keep the **Network** tab open and click **Run query** in the OpenObserve dashboard.
+3. Keep the **Network** tab open and click **Refresh** on the dashboard (or **Apply** in the panel editor).
 4. Select the latest request.
 5. Open the **Response** tab to see the event stream returned by the server.
 

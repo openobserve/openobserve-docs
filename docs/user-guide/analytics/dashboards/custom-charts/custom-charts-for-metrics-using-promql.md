@@ -84,7 +84,7 @@ This ensures that the PromQL query will run against the correct metrics dataset.
 Before building any chart, you must query the required metric. You can view the raw PromQL response to understand the structure that your JavaScript code must transform.
 
 1. Navigate to the bottom of the panel editor.
-2. The query editor section appears with two modes, **PromQL** and **Custom SQL**.
+2. The query editor section shows the **SQL** / **PromQL** toggle. **PromQL** appears only when the stream type is **metrics**.
 3. Click **PromQL** to switch the editor into PromQL mode.
 4. In the PromQL editor, enter a PromQL expression. For example: `container_cpu_time{}`
 5. To understand the data structure returned by the PromQL query, paste the following JavaScript in the code editor:
@@ -112,8 +112,8 @@ option = {
 ```
 6. Select the time range in the time range selector.  
 7. Open your browser developer tools. Right-click anywhere inside the dashboard and select **Inspect**.  
-7. Open the **Console** tab.  
-8. In the panel editor, click **Apply**.
+8. Open the **Console** tab.  
+9. In the panel editor, click **Apply**.
 ![view-raw-metrics-data](../../../../images/view-raw-metrics-data.png)
 You get to see the complete raw PromQL response.  
 

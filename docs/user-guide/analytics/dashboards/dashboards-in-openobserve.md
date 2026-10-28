@@ -36,14 +36,14 @@ On the left-hand side menu, click **Dashboards** to access the dashboard managem
 ### Folders
 Dashboards are stored in folders. By default, the **default** folder is created. However, you can create additional folders to organize **Dashboards** based on your requirements.
 
-:::info[Create Folders]
-To create a new folder, click the **New Folder** button, and provide a folder name and description.
+:::note[Create Folders]
+To create a new folder, click **+** (**Add Folder**) at the top of the **Folders** rail, and provide a folder name and description. You can also pick an [icon](folder-icons.md) for the folder.
 :::
 
 ![create folders in dashboard](../../../images/dashboard-2.png)
 
-:::info[Editing or Deleting Folders]
-To edit or delete a folder, click the vertical ellipsis (three dots) menu next to the folder name in the folder list. This allows you to rename or remove the folder as needed.
+:::note[Editing or Deleting Folders]
+To edit or delete a folder, click the vertical ellipsis (three dots) menu next to the folder name in the folder list and select **Edit** or **Delete**.
 :::
 
 ![edit or delete folder](../../../images/dashboard-3.png)
@@ -51,8 +51,8 @@ To edit or delete a folder, click the vertical ellipsis (three dots) menu next t
 ### Dashboards
 Inside each folder, you can create one or more **Dashboards**. Dashboards hold Panels, which represent visualizations of your data.
 
-:::info[Create Dashboards]
-To create a new Dashboard, click the **New Dashboard** button, add Name and Description for the Dashboard, and select an existing folder or create a new folder to organize the Dashboard. Use the **Import** button to import an existing Dashboard.  
+:::note[Create Dashboards]
+To create a new Dashboard, click **New dashboard**, add a Name and Description for the Dashboard, and select an existing folder or create a new folder to organize the Dashboard. To bring in an existing Dashboard, open the **Import** menu and choose **Custom** (a JSON file or URL), **Templates** (the dashboard gallery), or one of the **Migrate from** options (Datadog, Grafana, Kibana, CloudWatch).  
 <br>
 Dashboards can contain one or more Panels for visualizing various data points or metrics.
 :::
@@ -62,7 +62,7 @@ Dashboards can contain one or more Panels for visualizing various data points or
 ### Panels
 A Panel displays a single visualization using one of the [supported chart types](#supported-chart-types-in-dashboards), based on specific data.
 
-:::info[Create Panels]
+:::note[Create Panels]
 To add a Panel inside a Dashboard, click the **Add Panel** button. <br>  
 Each Panel displays one type of visualization. You can add multiple Panels to a Dashboard to represent different data.
 :::
@@ -78,33 +78,35 @@ Example of a Dashboard with Panels:
 The following charts are supported in Dashboards:
 
 1. Area
-2. Area stacked
-3. Vertical Bar
-4. Horizontal bar
+2. Area Stacked
+3. Bar
+4. Horizontal (bar)
 5. Line
 6. Scatter
-7. Vertical Bar stacked
-8. Horizontal bar stacked
-9. Geo map
+7. Stacked (bar)
+8. H-Stacked (horizontal stacked bar)
+9. GeoMap
 10. Maps
 11. Pie
 12. Donut
 13. Heatmap
-14. Metric Text
-15. Gauge
-16. HTML
-17. Markdown
-18. Sankey
-19. Custom Charts
-20. Table: Display data in rows and columns, with optional pivot mode.
+14. State timeline
+15. Host map
+16. Table: Display data in rows and columns, with optional pivot mode.
+17. Metric Text
+18. Gauge
+19. HTML
+20. Markdown
+21. Sankey
+22. Custom Chart
 
-The **Table** chart supports a pivot mode: add a **Breakdown** field (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Dynamic Columns** are disabled while pivot mode is active.
+The **Table** chart supports a pivot mode: add a **Pivot Field** (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Allow Dynamic Columns** are disabled while pivot mode is active. See [Pivot Table](config/pivot-table.md).
 
 ### Tabs
 Tabs help organize your Panels into different sections within a **Dashboard**. For example, use one Tab for Performance, another for Errors, and another for Traffic Analysis.
 By default, Panels are added to the **Default** tab.  
-:::info[Create New Tabs]
-To create a new Tab, click the + icon next to the default Tab and enter a Tab name. You can create new Tabs from the **Tabs** menu under the **Dashboard Settings**.
+:::note[Create New Tabs]
+To create a new Tab, click the **+** (**Add Tab**) icon next to the Tabs and enter a Tab name. You can also create Tabs from the **Tabs** section of **Dashboard Settings**. Tabs cannot be added while the layout is in [edit mode](manage-dashboards.md#edit-dashboard-layout).
 :::
 
 ![create new tabs](../../../images/dashboard-7.png)
@@ -143,11 +145,11 @@ When a dashboard loads, a blank chart placeholder appears while data is loading.
 
 ### Can I import an existing dashboard?
 
-Yes. From the **Dashboards** page, click the **Import** button and upload a dashboard JSON file. You can also choose the folder to import it into, or create a new one.
+Yes. From the **Dashboards** page, open the **Import** menu and select **Custom** to upload a dashboard JSON file or import it from a URL. You can also choose the folder to import it into, or create a new one. **Templates** imports a ready-made dashboard from the gallery.
 
 ### How do I move a dashboard to a different folder?
 
-Open the dashboard, go to **Dashboard Settings**, and change the assigned folder. To move many dashboards at once, see [Bulk move and export](bulk-move-and-export-dashboards.md).
+In the dashboard list, click the **Move to another Folder** icon in the dashboard's **Actions** column, select the destination folder, and click **Move**. To move many dashboards at once, see [Bulk move and export](bulk-move-and-export-dashboards.md).
 
 ## Next steps
 

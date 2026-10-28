@@ -3,7 +3,7 @@ title: Custom Charts with Flat Data
 description: Create heatmaps with custom charts using flat data in OpenObserve. Learn how to query, format, and visualize data with SQL and JavaScript.
 ---
 
-The following step-by-step instructions can help you build a [custom chart that expects flat data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
+The following step-by-step instructions can help you build a [custom chart that expects flat data](what-are-custom-charts.md#choose-the-chart). 
 
 ## Use case
 
@@ -41,7 +41,7 @@ In OpenObserve, the data ingested into a stream is typically in a flat structure
 
 ## Step 2: Identify the expected data structure
 
-Before moving ahead, [identify what structure the chart expects](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). The heatmap chart expects flat data.
+Before moving ahead, [identify what structure the chart expects](what-are-custom-charts.md#choose-the-chart). The heatmap chart expects flat data.
 
 In this example, each row in [data[0]](what-are-custom-charts.md#the-data-object) must contain:
 

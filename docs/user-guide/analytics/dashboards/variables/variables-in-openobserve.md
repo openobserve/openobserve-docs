@@ -33,7 +33,7 @@ To create a variable:
 5. Configure the variable with the following values:
     ![Configure Variable](../../../../images/variables-query.png)
 
-    - **Type of Variable**: Query Values
+    - **Type of variable**: Query Values
     - **Name**: pod
 
         :::note
@@ -46,8 +46,9 @@ To create a variable:
     - **Field**: `k8s_pod_name`
 
 6. (Optional) Modify the **Default max record size**.
-7. (Optional) Modify the **Filter** settings or **By Default Select** options.
-8. Click **Save** to add the variable to the dashboard.
+7. (Optional) Modify the **Filters** settings or **By Default Select** options.
+8. (Optional) Under **Select variable scope**, choose where the variable applies: **Global** (all tabs and panels), **Selected Tabs**, or **Selected Panels**.
+9. Click **Save** to add the variable to the dashboard.
 
 Variables appear as dropdowns at the top of the dashboard.
 
@@ -69,7 +70,7 @@ To apply the variable to a panel:
 
 4. Add a filter. Hover over the field used when creating the variable. For this example, hover over `k8s_pod_name` and click **+F** to add it as a filter.
 
-5. Click the filter dropdown and switch from **LIST** to **CONDITION**. 
+5. Click the filter dropdown and switch from the **List** tab to the **Condition** tab. 
 
     - Set the appropriate **Operator**. For example, `=`.
     - In the **Value** field, type the variable name using the dollar symbol. For example, `$pod`.
@@ -144,7 +145,7 @@ Available options:
 To configure this select one of the options under **By Default Select** when adding or editing a variable.
 
 
-### Hide on Dashboard
+### Hide On Dashboard
 
 If enabled, the variable dropdown will not be shown in the dashboard interface. This is useful for variables that are meant to work in the background or should not be modified by users.
 
@@ -176,7 +177,7 @@ To enable multi-select, toggle the **Allow multiple selection** switch when conf
 You can enter custom values manually when the desired option is not available in the variable dropdown. These values work if they exist in the underlying data.
 
 - In **single-select**, you can select a custom value and refresh the panels to view related data.
-- In **multi-select**, custom values cannot be combined with other dropdown values. You you select the custom value, you cannot select any other value.
+- In **multi-select**, custom values cannot be combined with other dropdown values. If you select the custom value, you cannot select any other value.
 
 :::note[Note]
 If a custom value is entered that does not exist in the data, dashboard panels will display no results.
@@ -215,10 +216,6 @@ If the input string is not present in the fetched list but exists in the data, y
 
 
 
-The type-ahead input feature allows users to search for a value by typing in the dropdown and select.
-
-- If the value exists within the fetched list (as per the [**Max Record Limit**](#default-max-record-size)), it will appear in the filtered results and can be selected directly.
-- If the value exists in the data but is not included in the fetched list, you will see an option to select it as a custom value.
 
 ## Next Steps
 

@@ -14,7 +14,7 @@ The panel toolbar offers the following controls to adjust, organize, and customi
 Maximizes the panel to cover the entire display, providing an expanded view. <br>
 **How to Use**:
 
-- To expand the view, click the **Full Screen Mode** button in the panel toolbar.  
+- To expand the view, click the **Full screen** button in the panel toolbar (or press **V** while hovering over the panel).  
 - To exit **Full Screen Mode**, press **Escape** on your keyboard. 
 
 ### Information Icon
@@ -34,7 +34,7 @@ Displays the timestamp of when the panel’s data was last updated. <br>
 
 ### Refresh  
 Reloads the panel to display the most recent data.  <br>
-**How to Use:** Click the **Refresh** icon in the panel toolbar to reload the data.   <br>
+**How to Use:** Click the **Refresh Panel** icon in the panel toolbar to reload the data. To bypass the cache, select **Refresh Cache & Reload** from the panel's dropdown menu.   <br>
 
 ### Cached Data Warning
 Alerts the user that the displayed data is not up-to-date with the selected time range, and the data may need to be refreshed for accuracy. <br>
@@ -47,16 +47,16 @@ To view the most up-to-date data, click **Refresh** to reload the panel.
 ### Edit Panel  
 Allows you to modify the panel’s data, configuration settings, filters, query, and the chart.
 ### Edit Layout  
-Allows you to modify the height of the panel. <br>  
+Allows you to modify the height of the panel. The **Edit Layout** menu item appears only while the dashboard layout is unlocked: click **Edit** in the dashboard toolbar first (see [Edit Dashboard Layout](../manage-dashboards.md#edit-dashboard-layout)). <br>  
 **How to Use:**   
 ![Edit Layout](../../../../images/manage-panels-edit-layout.png)
 
 1. Click **Edit Layout** to open the layout configuration option.  
 2. Adjust the **Panel Height** as required.  
-3. Click **Save** to apply the changes.
+3. Click **Apply**, then click **Save** in the dashboard toolbar to keep the layout.
 
 ### Adjust Size and Position 
-Allows you to resize and reposition the panel using the available drag handles. <br> 
+Allows you to resize and reposition the panel using the available drag handles. The handles appear only while the dashboard layout is unlocked with **Edit**. <br> 
 **How to Use:**
 
 - To adjust the position, click and drag the option at the top left corner of the panel.  
@@ -138,9 +138,9 @@ Creates another version of the panel for parallel usage or testing.
 ### Delete Panel  
 Removes the panel from your dashboard.   
 
-### Move to Another Tab  
+### Move To Another Tab  
 Moves the panel to a different tab.  
-**How to Use:** Click **Move to Another Tab**, select or create a new tab for the panel, and click **Move**.  
+**How to Use:** Click **Move To Another Tab**, select or create a new tab for the panel, and click **Move**.  
 ![Move to Another Tab](../../../../images/manage-panels-move-panel-to-another-tab.png)  
 
 ## Data Analysis and Export   
@@ -153,10 +153,13 @@ Exports the panel’s data to a CSV file.
 
 ### Download as JSON 
 Exports the panel’s data to a JSON file. 
-### Go to Logs 
+### Go To Logs 
 Opens the logs related to the panel’s data.  
 ![Go to Logs](../../../../images/manage-panels-go-to-logs.png)  
 
+
+### Create Alert
+Creates an alert from the panel's query. See [Alerts](../../alerts/index.md) for the alert settings.
 
 ## Annotations  
 Allows you to add notes to selected data points or time ranges across multiple panels. This helps you highlight key insights or events in your data.  
@@ -164,8 +167,8 @@ Allows you to add notes to selected data points or time ranges across multiple p
 ### Add Annotations  
 1. **Enable Annotation Mode:** 
 
-    - The annotation button will appear when the panel contains time-series data.  
-    - Click the annotation button to enter **Annotation Mode.**
+    - The **Add Annotations** button will appear in the panel toolbar when the panel contains time-series data.  
+    - Click the button to enter **Annotation Mode.** Click it again (**Exit Annotations Mode**) to leave.
 
 ![Add Annotations](../../../../images/manage-panels-add-annotations.png)
 
@@ -176,16 +179,16 @@ Allows you to add notes to selected data points or time ranges across multiple p
 
 3. **Edit the Annotation:** 
 
-    -  In the **Edit Annotation** popup, provide a title (mandatory) and a description (optional) for your annotation.
+    -  In the **Add Annotation** popup, provide a **Title** (mandatory) and a **Description** (optional) for your annotation.
     ![Edit the Annotation](../../../../images/manage-panels-edit-annotations.png)
 
 4. **Select Panels:**
 
-    - Use the dropdown menu to select panels. You can apply annotations across multiple panels based on your selection.    
+    - Use the **Select Panels** dropdown to select panels. You can apply annotations across multiple panels based on your selection.    
     - If you do not select any panel, the annotation applies to all panels for the selected time range, within the dashboard by default.
     ![Select Panels](../../../../images/manage-panels-select-panels.png)
 
-5. **Save Annotation.**
+5. Click **Save**.
 ![Save Annotation](../../../../images/manage-panels-save-annotations.png)
 
 
