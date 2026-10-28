@@ -23,7 +23,7 @@ In count-based alerts (the default "total events" mode), click **Add warning** t
 
 When the evaluation exceeds the critical threshold, the alert fires at `critical`. When it crosses only the warning threshold, it fires at `warning`. The alert's `notify_on_warning` field controls whether a warning-level match sends a notification. It defaults to `true`; the form has no control for it, so set it to `false` through **Edit Alert JSON** or the API. When it is `false`, warnings still update state and appear in the UI but do not page anyone.
 
-![count-based alert with warning threshold field](images/alerts-4-0-1.png)
+![Count alert with Critical if >= 5 and Warning if >= 2](images/alerts-4-0-1-v2.png)
 
 ### Aggregation alerts
 
@@ -33,13 +33,13 @@ The SQL `HAVING` clause widens to admit the warning band, then OpenObserve class
 
 The **Having groups** count in the **Conditions** section also accepts an optional warning count — for example, "critical when at least 5 groups cross the critical value, warning when at least 2 groups cross the warning value."
 
-![aggregation alert with warning value and warning group count](images/alerts-4-0-2.png)
+![Aggregation alert: avg of took with Critical if >= 2000, Warning if >= 1500, Group by service_name and Having groups >= 2](images/alerts-4-0-2-v2.png)
 
 ### PromQL alerts
 
 PromQL alerts take the same optional **Warning if** threshold through **Add warning**. The operator is shared. The PromQL expression widens to evaluate at the less severe threshold, then each series is re-classified against both bands in Rust. Under **Alert aggregation**, choose **Multi alert (per series)** (`promql_multi_alert`) to evaluate each series independently, using the series' full label set as the group key — the PromQL counterpart to aggregation multi-alerts.
 
-![PromQL alert with warning value and per-series toggle](images/alerts-4-0-3.png)
+![PromQL alert with Critical if >= 0.8, Warning if >= 0.5 and Alert aggregation set to Multi alert (per series)](images/alerts-4-0-3-v2.png)
 
 ## Multi-alerts (per-group evaluation)
 
@@ -51,7 +51,7 @@ Once **Group by** has at least one field, the **Alert aggregation** choice appea
 
 When enabled, the alert evaluates the condition per group. Each group's aggregate value is classified against critical and warning thresholds independently, and each group alerts, recovers, and notifies on its own.
 
-![aggregation section with multi-alert toggle enabled](images/alerts-4-0-4.png)
+![Aggregation alert grouped by service_name with Alert aggregation set to Multi alert](images/alerts-4-0-4-v2.png)
 
 ### Group state and lifecycle
 
@@ -59,7 +59,7 @@ When a group's level changes (e.g. from `ok` to `critical`), OpenObserve records
 
 Groups that disappear from evaluation results do not immediately resolve. A group must be unseen for `K` times the alert's evaluation frequency (`ZO_ALERT_GROUP_DISAPPEARANCE_K`, default 3) before it is resolved to `ok`. After resolution, the state row is retained for a grace period (`ZO_ALERT_GROUP_REAP_GRACE_SECS`, default 3600 seconds) and then deleted. Transition history is kept regardless.
 
-![multi-alert group table showing group keys, levels, and timestamps](images/alerts-4-0-5.png)
+![Groups table of a multi-alert with each group's level, group value, since, last outcome and last notified level](images/alerts-4-0-5-v2.png)
 
 ### Viewing group details
 
@@ -67,7 +67,7 @@ On the alerts list, the **Groups** column shows how many groups are firing out o
 
 From a group row, open its history and switch between the **Evaluations** and **Level changes** views to see every level and outcome change with timestamps and observed values.
 
-![alert detail drawer with Groups tab showing per-group state rows](images/alerts-4-0-6.png)
+![Multi-alert detail page header with Critical, Warning, Ok, Firing and Groups counters above the Groups tab](images/alerts-4-0-6-v2.png)
 
 ### SQL multi-alerts
 
@@ -113,7 +113,7 @@ Assign a **Priority** (P1 through P5, P1 = most urgent) to any scheduled, real-t
 
 In the alert creation or edit form, open the **Advanced** tab and select a priority from the **Priority** dropdown. Clear it to return to **Unset**.
 
-![priority dropdown in alert form](images/alerts-4-0-7.png)
+![Priority dropdown open on the Advanced tab with P1 to P5](images/alerts-4-0-7-v2.png)
 
 ### Filtering and sorting by priority
 
@@ -121,7 +121,7 @@ On the alerts list page, the **Priority** column is sortable: click its header. 
 
 The list API can also filter by priority (OR semantics — `?priority=1&priority=2` returns P1 or P2). Alerts with no priority are excluded whenever a filter is active — "show me the P1s" does not surface unprioritized alerts.
 
-![alerts list page with priority column, filter, and sort](images/alerts-4-0-8.png)
+![Alert list sorted by the Priority column, with unset priorities last](images/alerts-4-0-8-v2.png)
 
 ## Alert tags
 
@@ -131,7 +131,7 @@ The list API can also filter by priority (OR semantics — `?priority=1&priority
 
 On the alert form's **Advanced** tab, add one or more **Tags**. Tags are case-normalized automatically — `PROD` and `prod` resolve to the same tag. Invalid characters are rejected at save time with a validation error.
 
-![tags input field in alert form](images/alerts-4-0-9.png)
+![Tags input on the Advanced tab with two tags and a third being typed](images/alerts-4-0-9-v2.png)
 
 ### Filtering by tags
 
@@ -141,7 +141,7 @@ On the alerts list, the **Tags** column shows each alert's tags. The list API ac
 
 The tags facet endpoint (`GET /v2/{org}/alerts/tags`) returns distinct tags with occurrence counts across the alerts the caller can see. It supports an optional `?prefix=` parameter for autocomplete and a `?folder=` parameter to scope to one folder. The response is authorization-aware: it only returns tags from alerts the caller has permission to list.
 
-![tags filter dropdown with autocomplete facet](images/alerts-4-0-10.png)
+![Alert list with the Tags column showing each alert's tags](images/alerts-4-0-10-v2.png)
 
 ## Pending period (hold before firing)
 
@@ -197,7 +197,7 @@ The alerts list includes live run state for each alert, enriched from the durabl
 
 For multi-alerts, the **Groups** column shows the firing and observed group counts (`groups_firing`, `groups_observed`), with a `≥` marker when the count is a lower bound (the group page was full, and groups beyond the cap were never seen).
 
-![alerts list with last outcome, level, level-since, and groups-firing columns](images/alerts-4-0-11.png)
+![Alert list with the Last Outcome and Groups columns, including 13 firing of 16 groups for a multi-alert](images/alerts-4-0-11-v2.png)
 
 ## Enhanced alert history
 
@@ -212,7 +212,7 @@ Alert history entries now carry value context so each row reads standalone:
 
 Outcome values are normalized across the retention window: `firing`, `pending`, `normal`, `error`, `notify_failed`, and `succeeded` replace the older `completed` / `condition_not_met` vocabulary.
 
-![alert history with value context columns](images/alerts-4-0-12.png)
+![Alert History tab where each evaluation shows the compared value, the threshold and the matched level](images/alerts-4-0-12-v2.png)
 
 ## SLO alerts
 
