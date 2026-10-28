@@ -14,7 +14,7 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 
 The **Metrics** page opens on **Explore**, a grid of charts for your metric streams. Use **Visualize** to build a chart from your own PromQL or SQL query, and **Favorites** to return to saved views.
 
-![Metrics Page view](../images/features/metrics-hero.png)
+![Metrics Page view](../images/features/metrics-hero-v2.png)
 
 ## Key Features
 
@@ -34,13 +34,13 @@ The **Metrics** page opens on **Explore**, a grid of charts for your metric stre
 
 - **PromQL Support**: Full compatibility with Prometheus Query Language for familiar querying.
 
-![PromQL Queries](../images/features/promql-queries.png)
+![PromQL Queries](../images/features/promql-queries-v2.png)
 
 - **SQL Interface**: Use SQL syntax for complex metrics analysis and reporting.
 
 - **Time Range Selection**: Flexible time range queries with support for relative and absolute time periods.
 
-![Time Range Selection](../images/features/metrics-time-selection.png)
+![Time Range Selection](../images/features/metrics-time-selection-v2.png)
 
 - **Mathematical Operations**: Perform calculations and transformations on metrics data.
 
@@ -48,17 +48,17 @@ The **Metrics** page opens on **Explore**, a grid of charts for your metric stre
 
 - **Real-time Charts**: Interactive time-series visualizations with multiple chart types.
 
-![Metrics Visualization](../images/features/metrics-charts.png)
+![Metrics Visualization](../images/features/metrics-charts-v2.png)
 
 - **Custom Dashboards**: Create comprehensive dashboards with multiple metrics panels.
 
 - **Alerting Integration**: Set up alerts based on metrics thresholds and conditions.
 
-![Metrics Alerting](../images/features/metrics-alerts.png)
+![Metrics Alerting](../images/features/metrics-alerts-v2.png)
 
 - **Share Metrics Views**: Share an exact metrics view with your team by copying a URL from the **Share Link** button (share icon) in the metrics toolbar. The URL encodes your current panel configuration — chart type, queries (PromQL or SQL), stream selection, time range, and refresh interval — so recipients see the same chart and data. Opening a shared link auto-restores the view and runs the query immediately.
 
-![Share button in metrics page toolbar](images/metrics-share-url-1.png)
+![Share button in metrics page toolbar](images/metrics-share-url-1-v2.png)
 
 The share URL carries the full panel state as a versioned base64 blob in the `metrics_data` query parameter. The metrics page also accepts lightweight deep-link overrides (`chart_type`, `query_type`, `stream_name`, `query`) for programmatic linking from alerts, dashboards, and other pages.
 
@@ -66,7 +66,7 @@ The share URL carries the full panel state as a versioned base64 blob in the `me
 
 - **Optimized Compression**: Advanced compression algorithms reduce storage costs.
 
-![Metrics Compression](../images/features/metrics-compression.png)
+![Metrics Compression](../images/features/metrics-compression-v2.png)
 
 - **Efficient Indexing**: High-performance indexing for fast query execution across large datasets.
 
@@ -74,7 +74,7 @@ The share URL carries the full panel state as a versioned base64 blob in the `me
 
 - **Retention Policies**: Set [data retention per stream](../user-guide/data-processing/streams/stream-details.md#data-retention-in-days) in the **Configuration** tab of the **Stream Detail** panel to balance storage costs and data availability, and use [Extended Retention](../user-guide/data-processing/streams/extended-retention.md) to keep selected data longer.
 
-![Metrics Retention](../images/features/metrics-retention.png)
+![Metrics Retention](../images/features/metrics-retention-v2.png)
 
 ### Integration & Compatibility
 - **Prometheus Compatible**: Full compatibility with Prometheus ecosystem and exporters.
