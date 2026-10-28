@@ -12,8 +12,8 @@ These integrations use OpenTelemetry at the gateway or client boundary, dependin
 
 ## Gateway Integration Guides
 
-- [Anannas](anannas.md)
 - [AISIX AI Gateway](aisix-ai-gateway.md)
+- [Anannas](anannas.md)
 - [Kong AI Gateway](kong-gateway.md)
 - [LiteLLM Proxy](litellm-proxy.md)
 - [OpenRouter](openrouter.md)
