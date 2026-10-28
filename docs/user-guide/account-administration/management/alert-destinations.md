@@ -29,8 +29,8 @@ For SSRF protection, OpenObserve blocks Webhook URLs pointing to loopback or pri
 :::accordion[Set up an alert template.]
 This allows you to define the content and layout of the alert message.
 
-1. In OpenObserve, go to **Management > Templates**.
-2. Click **Add Template** to create a new template. 
+1. In OpenObserve, go to **Reliability > Destination Templates**.
+2. Click **New template** to create a new template. 
 3. In the template creation screen:
   ![Alert Destination -Webhook](../../../images/webhook-template-for-alert.png)
 
@@ -49,8 +49,8 @@ This allows you to define the content and layout of the alert message.
 
 **Steps to configure webhooks as alert destination** 
 
-1. Go to **Management > Alert Destinations**. 
-2. In the **Add Destination** page, click **Webhook**.
+1. Go to **Reliability > Notification Destinations** and click **New destination**. 
+2. Choose **Webhook** as the destination type.
 3. Fill in the following details:
   ![Add Destinations](../../../images/webook-as-alert-destination.png) 
 
@@ -127,8 +127,8 @@ Replace the placeholders with your actual credentials and email addresses.
 :::accordion[3. Set up an alert template.]
 This allows you to define the content and layout of the alert message.
 
-1. In OpenObserve, go to **Management > Templates**.
-2. Click **Add Template** to create a new email template. 
+1. In OpenObserve, go to **Reliability > Destination Templates**.
+2. Click **New template** to create a new email template. 
 3. In the template creation screen:
   ![Alert Destination](../../../images/email-template-for-alert.png)
 
@@ -152,8 +152,8 @@ This allows you to define the content and layout of the alert message.
     ```
 :::
 :::accordion[4. Ensure that the recipient is part of the appropriate organization]
-1. From the left-nevigation menu, go to **IAM** (Identity and Access Management) > **Users**.
-2. Click **Add User**.
+1. From the left navigation menu, go to **IAM** (Identity and Access Management) > **Users**.
+2. Click **New user**.
 3. Enter the user’s email address, role, password, and name.
 4. Click **Save**. 
 :::
@@ -162,8 +162,8 @@ This allows you to define the content and layout of the alert message.
 ### Steps to configure emails as alert destination 
 ![Alert Destination](../../../images/alert-email-destination.png)
 
-  1. Go to **Management** > **Alert Destinations**. 
-  2. In the **Add Destination** page, click **Email**.
+  1. Go to **Reliability** > **Notification Destinations** and click **New destination**. 
+  2. Choose **Email** as the destination type.
   3. Enter a name for the destination.
   4. Select an email template to define the alert content.
   5. Enter the recipient’s email address.
@@ -188,7 +188,7 @@ OpenObserve requests only the `incoming-webhook` scope, so it can post to the ch
 
 ![Connect Slack setup method on Cloud](images/slack-oauth-prebuilt-alert-destinations-2.png)
 
-1. Go to **Management > Alert Destinations** and click **Add Destination**.
+1. Go to **Reliability > Notification Destinations** and click **New destination**.
 2. Select the **Slack** destination type.
 3. Keep **Connect Slack** selected, enter a name for the destination, and click **Connect Slack**.
 4. In the Slack window that opens, choose a workspace and channel, then allow access.
@@ -212,7 +212,7 @@ On self-hosted Enterprise deployments, you create a Slack app owned by your work
 
 ![Review manifest step of the Slack manifest setup](images/slack-oauth-prebuilt-alert-destinations-3.png)
 
-1. Go to **Management > Alert Destinations** and click **Add Destination**.
+1. Go to **Reliability > Notification Destinations** and click **New destination**.
 2. Select the **Slack** destination type and keep **Create with Slack manifest** selected.
 3. Enter a name for the destination and a **Slack app name** (up to 35 characters), then click **Continue**.
 4. Review or copy the generated manifest, then click **Open Slack setup**. Slack opens with the manifest pre-filled.
@@ -225,7 +225,7 @@ If you already created an incoming webhook in Slack, connect it directly.
 
 ![Use an existing webhook fields for a Slack destination](images/slack-oauth-prebuilt-alert-destinations-4.png)
 
-1. Go to **Management > Alert Destinations** and click **Add Destination**.
+1. Go to **Reliability > Notification Destinations** and click **New destination**.
 2. Select the **Slack** destination type and choose **Use an existing webhook**.
 3. Enter a name for the destination.
 4. Paste the **Slack Webhook URL**, for example `https://hooks.slack.com/services/...`.

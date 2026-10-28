@@ -90,7 +90,7 @@ If you prefer not to use Helm, OpenFGA can be installed and run using other meth
 - [Pre-compiled Binaries](https://github.com/openfga/openfga?tab=readme-ov-file#pre-compiled-binaries)
 - [Building from Scratch](https://github.com/openfga/openfga?tab=readme-ov-file#building-from-source)
 
-**Impportant Note:** 
+**Important Note:** 
 
 When installing OpenFGA using the alternative methods, you must run the OpenFGA and OpenObserve servers separately. Refer to the respective installation links for instructions on running the OpenFGA server. Ensure that you run the `openfga migrate` command before running the `openfga run` command. Check the [Quickstart guide](https://openobserve.ai/docs/getting-started/#openobserve-cloud-setup) for steps to run the OpenObserve server.
 <br>If you are installing OpenFGA with Helm charts, deploying the Helm chart is sufficient.
@@ -106,7 +106,7 @@ After the OpenFGA server is up and running, update the following environment var
 | **Environment Variable** | **Default Value** | **Description** |
 |--------------------------|-------------------|----------------|
 | `O2_OPENFGA_ENABLED` | `false` | Determines whether OpenFGA is enabled. <br>Set this value to `true` to enable OpenFGA. |
-| `O2_OPENFGA_BASE_URL` | N/A | Enter the URL of the OpenFGA server. <br> **Example:** If the OpenFGA server is running locally on port `8080`, set this to: <br> `http://localhost:8080` |
+| `O2_OPENFGA_BASE_URL` | `http://127.0.0.1:8080/stores` | Enter the URL of the OpenFGA server's stores endpoint. <br> **Example:** If the OpenFGA server is running locally on port `8080`, set this to: <br> `http://localhost:8080/stores` |
 
 
 ### **Optional Environment Variables**

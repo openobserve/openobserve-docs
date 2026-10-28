@@ -9,215 +9,23 @@ Work groups control how OpenObserve allocates CPU, memory, and concurrency for d
 This feature is available in the Enterprise Edition.
 :::
 
-
-## Overview
-OpenObserve evaluates each search task and assigns it to a work group. Each group receives its own limits for CPU, memory, and concurrency. When many tasks run at the same time, work groups prevent heavy tasks from slowing down interactive user queries.
-
-OpenObserve uses three work groups:
-
-- Short
-- Long
-- Background
-
-:::note[Note]
-Short and long groups manage user queries. The background group handles system tasks.
+:::warning[Work group settings were renamed]
+The earlier `O2_SEARCH_GROUP_*` settings no longer exist. Work groups now use slot-based admission and the `O2_WORK_GROUP_*` settings, and per-group CPU and memory limits became a single resource share per group. See [Work groups](work-group-v2.md) for the current settings, defaults, and examples.
 :::
 
-## Background work group
-The background work group handles system tasks that run independently of user activity. These tasks include:
+## Old and new settings
 
-- Alert evaluations
-- Report generation
-- Derived stream processing
+| Old setting | Current setting | Current default |
+| --- | --- | --- |
+| `O2_SEARCH_GROUP_BASE_SPEED` | `O2_WORK_GROUP_BASE_SPEED` | `1024` (MB per second) |
+| `O2_SEARCH_GROUP_BASE_SECS` | `O2_WORK_GROUP_BASE_SECS` | `10` (seconds) |
+| `O2_SEARCH_GROUP_CPU_LIMIT_ENABLED` | `O2_WORK_GROUP_CPU_LIMIT_ENABLED` | `false` |
+| `O2_SEARCH_GROUP_DYNAMIC_RESOURCE` | `O2_WORK_GROUP_DYNAMIC_RESOURCE` | `true` |
+| `O2_SEARCH_GROUP_LONG_MAX_CPU`, `O2_SEARCH_GROUP_LONG_MAX_MEMORY` | `O2_WORK_GROUP_LONG_MAX_PERCENT` | `0.4` |
+| `O2_SEARCH_GROUP_SHORT_MAX_CPU`, `O2_SEARCH_GROUP_SHORT_MAX_MEMORY` | `O2_WORK_GROUP_SHORT_MAX_PERCENT` | `0.8` |
+| `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY` | `O2_WORK_GROUP_LONG_MAX_CONCURRENCY` | `5` |
+| `O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY` | `O2_WORK_GROUP_SHORT_MAX_CONCURRENCY` | `10` |
+| `O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY` | `O2_WORK_GROUP_USER_LONG_MAX_CONCURRENCY` | `2` |
+| `O2_SEARCH_GROUP_USER_SHORT_MAX_CONCURRENCY` | `O2_WORK_GROUP_USER_SHORT_MAX_CONCURRENCY` | `4` |
 
-The background group uses its own queue and resource limits. This ensures that system tasks do not interfere with user query performance.
-
-
-## Slot-based admission (v2)
-OpenObserve includes an optional slot-based distributed admission control model for search (SQL) and PromQL queries. When enabled, it limits how many queries run concurrently by reserving execution slots on querier nodes before a query begins.
-
-With slot-based admission:
-
-- Each query may be confined to a subset of querier nodes rather than spreading across the entire cluster. The subset is selected consistently, so queries for the same organization or stream tend to route to the same nodes.
-- Before a query runs, the selected nodes reserve execution slots for it. A query is admitted only when the required slots are available; otherwise it waits until slots free up.
-- Short queries and long queries are handled separately, so that heavy long-running queries do not exhaust the capacity reserved for fast interactive queries.
-
-This capability is off by default, and the default behavior of work groups is unchanged unless it is explicitly enabled. Configuration is performed through enterprise settings.
-
-
-## Environment variables
-Work groups rely on the following environment variables for resource management and concurrency limits.
-
-```ini
-ZO_FEATURE_QUERY_QUEUE_ENABLED = false
-
-O2_SEARCH_GROUP_BASE_SPEED = 1024 // MB
-O2_SEARCH_GROUP_BASE_SECS = 10 // seconds
-
-O2_SEARCH_GROUP_CPU_LIMIT_ENABLED = false
-O2_SEARCH_GROUP_DYNAMIC_RESOURCE = true
-
-O2_SEARCH_GROUP_LONG_MAX_CPU = 50%
-O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%
-O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2
-
-O2_SEARCH_GROUP_SHORT_MAX_CPU = 50%
-O2_SEARCH_GROUP_SHORT_MAX_MEMORY = 50%
-O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4
-
-O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY = 1
-O2_SEARCH_GROUP_USER_SHORT_MAX_CONCURRENCY = 2
-```
-These variables define how much CPU and memory each group can use and how many queries each group can run at the same time.
-
-
-### How OpenObserve assigns queries to work groups
-OpenObserve estimates the execution time for each query and assigns it to the short or long work group based on the expected cost. 
-
-The estimation uses the following values:
-
-- Allocate resources based on whether the query is short or long.
-- Define two resource groups with 3 environments to limit the resource on each querier node:
-
-    - `O2_SEARCH_GROUP_x_MAX_CPU`, should be a percentage of the total CPU cores.
-    - `O2_SEARCH_GROUP_x_MAX_MEMORY`, should be a percentage of the total `Datafusion` memory.
-    - `O2_SEARCH_GROUP_x_MAX_CONCURRENCY`, should be a fixed number, minimal `1`. 
-
-    - Long query group:
-
-        - `O2_SEARCH_GROUP_LONG_MAX_CPU = 50%`
-        - `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%`
-        - `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`
-
-    - Short query group:
-
-        - `O2_SEARCH_GROUP_SHORT_MAX_CPU = 20%`
-        - `O2_SEARCH_GROUP_SHORT_MAX_MEMORY = 20%`
-        - `O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4`
-
-- The amount of memory available to a single search request in a group equals: `O2_SEARCH_GROUP_x_MAX_MEMORY / O2_SEARCH_GROUP_x_MAX_CONCURRENCY`
-
-:::note[Example]
-
-- If total system memory is `10GB` then Datafusion can use `50%`, DataFusion has `5GB`.  
-- If the long group has `O2_SEARCH_GROUP_LONG_MAX_MEMORY = 50%`, it can use `2.5GB`. 
-- With `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY = 2`, each long query can use up to `1.25GB` of memory.
-:::
-
-- A search request uses all CPU cores assigned to its work group as defined by `O2_SEARCH_GROUP_x_MAX_CPU`.
-- When a search request exceeds the concurrency defined by `O2_SEARCH_GROUP_x_MAX_CONCURRENCY`, it is placed in a queue and executed later in first-in, first-out order.
-
-
-
-###  User quota-based resource management
-
-OpenObserve applies per-user quotas inside each work group. These limits prevent a single user from using all group concurrency.
-
-- `O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY = 1`
-- `O2_SEARCH_GROUP_USER_SHORT_MAX_CONCURRENCY = 2`
-
-**Example**:
-
-- Short group allows four concurrent short queries through `O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY = 4`.
-- One user can run only two short queries at the same time.
-- If the same user sends more than two short queries, the extra queries wait in the queue even if global capacity is available.
-
-### How to calculate whether a search request is a long query or a short query
-OpenObserve uses base speed and base seconds to estimate the expected execution time.
-
-- `O2_SEARCH_GROUP_BASE_SPEED = 1024` defines the assumed scan speed in megabytes per second, which is about one gigabyte per second.
-- `O2_SEARCH_GROUP_BASE_SECS = 10` defines the time threshold for classification. Queries that exceed this threshold are long queries.
-- The system knows the total CPU cores across querier nodes.
-- The system knows the `scan_size` of the search request.
-
-OpenObserve uses the following logic:
-
-```rust lineNumbers
-let cpu_cores = max(2, CLUSTER_TOTAL_CPU_CORES * O2_SEARCH_GROUP_SHORT_MAX_CPU);
-let predict_secs = scan_size / O2_SEARCH_GROUP_BASE_SPEED / cpu_cores;
-if predict_secs > O2_SEARCH_GROUP_BASE_SECS {
-    // this is a long query
-} else {
-    // this is a short query
-}
-```
-
-- The predicted time is the scan size divided by `O2_SEARCH_GROUP_BASE_SPEED` and then divided by the number of CPU cores used for the calculation.
-- If the predicted time is greater than the value of `O2_SEARCH_GROUP_BASE_SECS`, the request is a long query.
-- Otherwise, it is a short query.
-
-
-## How to decide long or short query: example
-
-Cluster example:
-
-- Ten querier nodes
-- Sixteen CPU cores and sixty-four gigabytes of memory per node
-- Total CPU cores for queries: one hundred sixty
-
-From the environment variables:
-
-- Long queries use eighty percent of available CPU cores, which is one hundred twenty-eight cores.
-- Short queries use twenty percent of available CPU cores, which is thirty-two cores.
-
-
-**Short query example**:
-
-- Scan size: one hundred gigabytes
-- Base speed: one gigabyte per second
-- CPU for short queries: thirty-two cores
-
-
-**Estimated time**: `100GB / 1GB per second / 32 cores = 3 seconds`
-<br>
-**Threshold**: `O2_SEARCH_GROUP_BASE_SECS = 10`
-<br>
-**Result**: This is a short query.
-
-<br>
-**Long query example**
-
-- Scan size: one terabyte
-- Base speed: one gigabyte per second
-- CPU for short queries: thirty-two cores
-
-
-**Estimated time**: `1024GB / 1GB per second / 32 cores = 31 seconds`
-<br>
-**Result**: This is a long query.
-
-
-## How to decide the maximum concurrency
-Concurrency determines how many queries are allowed to run at the same time in each group. Increasing concurrency increases parallelism but also increases the response time for each task.
-
-
-Cluster example:
-
-- Total CPU cores: one hundred sixty
-- Scan size: one terabyte
-- Base speed: one gigabyte per second
-
-
-**Single request**: 
-<br>
-`1024GB / 1GB per second / 160 cores = 6.4 seconds`
-<br><br>
-**Two parallel requests**
-<br>
-Each request receives eighty cores:
-<br>
-`1024GB / 1GB per second / 80 cores = 12.8 seconds`
-<br><br>
-**Four parallel requests**
-<br>
-Each request receives forty cores:
-<br>
-`1024GB / 1GB per second / 40 cores = 25.6 seconds`
-<br><br>
-**Ten parallel requests**
-<br>
-Each request receives sixteen cores:
-<br>
-`1024GB / 1GB per second / 16 cores = 64 seconds`
-<br>
-If the number of requests exceeds the value of `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY`, the extra requests wait in the queue.
+The current model also adds background-group, per-organization, and slot-based admission settings. They are described in [Work groups](work-group-v2.md).

@@ -25,9 +25,9 @@ Use the OpenObserve UI to manage users easily.
 1. Log in as an administrator.
 2. Navigate to **IAM → Users**. Click the **Edit** icon under **Actions** for the user you want to update.
     ![](images/users.png)
-3. Enable **Change Password** and enter the new password.
+3. Turn on **Change Password** and enter the **New Password** (when you change your own password, also enter the **Old Password**).
     <img src="images/enable-change-password.png" alt="" style="height:300px">
-4. Click **Save Changes**.
+4. Click **Save**.
 5. Log out and verify that the updated credentials work.
 
 > **Tip:** You can also update user roles at the same time to enforce correct permissions.

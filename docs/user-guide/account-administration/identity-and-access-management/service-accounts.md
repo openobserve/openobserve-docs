@@ -15,18 +15,20 @@ If you have used **API keys** in other tools (such as Kubernetes, GCP, or SaaS A
 
 Availability differs by edition:
 
-- **Enterprise**: Service accounts have no permissions by default. Admins must assign roles explicitly.
+- **Enterprise and Cloud**: Service accounts have no permissions by default. Admins must assign roles explicitly.
 - **Open-source**: Service accounts have full access by default.
-- **Cloud**: Service accounts are not supported.
 
 ## Create a service account
 
 1. From the **IAM** panel, select **Service Accounts**.
-2. Click **Add Service Account**.
-3. Enter the **Email** (used as the account identifier), **First Name**, and **Last Name**.
-4. Click **Save**.
-5. A **token** is generated and shown only once. Copy and store it securely at creation — it cannot be viewed again later; only a redacted version is shown (the first 4 characters followed by `*`).
-6. After the account is created, assign the necessary **roles** and **permissions**. On Enterprise this step is required before the service account can make any API calls.
+2. Click **New service account**.
+3. Enter the **Service account name**: lowercase letters, numbers and hyphens (for example, `ingest-bot`). OpenObserve saves it as the **Identifier** `<name>.<org_id>@sa.internal`, which is the account's username.
+4. Optionally, enter a **Description**, and on Enterprise and Cloud pick roles in **Assign roles** and groups in **Add to user groups**.
+5. Click **Save**.
+6. A **token** is generated and shown only once. Copy it (or use **Download Token**) and store it securely — it cannot be viewed again later; only a redacted version is shown (the first 4 characters followed by `*`). The dialog also shows ready-made **cURL**, **Header** and **Environment Variable** snippets.
+7. If you did not assign roles or groups, grant them now. On Enterprise and Cloud this step is required before the service account can make any API calls.
+
+Service accounts created before this naming scheme keep their original email as the identifier.
 
 ![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
 
@@ -41,18 +43,18 @@ Grant only the minimum access the integration needs.
 
 ## Authenticate with the token
 
-OpenObserve authenticates API requests using **HTTP Basic auth**, where the service account's email is the username and its token is the password.
+OpenObserve authenticates API requests using **HTTP Basic auth**, where the service account's identifier is the username and its token is the password.
 
 ```bash
-curl -u "service-account@example.com:YOUR_TOKEN" \
+curl -u "ingest-bot.<org_identifier>@sa.internal:YOUR_TOKEN" \
   "https://your-instance/api/<org_identifier>/streams"
 ```
 
-To send the credential as a header instead, base64-encode `email:token` and pass it as `Authorization: Basic <encoded>`.
+To send the credential as a header instead, base64-encode `identifier:token` and pass it as `Authorization: Basic <encoded>`.
 
 ## Rotate the token
 
-You can rotate a service account's token at any time from the **Service Accounts** page by clicking the rotate icon next to the account. A rotated token is also shown only once, so copy and store it securely. Rotating does not change the account's roles or identity — only the secret.
+You can rotate a service account's token at any time from the **Service Accounts** page by clicking **Rotate Token** in the account's row and confirming with **Rotate token**. A rotated token is also shown only once, so copy and store it securely. Rotating does not change the account's roles or identity — only the secret.
 
 Rotating a token requires the **Admin** or **Root** role (or, with RBAC/OpenFGA enabled, explicit permission). Users without sufficient privileges receive a `403` error.
 
@@ -64,6 +66,6 @@ OpenObserve issues a few different credentials. Use this table to pick the right
 |---|---|---|---|
 | **Service account token** | IAM > Service Accounts | Whatever roles you grant the account — general, scoped API access | Applications, automation, and integrations calling the OpenObserve API |
 | **Ingestion token** (`o2oi_`) | IAM > Ingestion Tokens | Ingestion endpoints only; rejected on any other API path | Sending logs, metrics, and traces into an organization |
-| **RUM token** | Ingestion page (RUM) | Real User Monitoring data from the browser | Instrumenting front-end apps with OpenObserve RUM |
+| **RUM token** | Data sources page (RUM) | Real User Monitoring data from the browser | Instrumenting front-end apps with OpenObserve RUM |
 
 If you need role-based access to the general API, use a **service account**. If you only need to ship data in, use an **[ingestion token](ingestion-tokens.md)**.

@@ -17,7 +17,7 @@ OpenObserve automatically discovers services from your telemetry and groups rela
 
 Correlation Settings is where you configure that behavior. You define custom groups of semantically related fields, map alternate field names to a canonical correlation field, and control whether telemetry can be correlated even when it lacks an explicit service attribute. These settings feed the service discovery and telemetry correlation used by [Incident Management](../../analytics/incidents/index.md).
 
-Open Correlation Settings from the **Settings** area. The page is organized into tabs, including **Discovered Services**, **Detection Rules**, **Alert Grouping**, and **Field Mappings**. This page focuses on the settings that control field semantics and service identity.
+Open **Settings** > **Correlation Settings** (under **Data & AI**). The page is organized into tabs, including **Discovered Services**, **Detection Rules**, **Alert Grouping**, and **Field Mappings**. This page focuses on the settings that control field semantics and service identity.
 
 ## Custom semantic field groups
 

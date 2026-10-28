@@ -67,17 +67,18 @@ Admins can create custom user roles in OpenObserve to define more granular acces
 **To create a custom role**:
 
 1. Go to the **IAM** panel and select the **Roles** section.
-2. Click the **Add Role** button.
+2. Click the **New role** button.
 3. Enter the custom role name. Use only alphanumeric characters (A-Z, a-z, 0-9) and underscores (_). Spaces are not allowed. **Custom role names must not match predefined roles such as Admin, Editor, Viewer, or User**.
-4. Click **Save**.
-5. Click the edit icon on the custom role to assign permission to specific features and assign users and service accounts to the custom role.
-6. Click **Save**.
+4. Optionally, pick a preset in **Start from**, such as **Read-only (view access to all resources)**, to pre-select permissions. The default is **Custom (empty role)**.
+5. Click **Save**.
+6. Click the edit icon on the custom role. Use the **Permissions** tab to grant access per module, and the **Users** and **Service Accounts** tabs to assign members.
+7. Click **Review Changes** to check pending changes, then click **Save**.
 
 ![Custom roles in OpenObserve](../../../images/rbac1-custom_roles.png)
 
 ## LLM Evaluations (AI Observability) Permissions
 
-OpenObserve also supports fine-grained RBAC for LLM Evaluations (AI Observability) resources. When you edit a custom role, these resources appear as top-level permission entries alongside existing resources such as streams, dashboards, and folders:
+OpenObserve also supports fine-grained RBAC for LLM Evaluations (AI Observability) resources. When you edit a custom role, these resources appear as modules in the **AI** group of the module list, alongside other modules such as streams, dashboards, and folders:
 
 - **LLM Providers**: Control access to the LLM providers used for AI evaluations.
 - **Score Configs**: Control access to scoring configurations.
@@ -102,24 +103,23 @@ List views respect these permissions: when a user lists providers, score configs
 
 A service account in OpenObserve is a non-human account used for API access, automation, and integrations. Each service account is assigned a **token** for authentication.
 
-- **Enterprise version**: Service accounts have no permission by default. Admins must assign roles to the service accounts explicitly.
+- **Enterprise and Cloud versions**: Service accounts have no permission by default. Admins must assign roles to the service accounts explicitly.
 - **Open-source version**: Service accounts have full access by default.
-- **Cloud version**: Service accounts are not supported.
 
 **To add a service account**:
 
 1. From the **IAM** panel, select **Service Accounts**.
-2. Click **Add Service Account**.
-3. Enter the **Email, First Name,** and **Last Name**.
+2. Click **New service account**.
+3. Enter the **Service account name** (lowercase letters, numbers and hyphens), and optionally pick roles and user groups.
 4. Click **Save**.
-5. A **token** is generated for the service account.
-6. After the service account is created, assign the necessary **roles** and **permissions**. This step is required for the service account to make API calls and access specific services in OpenObserve.
+5. A **token** is generated for the service account and shown once.
+6. If you did not pick roles or groups, assign the necessary **roles** and **permissions**. See [Service Accounts](service-accounts.md). This step is required for the service account to make API calls and access specific services in OpenObserve.
 
 ![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
 
 **Note:**
 
-- You can generate a new token at any time by selecting the appropriate service account from the Service Accounts page and clicking the refresh icon next to it.
+- You can generate a new token at any time with **Rotate Token** in the service account's row on the Service Accounts page.
 - Ensure that the assigned roles provide only the minimum required access based on the use case.
 
 ## User Groups
@@ -129,7 +129,7 @@ User groups allow admins to manage permissions collectively.
 **To add user groups**:
 
 1. From the **IAM** panel, select the **User Groups** section.
-2. Click the **Add Group** button, add a group **Name**, and click **Save**.
+2. Click the **New user group** button, add a group **Name**, and click **Save**.
 3. To add users to the group and assign roles, click the edit icon.
 4. From the **Roles, Users,** and **Service Accounts** tabs, select the list of users and service accounts that need to be assigned with appropriate roles.
 5. Click **Save**.
@@ -140,14 +140,14 @@ User groups allow admins to manage permissions collectively.
 
 Users are organization members with assigned roles that determine their access and actions within OpenObserve. Their permissions depend on the role assigned to them, such as **Admin, Editor, Viewer, User,** or **Root User**.
 
-**Note:** As of February 2025, only the **root user** can invite new users to an **Organization** in OpenObserve. <br>
+**Note:** Only the **root** user and **Admin** users can add users to an organization. With RBAC enabled, roles that have the matching Users permission can also add them. <br>
 
 ![users](../../../images/rbac4-add-users-enterprise.png)
 
 **To add a user to an organization**:
 
 1. Navigate to **IAM > Users**.
-2. Click **Add User**.
+2. Click **New user**.
 3. Enter the user’s email address. <br>
    ![Create User](../../../images/create-user-IAM.png)
 4. Select one of the predefined roles- **Admin**, **Editor**, **Viewer**, or **User**.
@@ -161,5 +161,5 @@ If the entered email address already belongs to an existing user, the system wil
 After you save the changes, the new user gets listed in the **Users** page.<br>
 Use the Actions column to edit and delete the user. 
 
-**Note:** In the **Cloud version**, any user can invite new users by entering their email addresses, separated by commas or semicolons, selecting a role, and clicking **Send Invite**. <br>
+**Note:** In the **Cloud version**, Admin and root users click **Invite members**, enter email addresses separated by commas or semicolons, select a role, and click **Send invites**. <br>
 ![Invite_users_o2cloud](../../../images/rbac-invite-users-o2cloud.png)

@@ -33,8 +33,8 @@ Sensitive Data Redaction applies to log streams and trace streams. During trace 
 :::note[Where to find]
 To access the **Sensitive Data Redaction** interface:
 
-1. Select the appropriate organization from the dropdown in the top-right corner.
-2. Select **Management** > **Sensitive Data Redaction**. 
+1. Select the appropriate organization from the organization selector.
+2. Select **Settings** > **Sensitive Data Redaction** (under **Access & Security**). 
 
 ![Sensitive Data Redaction](../../../images/sensitive-data-redaction.png)
 
@@ -70,7 +70,7 @@ Identify which fields may contain sensitive data.
 
 1. From the left-hand menu, select **Logs**. 
 2. In the stream selection dropdown, select the stream. 
-3. Select an appropriate time range and click **Run Query**. 
+3. Select an appropriate time range and click **Run query**. 
 This shows the records for the selected time range. 
 <br>
 ![Identify PII for regex application](../../../images/identify-pii-for-regex-application.png)
@@ -94,7 +94,7 @@ This shows the records for the selected time range.
 :::
 :::accordion[Step 2: Create and test regex patterns]
 ### Step 2: Create and test regex patterns
-To create regex patterns, naviagte to **Management** > **Sensitive Data Redaction** > **Create Pattern**. 
+To create regex patterns, navigate to **Settings** > **Sensitive Data Redaction** and click **New pattern**. 
 
 ![Create regex](../../../images/create-regex-pattern.png)
 
@@ -102,8 +102,8 @@ In the pattern creation form, enter the following details:
 
 1. **Name**: Enter a clear, descriptive name. For example, Email Detection. 
 2. **Description:** (Optional)  Explain what the pattern is intended to detect.
-3. **Regex Pattern**: Paste or write the regular expression you want to use. Refer to the following **common patterns**. 
-4. **Test Pattern**: Provide a sample input to validate that the regex works as expected.
+3. **Regex Pattern**: Paste or write the regular expression you want to use. Refer to the following **common patterns**. Lookahead, lookbehind, backreferences and recursion are not supported. 
+4. **Test Regex Pattern**: Enter an **Input string** and click **Test Input** to validate that the regex works as expected.
 5. Click the **Create and Close** button to save the pattern. 
 
 **Common Patterns**
@@ -143,9 +143,9 @@ Once your patterns are created and tested, you can apply them to specific fields
 
 :::accordion[Step 1: Go to the stream field]
 ### Step 1: Go to the stream field
-1. From the left-hand menu, go to **Streams**.
+1. From the left-hand menu, go to **Data** > **Streams**.
 2. Locate the stream where you want to apply regex patterns and select **Stream Details** from the **Actions** column.
-3. In the **Stream Settings** tab, locate the field that contains sensitive data. 
+3. In the **Schema Settings** tab, locate the field that contains sensitive data. 
 
 ![Field with sesitive data](../../../images/stream-settings-sensitive-fields.png)
 :::
@@ -246,7 +246,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
 ![redact-at-ingestion-time-result](../../../images/redact-at-ingestion-time-result.png)
 
@@ -273,7 +273,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
 ![drop-at-ingestion-time-result](../../../images/drop-at-ingestion-time-result.png)
 
@@ -298,7 +298,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"job":"test","level":"info","log":"Payment processed with card 4111-1111-1111-1111"}]'
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
 ![hashed-at-ingestion-time](../../../images/hashed-at-ingestion-time.png)
 :::
@@ -319,7 +319,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
 ![redact-at-query-time-result](../../../images/redact-at-query-time-result.png)
 
@@ -346,7 +346,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
 ![Drop at Query Time](../../../images/drop-at-query-time-result.png)
 
@@ -371,7 +371,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"job":"test","level":"info","log":"Payment processed with card 4111-1111-1111-1111"}]'
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
 ![hash-at-query-time](../../../images/hashed-at-query-time.png)
 :::
@@ -399,11 +399,11 @@ OpenObserve provides a built-in library of 147+ pre-configured regex patterns th
 :::accordion[Step 1: Navigate to the Import section]
 ### Step 1: Navigate to the Import section
 
-1. Go to **Management** > **Sensitive Data Redaction**.
+1. Go to **Settings** > **Sensitive Data Redaction**.
 2. Click the **Import** button in the top-right corner.
-3. The **Import Pattern** screen opens with three tabs:
+3. The **Import Regex Pattern** screen opens with three tabs:
     - **Built-in Patterns**: Pre-configured patterns from OpenObserve's pattern library
-    - **File Upload/JSON**: Import patterns from a JSON file
+    - **File Upload / JSON**: Import patterns from a JSON file
     - **URL Import**: Import patterns from a URL
 4. Select the **Built-in Patterns** tab.
 

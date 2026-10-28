@@ -7,7 +7,7 @@ This guide explains what Quotas are, how to configure them, how to navigate the 
 
 ## What Are Quotas
 
-Quotas in OpenObserve are rate limiting mechanisms that let you control how many API requests users can make per second. 
+Quotas in OpenObserve are rate limiting mechanisms that let you control how many API requests users can make per second, per minute, or per hour. 
 
 You can use Quotas to define request-per-second (Req/s) limits for API operations such as **List**, **Get**, **Create**, **Update**, and **Delete**. 
 These limits can be applied in two ways: 
@@ -15,7 +15,7 @@ These limits can be applied in two ways:
 - At org-level: Limit how many requests all users in an organization can make to a specific API, such as Logs or Alerts.
 - At role-level: Limit how many requests all users in a specific role can make to an API.
 
-> **Note**: If a user exceeds the defined quota, OpenObserve returns a `RateLimitExceeded` error.
+> **Note**: If a user exceeds the defined quota, OpenObserve returns an HTTP `429 Too Many Requests` error with `"error": "rate_limit_exceeded"`.
 
 ### Availability
 The Quotas feature is available only in high-availability (HA) deployments.
@@ -67,7 +67,7 @@ enterprise:
 
 ### Step 2: Set the internal queue store to coordinate rate limiting
 
-Set `ZO_QUEUE_STORE` to “nats”  in the `config` section of the values.yaml file. This enables internal queuing through NATS for coordinating rate limiting. 
+Rate limiting is coordinated through NATS. In cluster mode, `ZO_QUEUE_STORE` resolves to `nats` when it is unset; you can also set it explicitly to “nats” in the `config` section of the values.yaml file. 
 
 ```bash lineNumbers
 `config:
@@ -98,7 +98,7 @@ Each tab displays a table with the following:
 
 - **Module**: The API module (e.g., Alerts, Dashboards).  
 - **Operations:** Columns for List, Get, Create, Update, and Delete.  
-- **Values**: Request-per-second (Req/s) limits per operation.
+- **Values**: Request limits per operation, for the time unit selected with the **Per Second**, **Per Minute** and **Per Hour** tabs.
 
 > **Note:**
 >
@@ -127,7 +127,7 @@ You can configure quotas in two ways:
 ### Set Role Limits
 
 1. Go to the **Role Limits** tab.  
-2. Select the organization and role from the dropdowns.  
+2. Select the organization from the dropdown. Optionally, narrow the list with **Select API Category**.  
 3. Expand the role row to view its module list.  
 4. Click **Edit Quota**.  
 5. Enter limits (Req/s) for each operation.   
@@ -162,7 +162,7 @@ To check how your search query is internally split into partitions:
 4. Select the desired time range from the time range selector (top-right corner).  
 5. Right-click anywhere on the browser and select **Inspect** to open your browser’s developer tools.  
 6. Go to the Network tab.  
-7. Click **Run Query** in the OpenObserve UI.   
+7. Click **Run query** in the OpenObserve UI.   
 8. Look for a request named: `_search_partition?type=logs`  
 9. Click the request and view its **Preview** tab.  
 10. In the **Preview** tab, find the **partitions** section, which looks like the following:

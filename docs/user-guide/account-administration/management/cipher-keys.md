@@ -17,8 +17,8 @@ Follow these steps to create and configure **Cipher Keys** in OpenObserve:
 
 :::accordion[Step 1: Navigate to the Cipher Keys section]
 
-1. From the top navigation bar, click the gear icon to open the **Management** page.  
-2. Select **Cipher Keys**.
+1. Click **Settings** in the left navigation.  
+2. Select **Cipher Keys** (under **Access & Security**).
 
 ![cipher-keys](../../../images/cipher-keys.png)
 :::
@@ -26,13 +26,13 @@ Follow these steps to create and configure **Cipher Keys** in OpenObserve:
 
 :::accordion[Step 2: Create a New Cipher Key]
 
-1. On the **Cipher Keys** page, click the **Add Cipher Key** button.  
+1. On the **Cipher Keys** page, click the **New cipher key** button.  
 2. Enter the required details:
 
     - **Name:** The key name must be **unique**. Characters such as colon, question mark, slash, hash, and spaces are not allowed.   
     - **Key Store Type:** Choose where the encryption key will be stored:
 
-        - **OpenObserve (Local)**: Stores the encryption key directly in OpenObserve’s database. If you select **OpenObserve**, paste your encryption key in the **Secrets** field. [Learn how you can encrypt the key before storing it in the OpenObserve database for additional security](#cipher-key-storage-in-openobserve). <br>
+        - **OpenObserve (Local)**: Stores the encryption key directly in OpenObserve’s database. If you select **OpenObserve**, paste your encryption key in the **Secret** field. [Learn how you can encrypt the key before storing it in the OpenObserve database for additional security](#cipher-key-storage-in-openobserve). <br>
         ![Cipher Key Store Type- Local](../../../images/cipher-keys-o2local.png)
 
         - **Akeyless**: Allow using Akeyless as an external key management system to store keys. If you select Akeyless, enter the Base URL of the Akeyless API, Access ID, Authentication details - Access Key or Lightweight directory access protocol (LDAP), and Secret Types - [Static](https://docs.akeyless.io/docs/static-secrets) or [Distributed Fragments Cryptography (DFC)](https://docs.akeyless.io/docs/zero-knowledge). <br>
@@ -252,12 +252,12 @@ To update or delete a Cipher Key, click the edit or delete icon under the **Acti
 
 When using **OpenObserve** as the encryption key (secret) storage option, you can encrypt the secret before storing it in the OpenObserve database by setting the following environment variables:
 
-- **`ZO_MASTER_ENCRYPTION_ALGORITHM`**: Set it to `aes-256-siv`.   
-- **`ZO_MASTER_ENCRYPTION_KEY`**: Set it to the encryption key you want OpenObserve to use to encrypt the secret. This must be a valid `aes-256-siv` key. Tink Key cannot be used here.
+- **`O2_MASTER_ENCRYPTION_ALGORITHM`**: Set it to `aes-256-siv` (the default and the only supported value).   
+- **`O2_MASTER_ENCRYPTION_KEY`**: Set it to the encryption key you want OpenObserve to use to encrypt the secret. This must be a valid base64-encoded 512-bit `aes-256-siv` key. Tink Key cannot be used here.
 
 :::info[Important Note]
 - To set up the above environment variables for **Cipher Keys** in OpenObserve’s database, first delete the existing **Cipher Keys** to avoid errors.   
-- If `ZO_MASTER_ENCRYPTION_KEY` is changed, the existing secret associated with `ZO_MASTER_ENCRYPTION_KEY` is no longer visible and usable. 
+- If `O2_MASTER_ENCRYPTION_KEY` is changed, the existing secret associated with `O2_MASTER_ENCRYPTION_KEY` is no longer visible and usable. 
 :::
 
 ## Failure Modes

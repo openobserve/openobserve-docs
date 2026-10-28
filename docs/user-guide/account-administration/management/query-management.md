@@ -21,9 +21,9 @@ By default, `root` users and any other user who has access to the `_meta` org ca
 :::note[Where to find it]
 To access the Query Management page:
 
-1. Select `_meta` organization from the top right corner.   
-2. Go to **Management**. 
-3. In the side panel, select **Query Management**.   
+1. Select `_meta` organization from the organization selector.   
+2. Click **Settings** in the left navigation. 
+3. Select **Query Management** (under **Operations**).   
   You will be taken to the **Running Queries** section.
 ![Running Queries](../../../images/query-management-running-queries.png)
 :::
@@ -55,7 +55,7 @@ The **All Queries** table displays the following fields:
 - **Organization ID:** The organization context.   
 - **Search Type:** The source of the query, such as dashboards, alerts, or others.  
 - **Query Source:** Displays the specific origin of the query. If the query originates from a **dashboard**, this field shows the dashboard name. If the query originates from an **alert**, it shows the alert name.  
-- **Execution Duration:** The total time the query has been running.  
+- **Exec. Duration:** The total time the query has been running.  
 - **Query Range:** The time range being queried.  
 - **Query Type:** Whether the system classifies the query as Short or Long.  
 - **Status:** The current status of the query, whether it is still processing or waiting.  
@@ -70,7 +70,7 @@ The **All Queries** table displays the following fields:
 ## Filters and Searches
 
 - **Search Bar**: Enter an email or keyword to filter queries.  
-- **All Fields Dropdown**: The **All Fields dropdown** lets you filter queries based on either **Execution Duration** or **Query Range**. Range.  
+- **All Fields Dropdown**: The **All Fields dropdown** lets you filter queries based on either **Exec. Duration** or **Query Range**.  
 - **Source Filter**: Filter queries by source. Select one of the following: 
 
     - **Dashboards**: Queries coming from Dashboards.  

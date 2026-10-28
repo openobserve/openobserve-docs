@@ -11,40 +11,37 @@ Banners are authored once from the **`_meta` organization** and are read by ever
 
 ## Configure announcement banners
 
-Announcement banners are configured from the **`_meta`** organization. Open **Settings** → **General**, then select **Configure** next to **Announcement Banners**.
+Announcement banners are configured from the **`_meta`** organization. Open **Settings**, then select **Announcement banners** (under **General**).
 
 ![the Announcement Banners entry in General Settings](images/announcement-banners-1.png)
 
-The **Announcement Banners** drawer opens. It shows a live **Preview** of how the banners will render, followed by the list of configured banners.
+The **Announcement banners** page shows which banners are **Live right now**, followed by the list of configured banners with their **Message**, **Severity**, **Status** (**Live**, **Scheduled**, **Ended**, or **Live · hidden**), **Schedule**, and **Show to** audience.
 
 ![the Announcement Banners drawer with preview and banner list](images/announcement-banners-2.png)
 
-Select **Add banner** to create a banner, or the edit/remove icons on an existing banner to modify or delete it.
+Select **Add banner** to create a banner. Use the row actions to **Edit banner**, **Duplicate banner**, or **Remove banner**.
 
 ![the Add banner dialog with its fields](images/announcement-banners-3.png)
 
-The **Add banner** dialog exposes the following fields:
+The banner editor has three sections and a live **Preview** in light and dark mode:
 
-| Field | Description |
+| Section | Fields |
 | --- | --- |
-| **Message** | The plain-text notice shown to users. This is the only required field. Links and formatting are not applied. |
-| **Severity** | The visual treatment: **Info**, **Warning**, **Critical**, or **Promotion**. More severe banners sort above less severe ones. |
-| **Show this banner** | When the banner appears: **Straight away, until I remove it**, **Straight away, for a set time**, or **During a specific window**. |
-| **For how long** | A duration span such as `30m`, `2h`, `3d`, or `1w`. Shown when the schedule is "for a set time". |
-| **Starts** / **Ends** | Start and end times for a scheduled window. Shown when the schedule is "during a specific window". Times are entered in your own timezone. |
-| **Let people dismiss this banner** | When enabled, users can dismiss the banner with a **Dismiss** button. |
-| **Add a link button** | Adds a call-to-action with **Button text** and a **Button link**. The link must start with `http://` or `https://`. |
-| **Show to** | Restricts the banner to specific organizations. Leave empty to show it to every organization. |
+| **Message** | **Message**: the notice shown to users, up to 300 characters. Supports **bold**, _italic_, `code` and links; links must start with `http://` or `https://`. **Link buttons**: use **Add link button** to add a call-to-action with **Button text** (under 30 characters) and a **Button link** that starts with `http://` or `https://`. |
+| **Style** | Pick the banner's style: **Info**, **Warning**, **Critical**, **Promotion**, a saved style, or **Custom**. **Custom** lets you choose the **Icon**, **Text size** and **Background color** (light and dark mode), mark it **Treat as critical**, and **Save as style** for reuse. |
+| **Audience and schedule** | **Show to**: **All organizations** or **Only these organizations**. **Starts**: **When I publish** or **At a set time**. **Ends**: **When I remove it**, **After a while** (1 hour, 4 hours, 1 day, 1 week, or a custom span such as `30m`, `2h`, `3d` or `1w`), or **At a set time**. **Let people dismiss this banner** adds a **Dismiss** button; when editing, **Show again to people who dismissed it** brings it back for everyone. |
+
+The save button reads **Publish now** when the banner goes live immediately and **Schedule** when it starts later.
 
 ## Schedule a banner
 
-Three scheduling modes cover every window you need:
+Combine **Starts** and **Ends** to cover every window you need:
 
-- **Always** — the banner shows immediately and stays until you remove it.
-- **For a set time** — the banner shows immediately for a duration such as `2h`. The window is anchored to when you save, so editing an unrelated field later does not silently extend it.
-- **During a specific window** — the banner appears at a start time and disappears at an end time. You can set a start, an end, or both.
+- **When I publish** + **When I remove it**: the banner shows immediately and stays until you remove it.
+- **When I publish** + **After a while**: the banner shows immediately for a duration such as `2h`. The window is anchored to when you publish, so editing an unrelated field later does not silently extend it.
+- **At a set time** for the start, the end, or both: the banner appears at a start time and disappears at an end time.
 
-For a scheduled window, the start instant is inclusive and the end instant is exclusive: a banner scheduled for `02:00–04:00` is visible at exactly `02:00` and gone at exactly `04:00`. Times carry the timezone offset you picked, so a banner scheduled in your local time appears at the right local hour for your users.
+For a scheduled window, the start instant is inclusive and the end instant is exclusive: a banner scheduled for `02:00–04:00` is visible at exactly `02:00` and gone at exactly `04:00`. Times are entered in your own timezone, and the editor shows when the banner will be up and in which zone.
 
 ## Severity and ordering
 
@@ -54,7 +51,7 @@ A **Promotion** banner is automatically hidden while a **Critical** banner is sh
 
 ## Preview
 
-The **Preview** section in the drawer renders the banners through the same resolver the live banner bar uses, so it shows the exact order and visibility your users get — not the order the banners were authored in. When a critical banner is present, promotions are hidden in the preview just as they are in the app.
+The **Preview** in the editor shows the banner in light and dark mode. Links are disabled in the preview. While a critical banner is live, a promotion's preview says it is hidden, just as it is in the app.
 
 ## How banners appear to users
 

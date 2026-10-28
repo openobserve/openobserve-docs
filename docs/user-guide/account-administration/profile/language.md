@@ -1,6 +1,6 @@
 ---
 title: UI Languages in OpenObserve
-description: Switch UI language in OpenObserve via your profile. Choose from 12 languages. Only UI elements are translated—your data stays unchanged.
+description: Switch UI language in OpenObserve via your profile. Choose from 16 languages. Only UI elements are translated—your data stays unchanged.
 ---
 
 OpenObserve supports multiple UI languages. You can switch the interface language to your preference in just a few clicks. 
@@ -16,13 +16,14 @@ OpenObserve supports multiple UI languages. You can switch the interface languag
 
 1. Go to the top-right corner of the screen.  
 2. Click your profile icon.  
-3. In the dropdown, find the **Language** selector.  
+3. In the dropdown, open the **Language** submenu.  
 4. Choose your preferred language from the list.  
    The UI will instantly update to reflect your selected language.
 
 ## Supported Languages
 
 - English (Default)  
+- العربية  
 - Türkçe  
 - 简体中文  
 - 繁體中文  
@@ -33,7 +34,10 @@ OpenObserve supports multiple UI languages. You can switch the interface languag
 - 日本語  
 - 한국어  
 - Nederlands  
-- Português
+- Português  
+- Русский  
+- Polski  
+- Tiếng Việt
 
 ## What Gets Translated  
 All built-in user interface (UI) elements, including labels, menus, buttons, settings, tooltips, and other components, are translated into the selected language.

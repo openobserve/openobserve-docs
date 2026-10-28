@@ -21,7 +21,7 @@ The **Nodes** page is available only when OpenObserve is running in a clustered 
 :::
 
 :::note[Who can access]
-In the OpenObserve UI, select `_meta` organization and go to **Management > Nodes** from the top navigation menu.  
+In the OpenObserve UI, select the `_meta` organization, click **Settings** in the left navigation, and open **Nodes** (under **Operations**).  
 
 By default, `root` users and `Admins` with access to the `_meta` organization can access the **Nodes** page. RBAC cannot grant access to other user roles. 
 :::
@@ -41,11 +41,11 @@ By default, `root` users and `Admins` with access to the `_meta` organization ca
 - **Router**: Routes API requests and serves the OpenObserve user interface.  
 - **Scheduler**: Manages alerting rules and runs scheduled tasks.
 
-## View ky metrics
+## View key metrics
 
 Each node displays the following metrics in a tabular format with progress bars and color indicators:
 
-- **Name:** Displays the node’s type.  
+- **Node Name:** Displays the node’s name.  
 - **Version:** Displays the OpenObserve version running on the node.  
 - **Region and Cluster (for super-cluster setup):** Display the deployment location of the node.  
 - **CPU (%):** Shows the percentage of CPU currently in use.  
@@ -62,12 +62,13 @@ Each node displays the following metrics in a tabular format with progress bars 
   
     - **Offline** (Red): Node has missed heartbeats and is considered down. Access the Kubernetes cluster or the AWS environment (wherever the system is hosted) and troubleshoot or fix the issue directly from there.
     ![nodes-status-offline](../../../images/nodes-status-offline.png)
-    - **Prepare** (Orange): Node is starting up or initializing. No action needed unless it stays in this state too long.
+    - **Prepare** (Orange, counted as **Starting** in the summary): Node is starting up or initializing. No action needed unless it stays in this state too long.
     - **Online** (Green): Node is healthy and active.
     ![nodes-status-online](../../../images/nodes-status-online.png)
 
 ## Use refresh, search, and filters 
 
+- **Status summary:** The **Offline**, **Starting**, **Online** and **Nodes** (total) counts at the top of the page. Click a count to show only nodes in that state; click **Nodes** to clear it.  
 - **Refresh:** Click the **Refresh** button in the top-right corner of the page to update the list with the latest node data.  
 - **Search Bar:** Use the search bar to locate nodes by names and version.  
 - **Filters**: 
