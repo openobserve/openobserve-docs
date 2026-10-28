@@ -18,14 +18,15 @@ This guide shows how to connect OpenObserve (O2) as an MCP (Model Context Protoc
 
 ## Getting Your Authorization Token
 
-!!! info "OAuth 2.0 sign-in"
-    In Enterprise Edition with Dex enabled, you can skip the Base64 token. Add the server without an authorization header, and Claude Code opens a browser window for sign-in:
+:::info[OAuth 2.0 sign-in]
+In Enterprise Edition with Dex enabled, you can skip the Base64 token. Add the server without an authorization header, and Claude Code opens a browser window for sign-in:
 
-    ```bash
-    claude mcp add o2 <O2_URL>/api/<ORG_ID>/mcp -t http
-    ```
+```bash
+claude mcp add o2 <O2_URL>/api/<ORG_ID>/mcp -t http
+```
 
-    See [OAuth 2.0 sign-in](index.md#oauth-20-sign-in) for the flow and server requirements. The rest of this guide uses Basic authentication.
+See [OAuth 2.0 sign-in](index.md#oauth-20-sign-in) for the flow and server requirements. The rest of this guide uses Basic authentication.
+:::
 
 Your authorization token should be Base64 encoded in the format: `username:password`
 

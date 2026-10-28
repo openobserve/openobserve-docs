@@ -8,8 +8,9 @@ description: "Connect AI agents and IDEs to OpenObserve over the Model Context P
 
 The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard introduced by Anthropic that defines how AI applications connect to external tools and data sources. It's analogous to LSP for editors: one protocol, many clients, many servers.
 
-!!! info "Availability"
-    The MCP server is available in Open Source, Enterprise Edition, and Cloud. OAuth 2.0 sign-in for MCP is available in Enterprise Edition with Dex enabled.
+:::info[Availability]
+The MCP server is available in Open Source, Enterprise Edition, and Cloud. OAuth 2.0 sign-in for MCP is available in Enterprise Edition with Dex enabled.
+:::
 
 You can connect your AI agents and IDEs to your OpenObserve instance to query logs, metrics, and traces in natural language; create and manage alerts; and explore stream metadata directly from your editor or agent runtime. MCP enables:
 
@@ -478,8 +479,9 @@ This is useful for keeping production data isolated from development queries, or
 
 ## Security considerations
 
-!!! warning "Permission scoping in Open Source"
-    Role-based access control with custom roles and granular permissions is available in Enterprise Edition and Cloud. On an Open Source instance, every MCP tool call runs with the connected account's full privileges. This includes the destructive tools marked ⚠️ in the tool tables above, such as deleting streams, alerts, and users. Before connecting an AI agent to an Open Source instance, restrict network access to the endpoint and configure your MCP client to require confirmation for every tool call.
+:::warning[Permission scoping in Open Source]
+Role-based access control with custom roles and granular permissions is available in Enterprise Edition and Cloud. On an Open Source instance, every MCP tool call runs with the connected account's full privileges. This includes the destructive tools marked ⚠️ in the tool tables above, such as deleting streams, alerts, and users. Before connecting an AI agent to an Open Source instance, restrict network access to the endpoint and configure your MCP client to require confirmation for every tool call.
+:::
 
 - **Use a dedicated MCP user** with the minimum permissions required, rather than your personal admin credentials. Permission scoping requires role-based access control, which is available in Enterprise Edition and Cloud.
 - **Never commit credentials** to version control. Store Base64 tokens in environment variables or a secrets manager.

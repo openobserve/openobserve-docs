@@ -46,9 +46,9 @@ OpenObserve ships one SDK per mobile ecosystem. They are independent packages bu
 
 The React Native SDK wraps the native Android and iOS SDKs, so a React Native app gets native crash reporting, native view tracking, and native network instrumentation underneath the JavaScript layer.
 
-!!! note "Versions (Beta)"
-
-    The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. Pin exact versions and expect small configuration details to change across early `0.1.x` releases.
+:::note[Versions (Beta)]
+The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. Pin exact versions and expect small configuration details to change across early `0.1.x` releases.
+:::
 
 ## How it connects to OpenObserve
 
@@ -60,9 +60,9 @@ Every mobile SDK uses the same connection model, so once you understand it for o
 
 You configure the SDK with the client token and application id, and point its **custom endpoint** at your instance's base URL; the SDK appends the RUM intake path automatically. There is no separate "organization" field on mobile — your organization is part of the ingestion endpoint and token. Standard fields — `env` (for example `production` or `staging`), `service` (your app identifier), and `version` — round out the configuration and let you slice data by environment and release in OpenObserve.
 
-!!! note
-
-    The built-in managed-cloud `site` presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in the current releases. For self-hosted instances and today's setups, use the custom-endpoint approach — every platform guide shows exactly how.
+:::note
+The built-in managed-cloud `site` presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in the current releases. For self-hosted instances and today's setups, use the custom-endpoint approach — every platform guide shows exactly how.
+:::
 
 ## What you'll do to get started
 

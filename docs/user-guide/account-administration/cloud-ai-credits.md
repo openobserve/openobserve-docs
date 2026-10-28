@@ -7,8 +7,9 @@ description: AI Credits give every OpenObserve Cloud organization a shared free-
 
 AI Credits are a pool of free credits that each OpenObserve Cloud organization can spend on AI-powered features such as AI chat and incident analysis.
 
-!!! info "Availability"
-    This feature is available only in OpenObserve Cloud.
+:::info[Availability]
+This feature is available only in OpenObserve Cloud.
+:::
 
 ## Overview
 

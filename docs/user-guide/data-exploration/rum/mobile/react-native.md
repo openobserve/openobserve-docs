@@ -9,9 +9,9 @@ This guide walks through adding [OpenObserve](https://openobserve.ai) Real User 
 
 New to mobile RUM in general? Start with the [Mobile RUM Overview](./index.md) for the concepts (sessions, views, actions, resources, errors) that this guide assumes.
 
-!!! note "Version (Beta)"
-
-    The React Native SDK is published as `0.1.2` on npm. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases. Session Replay's `customEndpoint` handling changed in `0.1.2` — see [Step 10](#step-10-session-replay-optional).
+:::note[Version (Beta)]
+The React Native SDK is published as `0.1.2` on npm. Pin the exact version and test upgrades deliberately, since configuration details can still change across early `0.1.x` releases. Session Replay's `customEndpoint` handling changed in `0.1.2` — see [Step 10](#step-10-session-replay-optional).
+:::
 
 ## What you get
 
@@ -123,9 +123,9 @@ export default function App() {
 
 That single provider initializes the SDK, enables RUM, and starts the automatic instrumentation you turned on. Data now flows to your OpenObserve instance.
 
-!!! note "Consent gating"
-
-    Nothing is collected until tracking consent is `granted`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `O2SdkReactNative.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
+:::note[Consent gating]
+Nothing is collected until tracking consent is `granted`. If you show a consent dialog, initialize with `TrackingConsent.PENDING` and call `O2SdkReactNative.setTrackingConsent(TrackingConsent.GRANTED)` once the user agrees. See [Security & Privacy](./security-privacy.md).
+:::
 
 ## Step 3 — Configuration options
 
@@ -312,9 +312,9 @@ await SessionReplay.enable({
 });
 ```
 
-!!! warning "Do not append `/replay` yourself"
-
-    Prior to SDK `0.1.2`, `customEndpoint` here needed the full `/replay` URL spelled out. As of `0.1.2` the bridge appends `/replay` automatically — same as RUM and Logs above. Passing `` `${OPENOBSERVE_ENDPOINT}/replay` `` now double-appends the path and every segment upload is rejected with `401`, which looks exactly like a bad token unless you inspect the actual request URL.
+:::warning[Do not append `/replay` yourself]
+Prior to SDK `0.1.2`, `customEndpoint` here needed the full `/replay` URL spelled out. As of `0.1.2` the bridge appends `/replay` automatically — same as RUM and Logs above. Passing `` `${OPENOBSERVE_ENDPOINT}/replay` `` now double-appends the path and every segment upload is rejected with `401`, which looks exactly like a bad token unless you inspect the actual request URL.
+:::
 
 Wrap any subtree you never want recorded in `<SessionReplayView.Hide>` (import `SessionReplayView` from the same package — `SessionReplayView.MaskAll` and `SessionReplayView.MaskNone` are also available for finer-grained control). Replay defaults are privacy-preserving (all text and inputs masked, touches hidden). See [Security & Privacy](./security-privacy.md) for the full privacy model.
 

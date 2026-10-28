@@ -6,12 +6,13 @@ description: >-
 ---
 This guide provides an overview of Role-Based Access Control (RBAC) and its features in OpenObserve.
 
-!!! info "Availability"
-    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::info[Availability]
+This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
-    - **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
-    - **Cloud version**: RBAC is preconfigured and does not require setup.
-    - **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
+- **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
+- **Cloud version**: RBAC is preconfigured and does not require setup.
+- **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
+:::
 
 ## Overview
 

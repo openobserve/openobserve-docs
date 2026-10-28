@@ -10,9 +10,9 @@ Performance is what your users actually feel: how long the app takes to open, ho
 
 If you are just getting set up, start with the [Mobile RUM Overview](./index.md) and your platform guide ([React Native](./react-native.md), [Android](./android.md), [iOS](./ios.md)). This page assumes the SDK is already initialized and RUM is enabled.
 
-!!! note "Versions (Beta)"
-
-    The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change across early `0.1.x` releases.
+:::note[Versions (Beta)]
+The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change across early `0.1.x` releases.
+:::
 
 ## What performance data you get
 
@@ -202,9 +202,9 @@ RUM.enable(
 )
 ```
 
-!!! note
-
-    Setting `appHangThreshold` on iOS is what turns app-hang reporting on — it defaults to off. Choose a value that catches real hangs without flagging brief, expected pauses (0.25s is a reasonable starting point).
+:::note
+Setting `appHangThreshold` on iOS is what turns app-hang reporting on — it defaults to off. Choose a value that catches real hangs without flagging brief, expected pauses (0.25s is a reasonable starting point).
+:::
 
 ## Network and resource performance
 
@@ -286,9 +286,9 @@ RUM.enable(
 )
 ```
 
-!!! note
-
-    The `tracecontext` header type (W3C) is what OpenObserve reads to stitch the mobile resource to the backend trace. A request only gets trace headers if its host is in your first-party list — otherwise the SDK still records timing, status, and size, just without the end-to-end link.
+:::note
+The `tracecontext` header type (W3C) is what OpenObserve reads to stitch the mobile resource to the backend trace. A request only gets trace headers if its host is in your first-party list — otherwise the SDK still records timing, status, and size, just without the end-to-end link.
+:::
 
 ## Frustration signals
 

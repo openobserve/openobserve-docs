@@ -312,9 +312,9 @@ SessionReplay.enable({
 }).catch(() => {});
 ```
 
-!!! warning "Session Replay's `customEndpoint` changed in SDK 0.1.2"
-
-    Before `0.1.2`, this needed the full `.../replay` URL spelled out. As of `0.1.2` the bridge appends `/replay` automatically, matching RUM and Logs above. If you're on an older version, append `/replay` to `OPENOBSERVE_ENDPOINT` yourself; on `0.1.2`+, don't — a manually appended `/replay` now double-appends the path and gets rejected with `401`, which looks exactly like a bad token.
+:::warning[Session Replay's `customEndpoint` changed in SDK 0.1.2]
+Before `0.1.2`, this needed the full `.../replay` URL spelled out. As of `0.1.2` the bridge appends `/replay` automatically, matching RUM and Logs above. If you're on an older version, append `/replay` to `OPENOBSERVE_ENDPOINT` yourself; on `0.1.2`+, don't — a manually appended `/replay` now double-appends the path and gets rejected with `401`, which looks exactly like a bad token.
+:::
 
 ---
 
