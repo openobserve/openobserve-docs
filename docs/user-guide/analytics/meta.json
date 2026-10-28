@@ -5,6 +5,7 @@
     "slos",
     "dashboards",
     "incidents",
-    "reports"
+    "reports",
+    "autoobserve"
   ]
 }
