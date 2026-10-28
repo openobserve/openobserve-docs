@@ -46,7 +46,7 @@ You also can use `{log:N}` to limit the length of a actual value.
 
 ## Formatting modifiers
 
-Apply a function to any placeholder with `{field|function}`, in the template **Body**, **Title**, and row templates. For example, `{value|humanizePercentage}` renders `0.9123` as `91.23%`.
+Apply a function to a placeholder with `{field|function}`. Modifiers work in the body and email **Title** of a **Raw payload** template, and in alert row templates; the structured **Template** editor does not apply them. For example, `{value|humanizePercentage}` renders `0.9123` as `91.23%`.
 
 ![TODO: screenshot of the alert template editor showing a formatting modifier in the Body field](images/placeholder.png)
 
@@ -60,13 +60,13 @@ Apply a function to any placeholder with `{field|function}`, in the template **B
 | `formatTimestamp` | Unix seconds to a date | `0` → `1970-01-01T00:00:00Z` |
 | `formatTimestampMicros` | Microseconds to a date | `1700000000123456` → `2023-11-14T22:13:20.123456Z` |
 
-Both timestamp functions take an optional [strftime format](https://docs.rs/chrono/latest/chrono/format/strftime/index.html) and timezone, and default to UTC ISO 8601:
+Both timestamp functions take an optional [strftime format](https://docs.rs/chrono/latest/chrono/format/strftime/index.html) followed by an optional timezone. To set a timezone, also pass a format. Without arguments, they output an ISO 8601 timestamp in UTC:
 
 ```
 {_timestamp|formatTimestampMicros("%Y-%m-%d %H:%M:%S %:z", "Asia/Shanghai")}
 ```
 
-The timezone can be `UTC`, an offset such as `+08:00`, or an IANA name such as `Asia/Kolkata`. Abbreviations such as `CST` or `IST` are rejected because they are ambiguous. If a value or argument cannot be parsed, the placeholder is left unchanged.
+The timezone can be `UTC`, an offset such as `+08:00`, or an IANA name such as `Asia/Kolkata`. Use IANA names rather than abbreviations: `CST` is rejected because it is ambiguous, and most other abbreviations are not recognized. If a value or argument cannot be parsed, the placeholder is left unchanged.
 
 ## Row templates
 
