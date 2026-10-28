@@ -5,99 +5,102 @@ description: Install the two-way Slack app to link accounts, ask OpenObserve que
 
 # Slack Integration
 
-The two-way Slack app brings OpenObserve into your workspace. Team members link their accounts once, then ask questions of your data directly from Slack and get answers that use their own OpenObserve permissions. Admins install the app, link people, map channels to organizations, and manage access from **Settings**. Alerts keep using today's Slack webhook destination; this integration is for asking OpenObserve from Slack.
+The two-way Slack app brings OpenObserve into your Slack workspace. People link their Slack account to their OpenObserve account once, then ask questions about your data from Slack. Answers are read-only and use each person's own OpenObserve permissions. Admins install the app, decide how people are linked, set channel defaults, and manage access from **Settings > Slack**.
+
+Slack webhook alert destinations you already have keep working when you add the app. To send alert notifications to Slack, see [Alert Destinations](../user-guide/account-administration/management/alert-destinations.md).
 
 ## Availability
 
 The Slack app is an OpenObserve Enterprise feature and is **off by default**. It turns on only when all of the following hold:
 
-- `O2_SLACK_ENABLED` is set.
+- `O2_SLACK_ENABLED` is set to `true`.
 - A master encryption key (`O2_MASTER_ENCRYPTION_KEY`) is set and active, so Slack tokens are stored encrypted.
 - The instance is not a super cluster.
 
-Until then no Slack tasks start, the `/api/slack/*` routes return `404`, and the UI shows no Slack entry. There is no per-organization switch; the setting is global.
+Until then no Slack tasks start and the Slack API routes return `404`. The setting is global; there is no per-organization switch. Turning it on or off needs a restart.
 
 :::note[Rollback]
 To disable Slack again, set `O2_SLACK_ENABLED=false` and restart. Rolling the binary back across the Slack table migration is not supported.
 :::
 
-## Prerequisites
-
-Before you can install the app, the **Settings > Slack** page runs a prerequisite check. Each check shows a pass, warning, or failure, and names the environment variable to fix:
-
-- **Master key** — `O2_MASTER_ENCRYPTION_KEY` is set and active.
-- **Delegation key** — derived from the master key, or set with `ZO_DELEGATION_SIGNING_KEY`.
-- **Web URL** — `ZO_WEB_URL` is a public HTTPS URL (needed for OAuth redirects and account links).
-- **Agent** — the AI assistant is reachable and `O2_AI_INTERNAL_SECRET` is set.
-
-![TODO: screenshot of the Slack prerequisites checklist on the Settings page](images/placeholder.png)
-
 ## Install the app
 
-From **Settings > Slack**, install the app for your workspace. The flow depends on your deployment:
+Installing needs the **Manage Slack** permission, which organization Admins have by default. Open **Settings > Slack** and connect a workspace. The flow depends on your deployment:
 
-- **Cloud** — use the **Add to Slack** OAuth flow to authorize the app.
-- **Self-hosted** — use a configuration token that creates the app from the manifest, or paste your app credentials. You can run the app in **Socket Mode** or **HTTP mode**, and test the connection before finishing.
+- **Cloud**: click **Add to Slack**. Slack opens in a popup, where you pick a channel for alerts and click **Allow**.
+- **Self-hosted**: click **Set up Slack app**. A wizard creates your own Slack app in five steps: **Prerequisites**, **Connection**, **Create the app**, **Install**, and **Test and linking**.
 
-Once installed, the workspace appears as a card with its status, connection mode, and health. From the card you can test connectivity, take over the app, or uninstall it.
+![Connect a Slack workspace page with the Set up Slack app button](images/slack-app-connect.png)
 
-![TODO: screenshot of the Slack settings page with an installed workspace card](images/placeholder.png)
+### Self-hosted setup wizard
 
-![TODO: screenshot of the self-hosted Slack install wizard](images/placeholder.png)
+1. **Prerequisites** (**Step 0 · Server prerequisites**) checks the server before any Slack work. Each row shows a pass, warning, or failure, with the environment variable to fix. After you change the environment and restart OpenObserve, click **Re-check**. **Next** stays disabled until no check fails.
+    - `O2_MASTER_ENCRYPTION_KEY` is set and active.
+    - **Delegation key**: derived from the master key, or set with `ZO_DELEGATION_SIGNING_KEY`.
+    - `ZO_WEB_URL` is a public HTTPS URL, which Slack needs for OAuth redirects and account links. An `http://` or `localhost` URL shows a warning.
+    - `O2_AGENT_URL`: the AI assistant answers, and `O2_AI_INTERNAL_SECRET` is set.
+
+    ![Step 0 server prerequisites checklist in the Slack setup wizard](images/slack-app-prerequisites.png)
+
+2. **Connection** checks that the server can reach Slack, through `HTTPS_PROXY` and any extra CA bundle set in `O2_SLACK_CA_BUNDLE_PATH`.
+3. **Create the app** asks for a **Connection mode**:
+    - **Socket Mode** (recommended): OpenObserve opens the connection, so Slack needs no public URL.
+    - **HTTP**: Slack calls your public URL. It needs one **Verify** click in Slack.
+
+    Paste an app configuration refresh token (`xoxe-…`) from Slack's **Your App Configuration Tokens** and OpenObserve creates the app from its manifest. Or choose **Set up manually** to open Slack with the manifest pre-filled, then enter the app's client ID, client secret, signing secret, and, for Socket Mode, app-level token.
+4. **Install** opens Slack's install screen; click **Allow in Slack**.
+5. **Test and linking** runs connection checks and **Test Sign in with Slack**.
+
+### Manage an installed workspace
+
+Once installed, the workspace appears as a card with its connection mode, health status, and the organizations connected to it. From the card you can **Test connection**, **Update credentials**, **Reinstall**, set a **Help contact** that Slack replies name when someone lacks access, **Disconnect this org**, or **Uninstall from workspace**. Disconnecting stops Slack for one organization only. Uninstalling removes the app for every connected organization, needs Admin in each of them, and everyone must link again.
 
 ## Link accounts
 
-A Slack user must link their OpenObserve account before they can ask questions. Linking can happen automatically or on demand:
+A Slack user must link their OpenObserve account before they can ask questions. The **Linking** section controls how that happens:
 
-- **Automatic by email domain** — users whose Slack email matches a configured domain are linked automatically.
-- **Domain mapping** — enter the specific domains to match manually.
-- **Sign in with Slack** — an individual user links their account in one click, including via SSO when there is no active OpenObserve session.
-- **Link all** — an admin links every matching member of the organization in one action.
+- **Link people automatically**: Slack members with a confirmed email on the listed **Domains** are linked to the OpenObserve user with the same email. Only your company's own domains are accepted; public email domains such as `gmail.com` are rejected. If your organization has a domain mapping, those domains are used and are read-only here.
+- **Sign in with Slack**: when linking is off, or a person's email does not match, they click **Link your account** in Slack the first time they ask, and confirm their identity with Slack. Links work once and expire after 30 minutes.
+- **Link all matches**: links every Slack member who matches an OpenObserve user but joined before automatic linking was turned on. Each person gets one direct message.
 
-The linking section shows how many people are linked by each method, how many matches are not yet linked, and any domains that were skipped.
+The section shows how many people were linked automatically and how many with **Link your account**. The **Linked people** table lists each link with the method (**Email match**, **Sign in with Slack**, or **Link all**), and lets you **Unlink** a person. People removed from OpenObserve or Slack lose their link within an hour.
 
-![TODO: screenshot of the account linking section with email domains and Link all](images/placeholder.png)
+Each user can also see and unlink their own Slack links from **Linked accounts** in the user menu at the top right.
 
 ## Ask OpenObserve from Slack
 
-Once linked, users ask questions in several ways:
+Once linked, people ask questions in several ways:
 
-- **`/o2 ask <question>`** — ask privately; the answer arrives in a direct message.
-- **Mention the bot in a channel** — the answer is posted in the message thread.
-- **App Home** — the app's **Home** tab shows the linked account, an **Unlink** button, and example questions you can ask in one click.
+- **`/o2 ask <question>`**: ask privately; the answer arrives in your direct messages.
+- **Mention `@OpenObserve` in a channel**: the answer is posted in the message thread.
+- **App Home**: the app's **Home** tab shows how your account is linked, an **Unlink** button, and example questions you can ask in one click.
 
-The answer is read-only and uses the asker's own OpenObserve permissions. When you belong to several organizations, OpenObserve decides which one answers using, in order: an `in:<org>` word in the question, an OpenObserve link in the question, the thread's organization, a shared link, the channel's default, then your personal default organization. Use **Re-ask in** on an answer to change which organization a thread uses.
+When you belong to several organizations, OpenObserve picks the one that answers in this order: an `in:<org>` word in the question, an OpenObserve link in the question, the thread's organization, an OpenObserve link shared in the thread, the channel default, then your personal default organization. Use **Re-ask in** on an answer to ask the same question in another organization.
 
 Other slash commands:
 
-- **`/o2 org [name]`** — show or set your default organization, for direct messages and channels without a default.
-- **`/o2 link`** / **`/o2 unlink`** — link or unlink your account.
-- **`/o2 help`** — list every command and your link status.
-
-![TODO: screenshot of the Slack App Home tab with link status and example questions](images/placeholder.png)
+- **`/o2 org [name]`**: show your default organization, or set it to `name`. It never changes the organization of an existing thread.
+- **`/o2 link`** and **`/o2 unlink`**: link or unlink your account.
+- **`/o2 help`**: list every command and your link status.
 
 ## Configure channels
 
-For each channel you can set a default organization and an **answer mode**:
+The **Channel defaults** table sets, per channel, which organization answers when nothing in the question or thread names one, and where answers go:
 
-- **Thread** — the answer is posted in the channel thread (default).
-- **Private** — the answer is sent by direct message instead.
+- **In thread**: the answer is posted in the channel thread.
+- **Private only**: the answer is sent by direct message instead.
 
-Channel defaults decide which organization answers when nothing else in the question names one, and where the answer appears.
-
-![TODO: screenshot of the Slack channel defaults table](images/placeholder.png)
+Questions in a channel without a default go to the earliest connected organization. Private channels appear in the channel picker after you `/invite @OpenObserve` to them.
 
 ## Instance workspace (self-hosted)
 
-On a self-hosted instance, a `_meta` Admin can install a single **instance workspace** that serves every organization, or only the organizations you list. Individual organization Admins then map their own channels and link their own people.
+On a self-hosted instance, an Admin of the `_meta` organization can install a single **instance workspace** that serves every organization on the server, or only selected ones. The **Organizations** section on the `_meta` **Settings > Slack** page controls this: choose **All organizations** (including organizations created later) or **Selected organizations**. `_meta` is always included. Each organization's Admin then maps its own channels and alert destinations.
 
-An organization removed from an instance workspace gets a one-time note in its threads (including direct-message threads), and no further turn runs in that organization. Disconnecting or uninstalling the workspace cleans up its data at once.
-
-![TODO: screenshot of the instance workspace org access list](images/placeholder.png)
+When you remove an organization from the instance workspace, its channel defaults are removed, its linked people move to another organization they belong to or are unlinked, and its open threads get no more answers. Its alert destinations are not changed.
 
 ## Permissions
 
-The Slack app is governed by the same role-based access control as the rest of OpenObserve, through the `slack_integration` OpenFGA type. Read access maps to **LIST**, writes to **PUT**, and deletes to **DELETE**. When OpenFGA is disabled, handlers require an organization Admin.
+Access to the Slack settings uses the same role-based access control as the rest of OpenObserve, through the `slack_integration` OpenFGA type. Reading maps to **LIST**, changes to **PUT**, and deletes to **DELETE**. When OpenFGA is disabled, an organization Admin is required.
 
 ## Configuration
 
