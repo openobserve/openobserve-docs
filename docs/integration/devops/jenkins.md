@@ -132,7 +132,7 @@ The Jenkins integration captures traces, logs, and metrics using the [OpenTeleme
 1. After pipeline execution, go to the Jenkins job panel -> Click the **Observability link**
 2. You will be redirected to OpenObserve with trace and metrics views for that specific job
 
-![View Pipeline Telemetry from Jenkins UI in Openobserve](https://openobserve.ai/assets%2Fobservability_162216efd5.gif)
+![Jenkins pipeline trace in OpenObserve](../images/devops/jenkins/verify-traces-v2.png)
 :::
 
 ## Troubleshooting

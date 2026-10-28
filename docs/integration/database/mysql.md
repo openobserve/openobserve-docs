@@ -87,7 +87,7 @@ otelcol-contrib --config /path/to/config.yaml
 :::accordion[Step 4: Visualize in OpenObserve]
 
 1. Open **Data > Streams** in OpenObserve and select your metrics stream.  
-   ![Visualize Mysql Metrics](../images/databases/mysql-metrics.png)
+   ![MySQL metric streams in Data > Streams](../images/databases/mysql-metrics-v2.png)
 :::
 
 

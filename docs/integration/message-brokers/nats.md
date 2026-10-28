@@ -178,7 +178,7 @@ In Terminal 2:
 1. Log in to OpenObserve and explore the **NATS stream** under Logs.
     ![NATS server logs in the Logs page](../images/messagebroker/nats-logs-v2.png)
 2. Explore the **NATS stream** under Metrics.
-    ![Visualize in OpenObserve](../images/messagebroker/nats-metrics.png)
+    ![NATS metric streams in Data > Streams](../images/messagebroker/nats-metrics-v2.png)
 :::
 
 

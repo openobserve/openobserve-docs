@@ -102,8 +102,8 @@ otelcol-contrib --config /path/to/config.yaml
 :::accordion[Step 5: Visualize in OpenObserve]
 
 1. Open **Data > Streams** in OpenObserve and select your metrics stream.  
-   ![Visualize Redis Metrics](../images/databases/redis-stream.png)  
-   ![Visualize Redis Metrics](../images/databases/redis-stream-explore.png)  
+   ![Redis metric streams in Data > Streams](../images/databases/redis-stream-v2.png)  
+   ![Redis client metrics in the Metrics explorer](../images/databases/redis-stream-explore-v2.png)  
 
 2. Create dashboards to monitor Redis memory, connections, and operations.
 :::

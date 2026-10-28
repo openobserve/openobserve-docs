@@ -90,7 +90,7 @@ otelcol-contrib --config /path/to/config.yaml
 :::accordion[Step 4: Visualize in OpenObserve]
 
 1. Open **Data > Streams** in OpenObserve and select your metrics stream.
-    ![Visualize in OpenObserve](../images/databases/visualize-mongo-metrics.png)
+    ![MongoDB metric streams in Data > Streams](../images/databases/visualize-mongo-metrics-v2.png)
 2. Explore MongoDB metrics in dashboards or create custom queries.
 :::
 

@@ -151,7 +151,7 @@ OpenTelemetry supports automatic application instrumentation. Add annotations to
 1. Go to **Logs** in OpenObserve → select the `k8s_events` stream → set the **time range** → **Run Query** to check for Kubernetes events.
     ![Kubernetes events in the Logs page](../images/k8s/k8s-events-v2.png)
 2. Go to **Data > Streams** and filter by metrics to find the Kubernetes metrics streams
-    ![K8s metrics in Openobserve](../images/k8s/k8s-metrics.png)
+    ![Kubernetes metric streams in Data > Streams](../images/k8s/k8s-metrics-v2.png)
 :::
 
 
@@ -166,7 +166,7 @@ You can import dashboards from the [OpenObserve community repository](https://gi
 * **Events Dashboard** – system events and severities  
 * **Node (Pods) Dashboard** – node-level pod performance  
 
-![Example Dashboard](../images/k8s/community-dashboard.png)
+![Imported Kubernetes / Namespace (Pods) dashboard](../images/k8s/community-dashboard-v2.png)
 :::
 
 

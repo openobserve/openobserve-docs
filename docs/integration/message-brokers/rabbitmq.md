@@ -143,7 +143,7 @@ Logs should confirm metrics are being collected.
 :::accordion[Step 7: Visualize in OpenObserve]
 
 1. Go to **Data > Streams** → search for RabbitMQ metrics → explore metrics.
-![RabbitMQ Dashboard in OpenObserve](../images/messagebroker/rabbitmq-metrics.png)
+![RabbitMQ metric streams in Data > Streams](../images/messagebroker/rabbitmq-metrics-v2.png)
 :::
 
 

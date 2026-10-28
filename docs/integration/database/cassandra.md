@@ -119,7 +119,7 @@ Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with v
 
 1. Go to **Data > Streams** in OpenObserve.  
 2. Explore metrics such as node health, read/write latency, and JVM performance.  
-    ![Visualize Cassandra Metrics](../images/databases/cassandra-metrics.png)
+    ![Cassandra metric streams in Data > Streams](../images/databases/cassandra-metrics-v2.png)
 3. Explore logs to debug errors, failed queries, etc. 
     ![Cassandra logs in the Logs page](../images/databases/cassandra-logs-v2.png) 
 :::

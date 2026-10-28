@@ -88,9 +88,9 @@ otelcol-contrib --config /path/to/config.yaml
 :::accordion[Step 4: Visualize in OpenObserve]
 
 1. Open **Data > Streams** in OpenObserve and select your metrics stream.  
-   ![Visualize Aerospike Metrics](../images/databases/aerospike-stream.png)  
+   ![Aerospike metric streams in Data > Streams](../images/databases/aerospike-stream-v2.png)  
 2. Explore the metrics, run queries , create dashboards for insights
-    ![Visualize Aerospike Metrics](../images/databases/aerospike-metric-explore.png)  
+    ![Aerospike namespace metrics in the Metrics explorer](../images/databases/aerospike-metric-explore-v2.png)  
 :::
 
 

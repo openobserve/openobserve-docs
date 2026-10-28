@@ -126,7 +126,7 @@ otelcol-contrib --config /path/to/config.yaml
 :::accordion[Step 5: Visualize in OpenObserve]
 
 1. Open **Data > Streams** in OpenObserve and select your Oracle metrics/logs stream.  
-    ![Visualize Oracle Metrics](../images/databases/oracle-metrics.png)
+    ![Oracle metric streams in Data > Streams](../images/databases/oracle-metrics-v2.png)
 2. Create dashboards to track:  
     - Active sessions  
     - Tablespace usage  

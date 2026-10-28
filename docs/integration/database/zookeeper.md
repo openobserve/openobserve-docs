@@ -94,7 +94,7 @@ sudo systemctl status otelcol-contrib
 
 1. Navigate to **Data > Streams** in OpenObserve and select your metrics stream.  
 2. Search for Zookeeper metrics.
-    ![Visualize Zookeeper Metrics](../images/databases/zookeeper-metrics.png)
+    ![ZooKeeper metric streams in Data > Streams](../images/databases/zookeeper-metrics-v2.png)
 3. Visualize and Analyze data using Dashboards
 > To make it easy, we have a prebuilt zookeeper dashboard that should help you get started with the metrics monitoring available in the [OpenObserve dashboards repository](https://github.com/openobserve/dashboards/tree/main/zookeeper). Import it from **Dashboards > Import > Custom**.
 :::

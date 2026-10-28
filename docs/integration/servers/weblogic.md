@@ -143,7 +143,7 @@ Example
     }
     ```
 
-![Parse Logs with VRL](../images/servers/weblogic/vrl.png)
+![VRL function that parses WebLogic logs, with test output](../images/servers/weblogic/vrl-v2.png)
 Next you can:
 
 * Search by **level**, **component**, or **message**

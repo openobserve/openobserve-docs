@@ -110,7 +110,7 @@ Replace the following with your OpenObserve details:
 :::accordion[Step 6: Visualize in OpenObserve]
 
 1. Go to **Data > Streams** → filter by metrics. Expand on any metric stream to see the events.
-![Visualize in OpenObserve](../images/messagebroker/kafka-metrics.png)
+![Kafka metric streams in Data > Streams](../images/messagebroker/kafka-metrics-v2.png)
 :::
 
 :::tip[Tip]
