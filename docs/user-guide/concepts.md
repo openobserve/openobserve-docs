@@ -7,11 +7,11 @@ description: "Learn core OpenObserve concepts: organizations, streams, users, fu
 
 ## Organizations
 
-An organization is logical entity which groups various streams, users, functions in OpenObserve. An organization can represent an enterprise, a department of an enterprise, or an application. All streams, users, functions, etc. are scoped to an organization.
+An organization is a logical entity which groups various streams, users, functions in OpenObserve. An organization can represent an enterprise, a department of an enterprise, or an application. All streams, users, functions, etc. are scoped to an organization.
 
 ## Streams
 
-A stream in OpenObserve is sequence of events (logs/metrics/traces) that share the same source, e.g. logs from a specific application or logs from an enterprise.
+A stream in OpenObserve is a sequence of events (logs, metrics, traces) that share the same source, e.g. logs from a specific application or logs from an enterprise.
 
 ## Data Ingestion
 
@@ -27,17 +27,17 @@ Log is a type of stream, which caters to log events from applications.
 
 > Applicable to cloud version
 
-Users are indiviuals using application by logging in with appropriate credentials. As of today we support Google as social account for login. One can also sign up by providing valid email.
+Users are individuals using the application by logging in with appropriate credentials. As of today we support Google as social account for login. One can also sign up by providing valid email.
 
 ### User Roles
 
-A user in OpenObserve can have role `admin` or `member`.
+In the open-source edition, users added to an organization get the `Admin` role; the `Root` user is created at first start. Enterprise and Cloud with RBAC enabled add the `Editor`, `Viewer`, and `User` roles, plus custom roles. See [Role-Based Access Control](account-administration/identity-and-access-management/role-based-access-control.md).
 
-Users with `admin` role have greater privileges as compared to users with `member` role, e.g., Other users can be added to an organization by users with `admin` role.
+Only users with the `Admin` (or `Root`) role can add other users to an organization.
 
 ## Functions
 
-Functions in OpenObserve can be used during ingestion & query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. A function is defined using VRL script.
+Functions in OpenObserve can be used during ingestion & query to aid advanced capabilities like enrichment, redaction, log reduction, compliance, etc. A function is defined using a VRL script (JavaScript functions are also available on Enterprise and Cloud).
 
 ## Timestamp
 
@@ -56,6 +56,6 @@ For input data with key as `_timestamp`/`@timestamp`, for the value we support t
 
 ### Full text search
 
-For full text search user can use query in-built query functions `match_all`, please note user can restrict full text search to specific fields/columns in log stream by selecting fields/columns from stream in stream details screen.
+For full text search user can use query in-built query functions `match_all`, please note user can restrict full text search to specific fields/columns by setting their index type to **Full text search** on the **Schema Settings** tab of the stream details.
 
 If user enabled `Inverted Index`, this function will auto use `Inverted Index` for `Full text search`.

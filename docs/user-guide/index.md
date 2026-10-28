@@ -8,7 +8,7 @@ description: OpenObserve User Guide covering log search, metrics, RUM, organizat
 1. [Concepts](https://openobserve.ai/docs/user-guide/concepts/)
 2. [Log Search](data-exploration/logs/index.md)
 3. [Metrics](data-exploration/metrics/index.md)
-4. [Real User Monitoring (RUM)](rum.md)
+4. [Real User Monitoring (RUM)](data-exploration/rum/index.md)
 5. [Organizations](account-administration/identity-and-access-management/organizations.md)
 6. [Users](users.md)
 7. [Streams](streams.md)
