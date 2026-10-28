@@ -56,7 +56,7 @@ remote_write:
 
 Update the `url` to the OpenObserve remote write endpoint and add your credentials.
 
-![OpenObserve Data Sources - Prometheus Remote Write](../../images/migration/lgtm/prometheus.png)
+![Data sources, Custom, Metrics, Prometheus remote_write config](../../images/migration/lgtm/prometheus-v2.png)
 *You can copy the exact Prometheus remote write configuration from **Data > Data sources > Custom > Metrics > Prometheus** in OpenObserve*
 
 
@@ -83,7 +83,7 @@ exporters:
 Copy the exact updated configuration from **Data > Data sources > Custom > Metrics > OTEL Collector** in OpenObserve.
 
 
-![OpenObserve Data Sources - OTel Collector Metrics](../../images/migration/lgtm/opentelemetry.png)
+![Data sources, Custom, Logs, OTEL Collector exporter config](../../images/migration/lgtm/opentelemetry-v2.png)
 
 ---
 
@@ -133,7 +133,7 @@ Or replace with [OpenObserve Collector](https://github.com/openobserve/openobser
 Update the output URL to the OpenObserve endpoint. Copy the exact configuration from **Data > Data sources > Custom > Metrics > Telegraf** in OpenObserve.
 
 
-![OpenObserve Data Sources -Telegraf ](../../images/migration/lgtm/telegraf.png)
+![Data sources, Custom, Metrics, Telegraf output config](../../images/migration/lgtm/telegraf-v2.png)
 
 > **Dedicated guide :** [Telegraf → OpenObserve](https://openobserve.ai/blog/how-to-set-up-telegraf-for-http-metrics-collection/)
 
@@ -178,7 +178,7 @@ helm upgrade kps1 prometheus-community/kube-prometheus-stack -f values.yaml -n m
 For detailed steps on ingesting AWS CloudWatch metrics into OpenObserve, see the dedicated guide:
 
 
-![OpenObserve Data Sources - AWS CloudWatch ](../../images/migration/lgtm/aws-cloudwatch.png)
+![Data sources, Recommended, AWS, Individual Services with CloudWatch Logs and CloudWatch Metrics](../../images/migration/lgtm/aws-cloudwatch-v2.png)
 
 > **Dedicated guide:** [AWS CloudWatch Metrics → OpenObserve](https://openobserve.ai/blog/monitor-aws-rds-with-cloudwatch-metrics/)
 
@@ -189,7 +189,7 @@ For detailed steps on ingesting AWS CloudWatch metrics into OpenObserve, see the
 For detailed steps on ingesting Azure Monitor metrics into OpenObserve, see the dedicated guide:
 
 
-![OpenObserve Data Sources - Azure Monitor ](../../images/migration/lgtm/azure-function.png)
+![Data sources, Recommended, Microsoft Azure setup](../../images/migration/lgtm/azure-function-v2.png)
 
 > **Dedicated guide:** [Azure Monitor Metrics → OpenObserve](https://openobserve.ai/blog/azure-monitor-metrics/)
 
@@ -206,7 +206,7 @@ For detailed steps on ingesting Azure Monitor metrics into OpenObserve, see the 
 4. Confirm the values and timestamps match what you'd expect from the source.
 
 
-![OpenObserve Metrics Explorer](../../images/migration/lgtm/metrics-explorer.png)
+![Metrics page, Visualize tab with a PromQL query](../../images/migration/lgtm/metrics-explorer-v2.png)
 *OpenObserve Metrics Explorer — verify metrics are flowing after migration*
 
 ### Troubleshooting
