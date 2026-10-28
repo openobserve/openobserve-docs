@@ -86,10 +86,7 @@ export AWS_REGION=<your-aws-region>
 export NAMESPACE=<your-namespace>
 
 curl -O https://raw.githubusercontent.com/openobserve/eks-openobserve/main/o2-eks.yaml
-sed -i.bak \
-  -e "s/name: test-docs/name: $CLUSTER_NAME/" \
-  -e "s/region: us-east-2/region: $AWS_REGION/" \
-  o2-eks.yaml
+yq -i ".metadata.name = \"$CLUSTER_NAME\" | .metadata.region = \"$AWS_REGION\"" o2-eks.yaml
 
 # Create the cluster (long-running. Eksctl streams CloudFormation events)
 eksctl create cluster -f o2-eks.yaml
@@ -280,7 +277,7 @@ The OpenObserve chart expects two prerequisites already installed in the cluster
 ```bash
 # CloudNativePG operator
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.30/releases/cnpg-1.30.0.yaml
 
 # gp3 storage class (Amazon EBS)
 kubectl apply -f \
@@ -352,7 +349,7 @@ yq -i ".config.ZO_S3_REGION_NAME = \"$AWS_REGION\""   values.yaml
 yq -i '.auth.ZO_ROOT_USER_EMAIL    = "you@yourcompany.com"' values.yaml
 yq -i '.auth.ZO_ROOT_USER_PASSWORD = "ChangeMe#123"'       values.yaml
 
-# 4. (Optional) Enable RBAC and SSO. Set under the enterprise: section
+# 4. (Optional) RBAC and SSO. OpenFGA (RBAC) is on by default; Dex (SSO) is off
 yq -i '.enterprise.openfga.enabled = true' values.yaml
 yq -i '.enterprise.dex.enabled     = true' values.yaml
 ```
@@ -377,7 +374,7 @@ serviceAccount:
 
 `eks.amazonaws.com/role-arn` must be indented **4 spaces** under `annotations:`.
 
-**2. S3 configuration**. Search for `config:` (~ line 200):
+**2. S3 configuration**. Search for `config:` (~ line 208):
 
 ```yaml
 config:
@@ -388,7 +385,7 @@ config:
 
 Valid values for `ZO_S3_PROVIDER` include `s3`, `azure`, `minio`, `rustfs`, and `gcs`. `ZO_S3_REGION_NAME` must match the bucket's region (not the cluster's region, if they differ).
 
-**3. Root user credentials**. Search for `auth:` (~ line 175):
+**3. Root user credentials**. Search for `auth:` (~ line 179):
 
 ```yaml
 auth:
@@ -396,7 +393,7 @@ auth:
   ZO_ROOT_USER_PASSWORD: "<strong password>"
 ```
 
-**4. (Optional) Enable RBAC and SSO**. Search for `enterprise:` and update the nested `openfga` and `dex` keys:
+**4. (Optional) Enable RBAC and SSO**. Search for `enterprise:` and check the nested `openfga` and `dex` keys. `openfga.enabled` is already `true` by default; set `dex.enabled` to `true` for SSO:
 
 ```yaml
 enterprise:
@@ -471,7 +468,7 @@ STATUS: deployed
 REVISION: 1
 ```
 
-- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, scheduler, router, ingester, querier, compactor, openfga-init.
+- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, nats-box, postgres x2, openfga, scheduler, router, ingester, querier, compactor.
 - Service account annotation: your `ROLE_ARN` from Step 2.
 - Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>`.
 :::
@@ -571,7 +568,7 @@ If you see errors, check:
 
 :::accordion[Step 2: Try These Sample Searches]
 
-**Basic searches** (click the **Run Query** button after each):
+**Basic searches** (click the **Run query** button after each):
 
 1. **View all logs**: Leave search box empty and click search
 2. **Find errors**: `level='error'` or `match_all('error')`
@@ -784,7 +781,7 @@ Issues are grouped by theme. Each entry notes the step where it tends to surface
     **Diagnose:**
 
     ```bash
-    kubectl -n $NAMESPACE get secret o2-openobserve-auth -o yaml | grep ZO_ROOT
+    kubectl -n $NAMESPACE get secret o2-openobserve -o yaml | grep ZO_ROOT
     ```
 
     **Fix:** update `values.yaml` with the correct credentials and `helm upgrade` to apply.
