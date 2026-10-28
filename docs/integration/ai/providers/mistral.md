@@ -81,7 +81,7 @@ print(response.choices[0].message.content)
 3. Click any span to inspect token counts, model name, and latency
 4. Error spans show `span_status = ERROR` with the full error message in `status_message`
 
-![Mistral trace in OpenObserve](../../../images/integration/ai/mistral.png)
+![Mistral trace in OpenObserve, Waterfall view with the MistralClient.chat span attributes](../../../images/integration/ai/mistral-v2.png)
 
 ## Next Steps
 

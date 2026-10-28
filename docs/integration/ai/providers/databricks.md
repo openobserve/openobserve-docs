@@ -97,7 +97,7 @@ trace.get_tracer_provider().force_flush()
 3. Note that the endpoint alias (e.g. `databricks-llama-4-maverick`) is kept in the request parameters (`llm_invocation_parameters`), while the resolved model version (e.g. `meta-llama-4-maverick-040225`) appears in `llm_model_name`
 4. Filter by `llm_model_name` to compare latency across different serving endpoints
 
-![Databricks trace in OpenObserve](../../../images/integration/ai/databricks.png)
+![Databricks trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/databricks-v2.png)
 
 ## Next Steps
 

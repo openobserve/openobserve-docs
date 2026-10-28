@@ -131,7 +131,7 @@ asyncio.run(main())
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any span to inspect token counts, latency, and full request metadata
 
-![Anthropic trace span attributes in OpenObserve](../../../images/integration/ai/anthropic.png)
+![Anthropic trace in OpenObserve, Waterfall view with the anthropic.chat span attributes](../../../images/integration/ai/anthropic-v2.png)
 
 ## Next Steps
 

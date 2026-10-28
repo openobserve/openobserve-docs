@@ -84,7 +84,7 @@ print(response.choices[0].message.content)
 3. Click any span to inspect token counts and the full request/response payload
 4. Filter by `llm_model_name` to compare latency across different Together AI models
 
-![Together AI trace in OpenObserve](../../../images/integration/ai/together.png)
+![Together AI trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/together-v2.png)
 
 ## Next Steps
 

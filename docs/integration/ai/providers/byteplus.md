@@ -107,7 +107,7 @@ python3 main.py
 4. Check `llm_token_count_completion_details_reasoning` to see how many tokens the model spent on reasoning
 5. Filter by `span_status = ERROR` to find authentication or endpoint failures
 
-![BytePlus traces in OpenObserve](../../../images/integration/ai/byteplus.png)
+![BytePlus trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/byteplus-v2.png)
 
 ## Next Steps
 

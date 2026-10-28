@@ -40,7 +40,7 @@ AZURE_OPENAI_DEPLOYMENT=your-deployment-name
 
 Find your `OPENOBSERVE_ORG` and `OPENOBSERVE_AUTH_TOKEN` in OpenObserve under **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry**:
 
-![Where to find your OpenObserve organization ID and auth token](../../../images/integration/ai/azure-ai-foundry-credentials.png)
+![Data sources > Custom > Traces > OpenTelemetry with the SDK (No Collector) tab showing the endpoint and token for your organization](../../../images/integration/ai/azure-ai-foundry-credentials-v2.png)
 
 ## Instrumentation
 
@@ -84,7 +84,7 @@ Prompt and completion text are also captured (`gen_ai_input_messages` / `gen_ai_
 
 In OpenObserve, open **Traces**, then click any span to inspect token counts, latency, and metadata. Filter by `gen_ai_request_model` to compare deployments.
 
-![Azure AI Foundry trace in OpenObserve](../../../images/integration/ai/azure-ai-foundry.png)
+![Azure AI Foundry trace in OpenObserve, Waterfall view with the openai.chat span attributes](../../../images/integration/ai/azure-ai-foundry-v2.png)
 
 ## Read More
 

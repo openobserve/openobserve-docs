@@ -91,7 +91,7 @@ print(response.choices[0].message.content)
 3. Note that `deepseek-chat` resolves to the actual model in `llm_model_name` (e.g. `deepseek-v4-flash`)
 4. Filter by `llm_provider` to isolate DeepSeek spans from other providers
 
-![DeepSeek trace in OpenObserve](../../../images/integration/ai/deepseek.png)
+![DeepSeek trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/deepseek-v2.png)
 
 ## Next Steps
 

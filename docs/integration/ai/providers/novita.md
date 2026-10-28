@@ -89,7 +89,7 @@ print(response.choices[0].message.content)
 2. Click any span to inspect token counts and the full request payload
 3. Filter by `llm_model_name` to compare latency across different Novita-hosted models
 
-![Novita AI trace in OpenObserve](../../../images/integration/ai/novita.png)
+![Novita AI trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/novita-v2.png)
 
 ## Next Steps
 

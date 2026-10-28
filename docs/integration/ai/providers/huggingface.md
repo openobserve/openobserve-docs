@@ -95,7 +95,7 @@ The model string is the full Hugging Face Hub model ID (e.g. `meta-llama/Llama-3
 3. Note that the Hub model ID (e.g. `meta-llama/Llama-3.1-8B-Instruct`) is kept in the request parameters (`llm_invocation_parameters`), while the resolved short name (e.g. `llama3.1-8b`) appears in `llm_model_name`
 4. Filter by `llm_model_name` to compare latency across different open-source models
 
-![Hugging Face trace in OpenObserve](../../../images/integration/ai/huggingface.png)
+![Hugging Face trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/huggingface-v2.png)
 
 ## Next Steps
 

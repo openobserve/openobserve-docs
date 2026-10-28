@@ -90,7 +90,7 @@ print(response.choices[0].message.content)
 2. Click any span to inspect token counts and request metadata
 3. Filter by `llm_model_name` to compare latency across different Fireworks models
 
-![Fireworks AI trace in OpenObserve](../../../images/integration/ai/fireworks.png)
+![Fireworks AI trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/fireworks-v2.png)
 
 ## Next Steps
 

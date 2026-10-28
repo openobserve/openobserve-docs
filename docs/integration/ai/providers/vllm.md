@@ -98,7 +98,7 @@ For models with a chat template (e.g. Llama, Mistral, Qwen), use `client.chat.co
 4. Filter by `span_status = ERROR` to find failed requests
 5. Sort by `duration` descending to identify the slowest inference calls
 
-![vLLM traces in OpenObserve](../../../images/integration/ai/vllm.png)
+![vLLM trace in OpenObserve, Waterfall view with the Completion span attributes](../../../images/integration/ai/vllm-v2.png)
 
 ## Next Steps
 

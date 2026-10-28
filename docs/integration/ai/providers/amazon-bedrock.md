@@ -87,7 +87,7 @@ print(response["output"]["message"]["content"][0]["text"])
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any `bedrock.converse` span to inspect token counts, latency, and full request/response content
 
-![Amazon Bedrock trace span in OpenObserve](../../../images/integration/ai/amazon-bedrock.png)
+![Amazon Bedrock trace span in OpenObserve, Waterfall view with the bedrock.converse span attributes](../../../images/integration/ai/amazon-bedrock-v2.png)
 
 ## Next Steps
 

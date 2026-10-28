@@ -110,7 +110,7 @@ Each Assistants API workflow produces multiple spans — one per API call (threa
 3. Filter by `llm_provider = openai` and `openinference_span_kind = LLM` to isolate Assistants API spans
 4. Click any span to inspect token counts and run status
 
-![OpenAI Assistants API trace in OpenObserve](../../../images/integration/ai/opneai-assistant.png)
+![OpenAI Assistants API trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/opneai-assistant-v2.png)
 
 ## Next Steps
 

@@ -114,7 +114,7 @@ For self-hosted OpenObserve, replace the URL with `http://localhost:5080/api/def
 5. Filter by `span_status = ERROR` to find failed calls
 6. Use `llm_finish_reason = length` to identify responses truncated by `max_tokens`
 
-![OpenAI JS traces in OpenObserve](../../../images/integration/ai/openai-js.png)
+![OpenAI JS trace in OpenObserve, Waterfall view with the OpenAI Chat Completions span attributes](../../../images/integration/ai/openai-js-v2.png)
 
 ## Next Steps
 

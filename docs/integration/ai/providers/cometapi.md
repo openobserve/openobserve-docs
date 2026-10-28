@@ -87,7 +87,7 @@ print(response.choices[0].message.content)
 4. Use `llm_model_name` to filter by specific model versions
 5. Filter by `span_status` = `ERROR` to find failed requests
 
-![CometAPI trace in OpenObserve](../../../images/integration/ai/cometapi.png)
+![CometAPI trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/cometapi-v2.png)
 
 ## Next Steps
 

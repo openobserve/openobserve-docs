@@ -108,7 +108,7 @@ for chunk in client.models.generate_content_stream(
 2. Click any span to inspect token counts, latency, and full request metadata
 3. For chat sessions, each `send_message` call appears as a separate span
 
-![Gemini trace span attributes in OpenObserve](../../../images/integration/ai/gemini.png)
+![Gemini trace in OpenObserve, Waterfall view with the gemini.generate_content span attributes](../../../images/integration/ai/gemini-v2.png)
 
 ## Next Steps
 

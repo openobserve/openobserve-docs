@@ -81,7 +81,7 @@ print(response.choices[0].message.content)
 2. Click any span to inspect token counts and latency
 3. Filter by `llm_model_name` to compare Cerebras model variants
 
-![Cerebras trace in OpenObserve](../../../images/integration/ai/cerebras.png)
+![Cerebras trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/cerebras-v2.png)
 
 ## Next Steps
 

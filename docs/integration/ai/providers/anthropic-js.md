@@ -110,7 +110,7 @@ node index.js
 4. Filter by `span_status = ERROR` to find authentication or rate-limit failures
 5. Sort by `duration` to find the slowest calls
 
-![Anthropic JS traces in OpenObserve](../../../images/integration/ai/anthropic-js.png)
+![Anthropic JS trace in OpenObserve, Waterfall view with the Anthropic Messages span attributes](../../../images/integration/ai/anthropic-js-v2.png)
 
 ## Next Steps
 

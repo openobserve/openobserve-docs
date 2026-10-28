@@ -91,7 +91,7 @@ print(response.choices[0].message.content)
 2. Click any span to inspect token counts and the full request payload
 3. Filter by `llm_model_name` to compare Grok model versions side by side
 
-![xAI Grok trace in OpenObserve](../../../images/integration/ai/xai-groq.png)
+![xAI Grok trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/xai-groq-v2.png)
 
 ## Next Steps
 

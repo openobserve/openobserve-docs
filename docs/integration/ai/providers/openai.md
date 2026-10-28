@@ -121,7 +121,7 @@ asyncio.run(main())
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any span to inspect token counts, latency, and full request metadata
 
-![OpenAI trace span attributes in OpenObserve](../../../images/integration/ai/openai.png)
+![OpenAI trace in OpenObserve, Waterfall view with the openai.chat span attributes](../../../images/integration/ai/openai-v2.png)
 
 ## Next Steps
 

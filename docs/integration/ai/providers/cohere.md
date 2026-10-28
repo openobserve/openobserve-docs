@@ -87,7 +87,7 @@ Each `co.chat()` call wrapped in a span produces the following attributes.
 2. Filter by operation name `cohere.chat` to find Cohere spans
 3. Click any span to inspect token counts and the prompt and response
 
-![Cohere trace in OpenObserve](../../../images/integration/ai/cohere.png)
+![Cohere trace in OpenObserve, Waterfall view with the cohere.chat span attributes](../../../images/integration/ai/cohere-v2.png)
 
 ## Next Steps
 
