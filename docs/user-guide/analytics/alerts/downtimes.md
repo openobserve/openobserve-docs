@@ -11,9 +11,9 @@ Downtimes are available in OpenObserve Enterprise and Cloud editions. The featur
 
 To open downtimes, go to **Reliability > Downtimes**.
 
-![Downtimes list showing status counts, folders and downtime rows with their targets, schedule and matched items](images/downtimes-list.png)
+![Downtimes list with status counts, the default folder and four downtimes showing their targets, schedule, next window and matched alerts](images/downtimes-list.png)
 
-The list shows each downtime's status, targets, schedule, the time it ends or next starts, and how many items it currently matches. Filter it by **One-time** or **Recurring**, or search by name, dimension or creator.
+The list shows counts by status, then each downtime's status, targets, schedule, the time it ends or next starts, and how many items it currently matches. Filter it by **One-time** or **Recurring**, or search by name, dimension or creator.
 
 ## What a downtime covers
 
@@ -36,7 +36,7 @@ Each module can be narrowed further, so a single downtime can silence exactly th
 4. Fill in the **Targets**, **Schedule** and **Advanced** tabs, described below.
 5. Click **Save**.
 
-![New downtime form with Applies to modules, the Targets tab, and the Summary and Preview panes](images/downtimes-create-form.png)
+![Downtime form with Alerts chosen under Applies to, an Alerts target limited to one folder, and the Preview and Summary panes](images/downtimes-form.png)
 
 While you edit, the **Summary** pane describes in plain words what the downtime will do, and the **Preview** pane lists the items that match right now.
 
@@ -64,6 +64,8 @@ For modules that carry a dimension identity (alerts, anomaly detections and SLOs
 ```
 service = payments AND (host = db-1 OR host = db-2)
 ```
+
+![Dimension condition with an OR group matching two services, and the Preview pane listing the two matching alerts](images/downtimes-dimension-condition.png)
 
 The condition follows these rules:
 
@@ -111,9 +113,9 @@ Use **Send test** to check that the destinations receive messages.
 On the **Advanced** tab:
 
 - **Reason** is optional and limited to 1,000 characters. It is shown in the list, on the detail page and in the **Muted** tooltip, so use it to tell your team why the maintenance is happening.
-- **Show a banner to everyone in the org while this downtime is active** displays an organization-wide banner. The banner shows the downtime name, how many items of each module are muted and the time left, for example *"Staging teardown is active. 23 alerts and 5 synthetics checks are muted."* It never names an individual alert. A banner is available only for windows of at most 7 days.
+- **Show a banner to everyone in the org while this downtime is active** displays an organization-wide banner. The banner shows the downtime name, how many items of each module are muted and the time left, for example *"Payments DB upgrade is active. 3 alerts are muted."* It never names an individual alert. Click **View downtime** to open it, or **Dismiss** to hide the banner. A banner is available only for windows of at most 7 days.
 
-![Organization-wide downtime banner shown across the top of the app](images/downtimes-banner.png)
+![Organization-wide banner across the top of the app naming the active downtime, the number of muted alerts and the time left](images/downtimes-banner.png)
 
 ## Mute items from a list
 
