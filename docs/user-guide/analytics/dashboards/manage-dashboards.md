@@ -49,6 +49,7 @@ The Dashboard toolbar provides several options for managing your Dashboard’s b
 9. **Go FullScreen:** Use this button to turn on the fullscreen mode.   
 10. **Scheduled Dashboards**: Use the Scheduled Dashboards option to configure Scheduled and Cached Dashboards.  
 11. **Edit Dashboard JSON**: This option allows you to directly edit the JSON configuration of your Dashboard, giving you advanced control over its structure and settings.
+12. **Edit**: Unlock the layout to move, resize, and reorder Panels and Tabs. See [Edit Dashboard Layout](#edit-dashboard-layout).
 
 ## Dashboard Settings 
 
@@ -75,4 +76,25 @@ In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 
 ![tabs](../../../images/dashboard-manage-5.png)
 
+## Edit Dashboard Layout
 
+Dashboards open with the layout locked. Click **Edit** in the toolbar to drag and resize Panels, reorder Tabs, or set a Panel's height from its **Edit Layout** menu item. Changes stay local until you click **Save**.
+
+![A Dashboard in layout edit mode, with the Editing badge and the Undo, Redo, 2 changes, Discard, and Save controls in the toolbar](images/dashboard-layout-edit-mode.png)
+
+While editing, the toolbar shows an **Editing** badge, **Undo**, **Redo**, a count of unsaved changes, **Discard**, and **Save**. Other Panel actions are hidden, and you cannot add, rename, or delete Tabs until you leave edit mode.
+
+**Discard** returns the Dashboard to its last saved layout. If you have unsaved changes, OpenObserve asks you to confirm first.
+
+| Shortcut | Action |
+| -------- | ------ |
+| `Ctrl+Z` / `Cmd+Z` | Undo |
+| `Ctrl+Shift+Z` / `Cmd+Shift+Z` | Redo |
+| `Ctrl+S` / `Cmd+S` | Save |
+| `Esc` | Discard and exit edit mode |
+
+The Undo, Redo, and Save shortcuts are ignored while you type in an input. If you try to leave the Dashboard with unsaved layout changes, OpenObserve asks you to confirm before discarding them.
+
+:::note[Embedded dashboards]
+Dashboards embedded in RUM, traces, and pinned tabs keep saving layout changes automatically.
+:::

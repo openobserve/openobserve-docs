@@ -120,120 +120,103 @@ The URL of the page where the error occurred. This helps you:
 
 ## Error Details View
 
-Click on any error to see detailed information:
+Click any error to open its detail page. A strip of impact figures runs across the top. Below it the page splits into two columns. The left column holds the diagnosis path: the occurrences chart, the stack trace and the events leading up to the error. The right column holds the supporting evidence: session replay, the linked backend trace, where the error happens and who hit it. On narrower screens the two columns stack into one, in the same order.
 
-### Error Information
+### Header
 
-**Error Message**: The full error message
+The page title is the error type. Next to it, badges show whether the error was **handled** or **unhandled**, and the error source (for example `console`). The error message appears below the title in a highlighted banner, because it is usually the first thing you read and the thing you paste into a ticket.
 
-**Error Type**: The type of error (TypeError, ReferenceError, NetworkError, etc.)
+Under the message, a line shows the timestamp, the event ID, the page route, and chips for the **service**, **version** and **environment** of the build that raised the error. Use **Copy event ID** to copy the identifier, or the share button next to it to copy a permalink to this error.
 
-**Error Stack**: The full stack trace showing:
+### Impact Strip
 
-- Function call sequence
-- File names and line numbers
-- Source code context
+The impact strip shows how widespread the error is. The figures cover every occurrence of the same error (same type, message and handled state) within the time range selected on the error list. A deep link opened without a time range uses the 24 hours ending at the error.
 
-Example stack trace:
-```
-at processOrder (checkout.js:42:15)
-at HTMLButtonElement.<anonymous> (checkout.js:120:5)
-at HTMLDocument.dispatch (jquery.min.js:2:43064)
-```
+| Stat | Description |
+|------|-------------|
+| **Occurrences** | Total events for this error in the time range |
+| **Users affected** | Unique users who hit this error |
+| **Sessions** | Unique sessions in which this error occurred |
+| **First seen** | How long ago the error first appeared in the time range, as a compact age such as `3d` |
+| **Last seen** | How long ago the error last fired, as a compact age such as `2h` |
 
-### Context Information
+While the figures load, or when one is unavailable, the tile shows a dash rather than a zero. A caption below the strip spells out the first and last occurrence in relative terms, for example "First seen 3 days ago, last seen 2 hours ago in the selected time range".
 
-**URL**: The page where error occurred
+If the error has neither a type nor a message, it cannot be grouped with its other occurrences, and the caption says so.
 
-**Browser**: Browser name and version
+### Occurrences Over Time
 
-**OS**: Operating system and version
+The **Occurrences over time** bar chart plots this error across the time range, so you can see whether it is spiking, fading or recurring. A caption shows the peak count per bucket. A dashed vertical line labelled **This event** marks the bucket that holds the occurrence you are viewing.
 
-**Device**: Device type (Desktop, Mobile, Tablet)
+### Stack Trace
 
-**User**: User information (if set):
+The stack trace panel shows the call sequence with file names and line numbers. If you have uploaded source maps for the service and version, the trace is translated from minified code back to your original source. See [Source Maps](./source-map.md).
 
-- User ID
-- Name
-- Email
-- Custom attributes
+### Events
 
-**Session ID**: Link to the session where error occurred
+The **Events** timeline shows what the user did in the same session around the error: up to 30 events before it and 5 after, with the error itself highlighted. The timeline only includes events from this error's session, so other users' activity in the same stream never appears in it.
 
-### Error Metadata
+### Session Replay
 
-**Environment**: production, staging, or development
+The **Session Replay** card opens the session replay at the moment of failure. Click **Play Session Replay** to watch what the user saw just before the error. The button is disabled when the error has no session ID.
 
-**Version**: Application version when error occurred
+### Trace Correlation
 
-**Service**: Service name
+When the error, or a network request captured just before it, carries a trace ID, a trace correlation card links to the backend trace for that request.
 
-**SDK Version**: RUM SDK version
+### Where It Happens
 
-### Related Information
+The **Where it happens** panel breaks the error's occurrences down by **Browser**, **Operating system**, **Release** and **Page**. Each value shows its share of occurrences as a percentage bar.
 
-**User Sessions**: List of sessions where this error occurred
+When one value accounts for 80% or more of a dimension's occurrences, the panel highlights it in a banner, for example "94% of occurrences share the same Browser — Safari". Only the strongest concentration is highlighted. A dimension with a single distinct value is not highlighted, because "100% Chrome" tells you nothing when Chrome is the only browser in the data.
 
-- Click to view session details
-- Watch session replay to see what led to the error
+### Who Hit This
 
-**Similar Errors**: Other errors with similar patterns
+The **Who hit this** card describes the user and environment behind the single occurrence you are viewing:
 
-**Affected Users**: Number of unique users who encountered this error
+- **User**: Initials avatar, name and email
+- **Browser and OS**: Name, icon and full version number
+- **Device**: Device brand and family, for example "Apple Mac"
+- **Location**: City and country
+- **IP**: Client IP address, when captured
+- **Page URL**: The full URL where the error occurred, when captured
+- **Tags**: Service, version, environment, SDK version and source
 
 ## Error Analysis
 
+The detail page gives you several ways to analyse an error.
+
 ### Error Frequency
 
-Track how often errors occur:
+The occurrences chart shows how often the error fires over time. Use it to answer questions like these:
 
-**High Frequency Errors** (Many events):
-
-- Affect many users
-- May indicate systemic issues
-- Should be prioritized for fixing
-
-**Low Frequency Errors** (Few events):
-
-- May be edge cases
-- Could be user-specific
-- Monitor for patterns
+- Did a recent deployment cause a spike?
+- Does the error recur on a pattern?
+- Is it fading on its own or getting worse?
 
 ### Error Impact
 
-Assess the severity of errors:
+The impact strip tells you how many users and sessions the error reaches:
 
-**Critical Errors**:
+**High impact** (many occurrences, many users): May indicate a systemic issue. Prioritize it.
 
-- Prevent users from completing tasks
-- Affect core functionality
-- Many affected users
-
-**Major Errors**:
-
-- Degrade user experience
-- Affect important features
-- Moderate number of affected users
-
-**Minor Errors**:
-
-- Don't significantly impact functionality
-- Affect edge cases
-- Few affected users
+**Low impact** (few occurrences, few users): May be an edge case or specific to some users. Watch for patterns.
 
 ### Error Patterns
 
-Look for patterns in errors:
+The **Where it happens** panel helps you narrow down the cause:
 
-**By URL**: Are errors concentrated on specific pages?
+**By Browser**: Does the error only occur in one browser? The panel highlights it when that browser accounts for 80% or more of occurrences.
 
-**By Browser**: Do errors only occur in certain browsers?
+**By Release**: Is the error limited to one application version? A concentration on a single release points to the deployment that introduced the bug.
 
-**By Device**: Are mobile users experiencing more errors?
+**By Page**: Is the error concentrated on one page or spread across many? A narrow concentration suggests a page-specific fix.
 
-**By Time**: Did errors spike after a deployment?
+**By OS**: Is the error tied to a particular platform? Compare the breakdown with the **Who hit this** card for the occurrence you are viewing.
 
-**By User Segment**: Do errors affect specific user groups?
+### Time Patterns
+
+The occurrences chart, together with the **First seen** and **Last seen** figures, shows how long the error has been around: whether it is brand new or has been affecting users for days.
 
 ## Error States
 
@@ -296,13 +279,15 @@ The most powerful feature of error tracking is integration with session replay:
 ### Workflow
 
 1. **Identify Error**: Find error in Error Tracking tab
-2. **View Details**: Click error to see details
-3. **Find Session**: See list of affected sessions
-4. **Watch Replay**: Click play button to watch session
-5. **Understand Context**: See exactly what user did before error
-6. **Reproduce**: Follow same steps to reproduce error
-7. **Fix**: Implement fix based on understanding
-8. **Verify**: Monitor error frequency after fix
+2. **View Details**: Click the error to open its detail page
+3. **Check Impact**: Read the impact strip for how many users and sessions are affected
+4. **Review Events**: See what the user did in the session before the error
+5. **Check Where It Happens**: Find the browser, release or page where the error concentrates
+6. **Watch Replay**: Click **Play Session Replay** to watch the session
+7. **Understand Context**: See exactly what user did before error
+8. **Reproduce**: Follow same steps to reproduce error
+9. **Fix**: Implement fix based on understanding
+10. **Verify**: Monitor error frequency after fix
 
 ### What You'll See in Session Replay
 
