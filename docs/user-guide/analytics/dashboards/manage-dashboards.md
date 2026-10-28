@@ -9,7 +9,7 @@ This guide explains how to manage Dashboards and use the Dashboard toolbar.
 
 OpenObserve offers the following options for viewing, searching, and performing actions on the Dashboards you have created or imported.
 
-![manage dashboard](../../../images/dashboard-manage-1.png)
+![manage dashboard](../../../images/dashboard-manage-1-v2.png)
 
 **View Dashboards**
 
@@ -39,7 +39,7 @@ You can search for Dashboards by name, either within a specific folder or across
 
 The Dashboard toolbar provides several options for managing your Dashboard’s behavior and interactions:
 
-![dashboard toolbar](../../../images/dashboard-manage-2.png)
+![dashboard toolbar](../../../images/dashboard-manage-2-v2.png)
 
 1. **Add Panel:** Use the **Add Panel** button to add a new Panel to the selected Dashboard.  
 2. **Time Range Selection**: You can adjust the time range for which you want to visualize the data on your Dashboard by selecting an **Absolute** or **Relative** time range based on your timezone.   
@@ -71,13 +71,13 @@ In the Dashboard Settings, you can configure various options to customize the be
 
 These settings are shared with everyone who can access the Dashboard. Click **Save changes** to apply them.
 
-![dynamic filters](../../../images/dashboard-manage-3.png)
+![Dashboard Settings, General tab](../../../images/dashboard-manage-3-v2.png)
 
 **Variables**
 
 In the Variables section, you can edit and delete existing variables, add new variables, and view variable dependencies.
 
-![variables](../../../images/dashboard-manage-4.png)
+![variables](../../../images/dashboard-manage-4-v2.png)
 
 **Tabs**
 
@@ -87,7 +87,7 @@ In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 
 In the Annotations section, you can add query-driven annotation sources that draw markers on time-series Panels. See [Annotation Sources](annotation-sources.md).
 
-![tabs](../../../images/dashboard-manage-5.png)
+![tabs](../../../images/dashboard-manage-5-v2.png)
 
 ## Edit Dashboard Layout
 
