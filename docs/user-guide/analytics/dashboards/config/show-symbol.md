@@ -24,9 +24,9 @@ To configure the **Show Symbol** option:
 4. From the **Show Symbol** dropdown, select Yes or No:
 
     - When you select **Yes**, each data point is marked with a small circle for clear identification.
-    ![Show symbol](../../../../images/show-symbol-yes.png)
+    ![Show symbol](../../../../images/show-symbol-yes-v2.png)
     - When you select **No**, the chart renders a continuous line or area without individual point markers.
-    ![Do not show symbol](../../../../images/show-symbol-no.png)
+    ![Do not show symbol](../../../../images/show-symbol-no-v2.png)
 
 ---
 
