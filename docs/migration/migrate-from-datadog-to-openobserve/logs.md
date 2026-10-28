@@ -83,7 +83,7 @@ You can keep the Datadog Agent running for metrics and APM (as described in the 
     Header Content-Type application/json
 ```
 
-Copy the exact Fluent Bit configuration from the **Data Sources UI** in OpenObserve.
+Copy the exact Fluent Bit configuration from **Data > Data sources > Custom > Logs > FluentBit** in OpenObserve.
 
 
 ### From Vector
@@ -111,7 +111,7 @@ Copy the exact Fluent Bit configuration from the **Data Sources UI** in OpenObse
   request.headers.Content-Type = "application/json"
 ```
 
-Copy the exact Vector configuration from the **Data Sources UI** in OpenObserve.
+Copy the exact Vector configuration from **Data > Data sources > Custom > Logs > Vector** in OpenObserve.
 
 
 ### From OTel Collector
@@ -164,13 +164,18 @@ If the Datadog Agent DaemonSet is tailing container logs in your cluster, the si
 
 ```bash
 helm repo add openobserve https://charts.openobserve.ai
-helm upgrade --install o2c openobserve/openobserve-collector \
-  --set exporters.openobserve.endpoint=https://<your-openobserve-host> \
-  --set exporters.openobserve.auth=<base64-creds> \
-  -n monitoring --create-namespace
+helm repo update
+kubectl create ns openobserve-collector
+helm --namespace openobserve-collector \
+  upgrade --install o2c openobserve/openobserve-collector \
+  --set k8sCluster=<cluster-name> \
+  --set exporters.'otlphttp/openobserve'.endpoint=https://<your-openobserve-host>/api/<org_id> \
+  --set exporters.'otlphttp/openobserve'.headers.Authorization='Basic <base64-creds>' \
+  --set exporters.'otlphttp/openobserve_k8s_events'.endpoint=https://<your-openobserve-host>/api/<org_id> \
+  --set exporters.'otlphttp/openobserve_k8s_events'.headers.Authorization='Basic <base64-creds>'
 ```
 
-Copy the exact installation command from the **Data Sources UI** in OpenObserve. Once logs are flowing and dashboards look right, scale the Datadog Agent DaemonSet down.
+The chart needs cert-manager, the Prometheus Operator CRDs, and the OpenTelemetry Operator installed first. Copy the full install steps, with your endpoint and token filled in, from **Data > Data sources > Recommended > Kubernetes** in OpenObserve. Once logs are flowing and dashboards look right, scale the Datadog Agent DaemonSet down.
 
 
 ### From AWS CloudWatch Logs

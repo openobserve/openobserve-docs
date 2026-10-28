@@ -104,7 +104,7 @@ If you're also migrating metrics and logs, you can consolidate everything throug
 If your services already use OpenTelemetry SDKs and ship OTLP, the migration is just an endpoint change. Update the `OTEL_EXPORTER_OTLP_ENDPOINT` env var (or the equivalent in your SDK config) to point at OpenObserve:
 
 ```bash
-OTEL_EXPORTER_OTLP_ENDPOINT=https://<your-openobserve-host>
+OTEL_EXPORTER_OTLP_ENDPOINT=https://<your-openobserve-host>/api/<org_id>
 OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-creds>"
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 ```
@@ -150,7 +150,7 @@ Update the `traces` pipeline's `exporters` list to use `otlphttp/openobserve` an
 
 1. Open the OpenObserve UI → **Traces** in the left sidebar.
 2. Select the trace stream and set a recent time range.
-3. Filter by `service.name` to find your services. `dd-trace`'s `service` tag becomes `service.name` after translation.
+3. Filter by `service_name` to find your services. `dd-trace`'s `service` tag becomes the `service.name` resource attribute after translation, which OpenObserve stores as the `service_name` field.
 4. Click into a trace to verify spans, durations, and attributes are intact.
 
 ### Span attribute mapping
@@ -169,7 +169,7 @@ When `dd-trace` spans are translated to OTLP, the following mapping applies:
 ### Troubleshooting
 
 - **No traces visible:** Check Collector logs for receiver errors and the OTLP exporter for HTTP errors. Confirm endpoint and `Authorization` header.
-- **Service missing from the service list:** Ensure spans carry `service.name` after translation. If `dd-trace` was misconfigured (`DD_SERVICE` unset), spans will land but the service list will be sparse.
+- **Service missing from the service list:** Ensure spans carry the `service.name` resource attribute (`service_name` in OpenObserve) after translation. If `dd-trace` was misconfigured (`DD_SERVICE` unset), spans will land but the service list will be sparse.
 - **Trace appears split:** Check that the trace ID and parent span ID propagation headers (`x-datadog-trace-id`, `traceparent`) are flowing through your service mesh / load balancer.
 - **Auth errors (401):** Regenerate the Base64 credential string and confirm it has no whitespace.
 

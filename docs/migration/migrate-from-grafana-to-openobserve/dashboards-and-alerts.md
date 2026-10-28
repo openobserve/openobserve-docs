@@ -11,13 +11,13 @@ description: "Migrate Grafana dashboards and Alertmanager rules to OpenObserve w
 Grafana dashboards and alert rules are the main artifact that ties you to the LGTM stack. There are two ways to move them to OpenObserve:
 
 1. **Automated** — the [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) converts Grafana dashboards, alert rules, contact points, and notification policies into OpenObserve dashboards, alerts, and destinations automatically.
-2. **Manual** — recreate each dashboard and rule by hand, translating LogQL to SQL yourself (or with the AI Assistant).
+2. **Manual** — recreate each dashboard and rule by hand, translating LogQL to SQL yourself (or with the AI Assistant, *Enterprise*).
 
 For most teams the automated path handles the bulk of the work; the manual path is a fallback for the pieces the migrator flags for review.
 
 ## Migrate automatically with the Dashboard Migrator
 
-The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards and alert rules from Grafana — and Datadog, Kibana, and CloudWatch — into OpenObserve-native objects. For Grafana it has two flows:
+The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards and alert rules from Grafana — and Datadog, Kibana, and CloudWatch — into OpenObserve-native objects. To open it from OpenObserve, go to **Dashboards**, click **Import**, and choose **Migrate from Grafana**. For Grafana it has two flows:
 
 - **Dashboards** — converts Grafana dashboards into OpenObserve dashboards: PromQL panels are preserved as-is, LogQL panels become SQL, and the panel layout, rows, and template variables carry over.
 - **Alerts** — converts Grafana alert rules into OpenObserve alerts, mapping each rule's evaluator and threshold to an alert condition and window. If you upload the full alerting archive, it also converts **contact points → destinations**, and resolves notification policies and mute timings onto each rule.
@@ -35,7 +35,7 @@ The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a fre
 2. **Connect (optional)** — link OpenObserve to resolve destinations against your real setup.
 3. **Destinations** — review the contact points converted to OpenObserve destinations, and fill in any redacted secrets (webhook URLs, tokens).
 4. **Review** — inspect the translated alerts, thresholds, and destination assignments.
-5. **Export** — create the alerts directly in OpenObserve, or download JSON to import via Alerts → Import.
+5. **Export** — create the alerts directly in OpenObserve, or download JSON to import via **Reliability > Alerts > Import**.
 
 :::tip[Grafana redacts secrets on export]
 Grafana's provisioning export replaces webhook URLs and tokens with `[redacted]`. The migrator flags these so you can re-enter them when it converts contact points to destinations.
@@ -91,14 +91,14 @@ This is the only part that requires real work. For each LogQL panel, you need an
 | `rate({job="nginx"} \|= "timeout"[5m])` | `SELECT count(*) / 300 FROM default WHERE job = 'nginx' AND match_all('timeout')` |
 
 :::tip[Use the AI Assistant]
-Instead of translating queries by hand, use the **AI Assistant** (available in the OpenObserve UI) to convert LogQL to SQL. Paste your existing LogQL query and ask: *"Convert this LogQL query to OpenObserve SQL."* It handles the function mapping and syntax differences accurately, especially for complex filter and aggregation patterns.
+Instead of translating queries by hand, use the **AI Assistant** (Enterprise; it appears in the OpenObserve UI when AI is enabled) to convert LogQL to SQL. Paste your existing LogQL query and ask: *"Convert this LogQL query to OpenObserve SQL."* It handles the function mapping and syntax differences accurately, especially for complex filter and aggregation patterns.
 :::
 
 ### Recreate in OpenObserve
 
 OpenObserve has a built-in drag-and-drop dashboard builder with 18+ chart types. For each panel:
 
-1. Open **Dashboards** → **New Dashboard** in the OpenObserve UI.
+1. Open **Dashboards** → **New dashboard** in the OpenObserve UI.
 2. Add a panel and select the signal type (Logs, Metrics, or Traces).
 3. Paste your translated query (or PromQL if it's a metrics panel).
 4. Configure the visualization type, axes, and thresholds.
@@ -155,8 +155,8 @@ The same AI Assistant that converts LogQL for dashboards works here too. Paste y
 
 ### Step 4: Verify alerts
 
-1. Open **Alerts** in the OpenObserve UI and confirm each rule shows an **Active** or **Normal** status.
-2. Check the **Last Evaluated** timestamp — rules should update on their configured interval.
+1. Open **Reliability > Alerts** in the OpenObserve UI and confirm each rule shows an **Active** status.
+2. Check the **Last Outcome** and **Last Triggered At** columns — they update as rules run on their configured interval.
 3. Temporarily lower a threshold to force a firing condition, or use OpenObserve's built-in test to send a test notification.
 4. Cross-reference your original alert inventory against the recreated rules to confirm nothing was missed.
 

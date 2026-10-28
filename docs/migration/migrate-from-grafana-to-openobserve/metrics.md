@@ -57,7 +57,7 @@ remote_write:
 Update the `url` to the OpenObserve remote write endpoint and add your credentials.
 
 ![OpenObserve Data Sources - Prometheus Remote Write](../../images/migration/lgtm/prometheus.png)
-*You can copy the exact Prometheus remote write configuration from the OpenObserve Data Sources UI*
+*You can copy the exact Prometheus remote write configuration from **Data > Data sources > Custom > Metrics > Prometheus** in OpenObserve*
 
 
 Reload Prometheus after updating (no restart needed):
@@ -80,7 +80,7 @@ exporters:
     endpoint: http://mimir:9009/api/v1/push
 ```
 
-Copy the exact updated configuration from the **Data Sources UI** in OpenObserve.
+Copy the exact updated configuration from **Data > Data sources > Custom > Metrics > OTEL Collector** in OpenObserve.
 
 
 ![OpenObserve Data Sources - OTel Collector Metrics](../../images/migration/lgtm/opentelemetry.png)
@@ -103,18 +103,18 @@ metrics:
 **Updated config**:
 
 ```yaml
-logs:
+metrics:
   configs:
     - name: default
-      clients:
-        - url: http://openobserve:5080/api/{org_id}/ingest/metrics/_json
+      remote_write:
+        - url: http://openobserve:5080/api/{org_id}/prometheus/api/v1/write
           basic_auth:
             username: admin@example.com
             password: Complexpass#123
 ```
 
 
-Update the `remote_write` URL to the OpenObserve endpoint. Copy the exact configuration from the **Data Sources UI** in OpenObserve.
+Update the `remote_write` URL to the OpenObserve endpoint (`/api/{org_id}/prometheus/api/v1/write`). Copy the exact configuration from **Data > Data sources > Custom > Metrics > Prometheus** in OpenObserve.
 
 Or replace with [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md).
 
@@ -130,7 +130,7 @@ Or replace with [OpenObserve Collector](https://github.com/openobserve/openobser
   data_format = "prometheusremotewrite"
 ```
 
-Update the output URL to the OpenObserve endpoint. Copy the exact configuration from the **Data Sources UI** in OpenObserve.
+Update the output URL to the OpenObserve endpoint. Copy the exact configuration from **Data > Data sources > Custom > Metrics > Telegraf** in OpenObserve.
 
 
 ![OpenObserve Data Sources -Telegraf ](../../images/migration/lgtm/telegraf.png)

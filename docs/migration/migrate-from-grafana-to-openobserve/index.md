@@ -82,21 +82,22 @@ Before changing any configs, note what you're running:
 
 Before migrating signal by signal, get OpenObserve running:
 
-> "OpenObserve Cloud"
+::::tabs
+:::tab[OpenObserve Cloud]
 
 Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai) — no infrastructure to manage.
 
-After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+After logging in, go to **Data > Data sources** to find your ingestion credentials and endpoint URLs.
 
-    
-  ![OpenObserve Data Sources UI](../../images/migration/lgtm/data-sources-ui.png)
-
-
-> "Self-Hosted"
+![OpenObserve Data Sources UI](../../images/migration/lgtm/data-sources-ui.png)
+:::
+:::tab[Self-Hosted]
 
 Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
 
-After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+After installation, access the UI at `http://localhost:5080` and go to **Data > Data sources** to find your ingestion credentials and ready-to-use configuration snippets.
+:::
+::::
 
 ## Next Steps
 
