@@ -5,73 +5,103 @@ description: "Manage OpenTelemetry collector fleets: enroll with tokens, distrib
 
 # Fleet Management
 
-Fleet Management lets you manage fleets of OpenTelemetry collectors from one console over the OpAMP protocol. Enroll collectors with tokens, track their health and version, distribute versioned collector configurations, and roll changes out in phases with health gates and automatic rollback.
+Fleet Management lets you manage fleets of OpenTelemetry collectors from OpenObserve over the OpAMP protocol. Enroll collectors with tokens, track their health and version, publish versioned collector configurations, and deploy them in phases with health gates and automatic rollback.
+
+To open it, go to **Data** > **Fleet management**. The page has five tabs: **Overview**, **Fleets**, **Configurations**, **Settings**, and **Audit**.
+
+![Fleet management Overview tab with collector status counts and the pipeline flow map](images/fleet-management-overview.png)
 
 ## Enable
 
-Fleet Management is an Enterprise feature and is on by default. Set `O2_FLEET_ENABLED=false` to turn it off; reads still work, writes are refused, and the OpAMP endpoint answers `503`. `O2_OPAMP_ENABLED` remains as an alias.
-
-## Enroll collectors
-
-A collector joins through an enrollment token. The token's plaintext (`o2ft_...`) is shown only once, at creation — store it somewhere secure.
-
-1. In **Fleet Management**, create a **token**.
-2. Set its **name**, the **fleet** the collector joins, and optional **expiry** and **max uses**.
-3. Copy the **install command** and run it on the collector host.
-
-Revoke a token to stop it from enrolling new collectors.
-
-![TODO: screenshot of the enroll collector dialog with the install command](images/placeholder.png)
+Fleet Management is an Enterprise feature and is on by default. Set `O2_FLEET_ENABLED=false` to turn it off: reads still work, writes are refused, and the OpAMP endpoint answers `503`. The setting is read at startup.
 
 ## Fleets
 
-A **fleet** groups collectors that share a configuration. Every org starts with a **default** fleet; create more to stage changes or split environments. Move collectors between fleets to re-assign their configuration. Delete a fleet only after moving out its collectors and revoking its tokens.
+A **fleet** groups collectors that run the same configuration version. Every org has a **default** fleet, which cannot be deleted; create more fleets to stage changes or split environments.
+
+On the **Fleets** tab, pick a fleet from the list on the left to see its collectors. The fleet's toolbar has **Add collector**, **Tokens**, **Rollouts**, **Settings**, and **Deploy**.
+
+Select collectors and use **Move to fleet** to re-assign them. Moved collectors receive the destination fleet's current version straight away, without a rollout. A fleet can be deleted only after its collectors are moved or removed and its tokens are revoked.
+
+## Enroll collectors
+
+A collector joins a fleet with an enrollment token.
+
+1. On the **Fleets** tab, select the fleet and click **Tokens**, then **New token**.
+2. Enter a **Name**, choose when it **Expires** (7, 30, or 90 days, or never), and optionally set **Max uses** (leave it empty for unlimited).
+3. Click **Add collector**, choose the token and a platform (Linux, macOS, Windows, Docker, or Kubernetes), and run the install command on the collector host. The dialog waits for the collector to connect.
+
+The token's plaintext (`o2ft_...`) is returned only when it is created; OpenObserve stores only a hash. The UI keeps it available until you sign out or switch orgs, so store it somewhere secure.
+
+:::warning[Warning]
+Revoking a token, or letting it expire, takes effect immediately: every collector enrolled with it loses its management connection and its data is rejected.
+:::
+
+![Add collector dialog with a token selected and the install command for Linux](images/fleet-management-add-collector.png)
 
 ## Collectors
 
-The **Collectors** list shows every enrolled collector with its **status** (online, offline, degraded, unknown), **version** (flagging anything behind the target version), host, OS/architecture, and fleet. Open a collector to see its capabilities, component health, effective configuration, delivery evidence, and event history. From the detail drawer you can **rename**, **restart**, **redeliver** its configuration, or **delete** it.
+The collectors table shows each collector's **Status** (Online, Degraded, Offline, or Not reported), OS, architecture, **Version** (tagged **Outdated** when it is behind the target version), configuration, delivery state, and when it was last seen.
 
-![TODO: screenshot of the fleet collectors list](images/placeholder.png)
+Click a collector to open its details, with **Overview**, **Metrics**, **Health**, **Effective config**, and **History** tabs. From the details you can **Move to fleet**, **Restart** (if the collector supports it), **Redeliver** its configuration, or **Remove** it. Removing deletes only the record; a collector that is still running reappears on its next heartbeat. **Rename** is in the row's action menu.
 
-![TODO: screenshot of the collector detail drawer showing health and history](images/placeholder.png)
+![Fleet with its desired and stable versions above the collectors table](images/fleet-management-collectors.png)
+
+![Collector details with the Health tab open](images/fleet-management-collector-details.png)
 
 ## Configurations
 
-Configurations are versioned YAML collector configs. Create a config, edit the YAML, and **validate** it before publishing; a config with validation errors cannot be published. Publishing a version makes it available to fleets. The **restricted components** list in settings blocks component types you do not want used.
+Configurations are versioned collector YAML configs, managed on the **Configurations** tab. Open a configuration to edit it in the **YAML** or **Visual** editor. The visual editor shows pipelines as connected receivers, processors, and exporters, and lets you add components and pipelines without editing YAML.
 
-![TODO: screenshot of the fleet configuration editor](images/placeholder.png)
+Click **Validate** to check the YAML. A version with validation errors cannot be published; warnings are allowed. Publishing creates a new version that you can then deploy to fleets. Components listed under **Restricted components** in **Settings** fail validation.
 
-A visual editor shows the pipeline as nodes — receivers, processors, and exporters — and lets you add components and pipelines without editing YAML directly.
-
-![TODO: screenshot of the visual pipeline editor canvas](images/placeholder.png)
+![Configuration editor in visual mode showing a pipeline](images/fleet-management-config-editor.png)
 
 ## Rollouts
 
-A **rollout** assigns a configuration version to a fleet. Choose whether it starts **immediately** or **at a scheduled time**, and a **batching** plan:
+To change the version a fleet runs, select the fleet and click **Deploy**. In **Deploy a version**, pick the configuration version and set:
 
-- **Canary** — a small first phase, then the remainder.
-- **Progressive** — an initial batch that grows by a multiplier, capped at a maximum.
+- **Start**: **Now** or **Scheduled** at a start time.
+- **Batching**:
+    - **One batch**: all collectors at once.
+    - **Canary**: a **First batch** of collectors, then the rest.
+    - **Progressive**: an **Initial batch** that grows by a **Batch multiplier** per phase, capped at **Max batch size**.
+- **Verify after every phase**: pause at a health gate after each phase.
+- **Rollback automatically**: roll back on its own when the rollout halts with evidence of harm.
 
-The rollout converges phase by phase, pausing at **health gates**; offline collectors are left out at the start. If a rollout shows evidence of harm it **halts** with a class:
+Collectors that are offline when the rollout starts are skipped and take the new version when they reconnect.
 
-- **proven_bad** — collectors rejected the config.
-- **looks_worse** — the health gate failed.
-- **cannot_see** — no data, a timeout, or collectors offline.
+![Deploy a version dialog with Progressive batching selected](images/fleet-management-deploy.png)
 
-Roll a halted rollout back manually, or let it **auto-rollback**, which is pre-authorized for `proven_bad` and `looks_worse`.
+If a rollout halts, it reports a cause:
 
-![TODO: screenshot of the new rollout dialog with batching options](images/placeholder.png)
+- **Proven bad**: collectors rejected the configuration or are crash-looping.
+- **Looks worse**: a health gate failed.
+- **Cannot see**: no data, the phase timed out, or collectors went offline.
 
-![TODO: screenshot of a rollout showing phases and a halt status](images/placeholder.png)
+Automatic rollback applies only to **Proven bad** and **Looks worse**, never to **Cannot see**. Otherwise, open **Rollouts** and resume, skip the failing collectors, roll back, or fix forward with a new version; the options offered depend on the cause.
 
 ## Settings
 
-Set the org **target collector version** — collectors on an older version are flagged outdated. Per fleet, tune the **heartbeat interval**, **offline threshold**, **offline ratio**, and **phase timeout**, which drive when a collector is considered offline and how rollouts proceed.
+The **Settings** tab holds org-wide settings:
+
+- **Target collector version**: collectors on an older version are tagged **Outdated**.
+- **Restricted components**: component types that configurations may not use.
+- **Fleet defaults**: heartbeat interval, offline after missed heartbeats, offline-ratio event threshold, phase timeout, health gate observation, measurement window and pass threshold, and how many days to keep offline collectors.
+
+Each fleet can override the fleet defaults from its own **Settings** drawer; empty fields inherit the org default.
 
 ## Audit trail
 
-Every fleet action — tokens, configurations, rollouts, and collector actions — is written to the audit stream. Review it from the **Audit** tab.
+Fleet actions on tokens, configurations, rollouts, and collectors are written to the audit stream and shown on the **Audit** tab. This requires `O2_AUDIT_ENABLED=true`; entries arrive in batches (every 10 minutes by default, set by `O2_AUDIT_PUBLISH_INTERVAL`).
 
 ## Permissions
 
-RBAC is enforced through `fleets` (per fleet) and `fleet_configs` / `fleet_management` (org level). Grant users only the fleets they should see; the collectors, configurations, and tokens under a fleet follow the fleet grant.
+RBAC uses four resources:
+
+- `fleet`: access to Fleet Management itself, required for every fleet API.
+- `fleets`: per fleet. The collectors, versions, and tokens of a fleet follow the fleet grant.
+- `fleet_configs`: the org's configuration library.
+- `fleet_management`: the Overview, Audit, and org Settings.
+
+Grant users only the fleets they need.
