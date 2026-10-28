@@ -135,7 +135,7 @@ The **Policy** tab shows how AutoObserve behaves. In this preview it shows fixed
 - **Investigation & paging**: `P1` is investigated in parallel while `P2`–`P3` wait behind a gate. `P1` and `P2` page you, `P3` sends a message, and `P4` goes into the Friday summary.
 - **Channels**: the connected notification channels.
 
-![AutoObserve Policy tab](images/autoobserve-policy-tab.png)
+![AutoObserve Policy tab showing the Alert changes section and the mode of each action class](images/autoobserve-policy-tab.png)
 
 ## Settings, History, and How it works
 
