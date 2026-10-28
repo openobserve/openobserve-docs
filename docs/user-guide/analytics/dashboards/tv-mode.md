@@ -5,7 +5,7 @@ description: "Put an OpenObserve dashboard on an office TV: hide the app chrome,
 
 # Dashboard TV Mode
 
-TV mode turns a dashboard into a wall-screen view. The app header, sidebar, and dashboard toolbar disappear, panels become view-only, and the dashboard refreshes itself on a schedule. To rotate several dashboards on one screen, use a TV playlist instead.
+TV mode turns a dashboard into a wall-screen view. The app header, sidebar, and dashboard toolbar disappear, panels become view-only, and the dashboard refreshes itself on a schedule. To rotate several dashboards on one screen, use a [TV playlist](tv-playlist.md) instead.
 
 ## Open a dashboard in TV mode
 
