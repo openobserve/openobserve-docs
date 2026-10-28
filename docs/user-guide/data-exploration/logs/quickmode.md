@@ -10,7 +10,7 @@ This guide explains how to use Quick Mode with Interesting Fields in OpenObserve
 Quick Mode is a performance optimization in OpenObserve that speeds up log searches by limiting the query to a small set of fields called Interesting Fields. Instead of scanning all fields in a stream, Quick Mode selects only the fields you mark as interesting, reducing query time, especially in streams with a large number of fields.
 
 ## Enable Quick Mode and select Interesting Fields
-![Enable Quick Mode](../../../images/quickmode-enable.gif)
+![More menu with Quick Mode turned on](../../../images/quickmode-enable-v2.png)
 
 1. Go to the **Logs** page.
 2. Select the desired stream from the left panel.
@@ -26,7 +26,7 @@ Quick Mode is a performance optimization in OpenObserve that speeds up log searc
 - Changing the **Interesting Fields** list changes which columns are returned in Quick Mode.
 - If you turn Quick Mode off, results follow schema rules: with UDS on you see only UDS fields and with UDS off you see all fields.
 - When UDS fields are defined, adding `_all` as an Interesting Field returns a combined text field containing values from all non-UDS fields, which you can parse as needed.
-![quickmode-interesting-fields](../../../images/quickmode-interesting-field.png)
+![quickmode-interesting-fields](../../../images/quickmode-interesting-field-v2.png)
 
 ## Environment variables controlling Quick Mode defaults
 - `ZO_QUICK_MODE_ENABLED=true`: Enables **Quick Mode** by default. The default is `false`.
@@ -34,7 +34,7 @@ Quick Mode is a performance optimization in OpenObserve that speeds up log searc
 
 ## Auto-add behavior in Quick Mode
 When **Quick Mode** is enabled, running a query that references a field which is not already marked as an **Interesting Field** causes that field to be added to the **Interesting Fields** list automatically.
-![Auto-add Behavior Quick Mode](../../../images/auto-add-in-quick-mode.gif)
+![The log field added to Interesting Fields after a SQL query in Quick Mode](../../../images/auto-add-in-quick-mode-v2.png)
 
 ## When to Use Quick Mode
 - When working with streams that have hundreds or thousands of fields.
