@@ -44,7 +44,7 @@ In this query:
 - `y_axis_1` represents the count of log entries for each interval.
 
 When run repeatedly over relative time ranges, only the new data beyond the last cached timestamp is scanned, while older intervals are reused.
-![dashboard-query-example](../../../images/dashboard-query-example.png)
+![dashboard-query-example](../../../images/dashboard-query-example-v2.png)
 
 ## Inspecting caching behavior
 You can observe histogram caching in your browser’s developer tools by viewing the query metadata and response stream.
