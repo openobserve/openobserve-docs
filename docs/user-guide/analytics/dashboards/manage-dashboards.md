@@ -80,7 +80,7 @@ In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 
 Dashboards open with the layout locked. Click **Edit** in the toolbar to drag and resize Panels, reorder Tabs, or set a Panel's height from its **Edit Layout** menu item. Changes stay local until you click **Save**.
 
-![TODO: screenshot of a dashboard in layout edit mode with the Undo, Redo, change count, Discard, and Save controls](images/placeholder.png)
+![A Dashboard in layout edit mode, with the Editing badge and the Undo, Redo, 2 changes, Discard, and Save controls in the toolbar](images/dashboard-layout-edit-mode.png)
 
 While editing, the toolbar shows an **Editing** badge, **Undo**, **Redo**, a count of unsaved changes, **Discard**, and **Save**. Other Panel actions are hidden, and you cannot add, rename, or delete Tabs until you leave edit mode.
 
