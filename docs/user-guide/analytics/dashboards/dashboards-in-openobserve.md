@@ -23,7 +23,7 @@ The purpose of **Dashboards** is to offer an intuitive, at-a-glance view of your
 
 On the left-hand side menu, click **Dashboards** to access the dashboard management section.
 
-![access dashboard](../../../images/dashboard-1.png)
+![access dashboard](../../../images/dashboard-1-v2.png)
 
 ## How to Build Dashboards
 
@@ -40,13 +40,13 @@ Dashboards are stored in folders. By default, the **default** folder is created.
 To create a new folder, click **+** (**Add Folder**) at the top of the **Folders** rail, and provide a folder name and description. You can also pick an [icon](folder-icons.md) for the folder.
 :::
 
-![create folders in dashboard](../../../images/dashboard-2.png)
+![create folders in dashboard](../../../images/dashboard-2-v2.png)
 
 :::note[Editing or Deleting Folders]
 To edit or delete a folder, click the vertical ellipsis (three dots) menu next to the folder name in the folder list and select **Edit** or **Delete**.
 :::
 
-![edit or delete folder](../../../images/dashboard-3.png)
+![edit or delete folder](../../../images/dashboard-3-v2.png)
 
 ### Dashboards
 Inside each folder, you can create one or more **Dashboards**. Dashboards hold Panels, which represent visualizations of your data.
@@ -57,7 +57,7 @@ To create a new Dashboard, click **New dashboard**, add a Name and Description f
 Dashboards can contain one or more Panels for visualizing various data points or metrics.
 :::
 
-![create dashboards](../../../images/dashboard-4.png)
+![create dashboards](../../../images/dashboard-4-v2.png)
 
 ### Panels
 A Panel displays a single visualization using one of the [supported chart types](#supported-chart-types-in-dashboards), based on specific data.
@@ -67,11 +67,11 @@ To add a Panel inside a Dashboard, click the **Add Panel** button. <br>
 Each Panel displays one type of visualization. You can add multiple Panels to a Dashboard to represent different data.
 :::
 
-![add panels](../../../images/dashboard-5.png)
+![add panels](../../../images/dashboard-5-v2.png)
 
 Example of a Dashboard with Panels:
 
-![dashboards with panels](../../../images/dashboard-6.png)
+![dashboards with panels](../../../images/dashboard-6-v2.png)
 
 ### Supported Chart Types in Dashboards
 
@@ -109,13 +109,13 @@ By default, Panels are added to the **Default** tab.
 To create a new Tab, click the **+** (**Add Tab**) icon next to the Tabs and enter a Tab name. You can also create Tabs from the **Tabs** section of **Dashboard Settings**. Tabs cannot be added while the layout is in [edit mode](manage-dashboards.md#edit-dashboard-layout).
 :::
 
-![create new tabs](../../../images/dashboard-7.png)
+![create new tabs](../../../images/dashboard-7-v2.png)
 
 Examples of a Dashboard with Panels organized in different Tabs:
 
 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-  <img src="../../../../images/dashboard-8.png" alt="dashboard with panels in multiple tabs, view 1" style="flex: 1 1 320px; max-width: 100%;" />
-  <img src="../../../../images/dashboard-9.png" alt="dashboard with panels in multiple tabs, view 2" style="flex: 1 1 320px; max-width: 100%;" />
+  <img src="../../../../images/dashboard-8-v2.png" alt="dashboard with panels in multiple tabs, view 1" style="flex: 1 1 320px; max-width: 100%;" />
+  <img src="../../../../images/dashboard-9-v2.png" alt="dashboard with panels in multiple tabs, view 2" style="flex: 1 1 320px; max-width: 100%;" />
 </div>
 
 ## Time Range and Auto Run
