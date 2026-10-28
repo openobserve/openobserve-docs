@@ -18,7 +18,7 @@ OpenObserve offers two evaluation modes: **Online Evaluations**, which score liv
 
 Activating an eval job runs your scorers against incoming data. Scores land in the `_llm_scores` stream; evaluator telemetry lands in the `_evaluator` stream.
 
-![the Online Evaluations dashboard listing eval jobs](images/online-evaluations-1.png)
+![the Quality page listing score configs with their health, typical score, and score counts](images/online-evaluations-1-v2.png)
 
 ## Enable Online Evaluations
 
@@ -50,7 +50,7 @@ Other server settings:
 
 A Provider stores the connection details for an LLM API. Providers live under **Settings > Data & AI > LLM Providers**. Click **New Provider** to add one.
 
-![the LLM Providers list page](images/online-evaluations-2.png)
+![the LLM Providers list under Settings > Data & AI with an Anthropic and an OpenAI-compatible provider](images/online-evaluations-2-v2.png)
 
 | Field | Description |
 |---|---|
@@ -79,7 +79,7 @@ A Score Config defines what a score looks like and when it's healthy. Navigate t
 | **Categories** | For categorical scores: a list of valid labels. |
 | **Healthy Threshold** | e.g., `{"direction": "gte", "value": 0.7}` means scores ≥ 0.7 are healthy. |
 
-![the Score Configs list page](images/online-evaluations-4.png)
+![the Score Configs list with numeric, boolean, and categorical configs and their healthy thresholds](images/online-evaluations-4-v2.png)
 
 Updating a score config creates a new version; scorers can pin to a specific version or always use the latest.
 
@@ -87,12 +87,12 @@ Updating a score config creates a new version; scorers can pin to a specific ver
 
 A Scorer is the evaluation unit: a prompt **template** with `{{variable}}` placeholders, execution parameters, and an optional linked score config. Navigate to **AI Observability > Evaluate > Scorers** and click **New scorer**.
 
-![the Scorers list page](images/online-evaluations-5.png)
+![the Scorers list with LLM Judge and Remote scorers and the score config each produces](images/online-evaluations-5-v2.png)
 
 - **LLM Judge**: sends the rendered template to an LLM via a provider. Configure provider, model, temperature, max tokens, timeout, and optional reasoning.
 - **Remote**: sends the rendered template as an HTTP request to an external service. Configure endpoint, method, auth (`none`/`bearer`/`basic`/`api_key`), headers, timeout, and retries.
 
-![the Add Scorer form for LLM Judge](images/online-evaluations-6.png)
+![the New LLM Judge Scorer form with a score config, provider, model, judge prompt, and the Test this scorer panel](images/online-evaluations-6-v2.png)
 
 Use the **Test** button on the scorer detail page to try it with sample variable values; you'll see the score, reasoning, model, latency, and token usage.
 
@@ -104,7 +104,7 @@ Like score configs, scorers are versioned. Eval jobs can reference a scorer by e
 
 An Eval Job runs scorers against incoming traces at a chosen **target scope**: span, trace, or session. Navigate to **AI Observability > Evaluate > Eval Jobs** and click **New job**. Saving a job checks that you can read the selected stream.
 
-![the Eval Jobs list page](images/online-evaluations-8.png)
+![the Eval Jobs list with one active and one paused job](images/online-evaluations-8-v2.png)
 
 | Field | Description |
 |---|---|
@@ -115,7 +115,7 @@ An Eval Job runs scorers against incoming traces at a chosen **target scope**: s
 | **Input Mapping** | Maps each scorer's `{{variables}}` to a value source: a system-provided value (like `input`, `output`, `statistics`) or a span attribute. |
 | **Sampling Mode** | `all` or `rate` (evaluate a percentage, e.g., `0.1` for 10%). |
 
-![the Add Eval Job form](images/online-evaluations-9.png)
+![the New Eval Job form with a filter condition, sampling rate, a scorer, and its prompt variable mapping](images/online-evaluations-9-v2.png)
 
 ### Target scope
 
