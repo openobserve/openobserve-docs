@@ -68,19 +68,19 @@ Refresh page couple of times to get more traces exported.
 Traces are captured, you can check them in the Traces UI
 </br>
 
-![Traces Page](./images/traces.png)
+![Traces page with spans from the sample services](./images/traces-v2.png)
 </br>
 </br>
 
 Filter traces with your service name `nodejs-typescript-service`
 </br>
 
-![Filter traces with service name](./images/filter_traces.png)
+![Spans filtered by service_name nodejs-typescript-service](./images/filter_traces-v2.png)
 
 Click on any trace to check trace data.
 
-![Trace details](./images/trace_details_1.png)
+![Trace details in the Waterfall view](./images/trace_details_1-v2.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](./images/trace_details_2.png)
+![Span details panel with the span attributes](./images/trace_details_2-v2.png)
