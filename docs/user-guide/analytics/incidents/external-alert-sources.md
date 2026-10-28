@@ -1,237 +1,210 @@
 ---
 title: External Alert Sources
 metaTitle: External Alert Sources for Incident Management | OpenObserve
-description: Ingest alerts from Grafana, Alertmanager, and generic webhooks into OpenObserve incidents. Set up integrations, view source status, and inspect raw payloads.
+description: Send alerts from Grafana, Prometheus Alertmanager, or any webhook into OpenObserve incidents. Create alert sources, check status, and inspect raw payloads.
 ---
 
-OpenObserve can ingest alerts from external monitoring systems — Grafana, Prometheus Alertmanager, or any tool that can POST a JSON webhook — and automatically correlate them into incidents alongside your native OpenObserve alerts.
+OpenObserve can receive alerts from external monitoring systems such as Grafana, Prometheus Alertmanager, or any tool that can POST a JSON webhook. It correlates them into incidents alongside the alerts OpenObserve evaluates itself.
 
 :::info[Availability]
-This feature is available in Enterprise and Cloud editions. The feature is gated by the `O2_INCIDENTS_ENABLED` configuration flag.
+This feature is available in Enterprise and Cloud editions. On self-hosted Enterprise it requires incidents to be enabled with `O2_INCIDENTS_ENABLED=true` (default `false`).
 :::
 
 ## Overview
 
-External Alert Sources lets you funnel alerts from your existing observability stack into OpenObserve's incident management. When an external system fires an alert, OpenObserve:
+When an external system sends an alert to an alert source's webhook URL, OpenObserve:
 
-1. Receives the webhook at a token-authenticated endpoint.
-2. Auto-detects the source format (Grafana, Alertmanager, or generic JSON) or uses the explicit source type you configured.
-3. Normalizes the payload — extracting severity, labels, timestamps, and dedup key.
-4. Persists the alert and correlates it into an incident using the same correlation engine that groups your internal alerts.
-5. Auto-resolves the incident when all contributing external alerts have cleared.
+1. Authenticates the request with the alert source's `o2iat_` token.
+2. Detects the payload format (Grafana, Alertmanager, or generic JSON).
+3. Normalizes the payload: status, severity, labels, timestamp, and deduplication key.
+4. Stores the alert and correlates it into an incident with the same correlation engine that groups OpenObserve alerts.
+5. Resolves the incident automatically once every external alert in it has reported `resolved`.
 
-Each organization gets a default catch-all integration automatically. You can create additional named integrations for separate source systems.
+Every organization has a **default** alert source that accepts any supported format. You can add more alert sources, for example to give each upstream system its own token or incident destination.
 
 ## Prerequisites
 
-- OpenObserve Enterprise or Cloud edition
-- Incidents enabled (`O2_INCIDENTS_ENABLED=true`)
-- RBAC: users need the `incidents` resource permission to manage integrations
+- OpenObserve Enterprise or Cloud.
+- Incidents enabled (`O2_INCIDENTS_ENABLED=true` on self-hosted Enterprise).
+- Permission on the `incidents` resource. Managing alert sources uses the same permission as managing incidents.
 
-## Access external alert sources
+## Open External Alert Sources
 
-1. Navigate to **Alerts** in the left sidebar.
-2. Select the **External Alert Sources** tab.
+In the left navigation, go to **Reliability** > **External Alert Sources**.
 
-![External Alert Sources management page](images/external-alert-sources-1.png)
+![External Alert Sources page listing the default source and additional sources with their status, incident destination, and webhook URL](images/external-alert-sources-1.png)
 
-## Default integration
+Each row shows the source **Name**, **Status**, **Incident destination**, **Last event**, and **Webhook URL**, with actions on the right.
 
-Every organization gets a pre-created **default** integration with `source_type: auto`. It auto-detects whether inbound payloads are Grafana, Alertmanager, or generic format. The default integration:
+## The default alert source
 
-- Has its own unique webhook URL and `o2iat_`-prefixed token.
-- Cannot be deleted — disable it instead if you do not want to use it.
-- Serves as a catch-all: any external system can POST to its URL and OpenObserve will parse it automatically.
+OpenObserve creates the default alert source for each organization the first time the page or the list API is opened. The default source:
 
-## Source types
+- Has its own webhook URL and `o2iat_`-prefixed token.
+- Detects the payload format automatically, so any supported sender can use it.
+- Cannot be deleted. Disable it instead if you do not want to accept alerts through it.
 
-When creating an integration you can pin the source type or leave it on auto-detect:
+When several upstream systems send through the default source's token, each sender appears as its own row. A sender is named after the `source` label of its alerts, or after the detected format (`grafana`, `alertmanager`, `generic`) when there is no such label. Only the first of these rows carries the URL and token actions, because they all share one token.
 
-| Type | Description |
-|------|-------------|
-| **Auto** | Auto-detects the source format from the payload shape and `User-Agent` header. Best for the default integration. |
-| **Grafana** | Parses Grafana Alerting webhook payloads (`alerts[]` format with `orgId`/`title`/`state` keys). |
-| **Alertmanager** | Parses Prometheus Alertmanager webhook payloads (`alerts[]` format with `groupKey`/`version`). |
-| **Generic** | Accepts a single alert object or an array, each requiring `status` (`firing`/`resolved`) and `labels` fields. Supports optional `severity`, `dedup_key`, `title`, `source_url`, and `event_ts` fields. |
+## Add an alert source
 
-## Add an external alert source
+1. Click **Add source**.
+2. Enter a **Name**. It is only a label; every source uses the same setup.
+3. Optionally choose an **Incident destination**. This is where notifications go when this source's alerts create or join an incident. Leave it empty to use the organization default. If neither is set, matching incidents are created without a notification.
+4. Click **Save**.
 
-1. On the External Alert Sources page, click **Add Source**.
+   ![Add Alert Source drawer with the Name and Incident destination fields and the three setup steps](images/external-alert-sources-2.png)
 
-   ![Add External Alert Source form](images/external-alert-sources-2.png)
+After saving, step 2 of the drawer shows the URL and the `Authorization` header to paste into the sending system, plus a `curl` command that sends a test alert. Step 3 shows **Waiting for first event…** until the first alert arrives, then **Connected — format detected:** with the detected format. Click **Done** to close the drawer.
 
-2. Enter a **name** for the integration (max 100 characters).
-3. Select a **source type** from the dropdown: Auto, Grafana, Alertmanager, or Generic.
-4. Click **Save**. The new integration appears in the table with its own webhook URL and token.
+![Add Alert Source drawer after saving, showing the URL, Authorization header, test curl command, and the Connected status](images/external-alert-sources-3.png)
 
-## Configure the source system
+Alert sources created from the UI detect the format automatically. To pin a source to one format, create it through the [API](#create-an-alert-source) with `source_type`.
 
-Once an integration is created, point your external system at the webhook URL. The External Alert Sources page shows setup instructions for each source type.
+## Webhook URL and authentication
+
+Each alert source has a webhook URL that embeds its token:
+
+```
+https://<your-openobserve-host>/api/v2/<org_id>/incidents/events/<o2iat_token>
+```
+
+Senders that support custom headers can instead POST to `/api/v2/<org_id>/incidents/events` and pass the token as `Authorization: Bearer <o2iat_token>`. If both are present, the header wins.
+
+A request returns `202 Accepted` with a summary:
+
+```json
+{"accepted": 1, "rejected": 0, "errors": []}
+```
+
+Limits per request: a body of at most 1 MiB, and at most 200 alerts. An unknown or mismatched token returns `404`.
+
+## Configure the sending system
 
 ### Grafana
 
-In Grafana, create a new contact point with type **webhook** and paste the integration's URL. Grafana's default payload is auto-detected — no template changes needed.
+In Grafana, create a contact point of type **Webhook**, paste the alert source's webhook URL, and attach the contact point to a notification policy. Grafana's default payload is detected automatically; no template changes are needed.
 
 ### Alertmanager
 
-Add the URL to your Alertmanager configuration under `receivers`:
+Add the webhook URL as a receiver:
 
 ```yaml
 receivers:
   - name: openobserve-incidents
     webhook_configs:
-      - url: "<your-integration-url>"
+      - url: "<your-webhook-url>"
         send_resolved: true
 ```
 
-Set `send_resolved: true` so Alertmanager notifies OpenObserve when alerts resolve, enabling incident auto-resolution.
+Keep `send_resolved: true`. Without resolve notifications, incidents can only close by timeout.
 
 ### Generic webhook
 
-POST a JSON object or array to the URL. Each alert must include `status` and `labels`:
+POST a JSON object, or an array of objects, to the webhook URL. Each alert needs `status` and `labels`:
 
 ```bash
-curl -X POST '<your-integration-url>' \
+curl -X POST '<your-webhook-url>' \
   -H 'Content-Type: application/json' \
-  -d '{"status":"firing","labels":{"alertname":"HighCPU","service":"checkout"},"severity":"critical"}'
+  -d '{"status":"firing","labels":{"alertname":"HighCPU","service":"checkout"},"severity":"critical","title":"High CPU on checkout"}'
 ```
-
-The generic schema supports these fields:
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `status` | Yes | `firing` or `resolved` |
-| `labels` | Yes | Key-value pairs used for deduplication and incident correlation |
-| `title` | No | Alert title (falls back to first label value) |
-| `severity` | No | Mapped to incident severity: `critical`→P1, `error`→P2, `warning`→P3, `info`→P4 |
-| `dedup_key` | No | Stable identifier for deduplication (defaults to hash of sorted labels) |
-| `source_url` | No | Link back to the source alert |
-| `event_ts` | No | Epoch timestamp in microseconds (defaults to receipt time) |
+| `status` | Yes | `firing` or `resolved`. |
+| `labels` | Yes | Key-value pairs used for correlation and, by default, deduplication. |
+| `title` | No | Alert title. Falls back to one of the label values. |
+| `severity` | No | Mapped to incident severity (see [Severity mapping](#severity-mapping)). Defaults to `warning`. |
+| `dedup_key` | No | Stable identifier for the alert. Defaults to a hash of the sorted labels. |
+| `source_url` | No | Link back to the alert in the sending system. |
+| `event_ts` | No | Event time as Unix epoch microseconds. Defaults to the time of receipt. |
 
-## View source connection status
+## Source status
 
-The table on the External Alert Sources page shows each sender that has sent alerts through your integrations.
+The **Status** column shows whether each source or sender is delivering alerts:
 
-![sender status table with receiving/stale/not-connected badges](images/external-alert-sources-3.png)
+| Status | Meaning |
+|--------|---------|
+| **Receiving** | The sender has delivered alerts recently. |
+| **Stale** | The sender delivered alerts in the past but has not done so recently. |
+| **Not yet connected** | No alerts have been received yet. |
 
-Status badges:
+A flag icon next to the status (or a **Never resolves** tag) means the sender has fired alerts but never sent a `resolved` event. Matching incidents then close only by timeout, so check that the sender's resolve or recovery notifications are turned on.
 
-- **Receiving** (green): The sender sent at least one accepted alert recently.
-- **Stale** (yellow): The sender sent alerts in the past but none recently.
-- **Not Connected** (gray): No alerts received from that sender yet.
+## Manage alert sources
 
-When multiple upstream systems share the default integration's token, each distinct sender appears as its own row with a **shared token** badge.
+Each row offers these actions:
 
-## Manage integrations
-
-Each integration row offers actions:
-
-| Action | Icon | Description |
-|--------|------|-------------|
-| **Reveal/Hide token** | Eye | Toggle between masked (`o2iat_****xxxx`) and full webhook URL. |
-| **Copy URL** | Copy | Copy the full webhook URL to the clipboard. |
-| **Rotate token** | Refresh | Generate a new token — old one stops working immediately. Useful when a token is compromised. Confirm the action in a dialog first. |
-| **Enable/Disable** | Play/Pause | Temporarily stop or resume accepting alerts through this integration. |
-| **Delete** | Trash | Remove the integration. Only non-default integrations can be deleted. Confirm in a dialog first. |
+| Action | Description |
+|--------|-------------|
+| **Reveal full URL** / **Hide full URL** | Show or mask the token in the webhook URL. |
+| **Copy URL** | Copy the full webhook URL. |
+| **Copy token** | Copy only the token. |
+| **Edit source** | Change the name or incident destination. |
+| **Rotate token** | Generate a new token. The current token stops working immediately, so update the URL in every sender that uses it. |
+| **Enable** / **Disable** | Resume or stop accepting alerts through this source. |
+| **Delete** | Remove the source and its webhook URL. Senders still using the URL are rejected. The default source cannot be deleted. |
 
 ## How external alerts become incidents
 
-When an external alert arrives, OpenObserve normalizes it and feeds it through the same incident correlation engine used for native alerts:
+1. **Deduplication**: each alert has a deduplication key. Grafana and Alertmanager alerts use their `fingerprint`; generic alerts use `dedup_key` or a hash of their labels. Repeat deliveries with the same key update the existing alert instead of creating a new one.
+2. **Correlation**: the alert's labels (for example `service`, `namespace`, `cluster`) are matched against the same dimensions used for OpenObserve alerts to find or create an incident. See [Automatic alert correlation](index.md#automatic-alert-correlation).
+3. **Severity**: the severity is mapped to an incident priority. See [Severity mapping](#severity-mapping).
+4. **Auto-resolution**: when every external alert linked to an incident has reported `resolved`, OpenObserve resolves the incident.
 
-1. **Deduplication**: Each alert has a `dedup_key` (from the `fingerprint` field for Grafana/Alertmanager, or explicit `dedup_key` for generic). Recurring alerts with the same key refresh the existing record rather than creating duplicates.
+### Severity mapping
 
-2. **Correlation**: External alerts carry labels (e.g. `service`, `namespace`, `cluster`). These labels are matched against the configured service identity dimensions to find or create the right incident, identical to how internal alerts are grouped.
+Grafana and Alertmanager alerts use their `severity` label; generic alerts use the `severity` field. Matching is case-insensitive.
 
-3. **Severity mapping**: Severity labels are mapped to incident priority levels (P1–P4). For generic payloads, the optional `severity` field takes precedence; otherwise a label named `severity` is used.
+| Value | Incident severity |
+|-------|-------------------|
+| `critical`, `crit`, `fatal`, `p1` | P1 |
+| `error`, `major`, `high`, `p2` | P2 |
+| `warning`, `warn`, `minor`, `p3` | P3 |
+| `info`, `low`, `ok`, `p4` | P4 |
+| anything else, or missing | P3 |
 
-4. **Auto-resolution**: When every external alert linked to an incident reports `resolved` status, OpenObserve automatically resolves the incident. This mirrors the auto-resolution behavior for internal alerts.
+## View external alerts in an incident
 
-External alerts appear in the incident's **Alert Triggers** table. Hover over the correlation reason to see whether the alert came from an external source.
+An incident that contains external alerts shows the sending system as a badge in its header. Hover over the badge to see the external source names.
 
-![incident Alert Triggers table showing external alert entries](images/external-alert-sources-4.png)
+External alerts appear in the incident's **Alert Triggers** tab, with the sending system in the **Source** column and the alert's labels.
 
-## View raw payload
+![Alert Triggers tab of an incident listing an external alert with its source and labels](images/external-alert-sources-4.png)
 
-To inspect exactly what a source system sent, open the raw payload for an external alert:
+### View the raw payload
 
-1. In an incident detail view, go to the **Alert Triggers** tab.
-2. Find an external alert (identified by the external source label).
-3. Click **View raw payload**.
+To see exactly what the sending system sent, click the **View raw payload** icon on an external alert's row in **Alert Triggers**. The **Raw alert payload** dialog shows the original webhook body, which helps when debugging a sender's format or labels.
 
-![raw payload viewer showing the original webhook JSON](images/external-alert-sources-5.png)
-
-The raw payload viewer shows the original, unmodified webhook body received from the source system — useful for debugging formatting issues or verifying what fields the source is sending.
+![Raw alert payload dialog showing the original webhook JSON](images/external-alert-sources-5.png)
 
 ## API reference
 
-All endpoints require the `incidents` resource permission.
+All management endpoints require permission on the `incidents` resource.
 
-### List integrations
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/api/v2/{org_id}/incidents/integrations` | List alert sources, including the default. |
+| `POST` | `/api/v2/{org_id}/incidents/integrations` | Create an alert source. |
+| `PATCH` | `/api/v2/{org_id}/incidents/integrations/{integration_id}` | Update the name and/or incident destinations. |
+| `DELETE` | `/api/v2/{org_id}/incidents/integrations/{integration_id}` | Delete an alert source. Returns `400` for the default source. |
+| `PATCH` | `/api/v2/{org_id}/incidents/integrations/{integration_id}/enable` | Enable or disable: `{"enabled": false}`. |
+| `POST` | `/api/v2/{org_id}/incidents/integrations/{integration_id}/rotate` | Rotate the token. The response contains the new token. |
+| `GET` | `/api/v2/{org_id}/incidents/integrations/{integration_id}/senders` | List senders with accepted and rejected counts and last-received times. |
+| `GET` | `/api/v2/{org_id}/alerts/incidents/external-alerts/{external_alert_id}/payload` | Get the raw payload of an external alert. |
 
-```
-GET /api/v2/{org_id}/incidents/integrations
-```
-
-Returns all integrations for the organization, including the default.
-
-### Create integration
-
-```
-POST /api/v2/{org_id}/incidents/integrations
-```
-
-Request body:
+### Create an alert source
 
 ```json
 {
   "name": "grafana-prod",
   "source_type": "grafana",
-  "config": { "destinations": ["slack"] }
+  "destinations": ["oncall-slack"]
 }
 ```
 
-`source_type` defaults to `auto`. Allowed values: `auto`, `grafana`, `alertmanager`, `generic`.
+- `name`: required, up to 100 characters.
+- `source_type`: optional, one of `auto` (default), `grafana`, `alertmanager`, or `generic`. Anything other than `auto` pins the parser to that format.
+- `destinations`: optional list of alert destination names to notify when this source's alerts create or join an incident. Omit it to use the organization default.
 
-### Delete integration
-
-```
-DELETE /api/v2/{org_id}/incidents/integrations/{integration_id}
-```
-
-The default integration cannot be deleted — returns 400.
-
-### Enable or disable integration
-
-```
-PATCH /api/v2/{org_id}/incidents/integrations/{integration_id}/enable
-```
-
-Request body:
-
-```json
-{ "enabled": false }
-```
-
-### Rotate integration token
-
-```
-POST /api/v2/{org_id}/incidents/integrations/{integration_id}/rotate
-```
-
-Returns the new token. The old token stops working immediately.
-
-### List senders
-
-```
-GET /api/v2/{org_id}/incidents/integrations/{integration_id}/senders
-```
-
-Returns observed upstream senders with accepted/rejected counts and last-seen timestamps.
-
-### Get raw external alert payload
-
-```
-GET /api/v2/{org_id}/alerts/incidents/external-alerts/{external_alert_id}/payload
-```
-
-Returns the stored raw webhook payload for an external alert event.
+The response includes the generated `token` and the webhook `url`.
