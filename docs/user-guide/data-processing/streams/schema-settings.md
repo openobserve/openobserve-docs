@@ -12,7 +12,7 @@ The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to
 
 Each field represents a key from the JSON log, automatically detected during ingestion. Fields are shown with their name, inferred data type, and any associated index.
 
-![schema settings](../../../images/stream-details-schema-settings.png)
+![Schema Settings tab of the Stream Detail drawer listing fields with their type and index type](../../../images/stream-details-schema-settings-v2.png)
 
 ## Field type
 When OpenObserve receives logs, it automatically infers the data type of each field.   
@@ -84,12 +84,12 @@ This feature helps locate specific fields efficiently, especially in large schem
 ### Add field
 To add a new field manually: 
 1. Select the **+** (**Add Fields**) icon next to the search box. This button is shown when user-defined schemas are enabled (`ZO_ALLOW_USER_DEFINED_SCHEMAS=true`).
-![add-new-fields](../../../images/add-new-fields.png)
+![Schema Settings toolbar with the Search for a field box and the Add Fields (+) button highlighted](../../../images/add-new-fields-v2.png)
 2. The **Add Fields** section appears above the field list.
 3. Enter the **Field Name** and **Data Type**, and optionally an **Index Type**.
-![field-name-data-type](../../../images/field-name-data-type.png)
+![Add Fields section with a field name and the Utf8 data type](../../../images/field-name-data-type-v2.png)
 4. Select **Update Settings** to save the new field to the schema.
-![update-settings](../../../images/update-settings.png)
+![Schema Settings footer with the Update Settings button](../../../images/update-settings-v2.png)
 You can define multiple fields in this section before applying the changes. This option is used when creating or extending the User Defined Schema (UDS).
 
 ### Remove defined schema
@@ -105,7 +105,7 @@ Then select **Delete** at the bottom of the panel.
 
 This action permanently deletes the selected fields from the schema. Use this action carefully, as it directly modifies the schema definition.
 
-![delete-fields](../../../images/delete-fields.png)
+![Two fields selected in Schema Settings, with 2 fields selected and the Delete button in the footer](../../../images/delete-fields-v2.png)
 
 ### Bulk selection
 Each field includes a checkbox for selection. You can select multiple fields and apply **Add to Defined Schema**, **Remove Defined Schema**, or **Delete** actions in bulk to simplify schema management and save time.
