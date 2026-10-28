@@ -47,11 +47,11 @@ Insights is an interactive dimension analysis feature that automates root cause 
 ### For Log Analysis
 
 1. Run a log query (select stream, time range, optional filter)
-![Select a log stream in OpenObserve UI](https://openobserve.ai/assets/select_stream_e9b0749a64.png). 
+![Select a log stream in OpenObserve UI](images/insights-select-stream-v2.png) 
 2. Select the **Drill down** view in the toolbar. It is not available in SQL mode.
-![Click Insights button in the logs UI](https://openobserve.ai/assets/insights_9d9e8d098e.png)
+![Drill down view selected in the Logs toolbar](images/insights-drill-down-button-v2.png)
 3. Review dimension analysis dashboard
-![OpenObserve Logs Insights dashboard comparing log volume across k8s_pod_name, service_name, and k8s_namespace_name dimensions with baseline vs selected analysis](https://openobserve.ai/assets/screenshot_2_logs_insights_dashboard_8261bb7316.png)
+![Logs Drill down view comparing log volume across service_name, level, k8s_namespace_name and other dimensions, with the Dimensions sidebar](images/insights-logs-drill-down-v2.png)
 4. **(Optional)** Customize dimensions in the **Dimensions** sidebar
 
 
