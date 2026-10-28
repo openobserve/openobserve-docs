@@ -23,7 +23,7 @@ This integration captures metadata and logs from GitHub Actions jobs and pushes 
 :::accordion[Step 1: Get OpenObserve Credentials]
 
 1. Log in to your OpenObserve instance
-2. Navigate to **Data Sources → custom → logs → curl**
+2. Navigate to **Data > Data sources > Custom > Logs > Curl**
 3. Copy the following values from the generated `curl` command:
 
     From:

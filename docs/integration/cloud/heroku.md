@@ -27,12 +27,12 @@ OpenObserve ingests these logs in structured JSON format, enabling fast search, 
 
 :::accordion[Step 1: Retrieve OpenObserve Endpoint and Credentials]
 
-1. In OpenObserve: go to **Data Sources → Custom → Logs** → Syslog-NG section
+1. In OpenObserve: go to **Data > Data sources > Other > Heroku**. It shows the HTTP endpoint and the Access Key (Base64 of `email:token`). The same credentials appear in **Data > Data sources > Custom > Logs > Syslog-ng**
  ![Get OpenObserve Ingestion URL and Access Key](../images/app-platforms/fetch-syslogng-token.png)
 
-2. Keep the credentials handy.Construct the Heroku-specific ingestion endpoint:
+2. Keep the credentials handy. Construct the Heroku-specific ingestion endpoint:
     ```
-    https://api.openobserve.ai/api/<organization_id>/<stream_name/_json
+    https://api.openobserve.ai/api/<organization_id>/<stream_name>/_json
     ```
 :::
 

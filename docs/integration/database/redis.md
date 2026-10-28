@@ -68,7 +68,7 @@ processors:
 
 exporters:
   otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
       Authorization: Basic <your_auth_token>
       stream-name: default
@@ -81,7 +81,7 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your OpenObserve details.
+Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your OpenObserve details.
 
 ![OpenObserve Redis Creds](../images/databases/otel-metrics-cred.png)
 
@@ -101,7 +101,7 @@ otelcol-contrib --config /path/to/config.yaml
 
 :::accordion[Step 5: Visualize in OpenObserve]
 
-1. Open **OpenObserve → Streams** and select your metrics stream.  
+1. Open **Data > Streams** in OpenObserve and select your metrics stream.  
    ![Visualize Redis Metrics](../images/databases/redis-stream.png)  
    ![Visualize Redis Metrics](../images/databases/redis-stream-explore.png)  
 

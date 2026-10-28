@@ -49,14 +49,14 @@ At this point, Cribl will generate test logs.
     - **Name:** `OpenObserve_Webhook`  
     - **Webhook URL:**  
         ```
-        http://<OPENOBSERVE_HOST>/api/default/cribl/_json
+        http://<OPENOBSERVE_HOST>/api/<org_id>/cribl/_json
         ```
     - **HTTP Method:** `POST`
         ![Webhook Config](../images/cribl/webhook-configuration.png)    
     - **Authentication:**  
         - Type: **Basic**  
-        - Username: `O2_USER`  
-        - Password: `O2_PASSWORD`  
+        - Username: your OpenObserve user email  
+        - Password: your ingestion token (both are in **Data > Data sources > Other > Cribl**, Base64-encoded as the Access Key)  
 
     ![Auth Config](../images/cribl/webhook-auth.png)  
 
@@ -77,11 +77,11 @@ At this point, Cribl will generate test logs.
 :::accordion[Step 4: Monitor Data in OpenObserve]
 
 - Query Logs
-    - Go to **Logs → Streams → cribl**. You should see logs ingested from Cribl.  
+    - Go to **Logs** and select the `cribl` stream. You should see logs ingested from Cribl.  
     ![Logs](../images/cribl/query-logs.png)
 
 - Query Traces
-    - Go to **Traces → Streams → cribl**. You should see traces ingested from Cribl.  
+    - If you also send traces from Cribl to an OTLP endpoint, go to **Traces** and select the `cribl` stream. The webhook above sends logs only.  
     ![Traces](../images/cribl/query-traces.png)  
     ![Traces View](../images/cribl/traces-view.png)  
 :::
@@ -92,13 +92,13 @@ At this point, Cribl will generate test logs.
 - Verify the **Route** in Cribl is active and connected to the Webhook destination.  
 - Double-check the **Webhook URL** format:  
     ```
-    http://<OPENOBSERVE_HOST>/api/default/cribl/_json
+    http://<OPENOBSERVE_HOST>/api/<org_id>/cribl/_json
     ```
 - Ensure the correct **stream name** (`cribl`) is set in the URL.  
 :::
 
 :::accordion[Authentication failures (401 Unauthorized)]
-- Confirm the `O2_USER` and `O2_PASSWORD` are correct.  
+- Confirm the username (email) and password (ingestion token) are correct.  
 - Check if the user has **ingest permissions** in OpenObserve.  
 :::
 

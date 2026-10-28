@@ -125,7 +125,7 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
       otlphttp/openobserve:
         endpoint: OPENOBSERVE_ENDPOINT
         headers:
-          Authorization: "OPENOBSERVE_TOKEN"
+          Authorization: "Basic OPENOBSERVE_TOKEN"
           stream-name: nats
 
     service:
@@ -142,8 +142,8 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
 
 Replace placeholders:
 
-- `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-- `OPENOBSERVE_TOKEN` → Access token from data sources page
+- `OPENOBSERVE_ENDPOINT` → API endpoint with your organization (e.g., `https://api.openobserve.ai/api/<org_id>`)
+- `OPENOBSERVE_TOKEN` → the Base64 credentials shown after `Basic` in **Data > Data sources > Custom > Logs > OTEL Collector**
 :::
 
 :::accordion[Step 5: Restart OpenTelemetry Collector]
@@ -183,7 +183,7 @@ In Terminal 2:
 
 
 :::tip[Tip]
-You can use preconfigured [Dashboard](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/nats_dashboard_c317f090bb.json) in OpenObserve to to visualize real-time logs and metrics.
+You can import the preconfigured [Dashboard](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/nats_dashboard_c317f090bb.json) from **Dashboards > Import > Custom** to visualize real-time logs and metrics.
 :::
 
 ## Troubleshooting

@@ -38,9 +38,11 @@ The integration includes:
 Cert-Manager manages TLS certificates in Kubernetes and is required by the OpenTelemetry Operator.  
 
 ```bash
-    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.0/cert-manager.yaml
+kubectl wait --for=condition=Available --timeout=300s \
+  -n cert-manager deployment/cert-manager-webhook
 ```
-> Wait about 2 minutes for the webhook to be ready before continuing.
+> The `kubectl wait` command returns once the cert-manager webhook is ready.
 :::
 
 
@@ -71,7 +73,7 @@ kubectl create -f https://raw.githubusercontent.com/prometheus-operator/promethe
 :::accordion[Step 4: Install the OpenTelemetry Operator]
 
 ```bash
-kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releases/latest/download/opentelemetry-operator.yaml
+kubectl apply -f https://raw.githubusercontent.com/openobserve/openobserve-helm-chart/refs/heads/main/opentelemetry-operator.yaml
 ```
 
 The operator manages the OpenTelemetry Collector and CRDs for telemetry pipelines.
@@ -87,7 +89,7 @@ kubectl create ns openobserve-collector
 
 :::accordion[ Step 6: Deploy OpenObserve Collector with Helm]
 
-> Use the **pre-filled command** from OpenObserve (Data Sources section), with your auth token. Go to Data Sources -> Kubernetes -> Copy the command to use.
+> Use the **pre-filled command** from OpenObserve, which includes your organization and auth token: go to **Data > Data sources > Recommended > Kubernetes** and copy it. That page also offers a one-line quick-install script.
 
 Install the OpenObserve Collector in your cluster:
 
@@ -95,9 +97,9 @@ Install the OpenObserve Collector in your cluster:
 helm --namespace openobserve-collector \
 install o2c openobserve/openobserve-collector \
 --set k8sCluster=cluster1  \
---set exporters."otlphttp/openobserve".endpoint=<O2_ENDPOINT>/api/default \
+--set exporters."otlphttp/openobserve".endpoint=<O2_ENDPOINT>/api/<org_id> \
 --set exporters."otlphttp/openobserve".headers.Authorization="Basic <BASE64_AUTH>" \
---set exporters."otlphttp/openobserve_k8s_events".endpoint=<O2_ENDPOINT>/api/default \
+--set exporters."otlphttp/openobserve_k8s_events".endpoint=<O2_ENDPOINT>/api/<org_id> \
 --set exporters."otlphttp/openobserve_k8s_events".headers.Authorization="Basic <BASE64_AUTH>" \
 --create-namespace
 ```
@@ -123,7 +125,7 @@ OpenTelemetry supports automatic application instrumentation. Add annotations to
 
 -  Java : 
     ```
-    instrumentation.opentelemetry.io/inject-java: "openobserve-collector/openobserve-java
+    instrumentation.opentelemetry.io/inject-java: "openobserve-collector/openobserve-java"
     ```
 - .NET
     ```
@@ -146,9 +148,9 @@ OpenTelemetry supports automatic application instrumentation. Add annotations to
 
 :::accordion[Step 8: Verify logs in OpenObserve]
 
-1. Go to **Logs** in Openobserve → select **stream** `K8s_events` → set **time range** → **Run Query** to check for EC2 logs.
+1. Go to **Logs** in OpenObserve → select the `k8s_events` stream → set the **time range** → **Run Query** to check for Kubernetes events.
     ![K8s event logs in Openobserve](../images/k8s/k8s-events.png)
-2. Go to **Metrics** section in Stream page, you will find bunch of K8s metrics
+2. Go to **Data > Streams** and filter by metrics to find the Kubernetes metrics streams
     ![K8s metrics in Openobserve](../images/k8s/k8s-metrics.png)
 :::
 
@@ -157,7 +159,7 @@ OpenTelemetry supports automatic application instrumentation. Add annotations to
 
 
 :::tip[Pre-Built Dashboards]
-You can [import dashboards from the OpenObserve community repository](https://github.com/openobserve/dashboards/tree/main/Kubernetes(openobserve-collector)) for quick insights:
+You can import dashboards from the [OpenObserve community repository](https://github.com/openobserve/dashboards/tree/main/Kubernetes(openobserve-collector)) with **Dashboards > Import > Custom** for quick insights:
 
 * **Namespace (Pods) Dashboard** – resource consumption by pods  
 * **Namespaces Dashboard** – cluster-wide resource allocation  

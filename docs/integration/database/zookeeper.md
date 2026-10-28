@@ -25,7 +25,7 @@ Monitoring Zookeeper is critical to ensure **availability, performance, and stab
 
 > The main configuration file for Apache ZooKeeper is named zoo.cfg and is typically located in the <ZOOKEEPER_HOME>/conf directory.
 
-1. UpdateZookeeper config:  
+1. Update the Zookeeper config:  
 Add:
 ```conf
 4lw.commands.whitelist=mntr,ruok,conf,envi,stat
@@ -63,7 +63,7 @@ receivers:
 
 exporters:
   otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
       Authorization: Basic <your_auth_token>
       stream-name: default
@@ -75,7 +75,7 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your actual OpenObserve details.  
+Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your actual OpenObserve details.  
 
 ![OpenObserve Creds](../images/databases/otel-metrics-cred.png)
 :::
@@ -92,11 +92,11 @@ sudo systemctl status otelcol-contrib
 
 :::accordion[Step 5: Visualize in OpenObserve]
 
-1. Navigate to **OpenObserve → Streams** and select your metrics stream.  
+1. Navigate to **Data > Streams** in OpenObserve and select your metrics stream.  
 2. Search for Zookeeper metrics.
     ![Visualize Zookeeper Metrics](../images/databases/zookeeper-metrics.png)
 3. Visualize and Analyze data using Dashboards
-> To make it easy, we have a prebuilt zookeeper dashboard that should help you get started with the metrics monitoring available in the [OpenObserve dashboards repository](https://github.com/openobserve/dashboards).
+> To make it easy, we have a prebuilt zookeeper dashboard that should help you get started with the metrics monitoring available in the [OpenObserve dashboards repository](https://github.com/openobserve/dashboards/tree/main/zookeeper). Import it from **Dashboards > Import > Custom**.
 :::
 
  

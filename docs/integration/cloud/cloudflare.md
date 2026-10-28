@@ -21,10 +21,10 @@ This integration can help you monitor performance, identify security issues, and
 
 :::accordion[Prerequisites]
 - **A Cloudflare account**: [Sign up for Cloudflare](https://dash.cloudflare.com/sign-up).
-- **An OpenObserve account**: [Sign up for OpenObserve](https://openobserve.ai/downloads/).
+- **An OpenObserve account**: [OpenObserve Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../getting-started.md#self-hosted-installation).
 - **A Cloudflare API token**: 
 
-    - To use the **GraphQL method**, create a token with the **Read analyticsand logs** permission
+    - To use the **GraphQL method**, create a token with the **Read analytics and logs** permission
     - To use the **Logpush method** (Enterprise only), create a token with the **Edit Logs** permission.
 
 - **GraphQL-specific requirements**:
@@ -37,16 +37,16 @@ This integration can help you monitor performance, identify security issues, and
 :::accordion[Step 1: Retrieve Your OpenObserve Endpoint and Credentials]
 To stream Cloudflare logs, log in to OpenObserve and follow these steps:
 
-1. From the left menu, select **Data Sources > Custom > Logs > Curl**.
+1. From the left menu, select **Data > Data sources > Custom > Logs > Curl**.
 2. Extract the following details from the sample curl command: 
 
 ![Extract endpoint and credentials](../images/extract-creds-from-data-sources.png)
 
 - **Endpoint**: `https://api.openobserve.ai/api/<organization_name>/<stream_name>/_json`. 
-Replace `organization_name` with the organization name shown at the top right corner of the screen. Replace the `stream_name` with **cloudflare_logs**.
+Replace `organization_name` with your organization ID, as shown in the Curl command. Replace the `stream_name` with **cloudflare_logs**.
 - **Credentials**: 
 The sample includes a string in the format: `your-username@example.com:802gZ3uo4N5S917s6Med`. 
-Here, the username is `your-username@example.com` and the password is `FNIN8MWspXZRKRgS`. 
+Here, the username is `your-username@example.com` and the password is `802gZ3uo4N5S917s6Med`. 
 :::
 
 :::accordion[Step 2: Generate Cloudflare Logs]
@@ -104,7 +104,7 @@ There are two options to send logs from Cloudflare to OpenObserve. Click each ta
 **Generate API token**:
 
 1. In the Cloudflare dashboard, go to **My Profile > API Tokens > Create Token**.
-2. Select the **Read analytics** and logs template. Apply the token to all zones or selected zones.
+2. Select the **Read analytics and logs** template. Apply the token to all zones or selected zones.
 > **Note**: You can also create a custom token with the following scope: **Zone > Analytics > Read**. 
 3. Copy the API token and store it securely. You will use it in the next step.
 

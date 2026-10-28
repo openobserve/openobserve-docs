@@ -29,7 +29,7 @@ Use this flow if you want to get started step-by-step using the AWS Console.
 - AWS account with an Application Load Balancer configured and serving traffic
 - S3 bucket for storing ALB logs
 - IAM permissions to configure ALB logging and bucket policies
-- OpenObserve account with valid API credentials
+- OpenObserve account. The endpoint and credentials are in **Data > Data sources > Custom > Logs > Curl**
 - Lambda execution role with `s3:GetObject` and `s3:ListBucket` permissions
 :::
 
@@ -66,7 +66,7 @@ Use this flow if you want to get started step-by-step using the AWS Console.
 
     s3 = boto3.client('s3')
 
-    OPENOBSERVE_URL = 'https://<your-openobserve>/api/<org>/<stream>/_json'
+    OPENOBSERVE_URL = 'https://<your-openobserve>/api/<org_id>/<stream>/_json'
     OPENOBSERVE_USER = 'your_username'
     OPENOBSERVE_PASS = 'your_password'
 
@@ -123,7 +123,7 @@ Use this flow if you want to get started step-by-step using the AWS Console.
 
 :::accordion[Step 5: Verify]
 
-- In OpenObserve → Logs → filter your stream → logs should appear.
+- In OpenObserve, go to **Logs** and select your stream. Logs should appear.
 
 ![Verify in Openobserve](../../images/aws-integrations/alb/logs-verification.png)
 :::
@@ -146,8 +146,8 @@ Use this flow if you want to get started step-by-step using the AWS Console.
 
 **`401 Unauthorized`**
 
-* Double-check OpenObserve username.
-* Verify Basic Auth: `username:password`.
+* Double-check the OpenObserve user email.
+* Verify Basic Auth: `email:password` (or `email:ingestion-token`).
 * Use `curl -u` to confirm credentials.
 * Make sure your OpenObserve is reachable from Lambda (not `localhost`).
 :::
@@ -206,12 +206,12 @@ Use this option to automatically deploy the entire ALB → S3 → Lambda → Ope
 
 :::accordion[Step 5: Verify Logs in OpenObserve]
 
-- Go to **OpenObserve → Logs → your ALB stream → Run Query** to see ingested logs.
+- In OpenObserve, go to **Logs**, select your ALB stream, and click **Run Query** to see ingested logs.
 
 ![Verify in Openobserve](../../images/aws-integrations/alb/logs-verification.png)
 :::
 
-:::accordion[Trobubleshooting]
+:::accordion[Troubleshooting]
 
 **CloudFormation stack failed or stuck**
 

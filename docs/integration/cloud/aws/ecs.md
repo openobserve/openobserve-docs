@@ -29,7 +29,7 @@ We will run our tasks using fargate for this demonstration.
 
 :::accordion[Get OpenObserve Credentials]
 
-You can find the config details under Data sources -> fluentbit
+You can find the config details under **Data > Data sources > Custom > Logs > FluentBit**
 
 ![Ingestion config](../../images/firelens/data_sources.png)
 
@@ -85,15 +85,15 @@ You can use the configuration details from this section in your task definition
         "options": {
           "Name": "http",
           "Match": "*",
-          "uri": "/api/default/ecs_firelens1/_json",
+          "uri": "/api/<org_id>/ecs_firelens1/_json",
           "host": "api.openobserve.ai",
           "Port": "443",
           "Format": "json",
           "tls": "on",
           "Json_date_key": "_timestamp",
           "Json_date_format": "iso8601",
-          "http_User": "userid@domain.com",
-          "http_Passwd": "67qlgdw673R2905"
+          "http_User": "<your_email>",
+          "http_Passwd": "<your_ingestion_token>"
         }
       }
     }

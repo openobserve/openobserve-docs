@@ -31,10 +31,10 @@ The Jenkins integration captures traces, logs, and metrics using the [OpenTeleme
 
 :::accordion[Step 2: Configure OpenTelemetry with OpenObserve]
 
-1. In **Manage Jenkins → Configure System**, scroll to the **OpenTelemetry** section
+1. In **Manage Jenkins → Configure System**, scroll to the **OpenTelemetry** section. The endpoint and `Basic` credentials are shown in OpenObserve under **Data > Data sources > Custom > Traces > OTEL Collector**
 2. Under **OTLP Endpoint**, enter:
     ```
-    https://<O2_HOST>/api/<O2_ORGNAME>
+    https://<openobserve_host>/api/<org_id>
     ```
 3. Next, Select **Header Authentication**
 4. In **Header Value**, enter:
@@ -46,7 +46,7 @@ The Jenkins integration captures traces, logs, and metrics using the [OpenTeleme
 
     ```
     otel.exporter.otlp.protocol=http/protobuf
-    otel.exporter.otlp.headers=organization=prometheus-demo,stream-name=default
+    otel.exporter.otlp.headers=organization=<org_id>,stream-name=default
     otel.logs.exporter=otlp
     ```
     <img src="../images/devops/jenkins/config.png" alt="Configure OpenTelemetry with OpenObserve" style="height:500px">
@@ -55,8 +55,8 @@ The Jenkins integration captures traces, logs, and metrics using the [OpenTeleme
 
 6. Set Observability Backend URLs
     - Under **Visualization Backend**, select **Custom Observability Backend**
-    - **Trace Visualization URL Template**: `https://<O2_HOST>/web/traces`
-    - **Metrics Visualization URL Template**: `https://<O2_HOST>/web/metrics`
+    - **Trace Visualization URL Template**: `https://<openobserve_host>/web/traces`
+    - **Metrics Visualization URL Template**: `https://<openobserve_host>/web/metrics`
     <img src="../images/devops/jenkins/observability-backend.png" alt="Set Observability Backend URLs" style="height:500px">
     > These URLs allow Jenkins to link directly to OpenObserve dashboards and trace views.
 :::
@@ -148,8 +148,8 @@ The Jenkins integration captures traces, logs, and metrics using the [OpenTeleme
 
 - Verify that **Visualization Backend** is set to **Custom**
 - Confirm the URLs:
-    - Traces: `https://<O2_HOST>/web/traces`
-    - Metrics: `https://<O2_HOST>/web/metrics`
+    - Traces: `https://<openobserve_host>/web/traces`
+    - Metrics: `https://<openobserve_host>/web/metrics`
 :::
 
 

@@ -27,6 +27,7 @@ Monitor Kubernetes clusters, AWS services, LLM providers ([OpenAI](ai/providers/
 
 - [AWS](cloud/aws/index.md)
 - [GCP](cloud/gcp/index.md)
+- [Azure](cloud/azure/index.md)
 - [Cloudflare](cloud/cloudflare.md)
 - [Vercel](cloud/vercel.md)
 - [Heroku](cloud/heroku.md)

@@ -15,8 +15,6 @@ These database monitoring integrations enable database performance monitoring, q
 ## Database Integration Guides
 
 - [PostgreSQL](postgresql.md)
-- [SnowFlake](snowflake.md)
-- [PostgreSQL](postgresql.md)
 - [Oracle Database](oracle.md)
 - [Snowflake](snowflake.md)
 - [MySQL](mysql.md)

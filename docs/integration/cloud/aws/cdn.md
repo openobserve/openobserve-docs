@@ -24,14 +24,14 @@ CloudFront access logs contain detailed request-level data. By streaming them to
 
 :::accordion[Step 1: Get OpenObserve Ingestion URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+1. In OpenObserve: go to **Data > Data sources > Recommended > Amazon Web Services(AWS)**. The **Manual Configuration** block shows the HTTP endpoint and Access Key
 2. Copy the ingestion URL and Access Key
 
 ![Get OpenObserve Ingestion URL and Access Key](../../images/aws-integrations/vpc-flow/fetch-url.png)
 
-> Update the URL to have the stream name of your choice:
+> The endpoint shown ends in `/default/_kinesis_firehose`. Replace `default` with your stream name:
     ```
-    https://<your-openobserve-domain>/aws/default/<stream_name>/_kinesis_firehose
+    https://<your-openobserve-domain>/aws/<org_id>/<stream_name>/_kinesis_firehose
     ```
 :::
 

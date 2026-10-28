@@ -30,7 +30,7 @@ Azure integration tiles in OpenObserve show a **Deploy** button for any service 
 
 This step deploys the ARM template that creates the Event Hub namespace, Event Hub, and all required resources in your Azure subscription.
 
-1. In OpenObserve, open the Azure integrations section and locate the **Azure Activity Logs** tile or page.
+1. In OpenObserve, go to **Data > Data sources > Recommended > Microsoft Azure** and locate the **Azure Activity Logs** tile or page.
 2. Click **Deploy to Azure**.
 3. OpenObserve opens the Azure Portal custom-deployment page in a new tab, with the template and your OpenObserve ingestion endpoint and access key pre-filled.
 4. Select the subscription and resource group, review the parameters, and start the deployment.

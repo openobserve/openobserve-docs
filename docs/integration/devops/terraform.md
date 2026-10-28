@@ -87,7 +87,8 @@ brew install fluent-bit
 - `Path`: Location of the Terraform log file
 - `Tag`: Identifies the Terraform logs
 - `record_modifier`: Adds metadata like `level` and `log_source`
-- `HTTP_User` and `HTTP_Passwd`: Your OpenObserve credentials
+- `URI`: `/api/<org_id>/<stream_name>/_json`; the example sends to the `default` organization of a local install
+- `HTTP_User` and `HTTP_Passwd`: Your OpenObserve email and password or ingestion token (shown in **Data > Data sources > Custom > Logs > FluentBit**)
 :::
     
 

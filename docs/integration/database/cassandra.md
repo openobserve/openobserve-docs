@@ -79,7 +79,7 @@ processors:
 
 exporters:
   otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
       Authorization: Basic <your_auth_token>
       stream-name: cassandra
@@ -97,7 +97,7 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with values from OpenObserve’s **Data Sources → Metrics/Logs → Otel Collector**.
+Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with values from OpenObserve’s **Data > Data sources > Custom > Metrics > OTEL Collector**.
 
 ![OpenObserve Cassandra Creds](../images/databases/otel-metrics-cred.png)
 :::
@@ -117,7 +117,7 @@ Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with values from O
 
 :::accordion[Step 5: Visualize in OpenObserve]
 
-1. Go to **OpenObserve → Streams**.  
+1. Go to **Data > Streams** in OpenObserve.  
 2. Explore metrics such as node health, read/write latency, and JVM performance.  
     ![Visualize Cassandra Metrics](../images/databases/cassandra-metrics.png)
 3. Explore logs to debug errors, failed queries, etc. 

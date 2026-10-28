@@ -24,14 +24,14 @@ API Gateway can send access logs directly to a Kinesis Firehose delivery stream.
 
 :::accordion[Step 1: Get OpenObserve Ingestion URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+1. In OpenObserve: go to **Data > Data sources > Recommended > Amazon Web Services(AWS)**. The **Manual Configuration** block shows the HTTP endpoint and Access Key
 2. Copy the ingestion URL and Access Key
 
 ![Get OpenObserve Ingestion URL and Access Key](../../images/aws-integrations/vpc-flow/fetch-url.png)
 
-> Update the URL to include your desired stream name:
+> The endpoint shown ends in `/default/_kinesis_firehose`. Replace `default` with your stream name:
 ```
-https://<your-openobserve-domain>/aws/default/<stream_name>/_kinesis_firehose
+https://<your-openobserve-domain>/aws/<org_id>/<stream_name>/_kinesis_firehose
 ```
 :::
 
@@ -70,7 +70,7 @@ Use curl, Postman, or your app to trigger API requests:
 
 :::accordion[Step 5: Verify Logs in OpenObserve]
 
-1. Go to **Logs** in Openobserve → select **stream** → set **time range** → **Run Query** to check for EC2 logs.
+1. Go to **Logs** in Openobserve → select **stream** → set **time range** → **Run Query** to check for API Gateway logs.
 
 ![Verify Logs in OpenObserve](../../images/devops/github-actions/verify-logs.png)
 :::

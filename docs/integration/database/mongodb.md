@@ -41,38 +41,38 @@ Create a file named `config.yaml` with the following configuration:
 
 ```yaml
 receivers:
-mongodb:
+  mongodb:
     hosts:
-    - endpoint: localhost:27017
+      - endpoint: localhost:27017
     username: otel #the user with clusterMonitor permissions
     password: password123 #password
     collection_interval: 60s
     initial_delay: 1s
     tls:
-    insecure: true
-    insecure_skip_verify: true
+      insecure: true
+      insecure_skip_verify: true
 
 processors:
-batch:
+  batch:
     send_batch_size: 10000
     timeout: 10s
 
 exporters:
-otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+  otlphttp/openobserve:
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
-    Authorization: Basic <your_auth_token>
-    stream-name: default
+      Authorization: Basic <your_auth_token>
+      stream-name: default
 
 service:
-pipelines:
+  pipelines:
     metrics:
-    receivers: [mongodb]
-    processors: [batch]
-    exporters: [otlphttp/openobserve]
+      receivers: [mongodb]
+      processors: [batch]
+      exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your actual OpenObserve API endpoint and authentication token, which you can find in your Data Sources -> Databases -> MongoDB
+Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your actual OpenObserve API endpoint and authentication token, which you can find in **Data > Data sources > Databases > MongoDB**
 
 ![Collect OpenObserve Credentials](../images/databases/otel-metrics-cred.png)
 :::
@@ -89,7 +89,7 @@ otelcol-contrib --config /path/to/config.yaml
 
 :::accordion[Step 4: Visualize in OpenObserve]
 
-1. Open **OpenObserve → Streams**. Select your metrics stream .
+1. Open **Data > Streams** in OpenObserve and select your metrics stream.
     ![Visualize in OpenObserve](../images/databases/visualize-mongo-metrics.png)
 2. Explore MongoDB metrics in dashboards or create custom queries.
 :::

@@ -37,18 +37,18 @@ OpenObserve provides two approaches to monitor Linux systems:
 **Steps**
 
 1. Log in to your OpenObserve instance.
-2. Navigate to **Data Sources** > **Recommended** > **Linux**.
+2. Navigate to **Data > Data sources > Recommended > Linux**.
 3. Copy the provided installation command. The command includes your endpoint and API key. 
 4. Run the command in your terminal:
 ```
-curl -O https://raw.githubusercontent.com/openobserve/agents/main/linux/install.sh && chmod +x install.sh && sudo ./install.sh https://your-openobserve-instance.com/api/default/ YOUR_API_KEY
+curl -O https://raw.githubusercontent.com/openobserve/agents/main/linux/install.sh && chmod +x install.sh && sudo ./install.sh https://your-openobserve-instance.com/api/<org_id>/ YOUR_API_KEY
 ```
 ![linux integration](../../images/linux-integration.png)
 
 
 What the OpenObserve Collector Does:
 
-- Installs as a systemd service
+- Installs as the `otel-collector` systemd service, with its configuration in `/etc/otel-config.yaml`
 - Collects system logs from journald or syslog
 - Collects host metrics including CPU, memory, disk, network, and process-level usage
 - Forwards all collected data to OpenObserve
@@ -69,80 +69,80 @@ tar -xzf otelcol-contrib.tar.gz
 Create a file named `config.yaml` in the `/opt/otel-collector` directory with the following content: 
 ```yaml lineNumbers
 receivers:
-filelog:
+  filelog:
     include:
-    - /var/log/syslog
-    - /var/log/auth.log
-    - /var/log/kern.log
-    - /var/log/messages
-    - /var/log/secure
+      - /var/log/syslog
+      - /var/log/auth.log
+      - /var/log/kern.log
+      - /var/log/messages
+      - /var/log/secure
     start_at: end
     include_file_path: true
     include_file_name: true
     operators:
-    - type: regex_parser
+      - type: regex_parser
         regex: '^(?P<time>[A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(?P<host>[^\s]+)\s+(?P<service>[^\s\[]+)(\[(?P<pid>\d+)\])?:\s+(?P<message>.*)$'
         timestamp:
-        parse_from: time
-        layout: Jan 02 15:04:05
+          parse_from: attributes.time
+          layout: Jan 02 15:04:05
 
-hostmetrics:
+  hostmetrics:
     collection_interval: 30s
     scrapers:
-    cpu:
+      cpu:
         metrics:
-        system.cpu.utilization:
+          system.cpu.utilization:
             enabled: true
-    memory:
+      memory:
         metrics:
-        system.memory.utilization:
+          system.memory.utilization:
             enabled: true
-    disk:
-    filesystem:
-    network:
-    load:
-    paging:
-    process:
+      disk:
+      filesystem:
+      network:
+      load:
+      paging:
+      process:
         mute_process_name_error: true
         metrics:
-        process.cpu.utilization:
+          process.cpu.utilization:
             enabled: true
-        process.memory.utilization:
+          process.memory.utilization:
             enabled: true
 
 processors:
-batch:
+  batch:
     send_batch_size: 1024
     timeout: 10s
-resourcedetection:
+  resourcedetection:
     detectors: [system, env]
     system:
-    hostname_sources: ["os"]
+      hostname_sources: ["os"]
 
 exporters:
-otlphttp/openobserve:
-    endpoint: "https://your-openobserve-instance.com/api/default"
+  otlphttp/openobserve:
+    endpoint: "https://your-openobserve-instance.com/api/<org_id>"
     headers:
-    Authorization: "Basic YOUR_API_KEY"
-    stream-name: "linux-logs"
-debug:
+      Authorization: "Basic YOUR_API_KEY"
+      stream-name: "linux_logs"
+  debug:
     verbosity: detailed
 
 service:
-pipelines:
+  pipelines:
     logs:
-    receivers: [filelog]
-    processors: [resourcedetection, batch]
-    exporters: [otlphttp/openobserve, debug]
+      receivers: [filelog]
+      processors: [resourcedetection, batch]
+      exporters: [otlphttp/openobserve, debug]
     metrics:
-    receivers: [hostmetrics]
-    processors: [resourcedetection, batch]
-    exporters: [otlphttp/openobserve, debug]
-telemetry:
+      receivers: [hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlphttp/openobserve, debug]
+  telemetry:
     logs:
-    level: "info"    
+      level: "info"
 ```
-Replace `https://your-openobserve-instance.com/api/default` with your OpenObserve endpoint and `YOUR_API_KEY` with your actual API key.
+Replace `https://your-openobserve-instance.com/api/<org_id>` with your OpenObserve endpoint and organization, and `YOUR_API_KEY` with the Base64 credentials shown after `Basic` in **Data > Data sources > Custom > Logs > OTEL Collector**.
 3. Run the Collector
 
 ```bash
@@ -158,23 +158,23 @@ Here are some essential configurations to enhance your Linux monitoring:
 
 :::accordion[Security-Focused Monitoring]
 For enhanced security monitoring:
-```bash lineNumbers
+```yaml lineNumbers
 filelog:
-include:
+  include:
     - /var/log/auth.log
     - /var/log/secure
     - /var/log/audit/audit.log
-operators:
+  operators:
     # For SSH authentication events
     - type: router
-    routes:
-        - expr: 'includes(file.name, "auth.log") or includes(file.name, "secure")'
-        output: auth-parser
+      routes:
+        - expr: 'attributes["log.file.name"] matches "auth.log|secure"'
+          output: auth-parser
     - type: regex_parser
-    id: auth-parser
-    regex: '(?P<time>[A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(?P<host>[^\s]+)\s+sshd\[(?P<pid>\d+)\]:\s+(?P<message>.*)'
-    timestamp:
-        parse_from: time
+      id: auth-parser
+      regex: '(?P<time>[A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(?P<host>[^\s]+)\s+sshd\[(?P<pid>\d+)\]:\s+(?P<message>.*)'
+      timestamp:
+        parse_from: attributes.time
         layout: Jan 02 15:04:05
 ```
 This configuration focuses on authentication logs to help detect unauthorized access attempts and potential security breaches.
@@ -182,12 +182,12 @@ This configuration focuses on authentication logs to help detect unauthorized ac
 
 :::accordion[Using Journald Receiver]
 If you prefer to collect logs directly from journald instead of log files:
-```bash lineNumbers
+```yaml lineNumbers
 journald:
-units:
+  units:
     - ssh.service
     - systemd-logind.service
-priority: info
+  priority: info
 ```
 The journald receiver requires systemd and only works on Linux systems using systemd as their init system.
 :::
@@ -196,7 +196,7 @@ The journald receiver requires systemd and only works on Linux systems using sys
 
 :::accordion[OpenObserve Collector Installation Issues]
 - **Permission Denied**: Run the installation command with `sudo`.
-- **Service Not Starting**: Check status with `sudo systemctl status openobserve-agent` and look for error messages.
+- **Service Not Starting**: Check status with `sudo systemctl status otel-collector` and look for error messages.
 - **Network Issues**: Verify connectivity with `curl -v https://your-openobserve-instance.com`.
 :::
 

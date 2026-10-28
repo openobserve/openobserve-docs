@@ -49,7 +49,7 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
 
 :::accordion[Step 3: Get OpenObserve URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Custom → Metrics → Otel Collector **
+1. In OpenObserve: go to **Data > Data sources > Custom > Metrics > OTEL Collector**
 2. Copy the ingestion URL and Access Key
 ![Get OpenObserve Ingestion URL and Access Key](../images/messagebroker/otel-metrics-source.png)
 :::
@@ -64,32 +64,32 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
 
     ```yaml
     receivers:
-    kafkametrics:
+      kafkametrics:
         brokers: localhost:9092
         protocol_version: 2.0.0
         scrapers:
-        - brokers
-        - topics
-        - consumers
+          - brokers
+          - topics
+          - consumers
 
     exporters:
-    otlphttp/openobserve:
+      otlphttp/openobserve:
         endpoint: OPENOBSERVE_ENDPOINT
         headers:
-        Authorization: OPENOBSERVE_TOKEN
-        stream-name: OPENOBSERVE_STREAM
+          Authorization: Basic OPENOBSERVE_TOKEN
+          stream-name: OPENOBSERVE_STREAM
 
     service:
-    pipelines:
+      pipelines:
         metrics:
-        receivers: [kafkametrics]
-        exporters: [otlphttp/openobserve]
+          receivers: [kafkametrics]
+          exporters: [otlphttp/openobserve]
     ```
 
 Replace the following with your OpenObserve details:
 
-* `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-* `OPENOBSERVE_TOKEN` → API token
+* `OPENOBSERVE_ENDPOINT` → API endpoint with your organization (e.g., `https://api.openobserve.ai/api/<org_id>`)
+* `OPENOBSERVE_TOKEN` → the Base64 credentials shown after `Basic`
 * `OPENOBSERVE_STREAM` → Stream name
 :::
 
@@ -109,13 +109,13 @@ Replace the following with your OpenObserve details:
 
 :::accordion[Step 6: Visualize in OpenObserve]
 
-1. Go to **Streams** → select metrics. Expand on any metric stream to see the events.
+1. Go to **Data > Streams** → filter by metrics. Expand on any metric stream to see the events.
 ![Visualize in OpenObserve](../images/messagebroker/kafka-metrics.png)
 :::
 
 :::tip[Tip]
 
-You can use **[prebuilt dashboards](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/kafka_dashboard_e2dc6c8569.json)** to quickly get started with Kafka monitoring. Browse and import dashboards from: [OpenObserve Community Dashboards](https://github.com/openobserve/dashboards)
+You can use **[prebuilt dashboards](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/kafka_dashboard_e2dc6c8569.json)** to quickly get started with Kafka monitoring. Import the JSON from **Dashboards > Import > Custom**, or browse more in the [OpenObserve Community Dashboards](https://github.com/openobserve/dashboards/tree/main/Kafka) repository.
 :::
 
 
@@ -126,7 +126,7 @@ You can use **[prebuilt dashboards](https://openobserve-prod-website.s3.us-west-
     - Cause: Using an older `otelcol-contrib` version that doesn’t support the `kafkametrics` receiver.
     - **Fix:** Upgrade to at least `v0.116.0` or newer from [GitHub Releases](https://github.com/open-telemetry/opentelemetry-collector-releases).
 -  No Metrics Visible in OpenObserve
-    - Double-check values in your `config.yaml` against your OpenObserve → Data Sources → Custom → Metrics → Otel Collector page.
+    - Double-check values in your `config.yaml` against the **Data > Data sources > Custom > Metrics > OTEL Collector** page in OpenObserve.
 - Kafka Connection Errors: `dial tcp 127.0.0.1:9092: connect: connection refused`  
     - **Cause:** Kafka broker not running or wrong address.  
     - **Fix:** Ensure Kafka is started and reachable. Run:

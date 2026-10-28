@@ -7,7 +7,7 @@ The following user guides provide step-by-step instructions to integrate **secur
 These integrations allow you to centralize audit logs, identity activity, and security events, giving you unified visibility into compliance, authentication, and anomaly detection.
 
 <br>
-Each guide corresponds to a security integration that appears under the **Security** tab in the OpenObserve user interface.  
+Each guide corresponds to a security integration that appears under the **Security** tab of **Data > Data sources** in OpenObserve.  
 ![security integrations](security-datasources.png)  
 <br>
 

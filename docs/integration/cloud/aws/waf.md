@@ -37,14 +37,14 @@ AWS WAF logs include detailed information about requests evaluated against your 
 
 :::accordion[Step 2: Get OpenObserve Ingestion URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+1. In OpenObserve: go to **Data > Data sources > Recommended > Amazon Web Services(AWS)**. The **Manual Configuration** block shows the HTTP endpoint and Access Key
 2. Copy the HTTP ingestion URL and Access Key
 
     ![Get OpenObserve Ingestion URL and Access Key](../../images/aws-integrations/vpc-flow/fetch-url.png)
 
 > Example ingestion URL:
 > ```
-> https://<your-openobserve-domain>/aws/default/<stream_name>/_kinesis_firehose
+> https://<your-openobserve-domain>/aws/<org_id>/<stream_name>/_kinesis_firehose
 > ```
 :::
 
@@ -54,7 +54,7 @@ AWS WAF logs include detailed information about requests evaluated against your 
 2. Go to **CloudFormation → Create Stack → With new resources (standard)**
 3. Upload the template file
 4. Set the following parameters:
-    - **OpenObserve Ingestion URL**
+    - **OpenObserve Ingestion URL** (the Firehose endpoint from Step 2)
     - **Access Key**
     - **Source S3 Bucket (WAF Logs)**
     - **Backup S3 Bucket (Optional)**
@@ -76,7 +76,7 @@ AWS WAF logs include detailed information about requests evaluated against your 
 
 ![Verify Log Ingestion in OpenObserve](../../images/devops/github-actions/verify-logs.png)
 
-> You can also import a [sample AWS WAF dashboard JSON](https://github.com/openobserve/dashboards/tree/main/AWS_WAF) to visualize top IPs, blocked requests, and more.
+> You can also import a [sample AWS WAF dashboard JSON](https://github.com/openobserve/dashboards/tree/main/AWS_WAF) from **Dashboards > Import > Custom** to visualize top IPs, blocked requests, and more.
 :::
 
 :::accordion[Troubleshooting]

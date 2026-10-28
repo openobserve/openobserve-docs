@@ -63,8 +63,8 @@ airflow webserver -D
 
 :::accordion[Step 3: Get OpenObserve Endpoint and Token]
 
-1. In OpenObserve: go to **Data Sources → Otel Collector**  
-2. Copy the **Ingestion URL** and **Access Token**  
+1. In OpenObserve: go to **Data > Data sources > Custom > Logs > OTEL Collector**  
+2. Copy the `endpoint` and the `Authorization` header value  
 ![Get OpenObserve Ingestion URL and Token](../images/messagebroker/otel-metrics-source.png)
 :::
 
@@ -95,7 +95,7 @@ airflow webserver -D
       otlphttp/openobserve:
         endpoint: OPENOBSERVE_ENDPOINT
         headers:
-          Authorization: "OPENOBSERVE_TOKEN"
+          Authorization: "Basic OPENOBSERVE_TOKEN"
           stream-name: airflow
 
     service:
@@ -116,8 +116,8 @@ airflow webserver -D
 
 Replace placeholders with your OpenObserve details:
 
-- `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-- `OPENOBSERVE_TOKEN` → Access token
+- `OPENOBSERVE_ENDPOINT` → API endpoint with your organization (e.g., `https://api.openobserve.ai/api/<org_id>`)
+- `OPENOBSERVE_TOKEN` → the Base64 credentials shown after `Basic`
 :::
 
 :::accordion[Step 5: Start OpenTelemetry Collector]
@@ -133,7 +133,7 @@ journalctl -u otel-collector -f
 
 :::accordion[Step 6: Visualize Logs in OpenObserve]
 
-1. Go to **Streams → airflow** in OpenObserve to query logs. Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
+1. In OpenObserve, go to **Logs** and select the `airflow` stream to query logs. Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
 
  ![Visualize Logs in OpenObserve](../images/airflow-logs.png)
 :::
@@ -142,7 +142,7 @@ journalctl -u otel-collector -f
 :::tip[Prebuilt Dashboards]
 
 </br>
-[Prebuilt Airflow dashboards](https://github.com/openobserve/dashboards/tree/main/Airflow) are available. You can download the JSON file and import it.
+[Prebuilt Airflow dashboards](https://github.com/openobserve/dashboards/tree/main/Airflow) are available. Download the JSON file and import it from **Dashboards > Import > Custom**.
 :::
 
 ## Troubleshooting
