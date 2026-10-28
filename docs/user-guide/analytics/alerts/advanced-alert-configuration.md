@@ -2,12 +2,12 @@
 title: Advanced Alert Configuration
 description: >-
   Multi-level thresholds, per-group evaluation (multi-alerts), priority scoring,
-  selection tags, and SLO-based alerts in OpenObserve.
+  selection tags, pending periods, and SLO-based alerts in OpenObserve.
 ---
 
 # Advanced Alert Configuration
 
-This page covers advanced alert features: warning thresholds alongside critical thresholds, per-group multi-alert evaluation, priority and tags for triage, and SLO-based alerting.
+This page covers advanced alert features: warning thresholds alongside critical thresholds, per-group multi-alert evaluation, priority and tags for triage, pending periods to delay firing, and SLO-based alerting.
 
 ## Multi-level thresholds
 
@@ -143,11 +143,56 @@ The tags facet endpoint (`GET /v2/{org}/alerts/tags`) returns distinct tags with
 
 ![tags filter dropdown with autocomplete facet](images/alerts-4-0-10.png)
 
+## Pending period (hold before firing)
+
+The **Hold for** setting adds a pending period to scheduled and composite alerts. When a condition first matches, the alert does not fire immediately. Instead it enters a **pending** state, and the condition must keep matching for the configured period before the alert transitions to **firing** and sends a notification.
+
+This prevents flapping: a condition that trips on one bad interval and then recovers never pages anyone, because the alert only fires after the condition has held for the full pending period.
+
+### Configure the pending period
+
+In the **Settings** section of the alert form (on the **Alert Rules** tab for scheduled alerts), set **Hold for** to a number and pick a unit, **Minutes** or **Hours**:
+
+- Leave it blank or `0` to fire immediately (the default).
+- A value greater than `0` means the condition must hold that long before the alert fires.
+
+The tooltip on the info icon next to the label reads: *"Wait this long before firing, so a condition has to hold rather than trip on one bad interval."*
+
+![Settings section of the alert form with Hold for set to 3 Minutes](images/alert-pending-period-hold-for.png)
+
+For scheduled alerts, if the pending period is not a multiple of **Check every**, OpenObserve shows a warning that the alert may wait up to one extra evaluation interval before firing. This is only a hint; it does not block saving.
+
+In the API, the value is the alert's `pending_period_sec` field, in seconds.
+
+### How the pending state works
+
+When a condition matches and the pending period has not yet elapsed:
+
+- The alert's last outcome becomes `pending`, alongside `firing`, `normal`, `error`, `notify_failed`, and `succeeded`.
+- Notifications are suppressed while the alert is pending.
+- Once the condition has held for the full pending period, the alert transitions to `firing` and notifies. If the condition recovers during the pending period, the alert returns to `normal` without ever notifying.
+
+### Where the pending period appears
+
+- **Alert form summary**: the summary panel in the alert form adds a **Hold for** line (for example "Hold for: 10 minutes before firing"), and the plain-English sentence ends with ", after holding for 10 minutes". A value of `0` reads as "Fires immediately".
+- **Alert detail page**: the configuration summary lists **Hold for** next to **Check every** and **Silence**.
+
+![Alert form summary ending in after holding for 3 minutes, with a Hold for: 3 minutes before firing line](images/alert-pending-period-summary.png)
+
+- **Alert history**: on the alert's detail page, the **Alert History** tab marks each pending evaluation with a blue **Pending** status. In the example below, the condition matched for three minutes of **Pending** evaluations before the alert started **Firing**. Alert history timelines also count pending evaluations in their own blue **Pending** bucket, separate from firing, OK, error, and skipped evaluations.
+
+![Alert History tab with four Pending evaluations followed by Firing evaluations once the 3-minute hold elapsed](images/alert-pending-period-history.png)
+
+### Constraints
+
+- The pending period must be `0` or greater. A negative value is rejected with a validation error.
+- Real-time alerts do not support a pending period. The form does not show the field and saves `0`; an API request that sets a non-zero value on a real-time alert is rejected.
+
 ## Run state on the alerts list
 
 The alerts list now includes live run state for each alert, enriched from the durable `alert_states` table:
 
-- **Last outcome**: `firing`, `normal`, `error`, `notify_failed`, or `succeeded` — the result of the last evaluation
+- **Last outcome**: `firing`, `pending`, `normal`, `error`, `notify_failed`, or `succeeded` — the result of the last evaluation
 - **Level**: `ok`, `warning`, or `critical` — a separate severity axis from the outcome. An alert can be `firing` at `warning`
 - **Level since**: how long the alert has been at its current level
 
@@ -166,7 +211,7 @@ Alert history entries now carry value context so each row reads standalone:
 - **Group label**: which group produced the value, for multi-alerts and grouped queries
 - **Value is lower bound**: `≥` marker for legacy capped count fetches
 
-Outcome values are normalized across the retention window: `firing`, `normal`, `error`, `notify_failed`, and `succeeded` replace the older `completed` / `condition_not_met` vocabulary.
+Outcome values are normalized across the retention window: `firing`, `pending`, `normal`, `error`, `notify_failed`, and `succeeded` replace the older `completed` / `condition_not_met` vocabulary.
 
 ![alert history with value context columns](images/alerts-4-0-12.png)
 

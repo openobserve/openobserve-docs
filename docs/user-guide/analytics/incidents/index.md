@@ -36,6 +36,8 @@ OpenObserve groups related alert firings into incidents using intelligent correl
 | **Secondary Match** | Medium | Matches alerts sharing secondary dimensions (service, deployment) |
 | **Alert ID** | Lowest | Isolates alerts by alert rule ID when no dimensional match exists |
 
+Alerts from external systems such as Grafana or Prometheus Alertmanager can be correlated into incidents too. See [External Alert Sources](external-alert-sources.md).
+
 ### Incident notifications
 
 When an alert has **Creates Incident** enabled, it no longer sends its regular notification. Instead, an incident notification is sent only when:

@@ -3,6 +3,7 @@
     "index",
     "traces",
     "service-graph",
-    "service-catalog"
+    "service-catalog",
+    "analyze-traces"
   ]
 }
