@@ -1,5 +1,6 @@
 {
   "pages": [
+    "aisix-ai-gateway",
     "anannas",
     "kong-gateway",
     "litellm-proxy",

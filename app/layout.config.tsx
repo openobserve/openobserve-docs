@@ -48,6 +48,9 @@ const siteLinks = [
   { text: 'Home', url: 'https://openobserve.ai/', external: true },
   { text: 'Blog', url: 'https://openobserve.ai/blog/', external: true },
   { text: 'Downloads', url: 'https://openobserve.ai/downloads/', external: true },
+  // Required by privacy compliance laws in several countries/regions: must
+  // always be visible.
+  { text: 'Privacy Policy', url: 'https://openobserve.ai/legal/privacy-policy/', external: true },
 ];
 
 /**

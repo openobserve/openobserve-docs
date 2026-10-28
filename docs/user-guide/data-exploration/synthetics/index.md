@@ -51,6 +51,10 @@ Failed runs keep the failing step, its error and stack trace, the screenshot tak
 
 Checks run from OpenObserve-operated public locations, from agents inside your own network, or both. See [Private locations](private-locations.md).
 
+### Public status pages
+
+Publish check results as a status page, public or password-protected, with automatic incidents and 90 days of uptime history. See [Status pages](status-pages.md).
+
 ## Getting started
 
 ### Prerequisites
@@ -65,7 +69,7 @@ Checks run from OpenObserve-operated public locations, from agents inside your o
 1. Open **Experience** in the left sidebar.
 2. Select **Synthetics**.
 
-The page opens on the **Checks** tab. Use the **Private Locations** tab to manage your own probe locations.
+The page opens on the **Checks** tab. Use the **Private Locations** tab to manage your own probe locations, and the **Status Pages** tab to publish check results to a public or password-protected page.
 
 Before you create anything, the Checks tab offers a shortcut into each check type.
 
