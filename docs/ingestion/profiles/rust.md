@@ -15,7 +15,7 @@ Rust has two paths:
 
 ## Expose pprof
 
-Burns CPU so the flame graph has samples. Serves `/debug/pprof/profile` for the Collector:
+Create a project with `cargo new rsdemo && cd rsdemo`. Replace `Cargo.toml` and `src/main.rs` with the examples below. The program burns CPU and serves `/debug/pprof/profile` for the Collector:
 
 ```toml
 # Cargo.toml
@@ -34,7 +34,7 @@ debug = 1
 strip = false
 ```
 
-```rust
+```rust title="src/main.rs"
 use pprof::protos::Message;
 use sha2::{Digest, Sha256};
 use std::{thread, time::Duration};
@@ -74,7 +74,7 @@ cargo build --release
 
 ## Scrape with the Collector
 
-Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Use [otelcol-contrib](https://github.com/open-telemetry/opentelemetry-collector-releases) **0.153+** (`remote:` scrape config). CPU scrape `timeout` must be longer than the 5-second profile window.
+Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Use [otelcol-contrib](https://github.com/open-telemetry/opentelemetry-collector-releases) **0.153.0** (`remote:` scrape config). CPU scrape `timeout` must be longer than the 5-second profile window.
 
 ```yaml
 receivers:
@@ -111,6 +111,8 @@ otelcol-contrib --feature-gates=+service.profilesSupport --config=otelcol-config
 ```
 
 ## Verify in OpenObserve
+
+Open **Profiles**, select the configured stream (`default` in the example), service, and profile type/unit, then use **Last 15 minutes**. Check the Collector logs for export failures; see [OTLP verification](./otlp.md#verify-ingestion) if a dictionary validation error prevents ingestion.
 
 ![Rust pprof CPU flame graph in OpenObserve](./images/rust-pprof-profiles.png)
 

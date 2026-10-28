@@ -11,11 +11,11 @@ Go has two paths:
 | Path | When to use |
 |---|---|
 | **pprof** (this page) | CPU, heap, mutex, and block; expose `/debug/pprof` |
-| **[eBPF profiler](./ebpf.md)** | On-CPU and off-CPU; no code changes (Linux) |
+| **[eBPF profiler](./ebpf.md)** | On-CPU by default; optional off-CPU sampling (Linux) |
 
 ## Expose pprof
 
-Burns CPU so the flame graph has samples:
+Save this as `main.go`. It burns CPU so the flame graph has samples:
 
 ```go
 package main
@@ -47,7 +47,7 @@ go run .
 
 ## Scrape with the Collector
 
-Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Use [otelcol-contrib](https://github.com/open-telemetry/opentelemetry-collector-releases) **0.153+** (`remote:` scrape config). CPU scrape `timeout` must be longer than `?seconds=` on the pprof URL.
+Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Use [otelcol-contrib](https://github.com/open-telemetry/opentelemetry-collector-releases) **0.153.0** (`remote:` scrape config). CPU scrape `timeout` must be longer than `?seconds=` on the pprof URL.
 
 ```yaml
 receivers:
@@ -85,7 +85,7 @@ otelcol-contrib --feature-gates=+service.profilesSupport --config=otelcol-config
 
 ## Heap, allocs, mutex, and block
 
-For mutex and block, call these at process start (CPU and heap work without them):
+For mutex and block, import `runtime` and call these at process start (CPU and heap work without them):
 
 ```go
 runtime.SetMutexProfileFraction(1)
@@ -100,7 +100,11 @@ runtime.SetBlockProfileRate(1)
 | Mutex | `/debug/pprof/mutex` |
 | Block | `/debug/pprof/block` |
 
+Configure a separate `pprof/<name>` receiver using the corresponding endpoint and add it to the profiles pipeline. Mutex and block profiles need actual contention to contain samples; enabling them alone does not create data.
+
 ## Verify in OpenObserve
+
+Open **Profiles**, select the configured stream (`default` in the example), service, and profile type/unit, then use **Last 15 minutes**. Check the Collector logs for export failures; see [OTLP verification](./otlp.md#verify-ingestion) if a dictionary validation error prevents ingestion.
 
 ![Go pprof CPU flame graph in OpenObserve](./images/go-pprof-profiles.png)
 
