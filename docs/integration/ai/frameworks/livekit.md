@@ -113,8 +113,8 @@ Each LLM call produces a manual `livekit.llm_call` root span with nested spans f
 | `gen_ai_system` | Provider system (e.g. `api.openai.com`) |
 | `gen_ai_usage_input_tokens` | Input tokens (numeric) |
 | `gen_ai_usage_output_tokens` | Output tokens (numeric) |
-| `llm_input` | Full input messages as JSON |
-| `llm_output_content` | Full response text |
+| `gen_ai_input_messages` | Full input messages as JSON |
+| `gen_ai_output_messages` | Full response text |
 
 ## **Viewing Traces**
 

@@ -112,10 +112,8 @@ Each `app.invoke()` call produces a root span with child spans per node and LLM 
 | `gen_ai_system` | `openai` |
 | `gen_ai_usage_input_tokens` | Input token count |
 | `gen_ai_usage_output_tokens` | Output token count |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `llm_request_type` | `chat` |
 | `duration` | Span latency |
 | `span_status` | `UNSET` on success, `ERROR` on failure |

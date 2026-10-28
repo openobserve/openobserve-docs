@@ -154,8 +154,8 @@ Each `Runner.run()` call produces a trace with a four-level span tree. The `Agen
 | `llm_token_count_total` | Total tokens consumed |
 | `llm_token_count_completion_details_reasoning` | Reasoning tokens (0 for non-reasoning models) |
 | `llm_token_count_prompt_details_cache_read` | Prompt tokens served from cache |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `duration` | Span latency |
 | `span_status` | `OK` or error status |
 

@@ -78,12 +78,12 @@ Each query produces a trace with spans for the query engine, retriever, and LLM 
 | `llm_token_count_prompt` | Prompt tokens sent to the model |
 | `llm_token_count_completion` | Completion tokens returned by the model |
 | `llm_token_count_total` | Total tokens for the LLM call |
-| `llm_usage_tokens_input` | Input token count as a number |
-| `llm_usage_tokens_output` | Output token count as a number |
-| `llm_usage_cost_input` | Estimated cost of input tokens |
-| `llm_usage_cost_output` | Estimated cost of output tokens |
+| `gen_ai_usage_input_tokens` | Input token count as a number |
+| `gen_ai_usage_output_tokens` | Output token count as a number |
+| `gen_ai_usage_cost_input` | Estimated cost of input tokens |
+| `gen_ai_usage_cost_output` | Estimated cost of output tokens |
 | `llm_invocation_parameters` | JSON string of model config (context window, function calling support) |
-| `llm_observation_type` | `GENERATION` for LLM spans |
+| `gen_ai_operation_name` | `chat` for LLM spans |
 | `gen_ai_response_model` | Model ID returned by the provider |
 | `span_status` | `OK` or error status |
 | `duration` | Span execution latency |

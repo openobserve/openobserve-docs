@@ -86,13 +86,13 @@ Each workflow run produces a trace with spans for each step and any LLM calls wi
 | `operation_name` | Span name, e.g. `OpenAI.acomplete` for async LLM calls |
 | `llm_model_name` | Model used inside the LLM step (e.g. `gpt-4o-mini`) |
 | `llm_prompts` | The prompt string sent to the model |
-| `llm_usage_tokens_input` | Input token count |
-| `llm_usage_tokens_output` | Output token count |
-| `llm_usage_tokens_total` | Total tokens for the LLM call |
-| `llm_usage_cost_input` | Estimated cost of input tokens |
-| `llm_usage_cost_output` | Estimated cost of output tokens |
+| `gen_ai_usage_input_tokens` | Input token count |
+| `gen_ai_usage_output_tokens` | Output token count |
+| `gen_ai_usage_total_tokens` | Total tokens for the LLM call |
+| `gen_ai_usage_cost_input` | Estimated cost of input tokens |
+| `gen_ai_usage_cost_output` | Estimated cost of output tokens |
 | `llm_invocation_parameters` | JSON string of model config (context window, function calling support) |
-| `llm_observation_type` | `GENERATION` for LLM spans |
+| `gen_ai_operation_name` | `chat` for LLM spans |
 | `gen_ai_response_model` | Model ID returned by the provider |
 | `span_status` | `OK` or error status |
 | `duration` | Latency per step and for the full workflow |

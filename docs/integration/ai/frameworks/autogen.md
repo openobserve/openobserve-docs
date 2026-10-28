@@ -115,7 +115,7 @@ Each `initiate_chat()` call produces a root span with child `AGENT` spans per ag
 | `openinference_span_kind` | `AGENT` |
 | `operation_name` | Agent class name (e.g. `AssistantAgent`) |
 | `agent_type` | Agent class name (e.g. `AssistantAgent`) |
-| `llm_observation_type` | `AGENT` |
+| `gen_ai_operation_name` | `invoke_agent` |
 | `input_mime_type` | `application/json` |
 | `output_mime_type` | `application/json` |
 | `duration` | Agent turn latency |

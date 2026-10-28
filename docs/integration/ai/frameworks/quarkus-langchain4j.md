@@ -160,13 +160,13 @@ Each AI service call produces two spans: a root `langchain4j.aiservices.<Interfa
 | `gen_ai_usage_prompt_tokens` | Prompt tokens consumed |
 | `gen_ai_usage_completion_tokens` | Completion tokens generated |
 | `gen_ai_client_estimated_cost` | Estimated cost string (e.g. `0.00056000USD`) |
-| `llm_input` | Prompt text (requires `include-prompt=true`) |
-| `llm_output` | Completion text (requires `include-completion=true`) |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_tokens_total` | Total tokens (numeric) |
-| `llm_usage_cost_input` | Estimated cost for input tokens |
-| `llm_usage_cost_output` | Estimated cost for output tokens |
+| `gen_ai_input_messages` | Prompt text (requires `include-prompt=true`) |
+| `gen_ai_output_messages` | Completion text (requires `include-completion=true`) |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_total_tokens` | Total tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated cost for input tokens |
+| `gen_ai_usage_cost_output` | Estimated cost for output tokens |
 | `span_status` | `UNSET` on success, `ERROR` on exception |
 | `duration` | LLM call latency |
 

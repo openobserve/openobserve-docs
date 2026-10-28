@@ -142,9 +142,6 @@ Each `ChatClient` call produces a hierarchy of spans. The innermost LLM generati
 | `gen_ai_usage_input_tokens` | `15` |
 | `gen_ai_usage_output_tokens` | `256` |
 | `gen_ai_usage_total_tokens` | `271` |
-| `llm_usage_tokens_input` | `15` |
-| `llm_usage_tokens_output` | `256` |
-| `llm_observation_type` | `GENERATION` |
 | `span_status` | `UNSET` on success, `ERROR` on failure |
 | `duration` | End-to-end LLM call latency in microseconds |
 

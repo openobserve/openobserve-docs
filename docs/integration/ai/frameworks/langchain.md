@@ -123,10 +123,10 @@ print(result["messages"][-1].content)
 | `gen_ai_request_model` | Model name (e.g. `gpt-4o`) |
 | `gen_ai_usage_input_tokens` | Input tokens consumed |
 | `gen_ai_usage_output_tokens` | Output tokens generated |
-| `llm_usage_tokens_total` | Total tokens |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
-| `llm_usage_cost_total` | Estimated total cost in USD |
+| `gen_ai_usage_total_tokens` | Total tokens |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost` | Estimated total cost in USD |
 | `langchain_retriever_query` | Query sent to a retriever |
 | `langchain_tool_name` | Name of the tool invoked |
 | `duration` | End-to-end span latency |

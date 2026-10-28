@@ -104,8 +104,8 @@ Each chat turn produces a root `gradio.chat_predict` span with a child LLM span 
 | `llm_token_count_completion` | Output tokens |
 | `llm_token_count_total` | Total tokens |
 | `llm_token_count_prompt_details_cache_read` | Cached input tokens |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `llm_invocation_parameters` | Model and parameters passed to the API |
 | `span_status` | `OK` on success, `ERROR` on failure |
 

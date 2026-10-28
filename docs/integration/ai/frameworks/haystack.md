@@ -107,14 +107,14 @@ Each `pipeline.run()` produces a root `CHAIN` span with a child span per compone
 | `llm_model_name` | Resolved model version (e.g. `gpt-4o-mini-2024-07-18`) |
 | `llm_provider` | `openai` |
 | `llm_system` | `openai` |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_token_count_prompt` | Input token count |
 | `llm_token_count_completion` | Output token count |
 | `llm_token_count_total` | Total tokens consumed |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `gen_ai_response_model` | Exact model version returned by the API |
 | `duration` | Component execution latency |
 | `span_status` | `OK` on success, `ERROR` on failure |

@@ -95,14 +95,14 @@ Each `agent.run()` call produces a root `AGENT` span with child `LLM` spans for 
 | `llm_model_name` | Model used (e.g. `openai/gpt-4o-mini`) |
 | `llm_provider` | `openai` |
 | `llm_system` | `openai` |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_token_count_prompt` | Input token count |
 | `llm_token_count_completion` | Output token count |
 | `llm_token_count_total` | Total tokens consumed |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `gen_ai_response_model` | Model that handled the request |
 | `duration` | Span latency |
 | `span_status` | `OK` on success, `ERROR` on failure |

@@ -90,7 +90,6 @@ Each `crew.kickoff()` call produces a root `crewai.workflow` span with child spa
 | ----- | ----- |
 | `gen_ai_system` | `crewai` |
 | `gen_ai_operation_name` | `invoke_agent` |
-| `llm_observation_type` | `AGENT` for agent spans |
 | `traceloop_span_kind` | `task` for task spans, `agent` for agent spans |
 | `operation_name` | Task description with `.task` suffix |
 | `crewai_task_description` | Full task description |
