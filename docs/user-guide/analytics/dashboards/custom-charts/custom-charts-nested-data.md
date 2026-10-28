@@ -54,7 +54,7 @@ Sunburst chart expects data to be in nested format or parent-child hierarchy. Ea
 ## Step 3: Fetch and prepare the data
 
 In the [**Add Panel**](what-are-custom-charts.md#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
-![custom-charts-add-panel](../../../../images/custom-chart-nested-data-add-panel.png) 
+![custom-charts-add-panel](../../../../images/custom-chart-nested-data-add-panel-v2.png) 
 
 Write a SQL query in the Query Editor to fetch and prepare the data: 
 
@@ -87,7 +87,7 @@ GROUP BY
 
 Select a time range to fetch the relevant dataset for your chart.
 
-![custom-chart-select-time-range](../../../../images/custom-chart-nested-time-range-selection.png)
+![custom-chart-select-time-range](../../../../images/custom-chart-nested-time-range-selection-v2.png)
 
 **Expected query result**
 
@@ -194,7 +194,11 @@ Click **Apply** to generate the chart.
 
 If the query and JavaScript logic are correct, the chart appears in the preview area.
 
-![custom-charts-result](../../../../images/custom-chart-nested-data-result.png)
+:::note
+The screenshot runs the same code on a sample Kubernetes log stream, so it shows namespaces and log levels (counted with `count(*)`) instead of organizations and search types.
+:::
+
+![custom-charts-result](../../../../images/custom-chart-nested-data-result-v2.png)
 <br>
 
 ### Understand the chart

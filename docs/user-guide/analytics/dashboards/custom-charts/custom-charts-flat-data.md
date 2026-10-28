@@ -54,7 +54,7 @@ In this example, each row in [data[0]](what-are-custom-charts.md#the-data-object
 ## Step 3: Prepare the data (via SQL)
 
 In the [Add Panel](what-are-custom-charts.md#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
-![custom-chart-flat-data-add-panel](../../../../images/custom-chart-flat-data-add-panel.png)
+![custom-chart-flat-data-add-panel](../../../../images/custom-chart-flat-data-add-panel-v2.png)
 
 Build a SQL query in the **Query Editor** to fetch and prepare the data:
 
@@ -83,7 +83,7 @@ ORDER BY
 
 Select a time range to fetch the relevant dataset for your chart.
 
-![custom-chart-flat-data-time-range-selection](../../../../images/custom-chart-flat-data-time-range.png)
+![custom-chart-flat-data-time-range-selection](../../../../images/custom-chart-flat-data-time-range-v2.png)
 
 **Expected query result**
 
@@ -169,7 +169,11 @@ option = {
 
 Click **Apply** to generate the chart. 
 
-![custom-chart-flat-data-result](../../../../images/custom-chart-flat-data-result.png)
+:::note
+The screenshot runs the same code on a sample Kubernetes log stream, so it shows namespaces and log levels (counted with `count(*)`) instead of organizations and search types.
+:::
+
+![custom-chart-flat-data-result](../../../../images/custom-chart-flat-data-result-v2.png)
 
 ### Understand the chart
 

@@ -28,7 +28,7 @@ This guide introduces the fundamentals of custom charts in OpenObserve, includin
 4. Enter a name for the panel.  
 5. In the **Add Panel** page, select **Custom Chart** from the list of charts.
 
-![custom-chart](../../../../images/custom-chart.png)
+![custom-chart](../../../../images/custom-chart-v2.png)
 
 After selecting **Custom Chart**, the screen displays: 
 
