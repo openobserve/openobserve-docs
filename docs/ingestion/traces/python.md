@@ -75,12 +75,12 @@ Traces are captured, you can check these captured traces here [https://cloud.ope
 
 Filter traces with your service name `python-service`
 
-![Filter traces with service name](./images/filter_traces_python.png)
+![Spans filtered by service_name python-service](./images/filter_traces_python-v2.png)
 
 Click on any trace to check trace data
 
-![Trace details](./images/trace_details_1.png)
+![Trace details in the Waterfall view](./images/trace_details_1-v2.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](./images/trace_details_2.png)
+![Span details panel with the span attributes](./images/trace_details_2-v2.png)
