@@ -98,7 +98,7 @@ Parallel returns immediately with a `queued` status and a `run_id`. Poll `GET /t
 3. Click a `parallel.run_task` span to inspect the run ID, processor tier, and status
 4. Filter by `span_status` = `ERROR` to identify failed submissions
 
-![Parallel task trace in OpenObserve](../../../images/integration/ai/parallel.png)
+![Parallel task trace in OpenObserve, Waterfall view with the parallel.run_task span attributes](../../../images/integration/ai/parallel-v2.png)
 
 ## **Next Steps**
 

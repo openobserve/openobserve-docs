@@ -105,7 +105,7 @@ asyncio.run(main())
 3. Filter by `span_status` = `ERROR` to find failed runs
 4. Sort by duration to identify slow agent invocations
 
-![mcp-use trace in OpenObserve](../../../images/integration/ai/mcp-use.png)
+![mcp-use trace in OpenObserve, Waterfall view with the mcp_use.agent_run span attributes](../../../images/integration/ai/mcp-use-v2.png)
 
 ## **Next Steps**
 

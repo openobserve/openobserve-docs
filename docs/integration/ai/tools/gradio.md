@@ -116,7 +116,7 @@ Each chat turn produces a root `gradio.chat_predict` span with a child LLM span 
 3. Filter by `operation_name = gradio.chat_predict` to find all chat turns
 4. Expand any span to inspect `gradio_input_length`, `gradio_output_length`, and token counts from the child span
 
-![Gradio trace in OpenObserve](../../../images/integration/ai/gradio.png)
+![Gradio trace in OpenObserve, Waterfall view with the gradio.chat_predict span attributes](../../../images/integration/ai/gradio-v2.png)
 
 ## **Next Steps**
 

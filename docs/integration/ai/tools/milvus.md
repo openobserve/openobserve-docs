@@ -108,7 +108,7 @@ Each operation wrapped in a span produces the following attributes. OpenObserve 
 3. Click any span to inspect `milvus_collection` and `milvus_result_count`
 4. Sort by duration to identify slow queries, then tune indexing parameters
 
-![Milvus trace in OpenObserve](../../../images/integration/ai/milvus.png)
+![Milvus trace in OpenObserve, Waterfall view with the milvus.search span attributes](../../../images/integration/ai/milvus-v2.png)
 
 ## **Next Steps**
 

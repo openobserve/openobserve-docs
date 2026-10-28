@@ -79,7 +79,7 @@ for r in result.results:
 3. Click a span to inspect the query and result count
 4. Sort by duration to find the slowest searches
 
-![Exa search trace in OpenObserve](../../../images/integration/ai/exa.png)
+![Exa search trace in OpenObserve, Waterfall view with the exa.search span attributes](../../../images/integration/ai/exa-v2.png)
 
 ## **Next Steps**
 

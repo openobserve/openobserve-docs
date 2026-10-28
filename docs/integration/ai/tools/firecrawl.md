@@ -77,7 +77,7 @@ print(result.get("markdown", "")[:500])
 3. Click a span to inspect the URL and content length
 4. Sort by duration to find the slowest pages
 
-![Firecrawl scrape trace in OpenObserve](../../../images/integration/ai/firecrawl.png)
+![Firecrawl scrape trace in OpenObserve, Waterfall view with the firecrawl.scrape span attributes](../../../images/integration/ai/firecrawl-v2.png)
 
 ## **Next Steps**
 

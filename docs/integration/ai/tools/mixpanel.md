@@ -110,7 +110,7 @@ print(result)
 2. Filter by span name `mixpanel.llm_call` to see all LLM calls
 3. Use the `trace_id` property in Mixpanel to locate the full OTel trace in OpenObserve
 
-![Mixpanel LLM trace in OpenObserve](../../../images/integration/ai/mixpanel.png)
+![Mixpanel LLM trace in OpenObserve, Waterfall view with the mixpanel.llm_call span attributes](../../../images/integration/ai/mixpanel-v2.png)
 
 ## **Next Steps**
 

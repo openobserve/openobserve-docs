@@ -97,7 +97,7 @@ for case in eval_cases:
 3. Filter by `promptfoo_pass` = `false` to find failing cases
 4. Sort by duration to identify slow eval cases
 
-![Promptfoo eval trace in OpenObserve](../../../images/integration/ai/promptfoo.png)
+![Promptfoo eval trace in OpenObserve, Waterfall view with the promptfoo.eval_case span attributes](../../../images/integration/ai/promptfoo-v2.png)
 
 ## **Next Steps**
 

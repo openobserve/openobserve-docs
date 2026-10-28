@@ -114,7 +114,7 @@ print(result)
 2. Filter by span name `trubrics.llm_with_feedback` to see all tracked generations
 3. Use the `trace_id` in Trubrics to cross-reference with the OTel trace in OpenObserve
 
-![Trubrics trace in OpenObserve](../../../images/integration/ai/trubrics.png)
+![Trubrics trace in OpenObserve, Waterfall view with the trubrics.llm_with_feedback span attributes](../../../images/integration/ai/trubrics-v2.png)
 
 ## **Next Steps**
 

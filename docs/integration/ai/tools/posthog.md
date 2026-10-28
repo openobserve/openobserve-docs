@@ -117,7 +117,7 @@ posthog.shutdown()
 2. Filter by span name `posthog.llm_generation` to see all generations
 3. Use `$ai_trace_id` in PostHog to cross-reference with the full OTel trace in OpenObserve
 
-![PostHog trace in OpenObserve](../../../images/integration/ai/posthog.png)
+![PostHog trace in OpenObserve, Waterfall view with the posthog.llm_generation span attributes](../../../images/integration/ai/posthog-v2.png)
 
 ## **Next Steps**
 

@@ -144,7 +144,7 @@ LibreChat enforces a browser User-Agent header on the chat endpoint. Requests wi
 4. Filter by `span_status = ERROR` to identify authentication or connection failures
 5. Sort by `duration` to find the slowest LLM responses
 
-![LibreChat trace in OpenObserve](../../../images/integration/ai/librechat.png)
+![LibreChat trace in OpenObserve, Waterfall view with the librechat.chat span attributes](../../../images/integration/ai/librechat-v2.png)
 
 ## **Next Steps**
 
