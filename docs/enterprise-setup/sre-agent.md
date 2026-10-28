@@ -532,7 +532,17 @@ A recipient opens the link to see a read-only copy of the chat, and can click **
 
 ### Permissions
 
-Sharing is controlled by the **AI Chat Sharing** permission (`ai_chat_share` in OpenFGA). By default only organization admins can create, list, manage, and open shared chats. To let other users share chats or open organization links, grant **AI Chat Sharing** to a custom role.
+Sharing is controlled by the **AI Chat Sharing** permission (`ai_chat_share` in OpenFGA). By default only organization admins can create, list, manage, and open shared chats. To let other users share chats or open organization links, grant **AI Chat Sharing** to a custom role:
+
+1. Go to **IAM** > **Roles** and edit the role.
+2. On the **Permissions** tab, select the **AI Chat Sharing** module.
+3. Select the operations to allow, then click **Save**:
+    - **Create**: create share links.
+    - **List**: see a chat's links and the **Shared by me** list.
+    - **Get**: open organization links and fork shared chats.
+    - **Update** and **Delete**: change and revoke links.
+
+![AI Chat Sharing permission on the role Permissions tab](../images/ai-chat-sharing-role-permission.png)
 
 ### Public links
 
