@@ -74,7 +74,7 @@ Admins can create custom user roles in OpenObserve to define more granular acces
 6. Click the edit icon on the custom role. Use the **Permissions** tab to grant access per module, and the **Users** and **Service Accounts** tabs to assign members.
 7. Click **Review Changes** to check pending changes, then click **Save**.
 
-![Custom roles in OpenObserve](../../../images/rbac1-custom_roles.png)
+![IAM Roles list with the docs_viewer and docs_editor custom roles](../../../images/rbac1-custom_roles-v2.png)
 
 ## LLM Evaluations (AI Observability) Permissions
 
@@ -115,7 +115,7 @@ A service account in OpenObserve is a non-human account used for API access, aut
 5. A **token** is generated for the service account and shown once.
 6. If you did not pick roles or groups, assign the necessary **roles** and **permissions**. See [Service Accounts](service-accounts.md). This step is required for the service account to make API calls and access specific services in OpenObserve.
 
-![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
+![IAM Service Accounts list with a docs-ingest-bot service account and redacted tokens](../../../images/rbac2-service-account-v2.png)
 
 **Note:**
 
@@ -134,7 +134,7 @@ User groups allow admins to manage permissions collectively.
 4. From the **Roles, Users,** and **Service Accounts** tabs, select the list of users and service accounts that need to be assigned with appropriate roles.
 5. Click **Save**.
 
-![User groups in OpenObserve](../../../images/rbac3-user-groups.png)
+![IAM User Groups list with the docs_sre_team group](../../../images/rbac3-user-groups-v2.png)
 
 ## Users
 
@@ -142,21 +142,21 @@ Users are organization members with assigned roles that determine their access a
 
 **Note:** Only the **root** user and **Admin** users can add users to an organization. With RBAC enabled, roles that have the matching Users permission can also add them. <br>
 
-![users](../../../images/rbac4-add-users-enterprise.png)
+![IAM Users list with role summary cards and the New user button](../../../images/rbac4-add-users-enterprise-v2.png)
 
 **To add a user to an organization**:
 
 1. Navigate to **IAM > Users**.
 2. Click **New user**.
 3. Enter the user’s email address. <br>
-   ![Create User](../../../images/create-user-IAM.png)
+   ![New user dialog with email, role and custom roles](../../../images/create-user-IAM-v2.png)
 4. Select one of the predefined roles- **Admin**, **Editor**, **Viewer**, or **User**.
 5. Optionally, assign one or more custom roles to extend permissions.
 6. Click **Save**.
 7. If the user does not already exist, you will be prompted to set a password, first name, and last name. <br>
 If the entered email address already belongs to an existing user, the system will show a message:
 `User is already part of the organization`. <br>
-![Create User and Set Password](../../../images/create-user-IAM-password.png)
+![New user dialog asking for password, first name and last name](../../../images/create-user-IAM-password-v2.png)
 
 After you save the changes, the new user gets listed in the **Users** page.<br>
 Use the Actions column to edit and delete the user. 
