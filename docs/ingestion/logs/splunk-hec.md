@@ -15,9 +15,11 @@ The organization is resolved from the token, so no organization identifier appea
 A Splunk HEC token belongs to an [org ingestion token](../../user-guide/account-administration/identity-and-access-management/ingestion-tokens.md). Navigate to **IAM > Ingestion Tokens** and either:
 
 - click **Create New Token** and check **Also create a Splunk HEC token** in the **Create Token** dialog, or
-- click the **Generate Splunk token** action in the row of an existing token.
+- click the **Generate Splunk token** action (link icon) in the row of an existing token.
 
-![Ingestion Tokens page with the Splunk HEC token column and the Generate Splunk token action](images/splunk-hec-ingestion-tokens.png)
+![Create Token dialog with the Also create a Splunk HEC token checkbox checked](images/splunk-hec-create-token.png)
+
+![Ingestion Tokens page with the Splunk HEC token column and the generate and revoke actions](images/splunk-hec-ingestion-tokens.png)
 
 The Splunk HEC token is a lowercase hyphenated GUID, for example `7b3d9f2c-4a11-4e55-9c8b-2f6a01c34d90`. It is shown in the **Splunk HEC token** column of the token list. Tokens without one show **Not enabled**.
 
@@ -27,7 +29,7 @@ When you create a token with **Also create a Splunk HEC token** checked, the **N
 
 ### Revoke a Splunk HEC token
 
-Click **Revoke Splunk token** in the token's row and confirm. Forwarders using that Splunk HEC token start receiving `403` errors immediately, and this cannot be undone. You can generate a new Splunk HEC token for the same ingestion token afterwards; it gets a new GUID.
+Click the **Revoke Splunk token** action (broken-link icon) in the token's row and confirm. Forwarders using that Splunk HEC token start receiving `403` errors immediately, and this cannot be undone. You can generate a new Splunk HEC token for the same ingestion token afterwards; it gets a new GUID.
 
 Disabling the underlying ingestion token also stops its Splunk HEC token from authenticating.
 
