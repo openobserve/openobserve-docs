@@ -58,15 +58,15 @@ curl -X POST "https://<host>/api/{org}/sourcemaps" \
 
 ### 4. Verify in the UI
 
-**RUM → Error Tracking → select an error** — stack frames now show original source locations (e.g. `src/components/Checkout.vue:42`).
+**Experience → RUM → Error Tracking → select an error** — stack frames now show original source locations (e.g. `src/components/Checkout.vue:42`).
 
 ## Using the UI
 
 You can also upload source maps without the API:
 
-1. Navigate to **RUM → Source Maps**.
+1. Navigate to **Experience → RUM → Source Maps**.
 2. Click **Upload Source Maps**.
-3. Fill in **Service**, **Env**, and **Version**.
+3. Fill in **Service**, **Version**, and, optionally, **Environment**.
 4. Attach the source-map ZIP.
 5. Submit.
 
@@ -150,7 +150,9 @@ curl -X POST "https://<host>/api/{org}/sourcemaps/stacktrace" \
 
 | Setting | Value |
 |---|---|
-| Max ZIP size | 100 MB |
+| Max upload request size | 50 MB |
+| Max total uncompressed size of the `.map` files in the ZIP | 100 MB |
+| Max `.map` files in one ZIP | 1,000 |
 | Max individual `.map` file | 5 MB |
 | Memory cache | 10,000 entries |
 

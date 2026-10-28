@@ -26,17 +26,17 @@ All this data is combined to create a video-like replay that shows you exactly w
 
 ### From Sessions List
 
-1. Navigate to the **Sessions** tab in RUM dashboard
+1. Go to **Experience** > **RUM** and open the **Sessions** tab
 2. Find the session you want to replay
-3. Click the **play button (▶)** next to the session
+3. Click the **play button (▶)** next to the session, or the session row
 4. Session replay player will open
 
 ### From Error Details
 
 1. Navigate to the **Error Tracking** tab
 2. Click on an error to view details
-3. In the error details, you'll see "Affected Sessions"
-4. Click the **play button (▶)** next to any session
+3. In the error details, find the **Session Replay** card
+4. Open the replay from the card
 5. Replay will open and jump to the moment error occurred
 
 ### From Performance Issues
@@ -93,18 +93,18 @@ A visual timeline at the bottom shows:
 **Speed Control (4x)**:
 
 - Adjust playback speed
-- Options: 0.5x, 1x, 2x, 4x, 8x
+- Options: 0.5x, 1x, 1.5x, 2x, 3x, 4x (default 4x)
 - Useful for watching long sessions quickly
 
 **Skip Inactivity Toggle**:
 
-- When enabled, automatically skips periods of no activity
+- On by default; automatically skips periods of no activity
 - Saves time when watching long sessions with idle periods
 - Inactivity threshold: typically 2-3 seconds of no events
 
 ### Side Panels
 
-The right side of the player contains two tabs: **Breadcrumbs** and **Tags**.
+The right side of the player contains three tabs: **Breadcrumbs**, **Tags**, and **Traces**.
 
 #### Breadcrumbs Tab
 
@@ -147,14 +147,18 @@ Each event in the Breadcrumbs list is clickable:
 
 The Tags tab shows filterable tags that let you focus on specific types of events:
 
-**Search Event**: Filter events by keyword
+**Search Events**: Filter events by keyword
 
-**Filter by Tag**: Select event types to display
+**Filter by type**: Select event types to display
 
-- `error`: Error events only
-- `action`: User interaction events only
-- `view`: Page view events only
-- `...`: Other custom event types
+- **Error**: Error events only
+- **Action**: User interaction events only
+- **View**: Page view events only
+- **Frustration**: Rage, dead, and error clicks
+
+#### Traces Tab
+
+The Traces tab lists backend traces correlated with the session's requests, with their span and error counts. Use it to follow a slow or failing request from the browser into your services. Select a trace to see its spans, or use **Open in full view** to open it in **Traces**.
 
 ## Common Use Cases
 

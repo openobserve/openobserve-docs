@@ -484,7 +484,7 @@ On Open Source, these two variables are read but have no effect. The agent route
 
 | Variable | Default | Reload | Edition | Notes |
 |---|---|---|---|---|
-| `ZO_SYNTHETICS_ENABLED` | `false` | restart | Both | Master switch. Controls the workers and the HTTP routes. |
+| `ZO_SYNTHETICS_ENABLED` | `true` | restart | Both | Master switch. Controls the workers and the HTTP routes. |
 | `ZO_SYNTHETICS_LAMBDA_NET` | empty | hot | Both | Protocol probe function name. Empty disables Lambda dispatch for protocol checks. |
 | `ZO_SYNTHETICS_LAMBDA_BROWSER` | `o2-synthetics-browser-probe` | hot | Both | Browser probe function name. |
 | `ZO_SYNTHETICS_API_ENDPOINT` | empty, falls back to `ZO_WEB_URL` | hot | Both | URL that the probe calls back on. |
@@ -499,7 +499,7 @@ On Open Source, these two variables are read but have no effect. The agent route
 | `ZO_SYNTHETICS_RECORDER_EXTENSION_URL` | Chrome Web Store listing | hot | Both | Link to the recorder extension in the browser test editor. |
 | `ZO_SYNTHETICS_INSTALL_SCRIPT_URL` | GitHub raw URL of `install.sh` | hot | Enterprise | Private agent install script shown in the setup drawer. |
 | `ZO_SYNTHETICS_AGENT_STALE_SECS` | `120` | hot | Enterprise | Seconds before an agent counts as stale. |
-| `ZO_SYNTHETICS_SUBTESTS_REPLICATION_GRACE_SECS` | `300` | restart | Enterprise | Super cluster only. Grace period for subtests that are not yet replicated. |
+| `ZO_SYNTHETICS_SUBTESTS_REPLICATION_GRACE_SECS` | `300` | hot | Enterprise | Super cluster only. Grace period for subtests that are not yet replicated. |
 
 "Hot" means that `POST /config/reload` applies the change. "Restart" means that you must restart the process.
 

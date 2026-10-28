@@ -25,7 +25,7 @@ Service graph focuses on recent activity. When services are inactive for a perio
 
 1. Sign in to OpenObserve.
 2. Select **Traces** in the left navigation panel.
-3. The **Service graph** icon that appears at the top-left corner of the page.
+3. Choose **Service Graph** from the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar. You can also hover over **Traces** in the left navigation and select **Service Graph**. On the open-source edition the option shows a lock icon.
 
 The topology loads automatically when recent trace activity is available.
 If there is no trace activity, the section displays a message indicating that no service graph data is available.
@@ -35,8 +35,6 @@ If there is no trace activity, the section displays a message indicating that no
 ## What service graph displays
 Service graph displays the services in your system and the communication observed between them.
 
-:::accordion[Services]
-:::
 ### Services
 Each service represents an application component discovered from distributed traces. The view displays:
 
@@ -44,29 +42,26 @@ Each service represents an application component discovered from distributed tra
 - A summary of recent requests  
 - A colour that reflects the recent error behaviour  
 
-:::accordion[Colours]
-:::
 ### Colours
-Colours indicate the health of each service.
+The border colour of each service shows its health, based on its error rate. The legend above the graph shows the same scale.
 
-- Green shows healthy behaviour  
-- Yellow and orange show increased errors  
-- Red shows repeated failures  
+| Status | Error rate |
+|--------|------------|
+| **Healthy** | Less than 1% |
+| **Degraded** | 1–5% |
+| **Warning** | 5–10% |
+| **Critical** | Greater than 10% |
 
-:::accordion[Edges]
-:::
+In Graph View, the node size shows the number of requests.
+
 ### Edges
 Edges represent calls from one service to another. They indicate downstream communication and help you identify where issues may originate.
 
 Edges to inferred dependencies (such as databases, queues, or external APIs) appear as dotted lines with a type icon. Instrumented service-to-service edges appear as solid lines.
 
-:::accordion[Topology behaviour]
-:::
 ### Topology behaviour
 Service graph displays only recent activity. When a service produces no trace data for a set duration, it is removed from the topology. This design focuses attention on the active state of your system.
 
-:::accordion[Inferred dependencies]
-:::
 ### Inferred dependencies
 
 OpenObserve automatically discovers uninstrumented dependencies — databases, message queues, RPC backends, and external APIs — from your trace spans and surfaces them in the service graph, even when those dependencies have no instrumentation of their own.
@@ -133,57 +128,50 @@ Service graph does not use logs or metrics directly.
 
 ## Main controls
 
-:::accordion[Stream selector]
-:::
 ### Stream selector
-Select a trace stream to build the topology from. You can choose a single stream or combine all streams.
+Select the trace stream to build the topology from. The graph shows one stream at a time.
 
-:::accordion[Search services]
-:::
 ### Search services
-Enter a service name to filter the view. The graph focuses on the selected service and the services connected to it.
+Enter a service name in **Search Services** to filter the view. The graph focuses on the matching services and the services connected to them.
 
-:::accordion[Refresh controls]
-:::
-### Refresh controls
-Use manual refresh or enable automatic refresh. Auto refresh supports intervals between five seconds and three hundred seconds.
+### Show types
+Use **Show types** to hide or show entity types (**Services**, **Datastores**, **Queues**, **External**, **RPC**, and, for AI agents, **Agents**, **Tools**, and **Models**). Under **Layout**, choose **Auto**, **Expanded**, or **Collapsed** to control whether inferred dependencies are grouped on large graphs.
 
-:::accordion[View mode]
-:::
+### Time range and refresh
+Use the date-time picker to set the time range, and the refresh button to reload the graph.
+
 ### View mode
-Choose between Tree view and Graph view. Both views show the same information using different layouts.
+Choose between **Tree View** and **Graph View**. Both views show the same information using different layouts.
 
-:::accordion[Layout options]
-:::
 ### Layout options
-Tree view supports horizontal, vertical, and radial layouts.  
-Graph view supports force directed and circular layouts.
+Tree View supports **Horizontal** and **Vertical** layouts.  
+Graph View uses **Force Layout**.
 
 ## Tree view
 Tree view arranges services in a structured hierarchy. It is useful when you want to follow traffic from entrypoint services to downstream dependencies.
 
 ## Graph view
-Graph view arranges services as a network. It uses a physics based simulation to maintain stable spacing between services. Force directed layouts group related services together. Circular layouts arrange services around a circle.
+Graph view arranges services as a network. It uses a physics based simulation to maintain stable spacing between services and groups related services together.
 
 ## Interaction
-You can drag services to reposition them. You can zoom and pan to explore specific areas. Hovering over a service displays a summary of request and error behaviour. Filters and layouts can be combined to focus on specific sections of the topology.
+You can drag services to reposition them. You can zoom and pan to explore specific areas, or use **Zoom in**, **Zoom out**, and **Fit to screen**. Hovering over a service displays a summary of request and error behaviour. Click a service to open its side panel, with its operations, metrics, and links to **View Traces** and related logs. Filters and layouts can be combined to focus on specific sections of the topology.
 ::::
 ::::tab[How-to]
 ## Filter the graph by service
 
-1. Enter a service name in the **Search services** field.  
-4. Review the focused view of the selected service.
+1. Enter a service name in the **Search Services** field.  
+2. Review the focused view of the selected service.
 
 ## Change the view type
 
-1. Select Tree view or Graph view.  
-4. Select a layout.
+1. Select **Tree View** or **Graph View**.  
+2. Select a layout.
 
 ## Investigate an issue
 
-1. In the **Service graph**, identify any services with warning or error colours.  
-3. Follow the edges to determine which downstream services may be affected.  
-4. Note the service name.  
-5. Switch to Logs, Metrics, or Traces and filter by that service for further analysis.
+1. In the **Service Graph**, identify any services with warning or critical colours.  
+2. Follow the edges to determine which downstream services may be affected.  
+3. Click the service to open its side panel.  
+4. Select **View Traces**, or switch to Logs or Metrics and filter by that service for further analysis.
 ::::
 :::::

@@ -18,90 +18,42 @@ A **session** is a period of user activity on your application. OpenObserve auto
 
 ## Sessions Dashboard
 
-The Sessions tab provides a comprehensive view of all user sessions. Each row in the session list represents a unique user session with detailed information.
+Go to **Experience** > **RUM** and open the **Sessions** tab. It shows a summary strip, a set of quick filters, and the session list.
+
+### Summary strip
+
+The tiles above the list summarize the sessions in the selected time range, with the change from the previous period where available:
+
+- **Sessions**: Number of sessions
+- **With errors**: Sessions with at least one error
+- **Frustrated**: Sessions with rage or dead clicks
+- **Avg Duration**: Average session length, with the median below it
+- **Bounce Rate**: Share of sessions that left without any activity
+
+When a pattern stands out, such as many sessions hitting the same error or rage-clicking the same element, an insight banner above the list links to those sessions or to **Error Tracking**.
 
 ### Session List Columns
 
-The session list displays the following information for each session:
+Each row in the session list represents one user session:
 
-#### Timestamp
-**Format**: `Dec 15, 2025 17:42:20 +05:30`
+| Column | What it shows |
+|--------|---------------|
+| Play (▶) | Opens the session replay |
+| **User & Session** | The user (if user context was set) and the session start time |
+| **Platform** | The platform the session came from, such as browser, Android, or iOS |
+| **Activity** | A sparkline of events, errors, and frustration signals over the session |
+| **Health** | Error count and frustration count, or **Clean** when the session had neither |
+| **Location** | Country, plus city, browser, and operating system |
+| **Duration** | Total session length, marked **bounced** or **active** where it applies |
 
-The exact date and time when the session started, shown in the local timezone with timezone offset.
+You can sort by any column except the play button.
 
-**Use cases**:
-
-- Identify when users are most active
-- Track session timing relative to deployments
-- Analyze time-based patterns
-
-#### User Email
-**Format**: `root@example.com`
-
-The email address of the user (if user context was set). This helps you:
-
-- Identify specific users experiencing issues
-- Track behavior of individual users
-- Provide personalized support
-
-**Note**: User information must be set using `openobserveRum.setUser()` for this field to be populated.
-
-#### Time Spent
-**Format**: `5.18 min`, `1.46 hr`, `15.01 min`
-
-The total duration of the session from start to end (or last activity).
-
-**Insights**:
-
-- **Short sessions** (< 1 min): Users may not be finding what they need
-- **Medium sessions** (1-10 min): Normal browsing behavior
-- **Long sessions** (> 10 min): Highly engaged users or users struggling with a task
-
-#### Error Count
-**Format**: `4`, `22`, `16`, `0`
-
-The total number of errors that occurred during the session.
-
-**Analysis**:
-
-- **0 errors**: Clean session, good user experience
-- **1-5 errors**: Minor issues, investigate if pattern emerges
-- **5+ errors**: Significant problems, high priority to investigate
-- **Many errors**: Critical issues affecting user experience
-
-**Action**: Click on sessions with high error counts to investigate what went wrong.
-
-#### Location
-**Format**: `India - Unknown · Chrome · Mac OS X`
-
-Detailed information about the user's context:
-
-**Geographic Location**:
-
-- Country flag icon
-- Country name
-- City (if available, otherwise "Unknown")
-
-**Browser Information**:
-
-- Browser name (Chrome, Firefox, Safari, Edge, etc.)
-- Browser version (shown in detailed view)
-
-**Operating System**:
-
-- OS name (Mac OS X, Windows, Linux, iOS, Android)
-- OS version (shown in detailed view)
-
-**Use cases**:
-
-- Identify region-specific issues
-- Test browser compatibility
-- Understand your user demographics
+**Note**: User information must be set using `openobserveRum.setUser()` for the user to appear. Sessions without it show **Unknown**.
 
 ### Session Actions
 
 #### Play Button (▶)
-Click the play button next to any session to:
+Click the play button, or anywhere on a session row, to:
 
 - View the complete session replay
 - See all user interactions (clicks, scrolls, navigation)
@@ -112,172 +64,38 @@ See [Session Replay](./session-replay.md) for more details.
 
 ## Session Details View
 
-Click on any session row to open the detailed session view, which includes:
+Opening a session shows its replay page. The header shows the page URL, the start time, the duration, the user, the location, and the browser and device. When the session had rage, dead, or error clicks, the header also shows the number of frustration signals.
 
-### Session Overview
+Next to the player, three tabs show the session's events:
 
-- **Session ID**: Unique identifier for the session
-- **Duration**: Total session length
-- **Page Views**: Number of pages visited
-- **User Actions**: Total number of interactions (clicks, form submissions, etc.)
-- **Errors**: Total errors encountered
+- **Breadcrumbs**: A chronological list of views, actions, and errors. Click an event to jump to that moment in the replay.
+- **Tags**: The session's tags and attributes.
+- **Traces**: Backend traces correlated with the session's requests.
 
-### User Information
-
-If user context was set, you'll see:
-
-- User ID
-- Name
-- Email
-- Custom user attributes
-
-### Device and Browser Details
-
-Complete technical information:
-
-- Browser name and version
-- Operating system and version
-- Device type (Desktop, Mobile, Tablet)
-- Screen resolution
-- Viewport size
-
-### Network Information
-
-- **Connection Type**: 4G, WiFi, Ethernet, etc.
-- **Effective Connection Type**: slow-2g, 2g, 3g, 4g
-
-### Geographic Information
-
-- Country
-- City (if available)
-- Region/State (if available)
-- IP address (optionally tracked)
-
-### Session Timeline
-
-A chronological list of all events during the session:
-
-- Page views with URLs and timestamps
-- User interactions (clicks, form submissions)
-- API calls with response times
-- Errors with stack traces
-- Performance metrics
-
-### Performance Metrics for Session
-
-Web Vitals specific to this session:
-
-- Largest Contentful Paint (LCP)
-- First Input Delay (FID)
-- Cumulative Layout Shift (CLS)
-- Time to First Byte (TTFB)
-
-### Resources Loaded
-
-List of all resources loaded during the session:
-
-- JavaScript files
-- CSS stylesheets
-- Images
-- Fonts
-- API calls
-
-With timing information:
-
-- DNS lookup time
-- Connection time
-- Request/response time
-- Total duration
+Use **Search Events** and the **Error**, **Action**, **View**, and **Frustration** filters to narrow the event list. See [Session Replay](./session-replay.md) for the player controls.
 
 ## Filtering Sessions
 
 Use filters to narrow down the session list and find specific sessions:
 
-### Available Filters
+### Time Range
+Use the date-time picker to choose a relative range (for example, the past 15 minutes or the past 7 days) or an absolute start and end time.
 
-#### Time Range
-Filter sessions by when they occurred:
+### Quick Filters
+The toggles above the list filter by:
 
-- Past 15 minutes
-- Past hour
-- Past 6 hours
-- Past 24 hours
-- Past 7 days
-- Past 30 days
-- Custom date range
+- **Health**: **All**, **With errors**, **Frustrated**, or **Clean**
+- **Type**: **All**, **Engaged**, or **Bounced**
+- **Device**: **All**, **Desktop**, **Mobile**, or **Tablet**
 
-#### User Email
-Search for sessions by specific user email address.
+Each option shows how many sessions it matches. If no session matches, select **Reset filters**.
 
-**Example**: `user@example.com`
+### Query Editor and Fields
+Write a filter in the query editor above the list and click **Run query**, or open the field list to add a filter from a field's values. For example:
 
-#### Error Count
-Filter sessions based on number of errors:
-
-- No errors (= 0)
-- With errors (> 0)
-- Many errors (> 5, > 10, etc.)
-
-#### Location Filters
-
-**Country**: Filter by country
-- Example: India, United States, United Kingdom
-
-**City**: Filter by city (if available)
-- Example: Mumbai, New York, London
-
-#### Browser
-Filter by browser type:
-
-- Chrome
-- Firefox
-- Safari
-- Edge
-- Opera
-- Mobile browsers
-
-#### Operating System
-Filter by OS:
-
-- Windows
-- Mac OS X
-- Linux
-- iOS
-- Android
-
-#### Device Type
-Filter by device category:
-
-- Desktop
-- Mobile
-- Tablet
-
-#### Session Duration
-Filter by how long sessions lasted:
-
-- Short sessions (< 1 minute)
-- Medium sessions (1-10 minutes)
-- Long sessions (> 10 minutes)
-- Custom duration range
-
-#### Environment
-Filter by environment:
-
-- Production
-- Staging
-- Development
-
-#### Application Version
-Filter by specific version of your application.
-
-### Search
-
-Use the search box to find sessions containing specific:
-
-- URLs visited
-- Error messages
-- User actions
-- Custom attributes
+- `user_email = 'user@example.com'` to find one user's sessions
+- `source = 'android'` to show only Android sessions
+- Filters on country, browser, operating system, environment, or application version, using the fields in your RUM stream
 
 ## Session Analysis Use Cases
 

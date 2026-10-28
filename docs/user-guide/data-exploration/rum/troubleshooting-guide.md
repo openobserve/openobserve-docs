@@ -448,7 +448,7 @@ console.log('Current user:', context.user);
 
 ### Web Vitals Not Appearing
 
-**Symptoms**: No LCP, FID, CLS data in dashboard
+**Symptoms**: No LCP, INP, CLS data in dashboard
 
 **Solutions**:
 
