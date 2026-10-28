@@ -34,7 +34,7 @@ A content template is stored as JSON with `"kind": "content"` on the template. I
 - **Rows**: turn on **Show matching rows** to include the rows that triggered the alert. **Max rows** caps how many are shown (default 5). **Row format (optional)** builds one line per row from that row's field names, for example `{level} {message}`; leave it empty to show every field.
 - **Chart**: turn on **Include chart image** to attach a chart of the alert's recent values. See [Chart images](#chart-images).
 
-![Content template editor with fields, links and rows, and the Slack preview beside it](images/alert-notification-templates-v2-1.png)
+![Content template editor with the Template and Raw payload toggle, title, Markdown body, and the Slack preview beside it](images/content-template-editor.png)
 
 The stored body of a content template looks like this:
 
@@ -67,7 +67,7 @@ The preview panel beside the editor shows how the template renders before you sa
 
 If the template uses a `{variable}` that OpenObserve does not recognise, the panel lists it under **Unknown variables**, so you can fix typos before an alert fires.
 
-![Template preview for Slack at Critical severity](images/alert-notification-templates-v2-2.png)
+![Template preview for Slack at Critical severity, showing a field that appears only for critical alerts](images/template-preview-critical-severity.png)
 
 ## Send a test message
 
@@ -80,7 +80,7 @@ To check a destination end to end, use **Send a real test message** in the same 
 
 When **Include chart image** is on, notifications include a PNG chart of the alert's evaluated value over time, with the warning and critical thresholds drawn as lines and the firing point marked. The chart covers 20 evaluation periods, with a minimum of 6 hours and a maximum of 24 hours. Charts are supported on Slack, Teams, Email, Discord, PagerDuty and Webhook destinations.
 
-![Alert chart image showing the evaluated value crossing the warning and critical thresholds](images/alert-notification-templates-v2-3.png)
+![Alert chart image showing the evaluated value over time, the dashed warning and critical thresholds, and the firing point](images/alert-chart-image.png)
 
 - The chart is built once per firing and shared by every destination of that alert.
 - Slack, Teams, PagerDuty and webhook payloads link to the image through a signed URL, `/api/v2/{org_id}/alerts/charts/render`. The chart data is carried in the URL itself, nothing is stored, and the link expires after 24 hours. The endpoint needs no login, so anyone who has the link can view the image until it expires.
