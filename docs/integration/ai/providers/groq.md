@@ -3,24 +3,24 @@ title: Groq
 description: Instrument Groq LLM calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Groq → OpenObserve**
+# Groq → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every Groq inference call in your Python application.
 
-## **Prerequisites**
+## Prerequisites
 
 * Python 3.9+
 * A [Groq](https://console.groq.com/) account with an API key
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-groq groq python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-groq groq python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -31,7 +31,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 GROQ_API_KEY=your-groq-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `GroqInstrumentor().instrument()` **before** importing the Groq client.
 
@@ -57,22 +57,22 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
 | `llm_model_name` | Model used (e.g. `llama-3.1-8b-instant`) |
 | `gen_ai_response_model` | Model that served the response |
-| `llm_usage_tokens_input` | Prompt token count |
-| `llm_usage_tokens_output` | Completion token count |
-| `llm_usage_tokens_total` | Total tokens consumed |
+| `gen_ai_usage_input_tokens` | Prompt token count |
+| `gen_ai_usage_output_tokens` | Completion token count |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
 | `openinference_span_kind` | `LLM` |
 | `operation_name` | `Completions` |
 | `span_status` | `OK` or `ERROR` |
 | `status_message` | Error details if the request failed |
 | `duration` | Request latency |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Filter by `llm_model_name` to find Groq spans
@@ -81,11 +81,11 @@ print(response.choices[0].message.content)
 
 ![Groq trace in OpenObserve](../../../images/integration/ai/groq.png)
 
-## **Next Steps**
+## Next Steps
 
 With Groq instrumented, every inference call is recorded in OpenObserve. From here you can compare latency across Groq models, track token consumption over time, and set alerts on error rates.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

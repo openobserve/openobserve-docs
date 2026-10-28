@@ -3,13 +3,13 @@ title: LLM Applications
 description: "Monitor, trace, and debug LLM apps in production with OpenObserve and OpenTelemetry: track token usage, latency, cost, model metadata, and errors per call."
 ---
 
-# **LLM Observability with OpenObserve**
+# LLM Observability with OpenObserve
 
 Monitor, trace, and debug your LLM-powered applications in production using OpenObserve and OpenTelemetry.
 
 > **Note**: LLM Observability is available on both OpenObserve Cloud and self-hosted deployments.
 
-## **What is LLM Observability?**
+## What is LLM Observability?
 
 LLM Observability gives you visibility into the behaviour of large language model calls inside your application , similar to traditional APM, but purpose-built for AI workloads.
 
@@ -22,16 +22,16 @@ With it you can track:
 
 **Under the hood:** LLM Observability is OpenTelemetry. There is nothing special about LLM traces compared to regular distributed traces, the work happens on the server side. Any OpenTelemetry-compatible SDK or exporter can ship traces to OpenObserve.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+  
+* Python 3.9+  
 * [`uv`](https://github.com/astral-sh/uv) package manager (or `pip`)  
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)  
-* Your OpenObserve **organisation ID** and **auth token**, copied from **Data Sources → Custom → Traces → OpenTelemetry** in the OpenObserve UI
+* Your OpenObserve **organisation ID** and **auth token**, copied from **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** in the OpenObserve UI
 
-## **Configuration**
+## Configuration
 
-Go to **Data Sources → Custom → Traces → OpenTelemetry** in the OpenObserve UI and copy the **HTTP Endpoint** and **Authorization** header value under **OTLP HTTP**.
+Go to **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** in the OpenObserve UI and copy the endpoint and the **Authorization** header value under **OTLP HTTP**. `OPENOBSERVE_URL` is the part of the endpoint before `/api/`; the SDK adds `/api/<org>/v1/traces` itself.
 
 ![Data Sources - Traces - OpenTelemetry](../../images/opentelemetry-collector-for-traces.png)
 
@@ -45,7 +45,7 @@ OPENOBSERVE_URL=https://api.openobserve.ai/
 # Your OpenObserve organisation slug or ID
 OPENOBSERVE_ORG=your_org_id
 
-# Auth token: copy the Authorization header value from Data Sources > Custom > Traces > OpenTelemetry
+# Auth token: copy the Authorization header value from Data > Data sources > Custom > Traces > OpenTelemetry
 OPENOBSERVE_AUTH_TOKEN="Basic <token_from_ui>"
 
 # Enable or disable tracing (default: true)
@@ -56,7 +56,7 @@ OPENAI_API_KEY="your-openai-key"
 ANTHROPIC_API_KEY="your-anthropic-key"
 ```
 
-Copy the ready-made endpoint and `Authorization` header for `OPENOBSERVE_URL` and `OPENOBSERVE_AUTH_TOKEN` from **Data Sources → Custom → Traces → OTel Collector** in the OpenObserve UI.
+The **OTEL Collector** tab next to it shows the same endpoint and `Authorization` header in a collector configuration.
 
 ![OTel Collector credentials for Traces](../../images/opentelemetry-collector-for-traces.png)
 
@@ -64,11 +64,12 @@ Copy the ready-made endpoint and `Authorization` header for `OPENOBSERVE_URL` an
 | ----- | ----- | ----- |
 | `OPENOBSERVE_URL` | Base URL of your OpenObserve instance | Yes |
 | `OPENOBSERVE_ORG` | Organisation slug or ID | Yes |
-| `OPENOBSERVE_AUTH_TOKEN` | Authorization header value from **Data Sources → Custom → Traces → OpenTelemetry** (`Basic <token>`) | Yes |
+| `OPENOBSERVE_AUTH_TOKEN` | Authorization header value from **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** (`Basic <token>`) | Yes |
 | `OPENOBSERVE_ENABLED` | Toggle tracing on/off | No (default: `true`) |
+| `OPENOBSERVE_TRACES_STREAM_NAME` | Traces stream to write to | No (default: `default`) |
 | `OPENAI_API_KEY` | Only needed by the bundled OpenAI example | No |
 
-## **Option A : Quickstart with the bundled example**
+## Option A : Quickstart with the bundled example
 
 Clone the SDK repository and run the included OpenAI example to see traces flowing into OpenObserve with minimal setup.
 
@@ -82,7 +83,7 @@ cd openobserve-python-sdk
 **2\. Install dependencies**
 
 ```shell
-uv pip install openobserve-telemetry-sdk openai opentelemetry-instrumentation-openai python-dotenv
+uv pip install openobserve-python-sdk openai opentelemetry-instrumentation-openai python-dotenv
 uv pip install -r requirements.txt
 ```
 
@@ -94,19 +95,19 @@ uv pip install -r requirements.txt
 uv run examples/openai_example.py
 ```
 
-Open your **OpenObserve dashboard → Traces** to see the spans appear.
+Open **Traces** in OpenObserve to see the spans appear.
 
 ![LLM Traces](../images/llm-applications/llm-tokens-cost-latency.png)
 
 
-## **Option B: Integrate into your own project using the OpenObserve SDK**
+## Option B: Integrate into your own project using the OpenObserve SDK
 
 Use this if you want the simplest possible integration without cloning the repository.
 
 **1\. Install dependencies**
 
 ```shell
-uv pip install openobserve-telemetry-sdk opentelemetry-instrumentation-openai dotenv
+uv pip install openobserve-python-sdk opentelemetry-instrumentation-openai python-dotenv
 ```
 
 **2\. Initialise the SDK at your application entry point and  Use your LLM client as normal**
@@ -156,37 +157,38 @@ print(response.content[0].text)
 ```
 Every call is now captured as a trace span and exported to OpenObserve.
 
-Note: The **openobserve-telemetry-sdk** is an optional thin wrapper around the standard OpenTelemetry Python SDK that simplifies setup and exporter configuration. If you already use OpenTelemetry, you can send telemetry directly to the OpenObserve OTLP endpoint without it.
+Note: The **openobserve-python-sdk** is an optional thin wrapper around the standard OpenTelemetry Python SDK that simplifies setup and exporter configuration. If you already use OpenTelemetry, you can send telemetry directly to the OpenObserve OTLP endpoint without it.
 
-## **What gets captured**
+## What gets captured
 
-The `opentelemetry-instrumentation-openai` library attaches the following attributes to each span automatically:
+The `opentelemetry-instrumentation-openai` library attaches request, response, and token attributes to each span. OpenObserve stores attribute names with dots replaced by underscores, for example:
 
 | Attribute | Description |
 | ----- | ----- |
-| `llm.request.model` | Model name (e.g. `gpt-4o`) |
-| `llm.usage.prompt_tokens` | Tokens in the prompt |
-| `llm.usage.completion_tokens` | Tokens in the response |
-| `llm.usage.total_tokens` | Total tokens consumed |
-| `llm.request.temperature` | Temperature parameter |
-| `llm.request.max_tokens` | Max tokens parameter |
+| `gen_ai_request_model` | Requested model (e.g. `gpt-4o`) |
+| `gen_ai_response_model` | Model version that served the response |
+| `gen_ai_usage_input_tokens` | Tokens in the prompt |
+| `gen_ai_usage_output_tokens` | Tokens in the response |
 | `duration` | End-to-end request latency |
 | `error` | Exception details if the request failed |
 
-In addition, OpenObserve computes and stores the following token and cost fields on each LLM span:
+See [OpenAI (Python)](providers/openai.md#what-gets-captured) for the full list.
+
+In addition, OpenObserve computes and stores the following token and cost fields on each LLM span at ingestion:
 
 | Field | Type | Description |
 | ----- | ----- | ----- |
-| `llm_usage_tokens_input` | Int64 | Input (prompt) tokens |
-| `llm_usage_tokens_output` | Int64 | Output (completion) tokens |
-| `llm_usage_tokens_total` | Int64 | Total tokens consumed |
-| `llm_usage_cost_input` | Float64 | Cost of input tokens |
-| `llm_usage_cost_output` | Float64 | Cost of output tokens |
-| `llm_usage_cost_total` | Float64 | Total cost of the LLM call |
+| `gen_ai_operation_name` | Utf8 | Operation type, for example `chat` or `embeddings` |
+| `gen_ai_usage_input_tokens` | Int64 | Input (prompt) tokens |
+| `gen_ai_usage_output_tokens` | Int64 | Output (completion) tokens |
+| `gen_ai_usage_total_tokens` | Int64 | Total tokens consumed |
+| `gen_ai_usage_cost_input` | Float64 | Cost of input tokens |
+| `gen_ai_usage_cost_output` | Float64 | Cost of output tokens |
+| `gen_ai_usage_cost` | Float64 | Total cost of the LLM call |
 
-The cost fields (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cost_total`) are populated only when the Model Pricing feature is enabled (`ZO_MODEL_PRICING_ENABLED`).
+The cost fields are filled from the span's own reported cost when it has one; otherwise [Model Pricing](model-pricing.md) calculates them from the model name and token counts (`ZO_MODEL_PRICING_ENABLED`, on by default). Spans with prompt caching also get `gen_ai_usage_cache_read_input_tokens`, `gen_ai_usage_cache_creation_input_tokens`, and matching `gen_ai_usage_cost_cache_*` fields.
 
-## **Viewing traces in OpenObserve**
+## Viewing traces in OpenObserve
 
 1. Log in to your OpenObserve instance  
 2. Navigate to **Traces** in the left sidebar  
@@ -201,22 +203,22 @@ The cost fields (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cos
 
 
 
-## **Troubleshooting**
+## Troubleshooting
 
 **Traces are not appearing in OpenObserve**
 
 * Confirm `OPENOBSERVE_ENABLED=true` in your `.env`  
-* Check that `OPENOBSERVE_URL` ends with a trailing `/`  
-* Verify `OPENOBSERVE_AUTH_TOKEN` matches the Authorization header value from **Data Sources → Custom → Traces → OpenTelemetry** (`Basic <token>`)  
+* Check that `OPENOBSERVE_URL` is the base URL of your instance, without `/api/<org>`  
+* Verify `OPENOBSERVE_AUTH_TOKEN` matches the Authorization header value from **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** (`Basic <token>`)  
 * Ensure the SDK or tracer provider is initialised before any LLM calls
 
 **`ModuleNotFoundError: No module named 'dotenv'`**
 
 * Install the correct package: `uv pip install python-dotenv` (not `dotenv`)
 
-**`ModuleNotFoundError: No module named 'openobserve_telemetry'`**
+**`ModuleNotFoundError: No module named 'openobserve'`**
 
-* Run: `uv pip install openobserve-telemetry-sdk`
+* Run: `uv pip install openobserve-python-sdk`
 
 ## Read More
 - [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

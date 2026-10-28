@@ -3,18 +3,18 @@ title: Anthropic (JS/TS)
 description: Instrument Anthropic JS/TS SDK calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Anthropic JS/TS → OpenObserve**
+# Anthropic JS/TS → OpenObserve
 
 Capture LLM call latency, token usage, model name, input and output messages for every Anthropic API call made from a Node.js application. Instrumentation uses `@arizeai/openinference-instrumentation-anthropic` to automatically patch the Anthropic SDK and export spans to OpenObserve via OTLP.
 
-## **Prerequisites**
+## Prerequisites
 
 * Node.js 18+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An Anthropic API key
 
-## **Installation**
+## Installation
 
 ```shell
 npm install @anthropic-ai/sdk @arizeai/openinference-instrumentation-anthropic \
@@ -22,7 +22,7 @@ npm install @anthropic-ai/sdk @arizeai/openinference-instrumentation-anthropic \
   @opentelemetry/sdk-trace-node @opentelemetry/resources
 ```
 
-## **Configuration**
+## Configuration
 
 Set the following environment variables before running your script:
 
@@ -32,7 +32,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://api.openobserve.ai/api/your_org_id/v1/traces
 OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic <your_base64_token>
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Use `require()` to load the Anthropic SDK **after** `sdk.start()`. The instrumentation patches the CommonJS module cache at startup, so the SDK must be loaded after the SDK is running for the patch to apply.
 
@@ -83,7 +83,7 @@ Run with:
 node index.js
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
@@ -93,30 +93,30 @@ node index.js
 | `llm_token_count_prompt` | Prompt tokens consumed |
 | `llm_token_count_completion` | Completion tokens generated |
 | `llm_token_count_total` | Total tokens for the call |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated cost for input tokens |
-| `llm_usage_cost_output` | Estimated cost for output tokens |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated cost for input tokens |
+| `gen_ai_usage_cost_output` | Estimated cost for output tokens |
 | `llm_invocation_parameters` | JSON-encoded request parameters |
 | `openinference_span_kind` | Always `LLM` |
 | `span_status` | `OK` on success, `ERROR` on failed calls |
 | `duration` | End-to-end call latency |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `service_name = anthropic-js-test` to isolate Anthropic spans
+2. Filter by `service_name = anthropic-js` to isolate Anthropic spans
 3. Click any `Anthropic Messages` span to inspect token counts and model name
 4. Filter by `span_status = ERROR` to find authentication or rate-limit failures
 5. Sort by `duration` to find the slowest calls
 
 ![Anthropic JS traces in OpenObserve](../../../images/integration/ai/anthropic-js.png)
 
-## **Next Steps**
+## Next Steps
 
 With the Anthropic JS SDK instrumented, every API call is recorded in OpenObserve. From here you can build dashboards tracking token consumption over time, compare latency across models, and set alerts on error rates or cost thresholds.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Anthropic (Python)](./anthropic.md)

@@ -3,24 +3,24 @@ title: Fireworks AI
 description: Instrument Fireworks AI calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Fireworks AI → OpenObserve**
+# Fireworks AI → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every Fireworks AI inference call in your Python application. Fireworks AI exposes an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at the Fireworks endpoint.
 
-## **Prerequisites**
+## Prerequisites
 
 * Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Fireworks AI](https://fireworks.ai/) API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -39,7 +39,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 FIREWORKS_API_KEY=your-fireworks-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the Fireworks AI base URL and pass your Fireworks API key.
 
@@ -68,7 +68,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
@@ -84,7 +84,7 @@ print(response.choices[0].message.content)
 | `duration` | End-to-end request latency |
 | `span_status` | `OK` or error status |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Click any span to inspect token counts and request metadata
@@ -92,11 +92,11 @@ print(response.choices[0].message.content)
 
 ![Fireworks AI trace in OpenObserve](../../../images/integration/ai/fireworks.png)
 
-## **Next Steps**
+## Next Steps
 
 With Fireworks AI instrumented, every inference call is recorded in OpenObserve. From here you can monitor latency across open-source model variants, track token consumption, and identify slow or failing requests.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

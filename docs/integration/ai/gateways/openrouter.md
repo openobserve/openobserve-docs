@@ -3,24 +3,24 @@ title: OpenRouter
 description: Instrument OpenRouter calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **OpenRouter → OpenObserve**
+# OpenRouter → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every OpenRouter request in your Python application. OpenRouter is a unified API gateway that routes to 200+ models from providers including OpenAI, Anthropic, Meta, Google, and Mistral. Instrumentation uses the standard OpenAI instrumentor pointed at the OpenRouter endpoint.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An [OpenRouter](https://openrouter.ai/) API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -39,7 +39,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 OPENROUTER_API_KEY=your-openrouter-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. The two optional OpenRouter headers passed via `default_headers` are not required for requests to succeed, but they populate your OpenRouter usage dashboard.
 
@@ -93,12 +93,11 @@ for model in models:
 
 Free-tier models use the `:free` suffix and are rate-limited. OpenRouter's full model list is available at [openrouter.ai/models](https://openrouter.ai/models).
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
 | `llm_model_name` | Full model identifier including provider (e.g. `openai/gpt-oss-20b:free`) |
-| `llm_request_parameters_model` | The model requested |
 | `gen_ai_response_model` | The model that served the response |
 | `llm_token_count_prompt` | Tokens in the prompt |
 | `llm_token_count_completion` | Tokens in the response |
@@ -108,7 +107,7 @@ Free-tier models use the `:free` suffix and are rate-limited. OpenRouter's full 
 | `duration` | End-to-end request latency |
 | `span_status` | `OK` or error status |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Filter by `llm_model_name` to compare latency and token usage across different providers and models in a single dashboard
@@ -116,11 +115,11 @@ Free-tier models use the `:free` suffix and are rate-limited. OpenRouter's full 
 
 ![OpenRouter trace in OpenObserve](../../../images/integration/ai/openrouter.png)
 
-## **Next Steps**
+## Next Steps
 
 With OpenRouter instrumented, every request is recorded in OpenObserve regardless of which underlying provider served it. From here you can build dashboards comparing cost and latency across providers, identify which model delivers the best performance for your workload, and set alerts on error spikes.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

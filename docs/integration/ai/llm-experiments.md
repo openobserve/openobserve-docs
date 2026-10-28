@@ -26,11 +26,11 @@ Experiments are part of the LLM Evaluations feature in the Enterprise edition an
 O2_EVAL_ENABLED=true
 ```
 
-This adds **AI > Annotate > Datasets** and **AI > Experiment > Experiments** and **Remote Tasks** to the navigation. You'll also need at least one **Provider**, **Score Config**, and **Scorer** (see [LLM Evaluations](llm-evaluations.md)).
+This adds **AI Observability > Annotate > Datasets** and **AI Observability > Experiment > Experiments** and **Remote Tasks** to the navigation. You'll also need at least one **Provider**, **Score Config**, and **Scorer** (see [LLM Evaluations](llm-evaluations.md)).
 
 ## Datasets
 
-Navigate to **AI > Annotate > Datasets**, click **New Dataset**, and give it a name, description, and tags. Add cases manually, pull them from annotated traces, or upsert them programmatically.
+Navigate to **AI Observability > Annotate > Datasets**, click **New Dataset**, and give it a name, description, and tags. Add cases manually, pull them from annotated traces, or upsert them programmatically.
 
 ### Cases
 
@@ -62,7 +62,7 @@ The Experiments list shows each run's status, progress, and cost, filterable by 
 
 ### Create an experiment
 
-Navigate to **AI > Experiment > Experiments** and click **New Experiment**.
+Navigate to **AI Observability > Experiment > Experiments** and click **New Experiment**.
 
 ![Experiment creation form](images/new-experiment.png)
 
@@ -135,7 +135,7 @@ A dimension only "votes" (is gating) if its Score Config declares a direction (`
 
 ## Remote Tasks
 
-A Remote Task is an HTTP service that produces the output for each row, such as your RAG pipeline or agent behind an endpoint. You publish it once, and every experiment pins the exact version it ran against. Navigate to **AI > Experiment > Remote Tasks** and click **New Task**.
+A Remote Task is an HTTP service that produces the output for each row, such as your RAG pipeline or agent behind an endpoint. You publish it once, and every experiment pins the exact version it ran against. Navigate to **AI Observability > Experiment > Remote Tasks** and click **New Task**.
 
 ![the New Remote Task form with the Test Connection panel](images/remote-task-new.png)
 

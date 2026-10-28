@@ -3,25 +3,25 @@ title: Azure AI Foundry
 description: Instrument Azure AI Foundry (Azure OpenAI) model deployment calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Azure AI Foundry → OpenObserve**
+# Azure AI Foundry → OpenObserve
 
 Capture token usage, latency, cost, and model metadata for every call to a model deployed through [Azure AI Foundry](https://ai.azure.com/). Foundry deployments expose an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at your Foundry endpoint.
 
 > **Why the OpenAI SDK?** Foundry supports an OpenAI-compatible API, and [supports the OpenAI SDK](https://learn.microsoft.com/en-us/azure/foundry/how-to/model-inference-to-openai-migration) for both Azure OpenAI and other Foundry catalog models. It also has a mature OpenTelemetry instrumentor.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve Cloud account](https://openobserve.ai/) or self-hosted instance, with your **organization ID** and **Base64 auth token**
 * An Azure AI Foundry deployment, with its **endpoint**, **API key**, and **deployment name** (from the *Endpoint* tab in [ai.azure.com](https://ai.azure.com/))
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file:
 
@@ -38,11 +38,11 @@ AZURE_OPENAI_DEPLOYMENT=your-deployment-name
 
 `AZURE_OPENAI_DEPLOYMENT` is the **deployment name** you chose, not the base model name.
 
-Find your `OPENOBSERVE_ORG` and `OPENOBSERVE_AUTH_TOKEN` on the OpenObserve **Ingestion** page, under *Data Sources*:
+Find your `OPENOBSERVE_ORG` and `OPENOBSERVE_AUTH_TOKEN` in OpenObserve under **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry**:
 
 ![Where to find your OpenObserve organization ID and auth token](../../../images/integration/ai/azure-ai-foundry-credentials.png)
 
-## **Instrumentation**
+## Instrumentation
 
 Add these two calls **before** the `AzureOpenAI` client is created. `OpenAIInstrumentor().instrument()` patches the `openai` SDK so every call is recorded as an OpenTelemetry span, and `openobserve_init()` configures the exporter that ships those spans to OpenObserve.
 
@@ -60,14 +60,14 @@ openobserve_init()
 
 That's the entire tracing setup. Create and use the `AzureOpenAI` client as you normally would, and every call is traced and exported automatically. Streaming and async (`AsyncAzureOpenAI`) calls are captured the same way; for token counts on streamed calls, pass `stream_options={"include_usage": True}`.
 
-## **How It Works**
+## How It Works
 
 Instrumentation produces two signals, both exported automatically:
 
 - **Traces**: one span per call, carrying model, token usage, cost, latency, and errors (detailed below).
 - **Metrics**: token-usage and request-duration histograms (`gen_ai_client_token_usage`, `gen_ai_client_operation_duration`).
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description | Example |
 | ----- | ----- | ----- |
@@ -80,13 +80,13 @@ Instrumentation produces two signals, both exported automatically:
 
 Prompt and completion text are also captured (`gen_ai_input_messages` / `gen_ai_output_messages`). Disable message-content capture in the instrumentor if you don't want it stored.
 
-## **Viewing Traces**
+## Viewing Traces
 
 In OpenObserve, open **Traces**, then click any span to inspect token counts, latency, and metadata. Filter by `gen_ai_request_model` to compare deployments.
 
 ![Azure AI Foundry trace in OpenObserve](../../../images/integration/ai/azure-ai-foundry.png)
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

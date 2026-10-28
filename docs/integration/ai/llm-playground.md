@@ -22,7 +22,7 @@ The Playground doesn't save to the server as you work, so drafts never affect yo
 
 ## Open the Playground
 
-Navigate to **AI > Experiment > Playground**, or start from something you already have:
+Navigate to **AI Observability > Experiment > Playground**, or start from something you already have:
 
 - **From a prompt**: on a prompt in [Prompts](llm-prompts.md), click **Open in Playground**. The column loads that prompt version, and a chip such as `support-answer@v3` shows where it came from.
 - **From a trace**: open an LLM span in trace details and click **Open in Playground**. The span's messages load into a column marked **From trace span**.
@@ -126,7 +126,7 @@ To use cases from a Dataset, click **Sample from Dataset**. The sampled rows fil
 
 ## Configuration
 
-The Playground is part of AI Observability in the Enterprise edition and OpenObserve Cloud.
+The Playground is part of AI Observability in the Enterprise edition and OpenObserve Cloud, and needs `O2_EVAL_ENABLED` (on by default).
 
 | Variable | Default | Description |
 |---|---|---|

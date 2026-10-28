@@ -3,25 +3,25 @@ title: LiteLLM Proxy
 description: Instrument LiteLLM Proxy calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **LiteLLM Proxy → OpenObserve**
+# LiteLLM Proxy → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every request routed through the LiteLLM Proxy. The proxy serves an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at your local proxy.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * Docker (to run the LiteLLM Proxy)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key (or any provider key supported by LiteLLM)
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Start the LiteLLM proxy with Docker:
 
@@ -43,7 +43,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 LITELLM_PROXY_URL=http://localhost:4000
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at your LiteLLM proxy.
 
@@ -72,7 +72,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
@@ -84,9 +84,8 @@ print(response.choices[0].message.content)
 | `llm_token_count_total` | Total tokens consumed |
 | `llm_token_count_prompt_details_cache_read` | Tokens served from prompt cache |
 | `llm_token_count_completion_details_reasoning` | Reasoning tokens (if applicable) |
-| `llm_request_parameters_model` | Model name from request parameters |
 | `llm_invocation_parameters` | Full request parameters as JSON |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `openinference_span_kind` | `LLM` |
 | `operation_name` | `ChatCompletion` |
 | `input_mime_type` | `application/json` |
@@ -94,7 +93,7 @@ print(response.choices[0].message.content)
 | `duration` | End-to-end request latency including proxy overhead |
 | `span_status` | `OK` or error status |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Filter by `operation_name = ChatCompletion` to find proxy spans
@@ -103,11 +102,11 @@ print(response.choices[0].message.content)
 
 ![LiteLLM Proxy trace in OpenObserve](../../../images/integration/ai/litellm-proxy.png)
 
-## **Next Steps**
+## Next Steps
 
 With LiteLLM Proxy instrumented, every proxied request is recorded in OpenObserve. From here you can compare latency and token usage across models routed by the proxy, monitor fallback behaviour, and set alerts on error rates.
 
-## **Read More**
+## Read More
 
 - [LiteLLM SDK](../frameworks/litellm.md)
 - [LLM Observability Overview](../llm-applications.md)

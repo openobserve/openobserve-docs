@@ -19,11 +19,11 @@ description: Version your LLM prompts in OpenObserve, release them with labels s
 | **Label** | A movable pointer to one version, such as `production` or `staging`. Your app asks for a label, not a version number. |
 | **Folder** | Groups prompts and controls who can access them. |
 
-Prompts are available in the Enterprise edition and OpenObserve Cloud.
+Prompts are available in the Enterprise edition and OpenObserve Cloud. In the Enterprise edition, the **AI Observability** menu that holds them appears only while `O2_EVAL_ENABLED` is on (the default).
 
 ## Create a prompt
 
-1. Navigate to **AI > Experiment > Prompts** and click **New prompt**.
+1. Navigate to **AI Observability > Experiment > Prompts** and click **New prompt**.
 2. Enter a **Name**. Use lowercase letters, digits, `_`, and `-`, for example `support-answer`.
 3. Pick a **Type**: **Text** or **Chat**.
 4. Optionally add a **Description** and **Tags**.

@@ -3,24 +3,24 @@ title: CometAPI
 description: Instrument CometAPI LLM calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **CometAPI → OpenObserve**
+# CometAPI → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every CometAPI inference call in your Python application. CometAPI is a unified API gateway providing access to 500+ models from OpenAI, Anthropic, and other providers through a single OpenAI-compatible endpoint. Instrumentation uses the standard OpenAI instrumentor pointed at the CometAPI base URL.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [CometAPI](https://cometapi.com/) API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -31,7 +31,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 COMETAPI_API_KEY=your-cometapi-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the CometAPI base URL and pass your CometAPI key.
 
@@ -43,7 +43,7 @@ from openinference.instrumentation.openai import OpenAIInstrumentor
 OpenAIInstrumentor().instrument()
 
 from openobserve import openobserve_init
-openobserve_init(service_name="cometapi")
+openobserve_init(resource_attributes={"service.name": "cometapi"})
 
 import os
 from openai import OpenAI
@@ -60,27 +60,26 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
 | `operation_name` | `ChatCompletion` |
 | `llm_system` | `openai` (OpenAI-compatible client) |
 | `llm_model_name` | Resolved model returned by the API (e.g. `claude-haiku-4-5-20251001`) |
-| `llm_request_parameters_model` | Model name sent in the request (e.g. `claude-haiku-4-5-20251001`) |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_token_count_prompt` | Prompt tokens consumed |
 | `llm_token_count_completion` | Completion tokens returned |
 | `llm_token_count_total` | Total tokens consumed |
-| `llm_usage_tokens_input` | Input tokens |
-| `llm_usage_tokens_output` | Output tokens |
-| `llm_usage_cost_input` | Estimated cost for input tokens |
-| `llm_usage_cost_output` | Estimated cost for output tokens |
+| `gen_ai_usage_input_tokens` | Input tokens |
+| `gen_ai_usage_output_tokens` | Output tokens |
+| `gen_ai_usage_cost_input` | Estimated cost for input tokens |
+| `gen_ai_usage_cost_output` | Estimated cost for output tokens |
 | `openinference_span_kind` | `LLM` |
 | `duration` | End-to-end request latency |
 | `span_status` | `OK` on success, `ERROR` on failure |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Filter by `service_name = cometapi` to isolate CometAPI spans
@@ -90,11 +89,11 @@ print(response.choices[0].message.content)
 
 ![CometAPI trace in OpenObserve](../../../images/integration/ai/cometapi.png)
 
-## **Next Steps**
+## Next Steps
 
 With CometAPI instrumented, every inference call is recorded in OpenObserve regardless of which underlying model was used. From here you can compare latency and token usage across models, monitor cost per request, and set alerts on error spans.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

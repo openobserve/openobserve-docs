@@ -32,7 +32,7 @@ O2_EVAL_ENABLED=true
 `O2_EVAL_ENABLED` replaces `O2_ONLINE_EVALS_ENABLED`. The old name still works when the new one is not set, but OpenObserve logs a deprecation warning. If both are set, `O2_EVAL_ENABLED` wins.
 :::
 
-When disabled, the **AI** menu, **Settings > LLM Providers**, and **Settings > GenAI Agent Mapping** are hidden, and the evaluation API endpoints are not registered.
+When disabled, the **AI Observability** menu, **Settings > Data & AI > LLM Providers**, and **Settings > Data & AI > GenAI Agent Mapping** are hidden, and the evaluation API endpoints are not registered.
 
 Other server settings:
 
@@ -69,7 +69,7 @@ Click **Test Connection** to check the endpoint and key before you save. To edit
 
 ## Score Configs
 
-A Score Config defines what a score looks like and when it's healthy. Navigate to **AI > Evaluate > Score Configs** and click **New score config**.
+A Score Config defines what a score looks like and when it's healthy. Navigate to **AI Observability > Evaluate > Score Configs** and click **New score config**.
 
 | Field | Description |
 |---|---|
@@ -85,7 +85,7 @@ Updating a score config creates a new version; scorers can pin to a specific ver
 
 ## Scorers
 
-A Scorer is the evaluation unit: a prompt **template** with `{{variable}}` placeholders, execution parameters, and an optional linked score config. Navigate to **AI > Evaluate > Scorers** and click **New scorer**.
+A Scorer is the evaluation unit: a prompt **template** with `{{variable}}` placeholders, execution parameters, and an optional linked score config. Navigate to **AI Observability > Evaluate > Scorers** and click **New scorer**.
 
 ![the Scorers list page](images/online-evaluations-5.png)
 
@@ -102,7 +102,7 @@ Like score configs, scorers are versioned. Eval jobs can reference a scorer by e
 
 ## Eval Jobs
 
-An Eval Job runs scorers against incoming traces at a chosen **target scope**: span, trace, or session. Navigate to **AI > Evaluate > Eval Jobs** and click **New job**. Saving a job checks that you can read the selected stream.
+An Eval Job runs scorers against incoming traces at a chosen **target scope**: span, trace, or session. Navigate to **AI Observability > Evaluate > Eval Jobs** and click **New job**. Saving a job checks that you can read the selected stream.
 
 ![the Eval Jobs list page](images/online-evaluations-8.png)
 
@@ -205,15 +205,15 @@ Scores land in the `_llm_scores` stream; evaluator telemetry (latency, tokens, s
 
 ## Quality Dashboard
 
-**AI > Evaluate > Quality** gives a real-time overview of evaluation health across your score configs, agents, and streams. Drill into a score config to see KPI cards, trend charts, and a runs table, filterable by scope (All/Span/Trace/Session).
+**AI Observability > Evaluate > Quality** gives a real-time overview of evaluation health across your score configs, agents, and streams. The table lists each score config with **Health**, **Typical score**, **Unhealthy**, **Scores**, and **Updated**. Click a score config to see its trend and distribution charts and the scores behind them, filterable by scope (All/Span/Trace/Session).
 
 ![quality page KPI cards with scope breakdown](images/trace-session-evaluations-4.png)
 
-When a scorer fails, click the **Scorer Failures** KPI card to jump to the failing evaluator traces.
+To see scorer runs that failed, open the eval job and select its **Failures** tab.
 
-### Evaluation runs
+### Evaluation scores
 
-The **Evaluation Runs** table lists individual score records: value, health, target identity, agent, and reasoning. Click a row to open its evaluator trace. Filter to all runs or unhealthy only.
+The **Evaluation scores** list in a score config's detail shows individual score records: value, health, target identity, agent, and reasoning. Switch between **All** and **Unhealthy**.
 
 ![evaluation runs table in quality detail](images/trace-session-evaluations-6.png)
 
@@ -221,7 +221,7 @@ The **Evaluation Runs** table lists individual score records: value, health, tar
 
 OpenObserve auto-discovers **agents** from your trace telemetry (via `gen_ai.agent.name`/`id`, or your own configured attribute fields), so you can scope the Quality, Insights, and Sessions views to a single agent or **All Agents**.
 
-If your telemetry uses non-standard attribute names, map them under **Settings > GenAI Agent Mapping**. Scorer templates can also reference `{{agent_name}}`, `{{agent_id}}`, and `{{pipeline_source_stream_type}}`. See [LLM Monitoring](llm-monitoring.md#how-agents-are-identified) for the attributes OpenObserve checks.
+If your telemetry uses non-standard attribute names, map them under **Settings > Data & AI > GenAI Agent Mapping**. Scorer templates can also reference `{{agent_name}}`, `{{agent_id}}`, and `{{pipeline_source_stream_type}}`. See [LLM Monitoring](llm-monitoring.md#how-agents-are-identified) for the attributes OpenObserve checks.
 
 ## Experiments
 

@@ -3,24 +3,24 @@ title: Amazon Bedrock
 description: Instrument Amazon Bedrock calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Amazon Bedrock → OpenObserve**
+# Amazon Bedrock → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every Amazon Bedrock `converse` call in your Python application.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * AWS credentials with `AmazonBedrockFullAccess` permissions
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-bedrock boto3 python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-bedrock boto3 python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -34,7 +34,7 @@ AWS_SECRET_ACCESS_KEY=your-secret-access-key
 AWS_DEFAULT_REGION=your-aws-region
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `BedrockInstrumentor().instrument()` before creating any boto3 client.
 
@@ -63,7 +63,7 @@ response = bedrock.converse(
 print(response["output"]["message"]["content"][0]["text"])
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 |---|---|
@@ -82,18 +82,18 @@ print(response["output"]["message"]["content"][0]["text"])
 | `span_status` | `UNSET` on success, `ERROR` on failure |
 | `duration` | End-to-end request latency |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any `bedrock.converse` span to inspect token counts, latency, and full request/response content
 
 ![Amazon Bedrock trace span in OpenObserve](../../../images/integration/ai/amazon-bedrock.png)
 
-## **Next Steps**
+## Next Steps
 
 Every model call is recorded in OpenObserve. Build dashboards to track token usage over time, set alerts on latency spikes, and correlate Bedrock spans with the rest of your application traces.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Explore Traces](../../../user-guide/data-exploration/traces/index.md)

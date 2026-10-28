@@ -9,7 +9,7 @@ description: "Connect AI agents and IDEs to OpenObserve over the Model Context P
 The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard introduced by Anthropic that defines how AI applications connect to external tools and data sources. It's analogous to LSP for editors: one protocol, many clients, many servers.
 
 :::info[Availability]
-The MCP server is available in Open Source, Enterprise Edition, and Cloud. OAuth 2.0 sign-in for MCP is available in Enterprise Edition with Dex enabled.
+The MCP server is available in Open Source, Enterprise Edition, and Cloud, and is on by default (`ZO_MCP_ENABLED=true`). OAuth 2.0 sign-in for MCP is available in Enterprise Edition with Dex enabled.
 :::
 
 You can connect your AI agents and IDEs to your OpenObserve instance to query logs, metrics, and traces in natural language; create and manage alerts; and explore stream metadata directly from your editor or agent runtime. MCP enables:
@@ -25,6 +25,8 @@ Your MCP endpoint follows the pattern:
 ```
 https://your-instance/api/{org_id}/mcp
 ```
+
+In the OpenObserve UI, **IAM** > **MCP Server** shows the endpoint for the current organization and setup instructions for common clients.
 
 ## Authentication
 
@@ -505,8 +507,8 @@ Role-based access control with custom roles and granular permissions is availabl
 echo "<YOUR_BASE64_TOKEN>" | base64 -d
 # Should print: your-email@example.com:your-password
 
-# Test credentials against the meta endpoint
-curl -u "username:password" https://your-instance/api/default/_meta
+# Test credentials against the streams list
+curl -u "username:password" https://your-instance/api/{org_id}/streams
 ```
 :::
 
