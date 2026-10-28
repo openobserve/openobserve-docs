@@ -453,12 +453,12 @@ O2_MCP_PASSWORD: "SecurePassword123"
 ### Access
 
 1. Log into OpenObserve
-2. Click the AI Assistant icon in the sidebar
-![AI Assistant in OpenObserve](../images/ai-assistant-in-o2.gif)
+2. Click the **AI Assistant** icon in the top bar and ask a question about your data
+![AI Assistant panel answering a question about a log stream](../images/ai-assistant-in-o2-v2.png)
 
 
-3. Navigate to Incidents page in OpenObserve side-menu
-![Incidents UI in OpenObserve](../images/incidents-in-openobserve.gif)
+3. Navigate to **Reliability > Incidents** in the OpenObserve side menu
+![Incidents list with resolved incidents](../images/incidents-in-openobserve-v2.png)
 
 
 
