@@ -1,25 +1,35 @@
 ---
-title: Splunk HEC Log Ingestion - HTTP Event Collector | OpenObserve
-description: Send logs to OpenObserve using the Splunk HTTP Event Collector (HEC) protocol with a Splunk HEC token. Configure Splunk forwarders and HEC clients for centralized log management.
+title: Splunk HEC
+metaTitle: "Splunk HEC Log Ingestion | OpenObserve"
+description: "Send logs to OpenObserve from Splunk forwarders and HEC clients over the Splunk HTTP Event Collector protocol, authenticated with a Splunk HEC token."
 ---
+
 # Splunk HEC Log Ingestion
 
-OpenObserve provides a Splunk-compatible HTTP Event Collector (HEC) endpoint, so Splunk forwarders and other HEC clients can send events to OpenObserve using the standard Splunk HEC protocol. Authentication uses a **Splunk HEC token** — a GUID generated in OpenObserve — instead of the usual `o2oi_` ingestion token or a user password.
+OpenObserve provides a Splunk-compatible HTTP Event Collector (HEC) endpoint, so Splunk forwarders and other HEC clients can send events to OpenObserve using the standard Splunk HEC protocol. Authentication uses a **Splunk HEC token**, a GUID generated in OpenObserve, instead of an `o2oi_` ingestion token or a user password.
 
-The organization is resolved from the token, so no organization identifier appears anywhere in the request. This lets a Splunk forwarder point at a bare host without reconfiguration.
+The organization is resolved from the token, so no organization identifier appears anywhere in the request. A Splunk forwarder can point at a bare host without any OpenObserve-specific path.
 
-![TODO: screenshot of the Splunk HEC tab on the Logs ingestion page](images/placeholder.png)
+## Generate a Splunk HEC token
 
-## Prerequisites
+A Splunk HEC token belongs to an [org ingestion token](../../user-guide/account-administration/identity-and-access-management/ingestion-tokens.md). Navigate to **IAM > Ingestion Tokens** and either:
 
-To send data over Splunk HEC you need a Splunk HEC token for your organization. Generate one on the **Ingestion Tokens** page:
+- click **Create New Token** and check **Also create a Splunk HEC token** in the **Create Token** dialog, or
+- click the **Generate Splunk token** action in the row of an existing token.
 
-1. Navigate to **IAM > Ingestion Tokens**.
-2. Create a new token (and check **Also create a Splunk HEC token**), or edit an existing token and click the **Generate Splunk token** action in its row.
+![Ingestion Tokens page with the Splunk HEC token column and the Generate Splunk token action](images/splunk-hec-ingestion-tokens.png)
 
-![TODO: screenshot of the Splunk HEC token column and generate/revoke actions on the Ingestion Tokens page](images/placeholder.png)
+The Splunk HEC token is a lowercase hyphenated GUID, for example `7b3d9f2c-4a11-4e55-9c8b-2f6a01c34d90`. It is shown in the **Splunk HEC token** column of the token list. Tokens without one show **Not enabled**.
 
-The Splunk HEC token is a lowercase hyphenated GUID, for example `7b3d9f2c-4a11-4e55-9c8b-2f6a01c34d90`. Copy it when it is shown — it is a bearer credential and is not displayed again in full.
+When you create a token with **Also create a Splunk HEC token** checked, the **New Token Generated** dialog shows the Splunk HEC token together with the **HEC URL** to point your forwarder at.
+
+![New Token Generated dialog showing the Splunk HEC token and the HEC URL](images/splunk-hec-new-token-generated.png)
+
+### Revoke a Splunk HEC token
+
+Click **Revoke Splunk token** in the token's row and confirm. Forwarders using that Splunk HEC token start receiving `403` errors immediately, and this cannot be undone. You can generate a new Splunk HEC token for the same ingestion token afterwards; it gets a new GUID.
+
+Disabling the underlying ingestion token also stops its Splunk HEC token from authenticating.
 
 ## Endpoint
 
@@ -31,46 +41,53 @@ Send `POST` requests to:
 | Alias | `/services/collector/event` (identical, accepts the same payload) |
 | Health check | `GET /services/collector/health` |
 
-The collector is mounted at the server root, so it is **not** affected by the `ZO_BASE_URI` setting. A Splunk forwarder appends the path itself and cannot be reconfigured, so do not add an organization or `/api/` segment to the path.
+Do not add an organization or `/api/` segment to the path.
+
+The collector is registered like every other route, so a deployment that sets `ZO_BASE_URI` serves it at `<ZO_BASE_URI>/services/collector`. Splunk forwarders append `/services/collector` to a bare host themselves, so they need a deployment without `ZO_BASE_URI`, which is the default.
 
 ## Authentication
 
-Send the token as the value of the `Authorization` header using the `Splunk` scheme:
+Send the token in the `Authorization` header using the `Splunk` scheme:
 
 ```
 Authorization: Splunk <splunk-hec-token>
 ```
 
-OpenObserve maps the GUID to the underlying org ingestion token and authorizes ingestion through the same org-scoped path as every other token. The GUID itself never authenticates any `/api/` route.
+OpenObserve maps the GUID to its org ingestion token and authorizes ingestion through the same org-scoped path as every other ingestion token. The Splunk HEC token is accepted only on the `/services/collector` endpoints; it never authenticates an `/api/` route.
 
 ## Example request
 
 ```shell
-curl -k https://<your-openobserve-host>/services/collector \
+curl https://<your-openobserve-host>/services/collector \
   -H "Authorization: Splunk <splunk-hec-token>" \
-  -d '{"event":{"level":"info","log":"test message for openobserve"},"index":"default","time":1789060000}'
+  -d '{"event":{"level":"info","log":"test message for openobserve"},"index":"default"}'
 ```
+
+A successful request answers `{"text":"Success","code":0}`.
 
 ## Event payload
 
-Each event is a JSON object. The `event` and `index` fields are the most important:
+Each event is a JSON object. Several events can be sent in one request, concatenated or one per line.
 
 ```json
 {
   "event": { "level": "info", "log": "test message for openobserve" },
   "index": "application",
-  "time": 1789060000.123,
   "host": "web-01",
   "source": "/var/log/app.log",
   "sourcetype": "app:json"
 }
 ```
 
-- `event` — the log record. It can be a string (stored under the `log` field) or an object. It must not be empty.
-- `index` — the stream to write to. Events without an `index` go to the `default` stream.
-- `time` — epoch seconds; a fractional value is accepted. When missing or not positive, the receipt time is used.
-- `host`, `source`, `sourcetype` — stored as columns on the event.
-- `fields` — additional key/value pairs to attach. `fields` has the lowest precedence: it can add keys but never overwrite the event body or envelope metadata.
+- `event`: the log record, either an object or a string (a string is stored in the `log` field). It is required and must not be empty.
+- `index`: the stream to write to. Events without an `index` go to the stream set by `ZO_INGEST_DEFAULT_HEC_STREAM` (default `_hec`).
+- `time`: epoch seconds; a fractional value is accepted. When it is missing or not positive, the receipt time is used.
+- `host`, `source`, `sourcetype`: stored as columns on the event.
+- `fields`: additional key/value pairs to attach. `fields` has the lowest precedence: it can add keys but never overwrite the event body or the envelope metadata.
+
+:::warning[Timestamps outside the ingestion window are discarded]
+Events older than `ZO_INGEST_ALLOWED_UPTO` (5 hours by default) or further ahead than `ZO_INGEST_ALLOWED_IN_FUTURE` (24 hours by default) are dropped, and the request still answers code `0`, because a Splunk client does not retry an error. A hardcoded or stale `time` therefore looks like a successful send that stores nothing.
+:::
 
 ## Health check
 
@@ -82,7 +99,7 @@ Each event is a JSON object. The `event` and `index` fields are the most importa
 
 ## Response codes
 
-The collector returns Splunk's status codes, deliberately distinct from the legacy `/api/{org_id}/_hec` route:
+The collector returns Splunk's status codes, which differ from the responses of the `/api/{org_id}/_hec` route:
 
 | HTTP status | `code` | `text` |
 |---|---|---|
@@ -102,45 +119,28 @@ The collector returns Splunk's status codes, deliberately distinct from the lega
 
 ## Splunk Edge Processor
 
-!!! warning "Splunk Edge Processor configuration"
+:::warning[Splunk Edge Processor configuration]
+- Disable `useACK` on the destination. Indexer acknowledgement is not supported, and a client waiting for one will block.
+- Edge Processor forwards the upstream client's token for any data that reached it over HEC, and uses the destination token only when the data carries none. Have upstream clients send this organization's Splunk HEC token, or send to Edge Processor without an `Authorization` header. Getting this wrong looks like total silent data loss, because every request answers `403`.
+:::
 
-    - Disable `useACK` on the destination. Indexer acknowledgement is not supported, and a client waiting for one will block.
-    - The **Edge Processor** forwards the upstream client's token for any data that reached it over HEC, and uses the destination token only when the data carries none. Have upstream clients send this organization's Splunk token, or send to the Edge Processor without an `Authorization` header. Getting this wrong looks like total silent data loss, because every request answers `403`.
+## Use HTTPS
 
-## TLS
-
-!!! warning "Use HTTPS"
-
-    The Splunk HEC token is a bearer credential that is replayable over plaintext HTTP. Terminate TLS at OpenObserve (`ZO_HTTP_TLS_ENABLED`, disabled by default) or at a trusted proxy in front of it.
-
-## Managing Splunk HEC tokens
-
-### Create a token with a Splunk HEC token
-
-When creating an org ingestion token, check **Also create a Splunk HEC token** in the **Create New Token** dialog. The token is minted together with the regular ingestion token and both values are shown once in the reveal dialog.
-
-![TODO: screenshot of the Create New Token dialog with the "Also create a Splunk HEC token" checkbox](images/placeholder.png)
-
-![TODO: screenshot of the New Token Generated dialog showing the Splunk HEC token and HEC URL](images/placeholder.png)
-
-### Generate or revoke a Splunk HEC token
-
-On the **Ingestion Tokens** page, use the link/unlink action in a token's row to generate or revoke its Splunk HEC token:
-
-- **Generate Splunk token** — mints a new GUID, replacing the previous one. The old GUID stops authenticating immediately.
-- **Revoke Splunk token** — removes the GUID. Forwarders using it start receiving `403` errors immediately; this cannot be undone.
+:::warning[Use HTTPS]
+The Splunk HEC token is a bearer credential that can be replayed if sent over plaintext HTTP. Terminate TLS at OpenObserve (`ZO_HTTP_TLS_ENABLED`, disabled by default) or at a trusted proxy in front of it.
+:::
 
 ## Verify ingestion
 
-Once your forwarder is shipping, open the OpenObserve UI, click **Logs** in the sidebar, and select the stream named by the `index` field (or `default`). New entries should appear within a few seconds. If nothing appears, confirm the `Authorization` header uses the `Splunk` scheme and that the endpoint has no organization or `/api/` segment.
+Once your forwarder is shipping, open the OpenObserve UI, click **Logs** in the sidebar, and select the stream named by the `index` field (or `_hec`). New entries should appear within a few seconds. If nothing appears, confirm that the `Authorization` header uses the `Splunk` scheme, that the endpoint has no organization or `/api/` segment, and that event timestamps are current.
 
 ## Next steps
 
 - [Ingestion Tokens](../../user-guide/account-administration/identity-and-access-management/ingestion-tokens.md): create and manage org-level ingestion tokens.
 - [Logs UI](../../user-guide/data-exploration/logs/logs.md): search and explore ingested logs.
-- [Other log ingestion options](./index.md): OpenTelemetry, Vector, Fluent Bit, syslog, and language SDKs.
+- [Other log ingestion options](./index.md): OpenTelemetry, Vector, Fluent Bit, and language SDKs.
 
 **Need some help?**
 
-- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Join our [Community Slack](https://short.openobserve.ai/community)
 - Or [Contact support](https://openobserve.ai/contactus/)
