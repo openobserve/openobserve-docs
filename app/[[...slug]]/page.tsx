@@ -88,7 +88,14 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   const pageActions = <LlmPageActions markdownPath={page.path} updated={updated} />;
 
   return (
-    <DocsPage toc={toc} full={false} footer={{ items: neighbours }}>
+    <DocsPage
+      toc={toc}
+      full={false}
+      footer={{ items: neighbours }}
+      // A stable hook for the breadcrumb's colour in global.css, rather than
+      // matching Fumadocs' markup.
+      breadcrumb={{ className: 'oo-breadcrumb' }}
+    >
       <PageStructuredData
         title={page.data.title}
         pageUrl={page.url}

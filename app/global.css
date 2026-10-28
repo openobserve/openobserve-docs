@@ -171,12 +171,12 @@
 /*
  * The active sidebar item, active "On this page" entry and breadcrumb are
  * navigation state, not calls to action: render them in the text colour so
- * violet is left to links and buttons. Fumadocs renders the breadcrumb as the
- * article's first child, in muted text.
+ * violet is left to links and buttons. `.oo-breadcrumb` is set on the
+ * breadcrumb in app/[[...slug]]/page.tsx.
  */
 #nd-sidebar a[data-active],
 #nd-toc,
-#nd-page > div.text-fd-muted-foreground:first-child {
+.oo-breadcrumb {
   --color-fd-primary: var(--color-fd-foreground);
 }
 

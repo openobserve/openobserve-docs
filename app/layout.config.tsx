@@ -54,3 +54,21 @@ export function SidebarGetStarted() {
     </a>
   );
 }
+
+/**
+ * Passed as the docs sidebar's `footer`, below the GitHub / theme row. Required
+ * by privacy compliance laws in several countries/regions: it must always be
+ * visible, so it stays when the other marketing links are dropped.
+ */
+export function SidebarPrivacyLink() {
+  return (
+    <a
+      href="https://openobserve.ai/legal/privacy-policy/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-2 px-2 text-xs text-fd-muted-foreground transition-colors hover:text-fd-foreground"
+    >
+      Privacy Policy
+    </a>
+  );
+}
