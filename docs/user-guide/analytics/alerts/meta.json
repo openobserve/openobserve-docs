@@ -9,6 +9,7 @@
     "advanced-alert-configuration",
     "anomaly-detection",
     "downtimes",
-    "import-export-alerts"
+    "import-export-alerts",
+    "notification-dependencies"
   ]
 }
