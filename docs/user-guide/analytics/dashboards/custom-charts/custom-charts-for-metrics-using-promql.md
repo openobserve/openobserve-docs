@@ -38,11 +38,11 @@ OpenObserve stores metrics as time series with labels and values. To understand 
 1. Go to **Streams**.  
 2. Click the **Metrics** tab.
 3. Navigate to the metrics stream. For example, `container_cpu_time`  
-![explore-metrics](../../../../images/explore-metrics.png)
+![explore-metrics](../../../../images/explore-metrics-v2.png)
 4.Click **Explore.**
-![click-explore-metrics](../../../../images/click-explore-metrics.png)
+![click-explore-metrics](../../../../images/click-explore-metrics-v2.png)
 This takes you to the **Logs** page and shows a time-series view:  
-![metrics-records](../../../../images/metrics-records.png)
+![metrics-records](../../../../images/metrics-records-v2.png)
 <br>
 
 The two most important fields for charting are:
@@ -84,7 +84,7 @@ This ensures that the PromQL query will run against the correct metrics dataset.
 Before building any chart, you must query the required metric. You can view the raw PromQL response to understand the structure that your JavaScript code must transform.
 
 1. Navigate to the bottom of the panel editor.
-2. The query editor section appears with two modes, **PromQL** and **Custom SQL**.
+2. The query editor section shows the **SQL** / **PromQL** toggle. **PromQL** appears only when the stream type is **metrics**.
 3. Click **PromQL** to switch the editor into PromQL mode.
 4. In the PromQL editor, enter a PromQL expression. For example: `container_cpu_time{}`
 5. To understand the data structure returned by the PromQL query, paste the following JavaScript in the code editor:
@@ -112,9 +112,9 @@ option = {
 ```
 6. Select the time range in the time range selector.  
 7. Open your browser developer tools. Right-click anywhere inside the dashboard and select **Inspect**.  
-7. Open the **Console** tab.  
-8. In the panel editor, click **Apply**.
-![view-raw-metrics-data](../../../../images/view-raw-metrics-data.png)
+8. Open the **Console** tab.  
+9. In the panel editor, click **Apply**.
+![Custom chart editor with a PromQL query and the JavaScript that logs the response](../../../../images/view-raw-metrics-data-v2.png)
 You get to see the complete raw PromQL response.  
 
 :::note[How to interpret it]
@@ -294,7 +294,7 @@ if (query.result && Array.isArray(query.result)) {
     // Step 5: add one series entry for this metric
     series.push({
         name: name,
-        type: ,
+        type: chartType,
         data: points
     });
     }
@@ -316,7 +316,7 @@ The line chart uses `[timestamp, value]` pairs and plots each metric as a line a
 
 :::accordion[Step 7: View the result]
 ### Step 7: View the result
-![view-custom-chart](../../../../images/view-custom-chart.png)
+![view-custom-chart](../../../../images/view-custom-chart-v2.png)
 Select the time range from the time range selector and click **Apply** to render your chart.  
 
 Each unique metric label combination will appear as a separate line.

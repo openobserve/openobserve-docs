@@ -11,7 +11,7 @@ A TV playlist rotates a set of dashboards on a wall-mounted TV, showing each one
 
 1. Go to **Dashboards** from the left menu.
 2. Use the checkboxes to select the dashboards to rotate. The playlist follows the order in which you tick them.
-3. Click **TV playlist** in the bar that appears above the list.
+3. Click **TV playlist** in the bar at the bottom of the list.
 
 ![TV playlist dialog with three dashboards in the playlist and the rotation settings below](images/tv-playlist-dialog.png)
 

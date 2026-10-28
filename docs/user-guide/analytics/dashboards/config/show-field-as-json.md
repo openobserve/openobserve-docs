@@ -11,7 +11,7 @@ The **Show Field as JSON** setting is available only for the following panel typ
 
 - Table
 
-It applies to logs-derived fields added to a table panel.
+It can be turned on for any field added to a table panel. Only its default value depends on where the panel is built (see below).
 
 ---
 
@@ -20,8 +20,8 @@ To configure the **Show Field as JSON** option:
 
 1. In the **Panel Editor**, select the **Table** panel type.
 2. Add a field to the query using the query builder.
-3. Locate the **Render Data as JSON / Array** toggle for that field. This per-field control is labeled **Render Data as JSON / Array** in the UI (internally referred to as the "show field as JSON" option).
-4. Use the **Render Data as JSON / Array** toggle:
+3. Click the field in the query builder to open its options, and locate the **Render Data as JSON / Array** checkbox (internally referred to as the "show field as JSON" option).
+4. Use the **Render Data as JSON / Array** checkbox:
 
     - When enabled, the field's value is rendered as structured, colored JSON in the table panel. Values that are objects or arrays are formatted and color-coded for easier reading.
     - When disabled, the field's value is rendered as plain text.
@@ -29,21 +29,21 @@ To configure the **Show Field as JSON** option:
 ---
 
 ## Default Behavior and Environment Variable
-The default state of the **Render Data as JSON / Array** toggle is determined by the following environment variable:
+The default state of the **Render Data as JSON / Array** checkbox is determined by the following environment variable:
 
 ```bash
 ZO_DASHBOARD_SHOW_FIELD_AS_JSON_ENABLED=false  # default
 ```
 
-- When set to `true`, the **Render Data as JSON / Array** toggle defaults to enabled for fields added in the **logs page** context (logs-derived table fields).
-- When set to `false`, the **Render Data as JSON / Array** toggle defaults to disabled for those fields.
+- When set to `true`, the **Render Data as JSON / Array** checkbox defaults to selected for fields added in the **Visualize** view of the **Logs** page.
+- When set to `false`, the checkbox defaults to cleared for those fields.
 
-> This environment-variable-driven default applies only to fields added in the logs page context (logs-derived table fields). Fields added outside the logs context default to disabled regardless of the environment variable value. In all cases, you can manually change the setting for any field regardless of the environment variable value.
+> This environment-variable-driven default applies only to fields added in the **Visualize** view of the **Logs** page. Fields added in the dashboard panel editor default to cleared regardless of the environment variable value. In all cases, you can manually change the setting for any field regardless of the environment variable value.
 
 ---
 
 ## Limitations
-The **Show Field as JSON** option is supported only in **Table** panels and applies to logs-derived fields. Plain values that are not valid JSON objects or arrays are rendered as plain text even when the toggle is enabled.
+The **Show Field as JSON** option is supported only in **Table** panels. Plain values that are not valid JSON objects or arrays are rendered as plain text even when the toggle is enabled.
 
 ## Next steps
 

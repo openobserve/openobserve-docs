@@ -1,5 +1,5 @@
 ---
-title: legend-and-gridline
+title: Legend and Gridline
 description: Legend and gridline settings control legend position, type, height, width, chart alignment, gridline visibility, and axis label rotation in OpenObserve panels.
 ---
 
@@ -9,7 +9,7 @@ This document describes the legend and gridline configuration options available 
 Dashboard panels include configuration options for controlling legend display and gridline visibility. These options help optimize chart readability and space usage.
 
 ## Legend configuration options
-The following options are available in the panel configuration sidebar under the legend section.
+The following options are available in the panel **Config** sidebar under the **Legend** section. Except for **Show Legends**, they appear only when **Show Legends** is on and no **Trellis Layout** is set.
 
 ### Legends positions
 
@@ -23,13 +23,13 @@ Controls the placement of the legend relative to the chart.
 
 **Example: Legend positioned on the right**
 
-![Legend positioned on right side of chart](../../../../images/legend-position-right.png)
+![Legend positioned on right side of chart](../../../../images/legend-position-right-v2.png)
 
 When set to **Right**, the legend appears vertically alongside the chart. This configuration is useful for charts with many data series.
 
 **Example: Legend positioned at the bottom**
 
-![Legend positioned at bottom of chart](../../../../images/legend-position-bottom.png)
+![Legend positioned at bottom of chart](../../../../images/legend-position-bottom-v2.png)
 
 When set to **Bottom**, the legend appears horizontally below the chart. This is the default position and works well for most chart types.
 
@@ -51,7 +51,7 @@ Controls the legend display behavior.
 
 **Example: Plain legend type**
 
-![Plain legend showing all items](../../../../images/legend-type-plain.png)
+![Plain legend showing all items](../../../../images/legend-type-plain-v2.png)
 
 The plain type displays all legend items in a fixed layout. All series are visible at once without scrolling.
 
@@ -64,7 +64,7 @@ The plain type displays all legend items in a fixed layout. All series are visib
 
 **Example: Scroll legend type**
 
-![Scroll legend with pagination](../../../../images/legend-type-scroll.png)
+![Scroll legend with pagination](../../../../images/legend-type-scroll-v2.png)
 
 The scroll type includes navigation arrows and a page indicator (shown as "1/2" in the bottom right). Users can navigate between pages of legend items.
 
@@ -72,24 +72,24 @@ The scroll type includes navigation arrows and a page indicator (shown as "1/2" 
 
 - **Input:** Enter numeric input.
 - **Units:** Choose between px (pixels) or % (percentage). 
-- **Availability:** Enabled only when Legends Position is set to Auto or Bottom and Legend Type is set to Plain.
+- **Availability:** Enabled only when **Legends Positions** is set to **Auto** or **Bottom** and **Legends Type** is set to **Plain**.
 - **Purpose:** Overrides the default height of the legend area. 
 
 **Example: Legend height configuration**
 
-![Legend height setting in UI](../../../../images/legend-height-config.png)
+![Legend height setting in UI](../../../../images/legend-height-config-v2.png)
 
 
 ### Legend width
 
 - **Input:** Enter numeric input.
 - **Units:** Choose between px (pixels) or % (percentage). 
-- **Availability:** Enabled only when Legends Position is set to Right and Legend Type is set to Plain. 
+- **Availability:** Enabled only when **Legends Positions** is set to **Right** and **Legends Type** is set to **Plain**. 
 - **Purpose:** Overrides the default width of the legend area. 
 
 **Example: Legend width configuration**
 
-![Legend width setting in UI](../../../../images/legend-width-config.png)
+![Legend width setting in UI](../../../../images/legend-width-config-v2.png)
 
 
 ### Chart align
@@ -102,13 +102,13 @@ Controls the horizontal alignment of the chart within its container.
 | Left | Aligns the chart to the left |
 | Center | Centers the chart |
 
-**Note:** This option is only available for pie and donut charts when legends position is set to "Right".
+**Note:** This option is only available for pie and donut charts when **Legends Positions** is set to **Right**.
 
 **Example: Chart align options for pie chart**
 
-![Chart align dropdown showing Auto, Left, and Center options](../../../../images/chart-align-options.png)
+![Chart Align options Auto, Left, and Center for a pie chart with the legend on the right](../../../../images/chart-align-options-v2.png)
 
-Legends Position is set to Right and Legend Type is set to Plain. You can select how the chart is horizontally aligned within the remaining space.
+In this example, **Legends Positions** is set to **Right** and **Legends Type** to **Plain**. You can select how the chart is horizontally aligned within the remaining space.
 
 
 ## Gridline configuration
@@ -123,7 +123,7 @@ A toggle switch that controls gridline visibility on the chart.
 
 **Example: Gridlines disabled**
 
-![Chart without gridlines](../../../../images/gridlines-off.png)
+![Chart without gridlines](../../../../images/gridlines-off-v2.png)
 
 When gridlines are disabled, the chart displays without reference lines, providing a cleaner appearance.
 
@@ -176,6 +176,8 @@ Legend configuration is not available for:
 - Geomap chart
 - Sankey chart
 - Map chart
+- State timeline
+- Host map
 
 ### Gridlines option
 
@@ -198,3 +200,4 @@ The show gridlines option is not available for:
 - Geomap chart
 - Sankey chart
 - Map chart
+- Host map

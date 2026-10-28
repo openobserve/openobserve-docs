@@ -19,14 +19,14 @@ The **Show Symbol** setting is available only for the following chart types:
 To configure the **Show Symbol** option:
 
 1. In the **Panel Editor**, select a supported chart type. 
-2. Expand the **Config** section on the right side of the screen.
+2. Open the **Config** sidebar on the right side of the screen and expand the **Line Style** section.
 3. Locate the **Show Symbol** dropdown.
 4. From the **Show Symbol** dropdown, select Yes or No:
 
     - When you select **Yes**, each data point is marked with a small circle for clear identification.
-    ![Show symbol](../../../../images/show-symbol-yes.png)
+    ![Show symbol](../../../../images/show-symbol-yes-v2.png)
     - When you select **No**, the chart renders a continuous line or area without individual point markers.
-    ![Do not show symbol](../../../../images/show-symbol-no.png)
+    ![Do not show symbol](../../../../images/show-symbol-no-v2.png)
 
 ---
 

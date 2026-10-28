@@ -18,6 +18,8 @@ The **Comparison Against** feature is available for the following chart types in
 - Stacked  
 - Horizontal Stacked
 
+It is also available for PromQL panels of these types that run a range query. It is not shown for PromQL instant queries, which have no time range to shift.
+
 ## How it Works
 
 | Step | Without Comparison Against | With Comparison Against |
@@ -30,37 +32,37 @@ The **Comparison Against** feature is available for the following chart types in
 
 
 ## How to Use the Compare Against Feature
-For example, you want to compare **the error trends for the last 15 mins today** with **the error trends for the same time period, 2 days ago**. 
+For example, you want to compare **the error trends for the last 15 mins today** with **the error trends for the same 15 minutes, 1 hour earlier**. 
 
 Let's say,
 
 - You want to view the error trend for the past 15 mins today (for example, from 3:45 PM - 4:00 PM, today). 
-- Now, you want to compare the error trend for the same time period (from 3:45 PM - 4:00 PM), 2 days ago. 
+- Now, you want to compare it with the error trend for the same 15 minutes one hour earlier (from 2:45 PM - 3:00 PM). 
 
 The following steps explain how to use the **Comparison Against** feature for this scenario:
 
-1. Go to **Dashboards** > **New Dashboard**.  
-   ![Dashboards](../../../images/dashboards-comparison-against-go-to-dashboard.png)  
+1. Go to **Dashboards** > **New dashboard**.  
+   ![Dashboards](../../../images/dashboards-comparison-against-go-to-dashboard-v2.png)  
 2. Click **Add Panel.**  
-   ![Add panel](../../../images/dashboards-comparison-against-add-panel.png)
+   ![Add panel](../../../images/dashboards-comparison-against-add-panel-v2.png)
 3. Select a chart [where the **Comparison Against** feature is available](#where-to-find-this-feature).<br>  
-   ![Chart selection](../../../images/dashboards-comparison-against-chart-selection.png)  
+   ![Chart selection](../../../images/dashboards-comparison-against-chart-selection-v2.png)  
 4. Under **Fields**, add **Stream Type** and **Stream**. These define the data source for your SQL query. Select fields that you want to set as x-axis (for example, timestamp) and y-axis (for example, error) of the chart.<br>
-   ![Stream selection](../../../images/dashboards-comparison-against-stream-selection.png) 
+   ![Stream selection](../../../images/dashboards-comparison-against-stream-selection-v2.png) 
    <br>**Note**: You may use the Query editor to further customize your query. 
-   ![Query editor](../../../images/dashboards-comparison-against-query-editor.png)  
+   ![Query editor](../../../images/dashboards-comparison-against-query-editor-v2.png)  
 5. Choose a time range. For instance, **Past 15 Minutes**. This becomes the period, the time range the system will use for both your current data and comparison data.<br> 
-   ![Time range selection](../../../images/dashboards-comparison-against-time-range-selection.png)
-6. Open the **Config** menu and scroll to **Comparison Against**.<br> 
-   ![Config menu](../../../images/dashboards-comparison-against-config-menu.png) 
+   ![Time range selection](../../../images/dashboards-comparison-against-time-range-selection-v2.png)
+6. Open the **Config** sidebar and expand the **Comparison Against** section.<br> 
+   ![Config menu](../../../images/dashboards-comparison-against-config-menu-v2.png) 
 7. By default, **0 Minutes ago** is selected. This represents your current time.
-8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **2 days ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.<br>  
-   ![Add past time](../../../images/dashboards-comparison-against-add-past-time.png)  
+8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **1 Hours ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.<br>  
+   ![Add past time](../../../images/dashboards-comparison-against-add-past-time-v2.png)  
 9. (Optional) Select a **Color Palette** to differentiate charts.  
 10. Click **Apply** to run the query and update the chart.   
-    **Note**: You must click **Apply** after adding or changing any comparison values.
+    **Note**: Time shift changes do not trigger the live preview. Click **Apply** after adding or changing any comparison values.
 
 **Result:** <br> 
 The results of both queries are shown side by side on your chart, making it easy to visually compare your current data with historical data.
-![Result of comparison against](../../../images/dashboards-comparison-against-result.png)
+![Result of comparison against](../../../images/dashboards-comparison-against-result-v2.png)
 
