@@ -7,26 +7,26 @@ This page describes how to manage real-time and scheduled pipelines in OpenObser
 
 ## Pipeline management options
 Go to **Data > Pipelines**. You can filter, search, view, edit, pause, resume, export, or delete pipelines from a single interface.
-![pipeline management](../../../images/manage_pipelines.png)
+![Pipelines list with real-time and scheduled pipelines, their state and actions](../../../images/manage_pipelines-v2.png)
 
 :::accordion[Filter pipelines]
 ## Filter pipelines
 Use the filter options **All**, **Scheduled**, and **Realtime** to view only the type of pipelines you want to work with.
 
 The summary strip above the table shows how many pipelines are **Errored**, **Paused**, **Active**, and in **Total**. Click a count to show only the pipelines in that state.
-![filter-pipeline](../../../images/filter-pipeline.png)
+![All, Scheduled and Realtime filter with the Errored, Paused, Active and Total summary](../../../images/filter-pipeline-v2.png)
 :::
 
 :::accordion[Search pipelines]
 ## Search pipelines
 Use the **Search Pipeline** box to locate pipelines by name or attributes.
-![search-pipeline](../../../images/search-pipeline.png)
+![Search Pipeline box filtering the list](../../../images/search-pipeline-v2.png)
 :::
 
 :::accordion[Pipeline list view]
 ## Pipeline list view
 The pipeline list displays key information for each pipeline.
-![pipeline-list-view](../../../images/pipeline-list-view.png)
+![Pipeline list columns including Name, State, Type, Stream Name, Frequency, Period and Cron](../../../images/pipeline-list-view-v2.png)
 
 - **Name**: Identifies the pipeline.
 - **State**: Shows whether the pipeline is **Active**, **Paused**, or **Errored**.
@@ -41,7 +41,7 @@ The pipeline list displays key information for each pipeline.
 :::accordion[Actions tab]
 ## Actions tab
 Each pipeline row includes the following actions. **Start**/**Pause**, **View**, and **Edit** are icons in the row; the others are in the **More actions** (⋮) menu.
-![action-tab](../../../images/action-tab.png)
+![Row actions Pause, View and Edit, and the More actions menu with Export, Delete, Create Backfill and View Error](../../../images/action-tab-v2.png)
 
 - Start or pause pipeline
 - View pipeline
@@ -73,7 +73,7 @@ You can pause both real-time and scheduled pipelines. <br>
 **Resuming a scheduled pipeline**: 
 
 Scheduled pipelines display a Resume Pipeline Ingestion dialog with two options.
-![Resume pipeline](../../../images/resume-scheduled-pipeline.png)
+![Resume Pipeline Ingestion dialog with Continue from where it paused and Start from now](../../../images/resume-scheduled-pipeline-v2.png)
 
   - **Continue from where it paused:**
 
@@ -93,14 +93,14 @@ Scheduled pipelines display a Resume Pipeline Ingestion dialog with two options.
 
 ### Pipeline error
 If a pipeline encounters an error, its **State** shows **Errored** and the **More actions** (⋮) menu shows **View Error**.
-![pipeline-error](../../../images/pipeline-error.png)
+![Errored pipeline row with View Error in the More actions menu](../../../images/pipeline-error-v2.png)
 Selecting **View Error** opens a dialog that displays the **Error Summary** and any **Node Errors**.
-![pipeline-error-view](../../../images/pipeline-error-view.png)
+![Pipeline error dialog with the Error Summary](../../../images/pipeline-error-view-v2.png)
 :::
 
 :::accordion[Pipeline history]
 ## Pipeline history
-You can view past executions, errors, and performance statistics in the Pipeline History page. To open it, click **Pipeline History** at the top of the **Pipelines** page.
+You can view past executions, errors, and performance statistics in the Pipeline History page. To open it, open the **More actions** menu (☰) at the top right of the **Pipelines** page and select **Pipeline History**.
 
 The [Pipeline History](https://openobserve.ai/docs/user-guide/data-processing/pipelines/pipeline-history/) page provides a complete timeline of runs with detailed execution information.
 :::
@@ -112,7 +112,7 @@ You can export any pipeline and import pipeline configurations through the **Imp
 
 :::accordion[Sort columns]
 ## Sort columns
-![sort-columns](../../../images/sort-columns.png)
+![Pipelines list sorted by the Name column](../../../images/sort-columns-v2.png)
 
 You can sort the Pipelines table by selecting any column header. The table supports ascending, descending, and alphabetical sorting depending on the data in that column.
 :::
