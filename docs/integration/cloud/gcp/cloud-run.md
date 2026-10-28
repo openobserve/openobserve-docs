@@ -30,12 +30,12 @@ When you deploy a service on Cloud Run, logs are automatically collected in **Cl
 
 :::accordion[Step 1: Get OpenObserve Ingestion Details]
 
-1. Log in to your OpenObserve dashboard
+1. Log in to OpenObserve
 2. Collect the following values:
     - **URL**: e.g. `https://api.openobserve.ai`
-    - **Organization Name**
+    - **Organization ID** (shown in the Curl command URL)
     - **Stream Name**: any stream you want logs to go to
-    - **Authorization Key**: from **Data Sources → Recommended/GCP**
+    - **Authorization Key**: the Base64 value after `Basic` in **Data > Data sources > Custom > Logs > Curl** (`email:token` encoded)
 3. These will be passed to your Cloud Run app as environment variables
 :::
 
@@ -118,7 +118,7 @@ app.get('/', (req, res) => {
     ![Edit & Deploy New Revision in Cloud Run](../../images/gcp/deploy-revision.png)
 3. Under **Variables & Secrets → Environment Variables**, add:
     -  `OPENOBSERVE_URL`  :  `https://api.openobserve.ai`
-    - `OPENOBSERVE_ORG`      : your org name                
+    - `OPENOBSERVE_ORG`      : your organization ID                
     - `OPENOBSERVE_STREAM`   : desired stream name          
     - `OPENOBSERVE_AUTH_KEY` : API Key from OpenObserve     
 
@@ -143,7 +143,7 @@ app.get('/', (req, res) => {
    }
    ```
 
-![Verify logs in OpenObserve](../../images/gcp/cloud-run-logs.png)
+![Cloud Run logs in the Logs page](../../images/gcp/cloud-run-logs-v2.png)
 :::
 
 ## Troubleshooting

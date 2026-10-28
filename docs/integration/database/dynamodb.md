@@ -44,7 +44,7 @@ Applications that rely on **Amazon DynamoDB** often require real-time insights i
 3. Select **Source** → `Kinesis Data Stream` → choose the Kinesis data stream.  
 4. Select **Destination** → `HTTP Endpoint`.  
     - **Endpoint URL**: your OpenObserve Firehose endpoint  
-    - **Authentication**: Access Key (from OpenObserve → Ingestions → Amazon Kinesis Firehose)  
+    - **Authentication**: Access Key (from **Data > Data sources > Recommended > Amazon Web Services(AWS)** in OpenObserve). The endpoint has the form `https://<your-openobserve-domain>/aws/<org_id>/<stream_name>/_kinesis_firehose`  
 5. (Optional) Configure an **S3 bucket** for backup of failed records.  
 6. Review and **Create Firehose Stream**.  
 
@@ -53,8 +53,8 @@ Applications that rely on **Amazon DynamoDB** often require real-time insights i
 
 :::accordion[Step 4: Monitor DynamoDB Changes in OpenObserve]
 
-Once the Firehose is active, DynamoDB changes begin flowing to OpenObserve. Access at Logs -> Stream name 
-![Visualize DynamoDB Changes](../images/databases/dynamodb-logs.png)
+Once the Firehose is active, DynamoDB changes begin flowing to OpenObserve. Go to **Logs** and select your stream. 
+![DynamoDB stream records in the Logs page](../images/databases/dynamodb-logs-v2.png)
 :::
 
 

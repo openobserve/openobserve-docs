@@ -55,7 +55,7 @@ processors:
 
 exporters:
   otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
       Authorization: Basic <your_auth_token>
       stream-name: default
@@ -68,9 +68,9 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your OpenObserve details.
+Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your OpenObserve details.
 
-![OpenObserve Redis Creds](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 :::
 
 
@@ -87,10 +87,10 @@ otelcol-contrib --config /path/to/config.yaml
 
 :::accordion[Step 4: Visualize in OpenObserve]
 
-1. Open **OpenObserve → Streams** and select your metrics stream.  
-   ![Visualize Aerospike Metrics](../images/databases/aerospike-stream.png)  
+1. Open **Data > Streams** in OpenObserve and select your metrics stream.  
+   ![Aerospike metric streams in Data > Streams](../images/databases/aerospike-stream-v2.png)  
 2. Explore the metrics, run queries , create dashboards for insights
-    ![Visualize Aerospike Metrics](../images/databases/aerospike-metric-explore.png)  
+    ![Aerospike namespace metrics in the Metrics explorer](../images/databases/aerospike-metric-explore-v2.png)  
 :::
 
 
@@ -99,7 +99,8 @@ otelcol-contrib --config /path/to/config.yaml
 :::accordion[Collector not starting]
 - Check the logs for misconfigurations:
 
-```journalctl -u otel-collector -f
+```bash
+journalctl -u otel-collector -f
 ```
 :::
 
@@ -107,5 +108,5 @@ otelcol-contrib --config /path/to/config.yaml
 
 - Verify Aerospike is running: systemctl status aerospike
 - Check if the Aerospike receiver is binding to the correct port (default: 3000).
-- Confirm your OPENOBSERVE_TOKEN and OPENOBSERVE_STREAM are correct.
+- Confirm the `Authorization` and `stream-name` values in the exporter are correct.
 :::

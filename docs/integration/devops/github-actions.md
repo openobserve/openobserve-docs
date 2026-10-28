@@ -23,7 +23,7 @@ This integration captures metadata and logs from GitHub Actions jobs and pushes 
 :::accordion[Step 1: Get OpenObserve Credentials]
 
 1. Log in to your OpenObserve instance
-2. Navigate to **Data Sources → custom → logs → curl**
+2. Navigate to **Data > Data sources > Custom > Logs > Curl**
 3. Copy the following values from the generated `curl` command:
 
     From:
@@ -92,7 +92,7 @@ If your project is not Node.js based, replace these steps with your own project'
 
 1. In your Openobserve instance, Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-  ![Verify Logs](../images/devops/github-actions/verify-logs.png)
+  ![GitHub Actions workflow logs in the Logs page](../images/devops/github-actions/verify-logs-v2.png)
 :::
 
 ## Troubleshooting
