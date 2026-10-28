@@ -10,10 +10,10 @@ Performance is what your users actually feel: how long the app takes to open, ho
 
 If you are just getting set up, start with the [Mobile RUM Overview](./index.md) and your platform guide ([React Native](./react-native.md), [Android](./android.md), [iOS](./ios.md)). This page assumes the SDK is already initialized and RUM is enabled.
 
-:::warning[Alpha status]
-
-The mobile SDKs are early releases (`0.1.0-alpha.x`). The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change.
+:::note[Versions (Beta)]
+The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. The performance metrics described here are collected today; pin your exact SDK version and re-test on upgrades, since defaults and option names may still change across early `0.1.x` releases.
 :::
+
 ## What performance data you get
 
 Once RUM is running, OpenObserve automatically captures, per session and per view:
@@ -55,17 +55,17 @@ Views are captured automatically when you enable view tracking, and you can also
 
 ```tsx
 // Automatic (recommended) — via @openobserve/mobile-react-navigation
-OoRumReactNavigationTracking.startTrackingViews(navigationRef);
+O2RumReactNavigationTracking.startTrackingViews(navigationRef);
 
 // Manual — name and time a screen yourself
-import { OoRum } from '@openobserve/mobile-react-native';
+import { O2Rum } from '@openobserve/mobile-react-native';
 
-await OoRum.startView('checkout', 'Checkout');
+await O2Rum.startView('checkout', 'Checkout');
 // ...screen is visible...
-await OoRum.stopView('checkout');
+await O2Rum.stopView('checkout');
 
 // Add a custom timing marker within the current view
-await OoRum.addTiming('content_ready');
+await O2Rum.addTiming('content_ready');
 ```
 
 ### Android
@@ -203,9 +203,9 @@ RUM.enable(
 ```
 
 :::note
-
 Setting `appHangThreshold` on iOS is what turns app-hang reporting on — it defaults to off. Choose a value that catches real hangs without flagging brief, expected pauses (0.25s is a reasonable starting point).
 :::
+
 ## Network and resource performance
 
 Every tracked network call is recorded as a RUM **resource** with its full timing breakdown, HTTP status, and payload size. Because resources are attached to the view that issued them, you can see exactly which requests made a screen slow.
@@ -287,9 +287,9 @@ RUM.enable(
 ```
 
 :::note
-
 The `tracecontext` header type (W3C) is what OpenObserve reads to stitch the mobile resource to the backend trace. A request only gets trace headers if its host is in your first-party list — otherwise the SDK still records timing, status, and size, just without the end-to-end link.
 :::
+
 ## Frustration signals
 
 Performance numbers describe the app; frustration signals describe the *user*. The SDK automatically detects patterns that mean someone is struggling — most importantly **rage taps**, where a user taps the same element repeatedly because nothing responds. These are captured as RUM actions flagged as frustrated.

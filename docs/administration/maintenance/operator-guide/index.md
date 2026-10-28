@@ -5,6 +5,8 @@ description: Operate and maintain OpenObserve with guides for systemd services, 
 
 Learn more:
 
+- [CLI Commands](https://openobserve.ai/docs/administration/maintenance/operator-guide/cli-commands/)
+- [Configuration Management](https://openobserve.ai/docs/administration/maintenance/operator-guide/config-management/)
 - [Systemd](systemd.md)
 - [SIMD](simd.md)
 - [Mimalloc](mimalloc.md)

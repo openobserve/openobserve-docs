@@ -340,7 +340,7 @@ A SIEM is not just for alerting; it is for investigation. You should create dash
 
 ## **9. Retention and Compliance**
 
-One of OpenObserve's biggest strengths as a SIEM is cost-effective long-term retention via Object Storage (S3). OpenObserve automatically manages data lifecycle, ensuring that recent data is instantly accessible while older data is stored efficiently on object storage (S3/MinIO/GCS/Azure Blob) for compliance and historical analysis.
+One of OpenObserve's biggest strengths as a SIEM is cost-effective long-term retention via Object Storage (S3). OpenObserve automatically manages data lifecycle, ensuring that recent data is instantly accessible while older data is stored efficiently on object storage (S3/MinIO/RustFS/GCS/Azure Blob) for compliance and historical analysis.
 
 * **Unified Storage:** No manual tiering is required. OpenObserve transparently handles the movement of data to object storage, allowing you to query petabytes of historical data as easily as real-time logs
 * **Compliance:** Retain data for 1 year (or any required compliance period) at the cost of S3 storage, significantly cheaper than block storage

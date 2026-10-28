@@ -43,6 +43,13 @@ This cost comparison pertains only to storage. Amazon EBS storage volumes cost [
 
 The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used by log forwarders like Fluent Bit, Fluentd, Filebeat and Vector. This means you can swap OpenObserve in for Elasticsearch with minimal changes to your existing ingestion pipeline.
 
+## Compare with other systems
+
+- [OpenObserve vs Datadog](https://openobserve.ai/docs/overview/comparison-with-alternatives/datadog-alternative/)
+- [OpenObserve vs Splunk](https://openobserve.ai/docs/overview/comparison-with-alternatives/splunk-alternative/)
+- [OpenObserve vs New Relic](https://openobserve.ai/docs/overview/comparison-with-alternatives/newrelic-alternative/)
+- [OpenObserve vs ClickHouse](https://openobserve.ai/docs/overview/comparison-with-alternatives/clickhouse-alternative/)
+
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 

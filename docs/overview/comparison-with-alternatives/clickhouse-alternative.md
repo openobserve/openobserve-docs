@@ -32,7 +32,7 @@ OpenObserve nodes are stateless. Data durability comes from object storage, so s
 
 Self-hosted ClickHouse stores data on the disks of stateful nodes. S3-backed disks and tiered storage exist, but full separation of compute and storage (SharedMergeTree) is available in ClickHouse Cloud. On your own hardware, retention growth means disk growth on database hosts, replicated across replicas.
 
-OpenObserve stores raw events as **Apache Parquet in your bucket**: S3, GCS, Azure Blob, MinIO, or local disk. Long retention costs object-storage rates, and any tool that reads Parquet can read your telemetry data.
+OpenObserve stores raw events as **Apache Parquet in your bucket**: S3, GCS, Azure Blob, MinIO, RustFS, or local disk. Long retention costs object-storage rates, and any tool that reads Parquet can read your telemetry data.
 
 ### Metrics without PromQL
 
@@ -55,7 +55,7 @@ OpenObserve runs **PromQL natively** for metrics alongside SQL for logs and trac
 | Query language | SQL (ClickHouse dialect) | SQL + PromQL |
 | Schema | Designed and maintained per table | Schema inferred per stream |
 | Retention | TTL clauses per table | Retention setting per stream |
-| Storage model | Stateful nodes with attached disks; S3 disks optional | Object storage (S3 / GCS / Azure Blob / MinIO / local disk) |
+| Storage model | Stateful nodes with attached disks; S3 disks optional | Object storage (S3 / GCS / Azure Blob / MinIO / RustFS / local disk) |
 | Replication | ClickHouse Keeper / ZooKeeper coordination | None needed; durability from object storage |
 | IAM & SSO | Database users, roles, and row policies | SAML, OIDC, LDAP, role-based access |
 | Deployment | Self-host or ClickHouse Cloud | Self-host or OpenObserve Cloud |
@@ -100,6 +100,13 @@ A typical move runs in three steps:
 3. **Cut over.** Validate query results and retention side by side, shift alert routing, then decommission the ClickHouse observability tables or cluster.
 
 Teams already on OpenTelemetry can start ingesting into OpenObserve within hours; the parallel-run window is driven by dashboard and alert count.
+
+## Compare with other systems
+
+- [OpenObserve vs Elasticsearch](https://openobserve.ai/docs/overview/comparison-with-alternatives/comparison/)
+- [OpenObserve vs Datadog](https://openobserve.ai/docs/overview/comparison-with-alternatives/datadog-alternative/)
+- [OpenObserve vs Splunk](https://openobserve.ai/docs/overview/comparison-with-alternatives/splunk-alternative/)
+- [OpenObserve vs New Relic](https://openobserve.ai/docs/overview/comparison-with-alternatives/newrelic-alternative/)
 
 ## Need Help?
 

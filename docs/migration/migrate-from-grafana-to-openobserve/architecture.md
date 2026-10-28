@@ -12,7 +12,7 @@ description: "How Loki, Grafana, Tempo, and Mimir map to OpenObserve: architectu
 
 ![LGTM Stack telemetry flow](../../images/migration/lgtm/grafana-stack.png)
 
-**Components to operate: 6+** — Collector + Loki + Mimir + Tempo + Grafana + object storage (often with MinIO or separate S3 buckets per component). Each has its own Helm chart, config format, scaling knobs, and upgrade path.
+**Components to operate: 6+** — Collector + Loki + Mimir + Tempo + Grafana + object storage (often with MinIO, RustFS, or separate S3 buckets per component). Each has its own Helm chart, config format, scaling knobs, and upgrade path.
 
 ### After — OpenObserve
 

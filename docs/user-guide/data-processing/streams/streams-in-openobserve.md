@@ -119,6 +119,8 @@ The new stream appears on the Streams page. Ingest data into the stream to popul
     - These fields (job, code, message) will appear under User Defined Schema in the [Stream Details](stream-details.md) page.
     - Any additional fields not defined earlier will appear under All Fields.
     :::
+
+
 5. Click **Create Stream**.
 :::
 ::::

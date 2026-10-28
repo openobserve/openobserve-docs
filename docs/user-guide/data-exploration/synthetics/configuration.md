@@ -80,7 +80,7 @@ Select one or more probe locations. At least one is required.
 
 ![Locations card listing twelve public AWS regions and the private locations section](images/config-locations.png)
 
-Public locations cover twelve AWS regions on OpenObserve Cloud, the only deployment Synthetics currently supports:
+On OpenObserve Cloud, public locations cover twelve AWS regions. On a self-hosted deployment, the list holds the locations that you registered, as described in [Self-hosted setup](self-hosted-setup.md#step-6-register-a-location).
 
 | Area | Regions |
 |------|---------|

@@ -3,8 +3,10 @@
     "index",
     "scheduled-alerts",
     "real-time-alerts",
+    "composite-alerts",
     "alert-conditions",
     "alert-history",
+    "advanced-alert-configuration",
     "anomaly-detection",
     "import-export-alerts"
   ]

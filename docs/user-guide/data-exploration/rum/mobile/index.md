@@ -46,10 +46,10 @@ OpenObserve ships one SDK per mobile ecosystem. They are independent packages bu
 
 The React Native SDK wraps the native Android and iOS SDKs, so a React Native app gets native crash reporting, native view tracking, and native network instrumentation underneath the JavaScript layer.
 
-:::warning[Alpha status]
-
-The mobile SDKs are currently early alpha releases (`0.1.0-alpha.x`). They are ready to integrate and evaluate, but pin exact versions and expect small configuration details to change before the stable release.
+:::note[Versions (Beta)]
+The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. Pin exact versions and expect small configuration details to change across early `0.1.x` releases.
 :::
+
 ## How it connects to OpenObserve
 
 Every mobile SDK uses the same connection model, so once you understand it for one platform it carries over to the others. You need three things from your OpenObserve instance's **Data → Data Sources → Real User Monitoring** page:
@@ -61,9 +61,9 @@ Every mobile SDK uses the same connection model, so once you understand it for o
 You configure the SDK with the client token and application id, and point its **custom endpoint** at your instance's base URL; the SDK appends the RUM intake path automatically. There is no separate "organization" field on mobile — your organization is part of the ingestion endpoint and token. Standard fields — `env` (for example `production` or `staging`), `service` (your app identifier), and `version` — round out the configuration and let you slice data by environment and release in OpenObserve.
 
 :::note
-
-The built-in managed-cloud `site` presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in this alpha. For self-hosted instances and today's setups, use the custom-endpoint approach — every platform guide shows exactly how.
+The built-in managed-cloud `site` presets (US1, EU1, and so on) are still being wired up for OpenObserve Cloud in the current releases. For self-hosted instances and today's setups, use the custom-endpoint approach — every platform guide shows exactly how.
 :::
+
 ## What you'll do to get started
 
 The flow is the same on every platform, and each guide walks through it end to end:
@@ -104,7 +104,7 @@ The SDKs are built for production: data is collected asynchronously off the main
 
 ### Are the mobile SDKs production-ready?
 
-The mobile SDKs are currently published as early alpha releases (0.1.0-alpha.x). The API surface is stable enough to integrate against and the data model matches OpenObserve's browser RUM, but you should pin exact versions, test upgrades, and expect some configuration details — particularly managed-cloud endpoint presets and build-time symbol upload — to be finalized in upcoming releases.
+The mobile SDKs are in Beta, at React Native 0.1.2, Android 0.1.0, and iOS 0.1.0. The API surface is settled and the data model matches OpenObserve's browser RUM, but you should pin exact versions, test upgrades, and expect some configuration details — particularly managed-cloud endpoint presets and build-time symbol upload — to be finalized in upcoming 0.1.x releases.
 
 ### How is Mobile RUM different from OpenObserve's browser RUM?
 
