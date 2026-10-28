@@ -23,7 +23,7 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ### Search & Query
 
-- **Field Extraction**: Automatic field detection and parsing for structured data. The [Schema Settings](../user-guide/data-processing/streams/schema-settings.md) tab in the Stream Details panel lets you inspect and manage the schema used to store and query ingested data.
+- **Field Extraction**: Automatic field detection and parsing for structured data. The [Schema Settings](../user-guide/data-processing/streams/schema-settings.md) tab in the **Stream Detail** panel lets you inspect and manage the schema used to store and query ingested data.
 
 ![Field Extraction](../images/features/log-fields-detection.png)
 
@@ -48,7 +48,7 @@ Logs in OpenObserve offer comprehensive observability into your system's behavio
 
 ![Indexing](../images/features/index.png)
 
-- **Retention Policies**: [Configurable data retention](../user-guide/data-processing/streams/extended-retention.md) to manage storage costs
+- **Retention Policies**: Set [data retention per stream](../user-guide/data-processing/streams/stream-details.md#data-retention-in-days) in the **Configuration** tab of the **Stream Detail** panel to manage storage costs, and use [Extended Retention](../user-guide/data-processing/streams/extended-retention.md) to keep selected data longer
 
 ![Retention Policies](../images/features/data-retention.png)
 

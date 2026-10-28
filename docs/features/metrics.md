@@ -12,6 +12,8 @@ OpenObserve provides comprehensive metrics collection, storage, and visualizatio
 
 Metrics in OpenObserve enable you to track key performance indicators, monitor system health, and gain insights into your application's behavior over time. Designed for high-throughput environments, OpenObserve efficiently handles metrics ingestion, storage, and querying at scale while maintaining cost-effectiveness.
 
+The **Metrics** page opens on **Explore**, a grid of charts for your metric streams. Use **Visualize** to build a chart from your own PromQL or SQL query, and **Favorites** to return to saved views.
+
 ![Metrics Page view](../images/features/metrics-hero.png)
 
 ## Key Features
@@ -54,7 +56,7 @@ Metrics in OpenObserve enable you to track key performance indicators, monitor s
 
 ![Metrics Alerting](../images/features/metrics-alerts.png)
 
-- **Share Metrics Views**: Share an exact metrics view with your team by copying a URL from the **Share** button in the metrics toolbar. The URL encodes your current panel configuration — chart type, queries (PromQL or SQL), stream selection, time range, and refresh interval — so recipients see the same chart and data. Opening a shared link auto-restores the view and runs the query immediately.
+- **Share Metrics Views**: Share an exact metrics view with your team by copying a URL from the **Share Link** button (share icon) in the metrics toolbar. The URL encodes your current panel configuration — chart type, queries (PromQL or SQL), stream selection, time range, and refresh interval — so recipients see the same chart and data. Opening a shared link auto-restores the view and runs the query immediately.
 
 ![Share button in metrics page toolbar](images/metrics-share-url-1.png)
 
@@ -70,7 +72,7 @@ The share URL carries the full panel state as a versioned base64 blob in the `me
 
 - **Downsampling**: Automatic data [downsampling](../user-guide/data-exploration/metrics/downsampling-metrics.md) for long-term storage optimization.
 
-- **Retention Policies**: [Configurable retention settings](../user-guide/data-processing/streams/extended-retention.md) to balance storage costs and data availability.
+- **Retention Policies**: Set [data retention per stream](../user-guide/data-processing/streams/stream-details.md#data-retention-in-days) in the **Configuration** tab of the **Stream Detail** panel to balance storage costs and data availability, and use [Extended Retention](../user-guide/data-processing/streams/extended-retention.md) to keep selected data longer.
 
 ![Metrics Retention](../images/features/metrics-retention.png)
 
