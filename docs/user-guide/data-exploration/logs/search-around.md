@@ -32,13 +32,13 @@ WHERE match_all('staging')
 This query retrieves logs where any text field contains the keyword `staging`.  
 4. Select the time range for the query.
 ![time-range-selection](../../../images/time-range-selection.png)
-5. Click **Run Query** to view the queried records.
+5. Click **Run query** to view the queried records.
 ![run-query](../../../images/run-query.png)
 6. From the results, click the target record to open the **Source Details** view. 
 ![queried-results](../../../images/queried-results.png)
 7. Locate the **Search Around** option available at the bottom of this screen.
 ![source-details](../../../images/source-details.png)
-8. In the **Number of events** selector, choose how many records you want to retrieve in total, including the selected record. For example, when you select 10, the result set contains 10 records in total, including the selected record. The split is 5 records before the selected record and 4 records after.
+8. In the **Number of events:** selector, choose how many records you want to retrieve in total, including the selected record. For example, when you select 10, the result set contains 10 records in total, including the selected record. The split is 5 records before the selected record and 4 records after.
 9. Click **Search Around**.
 ![search-around-result](../../../images/search-around-result.png)
 The search around results are shown without applying the filters from your original query. The record highlighted in the following image does not contain the keyword staging, even though the query used `match_all('staging')`. 

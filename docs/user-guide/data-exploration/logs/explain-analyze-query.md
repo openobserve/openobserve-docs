@@ -13,14 +13,14 @@ OpenObserve provides Explain Query and Analyze Query tools to help users underst
 ## How to access Explain Query
 
 1. From the left navigation panel, click **Logs**. 
-2. In the SQL editor at the top, write your SQL query.
+2. In the query editor at the top, write your SQL query. SQL mode must be on; the **Explain Query** option is shown only in SQL mode.
 3. Select the time range in the time range selector.
 4. Click the **Run query** button to execute your query. 
-5. After the query completes and results are displayed, click the **More Actions menu** (≡) at the top-right corner. 
+5. After the query completes and results are displayed, click the **More Actions** menu (≡) in the search bar. 
 
 ![explain-query](../../../images/explain-query.png)
-6. Select **Explain Query** from the dropdown menu. 
-7. A Query Plan window opens displaying. The left panel shows your original SQL query for reference. The right panel shows two tabs, **Logical Plan** and **Physical Plan**. 
+6. Select **Explain Query** under **Explain** in the dropdown menu. 
+7. A **Query Plan** window opens. The left panel shows your original SQL query for reference. The right panel shows two tabs, **Logical Plan** and **Physical Plan**. 
 ![query-plan](../../../images/logical-plan.png)
 <br>
 
@@ -31,12 +31,12 @@ OpenObserve provides Explain Query and Analyze Query tools to help users underst
 ## How to access Analyze Query
 
 1. First, open the Explain Query page following the steps above. 
-2. Click the **"Analyze"** button in the top-right corner of the Query Plan window. 
+2. Click the **Analyze** button at the top of the results panel in the Query Plan window. 
 3. The **Analyze Results** section displays with: 
 ![analyze-results](../../../images/analyze-results.png)
 
     - **Execution Summary**: Overall performance statistics at the top 
-    - **Execution Tree**: Detailed per-operator performance data below
+    - **Execution Plan**: Detailed per-operator performance data below
 :::
 
 
@@ -155,7 +155,7 @@ Shows overall query execution information:
 - **Total Rows**: Total number of rows processed 
 - **Peak Memory**: Memory usage during execution 
 
-### Execution Tree
+### Execution Plan
 
 Displays each operator involved in the query execution as a hierarchical tree with execution details.
 
@@ -169,7 +169,7 @@ Displays each operator involved in the query execution as a hierarchical tree wi
 :::note[Visual indicators:]
 
 - Row counts are shown with an icon next to each operator.
-- Execution times are shown in microseconds with an icon next to each operator.
+- Execution times (compute time as reported by the query engine) are shown with a clock icon next to each operator.
 - The tree uses indentation to show parent-child relationships.
 :::
 

@@ -48,11 +48,11 @@ Insights is an interactive dimension analysis feature that automates root cause 
 
 1. Run a log query (select stream, time range, optional filter)
 ![Select a log stream in OpenObserve UI](https://openobserve.ai/assets/select_stream_e9b0749a64.png). 
-2. Click **Insights** button (top-right corner)
+2. Select the **Drill down** view in the toolbar. It is not available in SQL mode.
 ![Click Insights button in the logs UI](https://openobserve.ai/assets/insights_9d9e8d098e.png)
 3. Review dimension analysis dashboard
 ![OpenObserve Logs Insights dashboard comparing log volume across k8s_pod_name, service_name, and k8s_namespace_name dimensions with baseline vs selected analysis](https://openobserve.ai/assets/screenshot_2_logs_insights_dashboard_8261bb7316.png)
-4. **(Optional)** Customize dimensions via "Fields (X)" button
+4. **(Optional)** Customize dimensions in the **Dimensions** sidebar
 
 
 **Example**: Query `k8s_cluster = 'production'` shows which pods, services, and namespaces generate most logs.
@@ -66,10 +66,10 @@ Insights is an interactive dimension analysis feature that automates root cause 
    - Drag vertically = Select latency range
    - Drag horizontally = Select time range
    - Drag diagonally = Select both
-4. Click **Insights** button
+4. Click the **Drill down** button
 5. Review analysis tabs: **Rate**, **Latency**, **Errors**
 6. **(Optional)** Adjust percentile in Latency tab
-7. **(Optional)** Customize dimensions via "Fields (X)" button
+7. **(Optional)** Customize dimensions in the **Dimensions** sidebar
 
 **Example**: Query `operation_name='api/checkout'` shows which services have highest latency during incidents.
 
@@ -89,9 +89,9 @@ Click refresh button after changing percentile.
 Enable "Error Only" toggle to restrict analysis to error traces only.
 
 ### Dimension Customization
-Click "Fields (X)" button to:
+Use the **Dimensions** sidebar to:
 - Add/remove dimensions
-- Search for specific fields
+- Search for specific fields with **Search Dimensions**
 - Optimal cardinality: 2-50 unique values
 
 ### Filter Management
@@ -102,14 +102,15 @@ Click "Fields (X)" button to:
 
 ## Troubleshooting
 
-**Insights button not appearing**
+**No analysis shown**
 - Ensure search results are loaded (> 0 results)
-- Click "Run query" first
+- Click **Run query** first
+- For logs, turn off SQL mode: the **Drill down** view does not work with SQL queries
 
 > **Note:** If `logs_insights` RBAC is enabled (Enterprise/Cloud), your role needs Get permission on the relevant logs stream's `logs_insights` resource to use Insights.
 
 **No dimensions shown**
-- Click "Fields (X)" and manually select dimensions
+- Select dimensions manually in the **Dimensions** sidebar
 
 **Brush selection not working**
 - Click and hold, drag across chart, then release
@@ -123,7 +124,7 @@ Click "Fields (X)" button to:
 
 - **Detailed guide with examples**: [From Symptoms to Quick Insights blog post](https://openobserve.ai/blog/observability-insights-troubleshooting-guide)
 - **Logs guide**: [Logs documentation](index.md)
-- **Traces guide**: [Traces documentation](https://openobserve.ai/docs/user-guide/data-exploration/traces/)
+- **Traces guide**: [Traces documentation](../traces/index.md)
 - **Alerts setup**: [Alerts documentation](../../analytics/alerts/index.md)
 
 

@@ -5,13 +5,17 @@ description: Browse and explore metrics with a visual card grid, build PromQL qu
 
 # Metrics Explorer
 
-The Metrics Explorer provides two connected views for working with metrics data. Click **Metrics** in the sidebar to open the browse grid at `/metrics` — a visual overview of every metric family in your organization. Click any metric card or navigate to `/metrics/editor` to open the panel editor with PromQL input, chart visualization, and dashboard controls.
+The Metrics Explorer is where you browse and query metrics data. Click **Metrics** in the sidebar to open it at `/metrics`. The mode switch at the top has three modes:
+
+- **Explore**: the browse grid, a visual overview of every metric family in your organization.
+- **Visualize**: the PromQL query editor with chart visualization and dashboard controls. The same editor is also available at `/metrics/editor`.
+- **Favorites**: the metrics you starred in Explore.
 
 ![the Metrics Explorer browse grid showing metric cards with type badges, prefix/suffix/type filter rail, and search](images/metrics-explorer-revamp-1.png)
 
 ## Browse grid
 
-The browse grid gives you a fast, visual overview of all metric families. Each card shows the metric name, its type (via a color-coded badge), the current charted value, and a mini sparkline.
+The browse grid gives you a fast, visual overview of all metric families. Each card shows the metric name, its type (via a color-coded badge), the current charted value, and a mini sparkline. Use **Grid** or **Rows** to change the layout.
 
 ### Metric cards
 
@@ -25,15 +29,23 @@ Cards are fetched lazily as you scroll. A card queries its default aggregation o
 |---|---|---|
 | Counter | `sum(rate(metric[window]))` | Line chart |
 | Gauge | `avg(metric)` | Line chart |
-| Histogram | `histogram_quantile(0.95, sum(rate(metric_bucket[window]))) by (le)` | Heatmap |
-| Summary | `avg(metric)` | Line chart |
-| Info | — | Label table |
+| Histogram | `sum by (le) (rate(metric_bucket[window]))` | Heatmap |
+| Summary | `avg by (quantile) (metric)` | Line chart |
+| Info | `count(metric)` | Line chart |
 
-You can override a card's function for individual metrics via the **gear (⚙) icon** on the card. The override is saved per-browser and persists across sessions.
+You can override a card's function for individual metrics via the **gear (⚙) icon** on the card, which opens **Configure function**. Pick a variant, such as **Average**, **Rate (sum)** or **Percentiles**, and click **Apply**, or click **Reset to default**. The override is saved per-browser and persists across sessions.
 
 ![the gear icon override dialog showing variant options and a preview tile](images/metrics-explorer-revamp-3.png)
 
-**Star a metric** to pin it. Use the **Favorites** toggle in the toolbar to narrow the grid to starred metrics only.
+**Star a metric** (the ★ on a card) to add it to your favorites. The **Favorites** mode shows only starred metrics, and **Convert to dashboard** adds them all to a dashboard, one panel each.
+
+Click **Drill down** on a card to open the metric's detail view. It shows a larger chart with **Compare to** (1 hour, 1 day or 1 week ago), **Forecast** (**Linear** or **Smoothed trend**) and, for histograms, **Exemplars**. Below the chart are three tabs:
+
+- **Breakdown**: one chart per label. Drill down into a label to see its values, then **Add to filter** or **Exclude** a value.
+- **Related**: other metrics that share labels with this one.
+- **Used in**: the dashboards, alerts, SLOs and scheduled pipelines that query this metric.
+
+Use **Open in Visualize** to continue in the query editor. In Enterprise Edition, **Logs & traces** opens the logs and traces of the metric's service. **Back to metrics** returns to the grid.
 
 ### Filtering
 
@@ -45,17 +57,19 @@ The left rail exposes three filter panels:
 
 ![the filter rail open on prefix grouping, showing prefix groups with counts](images/metrics-explorer-revamp-4.png)
 
-The **search bar** filters cards by name or help text. The **sort** toggle switches between A-Z and Z-A ordering. The **"With data" toggle** (on by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics. A count below the grid shows how many cards are hidden; click the count to show them.
+The **Search metrics** box filters cards by name or help text. The **sort** toggle switches between **A–Z** and **Z–A** ordering. **With data** (selected by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics; select **All** to show every metric. A count below the grid shows how many cards are hidden.
+
+Use **Views** to save the current search, filters, sort, layout and time range as a named view, and to reopen, update or delete views. Saved views are shared with everyone in the organization.
 
 ### Label filter chips
 
-When the grid has loaded stream schemas (triggered by the first filter interaction), you can add label matchers via the **Label** chip input. Cards are then narrowed to metrics whose effective streams carry every selected label — so a `status=~"5.."` chip safely limits the grid to metrics that actually have a `status` label.
+Click **Filter** to add a label matcher: select a label, an operator (`=` exact value, `!=` any other value, `=~` regex), and a value. Filters are combined with AND. Cards are then narrowed to metrics whose streams carry every selected label, so a `status=~"5.."` filter limits the grid to metrics that actually have a `status` label.
 
 ![the label filter chip input with label name and value fields, and chips shown in the toolbar](images/metrics-explorer-revamp-5.png)
 
 ## Query editor
 
-The panel editor at `/metrics/editor` is where you build queries, visualize results, and configure dashboard panels. It opens with the same layout as a dashboard panel editor.
+The **Visualize** mode (and the panel editor at `/metrics/editor`) is where you build queries, visualize results, and configure dashboard panels. It opens with the same layout as a dashboard panel editor.
 
 ![the metrics query editor showing stream selector with type badges, PromQL input, chart, time picker, Apply, and Add to Dashboard](images/metrics-explorer-revamp-6.png)
 

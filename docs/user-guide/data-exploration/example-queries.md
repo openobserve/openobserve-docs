@@ -12,7 +12,7 @@ To ingest this sample data refer to this [guide.](../../getting-started.md#load-
 
 :::note[Before you start]
 - Replace `your_stream_name` in the SQL examples with the actual stream name in your OpenObserve setup.
-- Short snippets like `code = 200` or `match_all('error')` are **filter expressions** for the search bar. Full `SELECT ... FROM ...` examples are **SQL queries** and need the SQL Mode toggle enabled.
+- Short snippets like `code = 200` or `match_all('error')` are **filter expressions** for the search bar. Full `SELECT ... FROM ...` examples are **SQL queries** and need **SQL Mode** on. The editor turns SQL mode on by itself when you type a `SELECT` statement for an existing stream.
 :::
 
 

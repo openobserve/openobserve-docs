@@ -13,9 +13,9 @@ Downsampling summarizes historical data into fewer data points. Each summarized 
 
 Downsampling is configured using the following environment variables.:
 
-- `O2_COMPACT_DOWNSAMPLING_INTERVAL`: Defines how often the downsampling job runs or the interval, in seconds. 
+- `O2_COMPACT_DOWNSAMPLING_INTERVAL`: Defines how often the downsampling job runs or the interval, in seconds. The default is `3600` (one hour). 
 > For example, `O2_COMPACT_DOWNSAMPLING_INTERVAL`: "300", this downsampling job runs every 5 minutes.  
-- `O2_METRICS_DOWNSAMPLING_RULES`: Specifies which data streams to target and how they should be downsampled using defined rules. You can add a comma-separated list of rules.
+- `O2_METRICS_DOWNSAMPLING_RULES`: Specifies which data streams to target and how they should be downsampled using defined rules. You can add a comma-separated list of rules. The default is empty, so no downsampling runs.
 > For example, `O2_METRICS_DOWNSAMPLING_RULES`: "o2_cpu_usage:avg:30d:5m, app_analytics:last:10d:10m"
 
 > Refer to the [Downsampling Rule](#downsampling-rule) section. <br> 
@@ -27,16 +27,16 @@ Add the environment variables under the `enterprise.parameters` section in your 
 enterprise:  
   enabled: true  
   parameters:  
-    `O2_COMPACT_DOWNSAMPLING_INTERVAL`: "60"    
-    `O2_METRICS_DOWNSAMPLING_RULES`: "o2_cpu_usage:avg:30d:5m"    
+    O2_COMPACT_DOWNSAMPLING_INTERVAL: "60"
+    O2_METRICS_DOWNSAMPLING_RULES: "o2_cpu_usage:avg:30d:5m"
 ```
 
 ### Downsampling configuration for Terraform users
 
 Set the same variables in your `terraform.tfvars` file:  
 ```  
-`O2_COMPACT_DOWNSAMPLING_INTERVAL` = "60"  
-`O2_METRICS_DOWNSAMPLING_RULES`    = "up:avg:30d:5m"  
+O2_COMPACT_DOWNSAMPLING_INTERVAL = "60"
+O2_METRICS_DOWNSAMPLING_RULES    = "up:avg:30d:5m"
 ```
 > **Note**: **After setting the environment variables, make sure to redeploy the OpenObserve instance for the changes to apply.**
 
@@ -60,8 +60,10 @@ Here:
 >   - **max**: Returns the largest value in the time block.
 >   - **last**: Retains the last recorded value in the time block.
 >   - **first**: Retains the first recorded value in the time block.  
-- **offset**: It defines the age of data eligible for downsampling. For example, 15d for applying downsampling on data older than 15 days.  
-- **step**: The time block used to group data points. For example, 30m for applying downsampling to retain one value every 30 minutes.
+- **offset**: It defines the age of data eligible for downsampling. For example, 15d for applying downsampling on data older than 15 days. The offset must be at least one day and a whole number of days.  
+- **step**: The time block used to group data points. For example, 30m for applying downsampling to retain one value every 30 minutes. The step must be one day or less and divide one day evenly.
+
+OpenObserve checks the rules at startup and does not start if a rule is invalid.
 
 ### Sample downsampling rules
 

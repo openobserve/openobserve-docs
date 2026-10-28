@@ -14,7 +14,7 @@ You can use the Logs page to:
 - View and filter log data by time and fields
 - Write and run SQL queries
 - Transform logs using VRL functions
-- Save views and schedule recurring searches
+- Save views and, in Enterprise and Cloud editions, schedule searches
 - Export logs for offline analysis
 
 :::note[Who can access]
@@ -29,6 +29,9 @@ You can use the Logs page to:
 - [Search Around](search-around.md): inspect events surrounding a specific log entry.
 - [Quick Mode and Interesting Fields](quickmode.md): focus the table on the fields that matter.
 - [Explain and Analyze Query](explain-analyze-query.md): understand query plans and performance.
+- [Refresh Cache and Run Query](refresh-cache-run-query.md): re-run a query without cached results.
+- [Insights](insights.md): compare log volume across fields with the **Drill down** view.
+- [Log Patterns](log-patterns.md): group logs into recurring templates (Enterprise).
 
 **Need some help?**
 
