@@ -1,66 +1,58 @@
 ---
-title: TV Mode and Playlists
-description: "Put dashboards on an office TV: hide the app chrome, auto-refresh on a schedule, and rotate multiple dashboards as a playlist."
+title: Dashboard TV Mode
+description: "Put an OpenObserve dashboard on an office TV: hide the app chrome, auto-refresh on a schedule, and recover from errors without manual intervention."
 ---
 
-# TV Mode and Playlists
+# Dashboard TV Mode
 
-TV mode turns a dashboard into a wall-screen view: the app header, sidebar, and toolbar disappear, panels become view-only, and the dashboard refreshes itself on a schedule. A TV playlist rotates several dashboards on the same screen.
+TV mode turns a dashboard into a wall-screen view. The app header, sidebar, and dashboard toolbar disappear, panels become view-only, and the dashboard refreshes itself on a schedule. To rotate several dashboards on one screen, use a TV playlist instead.
 
-## Single dashboard TV mode
+## Open a dashboard in TV mode
 
-Open a dashboard and click the **TV** icon in the toolbar.
+Open a dashboard and click the **TV mode** icon in the dashboard toolbar. A setup popover opens.
 
-![TODO: screenshot of the TV mode setup popover](images/placeholder.png)
+![TV mode setup popover with the Refresh every, Theme, and Fit all panels on one screen options](images/tv-mode-setup-popover.png)
 
-The setup popover offers:
+The popover offers:
 
-- **Refresh every** — how often the TV reloads data (Off, 30s, 1m, 5m, 15m, 30m, 1h). Defaults to the dashboard's current refresh, or 5 minutes when that is off.
-- **Theme** — Current, Light, or Dark, applied to this screen only.
-- **Fit all panels on one screen** — shrinks the grid to the screen height so nothing scrolls (off by default).
+- **Refresh every**: how often the TV reloads data (Off, 30 sec, 1 min, 5 min, 15 min, 30 min, 1 hr). It defaults to the dashboard's current refresh interval, or 5 minutes when auto-refresh is off. Intervals below the server's minimum auto-refresh interval are disabled.
+- **Theme**: **Current**, **Light**, or **Dark**, applied to this screen only.
+- **Fit all panels on one screen**: shrinks panels to the screen height so nothing scrolls. Off by default.
 
-Click **Open TV mode**. OpenObserve opens the same dashboard with `kiosk=true` in the URL, keeping the current relative time range. A compact header replaces the app chrome.
+Click **Open TV mode**. The dashboard switches to TV mode in the same tab, with `kiosk=true` in the URL and keeps the current relative time range, tab, and variable values. A compact header replaces the app chrome.
 
-![TODO: screenshot of a dashboard in TV mode showing the compact header](images/placeholder.png)
+![Dashboard in TV mode with the compact header showing the dashboard name, time range, countdown ring, and last-updated time](images/tv-mode-dashboard.png)
 
-The header shows the dashboard name, the time range, a countdown ring until the next refresh (which spins while loading), an "Updated 2m ago" label with the exact time on hover, and a status chip only when something needs attention — failing panels, backend unreachable, or auto-refresh off. An **Exit** button is always visible; **Esc** also leaves TV mode. Tabs and variables stay in one compact row under the header and remain usable, and a variable change applies immediately.
+The header shows:
 
-## URL parameters
+- The dashboard name and time range.
+- A countdown ring until the next refresh, which spins while panels load. Hover over it to see the time of the next refresh.
+- An **Updated** label such as "Updated 2m ago". Hover over it to see the exact time.
+- A status chip, only when something needs attention: failing panels, a hung query, stale data, the backend being unreachable, or auto-refresh being off.
+- An exit button (**Exit TV mode**), which is always visible. Pressing **Esc** or the browser's **Back** button also leaves TV mode.
 
-Link straight into TV mode by adding query parameters to a dashboard URL:
+Tabs and variables sit in one compact row under the header and stay usable. A variable change applies immediately.
+
+## TV mode URL parameters
+
+To link straight into TV mode, for example from a TV's browser, add query parameters to a dashboard URL:
 
 | Parameter | Values | Effect |
 |-----------|--------|--------|
-| `kiosk` | `true` or `1` | Hides the app chrome and makes panels view-only |
-| `refresh` | duration such as `5m` | How often the dashboard reloads |
-| `theme` | `light` / `dark` | Forces a theme on this screen only |
-| `fit` | `true` | Scales the grid to one screen |
+| `kiosk` | `true` or `1` | Turns on TV mode: hides the app chrome and makes panels view-only. |
+| `refresh` | A duration such as `30s`, `5m`, or `1h` | How often the dashboard reloads. Values below the server's minimum auto-refresh interval are raised to it. |
+| `theme` | `light` or `dark` | Forces a theme on this screen only. |
+| `fit` | `true` or `1` | Scales the grid so all panels fit on one screen. |
 
-For example: `?kiosk=true&refresh=5m&theme=dark`.
+For example, append `&kiosk=true&refresh=5m&theme=dark` to a dashboard URL.
 
-While in TV mode the dashboard is self-healing:
+## How TV mode keeps the screen current
 
-- A hung query is cancelled and the refresh is forced.
-- If the backend is down, OpenObserve retries with backoff and recovers on its own.
+While in TV mode, the dashboard recovers from problems on its own:
+
+- A query that hangs is cancelled and the refresh is forced.
+- If the backend is down, OpenObserve retries with backoff and recovers when the backend is back.
 - Refresh pauses while the browser tab is hidden and resumes when it becomes visible.
-- Failed panels show their error inside the panel.
+- A panel that fails shows its error inside the panel.
 
-Leaving TV mode restores the refresh the dashboard had before.
-
-## TV playlist
-
-To rotate several dashboards on one screen, select them in the **Dashboards** list and click the **TV playlist** button in the toolbar.
-
-![TODO: screenshot of the TV playlist dialog](images/placeholder.png)
-
-In the dialog, search across all folders to add dashboards, drag or use the arrows to reorder them, and set:
-
-- **Show each for** — how long each dashboard stays on screen (10s to 1h).
-- **Time range** — one range for all dashboards, or each dashboard's own default.
-- **Theme** and **Fit all panels on one screen**.
-
-Click **Open TV playlist** to open the rotation in a new tab, or **Copy link** to get a link to paste into the TV's browser.
-
-![TODO: screenshot of a running TV playlist](images/placeholder.png)
-
-The playlist header shows the current dashboard and its position (for example, "2 of 3"), the shared time range, and the time until the next dashboard. Controls let you jump to the previous or next dashboard, pause rotation, and exit. Missing dashboards are skipped; if the backend is unreachable the rotation holds until it recovers.
+When you leave TV mode after entering it from the toolbar, the dashboard returns to the refresh interval it had before.
