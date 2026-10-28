@@ -31,11 +31,11 @@ Get started with OpenObserve observability platform for logs, metrics, and trace
 
 :::accordion[Step 2: Get Your Ingestion Credentials]
 
-1. After logging in, navigate to the **Data Sources** section in the sidebar
+1. After logging in, select **Data** in the sidebar to open the **Data sources** page
 
-    ![Ingestion](./images/quickstart/ingestion_credentials.png)
+    ![Ingestion](./images/quickstart/ingestion_credentials-v2.png)
 
-2. Copy the provided cURL command - it contains your unique credentials
+2. Copy the provided cURL command - it contains your unique credentials. The ingestion token stays hidden on screen but is included when you copy
 3. Your endpoint will look like: `https://api.openobserve.ai/api/[YOUR_ORG]/default/_json`
 
 You are ready to ingest data. Now head over to [Load sample data](#load-sample-data) section.
@@ -237,7 +237,7 @@ Now let's explore the data you just loaded.
 2. Click on **Logs** in the left sidebar
 3. Select **default** from the stream dropdown (top-left)
 
-![Logs page](./images/quickstart/logs_page.png)
+![Logs page](./images/quickstart/logs_page-v2.png)
 :::
 
 
