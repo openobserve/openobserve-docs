@@ -9,17 +9,17 @@ These tools help you find what slowed down or broke a request once you have a tr
 
 On a trace's **Waterfall** tab, turn on **Critical path**. Each span bar then marks the part that lies on the critical path, the chain of work that set the trace's total duration, and other spans are dimmed. The selected span is never dimmed. The toggle is off by default and remembers your choice. For a trace with several roots, only the primary root is followed.
 
-![TODO: screenshot of the Waterfall tab with Critical path turned on](images/placeholder.png)
+![Waterfall tab with Critical path turned on: on-path span bars stay highlighted and the other spans are dimmed](images/trace-waterfall-critical-path.png)
 
 ## Span percentiles
 
 When you select a span, its sidebar shows how its duration compares with other spans of the same operation, for example `p90–p99 of GET /checkout`. Hover the tag to see p50, p75, p90, p99, and the sample count. The tag uses the warning colour for p90 to p99 and the error colour above p99. It is hidden when there are fewer than 20 samples.
 
+![Span sidebar showing the p50–p75 percentile tag for the span operation, with the tooltip listing p50, p75, p90, p99, and the sample count](images/span-sidebar-operation-percentile.png)
+
 ## View a span's profile
 
-If profile samples carry the span's `trace_id` and `span_id`, the span sidebar shows **View profile**. It opens the Profiles page on that span's flame graph.
-
-![TODO: screenshot of the span sidebar with the percentile tag and View profile button](images/placeholder.png)
+If profile samples carry the span's `trace_id` and `span_id`, the span sidebar shows **View Profile**. It opens the Profiles page on that span's flame graph.
 
 ## Automatic RED insights
 
@@ -27,11 +27,11 @@ If profile samples carry the span's `trace_id` and `span_id`, the span sidebar s
 RED insights is available in Enterprise builds only.
 :::
 
-In **Organization Settings**, under **Traces**, turn on **Enable automatic RED insights for traces**. It is off by default. Every 6 hours, OpenObserve then creates rate, error-ratio, and p95-latency anomaly detectors for up to 20 of the busiest services, those with at least 10,000 requests in 24 hours. The detectors go in the **RED insights** alert folder, tagged `auto:red-insights`, which only admins see until it is shared. Turning the setting off deletes them at the next cycle.
+Go to **Settings** > **Organization Parameters** and, under **Traces**, turn on **Enable automatic RED insights for traces**. It is off by default. Every 6 hours, OpenObserve then creates rate, error-ratio, and p95-latency anomaly detectors for up to 20 of the busiest services, those with at least 10,000 requests in 24 hours. The detectors go in the **RED insights** alert folder, tagged `auto:red-insights`, which only admins see until it is shared. Turning the setting off deletes them at the next cycle.
+
+![Organization Parameters page with the Enable automatic RED insights for traces switch under the Traces heading](images/org-parameters-red-insights.png)
 
 Recent anomalies appear in an **Insights** strip in the [Service Catalog](service-catalog.md), with links to the traces for that window and to the detector's **Charts** tab.
-
-![TODO: screenshot of the Insights strip in the Service Catalog](images/placeholder.png)
 
 ## Service Catalog request counts
 
