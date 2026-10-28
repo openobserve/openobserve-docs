@@ -10,14 +10,14 @@ This guide provides information about how the Pipeline History feature in OpenOb
 ## Overview
 Pipeline History provides visibility into every pipeline run, including its execution time, status, and duration. Each record represents one instance of a scheduled or manually triggered pipeline execution.
 
-To open it, go to **Data > Pipelines** and click **Pipeline History** at the top of the page. Use the **Enter Pipeline Name** box to filter by pipeline and the time range selector to set the window.
+To open it, go to **Data > Pipelines** and open the **More actions** menu (☰) at the top right of the page and select **Pipeline History**. Use the **Enter Pipeline Name** box to filter by pipeline and the time range selector to set the window.
 
 :::note[Who can access]
 Any user who has permission to view, update, or delete pipelines can also view pipeline history. This ensures that users responsible for managing or maintaining pipelines can monitor their performance and investigate failures without requiring elevated access.
 :::
 
 ## How to interpret the Pipeline History table
-![pipeline-history](../../../images/pipeline-history.png)
+![Pipeline History page listing scheduled pipeline runs with their status](../../../images/pipeline-history-v2.png)
 The table lists each pipeline run with key execution details.
 
 :::note[Query range limit]
