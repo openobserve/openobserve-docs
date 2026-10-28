@@ -17,13 +17,13 @@ Secondary index functions allow you to filter and optimize queries using fields 
 
 **Example**:
 ```sql
-SELECT *
-FROM "default"
-WHERE k8s_namespace_name != 'ingress-nginx';
+SELECT _timestamp, k8s_namespace_name, k8s_pod_name
+FROM "docs_sql_examples"
+WHERE k8s_namespace_name != 'ingress-nginx'
 ```
-![not-equal](../../images/not-equal.png)
+![Logs results for k8s_namespace_name != ingress-nginx](../../images/not-equal-v2.png)
 
-This query returns logs from the `default` stream where the `k8s_namespace_name` field is any value other than `ingress-nginx`. Note that `k8s_namespace_name` is configured as a secondary index.
+This query returns logs from the `docs_sql_examples` stream where the `k8s_namespace_name` field is any value other than `ingress-nginx`. Note that `k8s_namespace_name` is configured as a secondary index.
 
 ## NOT IN
 **Syntax**: `field_name NOT IN ('value1', 'value2')` <br>
@@ -36,10 +36,10 @@ This query returns logs from the `default` stream where the `k8s_namespace_name`
 
 **Example**:
 ```sql
-SELECT *
-FROM "default"
-WHERE k8s_namespace_name NOT IN ('ingress-nginx', 'httptester');
+SELECT _timestamp, k8s_namespace_name, k8s_pod_name
+FROM "docs_sql_examples"
+WHERE k8s_namespace_name NOT IN ('ingress-nginx', 'httptester')
 ```
-![not-in-function](../../images/not-in-function.png)
+![Logs results for k8s_namespace_name NOT IN a list](../../images/not-in-function-v2.png)
 
-This query returns logs from the `default` stream where `k8s_namespace_name` is not any of the listed namespaces. Note that `k8s_namespace_name` is configured as a secondary index.
+This query returns logs from the `docs_sql_examples` stream where `k8s_namespace_name` is not any of the listed namespaces. Note that `k8s_namespace_name` is configured as a secondary index.
