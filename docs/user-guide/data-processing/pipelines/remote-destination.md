@@ -6,8 +6,8 @@ description: "Configure remote destinations to send transformed pipeline data to
 
 This document explains how to configure remote destinations in OpenObserve pipelines to send transformed data to external systems. It covers the setup process, technical architecture of the persistent queue mechanism, Write-Ahead Log (WAL) file operations, failure handling, retry logic, and performance optimization through environment variables.
 
-:::info[Availability]
-This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::note[Availability]
+This feature is available in the self-hosted Enterprise Edition. It is not available in OpenObserve Cloud or Open Source.
 :::
 
 ::::::tabs
@@ -20,32 +20,35 @@ A remote destination allows you to send transformed pipeline data to external sy
 :::accordion[Step 1: Access the Management page]
 ### Step 1: Access the Management page
 
-Navigate to the **Pipeline Destination** configuration page using either method:
+Open the destination form using either method:
 
-- **From the pipeline editor**: While setting up your pipeline, select Remote as the destination type > click the **Create New Destination** toggle. 
+- **From the pipeline editor**: While setting up your pipeline, add a **Remote** node. In the **External Destination** panel, turn on the **Create New Destination** toggle. 
 ![remote-destination-from-pipeline-editor](../../../images/remote-destination-from-pipeline-editor.png)
 ![remote-destination-config-from-pipeline-editor](../../../images/remote-destination-config-from-pipeline-editor.png)
-- **From Management**: Click the settings icon in the navigation menu > **Pipeline Destinations** > **Add Destination**.
+- **From Settings**: Go to **Settings** > **Pipeline Destinations** and click **New destination**.
 ![remote-destination-config-from-management](../../../images/create-destination-pipelines.png)
 :::
 
 ::::accordion[Step 2: Create the destination]
 ### Step 2: Create the destination
-In the **Add Destination** form:
+The form has two steps:
 
-1. **Name**: Provide a descriptive name for the external destination. For example, `remote_destination_dev`. 
-2. **URL**: Specify the endpoint where data should be sent. 
+- **Choose Type**: Select the destination type: **OpenObserve**, **Splunk**, **Elasticsearch / OpenSearch**, **Datadog**, **Dynatrace**, **Newrelic**, or **Custom**. The type pre-fills typical headers and settings. Click **Continue**.
+- **Connection**: Enter the **Connection Details** below.
+
+1. **Name**: Provide a descriptive name for the external destination. For example, `remote_destination_dev`. The characters `:`, `?`, `/`, `#` and spaces are not allowed. 
+2. **URL**: Specify the endpoint where data should be sent, without a trailing slash. 
 ![config-remote-destination](../../../images/add-destination-new-ui.png)
 :::note[To send the transformed data to another OpenObserve instance:]
-Use the following URL format: `https://<instance-url>/api/<organization>/<stream>/_json` <br>
-**Example**: To send data to a stream called `remote_pipeline` in the `default` organization on a different OpenObserve instance: `https://your-o2-instance.example.com/api/default/remote_pipeline/_json`
+Select the **OpenObserve** type. Enter the base URL of the instance in **URL**, for example `https://your-o2-instance.example.com`, and fill in **Organization** and **Stream Name**. <br>
+**Example**: To send data to a stream called `remote_pipeline` in the `default` organization on a different OpenObserve instance, set **URL** to `https://your-o2-instance.example.com`, **Organization** to `default`, and **Stream Name** to `remote_pipeline`.
 <br>
 After transformation, the transformed data will be sent to the `remote_pipeline` stream under the `default` organization in the destination OpenObserve instance.
 :::
 :::note[To send data to an external endpoint:]
-Ensure that you provide the complete URL of your external service endpoint.
+Ensure that you provide the base URL of your external service. With the **Custom** type, enter the path in **Endpoint Path**; it must start with `/`.
 :::
-3. **Method**: Select the HTTP method based on your requirement.
+3. **Method**: Select the HTTP method (GET, POST, or PUT) based on your requirement.
 ![config-remote-destination-method](../../../images/config-remote-destination-method.png)
 :::note[To send the transformed data to another OpenObserve instance:]
 Select **POST**.
@@ -53,7 +56,7 @@ Select **POST**.
 :::note[To send data to an external endpoint:]
 Select the method required by your external service.
 :::
-4. **Output Format**: Select the data format for transmission. 
+4. **Output Format**: Select the data format for transmission: **JSON**, **NDJSON**, **NestedEvent**, **ESBulk** (requires an index name), or **String Separated** (requires a separator). 
 ![config-remote-destination-output-format](../../../images/config-remote-destination-output-format.png)
 :::note[When to select JSON (default):]
 Standard JSON format. Use this when the destination API requires standard JSON arrays or objects. **Use JSON, when you send the transformed data to another OpenObserve instance**.
@@ -62,7 +65,7 @@ Standard JSON format. Use this when the destination API requires standard JSON a
 Each event is sent as a separate JSON object on its own line. Use this when sending the transformed data to observability platforms that expect NDJSON, for example, Datadog and Splunk. 
 :::
 **Important**: Always verify the data format expected by your destination system before selecting. Check the destination's API documentation or ingestion requirements to ensure compatibility.
-5. **Headers**: To send data to an external endpoint, you may need to provide authentication credentials, if required. In the **Header** field, enter Authorization and in the **Value** field, provide the authentication token.
+5. **Headers**: To send data to an external endpoint, you may need to provide authentication credentials, if required. Under **Headers**, enter `Authorization` as the header name and the authentication token as the value. Most types add a template header, such as `Authorization: Basic <token>`, for you to fill in.
 :::note[To send the transformed data to another OpenObserve instance:]
 ![o2-instance-add-destination](../../../images/o2-instance-add-destination.png)
 1. Log in to your OpenObserve instance. 
@@ -81,7 +84,7 @@ Add the authentication headers required by your external service. This could be 
 :::accordion[Step 3: Use in your pipeline]
 ### Step 3: Use in your pipeline
 
-After creating the remote destination, you can select it from the **Destination** dropdown when configuring the remote destination node in your pipeline. The dropdown displays all previously created remote destinations with their names and URLs for easy identification.
+After creating the remote destination, you can select it from the **Destination** dropdown in the **External Destination** panel of the **Remote** node in your pipeline. The dropdown displays all previously created remote destinations with their names and URLs for easy identification.
 ![use-pipeline-destination](../../../images/use-pipeline-destination.png)
 :::
 
@@ -92,8 +95,8 @@ After creating the remote destination, you can select it from the **Destination*
 | ZO_PIPELINE_REMOTE_STREAM_CONCURRENT_COUNT | • Defines the number of concurrent threads the exporter uses to send data from Write-Ahead Log (WAL) files to the remote destination.<br>• Controls export parallelism. Higher values increase throughput but also increase CPU usage.<br>• Set this value to match or slightly exceed the number of CPU cores. Increase when export speed lags behind ingestion, and decrease if CPU usage stays above 80 percent. |
 | ZO_PIPELINE_FILE_PUSH_BACK_INTERVAL | • Specifies how long a reader waits before checking the queue again after catching up to the writer.<br>• Balances latency and CPU utilization. Lower values reduce event latency but raise CPU load; higher values lower CPU usage but increase latency.<br>• Use 1 second for low-latency pipelines. Increase to 5–10 seconds in resource-limited systems or when small delays are acceptable. |
 | ZO_PIPELINE_SINK_TASK_SPAWN_INTERVAL_MS | • Determines how often the scheduler assigns new export tasks to reader threads, measured in milliseconds.<br>• Controls backlog clearing speed and CPU overhead. Shorter intervals improve responsiveness but raise CPU usage.<br>• Use 10–50 ms to clear persistent backlogs faster. Use 200–500 ms to reduce CPU load in low-throughput environments. Keep 100 ms for balanced performance. |
-| ZO_PIPELINE_MAX_RETRY_COUNT | • Sets the maximum number of retry attempts per WAL file after export failure.<br>• Prevents endless retries for failed exports and limits disk growth when destinations are unreachable.<br>• Increase to 10 when the destination is unreliable or often unavailable. Keep the default of 6 for stable networks. |
-| ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS | • Defines the longest allowed interval between retry attempts during exponential backoff. <br>• Ensures failed files are retried at least once in the defined period and prevents retries from spacing out indefinitely.<br>• Keep the default 24 hours for typical conditions. Increase to 48 hours if the destination experiences long outages. |
+| ZO_PIPELINE_MAX_RETRY_COUNT | • Sets the maximum number of retry attempts per WAL file after export failure. Default: 10.<br>• Prevents endless retries for failed exports and limits disk growth when destinations are unreachable.<br>• Increase it when the destination is unreliable or often unavailable. |
+| ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS | • Defines how long, in hours, a failed file keeps being retried before the system gives up on it. Default: 24.<br>• Increase to 48 hours if the destination experiences long outages. |
 :::::
 :::::tab[Overview]
 <br>
@@ -121,8 +124,8 @@ Pipeline > Transformations > Disk Storage > Transmission > Cleanup
 ## Write-Ahead Log files
 Write-Ahead Log files, or WAL files, are the disk storage mechanism used in stage 3. These are files written to disk that temporarily hold data between processing and transmission.
 
-- **How many WAL files are created in advance**: The total number of WAL files created depends on how many remote destinations you have configured. For each remote destination, OpenObserve creates the number of files specified in the `ZO_MEMTABLE_BUCKET_NUM` environment variable.
-- **Where these files are stored**T: he files are written to the `/data/remote_stream_wal/` directory on disk.
+- **How many WAL files are created in advance**: The total number of WAL files created depends on how many remote destinations you have configured. For each remote destination, OpenObserve creates the number of files specified in the `ZO_MEM_TABLE_BUCKET_NUM` environment variable. Its default, `0`, derives the number from the memtable budget, between 1 and the number of CPU cores.
+- **Where these files are stored**: The files are written to the `remote_stream_wal/` directory under the data directory, `/data/remote_stream_wal/` by default. Set `ZO_PIPELINE_REMOTE_STREAM_WAL_DIR` to change it.
 
 :::note[Note]
 During normal operation, when data flows through the pipeline, these files are simultaneously being written to and read from. Files in this state are called **active files**.
@@ -132,7 +135,7 @@ During normal operation, when data flows through the pipeline, these files are s
 The WAL file system uses a multi-threaded architecture to achieve high throughput.
 
 ### Writer thread
-The system uses multiple writer threads, equal to the `ZO_MEMTABLE_BUCKET_NUM` setting, to add data to WAL files. 
+The system uses multiple writer threads, equal to the `ZO_MEM_TABLE_BUCKET_NUM` setting, to add data to WAL files. 
 Each writer thread:
 
 - Receives transformed data from the pipeline
@@ -143,7 +146,7 @@ Each writer thread:
 **Important**: A file reaches capacity when either of two conditions is met: the file size reaches `ZO_PIPELINE_MAX_FILE_SIZE_ON_DISK_MB` or the file has been open for `ZO_PIPELINE_MAX_FILE_RETENTION_TIME_SECONDS`.
 
 ### Reader threads
-Multiple reader threads, 30 by default, handle transmission to the remote destination. Each reader thread:
+Multiple reader threads, 30 by default (`ZO_PIPELINE_REMOTE_STREAM_CONCURRENT_COUNT`), handle transmission to the remote destination. Each reader thread:
 
 - Selects a WAL file that contains unsent data
 - Reads data from the file
@@ -166,30 +169,30 @@ All data in the file has been sent and the destination has acknowledged receipt.
 <br><br>
 **Condition 2: Disk Space Limit**
 <br>
-When remote destination WAL files consume 50% of available disk space (default), the system stops writing new files and deletes the oldest files to free space. Deletion occurs regardless of transmission status. This limit prevents remote destination operations from consuming disk space needed by other OpenObserve components like data ingestion and query processing. The disk space limit is configurable via the `ZO_PIPELINE_WAL_SIZE_LIMIT` environment variable. On a 1 TB disk with the default 50% limit, remote destination files will not exceed approximately 500 GB.
+When remote destination WAL files reach the size limit, the system stops writing new files and deletes the oldest files to free space. Deletion occurs regardless of transmission status. This limit prevents remote destination operations from consuming disk space needed by other OpenObserve components like data ingestion and query processing. By default, the limit is 50% of the free disk space, capped at 100 GB. To set it in MB, use the `ZO_PIPELINE_WAL_SIZE_LIMIT` environment variable.
 <br><br>
 **Condition 3: Data Retention Policy**
 <br>
 WAL files containing data older than the stream's retention period are deleted regardless of transmission status. Each pipeline inherits retention settings from its associated stream. If a stream has 30-day retention, WAL files with data older than 31 days are deleted even if never transmitted. This aligns remote destination data lifecycle with overall retention policy.
 <br><br>
 **Condition 4: Retry Exhaustion** <br>
-After repeated transmission failures, the system stops retrying the file. By default, this happens after 6 failed attempts. The file then remains on disk but is no longer scheduled for transmission.
+After repeated transmission failures, the system stops retrying the file. By default, this happens after 10 failed attempts, or once the file has been retried for 24 hours. The file is then deleted.
 
-- This behavior can be changed using the `ZO_PIPELINE_REMOVE_WAL_FILE_AFTER_MAX_RETRY` configuration. When set to true, failed files are permanently deleted instead of being kept on disk.
+- This behavior can be changed using the `ZO_PIPELINE_REMOVE_FILE_AFTER_MAX_RETRY` configuration (default `true`). When set to `false`, failed files are kept on disk but are no longer scheduled for transmission.
 - The retry limit is configurable via `ZO_PIPELINE_MAX_RETRY_COUNT`.
 
 ## Failure handling and retry
 
-When transmission fails, the system waits before retrying. Wait times increase with each failure: 5 minutes after the first failure, 10 minutes after the second, 20 minutes after the third, and so on, doubling each time. This is called exponential backoff. It gives a failed or overloaded destination time to recover instead of immediately retrying, which would consume bandwidth and potentially worsen the problem.
+When transmission fails, the system waits before retrying. Wait times start at 5 seconds and double with each failure: 10 seconds after the first failure, 20 seconds after the second, 40 seconds after the third, and so on. This is called exponential backoff. It gives a failed or overloaded destination time to recover instead of immediately retrying, which would consume bandwidth and potentially worsen the problem.
 
-- **Maximum wait time**: Retry intervals cannot exceed 24 hours (configurable via `ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS`), ensuring files are retried at least once daily.
+- **Maximum wait time**: A single retry interval cannot exceed 1 hour. A file is retried for at most 24 hours in total (configurable via `ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS`).
 - **Random variation**: The system adds small random delays to retry times. This prevents many failed files from retrying at the exact same moment and overwhelming the destination. This is known as preventing the "thundering herd" problem, where multiple requests hitting a recovering system simultaneously can cause it to fail again.
-- **Retry limit**: After 6 failed attempts (configurable via `ZO_PIPELINE_MAX_RETRY_COUNT`), the system stops retrying. File handling then follows the rules described in Condition 4 of the  section.
+- **Retry limit**: After 10 failed attempts (configurable via `ZO_PIPELINE_MAX_RETRY_COUNT`), the system stops retrying. File handling then follows the rules described in Condition 4 of the [WAL file lifecycle](#wal-file-lifecycle) section.
 
 ## Persistent queue architecture
 The combination of disk-based storage, multi-threaded processing, FIFO ordering, and retry logic implements a system pattern known as a persistent queue. A persistent queue is a queue that stores items on disk so it survives restarts and failures, preserves order, and resumes transmission without duplication.
 <br>
-Internally, OpenObserve achieves this pattern through the same components described earlier. Write-Ahead Log files act as the queue storage, the exporter manages the queue, a single writer thread adds transformed records, and multiple reader threads transmit them to the destination in order. Together, these elements ensure fault-tolerant and consistent data flow across restarts and retries.
+Internally, OpenObserve achieves this pattern through the same components described earlier. Write-Ahead Log files act as the queue storage, the exporter manages the queue, writer threads add transformed records, and multiple reader threads transmit them to the destination in order. Together, these elements ensure fault-tolerant and consistent data flow across restarts and retries.
 
 ## Storage organization of WAL files
 
@@ -214,7 +217,7 @@ The system prevents disk pileup on ingester nodes by matching export rates with 
 | ZO_PIPELINE_REMOTE_STREAM_CONCURRENT_COUNT | • Defines the number of concurrent threads the exporter uses to send data from Write-Ahead Log (WAL) files to the remote destination.<br>• Controls export parallelism. Higher values increase throughput but also increase CPU usage.<br>• Set this value to match or slightly exceed the number of CPU cores. Increase when export speed lags behind ingestion, and decrease if CPU usage stays above 80 percent. |
 | ZO_PIPELINE_FILE_PUSH_BACK_INTERVAL | • Specifies how long a reader waits before checking the queue again after catching up to the writer.<br>• Balances latency and CPU utilization. Lower values reduce event latency but raise CPU load; higher values lower CPU usage but increase latency.<br>• Use 1 second for low-latency pipelines. Increase to 5–10 seconds in resource-limited systems or when small delays are acceptable. |
 | ZO_PIPELINE_SINK_TASK_SPAWN_INTERVAL_MS | • Determines how often the scheduler assigns new export tasks to reader threads, measured in milliseconds.<br>• Controls backlog clearing speed and CPU overhead. Shorter intervals improve responsiveness but raise CPU usage.<br>• Use 10–50 ms to clear persistent backlogs faster. Use 200–500 ms to reduce CPU load in low-throughput environments. Keep 100 ms for balanced performance. |
-| ZO_PIPELINE_MAX_RETRY_COUNT | • Sets the maximum number of retry attempts per WAL file after export failure.<br>• Prevents endless retries for failed exports and limits disk growth when destinations are unreachable.<br>• Increase to 10 when the destination is unreliable or often unavailable. Keep the default of 6 for stable networks. |
-| ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS | • Defines the longest allowed interval between retry attempts during exponential backoff.<br>• Ensures failed files are retried at least once in the defined period and prevents retries from spacing out indefinitely.<br>• Keep the default 24 hours for typical conditions. Increase to 48 hours if the destination experiences long outages. |
+| ZO_PIPELINE_MAX_RETRY_COUNT | • Sets the maximum number of retry attempts per WAL file after export failure. Default: 10.<br>• Prevents endless retries for failed exports and limits disk growth when destinations are unreachable.<br>• Increase it when the destination is unreliable or often unavailable. |
+| ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS | • Defines how long, in hours, a failed file keeps being retried before the system gives up on it. Default: 24.<br>• Increase to 48 hours if the destination experiences long outages. |
 :::::
 ::::::

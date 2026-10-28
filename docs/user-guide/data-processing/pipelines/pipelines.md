@@ -17,7 +17,7 @@ To allow a user to work with pipelines, the role must have permissions for the *
 :::
 
 :::note[Where to find pipelines]
-You can access pipelines from the main navigation panel. Select **Pipelines** to view, create, and manage real-time and scheduled pipelines.
+In the main navigation panel, go to **Data > Pipelines** to view, create, and manage real-time and scheduled pipelines. The page has three tabs: **Pipelines**, **Functions**, and **Enrichment Tables**.
 :::
 
 
@@ -60,7 +60,7 @@ The transformed data is written to one or more destinations:
 
 - **Stream**: The supported destination stream types are Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
 ![Pipelines in OpenObserve](../../../images/pipeline-new-realtime-destination.png)
-- **Remote**: Select **Remote** if you wish to send data from the pipeline to [external destinations](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/).
+- **Remote**: Select **Remote** if you wish to send data from the pipeline to [external destinations](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/). Remote destinations are available in the self-hosted Enterprise Edition.
 <br>
 **Default destination added automatically** <br>
 When you select a source stream for a real-time pipeline, OpenObserve automatically adds a destination that points back to the same stream. This ensures that your original data continues to be stored in the source stream even when you add filters or functions in the pipeline.
@@ -90,15 +90,15 @@ To create a scheduled pipeline, you need an existing stream, which serves as the
 :::
 
 ::::accordion[Query]
-You define a SQL query that fetches historical data from the source stream. For metrics, you can also use PromQL. The query is controlled by **Frequency**, **Period**, and optional **Cron** settings. 
+You define a SQL query that fetches historical data from the source stream. For metrics, you can also use PromQL. The query is controlled by the **Check every** (frequency), **Look back window** (period), and optional **Enable Cron** settings. 
 ![Scheduled Pipelines in OpenObserve](../../../images/configure-scheduled-pipelines.png)
 
 :::note[Frequency, period, and cron]
 Scheduled pipelines run according to the **Frequency** and **Period** you configure: 
 
-- **Frequency** defines how often the query runs. For example, a frequency of five minutes runs the query every five minutes.
-- **Period** defines the time range the query reads in each run. usually be the same as the frequency. For example, a period of five minutes means the query fetches the data ingested in the last five minutes.
-- **Cron** allows you to define custom execution schedules in a specific timezone.
+- **Frequency** (**Check every**) defines how often the query runs. For example, a frequency of five minutes runs the query every five minutes.
+- **Period** (**Look back window**) defines the time range the query reads in each run. Without cron, the period must be the same as the frequency. For example, a period of five minutes means the query fetches the data ingested in the last five minutes.
+- **Cron** (**Enable Cron**) allows you to define custom execution schedules in a specific timezone.
 For example, the cron expression `0 0 1 * *` with timezone `Asia/Kolkata` runs the query at midnight on the first day of each month.
 :::
 ::::
@@ -112,7 +112,7 @@ After the query runs, the retrieved data passes through transform nodes. It allo
 The transformed data is written to one or more destinations.
 
 - **Stream** destinations can be Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
-- **Remote** destinations send data to external systems. To learn more, see [Remote destinations](remote-destination.md).
+- **Remote** destinations send data to external systems. They are available in the self-hosted Enterprise Edition. To learn more, see [Remote destinations](remote-destination.md).
 :::
 
 ### When to use scheduled pipelines

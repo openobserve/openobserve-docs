@@ -6,7 +6,7 @@ description: Understand the purpose, structure, and usage of the query_recommend
 
 This document explains the function and application of the `query_recommendations` stream within the `_meta` organization in OpenObserve. It provides guidance for users who want to optimize query performance using system-generated recommendations based on observed query patterns.
 
-:::info[Availability]
+:::note[Availability]
 This feature is available in Enterprise Edition. 
 :::
 

@@ -48,7 +48,7 @@ To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEF
 
 ### How to add a User-Defined Schema
 
-1. From the **Streams** page, click the **Stream Details** option under the **Actions** column.   
+1. From the **Streams** page, click the **Stream Detail** icon in the **Actions** column.   
 2. Go to the **Schema Settings** tab.  
 3. Select the fields you want to retain from the **All Fields** section.  
 4. Click **Add to Defined Schema**.  
@@ -65,7 +65,7 @@ After you save the changes:
 - Only fields under **User Defined Schema** will be searchable.  
 - Fields not included will no longer appear in queries or field selectors.
 
-You can also manually add a field to the schema using the **Add Field(s)** button. This is useful when a field may not have appeared in the logs yet but is expected later. For example, an `error_code` field that appears only during failures can be added before the actual error happens using this.
+You can also manually add a field to the schema using the **Add Fields** (**+**) button. This is useful when a field may not have appeared in the logs yet but is expected later. For example, an `error_code` field that appears only during failures can be added before the actual error happens using this.
 
 
 ## Sensitive Data Redaction (SDR)
@@ -78,15 +78,15 @@ For detailed steps to create and manage SDR rules, refer to the [Sensitive Data 
 The Schema Settings tab in the Stream Details page allows you to view, search, and manage fields in your stream schema. You can add, remove, or delete fields as needed to maintain accurate schema definitions for your data.
 
 ### Search fields
-Use the search bar in the top-right corner to quickly find a **field by name** or **index type**.
+Use the **Search for a field** box to quickly find a **field by name** or **index type**.
 This feature helps locate specific fields efficiently, especially in large schemas.
 
 ### Add field
 To add a new field manually: 
-1. Select the **+** icon next to the search bar.
+1. Select the **+** (**Add Fields**) icon next to the search box. This button is shown when user-defined schemas are enabled (`ZO_ALLOW_USER_DEFINED_SCHEMAS=true`).
 ![add-new-fields](../../../images/add-new-fields.png)
-2. The **Add Field**(s) section appears above the field list.
-3. Enter the **Field Name** and **Data Type**.
+2. The **Add Fields** section appears above the field list.
+3. Enter the **Field Name** and **Data Type**, and optionally an **Index Type**.
 ![field-name-data-type](../../../images/field-name-data-type.png)
 4. Select **Update Settings** to save the new field to the schema.
 ![update-settings](../../../images/update-settings.png)
@@ -101,7 +101,7 @@ This action removes the selected fields from the **User Defined Schema** but doe
 
 ### Delete fields
 To delete fields from the schema, first select one or more fields using the checkbox beside each field name.
-Then select Delete at the bottom of the panel.
+Then select **Delete** at the bottom of the panel.
 
 This action permanently deletes the selected fields from the schema. Use this action carefully, as it directly modifies the schema definition.
 

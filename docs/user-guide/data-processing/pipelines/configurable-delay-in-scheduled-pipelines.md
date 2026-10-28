@@ -16,7 +16,7 @@ When editing the **Associate Query** page:
 2. Select **Validate and Close**.
 
 :::note[Note]
-Since Delay is a required field when setting up a scheduled pipeline, enter 0 minutes if you want the pipeline to run exactly at the scheduled time without any delay.
+Set **Delay** to 0 minutes if you want the pipeline to run exactly at the scheduled time without any delay.
 :::
 
 :::note[Example]
@@ -37,7 +37,7 @@ At 10:00 AM (scheduled time), the pipeline executes at 10:02 AM, processing data
 :::
 
 ## Related links
-- [Pipelines in OpenObserve](index.md)
+- [Pipelines in OpenObserve](pipelines.md)
 - [Create and Use Real-time Pipeline](create-and-use-real-time-pipeline.md)
 - [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
 - [Manage Pipelines](manage-pipelines.md)

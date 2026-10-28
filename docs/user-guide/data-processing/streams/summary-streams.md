@@ -6,7 +6,7 @@ description: Learn how to use summary streams to speed up dashboards with exampl
 
 This guide explains how summary streams work, who can use them, and how to create and apply them to optimize dashboards. It also includes example queries, troubleshooting steps, and performance comparison insights to help you make informed decisions.
 
-:::info[For Enterprise Users]
+:::note[For Enterprise Users]
 Enterprise users should consider using **Aggregation Cache** instead of summary streams for optimal performance. In production testing, these features reduced dashboard load times by up to **97 percent**, significantly outperforming summary streams in most scenarios.
 :::
 
@@ -16,7 +16,7 @@ A summary stream is a stream that contains pre-aggregated results, generated per
 
 Dashboards can then read from this pre-computed summary stream instead of querying raw data directly. This reduces the volume of data scanned during query execution and improves panel load times.
 
-:::info[Note]
+:::note[Note]
 Based on production testing, summary streams have improved dashboard performance by up to **95 percent** when compared to querying raw data.
 :::
 
@@ -154,14 +154,14 @@ LIMIT 200000
 
 :::accordion[Step 4: Create the summary pipeline]
 
-1. Navigate to **Pipelines > Add Pipeline**.  
+1. Navigate to **Pipelines** and click **New pipeline**.  
 2. From the **Source** section, add a **Query Node** and select **Edit**.  
-3. In the **Associate Query** screen, select the **Stream Type** and **Stream Name**.  
-4. Set **Frequency** as per your data freshness needs.  
+3. In the **Associate Query** screen, under **Build Query**, select the **Stream Type** and **Stream Name**.  
+4. Under **Set Variables**, set **Check every** (the frequency) as per your data freshness needs.  
 <br>
 ![Create the summary pipeline](../../../images/create-summary-stream-pipeline.png)
-5. In the Sql Query editor, enter the summary query. 
-6. Click **Run Query** to test the summary query. 
+5. In the **Sql Query** editor, enter the summary query. 
+6. Click **Run query** to test the summary query. 
 7. Select **Validate and Close** to save the changes.
 8. From the **Destination** section, add a **Stream Node**.
 <br>
@@ -288,7 +288,7 @@ By default, summary streams do not include data that arrives after the scheduled
 
 **Solutions:**
 
-- Check pipeline execution logs in the pipeline interface.  
+- Check the pipeline's runs on the [Pipeline History](../pipelines/pipeline-history.md) page.  
 - Review and adjust `WHERE` conditions in the summary query.  
 - Verify that the source stream contains matching data.  
 - Wait 24–48 hours for the summary stream to populate.  
@@ -331,5 +331,5 @@ By default, summary streams do not include data that arrives after the scheduled
 **Solutions:**
 
 - Check the `errors` stream in the `_meta` organization for events related to pipeline execution failures.  
-- If `ZO_USAGE_REPORTING_ENABLED` is set to `true`, monitor the `triggers` stream to verify execution status.  
+- If `ZO_USAGE_REPORTING_ENABLED` is `true` (the default), monitor the `triggers` stream to verify execution status, or open the [Pipeline History](../pipelines/pipeline-history.md) page.  
 :::

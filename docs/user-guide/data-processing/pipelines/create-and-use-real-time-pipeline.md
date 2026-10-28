@@ -16,9 +16,9 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
 :::accordion[Step 1: Open the pipeline editor]
 ### Step 1: Open the pipeline editor
 1. Log in to OpenObserve.
-2. In the left navigation panel, select **Pipelines**. By default, the system opens the **Pipelines** tab. 
+2. In the left navigation panel, go to **Data > Pipelines**. By default, the system opens the **Pipelines** tab. 
 ![Pipelines tab](../../../images/pipelines-tab.png)
-3. Click **Add Pipeline** at the top-right corner.
+3. Click **New pipeline** at the top-right corner.
 ![Open the pipeline editor](../../../images/pipeline-editor.png)
 :::
 :::accordion[Step 2: Enter a pipeline name]
@@ -30,7 +30,7 @@ Provide a unique name for the pipeline.
 ::::accordion[Step 3: Configure the Source node]
 ### Step 3: Configure the Source node
 
-1. From the **Source** section, drag the **Stream** node into the editor.
+1. From the **Source** section, drag the **Stream** node into the editor. On an empty canvas, you can also click **Choose a Source** and select **Stream**.
 2. Edit the source node:
 
 - Select the **Stream Type**.
@@ -51,14 +51,14 @@ If you remove this default destination and add only filtered routes, events that
 :::accordion[Step 4: Configure the Transform node]
 ### Step 4: Configure the Transform node
 
-1. From the **Transform** section, drag either a **Condition** or **Function** node into the editor.
-2. If you add a Condition node:
+1. From the **Transform** section, drag either a **Conditions** or **Function** node into the editor. You can also hover over a node and click **+** to pick the next step.
+2. If you add a Conditions node:
     ![condition-node](../../../images/condition-node.png)
 
-    1. In the **Associate Conditions** screen, select the field name in the **Column** drop-down list. This list displays the fields detected in the source stream.
-    2. Select an operator from the **Operator** drop-down list.
+    1. In the **Associate Condition** screen, select the field name in the **Column** drop-down list. This list displays the fields detected in the source stream. To use a field that is not listed, type its name and press **Enter**.
+    2. Select an operator.
     3. Enter a value in the **Value** input box.
-    4. Add more conditions if needed.
+    4. Add more conditions with **Condition**, or nested AND/OR groups with **Condition Group**, if needed.
 
     :::note[Important]
     **Condition nodes require a stream schema.** <br>
@@ -81,14 +81,12 @@ If you remove this default destination and add only filtered routes, events that
     :::note[To create a new function:]
     ![create-new-function](../../../images/create-new-function.png)
 
-    1. Enable **Create new function** toggle.
-    2. In the **Associate Function** tab, enter the function name. 
-    3. Open the **Query** tab. 
-    4. Select the stream type, stream name, and duration for which you want to query the data. 
-    5. Click the **Run Query** option at the top-right corner of the **Query** tab. 
-    6. In the **Function** tab, write a VRL function. 
-    7. Click the **Test Function** button at the top-right corner of the screen. 
-    8. Click **Save** to save the function. 
+    1. In the **Associate Function** panel, enable the **Create New Function** toggle. The function editor opens in the panel.
+    2. Enter the function name. 
+    3. Write a VRL function. Pipelines run VRL functions only.
+    4. To test it, in the **Query** section select the stream type, stream name, and duration, and click **Run query**. The results appear under **Events**. 
+    5. Click **Test Function** and check the result under **Output**. 
+    6. Click **Save** to save the function. 
     :::
 
 4. The **After Flattening** toggle is enabled by default. It ensures the function processes normalized data. Disable this toggle only if you need the original structure.
@@ -111,7 +109,7 @@ A destination defines where the processed events are written. You can forward da
 
 1. Drag a **Stream** node into the editor.
 2. In the **Associate Stream** panel, configure the destination stream.
-3. Select an existing stream or create a new one. Stream creation follows the same configuration as shown in Step 3.  
+3. Select the **Stream Type**, then select an existing stream in **Stream Name**, or type a new name to create a new stream.  
 
     :::note[Note]
     - For real-time pipelines, you can select **logs**, **metrics**, or **traces** as the destination stream type.  
@@ -134,8 +132,8 @@ A destination defines where the processed events are written. You can forward da
 **To add an external destination:** 
 ![stream-destination](../../../images/stream-destination.png)
 
-1. Drag a **Remote** node into the editor.
-2. In the **External Destination** panel, either select an existing destination or enable **Create new Destination** and fill in the required details such as name, URL, method, output format, and headers.
+1. Drag a **Remote** node into the editor. The **Remote** node is available in the self-hosted Enterprise Edition.
+2. In the **External Destination** panel, either select an existing destination or enable **Create New Destination** and fill in the required details such as destination type, name, URL, method, output format, and headers.
 4. Click **Save**.
 
 > For detailed steps on configuring external destinations, see the [Remote Destination](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/) guide. 
@@ -176,7 +174,7 @@ Each new event ingested into the source stream is processed instantly.
 :::
 
 ## Related links
-- [Pipelines in OpenObserve](index.md)
+- [Pipelines in OpenObserve](pipelines.md)
 - [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
 - [Import and Export Pipelines](import-and-export-pipelines.md)
 - [Manage Pipelines](manage-pipelines.md)

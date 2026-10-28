@@ -1,5 +1,5 @@
 ---
-title: use-pipelines
+title: Use Pipelines
 description: Create and run real-time or scheduled pipelines in OpenObserve to transform and route data between streams using queries, conditions, and functions.
 ---
 
@@ -13,8 +13,8 @@ This guide shows you how to create and use real-time and scheduled pipelines in 
 
 ### Step 1: Open the pipeline editor
 1. Log in to OpenObserve.
-2. From the navigation panel, select **Pipelines**.
-3. In the **Pipelines** tab, click the **Add Pipeline** button in the top-right corner. 
+2. From the navigation panel, go to **Data > Pipelines**.
+3. In the **Pipelines** tab, click the **New pipeline** button in the top-right corner. 
 This opens up the pipeline editor.
 
 ![Pipeline Editor in OpenObserve](../../../images/pipeline-new-editor.png)
@@ -35,21 +35,21 @@ This opens up the pipeline editor.
         - In the **Build Query** section, select the **Stream Type** (Logs, Metrics, or Traces) and **Stream Name**. Use the seach bar to search for the desired field in the source stream. 
         - In the **SQL Query** section, write a query to fetch data from a source. For **Metrics**, you also have the option to write **PromQL**.
         ![scheduled pipeline](../../../images/create-pipeline-sch-query.png)
-        - Under **Set Variables**, schedule the query execution by setting the **Frequency** and **Period**. For more details, visit [Pipelines in OpenObserve](index.md).
-        - Adjust the time filter and click **Run Query** to view the output.
+        - Under **Set Variables**, schedule the query execution by setting **Check every** (frequency) and **Look back window** (period). For more details, visit [Pipelines in OpenObserve](pipelines.md).
+        - Adjust the time filter and click **Run query** to view the output.
         ![scheduled pipeline](../../../images/create-pipeline-sch-output.png) 
         <br>In the above example, data is ingested periodically into the stream `default`. The query runs every 6 minutes and fetches all data that was ingested into the stream `default` in the preceding 6-minute interval.
-        **Note**: You can configure the source query in full screen mode. Click the full screen icon next to the **Run Query** button at the top right corner.
+        **Note**: You can configure the source query in full screen mode. Click the full screen icon next to the **Run query** button at the top right corner.
 
  
 3. Click **Save** to confirm the source node.
 
 
 ### Step 4: Configure the Transform node
-1. From the **Transform** section, drag a **Function** or **Condition** node into the pipeline editor.
+1. From the **Transform** section, drag a **Function** or **Conditions** node into the pipeline editor.
 2. Click the edit icon to configure the selected node.
 
-    - **For a Condition node**: In the **Associate Condition** form, add one or more conditions to refine the data. Select the field name from the drop-down menu. <br>
+    - **For a Conditions node**: In the **Associate Condition** form, add one or more conditions to refine the data. Select the field name from the drop-down menu. <br>
         **Note**: If the selected source stream is active, the drop-down list shows all the field names from the ingested data.
 
     ![condition in realtime pipeline](../../../images/pipeline3_transform_using_condition.png)  
@@ -59,23 +59,23 @@ This opens up the pipeline editor.
     <br>
     To create a new function:
 
-        1. In the **Associate Function** form, enable the **Create new function** toggle.
+        1. In the **Associate Function** form, enable the **Create New Function** toggle.
         ![function in realtime pipeline](../../../images/Pipeline-new1-add-function.png)
-        2. In the **Query** tab:
+        2. In the **Query** section:
 
             - Select the **Stream Type**. Enter the **Stream Name** from where data will be fetched. Select the appropriate **Duration**.  
             - In the **Query** to fetch the data as per requirement.
-            - Use the **Run Query** button to view the query result. The query result is shown in the **Event** tab.
+            - Use the **Run query** button to view the query result. The query result is shown under **Events**.
 
-        3. In the **Function** tab: 
+        3. In the function editor: 
         
             - Write the **Vector Remap Language (VRL)** function. 
-            - Click the **Test Function** button and see the output in the **Output** tab.
+            - Click the **Test Function** button and see the result under **Output**.
             - If the output displays desired result, click **Save**.   
             After saving, you can associate the function with pipelines in the **Associate Function** form. 
         ![new function in realtime pipeline](../../../images/Pipeline-new1-add-function2.png)
 
-    **Note**: In the **Associate Function** fom, the **After Flattening** toggle is enabled by default. Disable it only if necessary.
+    **Note**: In the **Associate Function** form, the **After Flattening** toggle is enabled by default. Disable it only if necessary.
     <br>The **After Flattening** toggle determines whether the function processes data after it has been transformed into a simpler, flat structure. When enabled (default), the function operates on pre-processed, structured data, making it easier to analyze. Disabling it allows the function to work with the original data.
     <br>For more details, see the [Functions Guide](../functions/functions-in-openobserve.md).
 
@@ -98,7 +98,7 @@ Events that do not match the condition are dropped. They are not stored in the s
 2. Click the edit icon in the destination **Stream** node.
 3. In the **Associate Stream** form:
 
-    - From the **Stream Name** drop-down, select an existing stream or toggle **Create New Stream** to create a new destination stream.
+    - From the **Stream Name** drop-down, select an existing stream, or type a new name to create a new destination stream.
     - Select the **Stream Type**.
 
 4. Click **Save** to confirm the destination node.

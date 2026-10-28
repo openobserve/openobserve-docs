@@ -1,6 +1,6 @@
 ---
 title: Field and Index Types in Streams
-description: Define stream fields in OpenObserve with data types (utf8, int64, boolean) and index types like full-text search, bloom filter, and partitions to speed queries.
+description: Define stream fields in OpenObserve with data types (Utf8, Int64, Boolean) and index types like full-text search, bloom filter, and partitions to speed queries.
 ---
 
 This guide explains how to define and configure stream fields in OpenObserve, including supported field types and index options. 
@@ -19,17 +19,17 @@ When creating a stream, each field requires three components:
 
 Each field in a stream must have a defined data type. OpenObserve supports the following:
 
-- **utf8**: Text fields. Use for messages, names, or IDs.
-- **int64**: Signed 64-bit integers. Use for counts, timestamps, or status codes.
-- **uint64**: Unsigned 64-bit integers. Use for numeric IDs or large counters.
-- **float64**: Floating point numbers. Use for durations, sizes, or metrics.
-- **boolean**: True or false flags. Use for condition checks or binary states.
+- **Utf8**: Text fields. Use for messages, names, or IDs.
+- **Int64**: Signed 64-bit integers. Use for counts, timestamps, or status codes.
+- **Uint64**: Unsigned 64-bit integers. Use for numeric IDs or large counters.
+- **Float64**: Floating point numbers. Use for durations, sizes, or metrics.
+- **Boolean**: True or false flags. Use for condition checks or binary states.
 
 Maintain consistent data types across all records. Mixed types in the same field can cause indexing and query issues.
 
 ## Full text search
 
-Each field may use one index type to accelerate queries. Once applied, it cannot be changed. Choose based on query patterns and field characteristics.
+Choose an index type based on query patterns and field characteristics. Changing the index type after data is stored can lead to inconsistent query results, so choose it before ingestion.
 
 - **Best for**: utf8 fields with unstructured text such as logs or messages.
 - **Common filters**: `match_all('timeout')`.
@@ -70,6 +70,8 @@ Each field may use one index type to accelerate queries. Once applied, it cannot
 - **Avoid if**: The field has no meaningful prefix structure.
 
 ## Hash partition
+
+The UI offers 8, 16, 32, 64, or 128 buckets.
 
 - **Best for**: Fields with many values that are unevenly distributed.
 - **Common filters**: Equality filters, such as `user_id = 'u4567'`.

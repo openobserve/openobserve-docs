@@ -21,7 +21,7 @@ To access the enrichment table interface:
 
 1. Select the appropriate organization from the dropdown in the top-right corner.
 2. Navigate to the left-hand menu.
-3. Select **Pipelines > Enrichment Tables**.
+3. Select **Data > Enrichment Tables**, or go to **Data > Pipelines** and open the **Enrichment Tables** tab.
 
 This opens the enrichment table management interface, where you can view, create, and manage enrichment tables available to the selected organization.
 :::
@@ -77,10 +77,10 @@ stderr,Standard Error – error or diagnostic logs
 
 ### Step 3: Upload the Enrichment Table
 
-1. Go to **Pipelines > Enrichment Tables** in the OpenObserve UI.
-2. Click **Add Enrichment Table**.
-3. Set a name such as log_stream_labels.
-4. Upload your CSV file.
+1. Go to **Data > Enrichment Tables** in the OpenObserve UI.
+2. Click **New enrichment table**.
+3. Set a **Name** such as log_stream_labels.
+4. Under **Data Source**, keep **Upload File** and upload your CSV file in **Upload CSV File**. To load the CSV from a public URL instead, select **From URL** and enter the **CSV File URL**.
 5. Click **Save**.
 <br>
 ![Upload the Enrichment Table](../../../images/upload-enrichment-table.png)
@@ -158,15 +158,17 @@ Use query-time enrichment when you want flexibility. Use ingestion-time enrichme
 ## Append Data to an Existing Table
 To add more data to an existing enrichment table, enable the **Append data to existing Enrichment Table** option before uploading your new CSV file: 
 
-1. In the left-hand navigation menu, select **Pipelines > Enrichment Tables**.
-2. Select the table you want to update.
-3. In the **Update Enrichment Table** view, select the new CSV file that contains the additional data.
+1. In the left-hand navigation menu, select **Data > Enrichment Tables**.
+2. Click the edit icon in the row of the table you want to update.
+3. In the **Update enrichment table** view, select the new CSV file that contains the additional data.
 4. Turn on the **Append data to existing Enrichment Table** toggle.
 5. Select **Save** to upload and append the new data to the existing table.
 <br>
 ![Append Data to an Existing Table](../../../images/enrichment-table-append.png)
 
 :::note[Note]
+For URL-based tables, the **Update Mode** lets you reload existing URLs, add a new URL, replace all URLs, or replace only a failed URL.
+
 OpenObserve does not silently overwrite existing data. Re-adding a URL that is already present in a table, or re-creating a URL-based table that already exists without using the append/reload flow, returns an error instead of overwriting the existing data.
 :::
 
