@@ -17,7 +17,7 @@ Automatically capture agent conversations, LLM calls, and tool executions for ev
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-autogen "ag2==0.9.0" python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-autogen "ag2==0.9.0" python-dotenv
 ```
 
 The `ag2` package is the maintained fork of `pyautogen` and imports as `autogen`.

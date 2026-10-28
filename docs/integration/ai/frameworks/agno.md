@@ -17,7 +17,7 @@ Automatically capture agent runs, tool calls, memory lookups, and LLM invocation
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk "openinference-instrumentation-agno==0.1.25" "agno==2.2.0" python-dotenv
+pip install openobserve-python-sdk "openinference-instrumentation-agno==0.1.25" "agno==2.2.0" python-dotenv
 ```
 
 ## **Configuration**

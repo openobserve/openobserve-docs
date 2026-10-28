@@ -17,7 +17,7 @@ Automatically capture agent runs, tool executions, code generation steps, and LL
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-smolagents "smolagents[litellm]" python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-smolagents "smolagents[litellm]" python-dotenv
 ```
 
 ## **Configuration**

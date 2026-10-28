@@ -9,7 +9,7 @@ Capture run IDs, processor tier, status, and latency for every Parallel AI task 
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Parallel](https://parallel.ai/) API key
@@ -17,7 +17,7 @@ Capture run IDs, processor tier, status, and latency for every Parallel AI task 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**

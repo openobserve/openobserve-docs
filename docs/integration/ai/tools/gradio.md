@@ -9,7 +9,7 @@ Capture per-request latency, input length, and LLM spans for every Gradio chat o
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key (or another LLM provider)
@@ -17,7 +17,7 @@ Capture per-request latency, input length, and LLM spans for every Gradio chat o
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai "gradio==4.20.0" "huggingface_hub<1.0" openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai "gradio==4.20.0" "huggingface_hub<1.0" openai python-dotenv
 ```
 
 ## **Configuration**

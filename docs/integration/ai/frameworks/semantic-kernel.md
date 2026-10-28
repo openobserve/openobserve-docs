@@ -17,7 +17,7 @@ Automatically capture LLM calls, function invocations, and planner steps for eve
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk semantic-kernel python-dotenv
+pip install openobserve-python-sdk semantic-kernel python-dotenv
 ```
 
 ## **Configuration**

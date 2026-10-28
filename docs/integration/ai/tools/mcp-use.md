@@ -18,7 +18,7 @@ Capture agent run latency, prompt input, result length, and error details for ev
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk mcp-use langchain-openai opentelemetry-api python-dotenv
+pip install openobserve-python-sdk mcp-use langchain-openai opentelemetry-api python-dotenv
 ```
 
 ## **Configuration**

@@ -9,7 +9,7 @@ Trace every remote chain invocation when calling a LangServe-hosted API from a P
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * A running LangServe server (see the server setup below)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
@@ -17,7 +17,7 @@ Trace every remote chain invocation when calling a LangServe-hosted API from a P
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-langchain langserve python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-langchain langserve python-dotenv
 ```
 
 ## **Configuration**

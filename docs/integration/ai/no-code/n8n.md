@@ -9,7 +9,7 @@ Capture webhook trigger latency, status codes, and payload metadata for every n8
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A running [n8n](https://n8n.io/) instance with at least one active webhook workflow
@@ -17,7 +17,7 @@ Capture webhook trigger latency, status codes, and payload metadata for every n8
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**

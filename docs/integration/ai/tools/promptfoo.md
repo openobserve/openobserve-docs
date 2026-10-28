@@ -9,7 +9,7 @@ Capture evaluation run spans, per-case pass/fail results, and token usage for ev
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key
@@ -17,7 +17,7 @@ Capture evaluation run spans, per-case pass/fail results, and token usage for ev
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai opentelemetry-api python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai opentelemetry-api python-dotenv
 ```
 
 ## **Configuration**
@@ -94,14 +94,14 @@ for case in eval_cases:
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Filter by span name `promptfoo.eval_case` to see all eval cases
-3. Filter by `promptfoo.pass` `false` to find failing cases
+3. Filter by `promptfoo_pass` = `false` to find failing cases
 4. Sort by duration to identify slow eval cases
 
 ![Promptfoo eval trace in OpenObserve](../../../images/integration/ai/promptfoo.png)
 
 ## **Next Steps**
 
-With Promptfoo eval cases in OpenObserve, you can track pass rates over time, alert on regression when `promptfoo.pass` drops, and correlate eval failures with specific prompts or models.
+With Promptfoo eval cases in OpenObserve, you can track pass rates over time, alert on regression when `promptfoo_pass` drops, and correlate eval failures with specific prompts or models.
 
 ## **Read More**
 

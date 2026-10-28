@@ -9,7 +9,7 @@ Capture latency, payload metadata, and status codes for every Zapier webhook tri
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A Zapier account with a Zap using **Webhooks by Zapier** (Catch Hook) as the trigger
@@ -17,7 +17,7 @@ Capture latency, payload metadata, and status codes for every Zapier webhook tri
 ## **Installation**
 
 ```shell
-pip install openobserve opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**

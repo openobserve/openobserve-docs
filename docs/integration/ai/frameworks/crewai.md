@@ -17,7 +17,7 @@ Automatically capture crew executions, agent runs, task completions, and all nes
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-crewai crewai python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-crewai crewai python-dotenv
 ```
 
 ## **Configuration**

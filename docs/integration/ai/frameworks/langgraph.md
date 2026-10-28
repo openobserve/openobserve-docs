@@ -9,7 +9,7 @@ Automatically trace every graph execution, node transition, and LLM call in your
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key (or whichever model backend your graph uses)
@@ -17,7 +17,7 @@ Automatically trace every graph execution, node transition, and LLM call in your
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-langchain langchain-openai langgraph python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-langchain langchain-openai langgraph python-dotenv
 ```
 
 ## **Configuration**

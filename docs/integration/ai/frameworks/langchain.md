@@ -10,14 +10,14 @@ Automatically trace every chain execution, LLM call, tool invocation, and retrie
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-langchain python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-langchain python-dotenv
 ```
 
 For LangGraph applications, also install LangGraph:
@@ -52,6 +52,9 @@ Call `LangchainInstrumentor().instrument()` **before** importing any LangChain m
 ### LangChain
 
 ```python
+from dotenv import load_dotenv
+load_dotenv()
+
 from opentelemetry.instrumentation.langchain import LangchainInstrumentor
 from openobserve import openobserve_init
 
@@ -80,6 +83,9 @@ print(response)
 LangGraph builds on LangChain, so the same instrumentor covers graph executions, node transitions, and all nested LLM calls.
 
 ```python
+from dotenv import load_dotenv
+load_dotenv()
+
 from opentelemetry.instrumentation.langchain import LangchainInstrumentor
 from openobserve import openobserve_init
 

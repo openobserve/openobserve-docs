@@ -17,7 +17,7 @@ Capture agent run latency, input metadata, output size, and error details for ev
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk agent-framework agent-framework-openai python-dotenv
+pip install openobserve-python-sdk agent-framework agent-framework-openai python-dotenv
 ```
 
 ## **Configuration**

@@ -17,7 +17,7 @@ Automatically capture query, retrieve, and LLM spans for every LlamaIndex pipeli
 ## **Installation**
 
 ```shell
-pip install openobserve "openinference-instrumentation-llama-index==2.2.4" \
+pip install openobserve-python-sdk "openinference-instrumentation-llama-index==2.2.4" \
   "llama-index-core==0.10.68" "llama-index-llms-openai==0.1.31" \
   python-dotenv
 ```

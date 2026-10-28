@@ -17,7 +17,7 @@ Capture latency, model name, question input, response length, and error details 
 ## **Installation**
 
 ```shell
-pip install beeai-framework openai openobserve-telemetry-sdk python-dotenv
+pip install beeai-framework openai openobserve-python-sdk python-dotenv
 ```
 
 ## **Configuration**

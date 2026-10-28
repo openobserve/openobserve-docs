@@ -87,7 +87,7 @@ If you only need invocation latency from the calling application, wrap each runt
 Install dependencies:
 
 ```shell
-pip install openobserve-telemetry-sdk boto3 python-dotenv
+pip install openobserve-python-sdk boto3 python-dotenv
 ```
 
 Create a `.env` file in your project root:

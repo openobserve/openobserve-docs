@@ -9,7 +9,7 @@ Capture latency, target URL, and content length for every Firecrawl scrape or cr
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Firecrawl](https://www.firecrawl.dev/) API key
@@ -17,7 +17,7 @@ Capture latency, target URL, and content length for every Firecrawl scrape or cr
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk firecrawl-py opentelemetry-api python-dotenv
+pip install openobserve-python-sdk firecrawl-py opentelemetry-api python-dotenv
 ```
 
 ## **Configuration**

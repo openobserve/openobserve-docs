@@ -17,7 +17,7 @@ Capture evaluation scores, latency, and metadata for every Ragas evaluation run.
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk ragas instructor python-dotenv
+pip install openobserve-python-sdk ragas instructor python-dotenv
 ```
 
 ## **Configuration**

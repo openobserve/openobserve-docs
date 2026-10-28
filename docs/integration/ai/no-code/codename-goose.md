@@ -9,7 +9,7 @@ Capture session run latency, exit codes, and output lengths for every Codename G
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * Codename Goose CLI installed (see below)
@@ -26,7 +26,7 @@ curl -fsSL https://github.com/block/goose/releases/download/stable/download_cli.
 Install the Python dependencies:
 
 ```shell
-pip install openobserve opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**

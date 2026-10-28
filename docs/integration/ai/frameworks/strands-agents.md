@@ -17,7 +17,7 @@ Capture agent run timing, token usage, LLM call details, and event loop cycles f
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk strands-agents python-dotenv
+pip install openobserve-python-sdk strands-agents python-dotenv
 ```
 
 ## **Configuration**

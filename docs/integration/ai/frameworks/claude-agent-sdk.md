@@ -18,7 +18,7 @@ Capture agent query timing, token usage, turn counts, and error status for every
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk claude-agent-sdk python-dotenv
+pip install openobserve-python-sdk claude-agent-sdk python-dotenv
 ```
 
 ## **Configuration**

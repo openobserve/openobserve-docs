@@ -17,7 +17,7 @@ Capture per-turn LLM spans, token usage, and pipeline stage latency for every Pi
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai \
+pip install openobserve-python-sdk openinference-instrumentation-openai \
   "pipecat-ai[openai]" opentelemetry-api python-dotenv
 ```
 

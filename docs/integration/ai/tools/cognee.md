@@ -17,7 +17,7 @@ Capture latency and result counts for every Cognee knowledge graph ingest and se
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk cognee opentelemetry-api python-dotenv
+pip install openobserve-python-sdk cognee opentelemetry-api python-dotenv
 ```
 
 ## **Configuration**

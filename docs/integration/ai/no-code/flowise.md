@@ -17,7 +17,7 @@ Trace every prediction request made to a Flowise chatflow by wrapping the REST A
 ## **Installation**
 
 ```bash
-pip install openobserve opentelemetry-sdk opentelemetry-exporter-otlp python-dotenv requests
+pip install openobserve-python-sdk opentelemetry-sdk opentelemetry-exporter-otlp python-dotenv requests
 ```
 
 ## **Configuration**

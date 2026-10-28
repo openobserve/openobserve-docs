@@ -17,7 +17,7 @@ Capture latency, service names, handler names, and status codes for every Restat
 ## **Installation**
 
 ```shell
-pip install openobserve restate-sdk hypercorn opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk restate-sdk hypercorn opentelemetry-api requests python-dotenv
 ```
 
 Start the Restate server with OTLP tracing pointed at OpenObserve:

@@ -17,7 +17,7 @@ Automatically capture token usage, latency, and model metadata for every LiteLLM
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-litellm litellm python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-litellm litellm python-dotenv
 ```
 
 ## **Configuration**

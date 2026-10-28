@@ -6,7 +6,7 @@ description: Instrument OpenAI Agents SDK applications and send traces to OpenOb
 
 # **OpenAI Agents SDK → OpenObserve**
 
-Automatically capture agent runs, LLM calls, and handoffs for every agent built with the OpenAI Agents SDK. Each `Runner.run()` call produces a trace with a four-level span hierarchy: a root runner span, an `Agent workflow` (`CHAIN`) span, an `Assistant` span, a `turn` span, and a `response` (`LLM`) span for each model call.
+Automatically capture agent runs, LLM calls, and handoffs for every agent built with the OpenAI Agents SDK. Each `Runner.run()` call produces a trace with a four-level span hierarchy: an `Agent workflow` (`CHAIN`) span, an `Assistant` span, a `turn` span, and a `response` (`LLM`) span for each model call.
 
 ## **Prerequisites**
 
@@ -18,7 +18,7 @@ Automatically capture agent runs, LLM calls, and handoffs for every agent built 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai-agents openai-agents python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai-agents openai-agents python-dotenv
 ```
 
 ## **Configuration**

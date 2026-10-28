@@ -119,7 +119,7 @@ Each LLM call produces a manual `livekit.llm_call` root span with nested spans f
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `service_name = livekit-test` to isolate LiveKit spans
+2. Filter by `service_name = my-app` to isolate LiveKit spans
 3. Filter by `operation_name = livekit.llm_call` to see the root span for each call
 4. Expand a trace to see the nested `llm_request` and `llm_request_run` spans
 5. Filter by `span_status = ERROR` to find failed calls

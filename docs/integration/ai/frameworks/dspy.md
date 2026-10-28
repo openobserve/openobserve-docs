@@ -17,7 +17,7 @@ Automatically capture module executions, LLM calls, and optimiser runs for every
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk "openinference-instrumentation-dspy==0.1.16" "dspy==2.6.13" python-dotenv
+pip install openobserve-python-sdk "openinference-instrumentation-dspy==0.1.16" "dspy==2.6.13" python-dotenv
 ```
 
 ## **Configuration**

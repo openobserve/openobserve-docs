@@ -17,7 +17,7 @@ Capture agent invocation latency, LangChain call chains, and message counts for 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-langchain \
+pip install openobserve-python-sdk openinference-instrumentation-langchain \
   deepagents langchain-openai python-dotenv
 ```
 
@@ -97,7 +97,7 @@ Each agent run produces a manual `deepagents.invoke` root span with child spans 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `service_name = deepagents-test` to see all agent spans
+2. Filter by `service_name = my-app` to see all agent spans
 3. Filter by `operation_name = deepagents.invoke` to see the root spans for each run
 4. Expand any trace to see the full LangGraph span tree with nested LLM calls
 5. Filter by `span_status = ERROR` to find failed agent runs

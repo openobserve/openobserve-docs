@@ -17,7 +17,7 @@ Automatically capture agent runs, LLM calls, tool executions, and token usage fo
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-google-adk google-adk python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-google-adk google-adk python-dotenv
 ```
 
 ## **Configuration**

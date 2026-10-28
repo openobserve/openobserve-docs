@@ -17,7 +17,7 @@ Automatically capture pipeline runs, component executions, and LLM calls for eve
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-haystack haystack-ai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-haystack haystack-ai python-dotenv
 ```
 
 ## **Configuration**

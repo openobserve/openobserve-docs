@@ -17,7 +17,7 @@ Capture token usage, latency, and model metadata for every Mirascope call. Miras
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk mirascope python-dotenv
+pip install openobserve-python-sdk mirascope python-dotenv
 ```
 
 ## **Configuration**

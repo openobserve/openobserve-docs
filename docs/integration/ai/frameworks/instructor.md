@@ -17,7 +17,7 @@ Automatically capture structured output extractions, token usage, and latency fo
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-instructor openinference-instrumentation-openai instructor openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-instructor openinference-instrumentation-openai instructor openai python-dotenv
 ```
 
 ## **Configuration**

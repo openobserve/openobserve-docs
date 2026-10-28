@@ -17,7 +17,7 @@ Capture flow execution latency, inputs, and error rates from your Langflow appli
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-sdk python-dotenv requests
+pip install openobserve-python-sdk opentelemetry-sdk python-dotenv requests
 ```
 
 ## **Configuration**
