@@ -12,6 +12,7 @@
     "cipher-keys",
     "nodes",
     "sso-domain-restrictions",
+    "domain-org-mappings",
     "sensitive-data-redaction",
     "correlation-settings",
     "lincense"
