@@ -9,6 +9,7 @@
     "message-brokers",
     "security",
     "servers",
+    "slack",
     "system"
   ]
 }
