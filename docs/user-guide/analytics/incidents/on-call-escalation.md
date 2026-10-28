@@ -22,9 +22,11 @@ A page is delivered to every person named on the current rung, on every channel 
 | **SMS** | Twilio | A short text capped at three segments, with the acknowledge link never cut |
 | **Voice** | Twilio | A phone call that reads the page aloud and listens for **4**, **6**, or **8** |
 
-On a team's **Members** tab, each member has a row of channel icons for **Email**, **SMS**, and **Voice call**, so you can see at a glance which channels can actually reach that person. Webhook is the team's channel rather than a person's, so it is not shown per member.
+On a team's **Members** tab (**Reliability → On-Call → Teams**, then open the team), each member has a row of channel icons for **Email**, **SMS**, and **Voice call**, so you can see at a glance which channels can actually reach that person. Webhook is the team's channel rather than a person's, so it is not shown per member.
 
-![Team Members tab showing each member's Email, SMS, and Voice call channel icons](images/on-call-members-channels.png)
+In the example below, no SMTP transport or phone provider is configured, so every member is marked **Unreachable** and their channel icons are red or dashed.
+
+![Team Members tab showing each member's Email, SMS, and Voice call channel icons and the Unreachable badge](images/on-call-members-channels.png)
 
 ## Set up telephony
 
@@ -48,7 +50,7 @@ OpenObserve checks the account with Twilio before saving it, and saving requires
 
 The page also shows whether **Call keys: 4 acknowledge, 6 resolve, 8 escalate** are available, which depends on `O2_TELEPHONY_CALLBACK_URL` (see below).
 
-![Settings, Telephony page with no phone provider connected and the Connect Twilio action](images/telephony-settings.png)
+![Settings, Telephony page showing No phone provider connected and the Connect Twilio action](images/telephony-settings.png)
 
 ### Configure the deployment account
 
@@ -78,7 +80,9 @@ A verification code works for 10 minutes and allows five attempts. Codes are rat
 Only Email decides whether a member is shown as unreachable. A member with no verified phone is still paged by email; SMS and Voice simply show as not deliverable for that person.
 :::
 
-![My on-call page with the Phone card for adding and verifying a number](images/my-on-call-phone.png)
+Until the organization has a phone provider, the **Phone** card says so and pages reach you by email only:
+
+![My on-call page with the Phone card, Send code button, and the no phone provider notice](images/my-on-call-phone.png)
 
 ## Acknowledge, resolve, or escalate from a call
 
@@ -106,7 +110,7 @@ A channel is only judged by its own delivery history, so SMS failing leaves Emai
 
 ## Send a test page
 
-To prove the whole path works, open **On-Call → Routing**, enter the dimensions an alert would carry in **Where would this route?**, and click **Send a test page** once a team is matched. A test page goes through the real dispatch path, with the same channels and the same resolved recipients as a live page, but opens no response record, runs no escalation, and is clearly marked `TEST` so nobody mistakes it for a real page. A message then reports how many people the test page reached, or why nothing was delivered.
+To prove the whole path works, open **Reliability → On-Call → Routing**, enter the dimensions an alert would carry in **Where would this route?**, and click **Send a test page** once a team is matched. A test page goes through the real dispatch path, with the same channels and the same resolved recipients as a live page, but opens no response record, runs no escalation, and is clearly marked `TEST` so nobody mistakes it for a real page. A message then reports how many people the test page reached, or why nothing was delivered.
 
 ## Delivery behavior
 
