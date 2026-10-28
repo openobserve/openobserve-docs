@@ -22,7 +22,7 @@ histogram(timestamp_field, 'interval')
 **Histogram with aggregate function** <br>
 ```sql
 SELECT histogram(_timestamp, '30 seconds') AS key, COUNT(*) AS num
-FROM "default"
+FROM "docs_sql_examples"
 GROUP BY key
 ORDER BY key
 ```
@@ -34,7 +34,7 @@ Each row in the result shows:
 - **`key`**: The start time of the 30-second bucket.
 - **`num`**: The count of log records that fall within that time bucket.
 <br>
-![histogram](../../images/example-queries/histogram.png)
+![Logs results for a 30-second histogram with a count per bucket](../../images/example-queries/histogram-v2.png)
 
 :::note[Note]
 - If you do not specify an interval, the backend automatically determines a suitable value.
