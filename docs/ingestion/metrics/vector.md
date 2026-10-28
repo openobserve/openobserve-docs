@@ -16,7 +16,7 @@ stores them as logs instead. For log collection, see the [Vector logs guide](../
 
 Install [Vector](https://vector.dev/docs/setup/installation/) on the host you
 want to monitor, then set the following environment variables in Bash. Use the ingestion
-URL, organization ID, user and passcode from **Data Sources > Metrics** in your
+URL, organization ID, user and passcode from **Data sources > Custom > Metrics** in your
 OpenObserve instance. `OPENOBSERVE_URL` is the base URL without a trailing slash,
 for example `http://localhost:5080` for a local instance. Use HTTPS for a remote
 instance, and keep credentials out of configuration files and source control.
@@ -62,7 +62,7 @@ sinks:
 From the directory where you saved the file, validate and run it:
 
 ```bash
-vector validate --skip-healthchecks host-metrics.yaml
+vector validate --no-environment host-metrics.yaml
 vector --config host-metrics.yaml
 ```
 
@@ -82,7 +82,7 @@ Do not copy `compression: gzip` or the `http` sink from a Vector logs example.
 The metrics endpoint is `/api/<organization>/prometheus/api/v1/write`, and the
 sink type must be `prometheus_remote_write`.
 
-The sink's startup health check is disabled. Validation alone does not prove that
-metrics were ingested. If Vector reports HTTP 400, check OpenObserve's server
+The sink's startup health check is disabled, and `--no-environment` skips
+component checks, so validation alone does not prove that metrics were ingested. If Vector reports HTTP 400, check OpenObserve's server
 logs for the rejected payload. For HTTP 401 or 403, check the selected
 organization, ingestion user, passcode and permissions.
