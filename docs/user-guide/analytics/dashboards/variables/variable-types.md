@@ -15,7 +15,7 @@ This variable dynamically fetches values from a selected field in a stream. It s
 
 **Use Case:** Filter the dashboard panels by Pod name using values from logs.
 
-![Query variable](../../../../images/variables-query.png)
+![Edit Variable form for a Query Values variable named pod on the docs_k8s_logs stream and k8s_pod_name field](../../../../images/variables-query-v2.png)
 :::note[Configuration]
 **General**:
 
@@ -53,7 +53,7 @@ This variable allows you to set a fixed value that cannot be changed by dashboar
 **When to use:** When the value should always stay the same and must not be changed by anyone using the dashboard.
 
 **Use case:** Building a dashboard that focuses only on logs from a specific Kubernetes namespace named ziox.
-![Constant variable](../../../../images/constant-variable.png)
+![Constant variable env with the value docs](../../../../images/constant-variable-v2.png)
 
 :::note[Configuration]
 **General**: 
@@ -81,7 +81,7 @@ This variable provides a free-form text input field on the dashboard.
 **When to use:** When users need to manually enter a value that may not exist in the dropdown, such as custom IDs or strings.
 
 **Use Case:** You want users to manually enter the cluster name they want to filter logs by.
-![Textbox variable](../../../../images/textbox-variable.png)
+![Textbox variable cluster with the default value _o2_all_](../../../../images/textbox-variable-v2.png)
 :::note[Configuration]
 **General**:
 
@@ -123,7 +123,7 @@ This variable lets you predefine a list of selectable values.
 **When to use:** When values are known in advance and should not be fetched from data.
 
 **Use Case:** You want to allow users to select a predefined service from a list, such as openobserve or ingress-nginx. This is useful when the possible values are known and limited, and you want to control what the user can select.
-![Custom variable](../../../../images/custom-variable.png)
+![Custom variable service with the options checkout (default) and cart](../../../../images/custom-variable-v2.png)
 :::note[Configuration]
 
 **General**: 
