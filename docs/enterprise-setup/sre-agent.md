@@ -490,6 +490,99 @@ Analyze the root cause of the recent outage
 Why is the database connection pool exhausted?
 ```
 
+## Persistent chat history and sharing
+
+With chat persistence enabled, OpenObserve stores AI Assistant conversations on the server. A chat survives a browser refresh, can be reopened from any device, and keeps running on the server if you close the tab mid-answer. Persisted chats can also be shared with teammates or, optionally, through public links.
+
+### Enable chat persistence
+
+Chat persistence is off by default. To turn it on, set these variables on OpenObserve:
+
+| Environment Variable | Required value | Description |
+|----------------------|----------------|-------------|
+| O2_AI_CHAT_PERSISTENCE_ENABLED | `true` | Turns on server-side chat persistence. Takes effect only when the AI Assistant is enabled and an SRE Agent URL is configured. |
+| O2_AI_INTERNAL_SECRET | a shared secret | Sent to the SRE Agent on persisted chat turns and restores. It must equal the agent's `O2_INTERNAL_API_SECRET`; without it, persisted turns fail with `internal_secret_required`. |
+
+Conversation events are stored in the `_o2_ai_chat_events` stream of each organization.
+
+### Browse and reopen chats
+
+- In the AI Assistant panel, open the chat history dropdown to search your previous chats, reopen one, share it, or delete it.
+- On the home page, the **Chats** panel lists the same history.
+
+When you reopen a chat, its transcript is restored from storage. If a turn was still running when you left, it continues on the server and the reply is there when you come back.
+
+### Share a chat
+
+1. Open the chat and click **Share** in the AI Assistant header, or click **Share** next to the chat in the history list.
+2. In the **Share chat** dialog, choose:
+    - **Mode**: **Snapshot** freezes the chat at the latest finished message (use **Refresh snapshot** to update it later). **Live** always shows the latest finished messages.
+    - **Who can view**: **Organization** limits the link to signed-in members of the organization who have access to shared chats. **Public link** lets anyone with the link read the chat without signing in; it appears only when public links are enabled (see [Public links](#public-links)).
+    - **Expires**: from **In 1 hour** to **In 1 year**, or **Never**.
+    - **Hide tool inputs and outputs**: viewers see the answers and which tools ran, but not the tool data. This is on by default for public links.
+3. Click **Create link**, then **Copy link**.
+
+The dialog also lists the chat's **Active links**, where you can switch a link between snapshot and live, show or hide tool data, or **Revoke** it. Deleting a chat revokes all of its links. To see every link you have created, click **Shared by me** in the **Chats** panel on the home page; organization admins can switch to **All in organization** to see every shared chat.
+
+:::warning[Warning]
+Unless you hide them, shared chats include every tool input and output from the conversation, and anyone who can open the link can read them.
+:::
+
+A recipient opens the link to see a read-only copy of the chat, and can click **Fork into my chats** to continue the conversation in their own history.
+
+### Permissions
+
+Sharing is controlled by the **AI Chat Sharing** permission (`ai_chat_share` in OpenFGA). By default only organization admins can create, list, manage, and open shared chats. To let other users share chats or open organization links, grant **AI Chat Sharing** to a custom role:
+
+1. Go to **IAM** > **Roles** and edit the role.
+2. On the **Permissions** tab, select the **AI Chat Sharing** module.
+3. Select the operations to allow, then click **Save**:
+    - **Create**: create share links.
+    - **List**: see a chat's links and the **Shared by me** list.
+    - **Get**: open organization links and fork shared chats.
+    - **Update** and **Delete**: change and revoke links.
+
+![AI Chat Sharing permission on the role Permissions tab](../images/ai-chat-sharing-role-permission.png)
+
+### Public links
+
+Public links are disabled by default; the **Public link** option and the public route exist only when they are turned on:
+
+| Environment Variable | Default | Description |
+|----------------------|---------|-------------|
+| ZO_PUBLIC_AI_CHAT_ENABLED | false | Allows AI chats to be shared through public, unauthenticated links. Requires chat persistence. |
+| ZO_PUBLIC_AI_CHAT_RPM | 60 | Per-IP requests-per-minute limit on the public shared-chat route (`0` disables the limit). |
+| ZO_PUBLIC_AI_CHAT_MAX_EXPIRY_DAYS | 90 | Longest expiry a public link may have. Public links must expire; `0` means 90, and the maximum is 365. |
+
+### High availability
+
+With `O2_AI_HA_ENABLED=true`, OpenObserve routes AI requests to SRE Agent replicas registered in NATS instead of `O2_AGENT_URL`. Each persisted chat session is owned by one replica. If that replica goes down, the next turn waits up to `O2_AI_CHAT_OWNER_WAIT_SECS` for another replica to take over, then restores the session's stored history into it so the conversation continues.
+
+### Turn outcomes and limits
+
+Every persisted turn ends as **completed**, **cancelled**, **failed**, **interrupted** (no response from the SRE Agent for 45 seconds), or **deleted**. Active persisted turns are capped on each node: by default 3 per user, 50 per organization, and 200 in total. A request over a limit is rejected with HTTP `429` and the code `turn_limit`.
+
+### Chat persistence tuning
+
+These optional variables tune persistence. The defaults suit most deployments.
+
+| Environment Variable | Default | Description |
+|----------------------|---------|-------------|
+| O2_AI_CHAT_PERSIST_BATCH_SIZE | 16 | Events per write batch; batches are also cut on the flush interval. |
+| O2_AI_CHAT_PERSIST_FLUSH_INTERVAL_MS | 500 | Maximum time (ms) a buffered event waits before it is written. |
+| O2_AI_CHAT_PERSIST_FINAL_TIMEOUT_SECS | 30 | How long (s) the final flush may take before the turn is reported as not persisted. |
+| O2_AI_CHAT_UI_CHANNEL_CAPACITY | 4096 | Frames the browser may fall behind before it is disconnected from the turn. The turn keeps running on the server. |
+| O2_AI_CHAT_MAX_EVENT_BYTES | 1048576 | Largest stored row payload (bytes); a bigger event is split across rows. |
+| O2_AI_CHAT_MAX_EVENT_TOTAL_BYTES | 67108864 | Largest event (bytes) a turn persists; a bigger one fails the turn with `event_too_large`. |
+| O2_AI_CHAT_MAX_PENDING_EVENTS | 5000 | Cap on events buffered for one turn while writes are failing. |
+| O2_AI_CHAT_RETENTION_DAYS | 0 | Retention (days) of the `_o2_ai_chat_events` stream; `0` keeps the organization default. |
+| O2_AI_CHAT_TURN_LEASE_WAIT_SECS | 1 | How long (s) a new turn waits for the session's previous turn to release it before answering `409`. |
+| O2_AI_CHAT_MAX_TURN_SECS | 3600 | Hard ceiling (s) on one persisted turn, whether or not a browser is connected. |
+| O2_AI_CHAT_OWNER_WAIT_SECS | 45 | How long (s) a turn waits for another replica to take over a failed owner's session. Keep it above `O2_AI_REPLICA_HEARTBEAT_TTL`. |
+| O2_AI_CHAT_MAX_ACTIVE_TURNS_PER_USER | 3 | Active persisted turns one user may run on a node (`0` = unlimited). |
+| O2_AI_CHAT_MAX_ACTIVE_TURNS_PER_ORG | 50 | Active persisted turns one organization may run on a node (`0` = unlimited). |
+| O2_AI_CHAT_MAX_ACTIVE_TURNS_PER_NODE | 200 | Active persisted turns one node may run (`0` = unlimited). |
+
 ## Troubleshooting
 
 :::accordion[Common issues and fixes]

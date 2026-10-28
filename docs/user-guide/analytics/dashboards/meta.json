@@ -2,9 +2,12 @@
   "pages": [
     "index",
     "dashboards-in-openobserve",
+    "folder-icons",
     "manage-dashboards",
+    "tv-mode",
     "public-dashboards",
     "bulk-move-and-export-dashboards",
+    "tv-playlist",
     "panels",
     "config",
     "variables",

@@ -85,3 +85,32 @@ The function outputs the record below:
 The function can be saved using save button on top of vrl function editor, additional one can select existing function to try.
 
 The same function can be associated with a stream to get applied at ingestion. 
+
+## Import and export functions
+
+### Export
+
+On the **Functions** list, click the **Export** (download) icon in a function's row, or hover over the row and press `x`. To export several functions at once, select their rows and click **Export** in the selection bar. OpenObserve downloads a JSON file: `<function-name>.json` for one function, or `functions-<date>.json` for several. Each entry holds the function's name, body, parameters and language.
+
+<kbd>
+![Functions list with two functions selected and the Export button in the selection bar](./images/functions-bulk-export.png)
+</kbd>
+
+### Import
+
+1. On the **Functions** list, click **Import**, or press `i`.
+2. On the **File Upload / JSON** tab, upload a JSON file or paste its contents; or, on the **URL Import** tab, enter the URL of one. A file may hold a single function or an array of functions, such as a file you exported.
+3. Click **Import**.
+
+When you click **Import**, OpenObserve first checks every function in the file. If any check fails, nothing is imported: the problems are listed under **Error Validations**, each with a control to fix it in place. Fix them and click **Import** again. The checks are:
+
+- The name is present and valid: letters, numbers and underscores only, starting with a letter or underscore.
+- The name appears only once in the file.
+- No function with that name already exists in the organization.
+- The function body is not empty, and the language (`transType`) is `0` for VRL or `1` for JavaScript.
+
+To resolve an existing name, either enter a new name in **Function Name**, or select **Replace the existing function instead**. Replacing a function also changes every pipeline that uses it, so OpenObserve lists those pipelines under the checkbox before you import.
+
+<kbd>
+![Import Function screen showing a name conflict with the Function Name box and the Replace the existing function instead checkbox](./images/functions-import-name-conflict.png)
+</kbd>
