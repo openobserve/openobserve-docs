@@ -30,7 +30,7 @@ Availability differs by edition:
 
 Service accounts created before this naming scheme keep their original email as the identifier.
 
-![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
+![IAM Service Accounts list with a docs-ingest-bot service account and redacted tokens](../../../images/rbac2-service-account-v2.png)
 
 ## Grant access
 
