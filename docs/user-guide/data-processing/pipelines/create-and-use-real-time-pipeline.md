@@ -17,14 +17,14 @@ Use this guide to create and run real-time pipelines. Real-time pipelines proces
 ### Step 1: Open the pipeline editor
 1. Log in to OpenObserve.
 2. In the left navigation panel, go to **Data > Pipelines**. By default, the system opens the **Pipelines** tab. 
-![Pipelines tab](../../../images/pipelines-tab.png)
+![Pipelines page with the Pipelines, Functions and Enrichment Tables tabs, the All, Scheduled and Realtime filter and the state summary](../../../images/pipelines-tab-v2.png)
 3. Click **New pipeline** at the top-right corner.
-![Open the pipeline editor](../../../images/pipeline-editor.png)
+![Empty pipeline editor with the Choose a Source node](../../../images/pipeline-editor-v2.png)
 :::
 :::accordion[Step 2: Enter a pipeline name]
 ### Step 2: Enter a pipeline name
 Provide a unique name for the pipeline.
-![Pipeline name](../../../images/pipeline-name.png)
+![Pipeline name entered in the editor header](../../../images/pipeline-name-v2.png)
 :::
 
 ::::accordion[Step 3: Configure the Source node]
@@ -37,9 +37,9 @@ Provide a unique name for the pipeline.
 - Choose one of the following options:
 
     - **Option A**: Select an existing stream. Choose a stream from the **Stream Name** dropdown.
-    ![Select an existing stream](../../../images/select-existing-stream.png)
+    ![Associate Stream panel with an existing logs stream selected as the source](../../../images/select-existing-stream-v2.png)
     - **Option B:** Create a new stream. Enable the **Create new Stream** toggle and create a new stream if necessary.
-    ![alt text](../../../images/create-new-stream.png)
+    ![Associate Stream panel with Create new Stream turned on and a field defined](../../../images/create-new-stream-v2.png)
 3. Click **Save** to confirm the source node.
 
 :::note[Important behavior]
@@ -53,7 +53,7 @@ If you remove this default destination and add only filtered routes, events that
 
 1. From the **Transform** section, drag either a **Conditions** or **Function** node into the editor. You can also hover over a node and click **+** to pick the next step.
 2. If you add a Conditions node:
-    ![condition-node](../../../images/condition-node.png)
+    ![Associate Condition panel with the condition level = error](../../../images/condition-node-v2.png)
 
     1. In the **Associate Condition** screen, select the field name in the **Column** drop-down list. This list displays the fields detected in the source stream. To use a field that is not listed, type its name and press **Enter**.
     2. Select an operator.
@@ -79,7 +79,7 @@ If you remove this default destination and add only filtered routes, events that
     > A Function does not require predefined fields. You can use it even if the source stream has no schema. <br>
 
     :::note[To create a new function:]
-    ![create-new-function](../../../images/create-new-function.png)
+    ![Associate Function panel with Create New Function turned on, a VRL function and the Test Function output](../../../images/create-new-function-v2.png)
 
     1. In the **Associate Function** panel, enable the **Create New Function** toggle. The function editor opens in the panel.
     2. Enter the function name. 
@@ -94,7 +94,7 @@ If you remove this default destination and add only filtered routes, events that
     :::note[Guidelines]
     - **RBF (Run Before Flattening)**: Function executes before data structure is flattened. 
     - **RAF (Run After Flattening)**: Function executes after data structure is flattened. 
-    ![After flattening](../../../images/after-flattening.png)
+    ![Associate Function panel with the After Flattening toggle and the RBF and RAF guidelines](../../../images/after-flattening-v2.png)
     :::
 
 5. Click **Save** to confirm the transform node.
@@ -105,7 +105,7 @@ If you remove this default destination and add only filtered routes, events that
 A destination defines where the processed events are written. You can forward data to another stream or to an external system.
 
 **To add a stream destination:** 
-![external-destination](../../../images/external-destination.png)
+![Associate Stream panel configuring a destination stream](../../../images/stream-destination-v2.png)
 
 1. Drag a **Stream** node into the editor.
 2. In the **Associate Stream** panel, configure the destination stream.
@@ -130,7 +130,7 @@ A destination defines where the processed events are written. You can forward da
 
 
 **To add an external destination:** 
-![stream-destination](../../../images/stream-destination.png)
+![External Destination panel with an existing remote destination selected](../../../images/external-destination-v2.png)
 
 1. Drag a **Remote** node into the editor. The **Remote** node is available in the self-hosted Enterprise Edition.
 2. In the **External Destination** panel, either select an existing destination or enable **Create New Destination** and fill in the required details such as destination type, name, URL, method, output format, and headers.
@@ -144,13 +144,13 @@ A destination defines where the processed events are written. You can forward da
 ### Step 6: Connect the nodes
 Use the connection icon to link Source > Transform > Destination. 
 To remove a link, select the link and press delete on your keyboard. 
-![connect-nodes](../../../images/connect-nodes.png)
+![Edge being drawn from the source stream node to a Conditions node](../../../images/connect-nodes-v2.png)
 :::
 
 :::accordion[Step 7: Save the pipeline]
 ### Step 7: Save the pipeline
 Click **Save**. The pipeline becomes active immediately.
-![Save pipeline](../../../images/save-pipeline.png)
+![Pipeline editor header with the Save button](../../../images/save-pipeline-v2.png)
 :::
 
 
@@ -165,7 +165,7 @@ Each new event ingested into the source stream is processed instantly.
 
 :::accordion[Step 2: Verify output]
 ### Step 2: Verify output
-![view-result](../../../images/view-result.png)
+![Logs page showing the error events written to the destination stream](../../../images/view-result-v2.png)
 
 1. Go to **Logs**.
 2. From the stream selection dropdown, select the stream you added as destination. 
