@@ -139,6 +139,36 @@ Queries using `SELECT *` are not allowed for scheduled alerts. Specify the colum
 
 Available for **metrics** stream types only. Click the **PromQL** tab to enter a Prometheus query expression. The condition sentence shows operator and value controls for the PromQL result.
 
+#### Rule mode
+
+Turn on the **Rule mode** switch below the PromQL editor to let the expression decide when the alert fires. In rule mode, the alert matches whenever the expression returns **any** series, so you write the threshold into the expression itself instead of setting separate Critical or Warning values.
+
+![PromQL alert with Rule mode turned on, the Alert aggregation choice, and the Preview panel reporting how many series match](images/promql-rule-mode.png)
+
+To create a rule-mode alert:
+
+1. Set the stream type to **metrics** and select the **PromQL** tab.
+2. Turn on **Rule mode**.
+3. Enter the full matching expression, for example `rate(http_requests_total[5m]) > 4`.
+4. Optionally leave the stream name empty. OpenObserve infers it from the metrics streams the expression references.
+
+Turning on rule mode clears and hides the value-threshold controls and the **Having series** count. Each evaluation runs the expression as an instant query at the scheduled time. The **Preview** panel shows how many series currently match, for example "10 returned series match now".
+
+**Alert aggregation** controls how many alerts rule mode produces:
+
+- **Simple alert** tracks one alert for the whole rule. It stays firing while any series is returned and clears when the expression returns no series.
+- **Multi alert (per series)** tracks each returned series (each distinct label set) separately, so every series fires and recovers on its own.
+
+When **Hold for** ([the pending period](advanced-alert-configuration.md#pending-period-hold-before-firing), in the **Settings** section) is greater than zero, **Multi alert** is selected and locked, because each series keeps its own pending timer. A series must keep matching for the full period before it fires. If it stops matching, its timer resets and restarts when the series returns. Set **Hold for** to zero to choose between **Simple alert** and **Multi alert** again.
+
+![Rule mode with Hold for set to 10 minutes, so Multi alert is selected and locked](images/promql-rule-mode-hold-for-multi.png)
+
+PromQL can return special values such as `NaN`, `+Inf` and `-Inf`. Rule mode treats any returned series as a match, including these values, and keeps them as-is in notifications and [alert history](alert-history.md).
+
+:::note[Note]
+Rule mode works only with **metrics** streams and the **PromQL** tab. It cannot be combined with Critical or Warning value thresholds or with **Compare with Past**.
+:::
+
 ---
 
 ## Operators
