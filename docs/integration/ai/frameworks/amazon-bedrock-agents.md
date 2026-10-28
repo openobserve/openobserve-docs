@@ -89,7 +89,7 @@ print(completion)
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any `bedrock_agent.invoke_agent` span to inspect latency and input/output content
 
-![Amazon Bedrock Agents trace in OpenObserve](../../../images/integration/ai/amazon-bedrock-agents.png)
+![Amazon Bedrock Agents trace in OpenObserve, Waterfall view with the bedrock_agent.invoke_agent span attributes](../../../images/integration/ai/amazon-bedrock-agents-v2.png)
 
 ## **Next Steps**
 

@@ -102,7 +102,7 @@ Each agent run produces a manual `deepagents.invoke` root span with child spans 
 4. Expand any trace to see the full LangGraph span tree with nested LLM calls
 5. Filter by `span_status = ERROR` to find failed agent runs
 
-![LangChain DeepAgents traces in OpenObserve](../../../images/integration/ai/langchain-deepagents.png)
+![LangChain DeepAgents trace in OpenObserve, Waterfall view with the deepagents.invoke span attributes](../../../images/integration/ai/langchain-deepagents-v2.png)
 
 ## **Next Steps**
 

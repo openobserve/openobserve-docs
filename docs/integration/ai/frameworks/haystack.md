@@ -126,7 +126,7 @@ Each `pipeline.run()` produces a root `CHAIN` span with a child span per compone
 3. Expand the tree to see each component span in execution order
 4. Filter by `operation_name = OpenAIGenerator.run` to find LLM spans and inspect token counts
 
-![Haystack trace in OpenObserve](../../../images/integration/ai/haystack.png)
+![Haystack trace in OpenObserve, Waterfall view with the Pipeline.run span attributes](../../../images/integration/ai/haystack-v2.png)
 
 ## **Next Steps**
 

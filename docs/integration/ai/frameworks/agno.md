@@ -111,7 +111,7 @@ Each `agent.run()` call produces a root `AGENT` span with a child `LLM` span per
 3. Expand the trace to see the child `OpenAIChat.invoke` LLM span with token counts and cost
 4. Filter by `llm_model_name` to compare performance across different models
 
-![Agno trace in OpenObserve](../../../images/integration/ai/agno.png)
+![Agno trace in OpenObserve, Waterfall view with the Agent.run span attributes](../../../images/integration/ai/agno-v2.png)
 
 ## **Next Steps**
 

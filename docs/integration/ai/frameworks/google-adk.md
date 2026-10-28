@@ -123,7 +123,7 @@ Each agent invocation produces a trace with a hierarchy of spans: `invocation [<
 3. Expand the tree to see `agent_run`, `call_llm`, and `execute_tool` child spans
 4. Click a `call_llm` span to inspect token counts, model, and cost for that specific LLM call
 
-![Google ADK trace in OpenObserve](../../../images/integration/ai/google-adk-1.png)
+![Google ADK trace in OpenObserve, Waterfall view with the invocation [shop_assistant] span attributes](../../../images/integration/ai/google-adk-1-v2.png)
 
 ## **Next Steps**
 

@@ -102,7 +102,7 @@ Two span types appear for each turn:
 3. Filter by `pipecat.service` to compare different LLM service configurations
 4. Sort by duration to find the slowest turns
 
-![Pipecat trace in OpenObserve](../../../images/integration/ai/pipecat.png)
+![Pipecat trace in OpenObserve, Waterfall view with the pipecat.llm_service span attributes](../../../images/integration/ai/pipecat-v2.png)
 
 ## **Next Steps**
 

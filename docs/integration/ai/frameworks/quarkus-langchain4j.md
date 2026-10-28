@@ -178,7 +178,7 @@ Each AI service call produces two spans: a root `langchain4j.aiservices.<Interfa
 4. Inspect the nested `completion` span for token counts and cost
 5. Filter by `span_status = ERROR` to find failed AI service calls
 
-![Quarkus LangChain4j traces in OpenObserve](../../../images/integration/ai/quarkus-langchain4j.png)
+![Quarkus LangChain4j trace in OpenObserve, Waterfall view with the langchain4j.aiservices.AiService.ask span attributes](../../../images/integration/ai/quarkus-langchain4j-v2.png)
 
 ## **Next Steps**
 

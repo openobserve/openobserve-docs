@@ -142,7 +142,7 @@ Each `client.chat.completions.create` call with a `response_model` produces two 
 4. When validation fails, Instructor retries automatically. Each attempt appears as a separate child LLM span under the same `instructor.patch` root
 5. Check `gen_ai_request_response_model` to see which Pydantic schema was used for each extraction
 
-![Instructor trace in OpenObserve](../../../images/integration/ai/instructor-ai.png)
+![Instructor trace in OpenObserve, Waterfall view with the instructor.patch span attributes](../../../images/integration/ai/instructor-ai-v2.png)
 
 ## **Next Steps**
 

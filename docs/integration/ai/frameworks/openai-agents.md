@@ -166,9 +166,9 @@ Each `Runner.run()` call produces a trace with a four-level span tree. The `Agen
 3. Expand the tree to see `CHAIN` agent workflow spans and their `LLM` child spans
 4. For multi-agent workflows, each handoff appears as a separate `CHAIN` span making it easy to trace which agent handled each step
 
-![OpenAI Agents trace waterfall in OpenObserve](../../../images/integration/ai/openai-agents-1.png)
+![OpenAI Agents trace Waterfall in OpenObserve with the Agent workflow, Assistant, turn, response, and lookup_order spans](../../../images/integration/ai/openai-agents-1-v2.png)
 
-![OpenAI Agents LLM span attributes in OpenObserve](../../../images/integration/ai/openai-agents-2.png)
+![OpenAI Agents response LLM span attributes in OpenObserve with token and cost fields](../../../images/integration/ai/openai-agents-2-v2.png)
 
 ## **Next Steps**
 

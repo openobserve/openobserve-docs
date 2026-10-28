@@ -108,7 +108,7 @@ Each `litellm.completion` call produces one `LLM` span.
 3. Filter by `llm_model_name` to compare latency and token cost across models or providers
 4. Click any span to inspect `llm_invocation_parameters`, token counts, and cost attributes
 
-![LiteLLM trace in OpenObserve](../../../images/integration/ai/litellm.png)
+![LiteLLM trace in OpenObserve, Waterfall view with the completion span attributes](../../../images/integration/ai/litellm-v2.png)
 
 ## **Next Steps**
 

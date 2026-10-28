@@ -128,7 +128,7 @@ Each `agent.run_sync()` or `agent.run()` call produces a root agent span. Pydant
 3. Click any span to inspect `final_result`, `all_messages_events`, and token counts
 4. Filter by `model_name` to compare performance across different models
 
-![Pydantic AI trace in OpenObserve](../../../images/integration/ai/pydantic-ai.png)
+![Pydantic AI trace in OpenObserve, Waterfall view with the agent run span attributes](../../../images/integration/ai/pydantic-ai-v2.png)
 
 ## **Next Steps**
 

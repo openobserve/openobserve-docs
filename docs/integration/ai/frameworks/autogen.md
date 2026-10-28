@@ -130,7 +130,7 @@ Token counts and model name appear on the child `LLM` spans beneath each agent s
 3. Expand the tree to see each `AssistantAgent` span and its child LLM calls
 4. Filter by `operation_name = AssistantAgent` to find all agent spans
 
-![AutoGen trace in OpenObserve](../../../images/integration/ai/autogen.png)
+![AutoGen trace in OpenObserve, Waterfall view with the conversation span attributes](../../../images/integration/ai/autogen-v2.png)
 
 ## **Next Steps**
 

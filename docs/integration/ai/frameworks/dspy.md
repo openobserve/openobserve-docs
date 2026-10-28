@@ -120,7 +120,7 @@ Note: `llm_invocation_parameters` includes the API key in plaintext. Avoid expos
 3. Click any span to expand the trace and see the child `LM.__call__` LLM span
 4. Inspect `gen_ai_usage_input_tokens` and `gen_ai_usage_output_tokens` on the LLM span for token counts
 
-![DSPy trace in OpenObserve](../../../images/integration/ai/dspy.png)
+![DSPy trace in OpenObserve, Waterfall view with the Predict.forward span attributes](../../../images/integration/ai/dspy-v2.png)
 
 ## **Next Steps**
 

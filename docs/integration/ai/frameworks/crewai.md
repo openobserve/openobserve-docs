@@ -110,7 +110,7 @@ Each `crew.kickoff()` call produces a root `crewai.workflow` span with child spa
 3. Click any root `crewai.workflow` span to open the full hierarchy
 4. Expand the tree to see agent spans, task spans, and nested LLM calls
 
-![CrewAI trace in OpenObserve](../../../images/integration/ai/crewai.png)
+![CrewAI trace in OpenObserve, Waterfall view with the crewai.workflow span attributes](../../../images/integration/ai/crewai-v2.png)
 
 ## **Next Steps**
 

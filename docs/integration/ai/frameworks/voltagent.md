@@ -114,7 +114,7 @@ node your_script.js
 4. Filter by `enduser_id` to trace calls for a specific user
 5. Filter by `span_status` = `ERROR` to find failed runs
 
-![VoltAgent traces in OpenObserve](../../../images/integration/ai/voltagent.png)
+![VoltAgent trace in OpenObserve, Waterfall view with the generateText span attributes](../../../images/integration/ai/voltagent-v2.png)
 
 ## **Next Steps**
 

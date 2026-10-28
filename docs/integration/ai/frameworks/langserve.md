@@ -102,7 +102,7 @@ Token counts are not available on the client side because the LLM call happens i
 3. Use `duration` to monitor remote chain latency end-to-end
 4. Error spans from invalid endpoints appear with `span_status: ERROR`
 
-![LangServe trace in OpenObserve](../../../images/integration/ai/langserve.png)
+![LangServe trace in OpenObserve, Waterfall view with the RemoteRunnable.workflow span attributes](../../../images/integration/ai/langserve-v2.png)
 
 ## **Next Steps**
 

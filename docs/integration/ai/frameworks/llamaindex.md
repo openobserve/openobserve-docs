@@ -96,7 +96,7 @@ Each query produces a trace with spans for the query engine, retriever, and LLM 
 4. Expand the retriever span to inspect which document chunks were matched
 5. Filter by `span_status` = `ERROR` to find failed queries
 
-![LlamaIndex trace in OpenObserve](../../../images/integration/ai/llamaindex.png)
+![LlamaIndex trace in OpenObserve, Waterfall view with the BaseQueryEngine.query span attributes](../../../images/integration/ai/llamaindex-v2.png)
 
 ## **Next Steps**
 

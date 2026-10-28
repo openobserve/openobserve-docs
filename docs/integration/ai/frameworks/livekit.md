@@ -124,7 +124,7 @@ Each LLM call produces a manual `livekit.llm_call` root span with nested spans f
 4. Expand a trace to see the nested `llm_request` and `llm_request_run` spans
 5. Filter by `span_status = ERROR` to find failed calls
 
-![LiveKit traces in OpenObserve](../../../images/integration/ai/livekit.png)
+![LiveKit trace in OpenObserve, Waterfall view with the livekit.llm_call span attributes](../../../images/integration/ai/livekit-v2.png)
 
 ## **Next Steps**
 

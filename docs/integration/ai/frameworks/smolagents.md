@@ -114,7 +114,7 @@ Each `agent.run()` call produces a root `AGENT` span with child `LLM` spans for 
 3. Expand the tree to see child `LiteLLMModel.generate` LLM spans per reasoning step
 4. Filter by `llm_model_name` to compare token usage across different model backends
 
-![SmolAgents trace in OpenObserve](../../../images/integration/ai/smolagents.png)
+![SmolAgents trace in OpenObserve, Waterfall view with the CodeAgent.run span attributes](../../../images/integration/ai/smolagents-v2.png)
 
 ## **Next Steps**
 

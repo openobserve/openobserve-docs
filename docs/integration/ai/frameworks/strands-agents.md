@@ -121,7 +121,7 @@ Each agent call produces a tree of four spans. The manual `strands.agent` span i
 4. Click the `chat` span to inspect per-call token counts and time to first token
 5. Click the `invoke_agent` span to see cumulative token usage across all LLM calls in the run
 
-![Strands Agents trace in OpenObserve](../../../images/integration/ai/strands-agents.png)
+![Strands Agents trace in OpenObserve, Waterfall view with the strands.agent span attributes](../../../images/integration/ai/strands-agents-v2.png)
 
 ## **Next Steps**
 

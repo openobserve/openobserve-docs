@@ -125,7 +125,7 @@ Each `app.invoke()` call produces a root span with child spans per node and LLM 
 3. Click any root span to open the waterfall view and see per-node spans
 4. Check `traceloop_association_properties_langgraph_node` to identify which graph node each LLM call belongs to
 
-![LangGraph trace in OpenObserve](../../../images/integration/ai/langgraph.png)
+![LangGraph trace in OpenObserve, Waterfall view with the LangGraph.workflow span attributes](../../../images/integration/ai/langgraph-v2.png)
 
 ## **Next Steps**
 

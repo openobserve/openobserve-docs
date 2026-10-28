@@ -170,7 +170,7 @@ With client-side spans (option 2):
 2. Filter by `service_name = bedrock-agentcore-agent` (option 1) or `service_name = amazon-bedrock-agentcore` (option 2)
 3. Click a span to inspect latency, token usage, and input/output attributes
 
-![Amazon Bedrock AgentCore trace in OpenObserve](../../../images/integration/ai/amazon-bedrock-agentcore.png)
+![Amazon Bedrock AgentCore trace in OpenObserve, Waterfall view with the invoke_agent shop_helper span attributes](../../../images/integration/ai/amazon-bedrock-agentcore-v2.png)
 
 ## **Next Steps**
 
