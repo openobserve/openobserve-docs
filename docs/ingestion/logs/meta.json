@@ -6,6 +6,7 @@
     "fluent-bit",
     "fluentd",
     "kinesis-firehose",
+    "splunk-hec",
     "syslog",
     "python",
     "go",
