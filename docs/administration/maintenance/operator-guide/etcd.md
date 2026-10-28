@@ -1,14 +1,14 @@
 ---
 title: Etcd maintenance
-metaTitle: Etcd Maintenance (Deprecated)
+metaTitle: Etcd Maintenance (Removed)
 description: Learn how to maintain your etcd cluster with compaction, defragmentation, and space quotas to prevent data loss and ensure reliable performance.
 weight: 4450
 ---
 
-# Etcd Maintenance (Deprecated)
+# Etcd Maintenance (Removed)
 
-:::warning[Deprecation Notice]
-Support for **etcd** has been deprecated in OpenObserve.
+:::warning[Removal notice]
+Support for **etcd** has been removed from OpenObserve. Use NATS as the cluster coordinator and PostgreSQL as the metadata store. This page is kept for reference only.
 :::
 
 

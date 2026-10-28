@@ -5,7 +5,7 @@ description: "Manage OpenObserve as code with the Kubernetes Operator. Define al
 keywords: openobserve, kubernetes operator, observability as code, gitops, kubernetes observability, openobserve enterprise
 ---
 
-# OpenObserve Kubernetes Operator (v1.0.6)
+# OpenObserve Kubernetes Operator
 
 A Kubernetes operator that enables declarative management of resources of OpenObserve Enterprise (alerts, pipelines, functions) as native Kubernetes Custom Resources.
 
@@ -13,8 +13,9 @@ A Kubernetes operator that enables declarative management of resources of OpenOb
 
 The [OpenObserve Operator](https://github.com/openobserve/o2-k8s-operator) allows you to manage OpenObserve Enterprise configuration objects using Kubernetes CRDs, enabling GitOps workflows and infrastructure-as-code practices for your observability stack.
 
-> [!IMPORTANT]
-> This operator is designed to work with **OpenObserve Enterprise** only. It requires Enterprise API features that are not available in the open-source version.
+:::note[Important]
+This operator is designed to work with **OpenObserve Enterprise** only. It requires Enterprise API features that are not available in the open-source version.
+:::
 
 **Note:** This operator manages OpenObserve Enterprise configuration objects only. It does not install or manage the OpenObserve Enterprise application itself.
 
@@ -27,12 +28,14 @@ The [OpenObserve Operator](https://github.com/openobserve/o2-k8s-operator) allow
 
 ## Supported Resources
 
-- **OpenObserveConfig**: Connection configuration for OpenObserve Enterprise instances
+- **Config**: Connection configuration for OpenObserve Enterprise instances
 - **Alert**: OpenObserve Enterprise alert definitions
 - **AlertTemplate**: Templates for formatting alert notifications (HTTP or email)
 - **Destination**: Alert and pipeline destination definitions (HTTP or email)
 - **Pipeline**: OpenObserve Enterprise data pipeline definitions
 - **Function**: OpenObserve Enterprise VRL transformation functions
+- **Dashboard**: Dashboard definitions with panels and visualizations
+- **PrometheusRuleBinding**: Syncs the PrometheusRule objects it selects into OpenObserve alerts. The PrometheusRules are only read, never written.
 
 ## Quick Start
 
@@ -90,7 +93,7 @@ The provided configs create resources named:
 - `openobserve-prod` (from configs/prod/o2prod-config.yaml)
 
 Before deploying samples, you need to either:
-1. Create your own OpenObserveConfig with the name expected by the sample file, OR
+1. Create your own Config with the name expected by the sample file, OR
 2. Update the `configRef` name and namespace in the sample files to match your deployed config
 
 ```bash
@@ -120,11 +123,11 @@ stringData:
   token: "your-api-token"
 ```
 
-2. Create an OpenObserveConfig:
+2. Create an Config:
 
 ```yaml
 apiVersion: openobserve.ai/v1alpha1
-kind: OpenObserveConfig
+kind: Config
 metadata:
   name: production
 spec:
@@ -171,7 +174,7 @@ spec:
 
 ```yaml
 apiVersion: openobserve.ai/v1alpha1
-kind: OpenObserveAlertTemplate
+kind: AlertTemplate
 metadata:
   name: slack-webhook-template
 spec:
@@ -201,7 +204,7 @@ spec:
 
 ```yaml
 apiVersion: openobserve.ai/v1alpha1
-kind: OpenObserveDestination
+kind: Destination
 metadata:
   name: slack-alerts
 spec:
@@ -222,7 +225,7 @@ spec:
 
 ```yaml
 apiVersion: openobserve.ai/v1alpha1
-kind: OpenObserveFunction
+kind: Function
 metadata:
   name: data-transformer
 spec:
@@ -272,7 +275,7 @@ spec:
 - Credentials are stored as Kubernetes Secrets
 - Webhook uses auto-generated TLS certificates
 - The operator requires cluster-wide permissions for CRD management
-- TLS verification can be configured per OpenObserveConfig resource
+- TLS verification can be configured per Config resource
 
 ## Development Status
 
