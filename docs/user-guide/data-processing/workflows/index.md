@@ -9,7 +9,7 @@ Workflows let you define automated chains of operations that execute in response
 
 Workflows are available in the Enterprise Edition and OpenObserve Cloud, in **Beta**, gated by the `O2_WORKFLOWS_ENABLED` configuration flag. Trial access is available on request. They share the same visual node-edge builder as pipelines but introduce workflow-specific node types: **Trigger**, **Condition**, **Branch**, **Function** (JavaScript only), and **Destination**.
 
-![workflows list page](images/workflows-1.png)
+![Workflows list with the Folders rail, the All, Alerts and Incidents tabs and a workflow row](images/workflows-1-v2.png)
 
 To navigate to workflows, select your organization and click **Data > Workflows** in the left navigation. To organize workflows into folders, see [Workflow Folders](workflow-folders.md).
 
@@ -37,7 +37,7 @@ A workflow graph is built from the following nodes connected by edges:
 
 ## Create a workflow
 
-![workflow builder with nodes and edges](images/workflows-2.png)
+![Workflow editor with the step palette and a trigger, condition and destination connected on the canvas](images/workflows-2-v2.png)
 
 1. Navigate to **Data > Workflows** and click **New workflow**.
 2. Enter a name in the title field (**Untitled Workflow**) and an optional **Description**.
@@ -71,7 +71,7 @@ You can test a workflow without waiting for an alert to trigger it.
 4. Turn on **Don't actually send to destinations** if destination steps must not deliver during the test.
 5. Click **Run Test**. Each step shows a check or an error icon on the canvas.
 
-![workflow test results](images/workflows-3.png)
+![Test Workflow dialog with Run From, the Don't actually send to destinations toggle and Sample Input](images/workflows-3-v2.png)
 
 The test endpoint is also available via the API at `POST /api/{org_id}/workflows/test`.
 
