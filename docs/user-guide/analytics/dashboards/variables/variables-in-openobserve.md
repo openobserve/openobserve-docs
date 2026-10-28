@@ -31,7 +31,7 @@ To create a variable:
 3. Select **Variables** from the left navigation.
 4. Click **Add Variable**.
 5. Configure the variable with the following values:
-    ![Configure Variable](../../../../images/variables-query.png)
+    ![Edit Variable form for a Query Values variable named pod on the docs_k8s_logs stream and k8s_pod_name field](../../../../images/variables-query-v2.png)
 
     - **Type of variable**: Query Values
     - **Name**: pod
@@ -76,10 +76,10 @@ To apply the variable to a panel:
     - In the **Value** field, type the variable name using the dollar symbol. For example, `$pod`.
 
 6. Click **Save** to save the panel. <br>
-![Add variable to a panel](../../../../images/query-variable-result.png)
+![Panel editor with the filter k8s_pod_name = $pod and the pod variable set to kafka-0](../../../../images/query-variable-result-v2.png)
 
 The panel is now dynamically filtered using the **Pod** variable. When users select a value from the **Pod** dropdown on the dashboard, the panel updates to display data for that pod only.
-![Variable in Dashboard](../../../../images/query-variable-results.png)
+![Dashboard with the pod variable dropdown open, listing the pods of the default namespace](../../../../images/query-variable-results-v2.png)
 
 ### Variable Substitution Syntax
 
