@@ -1,36 +1,30 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { BASE_PATH, SITE_URL } from '@/lib/constants';
 
 /**
- * "Copy page / open in an LLM" menu, ported from `docs/js/llm-page-actions.js`.
+ * "Copy page / open in an LLM" actions, ported from `docs/js/llm-page-actions.js`.
+ * Rendered as a single row directly under the page title, so every action is
+ * one click away rather than behind a menu. The page's last-updated date leads
+ * the row when git history has one.
  *
  * The raw Markdown it links to is emitted next to each HTML page by
  * scripts/post-export.mjs, matching the MkDocs `hooks/llm_markdown.py` hook.
  */
-export function LlmPageActions({ markdownPath }: { markdownPath: string }) {
-  const [open, setOpen] = useState(false);
+export function LlmPageActions({
+  markdownPath,
+  updated,
+}: {
+  markdownPath: string;
+  /** Pre-formatted by the server; see app/[[...slug]]/page.tsx. */
+  updated?: { iso: string; label: string };
+}) {
   const [copied, setCopied] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
 
   const mdUrl = `${BASE_PATH}/${markdownPath}`;
   const absoluteMdUrl = `${SITE_URL}${mdUrl}`;
   const prompt = `Read ${absoluteMdUrl} so I can ask questions about it.`;
-
-  useEffect(() => {
-    if (!open) return;
-    const onClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    document.addEventListener('mousedown', onClick);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onClick);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
 
   const copyPage = async () => {
     try {
@@ -41,52 +35,67 @@ export function LlmPageActions({ markdownPath }: { markdownPath: string }) {
     } catch {
       setCopied(false);
     }
-    setOpen(false);
   };
 
-  const itemClass =
-    'block w-full px-3 py-2 text-left text-sm transition-colors hover:bg-fd-accent';
-
   return (
-    <div ref={ref} className="relative inline-block">
-      <div className="flex overflow-hidden rounded-md border border-fd-border">
-        <button type="button" onClick={copyPage} className="px-3 py-1.5 text-sm hover:bg-fd-accent">
-          {copied ? 'Copied' : 'Copy page'}
-        </button>
-        <button
-          type="button"
-          aria-label="More page actions"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="border-l border-fd-border px-2 py-1.5 text-sm hover:bg-fd-accent"
-        >
-          ▾
-        </button>
-      </div>
-
-      {open ? (
-        <div className="absolute right-0 z-20 mt-1 w-56 overflow-hidden rounded-md border border-fd-border bg-fd-popover shadow-lg">
-          <a className={itemClass} href={mdUrl} target="_blank" rel="noopener noreferrer">
-            View as Markdown
-          </a>
-          <a
-            className={itemClass}
-            href={`https://chatgpt.com/?q=${encodeURIComponent(prompt)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open in ChatGPT
-          </a>
-          <a
-            className={itemClass}
-            href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open in Claude
-          </a>
-        </div>
+    // `not-prose`: this sits inside DocsBody, whose link styling would otherwise
+    // colour and underline every action.
+    <div className="not-prose -mt-2 mb-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-fd-border pb-4 text-[0.8125rem] text-fd-muted-foreground">
+      {updated ? (
+        // The divider sets the date, which is information, apart from the actions.
+        <span className="inline-flex items-center gap-1.5 border-e border-fd-border pe-3">
+          <Icon>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </Icon>
+          Updated <time dateTime={updated.iso}>{updated.label}</time>
+        </span>
       ) : null}
+      <button type="button" onClick={copyPage} className={actionClass}>
+        <Icon>
+          <rect width="14" height="14" x="8" y="8" rx="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </Icon>
+        {copied ? 'Copied' : 'Copy page'}
+      </button>
+      <ActionLink href={mdUrl}>View Markdown</ActionLink>
+      <ActionLink href={`https://chatgpt.com/?q=${encodeURIComponent(prompt)}`}>Open in ChatGPT</ActionLink>
+      <ActionLink href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}>Open in Claude</ActionLink>
     </div>
+  );
+}
+
+const actionClass =
+  'inline-flex items-center gap-1.5 transition-colors hover:text-fd-foreground';
+
+function ActionLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={actionClass}>
+      <Icon>
+        <path d="M15 3h6v6" />
+        <path d="M10 14 21 3" />
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      </Icon>
+      {children}
+    </a>
+  );
+}
+
+/** A 14px Lucide-style stroke icon; the paths are passed as children. */
+function Icon({ children }: { children: ReactNode }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
   );
 }

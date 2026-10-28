@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { DocsBody, DocsPage } from 'fumadocs-ui/layouts/docs/page';
+import { Heading } from 'fumadocs-ui/components/heading';
 import { getBreadcrumbItems } from 'fumadocs-core/breadcrumb';
 import { findNeighbour } from 'fumadocs-core/page-tree';
 import { source } from '@/lib/source';
@@ -71,6 +72,20 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   // carry the slash, so the fix is to rename the file to a dot-free slug and add
   // a redirect stub for the old URL — content work, tracked in the audit.
   const neighbours = findNeighbour(source.pageTree, page.url);
+  // Formatted here, at build time, rather than in the client component, so the
+  // rendered day cannot shift with the reader's time zone.
+  const updated = lastModified
+    ? {
+        iso: new Date(lastModified).toISOString(),
+        label: new Date(lastModified).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          timeZone: 'UTC',
+        }),
+      }
+    : undefined;
+  const pageActions = <LlmPageActions markdownPath={page.path} updated={updated} />;
 
   return (
     <DocsPage toc={toc} full={false} footer={{ items: neighbours }}>
@@ -81,31 +96,32 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         lastModified={lastModified}
         ancestors={breadcrumbAncestors}
       />
-      <div className="mb-4 flex justify-end">
-        <LlmPageActions markdownPath={page.path} />
-      </div>
       <DocsBody>
         {/*
           Rendered inside DocsBody, not as <DocsTitle>, so the fallback heading
           picks up the same prose styling as an authored one.
         */}
-        {hasOwnHeading ? null : <h1>{page.data.title}</h1>}
-        <MDX components={getMDXComponents()} />
+        {hasOwnHeading ? null : (
+          <>
+            <h1>{page.data.title}</h1>
+            {pageActions}
+          </>
+        )}
+        <MDX
+          components={getMDXComponents({
+            // The page actions sit directly under the title. An authored H1 is
+            // part of the MDX body, so they are attached to it here; no page
+            // has more than one.
+            h1: (props) => (
+              <>
+                <Heading as="h1" {...props} />
+                {pageActions}
+              </>
+            ),
+          })}
+        />
       </DocsBody>
       <Feedback pageUrl={page.url} />
-      {lastModified ? (
-        <p className="mt-4 text-sm text-fd-muted-foreground">
-          Last updated on{' '}
-          <time dateTime={new Date(lastModified).toISOString()}>
-            {new Date(lastModified).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              timeZone: 'UTC',
-            })}
-          </time>
-        </p>
-      ) : null}
     </DocsPage>
   );
 }
