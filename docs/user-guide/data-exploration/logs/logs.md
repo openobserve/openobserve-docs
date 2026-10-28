@@ -20,7 +20,7 @@ To start using the **Logs** page:
 3. Set the time range using the time range selector.
 4. Click **Run query** to view the logs for the selected time range.
 
-![Log search](../../../images/log-search-basic.gif)
+![Logs page with search results for the past hour](../../../images/log-search-basic-v2.png)
 
 This is the minimum setup required to explore log data for the selected time range. 
 
@@ -30,11 +30,11 @@ The **Query Editor** allows you to define filters, expressions, and transformati
 
 The editor has two modes, non-SQL mode and SQL mode. Switch between them with **SQL Mode** in the **More** menu, under **Set Once**. Select **Pin to toolbar** next to it to keep the switch on the toolbar. The editor also turns SQL mode on by itself when you type a `SELECT` statement for an existing stream, and turns it off when you remove the `SELECT`.
 
-![Logs query toggle](../../../images/logs-query-mode-toggle.png)
+![More menu with the SQL Mode switch under Set Once](../../../images/logs-query-mode-toggle-v2.png)
 
 **Non-SQL mode**: When SQL mode is off. Use this mode to apply filters, functions such as `match_all`, or other field-based conditions without writing full SQL. Learn more about [SQL functions](../../../reference/sql-functions/index.md).
 
-![Logs query non-SQL mode](../../../images/logs-query-non-sql-mode.png)
+![Logs query non-SQL mode](../../../images/logs-query-non-sql-mode-v2.png)
 
 **SQL mode**: When SQL mode is on. It enables full SQL syntax. You can write complete SQL queries to control the selection, filtering, and ordering of log records.
 
@@ -44,7 +44,7 @@ For example,
 SELECT * FROM "default" where k8s_namespace_name = 'openobserve'
 ```
 
-![Logs query SQL mode](../../../images/logs-query-sql-mode.png)
+![Logs query SQL mode](../../../images/logs-query-sql-mode-v2.png)
 
 Switching between these modes updates the behavior and syntax of the query editor.
 
@@ -62,11 +62,11 @@ Use the arrow buttons on either side of the picker to move the range one step ba
 
 **Relative:**
 
-![Logs time-range selector relative](../../../images/logs-time-range-selector-relative.png)
+![Logs time-range selector relative](../../../images/logs-time-range-selector-relative-v2.png)
 
 **Absolute:**
 
-![Logs time-range selector absolute](../../../images/logs-time-range-selector-absolute.png)
+![Logs time-range selector absolute](../../../images/logs-time-range-selector-absolute-v2.png)
 
 This setting limits the query to logs that fall within the selected time range, which helps reduce the amount of data scanned and improves query speed.
 
@@ -103,12 +103,12 @@ After the query runs successfully, the results table shows all log entries that 
 
 Click a row to open the **Source Details** panel for that record. The panel opens on the **JSON** tab, which shows the raw record, or on the last of **JSON** and **Table** you used. Switch to the **Table** tab to list the record's fields and values. Drag a tab to reorder the tab bar; the order is saved in the browser. In Enterprise Edition, the panel also shows correlated **Logs**, **Metrics**, and **Traces** tabs when telemetry correlation is enabled. See [Correlation Settings](../../account-administration/management/correlation-settings.md).
 
-![Logs view row](../../../images/logs-view-row.png)
+![Logs view row](../../../images/logs-view-row-v2.png)
 
 ## Use the Histogram and Views
 - The histogram displays log event distribution over time. Turn off **Histogram** in the **More** menu, under **Set Once**, to hide it when not needed. You can pin this switch to the toolbar too.
 
-    ![Logs histogram disabled](../../../images/logs-histogram-disable.png)
+    ![Logs histogram disabled](../../../images/logs-histogram-disable-v2.png)
 
 - The view buttons on the left of the toolbar switch what the page shows:
     - **Search**: the log results table.
@@ -117,7 +117,7 @@ Click a row to open the **Source Details** panel for that record. The panel open
     - **Patterns**: groups logs into recurring templates. See [Log Patterns](log-patterns.md). Enterprise only.
     - **Timechart**: plots the query over time. Shown only when the server sets `ZO_TIMECHART_ENABLED=true` (default `false`).
 
-    ![Logs visualize](../../../images/logs-visualize.png)
+    ![Logs visualize](../../../images/logs-visualize-v2.png)
 
 These tools help you quickly identify trends or activity spikes within the selected time range.
 
@@ -129,17 +129,17 @@ Turn on **Function Editor** in the **More** menu, under **Set Once**, to write a
 2. Select a saved function or write one manually. Learn more about [VRL functions](../../data-processing/functions/index.md).
 3. Run the query to apply the transformation.
 
-![Transform logs with VRL](../../../images/logs-vrl-function.png)
+![Transform logs with VRL](../../../images/logs-vrl-function-v2.png)
 
 ## Adjust Display Options
 
 - **Wrap Table Content**: Turn on word wrapping in the results table.
 
-    ![Logs wrap table content](../../../images/logs-wrap-table-content.png)
+    ![Logs wrap table content](../../../images/logs-wrap-table-content-v2.png)
 
 - **Auto Refresh**: Set a refresh interval next to **Run query** to update query results continuously.
 
-    ![Logs auto refresh](../../../images/logs-refresh.gif)
+    ![Auto Refresh interval menu](../../../images/logs-refresh-v2.png)
 
 These options help customize the view for your analysis needs.
 
@@ -151,7 +151,7 @@ To save a query and its configuration:
 2. Enter a name in the dialog box.
 3. Click **Save**.
 
-![Logs save view](../../../images/logs-save-view.png)
+![Logs save view](../../../images/logs-save-view-v2.png)
 
 Select **List Saved Views** under **Saved Views** to reopen a saved view at any time, or **Manage Saved Views** to update or delete them.
 
@@ -164,20 +164,20 @@ Click the **More Actions** menu (the three-bar icon) to access:
 
 1. **Search History**: View your recently executed queries.
 
-    ![Logs search history](../../../images/logs-search-history.png)
+    ![Logs search history](../../../images/logs-search-history-v2.png)
 
 2. **Download results**: Export the results of the current query as **CSV** or **JSON**.
 3. **Download results for custom range**: Export a chosen number of records, starting from a record number you set, as CSV or JSON, without modifying the active query.
 
-    ![Logs download results for custom range](../../../images/logs-download-results-for-custom-range.png)
+    ![Logs download results for custom range](../../../images/logs-download-results-for-custom-range-v2.png)
 
 4. **Create Scheduled Search**: Run the current query as a background search job. Scheduled search is available in Enterprise and Cloud editions.
 
-    ![Logs create scheduled search](../../../images/logs-setting-scheduled-search.png)
+    ![More Actions menu with the Schedule options](../../../images/logs-setting-scheduled-search-v2.png)
 
 5. **List Scheduled Search**: View and manage scheduled search jobs.
 
-    ![Logs scheduled search list](../../../images/logs-scheduled-search-list.png)
+    ![Logs scheduled search list](../../../images/logs-scheduled-search-list-v2.png)
 
 The same menu also lets you create an alert from the current search, open **Explain Query** when SQL mode is on (see [Explain and Analyze Query](explain-analyze-query.md)), and, in Enterprise Edition, open **Search Inspect** when the search inspector is enabled.
 
