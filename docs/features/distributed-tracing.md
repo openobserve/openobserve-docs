@@ -5,7 +5,7 @@ description: "Track requests across microservices with OpenObserve distributed t
 
 # Distributed Tracing
 
-OpenObserve provides powerful distributed tracing capabilities that enable you to track requests as they flow through your microservices architecture, identify performance bottlenecks, and troubleshoot complex distributed systems with ease.
+OpenObserve distributed tracing tracks requests as they flow through your microservices architecture, so you can identify performance bottlenecks and troubleshoot distributed systems.
 
 ## Overview
 
@@ -51,9 +51,9 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 ### Visualization & Insights
 
-- **Gantt Chart Views**: Interactive timeline visualization showing span relationships and durations
+- **Waterfall Views**: Interactive visualization showing span relationships and durations
 
-![Traces Gnatt Chart View](../images/features/trace-timeline.png)
+![Traces waterfall view](../images/features/trace-timeline.png)
 
 - **Service Map**: Real-time service topology with performance metrics and error rates
 
@@ -70,5 +70,5 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 ### Integration & Standards
 - **OpenTelemetry Ecosystem**: Full compatibility with OpenTelemetry collectors and instrumentation libraries
 - **Jaeger and Zipkin Compatibility**: Supports ingestion from Jaeger and Zipkin via OpenTelemetry Collector
-- **Kubernetes-Friendly:** Easily integrates into Kubernetes environments via OpenTelemetry Collector with support for service metadata enrichment.
-- **API Access**: Comprehensive REST APIs for programmatic trace access and analysis
+- **Kubernetes-Friendly:** Integrates into Kubernetes environments via OpenTelemetry Collector with support for service metadata enrichment.
+- **API Access**: REST APIs for programmatic trace access and analysis

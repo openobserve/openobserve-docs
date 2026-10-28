@@ -8,6 +8,9 @@ description: "Connect AI agents and IDEs to OpenObserve over the Model Context P
 
 The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard introduced by Anthropic that defines how AI applications connect to external tools and data sources. It's analogous to LSP for editors: one protocol, many clients, many servers.
 
+!!! info "Availability"
+    The MCP server is available in Open Source, Enterprise Edition, and Cloud. OAuth 2.0 sign-in for MCP is available in Enterprise Edition with Dex enabled.
+
 You can connect your AI agents and IDEs to your OpenObserve instance to query logs, metrics, and traces in natural language; create and manage alerts; and explore stream metadata directly from your editor or agent runtime. MCP enables:
 
 - **Natural-language queries** against logs, metrics, and traces from your IDE
@@ -22,13 +25,39 @@ Your MCP endpoint follows the pattern:
 https://your-instance/api/{org_id}/mcp
 ```
 
-Generate a Base64-encoded auth token from your OpenObserve credentials:
+## Authentication
+
+The MCP server supports two authentication methods:
+
+- **Basic authentication** works in all editions. Generate a Base64-encoded token from your OpenObserve credentials:
+
+    ```bash
+    echo -n "your-email@example.com:your-password" | base64
+    ```
+
+    You'll use this token in every client below.
+
+- **OAuth 2.0 sign-in** is available in Enterprise Edition with Dex enabled. The client signs in through the browser, so you do not create or store a token.
+
+### OAuth 2.0 sign-in
+
+With OAuth, add the MCP endpoint to your client without an `Authorization` header. For example, with Claude Code:
 
 ```bash
-echo -n "your-email@example.com:your-password" | base64
+claude mcp add o2 https://your-instance/api/default/mcp -t http
 ```
 
-You'll use this token in every client below.
+The client completes the sign-in on its own:
+
+1. The client calls `https://your-instance/api/{org_id}/mcp` and receives a `401` response with a `WWW-Authenticate` header that points to the server's OAuth protected resource metadata (RFC 9728).
+2. From that metadata the client discovers the Dex authorization server, registers itself through dynamic client registration, and opens a browser window for sign-in.
+3. After you sign in, the client sends a bearer token in the `Authorization` header on every request.
+
+Server requirements for OAuth sign-in:
+
+- Dex is enabled, and the Dex URL is reachable from the machine that runs the MCP client.
+- `ZO_WEB_URL` and `ZO_BASE_URI` are set to the externally visible address of your instance. The server uses them to build the metadata URLs that the client follows.
+- The Dex configuration permits dynamic client registration and the scopes `openid`, `email`, `groups`, `profile`, and `offline_access`.
 
 ## Connect to OpenObserve's MCP server
 
@@ -170,6 +199,10 @@ curl https://your-instance/api/default/mcp \
 }
 EOF
 ```
+
+The `SearchSQL` request body supports `agent_options` for agent-friendly responses. Set `output_format` to `csv` or `md_table` to reduce the token count of results, and set `mode` to `partition` to scan long time ranges in a single request without SSE streaming. See [Agent options](https://openobserve.ai/docs/reference/api/search/search/#agent-options) in the search API reference for details.
+
+When you set `output_format`, also set the tool call's `detail` argument to `full`. The default `summary` detail level keeps only the standard response fields and strips the `data` block that carries the formatted results.
 
 This pattern works with [OpenAI's Responses API](https://platform.openai.com/docs/guides/tools-remote-mcp), Anthropic's API, and any agent runtime that supports remote MCP servers.
 
@@ -445,7 +478,10 @@ This is useful for keeping production data isolated from development queries, or
 
 ## Security considerations
 
-- **Use a dedicated MCP user** with the minimum permissions required, rather than your personal admin credentials.
+!!! warning "Permission scoping in Open Source"
+    Role-based access control with custom roles and granular permissions is available in Enterprise Edition and Cloud. On an Open Source instance, every MCP tool call runs with the connected account's full privileges. This includes the destructive tools marked ⚠️ in the tool tables above, such as deleting streams, alerts, and users. Before connecting an AI agent to an Open Source instance, restrict network access to the endpoint and configure your MCP client to require confirmation for every tool call.
+
+- **Use a dedicated MCP user** with the minimum permissions required, rather than your personal admin credentials. Permission scoping requires role-based access control, which is available in Enterprise Edition and Cloud.
 - **Never commit credentials** to version control. Store Base64 tokens in environment variables or a secrets manager.
 - **Rotate credentials regularly** and revoke access for any client you no longer use.
 - **Confirm tool calls before execution** in your MCP client when possible. This protects against prompt injection from untrusted data sources.

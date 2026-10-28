@@ -5,10 +5,11 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { source } from '@/lib/source';
-import { baseOptions, SidebarSiteLinks } from '@/app/layout.config';
+import { baseOptions, SidebarGetStarted, SidebarSiteLinks } from '@/app/layout.config';
 import { Analytics, GtmNoScript } from '@/components/analytics';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
+import { AnnouncementBanner } from '@/components/announcement-banner';
 import { BASE_PATH, SITE_URL, SOCIAL_IMAGE } from '@/lib/constants';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
@@ -51,10 +52,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <GtmNoScript />
         <SiteStructuredData />
         <RootProvider search={{ SearchDialog }}>
+          <AnnouncementBanner />
           <DocsLayout
             tree={source.pageTree}
             {...baseOptions}
-            sidebar={{ footer: <SidebarSiteLinks /> }}
+            sidebar={{ banner: <SidebarGetStarted />, footer: <SidebarSiteLinks /> }}
           >
             {children}
           </DocsLayout>

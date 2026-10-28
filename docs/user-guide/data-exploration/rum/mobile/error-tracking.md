@@ -11,7 +11,7 @@ If you are new to the mobile SDKs, start with the [Mobile RUM Overview](./index.
 
 !!! note "Versions (Beta)"
 
-    The mobile SDKs are at React Native `0.1.1`, Android `0.1.0`, and iOS `0.1.0`. The error and crash APIs shown here are settled, but pin exact versions: a few build-time symbol-upload tools are still being finalized, and those are called out explicitly below.
+    The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. The error and crash APIs shown here are settled, but pin exact versions: a few build-time symbol-upload tools are still being finalized, and those are called out explicitly below.
 
 ## Handled errors vs. crashes
 
@@ -42,16 +42,16 @@ Automatic capture only sees faults that reach the top of the stack. Everything y
 
 ### React Native
 
-Use the `OoRum.addError` singleton method. Its signature is `addError(message, source, stacktrace, context?, timestampMs?, fingerprint?)`:
+Use the `O2Rum.addError` singleton method. Its signature is `addError(message, source, stacktrace, context?, timestampMs?, fingerprint?)`:
 
 ```tsx
-import { OoRum, ErrorSource } from '@openobserve/mobile-react-native';
+import { O2Rum, ErrorSource } from '@openobserve/mobile-react-native';
 
 try {
   await submitOrder(cart);
 } catch (e) {
   const err = e as Error;
-  await OoRum.addError(
+  await O2Rum.addError(
     err.message,
     ErrorSource.SOURCE,
     err.stack ?? '',
@@ -118,7 +118,7 @@ Automatic grouping is right most of the time, but it can be too coarse (two unre
 - **React Native** — pass the `fingerprint` argument (the last parameter of `addError`):
 
   ```tsx
-  await OoRum.addError(
+  await O2Rum.addError(
     err.message,
     ErrorSource.SOURCE,
     err.stack ?? '',

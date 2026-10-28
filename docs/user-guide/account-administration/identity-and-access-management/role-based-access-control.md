@@ -1,21 +1,22 @@
 ---
 title: Role-Based Access Control (RBAC)
-description: Manage fine-grained access in OpenObserve with OpenFGA-based RBAC—roles, permissions, service accounts, and user groups.
+description: >-
+  Manage fine-grained access in OpenObserve with OpenFGA-based RBAC—roles,
+  permissions, service accounts, and user groups.
 ---
+This guide provides an overview of Role-Based Access Control (RBAC) and its features in OpenObserve.
 
-This guide provides an overview of Role-Based Access Control (RBAC), its features, and how it is implemented in OpenObserve.
+!!! info "Availability"
+    This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
 
-:::info[Availability]
-This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
-
-- **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
-- **Cloud version**: RBAC is preconfigured and does not require setup.
-- **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
-:::
+    - **Enterprise version**: RBAC requires manual configuration using [OpenFGA](https://openfga.dev/api/service). Learn more about [enabling RBAC in OpenObserve Enterprise](enable-rbac-in-openobserve-enterprise.md).
+    - **Cloud version**: RBAC is preconfigured and does not require setup.
+    - **Open-source version**: RBAC is not supported. All users have unrestricted access to all features.
 
 ## Overview
 
 OpenObserve uses RBAC to manage what actions users can perform based on their assigned roles. Instead of giving all users the same level of access, RBAC ensures that each user can only access the features and data relevant to their role.
+
 
 ## How OpenObserve Implements RBAC
 
@@ -30,6 +31,7 @@ OpenObserve uses OpenFGA, an authorization system, to manage role-based access c
 <br> **True**: The user can perform the action.
 <br> **False**: The user cannot perform the action.
 
+
 ## RBAC in OpenObserve  
 
 RBAC in OpenObserve is managed through the **Identity and Access Management (IAM)** panel, which provides features for administering users, roles, service accounts, and user groups.
@@ -43,22 +45,6 @@ RBAC permissions define what actions users can perform:
 - **Create**: Add new resources.
 - **Update**: Modify existing resources.
 - **Delete**: Remove resources.
-
-### Per-Stream Resources
-
-:::info[Availability]
-These resources are available in Enterprise Edition and Cloud. Not available in Open Source.
-:::
-
-In addition to the standard resources, OpenObserve exposes the following per-stream RBAC resources. Each resource is scoped to an individual stream, allowing you to grant or restrict access on a stream-by-stream basis:
-
-- **`logs_pattern`**: Controls access to the logs patterns extract action. Exposes the **Get** and **All** actions only.
-- **`logs_insights`**: Controls access to the logs Insights feature. Exposes the **Get** and **All** actions only.
-- **`logs_cache`**: Controls access to clearing or refreshing the result cache. Exposes the **Delete** and **All** actions only.
-
-**Note:** When the corresponding RBAC toggle is enabled, users need explicit permission on these resources to use Insights, pattern extraction, and cache clearing, respectively. Generic stream search or PUT access is not sufficient.
-
-**Note:** Report permissions are now granted per **report folder** (resource `rfolder`). When editing a custom role, these permissions appear under the report folder hierarchy, allowing you to grant or restrict report access on a folder-by-folder basis.
 
 ## Roles
 
@@ -88,11 +74,52 @@ Admins can create custom user roles in OpenObserve to define more granular acces
 
 ![Custom roles in OpenObserve](../../../images/rbac1-custom_roles.png)
 
-## Service Accounts
+## LLM Evaluations (AI Observability) Permissions
 
-A service account is a non-human identity used for API access, automation, and integrations. You assign it roles and permissions just like a user, and it is issued a **token** for authentication. On Enterprise, service accounts have no permissions until you assign them a role or add them to a group.
+OpenObserve also supports fine-grained RBAC for LLM Evaluations (AI Observability) resources. When you edit a custom role, these resources appear as top-level permission entries alongside existing resources such as streams, dashboards, and folders:
 
-For full details on creating service accounts, granting access, authenticating with the token, and rotation, see [Service Accounts](service-accounts.md).
+- **LLM Providers**: Control access to the LLM providers used for AI evaluations.
+- **Score Configs**: Control access to scoring configurations.
+- **Scorers**: Control access to scorers, such as an LLM judge.
+- **Online Eval Jobs**: Control access to online evaluation jobs.
+
+Each of these resources supports entity-level permissions, so you can grant access to a specific provider, scorer, score config, or eval job rather than every entity of that type.
+
+![Custom role editor permission list showing the LLM Evaluations resources (LLM Providers, Score Configs, Scorers, Online Eval Jobs)](images/llm-rbac.png)
+
+**To grant access to a specific LLM evaluation entity**:
+
+1. From the **IAM** panel, select **Roles** and click the edit icon on a custom role.
+2. In the permission list, select the resource you want to restrict, for example **LLM Providers**.
+3. Choose the specific entities to grant access to from the entity list.
+
+![Entity selection for LLM Providers within the custom role editor](images/llm-provider-rbac.png)
+
+List views respect these permissions: when a user lists providers, score configs, scorers, or eval jobs, OpenObserve returns only the entities the user is permitted to view.
+
+## Service Accounts  
+
+A service account in OpenObserve is a non-human account used for API access, automation, and integrations. Each service account is assigned a **token** for authentication.
+
+- **Enterprise version**: Service accounts have no permission by default. Admins must assign roles to the service accounts explicitly.
+- **Open-source version**: Service accounts have full access by default.
+- **Cloud version**: Service accounts are not supported.
+
+**To add a service account**:
+
+1. From the **IAM** panel, select **Service Accounts**.
+2. Click **Add Service Account**.
+3. Enter the **Email, First Name,** and **Last Name**.
+4. Click **Save**.
+5. A **token** is generated for the service account.
+6. After the service account is created, assign the necessary **roles** and **permissions**. This step is required for the service account to make API calls and access specific services in OpenObserve.
+
+![Service accounts in OpenObserve](../../../images/rbac2-service-account.png)
+
+**Note:**
+
+- You can generate a new token at any time by selecting the appropriate service account from the Service Accounts page and clicking the refresh icon next to it.
+- Ensure that the assigned roles provide only the minimum required access based on the use case.
 
 ## User Groups
 
@@ -131,11 +158,7 @@ If the entered email address already belongs to an existing user, the system wil
 ![Create User and Set Password](../../../images/create-user-IAM-password.png)
 
 After you save the changes, the new user gets listed in the **Users** page.<br>
-Use the Actions column to edit and delete the user. You can also edit an existing user's role assignments from the Actions column.
-
-**Note:** The Users list includes an **Auth** column and a **Roles** column. The **Auth** column shows **Native** for local users and **SSO** for externally provisioned users. The **Roles** column lists the assigned predefined role along with any custom-role chips.
-
-**Note:** For SSO/external users, custom-role assignment is read-only in OpenObserve and must be changed in the source system.
+Use the Actions column to edit and delete the user. 
 
 **Note:** In the **Cloud version**, any user can invite new users by entering their email addresses, separated by commas or semicolons, selecting a role, and clicking **Send Invite**. <br>
 ![Invite_users_o2cloud](../../../images/rbac-invite-users-o2cloud.png)
