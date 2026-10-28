@@ -11,7 +11,7 @@ Translate minified JS error stack traces back to original source file paths, fun
 
 > **Enterprise only.** Requires an API token with `sourcemaps` RBAC permissions.
 
-![source map upload](../../../images/frontend/rum-source-map-upload.png)
+![Upload Source Maps form with Service, Version, Environment and the Source Map ZIP File drop zone](../../../images/frontend/rum-source-map-upload-v2.png)
 ## How it works
 
 The OpenObserve RUM SDK captures errors from production, but minified stack traces (e.g. `main.abc123.js:1:186484`) are unreadable. You upload the `.map` files from your build, tagged with **service**, **env**, and **version**. OpenObserve matches these against incoming errors and resolves frames automatically.
