@@ -78,20 +78,22 @@ In the Tabs section, you can add, edit, and delete Tabs within the Dashboard.
 
 ## Edit Dashboard Layout
 
-Dashboards open with the layout locked. Click **Edit** in the toolbar to drag and resize Panels, reorder Tabs, or change a Panel's layout. Changes stay local until you click **Save**.
+Dashboards open with the layout locked. Click **Edit** in the toolbar to drag and resize Panels, reorder Tabs, or set a Panel's height from its **Edit Layout** menu item. Changes stay local until you click **Save**.
 
 ![TODO: screenshot of a dashboard in layout edit mode with the Undo, Redo, change count, Discard, and Save controls](images/placeholder.png)
 
-While editing, the toolbar shows **Undo**, **Redo**, an "N changes" count, **Discard**, and **Save**. Panel actions and adding, renaming, or deleting Tabs are hidden until you leave edit mode.
+While editing, the toolbar shows an **Editing** badge, **Undo**, **Redo**, a count of unsaved changes, **Discard**, and **Save**. Other Panel actions are hidden, and you cannot add, rename, or delete Tabs until you leave edit mode.
+
+**Discard** returns the Dashboard to its last saved layout. If you have unsaved changes, OpenObserve asks you to confirm first.
 
 | Shortcut | Action |
 | -------- | ------ |
 | `Ctrl+Z` / `Cmd+Z` | Undo |
 | `Ctrl+Shift+Z` / `Cmd+Shift+Z` | Redo |
 | `Ctrl+S` / `Cmd+S` | Save |
-| `Esc` | Exit edit mode |
+| `Esc` | Discard and exit edit mode |
 
-Shortcuts are skipped while you type in an input. If you try to leave the Dashboard with unsaved changes, OpenObserve asks you to confirm first.
+The Undo, Redo, and Save shortcuts are ignored while you type in an input. If you try to leave the Dashboard with unsaved layout changes, OpenObserve asks you to confirm before discarding them.
 
 :::note[Embedded dashboards]
 Dashboards embedded in RUM, traces, and pinned tabs keep saving layout changes automatically.
