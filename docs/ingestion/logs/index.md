@@ -16,6 +16,7 @@ OpenObserve supports multiple log ingestion methods to collect, aggregate, and c
 1. [Fluent-bit](fluent-bit.md) - Fast and lightweight log processor for cloud-native environments
 1. [Fluentd](fluentd.md) - Unified logging layer for log aggregation
 1. [Kinesis Firehose](kinesis-firehose.md) - AWS log streaming for cloud log ingestion
+1. [Splunk HEC](splunk-hec.md) - Splunk HTTP Event Collector endpoint for Splunk forwarders and HEC clients
 1. [Syslog](syslog.md) - Traditional syslog protocol for system logs
 1. [Python](python.md) - Python SDK for application log ingestion
 1. [Go](go.md) - Go SDK for structured logging
