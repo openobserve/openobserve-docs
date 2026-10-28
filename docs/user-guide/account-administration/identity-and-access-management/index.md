@@ -14,3 +14,4 @@ The following guides provide details on managing user identities and controlling
 - [Ingestion Tokens](../identity-and-access-management/ingestion-tokens.md)
 - [Quotas](quotas/index.md)
 - [Manage Users & Passwords](../identity-and-access-management/update-password.md)
+- [Profile settings](https://openobserve.ai/docs/user-guide/account-administration/profile/)

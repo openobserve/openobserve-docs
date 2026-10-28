@@ -27,7 +27,7 @@ The [Quickstart](./getting-started.md) describes various ways to set up this con
 
 ### SQLite and Object Storage
 
-Single-node mode with SQLite and object storage runs OpenObserve on one node but stores parquet files in durable object storage (for example, Amazon S3, GCS, MinIO, or Azure Blob) instead of local disk. Use it when you want the simplicity of a single node but need the durability and elasticity of object storage — for example, so data survives the loss of the node's local volume, or to keep local disk small. Compared with the local-disk variant, it trades slightly higher read latency and a storage dependency for much higher durability and effectively unbounded capacity. Configure the object-storage backend with the `ZO_LOCAL_MODE_STORAGE` and related S3/GCS environment variables; see [Environment variables](administration/configuration/environment-variables.md) for the full list.
+Single-node mode with SQLite and object storage runs OpenObserve on one node but stores parquet files in durable object storage (for example, Amazon S3, GCS, MinIO, RustFS, or Azure Blob) instead of local disk. Use it when you want the simplicity of a single node but need the durability and elasticity of object storage — for example, so data survives the loss of the node's local volume, or to keep local disk small. Compared with the local-disk variant, it trades slightly higher read latency and a storage dependency for much higher durability and effectively unbounded capacity. Configure the object-storage backend with the `ZO_LOCAL_MODE_STORAGE` and related S3/GCS environment variables; see [Environment variables](administration/configuration/environment-variables.md) for the full list.
 
 <img src="images/arch-single-s3.jpg" alt="Single node architecture using SQLite and s3" width="60%">
 
@@ -38,7 +38,7 @@ HA mode does not support local disk storage. Please refer to [HA Deployment](adm
 **Requirements.** Running OpenObserve in HA mode requires:
 
 - Kubernetes (with Helm) to orchestrate the nodes
-- Object storage (Amazon S3, GCS, MinIO, or Azure Blob) for parquet files
+- Object storage (Amazon S3, GCS, MinIO, RustFS, or Azure Blob) for parquet files
 - PostgreSQL for metadata
 - NATS for cluster coordination
 - At least one node of each type (Router, Ingester, Compactor, Querier, Scheduler)
@@ -57,7 +57,7 @@ HA mode uses NATS as a cluster coordinator as well as for cluster events and sto
 
 It uses PostgreSQL to store metadata, such as the organization, users, functions, alert rules, stream schema and file list (an index of parquet files).
 
-Object storage (for example, Amazon S3, MinIO or GCS) stores all the parquet files data.
+Object storage (for example, Amazon S3, MinIO, RustFS or GCS) stores all the parquet files data.
 
 ## Durability
 

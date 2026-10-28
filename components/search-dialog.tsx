@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import { useDocsSearch } from 'fumadocs-core/search/client';
+import { useDocsSearch, type SearchClient } from 'fumadocs-core/search/client';
 import { staticClient } from 'fumadocs-core/search/client/orama-static';
 import {
   SearchDialog,
@@ -18,6 +18,7 @@ import {
 import type { SharedProps } from 'fumadocs-ui/contexts/search';
 import { BASE_PATH } from '@/lib/constants';
 import { trackDocSearch, trackDocSearchClick } from '@/lib/introspection';
+import { rerank } from '@/lib/search-rank';
 
 /**
  * The site is exported as static HTML, so search runs entirely in the browser
@@ -35,7 +36,20 @@ import { trackDocSearch, trackDocSearchClick } from '@/lib/introspection';
  * event once a query settles, a `doc-search-click` event on selection.
  */
 export default function CustomSearchDialog(props: SharedProps) {
-  const client = useMemo(() => staticClient({ from: `${BASE_PATH}/api/search.json` }), []);
+  // Two queries against the same (cached) index: the normal full-text search,
+  // and one over page titles only so the page named after the query is always
+  // a candidate. `rerank` merges them — see lib/search-rank.ts.
+  const client = useMemo<SearchClient>(() => {
+    const from = `${BASE_PATH}/api/search.json`;
+    const fullText = staticClient({ from });
+    const titles = staticClient({ from, search: { where: { type: 'page' }, limit: 20 } });
+    return {
+      async search(q) {
+        const [all, titled] = await Promise.all([fullText.search(q), titles.search(q)]);
+        return rerank(q, all, titled);
+      },
+    };
+  }, []);
   const { search, setSearch, query } = useDocsSearch({ client });
 
   const items = query.data !== 'empty' ? query.data : null;

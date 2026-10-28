@@ -38,7 +38,8 @@ You can also follow the [OpenTelemetry documentation](https://opentelemetry.io/d
 ## Next steps
 
 - [OpenTelemetry Collector / OTLP](../logs/otlp.md): unified ingestion for logs, metrics, and traces.
-- [Ingestion overview](../index.md): all ingestion paths for logs, metrics, and traces.
+- [Profiles ingestion](../profiles/index.md): send CPU and memory profiles over OTLP.
+- [Ingestion overview](../index.md): all ingestion paths for logs, metrics, traces, and profiles.
 
 **Need some help?**
 

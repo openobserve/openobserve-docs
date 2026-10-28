@@ -3,6 +3,7 @@
     "index",
     "logs",
     "metrics",
-    "traces"
+    "traces",
+    "profiles"
   ]
 }
