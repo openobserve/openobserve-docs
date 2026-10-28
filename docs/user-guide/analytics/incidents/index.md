@@ -7,7 +7,7 @@ description: Incident Management correlates related alert firings into unified i
 
 Incident Management automatically groups related alert firings into unified incidents, reducing alert noise and helping you focus on root causes instead of individual alerts.
 
-![Incidents list showing all incidents with severity, status, and alert counts](../../../images/incident-overview.png)
+![Incidents list on the All tab with severity counters and each incident's severity, status, AI analysis, dimensions and alerts](../../../images/incident-overview-v2.png)
 
 ## Overview
 
@@ -68,7 +68,7 @@ Below the metrics, three panels provide additional context:
 - **Incident Details** — incident ID, name, correlation method, and creation/update timestamps
 - **Alert Activity chart** — a bar chart showing alert counts over time to visualize incident progression
 
-![Incident detail Overview tab showing hero metrics, incident timeline, alert activity chart, and management panel](../../../images/incident-detail-overview-rich.png)
+![Incident detail Overview tab showing hero metrics, incident timeline, alert activity chart, and management panel](../../../images/incident-detail-overview-rich-v2.png)
 
 ### Manage panel
 
@@ -90,7 +90,7 @@ The built-in AI SRE Agent checks the incident's alerts, topology, recent changes
 
 Open **Full report** for the complete write-up. From the analysis bar you can **Re-analyze**, open **Report history**, **Copy report**, **Download as Markdown**, or **Ask about this analysis**.
 
-![AI-powered Incident Analysis with table of contents and structured report](../../../images/incident-detail-incident-analysis.png)
+![Incident Analysis tab with the root cause, confidence, impact, What happened timeline and the Investigation thread](../../../images/incident-detail-incident-analysis-v2.png)
 
 #### Reanalysis
 
@@ -106,13 +106,13 @@ On the **Activity** tab, every status change, severity update, AI analysis event
 - User actions display the email of the person who performed the action
 - The **Write a comment...** box at the bottom allows team members to share findings and context
 
-![Activity timeline showing status changes, AI analysis events, and user actions](../../../images/incident-detail-activity-rich.png)
+![Activity tab with alert triggers, AI SRE analysis events, a status change and a comment](../../../images/incident-detail-activity-rich-v2.png)
 
 ### Alert triggers
 
 The **Alert Triggers** tab lists every alert firing correlated to the incident, showing the alert name, timestamp, and correlation reason. Click an alert row to view its details in the side panel.
 
-![Alert Triggers table showing correlated alerts with firing times and correlation reasons](../../../images/incident-detail-alert-triggers.png)
+![Alert Triggers table showing correlated alerts with firing times and correlation reasons](../../../images/incident-detail-alert-triggers-v2.png)
 
 ### Alert graph
 
@@ -124,7 +124,7 @@ The **Alert Graph** tab visualizes the topology of alerts within an incident usi
 - **Purple arrows** represent temporal relationships (alert A fired before alert B)
 - **Gray lines** represent service dependency relationships
 
-![Alert Graph showing root cause node (red) connected to downstream alert (blue) via a temporal relationship edge](../../../images/incident-detail-alert-graph-populated.png)
+![Alert Graph with the alert that started the incident shown as a red root node](../../../images/incident-detail-alert-graph-populated-v2.png)
 
 :::info[Info]
 The Alert Graph requires topology data from service discovery. If no topology data is available for the incident, the tab displays "Service Graph Unavailable."
