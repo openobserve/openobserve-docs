@@ -21,7 +21,7 @@ Evaluation events always go to the organization's own `triggers` stream, with a 
 :::
 
 ## How to interpret the Alert History table
-![alert-history](../../../images/alert-history.png)
+![Alert History page with one row per evaluation: timestamp, time range, duration, status, condition, retries and dedup](../../../images/alert-history-v2.png)
 
 Each row represents one alert evaluation.
 
@@ -56,7 +56,7 @@ Each row represents one alert evaluation.
 
 - **Alert detail page**: Clicking an alert in the Alerts list opens its detail page. The **Alert History** tab shows that alert's evaluations with **Timestamp**, **Status**, **Condition**, **Retries**, **Evaluation (s)**, **Query (ms)**, and **Error** columns, for the last **1h** (default), **6h**, or **24h**. The **Configuration** tab shows the alert's settings.
 
-![Alert details drawer](../../../images/alert-details-drawer.png)
+![Alert detail page with the Evaluation chart and the Alert History tab listing Firing and Normal evaluations for the last hour](../../../images/alert-details-drawer-v2.png)
 ## How to debug a failed alert
 This process applies only to users who have access to the `_meta` organization.
 ![debug-alert-history](../../../images/debug-alert-history.png)
