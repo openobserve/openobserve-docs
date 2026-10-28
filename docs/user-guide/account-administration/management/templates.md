@@ -127,9 +127,9 @@ You also can use `{log:N}` to limit the length of a actual value.
 
 ## Formatting modifiers
 
-Apply a function to a placeholder with `{field|function}`. Modifiers work in the body and email **Title** of a **Raw payload** template, and in alert row templates; the structured **Template** editor does not apply them. For example, `{value|humanizePercentage}` renders `0.9123` as `91.23%`.
+Apply a function to a placeholder with `{field|function}`. Modifiers work in the body and email **Title** of a **Raw payload** template, and in the row template of an alert. Content templates (see [Template kinds](#template-kinds)) do not apply them. For example, `{value|humanizePercentage}` renders `0.9123` as `91.23%`.
 
-![TODO: screenshot of the alert template editor showing a formatting modifier in the Body field](images/placeholder.png)
+![Raw payload template editor with formatting modifiers such as humanizePercentage, humanizeDuration and formatTimestampMicros in the Body](images/alert-template-formatting-modifiers.png)
 
 | Function | Converts | Example |
 | -------- | -------- | ------- |
