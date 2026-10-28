@@ -38,11 +38,11 @@ OpenObserve stores metrics as time series with labels and values. To understand 
 1. Go to **Streams**.  
 2. Click the **Metrics** tab.
 3. Navigate to the metrics stream. For example, `container_cpu_time`  
-![explore-metrics](../../../../images/explore-metrics.png)
+![explore-metrics](../../../../images/explore-metrics-v2.png)
 4.Click **Explore.**
-![click-explore-metrics](../../../../images/click-explore-metrics.png)
+![click-explore-metrics](../../../../images/click-explore-metrics-v2.png)
 This takes you to the **Logs** page and shows a time-series view:  
-![metrics-records](../../../../images/metrics-records.png)
+![metrics-records](../../../../images/metrics-records-v2.png)
 <br>
 
 The two most important fields for charting are:
@@ -114,7 +114,7 @@ option = {
 7. Open your browser developer tools. Right-click anywhere inside the dashboard and select **Inspect**.  
 8. Open the **Console** tab.  
 9. In the panel editor, click **Apply**.
-![view-raw-metrics-data](../../../../images/view-raw-metrics-data.png)
+![Custom chart editor with a PromQL query and the JavaScript that logs the response](../../../../images/view-raw-metrics-data-v2.png)
 You get to see the complete raw PromQL response.  
 
 :::note[How to interpret it]
@@ -294,7 +294,7 @@ if (query.result && Array.isArray(query.result)) {
     // Step 5: add one series entry for this metric
     series.push({
         name: name,
-        type: ,
+        type: chartType,
         data: points
     });
     }
@@ -316,7 +316,7 @@ The line chart uses `[timestamp, value]` pairs and plots each metric as a line a
 
 :::accordion[Step 7: View the result]
 ### Step 7: View the result
-![view-custom-chart](../../../../images/view-custom-chart.png)
+![view-custom-chart](../../../../images/view-custom-chart-v2.png)
 Select the time range from the time range selector and click **Apply** to render your chart.  
 
 Each unique metric label combination will appear as a separate line.
