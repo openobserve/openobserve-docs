@@ -1,8 +1,8 @@
 ---
-description: >-
-  Use OpenObserve's Search Inspector to profile slow queries, trace execution
-  steps, and debug with real-time, structured search metadata.
+title: Profile
+description: Use OpenObserve's Search Inspector to profile slow queries, trace execution steps, and debug with real-time, structured search metadata.
 ---
+
 ## Search Inspector
 The Search Inspector in OpenObserve helps you identify what happens during a search operation. 
 
@@ -25,28 +25,29 @@ This returns structured metadata about recent search executions for your organiz
 The Search Inspector requires a dedicated `search_inspector` permission. Access depends on your role:
 
 - The **Root User** and organization **Admins** can use the Search Inspector automatically. No extra grant is needed.
-- **Editors**, **Viewers**, and users with only **custom roles** must be granted the `search_inspector` permission explicitly. Without it, requests to the profile endpoint are denied.
+- **Editors**, **Viewers**, and other users get access only through a custom role that grants the `search_inspector` permission. Without it, requests to the profile endpoint are denied.
 
 To grant the permission:
 
-1. From the **IAM** panel, select the **Roles** section.
-2. Click the edit icon on the role you want to grant access to.
-3. Enable the **Search Inspector** toggle under the module-level permissions.
-4. Click **Save**.
+1. From the **IAM** panel, select **Roles** and click the edit icon on the custom role you want to grant access to.
+2. On the **Permissions** tab, under **Modules**, expand **Data** and select **Search Inspector**.
+3. Select the **Get** checkbox for the **Search Inspector** resource. **All** also grants it.
+4. On the **Users** tab, add the users who need access, if they are not already assigned to the role.
+5. Click **Save**.
 
-![TODO: screenshot of the Search Inspector toggle in the role editor](images/placeholder.png)
+![Role editor with the Search Inspector module selected under Data and the Get permission checked](images/search-inspector-role-permission.png)
 
-The **Search Inspector** toggle is a module-level permission. Granting it authorizes the profile endpoint for the entire organization; it cannot be scoped to individual streams.
+The **Search Inspector** permission is module-level. Granting it authorizes the profile endpoint for the entire organization; it cannot be scoped to individual streams.
 
 ## Org Scoping and Security
 
 The Search Inspector is scoped to the organization in the request path:
 
 - It returns only traces owned by that organization. A trace belonging to another organization is answered as if it does not exist, so trace IDs cannot be probed across organizations.
-- The `trace_id` query parameter accepts only letters, numbers, and dashes; invalid values are rejected with a bad-request error.
+- The `trace_id` query parameter is required and accepts only letters, numbers, and dashes; a missing or invalid value is rejected with a bad-request error.
 
 In the OpenObserve UI, Search Inspector entry points hide automatically for users without the `search_inspector` permission.
 
-## No Setup Required
+## Setup
 
-Beyond granting the `search_inspector` permission, no additional configuration is required. The Search Inspector works automatically in the background and returns real-time details when you query the endpoint.
+The Search Inspector is turned off by default. To turn it on, set `ZO_SEARCH_INSPECTOR_ENABLED=true` (see [Environment Variables](../../../administration/configuration/environment-variables.md)). Once it is on, the Search Inspector records search executions automatically in the background, and users with the `search_inspector` permission can query the endpoint for real-time details.
