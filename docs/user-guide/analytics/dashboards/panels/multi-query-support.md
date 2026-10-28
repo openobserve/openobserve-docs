@@ -21,7 +21,7 @@ Multi-query is supported for all SQL-based chart types: **bar**, **line**, **are
 
 ## Adding, Switching, and Removing Queries
 
-![panel editor with multiple query tabs](images/multi-query-dashboard-support-1.png)
+![Panel editor with two query tabs, Kubernetes on docs_k8s_logs and AWS on docs_aws_logs, drawn as two lines](images/multi-query-dashboard-support-1-v2.png)
 
 ### Add a Query
 
@@ -48,7 +48,7 @@ Renamed tab names persist after you save and reopen the panel. Tab names also ap
 
 When a panel has two or more queries, an **eye icon** appears on each query tab:
 
-![eye icon toggling query visibility on tabs](images/multi-query-dashboard-support-2.png)
+![Query tabs with the AWS query hidden by its eye icon and the Show query results tooltip](images/multi-query-dashboard-support-2-v2.png)
 
 - Click the eye icon to **hide** a query's data from the chart. The query configuration is preserved but excluded from rendering.
 - Click again to **show** the data.
@@ -57,15 +57,15 @@ Hidden queries are also excluded from the X-axis alias consistency check (see be
 
 ## Per-Query Legend Labels
 
-In the **Config** panel, each query gets its own **Query Label** field, a custom name for that query in legends (for example, `Production`). The label fields appear only when the panel has multiple queries. Use these to identify each query's data series in the chart legend and tooltips.
+In the **Config** panel, under **Data**, select a query tab to set its **Query Label**, a custom name for that query in legends (for example, `Production`). The label fields appear only when the panel has multiple queries. Use these to identify each query's data series in the chart legend and tooltips.
 
-![config panel with per-query legend label fields](images/multi-query-dashboard-support-3.png)
+![Config panel, Data section, with the Kubernetes and AWS query tabs and the Query Label field](images/multi-query-dashboard-support-3-v2.png)
 
 ## Query Inspector
 
 The **Query Inspector** shows the generated SQL for all queries in the panel. Open it from the panel toolbar dropdown menu:
 
-![query inspector showing SQL for multiple queries](images/multi-query-dashboard-support-4.png)
+![Query Inspector listing the Kubernetes and AWS queries under their tab names](images/multi-query-dashboard-support-4-v2.png)
 
 Each query is grouped under its tab name, making it easy to inspect and debug individual queries.
 
@@ -75,7 +75,7 @@ For chart types with an X-axis (**bar**, **line**, **area**, **scatter**), mixin
 
 A **warning icon** appears in the panel editor header when your visible queries use inconsistent X-axis aggregations:
 
-![x-axis alias inconsistency warning icon in panel header](images/multi-query-dashboard-support-5.png)
+![Warning icon and tooltip saying the X-axis aliases are inconsistent across queries](images/multi-query-dashboard-support-5-v2.png)
 
 The warning updates reactively as you modify fields — no need to click **Apply** first. Hidden queries are excluded from the check.
 
