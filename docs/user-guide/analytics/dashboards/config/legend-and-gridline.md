@@ -130,7 +130,17 @@ When gridlines are disabled, the chart displays without reference lines, providi
 
 ## Axis configuration
 
-The following options control how x-axis labels are displayed.
+The following options control axis titles and how x-axis labels are displayed.
+
+### Axis Labels
+
+Controls whether axis titles are drawn on the chart. Choose **Auto** (default), **Show**, or **Hide**.
+
+Fields added to a panel start with a blank label, so a new chart has no axis titles. To show a title on an axis, type a label on that X or Y field and click **Apply**. Set **Axis Labels** to **Hide** to hide all axis titles, including typed labels.
+
+Legends, tooltips, and table headers name an unlabelled field from its field name, for example `small_value` becomes "Small Value". Panels saved before this option existed keep their stored labels.
+
+**Note:** Axis Labels is not available for PromQL queries.
 
 ### Label Rotate
 
