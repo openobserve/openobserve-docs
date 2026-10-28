@@ -159,7 +159,7 @@ Turning on rule mode clears and hides the value-threshold controls and the **Hav
 - **Simple alert** tracks one alert for the whole rule. It stays firing while any series is returned and clears when the expression returns no series.
 - **Multi alert (per series)** tracks each returned series (each distinct label set) separately, so every series fires and recovers on its own.
 
-When **Hold for** (the pending period, in the **Settings** section) is greater than zero, **Multi alert** is selected and locked, because each series keeps its own pending timer. A series must keep matching for the full period before it fires. If it stops matching, its timer resets and restarts when the series returns. Set **Hold for** to zero to choose between **Simple alert** and **Multi alert** again.
+When **Hold for** ([the pending period](advanced-alert-configuration.md#pending-period-hold-before-firing), in the **Settings** section) is greater than zero, **Multi alert** is selected and locked, because each series keeps its own pending timer. A series must keep matching for the full period before it fires. If it stops matching, its timer resets and restarts when the series returns. Set **Hold for** to zero to choose between **Simple alert** and **Multi alert** again.
 
 ![Rule mode with Hold for set to 10 minutes, so Multi alert is selected and locked](images/promql-rule-mode-hold-for-multi.png)
 
