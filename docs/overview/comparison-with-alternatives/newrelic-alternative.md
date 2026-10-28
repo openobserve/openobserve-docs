@@ -89,7 +89,7 @@ If you still rely on New Relic APM agents, you can either keep them temporarily 
 A typical move off New Relic runs in three steps:
 
 1. **Point collectors at OpenObserve.** Update OTel Collector exporter endpoints to OpenObserve. No re-instrumentation required for apps already using OTel. Run dual-write for a window to validate.
-2. **Rebuild dashboards and translate alerts.** Convert NRQL queries to SQL/PromQL. The OpenObserve AI Assistant handles the bulk of NRQL to SQL/PromQL translation automatically.
+2. **Rebuild dashboards and translate alerts.** Convert NRQL queries to SQL/PromQL. The OpenObserve AI Assistant (Enterprise) can help translate NRQL queries into SQL or PromQL.
 3. **Cut over and optimize.** Shift production workloads gradually, starting with non-critical services. Validate retention and query latency before decommissioning the New Relic side.
 
 Teams already on OpenTelemetry can start ingesting into OpenObserve within hours. Full cutover usually lands in days to a few weeks, dominated by dashboard and alert rebuild rather than data movement.

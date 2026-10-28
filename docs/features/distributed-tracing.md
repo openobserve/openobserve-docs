@@ -1,6 +1,6 @@
 ---
 title: Distributed Tracing
-description: "Track requests across microservices with OpenObserve distributed tracing: OpenTelemetry-native ingestion, Gantt views, service maps, and fast trace search."
+description: "Track requests across microservices: OpenTelemetry-native ingestion, waterfall and flame graph views, a service graph, and fast trace search."
 ---
 
 # Distributed Tracing
@@ -22,7 +22,7 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 ![OpenTelemetry Native](../images/features/traces-otel-support.png)
 
-- **High Throughput**: Process millions of spans per second with sub-millisecond latency
+- **High Throughput**: Process millions of spans per second
 
 ### Trace Structure & Data
 
@@ -55,13 +55,19 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 ![Traces waterfall view](../images/features/trace-timeline.png)
 
-- **Service Map**: Real-time service topology with performance metrics and error rates
+- **Flame Graph**, **Trace Graph** and **DAG**: Other views of a single trace (**DAG** appears for traces with LLM spans)
+
+- **Spans**: Search and list individual spans across all traces
+
+- **Service Graph** (Enterprise): See how your services call each other, with dependencies, throughput and error rates
 
 ![Traces Service Map](../images/features/traces-service-map.png)
 
+- **Service Catalog**: Every service sending traces, with latency, throughput and error rate
+
 ### Storage & Performance
 
-- **Smart Indexing**: High-performance indexing optimized for trace queries and span searches
+- **Indexing**: Choose an **Index Type** per field (for example **Full text search** or **Secondary index**) in the stream's **Schema Settings**
 
 ![Smart Indexing](../images/features/trace-settings.png)
 
