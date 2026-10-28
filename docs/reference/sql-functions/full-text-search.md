@@ -34,11 +34,11 @@ The full-text search functions allow you to filter records based on keyword or p
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE str_match(k8s_pod_name, 'main-openobserve-ingester-1')
+SELECT _timestamp, k8s_pod_name, log FROM "docs_sql_examples" WHERE str_match(k8s_pod_name, 'main-openobserve-ingester-1')
 ```
-This query filters logs from the `default` stream where the `k8s_pod_name` field contains the exact string `main-openobserve-ingester-1`. It does not match values such as `Main-OpenObserve-Ingester-1`, `main-openobserve-ingester-0`, or any case variation.
+This query filters logs from the `docs_sql_examples` stream where the `k8s_pod_name` field contains the exact string `main-openobserve-ingester-1`. It does not match values such as `Main-OpenObserve-Ingester-1`, `main-openobserve-ingester-0`, or any case variation.
 
-![str_match](../../images/sql-reference/str-match.png)
+![Logs results for str_match on k8s_pod_name](../../images/sql-reference/str-match-v2.png)
 
 ## `NOT str_match`
 
@@ -53,21 +53,21 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE NOT str_match(k8s_app_instance, 'dev2')
+SELECT _timestamp, k8s_app_instance, k8s_pod_name FROM "docs_sql_examples" WHERE NOT str_match(k8s_app_instance, 'dev2')
 ```
-![NOT str_match](../../images/sql-reference/not-str-match.png)
+![NOT str_match](../../images/sql-reference/not-str-match-v2.png)
 
 **Combining multiple NOT conditions with AND:**
 ```sql
-SELECT * FROM "default" WHERE (NOT str_match(k8s_app_instance, 'dev2')) AND (NOT str_match(k8s_cluster, 'dev2'))
+SELECT _timestamp, k8s_app_instance, k8s_cluster, k8s_pod_name FROM "docs_sql_examples" WHERE (NOT str_match(k8s_app_instance, 'dev2')) AND (NOT str_match(k8s_cluster, 'dev2'))
 ```
-![NOT str_match with AND operator](../../images/sql-reference/not-str-match-with-and.png)
+![NOT str_match with AND operator](../../images/sql-reference/not-str-match-with-and-v2.png)
 
 **Combining NOT conditions with OR:**
 ```sql
-SELECT * FROM "default" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_match(k8s_cluster, 'dev2')))
+SELECT _timestamp, k8s_app_instance, k8s_cluster, k8s_pod_name FROM "docs_sql_examples" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_match(k8s_cluster, 'dev2')))
 ```
-![NOT str_match with OR operator](../../images/sql-reference/not-str-match-with-or.png)
+![NOT str_match with OR operator](../../images/sql-reference/not-str-match-with-or-v2.png)
 
 ## `str_match_ignore_case`
 
@@ -83,11 +83,11 @@ SELECT * FROM "default" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_m
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSERVE-INGESTER-1')
+SELECT _timestamp, k8s_pod_name, log FROM "docs_sql_examples" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSERVE-INGESTER-1')
 ```
-This query filters logs from the `default` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
+This query filters logs from the `docs_sql_examples` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
 
-![str_match_ignore_case](../../images/sql-reference/str-ignore-case.png)
+![Logs results for str_match_ignore_case on k8s_pod_name](../../images/sql-reference/str-ignore-case-v2.png)
 
 ## `match_all`
 
@@ -106,11 +106,11 @@ The `match_all` function searches through inverted indexed terms, which are inte
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE match_all('openobserve-querier')
+SELECT _timestamp, k8s_container_name, log FROM "docs_sql_examples" WHERE match_all('openobserve-querier')
 ```
-This query returns all logs in the `default` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
+This query returns all logs in the `docs_sql_examples` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 
-![match_all](../../images/sql-reference/match-all.png)
+![Logs results for match_all with the matched keyword highlighted](../../images/sql-reference/match-all-v2.png)
 
 ### More pattern support
 
@@ -139,19 +139,19 @@ The `match_all` function also supports the following patterns for flexible searc
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE NOT match_all('foo')
+SELECT * FROM "docs_sql_examples" WHERE NOT match_all('foo')
 ```
-This query returns all logs in the `default` stream where the keyword `foo` does NOT appear in any of the full-text indexed fields. Fields not configured for full-text search are ignored.
+This query returns all logs in the `docs_sql_examples` stream where the keyword `foo` does NOT appear in any of the full-text indexed fields. Fields not configured for full-text search are ignored.
 
 **Combining NOT match_all with NOT str_match**:
 ```sql
-SELECT * FROM "default" WHERE (NOT str_match(f1, 'bar')) AND (NOT match_all('foo'))
+SELECT * FROM "docs_sql_examples" WHERE (NOT str_match(f1, 'bar')) AND (NOT match_all('foo'))
 ```
 This query returns logs where field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
 
 **Using NOT with OR conditions**:
 ```sql
-SELECT * FROM "default" WHERE NOT (str_match(f1, 'bar') OR match_all('foo'))
+SELECT * FROM "docs_sql_examples" WHERE NOT (str_match(f1, 'bar') OR match_all('foo'))
 ```
 This query returns logs where BOTH conditions are false: field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
 
@@ -168,20 +168,20 @@ This query returns logs where BOTH conditions are false: field `f1` does NOT con
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE re_match(k8s_container_name, 'openobserve-querier|controller|nats')
+SELECT _timestamp, k8s_container_name, k8s_pod_name FROM "docs_sql_examples" WHERE re_match(k8s_container_name, 'openobserve-querier|controller|nats')
 ```
-This query returns logs from the `default` stream where the `k8s_container_name` field matches any of the strings `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
+This query returns logs from the `docs_sql_examples` stream where the `k8s_container_name` field matches any of the strings `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
 
-![re_match](../../images/sql-reference/re-match.png)
+![Logs results for re_match on k8s_container_name](../../images/sql-reference/re-match-v2.png)
 
 To perform a case-insensitive search:
 
 ```sql
-SELECT * FROM "default" WHERE re_match(k8s_container_name, '(?i)openobserve-querier')
+SELECT _timestamp, k8s_container_name, k8s_pod_name FROM "docs_sql_examples" WHERE re_match(k8s_container_name, '(?i)openobserve-querier')
 ```
 This query returns logs where the `k8s_container_name` field contains any casing variation of `openobserve-querier`, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 
-![re_match_ignore_case](../../images/sql-reference/re-match-ignore-case.png)
+![Logs results for a case-insensitive re_match](../../images/sql-reference/re-match-ignore-case-v2.png)
 
 ## `re_not_match`
 
@@ -194,11 +194,11 @@ This query returns logs where the `k8s_container_name` field contains any casing
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE re_not_match(k8s_container_name, 'openobserve-querier|controller|nats')
+SELECT _timestamp, k8s_container_name, k8s_pod_name FROM "docs_sql_examples" WHERE re_not_match(k8s_container_name, 'openobserve-querier|controller|nats')
 ```
-This query returns logs from the `default` stream where the `k8s_container_name` field does not match any of the values `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
+This query returns logs from the `docs_sql_examples` stream where the `k8s_container_name` field does not match any of the values `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
 
-![re_not_match](../../images/sql-reference/re-not-match.png)
+![Logs results for re_not_match on k8s_container_name](../../images/sql-reference/re-not-match-v2.png)
 
 ## Next steps
 
