@@ -19,7 +19,7 @@ When the function is set to **total events** (the default for logs and traces), 
 - No column selection is needed — the alert counts all records matching the filters
 - Group-by is not available in count mode
 
-![Count mode showing "Alert if total events >= 3 matching logs found" with Check every and filters](../../../images/add-alert-count-mode.png)
+![Count mode showing "Alert if total events >= 3 matching logs found" with Check every and filters](../../../images/add-alert-count-mode-v2.png)
 
 ### Measure mode
 
@@ -129,7 +129,7 @@ Click the **SQL** tab to switch to SQL mode. The condition sentence is replaced 
 - An **Open Full Editor** button for a full-screen editor with a field browser, AI assistance, and results preview
 - **Check every** and **Alert if No. of events** controls below the editor
 
-![SQL mode with editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode.png)
+![SQL mode with editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode-v2.png)
 
 :::warning[Warning]
 Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.

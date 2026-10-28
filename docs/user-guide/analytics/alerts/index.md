@@ -41,7 +41,7 @@ Until you rename it, a new alert's name is generated from the stream and conditi
 
 The right panel displays a live **Preview** of your alert evaluation and an auto-updating **Summary** of your configuration.
 
-![Alert creation form showing the two-tab layout with condition sentence, preview, and summary panels](../../../images/add-alert-count-mode.png)
+![Alert creation form showing the two-tab layout with condition sentence, preview, and summary panels](../../../images/add-alert-count-mode-v2.png)
 
 ## Core components
 
@@ -113,7 +113,7 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 - **Deduplication**: Group similar alerts by fingerprint fields and time window to reduce notification noise.
 - **Additional Settings**: Override notification templates, add context variables, set a description, customize row templates, and set a **Priority** and **Tags**. See [Advanced Alert Configuration](advanced-alert-configuration.md).
 
-![Advanced tab showing Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab.png)
+![Advanced tab showing Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab-v2.png)
 
 ## Alert folders
 

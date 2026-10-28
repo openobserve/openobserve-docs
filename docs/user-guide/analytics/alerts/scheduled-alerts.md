@@ -20,7 +20,7 @@ Scheduled alerts evaluate your data at regular intervals and trigger when condit
 1. In the left navigation, go to **Reliability > All Alerts**.
 2. Click **New alert** in the top-right corner.
 
-![Empty alert creation form with top bar fields and two-tab layout](../../../images/add-alert-empty-state.png)
+![New alert form with the alert name as the title, the folder in the subtitle, the Alert Type toggle and the Alert Rules and Advanced tabs](../../../images/add-alert-empty-state-v2.png)
 
 ### Step 2: Name the alert and choose the stream
 
@@ -42,7 +42,7 @@ Configure the condition:
 - **Operator**: Choose the comparison operator (>=, >, <=, <, =, !=)
 - **Threshold**: Set the value that triggers the alert
 
-![Alert form in count mode showing "Alert if total events >= 3 matching logs found" with preview and summary](../../../images/add-alert-count-mode.png)
+![Alert form in count mode: Alert if total events, Critical if >= 3, with the Preview chart and the Summary](../../../images/add-alert-count-mode-v2.png)
 
 > **Tip**: See [Alert Conditions and Filters](alert-conditions.md) for a detailed explanation of count mode vs. measure mode and all available functions.
 
@@ -62,7 +62,7 @@ Click the **filters** dropdown next to "on these" to expand the filter section. 
 2. Select a field, operator, and value (e.g., `level = error`).
 3. Additional conditions are joined with AND logic.
 
-![Alert form with a filter condition row added](../../../images/add-alert-with-filter.png)
+![Alert form with the filter condition level = error and the Preview reporting that the alert would trigger](../../../images/add-alert-with-filter-v2.png)
 
 ### Step 6: Configure settings
 
@@ -75,7 +75,7 @@ Scroll down to the **Settings** section on the same **Alert Rules** tab:
 - **Creates Incident**: Toggle on to automatically create an incident when the alert triggers. Shown only when [incidents](../incidents/index.md) are enabled.
 - **Notify on recovery**: Send one message to the destinations when the alert stops firing. Optionally pick a **Recovery destination**, and set **Keep firing for** to wait before the alert recovers.
 
-![Settings section with look back window, cooldown period, destination selector, and creates incident toggle](../../../images/add-alert-settings-section.png)
+![Settings section with Look back window, Cooldown period, Hold for, Destination, Creates Incident, Notify on recovery, Recovery destination and Keep firing for](../../../images/add-alert-settings-section-v2.png)
 
 ### Step 7: Save
 
@@ -93,7 +93,7 @@ For complex queries that go beyond the visual builder, use SQL mode.
 
 After choosing the stream (steps 1–2 above), click the **SQL** tab in the **Conditions** section.
 
-![SQL mode with inline editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode.png)
+![SQL mode with the inline SQL editor, Open Full Editor, Alert aggregation and the Critical if threshold](../../../images/add-alert-sql-mode-v2.png)
 
 ### Step 2: Write the query
 
@@ -124,7 +124,7 @@ Scroll down to configure **Settings** (look back window, cooldown period, destin
 
 The **Advanced** tab provides additional options for scheduled alerts. Click **Advanced** next to the **Alert Rules** tab.
 
-![Advanced tab with Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab.png)
+![Advanced tab with Additional Settings (Template Override, Priority, Tags, Description, Row Template), Compare with Past and Deduplication](../../../images/add-alert-advanced-tab-v2.png)
 
 ### Compare with past
 
@@ -180,11 +180,11 @@ For new alerts:
 3. Switch to **SQL** mode in the Conditions section
 4. Click the **Advanced** tab to find the **Compare with Past** section
 
-![Access multi-window selector](../../../images/multi-window-period.png)
+![Compare with Past section with the current window and a reference window set to 1 day ago](../../../images/multi-window-period-v2.png)
 
 For existing alerts, click **Edit** (pencil icon) in the alert's **Actions** column, then go to the **Advanced** tab.
 
-![Access multi-window in existing alerts](../../../images/multi-window-in-existing-alerts.png)
+![Editing an existing SQL alert on the Advanced tab, with the Compare with Past section](../../../images/multi-window-in-existing-alerts-v2.png)
 
 ##### Step 1: Write the SQL query
 
@@ -203,13 +203,13 @@ GROUP BY
   time_s
 ```
 
-![SQL editor](../../../images/multi-window-sql-editor.png)
+![SQL editor with a 15-minute histogram count query](../../../images/multi-window-sql-editor-v2.png)
 
 ##### Step 2: Define the period
 
 Set the time range to evaluate per run (e.g., last 30 minutes) in the **Compare with Past** section on the Advanced tab.
 
-![Period configuration](../../../images/multi-window-period.png)
+![Compare with Past section with a reference window of 1 day ago](../../../images/multi-window-period-v2.png)
 
 ##### Step 3: Add a comparison window
 
@@ -273,7 +273,7 @@ if length(result) >= 2 {
 .
 ```
 
-![VRL editor](../../../images/multi-window-vrl-editor.png)
+![SQL editor next to the VRL editor holding a function that starts with #ResultArray#](../../../images/multi-window-vrl-editor-v2.png)
 
 The VRL function outputs an empty array if the increase is 5% or less, or a non-empty array with the diff data if it exceeds 5%.
 
@@ -285,13 +285,13 @@ Set **Alert if No. of events >= 1**. This triggers when the VRL output is non-em
 
 Define how often the alert runs (e.g., every 30 minutes).
 
-![Frequency configuration](../../../images/multi-window-frequency.png)
+![Check every set to 30 minutes, with Alert if No. of events >= 1](../../../images/multi-window-frequency-v2.png)
 
 ##### Step 7: Configure destination and save
 
 Select a destination, optionally add a row template with fields from your VRL output (e.g., `{{ diff_percentage }}`), and click **Save**.
 
-![Add destination](../../../images/multi-window-add-destination.png)
+![Destination picker open in the Settings section with a webhook destination selected](../../../images/multi-window-add-destination-v2.png)
 
 #### FAQ
 
