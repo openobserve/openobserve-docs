@@ -206,7 +206,7 @@ If session replay is enabled but `worker-src blob:` is missing, recordings silen
 
 These are documented in dedicated pages:
 
-- **Masking PII and PHI** (`defaultPrivacyLevel`, `data-oo-privacy`, `oo-privacy-*` classes) &rarr; [Best Practices &rarr; PII Protection](best-practices.md#pii-protection)
+- **Masking PII and PHI** (`defaultPrivacyLevel`, `data-o2-privacy`, `o2-privacy-*` classes) &rarr; [Best Practices &rarr; PII Protection](best-practices.md#pii-protection)
 - **User consent gating for GDPR** (`trackingConsent`, `setTrackingConsent`) &rarr; [Advanced Features &rarr; Tracking Consent Management](advanced-features.md#tracking-consent-management)
 - **Identity and business context enrichment** &rarr; [Advanced Features &rarr; Global Context Management](advanced-features.md#global-context-management)
 - **Manual SPA view tracking** &rarr; [Advanced Features &rarr; SPA View Tracking](advanced-features.md#spa-view-tracking)
