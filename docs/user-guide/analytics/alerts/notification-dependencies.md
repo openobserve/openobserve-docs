@@ -23,27 +23,27 @@ A destination can also be used by other features, such as composite alerts, pipe
 
 ## See where an entity is used
 
-The **Used by** column appears on two lists:
+The **Used by** column appears on two tabs of the **Alerts** page (under **Reliability** in the left navigation):
 
-- **Management > Templates**
-- **Management > Alert Destinations**
+- **Destination Templates**
+- **Notification Destinations**
 
 Each row has a clickable **Used by** cell. While the dependency data loads, the cell shows a neutral graph icon. Once it has loaded, the cell shows a count badge per kind of dependent entity; hover a badge to see what it counts. Instead of badges, the cell can show one of two chips:
 
 - **Unused**: nothing references the entity.
 - **Missing**: the entity is referenced by name but does not exist.
 
-### Templates list
+### Destination Templates
 
 A template row shows its downstream usage in delivery order: the number of destinations that use the template, then the number of alerts that depend on it, either through those destinations or through an alert-level override.
 
-![Templates list with the Used by column showing destination and alert count badges](images/notification-dependencies-templates-list.png)
+![Destination Templates tab with the Used by column showing destination and alert count badges](images/notification-dependencies-templates-list.png)
 
-### Alert Destinations list
+### Notification Destinations
 
 A destination row shows how many alerts send to it, plus a badge for each other kind of entity that uses it (for example, pipelines or composite alerts).
 
-![Alert Destinations list with the Used by column showing alert count badges and Unused chips](images/notification-dependencies-destinations-list.png)
+![Notification Destinations tab with the Used by column showing alert count badges and Unused chips](images/notification-dependencies-destinations-list.png)
 
 ## Open the dependency dialog
 
@@ -56,6 +56,8 @@ Click a **Used by** cell to open the dependency dialog. Its header shows the ent
 - **Destination**: the dialog lists the alerts that send to the destination. Any other entities that use it, such as pipelines or composite alerts, are listed below in one section per kind.
 
   ![Dependency dialog for a destination listing the alerts that send to it](images/notification-dependencies-destination-dialog.png)
+
+Each alert row has a status dot: green for an enabled alert, grey for a paused one.
 
 While the dependency data loads, the dialog shows **Building dependency graph…**. If loading fails, it shows an error banner instead.
 
