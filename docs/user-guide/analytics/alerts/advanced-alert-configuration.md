@@ -1,4 +1,5 @@
 ---
+title: Advanced Alert Configuration
 description: >-
   Multi-level thresholds, per-group evaluation (multi-alerts), priority scoring,
   selection tags, pending periods, and SLO-based alerts in OpenObserve.
@@ -144,45 +145,48 @@ The tags facet endpoint (`GET /v2/{org}/alerts/tags`) returns distinct tags with
 
 ## Pending period (hold before firing)
 
-The **Hold for** setting adds a pending period to scheduled and composite alerts. When a condition first matches, the alert does not fire immediately. Instead it enters a **pending** state and waits — the condition must hold continuously for the configured period before the alert transitions to **firing** and sends a notification.
+The **Hold for** setting adds a pending period to scheduled and composite alerts. When a condition first matches, the alert does not fire immediately. Instead it enters a **pending** state, and the condition must keep matching for the configured period before the alert transitions to **firing** and sends a notification.
 
 This prevents flapping: a condition that trips on one bad interval and then recovers never pages anyone, because the alert only fires after the condition has held for the full pending period.
 
 ### Configure the pending period
 
-In the alert form's **Settings** section (scheduled alerts) or the settings step (composite alerts), set **Hold for** to a number and pick a unit — **minutes** or **hours**:
+In the **Settings** section of the alert form (on the **Alert Rules** tab for scheduled alerts), set **Hold for** to a number and pick a unit, **Minutes** or **Hours**:
 
 - Leave it blank or `0` to fire immediately (the default).
 - A value greater than `0` means the condition must hold that long before the alert fires.
 
-Hover the info icon next to the label to read the tooltip: *"Wait this long before firing, so a condition has to hold rather than trip on one bad interval."*
+The tooltip on the info icon next to the label reads: *"Wait this long before firing, so a condition has to hold rather than trip on one bad interval."*
 
-![TODO: screenshot of the "Hold for" pending period field with the minutes/hours unit selector in the alert settings](images/placeholder.png)
+![Settings section of the alert form with Hold for set to 3 Minutes](images/alert-pending-period-hold-for.png)
 
-For scheduled alerts, if the pending period is not a multiple of **Check every**, OpenObserve shows a warning — the alert may wait up to one extra evaluation interval before firing. This is only a hint; it does not block saving.
+For scheduled alerts, if the pending period is not a multiple of **Check every**, OpenObserve shows a warning that the alert may wait up to one extra evaluation interval before firing. This is only a hint; it does not block saving.
+
+In the API, the value is the alert's `pending_period_sec` field, in seconds.
 
 ### How the pending state works
 
 When a condition matches and the pending period has not yet elapsed:
 
-- The alert's run state becomes **pending** — a new outcome alongside `firing`, `normal`, `error`, `notify_failed`, and `succeeded`.
+- The alert's last outcome becomes `pending`, alongside `firing`, `normal`, `error`, `notify_failed`, and `succeeded`.
 - Notifications are suppressed while the alert is pending.
-- Once the condition has held for the full pending period, the alert transitions to **firing** and notifies. If the condition recovers during the pending period, the alert returns to normal without ever notifying.
+- Once the condition has held for the full pending period, the alert transitions to `firing` and notifies. If the condition recovers during the pending period, the alert returns to `normal` without ever notifying.
 
 ### Where the pending period appears
 
-- **Alert summary**: The config summary and the plain-English summary add a **Hold for** entry (for example "Hold for: 10 minutes before firing", or ", after holding for 10 minutes"). A value of `0` reads as "Fires immediately".
+- **Alert form summary**: the summary panel in the alert form adds a **Hold for** line (for example "Hold for: 10 minutes before firing"), and the plain-English sentence ends with ", after holding for 10 minutes". A value of `0` reads as "Fires immediately".
+- **Alert detail page**: the configuration summary lists **Hold for** next to **Check every** and **Silence**.
 
-![TODO: screenshot of the alert config summary showing the "Hold for" pending period row](images/placeholder.png)
+![Alert form summary ending in after holding for 3 minutes, with a Hold for: 3 minutes before firing line](images/alert-pending-period-summary.png)
 
-- **Alert history timeline**: Pending evaluations render as their own blue **Pending** bucket, distinct from firing, healthy, and skipped/error states.
+- **Alert history**: on the alert's detail page, the **Alert History** tab marks each pending evaluation with a blue **Pending** status. In the example below, the condition matched for three minutes of **Pending** evaluations before the alert started **Firing**. Alert history timelines also count pending evaluations in their own blue **Pending** bucket, separate from firing, OK, error, and skipped evaluations.
 
-![TODO: screenshot of the alert history timeline with the blue "Pending" status bucket](images/placeholder.png)
+![Alert History tab with four Pending evaluations followed by Firing evaluations once the 3-minute hold elapsed](images/alert-pending-period-history.png)
 
 ### Constraints
 
 - The pending period must be `0` or greater. A negative value is rejected with a validation error.
-- Real-time alerts do not support a pending period — the field is not shown, and the value is forced to `0` on save.
+- Real-time alerts do not support a pending period. The form does not show the field and saves `0`; an API request that sets a non-zero value on a real-time alert is rejected.
 
 ## Run state on the alerts list
 
