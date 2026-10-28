@@ -20,7 +20,7 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 
 - **Web Vitals Monitoring**: Automatically capture Google's Core Web Vitals
 
-![Web Vitals Monitoring](../images/features/frontend-webvitals.png)
+![Web Vitals Monitoring](../images/features/frontend-webvitals-v2.png)
 
 - **Geographic & Device Context**: Analyze user experience by browser, device, and approximate location.
 
@@ -33,7 +33,7 @@ Frontend Observability in OpenObserve enables real user monitoring, performance 
 - **Error Context**: Includes user session metadata and browser details
 - **Source Maps**: Upload source maps so minified stack traces show the original file and line. See [Source Maps](../user-guide/data-exploration/rum/source-map.md).
 
-![Error Tracking](../images/frontend/error-tracking.webp)
+![Error Tracking](../images/frontend/error-tracking-v2.png)
 
 See [Error Tracking](../user-guide/data-exploration/rum/error-tracking.md) for the full guide.
 
@@ -41,11 +41,11 @@ See [Error Tracking](../user-guide/data-exploration/rum/error-tracking.md) for t
 
 - **User Interaction Recording**: Replay user sessions to understand behavior and debug issues
 
-![User Interaction Recording](../images/features/user-interaction.png)
+![Session replay player](../images/features/user-interaction-v2.png)
 
 - **Event Timeline**: View DOM changes, clicks, inputs, and navigation in order
 
-![Event Timeline](../images/features/event-timeline.png)
+![Event Timeline](../images/features/event-timeline-v2.png)
 
 - **Privacy Features**: Configurable masking for sensitive fields
 
