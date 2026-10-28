@@ -225,39 +225,52 @@ Or with yarn:
 yarn add @openobserve/mobile-react-native @openobserve/mobile-react-native-session-replay
 ```
 
+iOS also needs the native pods linked after install:
+
+```bash
+npx pod-install
+```
+
 ### Initialize the SDK
+
+Build the configuration with `OpenObserveProviderConfiguration` and wrap your app tree in `OpenObserveProvider` — this single component initializes the SDK, enables RUM and Logs, and starts any automatic instrumentation you turn on:
 
 ```javascript
 import {
-  OpenObserve,
-  O2Rum,
-  O2Logs,
-  RumConfiguration,
-  LogsConfiguration,
+  OpenObserveProvider,
+  OpenObserveProviderConfiguration,
   TrackingConsent,
 } from '@openobserve/mobile-react-native';
 
-await OpenObserve.initialize(
-  clientToken: 'your-client-token-here',
-  env: 'production',
-  service: 'my-react-native-app',
-  site: 'https://your-instance.example.com',
-  trackingConsent: TrackingConsent.GRANTED,
-);
+const OPENOBSERVE_ENDPOINT = 'https://your-instance.example.com/rum/v1/default';
 
-await O2Rum.enable(
-  RumConfiguration.builder('my-react-native-app')
-    .useCustomEndpoint('https://your-instance.example.com/rum/v1/default/rum')
-    .trackUserInteractions()
-    .trackLongTasks()
-    .build(),
+const config = new OpenObserveProviderConfiguration(
+  'your-client-token-here', // clientToken
+  'production',             // env
+  TrackingConsent.GRANTED,
+  {
+    // The SDK appends /rum and /logs to these base URLs itself.
+    rumConfiguration: {
+      applicationId: 'my-react-native-app',
+      customEndpoint: OPENOBSERVE_ENDPOINT,
+      trackInteractions: true,
+      trackResources: true,
+      trackErrors: true,
+    },
+    logsConfiguration: {
+      customEndpoint: OPENOBSERVE_ENDPOINT,
+    },
+  },
 );
+config.service = 'my-react-native-app';
 
-await O2Logs.enable(
-  LogsConfiguration.builder()
-    .useCustomEndpoint('https://your-instance.example.com/rum/v1/default/logs')
-    .build(),
-);
+export default function App() {
+  return (
+    <OpenObserveProvider configuration={config}>
+      {/* your navigation container and app tree */}
+    </OpenObserveProvider>
+  );
+}
 ```
 
 ### Navigation Tracking (Optional)
@@ -265,11 +278,11 @@ await O2Logs.enable(
 Track screen views automatically with React Navigation:
 
 ```bash
-npm install @openobserve/mobile-react-native-navigation
+npm install @openobserve/mobile-react-navigation
 ```
 
 ```javascript
-import { O2RumReactNavigationTracking } from '@openobserve/mobile-react-native-navigation';
+import { O2RumReactNavigationTracking } from '@openobserve/mobile-react-navigation';
 
 <NavigationContainer
   ref={navigationRef}
@@ -286,14 +299,22 @@ Without navigation tracking, you can record views manually with `O2Rum.startView
 ### Session Replay
 
 ```javascript
-import { O2SessionReplay, SessionReplayConfiguration } from '@openobserve/mobile-react-native-session-replay';
+import { SessionReplay } from '@openobserve/mobile-react-native-session-replay';
 
-O2SessionReplay.enable(
-  SessionReplayConfiguration.builder(100)
-    .useCustomEndpoint('https://your-instance.example.com/rum/v1/default/replay')
-    .build(),
-);
+SessionReplay.enable({
+  replaySampleRate: 20, // replay is heavier — sample lower than sessions
+  startRecordingImmediately: true,
+  // Session Replay does NOT inherit rumConfiguration.customEndpoint — give
+  // it its own base URL, same shape as the one above. As of SDK 0.1.2 the
+  // bridge appends /replay itself; appending it here too double-appends
+  // the path and every upload gets rejected with 401.
+  customEndpoint: OPENOBSERVE_ENDPOINT,
+}).catch(() => {});
 ```
+
+!!! warning "Session Replay's `customEndpoint` changed in SDK 0.1.2"
+
+    Before `0.1.2`, this needed the full `.../replay` URL spelled out. As of `0.1.2` the bridge appends `/replay` automatically, matching RUM and Logs above. If you're on an older version, append `/replay` to `OPENOBSERVE_ENDPOINT` yourself; on `0.1.2`+, don't — a manually appended `/replay` now double-appends the path and gets rejected with `401`, which looks exactly like a bad token.
 
 ---
 
@@ -571,15 +592,19 @@ After deploying your application with RUM enabled:
 
 ### Mobile: Endpoint URLs
 
-The single most common reason one signal arrives while another does not is an incorrect endpoint URL. On native mobile SDKs (Android, iOS), `useCustomEndpoint` / `customEndpoint` is used verbatim — the SDK appends nothing. Pass the complete per-feature URL:
+The single most common reason one signal arrives while another does not is an incorrect endpoint URL, and native iOS/Android and React Native behave differently here:
 
-| Feature | URL suffix |
-|---------|-----------|
-| RUM | `/rum/v1/{org}/rum` |
-| Logs | `/rum/v1/{org}/logs` |
-| Session Replay | `/rum/v1/{org}/replay` |
+- **Native iOS and Android** — `useCustomEndpoint` / `customEndpoint` is used verbatim; the SDK appends nothing. Pass the complete per-feature URL:
 
-For example: `https://your-instance.example.com/rum/v1/default/rum`
+  | Feature | URL suffix |
+  |---------|-----------|
+  | RUM | `/rum/v1/{org}/rum` |
+  | Logs | `/rum/v1/{org}/logs` |
+  | Session Replay | `/rum/v1/{org}/replay` |
+
+  For example: `https://your-instance.example.com/rum/v1/default/rum`
+
+- **React Native** — the bridge appends the feature suffix itself. Pass the *same bare base URL* (`https://your-instance.example.com/rum/v1/default`) to `rumConfiguration.customEndpoint`, `logsConfiguration.customEndpoint`, **and** Session Replay's `customEndpoint` (SDK `0.1.2`+ for Session Replay — see the React Native Session Replay section above). Appending a suffix yourself double-appends it and the request is rejected with `401`.
 
 ### Mobile: No Data from Emulator / Device
 
@@ -595,11 +620,15 @@ For example: `https://your-instance.example.com/rum/v1/default/rum`
 
 - **All platforms**: ensure the session replay feature is enabled *separately* from RUM — it does not inherit RUM's endpoint
 - **Browser**: call `startSessionReplayRecording()` after `openobserveRum.init()`
-- **Mobile**: pass the full `/replay` endpoint to `SessionReplay.enable(...)`, not the RUM endpoint
+- **Native iOS / Android**: pass the full `/replay` endpoint to `SessionReplay.enable(...)`, not the RUM endpoint
+- **React Native**: pass the *bare base URL* (no `/replay` suffix) — the bridge appends it itself as of SDK `0.1.2`. On older versions, append `/replay` yourself.
 
 ### Requests Return 401 or 403
 
-The `clientToken` is your org's **RUM token**, not the ingestion passcode. If it was rotated, regenerate it from the **Ingestion** &rarr; **RUM** page and rebuild your app.
+Two common causes:
+
+- The `clientToken` is your org's **RUM token**, not the ingestion passcode. If it was rotated, regenerate it from the **Ingestion** &rarr; **RUM** page and rebuild your app.
+- **React Native Session Replay specifically**: appending `/replay` to `customEndpoint` yourself on SDK `0.1.2`+ double-appends the path (the bridge already adds it), which is also rejected with `401`. Pass the bare base URL instead — see "Mobile: Endpoint URLs" above.
 
 ### Views / Screens All Named the Same
 

@@ -45,7 +45,7 @@ OpenObserve decouples compute from storage entirely. Long retention costs object
 | Alerts | Yes | Yes, SQL/PromQL-based alerting |
 | Pipelines / data transforms | Yes | Yes, simpler transforms with Vector Remap Language (VRL) |
 | Query language | SPL (proprietary) | SQL + PromQL |
-| Storage model | Indexer hosts with attached storage | Object storage (S3 / GCS / Azure Blob / MinIO / local disk) |
+| Storage model | Indexer hosts with attached storage | Object storage (S3 / GCS / Azure Blob / MinIO / RustFS / local disk) |
 | Manageability | Multi-component, typically a dedicated team | Single binary or Helm chart, stateless |
 | Data retention | Tied to indexer storage cost | Object-storage rates, long retention is cheap |
 | Open source | No | Yes |
@@ -93,6 +93,13 @@ Rough sizing of a parallel-run window:
 - Large (> 1 TB/day): 4 to 6 months
 
 The dominant variable is dashboard/alert count, not data volume.
+
+## Compare with other systems
+
+- [OpenObserve vs Elasticsearch](https://openobserve.ai/docs/overview/comparison-with-alternatives/comparison/)
+- [OpenObserve vs Datadog](https://openobserve.ai/docs/overview/comparison-with-alternatives/datadog-alternative/)
+- [OpenObserve vs New Relic](https://openobserve.ai/docs/overview/comparison-with-alternatives/newrelic-alternative/)
+- [OpenObserve vs ClickHouse](https://openobserve.ai/docs/overview/comparison-with-alternatives/clickhouse-alternative/)
 
 ## Need Help?
 
