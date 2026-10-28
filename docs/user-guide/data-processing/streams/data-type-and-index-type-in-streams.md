@@ -9,7 +9,7 @@ This guide explains how to define and configure stream fields in OpenObserve, in
 ## Define stream fields
 
 When creating a stream, each field requires three components:
-![define strean fields](../../../images/stream-fields.png)
+![New stream dialog with a field defined by Field Name, Index Type and Data Type](../../../images/stream-fields-v2.png)
 
 1. **Field Name**: A unique identifier for the field within the stream.
 2. **Data Type**: The data type that values in this field will use.
