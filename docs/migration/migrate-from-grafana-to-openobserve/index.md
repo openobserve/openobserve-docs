@@ -89,7 +89,7 @@ Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai) — no infrastru
 
 After logging in, go to **Data > Data sources** to find your ingestion credentials and endpoint URLs.
 
-![OpenObserve Data Sources UI](../../images/migration/lgtm/data-sources-ui.png)
+![Data sources, Custom, Logs, Curl with the ingestion command](../../images/migration/lgtm/data-sources-ui-v2.png)
 :::
 :::tab[Self-Hosted]
 
