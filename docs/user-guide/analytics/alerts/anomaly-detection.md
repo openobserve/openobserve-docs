@@ -7,7 +7,7 @@ description: Anomaly Detection learns an expected value band from your history a
 
 Anomaly Detection automatically identifies unusual patterns in your data streams using machine learning, alerting you to deviations before they become incidents.
 
-![Anomaly Detection list showing configured rules with status, schedule, and training information](../../../images/anomaly-detection-overview.png)
+![Anomaly tab of the alert list with two anomaly detection rules](../../../images/anomaly-detection-overview-v2.png)
 
 ## Overview
 
@@ -56,11 +56,11 @@ The **Detection Config** tab provides a full configuration wizard:
 - **Check every** — how often the detection job runs
 - **Look back window** — how far back each detection run queries
 
-![Detection Config tab showing query builder, scheduling parameters, sensitivity chart with Anomaly Score Range slider, and configuration summary](../../../images/anomaly-detection-edit-config-chart.png)
+![Detection Config tab with the query builder, Detection Resolution, Check Every, Look Back Window, Training Window and Sensitivity set to Balanced, next to the Preview chart and Summary](../../../images/anomaly-detection-edit-config-chart-v2.png)
 
 In **SQL** mode, the query editor replaces the visual builder. Your query must return exactly two columns: `time_bucket` and `value`.
 
-![SQL mode showing the query editor with validation requirements](../../../images/anomaly-detection-add-sql-mode.png)
+![SQL mode with a query that returns time_bucket and value, next to the Preview chart](../../../images/anomaly-detection-add-sql-mode-v2.png)
 
 ### Sensitivity tuning
 
@@ -80,7 +80,7 @@ The **Alerting** tab configures what happens when anomalies are detected:
 - **Window share** — alert only when enough recent buckets fall outside the band: **Fire at (%)** of the **Last N buckets**, recovering below **Recover below (%)**
 - **Priority** and **Tags** — triage metadata, as for other alerts
 
-![Alerting tab showing notifications enabled with a Slack destination configured](../../../images/anomaly-detection-edit-alerting.png)
+![Alerting tab with Notifications enabled, a webhook destination, Alert direction and Window share](../../../images/anomaly-detection-edit-alerting-v2.png)
 
 :::info[Info]
 Anomaly detection results are always written to the `_anomalies` stream, even when notifications are disabled. You can query this stream directly for analysis.
@@ -101,7 +101,7 @@ Each anomaly detection rule progresses through a status lifecycle:
 
 1. Go to **Reliability > All Alerts**, open the **Anomaly** tab, and click **New alert**.
 
-    ![New anomaly detection form showing stream selection, detection config fields, and Save & Train button](../../../images/anomaly-detection-add-form.png)
+    ![New anomaly detection form showing stream selection, detection config fields, and Save & Train button](../../../images/anomaly-detection-add-form-v2.png)
 
 2. Enter a name, select the **Stream Type** (Logs, Metrics, or Traces) and **Stream Name**.
 
@@ -127,7 +127,7 @@ Start with a training window of 7–14 days for best seasonality detection. Use 
 
 From the **Anomaly** tab, use the row actions and the three-dot (**More actions**) menu on each row:
 
-![Action menu showing Move, Delete, Export, Trigger Detection, and Re-train options](../../../images/anomaly-detection-action-menu.png)
+![More actions menu on an anomaly rule with Move, Mute notifications, Delete, Export, Trigger Detection and Re-train](../../../images/anomaly-detection-action-menu-v2.png)
 
 - **Pause** / **Start** — temporarily stop or restart detection without deleting the model
 - **Re-train** — trigger manual retraining (replaces the existing model once complete)
