@@ -24,7 +24,7 @@ To ingest this sample data refer to this [guide.](../../getting-started.md#load-
 match_all('error')
 ```
 
-![Full text Search](../../images/example-queries/match-all-error.png)
+![Full text Search](../../images/example-queries/match-all-error-v2.png)
 
 - `match_all` searches only the fields configured for full-text search. By default, these include: `log`, `message`, `msg`, `content`, `data`, `body`, `json`, `error`, `llm_input`, `llm_output`.
 - If you want more fields to be scanned, configure them under stream settings.
@@ -33,7 +33,7 @@ match_all('error')
 ```sql
 str_match(log, 'error')
 ```
-    ![String Match](../../images/example-queries/log-error.png)
+    ![String Match](../../images/example-queries/log-error-v2.png)
 
 ## Numeric Field Filters
 
@@ -41,25 +41,25 @@ str_match(log, 'error')
 ```sql
 code = 200
 ```
-    ![Exact Numeric Match](../../images/example-queries/code.png)
+    ![Exact Numeric Match](../../images/example-queries/code-v2.png)
 
 **Find logs where `code` is missing (`null`):**
 ```sql
 code is null
 ```
-    ![Null Numeric Match](../../images/example-queries/code-is-null.png)
+    ![Null Numeric Match](../../images/example-queries/code-is-null-v2.png)
 
 **Find logs where `code` has any value:**
 ```sql
 code is not null
 ```
-    ![Not-Null Numeric Match](../../images/example-queries/is-not-null.png)
+    ![Not-Null Numeric Match](../../images/example-queries/is-not-null-v2.png)
 
 
 :::warning[Avoid `code = ''` or `code != ''`]
 These do not work properly for numeric fields. Use `is null` / `is not null` instead.
 
-![Inappropriate Numeric Match](../../images/example-queries/inappropriate.png)
+![Inappropriate Numeric Match](../../images/example-queries/inappropriate-v2.png)
 :::
 
 
@@ -67,19 +67,19 @@ These do not work properly for numeric fields. Use `is null` / `is not null` ins
 ```sql
 code > 399
 ```
-    ![Greater than Numeric Match](../../images/example-queries/greater-than.png)
+    ![Greater than Numeric Match](../../images/example-queries/greater-than-v2.png)
 
 
 **Logs where `code` is greater than or equal to 400:**
 ```sql
 code >= 400
 ```
-    ![Greater than Equal to Numeric Match](../../images/example-queries/greater-than-equalto.png)
+    ![Greater than Equal to Numeric Match](../../images/example-queries/greater-than-equalto-v2.png)
 
 :::warning[`code => 400` is invalid syntax]
 Always use SQL-compatible operators like `>=`.
 
-![Invalid Syntax](../../images/example-queries/equalto-greaterthan-error.png)
+![Invalid Syntax](../../images/example-queries/equalto-greaterthan-error-v2.png)
 :::
 
 
@@ -91,7 +91,7 @@ SELECT * FROM your_stream_name
 WHERE service_name = 'api-gateway' 
   AND code >= 500
 ```
-    ![Filtering Queries](../../images/example-queries/filtering.png)
+    ![Filtering Queries](../../images/example-queries/filtering-v2.png)
 
 
 **Exclude health check logs:**
@@ -99,7 +99,7 @@ WHERE service_name = 'api-gateway'
 SELECT * FROM your_stream_name 
 WHERE NOT str_match(log, 'health-check')
 ```
-    ![Filtering Queries](../../images/example-queries/exclude-filtering.png)
+    ![Filtering Queries](../../images/example-queries/exclude-filtering-v2.png)
 
 ## Grouping and Counting
 
@@ -110,7 +110,7 @@ SELECT histogram(_timestamp) as ts, count(*) as total_logs
 FROM your_stream_name
 GROUP BY ts
 ```
-    ![Group Logs](../../images/example-queries/group-logs.png)
+    ![Group Logs](../../images/example-queries/group-logs-v2.png)
 
 
 **Find top 10 IP addresses by request volume:**
@@ -134,14 +134,14 @@ LIMIT 10
 SELECT 
   histogram(_timestamp) AS ts_histogram, 
   count(CASE WHEN code = 200 THEN 1 END) AS code_200_count,
-  count(CASE WHEN code = 401 THEN 1 END) AS code_401_count,
+  count(CASE WHEN code = 404 THEN 1 END) AS code_404_count,
   count(CASE WHEN code = 500 THEN 1 END) AS code_500_count
 FROM your_stream_name
 GROUP BY ts_histogram
 ```
 
 - `histogram(_timestamp)` bins timestamps into uniform intervals (e.g. hourly). You can configure the granularity in the UI or query if needed.
-    ![Histogram of log timestamps](../../images/example-queries/histogram.png)
+    ![Histogram of log timestamps](../../images/example-queries/histogram-v2.png)
 
 ## Next steps
 
