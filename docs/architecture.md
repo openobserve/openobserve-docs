@@ -144,7 +144,7 @@ The data query flow is as follows:
 1. `LEADER` collects, merges and sends the result back to the user.
 
 :::tip[Querier caching]
-- The queriers will cache parquet files in memory by default. Use the `ZO_MEMORY_CACHE_MAX_SIZE` environment variable to configure how much memory a querier uses for caching. By default, queriers use 50% of their available memory for caching in HA mode, and 25% in single-node mode.
+- Queriers cache parquet files on disk by default (`ZO_DISK_CACHE_ENABLED`). An in-memory cache is also available but off by default; turn it on with `ZO_MEMORY_CACHE_ENABLED=true` and size it with `ZO_MEMORY_CACHE_MAX_SIZE` (by default 50% of available memory in HA mode, 25% in single-node mode).
 - In a distributed environment, each querier node will just cache a part of the data.
 - You also have the option to enable caching the latest parquet files in memory. The ingester will notify queriers to cache the file when an ingester generates a new parquet file and uploads it to object storage.
 :::
