@@ -20,7 +20,7 @@ A **default** token is created automatically when a new organization is provisio
 
 Navigate to **IAM > Ingestion Tokens** to view and manage org-level tokens.
 
-![Ingestion Tokens page with token list](images/org-level-ingestion-tokens-1.png)
+![IAM Ingestion Tokens list with the default and docs-ingest tokens](images/org-level-ingestion-tokens-1-v2.png)
 
 The page lists all tokens for the current organization with these columns:
 
@@ -40,11 +40,11 @@ The page lists all tokens for the current organization with these columns:
    - **Also create a Splunk HEC token** (optional) — lets Splunk forwarders and HEC clients send data to this organization.
 3. Click **Create**.
 
-![Create Token dialog](images/org-level-ingestion-tokens-2.png)
+![Create Token dialog with name, description and the Splunk HEC option](images/org-level-ingestion-tokens-2-v2.png)
 
 After creation, the **New Token Generated** dialog shows the **Authorization header (ready to use)**. Use **Copy Authorization header** to copy the header value, or **Copy raw token** to copy only the token. The token list keeps the Authorization header available for copying later.
 
-![New Token Generated reveal dialog](images/org-level-ingestion-tokens-3.png)
+![New Token Generated dialog with the ready-to-use Authorization header](images/org-level-ingestion-tokens-3-v2.png)
 
 ### Enable or disable a token
 
@@ -54,7 +54,7 @@ Click the **Disable**/**Enable** button in the **Actions** column to disable or 
 
 When you visit the **Data sources** page, a token selector dropdown appears above the curl examples. The dropdown lists all enabled org-level ingestion tokens for the current organization. Select a token to populate the curl commands with that credential.
 
-![Ingestion page showing token selector dropdown](images/org-level-ingestion-tokens-4.png)
+![Data sources page with the token selector and Manage Tokens button](images/org-level-ingestion-tokens-4-v2.png)
 
 Click **Manage Tokens** next to the selector to jump directly to the **IAM > Ingestion Tokens** page.
 
