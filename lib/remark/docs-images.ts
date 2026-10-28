@@ -25,11 +25,18 @@ import { BASE_PATH } from '../constants';
 
 const DOCS_DIR = path.resolve('docs');
 
-/** Dimensions are read once per file; a full build touches the same ones often. */
-const sizeCache = new Map<string, { width: number; height: number } | null>();
+/** Dimensions are read once per file+mtime; a full build touches the same ones often. */
+const sizeCache = new Map<string, { mtime: number; size: { width: number; height: number } | null }>();
 
 function intrinsicSize(absPath: string) {
-  if (sizeCache.has(absPath)) return sizeCache.get(absPath)!;
+  let mtime = 0;
+  try {
+    mtime = fs.statSync(absPath).mtimeMs;
+  } catch {
+    return null;
+  }
+  const hit = sizeCache.get(absPath);
+  if (hit && hit.mtime === mtime) return hit.size;
   let result: { width: number; height: number } | null = null;
   try {
     const { width, height } = imageSize(fs.readFileSync(absPath));
@@ -37,7 +44,7 @@ function intrinsicSize(absPath: string) {
   } catch {
     // Unreadable or an unsupported format: fall back to no dimensions.
   }
-  sizeCache.set(absPath, result);
+  sizeCache.set(absPath, { mtime, size: result });
   return result;
 }
 

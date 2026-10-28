@@ -80,7 +80,7 @@ Select one or more probe locations. At least one is required.
 
 ![Locations card listing twelve public AWS regions and the private locations section](images/config-locations.png)
 
-Public locations cover twelve AWS regions on OpenObserve Cloud, the only deployment Synthetics currently supports:
+On OpenObserve Cloud, public locations cover twelve AWS regions. On a self-hosted deployment, the list holds the locations that you registered, as described in [Self-hosted setup](self-hosted-setup.md#step-6-register-a-location).
 
 | Area | Regions |
 |------|---------|
@@ -136,6 +136,8 @@ Available on browser and HTTP checks.
 ![Authentication and Network card with basic auth toggle and variables](images/config-auth-network.png)
 
 Variables are referenced anywhere the check accepts one, including the starting URL and step values. Mark a variable as secure to mask its value in the UI.
+
+In browser checks, type `{{` in the starting URL, or in the value of a **Navigate**, **Type**, **Select** or **Press** step, to pick a variable from a suggestion list. Each row shows whether the variable is global or which environments define it. A warning icon flags a variable missing from one of the check's selected environments, and a lock icon marks a secret one.
 
 > **Warning**: Pre-set cookies and basic auth credentials are stored with the check. Use dedicated test accounts rather than real user credentials.
 

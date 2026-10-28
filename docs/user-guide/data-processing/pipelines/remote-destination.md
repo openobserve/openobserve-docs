@@ -6,6 +6,10 @@ description: "Configure remote destinations to send transformed pipeline data to
 
 This document explains how to configure remote destinations in OpenObserve pipelines to send transformed data to external systems. It covers the setup process, technical architecture of the persistent queue mechanism, Write-Ahead Log (WAL) file operations, failure handling, retry logic, and performance optimization through environment variables.
 
+:::info[Availability]
+This feature is available in Enterprise Edition and Cloud. Not available in Open Source.
+:::
+
 ::::::tabs
 :::::tab[How to]
 ## What is a remote destination?

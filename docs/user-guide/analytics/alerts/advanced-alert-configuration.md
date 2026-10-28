@@ -42,7 +42,7 @@ PromQL alerts add a **Warning value** field alongside the existing condition val
 
 ## Multi-alerts (per-group evaluation)
 
-When an aggregation alert uses **Group by**, you can opt into **per-group evaluation** by enabling **Multi-alert**. Each unique group-by combination gets its own level, state row, and notification path, instead of the alert collapsing every group into a single verdict.
+When an aggregation alert uses **Group by**, you can opt into **per-group evaluation** by enabling **Multi-alert**. Each unique group-by combination gets its own level, state row, and notification path, instead of the alert collapsing every group into a single verdict. **SQL** query-type alerts support the same per-group evaluation, deriving their groups from the query's own `GROUP BY` clause (see [SQL multi-alerts](#sql-multi-alerts) below).
 
 ### Enabling multi-alert
 
@@ -67,6 +67,42 @@ On the alerts list, multi-alerts show a **N of M groups firing** chip. Click the
 From a group row, click to view its **Transition history**, showing every level and outcome change with timestamps and observed values.
 
 ![alert detail drawer with Groups tab showing per-group state rows](images/alerts-4-0-6.png)
+
+### SQL multi-alerts
+
+**SQL** query-type alerts can opt into per-group evaluation too. Unlike the Custom builder — where you pick the **Group by** fields yourself — a SQL multi-alert derives its groups from the query's own `GROUP BY` clause, and compares a single aggregate value column from the query's output.
+
+#### Enabling SQL multi-alert
+
+In SQL mode, the **Simple / Multi** choice appears above the condition row. Leave it on **Simple** to alert on the total number of returned rows (**Alert if No. of events**), or switch to **Multi** to classify each group independently.
+
+When you enable **Multi**, the condition row becomes **Alert if [column]**:
+
+- **Column**: a dropdown listing the query's resolved output columns (the columns your SQL actually projects). Select the aggregate value column the alert should compare.
+- **Critical if**: the operator and threshold applied to that column.
+- **Warning if** (optional): a less-severe threshold that shares the critical operator.
+
+![SQL multi-alert condition row with value column dropdown and threshold](images/sql-multi-alert-1.png)
+
+#### Grouping and validation
+
+A SQL multi-alert does not expose a **Group by** picker — the groups are the fields in your query's `GROUP BY` clause. On save, OpenObserve verifies that:
+
+- the query has at least one `GROUP BY` field;
+- every group-by field is present in the projections, without an alias; and
+- the selected **Column** is one of the query's output columns.
+
+If any of these checks fail, saving is rejected with a `400` error describing the missing or aliased field.
+
+#### HAVING clause warning
+
+If your SQL includes a `HAVING` clause, OpenObserve shows a warning banner: *Having clause in query will apply before the filters of alert if condition*. The clause filters your result set before the multi-alert's **Alert if** condition evaluates it, so a group that fails the `HAVING` filter never reaches the threshold check.
+
+![SQL HAVING clause warning banner in the multi-alert condition](images/sql-multi-alert-2.png)
+
+#### Group-count gate
+
+As with Custom multi-alerts, the **Settings** group-count gate applies. For SQL multi-alerts it is pinned to **at least 1 group** — the alert fires whenever any single group crosses the threshold.
 
 ## Alert priority
 
@@ -183,7 +219,7 @@ SLO alerts use a dedicated `QueryType::Slo`. Their deduplication identity is the
 
 SLO measurement is behind the feature flag `ZO_SLO_ENABLED` (default `false`). SLO CRUD endpoints live under `/api/{org}/slos` and share the alert folder namespace. When enabled, SLO-based alerts appear as an alert type filter on the alerts list.
 
-![TODO: screenshot of SLO alert creation form with SLO selector](images/placeholder.png)
+![SLO alert creation form with SLO selector](images/sql-multi-alert-3.png)
 
 ## New configuration
 

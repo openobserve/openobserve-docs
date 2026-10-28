@@ -49,6 +49,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_ROUTE_TIMEOUT | 600 | Timeout value for the router node in seconds. |
 | ZO_ROUTE_MAX_CONNECTIONS | 1024 | Sets the maximum number of simultaneous connections per type of scheme for the Router node role. |
 | ZO_CORS_ALLOWED_ORIGINS | | Comma-separated list of origins allowed to make cross-origin (CORS) requests to the OpenObserve server. When empty, all origins are allowed. Example: `https://app.example.com,https://admin.example.com`. |
+| ZO_SSRF_ALLOW_LOOPBACK | false | Allow outbound requests, such as webhook alert destinations and URL-based enrichment tables, to target loopback addresses (`127.0.0.1`, `localhost`, `::1`). Part of OpenObserve's SSRF (Server-Side Request Forgery) protection, which blocks these targets by default. Does not allow other private network ranges, such as `10.0.0.0/8`, `172.16.0.0/12`, or `192.168.0.0/16`; use `ZO_SKIP_SSRF_CHECKS` for those. Enable only in trusted environments, such as CI/CD pipelines or single-node self-hosted setups where the server needs to send requests to itself. |
+| ZO_SKIP_SSRF_CHECKS | false | Disable SSRF protection for outbound requests made by the server for features that check it, such as webhook alert destinations and URL-based enrichment tables, allowing URLs that target loopback addresses, private network ranges (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), link-local addresses, and cloud metadata endpoints (for example, `169.254.169.254`). Use this in a self-hosted deployment to reach a notification service or another system on a private network, such as a homelab. Enable only when you trust every destination URL configured on this instance. |
 
 
 ## Data Storage and Directories
@@ -119,7 +121,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM | false | Ignores stream-level file retention settings and applies the global retention policy. |
 | ZO_COMPACT_DATA_RETENTION_DAYS | 3650 | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_COMPACT_SYNC_TO_DB_INTERVAL | 1800 | The interval time in seconds after which compactor sync cache to db is run. |
-| ZO_COMPACT_DELETE_FILES_DELAY_HOURS | 2 | The number of hours to delay to delete the pending deleted files by compactor. Value can not be less than 1. |
+| ZO_COMPACT_DELETE_FILES_DELAY_MINUTES | 120 | The number of minutes the compactor waits before deleting pending deleted files. Values less than 1 fall back to 120. |
+| ZO_COMPACT_DELETE_FILES_DELAY_HOURS | 0 | Deprecated since 0.92.2. Use `ZO_COMPACT_DELETE_FILES_DELAY_MINUTES` instead. If set to a value greater than 0, it is converted to minutes and overrides `ZO_COMPACT_DELETE_FILES_DELAY_MINUTES`. This variable will be removed in a future release. |
 | ZO_COMPACT_DATA_RETENTION_HISTORY | false | When enabled, this will move the file_list into file_list_history and not delete files from storage. |
 | ZO_COMPACT_BLOCKED_ORGS | | Use comma to split multiple orgs. Blocked organizations will not be able to ingest data |
 | ZO_COMPACT_FAST_MODE | true |Enables fast compaction mode. Uses more memory but improves performance. Disabling reduces memory usage by about 50 percent. |
@@ -295,6 +298,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_DISK_CACHE_STRATEGY | lru | Disk data cache strategy, values are lru, time_lru, fifo |
 | ZO_MEMORY_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the memory cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
 | ZO_DISK_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the disk cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
+| ZO_FILE_DOWNLOAD_SYNC_MAX_SIZE | 1 | Files up to this size in MB that are missing from the querier cache are downloaded into the cache before a search runs, instead of being range-read from object storage. Larger files are downloaded in the background as before. Set to `0` to disable. |
+| ZO_FILE_DOWNLOAD_MIN_RECORDS | - | Removed. Files are no longer excluded from the cache by record count. |
 
 
 ## HTTP TLS
@@ -360,13 +365,13 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 ## S3 and Object Storage
 | Environment Variable                   | Default Value | Description                                                                                                                                                           |
 | -------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ZO_S3_SERVER_URL               | -             | Default for aws s3 & leave it empty, but for `minIO`, `gcs` one should configure it. |
+| ZO_S3_SERVER_URL               | -             | Default for aws s3 & leave it empty, but for `minIO`, `gcs`, or RustFS one should configure it. |
 | ZO_S3_REGION_NAME              | -             | Region name                                                                          |
 | ZO_S3_ACCESS_KEY               | -             | Access key                                                                           |
 | ZO_S3_SECRET_KEY               | -             | Secret key                                                                           |
 | ZO_S3_BUCKET_NAME              | -             | Bucket name                                                                          |
 | ZO_S3_BUCKET_PREFIX            | -             | You can store data in a sub directory, like: `openobserve/`                          |
-| ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, swift                             |
+| ZO_S3_PROVIDER                 | s3            | S3 provider name, like: aws, gcs, gcp, oss, minio, rustfs, swift                             |
 | ZO_S3_FEATURE_FORCE_HOSTED_STYLE | false         | Feature: `force_hosted_style`.                                                     |
 | AWS_EC2_METADATA_DISABLED      | false         | Feature, default enable for `swift`.                                                 |
 | ZO_S3_FEATURE_BULK_DELETE       | false         | Enables bulk deletion of streams in object stores that support stream deletion. If your object store supports stream delete, you can enable this variable. AWS S3 and Azure ObjectStore are known to support it. When set to **true**, OpenObserve issues a single operation to delete all files under the stream’s storage prefix, reducing deletion time and API usage.                                                                             |

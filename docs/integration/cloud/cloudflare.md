@@ -106,7 +106,7 @@ There are two options to send logs from Cloudflare to OpenObserve. Click each ta
 1. In the Cloudflare dashboard, go to **My Profile > API Tokens > Create Token**.
 2. Select the **Read analytics** and logs template. Apply the token to all zones or selected zones.
 > **Note**: You can also create a custom token with the following scope: **Zone > Analytics > Read**. 
-3. Copy the API token. For example, `xUL39zImSqAG5-JJNpLMC7HVIqGuckorb9AKo-Tx`. 
+3. Copy the API token and store it securely. You will use it in the next step.
 
 **Set up environment**
 
@@ -128,7 +128,7 @@ import base64
 import random
 
 # Cloudflare config
-API_TOKEN = "xUL39zImSqAG5-JJNpLMC7HVIqGuckorb9AKo-Tx"
+API_TOKEN = "your_cloudflare_api_token"
 EMAIL = "your-username@example.com"
 ZONE_IDS = []  # Specify zone IDs or leave empty for all zones
 
