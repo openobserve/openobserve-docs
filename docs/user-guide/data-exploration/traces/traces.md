@@ -13,7 +13,7 @@ All OpenObserve users can view traces.
 
 :::note[Where to find it]
 Select **Traces** from the left navigation in the OpenObserve UI. Hover over **Traces** to jump straight to **Spans**, **Traces**, **Service Graph**, or **Service Catalog**.
-![Traces](../../../ingestion/traces/images/traces.png)
+![Traces page in Traces mode listing traces from the past hour with rate, error and duration charts](../../../ingestion/traces/images/traces-v2.png)
 :::
 
 ## Why traces matter
@@ -74,20 +74,20 @@ Each row shows:
 - Badges for the services involved
 
 The **Timestamp** and **Duration** column headers are clickable to sort the list in ascending or descending order. The list header shows a badge with the total count of traces found and a separate **Error Traces** count badge. A pagination control lets you choose the number of rows per page (`10`, `25`, `50`, or `100`) and navigate between pages.
-![trace-list](../../../images/trace-list.png)
+![Traces result list with Service and Operation Name columns, Traces Found and Error Traces badges, and pagination](../../../images/trace-list-v2.png)
 
 **Customize columns**: Toggle a field's visibility icon in the field sidebar to add or remove it as a table column, drag column headers to reorder them, and click the X on a column header to remove it. Column choices are remembered separately for Traces and Spans modes. Hover any cell to copy its value or add it as an include/exclude filter.
 
 In the field sidebar, fields are organized into groups: **Key Fields** first, then type groups (**String**, **Number**, **Boolean**), semantic/prefix groups (for example, Kubernetes and HTTP), and **Other** last. For a single stream, the groups are expanded by default.
 
 **Waterfall:** The default view of a trace. Shows spans as color-coded horizontal bars. Parent spans contain child spans. Parent time includes the time of child spans, which may run in parallel.
-![Timeline](../../../images/timeline.png)
+![Waterfall tab of a trace showing nested spans as horizontal bars](../../../images/timeline-v2.png)
 **Trace Graph:** Shows all services involved in the trace and how they call each other, as a **Tree View** or a **Graph View**.
-![Service map](../../../images/service-map.png)
+![Trace Graph tab in Graph View showing the services called in a trace](../../../images/service-map-v2.png)
 **Span details:** Provide metadata such as file path, code line, service version, thread ID, and additional attributes. Events and error messages appear when available.
 
 A trace also has **Flame Graph** and **DAG** tabs, and a **Thread** tab for LLM traces. You can drag the tabs to reorder them.
-![Span details](../../../images/span-details.png)
+![Selected span with the details panel open on the Attributes tab](../../../images/span-details-v2.png)
 ::::::
 ::::::tab[How-to]
 <br>
@@ -98,13 +98,13 @@ The following configuration steps show how to set up OpenObserve for self-monito
 **Steps** <br>
 :::accordion[Step 1: Navigate to Data Sources and collect authorization details]
 Go to **Data sources** > **Custom** > **Traces**.
-![opentelemetry-collector-for-traces](../../../images/opentelemetry-collector-for-traces.png)
+![Data sources, Custom, Traces, OpenTelemetry page with the collector config](../../../images/opentelemetry-collector-for-traces-v2.png)
 Note the following values:
 
 - HTTP Endpoint under OTLP HTTP
 - Authorization header value
 
-![Navigate to traces](../../../images/navigate-to-traces.png)
+![OTLP HTTP collector config showing the endpoint and Authorization header (values hidden)](../../../images/navigate-to-traces-v2.png)
 :::
 
 :::accordion[Step 2: Configure the environment variables]
@@ -139,7 +139,7 @@ You can send traces directly from an external application to OpenObserve.
 
 :::accordion[Step 1: Navigate to Data Sources and collect authorization details]
 In your OpenObserve application, go to Data sources > Custom > Traces.
-![opentelemetry-collector-for-traces](../../../images/opentelemetry-collector-for-traces.png)
+![Data sources, Custom, Traces, OpenTelemetry page with the collector config](../../../images/opentelemetry-collector-for-traces-v2.png)
 From the **OTLP HTTP** section, copy the following data:
 
 - HTTP Endpoint
@@ -153,7 +153,7 @@ From the **OTLP gRPC** section, copy the following data:
 :::
 
 :::::accordion[Step 2: Choose how you want to send the data]
-![opentelemetry-collector-for-traces](../../../images/opentelemetry-collector-for-traces.png)
+![Data sources, Custom, Traces, OpenTelemetry page with the collector config](../../../images/opentelemetry-collector-for-traces-v2.png)
 
 ::::tabs
 :::tab[OpenTelemetry SDK]
@@ -217,7 +217,7 @@ A span is active while your code is handling an operation. When a span is active
 :::
 
 ::::accordion[Step 2: Tell OpenObserve how your log fields are named]
-![config-custom-trace-id](../../../images/config-custom-trace-id.png)
+![Settings, Organization Parameters, Log Details with Trace ID Field Name and Span ID Field Name](../../../images/config-custom-trace-id-v2.png)
 1. Open the OpenObserve UI.
 2. Go to **Settings** > **Organization Parameters**. 
 3. Under **Log Details**: 
@@ -242,7 +242,7 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 3. Choose the time range and select **Run query**.
 4. Open a trace to view its timeline.
 5. Now choose any of these ways to reach the related logs:
-![traces-to-logs](../../../images/traces-to-logs.png)
+![Span details panel with the View Logs button highlighted](../../../images/traces-to-logs-v2.png)
 **A. Use the header stream selector** (open-source edition; Enterprise finds the related logs for you):
 
 - In the trace header, open the stream dropdown next to View Logs.
@@ -272,7 +272,7 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 6. The system shows the trace that matches the `trace_id`.
 
 **Note**: If no results appear after selecting **View Trace**, confirm that in your log stream the trace ID and span ID are available in the `trace_id` and `span_id` respectively. If not, ensure the custom trace ID and span ID fields are configured in **Settings** > **Organization Parameters**. 
-![config-traces-in-org-parameter](../../../images/config-traces-in-org-parameter.png)
+![Settings, Organization Parameters, Log Details with Trace ID Field Name and Span ID Field Name](../../../images/config-custom-trace-id-v2.png)
 :::
 ::::
 :::::
@@ -293,7 +293,7 @@ A **Flame Graph** tab is also available for inspecting a trace. Selecting a span
 
 ## Use the Waterfall and Trace Graph tabs
 Use the **Waterfall** and **Trace Graph** tabs to inspect performance and find slow spans:
-![trace-timeline](../../../images/trace-timeline.png)
+![Waterfall tab with Critical path turned on](../../../images/trace-timeline-v2.png)
 1. Go to **Traces**. 
 2. From the stream selector, select the trace stream.
 3. Set a time range.
@@ -311,11 +311,11 @@ Use the **Waterfall** and **Trace Graph** tabs to inspect performance and find s
 4. Set a time range.
 5. Select **Run query**. 
 6. From the list of traces, open a trace. Traces should have an error badge.
-![error-badge-spans](../../../images/error-badge-spans.png)
+![Traces list with the Error Traces badge and error status badges highlighted](../../../images/error-badge-spans-v2.png)
 7. In the span tree, click the span highlighted in red warning sign. 
-![warning-spans](../../../images/warning-spans.png)
+![Waterfall with the failing span highlighted](../../../images/warning-spans-v2.png)
 8. The detailed span view opens, showing the complete context for that span.  
-![span-view](../../../images/span-view.png)
+![Error tab of a failing span showing the HTTP status, error type and exception](../../../images/span-view-v2.png)
 9. If log and trace correlation is configured, select **View Logs** in the span details panel to open the related logs for further investigation.   
 
 ## Filter by duration
@@ -334,7 +334,7 @@ While a query runs, a **Cancel** button replaces **Run query**, allowing you to 
 :::
 
 ## Explore the detailed span view
-![detailed-span-view](../../../images/detailed-span-view.png)
+![Span details panel showing the summary chips and the Attributes, Error, Events, Links, Logs and Metrics tabs](../../../images/detailed-span-view-v2.png)
 
 | Tab | What it shows | When to use |
 |-----|---------------|-------------|
