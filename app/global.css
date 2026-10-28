@@ -111,12 +111,9 @@
 }
 
 /*
- * Sidebar and page index (TOC) highlight.
- *
- * Fumadocs marks the active sidebar item and the active "On this page" entry
- * with `--color-fd-primary`, which the neutral theme leaves at plain
- * black/white. Retinted to the brand violet so the index highlight matches the
- * purple used for the main text on the landing page.
+ * Brand violet for `--color-fd-primary`, which the neutral theme leaves at
+ * plain black/white. It drives buttons such as the sidebar's "Get Started
+ * Free"; the navigation chrome is opted back out below.
  */
 :root {
   --color-fd-primary: var(--oo-brand);
@@ -126,6 +123,61 @@
 .dark {
   --color-fd-primary: var(--oo-brand);
   --color-fd-primary-foreground: hsl(0, 0%, 9%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Page density.
+ *
+ * Body copy stays at Fumadocs' 16px; what made pages feel heavy was the chrome
+ * around it. So: a near-white page instead of the default 96% grey, a reading
+ * column of ~680px (about 75 characters a line, down from ~100), smaller
+ * headings, and quieter 13px navigation.
+ * ------------------------------------------------------------------------- */
+/* Light only: `.dark` sets its own palette, which this must not override. */
+:root:not(.dark) {
+  --color-fd-background: hsl(0, 0%, 99%);
+  --color-fd-muted: hsl(0, 0%, 97%);
+  --color-fd-card: hsl(0, 0%, 97%);
+}
+
+/* 680px of text plus the article's 32px inline padding on each side. Full-width
+   pages (`full: true`, e.g. the landing page) keep their own width. */
+#nd-page[data-full='false'] {
+  max-width: 744px;
+}
+
+.prose h2 {
+  font-size: 1.3125rem;
+}
+
+.prose h3 {
+  font-size: 1.0625rem;
+}
+
+/* The page tree only: the logo, search and call-to-action above it keep their
+   own sizes. */
+#nd-sidebar [data-radix-scroll-area-viewport] a,
+#nd-sidebar [data-radix-scroll-area-viewport] button,
+#nd-toc a {
+  font-size: 0.8125rem;
+}
+
+/* Fumadocs pads sidebar rows 8px all round, giving 36px rows; 6px gives 32px. */
+#nd-sidebar [data-radix-scroll-area-viewport] a,
+#nd-sidebar [data-radix-scroll-area-viewport] button {
+  padding-block: 0.375rem;
+}
+
+/*
+ * The active sidebar item, active "On this page" entry and breadcrumb are
+ * navigation state, not calls to action: render them in the text colour so
+ * violet is left to links and buttons. `.oo-breadcrumb` is set on the
+ * breadcrumb in app/[[...slug]]/page.tsx.
+ */
+#nd-sidebar a[data-active],
+#nd-toc,
+.oo-breadcrumb {
+  --color-fd-primary: var(--color-fd-foreground);
 }
 
 .oo-details {
