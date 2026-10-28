@@ -1,9 +1,13 @@
 {
   "pages": [
     "llm-applications",
+    "llm-monitoring",
     "llm-evaluations",
-    "llm-experiments",
+    "llm-annotations-and-datasets",
+    "llm-prompts",
     "llm-playground",
+    "llm-experiments",
+    "model-pricing",
     "claude-code-tracing",
     "github-copilot-tracing",
     "frameworks",
