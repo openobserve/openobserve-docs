@@ -25,7 +25,7 @@ To perform the following tasks, you must have appropriate permission. Review the
 
 :::accordion[View license information]
 ### View license information
-![about-page](../../../images/about-page-license.png)
+![Help > About page with License Information and Enterprise License Details](../../../images/about-page-license-v2.png)
 
 1. Click the Help (?) icon in the top-right corner.
 2. Click **About**.  
@@ -36,7 +36,7 @@ To perform the following tasks, you must have appropriate permission. Review the
 ### Request a new license
 
 1. In the **Enterprise License Details** section of the **About** page, click **Manage License**. 
-![about-page](../../../images/about-page-license.png)
+![Help > About page with License Information and Enterprise License Details](../../../images/about-page-license-v2.png)
 2. It takes you to the **License** page under **Settings** in the `_meta` organization.
 ![license-management](../../../images/license-management.png) 
 3. Click **Request new License**. 
