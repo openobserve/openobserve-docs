@@ -7,7 +7,7 @@ This guide explains how OpenObserve ensures fast and reliable query performance.
 
 ## How the Download Manager Works
 
-OpenObserve stores the ingested data in Parquet files, a column-based file format optimized for efficient querying and compression. These files are saved in object storage, such as Amazon S3 or MinIO, and are not stored locally on the machines that execute queries.
+OpenObserve stores the ingested data in Parquet files, a column-based file format optimized for efficient querying and compression. These files are saved in object storage, such as Amazon S3, MinIO, or RustFS, and are not stored locally on the machines that execute queries.
 
 To run a query, the required Parquet files must be available on the querier node’s local disk. Querier nodes are the components in OpenObserve that process and execute search queries.
 

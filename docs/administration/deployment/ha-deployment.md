@@ -6,7 +6,7 @@ description: "High availability deployment guide for OpenObserve on Kubernetes u
 
 # High Availability (HA) Deployment - Kubernetes Production Setup
 
-Deploy OpenObserve in high availability (HA) mode for production observability workloads. This guide walks through deploying on Kubernetes with Helm using object storage (S3, GCS, MinIO, Swift, Civo) and PostgreSQL or MySQL as the metadata store.
+Deploy OpenObserve in high availability (HA) mode for production observability workloads. This guide walks through deploying on Kubernetes with Helm using object storage (S3, GCS, MinIO, RustFS, Swift, Civo) and PostgreSQL or MySQL as the metadata store.
 
 While OpenObserve can run in HA mode on bare metal servers, VMs, and other platforms, we officially provide installation via Helm charts for Kubernetes. Local disk storage is not supported in HA mode, so an object store is mandatory.
 
@@ -25,7 +25,7 @@ You need:
 
 - A Kubernetes cluster you have admin access to.
 - `kubectl` and `helm` installed locally.
-- An object storage bucket created beforehand (S3, GCS, MinIO, Swift, or Civo). The bucket itself is **not** created by the chart.
+- An object storage bucket created beforehand (S3, GCS, MinIO, RustFS, Swift, or Civo). The bucket itself is **not** created by the chart.
 - The [Cloud Native PostgreSQL Operator](https://cloudnative-pg.io/) installed in the cluster. This is required because the chart provisions its PostgreSQL cluster (1 primary + 1 replica) through cnpg.
 
 Install the cnpg operator:
@@ -126,6 +126,26 @@ Add/Modify following to values.yaml
      ZO_S3_REGION_NAME: "us-west-1"
      ZO_S3_PROVIDER: "minio"
    ```
+
+### Any Kubernetes + RustFS
+
+[RustFS](https://rustfs.com/) is an S3-compatible distributed object storage system built in Rust. It works with OpenObserve through the S3 provider: OpenObserve issues path-style requests by default, which is what RustFS expects.
+
+Add/Modify following to values.yaml
+
+1. S3 bucket where data will be stored
+   ```yaml
+   auth:
+     ZO_S3_ACCESS_KEY: "e.g.AKIAIOSFODNN7EXAMPLE"
+     ZO_S3_SECRET_KEY: "e.g.wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+   config:
+     ZO_S3_SERVER_URL: "http://rustfs-server-url:9000"
+     ZO_S3_BUCKET_NAME: "<your-bucket>"
+     ZO_S3_REGION_NAME: "us-east-1"
+     ZO_S3_PROVIDER: "s3"
+   ```
+
+The bucket must exist before the deployment starts — create it in the RustFS Console (`http://<rustfs-server>:9001/rustfs/console/`) or with the `rc` CLI (`rc mb rustfs/<your-bucket>`). `ZO_S3_REGION_NAME` must match the region RustFS runs with (`us-east-1` in a default single-node setup).
 
 ### Any Kubernetes + GCS
 

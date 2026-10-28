@@ -22,13 +22,13 @@ All three resources build on the **Score Config** from Online Evaluations: a sco
 
 ## Enable Annotations and Datasets
 
-Annotations and Datasets are an enterprise feature, gated by the same flag as Online Evaluations:
+Annotations and Datasets are available in the Enterprise edition and OpenObserve Cloud, gated by the same setting as Online Evaluations. It is on by default:
 
 ```env
-ZO_ONLINE_EVALS_ENABLED=true
+O2_EVAL_ENABLED=true
 ```
 
-When enabled, the **Queues**, **Datasets**, and **Discovery** pages appear alongside the Online Evaluations pages. When disabled, the pages and settings are hidden; backend API endpoints remain reachable.
+When enabled, **Discovery**, **Queues**, and **Datasets** appear under **AI > Annotate**. When disabled, these pages are hidden and their API endpoints are not registered.
 
 See [Review reconciliation](#review-reconciliation) below for the `O2_LLM_REVIEW_RECONCILE_INTERVAL_SECS` flag that controls how queue review status stays in sync.
 
@@ -38,9 +38,9 @@ An Annotation Queue is a named review workflow. When you create a queue, you pin
 
 ### Create a queue
 
-Navigate to **Evaluations > Queues** and click **Add Queue**.
+Navigate to **AI > Annotate > Queues** and click **New Queue**.
 
-![Add Queue dialog showing pinned score configs and target dataset](images/create-queue.png)
+![New Queue dialog showing pinned score configs and target dataset](images/create-queue.png)
 
 | Field | Description |
 |---|---|
@@ -67,7 +67,7 @@ Enqueuing the same reference into the same queue returns a conflict. A reference
 
 ### Review items in the workbench
 
-Open a queue and select an item to review. The **workbench** hydrates the item's business **input**, **output**, and **trace** context from the source stream, and lists the item's **machine scores** (the LLM Judge / Remote scores already recorded for that target) next to the review rubric.
+Open a queue and select an item to review. The item list shows a preview of each item's first user message, so you can tell items apart before opening them. The **workbench** hydrates the item's business **input**, **output**, and **trace** context from the source stream. Below them, **System Scores** lists the scores evaluators already recorded for that target. Hover a system score to read the evaluator's reasoning, score, and time.
 
 Submit your review by scoring each pinned score config, with optional reasoning and a comment. The queue item flips from **pending** to **reviewed** once you submit.
 
@@ -86,7 +86,7 @@ A Dataset is a golden set of `input`/`expectedOutput` pairs you can use to bench
 
 ### Create a dataset
 
-Navigate to **Evaluations > Datasets** and click **Add Dataset**.
+Navigate to **AI > Annotate > Datasets** and click **New Dataset**.
 
 ![Datasets list page](images/create-dataset.png)
 
@@ -102,11 +102,9 @@ You can add dataset items three ways:
 | **Telemetry** | From a trace or span's detail, add the object as an item by reference (`refType` of `trace` or `span`, not `session`). OpenObserve retrieves the input from the referenced trace or span. |
 | **Queue adjudication** | Push a reviewed queue item into the dataset (see [Push reviewed items to a dataset](#push-reviewed-items-to-a-dataset)). |
 
-<!-- ![TODO: screenshot of the Add to Dataset drawer for adding a telemetry item](images/placeholder.png) -->
-
 ### Import from CSV
 
-Add many items at once with a multipart CSV import at `POST /api/{org_id}/datasets/{dataset_id}/items/import`. Malformed rows are skipped and summarized in the response (`importedCount` and `skippedCount`).
+Add many items at once with a multipart CSV import at `POST /api/{org_id}/datasets/{dataset_id}/items/import`. Malformed rows are skipped and summarized in the response (`importedCount` and `skippedCount`). Imported items are recorded with the `manual` source.
 
 ### Version history
 
@@ -114,7 +112,7 @@ Every dataset item is versioned: updating an item creates a new version rather t
 
 ![Dataset detail page showing items and their version history](images/dataset-version-history.png)
 
-Deleting an item marks it deleted rather than erasing its history; pass the `includeDeleted` query parameter to include deleted items when listing. Each item also records where it came from — a trace/span reference, an annotation review, a manual entry, or a CSV import — for traceability.
+Deleting an item marks it deleted rather than erasing its history; pass the `includeDeleted` query parameter to include deleted items when listing. Each item also records where it came from for traceability: `trace`, `annotation`, `manual` (including CSV imports), or `playground`.
 
 ## Discovery
 
@@ -162,7 +160,7 @@ Additional access rules:
 - **Annotations** require `LIST` on `score_configs` — annotating is a *use* of visible score configs, not a mutation of them.
 - **Queues** are only visible to a user who can also see every score config pinned to them.
 
-Assign roles in **Identity & Access Management > Roles** to control access to these resources.
+Assign roles in **IAM > Roles** to control access to these resources.
 
 ## Super Cluster
 
