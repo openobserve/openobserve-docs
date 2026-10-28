@@ -2,6 +2,7 @@
   "pages": [
     "index",
     "dashboards-in-openobserve",
+    "folder-icons",
     "manage-dashboards",
     "tv-mode",
     "bulk-move-and-export-dashboards",
