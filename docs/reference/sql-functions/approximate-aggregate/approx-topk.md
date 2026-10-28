@@ -172,10 +172,10 @@ The following are the known limitations of `approx_topk()` function:
 SELECT item.value as clientip, item.count as request_count 
 FROM ( 
     SELECT unnest(approx_topk(clientip, 5)) as item 
-    FROM "demo1" 
+    FROM "docs_sql_examples" 
     WHERE status = 401
 ) 
 ORDER BY request_count DESC
 ```
 <br>
-![WHERE clause with approx_topk](../../../images/approx-topk-with-filter.png)
+![Top 5 client IPs for status 401 from approx_topk with a WHERE clause](../../../images/approx-topk-with-filter-v2.png)
