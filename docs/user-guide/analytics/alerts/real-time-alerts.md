@@ -21,7 +21,7 @@ Real-time alerts trigger immediately when matching data is ingested. Unlike sche
 2. Click **New alert** in the top-right corner.
 3. Change **Alert Type** to **Realtime**. The form simplifies — the condition sentence and evaluation schedule are hidden.
 
-![Real-time alert showing simplified UI](../../../images/add-alert-realtime-mode.png)
+![Realtime alert on a logs stream with the filter level = fatal, a Cooldown period and a Destination](../../../images/add-alert-realtime-mode-v2.png)
 
 ### Step 2: Name the alert and choose the stream
 
