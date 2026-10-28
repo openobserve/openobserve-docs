@@ -1,7 +1,8 @@
 ---
-description: >-
-  Create alert notification templates in OpenObserve with variable placeholders, content templates, markdown rendering, chart images, and row templates for Slack, email, webhooks, and more.
+title: Templates
+description: "Create alert notification templates in OpenObserve: content templates with preview and chart images, or raw payloads with variables and row templates."
 ---
+
 # Alert Templates
 
 Templates are used when notification is sent for an alert, templates forms body of request being sent to destination, for eg. for slack one can create template like:
@@ -17,40 +18,37 @@ When a notification is being sent, OpenObserve will replace placeholders like {s
 
 ## Template kinds
 
-Templates have two kinds:
+Templates are managed from the **Destination Templates** tab on the **Alerts** page. When you create a template, choose one of two kinds:
 
-- **Custom** (default): A free-form JSON or string body with `{var}` placeholders. This is the classic template format — write whatever payload your destination expects.
-- **Content**: A structured template using a `ContentSpec` that OpenObserve renders into the right format for each destination automatically. Content templates give you a richer editing experience with title, Markdown body, fields, links, and optional chart images — and the same template works across Slack, Email, Teams, Discord, and webhooks without rewriting per-channel payloads.
-
-When you create a template from **Management > Templates**, select the kind that matches your needs.
+- **Template** (a content template, the default for new templates in the UI): you write a title, a Markdown body, fields, links, and optional matching rows and chart image once, and OpenObserve renders the right payload for each destination type.
+- **Raw payload**: a free-form JSON or text body with `{var}` placeholders, sent exactly as written after the variables are substituted. Templates created before content templates existed, and templates created through the API without a `kind`, are raw-payload templates. Open one in the editor and select **Start a content version** to convert it.
 
 ## Content templates
 
-Content templates let you design notifications using a structured specification instead of writing raw JSON for each channel. Define your content once, and OpenObserve renders it correctly for every destination.
+A content template is stored as JSON with `"kind": "content"` on the template. In the editor you fill in these parts:
 
-![creating a content template with title, body, fields, links, and chart toggle](images/alert-notification-templates-v2-1.png)
+- **Title**: a one-line headline, such as the Slack headline or the email subject. Under **Channel title overrides** you can set a different title for specific channels, for example a shorter email subject.
+- **Body**: Markdown with `{var}` placeholders. OpenObserve converts it to each channel's format: Slack mrkdwn for Slack, HTML (with a plain-text alternative) for email, and plain text where a channel does not support formatting.
+- **Fields**: label and value pairs shown beside the message, such as the observed value and the threshold. Use **Show for severity** to show a field only at certain severity levels. This applies only to multi-level alerts.
+- **Links**: action links with a label and a URL. URLs must use `http`, `https` or `mailto`, or be a relative path or a `{variable}`. **Show for severity** works the same way as for fields. A **View in OpenObserve** link to the alert is always appended.
+- **Rows**: turn on **Show matching rows** to include the rows that triggered the alert. **Max rows** caps how many are shown (default 5). **Row format (optional)** builds one line per row from that row's field names, for example `{level} {message}`; leave it empty to show every field.
+- **Chart**: turn on **Include chart image** to attach a chart of the alert's recent values. See [Chart images](#chart-images).
 
-A content template includes:
+![Content template editor with fields, links and rows, and the Slack preview beside it](images/alert-notification-templates-v2-1.png)
 
-- **Title**: A templated one-liner used as the Slack headline, email subject, or PagerDuty summary. You can set per-channel overrides for specific destinations.
-- **Body**: Markdown with `{var}` placeholders. The body is rendered to HTML for rich channels and converted to plain text for channels that require it.
-- **Fields**: Key-value pairs displayed as a structured field list (like Slack block fields). Each field can include a severity filter so it only appears when the alert is at a specific level (e.g., critical).
-- **Links**: Custom action links with labels and URLs. Links also support severity-based visibility.
-- **Rows**: Configurable row rendering — enable or disable rows, set a maximum count, select specific columns, and define a per-row format template. When disabled, the notification omits the row table entirely.
-- **Chart**: Toggle to include a chart image of the alert data in the notification. See [Alert chart images](#alert-chart-images).
-
-Content templates are stored as a JSON `ContentSpec`. For example:
+The stored body of a content template looks like this:
 
 ```json
 {
   "title": "{alert_name} fired",
-  "body": "**{alert_name}** exceeded threshold\nStream: {stream_name}\nValue: {alert_agg_value}",
+  "title_overrides": { "email": "[{alert_level}] {alert_name}" },
+  "body": "**{alert_name}** exceeded its threshold on `{stream_name}`.\nObserved value: {alert_agg_value}",
   "fields": [
     { "label": "Stream", "value": "{stream_name}" },
     { "label": "Runbook", "value": "https://wiki.example.com/runbooks/cpu", "show_when": { "levels": ["critical"] } }
   ],
   "links": [
-    { "label": "View in OpenObserve", "url": "{alert_url}" }
+    { "label": "Dashboard", "url": "https://dashboards.example.com/cpu" }
   ],
   "rows": { "enabled": true, "max": 10 },
   "chart": { "enabled": false }
@@ -59,48 +57,39 @@ Content templates are stored as a JSON `ContentSpec`. For example:
 
 ## Preview a template
 
-You can preview how a content template renders for any channel and severity before saving it. The preview uses the exact same rendering code path as sending a live notification, so the output matches production exactly.
+The preview panel beside the editor shows how the template renders before you save it. It uses the same rendering code as a real notification, with fixed sample data (an alert named "Sample CPU alert"), so a template always previews the same way.
 
-![template preview showing rendered card for Slack at critical severity](images/alert-notification-templates-v2-2.png)
+1. Under **Preview (not sent anywhere)**, pick a **Channel**: Slack, Teams (Adaptive Card), Teams (MessageCard), Email, Webhook, Discord, PagerDuty, Opsgenie, ServiceNow or SNS.
+2. Pick a **Severity**: Single-level (no level), Critical, Warning, Ok or No data. Fields and links with **Show for severity** appear or disappear to match.
+3. Switch between the tabs:
+    - **Preview**: a card showing how the message looks.
+    - **Payload**: the exact body that is sent to the channel.
 
-To preview a template:
+If the template uses a `{variable}` that OpenObserve does not recognise, the panel lists it under **Unknown variables**, so you can fix typos before an alert fires.
 
-1. Navigate to **Management > Templates**.
-2. Create or edit a content template.
-3. Use the **Preview** panel to select a channel (Slack, Email, Teams, Discord, Webhook, PagerDuty, Opsgenie, ServiceNow, or SNS) and a severity level.
-4. The preview shows:
-   - **Preview model**: A rendered card with title, body HTML, fields, links, and severity color. This is how the notification looks in rich clients.
-   - **Raw payload**: The exact JSON or email content that the send path produces.
-   - **Unknown variables**: Any `{variable}` in your template that isn't recognized, so you can fix typos before alert fires go out with broken placeholders.
+![Template preview for Slack at Critical severity](images/alert-notification-templates-v2-2.png)
 
-The preview uses deterministic sample data (e.g., "Sample CPU alert" with synthetic rows) so the same template always previews identically.
+## Send a test message
 
-## Alert chart images
+To check a destination end to end, use **Send a real test message** in the same panel: pick a **Destination** and select **Send test**. OpenObserve renders the template, including unsaved changes, with the sample data and posts it to that destination's real channel. The title or subject is prefixed with `[TEST]`.
 
-Content templates can include a chart image of the alert data. When you enable the **Chart** toggle in a content template, OpenObserve renders a chart of the alert query results using `plotters` and embeds it in the notification.
+- Sending a test requires permission to edit the destination.
+- Each user can send up to 6 test messages per minute on each node. Set `ZO_ALERT_TEST_SEND_PER_MINUTE` to change the limit, or `0` to remove it.
 
-![Slack notification with embedded alert chart image](images/alert-notification-templates-v2-3.png)
+## Chart images
 
-Chart rendering:
+When **Include chart image** is on, notifications include a PNG chart of the alert's evaluated value over time, with the warning and critical thresholds drawn as lines and the firing point marked. The chart covers 20 evaluation periods, with a minimum of 6 hours and a maximum of 24 hours. Charts are supported on Slack, Teams, Email, Discord, PagerDuty and Webhook destinations.
 
-- The chart is generated on-demand at notification time using the same query results that triggered the alert.
-- Charts are served via an HMAC-signed URL (`GET /api/v2/{org}/alerts/charts/render`) for security — only the notification recipient can access the chart image.
-- Chart images are rendered as PNG on the node processing the notification.
-- Charts are reused across multiple destinations on the same alert firing, and across retries.
+![Alert chart image showing the evaluated value crossing the warning and critical thresholds](images/alert-notification-templates-v2-3.png)
 
-## Test a destination
+- The chart is built once per firing and shared by every destination of that alert.
+- Slack, Teams, PagerDuty and webhook payloads link to the image through a signed URL, `/api/v2/{org_id}/alerts/charts/render`. The chart data is carried in the URL itself, nothing is stored, and the link expires after 24 hours. The endpoint needs no login, so anyone who has the link can view the image until it expires.
+- Email embeds the image inline and Discord uploads it with the message.
+- The preview panel does not draw the chart, because it has no evaluation history.
+- If a chart cannot be produced, for example when there is not enough history yet or the node is busy, the notification is sent without one.
+- Set `ZO_ALERT_CHART_ENABLED=false` to turn chart images off for the whole deployment. It defaults to `true`.
 
-Before relying on a destination for live alerts, use the test send feature to verify it works correctly.
-
-1. Navigate to **Management > Alert Destinations**.
-2. Select a destination from the list.
-3. Click **Test Send** to dispatch a test notification through that destination.
-
-![destination detail page with Test Send button](images/alert-notification-templates-v2-4.png)
-
-The test notification is marked with `[TEST]` so recipients can distinguish it from a real alert. A test send uses the destination's configured template with synthetic sample data, verifying the full pipeline: template rendering, credential substitution, and delivery.
-
-## Variable reference
+## Template variables
 
 Variables which can be used in templates are:
 
@@ -121,12 +110,12 @@ Variables which can be used in templates are:
 | alert_url                | URL                       | A link can back to the UI and check the detail data. need configure `ZO_WEB_URL` |
 | alert_trigger_time       | _timestamp                | Represents the timestamp in microseconds when the alert was evaluated |
 | alert_trigger_time_str   | _timestamp                | Formatted `alert_trigger_time`. E.g. - `2024-12-02T11:27:40` |
-| alert_level              | Severity level            | The alert severity level: `critical`, `warning`, `ok`, `no_data`, or empty for single-level alerts |
-| alert_priority           | Priority string           | The alert priority label, e.g. `P1`, `P2` |
-| alert_tags               | Tags                      | Comma-separated alert tags, e.g. `infra, prod` |
-| alert_threshold_crit     | Critical threshold        | Threshold value for critical severity |
-| alert_threshold_warn     | Warning threshold         | Threshold value for warning severity |
-| alert_description        | Description               | The alert's description text |
+| alert_level              | Severity level            | `critical`, `warning`, `ok` or `no_data`; empty for single-level alerts |
+| alert_priority           | Priority                  | `P1` to `P5`; empty when the alert has no priority |
+| alert_tags               | Tags                      | The alert's tags, comma-separated, e.g. `infra,prod` |
+| alert_threshold_crit     | Critical threshold        | Threshold for the critical level of a multi-level alert |
+| alert_threshold_warn     | Warning threshold         | Threshold for the warning level of a multi-level alert |
+| alert_description        | Description               | The alert's description |
 | rows                     | mutiple lines of row template values | based on `row template` in alert page |
 | all of the stream fields | the field value                      | Default we `select * from stream` if you custom sql then it will be only the fields that you selected. |
 
@@ -188,6 +177,58 @@ And we define the `row template` in alert page:
 ```
 
 After these, the notification message will be what we expect.
+
+### JSON row templates
+
+When the row template itself is valid JSON and `{rows}` (or `{rows:N}`) appears in a JSON value position, each row is injected as an element of a JSON array instead of being joined into a single newline-separated string.
+
+For example, with this row template:
+
+```
+{"pod": "{k8s_pod_name}", "count": {cnt}}
+```
+
+and an alert template like:
+
+```json
+{
+  "rows": "{rows}"
+}
+```
+
+the notification body becomes a JSON array, one element per row:
+
+```json
+{
+  "rows": [
+    {"pod": "pod1", "count": 1},
+    {"pod": "pod2", "count": 2},
+    {"pod": "pod3", "count": 1}
+  ]
+}
+```
+
+If the row template is itself a JSON array, each row becomes an array element, so the result is an array of arrays.
+
+### Spread syntax
+
+Use `{...rows}` (or `{...rows:N}`) to flatten array-typed row templates into a single one-dimensional array. Where `{rows}` would produce an array of arrays, `{...rows}` merges all the inner arrays into one flat array.
+
+For example, with a JSON array row template like:
+
+```
+["{k8s_pod_name}", {cnt}]
+```
+
+`{...rows}` produces:
+
+```json
+{
+  "rows": ["pod1", 1, "pod2", 2, "pod3", 1]
+}
+```
+
+As with `{rows:N}`, the `N` in `{...rows:N}` limits the number of rows that are included.
 
 Check this video to understand more
 
