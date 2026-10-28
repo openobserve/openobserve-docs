@@ -38,7 +38,7 @@ The SRE Agent can be extended with org-scoped custom toolsets that are loaded in
 
 1. **OpenObserve Enterprise License** (v0.60.0+)
 2. **AI Provider API Key** with available quota (Anthropic, OpenAI, or Google Gemini)
-3. **`O2_AI_ENABLED`** left at its default (`true`), and **`O2_AGENT_URL`** pointing at the agent service (or `O2_AI_HA_ENABLED: "true"`)
+3. **`O2_AI_ENABLED`** set to `"true"` in your OpenObserve configuration
 
 ## Configuration Methods
 
@@ -534,7 +534,7 @@ Why is the database connection pool exhausted?
 
     Common causes:
 
-    - `O2_AI_ENABLED` set to `"false"`, or neither `O2_AGENT_URL` nor `O2_AI_HA_ENABLED` is set
+    - `O2_AI_ENABLED` not set to `"true"`
     - Network policy blocking communication
     - AI provider API rate limiting
     - Service misconfiguration

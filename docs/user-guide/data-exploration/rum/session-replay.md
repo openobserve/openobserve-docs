@@ -353,17 +353,21 @@ Masks all text content and user input.
 
 ### Sensitive Data Handling
 
+:::warning[The attribute name depends on your SDK version]
+SDK `0.4.3` and later read `data-o2-privacy` and the `o2-privacy-*` classes. SDK `0.4.2` and earlier read `data-oo-privacy` and `oo-privacy-*` instead. Neither reads the other's names, so rename these attributes when you upgrade to `0.4.3`, or tagged content is recorded unmasked.
+:::
+
 **Additional controls**:
 
 Mark elements to never record:
 ```html
 <!-- This element will never be recorded -->
-<div data-dd-privacy="hidden">
+<div data-o2-privacy="hidden">
   Sensitive content here
 </div>
 
 <!-- This element will be masked -->
-<div data-dd-privacy="mask">
+<div data-o2-privacy="mask">
   User personal data
 </div>
 ```
@@ -374,7 +378,7 @@ Exclude specific elements:
 <input type="password" /> <!-- Automatically masked -->
 
 <!-- Custom masking -->
-<input type="text" data-dd-privacy="mask" placeholder="SSN" />
+<input type="text" data-o2-privacy="mask" placeholder="SSN" />
 ```
 
 ### Best Practices for Privacy
@@ -532,7 +536,7 @@ If content should be hidden:
 
 **Add privacy attributes**:
 ```html
-<div data-dd-privacy="hidden">This won't be recorded</div>
+<div data-o2-privacy="hidden">This won't be recorded</div>
 ```
 
 **Increase privacy level**:

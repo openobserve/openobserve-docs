@@ -121,7 +121,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_IGNORE_FILE_RETENTION_BY_STREAM | false | Ignores stream-level file retention settings and applies the global retention policy. |
 | ZO_COMPACT_DATA_RETENTION_DAYS | 3650 | Data retention days, default is 10 years. Minimal 3. eg: 30, it means will auto delete the data older than 30 days. You also can set data retention for stream in the UI. |
 | ZO_COMPACT_SYNC_TO_DB_INTERVAL | 1800 | The interval time in seconds after which compactor sync cache to db is run. |
-| ZO_COMPACT_DELETE_FILES_DELAY_HOURS | 2 | The number of hours to delay to delete the pending deleted files by compactor. Value can not be less than 1. |
+| ZO_COMPACT_DELETE_FILES_DELAY_MINUTES | 120 | The number of minutes the compactor waits before deleting pending deleted files. Values less than 1 fall back to 120. |
+| ZO_COMPACT_DELETE_FILES_DELAY_HOURS | 0 | Deprecated since 0.92.2. Use `ZO_COMPACT_DELETE_FILES_DELAY_MINUTES` instead. If set to a value greater than 0, it is converted to minutes and overrides `ZO_COMPACT_DELETE_FILES_DELAY_MINUTES`. This variable will be removed in a future release. |
 | ZO_COMPACT_DATA_RETENTION_HISTORY | false | When enabled, this will move the file_list into file_list_history and not delete files from storage. |
 | ZO_COMPACT_BLOCKED_ORGS | | Use comma to split multiple orgs. Blocked organizations will not be able to ingest data |
 | ZO_COMPACT_FAST_MODE | true |Enables fast compaction mode. Uses more memory but improves performance. Disabling reduces memory usage by about 50 percent. |
@@ -718,8 +719,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| O2_AI_ENABLED | true | Enables AI-powered features such as the AI assistant, query assistance, anomaly detection, and root cause analysis. On by default; set to `false` to opt out. The assistant is only available when an agent is reachable too: set `O2_AGENT_URL` (or `O2_AI_HA_ENABLED=true`). |
-| O2_AI_MODEL_ALLOWLIST | - | Comma-separated models a chat request may choose instead of the default model. Unset leaves the choice unrestricted; once set, any other model is refused with `400 invalid_request`. |
+| O2_AI_ENABLED | false | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires o2-sre-agent to be deployed. |
 | O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: http://o2-openobserve-router:5080 |
 | O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: http://o2-sre-agent:8000 |
 
