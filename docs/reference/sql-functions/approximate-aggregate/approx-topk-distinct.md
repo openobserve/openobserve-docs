@@ -35,9 +35,9 @@ Both `field1` and `field2` must be string fields.
 
 **Example**
 ```sql
-SELECT approx_topk_distinct(clientip, user_agent, 5) FROM "demo1"
+SELECT approx_topk_distinct(clientip, user_agent, 5) FROM "docs_sql_examples"
 ```
-This query returns an approximate list of the top 5 `clientip` values that have the most number of distinct user_agent values in the `demo1` stream.
+This query returns an approximate list of the top 5 `clientip` values that have the most number of distinct user_agent values in the `docs_sql_examples` stream.
 
 **Note:** The result is returned as an array of objects, where each object includes the value of `field1` and its corresponding distinct count based on `field2`.
 
@@ -60,14 +60,14 @@ To convert the nested array into individual rows for easier readability or furth
 SELECT item.value as clientip, item.count as distinct_user_agent_count 
 FROM (
   SELECT unnest(approx_topk_distinct(clientip, user_agent, 5)) as item 
-  FROM "demo1"
+  FROM "docs_sql_examples"
 )
 ORDER BY distinct_user_agent_count DESC
 ```
 **Result**
 <br>
 This query using approx_topk_distinct() with unnest() returns a flat result, where each row represents a value from field1 and its corresponding approximate distinct count from field2: <br>
-![approx_topk_distinct](../../../images/approx-topk-distinct.png)
+![Top 5 client IPs by distinct user agent count from approx_topk_distinct with unnest](../../../images/approx-topk-distinct-v2.png)
 
 ## Performance Considerations
 The `approx_topk_distinct()` function is designed for high-cardinality fields and large datasets. It uses the same distributed and memory-efficient architecture as `approx_topk()`.
