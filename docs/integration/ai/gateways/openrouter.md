@@ -113,7 +113,7 @@ Free-tier models use the `:free` suffix and are rate-limited. OpenRouter's full 
 2. Filter by `llm_model_name` to compare latency and token usage across different providers and models in a single dashboard
 3. Click any span to inspect the full request and response payload
 
-![OpenRouter trace in OpenObserve](../../../images/integration/ai/openrouter.png)
+![OpenRouter trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/openrouter-v2.png)
 
 ## Next Steps
 

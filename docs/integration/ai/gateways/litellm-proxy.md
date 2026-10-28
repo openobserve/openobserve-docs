@@ -100,7 +100,7 @@ print(response.choices[0].message.content)
 3. Click any span to inspect token counts, model, and latency
 4. Use `llm_model_name` to identify which model the proxy routed to
 
-![LiteLLM Proxy trace in OpenObserve](../../../images/integration/ai/litellm-proxy.png)
+![LiteLLM Proxy trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/litellm-proxy-v2.png)
 
 ## Next Steps
 

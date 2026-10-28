@@ -112,7 +112,7 @@ The `output_value` field contains the complete Vercel AI Gateway response, which
 4. Use the `llm_model_name` attribute to compare latency and token usage across different models and providers
 5. Filter by `span_status = ERROR` to find authentication failures and rate limit errors
 
-![Vercel AI Gateway traces in OpenObserve](../../../images/integration/ai/vercel-ai-gateway.png)
+![Vercel AI Gateway trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/vercel-ai-gateway-v2.png)
 
 ## Next Steps
 

@@ -126,7 +126,7 @@ print(response.choices[0].message.content)
 3. Since Kong is a transparent proxy, spans look identical to direct OpenAI calls. Use `service_name` or a custom span attribute to tag Kong traffic separately
 4. Use `duration` to measure Kong proxy overhead versus direct API latency
 
-![Kong Gateway trace in OpenObserve](../../../images/integration/ai/kong-gateway.png)
+![Kong Gateway trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/kong-gateway-v2.png)
 
 ## Next Steps
 

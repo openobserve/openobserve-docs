@@ -87,7 +87,7 @@ print(response.choices[0].message.content)
 3. Use `llm_model_name` to identify which provider model handled each request
 4. Filter by `span_status` = `ERROR` to find failed requests
 
-![Anannas trace in OpenObserve](../../../images/integration/ai/anannas.png)
+![Anannas trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/anannas-v2.png)
 
 ## Next Steps
 

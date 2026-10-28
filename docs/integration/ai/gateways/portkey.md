@@ -102,7 +102,7 @@ client = OpenAI(
 2. Click any span to inspect token counts, model, and latency
 3. Use `llm_model_name` to compare different providers routed through Portkey
 
-![Portkey trace in OpenObserve](../../../images/integration/ai/portkey.png)
+![Portkey trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/portkey-v2.png)
 
 ## Next Steps
 
