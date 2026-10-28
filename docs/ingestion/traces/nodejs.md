@@ -76,19 +76,19 @@ Refresh page couple of times to get more traces exported.
 Traces are captured, you can check these captured traces in the [Traces view](https://cloud.openobserve.ai/web/traces)
 </br>
 
-![Traces Page](./images/traces_js.png)
+![Traces page with spans from the sample services](./images/traces_js-v2.png)
 </br>
 </br>
 
 Filter traces with your service name `nodejs-javascript-service`
 </br>
 
-![Filter traces with service name](./images/filter_traces_js.png)
+![Spans filtered by service_name nodejs-javascript-service](./images/filter_traces_js-v2.png)
 
 Click on any trace to check trace data
 
-![Trace details](./images/trace_details_1.png)
+![Trace details in the Waterfall view](./images/trace_details_1-v2.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](./images/trace_details_2.png)
+![Span details panel with the span attributes](./images/trace_details_2-v2.png)
