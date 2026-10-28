@@ -101,7 +101,7 @@ The following charts are supported in Dashboards:
 The **Table** chart supports a pivot mode: add a **Breakdown** field (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Dynamic Columns** are disabled while pivot mode is active.
 
 ### Tabs
-Tabs help organize your Panels into different sections within a **Dashboard**. For example, you might have one Tab for Performance, another for Errors, and another for Traffic Analysis.
+Tabs help organize your Panels into different sections within a **Dashboard**. For example, use one Tab for Performance, another for Errors, and another for Traffic Analysis.
 By default, Panels are added to the **Default** tab.  
 :::info[Create New Tabs]
 To create a new Tab, click the + icon next to the default Tab and enter a Tab name. You can create new Tabs from the **Tabs** menu under the **Dashboard Settings**.
@@ -115,6 +115,21 @@ Examples of a Dashboard with Panels organized in different Tabs:
   <img src="../../../../images/dashboard-8.png" alt="dashboard with panels in multiple tabs, view 1" style="flex: 1 1 320px; max-width: 100%;" />
   <img src="../../../../images/dashboard-9.png" alt="dashboard with panels in multiple tabs, view 2" style="flex: 1 1 320px; max-width: 100%;" />
 </div>
+
+## Time Range and Auto Run
+
+**Auto Run** re-runs dashboard queries automatically when a dashboard opens and when you change the time range or filters. Enable it for your deployment with `ZO_AUTO_QUERY_ENABLED=true`. The setting applies to all dashboards, Logs, and Traces.
+
+![the Auto Run menu item describing when queries run](images/dashboard-fresh-on-open-1.png)
+
+When Auto Run is on, panels with a relative time range show their cached result first, then refresh in the background with the latest data.
+
+Dashboard time pickers apply the selected range based on Auto Run:
+
+- **Auto Run on**: The range applies immediately.
+- **Auto Run off**: The **Refresh** button turns yellow. Click **Refresh** or press **R** to apply the range.
+
+![the yellow Refresh button indicating a waiting time range](images/dashboard-fresh-on-open-3.png)
 
 ## FAQ
 

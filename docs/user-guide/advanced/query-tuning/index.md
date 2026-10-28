@@ -11,3 +11,5 @@ The Performance section provides tools and configurations to optimize query exec
 - [Monitor Download Queue Size and Disk Cache Metrics](monitor-download-queue-size-and-disk-cache-metrics.md)
 - [Configure Disk Cache Eviction Strategy](disk-cache-strategy.md)
 - [Tantivy Index](tantivy-index.md)
+
+See also [Best Practices](https://openobserve.ai/docs/user-guide/advanced/best-practices/) for deployment and query-tuning guidance, including [preventing UI crashes from large queries](https://openobserve.ai/docs/user-guide/advanced/best-practices/prevent-ui-crashes-from-large-queries/).

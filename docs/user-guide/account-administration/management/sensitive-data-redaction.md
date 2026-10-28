@@ -13,6 +13,8 @@ This feature is available in Enterprise Edition and Cloud. Not available in Open
 ## Overview 
 The **Sensitive Data Redaction** feature helps prevent accidental exposure of sensitive data by applying regex-based detection to values ingested into streams and to values already stored in streams. Based on this detection, sensitive values can be either **redacted**, **hashed**, or **dropped**. This ensures data is protected before it is stored and hidden when displayed in query results. You can configure these actions to run at ingestion time or at query time.
 
+Sensitive Data Redaction applies to log streams and trace streams. During trace ingestion, span attributes are flattened into top-level fields, so field-level patterns apply to them the same way they apply to log fields. Associate patterns with a trace stream's fields from the stream settings, the same way you do for a log stream. The examples in this guide use log streams.
+
 **Ingestion time**
 
 > **Note**: Use ingestion time redaction, hash, or drop when you want to ensure sensitive data is never stored on disk. This is the most secure option for compliance requirements, as the original sensitive data cannot be recovered once it is redacted, hashed, or dropped during ingestion.
@@ -461,7 +463,7 @@ The system does not allow you to import the same pattern more than once to avoid
 - **Pattern Matching Engine**: OpenObserve uses the Intel Hyperscan library for regex evaluation. All Hyperscan limitations apply to pattern syntax and matching behavior.
 - **Field Type Restrictions**: Regex patterns can only be applied to fields with a UTF8 data type. Other field types are not supported.
 - **Data Requirements**: Patterns can only be applied after the stream has ingested data. Empty streams will not show any fields in the Stream Settings tab for pattern association.
-- **Performance**: Complex patterns may impact ingestion speed, but overall performance remains faster than VRL-based redaction. 
+- **Performance**: Complex patterns can slow ingestion, but overall performance remains faster than VRL-based redaction. 
 
 ## Troubleshooting
 | **Issue**                                                | **Cause**                             | **Solution**                                                                              |

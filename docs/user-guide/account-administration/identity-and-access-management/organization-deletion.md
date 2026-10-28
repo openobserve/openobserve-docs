@@ -116,7 +116,7 @@ Once the organization enters `deleting` status, the cleanup worker on the compac
 
 2. **Delete file list** — catch-all removal of any file-list rows left behind after per-stream deletion (e.g., rows for streams whose schema was already missing).
 
-3. **Delete DB resources** — removes every database resource belonging to the organization: alerts (through the service layer so caches evict cluster-wide), dashboards, folders, timed annotations, reports, templates, destinations, action scripts, enrichment tables, pipelines, saved views, cipher keys, search jobs, backfill jobs, search queues, distinct values, short URLs, compactor jobs, system settings, ingestion tokens, storage providers, trial quota usage, and cloud-only resources (org invites, billing-group invites, billing-group memberships).
+3. **Delete DB resources** — removes every database resource belonging to the organization: alerts (through the service layer so caches evict cluster-wide), dashboards, folders, timed annotations, reports, templates, destinations, enrichment tables, pipelines, saved views, cipher keys, search jobs, backfill jobs, search queues, distinct values, short URLs, compactor jobs, system settings, ingestion tokens, storage providers, trial quota usage, and cloud-only resources (org invites, billing-group invites, billing-group memberships).
 
 4. **Delete scheduler triggers** — removes all scheduled-alert, scheduled-pipeline, and scheduled-report triggers so no notifications fire after deletion.
 

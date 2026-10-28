@@ -41,11 +41,12 @@ Make sure that you are sending the requests over HTTPS.
     1. [Delete](user/delete.md)
     1. [List](user/list.md)
 1. [Metrics](metrics.md)
+1. [Cluster](https://openobserve.ai/docs/reference/api/cluster/cluster-info/)
 
 ## Next steps
 
 - [Quickstart](../../getting-started.md): get OpenObserve running and grab your credentials.
-- [Ingestion](../../ingestion/index.md): start sending logs, metrics, and traces.
+- [Ingestion](../../ingestion/index.md): start sending logs, metrics, traces, and profiles.
 - [OpenTelemetry / OTLP](../../ingestion/logs/otlp.md): the recommended modern ingestion path.
 
 **Need some help?**
