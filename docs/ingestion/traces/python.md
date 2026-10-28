@@ -8,7 +8,7 @@ description: Complete Python distributed tracing guide using OpenTelemetry SDK f
 
 Setup distributed tracing for your Python application using OpenTelemetry for Python application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Python applications.
 
-##Clone 
+## Clone
 
 ```
 
@@ -19,7 +19,7 @@ git clone https://github.com/openobserve/sample-tracing-python
 If you don't have Python3 installed, please install it and then follow below steps.
 
 Open `tracing.py` file from that repository. and make changes to the highlighted lines below
-```python lineNumbers {17,18}
+```python lineNumbers {18,19}
 
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
@@ -52,13 +52,13 @@ tracer_provider.add_span_processor(span_processor)
 trace.set_tracer_provider(tracer_provider)
 
 ```
-##Setup up credentials 
+## Set up credentials
 
 You will get `url` and `Authorization` key from the [OpenTelemetry ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
 
 Replace the `url` and `Authorization` key in the `tracing.py` file.
 
-##Setup Service/Application 
+## Set up the service/application
 Follow the steps given in the sample-tracing-python readme and then start server
 ```
 python3 app.py

@@ -7,7 +7,7 @@ description: "Configure syslog server integration to collect system, server, and
 # Syslog Server - System & Network Log Collection
 
 :::warning[Deprecation Notice]
-Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of August 2025** and is no longer available in OpenObserve.
+Built-in Syslog ingestion (via TCP/UDP on port 5514) was **removed in v0.16.0** (September 2025) and is no longer available in OpenObserve. The `ZO_TCP_*` and `ZO_UDP_PORT` settings below no longer exist.
 
 **Recommended alternatives:**
 
@@ -16,10 +16,10 @@ Built-in Syslog ingestion (via TCP/UDP on port 5514) has been **deprecated as of
 - [Vector](../logs/vector.md)
 - [Fluent Bit](../logs/fluent-bit.md)
 
-We suggest using **AxoSyslog or syslog-ng** if you want protocol-native support for Syslog.
+We suggest using **AxoSyslog or syslog-ng** if you want protocol-native support for Syslog. **Data > Data sources > Custom > Logs > Syslog-ng** shows a ready-to-use syslog-ng configuration.
 :::
 
-:::accordion[Legacy reference (pre-August 2025)]
+:::accordion[Legacy reference (before v0.16.0)]
 
 The configuration below is preserved for historical context. Use one of the alternatives above for new deployments.
 

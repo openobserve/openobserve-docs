@@ -17,8 +17,8 @@ git clone https://github.com/openobserve/sample-tracing-nodejs-typescript
 
 If you don't have node.js installed, please install it and then follow below steps.
 
-Open `tracing.ts` file from that repository. and make changes to the highlighted lines below and make changes to the highlighted lines below.
-```typescript lineNumbers {13,15}
+Open `tracing.ts` file from that repository. and make changes to the highlighted lines below.
+```typescript lineNumbers {14,16}
 
 import  *  as  opentelemetry  from  "@opentelemetry/sdk-node";
 import { getNodeAutoInstrumentations } from  "@opentelemetry/auto-instrumentations-node";
@@ -45,10 +45,10 @@ const  sdk = new  opentelemetry.NodeSDK({
 sdk.start();
 ```
 </br>
-## Setup up credentials 
+## Set up credentials 
 
-You will get `url` and `Authorization` key from the [trace ingestion settings](https://cloud.openobserve.ai/web/ingestion/traces/).
-Replace the `url` and `Authorization` key in the `tracing.js` file.
+You will get `url` and `Authorization` key from the [OpenTelemetry ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
+Replace the `url` and `Authorization` key in the `tracing.ts` file.
 
 ## Setup Service/Application
 

@@ -19,7 +19,7 @@ git clone https://github.com/openobserve/sample-tracing-golang
 If you don't have Go installed, please install it and then follow below steps.
 
 Open `pkg/tel/otel_helper_http.go` file from that repository. and make changes to the highlighted lines below
-```go lineNumbers {29,38,36}
+```go lineNumbers {30,37,39}
 
 package tel
 
@@ -86,12 +86,12 @@ func InitTracerHTTP() *sdktrace.TracerProvider {
 }
 
 ```
-## Setup up credentials 
+## Set up credentials
 
 - You will get `url` and `Authorization` key from the [trace ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/).
 - Replace the `url` and `Authorization` key in the `pkg/tel/otel_helper_http.go` file.
 
-## Setup Service/Application 
+## Set up the service/application
 Follow the steps given in the sample-tracing-golang readme and then start server
 ```
 go run .
