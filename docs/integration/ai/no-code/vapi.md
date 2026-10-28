@@ -104,7 +104,7 @@ The Vapi private API key is found under **API Keys** in your Vapi dashboard. Use
 3. Click a `vapi.create_assistant` span to inspect the assistant ID and creation latency
 4. Filter by `span_status` = `ERROR` to identify failed API calls
 
-![Vapi API trace in OpenObserve](../../../images/integration/ai/vapi.png)
+![Vapi API trace in OpenObserve, Waterfall view with the vapi.create_assistant span attributes](../../../images/integration/ai/vapi-v2.png)
 
 ## **Next Steps**
 

@@ -114,7 +114,7 @@ trace.get_tracer_provider().force_flush()
 3. Filter by `goose_exit_code` != `0` to find failed sessions
 4. Sort by duration to identify the slowest prompts
 
-![Codename Goose trace in OpenObserve](../../../images/integration/ai/codename-goose.png)
+![Codename Goose trace in OpenObserve, Waterfall view with the goose.session_run span attributes](../../../images/integration/ai/codename-goose-v2.png)
 
 ## **Next Steps**
 

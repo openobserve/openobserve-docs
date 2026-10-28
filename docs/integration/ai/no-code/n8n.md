@@ -99,7 +99,7 @@ print(result.status_code, result.text)
 3. Filter by `n8n_status_code` to find non-200 responses
 4. Filter by `span_status` `ERROR` to find failed triggers
 
-![n8n traces in OpenObserve](../../../images/integration/ai/n8n.png)
+![n8n trace in OpenObserve, Waterfall view with the n8n.webhook_trigger span attributes](../../../images/integration/ai/n8n-v2.png)
 
 ## **Next Steps**
 

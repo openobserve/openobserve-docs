@@ -102,7 +102,7 @@ print(content)
 3. Click any span to inspect the model, prompt, and response length
 4. Filter by `openwebui_model` to compare latency across models
 
-![Open WebUI trace in OpenObserve](../../../images/integration/ai/openwebui.png)
+![Open WebUI trace in OpenObserve, Waterfall view with the openwebui.chat_completion span attributes](../../../images/integration/ai/openwebui-v2.png)
 
 ## **Next Steps**
 
