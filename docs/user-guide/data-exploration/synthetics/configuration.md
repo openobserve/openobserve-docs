@@ -137,7 +137,7 @@ Available on browser and HTTP checks.
 
 Variables are referenced anywhere the check accepts one, including the starting URL and step values. Mark a variable as secure to mask its value in the UI.
 
-Type `{{` in the starting URL or a step value to pick a variable from a suggestion list. A warning icon flags a variable missing from one of the check's selected environments, and a lock icon marks a secure one.
+In browser checks, type `{{` in the starting URL, or in the value of a **Navigate**, **Type**, **Select** or **Press** step, to pick a variable from a suggestion list. Each row shows whether the variable is global or which environments define it. A warning icon flags a variable missing from one of the check's selected environments, and a lock icon marks a secret one.
 
 > **Warning**: Pre-set cookies and basic auth credentials are stored with the check. Use dedicated test accounts rather than real user credentials.
 
