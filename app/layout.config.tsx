@@ -1,5 +1,4 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { SidebarItem } from 'fumadocs-ui/components/sidebar/base';
 import { BASE_PATH } from '@/lib/constants';
 
 /**
@@ -39,25 +38,9 @@ export const baseOptions: BaseLayoutProps = {
 };
 
 /**
- * Marketing-site links. Passed as the docs sidebar's `footer` rather than as
- * `baseOptions.links` so they sit *below* the page tree instead of above it —
- * fumadocs renders text link items at the top of the sidebar viewport. Absolute
- * URLs for the same reason as `nav` above: they leave the docs `basePath`.
- */
-const siteLinks = [
-  { text: 'Home', url: 'https://openobserve.ai/', external: true },
-  { text: 'Blog', url: 'https://openobserve.ai/blog/', external: true },
-  { text: 'Downloads', url: 'https://openobserve.ai/downloads/', external: true },
-  // Required by privacy compliance laws in several countries/regions: must
-  // always be visible.
-  { text: 'Privacy Policy', url: 'https://openobserve.ai/legal/privacy-policy/', external: true },
-];
-
-/**
  * Cloud sign-up call to action. Passed as the docs sidebar's `banner`, which
  * fumadocs renders directly below the search trigger (and at the top of the
- * mobile drawer), so it replaces the plain "Cloud" entry `siteLinks` used to
- * carry at the bottom.
+ * mobile drawer).
  */
 export function SidebarGetStarted() {
   return (
@@ -69,31 +52,5 @@ export function SidebarGetStarted() {
     >
       Get Started Free
     </a>
-  );
-}
-
-/**
- * Copy of the classes fumadocs' own `SidebarItem` applies to a top-level link
- * (`itemVariants({ variant: 'link' })` in `layouts/docs/slots/sidebar`), so
- * these render identically to the page-tree entries above them.
- */
-const sidebarItemClass =
-  'relative flex flex-row items-center gap-2 rounded-lg p-2 text-start ' +
-  'text-fd-muted-foreground wrap-anywhere [&_svg]:size-4 [&_svg]:shrink-0 ' +
-  'transition-colors hover:bg-fd-accent/50 hover:text-fd-accent-foreground/80 hover:transition-none';
-
-export function SidebarSiteLinks() {
-  return (
-    // `order-first` lifts this above the icon-links / theme-switch row that
-    // fumadocs renders in the same flex column of the sidebar footer.
-    <nav className="flex flex-col order-first mb-2">
-      {siteLinks.map((link) => (
-        // `SidebarItem` is what the page tree uses, so `external` still draws
-        // the same external-link icon these entries had as `baseOptions.links`.
-        <SidebarItem key={link.url} href={link.url} external={link.external} className={sidebarItemClass}>
-          {link.text}
-        </SidebarItem>
-      ))}
-    </nav>
   );
 }
