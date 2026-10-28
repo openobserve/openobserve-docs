@@ -22,7 +22,7 @@ General settings provides the following configuration options:
 ### Scrape interval
 > This setting is available for all organizations.
 
-![theme-config](../../../images/theme-config.png)
+![General Settings page with Scrape Interval, Max Series Per Query and Manage Theme](../../../images/theme-config-v2.png)
 The scrape interval defines how often the monitoring system collects metrics. Enter the number of seconds in **Scrape Interval (In Seconds)** and select **Save**.
 
 ### Max series per query
@@ -33,7 +33,7 @@ The scrape interval defines how often the monitoring system collects metrics. En
 
 ### Theme configuration
 The **Manage Theme** section lets you manage the default colors for light mode and dark mode for your organization. When you save these values, they are applied across the UI for all users in the organization.
-![theme-config](../../../images/theme-config.png)
+![General Settings page with Scrape Interval, Max Series Per Query and Manage Theme](../../../images/theme-config-v2.png)
 
 You can set the following fields:
 
