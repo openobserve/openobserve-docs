@@ -23,10 +23,10 @@ A remote destination allows you to send transformed pipeline data to external sy
 Open the destination form using either method:
 
 - **From the pipeline editor**: While setting up your pipeline, add a **Remote** node. In the **External Destination** panel, turn on the **Create New Destination** toggle. 
-![remote-destination-from-pipeline-editor](../../../images/remote-destination-from-pipeline-editor.png)
-![remote-destination-config-from-pipeline-editor](../../../images/remote-destination-config-from-pipeline-editor.png)
+![External Destination panel opened from a Remote node in the pipeline editor](../../../images/remote-destination-from-pipeline-editor-v2.png)
+![Create New Destination turned on in the External Destination panel, showing the Choose Type step](../../../images/remote-destination-config-from-pipeline-editor-v2.png)
 - **From Settings**: Go to **Settings** > **Pipeline Destinations** and click **New destination**.
-![remote-destination-config-from-management](../../../images/create-destination-pipelines.png)
+![Settings, Pipeline Destinations list with the New destination button](../../../images/create-destination-pipelines-v2.png)
 :::
 
 ::::accordion[Step 2: Create the destination]
@@ -38,7 +38,7 @@ The form has two steps:
 
 1. **Name**: Provide a descriptive name for the external destination. For example, `remote_destination_dev`. The characters `:`, `?`, `/`, `#` and spaces are not allowed. 
 2. **URL**: Specify the endpoint where data should be sent, without a trailing slash. 
-![config-remote-destination](../../../images/add-destination-new-ui.png)
+![Connection step of an OpenObserve destination with Name, URL, Organization, Stream Name and Headers](../../../images/add-destination-new-ui-v2.png)
 :::note[To send the transformed data to another OpenObserve instance:]
 Select the **OpenObserve** type. Enter the base URL of the instance in **URL**, for example `https://your-o2-instance.example.com`, and fill in **Organization** and **Stream Name**. <br>
 **Example**: To send data to a stream called `remote_pipeline` in the `default` organization on a different OpenObserve instance, set **URL** to `https://your-o2-instance.example.com`, **Organization** to `default`, and **Stream Name** to `remote_pipeline`.
@@ -49,7 +49,7 @@ After transformation, the transformed data will be sent to the `remote_pipeline`
 Ensure that you provide the base URL of your external service. With the **Custom** type, enter the path in **Endpoint Path**; it must start with `/`.
 :::
 3. **Method**: Select the HTTP method (GET, POST, or PUT) based on your requirement.
-![config-remote-destination-method](../../../images/config-remote-destination-method.png)
+![Method dropdown with GET, POST and PUT](../../../images/config-remote-destination-method-v2.png)
 :::note[To send the transformed data to another OpenObserve instance:]
 Select **POST**.
 :::
@@ -57,7 +57,7 @@ Select **POST**.
 Select the method required by your external service.
 :::
 4. **Output Format**: Select the data format for transmission: **JSON**, **NDJSON**, **NestedEvent**, **ESBulk** (requires an index name), or **String Separated** (requires a separator). 
-![config-remote-destination-output-format](../../../images/config-remote-destination-output-format.png)
+![Output Format dropdown with JSON, NDJSON, NestedEvent, ESBulk and String Separated](../../../images/config-remote-destination-output-format-v2.png)
 :::note[When to select JSON (default):]
 Standard JSON format. Use this when the destination API requires standard JSON arrays or objects. **Use JSON, when you send the transformed data to another OpenObserve instance**.
 :::
@@ -67,12 +67,12 @@ Each event is sent as a separate JSON object on its own line. Use this when send
 **Important**: Always verify the data format expected by your destination system before selecting. Check the destination's API documentation or ingestion requirements to ensure compatibility.
 5. **Headers**: To send data to an external endpoint, you may need to provide authentication credentials, if required. Under **Headers**, enter `Authorization` as the header name and the authentication token as the value. Most types add a template header, such as `Authorization: Basic <token>`, for you to fill in.
 :::note[To send the transformed data to another OpenObserve instance:]
-![o2-instance-add-destination](../../../images/o2-instance-add-destination.png)
+![Data sources page for OpenTelemetry traces where the endpoint and authorization token are shown (blurred here)](../../../images/o2-instance-add-destination-v2.png)
 1. Log in to your OpenObserve instance. 
 2. Navigate to **Data Sources** UI. 
 3. Copy the authorization token value displayed there under custom -> traces( Basic authentication token). 
 4. Paste this token in the **Value** field. 
-![config-remote-destination-header](../../../images/auth-header-o2-destination.png)
+![Headers row with Authorization and a Basic token placeholder](../../../images/auth-header-o2-destination-v2.png)
 :::
 :::note[To send data to an external endpoint:]
 Add the authentication headers required by your external service. This could be API keys, bearer tokens, or other authentication methods depending on the service.
@@ -85,7 +85,7 @@ Add the authentication headers required by your external service. This could be 
 ### Step 3: Use in your pipeline
 
 After creating the remote destination, you can select it from the **Destination** dropdown in the **External Destination** panel of the **Remote** node in your pipeline. The dropdown displays all previously created remote destinations with their names and URLs for easy identification.
-![use-pipeline-destination](../../../images/use-pipeline-destination.png)
+![Destination dropdown of the Remote node listing a saved destination with its URL](../../../images/use-pipeline-destination-v2.png)
 :::
 
 ## Environment variables for remote destination 
