@@ -7,7 +7,7 @@ description: Run scripted browser and protocol checks on a schedule from global 
 
 Synthetics runs scripted checks against your applications and infrastructure on a schedule, from locations around the world, so you find outages and slowdowns before your users report them.
 
-![Synthetics checks list showing the folder sidebar, health summary, type filters, and the checks table](images/overview-populated.png)
+![Synthetics checks list showing the folder sidebar, health summary, type filters, and the checks table](images/overview-populated-v2.png)
 
 ## Overview
 
@@ -75,7 +75,7 @@ The page opens on the **Checks** tab. Use the **Private Locations** tab (Enterpr
 
 Before you create anything, the Checks tab offers a shortcut into each check type.
 
-![Empty Synthetics checks list with Create your first Check and one card per check type](images/overview.png)
+![Empty Synthetics checks list with Create your first Check and one card per check type](images/overview-v2.png)
 
 ### Creating your first check
 
