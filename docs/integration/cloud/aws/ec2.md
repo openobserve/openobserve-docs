@@ -84,7 +84,7 @@ Stream server metrics and system logs from AWS EC2 Linux instances to OpenObserv
   Go to **Logs** in Openobserve → select **stream** → set **time range** → **Run Query** to check for EC2 logs.
 
 
-  ![Check Log Ingestion](../../images/aws-integrations/view_logs.png)
+  ![EC2 system logs in the Logs page](../../images/aws-integrations/view_logs-v2.png)
 
 
   **Metrics**

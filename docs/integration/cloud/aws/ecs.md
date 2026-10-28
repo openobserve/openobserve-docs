@@ -152,7 +152,7 @@ aws ecs create-service --cluster ecs1_fargate_cluster1 \
   ![Nginx page](../../images/firelens/nginx.png)
 
 5. Now head on the OpenObserve / OpenObserve Cloud and see the logs flowing in there.
-  ![ECS logs in OpenObserve](../../images/firelens/zo_logs.png)
+  ![ECS FireLens logs in the Logs page](../../images/firelens/zo_logs-v2.png)
 :::
 
 ## Conclusion

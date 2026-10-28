@@ -149,7 +149,7 @@ OpenTelemetry supports automatic application instrumentation. Add annotations to
 :::accordion[Step 8: Verify logs in OpenObserve]
 
 1. Go to **Logs** in OpenObserve → select the `k8s_events` stream → set the **time range** → **Run Query** to check for Kubernetes events.
-    ![K8s event logs in Openobserve](../images/k8s/k8s-events.png)
+    ![Kubernetes events in the Logs page](../images/k8s/k8s-events-v2.png)
 2. Go to **Data > Streams** and filter by metrics to find the Kubernetes metrics streams
     ![K8s metrics in Openobserve](../images/k8s/k8s-metrics.png)
 :::

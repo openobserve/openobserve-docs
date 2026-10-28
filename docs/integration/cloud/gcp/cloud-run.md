@@ -143,7 +143,7 @@ app.get('/', (req, res) => {
    }
    ```
 
-![Verify logs in OpenObserve](../../images/gcp/cloud-run-logs.png)
+![Cloud Run logs in the Logs page](../../images/gcp/cloud-run-logs-v2.png)
 :::
 
 ## Troubleshooting

@@ -136,7 +136,7 @@ sudo systemctl status fluent-bit
 
 1. In your Openobserve instance, Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![Verify Ansible Logs in OpenObserve](https://openobserve.ai/assets%2Fansible_logs_o2_2fa50f03c6.gif)
+    ![Ansible logs in the Logs page](../images/devops/ansible-verify-logs-v2.png)
 :::
 ## Troubleshooting
 

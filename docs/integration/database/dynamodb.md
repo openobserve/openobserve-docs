@@ -54,7 +54,7 @@ Applications that rely on **Amazon DynamoDB** often require real-time insights i
 :::accordion[Step 4: Monitor DynamoDB Changes in OpenObserve]
 
 Once the Firehose is active, DynamoDB changes begin flowing to OpenObserve. Go to **Logs** and select your stream. 
-![Visualize DynamoDB Changes](../images/databases/dynamodb-logs.png)
+![DynamoDB stream records in the Logs page](../images/databases/dynamodb-logs-v2.png)
 :::
 
 

@@ -125,7 +125,7 @@ Use this flow if you want to get started step-by-step using the AWS Console.
 
 - In OpenObserve, go to **Logs** and select your stream. Logs should appear.
 
-![Verify in Openobserve](../../images/aws-integrations/alb/logs-verification.png)
+![ALB access logs in the Logs page](../../images/aws-integrations/alb/logs-verification-v2.png)
 :::
 
 
@@ -208,7 +208,7 @@ Use this option to automatically deploy the entire ALB → S3 → Lambda → Ope
 
 - In OpenObserve, go to **Logs**, select your ALB stream, and click **Run Query** to see ingested logs.
 
-![Verify in Openobserve](../../images/aws-integrations/alb/logs-verification.png)
+![ALB access logs in the Logs page](../../images/aws-integrations/alb/logs-verification-v2.png)
 :::
 
 :::accordion[Troubleshooting]

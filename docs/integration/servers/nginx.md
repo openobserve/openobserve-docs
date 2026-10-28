@@ -137,7 +137,7 @@ fluent-bit -c nginx-fluent-bit.conf -vv
   }
 }
 ```
-![Verify Logs in Openobserve](../images/servers/nginx/verify-logs.png)
+![Nginx access logs in the Logs page](../images/servers/nginx/verify-logs-v2.png)
 :::
 ## Troubleshooting
 

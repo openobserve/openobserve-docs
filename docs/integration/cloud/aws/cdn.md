@@ -71,7 +71,7 @@ CloudFront access logs contain detailed request-level data. By streaming them to
 :::accordion[Step 5: Verify Logs in OpenObserve]
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
-![Verify Logs](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/8_view_logs_in_o2_93b009c027.gif)
+![CloudFront real-time logs in the Logs page](../../images/aws-integrations/cdn/verify-logs-v2.png)
 :::
 
 :::accordion[Troubleshooting]

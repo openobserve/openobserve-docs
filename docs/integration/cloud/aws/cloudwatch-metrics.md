@@ -63,7 +63,7 @@ CloudWatch Metric Streams allow efficient, near real-time delivery of metrics to
 
 1. Go to **Logs** → select your stream → Set time range → Click **Run Query**
 
-![Verify Metrics](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets%2Frds_metrics_logs_d773f2b4ef.gif)
+![CloudWatch metric stream records in the Logs page](../../images/aws-integrations/cloudwatch-metrics/verify-metrics-v2.png)
 :::
 
 :::accordion[Troubleshooting]

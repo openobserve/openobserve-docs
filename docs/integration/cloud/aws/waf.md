@@ -74,7 +74,7 @@ AWS WAF logs include detailed information about requests evaluated against your 
 1. Go to **OpenObserve → Logs**
 2. Select your stream and click **Run Query**
 
-![Verify Log Ingestion in OpenObserve](../../images/devops/github-actions/verify-logs.png)
+![AWS WAF logs in the Logs page](../../images/aws-integrations/waf/verify-logs-v2.png)
 
 > You can also import a [sample AWS WAF dashboard JSON](https://github.com/openobserve/dashboards/tree/main/AWS_WAF) from **Dashboards > Import > Custom** to visualize top IPs, blocked requests, and more.
 :::

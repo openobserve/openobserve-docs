@@ -83,12 +83,12 @@ response.json
 
 1. Go to **Logs** in OpenObserve -> Select your log stream. 
 2. Set a recent time range and click **Run Query**  
-    ![Verify Logs in OpenObserve](../../images/aws-integrations/lambda/verify-lambda-logs-in-openobserve.png)  
+    ![Lambda logs in the Logs page](../../images/aws-integrations/lambda/verify-lambda-logs-in-openobserve-v2.png)  
 3. Filter out on logs where type= function using SQL query:
     ```
     SELECT * FROM "<log-stream>" where type = 'function'
     ```
-    ![](../../images/aws-integrations/lambda/fucntion-logs.png)
+    ![Lambda function logs filtered with type = 'function'](../../images/aws-integrations/lambda/fucntion-logs-v2.png)
 :::
 
 

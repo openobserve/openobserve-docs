@@ -72,7 +72,7 @@ Use curl, Postman, or your app to trigger API requests:
 
 1. Go to **Logs** in Openobserve → select **stream** → set **time range** → **Run Query** to check for API Gateway logs.
 
-![Verify Logs in OpenObserve](../../images/devops/github-actions/verify-logs.png)
+![API Gateway access logs in the Logs page](../../images/aws-integrations/api-gateway/verify-logs-v2.png)
 :::
 
 :::accordion[Troubleshooting]

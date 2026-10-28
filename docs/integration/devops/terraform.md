@@ -105,7 +105,7 @@ fluent-bit -c /path/to/fluent-bit.conf
 :::accordion[Step 4: Validate Logs in OpenObserve]
 
 1. In your Openobserve instance, Go to **Logs** → select your log stream → Set time range → Click **Run Query**
-![Validate Terraform logs in OpenObserve](https://openobserve.ai/assets%2Ftf_sc_a64795ae12.gif)
+![Terraform logs in the Logs page](../images/devops/terraform-verify-logs-v2.png)
 :::
 
 ## Troubleshooting

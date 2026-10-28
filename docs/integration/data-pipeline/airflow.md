@@ -135,7 +135,7 @@ journalctl -u otel-collector -f
 
 1. In OpenObserve, go to **Logs** and select the `airflow` stream to query logs. Airflow logs collected include: DAG execution logs, Scheduler logs, Worker logs and Task execution logs
 
- ![Visualize Logs in OpenObserve](../images/airflow-logs.png)
+ ![Airflow task logs in the Logs page](../images/airflow-logs-v2.png)
 :::
     
 

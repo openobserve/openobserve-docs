@@ -234,7 +234,7 @@ The script authenticates to Anypoint with a username/password, fetches logs from
 :::accordion[Step 2: Verify Logs in OpenObserve]
 
 1. In OpenObserve, go to **Logs** and select the `mulesoft` stream. 
-![Verify Logs in OpenObserve](../images/mulesoft-logs.png)
+![MuleSoft logs in the Logs page](../images/mulesoft-logs-v2.png)
 :::
 
 :::accordion[Step 3: Automate]

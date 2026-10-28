@@ -58,7 +58,7 @@ Capture and forward AWS VPC Flow Logs to OpenObserve via Kinesis Firehose for re
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![Verify Logs in OpenObserve](../../images/aws-integrations/vpc-flow/logs-stream.png)
+    ![VPC flow logs in the Logs page](../../images/aws-integrations/vpc-flow/logs-stream-v2.png)
 :::
 
 

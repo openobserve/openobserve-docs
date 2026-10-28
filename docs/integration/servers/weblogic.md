@@ -101,7 +101,7 @@ Trigger WebLogic events (restart server, deploy app, etc.) to generate logs.
     }
     ```
 
-![Verify Logs in OpenObserve](../images/servers/weblogic/weblogic-logs.png)
+![WebLogic logs in the Logs page](../images/servers/weblogic/weblogic-logs-v2.png)
 :::
 
 :::accordion[Step 4: Parse Logs with VRL]

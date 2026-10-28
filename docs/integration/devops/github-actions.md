@@ -92,7 +92,7 @@ If your project is not Node.js based, replace these steps with your own project'
 
 1. In your Openobserve instance, Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-  ![Verify Logs](../images/devops/github-actions/verify-logs.png)
+  ![GitHub Actions workflow logs in the Logs page](../images/devops/github-actions/verify-logs-v2.png)
 :::
 
 ## Troubleshooting

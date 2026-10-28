@@ -78,7 +78,7 @@ At this point, Cribl will generate test logs.
 
 - Query Logs
     - Go to **Logs** and select the `cribl` stream. You should see logs ingested from Cribl.  
-    ![Logs](../images/cribl/query-logs.png)
+    ![Cribl logs in the Logs page](../images/cribl/query-logs-v2.png)
 
 - Query Traces
     - If you also send traces from Cribl to an OTLP endpoint, go to **Traces** and select the `cribl` stream. The webhook above sends logs only.  

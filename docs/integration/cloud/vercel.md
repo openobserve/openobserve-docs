@@ -114,7 +114,7 @@ This method uses a self-hosted serverless function as a relay to forward logs se
 2. In OpenObserve, go to **Logs** → select your stream → click **Run Query**
 3. You should see recent log entries from your Vercel app
 
-![Verify Logs in OpenObserve](https://openobserve.ai/assets%2F6_view_logs_o2_45ebd5489c.gif)
+![Vercel logs in the Logs page](../images/app-platforms/vercel-verify-logs-v2.png)
 :::
 
 ## Troubleshooting

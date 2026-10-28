@@ -86,8 +86,8 @@ This will help trigger flow and alert logs.
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![AWS Network Firewall alert logs in Openobserve](../../images/aws-integrations/firewall/alert-logs.png)
-    ![AWS Network Firewall flow logs in Openobserve](../../images/aws-integrations/firewall/flow-logs.png)
+    ![Network Firewall alert logs in the Logs page](../../images/aws-integrations/firewall/alert-logs-v2.png)
+    ![Network Firewall flow logs in the Logs page](../../images/aws-integrations/firewall/flow-logs-v2.png)
 :::
 
 

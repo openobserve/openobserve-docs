@@ -82,7 +82,7 @@ Amazon RDS database logs can be exported to CloudWatch Logs for database monitor
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-![Verify Logs in OpenObserve](../../images/devops/github-actions/verify-logs.png)
+![RDS PostgreSQL logs in the Logs page](../../images/aws-integrations/rds/verify-logs-v2.png)
 :::
 
 :::accordion[Troubleshooting]

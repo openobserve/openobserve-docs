@@ -170,7 +170,7 @@ OpenObserve ingests these logs in structured JSON format, enabling fast search, 
 
 1. In OpenObserve, go to **Logs → heroku_logs** and run a query to see structured entries.
 
-![Verfify Heroku logs in Openobserve](https://openobserve.ai/assets/4_view_logs_o2_d5e8e881b2.gif)
+![Heroku logs in the Logs page](../images/app-platforms/heroku-verify-logs-v2.png)
 :::
 
 ## Troubleshooting

@@ -96,7 +96,7 @@ Use Azure Functions to forward logs from Event Hub into OpenObserve.
 
 - Ensure the Function is running and streaming logs.  
 - In OpenObserve, go to **Logs** and select a stream the functions write to. Stream names start with `microsoft_org_` (for example `microsoft_org_signin_logs_<category>`).  
-    ![Logs](https://openobserve.ai/assets%2Foffice_logs_8c60c3d9d8.gif)
+    ![Microsoft 365 audit logs in the Logs page](../images/security/m365/verify-logs-v2.png)
 
 >  Use tailored queries for categories like **AuditLogs** or **SignInLogs**.  
 :::

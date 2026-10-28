@@ -66,7 +66,7 @@ This approach enables centralized log analysis, alerting, and visualization in O
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![Verify Logs in OpenObserve](../../images/aws-integrations/cloudwatch-logs/cloudwatch-logs.png)
+    ![CloudWatch logs in the Logs page](../../images/aws-integrations/cloudwatch-logs/cloudwatch-logs-v2.png)
 :::
 
 :::accordion[Troubleshooting]

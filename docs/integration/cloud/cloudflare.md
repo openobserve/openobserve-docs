@@ -296,7 +296,7 @@ You should see entries similar to the following:
 "requests": 1
 }
 ```
-![Verify the Cloudflare and OpenObserve integration](../images/cloudflare-verify-ingestion.gif)
+![Cloudflare logs in the Logs page](../images/cloudflare-verify-ingestion-v2.png)
 
 Logs appear immediately when using Logpush. If you are testing with GraphQL, the simulated data appears first. Real logs are usually visible within 5 to 10 minutes.
 :::

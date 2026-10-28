@@ -75,7 +75,7 @@ Monitor login attempts, user activity, and authentication behavior from Amazon C
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-![Verify Cognito Logs](../../images/aws-integrations/cognito/log-stream.png)
+![Cognito events in the Logs page](../../images/aws-integrations/cognito/log-stream-v2.png)
 :::
 
 :::accordion[Troubleshooting]
