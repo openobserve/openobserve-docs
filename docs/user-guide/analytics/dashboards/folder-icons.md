@@ -1,35 +1,34 @@
 ---
-title: Folder Icons | OpenObserve
+title: Folder Icons
 description: >-
   Assign emoji and full-color service logos to folders so you can identify
   Dashboards, Alerts, Reports, and Synthetics folders at a glance.
 ---
-# Folder Icons
 
 Assign an icon to any folder so you can find it at a glance. OpenObserve lets you pick from curated Unicode emoji or full-color logos for the services you integrate with, and it can even suggest one automatically as you type a folder name.
 
-Folder icons work in every product that uses folders: **Dashboards**, **Alerts**, **Reports**, and **Synthetics**. The same **Icon** field and the same folder rail appear across all of them.
+Folder icons work on every page that organizes items into folders, such as **Dashboards**, **Alerts**, **Reports**, and **Synthetics**. The same **Icon** field and the same folder rail appear on all of them.
 
 ## 1. Where Folder Icons Appear
 
 A folder's icon is shown wherever the folder name appears:
 
-- In the **Folders** rail (the left-hand folder list) on the Dashboards, Alerts, Reports, and Synthetics pages.
+- In the **Folders** rail (the left-hand folder list) on pages such as Dashboards, Alerts, Reports, and Synthetics.
 - In folder dropdowns used to file or move items, such as the **Select Folder** dropdown when moving dashboards or alerts, and the folder selector in a panel's drill-down dialog.
 
 Folders that have no icon still render a small folder glyph (or a star for the **Favorites** entry), so every folder name lines up on the same column.
 
-![TODO: screenshot of the folder rail showing folders with assigned icons](images/placeholder.png)
+![Folders rail on the Dashboards page with service logos and emoji icons next to each folder name](images/folder-icons-folders-rail.png)
 
 ## 2. Assign an Icon to a Folder
 
 You assign an icon when you create or edit a folder.
 
-1. On the **Folders** rail, click **+** to create a folder, or click the vertical ellipsis (**⋯**) next to a folder and select **Edit**.
+1. On the **Folders** rail, click **+** to create a folder, or click the vertical ellipsis (**⋮**) next to a folder and select **Edit**.
 2. In the dialog, the **Icon** field sits to the left of the **Name** field.
 3. Click the **Icon** trigger to open the picker, choose an icon, then click **Save**.
 
-![TODO: screenshot of the Add Folder dialog with the Icon picker next to the Name field](images/placeholder.png)
+![Add Folder dialog with the Icon field to the left of the Name field, showing the Docker logo suggested for the name Docker Hosts](images/folder-icons-add-folder-dialog.png)
 
 The **Icon** field is optional — leave it empty to keep the default folder glyph.
 
@@ -44,7 +43,7 @@ The picker opens a searchable grid of curated icons grouped into categories:
 
 Use the **Search icons** box to filter the grid by keyword. You can also navigate the grid with the keyboard using the arrow keys and **Home**/**End**.
 
-![TODO: screenshot of the folder icon picker panel with the grouped, searchable icon grid](images/placeholder.png)
+![Folder icon picker open below the Icon field, with the Search icons box and the Status and Services groups](images/folder-icons-picker.png)
 
 Clicking an icon selects it and closes the picker. Clicking the currently selected icon deselects it, which removes the icon.
 
