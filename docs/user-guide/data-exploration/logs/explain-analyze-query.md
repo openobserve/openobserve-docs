@@ -18,13 +18,13 @@ OpenObserve provides Explain Query and Analyze Query tools to help users underst
 4. Click the **Run query** button to execute your query. 
 5. After the query completes and results are displayed, click the **More Actions** menu (≡) in the search bar. 
 
-![explain-query](../../../images/explain-query.png)
+![explain-query](../../../images/explain-query-v2.png)
 6. Select **Explain Query** under **Explain** in the dropdown menu. 
 7. A **Query Plan** window opens. The left panel shows your original SQL query for reference. The right panel shows two tabs, **Logical Plan** and **Physical Plan**. 
-![query-plan](../../../images/logical-plan.png)
+![query-plan](../../../images/logical-plan-v2.png)
 <br>
 
-![physical-plan](../../../images/physical-plan.png)
+![physical-plan](../../../images/physical-plan-v2.png)
 :::
 
 :::accordion[How to access Analyze Query]
@@ -33,7 +33,7 @@ OpenObserve provides Explain Query and Analyze Query tools to help users underst
 1. First, open the Explain Query page following the steps above. 
 2. Click the **Analyze** button at the top of the results panel in the Query Plan window. 
 3. The **Analyze Results** section displays with: 
-![analyze-results](../../../images/analyze-results.png)
+![analyze-results](../../../images/analyze-results-v2.png)
 
     - **Execution Summary**: Overall performance statistics at the top 
     - **Execution Plan**: Detailed per-operator performance data below
@@ -43,7 +43,7 @@ OpenObserve provides Explain Query and Analyze Query tools to help users underst
 ## Understanding query plans
 
 ### How to read the execution tree
-![execution-tree](../../../images/execution-tree.png)
+![execution-tree](../../../images/execution-tree-v2.png)
 
 The execution tree displays operators from top to bottom on your screen, but you should **read it from bottom to top** to understand the flow of execution.
 
@@ -100,7 +100,7 @@ The Explain Query option shows how OpenObserve interprets and executes a SQL que
 ### Logical Plan
 
 The Logical Plan shows the sequence of operations your query follows. It represents the high-level structure of your query.
-![logical-plan](../../../images/logical-plan.png)
+![logical-plan](../../../images/logical-plan-v2.png)
 
 :::note[Common operators you will see:]
 
@@ -121,7 +121,7 @@ The Logical Plan shows the sequence of operations your query follows. It represe
 ### Physical Plan
 
 The Physical Plan shows how OpenObserve executes your query, including the specific execution operators used.
-![physical-plan](../../../images/physical-plan.png)
+![physical-plan](../../../images/physical-plan-v2.png)
 
 :::note[Common operators you will see:]
 
@@ -145,7 +145,7 @@ The Physical Plan shows how OpenObserve executes your query, including the speci
 ## Analyze Query
 
 The Analyze Query option displays execution details for each operator in the physical plan.
-![analyze-results](../../../images/analyze-results.png)
+![analyze-results](../../../images/analyze-results-v2.png)
 
 ### Execution Summary
 
