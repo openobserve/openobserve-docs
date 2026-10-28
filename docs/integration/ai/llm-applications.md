@@ -33,7 +33,7 @@ With it you can track:
 
 Go to **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** in the OpenObserve UI and copy the endpoint and the **Authorization** header value under **OTLP HTTP**. `OPENOBSERVE_URL` is the part of the endpoint before `/api/`; the SDK adds `/api/<org>/v1/traces` itself.
 
-![Data Sources - Traces - OpenTelemetry](../../images/opentelemetry-collector-for-traces.png)
+![Data sources > Custom > Traces > OpenTelemetry with the OTLP HTTP collector config](../../images/opentelemetry-collector-for-traces-v2.png)
 
 Create a `.env` file in your project root:
 
@@ -58,7 +58,7 @@ ANTHROPIC_API_KEY="your-anthropic-key"
 
 The **OTEL Collector** tab next to it shows the same endpoint and `Authorization` header in a collector configuration.
 
-![OTel Collector credentials for Traces](../../images/opentelemetry-collector-for-traces.png)
+![Data sources > Custom > Traces > OpenTelemetry with the endpoint and Authorization header for the collector](../../images/opentelemetry-collector-for-traces-v2.png)
 
 | Variable | Description | Required |
 | ----- | ----- | ----- |
@@ -97,7 +97,7 @@ uv run examples/openai_example.py
 
 Open **Traces** in OpenObserve to see the spans appear.
 
-![LLM Traces](../images/llm-applications/llm-tokens-cost-latency.png)
+![Traces list for an LLM service with Input Tokens, Output Tokens, and Cost columns](../images/llm-applications/llm-tokens-cost-latency-v2.png)
 
 
 ## Option B: Integrate into your own project using the OpenObserve SDK
@@ -193,13 +193,13 @@ The cost fields are filled from the span's own reported cost when it has one; ot
 1. Log in to your OpenObserve instance  
 2. Navigate to **Traces** in the left sidebar  
 3. Filter by service name, model, or time range
-![LLM Traces](../images/llm-applications/llm-traces.png)
+![Traces filtered by service name on the LLM traces stream](../images/llm-applications/llm-traces-v2.png)
 
 4. Click any span to inspect token counts, latency, and full request metadata
 
-![LLM Traces](../images/llm-applications/llm-spans.png)
+![Trace Waterfall with an openai.chat span selected, showing its input and output messages](../images/llm-applications/llm-spans-v2.png)
 
-![LLM Traces](../images/llm-applications/llm-span-attributes.png)
+![Attributes table of an openai.chat span with gen_ai token and cost fields](../images/llm-applications/llm-span-attributes-v2.png)
 
 
 
