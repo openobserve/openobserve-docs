@@ -10,7 +10,7 @@ Organizations provide logical boundaries for separating data, users, and access 
 
 > You will encounter the concept of organization when you first log in or [ingest data into a stream](../../data-processing/streams/streams-in-openobserve.md#ingest-data-into-stream). To send data into OpenObserve, you must specify the **organization identifier** in your ingestion endpoint. 
 
-![Organizations in OpenObserve](../../../images/organization-in-openobserve.png)
+![IAM Organizations list filtered to one organization, with the New organization button](../../../images/organization-in-openobserve-v2.png)
 
 ## Organization types
 
@@ -68,7 +68,7 @@ To create a new organization:
 1. Navigate to **IAM > Organizations**.
 2. Click **New organization**.
 3. Enter the organization name (alphanumeric characters, spaces and underscores only) and click **Save**. <br>
-![Create an Organization](../../../images/organization-create-new.png)
+![New organization dialog with the organization name field](../../../images/organization-create-new-v2.png)
 
 This option is available to the **root** user by default. In enterprise deployments, additional users may create organizations if they are granted permission through the meta organization.
 
