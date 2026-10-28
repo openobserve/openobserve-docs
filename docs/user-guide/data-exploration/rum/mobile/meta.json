@@ -1,0 +1,13 @@
+{
+  "title": "Mobile RUM",
+  "pages": [
+    "index",
+    "react-native",
+    "android",
+    "ios",
+    "performance-monitoring",
+    "error-tracking",
+    "security-privacy",
+    "best-practices"
+  ]
+}

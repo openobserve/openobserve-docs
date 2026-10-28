@@ -119,7 +119,7 @@ The transformed data is written to one or more destinations.
 Use scheduled pipelines for tasks that require processing at fixed intervals instead of continuously, such as generating periodic reports and processing historical data in batches.
 
 :::note[Cache for scheduled pipelines]
-OpenObserve maintains a cache for scheduled pipelines to prevent the alert manager from making unnecessary database calls. This cache becomes particularly beneficial when the number of scheduled pipelines is high. For example, with 500 scheduled pipelines, the cache eliminates 500 separate database queries each time the pipelines are triggered, significantly improving performance.
+OpenObserve maintains a cache for scheduled pipelines to prevent the scheduler from making unnecessary database calls. This cache becomes particularly beneficial when the number of scheduled pipelines is high. For example, with 500 scheduled pipelines, the cache eliminates 500 separate database queries each time the pipelines are triggered, significantly improving performance.
 :::
 
 ## Next steps

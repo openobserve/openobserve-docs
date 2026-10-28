@@ -386,7 +386,7 @@ config:
   ZO_S3_REGION_NAME: "<region from `aws s3api get-bucket-location`>"
 ```
 
-Valid values for `ZO_S3_PROVIDER` include `s3`, `azure`, `minio`, and `gcs`. `ZO_S3_REGION_NAME` must match the bucket's region (not the cluster's region, if they differ).
+Valid values for `ZO_S3_PROVIDER` include `s3`, `azure`, `minio`, `rustfs`, and `gcs`. `ZO_S3_REGION_NAME` must match the bucket's region (not the cluster's region, if they differ).
 
 **3. Root user credentials**. Search for `auth:` (~ line 175):
 
@@ -471,7 +471,7 @@ STATUS: deployed
 REVISION: 1
 ```
 
-- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, alertmanager, router, ingester, querier, compactor, openfga-init.
+- ~12 pods, every one `READY 1/1` (or `2/2` for NATS) and `STATUS Running`. Components: NATS x3, postgres x2, openfga, scheduler, router, ingester, querier, compactor, openfga-init.
 - Service account annotation: your `ROLE_ARN` from Step 2.
 - Image: `o2cr.ai/openobserve/openobserve-enterprise:<tag>`.
 :::

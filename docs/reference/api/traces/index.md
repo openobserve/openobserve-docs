@@ -24,8 +24,8 @@ This documentation provides comprehensive guidance on using the OpenObserve API 
 When a user performs a search query in OpenObserve:
 
 - The **trace** represents the entire search operation from query initiation to result return.
-- **Spans** might include: alert manager evaluation, query processing, gRPC search execution, cache operations, database interactions.
-- You can see the complete flow showing how the operation moves through different OpenObserve services (alert manager → querier → search services).
+- **Spans** might include: scheduler evaluation, query processing, gRPC search execution, cache operations, database interactions.
+- You can see the complete flow showing how the operation moves through different OpenObserve services (scheduler → querier → search services).
 - Each span shows the duration and status of individual OpenObserve components involved in processing the search request.
 :::
 

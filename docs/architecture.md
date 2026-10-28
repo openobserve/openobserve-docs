@@ -7,7 +7,7 @@ keywords: openobserve, architecture, tutorial
 
 # OpenObserve Architecture and Deployment Modes
 
-OpenObserve is an observability platform with a distributed architecture composed of five node types — Router, Ingester, Compactor, Querier, and AlertManager — that runs in either single-node mode (SQLite with local disk or object storage) or high-availability mode (NATS, PostgreSQL, and object storage).
+OpenObserve is an observability platform with a distributed architecture composed of five node types — Router, Ingester, Compactor, Querier, and Scheduler — that runs in either single-node mode (SQLite with local disk or object storage) or high-availability mode (NATS, PostgreSQL, and object storage).
 
 This page explains how OpenObserve is structured: the deployment modes you can run it in, what each component does, how data flows from ingest to query, and how the system keeps your data durable. It is useful if you are sizing a deployment, troubleshooting a cluster, or evaluating OpenObserve against other observability backends.
 
@@ -27,7 +27,7 @@ The [Quickstart](./getting-started.md) describes various ways to set up this con
 
 ### SQLite and Object Storage
 
-Single-node mode with SQLite and object storage runs OpenObserve on one node but stores parquet files in durable object storage (for example, Amazon S3, GCS, MinIO, or Azure Blob) instead of local disk. Use it when you want the simplicity of a single node but need the durability and elasticity of object storage — for example, so data survives the loss of the node's local volume, or to keep local disk small. Compared with the local-disk variant, it trades slightly higher read latency and a storage dependency for much higher durability and effectively unbounded capacity. Configure the object-storage backend with the `ZO_LOCAL_MODE_STORAGE` and related S3/GCS environment variables; see [Environment variables](administration/configuration/environment-variables.md) for the full list.
+Single-node mode with SQLite and object storage runs OpenObserve on one node but stores parquet files in durable object storage (for example, Amazon S3, GCS, MinIO, RustFS, or Azure Blob) instead of local disk. Use it when you want the simplicity of a single node but need the durability and elasticity of object storage — for example, so data survives the loss of the node's local volume, or to keep local disk small. Compared with the local-disk variant, it trades slightly higher read latency and a storage dependency for much higher durability and effectively unbounded capacity. Configure the object-storage backend with the `ZO_LOCAL_MODE_STORAGE` and related S3/GCS environment variables; see [Environment variables](administration/configuration/environment-variables.md) for the full list.
 
 <img src="images/arch-single-s3.jpg" alt="Single node architecture using SQLite and s3" width="60%">
 
@@ -38,10 +38,10 @@ HA mode does not support local disk storage. Please refer to [HA Deployment](adm
 **Requirements.** Running OpenObserve in HA mode requires:
 
 - Kubernetes (with Helm) to orchestrate the nodes
-- Object storage (Amazon S3, GCS, MinIO, or Azure Blob) for parquet files
+- Object storage (Amazon S3, GCS, MinIO, RustFS, or Azure Blob) for parquet files
 - PostgreSQL for metadata
 - NATS for cluster coordination
-- At least one node of each type (Router, Ingester, Compactor, Querier, AlertManager)
+- At least one node of each type (Router, Ingester, Compactor, Querier, Scheduler)
 
 <img src="images/arch-ha.webp" alt="HA architecture using NATS and s3" width="80%">
 
@@ -51,13 +51,13 @@ In OpenObserve HA mode, the following node types can be scaled horizontally to a
 - Querier
 - Ingester
 - Compactor
-- AlertManager
+- Scheduler
 
 HA mode uses NATS as a cluster coordinator as well as for cluster events and storing the nodes' information.
 
 It uses PostgreSQL to store metadata, such as the organization, users, functions, alert rules, stream schema and file list (an index of parquet files).
 
-Object storage (for example, Amazon S3, MinIO or GCS) stores all the parquet files data.
+Object storage (for example, Amazon S3, MinIO, RustFS or GCS) stores all the parquet files data.
 
 ## Durability
 
@@ -78,7 +78,7 @@ At the EBS levels, additional in-app replication mostly adds cost and complexity
 
 At a high level, data and requests move through these components:
 
-Router → Ingester → Compactor → Querier → AlertManager.
+Router → Ingester → Compactor → Querier → Scheduler.
 
 | Component | Role | Stateful? | Scales horizontally? |
 | --- | --- | --- | --- |
@@ -86,7 +86,7 @@ Router → Ingester → Compactor → Querier → AlertManager.
 | Ingester | Receives ingest requests, converts data to parquet, and writes it to object storage | Yes (buffers in WAL, Memtable, and local parquet) | Yes |
 | Compactor | Merges small files into big files, enforces retention, and updates file list indices | No | Yes |
 | Querier | Executes search queries | No (fully stateless) | Yes |
-| AlertManager | Runs alert queries and report jobs and sends notifications | No | Yes |
+| Scheduler | Runs alert queries and report jobs and sends notifications | No | Yes |
 
 ### Router
 
@@ -163,9 +163,9 @@ The federated search spans over multiple OpenObserve clusters:
 4. `WORKER clusters` execute the query as described above. One of the nodes in each cluster becomes a `LEADER querier` and calls other `WORKER queriers` in the same cluster. The results from all workers and leaders are merged by `LEADER cluster`.
 5. `LEADER cluster` collects, merges and sends the result back to the user.
 
-### AlertManager
+### Scheduler
 
-The AlertManager node runs the standard alert queries, reports jobs and sends notifications.
+The Scheduler node runs the standard alert queries, reports jobs and sends notifications.
 
 ## Next steps
 

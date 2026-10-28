@@ -39,7 +39,7 @@ By default, `root` users and `Admins` with access to the `_meta` organization ca
 - **Querier**: Responds to user queries and retrieves data from storage.  
 - **Compactor**: Merges smaller data files and applies retention policies.  
 - **Router**: Routes API requests and serves the OpenObserve user interface.  
-- **Alert Manager**: Manages alerting rules and runs scheduled tasks.
+- **Scheduler**: Manages alerting rules and runs scheduled tasks.
 
 ## View ky metrics
 
@@ -73,7 +73,7 @@ Each node displays the following metrics in a tabular format with progress bars 
 - **Filters**: 
 
     - **Region and Cluster (for super-cluster setup):** View nodes by deployment zone.  
-    - **Node Type**: Filter nodes by type, such as Ingester, Querier, or Alert Manager.  
+    - **Node Type**: Filter nodes by type, such as Ingester, Querier, or Scheduler.
     - **Status:** Show online or offline nodes.  
     - **CPU/Memory Usage:** Set value ranges to find over-utilized or under-utilized nodes.   
     - **TCP Connections**: Filter by connection state or count.  

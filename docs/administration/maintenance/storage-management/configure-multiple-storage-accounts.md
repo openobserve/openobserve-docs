@@ -32,7 +32,7 @@ Follow these steps to configure multiple object storage accounts in OpenObserve:
 
 ### Prerequisites
 
-- At least two S3-compatible object storage accounts.
+- At least two S3-compatible object storage accounts (for example, AWS S3, MinIO, or RustFS).
 - Valid credentials, regions, and bucket names for each.
 
 ### Step 1: Set Storage Account Environment Variables
@@ -47,6 +47,8 @@ ZO_S3_SECRET_KEY="secret1,secret2"
 ZO_S3_BUCKET_NAME="critical-logs,internal-logs"
 ZO_S3_BUCKET_PREFIX="logs/"
 ```
+
+The example uses AWS S3 and MinIO. Any S3-compatible provider works per account — for a RustFS account, set its `ZO_S3_PROVIDER` to `s3` and its `ZO_S3_SERVER_URL` to the RustFS endpoint, such as `http://rustfs:9000`.
 
 :::info[Important]
 - The first account is treated as the default account. Configure the old account as the first one.

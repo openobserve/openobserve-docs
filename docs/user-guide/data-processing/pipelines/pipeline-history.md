@@ -43,5 +43,5 @@ When querying pipeline history over a time range, the range is capped by the `ma
 - **Query Time**: Time taken by the SQL query within the pipeline to execute. This helps measure query performance.
 - **Source Node**: Node responsible for executing the run. This helps identify where the execution occurred for debugging and performance monitoring.<br>
 Example: <br>
-**Source Node**: `o2-openobserve-alertmanager-0`
+**Source Node**: `o2-openobserve-scheduler-0`
 - **Error**: The error message describing why the run failed. Populated for runs with a `failed` status; empty otherwise.
