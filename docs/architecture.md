@@ -109,11 +109,11 @@ The data ingestion flow is as follows:
 1. Write to WAL file by timestamp in hourly buckets. Then, convert records in a request to Arrow RecordBatch and write into the Memtable (an in-memory, writable buffer of recently ingested records).
 
     1. Create one Memtable per `organization/stream_type`. If data is being ingested only for `logs`, there would be only one Memtable.
-    1. The WAL file and Memtable are created in a pair. One WAL file has one Memtable. The WAL files are located at `data/wal/logs`.
+    1. The WAL file and Memtable are created in a pair. One WAL file has one Memtable. The WAL files are located at `data/openobserve/wal/logs`.
 
-1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=256` MB or the WAL file reaches `ZO_MAX_FILE_SIZE_ON_DISK=128` MB, move the Memtable to an Immutable (a read-only, sealed snapshot of a Memtable that is waiting to be flushed to disk) and create a new Memtable and WAL file for writing data.
-1. Every `ZO_MEM_PERSIST_INTERVAL=5` seconds, dump Immutable to local disk. One Immutable will result in multiple parquet files, as it may contain multiple streams and multiple partitions. The parquet files are located at `data/wal/files`.
-1. Every `ZO_FILE_PUSH_INTERVAL=10` seconds, check local parquet files. If any partition's total size is above `ZO_MAX_FILE_SIZE_ON_DISK=128` MB or any file has been retained for `ZO_MAX_FILE_RETENTION_TIME=600` seconds, merge all such small files in a partition into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=2048 MB (2 GB)`) and move that file to object storage.
+1. As the Memtable size reaches `ZO_MAX_FILE_SIZE_IN_MEMORY=512` MB or the WAL file reaches `ZO_MAX_FILE_SIZE_ON_DISK=512` MB, move the Memtable to an Immutable (a read-only, sealed snapshot of a Memtable that is waiting to be flushed to disk) and create a new Memtable and WAL file for writing data.
+1. Every `ZO_MEM_PERSIST_INTERVAL=2` seconds, dump Immutable to local disk. One Immutable will result in multiple parquet files, as it may contain multiple streams and multiple partitions. The parquet files are located at `data/openobserve/wal/files`.
+1. Every `ZO_FILE_PUSH_INTERVAL=2` seconds, check local parquet files. If any partition's total size is above `ZO_MAX_FILE_SIZE_ON_DISK=512` MB or any file has been retained for `ZO_MAX_FILE_RETENTION_TIME=600` seconds, merge all such small files in a partition into a big file (each big file will be maximum `ZO_COMPACT_MAX_FILE_SIZE=2048 MB (2 GB)`) and move that file to object storage.
 
 **Ingesters store data in three parts:**
 
@@ -144,14 +144,14 @@ The data query flow is as follows:
 1. `LEADER` collects, merges and sends the result back to the user.
 
 :::tip[Querier caching]
-- The queriers will cache parquet files in memory by default. Use the `ZO_MEMORY_CACHE_MAX_SIZE` environment variable to configure how much memory a querier uses for caching. By default, queriers use 50% of their available memory for caching.
+- Queriers cache parquet files on disk by default (`ZO_DISK_CACHE_ENABLED`). An in-memory cache is also available but off by default; turn it on with `ZO_MEMORY_CACHE_ENABLED=true` and size it with `ZO_MEMORY_CACHE_MAX_SIZE` (by default 50% of available memory in HA mode, 25% in single-node mode).
 - In a distributed environment, each querier node will just cache a part of the data.
 - You also have the option to enable caching the latest parquet files in memory. The ingester will notify queriers to cache the file when an ingester generates a new parquet file and uploads it to object storage.
 :::
 
 #### Federated Search
 
-:::info[Applies to]
+:::note[Applies to]
 Enterprise version only.
 :::
 
