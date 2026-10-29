@@ -6,7 +6,7 @@ description: Learn what federated search is, key concepts, prerequisites, and wh
 
 This document provides an overview of federated search in OpenObserve.
 
-:::info[Availability]
+:::note[Availability]
 This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
 :::
     

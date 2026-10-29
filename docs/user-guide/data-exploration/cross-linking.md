@@ -21,7 +21,7 @@ You can define links at two levels: organization-level links that apply across t
 
 Cross-Linking supports two scopes, so you can keep broad links central while still tailoring links per stream.
 
-- **Organization-level links**: Apply across the organization. Configure them in **Organization Settings**.
+- **Organization-level links**: Apply across the organization. Configure them in **Settings** > **Organization Parameters**.
 - **Stream-level links**: Apply only to a specific stream. Configure them in **Stream Details**.
 - **Priority**: When a stream-level link and an organization-level link overlap, the stream-level link takes priority.
 
@@ -39,7 +39,7 @@ Each link uses a URL template with variables that OpenObserve replaces at click 
 
 - Cross-Linking must be enabled on the server. Set the environment variable `ZO_ENABLE_CROSS_LINKING=true`. The default is `false`, which hides all Cross-Linking configuration and links.
 - You need data ingested into the relevant stream so that field values are available for substitution.
-- You need permission to edit **Organization Settings** (for org-level links) or **Stream Details** (for stream-level links).
+- You need permission to edit **Organization Parameters** (for org-level links) or **Stream Details** (for stream-level links).
 
 ### Enabling Cross-Linking
 
@@ -57,16 +57,16 @@ ZO_ENABLE_CROSS_LINKING=true
 
 Organization-level links apply across the whole organization.
 
-### Step 1: Open organization settings
+### Step 1: Open organization parameters
 
-Go to **Organization Settings** and open the **Parameters** section.
+Go to **Settings** > **Organization Parameters**.
 
 ### Step 2: Add a cross-link
 
-In the **Cross-Linking** area, add a new link and fill in the fields:
+In the **Cross-Linking Configuration** section, click **Add Cross-Link** and fill in the fields:
 
 - **Name**: A display name for the link. This field is required and accepts a maximum of 256 characters.
-- **URL template**: The target URL with template variables. This field is required. See [URL template variables](#url-template-variables).
+- **URL Template**: The target URL with template variables. This field is required and must be a valid http(s) URL. See [URL template variables](#url-template-variables).
 - **Fields**: Optional trigger fields. The link shows only when at least one of these fields is present in the record. Leave empty to always show the link.
 
 ### Step 3: Save
@@ -83,21 +83,23 @@ Navigate to the stream, open **Stream Details**, and select the **Cross-Linking*
 
 ### Step 2: Add a cross-link
 
-Add a new link and fill in the same fields as for an organization-level link:
+Under **Stream Cross-Links**, click **Add Cross-Link** and fill in the same fields as for an organization-level link:
 
 - **Name**: Required, maximum 256 characters.
-- **URL template**: Required URL with template variables.
+- **URL Template**: Required URL with template variables.
 - **Fields**: Optional trigger fields that control when the link appears.
 
 ### Step 3: Save
 
 Save the stream settings. The link is now active for records and panels backed by this stream.
 
+The tab also lists the organization's links under **Organization-Level Links (Read-Only)**. Edit those in **Organization Parameters**.
+
 > **Note**: If a stream-level link and an organization-level link target the same context, OpenObserve uses the stream-level link.
 
 ## URL template variables
 
-Use these variables in the **URL template**. OpenObserve replaces them with values from the current record and query when you open the link.
+Use these variables in the **URL Template**. OpenObserve replaces them with values from the current record and query when you open the link.
 
 | Variable | Description |
 |----------|-------------|

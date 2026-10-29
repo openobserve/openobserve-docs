@@ -1,11 +1,11 @@
 ---
 title: Metrics Overview
-description: Metrics in OpenObserve store and query time-series data efficiently, with guides covering file access time behavior and downsampling to reduce storage costs.
+description: Metrics in OpenObserve store and query time-series data efficiently, with guides covering the Metrics Explorer and downsampling to reduce storage costs.
 ---
 
-#Metrics Overview
+# Metrics Overview
 
 Learn more:
 
-- [File Access Time](file-access-time-metric.md)
+- [Metrics Explorer](explorer.md)
 - [Downsampling Metrics](downsampling-metrics.md)
