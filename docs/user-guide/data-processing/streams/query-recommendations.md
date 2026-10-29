@@ -16,7 +16,7 @@ OpenObserve continuously analyzes user queries across streams to identify optimi
 
 :::note[Where to find it]
 The query recommendations are published into the `query_recommendations` stream under the `_meta` organization.
-![select-query-recommendations](../../../images/select-query-recommendations.png)
+![select-query-recommendations](../../../images/select-query-recommendations-v2.png)
 :::
 
 :::note[Who can access it]
@@ -56,7 +56,7 @@ The following scenarios can trigger a recommendation:
 3. From the stream selection dropdown, select the `query_recommendations` stream. 
 4. Select the desired time range. 
 5. Click **Run query**. 
-![use-query-recommendations](../../../images/use-query-recommendations.png)
+![use-query-recommendations](../../../images/use-query-recommendations-v2.png)
 
 ## Field descriptions
 | Field                 | Description                                                                 |
@@ -78,18 +78,18 @@ The following scenarios can trigger a recommendation:
 The examples below show how OpenObserve surfaces query patterns and recommends indexing or operator changes based on the above logic.
 
 **Example 1** <br>
-![example-1-query-recommendations](../../../images/example-1-query-recommendations.png)
-This recommendation indicates that across the last 360000000 hours of query data, the job field in the `default` stream was queried with an equality (`=`) operator 1220 times out of 1220 total queries. Since all queries used this field with the `=` operator, a secondary index could improve performance.
+![example-1-query-recommendations](../../../images/example-1-query-recommendations-v2.png)
+This recommendation indicates that the `event` field in the `usage` stream was queried with an equality (`=`) operator 15 times out of 15 total queries. Since all queries used this field with the `=` operator, a secondary index could improve performance.
 
 :::note[Interpretation]
-Add a secondary index on the `job` field in the `default` stream for improved performance.
+Add a secondary index on the `event` field in the `usage` stream for improved performance.
 :::
 
 <br>
 
 **Example 2** <br>
-![example-2-query-recommendations](../../../images/example-2-query-recommendations.png)
-This recommendation is for the `status` field in the `alert_test` stream. All 5 queries used `status` with an equality operator. Although the number is small, the uniform pattern indicates a potential for future optimization.
+![example-2-query-recommendations](../../../images/example-2-query-recommendations-v2.png)
+This recommendation is for the `status` field in the `triggers` stream. The only query observed used `status` with the `IN` operator, and the field has 5 distinct values. Although the number is small, the uniform pattern indicates a potential for future optimization.
 
 :::note[Interpretation]
 Consider indexing status if query volume increases or performance becomes a concern.
