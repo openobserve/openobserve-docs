@@ -25,7 +25,7 @@ To access the Query Management page:
 2. Click **Settings** in the left navigation. 
 3. Select **Query Management** (under **Operations**).   
   You will be taken to the **Running Queries** section.
-![Running Queries](../../../images/query-management-running-queries.png)
+![Running Queries](../../../images/query-management-running-queries-v2.png)
 :::
 
 ## Viewing Modes
@@ -47,7 +47,7 @@ The **Running Queries** table displays the following fields:
 - **Total Exec. Duration**: Combined time spent executing all active queries.  
 - **Total Query Range**: Total log duration the queries are scanning.  
 - **Actions**: Cancel queries initiated by a user.
-![Running Queries](../../../images/query-management-running-queries.png)
+![Running Queries](../../../images/query-management-running-queries-v2.png)
 
 The **All Queries** table displays the following fields: 
 
@@ -65,7 +65,7 @@ The **All Queries** table displays the following fields:
     - **View Details** to inspect the query details.  
     - **Cancel** to stop the query immediately.
 
-![All Running Queries](../../../images/query-management-all-queries.png)
+![All Running Queries](../../../images/query-management-all-queries-v2.png)
 
 ## Filters and Searches
 
@@ -77,7 +77,7 @@ The **All Queries** table displays the following fields:
     - **UI**: Queries run manually by users from the Logs interface.  
     - **Others**: Queries triggered by Alerts or Reports.
 <br>
-![Filter and Search in Running Queries](../../../images/query-management-filter-search.png)
+![Filter and Search in Running Queries](../../../images/query-management-filter-search-v2.png)
 
 - **Refresh Query Button**: Click to reload the page with the latest query data. Refer to the **Last Data Refresh Time** section to confirm whether the query results are up to date before refreshing.
 ::::
@@ -89,7 +89,7 @@ To inspect a running query:
 1. In the **All Queries** view, locate the query you want to examine.  
 2. In the **Actions** column, click the icon to **view details**.
 
-![View Query Details](../../../images/query-management-view-details.png)
+![View Query Details](../../../images/query-management-view-details-v2.png)
 
 You will see a pop-up with full information about the query:
 
@@ -101,7 +101,7 @@ You will see a pop-up with full information about the query:
 - The start time and end time selected by the user. This defines the **Query Range**.  
 - The **Execution Duration** and final **Query Range** calculated.  
 - Additional technical metrics, including the number of records scanned within the selected time range, the original size of the scanned files, and their compressed size in Parquet format.
-![Query Detailed View](../../../images/query-management-view-query-details.png)
+![Query Detailed View](../../../images/query-management-view-query-details-v2.png)
 
 ## How to Cancel a Query
 
@@ -127,7 +127,7 @@ You can cancel a query from the **User Summary** page as well as the **All Queri
 
 1. Locate the user whose queries you want to stop.  
 2. Either select the checkbox and click **Cancel Query** at the bottom of the page, or click the red **X** icon in the **Actions** column.
-![Cancel Queries](../../../images/query-management-cancel-queries.png)
+![Cancel Queries](../../../images/query-management-cancel-queries-v2.png)
 
 <br>
 **To cancel from All Queries**:

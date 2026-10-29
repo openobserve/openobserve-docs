@@ -28,7 +28,7 @@ By default, `root` users and `Admins` with access to the `_meta` organization ca
 
 ## Nodes interface
 **For Single-Cluster Setup**<br> 
-![nodes-single-cluster](../../../images/nodes-single-cluster.png)
+![nodes-single-cluster](../../../images/nodes-single-cluster-v2.png)
 
 **For Super-Cluster Setup**<br>
 ![nodes-multi-cluster](../../../images/nodes-super-cluster.png)
@@ -64,7 +64,7 @@ Each node displays the following metrics in a tabular format with progress bars 
     ![nodes-status-offline](../../../images/nodes-status-offline.png)
     - **Prepare** (Orange, counted as **Starting** in the summary): Node is starting up or initializing. No action needed unless it stays in this state too long.
     - **Online** (Green): Node is healthy and active.
-    ![nodes-status-online](../../../images/nodes-status-online.png)
+    ![nodes-status-online](../../../images/nodes-status-online-v2.png)
 
 ## Use refresh, search, and filters 
 
@@ -80,7 +80,7 @@ Each node displays the following metrics in a tabular format with progress bars 
     - **TCP Connections**: Filter by connection state or count.  
         To apply filters, click **Apply Filters**. To reset all filters, select **Clear All**.
 
-![nodes-search-filter](../../../images/nodes-search-filter.png)  
+![nodes-search-filter](../../../images/nodes-search-filter-v2.png)  
 
 ## Monitor and troubleshoot node health
 Use the following signals to monitor node health and take action when needed:

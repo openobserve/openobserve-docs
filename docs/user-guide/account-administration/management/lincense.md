@@ -38,7 +38,7 @@ To perform the following tasks, you must have appropriate permission. Review the
 1. In the **Enterprise License Details** section of the **About** page, click **Manage License**. 
 ![Help > About page with License Information and Enterprise License Details](../../../images/about-page-license-v2.png)
 2. It takes you to the **License** page under **Settings** in the `_meta` organization.
-![license-management](../../../images/license-management.png) 
+![license-management](../../../images/license-management-v2.png) 
 3. Click **Request new License**. 
 4. Complete the form by following the guidelines mentioned below and click **Submit Request**.   
 
@@ -59,7 +59,7 @@ Use the information below to complete each field accurately when requesting a ne
 
 :::accordion[Add a new license key]
 ### Add a new license key
-![add-new-license-key](../../../images/add-new-license-key.png)
+![add-new-license-key](../../../images/add-new-license-key-v2.png)
 
 1. In the `_meta` organization, click **Settings** in the left navigation.  
 2. Select **License** (under **Account**).  

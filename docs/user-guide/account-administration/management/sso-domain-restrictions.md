@@ -24,7 +24,7 @@ The page is available in the `_meta` org under **Settings** > **SSO Management**
 1. In the **Domain and allowed users** section, enter the domain name in the text field. 
 > Enter only the domain name, for example, `example.com` and do not include the `@` symbol. 
 2. Click the **Add Domain** button. 
-![Add a New Domain](../../../images/add-new-domain-sso-restrict.png)
+![Add a New Domain](../../../images/add-new-domain-sso-restrict-v2.png)
 :::
 
 :::accordion[Step 2: Configure Domain Access]
@@ -35,7 +35,7 @@ For each domain, you have four control options:
 It permits any user with an email address from the selected domain to log in using SSO. <br>
 > **Use case:** Allow all employees from your company domain `@example.com`. 
 <br>
-![Allow all users](../../../images/allow-all-users.png)
+![Allow all users](../../../images/allow-all-users-v2.png)
 
 **Option 2: Allow Specific Users Only**<br>
 It allows you to add individual email addresses that should be permitted to log in using SSO.<br> 
@@ -43,7 +43,7 @@ It allows you to add individual email addresses that should be permitted to log 
 
 When **Allow only specific users** is selected:
 <br>
-![Allow only specific users](../../../images/allow-specific-users.png)
+![Allow only specific users](../../../images/allow-specific-users-v2.png)
 
 1. Enter the complete email address in the input field. 
 2. Click **Add Email**. 

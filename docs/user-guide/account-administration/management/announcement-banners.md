@@ -13,15 +13,15 @@ Banners are authored once from the **`_meta` organization** and are read by ever
 
 Announcement banners are configured from the **`_meta`** organization. Open **Settings**, then select **Announcement banners** (under **General**).
 
-![the Announcement Banners entry in General Settings](images/announcement-banners-1.png)
+![Announcement banners selected under General in the _meta Settings menu](images/announcement-banners-1-v2.png)
 
 The **Announcement banners** page shows which banners are **Live right now**, followed by the list of configured banners with their **Message**, **Severity**, **Status** (**Live**, **Scheduled**, **Ended**, or **Live · hidden**), **Schedule**, and **Show to** audience.
 
-![the Announcement Banners drawer with preview and banner list](images/announcement-banners-2.png)
+![Announcement banners page with the Live right now row and the banner list](images/announcement-banners-2-v2.png)
 
 Select **Add banner** to create a banner. Use the row actions to **Edit banner**, **Duplicate banner**, or **Remove banner**.
 
-![the Add banner dialog with its fields](images/announcement-banners-3.png)
+![Add banner editor with the Message, Style, and Audience and schedule sections and a live Preview](images/announcement-banners-3-v2.png)
 
 The banner editor has three sections and a live **Preview** in light and dark mode:
 
@@ -57,7 +57,7 @@ The **Preview** in the editor shows the banner in light and dark mode. Links are
 
 Active banners render as full-width bars directly above the toolbar on every page of the app.
 
-![announcement banners rendering above the app toolbar](images/announcement-banners-4.png)
+![Banner preview in light and dark mode with a Dismiss button](images/announcement-banners-4-v2.png)
 
 Each banner shows its message and, when configured, a call-to-action button and a **Dismiss** button. Users who dismiss a banner stay dismissed across sessions; if an operator edits the banner's message, it reappears for everyone.
 

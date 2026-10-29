@@ -19,7 +19,7 @@ These limits can be applied in two ways:
 
 ### Availability
 The Quotas feature is available only in high-availability (HA) deployments.
-![Quotas Availability](../../../../images/quotas-availability.png)
+![Quotas Availability](../../../../images/quotas-availability-v2.png)
 
 ### Access
 By default, only root users can access the Quotas settings from the `_meta` organization. You can grant access to other roles using Role-Based Access Control (RBAC).  
@@ -38,7 +38,7 @@ By default, only root users can access the Quotas settings from the `_meta` orga
 >    - Review and confirm that the users assigned to the role are correct.  
 >7. Click **Save** to apply the changes.  
 
-![Quotas Grant Access](../../../../images/quotas-grant-access-using-rbac.png)
+![Quotas Grant Access](../../../../images/quotas-grant-access-using-rbac-v2.png)
 
 ## How to Configure Quotas Using Environment Variables
 
@@ -86,13 +86,13 @@ Use this to set **org-level** quotas for a specific API module. The limit applie
 
 You can also apply rules globally by selecting the **global rules** option under the organization selector dropdown. This applies the limit across all organizations and their respective user roles.
 
-![Quotas API Limits](../../../../images/quotas-api-limits-view.png)
+![Quotas API Limits](../../../../images/quotas-api-limits-view-v2.png)
 
 ### Role Limits
 
 Use this to set **role-level** quotas for specific API modules within an organization. This allows more granular control by assigning **different limits** to each role for the same API module.
 
-![Quotas Role Limits](../../../../images/quotas-role-limits-view.png)
+![Quotas Role Limits](../../../../images/quotas-role-limits-view-v2.png)
 
 Each tab displays a table with the following:
 

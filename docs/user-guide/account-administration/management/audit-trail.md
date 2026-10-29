@@ -35,7 +35,7 @@ When audit logging is enabled (the default; controlled by `O2_AUDIT_ENABLED`), O
 :::note[Example]
 The following example shows a captured audit event from the `audit` stream:
 :::
-  ![audit-trail](../../../images/audit-trail.png)
+  ![audit-trail](../../../images/audit-trail-v2.png)
 
 :::note[Use cases]
 Because audit events are stored in a log stream, you can:

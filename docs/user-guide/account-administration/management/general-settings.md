@@ -52,7 +52,7 @@ If these variables are set, the UI loads these colors automatically unless overr
 
 ### Enterprise branding
 Enterprise branding options appear in the **Enterprise Features** section, only in the `_meta` org when Enterprise features are enabled.
-![enterprise-branding](../../../images/enterprise-branding.png)
+![enterprise-branding](../../../images/enterprise-branding-v2.png)
 <br>
 
 **Custom Logo Text**
