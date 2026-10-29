@@ -115,7 +115,7 @@ Click a row to open the **Source Details** panel for that record. The panel open
     - **Visualize**: builds a chart from the current query with the dashboard panel editor. Use **Add To Dashboard** to save the chart to a dashboard.
     - **Drill down**: compares log volume across fields. See [Insights](insights.md). Not available in SQL mode.
     - **Patterns**: groups logs into recurring templates. See [Log Patterns](log-patterns.md). Enterprise only.
-    - **Timechart**: plots the query over time. Shown only when the server sets `ZO_TIMECHART_ENABLED=true` (default `false`).
+    - **Timechart**: charts the query you already wrote. Shown only when the server sets `ZO_TIMECHART_ENABLED=true` (default `false`). See [Timechart View](timechart.md).
 
     ![Logs visualize](../../../images/logs-visualize-v2.png)
 

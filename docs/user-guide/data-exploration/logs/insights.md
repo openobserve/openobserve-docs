@@ -9,7 +9,7 @@ description: Insights automates root cause analysis by comparing anomaly periods
 
 Insights is an interactive dimension analysis feature that automates root cause identification by comparing anomaly periods against baseline data across multiple dimensions simultaneously.
 
-![Overview](https://openobserve.ai/assets/screenshot_5_traces_insights_latency_e9a8f4845c.png)
+![Insights panel on Traces, Latency tab comparing P95 latency for selected and baseline periods across service_name, operation_name and other dimensions](images/insights-traces-latency-overview.jpg)
 
 ### What It Does
 

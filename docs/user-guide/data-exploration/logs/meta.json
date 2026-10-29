@@ -5,6 +5,7 @@
     "refresh-cache-run-query",
     "search-around",
     "insights",
+    "timechart",
     "quickmode",
     "log-patterns",
     "explain-analyze-query"

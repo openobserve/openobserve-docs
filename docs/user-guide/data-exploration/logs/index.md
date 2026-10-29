@@ -31,6 +31,7 @@ You can use the Logs page to:
 - [Explain and Analyze Query](explain-analyze-query.md): understand query plans and performance.
 - [Refresh Cache and Run Query](refresh-cache-run-query.md): re-run a query without cached results.
 - [Insights](insights.md): compare log volume across fields with the **Drill down** view.
+- [Timechart View](timechart.md): chart the current query over time (needs `ZO_TIMECHART_ENABLED`).
 - [Log Patterns](log-patterns.md): group logs into recurring templates (Enterprise).
 
 **Need some help?**
