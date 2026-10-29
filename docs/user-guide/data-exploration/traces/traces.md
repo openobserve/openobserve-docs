@@ -267,8 +267,8 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 2. Select the appropriate log stream.
 3. Select the time range and select **Run query**.
 4. Expand a log record.
-5. Select **View Trace**.
-![view-trace-from-logs](../../../images/view-trace-from-logs.png)
+5. Select **View Related** to open the traces and metrics related to the record. When service streams are turned off, the button reads **View Trace** instead, next to a traces stream picker, and opens the matching trace directly.
+![Expanded log record with the Copy to clipboard and View Related buttons above its trace_id and span_id fields](../../../images/view-trace-from-logs-v2.png)
 6. The system shows the trace that matches the `trace_id`.
 
 **Note**: If no results appear after selecting **View Trace**, confirm that in your log stream the trace ID and span ID are available in the `trace_id` and `span_id` respectively. If not, ensure the custom trace ID and span ID fields are configured in **Settings** > **Organization Parameters**. 

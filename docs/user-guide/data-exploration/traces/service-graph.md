@@ -89,7 +89,7 @@ Inferred dependency nodes appear with a dotted border and a type icon that indic
 - **RPC** — RPC backends such as gRPC services and AWS API. Recognized when the span carries `rpc.system` or `rpc.service`.
 - **External** — external HTTP APIs and generic network peers. Recognized by `server.address`, `net.peer.name`, `http.host`, or `url.full` / `http.url`.
 
-![Inferred dependency nodes showing dotted borders, type icons, and dotted edges in the service graph](images/service-graph-inferred-dependencies-1.png)
+![Service graph in Graph View with the Show types menu listing the Datastores, Queues, External and RPC dependency types](images/service-graph-inferred-dependencies-1-v2.png)
 
 Because the dependency has no server span of its own, its latency is measured as the client span's duration (the time the instrumented service spent waiting on the dependency). The graph's anti-join logic ensures that a dependency that is instrumented elsewhere in the same time window is not double-counted — it appears only as its instrumented self.
 
@@ -117,7 +117,7 @@ Inferred service derivation is fully automatic and requires no configuration. It
 
 Inferred dependencies also appear in the per-service time and cost breakdown when you open a trace in the **Traces** list. Inferred entities are rendered with a dotted style and a type icon so you can visually distinguish them from instrumented services. Each inferred service in the trace summary shows its name, span count, duration, and type.
 
-![trace list showing inferred service badges in the per-service breakdown](images/inferred-service-dependencies-1.png)
+![Traces list Service Latency breakdown listing instrumented services and inferred dependencies such as orders_db, billing_db and api.payments.example.com](images/inferred-service-dependencies-1-v2.png)
 
 
 ## Data source
