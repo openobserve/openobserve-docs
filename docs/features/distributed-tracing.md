@@ -22,7 +22,7 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 ![OpenTelemetry Native](../images/features/traces-otel-support-v2.png)
 
-- **High Throughput**: Process millions of spans per second
+- **High Throughput**: Ingester nodes scale horizontally in HA mode to handle growing span volume
 
 ### Trace Structure & Data
 
