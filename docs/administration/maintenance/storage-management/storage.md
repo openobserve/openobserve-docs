@@ -17,7 +17,7 @@ There are 2 primary items that need to be stored in OpenObserve.
 By default: 
 
 - Metadata is always stored on disk using **SQLite** in **Local mode**.
-- Metadata is always stored on disk using **PostgreSQL** in **Cluster mode**.
+- Metadata is always stored in **PostgreSQL** in **Cluster mode**.
 - Stream data can be stored on disk or object storage such as Amazon S3, MinIO, RustFS, Google GCS, Alibaba OSS, or Tencent COS.
 
 ## Storage Modes
@@ -31,7 +31,7 @@ By default:
 
 ### Data Storage Format
 
-Stream data is stored in **Parquet** format, a columnar storage format optimized for storage efficiency and query performance.
+Stream data is stored in **Parquet** format by default, a columnar storage format optimized for storage efficiency and query performance. Set `ZO_FILE_FORMAT=vortex` to write new files in Vortex format instead.
 ## Stream Data Storage Options
 ### Disk
 
@@ -239,13 +239,14 @@ OpenObserve supports multiple metadata store backends, configurable using the `Z
 ### etcd (Removed)
 
 :::warning[Removal notice]
-Etcd support has been removed. Use NATS as the cluster coordinator and PostgreSQL (or MySQL) as the metadata store. Helm charts released after 23 February 2024 already use PostgreSQL by default.
+Etcd support has been removed. Use NATS as the cluster coordinator and PostgreSQL as the metadata store. Helm charts released after 23 February 2024 already use PostgreSQL by default.
 :::
 
-### MySQL (Deprecated)
-- Set `ZO_META_STORE=mysql`.
-- Deprecated. 
-- Use PostgreSQL instead.
+### MySQL (Removed)
+
+:::warning[Removal notice]
+MySQL support has been removed in v0.70.0. Setting `ZO_META_STORE=mysql` stops OpenObserve from starting. Use PostgreSQL instead.
+:::
 
 ## Next steps
 

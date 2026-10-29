@@ -80,6 +80,8 @@ const REDIRECT_PATHS = new Set([
   'user-guide/rum',
   'quickstart',
   'downloads',
+  'administration/maintenance/operator-guide/etcd',
+  'administration/maintenance/operator-guide/etcd-restore',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
@@ -133,6 +135,8 @@ const REDIRECTS = {
   'user-guide/rum': 'user-guide/data-exploration/rum',
   quickstart: 'getting-started',
   downloads: 'getting-started',
+  'administration/maintenance/operator-guide/etcd': 'administration/maintenance/storage-management/storage',
+  'administration/maintenance/operator-guide/etcd-restore': 'administration/maintenance/storage-management/storage',
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {
