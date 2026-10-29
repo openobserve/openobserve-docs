@@ -33,10 +33,10 @@ Sensitive Data Redaction applies to log streams and trace streams. During trace 
 :::note[Where to find]
 To access the **Sensitive Data Redaction** interface:
 
-1. Select the appropriate organization from the dropdown in the top-right corner.
-2. Select **Management** > **Sensitive Data Redaction**. 
+1. Select the appropriate organization from the organization selector.
+2. Select **Settings** > **Sensitive Data Redaction** (under **Access & Security**). 
 
-![Sensitive Data Redaction](../../../images/sensitive-data-redaction.png)
+![Settings > Sensitive Data Redaction list with four docs patterns](../../../images/sensitive-data-redaction-v2.png)
 
 This opens the Sensitive Data Redaction interface, where you can view, create, and manage regex patterns available to the selected organization.
 :::
@@ -70,10 +70,10 @@ Identify which fields may contain sensitive data.
 
 1. From the left-hand menu, select **Logs**. 
 2. In the stream selection dropdown, select the stream. 
-3. Select an appropriate time range and click **Run Query**. 
+3. Select an appropriate time range and click **Run query**. 
 This shows the records for the selected time range. 
 <br>
-![Identify PII for regex application](../../../images/identify-pii-for-regex-application.png)
+![Logs results for a stream whose message field holds names, emails, IP addresses and card numbers](../../../images/identify-pii-for-regex-application-v2.png)
 
 **Look for common sensitive patterns.**
 
@@ -94,16 +94,16 @@ This shows the records for the selected time range.
 :::
 :::accordion[Step 2: Create and test regex patterns]
 ### Step 2: Create and test regex patterns
-To create regex patterns, naviagte to **Management** > **Sensitive Data Redaction** > **Create Pattern**. 
+To create regex patterns, navigate to **Settings** > **Sensitive Data Redaction** and click **New pattern**. 
 
-![Create regex](../../../images/create-regex-pattern.png)
+![New pattern panel with Name, Description, Regex Pattern and Test Regex Pattern](../../../images/create-regex-pattern-v2.png)
 
 In the pattern creation form, enter the following details: 
 
 1. **Name**: Enter a clear, descriptive name. For example, Email Detection. 
 2. **Description:** (Optional)  Explain what the pattern is intended to detect.
-3. **Regex Pattern**: Paste or write the regular expression you want to use. Refer to the following **common patterns**. 
-4. **Test Pattern**: Provide a sample input to validate that the regex works as expected.
+3. **Regex Pattern**: Paste or write the regular expression you want to use. Refer to the following **common patterns**. Lookahead, lookbehind, backreferences and recursion are not supported. 
+4. **Test Regex Pattern**: Enter an **Input string** and click **Test Input** to validate that the regex works as expected.
 5. Click the **Create and Close** button to save the pattern. 
 
 **Common Patterns**
@@ -126,14 +126,14 @@ The following screenshots illustrate the pattern creation process:
 <br>
 The `message` field in the `pii_test_stream` contains names, email addresses, IP addresses, SSNs, and credit card numbers.
 <br>
-![Stream with PII](../../../images/stream-with-pii.png)
+![Expanded log record with sensitive values in the message field](../../../images/stream-with-pii-v2.png)
 2. Create and test the regex patterns.
 <br>
 **Full Name**: 
-![Full name regex](../../../images/full-name-regex.png)
+![New pattern panel for a full-name regex, tested with the output showing [REDACTED]](../../../images/full-name-regex-v2.png)
 <br>
 **Email Addresses**:
-![Email regex](../../../images/email-regex.png)
+![New pattern panel for an email regex, tested with the output showing [REDACTED]](../../../images/email-regex-v2.png)
 :::
 
 ## Apply regex patterns 
@@ -143,27 +143,27 @@ Once your patterns are created and tested, you can apply them to specific fields
 
 :::accordion[Step 1: Go to the stream field]
 ### Step 1: Go to the stream field
-1. From the left-hand menu, go to **Streams**.
+1. From the left-hand menu, go to **Data** > **Streams**.
 2. Locate the stream where you want to apply regex patterns and select **Stream Details** from the **Actions** column.
-3. In the **Stream Settings** tab, locate the field that contains sensitive data. 
+3. In the **Schema Settings** tab, locate the field that contains sensitive data. 
 
-![Field with sesitive data](../../../images/stream-settings-sensitive-fields.png)
+![Stream Detail Schema Settings tab with the SDR column and Add Pattern links](../../../images/stream-settings-sensitive-fields-v2.png)
 :::
 
 :::accordion[Step 2: Add pattern]
 ### Step 2: Add pattern
 1. Select **Add Pattern** for the target field. This opens the pattern panel, where you can view already applied patterns and add new ones.
-![Add regex pattern](../../../images/stream-settings-add-regex.png)
+![Pattern panel for the message field with Applied Patterns and All Patterns](../../../images/stream-settings-add-regex-v2.png)
 2. From the **All Patterns** section, select a pattern you want to apply. 
-![Select regex pattern](../../../images/select-regex.png) 
+![All Patterns list in the pattern panel](../../../images/select-regex-v2.png) 
 <br>
 After selecting a pattern, a detail view appears.
-![Regex selection](../../../images/regex-selection-view.png)
+![Pattern detail view with actions, Detect at options and Test Pattern](../../../images/regex-selection-view-v2.png)
 :::
 
 :::accordion[Step 3: Choose whether to Redact, Hash, or Drop]
 ### Step 3: Choose whether to Redact, Hash, or Drop
-![Regex pattern execution action- redact or drop](../../../images/redact-or-drop-during-regex-pattern-execution.png)
+![When value matches options Redact, Drop and Hash](../../../images/redact-or-drop-during-regex-pattern-execution-v2.png)
 
 When applying a regex pattern, you must choose one of the following actions in the pattern details screen:
 
@@ -189,7 +189,7 @@ Select the appropriate action.
 ### Step 4: Choose when the action needs to be executed
 In the pattern details screen, select when the chosen action (redact, hash, or drop) should be executed, at ingestion time, query time, or both.
 
-![Regex pattern execution time](../../../images/regex-pattern-execution-time.png)
+![Detect at options Ingestion and Query, with Query selected](../../../images/regex-pattern-execution-time-v2.png)
 
 **Ingestion**: 
 
@@ -211,14 +211,14 @@ You can select one or both options depending on your security and compliance req
 ### Step 5: Add pattern and update changes
 
 1. To add the regex pattern to Applied Patterns, click **Add Pattern**. 
-![Add regex pattern](../../../images/add-regex-pattern.png)
+![docs-email pattern added under Applied Patterns](../../../images/add-regex-pattern-v2.png)
 2. Select **Update Changes**.
 :::
 
 :::accordion[Step 6: (Optional) Apply multiple patterns]
 
 You can apply multiple patterns to the same field, as shown below:
-![apply-multiple-reg-pattern](../../../images/apply-multiple-reg-pattern.png) 
+![Two patterns applied to the same field, both with check marks](../../../images/apply-multiple-reg-pattern-v2.png) 
 All applied patterns will appear in the left-hand panel with check marks.
 :::
 
@@ -234,7 +234,7 @@ When finished, click **Update Changes** to save the configuration. This activate
 :::accordion[Test 1: Redact at ingestion time]
 ### Redact at ingestion time
 **Pattern Configuration**:
-![redact-at-ingestion-time-test-config](../../../images/redact-at-ingestion-time-test-config.png)
+![Full-name pattern set to Redact at Ingestion](../../../images/redact-at-ingestion-time-test-config-v2.png)
 
 **Test Steps**:
 
@@ -246,9 +246,9 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
-![redact-at-ingestion-time-result](../../../images/redact-at-ingestion-time-result.png)
+![Logs result where the name was stored as [REDACTED]](../../../images/redact-at-ingestion-time-result-v2.png)
 
 **Key points:**
 
@@ -261,7 +261,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 :::accordion[Test 2: Drop at ingestion time]
 ### Drop at ingestion time
 **Pattern Configuration**:
-![drop-at-query-time-test-config](../../../images/drop-at-ingestion-time-test-config.png)
+![IP address pattern set to Drop at Ingestion](../../../images/drop-at-ingestion-time-test-config-v2.png)
 
 **Test Steps:**
 
@@ -273,9 +273,9 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
-![drop-at-ingestion-time-result](../../../images/drop-at-ingestion-time-result.png)
+![Logs result where the message field was dropped from the record at ingestion](../../../images/drop-at-ingestion-time-result-v2.png)
 
 **Key points:** 
 
@@ -287,7 +287,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 :::accordion[Test 3: Hash at ingestion time]
 ### Hash at ingestion time
 **Pattern Configuration**:
-![config-hash-pattern-ingestion-time](../../../images/config-hash-pattern-ingestion-time.png)
+![Credit card pattern set to Hash at Ingestion](../../../images/config-hash-pattern-ingestion-time-v2.png)
 
 **Test Steps:**
 
@@ -298,15 +298,15 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"job":"test","level":"info","log":"Payment processed with card 4111-1111-1111-1111"}]'
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
-![hashed-at-ingestion-time](../../../images/hashed-at-ingestion-time.png)
+![Logs result where the card number was stored as a searchable hash](../../../images/hashed-at-ingestion-time-v2.png)
 :::
 
 :::accordion[Test 4: Redact at query time]
 ### Redact at query time
 **Pattern Configuration**:
-![redact-at-query-test-config](../../../images/redact-at-query-test-config.png)
+![Email pattern set to Redact at Query](../../../images/redact-at-query-test-config-v2.png)
 
 **Test Steps:**
 
@@ -319,9 +319,9 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
-![redact-at-query-time-result](../../../images/redact-at-query-time-result.png)
+![Logs results where email addresses show as [REDACTED] at query time](../../../images/redact-at-query-time-result-v2.png)
 
 **Key points:** 
 
@@ -334,7 +334,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 :::accordion[Test 5: Drop at query time]
 ### Drop at query time
 **Pattern Configuration**:
-![Drop at Query Time- Test Config](../../../images/drop-at-query-time-test-config.png)
+![Credit card pattern set to Drop at Query](../../../images/drop-at-query-time-test-config-v2.png)
 
 **Test Steps:**
 
@@ -346,9 +346,9 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 {"code":200,"status":[{"name":"pii_test","successful":1,"failed":0}]}
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
-![Drop at Query Time](../../../images/drop-at-query-time-result.png)
+![Logs results where records with a card number come back without the message field](../../../images/drop-at-query-time-result-v2.png)
 
 **Key points:** 
 
@@ -360,7 +360,7 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 :::accordion[Test 6: Hash at query time]
 ### Hash at query time
 **Pattern Configuration**:
-![config-hash-pattern-query-time](../../../images/config-hash-pattern-query-time.png)
+![Credit card pattern set to Hash at Query](../../../images/config-hash-pattern-query-time-v2.png)
 
 **Test Steps:**
 
@@ -371,9 +371,9 @@ $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/d
 $ curl -u example@example.com:FNIB8MWshsuhyehH -k https://example.zinclabs/api/default/pii_test/_json -d '[{"job":"test","level":"info","log":"Payment processed with card 4111-1111-1111-1111"}]'
 ```
 4. Set the time range to include the test data.
-5. Click **Run Query**.
+5. Click **Run query**.
 6. Verify results:
-![hash-at-query-time](../../../images/hashed-at-query-time.png)
+![Logs results where the card number shows as a hash at query time](../../../images/hashed-at-query-time-v2.png)
 :::
 
 ## Search hashed values using `match_all_hash`
@@ -387,7 +387,7 @@ This query returns all records where the SDR Hash of the provided value exists i
 In the example below, it retrieves the log entry containing
 [REDACTED:907fe4882defa795fa74d530361d8bfb], the hashed version of the given card number.
 
-![match-all-hash](../../../images/match-all-hash.png)
+![Logs result of match_all_hash for a card number, returning the record with the hashed value](../../../images/match-all-hash-v2.png)
 
 
 ## Import patterns from built-in library
@@ -399,15 +399,15 @@ OpenObserve provides a built-in library of 147+ pre-configured regex patterns th
 :::accordion[Step 1: Navigate to the Import section]
 ### Step 1: Navigate to the Import section
 
-1. Go to **Management** > **Sensitive Data Redaction**.
+1. Go to **Settings** > **Sensitive Data Redaction**.
 2. Click the **Import** button in the top-right corner.
 3. The **Import Pattern** screen opens with three tabs:
     - **Built-in Patterns**: Pre-configured patterns from OpenObserve's pattern library
-    - **File Upload/JSON**: Import patterns from a JSON file
+    - **File Upload / JSON**: Import patterns from a JSON file
     - **URL Import**: Import patterns from a URL
 4. Select the **Built-in Patterns** tab.
 
-![Built-in Patterns Import Interface](../../../images/built-in-patterns-import.png)
+![Import Pattern page on the Built-in Patterns tab, showing 147 patterns](../../../images/built-in-patterns-import-v2.png)
 :::
 
 :::accordion[Step 2: Browse and search patterns]
@@ -416,9 +416,9 @@ OpenObserve provides a built-in library of 147+ pre-configured regex patterns th
 The built-in patterns library displays 147 patterns. You can:
 
 - **Search patterns**: Use the search bar to find patterns by name
-![Search patterns](../../../images/search-patterns.png)
+![Built-in patterns filtered by the search term email](../../../images/search-patterns-v2.png)
 - **Filter by tags**: Use the "Filter by Tag" dropdown to narrow patterns by category 
-![Filter by tags](../../../images/filter-by-tags.png)
+![Filter by Tag dropdown open on the Built-in Patterns tab](../../../images/filter-by-tags-v2.png)
 - **Refresh**: Click the **Refresh** button to pull the latest patterns from the GitHub repository
 :::
 
@@ -427,7 +427,7 @@ The built-in patterns library displays 147 patterns. You can:
 
 To view details about a pattern before importing:
 
-1. Click the **three dots (⋮)** icon next to any pattern in the list.
+1. Click the eye icon next to any pattern in the list.
 2. A detail panel displays:
 
     - **Description**: What the pattern detects
@@ -436,7 +436,7 @@ To view details about a pattern before importing:
     - **Rarity**: How commonly this pattern is used
     - **Valid Examples**: Sample data that matches this pattern
 
-![Pattern details view](../../../images/pattern-detail-view.png)
+![Built-in pattern detail dialog with description, pattern, tags, rarity and valid examples](../../../images/pattern-detail-view-v2.png)
 
 This helps you verify the pattern will match your expected data format before importing.
 :::
@@ -445,12 +445,12 @@ This helps you verify the pattern will match your expected data format before im
 ### Step 4: Select and import patterns
 
 1. **Select patterns**: Check the box next to each pattern you want to import. You can select multiple patterns at once.
-![Select patterns](../../../images/select-patterns.png)
+![Two card-number patterns selected for import](../../../images/select-patterns-v2.png)
 2. **Import**: Click the **Import** button in the top-right.
-![Import selected patterns](../../../images/import-selected-patterns.png)
+![Pattern list after importing two built-in patterns, with a success message](../../../images/import-selected-patterns-v2.png)
 
 After importing patterns, you can edit, export, and delete the patterns. 
-![Manage patterns](../../../images/manage-patterns.png)
+![Pattern list with export, edit and delete actions for imported patterns](../../../images/manage-patterns-v2.png)
 
 :::warning[Duplicate handling]
 The system does not allow you to import the same pattern more than once to avoid duplicates. 

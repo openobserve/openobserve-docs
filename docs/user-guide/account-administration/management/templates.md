@@ -18,7 +18,7 @@ When a notification is being sent, OpenObserve will replace placeholders like {s
 
 ## Template kinds
 
-Templates are managed from the **Destination Templates** tab on the **Alerts** page. When you create a template, choose one of two kinds:
+Templates are managed from **Reliability > Destination Templates**, also reachable from the **Destination Templates** tab on the **Alerts** page. When you create a template, choose one of two kinds:
 
 - **Template** (a content template, the default for new templates in the UI): you write a title, a Markdown body, fields, links, and optional matching rows and chart image once, and OpenObserve renders the right payload for each destination type.
 - **Raw payload**: a free-form JSON or text body with `{var}` placeholders, sent exactly as written after the variables are substituted. Templates created before content templates existed, and templates created through the API without a `kind`, are raw-payload templates. Open one in the editor and select **Start a content version** to convert it.

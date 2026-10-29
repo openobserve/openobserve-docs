@@ -113,29 +113,29 @@ AI credit activity is recorded in the `_usage` stream, so you can build your own
 
 ## Manage organization credit limits
 
-Administrators of the `_meta` organization can view every organization's AI credit consumption and set each organization's credit allowance from the **Organization Management** page. <!-- TODO: verify the exact navigation path to Organization Management in the Cloud UI -->
+Administrators of the `_meta` organization can view every organization's AI credit consumption and set each organization's credit allowance from **Settings > Organization Management** (under **Account**) in the `_meta` organization.
 
-The organization list shows **AI credits used** and **AI credits total** columns. To change an organization's allowance:
+The organization list shows **AI Credits Used** and **AI Credits Total** columns. To change an organization's allowance:
 
 1. Switch to the `_meta` organization.
-2. Open **Organization Management** and find the organization in the list.
-3. Click **Set AI credits**.
-4. In the dialog, enter the organization's lifetime AI credit allowance and save.
+2. Open **Settings > Organization Management** and find the organization in the list.
+3. Click **Set Usage Limits** in the organization's row.
+4. On the **AI Credits** tab, enter the **Total AI Credits** (the organization's lifetime AI credit allowance) and click **Save Credits**.
 
 Raising an organization's limit resets its notification checkpoints, so administrators are notified again as usage approaches the new limit.
 
 You can also set the limit through the API. The endpoint is served from the `_meta` organization:
 
 ```
-PUT /api/_meta/ai/usage_limit
+PUT /api/_meta/quota/ai_credits/usage_limit
 ```
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `org_id` | string | Identifier of the organization to update. |
-| `credits_limit` | number | The organization's lifetime AI credit allowance. |
+| `limit` | number | The organization's lifetime AI credit allowance. |
 
-The response returns the organization's current usage in the same shape as `GET /api/{org_id}/ai/usage`.
+The response returns the organization's current usage for the AI credits pool.
 
 ## Notifications
 

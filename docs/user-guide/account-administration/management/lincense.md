@@ -14,9 +14,9 @@ OpenObserve provides access to license information based on the following roles.
 
 | **Role**                                                                                                                                             | **What you can do**                                                                                                                                                                                       | **What you cannot do**                                                                                                                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **If you have access to an organization**                                                                                    | - View license information in the About page of the organization. <br> - Check daily ingestion limits. <br> - Check current usage.                                                                        | - Use the Manage License button in the About page of the organization. Selecting it shows a `403` unauthorized message. <br> - Access the License page under Management. <br> - Add or update a license key. |
-| **If you have access to the meta organization but do not have the update permission for the License module under IAM > Roles > Permission** | - Open the License page under Management in the meta org and view detailed license information. <br> - Request a new license. <br> - Use the Manage License button in the About page of any organization. | - Add or update a license key in the License page under Management.                                                                                                                                          |
-| **If you have access to the meta organization and have create and update permission for the License module under IAM > Roles > Permission** | - Add a new license key in the License page under Management. <br> - Update an existing license key.                                                                                                      | -                                                                                                                                                           |
+| **If you have access to an organization**                                                                                    | - View license information in the About page of the organization. <br> - Check daily ingestion limits. <br> - Check current usage.                                                                        | - Use the Manage License button in the About page of the organization. Selecting it shows a `403` unauthorized message. <br> - Access the License page under Settings. <br> - Add or update a license key. |
+| **If you have access to the meta organization but do not have the update permission for the License module under IAM > Roles > Permission** | - Open the License page under Settings in the meta org and view detailed license information. <br> - Request a new license. <br> - Use the Manage License button in the About page of any organization. | - Add or update a license key in the License page under Settings.                                                                                                                                          |
+| **If you have access to the meta organization and have create and update permission for the License module under IAM > Roles > Permission** | - Add a new license key in the License page under Settings. <br> - Update an existing license key.                                                                                                      | -                                                                                                                                                           |
 :::
 
 
@@ -25,7 +25,7 @@ To perform the following tasks, you must have appropriate permission. Review the
 
 :::accordion[View license information]
 ### View license information
-![about-page](../../../images/about-page-license.png)
+![Help > About page with License Information and Enterprise License Details](../../../images/about-page-license-v2.png)
 
 1. Click the Help (?) icon in the top-right corner.
 2. Click **About**.  
@@ -36,17 +36,17 @@ To perform the following tasks, you must have appropriate permission. Review the
 ### Request a new license
 
 1. In the **Enterprise License Details** section of the **About** page, click **Manage License**. 
-![about-page](../../../images/about-page-license.png)
-2. It takes you to the License page under **Management** in the `_meta` organization.
-![license-management](../../../images/license-management.png) 
-3. Click **Request New License**. 
+![Help > About page with License Information and Enterprise License Details](../../../images/about-page-license-v2.png)
+2. It takes you to the **License** page under **Settings** in the `_meta` organization.
+![license-management](../../../images/license-management-v2.png) 
+3. Click **Request new License**. 
 4. Complete the form by following the guidelines mentioned below and click **Submit Request**.   
 
 :::note[Guideline for completing the license request form]
 Use the information below to complete each field accurately when requesting a new license through the License Server page.
 ![license-server](../../../images/license-server.png)
 
-- **Installation ID**: The Installation ID field is usually prefilled by the system. If it is not prefilled, copy it from the License page under Management in the meta organization.
+- **Installation ID**: The Installation ID field is usually prefilled by the system. If it is not prefilled, copy it from the License page under Settings in the meta organization.
 - **Contact Name and Email Address**: Enter the name and email address of the primary contact person for your organization. This person will receive the license key and future communication related to license renewal or verification.
 - **Address**: Provide the official address of your organization. This must be a valid, complete postal address because it is used for verification and record keeping.
 - **Use case**: Describe how you plan to use OpenObserve. Provide clear details about your expected data volume or operational requirements.
@@ -59,10 +59,10 @@ Use the information below to complete each field accurately when requesting a ne
 
 :::accordion[Add a new license key]
 ### Add a new license key
-![add-new-license-key](../../../images/add-new-license-key.png)
+![add-new-license-key](../../../images/add-new-license-key-v2.png)
 
-1. In the `_meta` organization, navigate to **Management** from the top-right corner.  
-2. Select **License**.  
+1. In the `_meta` organization, click **Settings** in the left navigation.  
+2. Select **License** (under **Account**).  
 3. Select **Add New License Key**.  
 4. Paste the license key in the **Update License Key** field.  
 5. Select **Update License**.  

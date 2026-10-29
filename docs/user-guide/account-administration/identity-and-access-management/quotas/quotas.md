@@ -7,7 +7,7 @@ This guide explains what Quotas are, how to configure them, how to navigate the 
 
 ## What Are Quotas
 
-Quotas in OpenObserve are rate limiting mechanisms that let you control how many API requests users can make per second. 
+Quotas in OpenObserve are rate limiting mechanisms that let you control how many API requests users can make per second, per minute, or per hour. 
 
 You can use Quotas to define request-per-second (Req/s) limits for API operations such as **List**, **Get**, **Create**, **Update**, and **Delete**. 
 These limits can be applied in two ways: 
@@ -15,11 +15,11 @@ These limits can be applied in two ways:
 - At org-level: Limit how many requests all users in an organization can make to a specific API, such as Logs or Alerts.
 - At role-level: Limit how many requests all users in a specific role can make to an API.
 
-> **Note**: If a user exceeds the defined quota, OpenObserve returns a `RateLimitExceeded` error.
+> **Note**: If a user exceeds the defined quota, OpenObserve returns an HTTP `429 Too Many Requests` error with `"error": "rate_limit_exceeded"`.
 
 ### Availability
 The Quotas feature is available only in high-availability (HA) deployments.
-![Quotas Availability](../../../../images/quotas-availability.png)
+![Quotas Availability](../../../../images/quotas-availability-v2.png)
 
 ### Access
 By default, only root users can access the Quotas settings from the `_meta` organization. You can grant access to other roles using Role-Based Access Control (RBAC).  
@@ -38,7 +38,7 @@ By default, only root users can access the Quotas settings from the `_meta` orga
 >    - Review and confirm that the users assigned to the role are correct.  
 >7. Click **Save** to apply the changes.  
 
-![Quotas Grant Access](../../../../images/quotas-grant-access-using-rbac.png)
+![Quotas Grant Access](../../../../images/quotas-grant-access-using-rbac-v2.png)
 
 ## How to Configure Quotas Using Environment Variables
 
@@ -67,7 +67,7 @@ enterprise:
 
 ### Step 2: Set the internal queue store to coordinate rate limiting
 
-Set `ZO_QUEUE_STORE` to “nats”  in the `config` section of the values.yaml file. This enables internal queuing through NATS for coordinating rate limiting. 
+Rate limiting is coordinated through NATS. In cluster mode, `ZO_QUEUE_STORE` resolves to `nats` when it is unset; you can also set it explicitly to “nats” in the `config` section of the values.yaml file. 
 
 ```bash lineNumbers
 `config:
@@ -86,19 +86,19 @@ Use this to set **org-level** quotas for a specific API module. The limit applie
 
 You can also apply rules globally by selecting the **global rules** option under the organization selector dropdown. This applies the limit across all organizations and their respective user roles.
 
-![Quotas API Limits](../../../../images/quotas-api-limits-view.png)
+![Quotas API Limits](../../../../images/quotas-api-limits-view-v2.png)
 
 ### Role Limits
 
 Use this to set **role-level** quotas for specific API modules within an organization. This allows more granular control by assigning **different limits** to each role for the same API module.
 
-![Quotas Role Limits](../../../../images/quotas-role-limits-view.png)
+![Quotas Role Limits](../../../../images/quotas-role-limits-view-v2.png)
 
 Each tab displays a table with the following:
 
 - **Module**: The API module (e.g., Alerts, Dashboards).  
 - **Operations:** Columns for List, Get, Create, Update, and Delete.  
-- **Values**: Request-per-second (Req/s) limits per operation.
+- **Values**: Request limits per operation, for the time unit selected with the **Per Second**, **Per Minute** and **Per Hour** tabs.
 
 > **Note:**
 >
@@ -127,7 +127,7 @@ You can configure quotas in two ways:
 ### Set Role Limits
 
 1. Go to the **Role Limits** tab.  
-2. Select the organization and role from the dropdowns.  
+2. Select the organization from the dropdown. Optionally, narrow the list with **Select API Category**.  
 3. Expand the role row to view its module list.  
 4. Click **Edit Quota**.  
 5. Enter limits (Req/s) for each operation.   
@@ -162,7 +162,7 @@ To check how your search query is internally split into partitions:
 4. Select the desired time range from the time range selector (top-right corner).  
 5. Right-click anywhere on the browser and select **Inspect** to open your browser’s developer tools.  
 6. Go to the Network tab.  
-7. Click **Run Query** in the OpenObserve UI.   
+7. Click **Run query** in the OpenObserve UI.   
 8. Look for a request named: `_search_partition?type=logs`  
 9. Click the request and view its **Preview** tab.  
 10. In the **Preview** tab, find the **partitions** section, which looks like the following:
