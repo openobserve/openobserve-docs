@@ -11,7 +11,7 @@ Translate minified JS error stack traces back to original source file paths, fun
 
 > **Enterprise only.** Requires an API token with `sourcemaps` RBAC permissions.
 
-![source map upload](../../../images/frontend/rum-source-map-upload.png)
+![Upload Source Maps form with Service, Version, Environment and the Source Map ZIP File drop zone](../../../images/frontend/rum-source-map-upload-v2.png)
 ## How it works
 
 The OpenObserve RUM SDK captures errors from production, but minified stack traces (e.g. `main.abc123.js:1:186484`) are unreadable. You upload the `.map` files from your build, tagged with **service**, **env**, and **version**. OpenObserve matches these against incoming errors and resolves frames automatically.
@@ -58,15 +58,15 @@ curl -X POST "https://<host>/api/{org}/sourcemaps" \
 
 ### 4. Verify in the UI
 
-**RUM → Error Tracking → select an error** — stack frames now show original source locations (e.g. `src/components/Checkout.vue:42`).
+**Experience → RUM → Error Tracking → select an error** — stack frames now show original source locations (e.g. `src/components/Checkout.vue:42`).
 
 ## Using the UI
 
 You can also upload source maps without the API:
 
-1. Navigate to **RUM → Source Maps**.
+1. Navigate to **Experience → RUM → Source Maps**.
 2. Click **Upload Source Maps**.
-3. Fill in **Service**, **Env**, and **Version**.
+3. Fill in **Service**, **Version**, and, optionally, **Environment**.
 4. Attach the source-map ZIP.
 5. Submit.
 
@@ -150,7 +150,9 @@ curl -X POST "https://<host>/api/{org}/sourcemaps/stacktrace" \
 
 | Setting | Value |
 |---|---|
-| Max ZIP size | 100 MB |
+| Max upload request size | 50 MB |
+| Max total uncompressed size of the `.map` files in the ZIP | 100 MB |
+| Max `.map` files in one ZIP | 1,000 |
 | Max individual `.map` file | 5 MB |
 | Memory cache | 10,000 entries |
 

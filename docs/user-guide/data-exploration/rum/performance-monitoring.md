@@ -1,6 +1,6 @@
 ---
 title: Performance Monitoring
-description: RUM performance monitoring tracks Core Web Vitals like LCP, FID, and CLS plus page load, API response times, and slow resources in a real-time dashboard.
+description: RUM performance monitoring tracks Core Web Vitals like LCP, INP, and CLS plus page load, API response times, and slow resources in a real-time dashboard.
 ---
 
 # Performance Monitoring
@@ -9,14 +9,14 @@ Performance monitoring helps you understand how fast your application loads and 
 
 ## Performance Summary Dashboard
 
-The Performance Summary dashboard is divided into four main sections:
+Go to **Experience** > **RUM** and open the **Performance** tab. The Performance Summary dashboard is divided into four main sections:
 
 1. **Overview**: High-level performance metrics and session statistics
-2. **Web Vitals**: Core Web Vitals and user experience metrics
+2. **Vitals**: Core Web Vitals and user experience metrics
 3. **Errors**: Error tracking and monitoring
 4. **API**: API call performance and monitoring
 
-You can access these sections by clicking the respective tabs in the Performance view.
+You can access these sections by clicking the respective tabs in the Performance view. The dashboards adapt to your data: panels whose fields your stream does not have are hidden, and mobile apps see mobile vitals (such as cold start, frozen frames, and crash-free sessions) instead of browser Web Vitals.
 
 ## Overview Tab
 
@@ -27,7 +27,7 @@ The Overview tab provides a high-level view of your application's performance, i
 View the three Core Web Vitals at a glance:
 
 - **Largest Contentful Paint (LCP)**
-- **First Input Delay (FID)**
+- **Interaction to Next Paint (INP)**
 - **Cumulative Layout Shift (CLS)**
 
 These metrics help you understand the user experience quality of your application.
@@ -42,7 +42,7 @@ These metrics help you understand the user experience quality of your applicatio
 
 - **Total Sessions**: Number of user sessions in the selected time range
 
-## Web Vitals Tab
+## Vitals Tab
 
 Web Vitals are user-centric performance metrics that measure real-world user experience. OpenObserve tracks all Core Web Vitals as defined by Google.
 
@@ -76,19 +76,19 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 - Use a CDN
 - Remove render-blocking JavaScript and CSS
 
-#### First Input Delay (FID)
+#### Interaction to Next Paint (INP)
 
-**What it measures**: The time from when a user first interacts with your page (clicks a link, taps a button) to when the browser responds to that interaction.
+**What it measures**: The time from a user interaction (a click, tap, or key press) until the browser paints the next frame. INP reports one of the slowest interactions on the page. It replaced First Input Delay (FID) as a Core Web Vital in March 2024.
 
-**Why it matters**: FID measures responsiveness. It quantifies the experience users feel when trying to interact with unresponsive pages.
+**Why it matters**: INP measures responsiveness. It quantifies the experience users feel when trying to interact with unresponsive pages.
 
-**Good FID scores**:
+**Good INP scores**:
 
-- **Good**: ≤ 100 milliseconds
-- **Needs Improvement**: 100 - 300 milliseconds
-- **Poor**: > 300 milliseconds
+- **Good**: ≤ 200 milliseconds
+- **Needs Improvement**: 200 - 500 milliseconds
+- **Poor**: > 500 milliseconds
 
-**Common causes of poor FID**:
+**Common causes of poor INP**:
 
 - Long-running JavaScript tasks
 - Large JavaScript bundles
@@ -276,9 +276,6 @@ Apply filters to narrow down your analysis:
 - **Service**: Filter by specific service name
 - **Env**: Filter by environment (production, staging, development)
 - **Version**: Filter by application version
-- **Browser**: Filter by browser type (Chrome, Firefox, Safari, etc.)
-- **Device**: Filter by device type (Desktop, Mobile, Tablet)
-- **Country**: Filter by geographic location
 
 ## Performance Best Practices
 
@@ -304,7 +301,7 @@ Apply filters to narrow down your analysis:
 | Issue | Symptoms | Solutions |
 |-------|----------|-----------|
 | **Slow page load** | High LCP, FCP | Optimize images, reduce bundle size, use CDN |
-| **Janky interactions** | High FID, long tasks | Split JavaScript, use web workers, defer scripts |
+| **Janky interactions** | High INP, long tasks | Split JavaScript, use web workers, defer scripts |
 | **Layout shifts** | High CLS | Set image dimensions, reserve space for dynamic content |
 | **Slow API calls** | High API duration | Optimize endpoints, add caching, use pagination |
 | **Large payloads** | High resource size | Compress responses, optimize data structures |

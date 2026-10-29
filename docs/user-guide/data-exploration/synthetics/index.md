@@ -7,7 +7,7 @@ description: Run scripted browser and protocol checks on a schedule from global 
 
 Synthetics runs scripted checks against your applications and infrastructure on a schedule, from locations around the world, so you find outages and slowdowns before your users report them.
 
-![Synthetics checks list showing the folder sidebar, health summary, type filters, and the checks table](images/overview-populated.png)
+![Synthetics checks list showing the folder sidebar, health summary, type filters, and the checks table](images/overview-populated-v2.png)
 
 ## Overview
 
@@ -17,7 +17,9 @@ Synthetics serves two audiences. Site reliability and operations teams use proto
 
 Every check produces a run history you can slice by location, browser, and device, with pass rate, latency percentiles, retry and flakiness rates, and per-step timing. When a run fails, the run detail page names the step that broke, shows the screenshot taken at that moment, and reports which locator matched and what the page was doing at the time.
 
-> **Note**: Synthetics is in **Beta**. It is available on OpenObserve Cloud and on self-hosted deployments. For a self-hosted deployment, follow [Self-hosted setup](self-hosted-setup.md) first.
+:::note
+Synthetics is available on OpenObserve Cloud and on self-hosted deployments, in both the Open Source and Enterprise editions. Private locations, alert notifications, and custom domains for status pages need Enterprise or Cloud. For a self-hosted deployment, follow [Self-hosted setup](self-hosted-setup.md) first.
+:::
 
 ## Check types
 
@@ -69,11 +71,11 @@ Publish check results as a status page, public or password-protected, with autom
 1. Open **Experience** in the left sidebar.
 2. Select **Synthetics**.
 
-The page opens on the **Checks** tab. Use the **Private Locations** tab to manage your own probe locations, and the **Status Pages** tab to publish check results to a public or password-protected page.
+The page opens on the **Checks** tab. Use the **Private Locations** tab (Enterprise) to manage your own probe locations, the **Status Pages** tab to publish check results to a public or password-protected page, and the **Environments & Variables** tab to define values, such as `{{baseUrl}}`, that checks share.
 
 Before you create anything, the Checks tab offers a shortcut into each check type.
 
-![Empty Synthetics checks list with Create your first Check and one card per check type](images/overview.png)
+![Empty Synthetics checks list with Create your first Check and one card per check type](images/overview-v2.png)
 
 ### Creating your first check
 
@@ -111,7 +113,7 @@ From the checks table you can:
 
 **Solution**:
 
-1. On a self-hosted deployment, ask your administrator to set `ZO_SYNTHETICS_ENABLED=true` and restart OpenObserve. See [Self-hosted setup](self-hosted-setup.md).
+1. On a self-hosted deployment, ask your administrator to check that `ZO_SYNTHETICS_ENABLED` is not set to `false` (it is on by default) and restart OpenObserve. See [Self-hosted setup](self-hosted-setup.md).
 2. On OpenObserve Cloud, make sure that Synthetics is enabled for your organization.
 3. Reload the page. Navigating directly to the URL while the feature is off redirects you home.
 :::

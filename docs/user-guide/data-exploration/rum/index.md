@@ -14,6 +14,7 @@ Real User Monitoring (RUM) is a comprehensive frontend monitoring solution that 
 - [Error Tracking](error-tracking.md)
 - [Session Replay](session-replay.md)
 - [Source Maps](source-map.md)
+- [Mobile RUM](mobile/index.md)
 - [Metrics Reference](metrics-reference.md)
 - [Advanced Features](advanced-features.md)
 - [Use Cases and Real-World Examples](use-cases.md)

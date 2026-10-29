@@ -39,7 +39,7 @@ docker run -d --name openobserve \
   public.ecr.aws/zinclabs/openobserve:latest
 ```
 
-- Your **client token**, **RUM application id**, and **ingestion endpoint** from **Data → Data Sources → Real User Monitoring** in the OpenObserve UI.
+- Your **client token**, **RUM application id**, and **ingestion endpoint** from **Data → Data sources → Real User Monitoring** in the OpenObserve UI.
 
 ## Step 1 — Add the package
 
@@ -92,7 +92,7 @@ let openObserveEndpoint = URL(string: "https://your-openobserve-instance:5080")
 
 OpenObserve.initialize(
     with: OpenObserve.Configuration(
-        clientToken: "YOUR_CLIENT_TOKEN",   // from Data → Data Sources → Real User Monitoring
+        clientToken: "YOUR_CLIENT_TOKEN",   // from Data → Data sources → Real User Monitoring
         env: "production",
         service: "com.example.app",
         batchSize: .medium,
@@ -134,7 +134,7 @@ Set `OpenObserve.verbosityLevel = .debug` during development to see the SDK's in
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `clientToken` | `String` | — (required) | Ingestion credential from **Data → Data Sources → Real User Monitoring**. |
+| `clientToken` | `String` | — (required) | Ingestion credential from **Data → Data sources → Real User Monitoring**. |
 | `env` | `String` | — (required) | Environment tag, e.g. `production`, `staging`. |
 | `service` | `String?` | bundle id | Service/app identifier used to group data. |
 | `version` | `String?` | `CFBundleShortVersionString` | Release version — used for release health. |
@@ -152,7 +152,7 @@ Set `OpenObserve.verbosityLevel = .debug` during development to see the SDK's in
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `applicationID` | `String` | — (required) | RUM application id from **Data → Data Sources → Real User Monitoring**. |
+| `applicationID` | `String` | — (required) | RUM application id from **Data → Data sources → Real User Monitoring**. |
 | `customEndpoint` | `URL?` | `nil` | Your OpenObserve instance base URL. |
 | `sessionSampleRate` | `Float` | `100` | Percentage of sessions to keep (0–100). |
 | `uiKitViewsPredicate` | `UIKitRUMViewsPredicate?` | `nil` (off) | Predicate that turns `UIViewController`s into views. |
@@ -375,7 +375,7 @@ Use Swift Package Manager. In Xcode go to File > Add Package Dependencies and en
 
 ### Where do I get the client token and application id?
 
-Both come from **Data → Data Sources → Real User Monitoring** in your OpenObserve instance. The client token authenticates ingestion and the application id identifies your app in RUM. You pass the client token to OpenObserve.Configuration and the application id to RUM.Configuration, and point RUM.Configuration.customEndpoint at your OpenObserve instance base URL.
+Both come from **Data → Data sources → Real User Monitoring** in your OpenObserve instance. The client token authenticates ingestion and the application id identifies your app in RUM. You pass the client token to OpenObserve.Configuration and the application id to RUM.Configuration, and point RUM.Configuration.customEndpoint at your OpenObserve instance base URL.
 
 ### Does the SDK support tvOS, macOS, and watchOS?
 

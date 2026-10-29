@@ -12,8 +12,8 @@ All OpenObserve users can view traces.
 :::
 
 :::note[Where to find it]
-Select **Traces** from the left navigation in the OpenObserve UI. 
-![Traces](../../../ingestion/traces/images/traces.png)
+Select **Traces** from the left navigation in the OpenObserve UI. Hover over **Traces** to jump straight to **Spans**, **Traces**, **Service Graph**, or **Service Catalog**.
+![Traces page in Traces mode listing traces from the past hour with rate, error and duration charts](../../../ingestion/traces/images/traces-v2.png)
 :::
 
 ## Why traces matter
@@ -74,18 +74,20 @@ Each row shows:
 - Badges for the services involved
 
 The **Timestamp** and **Duration** column headers are clickable to sort the list in ascending or descending order. The list header shows a badge with the total count of traces found and a separate **Error Traces** count badge. A pagination control lets you choose the number of rows per page (`10`, `25`, `50`, or `100`) and navigate between pages.
-![trace-list](../../../images/trace-list.png)
+![Traces result list with Service and Operation Name columns, Traces Found and Error Traces badges, and pagination](../../../images/trace-list-v2.png)
 
 **Customize columns**: Toggle a field's visibility icon in the field sidebar to add or remove it as a table column, drag column headers to reorder them, and click the X on a column header to remove it. Column choices are remembered separately for Traces and Spans modes. Hover any cell to copy its value or add it as an include/exclude filter.
 
 In the field sidebar, fields are organized into groups: **Key Fields** first, then type groups (**String**, **Number**, **Boolean**), semantic/prefix groups (for example, Kubernetes and HTTP), and **Other** last. For a single stream, the groups are expanded by default.
 
-**Timeline:** Shows spans as color-coded horizontal bars. Parent spans contain child spans. Parent time includes the time of child spans, which may run in parallel.
-![Timeline](../../../images/timeline.png)
-**Service map:** Shows all services involved in the trace and how long each took.
-![Service map](../../../images/service-map.png)
+**Waterfall:** The default view of a trace. Shows spans as color-coded horizontal bars. Parent spans contain child spans. Parent time includes the time of child spans, which may run in parallel.
+![Waterfall tab of a trace showing nested spans as horizontal bars](../../../images/timeline-v2.png)
+**Trace Graph:** Shows all services involved in the trace and how they call each other, as a **Tree View** or a **Graph View**.
+![Trace Graph tab in Graph View showing the services called in a trace](../../../images/service-map-v2.png)
 **Span details:** Provide metadata such as file path, code line, service version, thread ID, and additional attributes. Events and error messages appear when available.
-![Span details](../../../images/span-details.png)
+
+A trace also has **Flame Graph** and **DAG** tabs, and a **Thread** tab for LLM traces. You can drag the tabs to reorder them.
+![Selected span with the details panel open on the Attributes tab](../../../images/span-details-v2.png)
 ::::::
 ::::::tab[How-to]
 <br>
@@ -96,13 +98,13 @@ The following configuration steps show how to set up OpenObserve for self-monito
 **Steps** <br>
 :::accordion[Step 1: Navigate to Data Sources and collect authorization details]
 Go to **Data sources** > **Custom** > **Traces**.
-![opentelemetry-collector-for-traces](../../../images/opentelemetry-collector-for-traces.png)
+![Data sources, Custom, Traces, OpenTelemetry page with the collector config](../../../images/opentelemetry-collector-for-traces-v2.png)
 Note the following values:
 
 - HTTP Endpoint under OTLP HTTP
 - Authorization header value
 
-![Navigate to traces](../../../images/navigate-to-traces.png)
+![OTLP HTTP collector config showing the endpoint and Authorization header (values hidden)](../../../images/navigate-to-traces-v2.png)
 :::
 
 :::accordion[Step 2: Configure the environment variables]
@@ -116,10 +118,9 @@ ZO_TRACING_HEADER_VALUE=<paste the Authorization value from the UI>
 ```
 
 Replace `<host>` and `<organization>` with the values you saw in the UI. Keep /v1/traces.
-This indicates that from the instance 
 :::
 
-:::accordion[Step 4: Apply changes]
+:::accordion[Step 3: Apply changes]
 Apply the environment variable changes and restart the service.
 :::
 
@@ -138,7 +139,7 @@ You can send traces directly from an external application to OpenObserve.
 
 :::accordion[Step 1: Navigate to Data Sources and collect authorization details]
 In your OpenObserve application, go to Data sources > Custom > Traces.
-![opentelemetry-collector-for-traces](../../../images/opentelemetry-collector-for-traces.png)
+![Data sources, Custom, Traces, OpenTelemetry page with the collector config](../../../images/opentelemetry-collector-for-traces-v2.png)
 From the **OTLP HTTP** section, copy the following data:
 
 - HTTP Endpoint
@@ -152,7 +153,7 @@ From the **OTLP gRPC** section, copy the following data:
 :::
 
 :::::accordion[Step 2: Choose how you want to send the data]
-![opentelemetry-collector-for-traces](../../../images/opentelemetry-collector-for-traces.png)
+![Data sources, Custom, Traces, OpenTelemetry page with the collector config](../../../images/opentelemetry-collector-for-traces-v2.png)
 
 ::::tabs
 :::tab[OpenTelemetry SDK]
@@ -216,12 +217,12 @@ A span is active while your code is handling an operation. When a span is active
 :::
 
 ::::accordion[Step 2: Tell OpenObserve how your log fields are named]
-![config-custom-trace-id](../../../images/config-custom-trace-id.png)
+![Settings, Organization Parameters, Log Details with Trace ID Field Name and Span ID Field Name](../../../images/config-custom-trace-id-v2.png)
 1. Open the OpenObserve UI.
-2. Go to **Management** > **Organization Parameters**. 
-3. Under **Log** details: 
-- Set **Trace ID** field name to match your log field name. Example `trace_id` or `traceId`.
-- Set **Span ID** field name to match your log field name. Example `span_id` or `spanId`.
+2. Go to **Settings** > **Organization Parameters**. 
+3. Under **Log Details**: 
+- Set **Trace ID Field Name** to match your log field name. Example `trace_id` or `traceId`.
+- Set **Span ID Field Name** to match your log field name. Example `span_id` or `spanId`.
 4. Save the settings.
 
 :::note[Why this matters]
@@ -241,8 +242,8 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 3. Choose the time range and select **Run query**.
 4. Open a trace to view its timeline.
 5. Now choose any of these ways to reach the related logs:
-![traces-to-logs](../../../images/traces-to-logs.png)
-**A. Use the header stream selector**:
+![Span details panel with the View Logs button highlighted](../../../images/traces-to-logs-v2.png)
+**A. Use the header stream selector** (open-source edition; Enterprise finds the related logs for you):
 
 - In the trace header, open the stream dropdown next to View Logs.
 - Pick the log stream that holds your application logs.
@@ -257,7 +258,7 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 **C. Use the span details panel**:
 
 - Select a span to open the detailed span view
-- Select View Logs next to the Span Id.
+- Select **View Logs** in the span details panel.
 - It goes to the correlated logs stream and shows the log record which is linked to the trace ID and span ID.
 :::
 :::tab[From Logs to Trace]
@@ -266,12 +267,12 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 2. Select the appropriate log stream.
 3. Select the time range and select **Run query**.
 4. Expand a log record.
-5. Select **View Trace**.
-![view-trace-from-logs](../../../images/view-trace-from-logs.png)
+5. Select **View Related** to open the traces and metrics related to the record. When service streams are turned off, the button reads **View Trace** instead, next to a traces stream picker, and opens the matching trace directly.
+![Expanded log record with the Copy to clipboard and View Related buttons above its trace_id and span_id fields](../../../images/view-trace-from-logs-v2.png)
 6. The system shows the trace that matches the `trace_id`.
 
-**Note**: If no results appear after selecting **View Trace**, confirm that in your log stream the trace ID and span ID are available in the `trace_id` and `span_id` respectively. If not, ensure the custom trace ID and span ID fields are configured in the Organization parameter section under Management. 
-![config-traces-in-org-parameter](../../../images/config-traces-in-org-parameter.png)
+**Note**: If no results appear after selecting **View Trace**, confirm that in your log stream the trace ID and span ID are available in the `trace_id` and `span_id` respectively. If not, ensure the custom trace ID and span ID fields are configured in **Settings** > **Organization Parameters**. 
+![Settings, Organization Parameters, Log Details with Trace ID Field Name and Span ID Field Name](../../../images/config-custom-trace-id-v2.png)
 :::
 ::::
 :::::
@@ -286,34 +287,35 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 Use the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar to switch the result list between individual spans and aggregated traces (the default view is **Spans**), with **Service Graph** and **Service Catalog** available on Enterprise. In **Spans** mode, the result list shows a **Spans Found** count, and selecting a span row opens its trace with that span focused. **Service Catalog** shows a per-service metrics table (requests, error rate, latency percentiles, and health status); clicking a service opens **Traces** filtered by `service_name`. See [Service Catalog](service-catalog.md) for details.
 
 :::note[Flame Graph]
-A **Flame Graph** view is also available for inspecting a trace. Selecting a span in the flame graph opens that span's details in a resizable bottom panel.
+A **Flame Graph** tab is also available for inspecting a trace. Selecting a span in the flame graph opens that span's details in a resizable bottom panel.
 :::
 
 
-## Use Trace Timeline and Service Map
-Use Trace Timeline and Service Map to inspect performance and find slow spans:
-![trace-timeline](../../../images/trace-timeline.png)
+## Use the Waterfall and Trace Graph tabs
+Use the **Waterfall** and **Trace Graph** tabs to inspect performance and find slow spans:
+![Waterfall tab with Critical path turned on](../../../images/trace-timeline-v2.png)
 1. Go to **Traces**. 
 2. From the stream selector, select the trace stream.
 3. Set a time range.
 4. Select **Run query**.
 5. From the list of traces, open a trace.
-6. In the trace view, select the Timeline toggle at the top right corner. 
-7. In **Operation Name**, expand the tree and look for the longest bars. The longest bar indicates the most time consuming span. The duration is shown at the right edge of each bar.
-8. Switch to **Service Map** toggle next to **Timeline** at the top right corner.
-9. The nodes show which services participated and their time contribution for this trace.
+6. The trace opens on the **Waterfall** tab. 
+7. In **Operation Name**, expand the tree and look for the longest bars. The longest bar indicates the most time consuming span. The duration is shown at the right edge of each bar. Turn on **Critical path** to highlight the chain of spans that set the total duration.
+8. Switch to the **Trace Graph** tab.
+9. The nodes show which services participated in this trace and how they call each other.
 
 ## Use filters to find the related logs
 1. Go to **Traces**. 
 2. From the stream selector, select the trace stream.
-3. Add a filter in the non-SQL editor to find spans with errors, for example, `span_status = "ERROR"`.4. Set a time range.
+3. Add a filter in the non-SQL editor to find spans with errors, for example, `span_status = "ERROR"`.
+4. Set a time range.
 5. Select **Run query**. 
 6. From the list of traces, open a trace. Traces should have an error badge.
-![error-badge-spans](../../../images/error-badge-spans.png)
+![Traces list with the Error Traces badge and error status badges highlighted](../../../images/error-badge-spans-v2.png)
 7. In the span tree, click the span highlighted in red warning sign. 
-![warning-spans](../../../images/warning-spans.png)
+![Waterfall with the failing span highlighted](../../../images/warning-spans-v2.png)
 8. The detailed span view opens, showing the complete context for that span.  
-![span-view](../../../images/span-view.png)
+![Error tab of a failing span showing the HTTP status, error type and exception](../../../images/span-view-v2.png)
 9. If log and trace correlation is configured, select **View Logs** in the span details panel to open the related logs for further investigation.   
 
 ## Filter by duration
@@ -332,20 +334,18 @@ While a query runs, a **Cancel** button replaces **Run query**, allowing you to 
 :::
 
 ## Explore the detailed span view
-![detailed-span-view](../../../images/detailed-span-view.png)
+![Span details panel showing the summary chips and the Attributes, Error, Events, Links, Logs and Metrics tabs](../../../images/detailed-span-view-v2.png)
 
 | Tab | What it shows | When to use |
 |-----|---------------|-------------|
-| Tags | Key/value attributes on the span (code location, service identity, status, parent links, etc.). | Identify where the work ran, whether it showed an error, and the parent/child relationship. |
-| Process | Compact identity of the emitting process (service, instance, version). | Confirm the exact instance/version for rollbacks or targeted restarts. |
-| Events | Time-ordered records emitted inside the span (INFO/ERROR messages with context). | Read the span's timeline narrative and error messages without leaving the trace. |
-| Attributes | The full JSON document is stored for this span. | Copy/paste into tickets, verify raw values, or see fields not surfaced elsewhere. |
+| Preview | Input, output, and model parameters of an LLM span. Appears only for LLM spans. | Read what the model received and returned. |
+| Attributes | All attributes of the span, as JSON or as a table. | Copy/paste into tickets, verify raw values, or see fields not surfaced elsewhere. |
 | Error | Consolidated error indicators for the span: HTTP status, gRPC status/name/message, exception events, error type, DB response status, and process exit code. | Quickly assess what failed and why without scanning across multiple tabs. |
-| DB | Database call details: DB system, the query/statement (syntax-highlighted by `db_system`), collection/table, rows returned, batch size, response status code, and a query summary. Appears only when the span has `db_*` attributes. | Inspect the database operation a span performed. |
-| Metrics | Correlated metric streams for the span's service. Use the selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) together with the **Pod** / **Node** scope chips to choose which metrics to display. **Essentials** is the default when curated streams exist. | Inspect the resource health of the service that emitted the span without leaving the trace. When no matching metrics exist, the view reads **No Data Found**. |
+| Database | Database call details: DB system, the query/statement (syntax-highlighted by `db_system`), collection/table, rows returned, batch size, response status code, and a query summary. Appears only when the span has `db_*` attributes. | Inspect the database operation a span performed. |
+| Events | Time-ordered records emitted inside the span (INFO/ERROR messages with context). | Read the span's timeline narrative and error messages without leaving the trace. |
+| Links | Links from this span to spans in other traces. | Follow work that continues in another trace. |
+| Logs | Logs correlated with the span's service. Locked without an Enterprise licence. | Read the service's logs around the span. |
+| Metrics | Correlated metric streams for the span's service. Use the selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) together with the **Pods** / **Nodes** scope chips to choose which metrics to display. **Essentials** is the default when curated streams exist. Locked without an Enterprise licence. | Inspect the resource health of the service that emitted the span without leaving the trace. When no matching metrics exist, the view reads **No Data Found**. |
 
-:::note[Enterprise]
-For LLM traces that have an associated LLM-evaluation pipeline producing evaluation records, the trace detail view shows an additional **Evaluations** tab. It displays the evaluation results for the trace. This tab appears only when such evaluation records exist for the trace.
-:::
 ::::::
 :::::::

@@ -37,7 +37,7 @@ docker run -d --name openobserve \
   public.ecr.aws/zinclabs/openobserve:latest
 ```
 
-- Your **client token**, **RUM application id**, and **ingestion endpoint** from **Data → Data Sources → Real User Monitoring** in the OpenObserve UI.
+- Your **client token**, **RUM application id**, and **ingestion endpoint** from **Data → Data sources → Real User Monitoring** in the OpenObserve UI.
 - CocoaPods for iOS builds.
 
 ## Step 1 — Install the SDK
@@ -86,7 +86,7 @@ import {
 const OPENOBSERVE_ENDPOINT = 'https://your-openobserve-instance:5080';
 
 const config = new OpenObserveProviderConfiguration(
-  'YOUR_CLIENT_TOKEN',       // clientToken from Data → Data Sources → Real User Monitoring
+  'YOUR_CLIENT_TOKEN',       // clientToken from Data → Data sources → Real User Monitoring
   'production',              // env
   TrackingConsent.GRANTED,  // pending | granted | not_granted
   {
@@ -133,7 +133,7 @@ Nothing is collected until tracking consent is `granted`. If you show a consent 
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `clientToken` | string | — (required) | Ingestion credential from **Data → Data Sources → Real User Monitoring**. |
+| `clientToken` | string | — (required) | Ingestion credential from **Data → Data sources → Real User Monitoring**. |
 | `env` | string | — (required) | Environment tag, e.g. `production`, `staging`. |
 | `trackingConsent` | `TrackingConsent` | `granted` | `pending`, `granted`, or `not_granted`. |
 | `service` | string | app bundle id | Service/app identifier used to group data. |
@@ -147,7 +147,7 @@ Nothing is collected until tracking consent is `granted`. If you show a consent 
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `applicationId` | string | — (required) | RUM application id from **Data → Data Sources → Real User Monitoring**. |
+| `applicationId` | string | — (required) | RUM application id from **Data → Data sources → Real User Monitoring**. |
 | `customEndpoint` | string | — | Your OpenObserve instance base URL. |
 | `trackInteractions` | boolean | `false` | Auto-capture taps/gestures as actions. |
 | `trackResources` | boolean | `false` | Auto-capture `fetch`/XHR network requests. |
@@ -366,7 +366,7 @@ Yes, on iOS. The React Native package brings native iOS pods that are linked via
 
 ### Where do I get the client token and application id?
 
-Both come from **Data → Data Sources → Real User Monitoring** in your OpenObserve instance. The client token authenticates ingestion and the application id identifies your app in RUM. You pass the client token to OpenObserveProviderConfiguration and the application id to rumConfiguration.applicationId, and point rumConfiguration.customEndpoint at your OpenObserve instance base URL.
+Both come from **Data → Data sources → Real User Monitoring** in your OpenObserve instance. The client token authenticates ingestion and the application id identifies your app in RUM. You pass the client token to OpenObserveProviderConfiguration and the application id to rumConfiguration.applicationId, and point rumConfiguration.customEndpoint at your OpenObserve instance base URL.
 
 ### How do I track screens with React Navigation?
 
