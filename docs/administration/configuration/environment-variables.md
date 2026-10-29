@@ -92,6 +92,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_FILE_MOVE_FIELDS_LIMIT | 2000 | Field count threshold per WAL file. If exceeded, merging is skipped on the ingester. |
 | ZO_MEM_TABLE_MAX_SIZE | 0 | Total size limit of all memtables. Multiple memtables exist for different organizations and stream types. Each memtable cannot exceed ZO_MAX_FILE_SIZE_IN_MEMORY, and the combined size cannot exceed this limit. If exceeded, the system returns a MemoryTableOverflowError to prevent out-of-memory conditions. Default is 50 percent of total memory. |
 | ZO_MEM_PERSIST_INTERVAL | 2 | Interval in seconds at which immutable memtables are persisted from memory to disk. Default is 2 seconds. |
+| ZO_WAL_FSYNC_DISABLED | true | Skips the fsync call when a WAL file is synced, so data is flushed to the OS but not forced to disk. Set to false to fsync every sync, which is safer on power loss but slower. |
 | ZO_FEATURE_SHARED_MEMTABLE_ENABLED | false | When set to true, it turns on the shared memtable feature and several organizations can use the same in-memory table instead of each organization creating its own. This helps reduce memory use when many organizations send data at the same time. It also works with older non-shared write-ahead log (WAL) files. |
 | ZO_MEM_TABLE_BUCKET_NUM | 0 | Controls how many in-memory tables OpenObserve creates. The default `0` derives the number from the memtable budget (`ZO_MEM_TABLE_MAX_SIZE` / `ZO_MAX_FILE_SIZE_IN_MEMORY` / 2), between 1 and the number of CPU cores. Behavior depends on `ZO_FEATURE_SHARED_MEMTABLE_ENABLED`. <br><br>**Shared memtable enabled (`true`):** OpenObserve creates the specified number of shared in-memory tables that all organizations use together. Higher values create more shared tables, each holding data from fewer organizations (faster writes, more memory). Lower values create fewer shared tables, each holding data from more organizations (less memory, slightly slower writes when many orgs ingest at once). <br><br>**Shared memtable disabled (`false`):** Each organization creates its own set of in-memory tables based on this value. For example, with `ZO_MEM_TABLE_BUCKET_NUM=4`, each organization creates 4 separate in-memory tables. Useful when you have only one organization, as multiple tables can improve ingestion performance. |
 
@@ -138,6 +139,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_WEB_URL | http://localhost:5080 | UI access URL. For example, http://localhost:5080 is used as redirect URL and alert URL. |
 | ZO_BASE_URI | - | If OpenObserve is hosted under a subpath, set the path prefix. Use this for deployments with a Kubernetes NGINX ingress or any reverse proxy that serves OpenObserve under a subpath such as www.example.com/openobserve. |
 | ZO_SWAGGER_ENABLED | true | Generate SWAGGER API documentation by default. |
+| ZO_EXPERIMENTAL | false | Shows experimental features in the UI. In the Enterprise edition, `true` adds **AutoObserve** to the sidebar. |
 
 ## Dashboard
 | Environment Variable                 | Default Value | Description                                       |
@@ -169,9 +171,12 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 ## File Retention
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| ZO_LOGS_FILE_RETENTION | hourly | Default time partition level for log streams. Supported values are hourly and daily. |
-| ZO_TRACES_FILE_RETENTION | hourly | Default time partition level for trace streams. Supported values are hourly and daily. |
-| ZO_METRICS_FILE_RETENTION | hourly | Default time partition level for metric streams. Supported values are hourly and daily. |
+| ZO_LOGS_QUERY_RETENTION | hourly | Time partition level used to look up log files at query time. Supported values are hourly and daily. |
+| ZO_TRACES_QUERY_RETENTION | hourly | Time partition level used to look up trace files at query time. Supported values are hourly and daily. |
+| ZO_METRICS_QUERY_RETENTION | daily | Time partition level used to look up metric files at query time. Supported values are hourly and daily. |
+| ZO_LOGS_FILE_RETENTION | hourly | Deprecated, use `ZO_LOGS_QUERY_RETENTION`. A non-default value is copied to it when that one is left at `hourly`. |
+| ZO_TRACES_FILE_RETENTION | hourly | Deprecated, use `ZO_TRACES_QUERY_RETENTION`. A non-default value is copied to it when that one is left at `hourly`. |
+| ZO_METRICS_FILE_RETENTION | hourly | Deprecated, use `ZO_METRICS_QUERY_RETENTION`. |
 
 ## Metrics
 | Environment Variable | Default Value | Description |
@@ -640,6 +645,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_CUSTOM_SLACK_URL       |            | Custom slack URL that will be used by the `Slack` menu on the openobserve UI.           |
 | O2_CUSTOM_DOCS_URL        |            | Custom docs URL that will be used by the `docs` tab on the openobserve UI.              |
 | O2_CUSTOM_HIDE_MENUS      |          | Comma-separated menu items that should not be shown in the menu on openobserve UI. For example, `metrics,traces`. |
+| O2_LOG_PATTERNS_SIMILARITY_THRESHOLD | 0.3 | How strictly log patterns group logs, from 0.0 to 1.0. Lower values create more specific patterns; higher values merge more logs into general patterns. |
 
 
 ## AI Integration
@@ -687,6 +693,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_INCIDENTS_ENABLED | false | Enables the incidents management feature for tracking and managing system incidents. |
 | O2_INCIDENTS_RCA_ENABLED | false | Enables root cause analysis (RCA) for incidents to automatically identify potential causes using AI. |
 | O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES | 4320 | Time in minutes without new alerts after which incidents are automatically resolved. Default is 4320 (3 days). Set to -1 to disable auto-resolution. |
+| O2_INCIDENTS_RCA_TIMEOUT_SECS | 600 | Time limit in seconds for one RCA run. A run still going after this ends with a timeout unless the report was already submitted. `0` uses the default 600. |
 
 ## Service Graph
 
