@@ -14,7 +14,7 @@ This lets you build automations such as:
 - Trigger a webhook when an incident reaches a critical alert count
 - Branch on `event_type` to run different destinations for different lifecycle stages
 
-:::info[Availability]
+:::note[Availability]
 This feature is available in Enterprise Edition.
 :::
 
@@ -31,13 +31,13 @@ This feature is available in Enterprise Edition.
 
 ## Create an incident-event workflow
 
-![workflow trigger picker showing Alert Fired and Incident Event options](images/incident-workflow-triggers-1.png)
+![Choose a Trigger picker showing Alert Fired and Incident Event](images/incident-workflow-triggers-1-v2.png)
 
-1. Navigate to **Pipelines > Workflows** and click **Add Workflow**.
+1. Navigate to **Data > Workflows** and click **New workflow**.
 2. When the empty canvas shows the **"Choose a Trigger"** start node, click it to open the trigger picker.
 3. Select **Incident Event** from the available trigger kinds.
-4. Build the rest of your node graph — add **Condition**, **Function**, and **Destination** nodes as needed.
-5. Click **Save**.
+4. Build the rest of your node graph — add **Condition**, **Branch**, **Function**, and **Destination** nodes as needed.
+5. Click **Publish**, or **Save as Draft** to finish later.
 
 The workflow is automatically associated with the **IncidentEvent** trigger type. No further linking is required — unlike alert-fired workflows, incident workflows do not need manual alert association.
 
@@ -115,7 +115,7 @@ Depending on the `event_type`, additional fields are present. Use the **Incident
 
 ## View the event payload
 
-![incident trigger node drawer with split view showing common and event-specific fields](images/incident-workflow-triggers-2.png)
+![Incident Trigger drawer with the Event Type selector, the sample payload and the output](images/incident-workflow-triggers-2-v2.png)
 
 1. Click the **Incident Trigger** node on the canvas.
 2. The drawer shows a read-only reference of the payload structure, split into:
@@ -127,11 +127,11 @@ Depending on the `event_type`, additional fields are present. Use the **Incident
 
 You can use a **Condition** node to route different incident events to different destinations. The Condition builder offers the flattened `meta_*` fields as filterable column suggestions specific to the incident trigger.
 
-![condition node showing incident payload fields as filterable columns](images/incident-workflow-triggers-3.png)
+![Condition step listing the incident payload fields, such as meta.severity, as filterable columns](images/incident-workflow-triggers-3-v2.png)
 
 **Example: route severity upgrades to Slack**
 
-Create a condition with the rule `meta_event_type == "severity_upgrade"`. Records matching this condition flow through the **true** edge — connect it to a **Destination** node configured as your Slack webhook. Records that don't match flow through the **false** edge and are dropped.
+Create a condition with the rule `meta_event_type == "severity_upgrade"` and connect the Condition node to a **Destination** node configured as your Slack webhook. Records matching this condition continue to the destination; records that don't match are dropped. To send different event types to different destinations, use a **Branch** node with one path per event type.
 
 **Example: escalate P1 incidents older than 30 minutes**
 
@@ -157,20 +157,20 @@ The Events panel in the Function node is seeded with the incident event's sample
 
 ## Test an incident workflow
 
-![test dialog seeded with incident event sample payload](images/incident-workflow-triggers-4.png)
+![Test Workflow dialog with Run From, the Don't actually send to destinations toggle and an incident sample input](images/incident-workflow-triggers-4-v2.png)
 
 1. Open the incident workflow and click **Test**.
 2. The test input is seeded with the incident-event sample payload (a `created` event by default).
 3. Modify the payload if needed — change `event_type` or add fields to test a specific lifecycle stage.
 4. Click **Run Test**.
 
-You can also test at the API level with `POST /api/{org_id}/workflows/{id}/test`.
+You can also test at the API level with `POST /api/{org_id}/workflows/test`.
 
 ## View incident workflows in the list
 
-![workflow list showing Incident Event label in the trigger column](images/incident-workflow-triggers-5.png)
+![Workflows list on the Incidents tab with Incident Event in the Trigger column](images/incident-workflow-triggers-5-v2.png)
 
-In the workflow list, the **Trigger** column shows **Incident Event** for incident-triggered workflows and **Alert Fired** for alert-triggered ones. You can filter, search, enable, disable, or delete incident workflows just like any other workflow.
+In the workflow list, the **Trigger** column shows **Incident Event** for incident-triggered workflows and **Alert Fired** for alert-triggered ones. Use the **Incidents** tab to list only incident-triggered workflows. You can search, pause, start, or delete incident workflows just like any other workflow.
 
 ## Association lifecycle
 

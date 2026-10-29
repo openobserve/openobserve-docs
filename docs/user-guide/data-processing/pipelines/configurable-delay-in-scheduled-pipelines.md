@@ -11,12 +11,12 @@ This feature allows you to delay the execution of a scheduled pipeline by a set 
 When editing the **Associate Query** page:
 
 1. In the **Set Variables** section, add **Delay**. Delay defines how many minutes the system waits after the scheduled trigger time. The pipeline runs only after this waiting period completes.
-![configurable-delay](../../../images/scheduled-pipeline-config-delay.png)
+![Set Variables with Delay set to 2 minutes](../../../images/scheduled-pipeline-config-delay-v2.png)
 
 2. Select **Validate and Close**.
 
 :::note[Note]
-Since Delay is a required field when setting up a scheduled pipeline, enter 0 minutes if you want the pipeline to run exactly at the scheduled time without any delay.
+Set **Delay** to 0 minutes if you want the pipeline to run exactly at the scheduled time without any delay.
 :::
 
 :::note[Example]
@@ -37,7 +37,7 @@ At 10:00 AM (scheduled time), the pipeline executes at 10:02 AM, processing data
 :::
 
 ## Related links
-- [Pipelines in OpenObserve](index.md)
+- [Pipelines in OpenObserve](pipelines.md)
 - [Create and Use Real-time Pipeline](create-and-use-real-time-pipeline.md)
 - [Create and Use Scheduled Pipeline](create-and-use-scheduled-pipeline.md)
 - [Manage Pipelines](manage-pipelines.md)

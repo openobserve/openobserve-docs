@@ -39,7 +39,7 @@ export ANTHROPIC_API_KEY="your-anthropic-key"
 
 **Install dependencies:**
 ```bash
-pip install openobserve-telemetry-sdk openai opentelemetry-instrumentation-openai
+pip install openobserve-python-sdk openai opentelemetry-instrumentation-openai
 ```
 
 **Quick Example – OpenAI Instrumentation:**
@@ -149,7 +149,7 @@ Choose your preferred installation method:
 
 ```bash
 # From PyPI (recommended)
-pip install openobserve-telemetry-sdk
+pip install openobserve-python-sdk
 
 # From source (development)
 pip install -e .
