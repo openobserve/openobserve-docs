@@ -1,107 +1,141 @@
 ---
 title: Promptfoo
-description: Instrument Promptfoo LLM evaluations and send traces to OpenObserve via OpenTelemetry.
+description: Turn on Promptfoo's built-in OpenTelemetry tracing and send eval test case, provider, and grader spans to OpenObserve over OTLP.
 ---
 
 # **Promptfoo → OpenObserve**
 
-Capture evaluation run spans, per-case pass/fail results, and token usage for every Promptfoo eval. Promptfoo is an LLM evaluation framework for testing prompt quality and model behaviour. Instrument it by wrapping eval cases in manual OTel spans using the OpenAI instrumentor for the underlying model calls.
+Capture a trace for every Promptfoo test case, with the model call, token usage, and pass/fail result. Promptfoo is an open-source CLI for evaluating and red-teaming LLM prompts and apps. It has built-in OpenTelemetry tracing: turn it on in `promptfooconfig.yaml` and point its OTLP exporter at OpenObserve.
 
 ## **Prerequisites**
 
-* Python 3.9+
+* Node.js 22.22+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key
 
 ## **Installation**
 
+Run Promptfoo with `npx`, or install it globally:
+
 ```shell
-pip install openobserve-python-sdk openinference-instrumentation-openai openai opentelemetry-api python-dotenv
+npm install -g promptfoo
 ```
 
 ## **Configuration**
 
-Create a `.env` file in your project root:
+Set these environment variables in the shell that runs the eval:
 
+```shell
+export OPENAI_API_KEY=your-openai-api-key
+export PROMPTFOO_OTEL_ENDPOINT=https://api.openobserve.ai/api/your_org_id/v1/traces
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic%20<your_base64_token>"
+export PROMPTFOO_OTEL_SERVICE_NAME=promptfoo
 ```
-OPENOBSERVE_URL=https://api.openobserve.ai/
-OPENOBSERVE_ORG=your_org_id
-OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
-OPENAI_API_KEY=your-openai-api-key
-```
+
+| Variable | Description |
+| ----- | ----- |
+| `PROMPTFOO_OTEL_ENDPOINT` | Full OTLP/HTTP traces URL, including `/v1/traces`. `OTEL_EXPORTER_OTLP_ENDPOINT` is used when this is not set. |
+| `OTEL_EXPORTER_OTLP_HEADERS` | Headers for the exporter. Encode the space after `Basic` as `%20`. |
+| `PROMPTFOO_OTEL_SERVICE_NAME` | `service_name` on the spans. Default `promptfoo`. |
 
 ## **Instrumentation**
 
-Call `OpenAIInstrumentor().instrument()` and `openobserve_init()` **before** running evaluations. Wrap each eval case in a `promptfoo.eval_case` span recording the prompt, output, and pass/fail result.
+Add `tracing.enabled: true` to `promptfooconfig.yaml`. No code changes are needed: Promptfoo creates the spans for its built-in providers, including OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, Google Vertex AI, Ollama, and the HTTP provider.
 
-```python
-from dotenv import load_dotenv
-load_dotenv()
+```yaml
+description: Tracing demo
 
-from openinference.instrumentation.openai import OpenAIInstrumentor
-from openobserve import openobserve_init
+tracing:
+  enabled: true
 
-OpenAIInstrumentor().instrument()
-openobserve_init()
+prompts:
+  - 'Answer in one sentence: {{question}}'
 
-from opentelemetry import trace
-import os
-from openai import OpenAI
+providers:
+  - openai:gpt-4o-mini
 
-tracer = trace.get_tracer(__name__)
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
-eval_cases = [
-    {"prompt": "What is distributed tracing?", "expected_keyword": "trace"},
-    {"prompt": "Explain OpenTelemetry in one sentence.", "expected_keyword": "telemetry"},
-    {"prompt": "What is a span?", "expected_keyword": "span"},
-]
-
-for case in eval_cases:
-    with tracer.start_as_current_span("promptfoo.eval_case") as span:
-        span.set_attribute("promptfoo.prompt", case["prompt"])
-        span.set_attribute("promptfoo.expected_keyword", case["expected_keyword"])
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": case["prompt"]}],
-            max_tokens=100,
-        )
-        output = response.choices[0].message.content
-        passed = case["expected_keyword"].lower() in output.lower()
-        span.set_attribute("promptfoo.output", output[:300])
-        span.set_attribute("promptfoo.pass", passed)
-        span.set_attribute("promptfoo.prompt_tokens", response.usage.prompt_tokens)
-        span.set_attribute("promptfoo.completion_tokens", response.usage.completion_tokens)
-        span.set_attribute("span_status", "OK")
-        print(f"{'PASS' if passed else 'FAIL'}: {output[:60]}...")
+tests:
+  - vars:
+      question: What is distributed tracing?
+    assert:
+      - type: icontains
+        value: trace
+  - vars:
+      question: What is an OpenTelemetry span?
+    assert:
+      - type: icontains
+        value: span
+      - type: llm-rubric
+        value: Explains that a span is one unit of work in a trace
 ```
+
+Run the eval:
+
+```shell
+npx promptfoo@latest eval
+```
+
+Promptfoo also keeps the traces in its local database, so they still show in its own web viewer. Set `PROMPTFOO_OTEL_LOCAL_EXPORT=false` to send them only to OpenObserve.
 
 ## **What Gets Captured**
 
+Each test case produces one trace. OpenObserve stores the dotted attribute names with underscores.
+
+```
+promptfoo.test_case
+├── openai:gpt-4o-mini              (target provider call)
+│   └── chat gpt-4o-mini
+├── grader icontains                (one per assertion)
+└── grader llm-rubric
+    └── grader provider <grader>    (model-graded assertions only)
+```
+
+**`promptfoo.test_case` span (root)**
+
 | Attribute | Description |
 | ----- | ----- |
-| `promptfoo_prompt` | The eval prompt |
-| `promptfoo_expected_keyword` | The keyword being asserted in the response |
-| `promptfoo_output` | The model's response |
-| `promptfoo_pass` | `true` if the assertion passed, `false` otherwise |
-| `promptfoo_prompt_tokens` | Prompt tokens consumed |
-| `promptfoo_completion_tokens` | Completion tokens consumed |
-| `duration` | Per-case eval latency |
-| `span_status` | `OK` or error status |
+| `promptfoo_test_success` | `true` if every assertion passed |
+| `promptfoo_test_score` | Test case score |
+| `promptfoo_eval_id` | Eval run ID |
+| `promptfoo_test_index` | Test case index in the eval |
+| `promptfoo_provider_id` | Provider under test |
+
+**`chat <model>` span (model call)**
+
+| Attribute | Description |
+| ----- | ----- |
+| `gen_ai_provider_name` | Provider (e.g. `openai`) |
+| `gen_ai_operation_name` | Operation (e.g. `chat`) |
+| `gen_ai_request_model` | Model requested |
+| `gen_ai_response_model` | Model that served the response |
+| `gen_ai_usage_input_tokens` | Input tokens |
+| `gen_ai_usage_output_tokens` | Output tokens |
+| `gen_ai_response_finish_reasons` | Finish reasons |
+| `promptfoo_provider_id` | Promptfoo provider ID (e.g. `openai:gpt-4o-mini`) |
+
+**`grader <assertion>` span**
+
+| Attribute | Description |
+| ----- | ----- |
+| `gen_ai_evaluation_name` | Assertion type (e.g. `icontains`, `llm-rubric`) |
+| `gen_ai_evaluation_score_label` | `pass` or `fail` |
+| `gen_ai_evaluation_score_value` | Grader score |
+| `gen_ai_evaluation_explanation` | Grader reason |
+
+The target provider span (`openai:gpt-4o-mini`) carries `promptfoo_cache_hit`. Cached responses do not call the model, so run with `--no-cache` to trace every call.
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by span name `promptfoo.eval_case` to see all eval cases
-3. Filter by `promptfoo_pass` = `false` to find failing cases
-4. Sort by duration to identify slow eval cases
-
-![Promptfoo eval trace in OpenObserve, Waterfall view with the promptfoo.eval_case span attributes](../../../images/integration/ai/promptfoo-v2.png)
+2. Filter by `service_name = promptfoo` to isolate eval traces
+3. Filter by `operation_name = promptfoo.test_case` to list test cases
+4. Filter by `promptfoo_test_success = false` to find failing cases
+5. Open a trace to see the model call and grader spans under the test case
 
 ## **Next Steps**
 
-With Promptfoo eval cases in OpenObserve, you can track pass rates over time, alert on regression when `promptfoo_pass` drops, and correlate eval failures with specific prompts or models.
+With Promptfoo traces in OpenObserve, you can track pass rates and token usage across eval runs, alert when `promptfoo_test_success` drops, and compare models by latency.
 
 ## **Read More**
 
