@@ -5,7 +5,7 @@ import { BASE_PATH, KAPA_WEBSITE_ID, SITE_URL } from '@/lib/constants';
  * kapa.ai "Ask AI" widget: a floating button that opens a chat answered from
  * these docs, with kapa's own search tab alongside.
  *
- * Renders nothing until `KAPA_WEBSITE_ID` in lib/constants.ts is set.
+ * Renders nothing until NEXT_PUBLIC_KAPA_WEBSITE_ID is set (see lib/constants.ts).
  * Deliberately leaves `data-modal-open-on-command-k` off — Ctrl/Cmd+K already
  * opens the Fumadocs search (components/search-dialog.tsx).
  *

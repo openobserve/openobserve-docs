@@ -48,6 +48,8 @@ jobs:
                   aws-region: us-east-2 # or your preferred region
 
             - name: Build static site
+              env:
+                  NEXT_PUBLIC_KAPA_WEBSITE_ID: ${{ vars.KAPA_WEBSITE_ID }}
               run: |
                   rm -rf out
                   pnpm build

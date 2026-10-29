@@ -17,8 +17,11 @@ export const SITE_URL = 'https://openobserve.ai';
  * kapa.ai "Ask AI" widget integration ID, from app.kapa.ai → Integrations →
  * "Copy integration ID". Public by design: kapa only serves it on allow-listed
  * domains. Empty disables the widget (components/kapa-widget.tsx).
+ *
+ * Read at build time from NEXT_PUBLIC_KAPA_WEBSITE_ID: `.env` locally, the
+ * `KAPA_WEBSITE_ID` repository variable in the deploy workflows.
  */
-export const KAPA_WEBSITE_ID = '';
+export const KAPA_WEBSITE_ID = process.env.NEXT_PUBLIC_KAPA_WEBSITE_ID ?? '';
 
 /**
  * Card shown when a docs page is shared. Reuses the marketing site's existing
