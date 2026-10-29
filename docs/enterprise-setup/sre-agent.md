@@ -498,7 +498,7 @@ Chat persistence is off by default. To turn it on, set these variables on OpenOb
 
 | Environment Variable | Required value | Description |
 |----------------------|----------------|-------------|
-| O2_AI_CHAT_PERSISTENCE_ENABLED | `true` | Turns on server-side chat persistence. Takes effect only when the AI Assistant is enabled and an SRE Agent URL is configured. |
+| O2_AI_CHAT_PERSISTENCE_ENABLED | `false` | Turns on server-side chat persistence. Takes effect only when the AI Assistant is enabled and an SRE Agent URL is configured. |
 | O2_AI_INTERNAL_SECRET | a shared secret | Sent to the SRE Agent on persisted chat turns and restores. It must equal the agent's `O2_INTERNAL_API_SECRET`; without it, persisted turns fail with `internal_secret_required`. |
 
 Conversation events are stored in the `_o2_ai_chat_events` stream of each organization.
