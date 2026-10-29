@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { BASE_PATH } from '@/lib/constants';
+import { BASE_PATH, KAPA_WEBSITE_ID } from '@/lib/constants';
+import { AskAiButton } from '@/components/ask-ai-button';
 
 /**
  * Shared chrome for the docs shell. The marketing site lives at the domain root,
@@ -38,11 +39,20 @@ export const baseOptions: BaseLayoutProps = {
 };
 
 /**
- * Cloud sign-up call to action. Passed as the docs sidebar's `banner`, which
- * fumadocs renders directly below the search trigger (and at the top of the
- * mobile drawer).
+ * Passed as the docs sidebar's `banner`, which fumadocs renders directly below
+ * the search trigger (and at the top of the mobile drawer): the cloud sign-up
+ * call to action, plus "Ask AI" once kapa.ai is configured.
  */
-export function SidebarGetStarted() {
+export function SidebarBanner() {
+  return (
+    <div className="flex flex-col gap-2">
+      <SidebarGetStarted />
+      {KAPA_WEBSITE_ID && <AskAiButton />}
+    </div>
+  );
+}
+
+function SidebarGetStarted() {
   return (
     <a
       href="https://cloud.openobserve.ai/"

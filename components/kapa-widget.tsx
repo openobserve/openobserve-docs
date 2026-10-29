@@ -2,8 +2,9 @@ import Script from 'next/script';
 import { BASE_PATH, KAPA_WEBSITE_ID, SITE_URL } from '@/lib/constants';
 
 /**
- * kapa.ai "Ask AI" widget: a floating button that opens a chat answered from
- * these docs, with kapa's own search tab alongside.
+ * kapa.ai "Ask AI" widget: a chat answered from these docs, with kapa's own
+ * search tab alongside. kapa's floating launcher button is hidden; the modal is
+ * opened from the sidebar instead (components/ask-ai-button.tsx).
  *
  * Renders nothing until NEXT_PUBLIC_KAPA_WEBSITE_ID is set (see lib/constants.ts).
  * Deliberately leaves `data-modal-open-on-command-k` off — Ctrl/Cmd+K already
@@ -29,6 +30,7 @@ export function KapaWidget() {
       data-project-color="#7c3aed"
       data-project-logo={`${SITE_URL}${BASE_PATH}/images/logo_circle.png`}
       data-search-mode-enabled="true"
+      data-button-hide="true"
     />
   );
 }
