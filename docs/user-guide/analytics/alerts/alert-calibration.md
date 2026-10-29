@@ -29,6 +29,8 @@ The form warns you about two settings that waste runs:
 - **Run every** longer than **Analysis window**: the time between windows is never analyzed.
 - **Analysis window** shorter than a rule needs (see the table below): every run declines that rule for every alert.
 
+![Alert calibration settings with Run every set to 7 days and Analysis window set to 1 day, showing both warnings](images/alert-calibration-settings-v2.png)
+
 A window longer than the cadence is allowed, but consecutive runs overlap and report the same findings again.
 
 ## What it checks
@@ -56,9 +58,13 @@ The page has two tabs.
 
 The **Dashboard** tab sums up the latest run: **Findings**, **Alerts in scope**, and **Coverage**. Under **What needs attention**, each rule lists the alerts it flagged. Click **Open alert** to edit an alert, or **View evidence** to open the run's details.
 
+![Alert Calibration Dashboard tab with the Findings, Alerts in scope and Coverage tiles and the What needs attention list for each rule](images/alert-calibration-dashboard-v2.png)
+
 ### Runs
 
 The **Runs** tab lists every run with its **Findings** and **Coverage**, and a **Findings trend** chart. Filter by **All runs**, **With findings**, or **Coverage gaps**, or search runs by alert name.
+
+![Alert Calibration Runs tab with the run list, its Findings and Coverage columns, and the All runs, With findings and Coverage gaps filters](images/alert-calibration-runs-v2.png)
 
 Click a run to open its digest:
 

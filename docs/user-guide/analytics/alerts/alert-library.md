@@ -22,12 +22,16 @@ Each card shows an alert's title, severity, category, and the stream it queries.
 - **Alert type**: **All**, **Threshold**, or **Anomaly**.
 - The counters above the cards: **Ready to use**, **Not ingested**, or **All**.
 
+![Alert Library with the category rail, Severity and alert type filters, the Ready to use, Not ingested and All counters, and the alert cards](images/alert-library-gallery-v2.png)
+
 ### Ready to use or not ingested
 
 OpenObserve checks every alert against the streams in your organization. The counters split the catalog in two:
 
 - **Ready to use**: every stream the alert needs exists in this organization, with the right stream type.
 - **Not ingested**: a stream the alert needs does not exist, so the alert would never fire. The card shows **Not ingested:** and the stream name.
+
+![Ready trace alert cards next to a card that shows Not ingested and the missing metric stream](images/alert-library-not-ingested-v2.png)
 
 The details panel goes one step further and checks whether the stream receives data:
 
@@ -53,9 +57,13 @@ From the details panel:
 - Click **Add to alerts** to add this one alert. The add wizard opens with it selected.
 - Click **Customize in editor** to open the standard alert editor, prefilled with the alert. Use this to change the query or the threshold before you save it.
 
+![Details panel of a ready alert with What it detects, the query, the stream, the Would not fire preview, and the Customize in editor and Add to alerts buttons](images/alert-library-drawer-preview-v2.png)
+
 ## Add alerts
 
 To add several alerts at once, tick the box on each card, or use **Select all in view** or a category's **Select all**. Your selection is kept when you change filters, and the selection bar shows how many picks are **not in view**. Click **Add *N* alerts**.
+
+![Two ticked alert cards with the selection bar showing 3 selected, 1 not in view, and the Add 3 alerts button](images/alert-library-bulk-select-v2.png)
 
 The **Add alerts from the library** wizard has five steps:
 
@@ -64,6 +72,12 @@ The **Add alerts from the library** wizard has five steps:
 3. **Folder**: the folder the alerts are saved in. Click **+** to create a folder for this batch.
 4. **Tune** (optional): turn on **Set these for every alert in this batch** to override **Run every** and **Silence for** (minutes). The library defaults are kept otherwise. Thresholds stay as they are in each alert; to change one, add that alert on its own through **Customize in editor**.
 5. **Add**: click **Add *N* alerts**. The alerts are created one by one, each with its own result. A failure does not stop the rest, and **Retry *N* failures** retries only the ones that failed.
+
+![Destination step of the Add alerts from the library wizard with a webhook destination selected](images/alert-library-install-destination-v2.png)
+
+![Tune step with Set these for every alert in this batch turned on and Run every and Silence for set to 10 minutes](images/alert-library-install-tune-v2.png)
+
+![Add step after the run, with each of the three alerts marked as added](images/alert-library-install-results-v2.png)
 
 When a batch holds more than 50 alerts, you must tick a confirmation, for example **I understand this creates 60 alerts in default, each notifying slack-oncall**, before **Add** is enabled. The tick resets when you change the selection, folder, or destination.
 
