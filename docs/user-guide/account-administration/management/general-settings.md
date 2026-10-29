@@ -63,7 +63,6 @@ Use this field to replace the default OpenObserve text shown in the header. Ente
 Upload custom branding logos to replace the default OpenObserve logo in the header. You can upload one logo for light mode and one for dark mode; each is shown when users are in that theme.
 
 - Supported file formats: PNG, JPG, JPEG, GIF, BMP
-- Maximum file size: 20 KB
 - Maximum dimensions: 150 by 30 pixels
 
 After uploading the file, select the save icon to apply the logo.
