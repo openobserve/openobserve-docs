@@ -79,7 +79,7 @@ The test endpoint is also available via the API at `POST /api/{org_id}/workflows
 
 To have a workflow execute when an alert fires, link it in the alert configuration.
 
-![alert form showing workflows field](images/workflows-4.png)
+![Alert Settings with the Destination field open on its Workflows group, showing two linked workflows](images/workflows-4-v2.png)
 
 1. Open an existing alert or create a new one.
 2. In the alert's destinations field, select one or more workflows from the **Workflows** group.
@@ -124,7 +124,7 @@ A workflow trigger payload looks like:
 
 The workflow history shows every execution of a published workflow, with timing and status. Drafts have no runs.
 
-![workflow execution history](images/workflows-5.png)
+![Workflow runs page with the Workflow History panel listing failed alert runs and a successful test run](images/workflows-5-v2.png)
 
 1. Open a published workflow and click **History**. To see every run in a full page, select **Open Full Runs View**.
 2. Use the time range picker to filter executions. The default range is the last 7 days (subject to the `max_query_range` setting on the `triggers` stream).
@@ -148,7 +148,7 @@ When a workflow run produces node-level errors, the errors and the input data th
    - The input data that reached each errored node.
    - The complete initial input data for the run.
 
-![workflow error details with input data](images/workflows-6.png)
+![Failed run of a Destination step showing the input data, the destination configuration and the error output](images/workflows-6-v2.png)
 
 ### Retry a failed run
 
