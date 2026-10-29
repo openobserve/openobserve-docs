@@ -80,6 +80,8 @@ const REDIRECT_PATHS = new Set([
   'user-guide/rum',
   'quickstart',
   'downloads',
+  'user-guide/concepts',
+  'user-guide/streams',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
@@ -133,6 +135,8 @@ const REDIRECTS = {
   'user-guide/rum': 'user-guide/data-exploration/rum',
   quickstart: 'getting-started',
   downloads: 'getting-started',
+  'user-guide/concepts': 'user-guide',
+  'user-guide/streams': 'user-guide/data-processing/streams/streams-in-openobserve',
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {
