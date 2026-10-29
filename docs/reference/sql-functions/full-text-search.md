@@ -19,6 +19,11 @@ The full-text search functions allow you to filter records based on keyword or p
 | [`NOT match_all`](#not-match_all) | Inverse of `match_all` |
 | [`re_match`](#re_match) | Regular-expression match on a single field |
 | [`re_not_match`](#re_not_match) | Inverse of `re_match` |
+| [`match_field`](#str_match) | Alias of `str_match` |
+| [`match_field_ignore_case`](#str_match_ignore_case) | Alias of `str_match_ignore_case` |
+| [`fuzzy_match`](#fuzzy_match) | Typo-tolerant match on a single field |
+| [`fuzzy_match_all`](#fuzzy_match_all) | Typo-tolerant keyword search across all full-text-indexed fields |
+| [`match_all_hash`](#match_all_hash) | Finds records that hold the hash of a value redacted with Sensitive Data Redaction |
 
 ## `str_match`
 
@@ -200,7 +205,71 @@ This query returns logs from the `docs_sql_examples` stream where the `k8s_conta
 
 ![Logs results for re_not_match on k8s_container_name](../../images/sql-reference/re-not-match-v2.png)
 
+## `fuzzy_match`
+
+**Syntax**: `fuzzy_match(field, 'value', distance)`
+
+**Description**:
+
+- Returns records where any word in `field` is within `distance` edits (Levenshtein distance: one insert, delete, or change of a character per edit) of `value`.
+- The field is split into words the same way the full-text index splits text, and every word is lowercased before the comparison.
+- `distance` is an integer, for example `1` or `2`.
+
+**Example**:
+```sql
+SELECT _timestamp, log FROM "docs_sql_examples" WHERE fuzzy_match(log, 'timeout', 1)
+```
+This query returns logs whose `log` field contains `timeout`, or a word one edit away from it, such as `timout` or `timeouts`.
+
+:::note[Gotchas]
+- Pass `value` in lowercase. The words from the field are lowercased, but `value` is not, so `fuzzy_match(log, 'Timeout', 0)` never matches.
+- `fuzzy_match` reads the field value of every record in the time range. It does not use the full-text index, so keep the time range short on large streams.
+- A large `distance` on a short word matches almost anything: `fuzzy_match(log, 'err', 2)` also matches `ear`, `her`, and `error`.
+:::
+
+## `fuzzy_match_all`
+
+**Syntax**: `fuzzy_match_all('value', distance)`
+
+**Description**:
+
+- Typo-tolerant version of [`match_all`](#match_all): returns records where any full-text-indexed field contains a word within `distance` edits of `value`.
+- When the stream has an inverted index, the search runs on the index. Otherwise each full-text-indexed field is checked with `fuzzy_match`.
+
+**Example**:
+```sql
+SELECT _timestamp, k8s_container_name, log FROM "docs_sql_examples" WHERE fuzzy_match_all('querier', 1)
+```
+This query returns logs where a full-text-indexed field contains `querier` or a near spelling such as `querer` or `queriers`.
+
+:::note[Gotchas]
+- On the index path, `distance` must be `0`, `1`, or `2`. Larger values fail the query.
+- Use a single lowercase word. `fuzzy_match_all` does not support the `*` prefix or contains patterns of `match_all`.
+- The stream needs at least one Full Text Search field, or the query returns an error.
+:::
+
+## `match_all_hash`
+
+**Syntax**: `match_all_hash('value')`
+
+**Description**:
+
+- Finds records where a full-text-indexed field contains the hash of `value`, as written by the **Hash** action of [Sensitive Data Redaction](../../user-guide/account-administration/management/sensitive-data-redaction.md).
+- OpenObserve computes the MD5 hash of `value` and searches for it, so you can look up a card number or email address that is no longer stored in clear text.
+
+**Example**:
+```sql
+SELECT _timestamp, log FROM "docs_sql_examples" WHERE match_all_hash('4111-1111-1111-1111')
+```
+This query returns records containing a hashed value such as `[REDACTED:907fe4882defa795fa74d530361d8bfb]`.
+
+:::note[Gotchas]
+- `value` must be exactly the original text. Case and spacing count, because a different input gives a different hash.
+- Only Full Text Search fields are searched, as with `match_all`.
+:::
+
 ## Next steps
+
 
 - [SQL functions reference](index.md): full list of functions you can use in queries.
 - [Example queries](../../user-guide/data-exploration/example-queries.md): copy-paste filters and SQL to try.

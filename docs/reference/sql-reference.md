@@ -5,6 +5,8 @@ description: Explore OpenObserve's full-text, array, and aggregate functions for
 
 This guide describes the custom SQL functions supported in OpenObserve for querying and processing logs and time series data. These functions extend the capabilities of standard SQL by enabling full-text search, array processing, and time-based aggregations.
 
+This page covers the most used functions. For the full list, including fuzzy search, regex extraction, date and time, and sequence functions, see [SQL Functions](sql-functions/index.md).
+
 ## Full-text search functions
 These functions allow you to filter records based on keyword or pattern matches within one or more fields.
 
