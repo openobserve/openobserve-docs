@@ -9,7 +9,7 @@ Trace every remote chain invocation when calling a LangServe-hosted API from a P
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * A running LangServe server (see the server setup below)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
@@ -17,7 +17,7 @@ Trace every remote chain invocation when calling a LangServe-hosted API from a P
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-langchain langserve python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-langchain langserve python-dotenv
 ```
 
 ## **Configuration**
@@ -85,7 +85,7 @@ print(result)
 | Attribute | Description |
 | ----- | ----- |
 | `operation_name` | `RemoteRunnable.workflow` |
-| `llm_observation_type` | `WORKFLOW` |
+| `gen_ai_operation_name` | `invoke_workflow` |
 | `traceloop_entity_name` | `RemoteRunnable` |
 | `traceloop_workflow_name` | `RemoteRunnable` |
 | `traceloop_span_kind` | `workflow` |
@@ -102,7 +102,7 @@ Token counts are not available on the client side because the LLM call happens i
 3. Use `duration` to monitor remote chain latency end-to-end
 4. Error spans from invalid endpoints appear with `span_status: ERROR`
 
-![LangServe trace in OpenObserve](../../../images/integration/ai/langserve.png)
+![LangServe trace in OpenObserve, Waterfall view with the RemoteRunnable.workflow span attributes](../../../images/integration/ai/langserve-v2.png)
 
 ## **Next Steps**
 

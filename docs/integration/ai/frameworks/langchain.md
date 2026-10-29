@@ -10,14 +10,14 @@ Automatically trace every chain execution, LLM call, tool invocation, and retrie
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-langchain python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-langchain python-dotenv
 ```
 
 For LangGraph applications, also install LangGraph:
@@ -52,6 +52,9 @@ Call `LangchainInstrumentor().instrument()` **before** importing any LangChain m
 ### LangChain
 
 ```python
+from dotenv import load_dotenv
+load_dotenv()
+
 from opentelemetry.instrumentation.langchain import LangchainInstrumentor
 from openobserve import openobserve_init
 
@@ -80,6 +83,9 @@ print(response)
 LangGraph builds on LangChain, so the same instrumentor covers graph executions, node transitions, and all nested LLM calls.
 
 ```python
+from dotenv import load_dotenv
+load_dotenv()
+
 from opentelemetry.instrumentation.langchain import LangchainInstrumentor
 from openobserve import openobserve_init
 
@@ -117,10 +123,10 @@ print(result["messages"][-1].content)
 | `gen_ai_request_model` | Model name (e.g. `gpt-4o`) |
 | `gen_ai_usage_input_tokens` | Input tokens consumed |
 | `gen_ai_usage_output_tokens` | Output tokens generated |
-| `llm_usage_tokens_total` | Total tokens |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
-| `llm_usage_cost_total` | Estimated total cost in USD |
+| `gen_ai_usage_total_tokens` | Total tokens |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost` | Estimated total cost in USD |
 | `langchain_retriever_query` | Query sent to a retriever |
 | `langchain_tool_name` | Name of the tool invoked |
 | `duration` | End-to-end span latency |

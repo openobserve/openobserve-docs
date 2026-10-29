@@ -17,7 +17,7 @@ Automatically capture agent runs, LLM calls, tool executions, and token usage fo
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-google-adk google-adk python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-google-adk google-adk python-dotenv
 ```
 
 ## **Configuration**
@@ -106,11 +106,11 @@ Each agent invocation produces a trace with a hierarchy of spans: `invocation [<
 | `gen_ai_request_model` | Model used (e.g. `gemini-2.5-flash`) |
 | `gen_ai_system` | `gcp.vertex.agent` |
 | `gen_ai_conversation_id` | Session identifier passed to the runner |
-| `llm_usage_input_tokens` | Input tokens for the LLM call |
-| `llm_usage_output_tokens` | Output tokens for the LLM call |
-| `llm_usage_tokens_total` | Total tokens consumed |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens for the LLM call |
+| `gen_ai_usage_output_tokens` | Output tokens for the LLM call |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `llm_token_count_completion_details_reasoning` | Reasoning tokens (Gemini 2.5 thinking budget) |
 | `user_id` | User identifier passed to the runner |
 | `duration` | Span latency |
@@ -123,7 +123,7 @@ Each agent invocation produces a trace with a hierarchy of spans: `invocation [<
 3. Expand the tree to see `agent_run`, `call_llm`, and `execute_tool` child spans
 4. Click a `call_llm` span to inspect token counts, model, and cost for that specific LLM call
 
-![Google ADK trace in OpenObserve](../../../images/integration/ai/google-adk-1.png)
+![Google ADK trace in OpenObserve, Waterfall view with the invocation [shop_assistant] span attributes](../../../images/integration/ai/google-adk-1-v2.png)
 
 ## **Next Steps**
 

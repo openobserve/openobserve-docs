@@ -9,7 +9,7 @@ Capture latency, collection name, and result counts for every Milvus vector sear
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A Milvus instance — local server (`docker run -p 19530:19530 milvusdb/milvus:latest standalone`), Milvus Lite (embedded, no server needed), or [Zilliz Cloud](https://zilliz.com/)
@@ -17,7 +17,7 @@ Capture latency, collection name, and result counts for every Milvus vector sear
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk "pymilvus==2.5.1" milvus-lite opentelemetry-api python-dotenv
+pip install openobserve-python-sdk "pymilvus==2.5.1" milvus-lite opentelemetry-api python-dotenv
 ```
 
 Milvus Lite requires `pymilvus==2.5.1`. For a remote Milvus server or Zilliz Cloud, any recent `pymilvus` version works.
@@ -108,7 +108,7 @@ Each operation wrapped in a span produces the following attributes. OpenObserve 
 3. Click any span to inspect `milvus_collection` and `milvus_result_count`
 4. Sort by duration to identify slow queries, then tune indexing parameters
 
-![Milvus trace in OpenObserve](../../../images/integration/ai/milvus.png)
+![Milvus trace in OpenObserve, Waterfall view with the milvus.search span attributes](../../../images/integration/ai/milvus-v2.png)
 
 ## **Next Steps**
 

@@ -17,7 +17,7 @@ Automatically capture module executions, LLM calls, and optimiser runs for every
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk "openinference-instrumentation-dspy==0.1.16" "dspy==2.6.13" python-dotenv
+pip install openobserve-python-sdk "openinference-instrumentation-dspy==0.1.16" "dspy==2.6.13" python-dotenv
 ```
 
 ## **Configuration**
@@ -90,7 +90,7 @@ Each DSPy module call produces a root `CHAIN` span with a child `LLM` span for e
 | ----- | ----- |
 | `openinference_span_kind` | `CHAIN` |
 | `operation_name` | Module and method name (e.g. `Predict(QA).forward`) |
-| `llm_observation_type` | `CHAIN` |
+| `gen_ai_operation_name` | `chain` |
 | `input_mime_type` | `application/json` |
 | `output_mime_type` | `application/json` |
 | `duration` | End-to-end module latency |
@@ -102,13 +102,13 @@ Each DSPy module call produces a root `CHAIN` span with a child `LLM` span for e
 | ----- | ----- |
 | `openinference_span_kind` | `LLM` |
 | `operation_name` | `LM.__call__` |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_invocation_parameters` | JSON string with temperature, max_tokens, and other call parameters |
-| `llm_request_parameters_temperature` | Temperature setting for the call |
-| `llm_request_parameters_max_tokens` | Max tokens configured |
-| `llm_usage_tokens_input` | Prompt token count |
-| `llm_usage_tokens_output` | Completion token count |
-| `llm_usage_tokens_total` | Total tokens consumed |
+| `gen_ai_request_temperature` | Temperature setting for the call |
+| `gen_ai_request_max_tokens` | Max tokens configured |
+| `gen_ai_usage_input_tokens` | Prompt token count |
+| `gen_ai_usage_output_tokens` | Completion token count |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
 | `span_status` | `OK` on success, `ERROR` on failure |
 
 Note: `llm_invocation_parameters` includes the API key in plaintext. Avoid exposing raw span data in dashboards shared with untrusted viewers.
@@ -118,9 +118,9 @@ Note: `llm_invocation_parameters` includes the API key in plaintext. Avoid expos
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Filter by `operation_name` containing `forward` to find DSPy module spans
 3. Click any span to expand the trace and see the child `LM.__call__` LLM span
-4. Inspect `llm_usage_tokens_input` and `llm_usage_tokens_output` on the LLM span for token counts
+4. Inspect `gen_ai_usage_input_tokens` and `gen_ai_usage_output_tokens` on the LLM span for token counts
 
-![DSPy trace in OpenObserve](../../../images/integration/ai/dspy.png)
+![DSPy trace in OpenObserve, Waterfall view with the Predict.forward span attributes](../../../images/integration/ai/dspy-v2.png)
 
 ## **Next Steps**
 

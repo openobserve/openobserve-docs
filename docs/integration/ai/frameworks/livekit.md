@@ -113,18 +113,18 @@ Each LLM call produces a manual `livekit.llm_call` root span with nested spans f
 | `gen_ai_system` | Provider system (e.g. `api.openai.com`) |
 | `gen_ai_usage_input_tokens` | Input tokens (numeric) |
 | `gen_ai_usage_output_tokens` | Output tokens (numeric) |
-| `llm_input` | Full input messages as JSON |
-| `llm_output_content` | Full response text |
+| `gen_ai_input_messages` | Full input messages as JSON |
+| `gen_ai_output_messages` | Full response text |
 
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `service_name = livekit-test` to isolate LiveKit spans
+2. Filter by `service_name = my-app` to isolate LiveKit spans
 3. Filter by `operation_name = livekit.llm_call` to see the root span for each call
 4. Expand a trace to see the nested `llm_request` and `llm_request_run` spans
 5. Filter by `span_status = ERROR` to find failed calls
 
-![LiveKit traces in OpenObserve](../../../images/integration/ai/livekit.png)
+![LiveKit trace in OpenObserve, Waterfall view with the livekit.llm_call span attributes](../../../images/integration/ai/livekit-v2.png)
 
 ## **Next Steps**
 

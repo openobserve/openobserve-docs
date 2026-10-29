@@ -9,7 +9,7 @@ Capture session run latency, exit codes, and output lengths for every Codename G
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * Codename Goose CLI installed (see below)
@@ -26,7 +26,7 @@ curl -fsSL https://github.com/block/goose/releases/download/stable/download_cli.
 Install the Python dependencies:
 
 ```shell
-pip install openobserve opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**
@@ -114,7 +114,7 @@ trace.get_tracer_provider().force_flush()
 3. Filter by `goose_exit_code` != `0` to find failed sessions
 4. Sort by duration to identify the slowest prompts
 
-![Codename Goose trace in OpenObserve](../../../images/integration/ai/codename-goose.png)
+![Codename Goose trace in OpenObserve, Waterfall view with the goose.session_run span attributes](../../../images/integration/ai/codename-goose-v2.png)
 
 ## **Next Steps**
 

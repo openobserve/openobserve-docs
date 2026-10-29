@@ -17,7 +17,7 @@ Capture token usage, latency, and model metadata for every Mirascope call. Miras
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk mirascope python-dotenv
+pip install openobserve-python-sdk mirascope python-dotenv
 ```
 
 ## **Configuration**
@@ -111,7 +111,7 @@ These are the attributes you set explicitly on each manual span.
 2. Filter by operation name `mirascope.call` to find Mirascope spans
 3. Click any span to inspect token counts and the prompt and response
 
-![Mirascope trace in OpenObserve](../../../images/integration/ai/mirascope.png)
+![Mirascope trace in OpenObserve, Waterfall view with the mirascope.call span attributes](../../../images/integration/ai/mirascope-v2.png)
 
 ## **Next Steps**
 

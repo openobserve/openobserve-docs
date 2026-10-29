@@ -17,7 +17,7 @@ Automatically capture crew executions, agent runs, task completions, and all nes
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-crewai crewai python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-crewai crewai python-dotenv
 ```
 
 ## **Configuration**
@@ -90,7 +90,6 @@ Each `crew.kickoff()` call produces a root `crewai.workflow` span with child spa
 | ----- | ----- |
 | `gen_ai_system` | `crewai` |
 | `gen_ai_operation_name` | `invoke_agent` |
-| `llm_observation_type` | `AGENT` for agent spans |
 | `traceloop_span_kind` | `task` for task spans, `agent` for agent spans |
 | `operation_name` | Task description with `.task` suffix |
 | `crewai_task_description` | Full task description |
@@ -111,7 +110,7 @@ Each `crew.kickoff()` call produces a root `crewai.workflow` span with child spa
 3. Click any root `crewai.workflow` span to open the full hierarchy
 4. Expand the tree to see agent spans, task spans, and nested LLM calls
 
-![CrewAI trace in OpenObserve](../../../images/integration/ai/crewai.png)
+![CrewAI trace in OpenObserve, Waterfall view with the crewai.workflow span attributes](../../../images/integration/ai/crewai-v2.png)
 
 ## **Next Steps**
 

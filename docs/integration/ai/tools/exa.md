@@ -9,7 +9,7 @@ Capture latency, query text, and result counts for every Exa semantic search cal
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An [Exa](https://exa.ai/) API key
@@ -17,7 +17,7 @@ Capture latency, query text, and result counts for every Exa semantic search cal
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk exa-py opentelemetry-api python-dotenv
+pip install openobserve-python-sdk exa-py opentelemetry-api python-dotenv
 ```
 
 ## **Configuration**
@@ -79,7 +79,7 @@ for r in result.results:
 3. Click a span to inspect the query and result count
 4. Sort by duration to find the slowest searches
 
-![Exa search trace in OpenObserve](../../../images/integration/ai/exa.png)
+![Exa search trace in OpenObserve, Waterfall view with the exa.search span attributes](../../../images/integration/ai/exa-v2.png)
 
 ## **Next Steps**
 

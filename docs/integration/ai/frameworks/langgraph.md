@@ -9,7 +9,7 @@ Automatically trace every graph execution, node transition, and LLM call in your
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key (or whichever model backend your graph uses)
@@ -17,7 +17,7 @@ Automatically trace every graph execution, node transition, and LLM call in your
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-langchain langchain-openai langgraph python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-langchain langchain-openai langgraph python-dotenv
 ```
 
 ## **Configuration**
@@ -112,10 +112,8 @@ Each `app.invoke()` call produces a root span with child spans per node and LLM 
 | `gen_ai_system` | `openai` |
 | `gen_ai_usage_input_tokens` | Input token count |
 | `gen_ai_usage_output_tokens` | Output token count |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `llm_request_type` | `chat` |
 | `duration` | Span latency |
 | `span_status` | `UNSET` on success, `ERROR` on failure |
@@ -127,7 +125,7 @@ Each `app.invoke()` call produces a root span with child spans per node and LLM 
 3. Click any root span to open the waterfall view and see per-node spans
 4. Check `traceloop_association_properties_langgraph_node` to identify which graph node each LLM call belongs to
 
-![LangGraph trace in OpenObserve](../../../images/integration/ai/langgraph.png)
+![LangGraph trace in OpenObserve, Waterfall view with the LangGraph.workflow span attributes](../../../images/integration/ai/langgraph-v2.png)
 
 ## **Next Steps**
 

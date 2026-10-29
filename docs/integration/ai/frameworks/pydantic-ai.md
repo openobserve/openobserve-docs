@@ -17,13 +17,13 @@ Automatically capture agent runs, tool calls, structured output extractions, and
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk pydantic-ai python-dotenv
+pip install openobserve-python-sdk pydantic-ai python-dotenv
 ```
 
 If you are on Python 3.9, pin to the last compatible version:
 
 ```shell
-pip install openobserve-telemetry-sdk "pydantic-ai==0.8.1" python-dotenv
+pip install openobserve-python-sdk "pydantic-ai==0.8.1" python-dotenv
 ```
 
 ## **Configuration**
@@ -128,7 +128,7 @@ Each `agent.run_sync()` or `agent.run()` call produces a root agent span. Pydant
 3. Click any span to inspect `final_result`, `all_messages_events`, and token counts
 4. Filter by `model_name` to compare performance across different models
 
-![Pydantic AI trace in OpenObserve](../../../images/integration/ai/pydantic-ai.png)
+![Pydantic AI trace in OpenObserve, Waterfall view with the agent run span attributes](../../../images/integration/ai/pydantic-ai-v2.png)
 
 ## **Next Steps**
 

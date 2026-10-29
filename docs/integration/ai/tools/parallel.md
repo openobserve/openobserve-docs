@@ -9,7 +9,7 @@ Capture run IDs, processor tier, status, and latency for every Parallel AI task 
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Parallel](https://parallel.ai/) API key
@@ -17,7 +17,7 @@ Capture run IDs, processor tier, status, and latency for every Parallel AI task 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**
@@ -98,7 +98,7 @@ Parallel returns immediately with a `queued` status and a `run_id`. Poll `GET /t
 3. Click a `parallel.run_task` span to inspect the run ID, processor tier, and status
 4. Filter by `span_status` = `ERROR` to identify failed submissions
 
-![Parallel task trace in OpenObserve](../../../images/integration/ai/parallel.png)
+![Parallel task trace in OpenObserve, Waterfall view with the parallel.run_task span attributes](../../../images/integration/ai/parallel-v2.png)
 
 ## **Next Steps**
 
