@@ -293,3 +293,19 @@ Each request receives sixteen cores:
 `1024GB / 1GB per second / 16 cores = 64 seconds`
 <br>
 If the number of requests exceeds the value of `O2_WORK_GROUP_LONG_MAX_CONCURRENCY`, the extra requests wait in the queue.
+
+## Renamed settings from earlier versions
+The earlier `O2_SEARCH_GROUP_*` settings no longer exist. Per-group CPU and memory limits became a single resource share per group.
+
+| Old setting | Current setting | Current default |
+| --- | --- | --- |
+| `O2_SEARCH_GROUP_BASE_SPEED` | `O2_WORK_GROUP_BASE_SPEED` | `1024` (MB per second) |
+| `O2_SEARCH_GROUP_BASE_SECS` | `O2_WORK_GROUP_BASE_SECS` | `10` (seconds) |
+| `O2_SEARCH_GROUP_CPU_LIMIT_ENABLED` | `O2_WORK_GROUP_CPU_LIMIT_ENABLED` | `false` |
+| `O2_SEARCH_GROUP_DYNAMIC_RESOURCE` | `O2_WORK_GROUP_DYNAMIC_RESOURCE` | `true` |
+| `O2_SEARCH_GROUP_LONG_MAX_CPU`, `O2_SEARCH_GROUP_LONG_MAX_MEMORY` | `O2_WORK_GROUP_LONG_MAX_PERCENT` | `0.4` |
+| `O2_SEARCH_GROUP_SHORT_MAX_CPU`, `O2_SEARCH_GROUP_SHORT_MAX_MEMORY` | `O2_WORK_GROUP_SHORT_MAX_PERCENT` | `0.8` |
+| `O2_SEARCH_GROUP_LONG_MAX_CONCURRENCY` | `O2_WORK_GROUP_LONG_MAX_CONCURRENCY` | `5` |
+| `O2_SEARCH_GROUP_SHORT_MAX_CONCURRENCY` | `O2_WORK_GROUP_SHORT_MAX_CONCURRENCY` | `10` |
+| `O2_SEARCH_GROUP_USER_LONG_MAX_CONCURRENCY` | `O2_WORK_GROUP_USER_LONG_MAX_CONCURRENCY` | `2` |
+| `O2_SEARCH_GROUP_USER_SHORT_MAX_CONCURRENCY` | `O2_WORK_GROUP_USER_SHORT_MAX_CONCURRENCY` | `4` |
