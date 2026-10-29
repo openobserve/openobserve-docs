@@ -141,6 +141,8 @@ OpenObserve stores the dotted attribute names with underscores.
 4. Filter by `operation_name = llm` and sort by duration to find slow model calls
 5. Filter by `conversation_id` to follow one conversation
 
+![Pipecat trace in OpenObserve, Waterfall view of a conversation with turn, stt, llm and tts spans and the llm span attributes](../../../images/integration/ai/pipecat-v3.png)
+
 ## **Next Steps**
 
 With Pipecat tracing on, every conversation and turn is recorded in OpenObserve. From here you can monitor turn latency and time to first byte, track token usage per conversation, and alert on slow or failed turns.

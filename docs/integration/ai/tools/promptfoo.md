@@ -133,6 +133,8 @@ The target provider span (`openai:gpt-4o-mini`) carries `promptfoo_cache_hit`. C
 4. Filter by `promptfoo_test_success = false` to find failing cases
 5. Open a trace to see the model call and grader spans under the test case
 
+![Promptfoo trace in OpenObserve, Waterfall view of a promptfoo.test_case with the model call and grader spans and the grader llm-rubric attributes](../../../images/integration/ai/promptfoo-v3.png)
+
 ## **Next Steps**
 
 With Promptfoo traces in OpenObserve, you can track pass rates and token usage across eval runs, alert when `promptfoo_test_success` drops, and compare models by latency.
