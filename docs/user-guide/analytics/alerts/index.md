@@ -8,7 +8,7 @@ description: "How alerting works in OpenObserve: scheduled, real-time, composite
 
 Alerts enable continuous monitoring of log, metric, or trace data to detect critical issues or operational patterns that require attention. Define conditions using a natural language builder or custom SQL, and receive notifications through email or webhooks such as Slack.
 
-To open alerts, go to **Reliability** in the left navigation and select **All Alerts**. The **Alerts** page has four tabs: **All Alerts**, **Notification Destinations**, **Destination Templates**, and **Alert Library**.
+To open alerts, go to **Reliability** in the left navigation and select **All Alerts**. The **Alerts** page has four tabs: **All Alerts**, **Notification Destinations**, **Destination Templates**, and [**Alert Library**](alert-library.md).
 
 ![All Alerts page with the folder list, type tabs, status counters and the alert table with Last Outcome, Priority, Groups and Tags](../../../images/overview-alerts-list-v2.png)
 
@@ -131,6 +131,8 @@ To create a folder, click **+** in the **Folders** panel on the Alerts page, ent
 - [Downtimes](downtimes.md): silence notifications during maintenance windows.
 - [Anomaly Detection](anomaly-detection.md): ML-based anomaly alerts.
 - [Import and Export Alerts](import-export-alerts.md): bulk alert management.
+- [Alert Library](alert-library.md): add ready-made alerts from a curated catalog.
+- [Alert Calibration](alert-calibration.md): find noisy, silent, and failing alerts from their run history.
 - [Alert Destinations](../../account-administration/management/alert-destinations.md): configure notification channels.
 - [Templates](../../account-administration/management/templates.md): customize notification content.
 
