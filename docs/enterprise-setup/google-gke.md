@@ -80,7 +80,7 @@ export NAMESPACE=openobserve
 
 Choose **Standard** mode (not Autopilot). On a regional cluster, `--num-nodes 1` provisions **1 node × 3 zones = 3 nodes total**. Takes 5-8 minutes.
 
-Three `e2-standard-4` nodes running 24/7 cost approximately $290/month in `us-central1` (on-demand, list price, May 2025). Disks and egress are extra. Run the [Teardown](#teardown) when finished.
+Three `e2-standard-4` nodes running 24/7 cost approximately $290/month in `us-central1` (on-demand list price; estimate as of October 2026, check current Google Cloud pricing). Disks and egress are extra. Run the [Teardown](#teardown) when finished.
 
 ::::tabs
 :::tab[CLI (recommended)]

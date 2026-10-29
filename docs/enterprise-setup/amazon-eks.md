@@ -22,7 +22,7 @@ This page covers the **Amazon EKS** install. For other Kubernetes platforms, see
 
 **Estimated time:** ~30 minutes (most of it waiting for EKS to provision the cluster).
 
-**Estimated cost:** ~$15/day while running. See [Teardown](#teardown) to stop billing.
+**Estimated cost:** approximately $15/day while running (estimate as of October 2026; check current AWS pricing). See [Teardown](#teardown) to stop billing.
 
 ::::accordion[Pre-requisites]
 
