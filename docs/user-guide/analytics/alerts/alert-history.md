@@ -59,7 +59,7 @@ Each row represents one alert evaluation.
 ![Alert detail page with the Evaluation chart and the Alert History tab listing Firing and Normal evaluations for the last hour](../../../images/alert-details-drawer-v2.png)
 ## How to debug a failed alert
 This process applies only to users who have access to the `_meta` organization.
-![debug-alert-history](../../../images/debug-alert-history.png)
+![debug-alert-history](../../../images/debug-alert-history-v2.png)
 
 1. From the organization selector, switch to `_meta`.
 2. Go to **Logs**.
