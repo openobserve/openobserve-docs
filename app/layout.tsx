@@ -7,6 +7,7 @@ import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { source } from '@/lib/source';
 import { baseOptions, SidebarGetStarted, SidebarPrivacyLink } from '@/app/layout.config';
 import { Analytics, GtmNoScript } from '@/components/analytics';
+import { KapaWidget } from '@/components/kapa-widget';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
 import { AnnouncementBanner } from '@/components/announcement-banner';
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </DocsLayout>
         </RootProvider>
         <Analytics />
+        <KapaWidget />
       </body>
     </html>
   );

@@ -14,6 +14,13 @@ export const BASE_PATH = '/docs';
 export const SITE_URL = 'https://openobserve.ai';
 
 /**
+ * kapa.ai "Ask AI" widget integration ID, from app.kapa.ai → Integrations →
+ * "Copy integration ID". Public by design: kapa only serves it on allow-listed
+ * domains. Empty disables the widget (components/kapa-widget.tsx).
+ */
+export const KAPA_WEBSITE_ID = '';
+
+/**
  * Card shown when a docs page is shared. Reuses the marketing site's existing
  * social image so docs links look the same as every other openobserve.ai link;
  * the MkDocs site had no og:image at all.
