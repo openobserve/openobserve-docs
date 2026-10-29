@@ -148,7 +148,7 @@ The `result_schema` API accepts `cross_linking=true`. When set, the response inc
 
 - [Logs](logs/logs.md): Explore log records where Cross-Linking drill-down links appear.
 - [Traces](traces/traces.md): View trace records and follow cross-links to external tracing tools.
-- [Streams](../streams.md): Configure stream-level settings, including stream-scoped cross-links.
+- [Streams](../data-processing/streams/streams-in-openobserve.md): Configure stream-level settings, including stream-scoped cross-links.
 
 **Need some help?**
 

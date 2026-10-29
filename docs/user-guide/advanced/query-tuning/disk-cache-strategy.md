@@ -11,9 +11,11 @@ Set the disk cache eviction strategy using:
 ZO_DISK_CACHE_STRATEGY=<strategy_name>
 ```
 
+The default is `time_lru`. An unrecognized value falls back to `lru`. The in-memory cache has its own setting, `ZO_MEMORY_CACHE_STRATEGY`, which defaults to `lru` and accepts the same values.
+
 ## Supported Values
 
-### `lru`  or Least Recently Used (**Default**)
+### `lru` or Least Recently Used
 
 - **How it works**: Evicts the file that has not been accessed for the longest time.
 - **Use when**: You want frequently accessed data to stay in cache longer, regardless of when it was added.
@@ -32,12 +34,12 @@ ZO_DISK_CACHE_STRATEGY=<strategy_name>
     - Ignores access frequency.
     - Clears files in the same order they were cached.
 
-### `time_lru` or Time-Grouped Least Recently Used
+### `time_lru` or Time-Grouped Least Recently Used (**Default**)
 
 - **How it works**: Groups cached files by time windows such as hourly, then applies least recently used or LRU eviction within those windows.
 - **Use when**: You need time-aligned cache control while still preserving frequently accessed files.
 - **Behavior**:
 
-- Groups files using time-based keys. For example, 2025040806.
-- Evicts from the oldest time group first. Within that group, it removes the least recently accessed file.
+    - Groups files using time-based keys. For example, 2025040806.
+    - Evicts from the oldest time group first. Within that group, it removes the least recently accessed file.
 

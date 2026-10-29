@@ -1,10 +1,10 @@
 ---
-title: "**Building a SIEM Platform with OpenObserve**"
+title: "Building a SIEM Platform with OpenObserve"
 metaTitle: "SIEM - Security Information and Event Management"
 description: "Build a SIEM platform on OpenObserve with threat detection, security monitoring, incident response, and SOC operations."
 ---
 
-# **Building a SIEM Platform with OpenObserve**
+# Building a SIEM Platform with OpenObserve
 
 Build a complete SIEM (Security Information and Event Management) platform with OpenObserve for security monitoring, threat detection, and incident response. OpenObserve transforms from a high-performance observability platform into a robust SIEM solution for Security Operations Center (SOC) operations. By leveraging Petabyte-scale security data storage, powerful security pipelines, threat intelligence enrichment, SQL-based threat detection, and native incident management, you can build a complete SOC (Security Operations Center) for security monitoring, SIEM analytics, and threat hunting without the complexity of managing multiple disparate security tools.
 
@@ -22,7 +22,7 @@ OpenObserve acts as an all-in-one **Data Lake**, **Detection Engine**, and **Res
 4. **Storage & Search:** **OpenObserve** stores the data on object storage (S3/GCS/Azure Blob) and provides sub-second search.  
 5. **Detection Layer:** OpenObserve **Alerts** run scheduled SQL queries to identify Threats.  
 6. **Visualization Layer:** **Dashboards** provide real-time situational awareness, visual trend analysis, and compliance reporting for SOC analysts.  
-7. **Response Layer:** Alerts automatically trigger **Incidents** within OpenObserve's native Incident Management module for triage, assignment, and state tracking.
+7. **Response Layer:** Alerts automatically trigger **Incidents** within OpenObserve's native Incident Management module for triage, assignment, and state tracking (Enterprise and Cloud, when incidents are enabled).
 
 ![OpenObserve SIEM architecture](../../images/openobserve_siem.jpg)
 
@@ -61,7 +61,7 @@ To run efficient rules, you **must** standardize your data. We recommend adoptin
 
 Since OpenObserve flattens JSON fields using **underscores**, you will map OCSF's dot-notation to underscore-notation.
 
-OpenObserve uses **VRL (Vector Remap Language)** natively. You can create a function in the UI (Pipelines > Functions) to rename disparate fields into this Common Schema.
+OpenObserve uses **VRL (Vector Remap Language)** natively. You can create a function in the UI (**Data** > **Functions**) to rename disparate fields into this Common Schema.
 
 ### **Recommended Schema (OCSF Adapted)**
 
@@ -192,7 +192,7 @@ A SIEM is only as good as the intelligence you feed it. To detect threats effect
 
 ## **5. Detection Engineering (Writing Rules)**
 
-In OpenObserve, "Rules" are simply **Scheduled Alerts** running SQL queries. When these alerts trigger, they create an incident.
+In OpenObserve, "Rules" are simply **Scheduled Alerts** running SQL queries. When incidents are enabled (Enterprise and Cloud), triggered alerts create incidents.
 
 ### **Type A: Threshold Detection**
 
@@ -200,8 +200,8 @@ In OpenObserve, "Rules" are simply **Scheduled Alerts** running SQL queries. Whe
 
 **Scenario:** 10 Failed Logins in 5 minutes.
 
-1. Navigate to **Alerts** > **Create Alert**.
-2. **Query Type:** SQL
+1. Go to **Reliability** > **All Alerts** and click **New alert**.
+2. **Query Type:** select the **SQL** tab
 3. **SQL Query:**
 
 ```sql
@@ -223,7 +223,7 @@ HAVING
 
 **Note:** Field names are quoted when they contain special characters or match SQL keywords. System fields like `_timestamp` don't require quotes.
 
-4. **Schedule:** Run every 5 minutes.
+4. **Schedule:** set **Check every** to 5 minutes.
 
 ### **Type B: IOC Matching (Indicators of Compromise)**
 
@@ -321,10 +321,10 @@ WHERE
 
 OpenObserve closes the loop from detection to response with native Incident Management. Alerts are no longer just "fire-and-forget" notifications; they are stateful records that teams can collaborate on.
 
-* **Lifecycle Tracking:** Every triggered rule creates an incident. Move incidents through states: New -> Investigating -> Resolved (or False Positive)
+* **Lifecycle Tracking:** Triggered alerts are correlated into incidents. Move incidents through the states Open -> Acknowledged -> Resolved
 * **Assignment:** Assign incidents to specific analysts to ensure accountability
-* **Evidence & Comments:** Analysts can add notes and attach query results directly to the incident record to document the investigation
-* **Metrics:** Track Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR) directly within the platform
+* **Comments:** Analysts can add comments on the incident's **Activity** tab to document the investigation
+* **Metrics:** Track Mean Time to Resolve (MTTR) in the incident statistics
 
 ## **8. Dashboards for Analysts**
 
@@ -344,7 +344,7 @@ One of OpenObserve's biggest strengths as a SIEM is cost-effective long-term ret
 
 * **Unified Storage:** No manual tiering is required. OpenObserve transparently handles the movement of data to object storage, allowing you to query petabytes of historical data as easily as real-time logs
 * **Compliance:** Retain data for 1 year (or any required compliance period) at the cost of S3 storage, significantly cheaper than block storage
-* **Audit:** Use OpenObserve's built-in audit logs to track who queried the SIEM data to ensure chain of custody
+* **Audit:** Use OpenObserve's built-in audit trail (Enterprise) to track who queried the SIEM data to ensure chain of custody
 
 ## **Checklist for Production**
 
