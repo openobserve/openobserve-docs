@@ -80,6 +80,7 @@ const REDIRECT_PATHS = new Set([
   'user-guide/rum',
   'quickstart',
   'downloads',
+  'user-guide/data-processing/pipelines/use-pipelines',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
@@ -133,6 +134,7 @@ const REDIRECTS = {
   'user-guide/rum': 'user-guide/data-exploration/rum',
   quickstart: 'getting-started',
   downloads: 'getting-started',
+  'user-guide/data-processing/pipelines/use-pipelines': 'user-guide/data-processing/pipelines/create-and-use-real-time-pipeline',
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {
