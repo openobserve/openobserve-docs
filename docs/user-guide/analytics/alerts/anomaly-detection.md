@@ -16,14 +16,14 @@ Traditional threshold-based alerts require you to define exact conditions for ev
 Configure a detection rule on any logs, metrics, or traces stream. OpenObserve trains a model on your historical data, then runs periodic detection to surface anomalies and optionally send notifications.
 
 :::note[Note]
-Anomaly Detection is available in OpenObserve Enterprise (self-hosted) edition.
+Anomaly Detection is available in OpenObserve Enterprise (self-hosted) and OpenObserve Cloud.
 :::
 
 ## Getting started
 
 **Prerequisites:**
 
-- OpenObserve Enterprise edition (not available in Cloud)
+- OpenObserve Enterprise edition or OpenObserve Cloud
 - At least one data stream with historical data for model training
 
 **To access anomaly detection:**

@@ -19,7 +19,7 @@ OpenObserve supports four types of alerts:
 - **Scheduled alerts**: Run at fixed intervals to evaluate aggregated or historical data. Use for routine monitoring and trend analysis. For example, every 10 minutes, the alert evaluates your data and checks if the average response time exceeds 500ms. If the condition is met, the alert sends a notification.
 - **Real-time alerts**: Monitor data continuously and trigger instantly when conditions are met. Use for critical events requiring instant action. For example, when a specific error pattern appears in your logs, the alert sends a notification within seconds.
 - **Composite alerts**: Combine the current state of existing alerts with boolean logic (`AND`, `OR`, `NOT`). Use to reduce alert noise by paging only when several signals line up. See [Composite Alerts](composite-alerts.md) for details.
-- **Anomaly detection** *(Enterprise self-hosted only)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
+- **Anomaly detection** *(Enterprise and Cloud)*: Use machine learning to detect unusual patterns in your data without manually setting thresholds. See [Anomaly Detection](anomaly-detection.md) for details.
 
 ## Alert creation layout
 
