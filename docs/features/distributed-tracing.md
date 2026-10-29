@@ -61,7 +61,7 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 - **Service Graph** (Enterprise): See how your services call each other, with dependencies, throughput and error rates
 
-![Traces Service Graph](../images/features/traces-service-map-v2.png)
+![Service Graph in Graph View with edges between the shop services and a tooltip showing requests, errors and error rate for checkout](../images/features/traces-service-map-v2.png)
 
 - **Service Catalog**: Every service sending traces, with latency, throughput and error rate
 
