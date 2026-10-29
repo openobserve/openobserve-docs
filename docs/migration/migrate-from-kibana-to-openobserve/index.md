@@ -26,7 +26,7 @@ Kibana is a capable visualization tool, but running it means operating the whole
 
 ### License and vendor lock-in
 
-Elasticsearch and Kibana are licensed under the SSPL, which is restrictive for teams offering Elasticsearch as a service. The query language (Lucene/KQL), the saved-object export format, and the aggregation DSL are all Elastic-specific.
+Elasticsearch and Kibana are offered under a choice of licenses: SSPL, Elastic License 2.0 and, since 2024, AGPLv3. Check which one fits how you run or offer Elasticsearch. The query language (Lucene/KQL), the saved-object export format, and the aggregation DSL are all Elastic-specific.
 
 OpenObserve is open source and speaks open protocols (OpenTelemetry, Prometheus Remote Write, Loki Push API, plain JSON), and queries your data with SQL — a language your team already knows.
 

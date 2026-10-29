@@ -127,7 +127,7 @@ For template variables, set them up as dashboard variables and reference them in
 | Metric monitor | Datadog query DSL with threshold | PromQL alert with threshold |
 | Log monitor | Log search + threshold | SQL-based scheduled alert |
 | APM / Trace monitor | APM query | PromQL on RED metrics or SQL on traces |
-| Anomaly / Forecast | Watchdog / `anomalies()` / `forecast()` | Anomaly detection (Enterprise) or explicit thresholds |
+| Anomaly / Forecast | Watchdog / `anomalies()` / `forecast()` | Anomaly detection (Enterprise and Cloud) or explicit thresholds |
 | Composite | Logical AND/OR of monitors | [Composite alert](../../user-guide/analytics/alerts/composite-alerts.md) with `AND`/`OR`/`NOT` |
 | Multi alert (grouped) | `group by` on a tag, fires per group | Group-by alert (see [Alert Conditions](../../user-guide/analytics/alerts/alert-conditions.md#group-by)) |
 | Notification channels | Slack, PagerDuty, email, webhook (per monitor) | Built-in destinations, configured once and reused |
@@ -202,7 +202,7 @@ The same AI Assistant that converts dashboard queries works here. Paste a Datado
 ## SLOs & Watchdog
 
 - **SLOs:** OpenObserve has native SLO support, so Datadog SLOs migrate cleanly instead of being rebuilt with pipelines. Define an SLO as a **count**, **time-slice**, or **alert-based** SLI over a rolling 7/30/90-day window, then alert on **burn rate** or **error budget** consumption. See the [SLO documentation](../../user-guide/analytics/slos/index.md) and [Alerting on SLOs](../../user-guide/analytics/slos/slo-alerts.md).
-- **Watchdog (anomaly auto-detect):** Watchdog is Datadog-proprietary, but OpenObserve offers its own [anomaly detection](../../user-guide/analytics/alerts/anomaly-detection.md) *(Enterprise self-hosted)* for ML-based detection without hand-set thresholds. Where you want explicit control, migrate Watchdog alerts to threshold rules — most teams find the explicit rules clearer once they're forced to define what "anomaly" actually means.
+- **Watchdog (anomaly auto-detect):** Watchdog is Datadog-proprietary, but OpenObserve offers its own [anomaly detection](../../user-guide/analytics/alerts/anomaly-detection.md) *(Enterprise and Cloud)* for ML-based detection without hand-set thresholds. Where you want explicit control, migrate Watchdog alerts to threshold rules — most teams find the explicit rules clearer once they're forced to define what "anomaly" actually means.
 
 ## Next steps
 

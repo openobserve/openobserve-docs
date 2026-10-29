@@ -63,7 +63,7 @@ If you're coming from Datadog, most concepts have direct equivalents in OpenObse
 | Datadog Monitors | OpenObserve Alerts | PromQL or SQL-based, under **Reliability > Alerts**; Slack/PagerDuty/Email/Webhook destinations |
 | Datadog Notebooks | OpenObserve Dashboards + SQL queries | Combine narrative panels with live queries |
 | Datadog SLOs | OpenObserve SLOs | Count, time-slice, or alert-based SLOs under **Reliability > SLOs**, with burn-rate and error-budget alerts |
-| Datadog Watchdog | Anomaly detection alerts *(Enterprise)* or explicit thresholds | Watchdog is Datadog-proprietary; OpenObserve anomaly detection learns a baseline per alert |
+| Datadog Watchdog | Anomaly detection alerts *(Enterprise and Cloud)* or explicit thresholds | Watchdog is Datadog-proprietary; OpenObserve anomaly detection learns a baseline per alert |
 | Datadog Hosts | Streams + `service_name` / host fields | OpenObserve doesn't charge per host; there is no host concept in billing |
 | Datadog Tags | Labels / fields | Tags become labels on metrics (PromQL) or columns on logs/traces (SQL) |
 | Custom Metrics | Same, sent via DogStatsD or OTLP | No per-metric pricing |
