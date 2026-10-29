@@ -3,24 +3,24 @@ title: Cohere
 description: Instrument Cohere LLM calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Cohere → OpenObserve**
+# Cohere → OpenObserve
 
 Capture token usage, latency, and model metadata for every Cohere inference call. The Cohere SDK does not have a dedicated OTel instrumentor, so traces are created by wrapping calls in manual spans and extracting usage data from the response.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Cohere](https://dashboard.cohere.com/) API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk cohere python-dotenv
+pip install openobserve-python-sdk cohere python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -31,7 +31,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 COHERE_API_KEY=your-cohere-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `openobserve_init()` to set up the tracer provider, then wrap each Cohere call in a manual span and extract token counts from the response metadata.
 
@@ -67,7 +67,7 @@ result = chat("Explain distributed tracing in one sentence.")
 print(result)
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 Each `co.chat()` call wrapped in a span produces the following attributes.
 
@@ -81,19 +81,19 @@ Each `co.chat()` call wrapped in a span produces the following attributes.
 | `duration` | End-to-end span latency |
 | `span_status` | `UNSET` on success, `ERROR` on failure |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Filter by operation name `cohere.chat` to find Cohere spans
 3. Click any span to inspect token counts and the prompt and response
 
-![Cohere trace in OpenObserve](../../../images/integration/ai/cohere.png)
+![Cohere trace in OpenObserve, Waterfall view with the cohere.chat span attributes](../../../images/integration/ai/cohere-v2.png)
 
-## **Next Steps**
+## Next Steps
 
 With Cohere instrumented, every chat call is recorded in OpenObserve. From here you can track token usage per model, monitor latency, and set alerts on error spans.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

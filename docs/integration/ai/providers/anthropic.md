@@ -3,24 +3,24 @@ title: Anthropic (Python)
 description: Instrument Anthropic Python SDK calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Anthropic (Python) → OpenObserve**
+# Anthropic (Python) → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every Claude API call in your Python application.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An Anthropic API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-anthropic python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-anthropic python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -39,7 +39,7 @@ OPENOBSERVE_AUTH_TOKEN="Basic <your_base64_token>"
 ANTHROPIC_API_KEY=your-anthropic-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `AnthropicInstrumentor().instrument()` **before** any Anthropic client is created.
 
@@ -107,7 +107,7 @@ async def main():
 asyncio.run(main())
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
@@ -119,25 +119,25 @@ asyncio.run(main())
 | `gen_ai_usage_output_tokens` | Output tokens generated |
 | `gen_ai_usage_cache_creation_input_tokens` | Tokens written to the prompt cache |
 | `gen_ai_usage_cache_read_input_tokens` | Tokens read from the prompt cache |
-| `llm_usage_tokens_total` | Total tokens consumed |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
-| `llm_usage_cost_total` | Estimated total cost in USD |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost` | Estimated total cost in USD |
 | `duration` | End-to-end request latency |
 | `error` | Exception details if the request failed |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any span to inspect token counts, latency, and full request metadata
 
-![Anthropic trace span attributes in OpenObserve](../../../images/integration/ai/anthropic.png)
+![Anthropic trace in OpenObserve, Waterfall view with the anthropic.chat span attributes](../../../images/integration/ai/anthropic-v2.png)
 
-## **Next Steps**
+## Next Steps
 
 With Anthropic instrumented, every Claude API call in your application is automatically recorded in OpenObserve. From here you can track token usage and cost per conversation turn, monitor cache hit rates to optimise prompt caching savings, and correlate Claude spans with the rest of your application traces.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

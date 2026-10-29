@@ -10,7 +10,7 @@ OpenObserve provides comprehensive observability for AI and LLM applications, co
 
 These integrations use OpenTelemetry to send traces and metrics to OpenObserve, giving you a unified view of your AI application performance, cost, and reliability.
 
-You can browse these integrations directly in OpenObserve under **Ingestion → AI Integrations**, which provides the connection snippet (endpoint, organization, and auth token) and links to each integration's guide.
+You can browse these integrations directly in OpenObserve under **Data** > **Data sources** > **AI Integrations**, which provides the connection snippet (endpoint, organization, and auth token) and links to each integration's guide.
 
 ## AI Integration Categories
 
@@ -32,3 +32,4 @@ You can browse these integrations directly in OpenObserve under **Ingestion → 
 - [LLM Experiments](llm-experiments.md): Run offline evaluations on datasets and compare runs
 - [Model Pricing](model-pricing.md): Define how token costs are calculated on LLM spans
 - [Claude Code](claude-code-tracing.md): Monitor Claude Code with native OpenTelemetry metrics and events, plus optional per-turn tracing
+- [GitHub Copilot](github-copilot-tracing.md): Send Copilot CLI and Copilot Chat traces, metrics, and events to OpenObserve

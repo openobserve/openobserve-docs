@@ -3,25 +3,25 @@ title: OpenAI (Python)
 description: Instrument OpenAI Python SDK calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **OpenAI (Python) → OpenObserve**
+# OpenAI (Python) → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every OpenAI API call in your Python application.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * [`uv`](https://github.com/astral-sh/uv) package manager (or `pip`)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-instrumentation-openai python-dotenv
+pip install openobserve-python-sdk opentelemetry-instrumentation-openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -40,7 +40,7 @@ OPENOBSERVE_AUTH_TOKEN="Basic <your_base64_token>"
 OPENAI_API_KEY=your-openai-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** any OpenAI client is created.
 
@@ -96,7 +96,7 @@ async def main():
 asyncio.run(main())
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
@@ -106,28 +106,28 @@ asyncio.run(main())
 | `gen_ai_usage_input_tokens` | Tokens in the prompt |
 | `gen_ai_usage_output_tokens` | Tokens in the response |
 | `gen_ai_usage_cache_read_input_tokens` | Prompt cache read tokens (if caching is used) |
-| `llm_usage_tokens_total` | Total tokens consumed |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
-| `llm_usage_cost_total` | Estimated total cost in USD |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost` | Estimated total cost in USD |
 | `llm_is_streaming` | Whether the request was streamed |
 | `llm_usage_reasoning_tokens` | Reasoning tokens used (o-series models only) |
 | `openai_response_service_tier` | OpenAI service tier (e.g. `default`) |
 | `duration` | End-to-end request latency |
 | `error` | Exception details if the request failed |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any span to inspect token counts, latency, and full request metadata
 
-![OpenAI trace span attributes in OpenObserve](../../../images/integration/ai/openai.png)
+![OpenAI trace in OpenObserve, Waterfall view with the openai.chat span attributes](../../../images/integration/ai/openai-v2.png)
 
-## **Next Steps**
+## Next Steps
 
 With OpenAI instrumented, every model call in your application is automatically recorded in OpenObserve. From here you can build dashboards to track token usage and cost over time, set up alerts on error rates or latency spikes, and correlate LLM spans with the rest of your application traces.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenObserve Python SDK](https://openobserve.ai/docs/user-guide/data-processing/opentelemetry/openobserve-python-sdk/)

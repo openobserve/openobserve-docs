@@ -6,7 +6,7 @@ description: Track cost, tokens, latency, and errors for your LLM traffic, repla
 
 # LLM Monitoring
 
-The **Monitor** section of **AI** gives you a live view of your LLM applications and agents. It turns the GenAI spans you already send to OpenObserve into cost and latency charts, conversation timelines, and an agent topology, with no extra instrumentation.
+The **Monitor** section of **AI Observability** gives you a live view of your LLM applications and agents. It turns the GenAI spans you already send to OpenObserve into cost and latency charts, conversation timelines, and an agent topology, with no extra instrumentation.
 
 ![the Insights page showing cost, token, span, and latency charts by model](images/ai-insights.png)
 
@@ -19,7 +19,7 @@ The **Monitor** section of **AI** gives you a live view of your LLM applications
 | **Agent Graph** | The tools, models, services, and datastores each agent calls. | Enterprise and Cloud |
 | **Agent Behavior** | Agents stuck in tool-calling loops, and the errors that make them fail. | Enterprise and Cloud |
 
-In the open-source edition, **Agent Graph** and **Agent Behavior** stay in the menu with a lock icon. Opening them shows what the feature does and how to upgrade.
+In the open-source edition, **Agent Graph** and **Agent Behavior** stay in the menu with a lock icon. Opening them shows what the feature does and how to upgrade. In the Enterprise edition, the **AI Observability** menu appears only while `O2_EVAL_ENABLED` is on (the default).
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ If your telemetry uses different attribute names, add them under **Settings > Da
 
 ## Insights
 
-Navigate to **AI > Monitor > Insights**. The page answers "what is my LLM traffic costing, and is it healthy?"
+Navigate to **AI Observability > Monitor > Insights**. The page answers "what is my LLM traffic costing, and is it healthy?"
 
 The top row has five tiles, each with a sparkline: **Total Cost**, **Total Tokens**, **Total Traces**, **P95 Latency**, and **Error Rate**. Below them are these charts:
 
@@ -81,7 +81,7 @@ In **Agent** mode, when the selected agent has at least two versions, click **Co
 
 A session is one conversation: every trace that shares the same session ID. OpenObserve reads the ID from `gen_ai.conversation.id`, `session.id`, `ai.telemetry.metadata.sessionId`, or Langfuse session metadata.
 
-Navigate to **AI > Monitor > Sessions**.
+Navigate to **AI Observability > Monitor > Sessions**.
 
 ![the Sessions list with user, first message, turns, tokens, cost, and status](images/ai-sessions.png)
 
@@ -114,7 +114,7 @@ In the Enterprise edition and Cloud, the header also has **Add To Review Queue**
 
 ## Agent Graph
 
-Navigate to **AI > Monitor > Agent Graph** to see what each agent interacts with: tools, models, services, and datastores.
+Navigate to **AI Observability > Monitor > Agent Graph** to see what each agent interacts with: tools, models, services, and datastores.
 
 ![the Agent Graph in tree view showing agents and the model they call](images/ai-agent-graph.png)
 
@@ -132,7 +132,7 @@ The graph is built from pre-aggregated service-graph data, which a background jo
 
 ## Agent Behavior
 
-Navigate to **AI > Monitor > Agent Behavior** to find agents that misbehave.
+Navigate to **AI Observability > Monitor > Agent Behavior** to find agents that misbehave.
 
 ![the Agent Behavior page with Looping agents and Failure taxonomy tables](images/ai-agent-behavior.png)
 

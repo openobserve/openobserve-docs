@@ -3,24 +3,24 @@ title: Cerebras
 description: Instrument Cerebras LLM calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Cerebras → OpenObserve**
+# Cerebras → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every Cerebras inference call in your Python application. Cerebras exposes an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at the Cerebras endpoint.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Cerebras](https://cloud.cerebras.ai/) API key
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -31,7 +31,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 CEREBRAS_API_KEY=your-cerebras-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the Cerebras base URL and pass your Cerebras API key.
 
@@ -60,7 +60,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
@@ -75,19 +75,19 @@ print(response.choices[0].message.content)
 | `duration` | End-to-end request latency |
 | `span_status` | `OK` or error status |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Click any span to inspect token counts and latency
 3. Filter by `llm_model_name` to compare Cerebras model variants
 
-![Cerebras trace in OpenObserve](../../../images/integration/ai/cerebras.png)
+![Cerebras trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/cerebras-v2.png)
 
-## **Next Steps**
+## Next Steps
 
 With Cerebras instrumented, every inference call is recorded in OpenObserve. From here you can monitor throughput, track token usage, and set alerts on error spans.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

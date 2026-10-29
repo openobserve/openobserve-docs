@@ -51,7 +51,7 @@ export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <base64-token>"
 export OTEL_SERVICE_NAME=github-copilot
 ```
 
-All three of the first variables matter: without `COPILOT_OTEL_EXPORTER_TYPE=otlp-http` the CLI writes telemetry to a local file exporter instead of sending OTLP, and without `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf` it sends OTLP JSON, which OpenObserve rejects with a `400`.
+Set `COPILOT_OTEL_EXPORTER_TYPE=otlp-http`: without it the CLI writes telemetry to a local file exporter instead of sending OTLP.
 :::
 :::tab[VS Code (Copilot Chat)]
 
@@ -132,7 +132,6 @@ The CLI logs its OTel state to `~/.copilot/logs/` — set `COPILOT_OTEL_LOG_LEVE
 |---|---|---|
 | No data at all | Exporter not enabled | Set `COPILOT_OTEL_ENABLED=true` and restart the session |
 | Log shows `exporter=file` | Default exporter is a local file | Set `COPILOT_OTEL_EXPORTER_TYPE=otlp-http` |
-| Log shows `HTTP export failed: network error` | OTLP JSON payload rejected by OpenObserve (`400`) | Set `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf` |
 | `404` on export | Trailing slash on the endpoint | Use `.../api/<org>` with no trailing `/` |
 | `401`/`403` errors | Wrong auth header | Re-encode `email:password`; header is `Authorization=Basic <base64>` |
 | Traces but no content | Content capture disabled (default) | Set `COPILOT_OTEL_CAPTURE_CONTENT=true` if you need it |
