@@ -1,99 +1,120 @@
 ---
 title: Syslog
-metaTitle: "Syslog Server Integration for Log Collection | OpenObserve"
-description: "Configure syslog server integration to collect system, server, and network device logs over TCP or UDP with OpenObserve for centralized logging."
+metaTitle: "Send Syslog to OpenObserve | OpenObserve"
+description: "The built-in syslog server was removed in v0.16.0. Send syslog to OpenObserve through syslog-ng, the OpenTelemetry Collector, Fluent Bit, or Vector."
 ---
 
-# Syslog Server - System & Network Log Collection
+# Syslog
 
-:::warning[Deprecation Notice]
-Built-in Syslog ingestion (via TCP/UDP on port 5514) was **removed in v0.16.0** (September 2025) and is no longer available in OpenObserve. The `ZO_TCP_*` and `ZO_UDP_PORT` settings below no longer exist.
-
-**Recommended alternatives:**
-
-- [AxoSyslog](https://axoflow.com/docs/axosyslog-core/chapter-destinations/openobserve/)
-- [syslog-ng](https://www.syslog-ng.com/community/b/blog/posts/sending-logs-to-openobserve-using-syslog-ng)
-- [Vector](../logs/vector.md)
-- [Fluent Bit](../logs/fluent-bit.md)
-
-We suggest using **AxoSyslog or syslog-ng** if you want protocol-native support for Syslog. **Data > Data sources > Custom > Logs > Syslog-ng** shows a ready-to-use syslog-ng configuration.
+:::warning[Built-in syslog server removed]
+OpenObserve no longer runs its own syslog server. TCP/UDP syslog ingestion on port `5514` and the `ZO_TCP_*` and `ZO_UDP_PORT` settings were removed in v0.16.0 (September 2025).
 :::
 
-:::accordion[Legacy reference (before v0.16.0)]
+To collect syslog, run a syslog receiver next to your devices and forward the logs to OpenObserve over HTTP or OTLP. Any of these works:
 
-The configuration below is preserved for historical context. Use one of the alternatives above for new deployments.
+| Tool | Receives syslog with | Sends to OpenObserve with |
+| --- | --- | --- |
+| [syslog-ng](https://www.syslog-ng.com/) / [AxoSyslog](https://axoflow.com/docs/axosyslog-core/chapter-destinations/openobserve/) | any syslog source | the built-in `openobserve-log()` destination |
+| [OpenTelemetry Collector](otlp.md) (contrib) | `syslog` receiver | `otlphttp` exporter |
+| [Fluent Bit](fluent-bit.md) | `syslog` input | `http` output |
+| [Vector](vector.md) | `syslog` source | `http` or `elasticsearch` sink |
 
+Use syslog-ng or AxoSyslog if you want protocol-native syslog support. **Data > Data sources > Custom > Logs > Syslog-ng** shows a ready-to-use syslog-ng configuration with your organization and credentials filled in.
 
-OpenObserve can act as a syslog server. This means that you can send logs to OpenObserve using the syslog protocol. OpenObserve supports both UDP and TCP syslog.
+## syslog-ng
 
-## Enable syslog
+```text
+destination d_openobserve_http {
+    openobserve-log(
+        url("https://<your-openobserve-host>")
+        organization("<your-org>")
+        stream("syslog")
+        user("<your-email>")
+        password("<your-passcode>")
+    );
+};
 
-Before you can send logs to OpenObserve, you need to enable OpenObserve to act as a syslog server. This is done by enabling syslog in the `Ingestion > Logs > Syslog` section of the OpenObserve UI.
-
-![Enable syslog](./images/syslog.png)
-
-## Subnets to allow traffic from
-
-OpenObserve will only accept syslog traffic from the subnets that you specify. You must specify a minimum of 3 things:
-
-- Organization
-- Stream name
-- Subnets
-
-## Configuration
-
-Default port: `5514`
-
-You can change the default port number using the following environment variables:
-
-- `ZO_TCP_PORT` - TCP port number to listen on. Default: `5514`
-- `ZO_UDP_PORT` - UDP port number to listen on. Default: `5514`
-
-You can also configure the TLS settings for syslog TCP server using the following environment variables:
-
-- `ZO_TCP_TLS_ENABLED` - Enable TLS for TCP syslog server. If enabled, `ZO_TCP_PORT` will be used for the TLS connection over TCP. Default: `false`
-
-If `ZO_TCP_TLS_ENABLED` is set to `true`, then ensure all the below variables are set:
-
-- `ZO_TCP_TLS_CERT_PATH` - Path to the TLS certificate file to be used on the server.
-- `ZO_TCP_TLS_KEY_PATH` - Path to the TLS key file to be used on the server.
-- `ZO_TCP_TLS_CA_CERT_PATH` - Path to the TLS CA certificate file to be used on the server.
-
-## Testing
-
-Select an organization and stream. Then set the subnet to `0.0.0.0/0`. This config allows accepting syslog data from any IP address.
-
-You can then use the syslog generator script from [this repo](https://github.com/openobserve/syslog_log_generator) to test if you are able to accept syslog data in OpenObserve.
-
-Steps:
-
-### Clone the repo
-
-```bash
-git clone https://github.com/openobserve/syslog_log_generator
-cd syslog_log_generator
+log {
+    source(s_src);
+    destination(d_openobserve_http);
+    flags(flow-control);
+};
 ```
 
-### Modify the script
+## OpenTelemetry Collector
 
-file `generate_logs.sh`
+Use the contrib distribution (`otelcol-contrib`), which includes the `syslog` receiver.
 
-```bash
-#!/bin/sh
-python syslog_gen.py --host 127.0.0.1 --port 5514 --file sample_logs.txt --count 1000
+```yaml
+receivers:
+  syslog:
+    tcp:
+      listen_address: "0.0.0.0:5514"
+    protocol: rfc5424
+
+exporters:
+  otlphttp/openobserve:
+    endpoint: https://<your-openobserve-host>/api/<your-org>
+    headers:
+      Authorization: Basic <base64(email:passcode)>
+      stream-name: syslog
+
+service:
+  pipelines:
+    logs:
+      receivers: [syslog]
+      exporters: [otlphttp/openobserve]
 ```
 
-Modify the file with the appropriate IP address.
+Set `protocol` to `rfc3164` for BSD-style syslog messages. See [OTLP](otlp.md) for the endpoint and header details.
 
-### Start generating test syslog data
+## Fluent Bit
 
-```bash
-./generate_logs.sh
+```toml
+[INPUT]
+  Name   syslog
+  Mode   udp
+  Listen 0.0.0.0
+  Port   5514
+  Parser syslog-rfc5424
+
+[OUTPUT]
+  Name   http
+  Match  *
+  URI    /api/<your-org>/syslog/_json
+  Host   <your-openobserve-host>
+  Port   443
+  tls    On
+  Format json
+  Json_date_key    _timestamp
+  Json_date_format iso8601
+  HTTP_User   <your-email>
+  HTTP_Passwd <your-passcode>
 ```
-:::
 
+The `syslog-rfc5424` and `syslog-rfc3164` parsers ship in Fluent Bit's default `parsers.conf`.
+
+## Vector
+
+```toml
+[sources.syslog]
+type    = "syslog"
+address = "0.0.0.0:5514"
+mode    = "tcp"
+
+[sinks.openobserve]
+type     = "http"
+inputs   = ["syslog"]
+uri      = "https://<your-openobserve-host>/api/<your-org>/syslog/_json"
+method   = "post"
+encoding.codec = "json"
+encoding.timestamp_format = "rfc3339"
+auth.strategy  = "basic"
+auth.user      = "<your-email>"
+auth.password  = "<your-passcode>"
+```
 
 **Need some help?**
 
-- Join our [Community Slack](https://short.openobserve.ai/community) 
+- Join our [Community Slack](https://short.openobserve.ai/community)
 - Or [Contact support](https://openobserve.ai/contactus/)
