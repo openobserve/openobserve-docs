@@ -17,7 +17,7 @@ For most teams the automated path handles the bulk of the work; the manual path 
 
 ## Migrate automatically with the Dashboard Migrator
 
-The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards from Kibana — and Datadog, Grafana, and CloudWatch — into OpenObserve-native objects. For Kibana it reads a saved-object export and produces OpenObserve dashboards with the panels, layout, and queries translated.
+The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards from Kibana — and Datadog, Grafana, and CloudWatch — into OpenObserve-native objects. To open it from OpenObserve, go to **Dashboards**, click **Import**, and choose **Migrate from Kibana**. For Kibana it reads a saved-object export and produces OpenObserve dashboards with the panels, layout, and queries translated.
 
 ### How it works
 
@@ -82,15 +82,15 @@ Aggregation examples:
 |---|---|
 | Average of `response_time` | `SELECT avg(response_time) FROM default` |
 | Terms (top values) of `status` | `SELECT status, count(*) FROM default GROUP BY status` |
-| Date histogram over `@timestamp` (1m) | `SELECT histogram(_timestamp, INTERVAL '1 minute') AS ts, count(*) FROM default GROUP BY ts` |
+| Date histogram over `@timestamp` (1m) | `SELECT histogram(_timestamp, '1 minute') AS ts, count(*) FROM default GROUP BY ts` |
 
 :::tip[Use the AI Assistant]
-Instead of translating by hand, use the **AI Assistant** in the OpenObserve UI. Paste a Lucene/KQL query and ask: *"Convert this Kibana query to OpenObserve SQL."* It handles field mapping, function translation, and aggregation syntax in one shot.
+Instead of translating by hand, use the **AI Assistant** in the OpenObserve UI (Enterprise; it appears when AI is enabled). Paste a Lucene/KQL query and ask: *"Convert this Kibana query to OpenObserve SQL."* It handles field mapping, function translation, and aggregation syntax in one shot.
 :::
 
 ### Recreate in OpenObserve
 
-1. Open **Dashboards** → **New Dashboard** in the OpenObserve UI.
+1. Open **Dashboards** → **New dashboard** in the OpenObserve UI.
 2. Add a panel and select the signal type (Logs, Metrics, or Traces).
 3. Paste your translated SQL.
 4. Configure the visualization type, axes, and thresholds.

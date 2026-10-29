@@ -43,7 +43,7 @@ If you're coming from the LGTM stack, most concepts have direct equivalents in O
 
 | LGTM Stack Concept | OpenObserve Equivalent | Notes |
 |---|---|---|
-| Data Source | Data Source | Same concept — where telemetry originates (apps, infra, cloud) |
+| Data Source | Data sources (**Data > Data sources**) | Not the same: a Grafana data source is a backend Grafana queries; OpenObserve's Data sources page holds ready-to-use ingestion configs for each sender (apps, infra, cloud) |
 | Loki (log backend) | Logs (built-in) | Logs are a stream type in OpenObserve, not a separate system |
 | Mimir (metrics backend) | Metrics (built-in) | Metrics are a stream type in OpenObserve |
 | Tempo (trace backend) | Traces (built-in) | Traces are a stream type in OpenObserve |
@@ -53,7 +53,7 @@ If you're coming from the LGTM stack, most concepts have direct equivalents in O
 | LogQL | SQL | OpenObserve uses SQL for log queries (with functions like `match_all()`, `re_match()`) |
 | PromQL | PromQL | Same — OpenObserve supports PromQL for metrics queries |
 | TraceQL | SQL | OpenObserve uses SQL for trace queries |
-| Alertmanager | OpenObserve Alerts | Built-in alerting with Slack, email, PagerDuty, webhook support |
+| Alertmanager | OpenObserve Alerts | Built-in alerting under **Reliability > Alerts**, with Slack, email, PagerDuty, webhook support |
 | Tenant / Org (Mimir multi-tenancy) | Organization | OpenObserve uses orgs for multi-tenancy (default org is `default`) |
 | Grafana Agent / Alloy | OpenObserve Collector (optional) | OTel-based collector optimized for OpenObserve. Or keep using any OTel-compatible collector |
 | Promtail | No equivalent needed | Replace with OTel Collector or Fluent Bit — Promtail is Loki-specific |

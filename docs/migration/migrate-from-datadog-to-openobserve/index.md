@@ -78,13 +78,13 @@ Before migrating signal by signal, get OpenObserve running:
 
 Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
 
-After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+After logging in, go to **Data > Data sources** to find your ingestion credentials and endpoint URLs.
 :::
 :::tab[Self-Hosted]
 
 Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
 
-After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+After installation, access the UI at `http://localhost:5080` and go to **Data > Data sources** to find your ingestion credentials and ready-to-use configuration snippets.
 :::
 ::::
 
@@ -95,7 +95,7 @@ The recommended order:
 1. **Stand up an OpenTelemetry Collector** alongside your existing Datadog Agent fleet. The Collector becomes the translation layer between Datadog wire formats (DogStatsD, Datadog Agent API, Datadog APM intake) and OTLP.
 2. **Dual-write for a short period.** Point the Datadog Agent and OTel Collector at the same applications so you can compare metrics side by side in Datadog and OpenObserve. This catches any mapping issues (counter vs. sum, histogram bucketing) before you cut over.
 3. **Migrate signal by signal**, starting with metrics, then traces, then logs. Each signal is independent, so you can finish one before starting the next.
-4. **Migrate dashboards and monitors** to OpenObserve. Use the [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) to convert Datadog dashboards and monitors automatically; for the remainder, PromQL/SQL equivalents are direct in most cases, and the OpenObserve AI Assistant can translate query syntax for you.
+4. **Migrate dashboards and monitors** to OpenObserve. Use the [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) (also under **Dashboards > Import > Migrate from Datadog**) to convert Datadog dashboards and monitors automatically; for the remainder, PromQL/SQL equivalents are direct in most cases, and the OpenObserve AI Assistant *(Enterprise)* can translate query syntax for you.
 5. **Decommission Datadog Agents** once dashboards, monitors, and on-call workflows have been moved over.
 
 ## Next Steps

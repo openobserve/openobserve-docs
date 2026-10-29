@@ -44,7 +44,7 @@ sudo mv otelcol-contrib /usr/local/bin/
 otelcol-contrib --version
 ```
 
-Get the exact `Authorization` header and endpoint URL for the OTLP exporter from the OpenObserve UI under **Data Sources > Custom > Metrics > OTel Collector**.
+Get the exact `Authorization` header and endpoint URL for the OTLP exporter from the OpenObserve UI under **Data > Data sources > Custom > Metrics > OTEL Collector**.
 
 ## Step 3: Migrate Each Source
 
@@ -244,12 +244,12 @@ exporters:
       Authorization: Basic <base64-creds>
 ```
 
-Update the pipeline `exporters:` list to point at `otlphttp/openobserve` and restart the Collector. Copy the exact configuration from the **Data Sources UI** in OpenObserve.
+Update the pipeline `exporters:` list to point at `otlphttp/openobserve` and restart the Collector. Copy the exact configuration from **Data > Data sources** in OpenObserve.
 
 
 ### From AWS CloudWatch
 
-The Datadog AWS integration mirrors CloudWatch metrics into Datadog. To migrate, ingest CloudWatch directly into OpenObserve:
+The Datadog AWS integration mirrors CloudWatch metrics into Datadog. To migrate, ingest CloudWatch directly into OpenObserve through a CloudWatch Metric Stream and Kinesis Data Firehose. The endpoint and access key are under **Data > Data sources > Custom > Metrics > AWS CloudWatch Metrics**; see [Migrate from CloudWatch](../migrate-from-cloudwatch-to-openobserve/index.md) for the resulting stream layout.
 
 > **Dedicated guide:** [AWS CloudWatch Metrics → OpenObserve](https://openobserve.ai/blog/monitor-aws-rds-with-cloudwatch-metrics/)
 

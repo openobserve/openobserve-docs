@@ -10,7 +10,7 @@ If you're running Kibana on top of Elasticsearch for log exploration and dashboa
 
 Kibana is a visualization layer over Elasticsearch, so migrating it has two independent parts:
 
-1. **The data** — move your Elasticsearch data into OpenObserve streams. This is a standard ingestion task (OpenTelemetry Collector, Filebeat, Logstash, or Fluent Bit) and has nothing to do with the dashboard work.
+1. **The data** — move your Elasticsearch data into OpenObserve streams. This is a standard ingestion task (OpenTelemetry Collector, Filebeat, Logstash, or Fluent Bit) and has nothing to do with the dashboard work. OpenObserve exposes an Elasticsearch-compatible bulk API at `https://<your-openobserve-host>/api/<org>/_bulk`, so Filebeat and Fluent Bit Elasticsearch outputs can usually be repointed at `https://<your-openobserve-host>/api/<org>/` with Basic auth (see [Filebeat](../../ingestion/logs/filebeat.md)). For Logstash, copy the `http` output from **Data > Data sources > Custom > Logs > Logstash**.
 2. **The dashboards and visualizations** — convert your saved objects into OpenObserve dashboards. This is what the Dashboard Migrator automates.
 
 ## Table of Contents
@@ -26,7 +26,7 @@ Kibana is a capable visualization tool, but running it means operating the whole
 
 ### License and vendor lock-in
 
-Elasticsearch and Kibana are licensed under the SSPL, which is restrictive for teams offering Elasticsearch as a service. The query language (Lucene/KQL), the saved-object export format, and the aggregation DSL are all Elastic-specific.
+Elasticsearch and Kibana are offered under a choice of licenses: SSPL, Elastic License 2.0 and, since 2024, AGPLv3. Check which one fits how you run or offer Elasticsearch. The query language (Lucene/KQL), the saved-object export format, and the aggregation DSL are all Elastic-specific.
 
 OpenObserve is open source and speaks open protocols (OpenTelemetry, Prometheus Remote Write, Loki Push API, plain JSON), and queries your data with SQL — a language your team already knows.
 
@@ -67,13 +67,13 @@ Before migrating, get OpenObserve running:
 
 Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
 
-After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+After logging in, go to **Data > Data sources** to find your ingestion credentials and endpoint URLs.
 :::
 :::tab[Self-Hosted]
 
 Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
 
-After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+After installation, access the UI at `http://localhost:5080` and go to **Data > Data sources** to find your ingestion credentials and ready-to-use configuration snippets.
 :::
 ::::
 

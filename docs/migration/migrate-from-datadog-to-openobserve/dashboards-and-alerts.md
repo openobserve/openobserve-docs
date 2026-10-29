@@ -11,13 +11,13 @@ description: "Migrate Datadog dashboards and monitors to OpenObserve with the Da
 Dashboards and monitors are the main thing that makes Datadog feel sticky: they encode your team's knowledge of what "healthy" looks like, in Datadog's proprietary query DSL. There are two ways to move them to OpenObserve:
 
 1. **Automated** — the [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) converts Datadog dashboards and monitors into OpenObserve dashboards and alerts, translating queries, thresholds, layout, and variables automatically.
-2. **Manual** — recreate each dashboard and monitor by hand, translating Datadog query syntax to PromQL or SQL yourself (or with the AI Assistant).
+2. **Manual** — recreate each dashboard and monitor by hand, translating Datadog query syntax to PromQL or SQL yourself (or with the AI Assistant, *Enterprise*).
 
 For most teams the automated path handles the bulk of the work. The manual path is a fallback for the pieces the migrator flags for review, and a way to understand exactly what changed under the hood.
 
 ## Migrate automatically with the Dashboard Migrator
 
-The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards and alert rules from Datadog — and Grafana, Kibana, and CloudWatch — into OpenObserve-native objects. For Datadog it has two flows:
+The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards and alert rules from Datadog — and Grafana, Kibana, and CloudWatch — into OpenObserve-native objects. To open it from OpenObserve, go to **Dashboards**, click **Import**, and choose **Migrate from Datadog**. For Datadog it has two flows:
 
 - **Dashboards** — converts Datadog dashboards into OpenObserve dashboards: metric panels become PromQL, log and trace panels become SQL, and the panel layout, tabs, and template variables carry over.
 - **Monitors** — converts Datadog monitors into OpenObserve alerts: metric monitors become PromQL alerts with their operator, threshold, and evaluation window mapped; log and trace monitors are flagged for SQL completion.
@@ -104,14 +104,14 @@ Datadog log search to SQL examples for log panels:
 | `service:api status:error \| count by status_code` | `SELECT status_code, count(*) FROM default WHERE service = 'api' AND level = 'error' GROUP BY status_code` |
 
 :::tip[Use the AI Assistant]
-Instead of translating queries by hand, use the **AI Assistant** in the OpenObserve UI. Paste a Datadog query and ask: *"Convert this Datadog query to OpenObserve PromQL"* (for metrics) or *"...to OpenObserve SQL"* (for logs). It handles tag-name normalization, function mapping, and aggregation syntax in one shot — especially useful for complex multi-condition queries.
+Instead of translating queries by hand, use the **AI Assistant** in the OpenObserve UI (Enterprise; it appears when AI is enabled). Paste a Datadog query and ask: *"Convert this Datadog query to OpenObserve PromQL"* (for metrics) or *"...to OpenObserve SQL"* (for logs). It handles tag-name normalization, function mapping, and aggregation syntax in one shot — especially useful for complex multi-condition queries.
 :::
 
 ### Recreate in OpenObserve
 
 OpenObserve has a built-in drag-and-drop dashboard builder. For each panel:
 
-1. Open **Dashboards** → **New Dashboard** in the OpenObserve UI.
+1. Open **Dashboards** → **New dashboard** in the OpenObserve UI.
 2. Add a panel and select the signal type (Logs, Metrics, or Traces).
 3. Paste your translated query.
 4. Configure the visualization type, axes, thresholds, and any dashboard variables.
@@ -127,7 +127,7 @@ For template variables, set them up as dashboard variables and reference them in
 | Metric monitor | Datadog query DSL with threshold | PromQL alert with threshold |
 | Log monitor | Log search + threshold | SQL-based scheduled alert |
 | APM / Trace monitor | APM query | PromQL on RED metrics or SQL on traces |
-| Anomaly / Forecast | Watchdog / `anomalies()` / `forecast()` | Anomaly detection (Enterprise) or explicit thresholds |
+| Anomaly / Forecast | Watchdog / `anomalies()` / `forecast()` | Anomaly detection (Enterprise and Cloud) or explicit thresholds |
 | Composite | Logical AND/OR of monitors | [Composite alert](../../user-guide/analytics/alerts/composite-alerts.md) with `AND`/`OR`/`NOT` |
 | Multi alert (grouped) | `group by` on a tag, fires per group | Group-by alert (see [Alert Conditions](../../user-guide/analytics/alerts/alert-conditions.md#group-by)) |
 | Notification channels | Slack, PagerDuty, email, webhook (per monitor) | Built-in destinations, configured once and reused |
@@ -187,8 +187,8 @@ The same AI Assistant that converts dashboard queries works here. Paste a Datado
 
 ### Step 4: Verify alerts
 
-1. Open **Alerts** in the OpenObserve UI and confirm each rule shows an **Active** status.
-2. Check the **Last Evaluated** timestamp; rules should update on their configured interval.
+1. Open **Reliability > Alerts** in the OpenObserve UI and confirm each rule shows an **Active** status.
+2. Check the **Last Outcome** and **Last Triggered At** columns; they update as rules run on their configured interval.
 3. Temporarily lower a threshold to force a firing condition, or send a test notification to confirm the destination works end-to-end.
 4. Cross-reference your `monitors.json` against the recreated alerts to confirm nothing was missed.
 
@@ -202,7 +202,7 @@ The same AI Assistant that converts dashboard queries works here. Paste a Datado
 ## SLOs & Watchdog
 
 - **SLOs:** OpenObserve has native SLO support, so Datadog SLOs migrate cleanly instead of being rebuilt with pipelines. Define an SLO as a **count**, **time-slice**, or **alert-based** SLI over a rolling 7/30/90-day window, then alert on **burn rate** or **error budget** consumption. See the [SLO documentation](../../user-guide/analytics/slos/index.md) and [Alerting on SLOs](../../user-guide/analytics/slos/slo-alerts.md).
-- **Watchdog (anomaly auto-detect):** Watchdog is Datadog-proprietary, but OpenObserve offers its own [anomaly detection](../../user-guide/analytics/alerts/anomaly-detection.md) *(Enterprise self-hosted)* for ML-based detection without hand-set thresholds. Where you want explicit control, migrate Watchdog alerts to threshold rules — most teams find the explicit rules clearer once they're forced to define what "anomaly" actually means.
+- **Watchdog (anomaly auto-detect):** Watchdog is Datadog-proprietary, but OpenObserve offers its own [anomaly detection](../../user-guide/analytics/alerts/anomaly-detection.md) *(Enterprise and Cloud)* for ML-based detection without hand-set thresholds. Where you want explicit control, migrate Watchdog alerts to threshold rules — most teams find the explicit rules clearer once they're forced to define what "anomaly" actually means.
 
 ## Next steps
 
