@@ -16,12 +16,12 @@ A trigger happens when the evaluation finds the condition to be true. This creat
 Any user who has permission to view, update, or delete alerts can also access Alert History. Users do not need access to the `_meta` organization to view alert history for their own organization. Access to the `_meta` organization is only required when administrators need to review alert evaluation events across all organizations.
 :::
 
-:::note[Environment variable]
-`ZO_USAGE_REPORT_TO_OWN_ORG`: Controls where alert evaluation events are stored. When it is enabled, OpenObserve writes each evaluation event to the organization’s own `triggers` stream and also keeps a copy in the `_meta` organization. This allows users to view their alert history within their own organization without requiring access to `_meta`, while still supporting organization level debugging from the `_meta` organization.
+:::note[Note]
+Evaluation events always go to the organization's own `triggers` stream, with a copy in the `_meta` organization. The former `ZO_USAGE_REPORT_TO_OWN_ORG` setting was removed, and no configuration is needed.
 :::
 
 ## How to interpret the Alert History table
-![alert-history](../../../images/alert-history.png)
+![Alert History page with one row per evaluation: timestamp, time range, duration, status, condition, retries and dedup](../../../images/alert-history-v2.png)
 
 Each row represents one alert evaluation.
 
@@ -33,32 +33,33 @@ Each row represents one alert evaluation.
 - **Duration**: How long the alert condition remained true.
 - **Status**: The result of the alert evaluation.
 - **Retries**: Number of times the system retried alert delivery when the destination did not acknowledge it. The system retries up to three times. <br> **Note**: The environment variable `ZO_SCHEDULER_MAX_RETRIES` defines how many times the scheduler retries a failed execution.
-- **Total Evaluations**: Shows how many times the alert rule has been evaluated over the selected time range. Each evaluation corresponds to one run of the alert’s query and condition.
-- **Firing Count**: Shows how many of those evaluations resulted in a firing event, that is, how many times the alert condition was satisfied and the alert was triggered.
-- **Actions**: Opens a detailed view that includes:
+- **Condition**: The condition that was evaluated.
+- **Dedup**: Whether the notification was grouped by [deduplication](scheduled-alerts.md#deduplication).
+- **Actions**: Opens the **Alert Execution Details** view, which includes:
 
-    - **Evaluation Time**: The time taken to complete the alert’s search query.
-    - **Silenced**: Indicates whether the alert was silenced.
+    - **Evaluation Time**: The time taken to complete the alert evaluation.
+    - **Query Time**: The time taken by the alert's search query.
     - **Source Node**: The node that processed the alert. Useful for debugging distributed environments.
-    - **Error**: The error message captured when the evaluation or delivery failed. Shown for records with a `failed` status.
+    - **Error Details**: The error message captured when the evaluation or delivery failed.
 
-- **Status codes**:
+- **Status values**:
     
-    - **completed**: The alert condition was met, and the notification was sent to its destination.
-    - **failed**: The alert evaluation or delivery failed. The trigger record in `_meta` includes the error field with details.
-    - **condition_not_met**: The configured alert condition was not satisfied for that time range.
-    - **skipped**: The scheduled evaluation window was missed due to a delay, and the system evaluated the next aligned window.
+    - **firing**: The alert condition was met and the alert triggered.
+    - **normal**: The evaluation ran and the condition was not met.
+    - **pending**: The condition matched, but the alert is waiting out its [Hold for](advanced-alert-configuration.md#pending-period-hold-before-firing) period.
+    - **notify_failed**: The condition matched, but delivering the notification failed.
+    - **error**: The evaluation itself failed, for example a query error or timeout.
+    - **suppressed**: The condition matched inside a [downtime](downtimes.md), so nothing was delivered.
+    - **skipped**: The evaluation did not run, for example because the scheduled window was missed due to a delay and the system evaluated the next aligned window.
 
-- **Alert Details** drawer: Opens when the user clicks an alert in the Alerts list. The drawer displays the alert condition, description, and evaluation history. It includes a date-time picker (relative or absolute, defaulting to the last 15 minutes) to filter the evaluation history, replacing the previous fixed window and manual refresh.
+    Records written by older versions can still show `completed`, `failed`, or `condition_not_satisfied`. OpenObserve reads them as `firing`, `error`, and `normal`.
 
-:::note[Note]
-The selected time range is limited by the `max_query_range` setting on the organization's `triggers` stream; ranges larger than this are automatically shortened to the most recent allowed window.
-:::
+- **Alert detail page**: Clicking an alert in the Alerts list opens its detail page. The **Alert History** tab shows that alert's evaluations with **Timestamp**, **Status**, **Condition**, **Retries**, **Evaluation (s)**, **Query (ms)**, and **Error** columns, for the last **1h** (default), **6h**, or **24h**. The **Configuration** tab shows the alert's settings.
 
-![Alert details drawer](../../../images/alert-details-drawer.png)
+![Alert detail page with the Evaluation chart and the Alert History tab listing Firing and Normal evaluations for the last hour](../../../images/alert-details-drawer-v2.png)
 ## How to debug a failed alert
 This process applies only to users who have access to the `_meta` organization.
-![debug-alert-history](../../../images/debug-alert-history.png)
+![debug-alert-history](../../../images/debug-alert-history-v2.png)
 
 1. From the organization selector, switch to `_meta`.
 2. Go to **Logs**.
@@ -77,7 +78,7 @@ This process applies only to users who have access to the `_meta` organization.
     `match_all('019a5d91932174c3bab84fff2785f73f')`
     This displays all logs related to that alert evaluation.
 11. Review the logs to identify the failure cause, such as query issues, destination errors, timeouts, or node resource problems.
-12. Use the **Source Node** field from the **Alert History** details to locate the node that processed the alert and check its introspection logs if needed.
+12. Use the **Source Node** field from the **Alert Execution Details** view to locate the node that processed the alert and check its introspection logs if needed.
 
 ## Why you might see a skipped status
 A **skipped** status appears when a scheduled alert runs later than its expected window. <br>
