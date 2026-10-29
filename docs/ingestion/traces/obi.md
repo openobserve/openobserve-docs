@@ -61,7 +61,7 @@ echo -n 'root@example.com:Complexpass#123' | base64
 # -> cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
 ```
 
-You can also copy a ready-made endpoint and `Authorization` header from **Data Sources → Custom → Traces** (and **Metrics**) in the OpenObserve UI.
+You can also copy a ready-made endpoint and `Authorization` header from **Data > Data sources > Custom > Traces** (and **Metrics**) in the OpenObserve UI.
 
 ## Deploy on Kubernetes (DaemonSet via Helm)
 
@@ -251,7 +251,7 @@ Generate some traffic to your instrumented services, then:
 - Open **Traces** in OpenObserve and filter by your service name to see captured spans.
 - Open **Metrics** to explore the RED metrics OBI emits (request rate, error rate, and duration histograms) for the same services.
 
-You can see the metric streams OBI creates under **Data → Streams → Metrics** — for example `http_client_request_duration`, `db_client_operation_duration`, and `dns_lookup_duration`, each with its histogram `_bucket`, `_count`, `_sum`, `_min`, and `_max` series:
+You can see the metric streams OBI creates under **Data > Streams** on the **Metrics** tab — for example `http_client_request_duration`, `db_client_operation_duration`, and `dns_lookup_duration`, each with its histogram `_bucket`, `_count`, `_sum`, `_min`, and `_max` series:
 
 ![OBI eBPF metrics streams in OpenObserve](./images/ebpf_metrics.png)
 

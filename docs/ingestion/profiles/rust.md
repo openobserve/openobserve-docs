@@ -74,7 +74,7 @@ cargo build --release
 
 ## Scrape with the Collector
 
-Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Use [otelcol-contrib](https://github.com/open-telemetry/opentelemetry-collector-releases) **0.153.0** (`remote:` scrape config). CPU scrape `timeout` must be longer than the 5-second profile window.
+Copy the endpoint and `Authorization` header from **Data > Data sources > Custom > Profiles**. Use [otelcol-contrib](https://github.com/open-telemetry/opentelemetry-collector-releases) **0.153.0** (`remote:` scrape config). CPU scrape `timeout` must be longer than the 5-second profile window.
 
 ```yaml
 receivers:

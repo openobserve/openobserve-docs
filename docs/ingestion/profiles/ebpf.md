@@ -14,7 +14,7 @@ Use it for **Java HotSpot**, **Go**, **Rust**, C/C++, and other supported runtim
 
 Use [otelcol-ebpf-profiler 0.153.0](https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.153.0) on Linux kernel **5.10 or newer**, with root access to load eBPF programs and attach perf events. Both `amd64` and `arm64` packages are available. macOS and Windows need a Linux VM; the profiler cannot sample those host kernels.
 
-Copy the endpoint and `Authorization` header from **Data Sources → Custom → Profiles**. Save as `ebpf-profiler-config.yaml`:
+Copy the endpoint and `Authorization` header from **Data > Data sources > Custom > Profiles**. Save as `ebpf-profiler-config.yaml`:
 
 ```yaml
 receivers:
