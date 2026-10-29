@@ -20,3 +20,5 @@ None
 	"message": "Function deleted"
 }
 ```
+
+A missing function returns `404` ("Function not found"). A function still used by a pipeline or associated with a stream cannot be deleted (`409` or `400` with the reason).

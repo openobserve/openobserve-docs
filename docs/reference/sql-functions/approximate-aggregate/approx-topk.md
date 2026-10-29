@@ -20,8 +20,9 @@ SELECT approx_topk(field_name, K) FROM "stream_name"
 ```
 Here:
 
-- `field_name`: The field for which top values should be retrieved.
-- `K`: The number of top values to return.
+- `field_name`: The field for which top values should be retrieved. It must be a string field.
+- `K`: The number of top values to return (at most 100,000).
+- An optional third argument, `cap`, sets how many candidate values each partition keeps in memory (default: the larger of `K × 4` and `1000`): `approx_topk(field_name, K, cap)`.
 - `stream_name`: The stream containing the data.
 
 **Example**
@@ -171,10 +172,10 @@ The following are the known limitations of `approx_topk()` function:
 SELECT item.value as clientip, item.count as request_count 
 FROM ( 
     SELECT unnest(approx_topk(clientip, 5)) as item 
-    FROM "demo1" 
+    FROM "docs_sql_examples" 
     WHERE status = 401
 ) 
 ORDER BY request_count DESC
 ```
 <br>
-![WHERE clause with approx_topk](../../../images/approx-topk-with-filter.png)
+![Top 5 client IPs for status 401 from approx_topk with a WHERE clause](../../../images/approx-topk-with-filter-v2.png)
