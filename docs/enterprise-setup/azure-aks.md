@@ -187,7 +187,7 @@ The chart provisions Postgres via CNPG, which must be installed cluster-wide fir
 
 ```bash
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.30/releases/cnpg-1.30.0.yaml
 ```
 
 :::accordion[Verify]
@@ -284,15 +284,15 @@ ls -lh values.yaml
 **Expected output**
 
 - `openobserve` repo is listed.
-- `values.yaml` is present (around 43 KB).
+- `values.yaml` is present (around 47 KB).
 :::
 ::::
 
 ::::accordion[Step 7. Configure `values.yaml`]
 
-Open `values.yaml` in your editor. The fields to set are in the active (uncommented) sections. Be careful not to edit the commented `# AZURE_STORAGE_*` example block at the top of the file (around lines 163 to 167).
+Open `values.yaml` in your editor. The fields to set are in the active (uncommented) sections. Be careful not to edit the commented `# AZURE_STORAGE_*` example block above the `auth:` section (around lines 163 to 164).
 
-## 7a. Auth section (~line 186 to 187)
+## 7a. Auth section (~line 188 to 189)
 
 ```yaml
 auth:
@@ -302,7 +302,7 @@ auth:
 
 Keep the default email/password for testing (`root@example.com` / `Complexpass#123`), or change them.
 
-## 7b. Config section (~line 378 to 381)
+## 7b. Config section (~line 384 to 387)
 
 ```yaml
 config:
@@ -328,6 +328,8 @@ config:
 ```
 
 ## 7d. (Optional) Enable RBAC and SSO
+
+OpenFGA (RBAC) is already enabled by default; set `dex.enabled` to `true` for SSO.
 
 ```yaml
 enterprise:
@@ -489,7 +491,7 @@ If you see errors, check:
 
 :::accordion[Step 2: Try These Sample Searches]
 
-**Basic searches** (click the **Run Query** button after each):
+**Basic searches** (click the **Run query** button after each):
 
 1. **View all logs**: Leave search box empty and click search
 2. **Find errors**: `level='error'` or `match_all('error')`
@@ -576,7 +578,7 @@ Issues are grouped by theme. Each entry notes the step where it tends to surface
 
 - **`ImagePullBackOff` on the CNPG operator pod** (Step 4). Egress or registry issue. **Fix:** `kubectl describe pod -n cnpg-system <pod>` for details; check outbound internet from the cluster.
 
-- **Manifest deploys to `cnpg-system`, not `cnpg`.** The 1.22 manifest uses the `cnpg-system` namespace. If older docs reference `cnpg`, check both.
+- **Manifest deploys to `cnpg-system`, not `cnpg`.** The CNPG release manifest uses the `cnpg-system` namespace. If older docs reference `cnpg`, check both.
 
 **Helm and `values.yaml`**
 
@@ -584,7 +586,7 @@ Issues are grouped by theme. Each entry notes the step where it tends to surface
 
 - **`helm repo add` reports the repo already exists** (Step 6). **Fix:** run `helm repo update` and continue.
 
-- **Storage key set in the commented `# AZURE_STORAGE_*` block but pods can't find it** (Step 7). The file has the same field names in both the commented example and the active `auth:` section. Only the active one is applied at install time. **Fix:** edit the active `auth:` block (around line 186 to 187), not the comment example (around line 163 to 164).
+- **Storage key set in the commented `# AZURE_STORAGE_*` block but pods can't find it** (Step 7). The file has the same field names in both the commented example and the active `auth:` section. Only the active one is applied at install time. **Fix:** edit the active `auth:` block (around line 188 to 189), not the comment example (around line 163 to 164).
 
 - **Changes to `config:` values don't appear in pod env** (Step 7). Some keys are skipped from the rendered ConfigMap. **Fix:** set them via `<component>.extraEnv:` instead. That path is always passed through.
 
@@ -598,13 +600,13 @@ Issues are grouped by theme. Each entry notes the step where it tends to surface
 
 - **Pods crash with `pool timed out while waiting for an open connection`** (Step 8). Postgres connection pool starved. Rare on a 3-node cluster. **Fix:** check Postgres health with `kubectl logs -n $NAMESPACE openobserve-postgres-1`. If storage is slow, switch to Premium SSD (see **Resource pressure** below).
 
-- **Router pod stuck `0/1` for more than 5 minutes** (Step 8). Startup probe is failing before app deps are ready. **Fix:** bump `probes.router.config.startupProbe.failureThreshold` in `values.yaml` from `3` to `30`, then `helm upgrade`.
+- **Router pod stuck `0/1` for more than 5 minutes** (Step 8). Startup probe is failing before app deps are ready. **Fix:** raise `probes.router.config.startupProbe.failureThreshold` in `values.yaml` above its default of `30` (for example `60`), then `helm upgrade`.
 
 - **Pod stuck `Pending` with `volume node affinity conflict`** (Step 8). The PVC's storage class is locked to a zone with no schedulable node. **Fix:** use a `WaitForFirstConsumer` storage class. The default `managed-csi` already is.
 
 **UI and access**
 
-- **Port-forward says `connection refused`** (Step 9). The router pod is not Ready. **Fix:** confirm with `kubectl get pod -n $NAMESPACE -l app=openobserve-router`, then retry.
+- **Port-forward says `connection refused`** (Step 9). The router pod is not Ready. **Fix:** confirm with `kubectl get pod -n $NAMESPACE -l app.kubernetes.io/instance=openobserve,role=router`, then retry.
 
 - **Browser shows a spinner forever** (Step 9). The router was killed and restarted. **Fix:** inspect `kubectl logs -n $NAMESPACE <router-pod>` and address the underlying error.
 

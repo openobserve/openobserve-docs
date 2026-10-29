@@ -418,7 +418,7 @@ module "openobserve" {
 
   image = {
     repository = "o2cr.ai/openobserve/openobserve-enterprise"
-    tag        = "v0.80.2"
+    tag        = "v1.1.2"
   }
 
   # ... rest of your configuration

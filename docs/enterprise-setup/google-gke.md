@@ -80,7 +80,7 @@ export NAMESPACE=openobserve
 
 Choose **Standard** mode (not Autopilot). On a regional cluster, `--num-nodes 1` provisions **1 node × 3 zones = 3 nodes total**. Takes 5-8 minutes.
 
-Three `e2-standard-4` nodes running 24/7 cost approximately $290/month in `us-central1` (on-demand, list price, May 2025). Disks and egress are extra. Run the [Teardown](#teardown) when finished.
+Three `e2-standard-4` nodes running 24/7 cost approximately $290/month in `us-central1` (on-demand list price; estimate as of October 2026, check current Google Cloud pricing). Disks and egress are extra. Run the [Teardown](#teardown) when finished.
 
 ::::tabs
 :::tab[CLI (recommended)]
@@ -242,7 +242,7 @@ OpenObserve uses Postgres for metadata. The chart provisions it via CNPG, which 
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.30/releases/cnpg-1.30.0.yaml
 ```
 
 :::accordion[Verify]
@@ -298,9 +298,9 @@ Update Complete. ⎈Happy Helming!⎈
 
 ::::accordion[Step 6. Configure `values.yaml`]
 
-Open `values.yaml`. Line numbers below match chart version `1.7.x`; if yours differs, search by key name.
+Open `values.yaml`. Line numbers below match chart version `1.1.x`; if yours differs, search by key name.
 
-## 6a. Root user credentials (~line 178)
+## 6a. Root user credentials (~line 180)
 
 ```yaml
 auth:
@@ -308,14 +308,14 @@ auth:
   ZO_ROOT_USER_PASSWORD: "supercomplexpass12"     # change me
 ```
 
-## 6b. GCS HMAC credentials (~lines 183-184)
+## 6b. GCS HMAC credentials (~lines 185-186)
 
 ```yaml
   ZO_S3_ACCESS_KEY: "GOOG...accessId from Step 3..."
   ZO_S3_SECRET_KEY: "secret from Step 3"
 ```
 
-## 6c. GCS storage configuration (~lines 378-381)
+## 6c. GCS storage configuration (~lines 384-387)
 
 ```yaml
 config:
@@ -327,7 +327,7 @@ config:
 
 `ZO_S3_PROVIDER` must stay `"s3"` even though we're using GCS. See the troubleshooting entry below if you're tempted to change it.
 
-## 6d. (Optional) Enable RBAC and SSO (~lines 870-882)
+## 6d. (Optional) Enable RBAC and SSO (~lines 878-955)
 
 ```yaml
 enterprise:
@@ -402,7 +402,7 @@ oo-openobserve-querier-0                   1/1     Running   0          2m
 oo-openobserve-router-...                  1/1     Running   1          2m
 ```
 
-The router shows **1 restart**. Its readiness probe runs before its dependencies are ready. That's expected and resolves itself.
+The `oo-openobserve-dex-...` pod appears only if you enabled Dex in Step 6d. The router shows **1 restart**. Its readiness probe runs before its dependencies are ready. That's expected and resolves itself.
 :::
 ::::
 
@@ -501,7 +501,7 @@ If you see errors, check:
 
 :::accordion[Step 2: Try These Sample Searches]
 
-**Basic searches** (click the **Run Query** button after each):
+**Basic searches** (click the **Run query** button after each):
 
 1. **View all logs**: Leave search box empty and click search
 2. **Find errors**: `level='error'` or `match_all('error')`
@@ -607,7 +607,7 @@ Issues are grouped by theme. Each entry notes the step where it tends to surface
 - **CNPG operator in `CrashLoopBackOff`** (Step 4). CRD conflict from an earlier install. **Fix:**
 
     ```sh
-    kubectl delete -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.1.yaml
+    kubectl delete -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.30/releases/cnpg-1.30.0.yaml
     ```
 
     Then reapply.
