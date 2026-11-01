@@ -486,7 +486,7 @@ If you see errors, check:
 2. Click on **Logs** in the left sidebar
 3. Select **default** from the stream dropdown (top-left)
 
-![Logs page](../images/quickstart/logs_page.png)
+![Logs page](../images/quickstart/logs_page-v2.png)
 :::
 
 :::accordion[Step 2: Try These Sample Searches]
