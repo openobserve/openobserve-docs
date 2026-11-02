@@ -141,6 +141,7 @@ curl -X DELETE \
 
     - **Logs:** Data is deleted every hour.
     - **Traces:** Data is deleted daily.
+- When dynamic merge is enabled, a day's files span the whole day. A time-range delete that reaches part of a merged day is refused with `400` (*the data is stored by day, delete a day-aligned range*); the deletion job skips such a day instead of deleting it.
 ---
 
 ### Get delete job status
