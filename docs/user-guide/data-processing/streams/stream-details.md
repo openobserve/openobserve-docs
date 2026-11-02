@@ -80,6 +80,9 @@ Useful for audits and reprocessing. Increases storage because raw payloads are p
 Enables tracking of distinct values for fields to speed up filters and aggregations that rely on unique values.
 Improves responsiveness on high-cardinality fields. 
 
+### Dynamic merge
+Merge a finished day's files into fewer, larger files when the stream is low-volume, so queries read files that span up to a day. While the toggle shows **Default**, the stream follows the server default; change it to pin the stream to its own value.
+
 
 ## Troubleshooting
 
