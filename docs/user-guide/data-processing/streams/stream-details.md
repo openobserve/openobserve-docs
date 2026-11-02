@@ -80,6 +80,8 @@ Useful for audits and reprocessing. Increases storage because raw payloads are p
 Enables tracking of distinct values for fields to speed up filters and aggregations that rely on unique values.
 Improves responsiveness on high-cardinality fields. 
 
+`dynamic_merge` merges a finished day's files into fewer, larger files for low-volume streams, supported for logs, metrics, and traces. When unset, the stream follows `ZO_COMPACT_DYNAMIC_MERGE_STREAM_TYPES`; once set, the stream keeps its own value.
+
 
 ## Troubleshooting
 
