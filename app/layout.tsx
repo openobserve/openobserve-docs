@@ -5,7 +5,8 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { source } from '@/lib/source';
-import { baseOptions, SidebarGetStarted, SidebarPrivacyLink } from '@/app/layout.config';
+import { baseOptions, SidebarBanner, SidebarPrivacyLink } from '@/app/layout.config';
+import { AiAssistantDialog } from '@/components/ai-assistant';
 import { Analytics, GtmNoScript } from '@/components/analytics';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
@@ -56,10 +57,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <DocsLayout
             tree={source.pageTree}
             {...baseOptions}
-            sidebar={{ banner: <SidebarGetStarted />, footer: <SidebarPrivacyLink /> }}
+            sidebar={{ banner: <SidebarBanner />, footer: <SidebarPrivacyLink /> }}
           >
             {children}
           </DocsLayout>
+          <AiAssistantDialog />
         </RootProvider>
         <Analytics />
       </body>

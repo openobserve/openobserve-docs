@@ -21,6 +21,22 @@ To produce the production build:
 pnpm build     # writes ./out
 ```
 
+### Ask AI
+
+The "Ask AI" button in the sidebar, the prompt on the landing page and the chat
+dialog they open (`components/ai-assistant.tsx`) call o2-ai-assistant-backend,
+the same assistant as the marketing site. They render nothing unless
+`NEXT_PUBLIC_AI_ASSISTANT_API_URL` is set at build time. To try it locally, run
+the backend and then:
+
+```sh
+cp .env.example .env   # set NEXT_PUBLIC_AI_ASSISTANT_API_URL=http://localhost:8787
+pnpm dev
+```
+
+`http://localhost:3030` is in the backend's default `CORS_ORIGINS`. The deploy
+workflows read the URL from the `AI_ASSISTANT_API_URL` repository variable.
+
 ### Dev containers
 
 Alternatively, open the repo in a [VS Code dev container](https://code.visualstudio.com/docs/remote/containers).

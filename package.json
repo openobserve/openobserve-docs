@@ -19,9 +19,11 @@
   },
   "dependencies": {
     "@shikijs/transformers": "^4.3.1",
+    "dompurify": "^3.4.17",
     "fumadocs-core": "^16.14.0",
     "fumadocs-mdx": "^15.2.1",
     "fumadocs-ui": "^16.14.0",
+    "marked": "^18.1.2",
     "next": "^16.2.12",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

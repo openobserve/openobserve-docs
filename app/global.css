@@ -289,3 +289,58 @@
   background: transparent;
   border-radius: 0;
 }
+
+/*
+ * "Ask AI" dialog (components/ai-assistant.tsx), matching the marketing site's.
+ */
+.oo-ai-dialog::backdrop {
+  background: rgb(0 0 0 / 0.3);
+  backdrop-filter: blur(3px);
+}
+
+/* The page stays still behind the open dialog. */
+html[data-ai-assistant-open] body {
+  overflow: hidden;
+}
+
+/* Answers are chat-sized: tighter than a docs page. */
+.oo-ai-answer > :first-child {
+  margin-top: 0;
+}
+
+.oo-ai-answer > :last-child {
+  margin-bottom: 0;
+}
+
+.oo-ai-answer :where(p, ul, ol, pre, table, blockquote) {
+  margin-block: 0.6em;
+}
+
+.oo-ai-answer :where(h1, h2, h3, h4) {
+  margin-block: 1em 0.4em;
+  font-size: 1em;
+}
+
+/* `[1]` citation markers, linked to their source. Specific enough to beat the
+   body-copy link rule above. */
+.oo-ai-answer.prose a.oo-ai-citation:not([data-card]) {
+  margin-inline: 0.125rem;
+  display: inline-flex;
+  height: 1.1rem;
+  min-width: 1.1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: var(--color-fd-muted);
+  vertical-align: text-top;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--oo-brand);
+  text-decoration: none;
+}
+
+.oo-ai-answer.prose a.oo-ai-citation:not([data-card]):hover {
+  background: color-mix(in oklab, var(--oo-brand) 12%, transparent);
+  color: var(--oo-brand);
+}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AskAiBar } from '@/components/ai-assistant';
 import { Anchor } from '@/components/landing-anchor';
 import {
   community,
@@ -67,6 +68,9 @@ export function Landing() {
             >
               {hero.secondary.label}
             </Anchor>
+          </div>
+          <div className="mt-7">
+            <AskAiBar />
           </div>
         </div>
 
