@@ -46,12 +46,14 @@ The `deploy.sh` script handles the complete lifecycle of operator management.
 
 1. **00-namespace.yaml** - Creates the `o2operator` namespace
 2. **CRD Files** - Custom Resource Definitions:
-   - `01-o2configs.crd.yaml` - OpenObserveConfig for connection settings
-   - `01-o2alerts.crd.yaml` - OpenObserveAlert for alert definitions
-   - `01-o2alerttemplates.crd.yaml` - OpenObserveAlertTemplate for notification templates
-   - `01-o2destinations.crd.yaml` - OpenObserveDestination for alert and pipeline destinations
-   - `01-o2pipelines.crd.yaml` - OpenObservePipeline for data pipeline configurations
-   - `01-o2functions.crd.yaml` - OpenObserveFunction for VRL transformation functions
+   - `01-o2configs.crd.yaml` - Config for connection settings
+   - `01-o2alerts.crd.yaml` - Alert for alert definitions
+   - `01-o2alerttemplates.crd.yaml` - AlertTemplate for notification templates
+   - `01-o2destinations.crd.yaml` - Destination for alert and pipeline destinations
+   - `01-o2pipelines.crd.yaml` - Pipeline for data pipeline configurations
+   - `01-o2functions.crd.yaml` - Function for VRL transformation functions
+   - `01-o2dashboards.crd.yaml` - Dashboard for dashboard definitions
+   - `01-o2prometheusrulebindings.crd.yaml` - PrometheusRuleBinding for syncing PrometheusRule objects into alerts
 3. **02-configmap.yaml** - ConfigMap for operator configuration:
    - Controller concurrency settings for each resource type
    - API rate limiting configuration (RPS and burst)
@@ -83,6 +85,7 @@ The operator behavior can be tuned via the ConfigMap in `manifests/02-configmap.
   - `PIPELINE_CONTROLLER_CONCURRENCY`: Default 1, recommended 1-10
   - `FUNCTION_CONTROLLER_CONCURRENCY`: Default 1, recommended 1-5
   - `CONFIG_CONTROLLER_CONCURRENCY`: Default 1, recommended 1-3
+  - `DASHBOARD_CONTROLLER_CONCURRENCY`: Default 1, recommended 1-10
 
 - **API Rate Limiting**: Control API request rates to OpenObserve
   - `O2_RATE_LIMIT_RPS`: Requests per second (default: 10, max: 100)
@@ -110,7 +113,7 @@ The `configs/` directory contains environment-specific configurations:
 
 Each configuration file contains:
 - Secret definition for OpenObserve credentials
-- OpenObserveConfig resource definition
+- Config resource definition
 
 **Important**: Edit the appropriate configuration file before applying to add your actual:
 - OpenObserve endpoint URL

@@ -22,12 +22,14 @@ The OpenObserve operator manages the following Custom Resource Definitions (CRDs
 
 | Short Name | Full Name | Purpose |
 |------------|-----------|---------|
-| `o2config` | `openobserveconfig` | Connection configuration to OpenObserve instance |
-| `o2alert` | `openobservealert` | Alert definitions |
-| `o2pipeline` | `openobservepipeline` | Data pipeline configurations |
-| `o2function` | `openobservefunction` | VRL/JavaScript functions |
-| `o2alerttemplate` | `openobservealerttemplate` | Alert notification templates |
-| `o2dest` | `openobservedestination` | Alert and pipeline destinations |
+| `o2config` | `configs.openobserve.ai` | Connection configuration to OpenObserve instance |
+| `o2alert` | `alerts.openobserve.ai` | Alert definitions |
+| `o2pipeline` | `pipelines.openobserve.ai` | Data pipeline configurations |
+| `o2function` | `functions.openobserve.ai` | VRL/JavaScript functions |
+| `o2alerttemplate` | `alerttemplates.openobserve.ai` | Alert notification templates |
+| `o2dest` | `destinations.openobserve.ai` | Alert and pipeline destinations |
+| `o2dash` | `dashboards.openobserve.ai` | Dashboard definitions |
+| `prb` | `prometheusrulebindings.openobserve.ai` | Syncs PrometheusRule objects into alerts |
 
 ## Listing Resources
 
@@ -35,24 +37,24 @@ The OpenObserve operator manages the following Custom Resource Definitions (CRDs
 
 ```bash
 # List in current namespace
-kubectl get openobservealerts
-kubectl get o2alerts  # Using short name
+kubectl get alerts.openobserve.ai
+kubectl get o2alert  # Using short name
 
 # List in specific namespace
-kubectl get openobservealerts -n o2operator
+kubectl get alerts.openobserve.ai -n o2operator
 
 # List across all namespaces
-kubectl get openobservealerts -A
-kubectl get openobservealerts --all-namespaces
+kubectl get alerts.openobserve.ai -A
+kubectl get alerts.openobserve.ai --all-namespaces
 
 # List multiple resource types at once
-kubectl get o2alerts,o2pipelines,o2functions -n o2operator
+kubectl get o2alert,o2pipeline,o2function -n o2operator
 
 # List with more details
-kubectl get openobservealerts -o wide
+kubectl get alerts.openobserve.ai -o wide
 
 # List with custom columns
-kubectl get openobservedestinations \
+kubectl get destinations.openobserve.ai \
   -o custom-columns=NAME:.metadata.name,TYPE:.spec.type,CATEGORY:.status.destinationCategory,TEMPLATE:.spec.template
 ```
 
@@ -60,16 +62,16 @@ kubectl get openobservedestinations \
 
 ```bash
 # Using label selectors
-kubectl get openobservealerts -l environment=production
+kubectl get alerts.openobserve.ai -l environment=production
 
 # Using field selectors
-kubectl get openobservealerts --field-selector metadata.name=my-alert
+kubectl get alerts.openobserve.ai --field-selector metadata.name=my-alert
 
 # Using grep for quick filtering
-kubectl get openobservealerts | grep critical
+kubectl get alerts.openobserve.ai | grep critical
 
 # List resources in specific states
-kubectl get openobservealerts -o json | jq '.items[] | select(.status.conditions[]? | select(.type=="Ready" and .status=="False")) | .metadata.name'
+kubectl get alerts.openobserve.ai -o json | jq '.items[] | select(.status.conditions[]? | select(.type=="Ready" and .status=="False")) | .metadata.name'
 ```
 
 ## Viewing Resource Details
@@ -78,16 +80,16 @@ kubectl get openobservealerts -o json | jq '.items[] | select(.status.conditions
 
 ```bash
 # Describe a resource (human-readable format)
-kubectl describe openobservealert my-alert -n o2operator
+kubectl describe alerts.openobserve.ai my-alert -n o2operator
 
 # Get full YAML output
-kubectl get openobservealert my-alert -n o2operator -o yaml
+kubectl get alerts.openobserve.ai my-alert -n o2operator -o yaml
 
 # Get specific fields using JSONPath
-kubectl get openobservealert my-alert -o jsonpath='{.status.conditions[?(@.type=="Ready")].message}'
+kubectl get alerts.openobserve.ai my-alert -o jsonpath='{.status.conditions[?(@.type=="Ready")].message}'
 
 # Get JSON output and filter with jq
-kubectl get openobservealert my-alert -o json | jq '.status'
+kubectl get alerts.openobserve.ai my-alert -o json | jq '.status'
 
 # View events related to a resource
 kubectl get events --field-selector involvedObject.name=my-alert -n o2operator
@@ -97,16 +99,16 @@ kubectl get events --field-selector involvedObject.name=my-alert -n o2operator
 
 ```bash
 # Check if resource is ready
-kubectl get openobservealert my-alert -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}'
+kubectl get alerts.openobserve.ai my-alert -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}'
 
 # View last error
-kubectl get openobservefunction my-function -o jsonpath='{.status.lastError}'
+kubectl get functions.openobserve.ai my-function -o jsonpath='{.status.lastError}'
 
 # Check deletion timestamp (for stuck resources)
-kubectl get openobservedestination my-dest -o jsonpath='{.metadata.deletionTimestamp}'
+kubectl get destinations.openobserve.ai my-dest -o jsonpath='{.metadata.deletionTimestamp}'
 
 # View finalizers
-kubectl get openobservealert my-alert -o jsonpath='{.metadata.finalizers[*]}'
+kubectl get alerts.openobserve.ai my-alert -o jsonpath='{.metadata.finalizers[*]}'
 ```
 
 ## Patching Resources
@@ -115,15 +117,15 @@ kubectl get openobservealert my-alert -o jsonpath='{.metadata.finalizers[*]}'
 
 ```bash
 # Patch using strategic merge
-kubectl patch openobservealert my-alert -n o2operator \
+kubectl patch alerts.openobserve.ai my-alert -n o2operator \
   --type='merge' -p '{"spec":{"enabled":false}}'
 
 # Patch using JSON patch
-kubectl patch openobservealert my-alert -n o2operator \
+kubectl patch alerts.openobserve.ai my-alert -n o2operator \
   --type='json' -p='[{"op": "replace", "path": "/spec/enabled", "value": false}]'
 
 # Update multiple fields
-kubectl patch openobservedestination my-dest -n o2operator \
+kubectl patch destinations.openobserve.ai my-dest -n o2operator \
   --type='merge' -p '{
     "spec": {
       "url": "https://new-webhook-url.com",
@@ -132,25 +134,25 @@ kubectl patch openobservedestination my-dest -n o2operator \
   }'
 
 # Add labels
-kubectl label openobservealert my-alert environment=staging
+kubectl label alerts.openobserve.ai my-alert environment=staging
 
 # Add annotations
-kubectl annotate openobservealert my-alert description="Critical CPU alert"
+kubectl annotate alerts.openobserve.ai my-alert description="Critical CPU alert"
 ```
 
 ### Remove finalizers (for stuck resources)
 
 ```bash
 # Remove all finalizers
-kubectl patch openobservedestination stuck-dest -n o2operator \
+kubectl patch destinations.openobserve.ai stuck-dest -n o2operator \
   -p '{"metadata":{"finalizers":[]}}' --type=merge
 
 # Remove specific finalizer
-kubectl patch openobservealert stuck-alert -n o2operator \
+kubectl patch alerts.openobserve.ai stuck-alert -n o2operator \
   --type='json' -p='[{"op": "remove", "path": "/metadata/finalizers/0"}]'
 
 # Alternative method using kubectl edit
-kubectl edit openobservealert stuck-alert -n o2operator
+kubectl edit alerts.openobserve.ai stuck-alert -n o2operator
 # Then manually remove the finalizers section and save
 ```
 
@@ -160,22 +162,22 @@ kubectl edit openobservealert stuck-alert -n o2operator
 
 ```bash
 # Delete a single resource
-kubectl delete openobservealert my-alert -n o2operator
+kubectl delete alerts.openobserve.ai my-alert -n o2operator
 
 # Delete using a manifest file
 kubectl delete -f alert-definition.yaml
 
 # Delete multiple resources
-kubectl delete openobservealerts alert1 alert2 alert3 -n o2operator
+kubectl delete alerts.openobserve.ai alert1 alert2 alert3 -n o2operator
 
 # Delete all resources of a type
-kubectl delete openobservealerts --all -n o2operator
+kubectl delete alerts.openobserve.ai --all -n o2operator
 
 # Delete with grace period
-kubectl delete openobservealert my-alert --grace-period=30
+kubectl delete alerts.openobserve.ai my-alert --grace-period=30
 
 # Force immediate deletion (use with caution)
-kubectl delete openobservealert my-alert --grace-period=0 --force
+kubectl delete alerts.openobserve.ai my-alert --grace-period=0 --force
 ```
 
 ### Handling stuck resources
@@ -184,20 +186,20 @@ When a resource is stuck in "Terminating" state:
 
 ```bash
 # 1. Check why it's stuck
-kubectl describe openobservedestination stuck-dest -n o2operator
+kubectl describe destinations.openobserve.ai stuck-dest -n o2operator
 
 # 2. Check for finalizers
-kubectl get openobservedestination stuck-dest -n o2operator -o yaml | grep -A 5 finalizers
+kubectl get destinations.openobserve.ai stuck-dest -n o2operator -o yaml | grep -A 5 finalizers
 
 # 3. Check operator logs for errors
 kubectl logs -n o2operator -l app=openobserve-operator --tail=50 | grep stuck-dest
 
 # 4. Remove finalizers if the external resource is already deleted
-kubectl patch openobservedestination stuck-dest -n o2operator \
+kubectl patch destinations.openobserve.ai stuck-dest -n o2operator \
   -p '{"metadata":{"finalizers":null}}' --type=merge
 
 # 5. If still stuck, edit and remove finalizers manually
-kubectl edit openobservedestination stuck-dest -n o2operator
+kubectl edit destinations.openobserve.ai stuck-dest -n o2operator
 ```
 
 ## Common Troubleshooting Scenarios
@@ -208,18 +210,18 @@ kubectl edit openobservedestination stuck-dest -n o2operator
 # Example: Alert template can't be deleted because it's used by a destination
 
 # 1. Identify what's using the resource
-kubectl get openobservedestinations -A -o json | \
+kubectl get destinations.openobserve.ai -A -o json | \
   jq '.items[] | select(.spec.template=="my-template") | {name: .metadata.name, namespace: .metadata.namespace}'
 
 # 2. Delete the dependent resources first
-kubectl delete openobservedestination dependent-dest -n o2operator
+kubectl delete destinations.openobserve.ai dependent-dest -n o2operator
 
 # 3. If the dependent resource is also stuck, remove its finalizer
-kubectl patch openobservedestination dependent-dest -n o2operator \
+kubectl patch destinations.openobserve.ai dependent-dest -n o2operator \
   -p '{"metadata":{"finalizers":[]}}' --type=merge
 
 # 4. Now delete the original resource
-kubectl delete openobservealerttemplate my-template -n o2operator
+kubectl delete alerttemplates.openobserve.ai my-template -n o2operator
 ```
 
 ### Scenario 2: Resource out of sync with OpenObserve
@@ -228,16 +230,16 @@ kubectl delete openobservealerttemplate my-template -n o2operator
 # When Kubernetes resource exists but OpenObserve resource doesn't
 
 # 1. Check resource status
-kubectl get openobservealert my-alert -n o2operator -o jsonpath='{.status}'
+kubectl get alerts.openobserve.ai my-alert -n o2operator -o jsonpath='{.status}'
 
 # 2. Force reconciliation by updating a label
-kubectl label openobservealert my-alert reconcile=true --overwrite
+kubectl label alerts.openobserve.ai my-alert reconcile=true --overwrite
 
 # 3. If reconciliation fails, check operator logs
 kubectl logs -n o2operator deployment/openobserve-operator --tail=100 | grep my-alert
 
 # 4. As last resort, delete and recreate
-kubectl delete openobservealert my-alert -n o2operator
+kubectl delete alerts.openobserve.ai my-alert -n o2operator
 kubectl apply -f my-alert.yaml
 ```
 
@@ -253,7 +255,7 @@ kubectl get validatingwebhookconfigurations | grep openobserve
 kubectl delete validatingwebhookconfiguration openobserve-webhook-config
 
 # 3. Perform the operation
-kubectl delete openobservealerttemplate stuck-template -n o2operator
+kubectl delete alerttemplates.openobserve.ai stuck-template -n o2operator
 
 # 4. Reinstall webhook
 kubectl apply -f manifests/04-webhook.yaml
@@ -265,16 +267,16 @@ kubectl apply -f manifests/04-webhook.yaml
 # Delete all resources in Failed state
 
 # 1. List failed resources
-kubectl get openobservealerts -n o2operator -o json | \
+kubectl get alerts.openobserve.ai -n o2operator -o json | \
   jq '.items[] | select(.status.conditions[]? | select(.type=="Ready" and .status=="False")) | .metadata.name'
 
 # 2. Delete them
-kubectl get openobservealerts -n o2operator -o json | \
+kubectl get alerts.openobserve.ai -n o2operator -o json | \
   jq -r '.items[] | select(.status.conditions[]? | select(.type=="Ready" and .status=="False")) | .metadata.name' | \
-  xargs -I {} kubectl delete openobservealert {} -n o2operator
+  xargs -I {} kubectl delete alerts.openobserve.ai {} -n o2operator
 
 # 3. Clean up stuck resources with finalizers
-for resource in $(kubectl get openobservealerts -n o2operator -o name | grep terminating); do
+for resource in $(kubectl get alerts.openobserve.ai -n o2operator -o name | grep terminating); do
   kubectl patch $resource -n o2operator -p '{"metadata":{"finalizers":[]}}' --type=merge
 done
 ```
@@ -283,21 +285,21 @@ done
 
 ```bash
 # 1. Check resource events
-kubectl describe openobservealert my-alert -n o2operator | tail -20
+kubectl describe alerts.openobserve.ai my-alert -n o2operator | tail -20
 
 # 2. Check operator logs with increased verbosity
 kubectl logs -n o2operator deployment/openobserve-operator --tail=100 -f
 
 # 3. Check resource generation vs observed generation
-kubectl get openobservealert my-alert -n o2operator \
+kubectl get alerts.openobserve.ai my-alert -n o2operator \
   -o jsonpath='{.metadata.generation} vs {.status.observedGeneration}'
 
 # 4. Check retry count for deletion
-kubectl get openobservealert my-alert -n o2operator \
+kubectl get alerts.openobserve.ai my-alert -n o2operator \
   -o jsonpath='{.status.deletionRetryCount}'
 
 # 5. Force requeue by changing something trivial
-kubectl annotate openobservealert my-alert force-sync="`date`" --overwrite
+kubectl annotate alerts.openobserve.ai my-alert force-sync="`date`" --overwrite
 ```
 
 ## Best Practices
@@ -308,11 +310,11 @@ kubectl annotate openobservealert my-alert force-sync="`date`" --overwrite
 3. **Monitor operator logs** when performing operations to understand any failures
 4. **Use dry-run** to preview changes before applying them:
    ```bash
-   kubectl delete openobservealert my-alert --dry-run=client
+   kubectl delete alerts.openobserve.ai my-alert --dry-run=client
    ```
 5. **Backup resources** before major changes:
    ```bash
-   kubectl get openobservealerts -n o2operator -o yaml > alerts-backup.yaml
+   kubectl get alerts.openobserve.ai -n o2operator -o yaml > alerts-backup.yaml
    ```
 
 ### DON'Ts:
@@ -355,7 +357,7 @@ kubectl top pods -n o2operator -l app=openobserve-operator
 ```bash
 # Export all OpenObserve resources
 for crd in alerts pipelines functions alerttemplates destinations configs; do
-  kubectl get openobserve${crd} -A -o yaml > openobserve-${crd}-export.yaml
+  kubectl get ${crd}.openobserve.ai -A -o yaml > openobserve-${crd}-export.yaml
 done
 
 # Create a support bundle
@@ -373,7 +375,7 @@ If the operator is completely broken and resources need emergency cleanup:
 NAMESPACE="o2operator"
 
 # Remove all finalizers from all OpenObserve resources
-for resource_type in openobservealerts openobservepipelines openobservefunctions openobservealerttemplates openobservedestinations; do
+for resource_type in alerts.openobserve.ai pipelines.openobserve.ai functions.openobserve.ai alerttemplates.openobserve.ai destinations.openobserve.ai; do
   echo "Cleaning up $resource_type..."
   kubectl get $resource_type -n $NAMESPACE -o name | while read resource; do
     echo "  Removing finalizers from $resource"
