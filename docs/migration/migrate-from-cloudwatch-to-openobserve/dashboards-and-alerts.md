@@ -19,6 +19,8 @@ For most teams the automated path handles the bulk of the work; the manual path 
 
 The [OpenObserve Dashboard Migrator](https://migration.openobserve.ai/) is a free web tool that converts dashboards from CloudWatch — and Datadog, Grafana, and Kibana — into OpenObserve-native objects. For CloudWatch it reads a dashboard's `widgets` array and produces an OpenObserve dashboard with the widgets, layout, and variables translated.
 
+To open it from OpenObserve, go to **Dashboards**, click **Import**, and choose **Migrate from CloudWatch**.
+
 ### How it works
 
 1. **Load Dashboards** — paste or upload the dashboard JSON, or browse your dashboards directly from AWS (the tool provides a read-only CloudFormation template to grant it access).
@@ -33,10 +35,10 @@ Because CloudWatch metrics arrive as a logs stream (see the [overview](index.md)
 | CloudWatch concept | OpenObserve SQL |
 |---|---|
 | Metric `CPUUtilization` in `AWS/EC2` | `WHERE namespace = 'AWS/EC2' AND metric_name = 'CPUUtilization'` |
-| Statistic **Average** | `sum(value_sum) / sum(value_count)` |
-| Statistic **Sum** | `sum(value_sum)` |
-| Statistic **Min** / **Max** | `min(value_min)` / `max(value_max)` |
-| Dimension `InstanceId=i-123` | `WHERE dimensions_instanceid = 'i-123'` |
+| Statistic **Average** | `sum("sum") / sum("count")` |
+| Statistic **Sum** | `sum("sum")` |
+| Statistic **Min** / **Max** | `min("min")` / `max("max")` |
+| Dimension `InstanceId=i-123` | `WHERE str_match(metric_dimensions, 'InstanceId=["i-123"]')` |
 | Period / time range | Time filter on `_timestamp` |
 
 ### What's skipped
@@ -65,17 +67,18 @@ The `get-dashboard` response wraps the body in a `DashboardBody` string; the mig
 If you prefer to rebuild by hand, translate each metric widget to a SQL query over the metrics stream. For example, an **Average** of `CPUUtilization` for `AWS/EC2` across all instances:
 
 ```sql
-SELECT _timestamp, sum(value_sum) / sum(value_count) AS avg_cpu
+SELECT histogram(_timestamp) AS ts, sum("sum") / sum("count") AS avg_cpu
 FROM cloudwatch_metrics
 WHERE namespace = 'AWS/EC2' AND metric_name = 'CPUUtilization'
-GROUP BY _timestamp
+GROUP BY ts
+ORDER BY ts
 ```
 
-Add `dimensions_<name>` filters to narrow to specific instances, regions, or auto-scaling groups, and use the same aggregation mapping shown above for Sum/Min/Max.
+Add `str_match(metric_dimensions, '<Dimension>=["<value>"]')` filters (or a `region` filter) to narrow to specific instances, regions, or auto-scaling groups, and use the same aggregation mapping shown above for Sum/Min/Max.
 
 ## CloudWatch alarms
 
-CloudWatch alarms are not migrated by the Dashboard Migrator. To move an alarm, recreate it as an OpenObserve [scheduled alert](../../user-guide/analytics/alerts/index.md): take the alarm's metric, statistic, and threshold, express them as a SQL query (using the same `value_sum` / `value_count` mapping), and attach the notification destination. See the [Alerts documentation](../../user-guide/analytics/alerts/index.md) for details.
+CloudWatch alarms are not migrated by the Dashboard Migrator. To move an alarm, recreate it as an OpenObserve [scheduled alert](../../user-guide/analytics/alerts/index.md): take the alarm's metric, statistic, and threshold, express them as a SQL query (using the same `sum` / `count` mapping), and attach the notification destination. See the [Alerts documentation](../../user-guide/analytics/alerts/index.md) for details.
 
 ## Next steps
 

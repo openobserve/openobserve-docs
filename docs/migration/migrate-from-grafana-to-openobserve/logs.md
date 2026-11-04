@@ -51,9 +51,9 @@ exporters:
     endpoint: http://loki:3100/loki/api/v1/push
 ```
 
-Copy the exact updated configuration from the **Data Sources UI** in OpenObserve.
+Copy the exact updated configuration from **Data > Data sources > Custom > Logs > OTEL Collector** in OpenObserve.
 
-![OpenObserve Data Sources - OTel Collector Logs](../../images/migration/lgtm/opentelemetry.png)
+![Data sources, Custom, Logs, OTEL Collector exporter config](../../images/migration/lgtm/opentelemetry-v2.png)
 
 ---
 
@@ -70,13 +70,13 @@ clients:
       password: Complexpass#123
 ```
 
-Replace `{org}` with your OpenObserve organization name (e.g. `default`).
+Replace `{org}` with your OpenObserve organization name (e.g. `default`). OpenObserve writes Loki pushes to the stream named in the `o2_stream_name` label (or `stream_name`); without that label they go to the `default` stream. Add it as a static label in Promtail if you want a different stream.
 
 Alternatively, replace Promtail with the [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md) or Fluent Bit for a more modern, OTel-native setup.
 
-Copy the exact command to deploy O2 Collector from the **Data Sources UI** in OpenObserve.
+Copy the exact command to deploy the OpenObserve Collector from **Data > Data sources > Recommended > Kubernetes** in OpenObserve.
 
-![OpenObserve Data Sources - Kubernetes Logs](../../images/migration/lgtm/o2-collector-kubernetes.png)
+![Data sources, Recommended, Kubernetes quick install command](../../images/migration/lgtm/o2-collector-kubernetes-v2.png)
 
 
 ---
@@ -99,7 +99,7 @@ logs:
   configs:
     - name: default
       clients:
-        - url: http://openobserve:5080/api/default/_json
+        - url: http://openobserve:5080/api/default/loki/api/v1/push
           basic_auth:
             username: admin@example.com
             password: Complexpass#123
@@ -122,8 +122,8 @@ Or replace with [OpenObserve Collector](https://github.com/openobserve/openobser
 
 Change the output plugin from `loki` to `http` and point it at OpenObserve. 
 
-![OpenObserve Data Sources - Fluent Bit](../../images/migration/lgtm/fluent-bit.png)
-*You can copy the exact Fluent Bit configuration from the OpenObserve Data Sources UI*
+![Data sources, Custom, Logs, FluentBit output config](../../images/migration/lgtm/fluent-bit-v2.png)
+*You can copy the exact Fluent Bit configuration from **Data > Data sources > Custom > Logs > FluentBit** in OpenObserve*
 
 ---
 
@@ -140,8 +140,8 @@ Change the output plugin from `loki` to `http` and point it at OpenObserve.
 
 Change the sink type from `loki` to `http` and point it at OpenObserve.
 
-![OpenObserve Data Sources - Vector](../../images/migration/lgtm/vector.png)
-*You can copy the exact Vector configuration from the OpenObserve Data Sources UI*
+![Data sources, Custom, Logs, Vector sink config](../../images/migration/lgtm/vector-v2.png)
+*You can copy the exact Vector configuration from **Data > Data sources > Custom > Logs > Vector** in OpenObserve*
 
 ---
 
@@ -150,7 +150,7 @@ Change the sink type from `loki` to `http` and point it at OpenObserve.
 For detailed steps on ingesting data into OpenObserve using Telegraf, see the dedicated guide:
 
 
-![OpenObserve Data Sources -Telegraf ](../../images/migration/lgtm/telegraf.png)
+![Data sources, Custom, Metrics, Telegraf output config](../../images/migration/lgtm/telegraf-v2.png)
 
 > **Dedicated guide :** [Telegraf → OpenObserve](https://openobserve.ai/blog/how-to-set-up-telegraf-for-http-metrics-collection/)
 
@@ -160,7 +160,7 @@ For detailed steps on ingesting data into OpenObserve using Telegraf, see the de
 
 For detailed steps on ingesting AWS CloudWatch logs into OpenObserve, see the dedicated guide:
 
-![OpenObserve Data Sources - AWS CloudWatch ](../../images/migration/lgtm/aws-cloudwatch.png)
+![Data sources, Recommended, AWS, Individual Services with CloudWatch Logs and CloudWatch Metrics](../../images/migration/lgtm/aws-cloudwatch-v2.png)
 
 > **Dedicated guide:** [AWS CloudWatch Logs → OpenObserve](https://openobserve.ai/blog/how-to-send-aws-cloudwatch-logs-to-s3-using-kinesis-data-firehose/)
 
@@ -171,8 +171,8 @@ For detailed steps on ingesting AWS CloudWatch logs into OpenObserve, see the de
 Use the OpenObserve Collector Helm chart to replace Promtail as a DaemonSet. 
 
 
-![OpenObserve Data Sources - Kubernetes ](../../images/migration/lgtm/o2-collector-kubernetes.png)
-*You can copy the exact collector installation command from the OpenObserve Data Sources UI*
+![Data sources, Recommended, Kubernetes quick install command](../../images/migration/lgtm/o2-collector-kubernetes-v2.png)
+*You can copy the exact collector installation command from **Data > Data sources > Recommended > Kubernetes** in OpenObserve*
 
 ---
 
