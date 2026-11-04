@@ -41,6 +41,7 @@ Description
 | agent_options | object    | -             | options for agent/MCP clients |
 | agent_options.mode | string | `default` | query execution mode: `default` (result cache path) or `partition` (streaming partition loop, see below) |
 | agent_options.output_format | string | `json` | response format for hits: `json`, `csv`, or `md_table` |
+| query.analyze_profile | boolean  | `false`      | opt-in: adds a structured `profile` column to `EXPLAIN ANALYZE` results |
 
 ## Response
 
@@ -137,6 +138,25 @@ This mode is designed for agent/MCP clients that speak plain request-response an
 - You are scanning a large time range but only need a few rows (top-N or sample).
 - You run exploratory queries that shift their time window with each call — the progressive cache rewards this pattern.
 - **Do NOT** split the time range yourself and call `_search` in a loop. Let the server do it with one call in `partition` mode.
+
+## EXPLAIN ANALYZE profile
+
+Run `EXPLAIN ANALYZE` SQL to see how a query runs across the cluster. The result is one row per node that ran part of the query, with the columns `phase`, `node_address`, `node_name`, and `plan`.
+
+Set `query.analyze_profile` to `true` to also receive a structured, per-node profile. The result then adds a nullable `profile` column, with the whole profile as JSON on the first row:
+
+```json
+{
+    "query": {
+        "sql": "EXPLAIN ANALYZE SELECT * FROM {stream} WHERE code=500",
+        "start_time": 1674789786006000,
+        "end_time": 1674789786006000,
+        "analyze_profile": true
+    }
+}
+```
+
+The `profile` value is a tree that follows the physical plan. Each node keeps typed metrics — execution time, output row counts, bytes, decode time, and scan statistics — alongside the plan it ran. A `RemoteScanExec` lists the nodes it called directly, so a node appears once under each scan that called it. The text `plan` column is the same size with or without the flag.
 
 ## SQL Syntax
 
