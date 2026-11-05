@@ -7,7 +7,7 @@ description: "Define automated workflows that run when alerts fire. Use the visu
 
 Workflows let you define automated chains of operations that execute in response to a trigger: an alert firing, a firing alert resolving, or an incident event. When the trigger occurs, the workflow runs through a sequence of steps — transforming the payload with JavaScript functions, evaluating conditions, branching, and routing results to a pipeline destination.
 
-Workflows are available in the Enterprise Edition and OpenObserve Cloud, in **Beta**, and are not turned on for every organization. The **Workflows** menu appears only when your license includes the Workflows feature and `O2_WORKFLOWS_ENABLED` is not set to `false` (its default is `true`). Trial access is available on request. They share the same visual node-edge builder as pipelines but introduce workflow-specific node types: **Trigger**, **Condition**, **Branch**, **Function** (JavaScript only), and **Destination**.
+Workflows are available in the Enterprise Edition and OpenObserve Cloud, in **Beta**, gated by the `O2_WORKFLOWS_ENABLED` configuration flag. Trial access is available on request. They share the same visual node-edge builder as pipelines but introduce workflow-specific node types: **Trigger**, **Condition**, **Branch**, **Function** (JavaScript only), and **Destination**.
 
 ![Workflows list with the Folders rail, the All, Alerts and Incidents tabs and a workflow row](images/workflows-1-v2.png)
 
