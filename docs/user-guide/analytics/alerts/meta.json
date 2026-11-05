@@ -10,6 +10,7 @@
     "anomaly-detection",
     "downtimes",
     "import-export-alerts",
-    "notification-dependencies"
+    "notification-dependencies",
+    "unified-notification-templates"
   ]
 }
