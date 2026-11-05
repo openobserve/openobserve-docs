@@ -11,7 +11,7 @@ A public link publishes a read-only, periodically refreshed copy of a dashboard.
 
 - The feature is on by default. A server-wide switch, `ZO_PUBLIC_DASHBOARD_ENABLED`, turns it off. It also needs the disk cache: if `ZO_DISK_CACHE_ENABLED` is off on a querier, public dashboards are turned off. While the feature is off, the public link buttons are hidden and public URLs return 404.
 - In Enterprise, you need **edit access to the dashboard**, and a role with the **Public Dashboards** permission. Admins grant it on the **Roles** screen. It is one org-wide permission, not a per-dashboard grant.
-- A dashboard can have up to 10 public links, and a public link can show at most 10 panels across all tabs. An organization can have up to 50 links. See [Limits and settings](#limits-and-settings) to change these.
+- A dashboard can have up to 10 public links, and a public link can show at most 50 panels across all tabs. An organization can have up to 50 links. See [Limits and settings](#limits-and-settings) to change these.
 
 ## Create a public link
 
@@ -104,6 +104,6 @@ Self-hosted deployments can tune public dashboards with environment variables, i
 | `ZO_PUBLIC_DASHBOARD_ENABLED` | `true` | Turns public dashboards on or off for the whole server. |
 | `ZO_PUBLIC_DASHBOARD_MAX_LINKS_PER_ORG` | `50` | Public links an organization can have. |
 | `ZO_PUBLIC_DASHBOARD_MAX_LINKS_PER_DASHBOARD` | `10` | Public links one dashboard can have. |
-| `ZO_PUBLIC_DASHBOARD_MAX_PANELS` | `10` | Panels a public link can show, across all tabs. |
+| `ZO_PUBLIC_DASHBOARD_MAX_PANELS` | `50` | Panels a public link can show, across all tabs. |
 | `ZO_PUBLIC_DASHBOARD_MIN_REFRESH_SECS` | `60` | Shortest refresh interval, in seconds. |
 | `ZO_PUBLIC_DASHBOARD_RPM` | `240` | Requests per minute allowed from one IP address on the public routes. `0` disables the limit. |

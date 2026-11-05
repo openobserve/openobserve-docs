@@ -6,7 +6,7 @@ description: Learn how to use summary streams to speed up dashboards with exampl
 
 This guide explains how summary streams work, who can use them, and how to create and apply them to optimize dashboards. It also includes example queries, troubleshooting steps, and performance comparison insights to help you make informed decisions.
 
-:::info[For Enterprise Users]
+:::note[For Enterprise Users]
 Enterprise users should consider using **Aggregation Cache** instead of summary streams for optimal performance. In production testing, these features reduced dashboard load times by up to **97 percent**, significantly outperforming summary streams in most scenarios.
 :::
 
@@ -16,7 +16,7 @@ A summary stream is a stream that contains pre-aggregated results, generated per
 
 Dashboards can then read from this pre-computed summary stream instead of querying raw data directly. This reduces the volume of data scanned during query execution and improves panel load times.
 
-:::info[Note]
+:::note[Note]
 Based on production testing, summary streams have improved dashboard performance by up to **95 percent** when compared to querying raw data.
 :::
 
@@ -35,7 +35,7 @@ This example shows how to transform three slow Kubernetes monitoring panels into
 :::accordion[Step 1: Analyze your existing panels]
 
 Analyze your slow dashboard panels to identify common patterns. <br>
-![Analyze your existing panels](../../../images/analyze-summary-stream.png)
+![Dashboard with three panels that query the raw logs stream](../../../images/analyze-summary-stream-v2.png)
 
 **SQL Query used in original Panel 0:**
 
@@ -154,28 +154,28 @@ LIMIT 200000
 
 :::accordion[Step 4: Create the summary pipeline]
 
-1. Navigate to **Pipelines > Add Pipeline**.  
+1. Navigate to **Pipelines** and click **New pipeline**.  
 2. From the **Source** section, add a **Query Node** and select **Edit**.  
-3. In the **Associate Query** screen, select the **Stream Type** and **Stream Name**.  
-4. Set **Frequency** as per your data freshness needs.  
+3. In the **Associate Query** screen, under **Build Query**, select the **Stream Type** and **Stream Name**.  
+4. Under **Set Variables**, set **Check every** (the frequency) as per your data freshness needs.  
 <br>
-![Create the summary pipeline](../../../images/create-summary-stream-pipeline.png)
-5. In the Sql Query editor, enter the summary query. 
-6. Click **Run Query** to test the summary query. 
+![Associate Query panel with a summary SQL query and Set Variables](../../../images/create-summary-stream-pipeline-v2.png)
+5. In the **Sql Query** editor, enter the summary query. 
+6. Click **Run query** to test the summary query. 
 7. Select **Validate and Close** to save the changes.
 8. From the **Destination** section, add a **Stream Node**.
 <br>
-![Summary stream pipeline config](../../../images/destination-node-config.png) 
+![Associate Stream panel with the summary stream as the destination](../../../images/destination-node-config-v2.png) 
 9. Enter the destination stream name and select **Save**. 
 10. In the pipeline editor, connect the source node to the destination node.
 11. Enter a pipeline name and select **Save**. 
 <br>
-![Summary pipeline](../../../images/summary-pipeline.png)
+![Scheduled summary pipeline on the canvas](../../../images/summary-pipeline-v2.png)
 :::
 
 :::accordion[Step 5: Update your panel queries]
 Update your panels to use the summary stream. <br>
-![Update panel queries](../../../images/panels-with-summary-stream.png)
+![The same three panels reading the summary stream instead of the raw stream](../../../images/panels-with-summary-stream-v2.png)
 
 **SQL query used in updated Panel 0 with summary stream:**
 
@@ -261,7 +261,7 @@ By default, summary streams do not include data that arrives after the scheduled
 
 - Example: A pipeline runs every 5 minutes and scans the last 5 minutes of data. A run at 11:00 scans data from 10:55 to 11:00. If data with a timestamp of 10:58 arrives at 11:04, the run at 11:05 scans data from 11:00 to 11:05 and does not include the delayed 10:58 data.  
 - To include late-arriving data, configure the **Delay** field in the pipeline query editor. This field is in the **Set Variables** section at the bottom left of the editor. 
-    ![Data Delay Consideration](../../../images/delay-summary-stream.png) 
+    ![Set Variables with a Delay value](../../../images/delay-summary-stream-v2.png) 
 - The delay value specifies how long the system waits after the scheduled time before running the query.  
 - Example: If the period is 5 minutes and the delay is 5 minutes, the pipeline scheduled for 11:05 runs at 11:10 and scans data from 10:55 to 11:00.  
 - Set the delay to a multiple of the pipeline period, such as 0, 5, or 10 minutes for a 5-minute period. This helps keep time ranges aligned and avoids overlaps or gaps in the processed data.
@@ -288,7 +288,7 @@ By default, summary streams do not include data that arrives after the scheduled
 
 **Solutions:**
 
-- Check pipeline execution logs in the pipeline interface.  
+- Check the pipeline's runs on the [Pipeline History](../pipelines/pipeline-history.md) page.  
 - Review and adjust `WHERE` conditions in the summary query.  
 - Verify that the source stream contains matching data.  
 - Wait 24–48 hours for the summary stream to populate.  
@@ -331,5 +331,5 @@ By default, summary streams do not include data that arrives after the scheduled
 **Solutions:**
 
 - Check the `errors` stream in the `_meta` organization for events related to pipeline execution failures.  
-- If `ZO_USAGE_REPORTING_ENABLED` is set to `true`, monitor the `triggers` stream to verify execution status.  
+- If `ZO_USAGE_REPORTING_ENABLED` is `true` (the default), monitor the `triggers` stream to verify execution status, or open the [Pipeline History](../pipelines/pipeline-history.md) page.  
 :::

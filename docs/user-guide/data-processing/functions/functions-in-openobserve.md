@@ -11,18 +11,18 @@ Functions in OpenObserve are defined using Vector Remap Language ([VRL](https://
 
 There are also inbuilt query functions like `match_all` etc which can be used for full text search based on user's settings for stream or default settings. Please refer [SQL functions reference](../../../reference/sql-reference.md) for complete list of inbuilt functions.
 
-To navigate to functions in OpenObserve, select preferred organization using organization selection control, then click on `Pipelines > Functions` menu, which will take you to functions list screen. This screen lists all the functions for selected organization.  
+To navigate to functions in OpenObserve, select preferred organization using organization selection control, then click on **Data > Functions** (or the **Functions** tab on the **Pipelines** page), which will take you to functions list screen. This screen lists all the functions for selected organization.  
 
 <kbd>
-![Functions](./images/functions_list.webp)
+![Functions tab listing a VRL and a JavaScript function with the Type column and row actions](./images/functions_list-v2.png)
 </kbd>
 
 List screen details:
 
 - Search in listed functions
-- Create new function
-- Name of existing function
-- Action — update or delete function
+- **New function** and **Import** buttons
+- Name and **Type** (**VRL** or **JavaScript**) of existing functions
+- Actions — update the function, view **Associated Pipelines**, export, or delete the function
 
 There are two ways to use function during query:
 
@@ -37,7 +37,7 @@ On logs search page, you can select existing function or write new function usin
 Please note that functions on rows can be used to experiment with result of function application on a specific stream , however applying functions at query time is costly operation .Hence if applicable, after exploration and desired outcome of function during query time , we encourage users to apply such function at ingest time by associating function with stream.
 
 <kbd>
-![Functions](./images/functions_logs.webp)
+![Logs page with a saved VRL function applied in the function editor, adding the env field to each event](./images/functions_logs-v2.png)
 </kbd>
 
 ## Function with specified input columns/fields
@@ -84,7 +84,7 @@ The function outputs the record below:
 
 The function can be saved using save button on top of vrl function editor, additional one can select existing function to try.
 
-The same function can be associated with a stream to get applied at ingestion. 
+The same function can be added to a pipeline as a **Function** node to apply it at ingestion. See [Pipelines](../pipelines/pipelines.md). 
 
 ## Import and export functions
 
