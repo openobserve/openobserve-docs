@@ -43,7 +43,7 @@ The Dashboard toolbar provides several options for managing your Dashboard’s b
 
 1. **Add Panel:** Use the **Add Panel** button to add a new Panel to the selected Dashboard.  
 2. **Time Range Selection**: You can adjust the time range for which you want to visualize the data on your Dashboard by selecting an **Absolute** or **Relative** time range based on your timezone.   
-3. **Auto Refresh Interval**: Set the auto-refresh interval for your Dashboard. This is useful when you want the data to update automatically at specified intervals, such as every 5 minutes.  
+3. **Auto refresh**: Set the auto-refresh interval for your Dashboard. This is useful when you want the data to update automatically at specified intervals, such as every 5 minutes. Click it to open a popover with an **Auto refresh** switch and intervals grouped into **Seconds** (5s, 10s, 15s, 30s), **Minutes** (1m, 5m, 15m, 30m), and **Hours** (1h, 2h, 1d). Switch off to pause and remember the last interval; switch on to resume it. Intervals below the server's minimum are disabled.  
 4. **Refresh**: Use the **Refresh** button to manually update the Dashboard and all its Panels with the latest data. Its dropdown offers **Refresh cache & reload** and, when available, **Turn on Auto Run** / **Turn off Auto Run**.  
 5. **Edit**: Unlock the layout to move, resize, and reorder Panels and Tabs. See [Edit Dashboard Layout](#edit-dashboard-layout).
 6. **Export Dashboard**: Export your Dashboard as a JSON file. This is useful for sharing or backing up the Dashboard configuration.   
