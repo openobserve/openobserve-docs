@@ -36,9 +36,13 @@ When you initiate deletion, the organization enters one of two paths depending o
 
 The organization is scheduled for deletion and becomes immediately inaccessible. Anyone still on it is automatically switched to another organization.
 
+### From the Organizations list
+
+On **IAM > Organizations**, admins and root users can also click the **Delete organization** action on an organization's row and confirm.
+
 ## Manage Deletions as an Admin
 
-**_meta** organization administrators can manage deletions across all organizations from the **IAM > Organizations** page. This view includes a **Status** column showing the current lifecycle phase and grace-period countdown for each organization.
+**_meta** organization administrators can manage deletions across all organizations from **Settings > Organization Management** in the **_meta** organization. This view includes a **Status** column showing the current lifecycle phase (**Active**, **Pending deletion** with the days left, or **Deleting**) for each organization.
 
 ![_meta Organizations page with status column showing pending_deletion and deleting states](images/org-deletion-3.png)
 
@@ -47,9 +51,9 @@ The organization is scheduled for deletion and becomes immediately inaccessible.
 While an organization is in `pending_deletion` status — and before the grace period ends — you can cancel the deletion:
 
 1. Switch to the **_meta** organization.
-2. Go to **IAM > Organizations**.
-3. Locate the organization with `pending_deletion` status.
-4. Click the **Resurrect** (undo) action button.
+2. Go to **Settings > Organization Management**.
+3. Locate the organization with **Pending deletion** status.
+4. Click the **Resurrect organization** action button.
 
 ![_meta Organizations page with resurrect button on a pending_deletion row](images/org-deletion-4.png)
 
@@ -60,9 +64,9 @@ The organization returns to `active` status, its data is untouched, and all memb
 When an organization is in `deleting` status, you can inspect the cleanup task ledger to see which steps have completed and whether any have failed:
 
 1. Switch to the **_meta** organization.
-2. Go to **IAM > Organizations**.
-3. Locate the organization with `deleting` status.
-4. Click the **View deletion progress** (history) action button.
+2. Go to **Settings > Organization Management**.
+3. Locate the organization with **Deleting** status.
+4. Click the **View deletion progress** action button.
 
 ![Org Cleanup Tasks dialog showing progress bar, step list, and status badges](images/org-deletion-5.png)
 

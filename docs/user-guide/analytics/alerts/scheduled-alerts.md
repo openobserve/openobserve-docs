@@ -17,20 +17,18 @@ Scheduled alerts evaluate your data at regular intervals and trigger when condit
 
 ### Step 1: Open the alert form
 
-1. Go to **Alerts** in the left sidebar.
+1. In the left navigation, go to **Reliability > All Alerts**.
 2. Click **New alert** in the top-right corner.
 
-![Empty alert creation form with top bar fields and two-tab layout](../../../images/add-alert-empty-state.png)
+![New alert form with the alert name as the title, the folder in the subtitle, the Alert Type toggle and the Alert Rules and Advanced tabs](../../../images/add-alert-empty-state-v2.png)
 
-### Step 2: Configure the top bar
+### Step 2: Name the alert and choose the stream
 
-Fill in the required fields across the top bar:
-
-- **Alert name**: Enter a descriptive name (e.g., "High Error Rate - Production"). Alert names cannot contain spaces or the characters `: # ? ' " % & /`. Use underscores (`_`) instead.
-- **Folder**: Select a folder to organize the alert, or click **+** to create a new one
+- **Alert name**: The name is the page heading. OpenObserve generates one from the stream and condition until you click it and type your own (e.g., `high_error_rate_production`). Alert names cannot contain spaces or the characters `: # ? ' " % & /`. Use underscores (`_`) instead.
+- **Folder**: Use the folder selector under the name to choose a folder, or create a **New Folder**
+- **Alert Type**: Leave as **Scheduled** (default)
 - **Stream Type**: Select **logs**, **metrics**, or **traces**
 - **Stream Name**: Select the data stream to monitor
-- **Alert Type**: Leave as **Scheduled** (default)
 
 ### Step 3: Define the condition
 
@@ -44,7 +42,7 @@ Configure the condition:
 - **Operator**: Choose the comparison operator (>=, >, <=, <, =, !=)
 - **Threshold**: Set the value that triggers the alert
 
-![Alert form in count mode showing "Alert if total events >= 3 matching logs found" with preview and summary](../../../images/add-alert-count-mode.png)
+![Alert form in count mode: Alert if total events, Critical if >= 3, with the Preview chart and the Summary](../../../images/add-alert-count-mode-v2.png)
 
 > **Tip**: See [Alert Conditions and Filters](alert-conditions.md) for a detailed explanation of count mode vs. measure mode and all available functions.
 
@@ -64,7 +62,7 @@ Click the **filters** dropdown next to "on these" to expand the filter section. 
 2. Select a field, operator, and value (e.g., `level = error`).
 3. Additional conditions are joined with AND logic.
 
-![Alert form with a filter condition row added](../../../images/add-alert-with-filter.png)
+![Alert form with the filter condition level = error and the Preview reporting that the alert would trigger](../../../images/add-alert-with-filter-v2.png)
 
 ### Step 6: Configure settings
 
@@ -72,10 +70,12 @@ Scroll down to the **Settings** section on the same **Alert Rules** tab:
 
 - **Look back window**: Time range of data to evaluate each run (default: 10 minutes)
 - **Cooldown period**: Minimum time between repeated notifications (default: 10 minutes)
+- **Hold for**: Optional pending period before the alert fires. See [Pending period](advanced-alert-configuration.md#pending-period-hold-before-firing).
 - **Destination**: Select one or more notification destinations. Click the refresh icon to reload, or **Add Destination** to create a new one.
-- **Creates Incident**: Toggle on to automatically create an incident when the alert triggers
+- **Creates Incident**: Toggle on to automatically create an incident when the alert triggers. Shown only when [incidents](../incidents/index.md) are enabled.
+- **Notify on recovery**: Send one message to the destinations when the alert stops firing. Optionally pick a **Recovery destination**, and set **Keep firing for** to wait before the alert recovers.
 
-![Settings section with look back window, cooldown period, destination selector, and creates incident toggle](../../../images/add-alert-settings-section.png)
+![Settings section with Look back window, Cooldown period, Hold for, Destination, Creates Incident, Notify on recovery, Recovery destination and Keep firing for](../../../images/add-alert-settings-section-v2.png)
 
 ### Step 7: Save
 
@@ -91,9 +91,9 @@ For complex queries that go beyond the visual builder, use SQL mode.
 
 ### Step 1: Switch to SQL mode
 
-After configuring the top bar (steps 1–2 above), click the **SQL** tab in the **Conditions** section.
+After choosing the stream (steps 1–2 above), click the **SQL** tab in the **Conditions** section.
 
-![SQL mode with inline editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode.png)
+![SQL mode with the inline SQL editor, Open Full Editor, Alert aggregation and the Critical if threshold](../../../images/add-alert-sql-mode-v2.png)
 
 ### Step 2: Write the query
 
@@ -124,7 +124,7 @@ Scroll down to configure **Settings** (look back window, cooldown period, destin
 
 The **Advanced** tab provides additional options for scheduled alerts. Click **Advanced** next to the **Alert Rules** tab.
 
-![Advanced tab with Compare with Past, Deduplication, and Additional Settings sections](../../../images/add-alert-advanced-tab.png)
+![Advanced tab with Additional Settings (Template Override, Priority, Tags, Description, Row Template), Compare with Past and Deduplication](../../../images/add-alert-advanced-tab-v2.png)
 
 ### Compare with past
 
@@ -175,16 +175,16 @@ When a scheduled alert with Multi-window Selector runs:
 
 For new alerts:
 
-1. Go to **Alerts** and click **New alert**
-2. Configure the top bar (stream type, stream name, alert type = Scheduled)
+1. Go to **Reliability > All Alerts** and click **New alert**
+2. Choose the stream type and stream name, with **Alert Type** set to **Scheduled**
 3. Switch to **SQL** mode in the Conditions section
 4. Click the **Advanced** tab to find the **Compare with Past** section
 
-![Access multi-window selector](../../../images/multi-window-period.png)
+![Compare with Past section with the current window and a reference window set to 1 day ago](../../../images/multi-window-period-v2.png)
 
-For existing alerts, click the alert name in the alerts list, then navigate to the **Advanced** tab.
+For existing alerts, click **Edit** (pencil icon) in the alert's **Actions** column, then go to the **Advanced** tab.
 
-![Access multi-window in existing alerts](../../../images/multi-window-in-existing-alerts.png)
+![Editing an existing SQL alert on the Advanced tab, with the Compare with Past section](../../../images/multi-window-in-existing-alerts-v2.png)
 
 ##### Step 1: Write the SQL query
 
@@ -203,13 +203,13 @@ GROUP BY
   time_s
 ```
 
-![SQL editor](../../../images/multi-window-sql-editor.png)
+![SQL editor with a 15-minute histogram count query](../../../images/multi-window-sql-editor-v2.png)
 
 ##### Step 2: Define the period
 
 Set the time range to evaluate per run (e.g., last 30 minutes) in the **Compare with Past** section on the Advanced tab.
 
-![Period configuration](../../../images/multi-window-period.png)
+![Compare with Past section with a reference window of 1 day ago](../../../images/multi-window-period-v2.png)
 
 ##### Step 3: Add a comparison window
 
@@ -273,7 +273,7 @@ if length(result) >= 2 {
 .
 ```
 
-![VRL editor](../../../images/multi-window-vrl-editor.png)
+![SQL editor next to the VRL editor holding a function that starts with #ResultArray#](../../../images/multi-window-vrl-editor-v2.png)
 
 The VRL function outputs an empty array if the increase is 5% or less, or a non-empty array with the diff data if it exceeds 5%.
 
@@ -285,13 +285,13 @@ Set **Alert if No. of events >= 1**. This triggers when the VRL output is non-em
 
 Define how often the alert runs (e.g., every 30 minutes).
 
-![Frequency configuration](../../../images/multi-window-frequency.png)
+![Check every set to 30 minutes, with Alert if No. of events >= 1](../../../images/multi-window-frequency-v2.png)
 
 ##### Step 7: Configure destination and save
 
 Select a destination, optionally add a row template with fields from your VRL output (e.g., `{{ diff_percentage }}`), and click **Save**.
 
-![Add destination](../../../images/multi-window-add-destination.png)
+![Destination picker open in the Settings section with a webhook destination selected](../../../images/multi-window-add-destination-v2.png)
 
 #### FAQ
 
@@ -320,13 +320,14 @@ Group similar alerts to reduce notification noise.
 - **Additional Variables**: Add key-value pairs available in notification templates via the **Add Variable** button
 - **Description**: Free-text description for the alert
 - **Row Template**: Customize the format of individual data rows in notifications. Toggle between **String** and **JSON** template types
+- **Priority**, **Tags**, and **On-call team**: Triage metadata. See [Advanced Alert Configuration](advanced-alert-configuration.md#alert-priority). **On-call team** appears only when on-call is enabled.
 
 ---
 
 ## Edit an existing alert
 
-1. Go to **Alerts** in the left sidebar.
-2. Click the alert name in the table to open it.
+1. Go to **Reliability > All Alerts**.
+2. Click **Edit** (pencil icon) in the alert's **Actions** column. Clicking the row instead opens the alert's detail page, which also has an **Edit** button.
 3. Modify any fields. Note that **Stream Type**, **Stream Name**, and **Alert Type** are read-only for existing alerts.
 4. Click **Save** to apply changes.
 
@@ -355,7 +356,7 @@ Group similar alerts to reduce notification noise.
 2. Verify the **Stream Name** has recent data within the look back window.
 3. Confirm the **Look back window** covers enough data.
 4. Check that the **Threshold** value is appropriate for your data volume.
-5. Ensure the alert is enabled in the alerts list (toggle in the **Status** column).
+5. Ensure the alert is not paused: the **Status** column shows its state, and the pause/start button in the **Actions** column resumes it.
 
 ### Too many notifications
 
@@ -386,5 +387,5 @@ Group similar alerts to reduce notification noise.
 **Solution**:
 
 1. Click the **refresh** icon next to the destination dropdown.
-2. Verify the destination exists in **Alerts > Destinations**.
+2. Verify the destination exists on the **Notification Destinations** tab of the Alerts page.
 3. Click **Add Destination** to create one directly from the alert form.

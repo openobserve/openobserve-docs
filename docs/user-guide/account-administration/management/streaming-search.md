@@ -21,7 +21,7 @@ OpenObserve splits the total time range into partitions, each covering a segment
 
 
 ### Mini-Partition
-Based on the environment variable `ZO_MINI_SEARCH_PARTITION_DURATION_SECS`, the first partition is divided into a mini-partition to return results faster. This is helpful when working with large time ranges.
+Based on the environment variable `ZO_SEARCH_MINI_PARTITION_DURATION_SECS`, the first partition is divided into a mini-partition to return results faster. This is helpful when working with large time ranges.
 
 The environment variable is enabled by default and it defines the duration of the mini-partition in seconds. By default, this is set to 60 seconds.
 

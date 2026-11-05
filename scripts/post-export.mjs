@@ -82,6 +82,10 @@ const REDIRECT_PATHS = new Set([
   'downloads',
   'user-guide/concepts',
   'user-guide/streams',
+  'user-guide/account-administration/work-group',
+  'user-guide/data-processing/pipelines/use-pipelines',
+  'user-guide/data-exploration/metrics/file-access-time-metric',
+  'screenshots',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
@@ -137,6 +141,10 @@ const REDIRECTS = {
   downloads: 'getting-started',
   'user-guide/concepts': 'user-guide',
   'user-guide/streams': 'user-guide/data-processing/streams/streams-in-openobserve',
+  'user-guide/account-administration/work-group': 'user-guide/account-administration/work-group-v2',
+  'user-guide/data-processing/pipelines/use-pipelines': 'user-guide/data-processing/pipelines/create-and-use-real-time-pipeline',
+  'user-guide/data-exploration/metrics/file-access-time-metric': 'user-guide/data-exploration/metrics',
+  screenshots: 'features',
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {

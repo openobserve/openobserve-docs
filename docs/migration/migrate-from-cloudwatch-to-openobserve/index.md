@@ -10,7 +10,7 @@ If you're using Amazon CloudWatch for AWS infrastructure metrics and dashboards 
 
 Migrating CloudWatch has two parts:
 
-1. **The data** — stream CloudWatch metrics into OpenObserve using CloudWatch Metric Streams → Kinesis Firehose in OpenTelemetry format. The metrics land in a log stream with a fixed column shape (namespace, metric name, dimensions, sum/count/min/max).
+1. **The data** — stream CloudWatch metrics into OpenObserve using CloudWatch Metric Streams → Kinesis Data Firehose (JSON or OpenTelemetry 1.0 output format). The metrics land in a logs stream with a fixed column shape (namespace, metric name, dimensions, sum/count/min/max).
 2. **The dashboards** — convert your CloudWatch dashboards into OpenObserve dashboards with the Dashboard Migrator, which turns each metric widget into a SQL query over that stream.
 
 ## Table of Contents
@@ -42,19 +42,21 @@ OpenObserve stores the same metrics as Apache Parquet on object storage (up to *
 CloudWatch metrics are ingested into OpenObserve as a **logs** stream via a CloudWatch Metric Stream:
 
 ```
-CloudWatch → Kinesis Data Firehose (OpenTelemetry format) → OpenObserve
+CloudWatch → Kinesis Data Firehose (JSON or OpenTelemetry 1.0 format) → OpenObserve
 ```
 
-The metric stream flattens each metric into a row with these columns, which is what the dashboard migrator then queries:
+In OpenObserve, go to **Data > Data sources > Custom > Metrics > AWS CloudWatch Metrics** to copy the Firehose **HTTP Endpoint** (`/aws/<org>/cloudwatch_metrics/_kinesis_firehose`) and the access key. The data lands in the logs stream `cloudwatch_metrics`.
+
+OpenObserve flattens each metric data point into a row with these columns:
 
 | Column | Meaning |
 |---|---|
 | `namespace` | The CloudWatch namespace (e.g., `AWS/EC2`) |
 | `metric_name` | The metric name (e.g., `CPUUtilization`) |
-| `dimensions_<name>` | One column per dimension, lowercased |
-| `region` | The AWS region |
+| `metric_dimensions` | All dimensions in one string, e.g. `InstanceId=["i-0abc123"]` |
+| `metric_stream_name`, `account_id`, `region` | Where the metric came from |
 | `unit` | The metric unit |
-| `value_sum`, `value_count`, `value_min`, `value_max` | Aggregated sample values over the period |
+| `sum`, `count`, `min`, `max` | Aggregated sample values over the period |
 | `_timestamp` | The sample time |
 
 See the [OpenObserve ingestion docs](../../ingestion/logs/kinesis-firehose.md) for the Firehose setup.
@@ -73,13 +75,13 @@ Before migrating, get OpenObserve running:
 
 Sign up at [cloud.openobserve.ai](https://cloud.openobserve.ai). No infrastructure to manage.
 
-After logging in, navigate to **Data Sources** to find your ingestion credentials and endpoint URLs.
+After logging in, go to **Data > Data sources** to find your ingestion credentials and endpoint URLs.
 :::
 :::tab[Self-Hosted]
 
 Download OpenObserve for your platform from the [downloads page](https://openobserve.ai/downloads/).
 
-After installation, access the UI at `http://localhost:5080` and navigate to **Data Sources** to find your ingestion credentials and ready-to-use configuration snippets.
+After installation, access the UI at `http://localhost:5080` and go to **Data > Data sources** to find your ingestion credentials and ready-to-use configuration snippets.
 :::
 ::::
 

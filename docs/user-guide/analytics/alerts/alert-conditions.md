@@ -19,7 +19,7 @@ When the function is set to **total events** (the default for logs and traces), 
 - No column selection is needed — the alert counts all records matching the filters
 - Group-by is not available in count mode
 
-![Count mode showing "Alert if total events >= 3 matching logs found" with Check every and filters](../../../images/add-alert-count-mode.png)
+![Count mode: Alert if total events matching logs found, Critical if >= 3, with Check every and filters](../../../images/add-alert-count-mode-v2.png)
 
 ### Measure mode
 
@@ -31,7 +31,7 @@ When you select an aggregation function (avg, min, max, sum, etc.), the conditio
 - **Group by** becomes available — evaluate the condition per dimension
 - The operator and threshold now apply to the aggregated value
 
-![Measure mode showing "Alert if avg of [column] is >= [value]" with Group by option](../../../images/add-alert-measure-mode.png)
+![Measure mode: Alert if avg of took, Critical if >= 2500, grouped by service_name, with Alert aggregation and Having groups](../../../images/add-alert-measure-mode-v2.png)
 
 ### Metrics streams
 
@@ -43,7 +43,7 @@ For **metrics** stream types, count mode (total events) is not available. The co
 
 The function dropdown determines how data is evaluated. Each function includes a tooltip describing what it computes.
 
-![Function dropdown showing all available options with tooltip](../../../images/function-dropdown-options.png)
+![Alert if function dropdown open with total events, count, avg, min, max, sum, median and percentiles, and the total events tooltip](../../../images/function-dropdown-options-v2.png)
 
 | Function | Description | Mode |
 |----------|-------------|------|
@@ -90,13 +90,13 @@ Filters narrow which data the alert evaluates. Click the **filters** dropdown in
 
 1. Click **+ Condition** to add a new filter row.
 2. Select a **field** from the stream's available columns.
-3. Select an **operator**: `=`, `!=`, `>=`, `<=`, `>`, `<`, `Contains`, `NotContains`.
-4. Enter a **value** to match.
+3. Select an **operator**: `=`, `!=`, `>=`, `<=`, `>`, `<`, `Contains`, `NotContains`, `Is Null`, `Is Not Null`, `Is Empty`, or `Is Not Empty`.
+4. Enter a **value** to match. The four null and empty operators take no value.
 
 ### Multiple filters
 
 - The first condition is labeled **if**.
-- Additional conditions are labeled **and** — all conditions must be true for a record to match.
+- Additional conditions are joined with **and** by default, so all conditions must be true for a record to match. Click the toggle button next to the label to switch between **and** and **or**.
 - Click the **x** button on any condition row to remove it.
 
 ### Filter groups
@@ -106,7 +106,7 @@ Click **+ Condition Group** to create a grouped block of conditions. Groups supp
 `(level = error AND service = api) OR (level = warn AND response_time > 5000)`
 
 :::note[Note]
-Condition groups can be nested up to three levels deep. This limit ensures alert logic remains readable while allowing sufficient flexibility for advanced use cases.
+Condition groups can be nested two levels below the top-level conditions. At that depth the **Condition Group** button is disabled.
 :::
 
 ### SQL preview
@@ -129,7 +129,7 @@ Click the **SQL** tab to switch to SQL mode. The condition sentence is replaced 
 - An **Open Full Editor** button for a full-screen editor with a field browser, AI assistance, and results preview
 - **Check every** and **Alert if No. of events** controls below the editor
 
-![SQL mode with editor, Open Full Editor button, and threshold controls](../../../images/add-alert-sql-mode.png)
+![SQL mode with the inline SQL editor, Open Full Editor, Alert aggregation and the Critical if threshold](../../../images/add-alert-sql-mode-v2.png)
 
 :::warning[Warning]
 Queries using `SELECT *` are not allowed for scheduled alerts. Specify the columns you need.
