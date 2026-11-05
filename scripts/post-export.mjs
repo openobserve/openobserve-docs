@@ -80,6 +80,7 @@ const REDIRECT_PATHS = new Set([
   'user-guide/rum',
   'quickstart',
   'downloads',
+  'user-guide/data-processing/pipelines/use-pipelines',
   'user-guide/data-exploration/metrics/file-access-time-metric',
   'screenshots',
 ]);
@@ -135,6 +136,7 @@ const REDIRECTS = {
   'user-guide/rum': 'user-guide/data-exploration/rum',
   quickstart: 'getting-started',
   downloads: 'getting-started',
+  'user-guide/data-processing/pipelines/use-pipelines': 'user-guide/data-processing/pipelines/create-and-use-real-time-pipeline',
   'user-guide/data-exploration/metrics/file-access-time-metric': 'user-guide/data-exploration/metrics',
   screenshots: 'features',
 };

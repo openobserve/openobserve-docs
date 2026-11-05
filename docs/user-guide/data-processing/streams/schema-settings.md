@@ -12,7 +12,7 @@ The **Schema Settings** tab in [Stream Details](stream-details.md) allows you to
 
 Each field represents a key from the JSON log, automatically detected during ingestion. Fields are shown with their name, inferred data type, and any associated index.
 
-![schema settings](../../../images/stream-details-schema-settings.png)
+![Schema Settings tab of the Stream Detail drawer listing fields with their type and index type](../../../images/stream-details-schema-settings-v2.png)
 
 ## Field type
 When OpenObserve receives logs, it automatically infers the data type of each field.   
@@ -48,7 +48,7 @@ To enable UDS support, set the following environment variable `ZO_ALLOW_USER_DEF
 
 ### How to add a User-Defined Schema
 
-1. From the **Streams** page, click the **Stream Details** option under the **Actions** column.   
+1. From the **Streams** page, click the **Stream Detail** icon in the **Actions** column.   
 2. Go to the **Schema Settings** tab.  
 3. Select the fields you want to retain from the **All Fields** section.  
 4. Click **Add to Defined Schema**.  
@@ -65,7 +65,7 @@ After you save the changes:
 - Only fields under **User Defined Schema** will be searchable.  
 - Fields not included will no longer appear in queries or field selectors.
 
-You can also manually add a field to the schema using the **Add Field(s)** button. This is useful when a field may not have appeared in the logs yet but is expected later. For example, an `error_code` field that appears only during failures can be added before the actual error happens using this.
+You can also manually add a field to the schema using the **Add Fields** (**+**) button. This is useful when a field may not have appeared in the logs yet but is expected later. For example, an `error_code` field that appears only during failures can be added before the actual error happens using this.
 
 
 ## Sensitive Data Redaction (SDR)
@@ -78,18 +78,18 @@ For detailed steps to create and manage SDR rules, refer to the [Sensitive Data 
 The Schema Settings tab in the Stream Details page allows you to view, search, and manage fields in your stream schema. You can add, remove, or delete fields as needed to maintain accurate schema definitions for your data.
 
 ### Search fields
-Use the search bar in the top-right corner to quickly find a **field by name** or **index type**.
+Use the **Search for a field** box to quickly find a **field by name** or **index type**.
 This feature helps locate specific fields efficiently, especially in large schemas.
 
 ### Add field
 To add a new field manually: 
-1. Select the **+** icon next to the search bar.
-![add-new-fields](../../../images/add-new-fields.png)
-2. The **Add Field**(s) section appears above the field list.
-3. Enter the **Field Name** and **Data Type**.
-![field-name-data-type](../../../images/field-name-data-type.png)
+1. Select the **+** (**Add Fields**) icon next to the search box. This button is shown when user-defined schemas are enabled (`ZO_ALLOW_USER_DEFINED_SCHEMAS=true`).
+![Schema Settings toolbar with the Search for a field box and the Add Fields (+) button highlighted](../../../images/add-new-fields-v2.png)
+2. The **Add Fields** section appears above the field list.
+3. Enter the **Field Name** and **Data Type**, and optionally an **Index Type**.
+![Add Fields section with a field name and the Utf8 data type](../../../images/field-name-data-type-v2.png)
 4. Select **Update Settings** to save the new field to the schema.
-![update-settings](../../../images/update-settings.png)
+![Schema Settings footer with the Update Settings button](../../../images/update-settings-v2.png)
 You can define multiple fields in this section before applying the changes. This option is used when creating or extending the User Defined Schema (UDS).
 
 ### Remove defined schema
@@ -101,11 +101,11 @@ This action removes the selected fields from the **User Defined Schema** but doe
 
 ### Delete fields
 To delete fields from the schema, first select one or more fields using the checkbox beside each field name.
-Then select Delete at the bottom of the panel.
+Then select **Delete** at the bottom of the panel.
 
 This action permanently deletes the selected fields from the schema. Use this action carefully, as it directly modifies the schema definition.
 
-![delete-fields](../../../images/delete-fields.png)
+![Two fields selected in Schema Settings, with 2 fields selected and the Delete button in the footer](../../../images/delete-fields-v2.png)
 
 ### Bulk selection
 Each field includes a checkbox for selection. You can select multiple fields and apply **Add to Defined Schema**, **Remove Defined Schema**, or **Delete** actions in bulk to simplify schema management and save time.

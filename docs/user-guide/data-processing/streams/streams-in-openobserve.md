@@ -21,19 +21,19 @@ Each stream has the following characteristics:
 
 ::::tabs
 :::tab[Cloud]
-- The **Add Stream** button is present by default on the **Streams** page.
+- The **New stream** button is present by default on the **Streams** page.
 - Users can create streams without enabling any configuration.
 - During stream creation, the Fields section is optional.
 - If you do not define any fields, OpenObserve will automatically detect them from the data you ingest. These detected fields will appear under **All Fields** in the Stream Details page.
 :::
 :::tab[Self-hosted]
-- By default, the **Add Stream** button is not visible on the **Streams** page.
-- To enable the **Add Stream** button, set the following environment variable to `true`: <br>
+- By default, the **New stream** button is not visible on the **Streams** page.
+- To enable the **New stream** button, set the following environment variable to `true`: <br>
     `ZO_ALLOW_USER_DEFINED_SCHEMAS`
 - After enabling the variable:
 
-    - The **Add Stream** button becomes visible.
-    - During stream creation, the **Fields** section is mandatory. You must define at least one field name and field type. This defines a user-defined schema for the stream.
+    - The **New stream** button becomes visible.
+    - During stream creation, the **Fields** section is optional. The fields you add form the user-defined schema for the stream.
 :::
 ::::
 
@@ -67,21 +67,21 @@ The following steps vary for **Cloud** and **Self-hosted** deployment:
 
 1. Select the organization from the top navigation bar.   
 2. From the left navigation menu, select **Streams**.  
-3. Click **Add Stream.**   
-4. In the **Add Stream** dialog: 
+3. Click **New stream**.   
+4. In the **New stream** dialog: 
 
-    - Enter a unique stream name.   
+    - Enter a unique stream **Name**. Use letters, numbers, underscores and colons only.   
     - Select the **Stream Type**.  
     - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
         To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
-    - (Optional) Use the **Add Fields** section if you wish to define fields for your stream:
+    - (Optional) In the **Fields** section, click **Add Field** to define fields for your stream:
         - **Field Name**: Name of the field
-        - **Data Type**: Select from utf8, int64, uint64, float64, or boolean
-        - **Index Type**: Choose an indexing strategy (Secondary Index, Full Text Search, KeyValue Partition, Prefix Partition, or Hash Partition) <br>
+        - **Data Type**: Select Utf8, Int64, Uint64, Float64, or Boolean
+        - **Index Type**: Choose an indexing strategy (Full text search, Secondary index, Bloom filter, KeyValue partition, Prefix partition, or Hash partition with 8 to 128 buckets) <br>
         For detailed information about each field type and index strategy, see [Field and Index Types in Streams](data-type-and-index-type-in-streams.md)
 
     These fields create a User Defined Schema. Learn more about [user defined schema](schema-settings.md#user-defined-schema-uds).    
-5. Click **Create Stream**.
+5. Click **Save**.
 
 The new stream appears on the Streams page. Ingest data into the stream to populate and start using it.
 :::
@@ -93,19 +93,19 @@ The new stream appears on the Streams page. Ingest data into the stream to popul
 ### Create streams in OpenObserve self-hosted
 1. Select the organization from the top navigation bar.   
 2. From the left navigation menu, select **Streams**.  
-3. Click **Add Stream.**   
-4. In the **Add Stream** dialog: 
+3. Click **New stream**.   
+4. In the **New stream** dialog: 
 
-    - Enter a unique stream name.   
+    - Enter a unique stream **Name**. Use letters, numbers, underscores and colons only.   
     - Select the **Stream Type**.  
     - Specify the **Data Retention** in days. For example, enter 14 to keep data for 14 days after ingestion. When the period ends, OpenObserve removes the data automatically.  
         To keep data longer, select **Extended Retention** in the Stream Details sidebar.  
-    - In the **Add Fields** section, you must define at least one field with:
+    - (Optional) In the **Fields** section, click **Add Field** to define fields with:
         - **Field Name**: Name of the field
-        - **Data Type**: Select from utf8, int64, uint64, float64, or boolean
-        - **Index Type**: Choose an indexing strategy (Secondary Index, Full Text Search, KeyValue Partition, Prefix Partition, or Hash Partition)<br>
+        - **Data Type**: Select Utf8, Int64, Uint64, Float64, or Boolean
+        - **Index Type**: Choose an indexing strategy (Full text search, Secondary index, Bloom filter, KeyValue partition, Prefix partition, or Hash partition with 8 to 128 buckets)<br>
         For detailed information about each field type and index strategy, see [Field and Index Types in Streams](data-type-and-index-type-in-streams.md)
-    This creates a user-defined schema at stream creation. Learn more about [user defined schema](schema-settings.md#user-defined-schema-uds).  
+    The fields you add form the user-defined schema at stream creation. Learn more about [user defined schema](schema-settings.md#user-defined-schema-uds).  
 
     :::accordion[Click to see how User-defined Schema works.]
     Let us say you define the following fields while creating a stream:
@@ -121,17 +121,15 @@ The new stream appears on the Streams page. Ingest data into the stream to popul
     :::
 
 
-5. Click **Create Stream**.
+5. Click **Save**.
 :::
 ::::
 
 :::note[Note]
 
-You can also create a stream during the first data ingestion, without using the UI. The organization must already exist before ingestion. <br>
+You can also create a stream during the first data ingestion, without using the UI. For other users, the organization must already exist before ingestion. <br>
 
-OpenObserve does not support organization creation as part of the ingestion process.<br>
-
-However, if the environment variable `ZO_CREATE_ORG_THROUGH_INGESTION` is set as `true`, only the `root` user can create organization through ingestion. By default, ZO_CREATE_ORG_THROUGH_INGESTION is set as `false` by default.
+The `root` user can create an organization through ingestion while the environment variable `ZO_CREATE_ORG_THROUGH_INGESTION` is `true`, which is the default. Set it to `false` to turn this off.
 :::
 
 ## Ingest Data into Stream
