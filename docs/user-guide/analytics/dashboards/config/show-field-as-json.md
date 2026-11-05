@@ -35,10 +35,10 @@ The default state of the **Render Data as JSON / Array** checkbox is determined 
 ZO_DASHBOARD_SHOW_FIELD_AS_JSON_ENABLED=false  # default
 ```
 
-- When set to `true`, the **Render Data as JSON / Array** checkbox defaults to selected for fields added in the **Visualize** view of the **Logs** page.
+- When set to `true`, the **Render Data as JSON / Array** checkbox defaults to selected for fields added in the **Timechart** view of the **Logs** page (shown when `ZO_TIMECHART_ENABLED=true`).
 - When set to `false`, the checkbox defaults to cleared for those fields.
 
-> This environment-variable-driven default applies only to fields added in the **Visualize** view of the **Logs** page. Fields added in the dashboard panel editor default to cleared regardless of the environment variable value. In all cases, you can manually change the setting for any field regardless of the environment variable value.
+> This environment-variable-driven default applies only to fields added in the **Timechart** view of the **Logs** page. Fields added in the dashboard panel editor or in the **Visualize** view of the **Logs** page default to cleared regardless of the environment variable value. In all cases, you can manually change the setting for any field regardless of the environment variable value.
 
 ---
 

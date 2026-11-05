@@ -9,7 +9,7 @@ This document describes the legend and gridline configuration options available 
 Dashboard panels include configuration options for controlling legend display and gridline visibility. These options help optimize chart readability and space usage.
 
 ## Legend configuration options
-The following options are available in the panel **Config** sidebar under the **Legend** section. Except for **Show Legends**, they appear only when **Show Legends** is on and no **Trellis Layout** is set.
+The following options are available in the panel **Config** sidebar under the **Legend** section. None of them, including **Show Legends**, appear while a **Trellis Layout** is set, and the other options also need **Show Legends** to be on.
 
 ### Legends positions
 
@@ -176,8 +176,14 @@ Legend configuration is not available for:
 - Geomap chart
 - Sankey chart
 - Map chart
-- State timeline
-- Host map
+- Box plot
+- Bar gauge
+- Treemap
+- Sunburst
+- Funnel
+- Node graph
+
+State timeline and Host map charts have the **Show Legends** toggle, but not the other legend options.
 
 ### Gridlines option
 
@@ -201,3 +207,8 @@ The show gridlines option is not available for:
 - Sankey chart
 - Map chart
 - Host map
+- Bar gauge
+- Treemap
+- Sunburst
+- Funnel
+- Node graph

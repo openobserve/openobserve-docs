@@ -56,7 +56,7 @@ The following steps explain how to use the **Comparison Against** feature for th
 6. Open the **Config** sidebar and expand the **Comparison Against** section.<br> 
    ![Config menu](../../../images/dashboards-comparison-against-config-menu-v2.png) 
 7. By default, **0 Minutes ago** is selected. This represents your current time.
-8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **1 Hours ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.<br>  
+8. Click **+ Add** to choose one or more past times to compare against the current time. For example, **1 Hour ago**. Use the dropdown menu to select the desired time. The system runs your SQL query for the same time range (period) at this past point.<br>  
    ![Add past time](../../../images/dashboards-comparison-against-add-past-time-v2.png)  
 9. (Optional) Select a **Color Palette** to differentiate charts.  
 10. Click **Apply** to run the query and update the chart.   

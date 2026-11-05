@@ -89,16 +89,26 @@ The following charts are supported in Dashboards:
 10. Maps
 11. Pie
 12. Donut
-13. Heatmap
-14. State timeline
-15. Host map
-16. Table: Display data in rows and columns, with optional pivot mode.
-17. Metric Text
-18. Gauge
-19. HTML
-20. Markdown
-21. Sankey
-22. Custom Chart
+13. Treemap
+14. Sunburst
+15. Heatmap
+16. Box plot
+17. Distribution
+18. State timeline
+19. Host map
+20. Table: Display data in rows and columns, with optional pivot mode.
+21. Metric Text
+22. Gauge
+23. Logs
+24. Bar gauge
+25. Funnel
+26. Alert list
+27. Flame graph
+28. HTML
+29. Markdown
+30. Sankey
+31. Node graph
+32. Custom Chart
 
 The **Table** chart supports a pivot mode: add a **Pivot Field** (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Allow Dynamic Columns** are disabled while pivot mode is active. See [Pivot Table](config/pivot-table.md).
 
