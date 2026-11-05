@@ -52,11 +52,11 @@ In OpenObserve, raw events live as **Apache Parquet in your bucket**: S3, GCS, A
 | Alerts | Yes | Yes |
 | Pipelines | Yes | Yes |
 | OpenTelemetry native | Partial | Full |
-| Per-host pricing | $15 to $27 / host / month | $0 |
+| Per-host pricing | Yes, billed per host per month | None |
 | Custom metrics | Per-metric overage above quota | Unlimited, included |
 | Self-hosted option | No | Yes |
 | Bring your own storage | No | Yes (S3, GCS, Azure Blob, MinIO, RustFS) |
-| IAM & SSO | Enterprise tier only | Included (SAML, OIDC, LDAP, role-based access) |
+| IAM & SSO | Enterprise tier only | Enterprise (SAML, OIDC, LDAP, role-based access), free up to 50 GB/day |
 
 ## Architectural Differences
 
@@ -97,7 +97,7 @@ A typical move off Datadog runs in three steps:
 
 1. **Stand up an OTel Collector** alongside the existing Datadog Agent fleet. Configure it with the `statsd`, `datadog`, and (optionally) log receivers so it accepts the same wire formats Datadog uses.
 2. **Run dual-write.** Point apps (or the Datadog Agent itself) at both Datadog and the Collector for a validation window. Compare metrics, traces, and logs side by side.
-3. **Cut over.** Migrate dashboards and monitors to OpenObserve (the AI Assistant translates Datadog query DSL to PromQL/SQL), then decommission the Datadog Agent.
+3. **Cut over.** Migrate dashboards and monitors to OpenObserve, where the AI Assistant (Enterprise) can help translate Datadog queries into SQL or PromQL. Then decommission the Datadog Agent.
 
 Teams already on OpenTelemetry can start ingesting into OpenObserve within hours. A full Datadog Agent-based fleet usually completes the move in days to a few weeks.
 

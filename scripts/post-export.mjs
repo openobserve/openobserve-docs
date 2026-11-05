@@ -81,6 +81,7 @@ const REDIRECT_PATHS = new Set([
   'quickstart',
   'downloads',
   'user-guide/data-exploration/metrics/file-access-time-metric',
+  'screenshots',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
@@ -135,6 +136,7 @@ const REDIRECTS = {
   quickstart: 'getting-started',
   downloads: 'getting-started',
   'user-guide/data-exploration/metrics/file-access-time-metric': 'user-guide/data-exploration/metrics',
+  screenshots: 'features',
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {

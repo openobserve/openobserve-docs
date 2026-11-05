@@ -60,15 +60,15 @@ If you're coming from Datadog, most concepts have direct equivalents in OpenObse
 | Datadog Metrics | OpenObserve Metrics (built-in stream type) | PromQL-compatible |
 | Datadog Traces | OpenObserve Traces (built-in stream type) | OTLP-native |
 | Datadog Dashboards | OpenObserve Dashboards | Built-in dashboard builder with 18+ chart types |
-| Datadog Monitors | OpenObserve Alerts | PromQL or SQL-based; Slack/PagerDuty/Email/Webhook destinations |
+| Datadog Monitors | OpenObserve Alerts | PromQL or SQL-based, under **Reliability > Alerts**; Slack/PagerDuty/Email/Webhook destinations |
 | Datadog Notebooks | OpenObserve Dashboards + SQL queries | Combine narrative panels with live queries |
-| Datadog SLOs | Scheduled pipelines + alerts | Pre-aggregate the SLI, alert on burn rate |
-| Datadog Watchdog | Manual alerts (no AI auto-detect today) | Watchdog is Datadog-proprietary; configure explicit thresholds in OpenObserve |
-| Datadog Hosts | Streams + service.name field | OpenObserve doesn't charge per host; there is no host concept in billing |
+| Datadog SLOs | OpenObserve SLOs | Count, time-slice, or alert-based SLOs under **Reliability > SLOs**, with burn-rate and error-budget alerts |
+| Datadog Watchdog | Anomaly detection alerts *(Enterprise and Cloud)* or explicit thresholds | Watchdog is Datadog-proprietary; OpenObserve anomaly detection learns a baseline per alert |
+| Datadog Hosts | Streams + `service_name` / host fields | OpenObserve doesn't charge per host; there is no host concept in billing |
 | Datadog Tags | Labels / fields | Tags become labels on metrics (PromQL) or columns on logs/traces (SQL) |
 | Custom Metrics | Same, sent via DogStatsD or OTLP | No per-metric pricing |
 | Datadog Pipelines (log processing) | OpenObserve Pipelines (VRL-based) | Parse, enrich, route, and transform logs in-flight |
-| Datadog Live Tail | OpenObserve Logs Live Mode | Real-time log streaming in the Logs explorer |
+| Datadog Live Tail | Logs **Auto Refresh** | Re-runs the Logs search on an interval for a near-real-time view |
 | Organization / Account | Organization | OpenObserve uses orgs for multi-tenancy (default org is `default`) |
 
 ### Protocol Compatibility
