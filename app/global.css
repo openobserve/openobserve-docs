@@ -38,6 +38,11 @@
   --oo-code: #ff8a80;
 }
 
+[data-theme-toggle] {
+  position: relative;
+  cursor: pointer;
+}
+
 /* `data-card` is the anchor Fumadocs wraps around headings; it must stay
    inherited, as must anything explicitly opted out of prose styling. */
 .prose a:not([data-card]):not(.not-prose a) {
@@ -178,6 +183,47 @@
 #nd-toc,
 .oo-breadcrumb {
   --color-fd-primary: var(--color-fd-foreground);
+}
+
+/*
+ * Sidebar tree.
+ *
+ * Fumadocs draws one straight guide for the first folder level. Extend that
+ * treatment to every nested folder and add a rounded branch for each child so
+ * the hierarchy remains visible at a glance.
+ */
+#nd-sidebar div[data-state='open'][id^='radix-'],
+#nd-sidebar-mobile div[data-state='open'][id^='radix-'] {
+  position: relative;
+}
+
+#nd-sidebar div[data-state='open'][id^='radix-']::before,
+#nd-sidebar-mobile div[data-state='open'][id^='radix-']::before {
+  position: absolute;
+  inset-block: 0.25rem;
+  inset-inline-start: 0.625rem;
+  width: 1px;
+  background: var(--color-fd-border);
+  content: '';
+}
+
+#nd-sidebar div[data-state='open'][id^='radix-'] > div > *,
+#nd-sidebar-mobile div[data-state='open'][id^='radix-'] > div > * {
+  position: relative;
+}
+
+#nd-sidebar div[data-state='open'][id^='radix-'] > div > *::after,
+#nd-sidebar-mobile div[data-state='open'][id^='radix-'] > div > *::after {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0.625rem;
+  width: 0.75rem;
+  height: 50%;
+  border-block-end: 1px solid var(--color-fd-border);
+  border-inline-start: 1px solid var(--color-fd-border);
+  border-end-start-radius: 0.375rem;
+  content: '';
+  pointer-events: none;
 }
 
 .oo-details {
