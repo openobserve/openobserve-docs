@@ -8,7 +8,7 @@ description: Browse and explore metrics with a visual card grid, build PromQL qu
 The Metrics Explorer is where you browse and query metrics data. Click **Metrics** in the sidebar to open it at `/metrics`. The mode switch at the top has three modes:
 
 - **Explore**: the browse grid, a visual overview of every metric family in your organization.
-- **Visualize**: the PromQL query editor with chart visualization and dashboard controls. The same editor is also available at `/metrics/editor`.
+- **Visualize**: the PromQL query editor with chart visualization and dashboard controls. Old `/metrics/editor` links redirect to this mode.
 - **Favorites**: the metrics you starred in Explore.
 
 ![the Metrics Explorer browse grid showing metric cards with type badges, prefix/suffix/type filter rail, and search](images/metrics-explorer-revamp-1-v2.png)
@@ -57,7 +57,7 @@ The left rail exposes three filter panels:
 
 ![the filter rail open on prefix grouping, showing prefix groups with counts](images/metrics-explorer-revamp-4-v2.png)
 
-The **Search metrics** box filters cards by name or help text. The **sort** toggle switches between **A–Z** and **Z–A** ordering. **With data** (selected by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics; select **All** to show every metric. A count below the grid shows how many cards are hidden.
+The **Search metrics** box filters cards by name or help text. The **sort** control orders cards **A–Z**, **Z–A**, or by usage in **Dashboards** or **Alerts** (most used first). **With data** (selected by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics; select **All** to show every metric. A count below the grid shows how many cards are hidden.
 
 Use **Views** to save the current search, filters, sort, layout and time range as a named view, and to reopen, update or delete views. Saved views are shared with everyone in the organization.
 
@@ -69,7 +69,7 @@ Click **Filter** to add a label matcher: select a label, an operator (`=` exact 
 
 ## Query editor
 
-The **Visualize** mode (and the panel editor at `/metrics/editor`) is where you build queries, visualize results, and configure dashboard panels. It opens with the same layout as a dashboard panel editor.
+The **Visualize** mode is where you build queries, visualize results, and configure dashboard panels. It opens with the same layout as a dashboard panel editor.
 
 ![the Visualize mode showing the stream selector, PromQL input, chart, time picker, Run query, and Add To Dashboard](images/metrics-explorer-revamp-6-v2.png)
 
@@ -111,7 +111,7 @@ Press **Ctrl+Enter** (or **Cmd+Enter** on macOS) to run the query from the edito
 
 The **time picker** at the top of the editor supports relative ranges (Past 15 Minutes, Past 6 Hours, etc.) and absolute custom ranges. For dashboards (where auto-apply is off), the picker's trigger label shows the range that is **actually in force**, not your pending selection — so switching the picker to "Past 6 Hours" without clicking Apply leaves the trigger reading the previous range.
 
-Click **Apply** to run the query against the selected range. The **refresh interval** dropdown schedules automatic re-runs.
+Click **Run query** to run the query against the selected range. The **refresh interval** dropdown schedules automatic re-runs.
 
 ### Visualizations
 

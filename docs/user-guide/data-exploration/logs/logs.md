@@ -106,13 +106,13 @@ Click a row to open the **Source Details** panel for that record. The panel open
 ![Logs view row](../../../images/logs-view-row-v2.png)
 
 ## Use the Histogram and Views
-- The histogram displays log event distribution over time. Turn off **Histogram** in the **More** menu, under **Set Once**, to hide it when not needed. You can pin this switch to the toolbar too.
+- The histogram displays log event distribution over time. Use the **Histogram** switch to hide it when not needed. The switch is pinned to the toolbar by default and is also in the **More** menu, under **Set Once**.
 
     ![Logs histogram disabled](../../../images/logs-histogram-disable-v2.png)
 
 - The view buttons on the left of the toolbar switch what the page shows:
     - **Search**: the log results table.
-    - **Visualize**: builds a chart from the current query with the dashboard panel editor. Use **Add To Dashboard** to save the chart to a dashboard.
+    - **Visualize**: opens a field-based query builder where you pick fields and aggregations to build a chart. Use **Add To Dashboard** to save the chart to a dashboard.
     - **Drill down**: compares log volume across fields. See [Insights](insights.md). Not available in SQL mode.
     - **Patterns**: groups logs into recurring templates. See [Log Patterns](log-patterns.md). Enterprise only.
     - **Timechart**: charts the query you already wrote. Shown only when the server sets `ZO_TIMECHART_ENABLED=true` (default `false`). See [Timechart View](timechart.md).
@@ -147,13 +147,13 @@ These options help customize the view for your analysis needs.
 ## Save and Reuse Views
 To save a query and its configuration:
 
-1. Open the **More** menu and select **Create Saved View** under **Saved Views**. If saved views are pinned to the toolbar, click the save icon there instead.
+1. Open the **More** menu, point to **Saved Views**, and click **Create Saved View**. If saved views are pinned to the toolbar, click the save icon there instead.
 2. Enter a name in the dialog box.
 3. Click **Save**.
 
 ![Logs save view](../../../images/logs-save-view-v2.png)
 
-Select **List Saved Views** under **Saved Views** to reopen a saved view at any time, or **Manage Saved Views** to update or delete them.
+To reopen a saved view, open **Saved Views** in the **More** menu. The list shows **Favorites** and **All Saved Views**. Use the actions next to a view to apply, update, or delete it.
 
 ## Share a Search
 Click the **Share Link** button in the search bar to copy a shortened URL for the current search. The link restores the stream, query, time range, and display settings when opened. Relative time ranges are converted to absolute start and end times, so the link opens the same data every time.
