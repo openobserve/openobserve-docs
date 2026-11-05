@@ -222,7 +222,7 @@ These are the essential metrics that every website should track:
 - Needs improvement: 350 ms
 - Poor: 680 ms
 
-**Note**: INP is replacing FID as a Core Web Vital.
+**Note**: INP replaced FID as a Core Web Vital in March 2024. The **Vitals** tab in OpenObserve shows INP, not FID.
 
 ---
 

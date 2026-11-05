@@ -20,7 +20,7 @@ Service Catalog reads recent trace activity for the selected stream and time ran
 :::note[Where to find this]
 
 1. Sign in to OpenObserve.
-2. Select **Traces** in the left navigation panel, then choose **Service Catalog** from the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar.
+2. Select **Traces** in the left navigation panel, then choose **Service Catalog** from the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar. You can also hover over **Traces** in the left navigation and select **Service Catalog**.
 
 The catalog loads automatically for the selected trace stream and time range. The **Service Graph** option in the same toggle is Enterprise-only, but **Service Catalog** is available in all editions.
 :::
@@ -36,8 +36,8 @@ The table includes the following columns.
 |--------|-------------|
 | **Service** | The service name discovered from the trace stream. |
 | **Status** | A health status pill derived from the error rate. See [Health status](#health-status). |
-| **Requests** | Total number of spans (requests) recorded for the service in the selected range. |
-| **Errors** | Number of spans with an error status. |
+| **Requests** | Number of requests recorded for the service in the selected range: server and consumer spans, plus root spans of any kind. |
+| **Errors** | Number of those requests with an error status. |
 | **Error Rate** | Percentage of requests that ended in error. The value is color-coded as the rate increases. |
 | **P50** | Median (50th percentile) span duration. |
 | **P95** | 95th percentile span duration. |
@@ -73,23 +73,18 @@ Service Catalog does not use logs or metrics directly.
 
 ## Controls
 
-:::accordion[Stream selector]
-:::
 ### Stream selector
 Select the trace stream to build the catalog from. The catalog is computed for a single stream at a time. Your selection is remembered for future visits.
 
-:::accordion[Service-name filter]
-:::
+### Type filter
+Use the **All**, **Services**, **Datastores**, **Queues**, **External**, and **RPC** filter to show only one kind of entity. Datastores, queues, external APIs, and RPC backends are dependencies inferred from client spans; see [Service Graph](service-graph.md#inferred-dependencies).
+
 ### Service-name filter
 Enter text in the filter field to narrow the table to services whose name contains your input. The match is case-insensitive, and a counter shows how many of the total services match.
 
-:::accordion[Date-time picker]
-:::
 ### Date-time picker
 Use the date-time picker to set the time range for the metrics. You can choose a relative range or an absolute start and end time. Changing the range reloads the catalog.
 
-:::accordion[Refresh]
-:::
 ### Refresh
 Use the refresh control to reload the catalog on demand with the current stream and time range.
 
@@ -99,6 +94,7 @@ Service Catalog is a starting point for investigation. From a service row you ca
 
 - Click a service row to open the service detail side panel, which includes **Operations** and related tabs for that service.
 - Select **View Traces** to open the [Traces](traces.md) view filtered to that service. OpenObserve sets the query to `service_name = '<name>'` and switches the search mode to Traces, so you immediately see the matching traces.
+- On Enterprise, when automatic RED insights are on, an **Insights** strip above the table lists recent anomalies with links to **Traces** and **Charts**. See [Analyze Traces](analyze-traces.md#automatic-red-insights).
 ::::
 ::::tab[How-to]
 ## Review service health

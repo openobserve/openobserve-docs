@@ -23,7 +23,7 @@ If profile samples carry the span's `trace_id` and `span_id`, the span sidebar s
 
 ## Automatic RED insights
 
-:::info[Enterprise]
+:::note[Enterprise]
 RED insights is available in Enterprise builds only.
 :::
 

@@ -21,12 +21,12 @@ RUM provides critical insights into:
 
 ## Key Features
 
-OpenObserve RUM provides three main categories of monitoring:
+OpenObserve RUM provides four main categories of monitoring:
 
 ### 1. Performance Monitoring
 Track critical performance metrics to ensure your application is fast and responsive:
 
-- **Web Vitals**: Core Web Vitals (LCP, FID, CLS) and other performance metrics
+- **Web Vitals**: Core Web Vitals (LCP, INP, CLS) and other performance metrics
 - **Page Load Performance**: Full page load time, time to first byte, DOM content loaded
 - **Resource Monitoring**: Track loading times for images, scripts, stylesheets, and other assets
 - **API Performance**: Monitor response times and success rates of API calls
@@ -66,12 +66,12 @@ OpenObserve RUM works by adding a lightweight JavaScript library to your fronten
 1. **Data Collection**: The RUM SDK automatically collects performance metrics, errors, and user interactions
 2. **Data Transmission**: Data is sent to OpenObserve servers in real-time
 3. **Analysis**: OpenObserve processes and stores the data for analysis
-4. **Visualization**: View insights through the OpenObserve dashboard with multiple tabs:
+4. **Visualization**: Go to **Experience** > **RUM** in the left navigation. The page has four tabs:
 
-   - Performance summary with metrics and charts
-   - Session list with detailed user information
-   - Error tracking with aggregated error views
-   - Session replay with full interaction playback
+   - **Performance**: metrics and charts
+   - **Sessions**: the session list, with session replay for each session
+   - **Error Tracking**: aggregated error views
+   - **Source Maps**: upload source maps so stack traces show your original code
 
 ## Privacy and Security
 

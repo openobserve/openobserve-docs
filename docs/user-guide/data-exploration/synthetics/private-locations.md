@@ -5,6 +5,10 @@ description: Run Synthetics checks from inside your own network with self-regist
 
 # Private locations
 
+:::note[Enterprise and Cloud]
+Private locations require OpenObserve Enterprise or OpenObserve Cloud. The **Private Locations** tab does not appear on the Open Source edition.
+:::
+
 A private location runs checks from inside your own network, so they can reach systems that are not exposed to the internet, such as an internal API, a staging environment behind a VPN, or a database host on a private subnet.
 
 A location is a pool of interchangeable agents, not a single machine. Deploy several agents with the same location name and they all serve that location, sharing its work and surviving the loss of any one host.
