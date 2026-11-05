@@ -24,18 +24,18 @@ Audit events are published into the `audit` stream under the `_meta` organizatio
 ## Configuration
 | Environment Variable        | Description                                                      | Default |
 | --------------------------- | ---------------------------------------------------------------- | ------- |
-| `O2_AUDIT_ENABLED`          | Enables audit logging                                            | `false` |
+| `O2_AUDIT_ENABLED`          | Enables audit logging. On by default; set to `false` to opt out | `true`  |
 | `O2_AUDIT_BATCH_SIZE`       | Number of audit records to batch before publishing               | `500`   |
 | `O2_AUDIT_PUBLISH_INTERVAL` | Interval in seconds after which unpublished audits are published | `600`   |
 
 
 ## How it works
-When audit logging is enabled using the `O2_AUDIT_ENABLED` environment variable, OpenObserve collects details of every non-ingestion API call made by users across all organizations. These events are stored temporarily in memory. Once the number of events reaches the batch size or the publish interval is reached, they are sent to the `audit` stream in the `_meta` organization. From there, you can view, query, or use them in dashboards and alerts.
+When audit logging is enabled (the default; controlled by `O2_AUDIT_ENABLED`), OpenObserve collects details, including request bodies with credential fields redacted, of every non-ingestion API call made by users across all organizations. These events are stored temporarily in memory. Once the number of events reaches the batch size or the publish interval is reached, they are sent to the `audit` stream in the `_meta` organization. From there, you can view, query, or use them in dashboards and alerts.
 
 :::note[Example]
 The following example shows a captured audit event from the `audit` stream:
 :::
-  ![audit-trail](../../../images/audit-trail.png)
+  ![audit-trail](../../../images/audit-trail-v2.png)
 
 :::note[Use cases]
 Because audit events are stored in a log stream, you can:
