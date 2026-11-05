@@ -86,7 +86,7 @@ In the field sidebar, fields are organized into groups: **Key Fields** first, th
 ![Trace Graph tab in Graph View showing the services called in a trace](../../../images/service-map-v2.png)
 **Span details:** Provide metadata such as file path, code line, service version, thread ID, and additional attributes. Events and error messages appear when available.
 
-A trace also has **Flame Graph** and **DAG** tabs, and a **Thread** tab for LLM traces. You can drag the tabs to reorder them.
+A trace also has a **Flame Graph** tab, and traces that contain LLM spans also have **DAG** and **Thread** tabs. You can drag the tabs to reorder them.
 ![Selected span with the details panel open on the Attributes tab](../../../images/span-details-v2.png)
 ::::::
 ::::::tab[How-to]
@@ -284,7 +284,7 @@ Your logs can use different names. The mapping you set here allows the UI to bui
 4. Click **Run query**. 
 5. From the query result, select the desired trace. 
 
-Use the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar to switch the result list between individual spans and aggregated traces (the default view is **Spans**), with **Service Graph** and **Service Catalog** available on Enterprise. In **Spans** mode, the result list shows a **Spans Found** count, and selecting a span row opens its trace with that span focused. **Service Catalog** shows a per-service metrics table (requests, error rate, latency percentiles, and health status); clicking a service opens **Traces** filtered by `service_name`. See [Service Catalog](service-catalog.md) for details.
+Use the **Spans | Traces | Service Graph | Service Catalog** toggle in the search bar to switch the result list between individual spans and aggregated traces (the default view is **Spans**), with **Service Graph** available on Enterprise and **Service Catalog** available in all editions. In **Spans** mode, the result list shows a **Spans Found** count, and selecting a span row opens its trace with that span focused. **Service Catalog** shows a per-service metrics table (requests, error rate, latency percentiles, and health status); clicking a service opens **Traces** filtered by `service_name`. See [Service Catalog](service-catalog.md) for details.
 
 :::note[Flame Graph]
 A **Flame Graph** tab is also available for inspecting a trace. Selecting a span in the flame graph opens that span's details in a resizable bottom panel.
@@ -344,8 +344,8 @@ While a query runs, a **Cancel** button replaces **Run query**, allowing you to 
 | Database | Database call details: DB system, the query/statement (syntax-highlighted by `db_system`), collection/table, rows returned, batch size, response status code, and a query summary. Appears only when the span has `db_*` attributes. | Inspect the database operation a span performed. |
 | Events | Time-ordered records emitted inside the span (INFO/ERROR messages with context). | Read the span's timeline narrative and error messages without leaving the trace. |
 | Links | Links from this span to spans in other traces. | Follow work that continues in another trace. |
-| Logs | Logs correlated with the span's service. Locked without an Enterprise licence. | Read the service's logs around the span. |
-| Metrics | Correlated metric streams for the span's service. Use the selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) together with the **Pods** / **Nodes** scope chips to choose which metrics to display. **Essentials** is the default when curated streams exist. Locked without an Enterprise licence. | Inspect the resource health of the service that emitted the span without leaving the trace. When no matching metrics exist, the view reads **No Data Found**. |
+| Logs | Logs correlated with the span's service. Appears only when service streams are enabled (Enterprise), and is locked without an Enterprise licence. | Read the service's logs around the span. |
+| Metrics | Correlated metric streams for the span's service. Use the selection **pills** (**Essentials**, **Compute**, **Memory**, **Storage**, **Network**, **All**) together with the **Pods** / **Nodes** scope chips to choose which metrics to display. **Essentials** is the default when curated streams exist. Appears only when service streams are enabled (Enterprise), and is locked without an Enterprise licence. | Inspect the resource health of the service that emitted the span without leaving the trace. When no matching metrics exist, the view reads **No Data Found**. |
 
 ::::::
 :::::::

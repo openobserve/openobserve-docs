@@ -143,9 +143,7 @@ Each event in the Breadcrumbs list is clickable:
 - The video will seek to the exact time of that event
 - Useful for quickly navigating to important moments
 
-#### Tags Tab
-
-The Tags tab shows filterable tags that let you focus on specific types of events:
+Above the list, two controls narrow the events shown:
 
 **Search Events**: Filter events by keyword
 
@@ -155,6 +153,10 @@ The Tags tab shows filterable tags that let you focus on specific types of event
 - **Action**: User interaction events only
 - **View**: Page view events only
 - **Frustration**: Rage, dead, and error clicks
+
+#### Tags Tab
+
+The Tags tab shows the session's details: the user's email (or **Unknown User**), the session start time, the browser and operating system, the IP address, and the city and country.
 
 #### Traces Tab
 

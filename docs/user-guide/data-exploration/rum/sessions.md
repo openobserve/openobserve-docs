@@ -68,11 +68,11 @@ Opening a session shows its replay page. The header shows the page URL, the star
 
 Next to the player, three tabs show the session's events:
 
-- **Breadcrumbs**: A chronological list of views, actions, and errors. Click an event to jump to that moment in the replay.
-- **Tags**: The session's tags and attributes.
+- **Breadcrumbs**: A chronological list of views, actions, and errors. Click an event to jump to that moment in the replay. Use **Search Events** and the **Error**, **Action**, **View**, and **Frustration** filters above the list to narrow it.
+- **Tags**: The session's user, start time, browser and operating system, IP address, and location.
 - **Traces**: Backend traces correlated with the session's requests.
 
-Use **Search Events** and the **Error**, **Action**, **View**, and **Frustration** filters to narrow the event list. See [Session Replay](./session-replay.md) for the player controls.
+See [Session Replay](./session-replay.md) for the player controls.
 
 ## Filtering Sessions
 
