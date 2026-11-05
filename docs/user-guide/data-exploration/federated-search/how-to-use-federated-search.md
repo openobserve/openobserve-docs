@@ -6,7 +6,7 @@ description: Step-by-step instructions for querying your current cluster and per
 
 This document explains how to query your current cluster and how to perform [federated searches](index.md) across one or more different clusters in a supercluster setup.
 
-:::info[Availability]
+:::note[Availability]
 This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
 :::
 
@@ -26,7 +26,7 @@ Query your current cluster when you know the data is in your cluster or when you
 ![current-cluster-query](../../../images/current-cluster-query.png)
 
 1. Navigate to the **Logs** page.
-2. Enter your query in the SQL Query Editor.
+2. Enter your query in the query editor.
 3. Select a time range.
 4. Select one specific cluster from the **Region** dropdown.
 5. Select **Run query**.
@@ -54,7 +54,7 @@ Use federated search when you need data from multiple clusters.
 ![federated-search-multi-select](../../../images/federated-search-multi-select.png)
 
 1. Navigate to the **Logs** page.
-2. Enter your query in the SQL Query Editor.
+2. Enter your query in the query editor.
 3. Select a time range.
 4. Leave the **Region** dropdown unselected, or select multiple clusters.
 5. Select **Run query**.
