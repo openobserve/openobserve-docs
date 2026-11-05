@@ -21,7 +21,7 @@ In count-based alerts (the default "total events" mode), click **Add warning** t
 - For `<=` / `<`: warning must be **larger** (e.g. critical=10, warning=25)
 - `=` / `!=` / `Contains` do not support a warning level
 
-When the evaluation exceeds the critical threshold, the alert fires at `critical`. When it crosses only the warning threshold, it fires at `warning`. The alert's `notify_on_warning` field controls whether a warning-level match sends a notification. It defaults to `true`; the form has no control for it, so set it to `false` through **Edit Alert JSON** or the API. When it is `false`, warnings still update state and appear in the UI but do not page anyone.
+When the evaluation exceeds the critical threshold, the alert fires at `critical`. When it crosses only the warning threshold, it fires at `warning`. The alert's `notify_on_warning` field controls whether a warning-level match sends a notification. It defaults to `true`, and the form has no control for it. Set it to `false` through the API. **Edit Alert JSON** also works, but the next save from the alert form drops the field, so warnings notify again. When it is `false`, warnings still update state and appear in the UI but do not page anyone.
 
 ![Count alert with Critical if >= 5 and Warning if >= 2](images/alerts-4-0-1-v2.png)
 

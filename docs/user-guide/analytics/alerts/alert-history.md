@@ -17,7 +17,7 @@ Any user who has permission to view, update, or delete alerts can also access Al
 :::
 
 :::note[Note]
-Evaluation events always go to the organization's own `triggers` stream, with a copy in the `_meta` organization. The former `ZO_USAGE_REPORT_TO_OWN_ORG` setting was removed, and no configuration is needed.
+Evaluation events go to the organization's own `triggers` stream, with a copy in the `_meta` organization. The former `ZO_USAGE_REPORT_TO_OWN_ORG` setting was removed, and no configuration is needed. The one exception is `ZO_USAGE_REPORTING_MODE=remote` (the default is `local`): in that mode the organization's own copy is not written.
 :::
 
 ## How to interpret the Alert History table

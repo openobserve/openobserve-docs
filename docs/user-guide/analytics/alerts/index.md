@@ -86,7 +86,7 @@ The time window of data evaluated per alert run. If the look back window is 30 m
 Where alert notifications are sent. Choose one or combine multiple:
 
 - **Email**: Send to team members or distribution lists. Requires SMTP configuration.
-- **Webhook**: Send to external systems via HTTP. Prebuilt destinations cover Slack, Microsoft Teams, PagerDuty, Opsgenie, ServiceNow, and Discord.
+- **Webhook**: Send to external systems via HTTP. Prebuilt destinations cover Slack, Microsoft Teams, PagerDuty, Opsgenie, ServiceNow, Jira, and Discord.
 
 In Enterprise editions, the destination picker also lists **Workflows** that the alert can start.
 
