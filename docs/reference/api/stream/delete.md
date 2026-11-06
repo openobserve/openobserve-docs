@@ -38,8 +38,8 @@ Delete a complete stream and all associated data.
 |------|------|----------|----------|-------------|
 | org_id | string | path | Yes | Organization identifier |
 | stream_name | string | path | Yes | Name of the stream to delete |
-| type | string | query | Yes | Stream type: `logs`, `metrics`, or `traces` |
-| delete_all | boolean | path | Yes | Delete all related resources like alerts and dashboards |
+| type | string | query | No | Stream type: `logs` (default), `metrics`, or `traces` |
+| delete_all | boolean | query | No | `true` also deletes related resources such as alerts and dashboards (default `false`) |
 
 #### Request example
 ```bash
@@ -76,22 +76,20 @@ Deletion is asynchronous and does not happen immediately:
 
 1. When you call this API, the deletion request is marked in the system.
 2. The API responds immediately, you do not wait for actual deletion.
-3. A background service called Compactor checks for pending deletions every 10 minutes.
+3. A background service called Compactor checks for pending deletions every `ZO_COMPACT_INTERVAL` seconds (default `10`).
 4. When Compactor runs, it starts deleting your stream. This can take anywhere from seconds to several minutes depending on how much data the stream contains.
-5. In the worst-case scenario (if you request deletion just before Compactor runs), the entire process could take up to 30 minutes total.
-6. You do not need to wait. The deletion happens in the background. You can check the stream status later to confirm it has been deleted.
+5. You do not need to wait. The deletion happens in the background. You can check the stream status later to confirm it has been deleted.
 
 :::note[Notes]
+- This operation cannot be undone.
+- Data is deleted from both the `file_list` table and object store.
+- No job tracking is available for this endpoint.
 :::
-
-	- This operation cannot be undone.
-	- Data is deleted from both the `file_list` table and object store.
-	- No job tracking is available for this endpoint
 
 :::note[Environment variables]
+- You can change the `compactor` run interval with `ZO_COMPACT_INTERVAL` (unit: seconds, default `10`).
+- You can configure data life cycle to auto delete old data: for example `ZO_COMPACT_DATA_RETENTION_DAYS=30` deletes data after `30` days (default `3650`). The value must be greater than `0`.
 :::
-	- You can change the `compactor` run interval: `ZO_COMPACT_INTERVAL=600`. Unit is second. default is `10 minutes`.
-	- You can configure data life cycle to auto delete old data: `ZO_COMPACT_DATA_RETENTION_DAYS=30`. The system will auto delete the data after `30` days. Note that the value must be greater than `0`.
 
 ### Delete stream data by time range
 Delete stream data within a specific time period with job tracking.
@@ -106,8 +104,9 @@ Delete stream data within a specific time period with job tracking.
 |-----------|------|----------|-------------|
 | `org_id` | string | Path | Organization identifier |
 | `stream_name` | string | Path | Name of the stream |
-| `start` | long | path | Start timestamp in microseconds (UTC). Inclusive. |
-| `end` | long | path | End timestamp in microseconds (UTC). Inclusive. |
+| `start` | long | query | Start timestamp in microseconds (UTC). Inclusive. |
+| `end` | long | query | End timestamp in microseconds (UTC). Inclusive. |
+| `type` | string | query | Stream type: `logs` (default), `metrics`, or `traces`. |
 #### Request example
 ```bash
 curl -X DELETE \
@@ -289,14 +288,14 @@ Delete cached query results for a stream.
 | Parameter | Type | Location | Description |
 |-----------|------|----------|-------------|
 | `org_id` | string | path | Organization identifier |
-| `stream_name` | string | Path | Stream name (use `_all` to delete cache for all streams) |
+| `stream_name` | string | Path | Stream name (use `_all` to delete the cache for all streams of the organization) |
 | `type` | string | Query | Stream type: `logs`, `metrics`, or `traces` |
-| `ts` | long | Query | Timestamp threshold in microseconds. Deletes cache from start up to this timestamp. Retains cache from timestamp onwards. |
+| `ts` | long | Query | Timestamp threshold in microseconds. Deletes cache from start up to this timestamp. Retains cache from timestamp onwards. Optional (default `0`). |
 
 #### Request example
 ```bash
 curl -X DELETE \
-  'https://example.remote.dev/api/default/streams/test_stream/_all/cache/results?type=logs&ts=1753849800000'
+  'https://example.remote.dev/api/default/streams/test_stream/cache/results?type=logs&ts=1753849800000000'
 ```
 
 ### Response
@@ -318,8 +317,7 @@ curl -X DELETE \
 | Code | Meaning |
 |------|---------|
 | 200 | Cache deleted successfully |
-| 400 | Invalid parameters |
-| 404 | Stream not found |
+| 400 | Result cache is disabled, or the delete failed |
 
 ### Behavior
 - Accepts `ts` (timestamp) query parameter in microseconds

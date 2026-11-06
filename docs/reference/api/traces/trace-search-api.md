@@ -20,14 +20,17 @@ GET /api/{org_id}/{stream_name}/traces/latest
 | `stream_name` | string | Yes | Name of the trace stream |
 | `start_time` | integer | Yes | Start time in microseconds |
 | `end_time` | integer | Yes | End time in microseconds |
-| `from` | integer | Yes | Result start count (pagination offset) |
-| `size` | integer | Yes | Number of traces to return |
-| `filter` | string | No | Filter query for traces |
+| `from` | integer | No | Result start count (pagination offset, default `0`) |
+| `size` | integer | No | Number of traces to return. 0, negative or omitted uses `ZO_QUERY_DEFAULT_LIMIT` |
+| `filter` | string | No | Filter query for traces, for example `service_name='checkout' AND span_status='ERROR'` |
+| `sort_by` | string | No | `start_time` (default) or `duration` |
+| `sort_order` | string | No | `desc` (default) or `asc` |
+| `timeout` | integer | No | Timeout in seconds |
 
 **Example Request** <br>
 ```bash
 curl -X GET \
-  "https://your-openobserve-instance/api/org_id/stream_name/traces/latest?&filter=&start_time=1751443100969000&end_time=1751444000969000&from=0&size=25 \
+  "https://your-openobserve-instance/api/org_id/stream_name/traces/latest?filter=&start_time=1751443100969000&end_time=1751444000969000&from=0&size=25" \
   -H "Authorization: Basic <your-auth-token>"
 ```
 
@@ -86,16 +89,16 @@ Retrieve detailed span information for a specific trace using the traces `/lates
 
 For complex queries, you can use the [search API](../search/search.md) with SQL queries:
 ```sql
-SELECT * FROM default WHERE trace_id = {trace_id} ORDER BY start_time
+SELECT * FROM default WHERE trace_id = '{trace_id}' ORDER BY start_time
 ```
 
 **Note:** Traces do not support full SQL queries in the traces interface, however, the search API supports SQL for trace data when needed for complex queries.
 
 **Example:**
-```sql
+```json
 {
     "query": {
-        "sql": "SELECT * FROM default WHERE trace_id = b1eeb579ae863bdf9408e7d64c02d5d1" ORDER BY start_time, 
+        "sql": "SELECT * FROM default WHERE trace_id = 'b1eeb579ae863bdf9408e7d64c02d5d1' ORDER BY start_time",
         "start_time": 1751443100969000,
         "end_time": 1751444000969000,
         "from": 0,
@@ -123,13 +126,13 @@ Common HTTP Status Codes:
 **Error Response Format** <br>
 ```json
 {
-  "error": {
-    "type": "invalid_query",
-    "message": "Invalid time range specified",
-    "details": "start_time must be less than end_time"
-  }
+  "code": 400,
+  "message": "Invalid time range specified",
+  "error_detail": "start_time must be less than end_time"
 }
 ```
+
+`error_detail` is present only when the server has extra detail.
 
 ## Best Practices
 

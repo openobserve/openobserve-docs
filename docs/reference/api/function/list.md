@@ -18,12 +18,11 @@ None
 {
 	"list": [
 		{
-			"stream_name": "log1",
-			"name": "fun1",
-			"function": "function(row) return row end",
-			"order": 1,
-			"num_args": 2,
-			"trans_type": 0
+			"function": ".env = \"prod\"\n.",
+			"name": "add_env",
+			"params": "row",
+			"numArgs": 1,
+			"transType": 0
 		}
 	]
 }
@@ -33,9 +32,9 @@ Description
 
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
-| stream_name | string   | -             | the function will effect to which stream |
 | name       | string    | -             | the function name |
 | function   | string    | -             | function body |
-| order      | int64     | 0             | execute order, minimum will execute first. |
-| num_args   | int64     | -             | the params num of the function |
-| trans_type | int64     | 0             |  |
+| params     | string    | -             | function parameters |
+| numArgs    | int       | -             | the number of parameters of the function |
+| transType  | int       | 0             | `0` = VRL, `1` = JavaScript |
+| streams    | array     | -             | streams the function is applied to, with `stream`, `order`, `streamType`; omitted when empty |

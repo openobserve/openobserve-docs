@@ -8,8 +8,8 @@ description: "OpenObserve ingestion APIs: Bulk, JSON, and Multi for logs, Promet
 ## Logs
 
 1. [Bulk](logs/bulk.md)
-1. [Json](logs/json.md)
-1. [Mutli](logs/multi.md)
+1. [JSON](logs/json.md)
+1. [Multi](logs/multi.md)
 
 ## Metrics
 

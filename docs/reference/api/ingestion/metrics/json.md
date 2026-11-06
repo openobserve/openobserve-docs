@@ -35,7 +35,7 @@ This will upload multiple records in batch with standard json format.
 ## Metrics type
 
 - counter
-- guage
+- gauge
 - histogram
 - summary
 
@@ -91,7 +91,7 @@ Please note only records having 200 or less fields/columns will be considered fo
 
 > Applicable to open source version
 
-One can configure ZO_COLS_PER_RECORD_LIMIT to set desired value for allowed number of fields/columns per record.
+One can configure `ZO_COLS_PER_RECORD_LIMIT` (default `1000`) to set the allowed number of fields/columns per record.
 
 ## Timestamp
 
@@ -105,12 +105,12 @@ we support use of two fields to override the default value.
 we only support `timestamp (unix epoch value)` as data format for `timestamp`, but we can support:
 
 - seconds
-- miliseconds
+- milliseconds
 - microseconds
 
 eg:
 
-use miliseconds
+use milliseconds
 
 ```json
 [{

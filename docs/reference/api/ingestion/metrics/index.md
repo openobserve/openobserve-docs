@@ -7,4 +7,4 @@ description: Ingest metrics into OpenObserve using the Prometheus remote write A
 # API Index - Metrics Ingestion
 
 1. [Prometheus](prometheus.md)
-1. [Json](json.md)
+1. [JSON](json.md)

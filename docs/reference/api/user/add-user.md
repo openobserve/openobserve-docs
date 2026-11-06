@@ -19,7 +19,8 @@ Description
 
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
-| role       | string    | -             | user role, supported: admin / user |
+| role       | string    | -             | user role: `admin`, `editor`, `viewer`, `user` or `service_account` |
+| custom_role | array[string] | -        | Enterprise with RBAC only: custom roles to assign |
 
 ## Response
 

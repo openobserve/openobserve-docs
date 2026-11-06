@@ -28,7 +28,8 @@ Description
 | first_name | string    | -             | first name |
 | last_name  | string    | -             | last name |
 | password   | string    | -             | user password |
-| role       | string    | -             | user role, supported: admin / user |
+| role       | string    | -             | user role: `admin`, `editor`, `viewer`, `user` or `service_account`. In Enterprise, any role other than `admin` and `service_account` needs OpenFGA (RBAC) enabled |
+| custom_role | array[string] | -        | Enterprise with RBAC only: custom roles to assign |
 
 ## Response
 

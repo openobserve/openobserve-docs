@@ -4,14 +4,18 @@ description: Use OpenObserve's Search Inspector to profile slow queries, trace e
 ---
 
 ## Search Inspector
-The Search Inspector in OpenObserve helps you identify what happens during a search operation. 
+The Search Inspector in OpenObserve helps you identify what happens during a search operation.
+
+:::note[Enterprise]
+The Search Inspector endpoint is available only in OpenObserve Enterprise.
+:::
 
 ## How to Use It
-Make a request to the following endpoint to get profiling information for your search operations:
+Make a request to the following endpoint to get profiling information for one search:
 ```
-GET /api/{org_id}/search/profile
+GET /api/{org_id}/search/profile?trace_id={trace_id}
 ```
-This returns structured metadata about recent search executions for your organization.
+`trace_id` is required: it is the trace ID of the search you want to inspect. The response returns structured metadata about that search execution.
 
 ## Why Use the Search Inspector
 - To find out why a search is slow and which part is causing the delay

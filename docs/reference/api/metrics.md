@@ -1,21 +1,20 @@
 ---
 title: Metrics
 metaTitle: Internal Metrics Endpoint in Prometheus Format
-description: Expose OpenObserve's internal metrics in Prometheus format through the GET /metrics endpoint, enabled by setting ZO_PROMETHEUS_ENABLE=true for scraping.
+description: Expose OpenObserve's internal metrics in Prometheus format through the GET /metrics endpoint, controlled by ZO_PROMETHEUS_ENABLED (on by default).
 ---
 
 # Metrics
 
-Get metrics of OpenObserve in prometheus format
+Get metrics of OpenObserve in Prometheus text format.
 
-Endpoint - GET /metrics
+Endpoint: `GET /metrics`
 
 ## Require
 
-You should set environment `ZO_PROMETHEUS_ENABLE=true` enable prometheus metrics.
+The endpoint is controlled by the environment variable `ZO_PROMETHEUS_ENABLED`, which is `true` by default. When it is set to `false`, the endpoint returns an empty body.
 
 ## Request
 
-e.g. 
-PUT http://localhost:5080/metrics
-
+e.g.
+`GET http://localhost:5080/metrics`

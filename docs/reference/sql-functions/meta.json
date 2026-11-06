@@ -4,7 +4,10 @@
     "full-text-search",
     "secondary-index",
     "array",
+    "string-regex",
+    "date-time",
     "aggregate",
-    "approximate-aggregate"
+    "approximate-aggregate",
+    "other"
   ]
 }

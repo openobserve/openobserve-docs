@@ -5,6 +5,8 @@ description: Explore OpenObserve's full-text, array, and aggregate functions for
 
 This guide describes the custom SQL functions supported in OpenObserve for querying and processing logs and time series data. These functions extend the capabilities of standard SQL by enabling full-text search, array processing, and time-based aggregations.
 
+This page covers the most used functions. For the full list, including fuzzy search, regex extraction, date and time, and sequence functions, see [SQL Functions](sql-functions/index.md).
+
 ## Full-text search functions
 These functions allow you to filter records based on keyword or pattern matches within one or more fields.
 
@@ -20,11 +22,11 @@ These functions allow you to filter records based on keyword or pattern matches 
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE str_match(k8s_pod_name, 'main-openobserve-ingester-1')
+SELECT _timestamp, k8s_pod_name, log FROM "docs_sql_examples" WHERE str_match(k8s_pod_name, 'main-openobserve-ingester-1')
 ```
-This query filters logs from the `default` stream where the `k8s_pod_name` field contains the exact string `main-openobserve-ingester-1`. It does not match values such as `Main-OpenObserve-Ingester-1`, `main-openobserve-ingester-0`, or any case variation.
+This query filters logs from the `docs_sql_examples` stream where the `k8s_pod_name` field contains the exact string `main-openobserve-ingester-1`. It does not match values such as `Main-OpenObserve-Ingester-1`, `main-openobserve-ingester-0`, or any case variation.
 
-![str_match](../images/sql-reference/str-match.png)
+![Logs results for str_match on k8s_pod_name](../images/sql-reference/str-match-v2.png)
 
 ### `not str_match(field, 'value')`
 **Description**:<br>
@@ -36,21 +38,21 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 
 **Example**: <br>
 ```sql
-SELECT * FROM "default" WHERE NOT str_match(k8s_app_instance, 'dev2')
+SELECT _timestamp, k8s_app_instance, k8s_pod_name FROM "docs_sql_examples" WHERE NOT str_match(k8s_app_instance, 'dev2')
 ```
-![not str_match](../images/sql-reference/not-str-match.png)
+![Logs results for NOT str_match](../images/sql-reference/not-str-match-v2.png)
 
 **Combining multiple NOT conditions with AND:**
 ```sql
-SELECT * FROM "default" WHERE (NOT str_match(k8s_app_instance, 'dev2')) AND (NOT str_match(k8s_cluster, 'dev2'))
+SELECT _timestamp, k8s_app_instance, k8s_cluster, k8s_pod_name FROM "docs_sql_examples" WHERE (NOT str_match(k8s_app_instance, 'dev2')) AND (NOT str_match(k8s_cluster, 'dev2'))
 ```
-![not str_match with AND operator](../images/sql-reference/not-str-match-with-and.png)
+![Logs results for NOT str_match with AND](../images/sql-reference/not-str-match-with-and-v2.png)
 
 **Combining NOT conditions with OR:**
 ```sql
-SELECT * FROM "default" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_match(k8s_cluster, 'dev2')))
+SELECT _timestamp, k8s_app_instance, k8s_cluster, k8s_pod_name FROM "docs_sql_examples" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_match(k8s_cluster, 'dev2')))
 ```
-![not str_match with OR operator](../images/sql-reference/not-str-match-with-or.png)
+![Logs results for NOT str_match with OR](../images/sql-reference/not-str-match-with-or-v2.png)
 ---
 ### `str_match_ignore_case(field, 'value')`
 **Alias**: `match_field_ignore_case(field, 'value')` (Available in OpenObserve version 0.15.0 and later)<br>
@@ -63,11 +65,11 @@ SELECT * FROM "default" WHERE NOT ((str_match(k8s_app_instance, 'dev2') OR str_m
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSERVE-INGESTER-1')
+SELECT _timestamp, k8s_pod_name, log FROM "docs_sql_examples" WHERE str_match_ignore_case(k8s_pod_name, 'MAIN-OPENOBSERVE-INGESTER-1')
 ```
-This query filters logs from the `default` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
+This query filters logs from the `docs_sql_examples` stream where the `k8s_pod_name` field contains any casing variation of `main-openobserve-ingester-1`, such as `MAIN-OPENOBSERVE-INGESTER-1`, `Main-OpenObserve-Ingester-1`, or `main-openobserve-ingester-1`.
 
-![str_match_ignore_case](../images/sql-reference/str-ignore-case.png)
+![Logs results for str_match_ignore_case on k8s_pod_name](../images/sql-reference/str-ignore-case-v2.png)
 
 ---
 
@@ -78,37 +80,37 @@ This query filters logs from the `default` stream where the `k8s_pod_name` field
 - This function is case-insensitive and returns matches regardless of the keyword's casing.
 
 :::note[Note]
-To enable support for fields indexed using the Inverted Index method, set the environment variable `ZO_ENABLE_INVERTED_INDEX` to true. Once enabled, you can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](api/stream/setting.md).
+Inverted index generation is controlled by the environment variable `ZO_ENABLE_INVERTED_INDEX`, which is `true` by default. You can configure the fields to use the Inverted Index by updating the [stream settings](../user-guide/data-processing/streams/schema-settings.md) in the user interface or through the [setting API](api/stream/setting.md).
 
 The `match_all` function searches through inverted indexed terms, which are internally converted to lowercase. Therefore, keyword searches using `match_all` are always case-insensitive.
 :::
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE match_all('openobserve-querier')
+SELECT _timestamp, k8s_container_name, log FROM "docs_sql_examples" WHERE match_all('openobserve-querier')
 ```
-This query returns all logs in the `default` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
+This query returns all logs in the `docs_sql_examples` stream where the keyword `openobserve-querier` appears in any of the full-text indexed fields. It matches all casing variations, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 
-![match_all](../images/sql-reference/match-all.png)
+![Logs results for match_all with the matched keyword highlighted](../images/sql-reference/match-all-v2.png)
 
 **More pattern support**
 The `match_all` function also supports the following patterns for flexible searching:
 
 - **Prefix search**: Matches keywords that start with the specified prefix:
 ```sql
-SELECT * FROM "default" WHERE match_all('ab*')
+SELECT * FROM "docs_sql_examples" WHERE match_all('ab*')
 ```
 - **Postfix search**: Matches keywords that end with the specified suffix:
 ```sql
-SELECT * FROM "default" WHERE match_all('*ab')
+SELECT * FROM "docs_sql_examples" WHERE match_all('*ab')
 ```
 - **Contains search**: Matches keywords that contain the substring anywhere:
 ```sql
-SELECT * FROM "default" WHERE match_all('*ab*')
+SELECT * FROM "docs_sql_examples" WHERE match_all('*ab*')
 ```
 - **Phrase prefix search**: Matches keywords where the last term uses prefix matching:
 ```sql
-SELECT * FROM "default" WHERE match_all('key1 key2*')
+SELECT * FROM "docs_sql_examples" WHERE match_all('key1 key2*')
 ```
 ### `not match_all('value')`
 **Description**: <br>
@@ -120,19 +122,19 @@ SELECT * FROM "default" WHERE match_all('key1 key2*')
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE NOT match_all('foo')
+SELECT * FROM "docs_sql_examples" WHERE NOT match_all('foo')
 ```
-This query returns all logs in the `default` stream where the keyword `foo` does NOT appear in any of the full-text indexed fields. Fields not configured for full-text search are ignored.
+This query returns all logs in the `docs_sql_examples` stream where the keyword `foo` does NOT appear in any of the full-text indexed fields. Fields not configured for full-text search are ignored.
 
 **Combining NOT match_all with NOT str_match**:
 ```sql
-SELECT * FROM "default" WHERE (NOT str_match(f1, 'bar')) AND (NOT match_all('foo'))
+SELECT * FROM "docs_sql_examples" WHERE (NOT str_match(f1, 'bar')) AND (NOT match_all('foo'))
 ```
 This query returns logs where field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
 
 **Using NOT with OR conditions**:
 ```sql
-SELECT * FROM "default" WHERE NOT (str_match(f1, 'bar') OR match_all('foo'))
+SELECT * FROM "docs_sql_examples" WHERE NOT (str_match(f1, 'bar') OR match_all('foo'))
 ```
 This query returns logs where BOTH conditions are false: field `f1` does NOT contain `bar` AND no full-text indexed field contains `foo`. In other words, it excludes records that match either condition.
 
@@ -150,21 +152,21 @@ This query returns logs where BOTH conditions are false: field `f1` does NOT con
 **Example**:
 
 ```sql
-SELECT * FROM "default" WHERE re_match(k8s_container_name, 'openobserve-querier|controller|nats')
+SELECT _timestamp, k8s_container_name, k8s_pod_name FROM "docs_sql_examples" WHERE re_match(k8s_container_name, 'openobserve-querier|controller|nats')
 ```
-This query returns logs from the `default` stream where the `k8s_container_name` field matches any of the strings `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
+This query returns logs from the `docs_sql_examples` stream where the `k8s_container_name` field matches any of the strings `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
 
-![re_match](../images/sql-reference/re-match.png)
+![Logs results for re_match on k8s_container_name](../images/sql-reference/re-match-v2.png)
 
 
 To perform a case-insensitive search:
 
 ```sql
-SELECT * FROM "default" WHERE re_match(k8s_container_name, '(?i)openobserve-querier')
+SELECT _timestamp, k8s_container_name, k8s_pod_name FROM "docs_sql_examples" WHERE re_match(k8s_container_name, '(?i)openobserve-querier')
 ```
 This query returns logs where the `k8s_container_name` field contains any casing variation of `openobserve-querier`, such as `OpenObserve-Querier` or `OPENOBSERVE-QUERIER`.
 
-![re_match_ignore_case](../images/sql-reference/re-match-ignore-case.png)
+![Logs results for a case-insensitive re_match](../images/sql-reference/re-match-ignore-case-v2.png)
 
 ---
 
@@ -176,17 +178,17 @@ This query returns logs where the `k8s_container_name` field contains any casing
 
 **Example**:
 ```sql
-SELECT * FROM "default" WHERE re_not_match(k8s_container_name, 'openobserve-querier|controller|nats')
+SELECT _timestamp, k8s_container_name, k8s_pod_name FROM "docs_sql_examples" WHERE re_not_match(k8s_container_name, 'openobserve-querier|controller|nats')
 ```
-This query returns logs from the `default` stream where the `k8s_container_name` field does not match any of the values `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
+This query returns logs from the `docs_sql_examples` stream where the `k8s_container_name` field does not match any of the values `openobserve-querier`, `controller`, or `nats`. The match is case-sensitive.
 
-![re_not_match](../images/sql-reference/re-not-match.png)
+![Logs results for re_not_match on k8s_container_name](../images/sql-reference/re-not-match-v2.png)
 
 ---
 
 ## Array functions
 The array functions operate on fields that contain arrays. In OpenObserve, array fields are typically stored as stringified JSON arrays.
-<br>For example, in a stream named `default`, there may be a field named `emails` that contains the following value:
+<br>For example, in a stream named `docs_sql_examples`, there may be a field named `emails` that contains the following value:
 `["jim@email.com", "john@doe.com", "jene@doe.com"]` <br>
 Although the value appears as a valid array, it is stored as a string. The array functions in this section are designed to work on such stringified JSON arrays and provide support for sorting, counting, joining, slicing, and combining elements.
 
@@ -201,12 +203,12 @@ Although the value appears as a valid array, it is stored as a string. The array
 
 **Example**:
 ```sql
-SELECT *, arr_descending(emails) as sorted_emails FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, emails, arr_descending(emails) as sorted_emails FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the emails field contains a stringified JSON array such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The query creates a new field `sorted_emails`, which contains the elements sorted in descending order:
 `["john@doe.com", "jene@doe.com", "jim@email.com"]`
 
-![arr_descending](../images/sql-reference/array-descending.png)
+![Logs results with the sorted_emails field from arr_descending](../images/sql-reference/array-descending-v2.png)
 
 ---
 
@@ -216,11 +218,11 @@ Counts the number of elements in a stringified JSON array stored in the specifie
 
 **Example**:
 ```sql
-SELECT *, arrcount(emails) as email_count FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, emails, arrcount(emails) as email_count FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function counts the number of elements in the array and returns the result: `3`.
 
-![arrcount](../images/sql-reference/array-count.png)
+![Logs results with the email_count field from arrcount](../images/sql-reference/array-count-v2.png)
 
 ---
 
@@ -232,12 +234,12 @@ In this query, the `emails` field contains a value such as `["jim@email.com", "j
 
 **Example:**
 ```sql
-SELECT *, arrindex(emails, 0, 1) as selected_emails FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, emails, arrindex(emails, 0, 1) as selected_emails FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function extracts elements at index `0` and `1`. The result is:
 `["jim@email.com", "john@doe.com"]`
 
-![arrindex](../images/sql-reference/array-index.png)
+![Logs results with the selected_emails field from arrindex](../images/sql-reference/array-index-v2.png)
 
 ---
 
@@ -248,12 +250,12 @@ In this query, the `emails` field contains a value such as `["jim@email.com", "j
 - The output is a single string where array elements are joined by the delimiter in the order they appear.
 
 ```sql
-SELECT *, arrjoin(emails, ' | ') as joined_numbers FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, emails, arrjoin(emails, ' | ') as joined_emails FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the `emails` field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function joins all elements using the delimiter `|`. The result is:
 `"jim@email.com | john@doe.com | jene@doe.com"`
 
-![arr_join](../images/sql-reference/array-join.png)
+![Logs results with the joined_emails field from arrjoin](../images/sql-reference/array-join-v2.png)
 
 ---
 
@@ -264,12 +266,12 @@ In this query, the `emails` field contains a value such as `["jim@email.com", "j
 - All elements must be of the same type, such as numbers or strings.
 
 ```sql
-SELECT *, arrsort(emails) as increasing_numbers FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, emails, arrsort(emails) as sorted_emails FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the emails field contains a value such as `["jim@email.com", "john@doe.com", "jene@doe.com"]`. The function sorts the elements in increasing lexicographical order. The result is:
 `["jene@doe.com", "jim@email.com", "john@doe.com"]`.
 
-![arrsort](../images/sql-reference/array-sort.png)
+![Logs results with the sorted_emails field from arrsort](../images/sql-reference/array-sort-v2.png)
 
 
 ---
@@ -282,13 +284,13 @@ In this query, the emails field contains a value such as `["jim@email.com", "joh
 - The result is a new array of joined values.
 
 ```sql
-SELECT *, arrzip(emails, usernames, '|') as zipped_field FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, emails, usernames, arrzip(emails, usernames, '|') as zipped_field FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the `emails` field contains `["jim@email.com", "john@doe.com"]` and the `usernames` field contains `["jim", "john"]`. The function combines each pair of elements using the delimiter `|`.
 The result is:
 `["jim@email.com | jim", "john@doe.com | john"]`
 
-![arrzip](../images/sql-reference/array-zip.png)
+![Logs results with the zipped_field field from arrzip](../images/sql-reference/array-zip-v2.png)
 
 ---
 
@@ -300,23 +302,23 @@ The result is:
 
 **Example:** 
 ```sql
-SELECT *, spath(json_object_field, 'nested.value') as extracted_value FROM "default" ORDER BY _timestamp DESC
+SELECT _timestamp, json_object_field, spath(json_object_field, 'nested.value') as extracted_value FROM "docs_sql_examples" ORDER BY _timestamp DESC
 ```
 In this query, the `json_object_field` contains a value such as:
 
 ```json
-{"nested": {"value": 23}}
+{"nested": {"value": "beta", "count": 7}}
 ```
 The function navigates the JSON structure and extracts the value associated with the path `nested.value`.
-The result is: `23`.
+The result is: `beta`.
 
 Sample Input in log stream:
 
-![Nested Input](../images/sql-reference/nested-input.png)
+![Records with a json_object_field value in the log stream](../images/sql-reference/nested-input-v2.png)
 
 Running SQL query using spath():
 
-![Nested value extraction](../images/sql-reference/nested.png)
+![Logs results with the extracted_value field from spath](../images/sql-reference/nested-v2.png)
 
 ---
 
@@ -334,7 +336,7 @@ Example:
 ```sql
 SELECT _timestamp, nums, less,
 array_union(cast_to_arr(nums), cast_to_arr(less)) as union_result
-FROM "arr_udf"
+FROM "docs_sql_examples"
 ORDER BY _timestamp DESC
 ```
 
@@ -344,7 +346,7 @@ In this query:
 - The function `cast_to_arr` is used to convert these fields into native arrays.
 - The result of `array_union` is a merged array with unique values: `[1, 2, 3, 4]`.
 
-![cast_to_arr](../images/sql-reference/cast-to-array.png)
+![Logs results with the union_result field from array_union and cast_to_arr](../images/sql-reference/cast-to-array-v2.png)
 
 ---
 
@@ -356,9 +358,9 @@ In this query:
 
 **Example:**
 ```sql
-SELECT *,
+SELECT _timestamp, numbers, more_numbers,
 arrsort(to_array_string(array_concat(cast_to_arr(numbers), cast_to_arr(more_numbers)))) as sorted_result
-FROM "default"
+FROM "docs_sql_examples"
 ORDER BY _timestamp DESC
 ```
 In this query:
@@ -367,9 +369,9 @@ In this query:
 - `cast_to_arr` converts them into native arrays.
 - `array_concat` joins the two native arrays.
 - `to_array_string` converts the result back into a stringified array.
-- `arrsort` then sorts the array in increasing order.
+- `arrsort` then sorts the array in increasing order. `to_array_string` returns the elements as strings, so they sort as text (for example `"2"`, `"23"`, `"9"`).
 
-![to_array_string](../images/sql-reference/to-array-string.png)
+![Logs results with the sorted_result field from to_array_string](../images/sql-reference/to-array-string-v2.png)
 
 ---
 
@@ -391,7 +393,7 @@ histogram(<timestamp_field>, '<duration>')
 **Histogram with aggregate function** <br>
 ```sql
 SELECT histogram(_timestamp, '30 seconds') AS key, COUNT(*) AS num
-FROM "default"
+FROM "docs_sql_examples"
 GROUP BY key
 ORDER BY key
 ```
@@ -403,7 +405,7 @@ Each row in the result shows:
 - **`key`**: The start time of the 30-second bucket.
 - **`num`**: The count of log records that fall within that time bucket.
 
-![histogram](../images/example-queries/histogram.png)
+![Logs results for a 30-second histogram with a count per bucket](../images/example-queries/histogram-v2.png)
 
 :::note[Note]
 To avoid unexpected bucket sizes based on internal defaults, always specify the bucket duration explicitly using units. 
@@ -415,40 +417,41 @@ To avoid unexpected bucket sizes based on internal defaults, always specify the 
 
 **Description:**
 
+- Optional third argument: `approx_topk(field, k, cap)`, where `cap` is how many candidates each partition keeps (default: the larger of `k × 4` and `1000`). `field` must be a string field and `k` at most 100,000.
 - Returns the top `K` most frequent values for a specified field using the **Space-Saving algorithm** optimized for high-cardinality data.
 - Results are approximate due to distributed processing. Globally significant values may be missed if they do not appear in enough partitions' local top-K results.
 
 **Example:** 
 ```sql
-SELECT approx_topk(clientip, 10) FROM "default"
+SELECT approx_topk(clientip, 10) FROM "docs_sql_examples"
 ```
-It returns the `10` most frequently occurring client IP addresses from the `default` stream. 
+It returns the `10` most frequently occurring client IP addresses from the `docs_sql_examples` stream. 
 
 **Function result (returns an object with an array):**
 
 ```json
 {
   "item": [
-    {"clientip": "192.168.1.100", "request_count": 2650},
-    {"clientip": "10.0.0.5", "request_count": 2230},
-    {"clientip": "203.0.113.50", "request_count": 2210},
-    {"clientip": "198.51.100.75", "request_count": 1970},
-    {"clientip": "172.16.0.10", "request_count": 1930},
-    {"clientip": "192.168.1.200", "request_count": 1830},
-    {"clientip": "203.0.113.80", "request_count": 1630},
-    {"clientip": "10.0.0.25", "request_count": 1590},
-    {"clientip": "172.16.0.30", "request_count": 1550},
-    {"clientip": "192.168.1.150", "request_count": 1410}
+    {"value": "192.168.1.100", "count": 2650},
+    {"value": "10.0.0.5", "count": 2230},
+    {"value": "203.0.113.50", "count": 2210},
+    {"value": "198.51.100.75", "count": 1970},
+    {"value": "172.16.0.10", "count": 1930},
+    {"value": "192.168.1.200", "count": 1830},
+    {"value": "203.0.113.80", "count": 1630},
+    {"value": "10.0.0.25", "count": 1590},
+    {"value": "172.16.0.30", "count": 1550},
+    {"value": "192.168.1.150", "count": 1410}
   ]
 }
 ```
 **Use the `unnest()` to extract usable results:**
 
 ```sql
-SELECT item.clientip as clientip, item.request_count as request_count
+SELECT item.value as clientip, item.count as request_count
 FROM (
-  SELECT unnest(approx_topk(clientip, 10)) 
-  FROM "default"
+  SELECT unnest(approx_topk(clientip, 10)) as item
+  FROM "docs_sql_examples"
 )
 ORDER BY request_count DESC
 ```
@@ -475,7 +478,7 @@ Traditional GROUP BY operations on high-cardinality fields can cause memory exha
 
 ```sql
 SELECT clientip, count(*) as cnt 
-FROM default 
+FROM docs_sql_examples 
 GROUP BY clientip 
 ORDER BY cnt DESC 
 LIMIT 10
@@ -496,7 +499,7 @@ Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHas
 **Solution: Space-Saving Mechanism** <br>
 
 ```sql
-SELECT approx_topk(clientip, 10) FROM default
+SELECT approx_topk(clientip, 10) FROM docs_sql_examples
 ```
 
 Instead of returning all unique values from each partition, each partition returns only its top 10 results. The leader node then aggregates these partial results to compute the final top 10.
@@ -603,25 +606,25 @@ For example, if an IP receives 400, 450, and 500 requests across three nodes but
 **Example:**
 
 ```sql
-SELECT approx_topk_distinct(clientip, clientas, 3) FROM "default" ORDER BY _timestamp DESC
+SELECT approx_topk_distinct(clientip, clientas, 10) FROM "docs_sql_examples"
 ```
-It returns the top 3 client IP addresses that have the most unique user agents.
+It returns the top 10 client IP addresses that have the most unique `clientas` values.
 
 **Function result (returns an object with an array):**
 
 ```json
 {
   "item": [
-    {"clientip": "192.168.1.100", "distinct_count": 1450},
-    {"clientip": "203.0.113.50", "distinct_count": 1170},
-    {"clientip": "10.0.0.5", "distinct_count": 1160},
-    {"clientip": "198.51.100.75", "distinct_count": 1040},
-    {"clientip": "172.16.0.10", "distinct_count": 1010},
-    {"clientip": "192.168.1.200", "distinct_count": 950},
-    {"clientip": "203.0.113.80", "distinct_count": 830},
-    {"clientip": "10.0.0.25", "distinct_count": 810},
-    {"clientip": "172.16.0.30", "distinct_count": 790},
-    {"clientip": "192.168.1.150", "distinct_count": 690}
+    {"value": "192.168.1.100", "count": 1450},
+    {"value": "203.0.113.50", "count": 1170},
+    {"value": "10.0.0.5", "count": 1160},
+    {"value": "198.51.100.75", "count": 1040},
+    {"value": "172.16.0.10", "count": 1010},
+    {"value": "192.168.1.200", "count": 950},
+    {"value": "203.0.113.80", "count": 830},
+    {"value": "10.0.0.25", "count": 810},
+    {"value": "172.16.0.30", "count": 790},
+    {"value": "192.168.1.150", "count": 690}
   ]
 }
 ```
@@ -629,10 +632,10 @@ It returns the top 3 client IP addresses that have the most unique user agents.
 **Use the `unnest()`, to extract usable results:**
 
 ```sql
-SELECT item.clientip as clientip, item.distinct_count as distinct_count 
+SELECT item.value as clientip, item.count as distinct_count 
 FROM (
   SELECT unnest(approx_topk_distinct(clientip, clientas, 10)) as item
-  FROM "default" 
+  FROM "docs_sql_examples" 
 )
 ORDER BY distinct_count DESC
 ```
@@ -657,7 +660,7 @@ Traditional `GROUP BY` operations with `DISTINCT` counts on high-cardinality fie
 
 ```sql
 SELECT clientip, count(distinct clientas) as cnt 
-FROM default 
+FROM docs_sql_examples 
 GROUP BY clientip 
 ORDER BY cnt DESC 
 LIMIT 10
@@ -680,7 +683,7 @@ Resources exhausted: Failed to allocate additional 63232256 bytes for GroupedHas
 **Solution: HyperLogLog + Space-Saving Mechanism**
 
 ```sql
-SELECT approx_topk_distinct(clientip, clientas, 10) FROM default
+SELECT approx_topk_distinct(clientip, clientas, 10) FROM docs_sql_examples
 ```
 
 **Combined approach:**
@@ -690,7 +693,7 @@ SELECT approx_topk_distinct(clientip, clientas, 10) FROM default
 - Each partition returns only its top 10 client IPs (by distinct user agent count) to the leader.
 
 **Example: Web Server User Agent Analysis**
-Find the top 10 client IPs by unique user agent count from web server logs in the `default` stream.
+Find the top 10 client IPs by unique user agent count from web server logs in the `docs_sql_examples` stream.
 
 **Raw data distribution**
 

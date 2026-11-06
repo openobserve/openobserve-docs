@@ -14,8 +14,9 @@ Function can be used to modify input data. You can use it to drop some fields, c
 
 ```json
 {
-	"function": "function(row) return row end",
-	"order": 1
+	"name": "add_env",
+	"function": ".env = \"prod\"\n.",
+	"transType": 0
 }
 ```
 
@@ -23,10 +24,10 @@ Description
 
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
-| function   | string    | -             | function body |
-| order      | int64     | 0             | execute order, minimum will execute first. |
-
-> Currently, we only support [VRL](https://playground.vrl.dev/) as a functional language.
+| name       | string    | -             | function name, required |
+| function   | string    | -             | function body, required. For VRL, a trailing `.` is added if missing |
+| transType  | int       | 0             | `0` = [VRL](https://playground.vrl.dev/), `1` = JavaScript |
+| params     | string    | -             | optional, function parameters |
 
 ## Response
 
