@@ -32,7 +32,7 @@ O2_EVAL_ENABLED=true
 `O2_EVAL_ENABLED` replaces `O2_ONLINE_EVALS_ENABLED`. The old name still works when the new one is not set, but OpenObserve logs a deprecation warning. If both are set, `O2_EVAL_ENABLED` wins.
 :::
 
-When disabled, the **AI Observability** menu, **Settings > Data & AI > LLM Providers**, and **Settings > Data & AI > GenAI Agent Mapping** are hidden, and the evaluation API endpoints are not registered.
+When disabled, the evaluation sections of the **AI Observability** menu, **Settings > Data & AI > LLM Providers**, and **Settings > Data & AI > GenAI Agent Mapping** are hidden, and the evaluation API endpoints are not registered.
 
 Other server settings:
 

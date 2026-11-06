@@ -19,7 +19,7 @@ description: Version your LLM prompts in OpenObserve, release them with labels s
 | **Label** | A movable pointer to one version, such as `production` or `staging`. Your app asks for a label, not a version number. |
 | **Folder** | Groups prompts and controls who can access them. |
 
-Prompts are available in the Enterprise edition and OpenObserve Cloud. In the Enterprise edition, the **AI Observability** menu that holds them appears only while `O2_EVAL_ENABLED` is on (the default).
+Prompts are available in the Enterprise edition and OpenObserve Cloud.
 
 ## Create a prompt
 

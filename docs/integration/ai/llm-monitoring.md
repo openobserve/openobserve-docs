@@ -19,7 +19,7 @@ The **Monitor** section of **AI Observability** gives you a live view of your LL
 | **Agent Graph** | The tools, models, services, and datastores each agent calls. | Enterprise and Cloud |
 | **Agent Behavior** | Agents stuck in tool-calling loops, and the errors that make them fail. | Enterprise and Cloud |
 
-In the open-source edition, **Agent Graph** and **Agent Behavior** stay in the menu with a lock icon. Opening them shows what the feature does and how to upgrade. In the Enterprise edition, the **AI Observability** menu appears only while `O2_EVAL_ENABLED` is on (the default).
+In the open-source edition, **Agent Graph** and **Agent Behavior** stay in the menu with a lock icon. Opening them shows what the feature does and how to upgrade.
 
 ## Prerequisites
 
