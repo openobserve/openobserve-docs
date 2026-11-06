@@ -59,7 +59,7 @@ fn otl_metadata() -> Result<MetadataMap, Error> {
 
     map.insert(
         "authorization",
-        format!("Basic cm9vdEBleGFtcGxlLmNvbTo3a2xCT052cHhTd09DZ09u") // This is picked from the Ingestion tab openobserve
+        format!("Basic cm9vdEBleGFtcGxlLmNvbTo3a2xCT052cHhTd09DZ09u") // Copy from Data > Data sources in OpenObserve
             .parse()
             .unwrap(),
     );
@@ -72,7 +72,7 @@ fn otl_metadata() -> Result<MetadataMap, Error> {
 fn init_meter_provider() -> SdkMeterProvider {
     let exporter = opentelemetry_otlp::new_exporter()
         .tonic()
-        .with_endpoint("http://localhost:5081/api/development")
+        .with_endpoint("http://localhost:5081")
         .with_protocol(opentelemetry_otlp::Protocol::Grpc)
         .with_metadata(otl_metadata().unwrap())
         .build_metrics_exporter(
@@ -152,7 +152,7 @@ fn init_tracer() -> Tracer {
         .with_exporter(
             opentelemetry_otlp::new_exporter()
                 .tonic()
-                .with_endpoint("http://localhost:5081/api/development")
+                .with_endpoint("http://localhost:5081")
                 .with_metadata(otl_metadata().unwrap()),
         )
         .install_batch(runtime::Tokio)

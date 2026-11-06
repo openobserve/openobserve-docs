@@ -8,6 +8,8 @@ description: "Ingest logs, metrics, traces, and profiles into OpenObserve using 
 
 Collect logs, metrics, traces, and profiles into OpenObserve from a variety of data sources for unified observability. This data ingestion guide describes how to ingest observability data from log forwarders, monitoring agents, OpenTelemetry Collector, APIs, and programmatic methods.
 
+In the OpenObserve UI, **Data > Data sources** shows ready-to-copy endpoints, headers, and agent configurations for your organization, with an ingestion token already filled in.
+
 ## Logs
 
 Ship application and infrastructure logs to OpenObserve through agents, HTTP APIs, or your own code.
@@ -20,7 +22,8 @@ Ship application and infrastructure logs to OpenObserve through agents, HTTP API
 1. [Fluent Bit](logs/fluent-bit.md)
 1. [Fluentd](logs/fluentd.md)
 1. [Amazon Kinesis Firehose](logs/kinesis-firehose.md)
-1. [Syslog](logs/syslog.md)
+1. [Splunk HEC](logs/splunk-hec.md)
+1. [Syslog (alternatives)](logs/syslog.md)
 1. [Python](logs/python.md)
 1. [Go](logs/go.md)
 1. [Curl](logs/curl.md)
@@ -28,12 +31,11 @@ Ship application and infrastructure logs to OpenObserve through agents, HTTP API
 
 ### APIs
 
-Logs can also be ingested into OpenObserve Cloud / OpenObserve through one of the 3 HTTP APIs.
+Logs can also be ingested into OpenObserve Cloud / OpenObserve through one of these 3 HTTP APIs.
 
 1. [_json](../reference/api/ingestion/logs/json.md)
 1. [_multi](../reference/api/ingestion/logs/multi.md)
 1. [_bulk](../reference/api/ingestion/logs/bulk.md)
-1. [syslog](./logs/syslog.md)
 
 You can call the above APIs directly in your code to ingest data.
 
@@ -56,6 +58,7 @@ Send time-series metrics from Prometheus, Telegraf, or the OpenTelemetry Collect
 
 1. [OTEL Collector](logs/otlp.md)
 1. [Prometheus](metrics/prometheus.md)
+1. [Vector](metrics/vector.md)
 1. [Telegraf](metrics/telegraf.md)
 
 
@@ -77,7 +80,7 @@ Send continuous CPU and memory profiles over OTLP Profiles.
 1. [OTLP / Collector](profiles/otlp.md)
 1. [Java (async-profiler)](profiles/java.md)
 1. [Go (pprof)](profiles/go.md)
-1. [Rust (eBPF)](profiles/rust.md)
+1. [Rust (pprof)](profiles/rust.md)
 1. [eBPF profiler](profiles/ebpf.md)
 
 **Need some help?**

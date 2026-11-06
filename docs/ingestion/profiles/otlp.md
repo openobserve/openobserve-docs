@@ -20,7 +20,7 @@ HTTP and gRPC both send `Authorization: Basic <base64(email:password)>`. Generat
 printf '%s' 'your-email:your-password' | base64 | tr -d '\n'
 ```
 
-You can also copy the endpoint and header from **Data Sources → Custom → Profiles**.
+You can also copy the endpoint and header from **Data > Data sources > Custom > Profiles**.
 
 ## OTLP/HTTP
 

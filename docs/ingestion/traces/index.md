@@ -46,9 +46,11 @@ Header should be:
 Authorization: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
 ```
 
-## GRPC
+**Data > Data sources > Custom > Traces** shows the endpoint and a ready-to-use `Authorization` header for your organization.
 
-OpenObserve also supports sending traces with gRPC as explained in the [OTLP ingestion guide](../logs/otlp.md).
+## gRPC
+
+OpenObserve also supports sending traces over OTLP/gRPC (default port `5081`, with `organization` and `stream-name` headers) as explained in the [OTLP ingestion guide](../logs/otlp.md).
 
 ## In this section
 
