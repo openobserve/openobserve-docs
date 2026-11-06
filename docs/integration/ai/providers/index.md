@@ -12,6 +12,7 @@ These integrations use OpenInference or OpenTelemetry instrumentors for each pro
 
 ## LLM Provider Integration Guides
 
+- [Amazon Bedrock](amazon-bedrock.md)
 - [Anthropic (Python)](anthropic.md)
 - [Anthropic (JavaScript)](anthropic-js.md)
 - [Azure AI Foundry](azure-ai-foundry.md)
