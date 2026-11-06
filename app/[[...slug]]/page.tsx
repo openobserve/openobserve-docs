@@ -13,6 +13,7 @@ import { Landing } from '@/components/landing';
 import { PageContainer, PageFooter } from '@/components/docs-page-slots';
 import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 import { composeTitle } from '@/lib/seo';
+import { getPublishedTime } from '@/lib/published-time';
 
 // <main>, <nav> and <footer> landmarks around Fumadocs' page markup. See
 // components/docs-page-slots.tsx.
@@ -154,6 +155,8 @@ export async function generateMetadata(props: {
   // label. See scripts/migration/convert-frontmatter.mjs. Pages that have only
   // the short label get the brand appended — see lib/seo.ts.
   const title = composeTitle(page.data.metaTitle ?? page.data.title);
+  // `article:published_time`: the page's first commit. See lib/published-time.ts.
+  const publishedTime = getPublishedTime(page.path);
 
   return {
     title,
@@ -174,6 +177,7 @@ export async function generateMetadata(props: {
       images: [SOCIAL_IMAGE],
       // `article:modified_time` is a freshness signal for search engines and AI
       // crawlers; overrides/main.html emitted it on every page under MkDocs.
+      ...(publishedTime ? { publishedTime: publishedTime.toISOString() } : {}),
       ...(page.data.lastModified
         ? { modifiedTime: new Date(page.data.lastModified).toISOString() }
         : {}),
