@@ -10,8 +10,14 @@ import { Feedback } from '@/components/feedback';
 import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
 import { Landing } from '@/components/landing';
+import { PageContainer, PageFooter } from '@/components/docs-page-slots';
 import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 import { composeTitle } from '@/lib/seo';
+import { getPublishedTime } from '@/lib/published-time';
+
+// <main>, <nav> and <footer> landmarks around Fumadocs' page markup. See
+// components/docs-page-slots.tsx.
+const pageSlots = { container: PageContainer, footer: PageFooter };
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -42,7 +48,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   // Markdown served for LLM crawlers.
   if (page.url === '/') {
     return (
-      <DocsPage toc={[]} full tableOfContent={{ enabled: false }}>
+      <DocsPage toc={[]} full tableOfContent={{ enabled: false }} slots={pageSlots}>
         <PageStructuredData
           title={page.data.title}
           pageUrl={page.url}
@@ -92,6 +98,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       toc={toc}
       full={false}
       footer={{ items: neighbours }}
+      slots={pageSlots}
       // A stable hook for the breadcrumb's colour in global.css, rather than
       // matching Fumadocs' markup.
       breadcrumb={{ className: 'oo-breadcrumb' }}
@@ -148,6 +155,8 @@ export async function generateMetadata(props: {
   // label. See scripts/migration/convert-frontmatter.mjs. Pages that have only
   // the short label get the brand appended — see lib/seo.ts.
   const title = composeTitle(page.data.metaTitle ?? page.data.title);
+  // `article:published_time`: the page's first commit. See lib/published-time.ts.
+  const publishedTime = getPublishedTime(page.path);
 
   return {
     title,
@@ -168,6 +177,7 @@ export async function generateMetadata(props: {
       images: [SOCIAL_IMAGE],
       // `article:modified_time` is a freshness signal for search engines and AI
       // crawlers; overrides/main.html emitted it on every page under MkDocs.
+      ...(publishedTime ? { publishedTime: publishedTime.toISOString() } : {}),
       ...(page.data.lastModified
         ? { modifiedTime: new Date(page.data.lastModified).toISOString() }
         : {}),
