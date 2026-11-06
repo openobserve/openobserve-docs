@@ -23,7 +23,7 @@ Enterprise tier includes all standard features plus the following enterprise-spe
 
 ### Operations
 - [Query Management](../user-guide/account-administration/management/query-management.md): optimize and manage query performance.
-- [Workload Management (QoS)](../user-guide/account-administration/work-group.md): prioritize and allocate resources.
+- [Workload Management (QoS)](../user-guide/account-administration/work-group-v2.md): prioritize and allocate resources.
 - [Audit Trail](../user-guide/account-administration/management/audit-trail.md): track all system activities and changes.
 
 ## Get started

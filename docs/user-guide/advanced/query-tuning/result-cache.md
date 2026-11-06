@@ -56,3 +56,5 @@ In OpenObserve, cache retrieval is handled locally by each node, but cache inval
 | Variable            | Default | Description                                                                                                                                                    |
 | ------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ZO_CACHE_DELAY_SECS | 300     | Defines the delay window in seconds before recent query results are eligible for caching. This prevents caching of incomplete data that may still be changing. |
+| ZO_RESULT_CACHE_ENABLED | true | Enables the result cache. |
+| ZO_USE_MULTIPLE_RESULT_CACHE | false | Allows a query to read and merge several matching cache files. |

@@ -20,7 +20,7 @@ OpenObserve performance optimization can be divided primarily into 2 areas:
 
 OpenObserve stores data in parquet format compressed using zstd to reduce the storage requirements. In distributed mode OpenObserve stores data in Object storage solutions like s3 (and compatible stores. Azure blob is supported too) that are highly cost effective and scalable and allow you to reduce storage cost significantly.
 
-OpenObserve does not do full-text indexing of data unlike Elasticsearch which is extremely compute intensive. This allows OpenObserve to be 5-10 times more performant for ingestion than Elasticsearch for the same amount of hardware.
+Unlike Elasticsearch, OpenObserve does not index every field, which is extremely compute intensive. Full-text (inverted) indexes are built only for the fields marked for full-text search. This allows OpenObserve to be 5-10 times more performant for ingestion than Elasticsearch for the same amount of hardware.
 
 There are things that you can do to optimize the ingestion performance of OpenObserve additionally:
 
@@ -37,7 +37,7 @@ OpenObserve is designed to handle 100s of thousands of events per second per nod
 
 If you have very high ingestion speed requirements (e.g. 100s of thousands of events per second), you can follow the below to improve ingestion performance:
 
-1. `ZO_FEATURE_PER_THREAD_LOCK`=`true` : This setting will improve performance by 60-100%. Set this up if you are looking to gain greater than 12 MB/Second/Core (~12k records per second/core) ingestion speed. We have seen ingestion speed of 23 MB/Second/core in some scenarios. This is disabled by default. Improvement comes from the way we handle `WAL` (Write Ahead Log) in OpenObserve. By default we use a single WAL file per ingester node even if it has multiple CPU cores available, necessitating a lock on the WAL file per core as we use a thread per core for higher performance. This is a good default for most workloads. However if you have very high ingestion speed requirements you can enable this setting. This will result in one WAL file per CPU core, removing the lock contention. Enabling this setting where you are not ingesting at high speed will result in smaller WAL files resulting in inefficient storage operations and lower ingestion performance. 
+1. `ZO_MEM_TABLE_BUCKET_NUM`: the number of MemTable buckets on each ingester. Each bucket has its own writer and `WAL` (Write Ahead Log) file, so more buckets means less lock contention between CPU cores. The default `0` derives the number from the MemTable budget (`ZO_MEM_TABLE_MAX_SIZE` / `ZO_MAX_FILE_SIZE_IN_MEMORY` / 2), between 1 and the number of CPU cores. This is a good default for most workloads. Setting a high value where you are not ingesting at high speed results in smaller WAL files, inefficient storage operations and lower ingestion performance. 
 
 1. Use `OTLP grpc` for ingestion instead of http json or bulk interfaces. This should give another 60-100% performance boost during ingestion.
 
@@ -45,7 +45,7 @@ If you have very high ingestion speed requirements (e.g. 100s of thousands of ev
 
 ## Log search
 
-OpenObserve does not do full-text indexing like Elasticsearch. This results in very high compression ratio of ingested data. Coupled with object storage this can give you ~140x lower storage cost. However, this also means that search performance for full text queries in absence of full-text indexes might suffer. However log data has some unique properties that can be leveraged to improve search performance significantly. OpenObserve uses following techniques to improve search performance:
+OpenObserve does not index every field like Elasticsearch does. This results in very high compression ratio of ingested data. Coupled with object storage this can give you ~140x lower storage cost. However, this also means that search performance for full text queries on fields without a full-text index might suffer. However log data has some unique properties that can be leveraged to improve search performance significantly. OpenObserve uses following techniques to improve search performance:
 
 ### Column pruning
 
@@ -175,7 +175,7 @@ You can specify inverted index for a field by going to stream settings. You can 
 Based on our tests, inverted index can improve full text search performance by up to 1000x. Enabling inverted index will lead to approximately 25% storage overhead for the stream and may vary based on data entropy.
 
 ## In memory caching 
-OpenObserve can use RAM to cache the data that is read from disk/s3. This reduces the amount of data that needs to be read from disk during search and improves search performance. OpenObserve by default will try to use all the available RAM to improve performance. This can also mean high memory utilization. You can use following environment variables to configure the cache:
+OpenObserve can use RAM to cache the data that is read from disk/s3. This reduces the amount of data that needs to be read from disk during search and improves search performance. The memory cache is off by default (`ZO_MEMORY_CACHE_ENABLED=false`). When enabled, it uses up to 50% of system memory (25% in single-node mode) unless you set a limit. The query engine memory pool defaults to the rest of system memory after that cache share (50% in HA mode, 25% in single-node mode). You can use following environment variables to configure them:
 
 | Environment Variable                    | Value | Description                                                   |
 | --------------------------------------- | ----- | ------------------------------------------------------------- |
@@ -191,9 +191,9 @@ OpenObserve can use disk on queriers to cache the data that is read from s3. Thi
 | Environment Variable        | Default Value | Description                                                           |
 | --------------------------- | ----- | ----------------------------------------------------------------------------- |
 | ZO_DISK_CACHE_ENABLED       | true  | enable on-disk caching for files. Latest files are cached for accelerating queries. when the memory cache is not enough OpenObserve will try to cache in local disk, you can consider the memory cache to be first level cache and disk cache to be second level.              |
-| ZO_DISK_CACHE_MAX_SIZE      | -  | default 50% of the total free disk, one can set it to desired amount unit: MB    |
-| ZO_DISK_CACHE_SKIP_SIZE     | -  | default 80% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB   |
-| ZO_DISK_CACHE_RELEASE_SIZE  | -  | default drop 1% entries from in-disk cache as cache is full, one can set it to desired amount unit: MB   |
+| ZO_DISK_CACHE_MAX_SIZE      | -  | default 50% of the free disk, up to 500 GB, one can set it to desired amount unit: MB    |
+| ZO_DISK_CACHE_SKIP_SIZE     | -  | default 50% of the total disk cache size, A query will skip disk cache if it need more than this value. one can set it to desired amount unit: MB   |
+| ZO_DISK_CACHE_RELEASE_SIZE  | -  | default drop 10% of the disk cache size when the cache is full, one can set it to desired amount unit: MB   |
 
 RAM is generally much more expensive than disk and you may not have enough RAM to cache all the data. In this case you can use fast NVMe SSDs to cache the data. i4 and i3 instances on AWS are good candidates for this.
 
@@ -263,11 +263,11 @@ Result caching is implemented for 2 kinds of queries:
     ```
     2. To be implemented
 
-To enable result caching, set these environment variables:
+Result caching is enabled by default (`ZO_RESULT_CACHE_ENABLED=true`). The Helm chart also turns on multiple result caches:
 
 ```shell
-ZO_RESULT_CACHE_ENABLED: "true" # Enable result cache for query results
-ZO_USE_MULTIPLE_RESULT_CACHE: "true" # Enable to use mulple result caches for query results
+ZO_RESULT_CACHE_ENABLED: "true" # Enable result cache for query results (default true)
+ZO_USE_MULTIPLE_RESULT_CACHE: "true" # Enable to use multiple result caches for query results (default false)
 ```
 
 ## Query partitioning
@@ -278,10 +278,10 @@ OpenObserve improves query responsiveness by processing large result sets in sma
 
 Partitioning introduces a tradeoff. Smaller partitions return early results and improve responsiveness, but they also increase the number of operations the system must perform. This can extend the total time required to complete the query. OpenObserve addresses this by combining partitioning with a streaming delivery model based on **HTTP2**.
 
-To learn more, visit the [Steaming Aggregation](https://openobserve.ai/docs/user-guide/account-administration/management/aggregation-cache/) page. 
+To learn more, visit the [Streaming Aggregation](https://openobserve.ai/docs/user-guide/account-administration/management/aggregation-cache/) page. 
 
 ## Mini-partition
-OpenObserve uses a mini-partition to return the first set of results faster. The mini-partition is a smaller slice of the first partition and is controlled by the environment variable `ZO_MINI_SEARCH_PARTITION_DURATION_SECS`, which defines the mini-partition duration in seconds. The default value is sixty seconds.
+OpenObserve uses a mini-partition to return the first set of results faster. The mini-partition is a smaller slice of the first partition and is controlled by the environment variable `ZO_SEARCH_MINI_PARTITION_DURATION_SECS`, which defines the mini-partition duration in seconds. The default value is sixty seconds.
 
 
 
@@ -309,7 +309,7 @@ The table below shows the approximate storage required for each record as the nu
 ### Common causes for large number of fields
 
 1. Logs from multiple applications of diffferent types being ingested in the same stream. If app1 has 50 fields and app2 has 75 fields with no fields that have the same name in both apps and logs from both applications are being ingested in the same stream then the stream will have 125 fields. Ideally you should send logs from both of these application to 2 different streams. You can do this by configuring your log forwarder (fluentbit, vector, otel-collector, etc) or you can use OpenObserve pipelines to do it.
-2. Large number of nested fields in the JSON record that is being sent. OpenObserve flattens the JSON that it receives and if there are too many levels then the number of fields can be huge. You can avoid having large number of fields due to high nested levels is by setting the `ZO_INGEST_FLATTEN_LEVEL` environment variable to say `2` or `3` .
+2. Large number of nested fields in the JSON record that is being sent. OpenObserve flattens the JSON that it receives and if there are too many levels then the number of fields can be huge. You can avoid having large number of fields due to high nested levels by setting the `ZO_INGEST_FLATTEN_LEVEL` environment variable (default `3`) to a lower value such as `2`.
 
 **OpenObserve** provides various optimizations for querying. However, having a large number of fields in your log entries can lead to the following issues:
 

@@ -61,62 +61,36 @@ openobserveLogs.logger.error('Custom error message', {
 
 ## Error Tracking Dashboard
 
-The Error Tracking tab in the RUM dashboard provides a comprehensive view of all errors occurring in your application.
+Go to **Experience** > **RUM** and open the **Error Tracking** tab. It groups errors into issues, so one row stands for every occurrence of the same error.
+
+### Summary cards
+
+The cards at the top summarize the selected time range:
+
+- **Total errors**: Number of errors, across the number of unique issues
+- **Crash-free sessions**: Share of sessions that hit no error
+- **Users affected**: Users who hit an error, out of all active users
+- **New issues**: Issues first seen in the selected range, or since the latest deploy when one is detected
+
+Below the cards, the **Errors over time** chart shows error volume, with deploy markers when a new version starts reporting.
 
 ### Error List View
 
-The main view shows a list of errors with the following information:
+The issue list shows the following columns:
 
-#### Error Badge
-A colored badge labeled "Error" helps quickly identify error entries in the list.
+| Column | What it shows |
+|--------|---------------|
+| **Issue** | The error type and message, for example `Uncaught "ResizeObserver loop completed with undelivered notifications."`, with the top stack frame (file and line) and the service |
+| **Trend** | A sparkline of occurrences over the selected range |
+| **Events** | How many times the error occurred |
+| **Users** | How many users hit the error |
+| **First / Last seen** | When the error first and last occurred |
+| **Status** | **New** if the issue was first seen in the selected range (after the latest deploy when one is detected), otherwise **Ongoing** |
 
-#### Error Message
-**Example**: `Uncaught "ResizeObserver loop completed with undelivered notifications."`
+Error states:
 
-The actual error message that occurred. This is the primary information for understanding what went wrong.
-
-**Types of error messages you might see**:
-
-- JavaScript errors: `Uncaught TypeError: Cannot read property 'x' of undefined`
-- Network errors: `Failed to fetch`
-- Resource errors: `Failed to load resource: net::ERR_BLOCKED_BY_CLIENT`
-- Custom errors: Your custom error messages
-
-#### Application Context
-**Example**: `my-web-application`
-
-The service/application name where the error occurred. Useful when monitoring multiple applications.
-
-#### Error State
-**Example**: `unhandled`
-
-Indicates whether the error was handled or unhandled:
-
-- **unhandled**: Error was not caught by any error handler (critical)
-- **handled**: Error was caught but still logged for tracking
-
-#### Timestamp
-**Example**: `Dec 15, 2025 17:42:58.507 +05:30`
-
-The exact date and time when the error occurred, with timezone offset.
-
-#### Events Count
-**Example**: `1`
-
-The number of times this specific error occurred. Higher numbers indicate:
-
-- Frequently occurring errors
-- Errors affecting many users
-- Critical issues requiring immediate attention
-
-#### View URL
-**Example**: `http://localhost:5080/web/logs?stream_type=logs&stream=default&from=...`
-
-The URL of the page where the error occurred. This helps you:
-
-- Identify which pages have errors
-- Prioritize fixes based on page importance
-- Reproduce errors by visiting the URL
+- **Unhandled**: Error was not caught by any error handler (critical)
+- **Handled**: Error was caught but still logged for tracking
 
 ## Error Details View
 
@@ -383,52 +357,21 @@ async function fetchWithRetry(url, retries = 3) {
 
 ## Error Filtering and Search
 
-### Filter by Error Type
+### Quick Filters
 
-- JavaScript errors
-- Network errors
-- Resource errors
-- Custom errors
+The filter bar above the list filters issues by:
 
-### Filter by Status
+- **Status**: **All**, **New**, or **Ongoing**
+- **Type**: **All**, **Unhandled**, or **Handled**
+- **Service**: one service, or all
 
-- Unhandled errors
-- Handled errors
-- All errors
+### Query Editor and Fields
 
-### Filter by Context
-
-- **URL**: Show errors from specific pages
-- **Browser**: Show errors from specific browsers
-- **Device**: Show mobile vs desktop errors
-- **Environment**: Production vs staging errors
-- **Version**: Show errors from specific versions
-
-### Search
-
-Search errors by:
-- Error message text
-- Stack trace content
-- URL paths
-- User information
+Write a filter in the query editor and click **Run query**, or open the field list to filter on a field's values, such as the page URL, browser, device, environment, or version.
 
 ## Error Alerting
 
-Set up alerts for critical errors:
-
-### Alert Conditions
-
-- **Error count threshold**: Alert when errors exceed X per hour
-- **New error detected**: Alert on first occurrence of new error
-- **Error rate increase**: Alert on sudden spike in error rate
-- **Critical errors**: Alert immediately for unhandled errors
-
-### Alert Channels
-
-- Email notifications
-- Slack messages
-- PagerDuty integration
-- Webhook to custom systems
+To be notified about errors, create an alert on your RUM stream (`_rumdata`) in **Alerts**, for example on the error count per hour. See the Alerts documentation for the conditions and destinations you can use.
 
 ## Error Resolution Workflow
 

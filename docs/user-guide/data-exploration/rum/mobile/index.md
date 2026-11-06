@@ -52,7 +52,7 @@ The mobile SDKs are at React Native `0.1.2`, Android `0.1.0`, and iOS `0.1.0`. P
 
 ## How it connects to OpenObserve
 
-Every mobile SDK uses the same connection model, so once you understand it for one platform it carries over to the others. You need three things from your OpenObserve instance's **Data → Data Sources → Real User Monitoring** page:
+Every mobile SDK uses the same connection model, so once you understand it for one platform it carries over to the others. You need three things from your OpenObserve instance's **Data → Data sources → Real User Monitoring** page:
 
 1. A **client token** — the ingestion credential the SDK uses to authenticate.
 2. A **RUM application id** — identifies this app within OpenObserve RUM.
@@ -96,7 +96,7 @@ There are three mobile SDKs: React Native (@openobserve/mobile-react-native), An
 
 ### Do I need a separate backend for mobile RUM?
 
-No. Mobile RUM ingests into the same OpenObserve instance you already use for logs, metrics, and traces. You point the SDK at your OpenObserve ingestion endpoint with a client token and a RUM application id, both available under **Data → Data Sources → Real User Monitoring**. Self-hosted and OpenObserve Cloud both work.
+No. Mobile RUM ingests into the same OpenObserve instance you already use for logs, metrics, and traces. You point the SDK at your OpenObserve ingestion endpoint with a client token and a RUM application id, both available under **Data → Data sources → Real User Monitoring**. Self-hosted and OpenObserve Cloud both work.
 
 ### How much overhead does the mobile SDK add?
 

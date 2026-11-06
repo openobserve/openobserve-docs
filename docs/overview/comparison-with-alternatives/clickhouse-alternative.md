@@ -26,7 +26,7 @@ Each piece works, and each piece is yours to integrate, upgrade, and debug. Open
 
 A replicated ClickHouse cluster needs ClickHouse Keeper (or ZooKeeper) for coordination, shard and replica topology defined in cluster configuration, and capacity planning for stateful nodes. Resharding an existing cluster is a manual data-movement exercise. Deletes and updates run as background mutations that rewrite data parts.
 
-OpenObserve nodes are stateless. Data durability comes from object storage, so scaling out means adding ingester or querier replicas. There is no coordination service to run and no resharding.
+OpenObserve queriers are stateless and ingesters only buffer recent data before it lands in object storage, so scaling out means adding ingester or querier replicas. HA mode uses NATS for coordination, and there is no resharding.
 
 ### Storage tied to cluster disks
 
@@ -57,7 +57,7 @@ OpenObserve runs **PromQL natively** for metrics alongside SQL for logs and trac
 | Retention | TTL clauses per table | Retention setting per stream |
 | Storage model | Stateful nodes with attached disks; S3 disks optional | Object storage (S3 / GCS / Azure Blob / MinIO / RustFS / local disk) |
 | Replication | ClickHouse Keeper / ZooKeeper coordination | None needed; durability from object storage |
-| IAM & SSO | Database users, roles, and row policies | SAML, OIDC, LDAP, role-based access |
+| IAM & SSO | Database users, roles, and row policies | Enterprise (SAML, OIDC, LDAP, role-based access) |
 | Deployment | Self-host or ClickHouse Cloud | Self-host or OpenObserve Cloud |
 
 ## Architectural Differences
@@ -69,7 +69,7 @@ OpenObserve runs **PromQL natively** for metrics alongside SQL for logs and trac
 | Storage | MergeTree parts on node disks, replicated across replicas | Apache Parquet on object storage |
 | Query | ClickHouse SQL against stateful servers | SQL/PromQL against stateless queriers reading Parquet |
 | Visualization | Grafana or HyperDX, run separately | OpenObserve UI (built-in) |
-| Coordination | ClickHouse Keeper / ZooKeeper | None |
+| Coordination | ClickHouse Keeper / ZooKeeper | NATS (HA mode only) |
 
 ## Cost Profile
 
@@ -96,7 +96,7 @@ ClickHouse remains a good choice when telemetry is one workload inside a broader
 A typical move runs in three steps:
 
 1. **Stand up OpenObserve in parallel.** Add it as a second output on your existing OTel Collector, Vector, or Fluent Bit pipeline. No application changes.
-2. **Rebuild dashboards and alerts.** Translate ClickHouse SQL panels to OpenObserve SQL and move Prometheus-style alerting to OpenObserve's native PromQL alerts. The OpenObserve AI Assistant helps convert queries.
+2. **Rebuild dashboards and alerts.** Translate ClickHouse SQL panels to OpenObserve SQL and move Prometheus-style alerting to OpenObserve's native PromQL alerts. The OpenObserve AI Assistant (Enterprise) can help translate ClickHouse SQL into OpenObserve SQL or PromQL.
 3. **Cut over.** Validate query results and retention side by side, shift alert routing, then decommission the ClickHouse observability tables or cluster.
 
 Teams already on OpenTelemetry can start ingesting into OpenObserve within hours; the parallel-run window is driven by dashboard and alert count.

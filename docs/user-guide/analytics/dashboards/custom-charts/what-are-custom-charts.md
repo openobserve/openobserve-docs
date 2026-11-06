@@ -21,20 +21,22 @@ This guide introduces the fundamentals of custom charts in OpenObserve, includin
 1. Go to **Dashboards** from the left-hand navigation menu.  
 2. Do one of the following:   
 
-    - **To add the chart to a new dashboard:** Click **Create Dashboard**, enter a dashboard name, description, select folder, and click **Save**.  
+    - **To add the chart to a new dashboard:** Click **New dashboard**, enter a dashboard name, description, select folder, and click **Save**.  
     - **To use an existing dashboard:** Select the dashboard from the list. You can optionally add a new tab to organize your panels.  
 
 3. Click **Add Panel**.  
 4. Enter a name for the panel.  
 5. In the **Add Panel** page, select **Custom Chart** from the list of charts.
 
-![custom-chart](../../../../images/custom-chart.png)
+![custom-chart](../../../../images/custom-chart-v2.png)
 
 After selecting **Custom Chart**, the screen displays: 
 
 1. A SQL editor to write your query
 2. A JavaScript editor to define how the chart should be displayed
 3. A chart preview panel to preview the output
+
+Click **Example Charts** in the JavaScript editor area to start from a ready-made example, grouped by chart type. Selecting an example replaces the existing chart code.
 
 
 ## How Does Custom Charts Work
@@ -49,7 +51,7 @@ Creating a custom chart involves these high-level steps:
     - (Optional) Use JavaScript to reshape `data[0]` if the chart expects a nested structure.
     - Use `data[0]` or the reshaped data to define the `option` object that renders the chart.
 
-6. **Preview**: Preview the chart and adjust your SQL or JavaScript as needed.
+4. **Preview**: Preview the chart and adjust your SQL or JavaScript as needed.
 
 > **Note**: Using custom charts, you can create and configure any chart supported by [ECharts](https://echarts.apache.org/examples/en/).  
 
@@ -124,7 +126,7 @@ The chart building stage involves the following steps:
 
 ### The `data` Object 
 
-OpenObserve stores the query result in a global object called ``` data` ``. This is always an **array of an array**:
+OpenObserve stores the query result in a global object called `data`. This is always an **array of an array**:
 
 ```text lineNumbers
 data = 

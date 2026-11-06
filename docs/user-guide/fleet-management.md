@@ -93,7 +93,7 @@ Each fleet can override the fleet defaults from its own **Settings** drawer; emp
 
 ## Audit trail
 
-Fleet actions on tokens, configurations, rollouts, and collectors are written to the audit stream and shown on the **Audit** tab. This requires `O2_AUDIT_ENABLED=true`; entries arrive in batches (every 10 minutes by default, set by `O2_AUDIT_PUBLISH_INTERVAL`).
+Fleet actions on tokens, configurations, rollouts, and collectors are written to the audit stream and shown on the **Audit** tab. This requires `O2_AUDIT_ENABLED` (on by default); entries arrive in batches (every 10 minutes by default, set by `O2_AUDIT_PUBLISH_INTERVAL`).
 
 ## Permissions
 
