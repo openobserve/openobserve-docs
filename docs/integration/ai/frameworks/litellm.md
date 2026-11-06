@@ -17,7 +17,7 @@ Automatically capture token usage, latency, and model metadata for every LiteLLM
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-litellm litellm python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-litellm litellm python-dotenv
 ```
 
 ## **Configuration**
@@ -86,17 +86,17 @@ Each `litellm.completion` call produces one `LLM` span.
 | `operation_name` | `completion` |
 | `llm_model_name` | Model used (e.g. `gpt-4o-mini`) |
 | `llm_provider` | Provider routing the call (e.g. `openai`) |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_invocation_parameters` | JSON string with request parameters |
 | `llm_token_count_prompt` | Prompt token count |
 | `llm_token_count_completion` | Completion token count |
 | `llm_token_count_total` | Total tokens consumed |
 | `llm_token_count_prompt_details_cache_read` | Cached prompt tokens read |
 | `llm_token_count_completion_details_reasoning` | Reasoning tokens (where supported) |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `gen_ai_response_model` | Model that handled the request |
 | `duration` | End-to-end request latency |
 | `span_status` | `OK` on success, `ERROR` on failure |
@@ -108,7 +108,7 @@ Each `litellm.completion` call produces one `LLM` span.
 3. Filter by `llm_model_name` to compare latency and token cost across models or providers
 4. Click any span to inspect `llm_invocation_parameters`, token counts, and cost attributes
 
-![LiteLLM trace in OpenObserve](../../../images/integration/ai/litellm.png)
+![LiteLLM trace in OpenObserve, Waterfall view with the completion span attributes](../../../images/integration/ai/litellm-v2.png)
 
 ## **Next Steps**
 

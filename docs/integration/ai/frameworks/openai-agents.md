@@ -6,7 +6,7 @@ description: Instrument OpenAI Agents SDK applications and send traces to OpenOb
 
 # **OpenAI Agents SDK → OpenObserve**
 
-Automatically capture agent runs, LLM calls, and handoffs for every agent built with the OpenAI Agents SDK. Each `Runner.run()` call produces a trace with a four-level span hierarchy: a root runner span, an `Agent workflow` (`CHAIN`) span, an `Assistant` span, a `turn` span, and a `response` (`LLM`) span for each model call.
+Automatically capture agent runs, LLM calls, and handoffs for every agent built with the OpenAI Agents SDK. Each `Runner.run()` call produces a trace with a four-level span hierarchy: an `Agent workflow` (`CHAIN`) span, an `Assistant` span, a `turn` span, and a `response` (`LLM`) span for each model call.
 
 ## **Prerequisites**
 
@@ -18,7 +18,7 @@ Automatically capture agent runs, LLM calls, and handoffs for every agent built 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai-agents openai-agents python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai-agents openai-agents python-dotenv
 ```
 
 ## **Configuration**
@@ -154,8 +154,8 @@ Each `Runner.run()` call produces a trace with a four-level span tree. The `Agen
 | `llm_token_count_total` | Total tokens consumed |
 | `llm_token_count_completion_details_reasoning` | Reasoning tokens (0 for non-reasoning models) |
 | `llm_token_count_prompt_details_cache_read` | Prompt tokens served from cache |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `duration` | Span latency |
 | `span_status` | `OK` or error status |
 
@@ -166,9 +166,9 @@ Each `Runner.run()` call produces a trace with a four-level span tree. The `Agen
 3. Expand the tree to see `CHAIN` agent workflow spans and their `LLM` child spans
 4. For multi-agent workflows, each handoff appears as a separate `CHAIN` span making it easy to trace which agent handled each step
 
-![OpenAI Agents trace waterfall in OpenObserve](../../../images/integration/ai/openai-agents-1.png)
+![OpenAI Agents trace Waterfall in OpenObserve with the Agent workflow, Assistant, turn, response, and lookup_order spans](../../../images/integration/ai/openai-agents-1-v2.png)
 
-![OpenAI Agents LLM span attributes in OpenObserve](../../../images/integration/ai/openai-agents-2.png)
+![OpenAI Agents response LLM span attributes in OpenObserve with token and cost fields](../../../images/integration/ai/openai-agents-2-v2.png)
 
 ## **Next Steps**
 

@@ -17,7 +17,7 @@ Automatically capture agent conversations, LLM calls, and tool executions for ev
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-autogen "ag2==0.9.0" python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-autogen "ag2==0.9.0" python-dotenv
 ```
 
 The `ag2` package is the maintained fork of `pyautogen` and imports as `autogen`.
@@ -115,7 +115,7 @@ Each `initiate_chat()` call produces a root span with child `AGENT` spans per ag
 | `openinference_span_kind` | `AGENT` |
 | `operation_name` | Agent class name (e.g. `AssistantAgent`) |
 | `agent_type` | Agent class name (e.g. `AssistantAgent`) |
-| `llm_observation_type` | `AGENT` |
+| `gen_ai_operation_name` | `invoke_agent` |
 | `input_mime_type` | `application/json` |
 | `output_mime_type` | `application/json` |
 | `duration` | Agent turn latency |
@@ -130,7 +130,7 @@ Token counts and model name appear on the child `LLM` spans beneath each agent s
 3. Expand the tree to see each `AssistantAgent` span and its child LLM calls
 4. Filter by `operation_name = AssistantAgent` to find all agent spans
 
-![AutoGen trace in OpenObserve](../../../images/integration/ai/autogen.png)
+![AutoGen trace in OpenObserve, Waterfall view with the conversation span attributes](../../../images/integration/ai/autogen-v2.png)
 
 ## **Next Steps**
 

@@ -9,7 +9,7 @@ Capture per-conversation latency, endpoint, completion status, and error rates f
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A running [LibreChat](https://www.librechat.ai/) instance (self-hosted via Docker)
@@ -18,7 +18,7 @@ Capture per-conversation latency, endpoint, completion status, and error rates f
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**
@@ -139,12 +139,12 @@ LibreChat enforces a browser User-Agent header on the chat endpoint. Requests wi
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `service_name = librechat-test` to isolate LibreChat spans
+2. Filter by `service_name = my-app` to isolate LibreChat spans
 3. Click a `librechat.chat` span to inspect the conversation ID and endpoint
 4. Filter by `span_status = ERROR` to identify authentication or connection failures
 5. Sort by `duration` to find the slowest LLM responses
 
-![LibreChat trace in OpenObserve](../../../images/integration/ai/librechat.png)
+![LibreChat trace in OpenObserve, Waterfall view with the librechat.chat span attributes](../../../images/integration/ai/librechat-v2.png)
 
 ## **Next Steps**
 

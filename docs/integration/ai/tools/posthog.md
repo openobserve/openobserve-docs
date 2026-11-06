@@ -9,7 +9,7 @@ Capture LLM generation events in PostHog for product analytics while simultaneou
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [PostHog](https://posthog.com/) project API key
@@ -18,7 +18,7 @@ Capture LLM generation events in PostHog for product analytics while simultaneou
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai posthog openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai posthog openai python-dotenv
 ```
 
 ## **Configuration**
@@ -71,7 +71,7 @@ def generate(prompt: str, user_id: str = None) -> str:
             max_tokens=200,
         )
         reply = response.choices[0].message.content
-        trace_id = hex(span.get_span_context().trace_id)
+        trace_id = format(span.get_span_context().trace_id, "032x")
 
         posthog.capture(user_id or str(uuid.uuid4()), "$ai_generation", {
             "$ai_provider": "openai",
@@ -117,7 +117,7 @@ posthog.shutdown()
 2. Filter by span name `posthog.llm_generation` to see all generations
 3. Use `$ai_trace_id` in PostHog to cross-reference with the full OTel trace in OpenObserve
 
-![PostHog trace in OpenObserve](../../../images/integration/ai/posthog.png)
+![PostHog trace in OpenObserve, Waterfall view with the posthog.llm_generation span attributes](../../../images/integration/ai/posthog-v2.png)
 
 ## **Next Steps**
 

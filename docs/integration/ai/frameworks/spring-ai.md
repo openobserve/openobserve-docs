@@ -142,9 +142,6 @@ Each `ChatClient` call produces a hierarchy of spans. The innermost LLM generati
 | `gen_ai_usage_input_tokens` | `15` |
 | `gen_ai_usage_output_tokens` | `256` |
 | `gen_ai_usage_total_tokens` | `271` |
-| `llm_usage_tokens_input` | `15` |
-| `llm_usage_tokens_output` | `256` |
-| `llm_observation_type` | `GENERATION` |
 | `span_status` | `UNSET` on success, `ERROR` on failure |
 | `duration` | End-to-end LLM call latency in microseconds |
 
@@ -176,7 +173,7 @@ Each `ChatClient` call produces a hierarchy of spans. The innermost LLM generati
 4. Inspect `gen_ai_request_model`, `gen_ai_usage_input_tokens`, and `gen_ai_usage_output_tokens` on the innermost `chat` span
 5. Filter by `span_status = ERROR` to find failed chat calls
 
-![Spring AI traces in OpenObserve](../../../images/integration/ai/spring-ai.png)
+![Spring AI trace in OpenObserve, Waterfall view with the chat_client span attributes](../../../images/integration/ai/spring-ai-v2.png)
 
 ## **Next Steps**
 

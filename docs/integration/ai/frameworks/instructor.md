@@ -17,7 +17,7 @@ Automatically capture structured output extractions, token usage, and latency fo
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-instructor openinference-instrumentation-openai instructor openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-instructor openinference-instrumentation-openai instructor openai python-dotenv
 ```
 
 ## **Configuration**
@@ -115,8 +115,8 @@ Each `client.chat.completions.create` call with a `response_model` produces two 
 | `llm_provider` | `openai` |
 | `llm_system` | `openai` |
 | `llm_invocation_parameters` | JSON string with Instructor parameters (response model, max retries, strict mode) |
-| `llm_request_parameters_response_model` | Name of the Pydantic model used for extraction |
-| `llm_request_parameters_max_retries` | Number of retries configured |
+| `gen_ai_request_response_model` | Name of the Pydantic model used for extraction |
+| `gen_ai_request_max_retries` | Number of retries configured |
 | `input_value_0_content` | Message content sent to the LLM |
 | `input_value_0_role` | Message role (e.g. `user`) |
 | `input_mime_type` | `application/json` |
@@ -128,9 +128,9 @@ Each `client.chat.completions.create` call with a `response_model` produces two 
 | Attribute | Description |
 | ----- | ----- |
 | `openinference_span_kind` | `LLM` |
-| `llm_usage_tokens_input` | Prompt token count |
-| `llm_usage_tokens_output` | Completion token count |
-| `llm_usage_tokens_total` | Total tokens consumed |
+| `gen_ai_usage_input_tokens` | Prompt token count |
+| `gen_ai_usage_output_tokens` | Completion token count |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
 | `gen_ai_response_model` | Model that handled the request |
 | `span_status` | `OK` on success, `ERROR` on failure |
 
@@ -140,9 +140,9 @@ Each `client.chat.completions.create` call with a `response_model` produces two 
 2. Filter by `operation_name = instructor.patch` to find Instructor spans
 3. Click any span to expand the trace and see the child OpenAI LLM span
 4. When validation fails, Instructor retries automatically. Each attempt appears as a separate child LLM span under the same `instructor.patch` root
-5. Check `llm_request_parameters_response_model` to see which Pydantic schema was used for each extraction
+5. Check `gen_ai_request_response_model` to see which Pydantic schema was used for each extraction
 
-![Instructor trace in OpenObserve](../../../images/integration/ai/instructor-ai.png)
+![Instructor trace in OpenObserve, Waterfall view with the instructor.patch span attributes](../../../images/integration/ai/instructor-ai-v2.png)
 
 ## **Next Steps**
 

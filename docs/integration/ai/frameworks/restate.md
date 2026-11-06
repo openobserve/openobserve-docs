@@ -17,7 +17,7 @@ Capture latency, service names, handler names, and status codes for every Restat
 ## **Installation**
 
 ```shell
-pip install openobserve restate-sdk hypercorn opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk restate-sdk hypercorn opentelemetry-api requests python-dotenv
 ```
 
 Start the Restate server with OTLP tracing pointed at OpenObserve:
@@ -131,7 +131,7 @@ trace.get_tracer_provider().force_flush()
 3. Use `restate_service` and `restate_handler` to drill into a specific handler
 4. Filter by `span_status` = `ERROR` to find failed invocations
 
-![Restate trace in OpenObserve](../../../images/integration/ai/restate.png)
+![Restate trace in OpenObserve, Waterfall view with the restate.invoke span attributes](../../../images/integration/ai/restate-v2.png)
 
 ## **Next Steps**
 

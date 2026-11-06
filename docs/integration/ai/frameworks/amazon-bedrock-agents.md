@@ -9,7 +9,7 @@ Automatically capture latency and invocation metadata for every Amazon Bedrock A
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * AWS credentials with `AmazonBedrockFullAccess` permissions
@@ -18,7 +18,7 @@ Automatically capture latency and invocation metadata for every Amazon Bedrock A
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-bedrock boto3 python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-bedrock boto3 python-dotenv
 ```
 
 ## **Configuration**
@@ -89,7 +89,7 @@ print(completion)
 1. Log in to OpenObserve and navigate to **Traces** in the left sidebar
 2. Click any `bedrock_agent.invoke_agent` span to inspect latency and input/output content
 
-![Amazon Bedrock Agents trace in OpenObserve](../../../images/integration/ai/amazon-bedrock-agents.png)
+![Amazon Bedrock Agents trace in OpenObserve, Waterfall view with the bedrock_agent.invoke_agent span attributes](../../../images/integration/ai/amazon-bedrock-agents-v2.png)
 
 ## **Next Steps**
 

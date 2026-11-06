@@ -9,7 +9,7 @@ Capture LLM generation spans in OpenObserve while simultaneously recording user 
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Trubrics](https://trubrics.com/) API key
@@ -18,7 +18,7 @@ Capture LLM generation spans in OpenObserve while simultaneously recording user 
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai trubrics openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai trubrics openai python-dotenv
 ```
 
 ## **Configuration**
@@ -68,7 +68,7 @@ def generate_and_collect_feedback(prompt: str, user_id: str = None) -> str:
             max_tokens=200,
         )
         reply = response.choices[0].message.content
-        trace_id = hex(span.get_span_context().trace_id)
+        trace_id = format(span.get_span_context().trace_id, "032x")
         span.set_attribute("trubrics.trace_id", trace_id)
 
         tb.track(
@@ -114,7 +114,7 @@ print(result)
 2. Filter by span name `trubrics.llm_with_feedback` to see all tracked generations
 3. Use the `trace_id` in Trubrics to cross-reference with the OTel trace in OpenObserve
 
-![Trubrics trace in OpenObserve](../../../images/integration/ai/trubrics.png)
+![Trubrics trace in OpenObserve, Waterfall view with the trubrics.llm_with_feedback span attributes](../../../images/integration/ai/trubrics-v2.png)
 
 ## **Next Steps**
 
