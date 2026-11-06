@@ -4,10 +4,10 @@ description: Ensure your S3 config is valid in OpenObserve to prevent silent fai
 ---
 
 ## Ensure the S3 Configuration is Correct
-To avoid silent failures during data ingestion and storage, OpenObserve validates your S3 configuration before starting. 
+To avoid silent failures during data ingestion and storage, OpenObserve tests your object storage configuration at startup. When remote object storage is configured (anything other than local disk), it reads and then writes a small test file in the bucket.
 
 ## Why This Is Important 
-If the S3 configuration is incorrect, validation fails and application stops immediately. An error is reported with details about the configuration issue.
+If the S3 configuration is incorrect, or the bucket cannot be read from or written to, the test fails and OpenObserve stops immediately. The error message names the failed step (`S3 download test failed` or `S3 upload test failed`) with the cause.
 
 This behavior ensures that users are made aware of critical storage misconfigurations before the system begins processing data.
 
