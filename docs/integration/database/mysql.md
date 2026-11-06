@@ -54,7 +54,7 @@ processors:
 
 exporters:
   otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
       Authorization: Basic <your_auth_token>
       stream-name: default
@@ -67,9 +67,9 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your OpenObserve details.
+Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your OpenObserve details.
 
-![OpenObserve Metrics Creds](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 :::
 
 
@@ -86,8 +86,8 @@ otelcol-contrib --config /path/to/config.yaml
 
 :::accordion[Step 4: Visualize in OpenObserve]
 
-1. Open **OpenObserve → Streams** and select your metrics stream.  
-   ![Visualize Mysql Metrics](../images/databases/mysql-metrics.png)
+1. Open **Data > Streams** in OpenObserve and select your metrics stream.  
+   ![MySQL metric streams in Data > Streams](../images/databases/mysql-metrics-v2.png)
 :::
 
 

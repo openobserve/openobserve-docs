@@ -24,14 +24,14 @@ This method uses a self-hosted serverless function as a relay to forward logs se
 
 :::accordion[Step 1: Get OpenObserve Ingestion URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Custom → Logs**
-2. Copy the ingestion URL and Access Key
-3. Update the URL to include your stream name, for example:
+1. In OpenObserve: go to **Data > Data sources > Other > Vercel**
+2. Copy the HTTP endpoint and Access Key
+3. The endpoint uses the stream `vercel`. Change it to another stream name if you like, for example:
     ```
     https://<your-openobserve-domain>/api/<org_id>/<stream_name>/_json
     ```
 
-![Get OpenObserve Ingestion URL and Access Key](../images/app-platforms/fetch-token.png)
+![Vercel endpoint and access key under Other](../images/app-platforms/fetch-token-v2.png)
 :::
 
 :::accordion[Step 2: Create a Vercel Serverless Function]
@@ -114,7 +114,7 @@ This method uses a self-hosted serverless function as a relay to forward logs se
 2. In OpenObserve, go to **Logs** → select your stream → click **Run Query**
 3. You should see recent log entries from your Vercel app
 
-![Verify Logs in OpenObserve](https://openobserve.ai/assets%2F6_view_logs_o2_45ebd5489c.gif)
+![Vercel logs in the Logs page](../images/app-platforms/vercel-verify-logs-v2.png)
 :::
 
 ## Troubleshooting

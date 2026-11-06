@@ -79,8 +79,8 @@ Use Azure Functions to forward logs from Event Hub into OpenObserve.
 3. Open in **VS Code** and configure:  
 
     - `local.settings.json` → update with Event Hub Connection String  
-    - In `index.js`, replace `<O2_ENDPOINT>` with your OpenObserve endpoint  
-    - Add your OpenObserve **auth details** (`O2_USER`, `O2_PASSWORD`)  
+    - In each function's `index.js`, replace `<O2_ENDPOINT>` with your OpenObserve endpoint and set `org` to your organization ID (it defaults to `default`)  
+    - Add your OpenObserve **auth details** as the app settings `AUTH_USERNAME` (your email) and `AUTH_PASSWORD` (your password or ingestion token)  
 
     > Make sure to add your OpenObserve auth details in the App's environment.
 
@@ -95,14 +95,14 @@ Use Azure Functions to forward logs from Event Hub into OpenObserve.
 :::accordion[Step 4: Validate and Ingest Logs into OpenObserve]
 
 - Ensure the Function is running and streaming logs.  
-- In OpenObserve, go to **Logs → Streams → m365** to query ingested logs.  
-    ![Logs](https://openobserve.ai/assets%2Foffice_logs_8c60c3d9d8.gif)
+- In OpenObserve, go to **Logs** and select a stream the functions write to. Stream names start with `microsoft_org_` (for example `microsoft_org_signin_logs_<category>`).  
+    ![Microsoft 365 audit logs in the Logs page](../images/security/m365/verify-logs-v2.png)
 
 >  Use tailored queries for categories like **AuditLogs** or **SignInLogs**.  
 :::
 
 :::tip[Pre-built Dashboards]
- You can [import dashboards from the OpenObserve community repository](https://github.com/openobserve/dashboards/tree/main/Microsoft_O365) for quick insights
+ You can [import dashboards from the OpenObserve community repository](https://github.com/openobserve/dashboards/tree/main/Microsoft_O365) from **Dashboards > Import > Custom** for quick insights
 :::
 
 
@@ -112,7 +112,7 @@ Use Azure Functions to forward logs from Event Hub into OpenObserve.
 
 - Check Event Hub policy connection string  
 - Verify Azure Function is running  
-- Confirm your `<O2_ENDPOINT>` and auth details are correct  
+- Confirm your `<O2_ENDPOINT>`, `org`, `AUTH_USERNAME` and `AUTH_PASSWORD` are correct  
 
 **2. Authentication issues**  
 

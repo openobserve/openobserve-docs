@@ -23,14 +23,14 @@ AWS Network Firewall allows you to log network traffic data, including both flow
 
 :::accordion[Step 1: Get OpenObserve Ingestion URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+1. In OpenObserve: go to **Data > Data sources > Recommended > Amazon Web Services(AWS)**. The **Manual Configuration** block shows the HTTP endpoint and Access Key
 2. Copy the HTTP ingestion URL and Access Key
 
-![Get OpenObserve Ingestion URL and Access Key](../../images/aws-integrations/vpc-flow/fetch-url.png)
+![Manual Configuration block with the HTTP endpoint and access key](../../images/aws-integrations/vpc-flow/fetch-url-v2.png)
 
 > Example ingestion URL:
 > ```
-> https://<your-openobserve-domain>/aws/default/<stream_name>/_kinesis_firehose
+> https://<your-openobserve-domain>/aws/<org_id>/<stream_name>/_kinesis_firehose
 > ```
 :::
 
@@ -86,8 +86,8 @@ This will help trigger flow and alert logs.
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![AWS Network Firewall alert logs in Openobserve](../../images/aws-integrations/firewall/alert-logs.png)
-    ![AWS Network Firewall flow logs in Openobserve](../../images/aws-integrations/firewall/flow-logs.png)
+    ![Network Firewall alert logs in the Logs page](../../images/aws-integrations/firewall/alert-logs-v2.png)
+    ![Network Firewall flow logs in the Logs page](../../images/aws-integrations/firewall/flow-logs-v2.png)
 :::
 
 

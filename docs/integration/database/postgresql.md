@@ -96,64 +96,64 @@ The following example shows a basic configuration for the PostgreSQL receiver:
 
 ```yaml lineNumbers
 receivers:
-postgresql:
+  postgresql:
     endpoint: localhost:5432
     transport: tcp
     username: otel
     password: ${env:POSTGRESQL_PASSWORD}
     connection_pool:
-    max_idle_time: 10m
-    max_lifetime: 0
-    max_idle: 2
-    max_open: 5
+      max_idle_time: 10m
+      max_lifetime: 0
+      max_idle: 2
+      max_open: 5
 ```
 
 Create a configuration file named `config.yaml`. This file defines how the collector behaves, including data sources, processing methods, and export destinations.
 
 ```yaml lineNumbers
 receivers:
-postgresql:
+  postgresql:
     endpoint: localhost:5432
     transport: tcp
     username: myuser
     password: ${env:POSTGRESQL_PASSWORD}
     databases:
-    - postgres
+      - postgres
     connection_pool:
-    max_idle_time: 10m
-    max_lifetime: 0
-    max_idle: 2
-    max_open: 5
+      max_idle_time: 10m
+      max_lifetime: 0
+      max_idle: 2
+      max_open: 5
 
 processors:
-memory_limiter:
+  memory_limiter:
     check_interval: 1s
     limit_percentage: 75
     spike_limit_percentage: 15
-batch:
+  batch:
     send_batch_size: 10000
     timeout: 10s
 
 exporters:
-otlphttp/openobserve:
+  otlphttp/openobserve:
     endpoint: http://localhost:5080/api/default
     headers:
-    Authorization: Basic cm9vdEBleGFtcGxlLmNvbTpSYUJaRVFJTWRSVlJxWGFy
-    stream-name: default
+      Authorization: Basic <your_auth_token>
+      stream-name: default
 
 service:
-pipelines:
+  pipelines:
     metrics:
-    receivers: [postgresql]
-    processors: [memory_limiter, batch]
-    exporters: [otlphttp/openobserve]
+      receivers: [postgresql]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/openobserve]
 ```
 
 **Configuration Components**
 
 - **Receivers**: The `postgresql` receiver collects data from your PostgreSQL instance. Ensure the endpoint, username, and password match the credentials you configured in Step 1.
 - **Processors**: The `memory_limiter` and `batch` processors manage and optimize data flow to exporters.
-- **Exporters**: The `otlphttp/openobserve` exporter sends collected telemetry data to OpenObserve. Replace the endpoint and authorization values with your actual OpenObserve API endpoint and authentication token. <br>You can find these values in **Data Sources** > **Custom** > **Metrics** > **Otel Collector**.
+- **Exporters**: The `otlphttp/openobserve` exporter sends collected telemetry data to OpenObserve. Replace the endpoint and authorization values with your actual OpenObserve API endpoint and authentication token. <br>You can find these values in **Data > Data sources > Custom > Metrics > OTEL Collector**. The example uses the `default` organization of a local install; replace it with your organization ID.
 :::
 
 :::accordion[Step 4: Start OpenTelemetry Collector]
@@ -171,7 +171,7 @@ The command displays output similar to the following, confirming successful star
 
 :::accordion[Step 5: View PostgreSQL Metrics in OpenObserve]
 
-After completing the setup, navigate **Streams** to view available data streams. If you do not see your data immediately, click **Refresh Stats**. Use the search functionality to find the desired stream.
+After completing the setup, go to **Data > Streams** to view available data streams. If you do not see your data immediately, click **Refresh Stats**. Use the search functionality to find the desired stream.
 :::
 
 

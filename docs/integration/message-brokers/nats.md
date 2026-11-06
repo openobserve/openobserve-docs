@@ -125,7 +125,7 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
       otlphttp/openobserve:
         endpoint: OPENOBSERVE_ENDPOINT
         headers:
-          Authorization: "OPENOBSERVE_TOKEN"
+          Authorization: "Basic OPENOBSERVE_TOKEN"
           stream-name: nats
 
     service:
@@ -142,8 +142,8 @@ sudo dpkg -i otelcol-contrib_0.116.1_linux_amd64.deb
 
 Replace placeholders:
 
-- `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-- `OPENOBSERVE_TOKEN` → Access token from data sources page
+- `OPENOBSERVE_ENDPOINT` → API endpoint with your organization (e.g., `https://api.openobserve.ai/api/<org_id>`)
+- `OPENOBSERVE_TOKEN` → the Base64 credentials shown after `Basic` in **Data > Data sources > Custom > Logs > OTEL Collector**
 :::
 
 :::accordion[Step 5: Restart OpenTelemetry Collector]
@@ -176,14 +176,14 @@ In Terminal 2:
 :::accordion[Step 7: Visualize in OpenObserve]
 
 1. Log in to OpenObserve and explore the **NATS stream** under Logs.
-    ![Visualize in OpenObserve](../images/messagebroker/nats-logs.png)
+    ![NATS server logs in the Logs page](../images/messagebroker/nats-logs-v2.png)
 2. Explore the **NATS stream** under Metrics.
-    ![Visualize in OpenObserve](../images/messagebroker/nats-metrics.png)
+    ![NATS metric streams in Data > Streams](../images/messagebroker/nats-metrics-v2.png)
 :::
 
 
 :::tip[Tip]
-You can use preconfigured [Dashboard](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/nats_dashboard_c317f090bb.json) in OpenObserve to to visualize real-time logs and metrics.
+You can import the preconfigured [Dashboard](https://openobserve-prod-website.s3.us-west-2.amazonaws.com/assets/nats_dashboard_c317f090bb.json) from **Dashboards > Import > Custom** to visualize real-time logs and metrics.
 :::
 
 ## Troubleshooting

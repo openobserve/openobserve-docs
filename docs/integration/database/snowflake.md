@@ -27,7 +27,7 @@ The Snowflake data warehouse monitoring integration enables monitoring of Snowfl
 Create a role in Snowflake to facilitate monitoring access.
 
 ```sql
-CREATE ROLE O2_ROLE;
+CREATE ROLE OPENOBSERVE_MONITOR;
 ```
 
 You can also create a role from Snowsight.
@@ -46,8 +46,8 @@ You can also create a role from Snowsight.
 Grant the necessary permissions to the role for monitoring purposes:
 
 ```sql
-GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE O2_ROLE;
-GRANT SELECT ON ALL TABLES IN SCHEMA SNOWFLAKE.ACCOUNT_USAGE TO ROLE O2_ROLE;
+GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE OPENOBSERVE_MONITOR;
+GRANT SELECT ON ALL TABLES IN SCHEMA SNOWFLAKE.ACCOUNT_USAGE TO ROLE OPENOBSERVE_MONITOR;
 ```
 ![Grant Permissions to the Role](../../images/snowflake-provide-permission.png)
 :::
@@ -70,7 +70,7 @@ Create a `config.yaml` file with the following content. Additionally, refer to t
 
 ```yaml
 receivers:
-snowflake:
+  snowflake:
     username: <SNOWFLAKE_USER>
     password: <PASSWORD>
     account: <accountName>.<accountRegion>
@@ -80,70 +80,70 @@ snowflake:
     database: SNOWFLAKE
     collection_interval: 5m
     metrics:
-    snowflake.storage.stage_bytes.total:
+      snowflake.storage.stage_bytes.total:
         enabled: true
-    snowflake.storage.storage_bytes.total:
+      snowflake.storage.storage_bytes.total:
         enabled: true
-    snowflake.storage.failsafe_bytes.total:
+      snowflake.storage.failsafe_bytes.total:
         enabled: true
-    snowflake.rows_inserted.avg:
+      snowflake.rows_inserted.avg:
         enabled: true
-    snowflake.database.query.count:
+      snowflake.database.query.count:
         enabled: true
-    snowflake.pipe.credits_used.total:
+      snowflake.pipe.credits_used.total:
         enabled: true
-    snowflake.query.blocked:
+      snowflake.query.blocked:
         enabled: true
-    snowflake.query.bytes_deleted.avg:
+      snowflake.query.bytes_deleted.avg:
         enabled: true
-    snowflake.billing.warehouse.cloud_service.total:
+      snowflake.billing.warehouse.cloud_service.total:
         enabled: true
-    snowflake.query.compilation_time.avg:
+      snowflake.query.compilation_time.avg:
         enabled: true
-    snowflake.billing.warehouse.virtual_warehouse.total:
+      snowflake.billing.warehouse.virtual_warehouse.total:
         enabled: true
-    snowflake.billing.virtual_warehouse.total:
+      snowflake.billing.virtual_warehouse.total:
         enabled: true
-    snowflake.query.bytes_written.avg:
+      snowflake.query.bytes_written.avg:
         enabled: true
-    snowflake.billing.cloud_service.total:
+      snowflake.billing.cloud_service.total:
         enabled: true
-    snowflake.billing.total_credit.total:
+      snowflake.billing.total_credit.total:
         enabled: true
-    snowflake.database.bytes_scanned.avg:
+      snowflake.database.bytes_scanned.avg:
         enabled: true
-    snowflake.logins.total:
+      snowflake.logins.total:
         enabled: true
-    snowflake.query.data_scanned_cache.avg:
+      snowflake.query.data_scanned_cache.avg:
         enabled: true
-    snowflake.rows_deleted.avg:
+      snowflake.rows_deleted.avg:
         enabled: true
-    snowflake.rows_produced.avg:
+      snowflake.rows_produced.avg:
         enabled: true
-    snowflake.rows_unloaded.avg:
+      snowflake.rows_unloaded.avg:
         enabled: true
-    snowflake.session_id.count:
+      snowflake.session_id.count:
         enabled: true
 
 exporters:
-debug:
+  debug:
     verbosity: detailed
     sampling_initial: 5
     sampling_thereafter: 200
-otlphttp/openobserve:
+  otlphttp/openobserve:
     endpoint: <OPENOBSERVE_ENDPOINT>
     headers:
-    Authorization: <OPENOBSERVE_TOKEN>
-    stream-name: <OPENOBSERVE_STREAM>
+      Authorization: Basic <OPENOBSERVE_TOKEN>
+      stream-name: <OPENOBSERVE_STREAM>
 
 service:
-telemetry:
+  telemetry:
     logs:
-    level: "debug"
-pipelines:
+      level: "debug"
+  pipelines:
     metrics:
-    receivers: [snowflake]
-    exporters: [otlphttp/openobserve]
+      receivers: [snowflake]
+      exporters: [otlphttp/openobserve]
 ```
 
 Replace the following placeholders:
@@ -151,9 +151,9 @@ Replace the following placeholders:
 - `<PASSWORD>`: Your Snowflake password
 - `<accountName>.<accountRegion>`: Your Snowflake account identifier in the format `<account_locator>.<region>.<cloud_provider>`
 - `<WAREHOUSE>`: Your Snowflake warehouse name
-- `<ROLE_OF_SNOWFLAKE>`: The role created in Step 1 (O2_ROLE)
+- `<ROLE_OF_SNOWFLAKE>`: The role created in Step 1 (OPENOBSERVE_MONITOR)
 - `<OPENOBSERVE_ENDPOINT>`: Your OpenObserve endpoint, for example `http://openobserve.example.com/api/org`
-- `<OPENOBSERVE_TOKEN>`: Your OpenObserve authentication token
+- `<OPENOBSERVE_TOKEN>`: The Base64 credentials shown after `Basic` in **Data > Data sources > Custom > Metrics > OTEL Collector**
 - `<OPENOBSERVE_STREAM>`: Your desired stream name
 
 You can create Snowflake user, role, database and warehouse by following [Snowflake instructions](https://docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial).
@@ -169,7 +169,7 @@ systemctl restart otelcol-contrib
 :::
 
 :::accordion[Step 7: Confirm Metrics Ingestion in OpenObserve]
-To verify ingestion, go to **Streams**  and search for the stream by the stream name. 
+To verify ingestion, go to **Data > Streams** and search for the stream by the stream name. 
 :::
 
 
