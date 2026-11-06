@@ -51,7 +51,7 @@ To create user click on **New user** button on users page to open :
 
 > **Note:** The password must meet the complexity policy: 8 to 128 characters with at least one lowercase letter, one uppercase letter, one digit, and one special character (non-ASCII characters count as special). See [Password requirements](account-administration/identity-and-access-management/update-password.md#password-requirements) for details. The same policy applies when changing a password through the **Change Password** flow.
 1. Last name of new user being added (optional)
-1. Role for the new organization member: **Admin** in the open-source edition, where roles are not enforced and every member has full access; **Admin**, **Editor**, **Viewer**, or **User** on Enterprise with RBAC enabled; only **Admin** on Enterprise without RBAC
+1. Role for the new organization member: **Admin** in the open-source edition; **Admin**, **Editor**, **Viewer**, or **User** on Enterprise with RBAC enabled
 1. **Save** button
 
 
