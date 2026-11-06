@@ -3,21 +3,21 @@ title: vLLM
 description: Instrument vLLM inference calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **vLLM → OpenObserve**
+# vLLM → OpenObserve
 
 Automatically capture token usage, latency, prompt text, and completion output for every vLLM inference call. vLLM serves an OpenAI-compatible API, so instrumentation uses `openinference-instrumentation-openai` pointed at your local vLLM server. No code changes to the server are needed.
 
-## **Prerequisites**
+## Prerequisites
 
 * Python 3.10+
 * vLLM server running locally
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
 Install and start vLLM with a model of your choice:
@@ -27,7 +27,7 @@ pip install vllm
 vllm serve facebook/opt-125m --port 8001
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -38,7 +38,7 @@ OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
 VLLM_BASE_URL=http://localhost:8001/v1
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` before creating the OpenAI client. Point the client at your vLLM server using the `base_url` parameter.
 
@@ -73,7 +73,7 @@ print(response.choices[0].text)
 
 For models with a chat template (e.g. Llama, Mistral, Qwen), use `client.chat.completions.create()` with a `messages` list instead.
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Example Value |
 | ----- | ----- |
@@ -90,7 +90,7 @@ For models with a chat template (e.g. Llama, Mistral, Qwen), use `client.chat.co
 | `span_status` | `OK` on success, `ERROR` on failure |
 | `duration` | End-to-end request latency in microseconds |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Filter by `service_name = vllm` to see all inference calls
@@ -98,13 +98,13 @@ For models with a chat template (e.g. Llama, Mistral, Qwen), use `client.chat.co
 4. Filter by `span_status = ERROR` to find failed requests
 5. Sort by `duration` descending to identify the slowest inference calls
 
-![vLLM traces in OpenObserve](../../../images/integration/ai/vllm.png)
+![vLLM trace in OpenObserve, Waterfall view with the Completion span attributes](../../../images/integration/ai/vllm-v2.png)
 
-## **Next Steps**
+## Next Steps
 
 With vLLM instrumented, every inference call is recorded in OpenObserve. From here you can measure throughput, compare latency across models, and monitor token usage trends over time.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [OpenAI (Python)](./openai.md)

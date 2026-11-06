@@ -189,7 +189,7 @@ The following example is performed with [Streaming Search](https://openobserve.a
 1. Go to the **Logs** page. 
 2. In the SQL query editor, enter the aggregation query.
 4. Select a time range, for example Past 6 days.
-5. Select **Run Query**.
+5. Select **Run query**.
 The results show event counts per deployment. 
 ![Logs page first run](../../../images/first-run-logs-page.png)
 

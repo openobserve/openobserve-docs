@@ -61,9 +61,9 @@ otelcol-contrib --version
 
 :::accordion[Step 3: Get OpenObserve URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Custom → Metrics → Otel Collector**
+1. In OpenObserve: go to **Data > Data sources > Custom > Metrics > OTEL Collector**
 2. Copy the ingestion URL and Access Key  
-![Get OpenObserve Ingestion URL and Access Key](../images/messagebroker/otel-metrics-source.png)
+![OTEL Collector config under Custom > Metrics](../images/messagebroker/otel-metrics-source-v2.png)
 :::
 
 :::accordion[Step 4: Configure OpenTelemetry Collector]
@@ -90,7 +90,7 @@ exporters:
   otlphttp/openobserve:
     endpoint: OPENOBSERVE_ENDPOINT
     headers:
-      Authorization: OPENOBSERVE_TOKEN
+      Authorization: Basic OPENOBSERVE_TOKEN
       stream-name: OPENOBSERVE_STREAM
 
 service:
@@ -103,8 +103,8 @@ service:
 
 Replace the following with your OpenObserve details:
 
-* `OPENOBSERVE_ENDPOINT` → API endpoint (e.g., `https://api.openobserve.ai`)
-* `OPENOBSERVE_TOKEN` → API token
+* `OPENOBSERVE_ENDPOINT` → API endpoint with your organization (e.g., `https://api.openobserve.ai/api/<org_id>`)
+* `OPENOBSERVE_TOKEN` → the Base64 credentials shown after `Basic`
 * `OPENOBSERVE_STREAM` → Stream name
 :::
 
@@ -142,14 +142,14 @@ Logs should confirm metrics are being collected.
 
 :::accordion[Step 7: Visualize in OpenObserve]
 
-1. Go to **Streams** → search for RabbitMQ metrics → explore metrics.
-![RabbitMQ Dashboard in OpenObserve](../images/messagebroker/rabbitmq-metrics.png)
+1. Go to **Data > Streams** → search for RabbitMQ metrics → explore metrics.
+![RabbitMQ metric streams in Data > Streams](../images/messagebroker/rabbitmq-metrics-v2.png)
 :::
 
 
 :::tip[Tip]
 
-You can import **[prebuilt dashboards](https://github.com/openobserve/dashboards)** for quick monitoring.  
+You can import the **[prebuilt RabbitMQ dashboard](https://github.com/openobserve/dashboards/tree/main/RabbitMQ)** from **Dashboards > Import > Custom** for quick monitoring.  
 :::
 
 

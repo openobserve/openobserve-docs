@@ -17,7 +17,7 @@ Automatically capture agent runs, tool calls, memory lookups, and LLM invocation
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk "openinference-instrumentation-agno==0.1.25" "agno==2.2.0" python-dotenv
+pip install openobserve-python-sdk "openinference-instrumentation-agno==0.1.25" "agno==2.2.0" python-dotenv
 ```
 
 ## **Configuration**
@@ -92,14 +92,14 @@ Each `agent.run()` call produces a root `AGENT` span with a child `LLM` span per
 | `operation_name` | `OpenAIChat.invoke` |
 | `llm_model_name` | Model used (e.g. `gpt-4o-mini`) |
 | `llm_provider` | `OpenAI` |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_token_count_prompt` | Input token count |
 | `llm_token_count_completion` | Output token count |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_tokens_total` | Total tokens consumed |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_total_tokens` | Total tokens consumed |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `gen_ai_response_model` | Model that handled the request |
 | `duration` | Span latency |
 | `span_status` | `OK` on success, `ERROR` on failure |
@@ -111,7 +111,7 @@ Each `agent.run()` call produces a root `AGENT` span with a child `LLM` span per
 3. Expand the trace to see the child `OpenAIChat.invoke` LLM span with token counts and cost
 4. Filter by `llm_model_name` to compare performance across different models
 
-![Agno trace in OpenObserve](../../../images/integration/ai/agno.png)
+![Agno trace in OpenObserve, Waterfall view with the Agent.run span attributes](../../../images/integration/ai/agno-v2.png)
 
 ## **Next Steps**
 

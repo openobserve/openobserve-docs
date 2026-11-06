@@ -3,13 +3,15 @@ title: Performance Overview
 description: Optimize OpenObserve query performance and resource usage with the download manager, disk cache metrics, cache eviction strategies, and the Tantivy index.
 ---
 
-The Performance section provides tools and configurations to optimize query execution and resource usage in OpenObserve. It includes documentation for managing the download queue, monitoring disk cache utilization, and setting disk cache eviction strategies. 
+The Performance section provides tools and configurations to optimize query execution and resource usage in OpenObserve. It includes documentation for managing the download queue, the result cache, monitoring disk cache utilization, setting disk cache eviction strategies, the Tantivy index, and broadcast joins. 
 
 **Learn more:** 
 
 - [Download Manager](download-manager.md)
+- [Result Cache](result-cache.md)
 - [Monitor Download Queue Size and Disk Cache Metrics](monitor-download-queue-size-and-disk-cache-metrics.md)
 - [Configure Disk Cache Eviction Strategy](disk-cache-strategy.md)
 - [Tantivy Index](tantivy-index.md)
+- [Broadcast Join](broadcast-join.md)
 
 See also [Best Practices](https://openobserve.ai/docs/user-guide/advanced/best-practices/) for deployment and query-tuning guidance, including [preventing UI crashes from large queries](https://openobserve.ai/docs/user-guide/advanced/best-practices/prevent-ui-crashes-from-large-queries/).

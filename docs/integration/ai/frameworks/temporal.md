@@ -135,7 +135,7 @@ if __name__ == "__main__":
 4. Filter by `temporalworkflowid` to follow a specific workflow execution end-to-end
 5. Filter by `span_status: ERROR` to track workflow timeouts and failures
 
-![Temporal trace in OpenObserve](../../../images/integration/ai/temporal.png)
+![Temporal trace in OpenObserve, Waterfall view with the StartWorkflow:OrderSummaryWorkflow span attributes](../../../images/integration/ai/temporal-v2.png)
 
 ## **Next Steps**
 

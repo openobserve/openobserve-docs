@@ -32,7 +32,7 @@ Use this mode to deploy a single CloudFormation stack in one region.
 
 ### Step 1: Open the Quick Setup wizard
 
-In OpenObserve, navigate to the AWS integrations section and open **Complete AWS Integration**.
+In OpenObserve, go to **Data > Data sources > Recommended > Amazon Web Services(AWS)** and open the **Quick Setup** tab (**Complete AWS Integration**).
 
 ### Step 2: Select Single Region mode
 

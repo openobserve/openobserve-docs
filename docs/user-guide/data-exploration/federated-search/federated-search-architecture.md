@@ -6,7 +6,7 @@ description: Technical explanation of OpenObserve deployment modes, normal clust
 
 This document explains the technical architecture of OpenObserve deployments, how queries execute in normal clusters, and how [federated search](index.md) coordinates queries across clusters in a supercluster.
 
-:::info[Availability]
+:::note[Availability]
 This feature is available in Enterprise Edition. Not available in Open Source and Cloud.
 :::
 

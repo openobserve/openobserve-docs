@@ -29,9 +29,9 @@ We will run our tasks using fargate for this demonstration.
 
 :::accordion[Get OpenObserve Credentials]
 
-You can find the config details under Data sources -> fluentbit
+You can find the config details under **Data > Data sources > Custom > Logs > FluentBit**
 
-![Ingestion config](../../images/firelens/data_sources.png)
+![FluentBit output config under Custom > Logs](../../images/firelens/data_sources-v2.png)
 
 You can use the configuration details from this section in your task definition
 :::
@@ -85,15 +85,15 @@ You can use the configuration details from this section in your task definition
         "options": {
           "Name": "http",
           "Match": "*",
-          "uri": "/api/default/ecs_firelens1/_json",
+          "uri": "/api/<org_id>/ecs_firelens1/_json",
           "host": "api.openobserve.ai",
           "Port": "443",
           "Format": "json",
           "tls": "on",
           "Json_date_key": "_timestamp",
           "Json_date_format": "iso8601",
-          "http_User": "userid@domain.com",
-          "http_Passwd": "67qlgdw673R2905"
+          "http_User": "<your_email>",
+          "http_Passwd": "<your_ingestion_token>"
         }
       }
     }
@@ -152,7 +152,7 @@ aws ecs create-service --cluster ecs1_fargate_cluster1 \
   ![Nginx page](../../images/firelens/nginx.png)
 
 5. Now head on the OpenObserve / OpenObserve Cloud and see the logs flowing in there.
-  ![ECS logs in OpenObserve](../../images/firelens/zo_logs.png)
+  ![ECS FireLens logs in the Logs page](../../images/firelens/zo_logs-v2.png)
 :::
 
 ## Conclusion

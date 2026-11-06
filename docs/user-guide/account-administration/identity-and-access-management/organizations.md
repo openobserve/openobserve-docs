@@ -10,7 +10,7 @@ Organizations provide logical boundaries for separating data, users, and access 
 
 > You will encounter the concept of organization when you first log in or [ingest data into a stream](../../data-processing/streams/streams-in-openobserve.md#ingest-data-into-stream). To send data into OpenObserve, you must specify the **organization identifier** in your ingestion endpoint. 
 
-![Organizations in OpenObserve](../../../images/organization-in-openobserve.png)
+![IAM Organizations list filtered to one organization, with the New organization button](../../../images/organization-in-openobserve-v2.png)
 
 ## Organization types
 
@@ -30,7 +30,7 @@ OpenObserve supports two types of organizations:
 In OpenObserve, access to organization-level operations, such as listing, creating, updating, or deleting organizations, depends on the deployment mode.
 
 ### Access in the open-source mode 
-Any authenticated user can create new organizations using the **Add Organization** button in the UI.
+Any authenticated user can create new organizations using the **New organization** button in the UI.
 ### Access in the enterprise mode with RBAC enabled
 - Access to organization management is strictly controlled through RBAC, which must be configured in the _meta organization.
 - The **root** user always has unrestricted access to all organizations, including **_meta**.
@@ -66,9 +66,9 @@ Once this role is assigned to a user within the **_meta** organization, they wil
 To create a new organization:
 
 1. Navigate to **IAM > Organizations**.
-2. Click **Add Organization**.
-3. Enter the organization name and save. <br>
-![Create an Organization](../../../images/organization-create-new.png)
+2. Click **New organization**.
+3. Enter the organization name (alphanumeric characters, spaces and underscores only) and click **Save**. <br>
+![New organization dialog with the organization name field](../../../images/organization-create-new-v2.png)
 
 This option is available to the **root** user by default. In enterprise deployments, additional users may create organizations if they are granted permission through the meta organization.
 
@@ -92,6 +92,6 @@ When enabled:
 - **Identifier Visibility in UI**: The organization list in the UI displays both the name and the identifier, helping you distinguish between organizations with the same name.
 - **Switching Organizations**: Use the dropdown in the top navigation bar to switch between organizations you have access to. All actions, such as queries and configurations, apply only to the selected organization.
 - **Search by Name**: You can search for organizations by name using the search bar on the Organizations page.
-- **Rename Restrictions**: Organizations cannot be renamed.
+- **Renaming**: Click **Edit** on an organization to change its name. The identifier never changes.
 - **Organization Deletion**: In cloud deployments, organizations can be deleted with a configurable grace period. See [Organization Deletion](organization-deletion.md).
 

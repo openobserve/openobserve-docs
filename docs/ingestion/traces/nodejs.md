@@ -8,7 +8,7 @@ description: Complete Node.js distributed tracing guide using OpenTelemetry SDK 
 
 Setup distributed tracing for your Node.js application using OpenTelemetry for Node.js application performance monitoring (APM) and trace ingestion. Check sample configuration on how to setup OpenTelemetry traces for Node.js applications.
 
-##Clone </br>
+## Clone
 ```
 
 git clone https://github.com/openobserve/sample-tracing-nodejs-javascript
@@ -34,7 +34,6 @@ diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 const sdk = new opentelemetry.NodeSDK({
   // traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
-  traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
   traceExporter: new OTLPTraceExporter({
     url: "https://api.openobserve.ai/api/default/v1/traces",
     headers: {
@@ -48,13 +47,13 @@ const sdk = new opentelemetry.NodeSDK({
 sdk.start();
 ```
 </br>
-##Setup up credentials </br>
+## Set up credentials
 
 You will get `url` and `Authorization` key from the [OpenTelemetry ingestion settings](https://cloud.openobserve.ai/web/ingestion/custom/traces/opentelemetry).
 
 Replace the `url` and `Authorization` key in the `tracing.js` file.
 
-##Setup Service/Application </br>
+## Set up the service/application
 Run commands
 ```
 
@@ -77,19 +76,19 @@ Refresh page couple of times to get more traces exported.
 Traces are captured, you can check these captured traces in the [Traces view](https://cloud.openobserve.ai/web/traces)
 </br>
 
-![Traces Page](./images/traces_js.png)
+![Traces page with spans from the sample services](./images/traces_js-v2.png)
 </br>
 </br>
 
 Filter traces with your service name `nodejs-javascript-service`
 </br>
 
-![Filter traces with service name](./images/filter_traces_js.png)
+![Spans filtered by service_name nodejs-javascript-service](./images/filter_traces_js-v2.png)
 
 Click on any trace to check trace data
 
-![Trace details](./images/trace_details_1.png)
+![Trace details in the Waterfall view](./images/trace_details_1-v2.png)
 
 Trace can have multiple spans, each span represents single operation or task within that trace. Click on any span to check span details.
 
-![Trace details](./images/trace_details_2.png)
+![Span details panel with the span attributes](./images/trace_details_2-v2.png)

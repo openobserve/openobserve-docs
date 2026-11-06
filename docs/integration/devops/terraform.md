@@ -87,7 +87,8 @@ brew install fluent-bit
 - `Path`: Location of the Terraform log file
 - `Tag`: Identifies the Terraform logs
 - `record_modifier`: Adds metadata like `level` and `log_source`
-- `HTTP_User` and `HTTP_Passwd`: Your OpenObserve credentials
+- `URI`: `/api/<org_id>/<stream_name>/_json`; the example sends to the `default` organization of a local install
+- `HTTP_User` and `HTTP_Passwd`: Your OpenObserve email and password or ingestion token (shown in **Data > Data sources > Custom > Logs > FluentBit**)
 :::
     
 
@@ -104,7 +105,7 @@ fluent-bit -c /path/to/fluent-bit.conf
 :::accordion[Step 4: Validate Logs in OpenObserve]
 
 1. In your Openobserve instance, Go to **Logs** → select your log stream → Set time range → Click **Run Query**
-![Validate Terraform logs in OpenObserve](https://openobserve.ai/assets%2Ftf_sc_a64795ae12.gif)
+![Terraform logs in the Logs page](../images/devops/terraform-verify-logs-v2.png)
 :::
 
 ## Troubleshooting

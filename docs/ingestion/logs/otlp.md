@@ -26,6 +26,8 @@ The `Authorization` header is `Basic <base64(email:password)>`. Generate the val
 ```bash
 echo -n 'your-email:your-password' | base64
 ```
+
+**Data > Data sources > Custom > Logs > OTEL Collector** shows a ready-to-copy exporter configuration with this header filled in.
 :::
 
 ## OTLP/HTTP

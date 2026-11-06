@@ -69,7 +69,7 @@ echo -n 'your-email:your-password' | base64
 ```
 
 :::note[Find your host and org]
-For **OpenObserve Cloud**, the host and organization are shown under **Ingestion → Custom → OpenTelemetry** in the UI. For **self-hosted**, the default host is `http://localhost:5080` and the default org is `default`.
+For **OpenObserve Cloud**, the host and organization are shown under **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** in the UI. For **self-hosted**, the default host is `http://localhost:5080` and the default org is `default`.
 :::
 
 #### 2. Configure Claude Code
@@ -131,7 +131,7 @@ Restart Claude Code (or open a new session) after changing settings.
 | `OTEL_EXPORTER_OTLP_HEADERS` | Comma-separated headers; include `Authorization` and a `stream-name` for events | `Authorization=Basic ...,stream-name=<your-stream>` |
 
 :::note[Where events land]
-The `stream-name` header names the **log and traces streams** that events and spans are written to (`<your-stream>` is any name you choose, e.g. `claude_code`). Metrics ignore it: they're stored as separate **metric streams** named after each metric (e.g. `claude_code.session.count`).
+The `stream-name` header names the **log and traces streams** that events and spans are written to (`<your-stream>` is any name you choose, e.g. `claude_code`). Metrics ignore it: they're stored as separate **metric streams** named after each metric, with dots replaced by underscores (e.g. `claude_code_session_count`).
 :::
 
 :::note[Traces are beta]
@@ -160,7 +160,7 @@ HTTP is simpler and works through most proxies; gRPC offers higher throughput. B
     ```
 
 3. In the OpenObserve UI:
-    - Open **Metrics** and look for streams prefixed `claude_code.` (e.g. `claude_code.token.usage`).
+    - Open **Metrics** and look for streams prefixed `claude_code_` (e.g. `claude_code_token_usage`).
     - Open **Logs**, select the `<your-stream>` stream, and you should see `claude_code.user_prompt` and `claude_code.api_request` events within a few seconds.
     - Open **Traces**, select the `<your-stream>` stream, and you should see per-turn `claude_code.interaction` spans.
 

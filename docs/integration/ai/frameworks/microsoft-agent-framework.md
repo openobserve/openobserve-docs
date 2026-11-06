@@ -17,7 +17,7 @@ Capture agent run latency, input metadata, output size, and error details for ev
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk agent-framework agent-framework-openai python-dotenv
+pip install openobserve-python-sdk agent-framework agent-framework-openai python-dotenv
 ```
 
 ## **Configuration**
@@ -86,7 +86,7 @@ asyncio.run(main())
 4. Filter by `span_status = ERROR` to find failed invocations and read `error_message`
 5. Sort by `duration` descending to identify the slowest agent calls
 
-![Microsoft Agent Framework traces in OpenObserve](../../../images/integration/ai/microsoft-agent-framework.png)
+![Microsoft Agent Framework trace in OpenObserve, Waterfall view with the invoke_agent ShopAssistant span attributes](../../../images/integration/ai/microsoft-agent-framework-v2.png)
 
 ## **Next Steps**
 

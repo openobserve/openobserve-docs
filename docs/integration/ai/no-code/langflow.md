@@ -17,7 +17,7 @@ Capture flow execution latency, inputs, and error rates from your Langflow appli
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-sdk python-dotenv requests
+pip install openobserve-python-sdk opentelemetry-sdk python-dotenv requests
 ```
 
 ## **Configuration**
@@ -106,7 +106,7 @@ Each `langflow.run_flow` span records:
 3. Click a trace to inspect input, output length, and latency
 4. Filter by `span_status` = `ERROR` to identify failed runs
 
-![Langflow trace span attributes in OpenObserve](../../../images/integration/ai/langflow.png)
+![Langflow trace in OpenObserve, Waterfall view with the langflow.run_flow span attributes](../../../images/integration/ai/langflow-v2.png)
 
 ## **Next Steps**
 

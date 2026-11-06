@@ -119,12 +119,12 @@ Each `generateText` call produces two spans: an outer `ai.generateText` span and
 ## **Viewing Traces**
 
 1. Log in to OpenObserve and navigate to **Traces**
-2. Filter by `service_name = vercel-ai-test` to isolate AI SDK spans
+2. Filter by `service_name = vercel-ai` to isolate AI SDK spans
 3. Filter by `operation_name = ai.generateText` to see the root span for each call
 4. Expand a trace to see the nested `ai.generateText.doGenerate` provider span
 5. Filter by `span_status = ERROR` to find failed calls
 
-![Vercel AI SDK traces in OpenObserve](../../../images/integration/ai/vercel-ai-sdk.png)
+![Vercel AI SDK trace in OpenObserve, Waterfall view with the ai.generateText span attributes](../../../images/integration/ai/vercel-ai-sdk-v2.png)
 
 ## **Next Steps**
 

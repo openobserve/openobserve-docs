@@ -17,26 +17,26 @@ Follow these steps to create and configure **Cipher Keys** in OpenObserve:
 
 :::accordion[Step 1: Navigate to the Cipher Keys section]
 
-1. From the top navigation bar, click the gear icon to open the **Management** page.  
-2. Select **Cipher Keys**.
+1. Click **Settings** in the left navigation.  
+2. Select **Cipher Keys** (under **Access & Security**).
 
-![cipher-keys](../../../images/cipher-keys.png)
+![Settings > Cipher Keys list under Access & Security](../../../images/cipher-keys-v2.png)
 :::
     
 
 :::accordion[Step 2: Create a New Cipher Key]
 
-1. On the **Cipher Keys** page, click the **Add Cipher Key** button.  
+1. On the **Cipher Keys** page, click the **New cipher key** button.  
 2. Enter the required details:
 
     - **Name:** The key name must be **unique**. Characters such as colon, question mark, slash, hash, and spaces are not allowed.   
     - **Key Store Type:** Choose where the encryption key will be stored:
 
-        - **OpenObserve (Local)**: Stores the encryption key directly in OpenObserve’s database. If you select **OpenObserve**, paste your encryption key in the **Secrets** field. [Learn how you can encrypt the key before storing it in the OpenObserve database for additional security](#cipher-key-storage-in-openobserve). <br>
-        ![Cipher Key Store Type- Local](../../../images/cipher-keys-o2local.png)
+        - **OpenObserve (Local)**: Stores the encryption key directly in OpenObserve’s database. If you select **OpenObserve**, paste your encryption key in the **Secret** field. [Learn how you can encrypt the key before storing it in the OpenObserve database for additional security](#cipher-key-storage-in-openobserve). <br>
+        ![New cipher key form with the OpenObserve key store type and the Secret field](../../../images/cipher-keys-o2local-v2.png)
 
         - **Akeyless**: Allow using Akeyless as an external key management system to store keys. If you select Akeyless, enter the Base URL of the Akeyless API, Access ID, Authentication details - Access Key or Lightweight directory access protocol (LDAP), and Secret Types - [Static](https://docs.akeyless.io/docs/static-secrets) or [Distributed Fragments Cryptography (DFC)](https://docs.akeyless.io/docs/zero-knowledge). <br>
-        ![Cipher Keys Storage Type- akeyless](../../../images/cipher-keys-akeyless.png) 
+        ![New cipher key form with the Akeyless key store type, Base URL, Access ID, authentication and secret type](../../../images/cipher-keys-akeyless-v2.png) 
 
 3. Click **Continue**. 
 :::
@@ -49,10 +49,10 @@ Choose an encryption method:
 - **Tink KeySet**: Choose if the encryption is done using Google Tink.
 <br>
 
-![Cipher keys encryption mechanism](../../../images/cipher-keys-encryption-mechanism.png)
+![Encryption Mechanism step with type Simple and algorithm AES 256 SIV](../../../images/cipher-keys-encryption-mechanism-v2.png)
 
 After you have filled in all the details, click **Save**. Your new **Cipher Key** is now available to use in OpenObserve.
-![cipher-keys-page](../../../images/cipher-keys-page.png)
+![Cipher Keys list with the new key, its store type and mechanism type](../../../images/cipher-keys-page-v2.png)
 :::
 
 ---
@@ -80,7 +80,7 @@ The `decrypt()` function can be slower on larger input fields due to its brute-f
 
 **Example** <br>
 **Sample Encrypted Dataset**: The following log entries exist in the `customer_feedback_encrypt` stream: 
-![Cipher keys encrypted data](../../../images/cipher-keys-encrypted-data.png)
+![Logs results showing encrypted name and feedback fields](../../../images/cipher-keys-encrypted-data-v2.png)
 
 **1. Decrypt a single field** <br>
 
@@ -91,7 +91,7 @@ FROM "customer_feedback_encrypt"
 ```
 This returns the decrypted value of the `name_encrypted` field. 
 <br>
-![decrypt a single field](../../../images/decrypt-single-field.png)
+![Logs results of decrypt on a single field, showing the decrypted names](../../../images/decrypt-single-field-v2.png)
 
 **2. Decrypt multiple fields** <br>
 ```sql
@@ -102,7 +102,7 @@ FROM "customer_feedback_encrypt"
 ```
 This returns decrypted values for both `name_encrypted` and `feedback_encrypted`. 
 <br>
-![Decrypt multiple fields](../../../images/decrypt-multiple-fields.png)
+![Logs results of decrypt on two fields, showing decrypted names and feedback](../../../images/decrypt-multiple-fields-v2.png)
 ::::
 
 
@@ -153,7 +153,7 @@ decrypted_value: xyz
 
 **Sample Encrypted Dataset**: The following records exist in encrypted format in the `customer_feedback_nested` stream. Each record has multiple encrypted fields at different nesting levels:
 <br>
-![Nested Dataset](../../../images/nested-dataset.png)
+![Expanded log record with an encrypted feedback_text field and a metadata JSON field holding an encrypted user name](../../../images/nested-dataset-v2.png)
 
 **1. Decrypt a top-level field**
 The `feedback_text` field contains an encrypted plain-text value. To retrieve its original value, use `decrypt_path()` with the path set to '.'.
@@ -164,7 +164,7 @@ FROM "customer_feedback_nested"
 ```
 <br>
 
-![Decrypt a top-level field](../../../images/decrypt-path-top-level.png)
+![Logs results of decrypt_path with the path set to a dot, showing decrypted feedback](../../../images/decrypt-path-top-level-v2.png)
 
 **2. Decrypt a nested field**
 To retrieve the decrypted value of `name`, you can write the query as shown below: 
@@ -175,7 +175,7 @@ FROM "customer_feedback_nested"
 ```
 <br>
 
-![Decrypt a nested field](../../../images/decrypt-a-nested-field.png)
+![Logs results of decrypt_path on the user.name path, showing decrypted names](../../../images/decrypt-a-nested-field-v2.png)
 
 :::info[Path Examples for `decrypt_path()`]
 The `decrypt_path()` function allows you to specify exact JSON paths to selectively decrypt fields.  <br>
@@ -229,14 +229,14 @@ You can use the `decrypt()` and `decrypt_path()` functions inside `WHERE` clause
 Select name_encrypted from "customer_feedback_encrypt" where decrypt(name_encrypted,'customer_feedback_key') = 'John';
 ```
 <br> 
-![Decrypt Function With Where Clause](../../../images/decrypt-where.png)
+![Logs results of a WHERE filter on a decrypted value, returning the still-encrypted field](../../../images/decrypt-where-v2.png)
 
 - **With the LIKE clause**: This query will decrypt the `user_data` field using the `user_data_decryption_key` and return results where the decrypted data contains the substring '`John`': 
 ```
 SELECT user_id FROM user_activity_stream WHERE decrypt(user_data, 'user_data_decryption_key') LIKE '%John%';
 ```
 <br>
-![Decrypt Function With Like Clause](../../../images/decrypt-like.png)
+![Logs results of a LIKE filter on a decrypted value](../../../images/decrypt-like-v2.png)
 
 :::note[Note]
 - The time the data was ingested does not affect decryption.   
@@ -245,19 +245,19 @@ SELECT user_id FROM user_activity_stream WHERE decrypt(user_data, 'user_data_dec
 
 ## Manage Cipher Keys
 
-![manage-cipher-keys](../../../images/cipher-keys-manage.png) <br>
+![Cipher Keys list with edit and delete icons in the Actions column](../../../images/cipher-keys-manage-v2.png) <br>
 To update or delete a Cipher Key, click the edit or delete icon under the **Actions** column, respectively.
 
 ## Cipher Key Storage in OpenObserve 
 
 When using **OpenObserve** as the encryption key (secret) storage option, you can encrypt the secret before storing it in the OpenObserve database by setting the following environment variables:
 
-- **`ZO_MASTER_ENCRYPTION_ALGORITHM`**: Set it to `aes-256-siv`.   
-- **`ZO_MASTER_ENCRYPTION_KEY`**: Set it to the encryption key you want OpenObserve to use to encrypt the secret. This must be a valid `aes-256-siv` key. Tink Key cannot be used here.
+- **`O2_MASTER_ENCRYPTION_ALGORITHM`**: Set it to `aes-256-siv` (the default and the only supported value).   
+- **`O2_MASTER_ENCRYPTION_KEY`**: Set it to the encryption key you want OpenObserve to use to encrypt the secret. This must be a valid base64-encoded 512-bit `aes-256-siv` key. Tink Key cannot be used here.
 
 :::info[Important Note]
 - To set up the above environment variables for **Cipher Keys** in OpenObserve’s database, first delete the existing **Cipher Keys** to avoid errors.   
-- If `ZO_MASTER_ENCRYPTION_KEY` is changed, the existing secret associated with `ZO_MASTER_ENCRYPTION_KEY` is no longer visible and usable. 
+- If `O2_MASTER_ENCRYPTION_KEY` is changed, the existing secret associated with `O2_MASTER_ENCRYPTION_KEY` is no longer visible and usable. 
 :::
 
 ## Failure Modes

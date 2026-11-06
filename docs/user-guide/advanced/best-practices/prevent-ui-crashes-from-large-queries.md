@@ -3,7 +3,7 @@ title: Prevent UI Crashes From Large Queries
 description: How to avoid UI crashes by limiting long-range queries with small intervals and large text fields. Optimize dashboards to stay responsive.
 ---
 
-OpenObserve does not restrict the number of records returned or the length of the time range in a query. You can query a few minutes or a longer time range, depending on your data retention settings (by default, 1 year, may vary by configuration).
+OpenObserve does not restrict the number of records returned or the length of the time range in a query. You can query a few minutes or a longer time range, depending on your data retention settings (by default 3650 days, set by `ZO_COMPACT_DATA_RETENTION_DAYS`, and overridable per stream).
 
 :::warning[Warning]
 Queries that return a **large number of records** or **generate a large payload size** can overload the browser. This may cause the UI to crash, particularly on the **Log Search** page or in **Dashboard panels**.

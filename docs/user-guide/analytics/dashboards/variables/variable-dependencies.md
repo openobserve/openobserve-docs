@@ -14,7 +14,7 @@ This is useful when dealing with hierarchical data structures, where a logical r
 ## Example
 
 **Kubernetes Monitoring** <br>
-![Kubernetes Monitoring](../../../../images/variable-dependencies-1.png) 
+![Dashboard with the namespace, pod and container variable dropdowns](../../../../images/variable-dependencies-1-v2.png) 
 
 Consider an observability scenario involving Kubernetes:
 
@@ -41,11 +41,11 @@ In the above image:
 
 ### Step 1: Navigate to Variables Configuration Page
 
-1. From the Dashboard toolbar, select **Dashboard Settings**. 
-![Dashboard Settings](../../../../images/variable-dependencies-2.png)
+1. From the Dashboard toolbar, select **Dashboard Settings** (gear icon), then select **Variables**. 
+![Dashboard toolbar with the Dashboard Settings gear button](../../../../images/variable-dependencies-2-v2.png)
 
 2. Click **Add Variable.**
-![Add Variable](../../../../images/variable-dependencies-3.png)
+![Dashboard Settings Variables tab with Show Dependencies and Add Variable](../../../../images/variable-dependencies-3-v2.png)
 
 ### Step 2: Define the Parent Variable
 
@@ -59,7 +59,7 @@ Configure the parent variable (`k8s_namespace_name`) in the **Add Variable** for
 - **Field**: `k8s_namespace_name`  
 - **Filters**: None
 
-![parent variable](../../../../images/variable-dependencies-4.png)
+![namespace variable on the k8s_namespace_name field with no filter](../../../../images/variable-dependencies-4-v2.png)
 
 ### Step 3: Configure the First-Level Dependent Variable
 
@@ -76,7 +76,7 @@ Configure the dependent variable (`k8s_pod_name`) as shown below:
     - **Value**: `$a_k8s_namespace_name`
 
 This setup ensures that only pods from the selected namespace are shown.  
-![first-dependent-variable](../../../../images/variable-dependencies-5..png)
+![pod variable with the filter k8s_namespace_name = $namespace](../../../../images/variable-dependencies-5-v2.png)
 
 ### Step 4: Configure the Second-Level Dependent Variable
 
@@ -91,14 +91,14 @@ Configure the second-level dependent variable (`k8s_container_name`) as shown be
     - **Field**: k8s_pod_name   
     - **Value**: $b_k8s_pod_name
 
-![second-dependent-variable](../../../../images/variable-dependencies-6.png)
+![container variable with the filter k8s_pod_name = $pod](../../../../images/variable-dependencies-6-v2.png)
 
 :::note[Note]
 
 - **`$` Prefix**: Use the `$` symbol when referencing other variables in the filter values.   
-- Use the **Hide on Dashboard** toggle to hide the variable from the dashboard UI.
+- Use the **Hide On Dashboard** toggle to hide the variable from the dashboard UI.
 :::
 
 ## Variable Dependency Graph  
-The **Variable Dependency Graph** visually maps these relationships, showing how each variable is linked.  
-![Variable Dependency Graph](../../../../images/variable-dependencies-7.png)
+In **Dashboard Settings** > **Variables**, click **Show Dependencies** to open the **Variables Dependency Graph**, which visually maps these relationships, showing how each variable is linked.  
+![Variables Dependency Graph showing namespace to pod to container](../../../../images/variable-dependencies-7-v2.png)

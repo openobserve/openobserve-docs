@@ -10,7 +10,7 @@ OpenObserve provides comprehensive message broker monitoring integrations to col
 
 These message broker monitoring integrations enable Kafka monitoring, RabbitMQ monitoring, queue performance tracking, and message delivery observability for distributed applications.
 
-![message brokers](message-brokers.png)
+![Message Queues tab on the Data sources page](message-brokers-v2.png)
 
 ## Message Broker Integration Guides
 

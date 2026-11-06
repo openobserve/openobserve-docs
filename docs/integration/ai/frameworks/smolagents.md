@@ -17,7 +17,7 @@ Automatically capture agent runs, tool executions, code generation steps, and LL
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-smolagents "smolagents[litellm]" python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-smolagents "smolagents[litellm]" python-dotenv
 ```
 
 ## **Configuration**
@@ -95,14 +95,14 @@ Each `agent.run()` call produces a root `AGENT` span with child `LLM` spans for 
 | `llm_model_name` | Model used (e.g. `openai/gpt-4o-mini`) |
 | `llm_provider` | `openai` |
 | `llm_system` | `openai` |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_token_count_prompt` | Input token count |
 | `llm_token_count_completion` | Output token count |
 | `llm_token_count_total` | Total tokens consumed |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `gen_ai_response_model` | Model that handled the request |
 | `duration` | Span latency |
 | `span_status` | `OK` on success, `ERROR` on failure |
@@ -114,7 +114,7 @@ Each `agent.run()` call produces a root `AGENT` span with child `LLM` spans for 
 3. Expand the tree to see child `LiteLLMModel.generate` LLM spans per reasoning step
 4. Filter by `llm_model_name` to compare token usage across different model backends
 
-![SmolAgents trace in OpenObserve](../../../images/integration/ai/smolagents.png)
+![SmolAgents trace in OpenObserve, Waterfall view with the CodeAgent.run span attributes](../../../images/integration/ai/smolagents-v2.png)
 
 ## **Next Steps**
 

@@ -12,7 +12,7 @@ OpenObserve binaries and container images are published to the locations below.
 |---|---|---|
 | Binary releases | <https://github.com/openobserve/openobserve/releases> | Linux, macOS, and Windows builds |
 | Stable container images | <https://gallery.ecr.aws/zinclabs/openobserve> | Recommended for production |
-| Dev container releases | <https://gallery.ecr.aws/zinclabs/openobserve-dev> | Built for every PR; latest features but may be unstable |
+| Dev container releases | <https://gallery.ecr.aws/zinclabs/openobserve-dev> | Built on demand from PR branches; latest features but may be unstable |
 
 **Need some help?**
 
