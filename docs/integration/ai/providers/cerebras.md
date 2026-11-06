@@ -5,7 +5,7 @@ description: Instrument Cerebras LLM calls and send traces to OpenObserve via Op
 
 # **Cerebras → OpenObserve**
 
-Automatically capture token usage, latency, and model metadata for every Cerebras inference call in your Python application. Cerebras exposes an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at the Cerebras endpoint.
+Cerebras Inference runs open-weight models such as Llama on Cerebras' own wafer-scale hardware, and teams usually pick it for output speed. Tracing it in OpenObserve shows the latency and token counts your application actually gets on every call. The Cerebras API at `https://api.cerebras.ai/v1` is OpenAI-compatible, so the standard OpenAI instrumentor covers it: only the client's base URL and API key change.
 
 ## **Prerequisites**
 
@@ -85,7 +85,7 @@ print(response.choices[0].message.content)
 
 ## **Next Steps**
 
-With Cerebras instrumented, every inference call is recorded in OpenObserve. From here you can monitor throughput, track token usage, and set alerts on error spans.
+Since speed is the usual reason to run on Cerebras, a good first dashboard plots `llm_token_count_completion` against `duration` for each `llm_model_name`, which gives the output rate you see in production rather than a benchmark figure. Add an alert on error spans to catch failed requests.
 
 ## **Read More**
 

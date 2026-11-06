@@ -5,7 +5,7 @@ description: Instrument Novita AI calls and send traces to OpenObserve via OpenT
 
 # **Novita AI → OpenObserve**
 
-Automatically capture token usage, latency, and model metadata for every Novita AI inference call in your Python application. Novita AI exposes an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at the Novita endpoint.
+Novita AI hosts a catalog of open-source models, including Llama, DeepSeek, and Qwen, behind one OpenAI-compatible endpoint at `https://api.novita.ai/v3/openai`. Model IDs are namespaced by publisher, such as `meta-llama/llama-3.1-8b-instruct`, so trying another model is a one-line change. Pointing the standard OpenAI instrumentor at that endpoint records token usage, latency, and both the requested and the serving model for each call, which makes those comparisons measurable.
 
 ## **Prerequisites**
 
