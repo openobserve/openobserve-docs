@@ -10,6 +10,7 @@
     "security",
     "servers",
     "slack",
+    "slack-alerts",
     "system"
   ]
 }
