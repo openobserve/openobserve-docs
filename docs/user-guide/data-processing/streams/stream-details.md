@@ -87,6 +87,9 @@ Useful for audits and reprocessing. Increases storage because raw payloads are p
 ### Enable Distinct Values
 Indexes the fields that dashboard variables read values from, so value lookups for those fields are served from the index instead of a full scan. On by default. To learn more, see [Distinct Values](distinct-values.md). 
 
+### Dynamic merge
+Merge a finished day's files into fewer, larger files when the stream is low-volume, so queries read files that span up to a day. While the toggle shows **Default**, the stream follows the server default; change it to pin the stream to its own value.
+
 
 ## Troubleshooting
 
