@@ -188,7 +188,8 @@ export async function generateMetadata(props: {
       card: 'summary_large_image',
       title,
       description: page.data.description,
-      images: [SOCIAL_IMAGE.url],
+      // The full object, not just the URL, so Next also emits twitter:image:alt.
+      images: [SOCIAL_IMAGE],
     },
   };
 }

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [SOCIAL_IMAGE],
   },
-  twitter: { card: 'summary_large_image', images: [SOCIAL_IMAGE.url] },
+  twitter: { card: 'summary_large_image', images: [SOCIAL_IMAGE] },
   alternates: {
     types: {
       // LLM discovery, matching the MkDocs `overrides/main.html` hint. Doc pages
@@ -48,6 +48,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
+      {/* Matches <html lang>. Next's Metadata API has no http-equiv field, and a
+          Content-Language response header would need CloudFront config. */}
+      <head>
+        <meta httpEquiv="content-language" content="en" />
+      </head>
       <body className="flex min-h-screen flex-col">
         <GtmNoScript />
         <SiteStructuredData />

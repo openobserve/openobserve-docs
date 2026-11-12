@@ -22,7 +22,7 @@ export const SOCIAL_IMAGE = {
   url: `${SITE_URL}/o2-seo-image.png`,
   width: 1200,
   height: 630,
-  alt: 'OpenObserve',
+  alt: 'OpenObserve logo',
 };
 
 /**
