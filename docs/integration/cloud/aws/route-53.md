@@ -12,7 +12,7 @@ This guide explains how to configure AWS Route 53 query logging, stream logs to 
 
 Route 53 query logs capture DNS requests processed by public or private hosted zones. These logs can be streamed into OpenObserve for real-time monitoring and analysis of DNS patterns, resolver behavior, and potential anomalies.
 
-![Route 53 Logging Architecture](https://openobserve.ai/assets/route53_34020a7b52.gif)
+<img src="https://openobserve.ai/assets/route53_34020a7b52.gif" alt="Route 53 Logging Architecture" width="2732" height="764" />
 
 ## Steps to Integrate
 

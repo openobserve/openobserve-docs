@@ -11,7 +11,7 @@ import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
 import { Landing } from '@/components/landing';
 import { PageContainer, PageFooter } from '@/components/docs-page-slots';
-import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
+import { absoluteUrl, DOCS_AUTHOR, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 import { composeTitle } from '@/lib/seo';
 import { getPublishedTime } from '@/lib/published-time';
 
@@ -161,6 +161,7 @@ export async function generateMetadata(props: {
   return {
     title,
     description: page.data.description,
+    authors: [DOCS_AUTHOR],
     alternates: {
       canonical: absoluteUrl(page.url),
       // Point LLM crawlers at this page's Markdown source, published alongside
@@ -175,6 +176,7 @@ export async function generateMetadata(props: {
       siteName: 'OpenObserve Documentation',
       type: 'article',
       images: [SOCIAL_IMAGE],
+      authors: [DOCS_AUTHOR.url],
       // `article:modified_time` is a freshness signal for search engines and AI
       // crawlers; overrides/main.html emitted it on every page under MkDocs.
       ...(publishedTime ? { publishedTime: publishedTime.toISOString() } : {}),

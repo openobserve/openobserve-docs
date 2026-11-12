@@ -25,6 +25,16 @@ export const SOCIAL_IMAGE = {
   alt: 'OpenObserve',
 };
 
+/**
+ * Who the docs are written by: the OpenObserve team, not individual authors.
+ * Emitted as `article:author` / `<meta name="author">` and as the TechArticle
+ * `author`. The URL is the marketing site's About page (its canonical form).
+ */
+export const DOCS_AUTHOR = {
+  name: 'OpenObserve',
+  url: `${SITE_URL}/about/`,
+};
+
 /** Canonical absolute URL for a page URL such as `/getting-started`. */
 export function absoluteUrl(pageUrl: string): string {
   const path = pageUrl === '/' ? '/' : pageUrl.replace(/\/$/, '') + '/';

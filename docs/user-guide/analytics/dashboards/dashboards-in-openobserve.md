@@ -124,8 +124,8 @@ To create a new Tab, click the **+** (**Add Tab**) icon next to the Tabs and ent
 Examples of a Dashboard with Panels organized in different Tabs:
 
 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-  <img src="../../../../images/dashboard-8-v2.png" alt="dashboard with panels in multiple tabs, view 1" style="flex: 1 1 320px; max-width: 100%;" />
-  <img src="../../../../images/dashboard-9-v2.png" alt="dashboard with panels in multiple tabs, view 2" style="flex: 1 1 320px; max-width: 100%;" />
+  <img src="/images/dashboard-8-v2.png" alt="dashboard with panels in multiple tabs, view 1" style="flex: 1 1 320px; max-width: 100%;" />
+  <img src="/images/dashboard-9-v2.png" alt="dashboard with panels in multiple tabs, view 2" style="flex: 1 1 320px; max-width: 100%;" />
 </div>
 
 ## Time Range and Auto Run
