@@ -10,7 +10,7 @@ import { Feedback } from '@/components/feedback';
 import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
 import { Landing } from '@/components/landing';
-import { PageContainer, PageFooter } from '@/components/docs-page-slots';
+import { PageContainer, PageFooter, PageTOC } from '@/components/docs-page-slots';
 import { absoluteUrl, DOCS_AUTHOR, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 import { composeTitle } from '@/lib/seo';
 import { getPublishedTime } from '@/lib/published-time';
@@ -102,6 +102,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       // A stable hook for the breadcrumb's colour in global.css, rather than
       // matching Fumadocs' markup.
       breadcrumb={{ className: 'oo-breadcrumb' }}
+      // "On this page" as a label, not an <h3> in the page outline.
+      tableOfContent={{ component: <PageTOC /> }}
     >
       <PageStructuredData
         title={page.data.title}
