@@ -25,7 +25,11 @@ export const metadata: Metadata = {
   // doc pages; the previous wording ran to 197 and was truncated.
   description:
     'OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces, built for petabyte scale at 140x lower storage cost.',
-  icons: { icon: `${BASE_PATH}/images/logo_circle.png` },
+  icons: {
+    icon: `${BASE_PATH}/images/logo_circle.png`,
+    // 180x180, the same icon the marketing site serves at /apple-touch-icon.png.
+    apple: { url: `${BASE_PATH}/images/apple-touch-icon.png`, sizes: '180x180' },
+  },
   // Default share card, so routes without their own metadata (the 404) still
   // get one. Doc pages restate it alongside their per-page OG data.
   openGraph: {
