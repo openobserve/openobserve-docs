@@ -86,6 +86,7 @@ const REDIRECT_PATHS = new Set([
   'user-guide/data-processing/pipelines/use-pipelines',
   'user-guide/data-exploration/metrics/file-access-time-metric',
   'screenshots',
+  'user-guide/users',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
