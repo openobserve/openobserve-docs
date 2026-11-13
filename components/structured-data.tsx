@@ -87,6 +87,7 @@ export function PageStructuredData({
       image: SOCIAL_IMAGE.url,
       inLanguage: 'en',
       isPartOf: { '@id': `${DOCS_URL}#website` },
+      author: { '@id': `${SITE_URL}/#org` },
       publisher: { '@id': `${SITE_URL}/#org` },
       ...(lastModified ? { dateModified: lastModified.toISOString() } : {}),
     });

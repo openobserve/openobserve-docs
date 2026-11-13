@@ -25,7 +25,11 @@ export const metadata: Metadata = {
   // doc pages; the previous wording ran to 197 and was truncated.
   description:
     'OpenObserve (O2) is a cloud-native observability platform that unifies logs, metrics, and traces, built for petabyte scale at 140x lower storage cost.',
-  icons: { icon: `${BASE_PATH}/images/logo_circle.png` },
+  icons: {
+    icon: `${BASE_PATH}/images/logo_circle.png`,
+    // 180x180, the same icon the marketing site serves at /apple-touch-icon.png.
+    apple: { url: `${BASE_PATH}/images/apple-touch-icon.png`, sizes: '180x180' },
+  },
   // Default share card, so routes without their own metadata (the 404) still
   // get one. Doc pages restate it alongside their per-page OG data.
   openGraph: {
@@ -33,7 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [SOCIAL_IMAGE],
   },
-  twitter: { card: 'summary_large_image', images: [SOCIAL_IMAGE.url] },
+  twitter: { card: 'summary_large_image', images: [SOCIAL_IMAGE] },
   alternates: {
     types: {
       // LLM discovery, matching the MkDocs `overrides/main.html` hint. Doc pages
@@ -48,6 +52,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
+      {/* Matches <html lang>. Next's Metadata API has no http-equiv field, and a
+          Content-Language response header would need CloudFront config. */}
+      <head>
+        <meta httpEquiv="content-language" content="en" />
+      </head>
       <body className="flex min-h-screen flex-col">
         <GtmNoScript />
         <SiteStructuredData />
