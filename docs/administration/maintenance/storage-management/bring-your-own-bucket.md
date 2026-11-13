@@ -14,7 +14,7 @@ Instead of using OpenObserve-managed storage, you can connect your own **AWS S3 
 For AWS, you can authenticate using either **access keys** (access key ID and secret access key) or an **IAM Role ARN** (STS assume-role with an External ID). Azure and GCS use their respective account credentials.
 
 :::tip[Get it enabled!]
-If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact).
+If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact-us/).
 :::
 
 ## Use Cases
