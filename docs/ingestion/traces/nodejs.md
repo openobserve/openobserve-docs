@@ -66,7 +66,7 @@ node --require './tracing.js' app.js
 
 ```
 
-The server is now running on 8080, navigate to [http://localhost:8080](http://localhost:8080) </br>
+The server is now running on 8080, navigate to `http://localhost:8080` </br>
 Refresh page couple of times to get more traces exported.
 
 ![Traces Sample Configration](./images/sample_configuration.png)

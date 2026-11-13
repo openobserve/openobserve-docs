@@ -482,7 +482,7 @@ REVISION: 1
 kubectl --namespace $NAMESPACE port-forward svc/o2-openobserve-router 5080:5080
 ```
 
-Leave the terminal running, then open <http://localhost:5080>. Log in with the email and password you set in Step 4.
+Leave the terminal running, then open `http://localhost:5080`. Log in with the email and password you set in Step 4.
 
 :::accordion[Verify]
 
