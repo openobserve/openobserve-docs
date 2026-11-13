@@ -145,7 +145,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | ZO_UI_SQL_BASE64_ENABLED | false | Enable base64 encoding for SQL in UI. |
-| ZO_WEB_URL | - | UI access URL. For example, http://localhost:5080 is used as redirect URL and alert URL. |
+| ZO_WEB_URL | - | UI access URL. For example, `http://localhost:5080` is used as redirect URL and alert URL. |
 | ZO_BASE_URI | - | If OpenObserve is hosted under a subpath, set the path prefix. Use this for deployments with a Kubernetes NGINX ingress or any reverse proxy that serves OpenObserve under a subpath such as www.example.com/openobserve. |
 | ZO_SWAGGER_ENABLED | true | Generate SWAGGER API documentation by default. |
 
@@ -508,7 +508,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_PROF_PPROF_PROTOBUF_ENABLED | false                                          | Exports pprof-rs profiles in protobuf format. |
 | ZO_PROF_PPROF_FLAMEGRAPH_PATH  | -                                              | Path to save flamegraph output.               |
 | ZO_PROF_PYROSCOPE_ENABLED       | false                                          | Enables profiling with pyroscope-rs.          |
-| ZO_PROF_PYROSCOPE_SERVER_URL   | [http://localhost:4040](http://localhost:4040) | Pyroscope server URL.                         |
+| ZO_PROF_PYROSCOPE_SERVER_URL   | `http://localhost:4040` | Pyroscope server URL.                         |
 | ZO_PROF_PYROSCOPE_PROJECT_NAME | openobserve                                    | Pyroscope project name.                       |
 
 ## Tantivy Index
@@ -559,7 +559,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_USAGE_ORG                | meta  | To which org the usage data should be sent.  |
 | ZO_USAGE_BATCH_SIZE        | 2000  | How many requests should be batched before flushing the usage data from memory to disk.    |
 | ZO_USAGE_REPORTING_MODE    | local  | Local mode means the usage will be reported only in the internal cluster of ZO_USAGE_ORG. remote mode means that the usage reporting will be ingested to the remote target. both ingests the usage reports both to internal and remote target. |
-| ZO_USAGE_REPORTING_URL     | [http://localhost:5080/api/_meta/usage/_json](http://localhost:5080/api/_meta/usage/_json) | In case of remote or both value of ZO_USAGE_REPORTING_MODE, this URL is used to post the usage reports to remote target.  |
+| ZO_USAGE_REPORTING_URL     | `http://localhost:5080/api/_meta/usage/_json` | In case of remote or both value of ZO_USAGE_REPORTING_MODE, this URL is used to post the usage reports to remote target.  |
 | ZO_USAGE_REPORTING_CREDS   | -  | The credentials required to send along with the post request to the ZO_USAGE_REPORTING_URL. E.g. - Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=.  |
 | ZO_USAGE_PUBLISH_INTERVAL  | 600   | Duration in seconds after the last reporting usage will be published. |
 

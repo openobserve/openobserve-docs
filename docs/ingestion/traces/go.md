@@ -96,7 +96,7 @@ Follow the steps given in the sample-tracing-golang readme and then start server
 ```
 go run .
 ```
-The server is now running, navigate to [http://localhost:8080/](http://localhost:8080/)
+The server is now running, navigate to `http://localhost:8080/`
 
 Refresh page couple of times to get more traces exported.
 

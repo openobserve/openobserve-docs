@@ -167,7 +167,7 @@ aws ecr-public get-login-password --region us-east-1 | docker login --username A
 After installation, verify OpenObserve is running:
 
 1. Open your browser and navigate to:
-    - **Self-hosted**: [http://localhost:5080](http://localhost:5080)
+    - **Self-hosted**: `http://localhost:5080`
     - **Cloud**: [https://cloud.openobserve.ai](https://cloud.openobserve.ai)
 
 2. Log in with your credentials:
