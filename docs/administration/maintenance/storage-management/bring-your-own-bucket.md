@@ -81,7 +81,7 @@ Org-level storage configuration is also available through the REST API:
 
 BYOB is available for commercial **OpenObserve Cloud** customers.
 
-Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/contactus/) page to get it enabled.
+Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/contact-us/) page to get it enabled.
 
 ## Related
 
@@ -116,4 +116,4 @@ Self-hosted OpenObserve has always supported pointing at any S3-compatible, Azur
 
   [Community Slack](https://short.openobserve.ai/community)
 
-  [Contact Sales](https://openobserve.ai/contactus/)
+  [Contact Sales](https://openobserve.ai/contact-us/)

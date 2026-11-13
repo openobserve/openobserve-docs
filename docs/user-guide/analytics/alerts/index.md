@@ -139,4 +139,4 @@ To create a folder, click **+** in the **Folders** panel on the Alerts page, ent
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

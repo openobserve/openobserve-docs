@@ -9,7 +9,7 @@ Enterprise Edition is free for up to 50 GB/day (~1.5 TB/month) of data ingestion
 
 ### Pricing:
 
-  - Free tier: Up to 50 GB/day of ingestion (roughly 1.5 TB/month), including full commercial use in accordance with the [license](https://openobserve.ai/enterprise-license/)
+  - Free tier: Up to 50 GB/day of ingestion (roughly 1.5 TB/month), including full commercial use in accordance with the [license](https://openobserve.ai/legal/enterprise-license/)
 
   - Registration required if ingesting greater than 50 GB/day.
 
@@ -35,4 +35,4 @@ To accommodate occasional traffic spikes, OpenObserve provides a buffer:
 
 This applies to Free-Tier License users (50 GB/day limit).
 
-For full terms and conditions, visit the [Enterprise License page](https://openobserve.ai/enterprise-license/).
+For full terms and conditions, visit the [Enterprise License page](https://openobserve.ai/legal/enterprise-license/).

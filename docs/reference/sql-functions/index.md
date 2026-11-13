@@ -27,4 +27,4 @@ Standard SQL and DataFusion functions, such as `COUNT`, `date_trunc`, `regexp_re
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

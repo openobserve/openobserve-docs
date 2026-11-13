@@ -186,4 +186,4 @@ For the same reason you'd dual-write metrics, you can dual-write traces. `dd-tra
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

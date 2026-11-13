@@ -795,5 +795,5 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)
 

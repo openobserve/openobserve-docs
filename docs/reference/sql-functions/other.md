@@ -71,4 +71,4 @@ The stack `main;libc.so.6@aa11+0x1a/native;libc.so.6@aa11+0x2b/native;handler;li
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)
