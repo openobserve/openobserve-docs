@@ -137,4 +137,4 @@ If a Collector 0.153.0 pprof export is rejected with `dictionary.mapping_table[0
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

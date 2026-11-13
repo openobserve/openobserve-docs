@@ -14,7 +14,7 @@ Instead of using OpenObserve-managed storage, you can connect your own **AWS S3 
 For AWS, you can authenticate using either **access keys** (access key ID and secret access key) or an **IAM Role ARN** (STS assume-role with an External ID). Azure and GCS use their respective account credentials.
 
 :::tip[Get it enabled!]
-If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact).
+If you're interested in enabling this capability for your organization, please contact us through [OpenObserve Contact Us](https://openobserve.ai/contact-us/).
 :::
 
 ## Use Cases
@@ -81,7 +81,7 @@ Org-level storage configuration is also available through the REST API:
 
 BYOB is available for commercial **OpenObserve Cloud** customers.
 
-Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/contactus/) page to get it enabled.
+Please reach out through the [OpenObserve Contact Us](https://openobserve.ai/contact-us/) page to get it enabled.
 
 ## Related
 
@@ -116,4 +116,4 @@ Self-hosted OpenObserve has always supported pointing at any S3-compatible, Azur
 
   [Community Slack](https://short.openobserve.ai/community)
 
-  [Contact Sales](https://openobserve.ai/contactus/)
+  [Contact Sales](https://openobserve.ai/contact-us/)

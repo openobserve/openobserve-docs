@@ -155,4 +155,4 @@ The `result_schema` API accepts `cross_linking=true`. When set, the response inc
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

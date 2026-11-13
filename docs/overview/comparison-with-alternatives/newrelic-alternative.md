@@ -104,4 +104,4 @@ Teams already on OpenTelemetry can start ingesting into OpenObserve within hours
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

@@ -152,5 +152,5 @@ GROUP BY ts_histogram
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)
 

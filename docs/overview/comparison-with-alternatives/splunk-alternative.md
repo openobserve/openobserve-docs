@@ -104,4 +104,4 @@ The dominant variable is dashboard/alert count, not data volume.
 ## Need Help?
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

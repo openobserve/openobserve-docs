@@ -89,4 +89,4 @@ For a `path` of `/api/orders?id=42&page=2`, `path_parts` is `["api", "orders", "
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

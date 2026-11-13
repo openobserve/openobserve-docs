@@ -89,4 +89,4 @@ Enabling this setting can cause multiple services in the same namespace or clust
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

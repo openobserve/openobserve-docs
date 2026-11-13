@@ -275,4 +275,4 @@ If nothing appears, check `kubectl -n obi logs ds/obi` (or the Docker container 
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)
