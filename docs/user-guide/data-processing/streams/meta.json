@@ -5,6 +5,7 @@
     "stream-details",
     "schema-settings",
     "extended-retention",
+    "dynamic-merge",
     "summary-streams",
     "data-type-and-index-type-in-streams",
     "query-recommendations",
