@@ -114,7 +114,7 @@ logging.getLogger().addHandler(handler)
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `OPENOBSERVE_URL` | No | OpenObserve base URL (default: "http://localhost:5080") |
+| `OPENOBSERVE_URL` | No | OpenObserve base URL (default: `http://localhost:5080`) |
 | `OPENOBSERVE_ORG` | No | Organization name (default: "default") |
 | `OPENOBSERVE_AUTH_TOKEN` | ✅ | Authorization token (Format: "Basic <base64>") |
 | `OPENOBSERVE_TIMEOUT` | No | Request timeout in seconds (default: 30) |

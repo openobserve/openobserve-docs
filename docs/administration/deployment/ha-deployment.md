@@ -293,7 +293,7 @@ Then port-forward the router service to reach the UI:
 kubectl --namespace openobserve port-forward svc/o2-openobserve-router 5080:5080
 ```
 
-Open [http://localhost:5080](http://localhost:5080) and sign in with the credentials you set in `values.yaml`.
+Open `http://localhost:5080` and sign in with the credentials you set in `values.yaml`.
 
 ## Uninstallation
 

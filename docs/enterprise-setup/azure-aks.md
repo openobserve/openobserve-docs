@@ -406,7 +406,7 @@ openobserve-router-XXXXXXXXX-XXXXX       1/1     Running   0          5m
 kubectl --namespace $NAMESPACE port-forward svc/openobserve-router 5080:5080
 ```
 
-Leave the terminal running, then open <http://localhost:5080>. Log in with the credentials from Step 7a (default: `root@example.com` / `Complexpass#123`).
+Leave the terminal running, then open `http://localhost:5080`. Log in with the credentials from Step 7a (default: `root@example.com` / `Complexpass#123`).
 
 :::accordion[Verify]
 

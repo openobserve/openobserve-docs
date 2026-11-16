@@ -436,7 +436,7 @@ Forwarding from [::1]:5080 -> 5080
 - `kubectl get svc` shows `oo-openobserve-router`
 - `curl` returns `HTTP/1.1 200 OK` (or `302 Found`)
 
-Open <http://localhost:5080> and log in with the email + password from Step 6a.
+Open `http://localhost:5080` and log in with the email + password from Step 6a.
 :::
 ::::
 
@@ -713,7 +713,7 @@ Issues are grouped by theme. Each entry notes the step where it tends to surface
     kubectl -n openobserve port-forward svc/oo-openobserve-router 8080:5080
     ```
 
-    Browse to <http://localhost:8080>.
+    Browse to `http://localhost:8080`.
 
 **General diagnostic commands**
 

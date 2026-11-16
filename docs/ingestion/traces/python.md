@@ -63,7 +63,7 @@ Follow the steps given in the sample-tracing-python readme and then start server
 ```
 python3 app.py
 ```
-The server is now running, navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000)
+The server is now running, navigate to `http://127.0.0.1:5000`
 
 Refresh page couple of times to get more traces exported.
 

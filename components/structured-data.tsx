@@ -47,12 +47,15 @@ export function PageStructuredData({
   pageUrl,
   description,
   lastModified,
+  published,
   ancestors = [],
 }: {
   title: string;
   pageUrl: string;
   description?: string;
   lastModified?: Date;
+  /** First-commit date of the page, from lib/published-time.ts. */
+  published?: Date;
   /** Ancestor trail from the page tree, nearest root first, excluding the page. */
   ancestors?: { name: string; url?: string }[];
 }) {
@@ -79,6 +82,10 @@ export function PageStructuredData({
   const graph: Record<string, unknown>[] = [{ '@type': 'BreadcrumbList', itemListElement }];
 
   if (!isRoot) {
+    // Google's Article structured data expects `datePublished`. The page's
+    // first commit is the real value; without git history, fall back to the
+    // last-modified date so the TechArticle still validates.
+    const datePublished = published ?? lastModified;
     graph.push({
       '@type': 'TechArticle',
       headline: title,
@@ -89,7 +96,8 @@ export function PageStructuredData({
       isPartOf: { '@id': `${DOCS_URL}#website` },
       author: { '@id': `${SITE_URL}/#org` },
       publisher: { '@id': `${SITE_URL}/#org` },
-      ...(lastModified ? { dateModified: lastModified.toISOString() } : {}),
+      ...(datePublished ? { datePublished: new Date(datePublished).toISOString() } : {}),
+      ...(lastModified ? { dateModified: new Date(lastModified).toISOString() } : {}),
     });
   }
 

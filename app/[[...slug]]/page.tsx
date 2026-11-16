@@ -110,6 +110,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         pageUrl={page.url}
         description={page.data.description}
         lastModified={lastModified}
+        published={getPublishedTime(page.path)}
         ancestors={breadcrumbAncestors}
       />
       <DocsBody>
