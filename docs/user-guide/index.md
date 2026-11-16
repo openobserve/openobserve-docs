@@ -9,7 +9,7 @@ description: OpenObserve User Guide covering log search, metrics, RUM, organizat
 2. [Metrics](data-exploration/metrics/index.md)
 3. [Real User Monitoring (RUM)](data-exploration/rum/index.md)
 4. [Organizations](account-administration/identity-and-access-management/organizations.md)
-5. [Users](users.md)
+5. [Users](account-administration/identity-and-access-management/role-based-access-control.md#users)
 6. [Streams](data-processing/streams/streams-in-openobserve.md)
 7. [Ingestion](../ingestion/index.md)
 8. [Pipelines](data-processing/pipelines/index.md)
