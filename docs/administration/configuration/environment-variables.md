@@ -720,8 +720,8 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
 | O2_AI_ENABLED | false | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires o2-sre-agent to be deployed. |
-| O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: http://o2-openobserve-router:5080 |
-| O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: http://o2-sre-agent:8000 |
+| O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: `http://o2-openobserve-router:5080` |
+| O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: `http://o2-sre-agent:8000` |
 
 ## SRE Agent Configuration
 
@@ -738,7 +738,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_AI_API_KEY | - | Authentication API key for accessing the AI service. Required for AI features. |
 | O2_AI_GATEWAY_ENABLED | false | Set to "true" to route AI requests through an AI Gateway instead of direct provider API calls. |
 | O2_AI_GATEWAY_TIMEOUT | 120 | Request timeout for gateway requests in seconds |
-| O2_AI_GATEWAY_URL | - | URL of the AI Gateway service (e.g., http://my-gateway:80). When specified, all AI requests are routed through this gateway. |
+| O2_AI_GATEWAY_URL | - | URL of the AI Gateway service (e.g., `http://my-gateway:80`). When specified, all AI requests are routed through this gateway. |
 | O2_MCP_USERNAME | - | Username for MCP (Model Context Protocol) authentication with o2-sre-agent. Optional. |
 | O2_MCP_PASSWORD | - | Password for MCP (Model Context Protocol) authentication with o2-sre-agent. Optional. |
 | O2_MCP_VALIDATION_ENABLED | true | Enables Model Context Protocol (MCP) validation for AI requests. |
