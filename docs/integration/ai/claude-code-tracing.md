@@ -1,7 +1,7 @@
 ---
 title: Claude Code
-metaTitle: "Claude Code OpenTelemetry: Monitor Usage & Traces | OpenObserve"
-description: "Monitor Claude Code with OpenTelemetry - send claude code otel metrics, events, and traces to OpenObserve. Track usage, cost, and per-turn activity with zero code changes."
+metaTitle: "Claude Code OpenTelemetry Monitoring | OpenObserve"
+description: "Monitor Claude Code with OpenTelemetry. Send claude code otel metrics, events, and traces to OpenObserve to track usage, cost, and per-turn activity."
 ---
 
 # Claude Code OpenTelemetry Monitoring with OpenObserve
