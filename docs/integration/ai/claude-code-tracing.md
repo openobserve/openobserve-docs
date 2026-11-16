@@ -1,11 +1,14 @@
 ---
 title: Claude Code
-description: Send Claude Code usage, cost, and activity to OpenObserve with native OpenTelemetry metrics and events, plus optional full per-turn tracing.
+metaTitle: "Claude Code OpenTelemetry: Monitor Usage & Traces | OpenObserve"
+description: "Monitor Claude Code with OpenTelemetry - send claude code otel metrics, events, and traces to OpenObserve. Track usage, cost, and per-turn activity with zero code changes."
 ---
 
-# Claude Code → OpenObserve
+# Claude Code OpenTelemetry Monitoring with OpenObserve
 
-Monitor your team's [Claude Code](https://docs.claude.com/en/docs/claude-code) usage in [OpenObserve](https://openobserve.ai) using OpenTelemetry.
+Monitor your team's [Claude Code](https://docs.claude.com/en/docs/claude-code) usage in [OpenObserve](https://openobserve.ai) using native OpenTelemetry (OTLP).
+
+This page covers how to send Claude Code telemetry - metrics, events, and traces - to OpenObserve so you can track usage, cost per session, tool call frequency, and optional per-turn traces. After setup you will see Claude Code usage metrics, cost per session, and optional per-turn traces in your OpenObserve dashboards. For [mcp observability](https://openobserve.ai/mcp-server/) and broader [llm observability](https://openobserve.ai/llm-observability/) coverage, see the linked platform pages.
 
 Claude Code exports three OTLP signals (**metrics**, **events**, and **traces**) and can send them straight to OpenObserve. There are two ways to set this up:
 
