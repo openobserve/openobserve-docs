@@ -58,7 +58,11 @@ export function LlmPageActions({
         </Icon>
         {copied ? 'Copied' : 'Copy page'}
       </button>
-      <ActionLink href={mdUrl}>View Markdown</ActionLink>
+      {/* nofollow: the .md twin is for readers and LLMs, not a page to crawl.
+          The edge also sends `X-Robots-Tag: noindex, nofollow` on every .md. */}
+      <ActionLink href={mdUrl} nofollow>
+        View Markdown
+      </ActionLink>
       <ActionLink href={`https://chatgpt.com/?q=${encodeURIComponent(prompt)}`}>Open in ChatGPT</ActionLink>
       <ActionLink href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}>Open in Claude</ActionLink>
     </div>
@@ -68,9 +72,22 @@ export function LlmPageActions({
 const actionClass =
   'inline-flex items-center gap-1.5 transition-colors hover:text-fd-foreground';
 
-function ActionLink({ href, children }: { href: string; children: ReactNode }) {
+function ActionLink({
+  href,
+  nofollow = false,
+  children,
+}: {
+  href: string;
+  nofollow?: boolean;
+  children: ReactNode;
+}) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={actionClass}>
+    <a
+      href={href}
+      target="_blank"
+      rel={nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
+      className={actionClass}
+    >
       <Icon>
         <path d="M15 3h6v6" />
         <path d="M10 14 21 3" />
