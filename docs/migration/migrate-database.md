@@ -119,6 +119,10 @@ For more details on these options, refer to the command help text using the `-h`
 
 Cluster mode only supports PostgreSQL as the metadata store, so a cluster that already runs on PostgreSQL needs no migration. The steps below move a cluster from MySQL to PostgreSQL and only work on releases **older than v0.70.0**; run them before you upgrade.
 
+:::note
+The MySQL steps in this section apply only to older OpenObserve versions that still support MySQL as a metadata store. Current versions support only PostgreSQL, plus SQLite in local mode.
+:::
+
 ### Prerequisites
 
 1. Deploy a PostgreSQL database (or enable it via the Helm chart)
