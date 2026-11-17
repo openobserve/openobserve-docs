@@ -35,4 +35,17 @@ To accommodate occasional traffic spikes, OpenObserve provides a buffer:
 
 This applies to Free-Tier License users (50 GB/day limit).
 
+#### Features in Your License
+
+Each Enterprise license lists the features it includes, for example Workflows, On-Call, or AI Assistant. Some features are always included. Without a license key, OpenObserve turns on a default set of features.
+
+When a feature is not included in your license:
+
+- Its menu entry shows a lock with the tooltip `Locked: needs <feature>`. You can still open the page.
+- The page stays visible, but its actions are disabled. A lock next to the page title shows the same tooltip.
+- If a page you can use loads data from a feature that is not included, OpenObserve shows a **Not included in your license** notice that names the missing features.
+- API requests that need the feature return HTTP `403` with the message `Features not included in your license: <features>`.
+
+To add a feature, an administrator updates the license key.
+
 For full terms and conditions, visit the [Enterprise License page](https://openobserve.ai/legal/enterprise-license/).

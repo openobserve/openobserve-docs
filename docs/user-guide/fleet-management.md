@@ -21,7 +21,7 @@ A **fleet** groups collectors that run the same configuration version. Every org
 
 On the **Fleets** tab, pick a fleet from the list on the left to see its collectors. The fleet's toolbar has **Add collector**, **Tokens**, **Rollouts**, **Settings**, and **Deploy**.
 
-Select collectors and use **Move to fleet** to re-assign them. Moved collectors receive the destination fleet's current version straight away, without a rollout. A fleet can be deleted only after its collectors are moved or removed and its tokens are revoked.
+A collector's fleet is set by the enrollment token it uses. To move a collector to another fleet, reinstall it with a token of the target fleet. The installers, the Docker command, and the Helm chart keep the collector's state, so it keeps its instance ID, name, and history. A fleet can be deleted only after its collectors are moved or removed and its tokens are revoked.
 
 ## Enroll collectors
 
@@ -43,7 +43,7 @@ Revoking a token, or letting it expire, takes effect immediately: every collecto
 
 The collectors table shows each collector's **Status** (Online, Degraded, Offline, or Not reported), OS, architecture, **Version** (tagged **Outdated** when it is behind the target version), configuration, delivery state, and when it was last seen.
 
-Click a collector to open its details, with **Overview**, **Metrics**, **Health**, **Effective config**, and **History** tabs. From the details you can **Move to fleet**, **Restart** (if the collector supports it), **Redeliver** its configuration, or **Remove** it. Removing deletes only the record; a collector that is still running reappears on its next heartbeat. **Rename** is in the row's action menu.
+Click a collector to open its details, with **Overview**, **Metrics**, **Health**, **Effective config**, and **History** tabs. From the details you can **Restart** (if the collector supports it), **Redeliver** its configuration, or **Remove** it. Removing deletes only the record; a collector that is still running reappears on its next heartbeat. **Rename** is in the row's action menu.
 
 ![Fleet with its desired and stable versions above the collectors table](images/fleet-management-collectors.png)
 

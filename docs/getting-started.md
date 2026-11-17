@@ -257,6 +257,7 @@ Now let's explore the data you just loaded.
 - **Application logs**: Use our [logging libraries](./ingestion/logs/otlp.md) for your applications
 - **Metrics**: Set up [Prometheus integration](./ingestion/metrics/prometheus.md) 
 - **Traces**: Configure [OpenTelemetry](./ingestion/traces/opentelemetry.md) for distributed tracing
+- **Home page**: See what the [Home overview](./home-overview.md) shows once your data arrives
 
 
 ## Troubleshooting Common Issues
