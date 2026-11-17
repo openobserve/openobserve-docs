@@ -56,6 +56,8 @@ The **Map** view draws pods or nodes as hexagonal cells:
 
 Hover a cell for a tooltip and click it to open its details. Click **Show as list** to see the same pods or nodes as a list.
 
+To see which workloads talk to each other, open **Cluster** › **Dependencies**; see [Dependencies maps](dependencies.md).
+
 ![Cluster map of pods grouped by namespace and filled by CPU % of request](images/kubernetes-cluster-map.png)
 
 ## Details panel
