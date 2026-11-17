@@ -6,7 +6,7 @@ description: "High availability deployment guide for OpenObserve on Kubernetes u
 
 # High Availability (HA) Deployment - Kubernetes Production Setup
 
-Deploy OpenObserve in high availability (HA) mode for production observability workloads. This guide walks through deploying on Kubernetes with Helm using object storage (S3, GCS, MinIO, RustFS, Swift, Civo) and PostgreSQL or MySQL as the metadata store.
+Deploy OpenObserve in high availability (HA) mode for production observability workloads. This guide walks through deploying on Kubernetes with Helm using object storage (S3, GCS, MinIO, RustFS, Swift, Civo) and PostgreSQL as the metadata store.
 
 While OpenObserve can run in HA mode on bare metal servers, VMs, and other platforms, we officially provide installation via Helm charts for Kubernetes. Local disk storage is not supported in HA mode, so an object store is mandatory.
 
@@ -208,7 +208,7 @@ Add/Modify following to values.yaml
 
 ## Metadata store
 
-You can use `PostgreSQL` or `MySQL` as metadata storage.
+OpenObserve uses `PostgreSQL` as metadata storage in HA mode. MySQL is no longer supported.
 
 :::tip[Default: bundled PostgreSQL]
 The official Helm chart (from Feb 23rd 2024 onward) uses `PostgreSQL` as the metadata store by default. It installs a PostgreSQL cluster (1 primary + 1 replica) for you via the cnpg operator. You don't need any additional configuration if you want to use the bundled instance.
@@ -227,16 +227,6 @@ auth:
 
 postgres:
   enabled: false # disable bundled PostgreSQL
-```
-
-### MySQL
-
-Create the database first. In this example we use `openobserve` as the database name.
-
-```yaml
-config:
-  ZO_META_STORE: "mysql"
-  ZO_META_MYSQL_DSN: "mysql://user:12345678@localhost:3306/openobserve"
 ```
 
 ## NATS cluster coordinator

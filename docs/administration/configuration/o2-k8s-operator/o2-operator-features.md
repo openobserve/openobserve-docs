@@ -27,7 +27,7 @@ The OpenObserve Kubernetes Operator provides a comprehensive set of features for
 
 ## Custom Resource Definitions (CRDs)
 
-### 1. OpenObserveConfig (o2config)
+### 1. Config (o2config)
 
 Manages connection configurations to OpenObserve instances.
 
@@ -44,7 +44,7 @@ Manages connection configurations to OpenObserve instances.
 - `credentialsSecretRef`: Reference to Kubernetes Secret containing API tokens
 - `tlsVerify`: Enable/disable TLS certificate verification
 
-### 2. OpenObserveAlert (o2alert)
+### 2. Alert (o2alert)
 
 Manages alert definitions with comprehensive monitoring capabilities.
 
@@ -93,7 +93,7 @@ Manages alert definitions with comprehensive monitoring capabilities.
   - Last sync time
   - OpenObserve alert ID tracking
 
-### 3. OpenObserveAlertTemplate (o2alerttemplate, alerttemplate)
+### 3. AlertTemplate (o2alerttemplate, alerttemplate)
 
 Manages alert notification templates for formatting alert messages across different channels.
 
@@ -130,7 +130,7 @@ Manages alert notification templates for formatting alert messages across differ
 - **Microsoft Teams**: Adaptive cards and formatted messages
 - **Generic HTTP**: Flexible templates for any webhook service
 
-### 4. OpenObserveDestination (o2dest, o2destination)
+### 4. Destination (o2dest, o2destination)
 
 Manages destinations for both alerts and pipelines, defining where data and notifications are sent.
 
@@ -183,7 +183,7 @@ Manages destinations for both alerts and pipelines, defining where data and noti
 - **Error Handling**: Detailed error reporting and retry logic
 - **Status Tracking**: Real-time sync status with destination services
 
-### 5. OpenObserveFunction (o2function, o2func)
+### 5. Function (o2function, o2func)
 
 Manages VRL (Vector Remap Language) transformation functions for data processing.
 
@@ -215,7 +215,7 @@ Manages VRL (Vector Remap Language) transformation functions for data processing
 - **Version Tracking**: Generation tracking for function updates
 - **Status Monitoring**: Real-time sync status with OpenObserve
 
-### 6. OpenObservePipeline (o2pipeline)
+### 6. Pipeline (o2pipeline)
 
 Manages data processing pipelines with advanced transformation capabilities.
 
@@ -351,7 +351,7 @@ Manages data processing pipelines with advanced transformation capabilities.
 - **Default Namespace**: Configurable default namespace for resources
 
 ### Resource Relationships
-- **Config References**: Resources reference OpenObserveConfig for connection details
+- **Config References**: Resources reference Config for connection details
 - **Dependency Management**: Proper handling of resource dependencies
 - **Cascading Updates**: Updates propagate through dependent resources
 
@@ -384,6 +384,7 @@ The operator provides extensive performance tuning options via ConfigMap (`manif
 - **PIPELINE_CONTROLLER_CONCURRENCY**: Controls pipeline processing (default: 1, recommended: 1-10)
 - **FUNCTION_CONTROLLER_CONCURRENCY**: Controls function processing (default: 1, recommended: 1-5)
 - **CONFIG_CONTROLLER_CONCURRENCY**: Controls configuration processing (default: 1, recommended: 1-3)
+- **DASHBOARD_CONTROLLER_CONCURRENCY**: Controls dashboard processing (default: 1, recommended: 1-10)
 
 #### API Rate Limiting
 - **O2_RATE_LIMIT_RPS**: Requests per second to OpenObserve API (default: 10, max: 100)
@@ -440,7 +441,7 @@ The following features are currently under active development and will be availa
 
 ### Enhanced Destination Features
 
-While the OpenObserveDestination CRD is now available with support for basic alert and pipeline destinations, the following enhanced features are planned:
+While the Destination CRD is now available with support for basic alert and pipeline destinations, the following enhanced features are planned:
 
 **Additional Destination Types (Coming Soon):**
 - **Alert Destinations**:
@@ -463,7 +464,7 @@ While the OpenObserveDestination CRD is now available with support for basic ale
 
 ### OpenObserveRemoteDestinations (o2remotedest)
 
-An advanced Custom Resource for managing complex remote data destinations beyond the current OpenObserveDestination capabilities.
+An advanced Custom Resource for managing complex remote data destinations beyond the current Destination capabilities.
 
 **Planned Features:**
 - **Advanced Destination Types**:
