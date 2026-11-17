@@ -6,7 +6,7 @@ description: How OpenObserve compares with Elasticsearch on storage cost, query 
 
 # OpenObserve as an Elasticsearch Alternative
 
-Elasticsearch is a general-purpose search engine for both app search and log search use cases. OpenObserve is built specifically for log search, making it an excellent lightweight alternative to Elasticsearch.
+Elasticsearch is a general-purpose search engine for both app search and log search use cases. OpenObserve is built specifically for observability (logs, metrics and traces), making it an excellent lightweight alternative to Elasticsearch.
 
 ## Technical Advantages
 
@@ -53,4 +53,4 @@ The OpenObserve `_bulk` API endpoint is Elasticsearch-compatible and can be used
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

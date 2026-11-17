@@ -35,11 +35,11 @@ By combining **Fluent Bit** for collection with **OpenObserve VRL pipelines** fo
 
 :::accordion[Step 1: Collect OpenObserve Credentials]
 
-1. Move to **Data Sources** page.
-2. Under Custom tab → Logs → Fluentbit
+1. Go to **Data > Data sources**.
+2. Open **Custom > Logs > FluentBit**
 3. Copy the entire **output section** snippet for Fluent Bit.
 
-    ![Collect OpenObserve Credentials](../images/servers/weblogic/data-sources.png)
+    ![FluentBit output config under Custom > Logs](../images/servers/weblogic/data-sources-v2.png)
 :::
 
 :::accordion[Step 2: Configure Fluent Bit]
@@ -75,7 +75,7 @@ By combining **Fluent Bit** for collection with **OpenObserve VRL pipelines** fo
     Replace:
 
     * `<org_name>` → your OpenObserve organization
-    * `<stream_name>` → stream name (e.g. `weblogic-logs`)
+    * `<stream_name>` → stream name (e.g. `weblogic_logs`; OpenObserve turns hyphens in stream names into underscores)
     * `<host>` → OpenObserve hostname
     * `<openobserve_username>/<openobserve_password>` → your credentials
 
@@ -91,7 +91,7 @@ Trigger WebLogic events (restart server, deploy app, etc.) to generate logs.
 
 :::accordion[Step 3: Verify Logs in OpenObserve]
 
-1. Navigate to **Streams → weblogic-logs** in OpenObserve.
+1. In OpenObserve, go to **Logs** and select the `weblogic_logs` stream.
 2. You should see raw entries like:
 
     ```json
@@ -101,15 +101,15 @@ Trigger WebLogic events (restart server, deploy app, etc.) to generate logs.
     }
     ```
 
-![Verify Logs in OpenObserve](../images/servers/weblogic/weblogic-logs.png)
+![WebLogic logs in the Logs page](../images/servers/weblogic/weblogic-logs-v2.png)
 :::
 
 :::accordion[Step 4: Parse Logs with VRL]
 
 To make logs searchable, parse them using **VRL (Vector Remap Language)**:
 
-1. Go to **Streams → weblogic-logs → VRL Function Editor**
-2. Add the following VRL mapping:
+1. Go to **Data > Pipelines** and create a real-time pipeline with `weblogic_logs` as the source (see [Create and use real-time pipelines](../../user-guide/data-processing/pipelines/create-and-use-real-time-pipeline.md))
+2. Add a Function node with the following VRL mapping:
 
     ```vrl
     .match = parse_regex!(
@@ -143,7 +143,7 @@ Example
     }
     ```
 
-![Parse Logs with VRL](../images/servers/weblogic/vrl.png)
+![VRL function that parses WebLogic logs, with test output](../images/servers/weblogic/vrl-v2.png)
 Next you can:
 
 * Search by **level**, **component**, or **message**

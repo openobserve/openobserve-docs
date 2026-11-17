@@ -17,7 +17,7 @@ Capture agent run timing, token usage, LLM call details, and event loop cycles f
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk strands-agents python-dotenv
+pip install openobserve-python-sdk strands-agents python-dotenv
 ```
 
 ## **Configuration**
@@ -86,12 +86,8 @@ Each agent call produces a tree of four spans. The manual `strands.agent` span i
 | `gen_ai_usage_total_tokens` | Total tokens for the full agent run |
 | `gen_ai_usage_cache_read_input_tokens` | Tokens served from prompt cache |
 | `gen_ai_usage_cache_write_input_tokens` | Tokens written to prompt cache |
-| `llm_observation_type` | `AGENT` |
-| `llm_output_finish_reason` | Reason the agent stopped (e.g. `end_turn`) |
-| `llm_output_message` | Final response text |
-| `llm_usage_tokens_input` | Input tokens (mirrored from `gen_ai_usage_input_tokens`) |
-| `llm_usage_tokens_output` | Output tokens (mirrored) |
-| `llm_usage_tokens_total` | Total tokens (mirrored) |
+| `gen_ai_operation_name` | `invoke_agent` |
+| `gen_ai_output_messages` | Final response text |
 
 **`execute_event_loop_cycle` span (Strands built-in)**
 
@@ -99,7 +95,7 @@ Each agent call produces a tree of four spans. The manual `strands.agent` span i
 | ----- | ----- |
 | `gen_ai_system` | `strands-agents` |
 | `event_loop_cycle_id` | Unique ID for this reasoning cycle |
-| `llm_observation_type` | `SPAN` |
+| `gen_ai_operation_name` | `span` |
 
 **`chat` span (Strands built-in, one per LLM call)**
 
@@ -112,14 +108,10 @@ Each agent call produces a tree of four spans. The manual `strands.agent` span i
 | `gen_ai_usage_input_tokens` | Prompt tokens for this call |
 | `gen_ai_usage_output_tokens` | Completion tokens for this call |
 | `gen_ai_usage_total_tokens` | Total tokens for this call |
-| `llm_observation_type` | `GENERATION` |
-| `llm_output_finish_reason` | Stop reason (e.g. `end_turn`) |
-| `llm_output_message` | Raw model output |
-| `llm_usage_tokens_input` | Input tokens |
-| `llm_usage_tokens_output` | Output tokens |
-| `llm_usage_tokens_total` | Total tokens |
-| `llm_usage_cost_input` | Estimated input cost |
-| `llm_usage_cost_output` | Estimated output cost |
+| `gen_ai_operation_name` | `chat` |
+| `gen_ai_output_messages` | Raw model output |
+| `gen_ai_usage_cost_input` | Estimated input cost |
+| `gen_ai_usage_cost_output` | Estimated output cost |
 
 ## **Viewing Traces**
 
@@ -129,7 +121,7 @@ Each agent call produces a tree of four spans. The manual `strands.agent` span i
 4. Click the `chat` span to inspect per-call token counts and time to first token
 5. Click the `invoke_agent` span to see cumulative token usage across all LLM calls in the run
 
-![Strands Agents trace in OpenObserve](../../../images/integration/ai/strands-agents.png)
+![Strands Agents trace in OpenObserve, Waterfall view with the strands.agent span attributes](../../../images/integration/ai/strands-agents-v2.png)
 
 ## **Next Steps**
 

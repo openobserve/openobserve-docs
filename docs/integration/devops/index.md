@@ -10,7 +10,7 @@ OpenObserve provides comprehensive DevOps monitoring integrations to collect log
 
 These DevOps monitoring integrations enable CI/CD monitoring, deployment tracking, and infrastructure automation observability for streamlined DevOps operations.
 
-![DevOps](devops.png)
+![DevOps tab on the Data sources page](devops-v2.png)
 
 ## DevOps Tools Integration Guides
 

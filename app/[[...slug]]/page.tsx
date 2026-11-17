@@ -10,8 +10,14 @@ import { Feedback } from '@/components/feedback';
 import { LlmPageActions } from '@/components/llm-page-actions';
 import { PageStructuredData } from '@/components/structured-data';
 import { Landing } from '@/components/landing';
-import { absoluteUrl, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
+import { PageContainer, PageFooter, PageTOC } from '@/components/docs-page-slots';
+import { absoluteUrl, DOCS_AUTHOR, markdownUrl, SOCIAL_IMAGE } from '@/lib/constants';
 import { composeTitle } from '@/lib/seo';
+import { getPublishedTime } from '@/lib/published-time';
+
+// <main>, <nav> and <footer> landmarks around Fumadocs' page markup. See
+// components/docs-page-slots.tsx.
+const pageSlots = { container: PageContainer, footer: PageFooter };
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -42,7 +48,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   // Markdown served for LLM crawlers.
   if (page.url === '/') {
     return (
-      <DocsPage toc={[]} full tableOfContent={{ enabled: false }}>
+      <DocsPage toc={[]} full tableOfContent={{ enabled: false }} slots={pageSlots}>
         <PageStructuredData
           title={page.data.title}
           pageUrl={page.url}
@@ -92,15 +98,19 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       toc={toc}
       full={false}
       footer={{ items: neighbours }}
+      slots={pageSlots}
       // A stable hook for the breadcrumb's colour in global.css, rather than
       // matching Fumadocs' markup.
       breadcrumb={{ className: 'oo-breadcrumb' }}
+      // "On this page" as a label, not an <h3> in the page outline.
+      tableOfContent={{ component: <PageTOC /> }}
     >
       <PageStructuredData
         title={page.data.title}
         pageUrl={page.url}
         description={page.data.description}
         lastModified={lastModified}
+        published={getPublishedTime(page.path)}
         ancestors={breadcrumbAncestors}
       />
       <DocsBody>
@@ -148,10 +158,13 @@ export async function generateMetadata(props: {
   // label. See scripts/migration/convert-frontmatter.mjs. Pages that have only
   // the short label get the brand appended — see lib/seo.ts.
   const title = composeTitle(page.data.metaTitle ?? page.data.title);
+  // `article:published_time`: the page's first commit. See lib/published-time.ts.
+  const publishedTime = getPublishedTime(page.path);
 
   return {
     title,
     description: page.data.description,
+    authors: [DOCS_AUTHOR],
     alternates: {
       canonical: absoluteUrl(page.url),
       // Point LLM crawlers at this page's Markdown source, published alongside
@@ -166,8 +179,10 @@ export async function generateMetadata(props: {
       siteName: 'OpenObserve Documentation',
       type: 'article',
       images: [SOCIAL_IMAGE],
+      authors: [DOCS_AUTHOR.url],
       // `article:modified_time` is a freshness signal for search engines and AI
       // crawlers; overrides/main.html emitted it on every page under MkDocs.
+      ...(publishedTime ? { publishedTime: publishedTime.toISOString() } : {}),
       ...(page.data.lastModified
         ? { modifiedTime: new Date(page.data.lastModified).toISOString() }
         : {}),
@@ -176,7 +191,8 @@ export async function generateMetadata(props: {
       card: 'summary_large_image',
       title,
       description: page.data.description,
-      images: [SOCIAL_IMAGE.url],
+      // The full object, not just the URL, so Next also emits twitter:image:alt.
+      images: [SOCIAL_IMAGE],
     },
   };
 }

@@ -38,7 +38,7 @@ const SITE = `${SITE_URL}/docs`;
 const SECTIONS = [
   {
     title: 'Getting started',
-    patterns: ['index.md', 'getting-started.md', 'architecture.md', 'screenshots.md'],
+    patterns: ['index.md', 'getting-started.md', 'architecture.md'],
   },
   { title: 'Overview', patterns: ['overview/**/*.md'] },
   { title: 'User guide', patterns: ['user-guide/**/*.md'] },

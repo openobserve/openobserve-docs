@@ -101,20 +101,20 @@ sudo vi /etc/fluent-bit/fluent-bit.conf
 [OUTPUT]
     Name http
     Match *
-    URI /api/<O2_ORG_NAME>/<O2_STREAM_NAME>/_json
-    Host <O2_HOST>
+    URI /api/<org_id>/<stream_name>/_json
+    Host <openobserve_host>
     Port 443
     tls On
     Format json
     Json_date_key    _timestamp
     Json_date_format iso8601
-    HTTP_User <O2_USER>
-    HTTP_Passwd <O2_PASSWORD>
+    HTTP_User <your_email>
+    HTTP_Passwd <your_ingestion_token>
     compress gzip
 ```
 
 > Note
-    - Replace `<O2_ORG_NAME>`, `<O2_STREAM_NAME>`, `<O2_HOST>`, `<O2_USER>`, and `<O2_PASSWORD>` with your OpenObserve values.
+    - Replace `<org_id>`, `<stream_name>`, `<openobserve_host>`, `<your_email>`, and `<your_ingestion_token>` with your OpenObserve values. They are shown in **Data > Data sources > Custom > Logs > FluentBit**.
     - Example URI: `/api/default/ansible/_json` for the `default` org and `ansible` stream.
 :::
 
@@ -136,7 +136,7 @@ sudo systemctl status fluent-bit
 
 1. In your Openobserve instance, Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![Verify Ansible Logs in OpenObserve](https://openobserve.ai/assets%2Fansible_logs_o2_2fa50f03c6.gif)
+    ![Ansible logs in the Logs page](../images/devops/ansible-verify-logs-v2.png)
 :::
 ## Troubleshooting
 

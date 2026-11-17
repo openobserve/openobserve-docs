@@ -17,7 +17,7 @@ Automatically capture pipeline runs, component executions, and LLM calls for eve
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-haystack haystack-ai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-haystack haystack-ai python-dotenv
 ```
 
 ## **Configuration**
@@ -107,14 +107,14 @@ Each `pipeline.run()` produces a root `CHAIN` span with a child span per compone
 | `llm_model_name` | Resolved model version (e.g. `gpt-4o-mini-2024-07-18`) |
 | `llm_provider` | `openai` |
 | `llm_system` | `openai` |
-| `llm_observation_type` | `GENERATION` |
+| `gen_ai_operation_name` | `chat` |
 | `llm_token_count_prompt` | Input token count |
 | `llm_token_count_completion` | Output token count |
 | `llm_token_count_total` | Total tokens consumed |
-| `llm_usage_tokens_input` | Input tokens (numeric) |
-| `llm_usage_tokens_output` | Output tokens (numeric) |
-| `llm_usage_cost_input` | Estimated input cost in USD |
-| `llm_usage_cost_output` | Estimated output cost in USD |
+| `gen_ai_usage_input_tokens` | Input tokens (numeric) |
+| `gen_ai_usage_output_tokens` | Output tokens (numeric) |
+| `gen_ai_usage_cost_input` | Estimated input cost in USD |
+| `gen_ai_usage_cost_output` | Estimated output cost in USD |
 | `gen_ai_response_model` | Exact model version returned by the API |
 | `duration` | Component execution latency |
 | `span_status` | `OK` on success, `ERROR` on failure |
@@ -126,7 +126,7 @@ Each `pipeline.run()` produces a root `CHAIN` span with a child span per compone
 3. Expand the tree to see each component span in execution order
 4. Filter by `operation_name = OpenAIGenerator.run` to find LLM spans and inspect token counts
 
-![Haystack trace in OpenObserve](../../../images/integration/ai/haystack.png)
+![Haystack trace in OpenObserve, Waterfall view with the Pipeline.run span attributes](../../../images/integration/ai/haystack-v2.png)
 
 ## **Next Steps**
 

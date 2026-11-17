@@ -42,7 +42,7 @@ OpenObserve automatically applies broadcast join in two scenarios:
 ### 2. Subquery pattern  
 **When**: Using IN-list queries with a limited subquery result  
 **Example**: Filtering by a list of selected namespaces or trace IDs  
-**Key**: Subquery must have LIMIT and return < 10,000 rows
+**Key**: Subquery must have an aggregate and a LIMIT; at most 10,000 rows are broadcast
 
 ---
 
@@ -83,12 +83,13 @@ GROUP BY logs.service_name, enrich.region, enrich.team_owner;
 
 ### When it applies
 
-This optimization is automatically triggered when **all four conditions** are met:
+This optimization is automatically triggered when **all three conditions** are met:
 
 1. **Subquery has Aggregate + LIMIT**: Must produce a bounded result set
 2. **Main query is a simple scan**: Table scan with optional filters
-3. **Only one join**: Two tables only, not three or more
-4. **Within size limits**: Subquery result less than 10,000 rows and less than 10 MB
+3. **Only one join**: Two tables only, not three or more, and no union or recursive query in the plan
+
+The broadcast side is capped at `ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_ROWS` rows (default 10,000).
 
 ### Example 1: Kubernetes namespace filtering
 
@@ -134,7 +135,7 @@ LIMIT 10;
 ### Execution flow
 
 1. Leader node executes the subquery and returns 10 namespaces
-2. Subquery results are saved to object storage in Arrow format
+2. Subquery results are converted to Arrow format. Results up to `ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_SIZE` (default 10 MB) are sent with the request; larger results are saved to object storage and read from there
 3. Result set is broadcast to all follower nodes
 4. Each follower performs the join locally with its partition of the main table
 5. Leader merges results from all nodes
@@ -143,21 +144,26 @@ LIMIT 10;
 
 ## Configuration
 
-Broadcast join is enabled by default. You can adjust the limits for the subquery pattern:
+Broadcast join is enabled by default. Both patterns can be turned off, and you can adjust the limits for the subquery pattern:
+
+| Environment variable | Default | Description |
+|---|---|---|
+| `ZO_FEATURE_BROADCAST_JOIN_ENABLED` | `true` | Enables the subquery pattern |
+| `ZO_FEATURE_ENRICHMENT_BROADCAST_JOIN_ENABLED` | `true` | Enables the enrichment table pattern |
 
 ### Maximum rows
 ```bash
 export ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_ROWS=10000
 ```
-**Default**: 10,000 rows  
-**Purpose**: Subquery results exceeding this will not trigger broadcast join
+**Default**: 10,000 rows (`0` uses the default)  
+**Purpose**: Maximum number of subquery rows that are broadcast; the subquery result is limited to this many rows
 
 ### Maximum size
 ```bash
-export ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_SIZE=10485760
+export ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_SIZE=10
 ```
-**Default**: 10 MB  
-**Purpose**: Subquery results exceeding this size will not trigger broadcast join
+**Default**: 10 (MB; `0` uses the default)  
+**Purpose**: Subquery results larger than this are saved to object storage and read from there instead of being sent with the request
 
 **Note**: These limits only apply to the subquery pattern. Enrichment tables are managed separately.
 
@@ -174,8 +180,6 @@ export ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_SIZE=10485760
 
 ### When subquery pattern will not trigger:
 
-- Subquery result exceeds the configured limit of 10,000 rows
-- Subquery result exceeds the configured limit of 10 MB
 - Subquery lacks LIMIT clause
 - Subquery lacks Aggregate operation
 - Main query is not a simple table scan
@@ -196,7 +200,7 @@ EXPLAIN SELECT ...
 ```
 
 **For Subquery Pattern**, the plan will show:
-- Temporary storage path for the broadcasted data
+- A temporary result path for the broadcasted data
 - The subquery is executed separately from the main query
 
 **For Enrichment Pattern**, the plan will show:
@@ -213,7 +217,7 @@ EXPLAIN SELECT ...
 1. Does the subquery have both Aggregate and LIMIT?
 2. Count subquery rows: `SELECT COUNT(*) FROM (subquery)`
 3. Is it a two-table join only?
-4. Verify configuration: `echo $ZO_FEATURE_BROADCAST_JOIN_LEFT_SIDE_MAX_ROWS`
+4. Verify configuration: `echo $ZO_FEATURE_BROADCAST_JOIN_ENABLED`
 
 **For enrichment tables**:
 1. Is the table loaded in memory as an enrichment table?

@@ -7,17 +7,17 @@ This page provides an overview of pipelines, their types, and how they work.<br>
 
 ## Overview
 Pipelines let you control what happens to your data after it is ingested into OpenObserve. They provide a clear way to read data from a source, apply changes, and send the processed output to a destination.  
-![Pipelines in OpenObserve](../../../images/pipeline-new-editor.png)
+![Pipeline editor with the Source, Transform and Destination node palette and a real-time pipeline on the canvas](../../../images/pipeline-new-editor-v2.png)
 
 :::note[Who can access pipelines]
 Access to pipelines is controlled through role permissions.
 Administrators can grant or restrict access from IAM > Roles > Permissions.
 To allow a user to work with pipelines, the role must have permissions for the **Pipelines** module. These permissions control whether the user can list, create, update, or delete pipelines.
-![pipeline-permission](../../../images/pipeline-permission.png)
+![Role editor showing the Pipelines module with List, Get, Create, Update and Delete permissions per pipeline](../../../images/pipeline-permission-v2.png)
 :::
 
 :::note[Where to find pipelines]
-You can access pipelines from the main navigation panel. Select **Pipelines** to view, create, and manage real-time and scheduled pipelines.
+In the main navigation panel, go to **Data > Pipelines** to view, create, and manage real-time and scheduled pipelines. The page has three tabs: **Pipelines**, **Functions**, and **Enrichment Tables**.
 :::
 
 
@@ -47,20 +47,20 @@ A real-time pipeline processes incoming data as soon as it is ingested into the 
 :::accordion[Source]
 The pipeline starts from a source stream. As soon as new data is ingested into this stream, the pipeline begins processing it. <br>
 **Each stream can be associated with only one real-time pipeline as its source.** This ensures a single, predictable processing flow for all new events in that stream.
-![Pipelines in OpenObserve](../../../images/pipelines-new-realtime.png)
+![Real-time pipeline with a source stream node and the default destination back to the same stream](../../../images/pipelines-new-realtime-v2.png)
 :::
 
 :::accordion[Transform]
 The pipeline applies conditions or functions to filter and transform the data in real-time. 
-![Pipelines in OpenObserve](../../../images/pipeline-new-realtime-transform-condition.png)
+![Conditions node connected to the source stream in a real-time pipeline](../../../images/pipeline-new-realtime-transform-condition-v2.png)
 :::
 
 :::accordion[Destination]
 The transformed data is written to one or more destinations: 
 
 - **Stream**: The supported destination stream types are Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
-![Pipelines in OpenObserve](../../../images/pipeline-new-realtime-destination.png)
-- **Remote**: Select **Remote** if you wish to send data from the pipeline to [external destinations](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/).
+![Real-time pipeline routing errors to one stream, keeping the default destination and enriching a third branch with a function](../../../images/pipeline-new-realtime-destination-v2.png)
+- **Remote**: Select **Remote** if you wish to send data from the pipeline to [external destinations](https://openobserve.ai/docs/user-guide/data-processing/pipelines/remote-destination/). Remote destinations are available in the self-hosted Enterprise Edition.
 <br>
 **Default destination added automatically** <br>
 When you select a source stream for a real-time pipeline, OpenObserve automatically adds a destination that points back to the same stream. This ensures that your original data continues to be stored in the source stream even when you add filters or functions in the pipeline.
@@ -90,29 +90,29 @@ To create a scheduled pipeline, you need an existing stream, which serves as the
 :::
 
 ::::accordion[Query]
-You define a SQL query that fetches historical data from the source stream. For metrics, you can also use PromQL. The query is controlled by **Frequency**, **Period**, and optional **Cron** settings. 
-![Scheduled Pipelines in OpenObserve](../../../images/configure-scheduled-pipelines.png)
+You define a SQL query that fetches historical data from the source stream. For metrics, you can also use PromQL. The query is controlled by the **Check every** (frequency), **Look back window** (period), and optional **Enable Cron** settings. 
+![Associate Query panel of a scheduled pipeline with Build Query, Sql Query and Set Variables](../../../images/configure-scheduled-pipelines-v2.png)
 
 :::note[Frequency, period, and cron]
 Scheduled pipelines run according to the **Frequency** and **Period** you configure: 
 
-- **Frequency** defines how often the query runs. For example, a frequency of five minutes runs the query every five minutes.
-- **Period** defines the time range the query reads in each run. usually be the same as the frequency. For example, a period of five minutes means the query fetches the data ingested in the last five minutes.
-- **Cron** allows you to define custom execution schedules in a specific timezone.
+- **Frequency** (**Check every**) defines how often the query runs. For example, a frequency of five minutes runs the query every five minutes.
+- **Period** (**Look back window**) defines the time range the query reads in each run. Without cron, the period must be the same as the frequency. For example, a period of five minutes means the query fetches the data ingested in the last five minutes.
+- **Cron** (**Enable Cron**) allows you to define custom execution schedules in a specific timezone.
 For example, the cron expression `0 0 1 * *` with timezone `Asia/Kolkata` runs the query at midnight on the first day of each month.
 :::
 ::::
 
 :::accordion[Transform]
 After the query runs, the retrieved data passes through transform nodes. It allows you to filter or modify data before it reaches the destination.
-![Scheduled Pipelines Transform in OpenObserve](../../../images/pipeline-new-scheduled-condition.png)
+![Scheduled pipeline with a Query node, a Conditions node and a destination stream](../../../images/pipeline-new-scheduled-condition-v2.png)
 :::
 
 :::accordion[Destination]
 The transformed data is written to one or more destinations.
 
 - **Stream** destinations can be Logs, Metrics, Traces, or Enrichment tables. <br>**Note**: Enrichment Tables can only be used as destination streams in scheduled pipelines.
-- **Remote** destinations send data to external systems. To learn more, see [Remote destinations](remote-destination.md).
+- **Remote** destinations send data to external systems. They are available in the self-hosted Enterprise Edition. To learn more, see [Remote destinations](remote-destination.md).
 :::
 
 ### When to use scheduled pipelines

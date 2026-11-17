@@ -3,7 +3,7 @@ title: Custom Charts with Nested Data
 description: Build a custom Sunburst chart in OpenObserve using nested data. Learn how to transform flat query logs into hierarchical visual insights.
 ---
 
-The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
+The following step-by-step instructions show how to build a [custom chart that expects nested data](what-are-custom-charts.md#choose-the-chart). 
 
 This example starts with flat data from the `default` stream, fetched and prepared using SQL, and reshaped and rendered using JavaScript. [Learn more about data preparation and reshaping for custom charts](what-are-custom-charts.md#build-the-chart). 
 
@@ -16,8 +16,7 @@ The goal is to understand:
 - Whether certain usage patterns need optimization or resource allocation
 
 
-## Step 1: Choose the chart
-
+## Before you begin
 
 To build a custom chart, you need to bridge two things:
 
@@ -48,14 +47,14 @@ OpenObserve stores ingested data in a flat structure.
 
 ## Step 2: Identify the expected data structure
 
-Before starting, [identify what structure the chart expects](what-are-custom-charts.md#how-to-check-the-data-structure-a-chart-expects). 
+Before starting, [identify what structure the chart expects](what-are-custom-charts.md#choose-the-chart). 
 
 Sunburst chart expects data to be in nested format or parent-child hierarchy. Each parent (`organization_id`) should contain its children (`search_types`), each with a value.
 
 ## Step 3: Fetch and prepare the data
 
 In the [**Add Panel**](what-are-custom-charts.md#how-to-access-custom-charts) page, under **Fields**, select the desired stream type and stream name. 
-![custom-charts-add-panel](../../../../images/custom-chart-nested-data-add-panel.png) 
+![custom-charts-add-panel](../../../../images/custom-chart-nested-data-add-panel-v2.png) 
 
 Write a SQL query in the Query Editor to fetch and prepare the data: 
 
@@ -88,7 +87,7 @@ GROUP BY
 
 Select a time range to fetch the relevant dataset for your chart.
 
-![custom-chart-select-time-range](../../../../images/custom-chart-nested-time-range-selection.png)
+![custom-chart-select-time-range](../../../../images/custom-chart-nested-time-range-selection-v2.png)
 
 **Expected query result**
 
@@ -195,7 +194,11 @@ Click **Apply** to generate the chart.
 
 If the query and JavaScript logic are correct, the chart appears in the preview area.
 
-![custom-charts-result](../../../../images/custom-chart-nested-data-result.png)
+:::note
+The screenshot runs the same code on a sample Kubernetes log stream, so it shows namespaces and log levels (counted with `count(*)`) instead of organizations and search types.
+:::
+
+![custom-charts-result](../../../../images/custom-chart-nested-data-result-v2.png)
 <br>
 
 ### Understand the chart

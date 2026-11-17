@@ -8,14 +8,17 @@ description: Update data transformation functions via PUT /api/{org}/functions/{
 
 Endpoint: `PUT /api/{organization}/functions/{name}`
 
+Returns `404` ("Function not found") if no function with that name exists. If the body is identical to the stored function, the stored function is returned unchanged.
+
 Function can be used to modify input data. You can use it to drop some fields, convert some field's data type, or drop some records.
 
 ## Request
 
 ```json
 {
-	"function": "function(row) return row end",
-	"order": 1
+	"name": "add_env",
+	"function": ".env = \"prod\"\n.",
+	"transType": 0
 }
 ```
 
@@ -23,10 +26,10 @@ Description
 
 | Field name | Data type | Default value | Description |
 |------------|-----------|---------------|-------------|
-| function   | string    | -             | function body |
-| order      | int64     | 0             | execute order, minimum will execute first. |
-
-> Currently, we only support [VRL](https://playground.vrl.dev/) as a functional language.
+| name       | string    | -             | function name, required |
+| function   | string    | -             | function body, required. For VRL, a trailing `.` is added if missing |
+| transType  | int       | 0             | `0` = [VRL](https://playground.vrl.dev/), `1` = JavaScript |
+| params     | string    | -             | optional, function parameters |
 
 ## Response
 

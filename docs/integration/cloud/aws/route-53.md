@@ -12,7 +12,7 @@ This guide explains how to configure AWS Route 53 query logging, stream logs to 
 
 Route 53 query logs capture DNS requests processed by public or private hosted zones. These logs can be streamed into OpenObserve for real-time monitoring and analysis of DNS patterns, resolver behavior, and potential anomalies.
 
-![Route 53 Logging Architecture](https://openobserve.ai/assets/route53_34020a7b52.gif)
+<img src="https://openobserve.ai/assets/route53_34020a7b52.gif" alt="Route 53 Logging Architecture" width="2732" height="764" />
 
 ## Steps to Integrate
 
@@ -67,7 +67,7 @@ Route 53 query logs capture DNS requests processed by public or private hosted z
 
 :::accordion[Optional: Transform Logs with VRL]
 
-You can parse and enrich the Route 53 log lines using VRL in your OpenObserve ingestion pipeline.
+You can parse and enrich the Route 53 log lines with a VRL function in a real-time pipeline (**Data > Pipelines**).
 
 ```vrl
 parsed = parse_regex!(.message, r'^(?P<version>\d+\.\d+) (?P<timestamp>[^ ]+) (?P<hosted_zone_id>[^ ]+) (?P<query_name>[^ ]+) (?P<query_type>[^ ]+) (?P<response_code>[^ ]+) (?P<protocol>[^ ]+) (?P<edge_location>[^ ]+) (?P<resolver_ip>[^ ]+) (?P<answer>[^ ]+)$')
@@ -87,10 +87,10 @@ parsed = parse_regex!(.message, r'^(?P<version>\d+\.\d+) (?P<timestamp>[^ ]+) (?
 > **Tip:** Enrich resolver IPs with geo-location using MaxMind:
 ```vrl
 if is_ipv4(string!(.route53_resolver_ip)) {
-    .geo = get_geoip(.route53_resolver_ip, "maxmind_city")
+    .geo = get_enrichment_table_record!("maxmind_city", {"ip": .route53_resolver_ip})
 }
 ```
-> NOTE: You can download our prebuilt dashboards from our [git repository.](https://github.com/openobserve/dashboards/tree/main/AWS_Route53)
+> NOTE: You can download the prebuilt dashboard from the [dashboards repository](https://github.com/openobserve/dashboards/tree/main/AWS_Route53) and import it from **Dashboards > Import > Custom**.
 :::
 
 :::accordion[Troubleshooting]

@@ -6,7 +6,7 @@ description: Ingest logs into OpenObserve through multiple APIs, including Elast
 # API Index - Logs Ingestion
 
 1. [Bulk](bulk.md)
-1. [Json](json.md)
-1. [Mutli](multi.md)
+1. [JSON](json.md)
+1. [Multi](multi.md)
 1. [Loki](loki.md)
-1. [Otlp](otlp.md)
+1. [OTLP](otlp.md)

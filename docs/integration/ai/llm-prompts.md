@@ -23,7 +23,7 @@ Prompts are available in the Enterprise edition and OpenObserve Cloud.
 
 ## Create a prompt
 
-1. Navigate to **AI > Experiment > Prompts** and click **New prompt**.
+1. Navigate to **AI Observability > Experiment > Prompts** and click **New prompt**.
 2. Enter a **Name**. Use lowercase letters, digits, `_`, and `-`, for example `support-answer`.
 3. Pick a **Type**: **Text** or **Chat**.
 4. Optionally add a **Description** and **Tags**.

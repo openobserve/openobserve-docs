@@ -86,7 +86,7 @@ export const tutorials = withResolved([
 /** Concept rows under "User Guides". */
 export const concepts = withResolved([
   { href: "/user-guide/data-exploration/logs", title: "Log Search", desc: "View and filter logs, run SQL queries, transform logs", icon: "assets/user-guides/Log Search.svg" },
-  { href: "/user-guide/streams", title: "Streams", desc: "Define how data is ingested, stored, indexed, and queried", icon: "assets/user-guides/stream.svg" },
+  { href: "/user-guide/data-processing/streams/streams-in-openobserve", title: "Streams", desc: "Define how data is ingested, stored, indexed, and queried", icon: "assets/user-guides/stream.svg" },
   { href: "/ingestion", title: "Ingestion", desc: "Ingest logs, metrics, and traces from various sources", icon: "assets/user-guides/ingestion.svg" },
   { href: "/user-guide/account-administration/identity-and-access-management", title: "IAM", desc: "Manage user identities and control access to resources", icon: "assets/user-guides/iam.svg" },
   { href: "/administration/maintenance/storage-management", title: "Storage Management", desc: "Configure how ingested stream data and metadata are stored", icon: "assets/user-guides/storage-management.svg" },

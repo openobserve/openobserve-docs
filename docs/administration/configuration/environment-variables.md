@@ -456,6 +456,16 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_TOKIO_CONSOLE_SERVER_PORT | 6699          | Port for the Tokio console server.                  |
 | ZO_TOKIO_CONSOLE_RETENTION    | 60            | Retention period in seconds for Tokio console data. |
 
+## Profiling
+| Environment Variable               | Default Value                                  | Description                                   |
+| ---------------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| ZO_PROF_PPROF_ENABLED           | false                                          | Enables profiling with pprof-rs.              |
+| ZO_PROF_PPROF_PROTOBUF_ENABLED | false                                          | Exports pprof-rs profiles in protobuf format. |
+| ZO_PROF_PPROF_FLAMEGRAPH_PATH  | -                                              | Path to save flamegraph output.               |
+| ZO_PROF_PYROSCOPE_ENABLED       | false                                          | Enables profiling with pyroscope-rs.          |
+| ZO_PROF_PYROSCOPE_SERVER_URL   | `http://localhost:4040` | Pyroscope server URL.                         |
+| ZO_PROF_PYROSCOPE_PROJECT_NAME | openobserve                                    | Pyroscope project name.                       |
+
 ## Tantivy Index
 | Environment Variable                                  | Default Value | Description                                                              |
 | ----------------------------------------------------- | ------------- | ------------------------------------------------------------------------ |
@@ -497,8 +507,8 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ----------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | ZO_USAGE_REPORTING_ENABLED | true | Enable usage reporting. This will start capturing how much data has been ingested across each org/stream. You can use this info to enable charge back for internal teams.   |
 | ZO_USAGE_BATCH_SIZE        | 2000  | How many requests should be batched before flushing the usage data from memory to disk.    |
-| ZO_USAGE_REPORTING_MODE    | local  | Local mode means the usage will be reported only in the `_meta` organization of the internal cluster. remote mode means that the usage reporting will be ingested to the remote target. both ingests the usage reports both to internal and remote target. |
-| ZO_USAGE_REPORTING_URL     | [http://localhost:5080/api/_meta/usage/_json](http://localhost:5080/api/_meta/usage/_json) | In case of remote or both value of ZO_USAGE_REPORTING_MODE, this URL is used to post the usage reports to remote target.  |
+| ZO_USAGE_REPORTING_MODE    | local  | Local mode means the usage will be reported only in the internal cluster of ZO_USAGE_ORG. remote mode means that the usage reporting will be ingested to the remote target. both ingests the usage reports both to internal and remote target. |
+| ZO_USAGE_REPORTING_URL     | `http://localhost:5080/api/_meta/usage/_json` | In case of remote or both value of ZO_USAGE_REPORTING_MODE, this URL is used to post the usage reports to remote target.  |
 | ZO_USAGE_REPORTING_CREDS   | -  | The credentials required to send along with the post request to the ZO_USAGE_REPORTING_URL. E.g. - Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=.  |
 | ZO_USAGE_PUBLISH_INTERVAL  | 60 | Duration in seconds after the last reporting usage will be published. |
 
@@ -655,9 +665,9 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 
 | Environment Variable | Default Value | Description |
 |---------------------|---------------|-------------|
-| O2_AI_ENABLED | true | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires the o2ai agent service (Helm `enterprise.o2ai`). Set to false to opt out. |
-| O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: http://o2-openobserve-router:5080 |
-| O2_AGENT_URL | - | URL of the o2ai agent service. The Helm chart generates it when `enterprise.o2ai.enabled` is true. Example: `http://<release>-o2ai:8000` |
+| O2_AI_ENABLED | false | Enables AI-powered features such as query assistance, anomaly detection, and root cause analysis. Requires o2-sre-agent to be deployed. |
+| O2_TOOL_API_URL | - | URL for OpenObserve API that AI agent can use for tool calls. Auto-generated to point to router service. Example: `http://o2-openobserve-router:5080` |
+| O2_AGENT_URL | - | URL endpoint for the o2-sre-agent service. Auto-generated when sreagent is enabled. Example: `http://o2-sre-agent:8000` |
 
 ## AI agent (o2ai) configuration
 
@@ -674,9 +684,9 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_AI_API_KEY | - | Authentication API key for accessing the AI service. Required for AI features. |
 | O2_AI_GATEWAY_ENABLED | false | Set to "true" to route AI requests through an AI Gateway instead of direct provider API calls. |
 | O2_AI_GATEWAY_TIMEOUT | 120 | Request timeout for gateway requests in seconds |
-| O2_AI_GATEWAY_URL | - | URL of the AI Gateway service (e.g., http://my-gateway:80). When specified, all AI requests are routed through this gateway. |
-| O2_MCP_USERNAME | - | Username for MCP (Model Context Protocol) authentication with the o2ai agent. Optional. |
-| O2_MCP_PASSWORD | - | Password for MCP (Model Context Protocol) authentication with the o2ai agent. Optional. |
+| O2_AI_GATEWAY_URL | - | URL of the AI Gateway service (e.g., `http://my-gateway:80`). When specified, all AI requests are routed through this gateway. |
+| O2_MCP_USERNAME | - | Username for MCP (Model Context Protocol) authentication with o2-sre-agent. Optional. |
+| O2_MCP_PASSWORD | - | Password for MCP (Model Context Protocol) authentication with o2-sre-agent. Optional. |
 | O2_MCP_VALIDATION_ENABLED | true | Enables Model Context Protocol (MCP) validation for AI requests. |
 | O2_MCP_VALIDATION_RETRY | true | Enables retry mechanism for failed MCP validation. |
 | O2_MCP_CONTENT_VALIDATION_ENABLED | true | Enables content validation for MCP requests and responses. |
@@ -761,5 +771,5 @@ The following settings no longer exist in OpenObserve. Setting them has no effec
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)
 

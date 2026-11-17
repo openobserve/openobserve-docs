@@ -31,11 +31,11 @@ Get started with OpenObserve observability platform for logs, metrics, and trace
 
 :::accordion[Step 2: Get Your Ingestion Credentials]
 
-1. After logging in, navigate to the **Data Sources** section in the sidebar
+1. After logging in, select **Data** in the sidebar to open the **Data sources** page
 
-    ![Ingestion](./images/quickstart/ingestion_credentials.png)
+    ![Ingestion](./images/quickstart/ingestion_credentials-v2.png)
 
-2. Copy the provided cURL command - it contains your unique credentials
+2. Copy the provided cURL command - it contains your unique credentials. The ingestion token stays hidden on screen but is included when you copy
 3. Your endpoint will look like: `https://api.openobserve.ai/api/[YOUR_ORG]/default/_json`
 
 You are ready to ingest data. Now head over to [Load sample data](#load-sample-data) section.
@@ -60,7 +60,7 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 
 **Download and Install**
 
-1. Download Binaries from [downloads page](https://openobserve.ai/downloads)
+1. Download Binaries from [downloads page](https://openobserve.ai/downloads/)
 2. Open Command Prompt or PowerShell as Administrator
 3. Run the following commands:
 
@@ -84,7 +84,7 @@ You can set email and password based on your preference
 ::::
 ::::tab[MacOS/Linux Binaries]
 
-1. Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads)
+1. Download the appropriate binary from our [downloads page](https://openobserve.ai/downloads/)
 2. Make it executable: `chmod +x openobserve`
 3. Run with environment variables as shown:
 
@@ -167,7 +167,7 @@ aws ecr-public get-login-password --region us-east-1 | docker login --username A
 After installation, verify OpenObserve is running:
 
 1. Open your browser and navigate to:
-    - **Self-hosted**: [http://localhost:5080](http://localhost:5080)
+    - **Self-hosted**: `http://localhost:5080`
     - **Cloud**: [https://cloud.openobserve.ai](https://cloud.openobserve.ai)
 
 2. Log in with your credentials:
@@ -237,7 +237,7 @@ Now let's explore the data you just loaded.
 2. Click on **Logs** in the left sidebar
 3. Select **default** from the stream dropdown (top-left)
 
-![Logs page](./images/quickstart/logs_page.png)
+![Logs page](./images/quickstart/logs_page-v2.png)
 :::
 
 
@@ -292,4 +292,4 @@ Now let's explore the data you just loaded.
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

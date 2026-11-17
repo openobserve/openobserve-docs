@@ -89,7 +89,7 @@ processors:
 
 exporters:
   otlphttp/openobserve:
-    endpoint: https://<your-openobserve-endpoint>/api/default
+    endpoint: https://<your-openobserve-endpoint>/api/<org_id>
     headers:
       Authorization: Basic <your_auth_token>
       stream-name: default
@@ -107,9 +107,9 @@ service:
       exporters: [otlphttp/openobserve]
 ```
 
-Replace `<your-openobserve-endpoint>` and `<your_auth_token>` with your OpenObserve details.  
+Replace `<your-openobserve-endpoint>`, `<org_id>` and `<your_auth_token>` with your OpenObserve details.  
 
-![OpenObserve Metrics Creds](../images/databases/otel-metrics-cred.png)
+![OTEL Collector config under Custom > Metrics](../images/databases/otel-metrics-cred-v2.png)
 :::
 
 :::accordion[Step 4: Run the Collector]
@@ -125,15 +125,15 @@ otelcol-contrib --config /path/to/config.yaml
 
 :::accordion[Step 5: Visualize in OpenObserve]
 
-1. Open **OpenObserve → Streams** and select your Oracle metrics/logs stream.  
-    ![Visualize Oracle Metrics](../images/databases/oracle-metrics.png)
+1. Open **Data > Streams** in OpenObserve and select your Oracle metrics/logs stream.  
+    ![Oracle metric streams in Data > Streams](../images/databases/oracle-metrics-v2.png)
 2. Create dashboards to track:  
     - Active sessions  
     - Tablespace usage  
     - Query executions & rollbacks  
     - CPU and I/O utilization  
 
-> You can make use of pre-built [OracleDB dashboards](https://github.com/openobserve/dashboards/tree/main/OracleDB).
+> You can import the pre-built [OracleDB dashboards](https://github.com/openobserve/dashboards/tree/main/OracleDB) from **Dashboards > Import > Custom**.
 :::
 
 ## Troubleshooting

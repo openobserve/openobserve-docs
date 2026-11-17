@@ -5,7 +5,7 @@ description: Move or export multiple dashboards in bulk in OpenObserve to organi
 
 OpenObserve allows you to move or export multiple dashboards at once using the dashboard list view. This helps you organize your dashboards efficiently or back them up when needed.  
 
-![Move dashboards in bulk](../../../images/dashboard-bulk-move.png)
+![Move dashboards in bulk](../../../images/dashboard-bulk-move-v2.png)
 
 ## How to Move Dashboards in Bulk
 
@@ -13,12 +13,12 @@ OpenObserve allows you to move or export multiple dashboards at once using the d
 2. Use the checkboxes to select multiple dashboards from the list.  
 3. Click the **Move** button at the bottom of the table.
 
-![Select folder to move dashboards in bulk](../../../images/dashboard-bulk-move-select-folder.png)
+![Select folder to move dashboards in bulk](../../../images/dashboard-bulk-move-select-folder-v2.png)
 
-4. In the side panel:
+4. In the **Move Dashboard** dialog:
 
     - Use the **Select Folder** dropdown to choose the destination folder.  
-    - To create a new folder, click the **+** icon and enter a name.  
+    - To create a new folder, click the **+** (**New Folder**) icon next to the dropdown and enter a name.  
     - Click **Move** to complete the operation.
 
 The selected dashboards will be moved to the specified folder.
@@ -30,10 +30,12 @@ The selected dashboards will be moved to the specified folder.
 3. Click the **Export** button at the bottom of the table.
 
 
-![Export dashboards in bulk](../../../images/dashboard-bulk-move.png) 
+![Export dashboards in bulk](../../../images/dashboard-bulk-move-v2.png) 
 
 A success message will confirm that the dashboards were exported.
 
 :::note[Note]
 The exported dashboards are downloaded in **JSON** format, which can be saved or imported later.
 :::
+
+The same bar also offers **TV playlist**, to rotate the selected dashboards on a screen (see [TV Playlist](tv-playlist.md)), and **Delete**, to delete the selected dashboards.

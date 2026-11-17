@@ -7,6 +7,7 @@
     "remote-destination",
     "import-and-export-pipelines",
     "manage-pipelines",
+    "pipeline-history",
     "configurable-delay-in-scheduled-pipelines"
   ]
 }

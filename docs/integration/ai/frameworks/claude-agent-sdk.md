@@ -18,7 +18,7 @@ Capture agent query timing, token usage, turn counts, and error status for every
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk claude-agent-sdk python-dotenv
+pip install openobserve-python-sdk claude-agent-sdk python-dotenv
 ```
 
 ## **Configuration**
@@ -114,7 +114,7 @@ Each `query()` call produces one span containing the following attributes source
 3. Click any span to inspect token usage, turn count, and duration
 4. Use `claude_agent_is_error = true` to filter for failed runs
 
-![Claude Agent SDK trace in OpenObserve](../../../images/integration/ai/claude-agent-sdk.png)
+![Claude Agent SDK trace in OpenObserve, Waterfall view with the claude_agent.query span attributes](../../../images/integration/ai/claude-agent-sdk-v2.png)
 
 ## **Next Steps**
 

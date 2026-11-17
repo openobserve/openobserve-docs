@@ -52,11 +52,11 @@ This is a **reactive caching mechanism**. The querier downloads only the files n
 
 ## Queue-Based Downloading
 
-Prior to version `v0.14.7`, the Download Manager used a single queue to manage all file download requests. This queue operated in a first-in, first-out (FIFO) manner. All downloads, regardless of whether they were triggered by ingestion or search, were processed in the order in which they arrived.
+Prior to version `v0.15.0`, the Download Manager used a single queue to manage all file download requests. This queue operated in a first-in, first-out (FIFO) manner. All downloads, regardless of whether they were triggered by ingestion or search, were processed in the order in which they arrived.
 
 This model had limitations. For example, a large historical search could generate many download requests for older files, delaying the download of more recent files created by ongoing ingestion. As a result, recent data could become temporarily unavailable for querying, even though it had already been ingested.
 
-To address this issue, OpenObserve introduced a dual-queue system in version `v0.14.7`.
+To address this issue, OpenObserve introduced a dual-queue system in version `v0.15.0`.
 
 ## Dual Queue System 
 The dual-queue system separates file download requests into two categories:
@@ -91,7 +91,7 @@ The classification is based on the file’s **latest timestamp**, which represen
 
 ## Small File Pre-download
 
-Starting with version `v0.93.0`, a search no longer range-reads small files from object storage. Reading a small Parquet file that is not cached costs several requests: the file metadata is fetched twice, the data pages once, and the Download Manager fetches the whole file again in the background. For a file of about 1 MB, one full download is as fast as a single range request and replaces all of them.
+Starting with version `v1.1.0`, a search no longer range-reads small files from object storage. Reading a small Parquet file that is not cached costs several requests: the file metadata is fetched twice, the data pages once, and the Download Manager fetches the whole file again in the background. For a file of about 1 MB, one full download is as fast as a single range request and replaces all of them.
 
 When a search finds files missing from the cache, it splits them by size:
 

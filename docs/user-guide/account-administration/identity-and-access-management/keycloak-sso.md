@@ -192,7 +192,7 @@ connectors:
 staticClients:
   - id: o2-client
     name: o2-client
-    secret: <O2_CLIENT_SECRET>
+    secret: <CLIENT_SECRET>
     redirectURIs:
       - https://dev.cluster1.example.com/config/redirect
 ```
@@ -235,7 +235,7 @@ Set the Dex-related environment variables on the OpenObserve deployment (in Helm
 ```bash
 O2_DEX_ENABLED=true
 O2_DEX_CLIENT_ID=o2-client
-O2_DEX_CLIENT_SECRET=<O2_CLIENT_SECRET>            # matches staticClients secret in Dex
+O2_DEX_CLIENT_SECRET=<CLIENT_SECRET>            # matches staticClients secret in Dex
 O2_DEX_BASE_URL=https://dev-dex.cluster1.example.com/dex
 O2_CALLBACK_URL=https://dev.cluster1.example.com/web/cb
 O2_DEX_REDIRECT_URL=https://dev.cluster1.example.com/config/redirect
@@ -245,7 +245,7 @@ O2_DEX_DEFAULT_ORG=default
 O2_DEX_DEFAULT_ROLE=user
 ```
 
-If you enabled the groups mapper (Step 2.4) and want Keycloak groups to drive OpenObserve org/role assignment, configure the group-claim variables (`O2_DEX_GROUP_CLAIM`, `O2_DEX_GROUP_ATTRIBUTE`, `O2_DEX_ROLE_ATTRIBUTE`) per the [OpenObserve SSO docs](sso.md). The parsing convention differs between LDAP-style DNs and flat group names, so match it to how the groups appear in the token.
+If you enabled the groups mapper (Step 2.4) and want Keycloak groups to drive OpenObserve org/role assignment, configure the group-claim variables (`O2_DEX_GROUP_CLAIM`, `O2_DEX_LDAP_GROUP_ATTRIBUTE`, `O2_DEX_LDAP_ROLE_ATTRIBUTE`) per the [OpenObserve SSO docs](sso.md). The parsing convention differs between LDAP-style DNs and flat group names, so match it to how the groups appear in the token.
 
 Restart OpenObserve after changing env vars:
 

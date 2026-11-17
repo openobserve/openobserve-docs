@@ -22,7 +22,17 @@ export const SOCIAL_IMAGE = {
   url: `${SITE_URL}/o2-seo-image.png`,
   width: 1200,
   height: 630,
-  alt: 'OpenObserve',
+  alt: 'OpenObserve logo',
+};
+
+/**
+ * Who the docs are written by: the OpenObserve team, not individual authors.
+ * Emitted as `article:author` / `<meta name="author">` and as the TechArticle
+ * `author`. The URL is the marketing site's About page (its canonical form).
+ */
+export const DOCS_AUTHOR = {
+  name: 'OpenObserve',
+  url: `${SITE_URL}/about/`,
 };
 
 /** Canonical absolute URL for a page URL such as `/getting-started`. */

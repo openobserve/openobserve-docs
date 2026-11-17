@@ -166,7 +166,7 @@ Each `swiftide.agent_run` span contains the following attributes:
 4. Filter by `span_status` = `ERROR` to find failed agent calls and read the `error_message`
 5. Sort by `duration` descending to identify the slowest agent invocations
 
-![Swiftide trace in OpenObserve](../../../images/integration/ai/swiftide.png)
+![Swiftide trace in OpenObserve, Waterfall view with the swiftide.agent span attributes](../../../images/integration/ai/swiftide-v2.png)
 
 ## **Next Steps**
 

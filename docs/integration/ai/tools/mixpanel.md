@@ -9,7 +9,7 @@ Record LLM usage events in Mixpanel for product analytics while simultaneously e
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Mixpanel](https://mixpanel.com/) project token
@@ -18,7 +18,7 @@ Record LLM usage events in Mixpanel for product analytics while simultaneously e
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai mixpanel openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai mixpanel openai python-dotenv
 ```
 
 ## **Configuration**
@@ -67,7 +67,7 @@ def generate(prompt: str, user_id: str = None) -> str:
             max_tokens=200,
         )
         reply = response.choices[0].message.content
-        trace_id = hex(span.get_span_context().trace_id)
+        trace_id = format(span.get_span_context().trace_id, "032x")
 
         mp.track(user_id or str(uuid.uuid4()), "LLM Call", {
             "model": "gpt-4o-mini",
@@ -110,7 +110,7 @@ print(result)
 2. Filter by span name `mixpanel.llm_call` to see all LLM calls
 3. Use the `trace_id` property in Mixpanel to locate the full OTel trace in OpenObserve
 
-![Mixpanel LLM trace in OpenObserve](../../../images/integration/ai/mixpanel.png)
+![Mixpanel LLM trace in OpenObserve, Waterfall view with the mixpanel.llm_call span attributes](../../../images/integration/ai/mixpanel-v2.png)
 
 ## **Next Steps**
 

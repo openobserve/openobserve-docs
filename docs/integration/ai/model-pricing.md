@@ -17,11 +17,15 @@ OpenObserve populates the following cost fields on each LLM span when Model Pric
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `llm_usage_cost_input` | Float64 | Cost of input (prompt) tokens |
-| `llm_usage_cost_output` | Float64 | Cost of output (completion) tokens |
-| `llm_usage_cost_total` | Float64 | Total cost of the LLM call |
+| `gen_ai_usage_cost_input` | Float64 | Cost of input (prompt) tokens |
+| `gen_ai_usage_cost_output` | Float64 | Cost of output (completion) tokens |
+| `gen_ai_usage_cost` | Float64 | Total cost of the LLM call |
 
-> **Note**: When Model Pricing is disabled, OpenObserve falls back to a built-in, hardcoded pricing set. The DB pricing lookup, the periodic sync job, and the **Model Pricing** UI tab are all gated behind the enable flag.
+Spans that use prompt caching also get `gen_ai_usage_cost_cache_read_input`, `gen_ai_usage_cost_cache_creation_input`, `gen_ai_usage_cost_estimated_without_cache`, `gen_ai_usage_cost_cache_read_savings`, and `gen_ai_usage_cost_net_cache_impact`.
+
+OpenObserve only calculates a cost for spans that do not already report one. If your instrumentation sends its own cost attributes, those values are kept.
+
+> **Note**: When Model Pricing is disabled, no cost is calculated: spans keep only the costs they report themselves. The pricing lookup, the periodic sync job, and the **LLM Model Pricing** settings page are all gated behind the enable flag.
 
 ## Key features
 
@@ -49,24 +53,24 @@ Before relying on a definition, test how a given model name resolves against you
 
 ### Prerequisites
 
-- A self-hosted OpenObserve instance where you can set environment variables
+- OpenObserve Enterprise or Cloud. The **LLM Model Pricing** page is not shown in the open-source edition.
 - LLM traces being ingested (see [LLM Observability](llm-applications.md))
 
 ### Enabling Model Pricing
 
-Model Pricing is controlled by environment variables. The feature is disabled by default.
+Model Pricing is controlled by environment variables. The feature is enabled by default.
 
-Set the following variable to enable it:
+To turn it off, set:
 
 ```shell
-ZO_MODEL_PRICING_ENABLED=true
+ZO_MODEL_PRICING_ENABLED=false
 ```
 
-Enabling this flag turns on three behaviors: it shows the **Model Pricing** tab in the UI, starts the background sync job that pulls built-in pricing, and enables the database pricing lookup during ingestion. When the flag is `false`, OpenObserve skips the database lookup and uses its hardcoded built-in pricing instead.
+The flag controls three behaviors: it shows the **LLM Model Pricing** page in the UI, starts the background sync job that pulls built-in pricing, and enables the pricing lookup during ingestion. When the flag is `false`, OpenObserve calculates no cost for spans that do not report one.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| `ZO_MODEL_PRICING_ENABLED` | Enable user-defined model pricing. When `true`, uses database pricing definitions and syncs from the source URL. When `false`, falls back to hardcoded built-in pricing only. | `false` |
+| `ZO_MODEL_PRICING_ENABLED` | Enable model pricing. When `true`, uses pricing definitions and syncs built-in pricing from the source URL. When `false`, no cost is computed for spans that do not report one. | `true` |
 | `ZO_MODEL_PRICING_SOURCE_URL` | URL of the built-in LLM model pricing JSON source. | `https://raw.githubusercontent.com/openobserve/sdr_patterns/refs/heads/main/llm_pricing.json` |
 | `ZO_MODEL_PRICING_SYNC_INTERVAL_SECS` | Interval in seconds for syncing built-in model pricing from the source URL. | `21600` (6 hours) |
 
@@ -74,20 +78,19 @@ Enabling this flag turns on three behaviors: it shows the **Model Pricing** tab 
 
 ## Managing pricing in the UI
 
-After enabling the feature, manage pricing from the **Settings > Model Pricing** tab. The tab is hidden unless `ZO_MODEL_PRICING_ENABLED` is `true`.
+Manage pricing from **Settings** > **Data & AI** > **LLM Model Pricing**. The page is hidden when `ZO_MODEL_PRICING_ENABLED` is `false`.
 
 From this tab you can:
 
-- **View built-in pricing**: Browse the read-only built-in catalog and search by model name.
-- **Refresh built-in pricing**: Trigger an on-demand sync from the configured source URL.
-- **Import**: Bring in pricing definitions to seed your organization's pricing.
-- **Edit**: Create and edit custom pricing definitions in the editor, including the match pattern and pricing tiers.
-- **List**: Review all pricing definitions for your organization.
+- **List**: Review all pricing definitions, including the read-only built-in catalog, and search by model name.
+- **Sync built-in prices**: Trigger an on-demand sync from the configured source URL.
+- **Import**: Bring in pricing definitions from a file, JSON, or a URL.
+- **New model**: Create custom pricing definitions in the editor, including the match pattern and pricing tiers. Use **Clone to this org** to start from a built-in or global definition.
 - **Test model match**: Enter a model name to see which definition it matches and preview the computed cost.
 
 ### How matching works
 
-For each LLM span, OpenObserve evaluates pricing definitions by their regex `match_pattern` against the model name. User-defined definitions take priority over built-in ones. Within a matched definition, pricing tiers are evaluated in order: tiers with a condition are checked first, and the first tier whose condition is met wins. A tier without a condition acts as the default fallback.
+For each LLM span, OpenObserve evaluates pricing definitions by their regex `match_pattern` against the model name. The priority is: your organization's definitions, then global definitions, then built-in ones. Within a matched definition, the first tier is the default; additional tiers apply when their usage condition, UTC time window, and attribute rules are all met. Once any tier uses an attribute rule or a priority, the matching tier with the highest priority wins, then the most specific; otherwise the first matching tier in list order wins.
 
 Per-token rates are keyed by usage type, for example `input` and `output`, and are expressed as the price for a single token (for example, `0.000003` equals $3 per 1M tokens).
 
@@ -122,7 +125,6 @@ A pricing definition includes a display `name`, a regex `match_pattern` used to 
 
 ## Best practices
 
-- Keep Model Pricing disabled until you are ingesting LLM traces and want cost attribution; the built-in hardcoded pricing still applies as a fallback.
 - Use anchored, case-insensitive regex patterns (for example, `(?i)^gpt-4o`) to avoid unintended matches across model families.
 - Set a validity start time on definitions when rates change, so historical traces retain their original computed costs.
 - Use the test model match tool to confirm a new definition resolves as expected before depending on its cost output.
@@ -131,30 +133,30 @@ A pricing definition includes a display `name`, a regex `match_pattern` used to 
 
 ### Cost fields are empty on LLM traces
 
-**Problem**: Traces show token usage but `llm_usage_cost_*` fields are zero or missing.
+**Problem**: Traces show token usage but `gen_ai_usage_cost*` fields are zero or missing.
 
 **Solution**:
-1. Confirm `ZO_MODEL_PRICING_ENABLED=true` and that the instance was restarted.
+1. Confirm `ZO_MODEL_PRICING_ENABLED` is not set to `false`.
 2. Verify the model name on the span matches a definition's `match_pattern` using the test model match tool.
 3. Check that the matched tier defines a per-token price for the usage keys present on the span (for example, `input` and `output`).
 
-### The Model Pricing tab is not visible
+### The LLM Model Pricing page is not visible
 
-**Problem**: The **Model Pricing** tab does not appear under **Settings**.
+**Problem**: **LLM Model Pricing** does not appear under **Settings** > **Data & AI**.
 
 **Solution**:
-1. Ensure `ZO_MODEL_PRICING_ENABLED=true`; the tab is hidden when the flag is `false`.
-2. Restart the instance so the updated configuration is applied.
+1. Check that you are on Enterprise or Cloud; the open-source edition does not show the page.
+2. Ensure `ZO_MODEL_PRICING_ENABLED` is not `false`, and restart the instance after changing it.
 
 ### Built-in catalog is out of date
 
 **Problem**: Built-in pricing does not reflect the latest upstream values.
 
 **Solution**:
-1. Trigger a refresh from the **Model Pricing** tab, or call `POST /api/{org_id}/llm/models/refresh-built-in`.
+1. Click **Sync built-in prices** on the **LLM Model Pricing** page, or call `POST /api/{org_id}/llm/models/refresh-built-in`.
 2. Confirm `ZO_MODEL_PRICING_SOURCE_URL` points to a reachable source.
 3. Review `ZO_MODEL_PRICING_SYNC_INTERVAL_SECS` if you expect more frequent automatic syncs.
 
 ## Related
 
-For instrumenting and shipping LLM traces to OpenObserve, see [LLM Observability](llm-applications.md). The cost fields documented there (`llm_usage_cost_input`, `llm_usage_cost_output`, `llm_usage_cost_total`) are populated by the Model Pricing feature described on this page.
+For instrumenting and shipping LLM traces to OpenObserve, see [LLM Observability](llm-applications.md). The cost fields documented there (`gen_ai_usage_cost_input`, `gen_ai_usage_cost_output`, `gen_ai_usage_cost`) are populated by the Model Pricing feature described on this page.

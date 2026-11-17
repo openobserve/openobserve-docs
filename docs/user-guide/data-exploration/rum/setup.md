@@ -7,14 +7,14 @@ description: Set up OpenObserve Real User Monitoring (RUM) in web, React Native,
 
 This guide walks you through setting up OpenObserve RUM across all supported platforms: **Browser (Web)**, **React Native**, **Android**, and **iOS**.
 
-OpenObserve provides an in-app guided setup. From the **Ingestion** menu, select **RUM** and use the platform switcher to pick your target. The UI fills in your endpoint, organization, and RUM token automatically.
+OpenObserve provides an in-app guided setup. Go to **Data** > **Data sources** > **Recommended** > **Real User Monitoring** and use the **Platform** switcher to pick your target. The UI fills in your endpoint, organization, and RUM token automatically.
 
 ![RUM setup platform switcher showing Browser, React Native, Android, and iOS tabs](images/mobile-rum-sdk-1.png)
 
 ## Prerequisites
 
 - A running OpenObserve instance
-- A RUM client token (generated from the **Ingestion** &rarr; **RUM** page in OpenObserve)
+- A RUM client token (from the **Data** &rarr; **Data sources** &rarr; **Real User Monitoring** page in OpenObserve)
 - The application you want to monitor
 
 ---
@@ -564,13 +564,13 @@ SessionReplay.enable(
 After deploying your application with RUM enabled:
 
 1. Launch your application and perform interactions
-2. Log in to OpenObserve and navigate to the **RUM** section
+2. Log in to OpenObserve and go to **Experience** > **RUM**
 3. In the in-app setup guide, the **Verify** step auto-detects incoming data — look for the green checkmark
 4. Explore your data across:
    - **Performance** tab — adaptive dashboards showing metrics your stream actually emits. Dashboards automatically remove panels whose columns do not exist in the stream schema (e.g. Web Vitals panels hide for mobile-only apps)
    - **Sessions** tab — user sessions from all platforms, filterable by `source = 'browser'`, `source = 'android'`, `source = 'ios'`
    - **Error Tracking** tab — errors and crashes from any platform
-   - **Session Replay** — replay recordings of user sessions
+   - **Session Replay** — open a session from the **Sessions** tab to replay it
 
 ![verified RUM setup with green checkmark and detected data](images/mobile-rum-sdk-2.png)
 
@@ -579,7 +579,7 @@ After deploying your application with RUM enabled:
 ### No Data Appearing
 
 1. **Check console / logcat / Xcode console** for initialization errors
-2. **Verify the RUM client token**: ensure it matches the token on the **Ingestion** &rarr; **RUM** page
+2. **Verify the RUM client token**: ensure it matches the token on the **Data** &rarr; **Data sources** &rarr; **Real User Monitoring** page
 3. **Check network requests**:
    - Browser: DevTools &rarr; Network tab
    - Android: inspect with `adb logcat` or a network profiler
@@ -627,7 +627,7 @@ The single most common reason one signal arrives while another does not is an in
 
 Two common causes:
 
-- The `clientToken` is your org's **RUM token**, not the ingestion passcode. If it was rotated, regenerate it from the **Ingestion** &rarr; **RUM** page and rebuild your app.
+- The `clientToken` is your org's **RUM token**, not the ingestion passcode. If it was rotated, regenerate it from the **Data** &rarr; **Data sources** &rarr; **Real User Monitoring** page and rebuild your app.
 - **React Native Session Replay specifically**: appending `/replay` to `customEndpoint` yourself on SDK `0.1.2`+ double-appends the path (the bridge already adds it), which is also rejected with `401`. Pass the bare base URL instead — see "Mobile: Endpoint URLs" above.
 
 ### Views / Screens All Named the Same

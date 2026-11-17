@@ -134,7 +134,7 @@ For self-hosted OpenObserve, replace the URL with `http://localhost:5080/api/def
 4. Filter by `span_status = ERROR` to find failed agent runs
 5. Use `ai_finish_reason = length` to identify responses cut off by token limits
 
-![Mastra traces in OpenObserve](../../../images/integration/ai/mastra.png)
+![Mastra trace in OpenObserve, Waterfall view with the mastra.agent_run span attributes](../../../images/integration/ai/mastra-v2.png)
 
 ## **Next Steps**
 

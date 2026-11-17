@@ -6,7 +6,7 @@ description: "Ingest logs into OpenObserve using OpenTelemetry, Vector, Filebeat
 
 # Log Ingestion - Centralized Logging & Log Management
 
-OpenObserve supports multiple log ingestion methods to collect, aggregate, and centralize logs from various sources. Whether you're using cloud-native log shippers, traditional syslog, or custom application logging, OpenObserve provides flexible options for centralized log management and log aggregation.
+OpenObserve supports multiple log ingestion methods to collect, aggregate, and centralize logs from various sources. Whether you're using cloud-native log shippers, syslog forwarders, or custom application logging, OpenObserve provides flexible options for centralized log management and log aggregation.
 
 ## Supported Log Ingestion Methods
 
@@ -17,7 +17,7 @@ OpenObserve supports multiple log ingestion methods to collect, aggregate, and c
 1. [Fluentd](fluentd.md) - Unified logging layer for log aggregation
 1. [Kinesis Firehose](kinesis-firehose.md) - AWS log streaming for cloud log ingestion
 1. [Splunk HEC](splunk-hec.md) - Splunk HTTP Event Collector endpoint for Splunk forwarders and HEC clients
-1. [Syslog](syslog.md) - Traditional syslog protocol for system logs
+1. [Syslog](syslog.md) - Syslog alternatives (the built-in syslog server was removed in v0.16.0)
 1. [Python](python.md) - Python SDK for application log ingestion
 1. [Go](go.md) - Go SDK for structured logging
 1. [Curl](curl.md) - Direct HTTP log ingestion

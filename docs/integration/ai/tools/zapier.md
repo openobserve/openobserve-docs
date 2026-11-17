@@ -9,7 +9,7 @@ Capture latency, payload metadata, and status codes for every Zapier webhook tri
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A Zapier account with a Zap using **Webhooks by Zapier** (Catch Hook) as the trigger
@@ -17,7 +17,7 @@ Capture latency, payload metadata, and status codes for every Zapier webhook tri
 ## **Installation**
 
 ```shell
-pip install openobserve opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**
@@ -88,7 +88,7 @@ trace.get_tracer_provider().force_flush()
 3. Expand a span to inspect `zapier_topic` and `zapier_question` alongside latency
 4. Filter by `span_status` = `ERROR` to find failed webhook calls
 
-![Zapier trace in OpenObserve](../../../images/integration/ai/zapier.png)
+![Zapier trace in OpenObserve, Waterfall view with the zapier.webhook_trigger span attributes](../../../images/integration/ai/zapier-v2.png)
 
 ## **Next Steps**
 

@@ -16,13 +16,13 @@ OpenObserve emits four key metrics that track how data files are downloaded and 
 - `zo_file_downloader_priority_queue_size`: Number of files in the [**priority** queue](download-manager.md#dual-queue-system). 
 
 - `zo_query_disk_cache_hit_count`: Number of files that were already on disk when the query was executed. 
-- `zo_query_disk_cache_miss_count`: Number of files that were not on disk and had to be downloaded before the query could run.
+- `zo_query_disk_cache_miss_count`: Number of files that were not on disk when the query was executed.
 
 :::note[Note]
 When OpenObserve runs a query, the querier first checks whether the required Parquet files are already available on the local disk:
 
 - If the file is found locally, it results in a **cache hit**. The file is immediately read from the disk and used to serve the query.
-- If the file is not found, it results in a **cache miss**. The Download Manager is triggered to fetch the file from object storage and save it to the local disk before query execution can proceed.  
+- If the file is not found, it results in a **cache miss**. Small files are downloaded into the cache before the query runs; larger files are read from object storage while the Download Manager caches them in the background. See [Small File Pre-download](download-manager.md#small-file-pre-download).  
 :::
 
 
@@ -32,13 +32,13 @@ To use these metrics, you must configure the following environment variables in 
 
 ```yaml
 extraEnv:
-- name: ZO_SELF_METRIC_CONSUMPTION_ENABLED
+  - name: ZO_SELF_METRIC_CONSUMPTION_ENABLED
     value: "true"
-- name: ZO_SELF_METRIC_CONSUMPTION_ACCEPTLIST
+  - name: ZO_SELF_METRIC_CONSUMPTION_ACCEPTLIST
     value: "zo_query_disk_cache_hit_count,zo_query_disk_cache_miss_count,zo_file_downloader_normal_queue_size,zo_file_downloader_priority_queue_size"
 ```
 
-Ensure that you apply this configuration in the correct environment where you want to collect and view the metrics.
+Self-metric consumption is off by default (`ZO_SELF_METRIC_CONSUMPTION_ENABLED=false`), and the metrics are collected every 60 seconds (`ZO_SELF_METRIC_CONSUMPTION_INTERVAL`). The metrics are ingested as metrics streams into the `_meta` organization, so build the dashboard there. Ensure that you apply this configuration in the correct environment where you want to collect and view the metrics.
 
 
 ## Visualize Metrics in Dashboards
@@ -65,14 +65,14 @@ To isolate useful data, we need to filter and group this information accordingly
 ## Step-by-Step Guide to Plotting the Metrics in Dashboards
 
 ### Step 1: Create a Panel 
-1. In the top-right corner, select your organization.
+1. Select the `_meta` organization from the organization selector in the header.
 2. Go to **Dashboards** from the left navigation menu.
 3. Open an existing dashboard or create a new one.
 4. Click **Add Panel** to start building a chart.
 Refer to [Panels in Dashboards](../../analytics/dashboards/dashboards-in-openobserve.md#panels) if needed. 
 
 ### Step 2: Choose a Chart Type
-From the chart type panel, choose a visualization type suitable for time-series data. **Line Chart** is recommended for tracking values over time.
+From the chart type panel, choose a visualization type suitable for time-series data. **Line** is recommended for tracking values over time.
 
 ### Step 3: Select Stream Type
 From the **Stream Type** dropdown, select **Metrics**. This enables access to the internal metrics.
@@ -108,8 +108,8 @@ Filters narrow the data to a specific cluster and namespace, ensuring the chart 
 **Add Filter for Cluster:**
 
 1. Click the + icon next to **Filters**. 
-2. Select **Add Condition**.  
-3. Click the **Filters on Field** dropdown and select the cluster field. For example, `k8s_cluster`. 
+2. Select **Add condition**.  
+3. Click the **Field** dropdown and select the cluster field. For example, `k8s_cluster`. 
 4. Under Condition, select operator as `=` and value as `$k8s_cluster`.
 
 **Add Filter for Namespace:** 
@@ -131,7 +131,7 @@ This configuration allows the chart to display a separate line for each pod. It 
 ![add breakdown](../../../images/download-manager-metrics-pod-name.png)
 
 ### Step 8: Select the Time Range
-Use the time range selector at the top of the panel editor to define the period you want to analyze. For example, select Last 6 hours or Last 12 hours to examine recent trends.
+Use the time range selector at the top of the panel editor to define the period you want to analyze. For example, select the last 6 or 12 hours to examine recent trends.
 
 ### Step 9: Click Apply
 Click **Apply** to generate the chart using your selected configuration.

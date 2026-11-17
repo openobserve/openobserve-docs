@@ -23,7 +23,7 @@ Enterprise tier includes all standard features plus the following enterprise-spe
 
 ### Operations
 - [Query Management](../user-guide/account-administration/management/query-management.md): optimize and manage query performance.
-- [Workload Management (QoS)](../user-guide/account-administration/work-group.md): prioritize and allocate resources.
+- [Workload Management (QoS)](../user-guide/account-administration/work-group-v2.md): prioritize and allocate resources.
 - [Audit Trail](../user-guide/account-administration/management/audit-trail.md): track all system activities and changes.
 
 ## Get started
@@ -43,4 +43,4 @@ Ready to deploy OpenObserve Enterprise?
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

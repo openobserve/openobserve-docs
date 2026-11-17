@@ -63,7 +63,7 @@ Based on the returned architecture (x86_64 or arm64), copy the compatible ARN va
 | `O2_ORGANIZATION_ID`      | `<your-org-id>`                              |
 | `O2_STREAM`               | `<stream_name>` |
 
-> Note: You can fetch these credentials from OpenObserve UI, Go to Data Sources -> Logs -> OTEL Collector
+> Note: These are settings of the Lambda extension, not of the OpenObserve server. You can fetch the endpoint, organization and `Basic` credentials from the OpenObserve UI: go to **Data > Data sources > Custom > Logs > OTEL Collector**.
 
 ![Configure Environment Variables](../../images/aws-integrations/lambda/add-environment-variables-in-lambda.png)
 
@@ -83,12 +83,12 @@ response.json
 
 1. Go to **Logs** in OpenObserve -> Select your log stream. 
 2. Set a recent time range and click **Run Query**  
-    ![Verify Logs in OpenObserve](../../images/aws-integrations/lambda/verify-lambda-logs-in-openobserve.png)  
+    ![Lambda logs in the Logs page](../../images/aws-integrations/lambda/verify-lambda-logs-in-openobserve-v2.png)  
 3. Filter out on logs where type= function using SQL query:
     ```
     SELECT * FROM "<log-stream>" where type = 'function'
     ```
-    ![](../../images/aws-integrations/lambda/fucntion-logs.png)
+    ![Lambda function logs filtered with type = 'function'](../../images/aws-integrations/lambda/fucntion-logs-v2.png)
 :::
 
 
@@ -120,7 +120,7 @@ To ensure logs only flow to OpenObserve, remove these IAM permissions from the L
 
 Once logs are flowing into OpenObserve, you can:  
 
-- **Build [dashboards](../../../index.md)** around function latency, memory usage, and errors  
+- **Build [dashboards](../../../user-guide/analytics/dashboards/index.md)** around function latency, memory usage, and errors  
 - **Set up [alerts](../../../user-guide/analytics/alerts/index.md)** on anomalies or failures  
 
 

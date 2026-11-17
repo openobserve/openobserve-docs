@@ -38,13 +38,13 @@ Before we begin, ensure you have:
 **Steps**
 
 1. Log in to your OpenObserve instance. 
-2. Navigate to **Data Sources > Recommended > Windows**.
-![windows-integration](../../images/windows-integration.png)
+2. Navigate to **Data > Data sources > Recommended > Windows**.
+![Windows card on the Data sources page](../../images/windows-integration-v2.png)
 3. Copy the provided PowerShell command. 
 4. Open PowerShell as Administrator and execute the command:
 
 ```bash 
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/openobserve/agents/main/windows/install.ps1 -OutFile install.ps1 ; .\install.ps1 -URL https://your-openobserve-instance.com/api/default/ -AUTH_KEY YOUR_API_KEY
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/openobserve/agents/main/windows/install.ps1 -OutFile install.ps1 ; .\install.ps1 -URL https://your-openobserve-instance.com/api/<org_id>/ -AUTH_KEY YOUR_API_KEY
 ```
 
 Upon successful execution of the above command, the OpenObserve Collector will:
@@ -77,68 +77,68 @@ tar -xzf otelcol-contrib.tar.gz
 Create a file named config.yaml in the `C:\otel-collector` directory with the following content:
 ```yaml lineNumbers
 receivers:
-windowseventlog/application:
+  windowseventlog/application:
     channel: application
-windowseventlog/system:
+  windowseventlog/system:
     channel: system
-windowseventlog/security:
+  windowseventlog/security:
     channel: security
-windowsperfcounters:
+  windowsperfcounters:
     collection_interval: 30s
     perfcounters:
-    - object: "Processor"
+      - object: "Processor"
         counters:
-        - "% Processor Time"
+          - "% Processor Time"
         instances: ["*"]
-    - object: "Memory"
+      - object: "Memory"
         counters:
-        - "Available Bytes"
-        - "Committed Bytes"
+          - "Available Bytes"
+          - "Committed Bytes"
         instances: [""]
-    - object: "LogicalDisk"
+      - object: "LogicalDisk"
         counters:
-        - "% Free Space"
-        - "Avg. Disk Queue Length"
+          - "% Free Space"
+          - "Avg. Disk Queue Length"
         instances: ["*"]
-    - object: "Network Interface"
+      - object: "Network Interface"
         counters:
-        - "Bytes Received/sec"
-        - "Bytes Sent/sec"
+          - "Bytes Received/sec"
+          - "Bytes Sent/sec"
         instances: ["*"]
 
 processors:
-batch:
+  batch:
     send_batch_size: 1024
     timeout: 10s
-resourcedetection:
+  resourcedetection:
     detectors: [system]
     system:
-    hostname_sources: ["os"]
+      hostname_sources: ["os"]
 
 exporters:
-otlphttp/openobserve:
-    endpoint: "https://your-openobserve-instance.com/api/default"
+  otlphttp/openobserve:
+    endpoint: "https://your-openobserve-instance.com/api/<org_id>"
     headers:
-    Authorization: "Basic YOUR_API_KEY"
-    stream-name: "windows-events"
-debug:
+      Authorization: "Basic YOUR_API_KEY"
+      stream-name: "windows_events"
+  debug:
     verbosity: detailed
 
 service:
-pipelines:
+  pipelines:
     logs:
-    receivers: [windowseventlog/application, windowseventlog/system, windowseventlog/security]
-    processors: [resourcedetection, batch]
-    exporters: [otlphttp/openobserve, debug]
+      receivers: [windowseventlog/application, windowseventlog/system, windowseventlog/security]
+      processors: [resourcedetection, batch]
+      exporters: [otlphttp/openobserve, debug]
     metrics:
-    receivers: [windowsperfcounters]
-    processors: [resourcedetection, batch]
-    exporters: [otlphttp/openobserve, debug]
-telemetry:
+      receivers: [windowsperfcounters]
+      processors: [resourcedetection, batch]
+      exporters: [otlphttp/openobserve, debug]
+  telemetry:
     logs:
-    level: "info"
+      level: "info"
 ```
-Replace https://your-openobserve-instance.com/api/default with your OpenObserve endpoint and YOUR_API_KEY with your actual API key.
+Replace `https://your-openobserve-instance.com/api/<org_id>` with your OpenObserve endpoint and organization, and `YOUR_API_KEY` with the Base64 credentials shown after `Basic` in **Data > Data sources > Custom > Logs > OTEL Collector**.
 3. Run the OpenTelemetry Collector
 ```
 .\otelcol-contrib.exe --config "C:\otel-collector\config.yaml"
@@ -154,30 +154,30 @@ Here are some practical configurations to enhance your Windows monitoring:
 
 :::accordion[Filtering Security Events]
 Security logs can be voluminous. Focus on critical events by using XPath queries:
-```
+```yaml
 windowseventlog/security:
-channel: security
-xpath_query: "*[System[(EventID=4624 or EventID=4625 or EventID=4634 or EventID=4648 or EventID=4672)]]"
+  channel: security
+  xpath_query: "*[System[(EventID=4624 or EventID=4625 or EventID=4634 or EventID=4648 or EventID=4672)]]"
 ```
 This configuration captures only login successes (4624), login failures (4625), logouts (4634), explicit credential uses (4648), and special privilege assignments (4672).
 :::
 
 :::accordion[Remote Collection for Multiple Servers]
 For centralized monitoring of multiple servers:
-```
+```yaml
 receivers:
-# Local server logs
-windowseventlog/local_system:
+  # Local server logs
+  windowseventlog/local_system:
     channel: system
 
-# Remote server logs
-windowseventlog/server1_system:
+  # Remote server logs
+  windowseventlog/server1_system:
     channel: system
     remote:
-    server: "server1.example.com"
-    username: "${env:DOMAIN_USER}"
-    password: "${env:DOMAIN_PASSWORD}"
-    domain: "EXAMPLE"
+      server: "server1.example.com"
+      username: "${env:DOMAIN_USER}"
+      password: "${env:DOMAIN_PASSWORD}"
+      domain: "EXAMPLE"
 ```
 :::
 
@@ -186,7 +186,7 @@ windowseventlog/server1_system:
 ## Troubleshooting
 If you encounter issues with your Windows monitoring setup:
 
-- **Verify OpenObserve Collector Installation**: Check if the OpenObserve Collector service is running with `Get-Service -Name "OpenObserveAgent"`.
+- **Verify OpenObserve Collector Installation**: Check if the OpenObserve Collector service is running with `Get-Service -Name "otel-collector"`.
 - **Check Permissions**: The service account must have administrative privileges to access Windows Event Logs and Performance Counters.
 - **Test Connectivity**: Ensure your server can reach your OpenObserve instance with `Test-NetConnection -ComputerName your-openobserve-instance.com -Port 443`.
 - **Review Event Log Access**: For security logs, ensure the service account has the **Manage auditing and security log** right.

@@ -16,12 +16,14 @@ None
 
 ```json
 {
-	"list": [
+	"data": [
 		{
-			"email": "admin@openobserve.ai",
-			"fist_name": "ming",
+			"email": "admin@example.com",
+			"first_name": "ming",
 			"last_name": "xing",
-			"role": "admin"
+			"role": "admin",
+			"is_external": false,
+			"created_at": 1717400000000000
 		}
 	]
 }
@@ -34,4 +36,6 @@ Description
 | email      | string    | -             | user email |
 | first_name | string    | -             | first name |
 | last_name  | string    | -             | last name |
-| role       | string    | -             | user role, supported: admin / user |
+| role       | string    | -             | user role: `admin`, `editor`, `viewer`, `user`, `service_account` or `root` |
+| is_external | bool     | false         | `true` for users created through SSO/LDAP |
+| created_at | int64     | -             | creation time |

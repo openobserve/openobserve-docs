@@ -55,7 +55,7 @@ claude mcp add <server-name> <O2_URL>/api/<ORG_ID>/mcp -t http --header "Authori
 
 **For OpenObserve Cloud:**
 ```bash
-claude mcp add o2 https://api.openobserve.ai/api/default/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
+claude mcp add o2 https://api.openobserve.ai/api/<ORG_ID>/mcp -t http --header "Authorization: Basic <YOUR_BASE64_TOKEN>"
 ```
 
 **For Self-Hosted Instance:**
@@ -128,13 +128,11 @@ What MCP tools do you have access to?
 ```
 
 **Expected tools from O2:**
-- `mcp__o2__StreamList` - List streams (logs, metrics, traces)
-- `mcp__o2__CreateAlert` - Create alerts
-- `mcp__o2__UpdateAlert` - Update alerts
-- `mcp__o2__ListAlerts` - List all alerts
-- `mcp__o2__ListDestinations` - List alert destinations
-- `mcp__o2__DeleteAlert` - Delete alerts
-- And more...
+- `mcp__o2__tool_search` - Find any OpenObserve tool by name, description, or category
+- `mcp__o2__tools_call` - Run a tool found with `tool_search`
+- Six pinned tools that need no search: `mcp__o2__SearchSQL`, `mcp__o2__StreamList`, `mcp__o2__StreamSchema`, `mcp__o2__PrometheusRangeQuery`, `mcp__o2__GetLatestTraces`, and `mcp__o2__GetIncident`
+
+Other tools, such as `CreateAlert` or `ListDestinations`, are found and run through `tool_search` and `tools_call`. See [Available tools](index.md#available-tools).
 
 ### 3. Test a Simple Query
 
@@ -230,7 +228,7 @@ echo "<YOUR_BASE64_TOKEN>" | base64 -d
 
 2. **Check credentials work directly:**
 ```bash
-curl -u "username:password" https://your-o2-instance/api/default/_meta
+curl -u "username:password" https://your-o2-instance/api/<ORG_ID>/streams
 ```
 
 3. **Ensure you're using the correct header format:**

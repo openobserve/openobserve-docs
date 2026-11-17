@@ -17,7 +17,7 @@ Capture latency, model name, question input, response length, and error details 
 ## **Installation**
 
 ```shell
-pip install beeai-framework openai openobserve-telemetry-sdk python-dotenv
+pip install beeai-framework openai openobserve-python-sdk python-dotenv
 ```
 
 ## **Configuration**
@@ -95,7 +95,7 @@ asyncio.run(main())
 3. Filter by `span_status` = `ERROR` to find failed runs
 4. Sort by duration to identify the slowest agent invocations
 
-![BeeAI trace in OpenObserve](../../../images/integration/ai/beeai.png)
+![BeeAI trace in OpenObserve, Waterfall view with the beeai.agent_run span attributes](../../../images/integration/ai/beeai-v2.png)
 
 ## **Next Steps**
 

@@ -9,7 +9,7 @@ Endpoint: `POST /api/{organization}/v1/logs`
 
 OpenObserve supports the OpenTelemetry Protocol (OTLP) for log ingestion. You can send logs from any OpenTelemetry-compatible collector or SDK by pointing it at OpenObserve.
 
-> we use custom http header `stream-name` for speciafic stream name, default will push into `default` stream.
+> we use custom http header `stream-name` for a specific stream name, default will push into `default` stream.
 
 ## Request
 

@@ -1,11 +1,14 @@
 ---
 title: Claude Code
-description: Send Claude Code usage, cost, and activity to OpenObserve with native OpenTelemetry metrics and events, plus optional full per-turn tracing.
+metaTitle: "Claude Code OpenTelemetry Monitoring | OpenObserve"
+description: "Monitor Claude Code with OpenTelemetry. Send claude code otel metrics, events, and traces to OpenObserve to track usage, cost, and per-turn activity."
 ---
 
-# Claude Code → OpenObserve
+# Claude Code OpenTelemetry Monitoring with OpenObserve
 
-Monitor your team's [Claude Code](https://docs.claude.com/en/docs/claude-code) usage in [OpenObserve](https://openobserve.ai) using OpenTelemetry.
+Monitor your team's [Claude Code](https://docs.claude.com/en/docs/claude-code) usage in [OpenObserve](https://openobserve.ai) using native OpenTelemetry (OTLP).
+
+This page covers how to send Claude Code telemetry - metrics, events, and traces - to OpenObserve so you can track usage, cost per session, tool call frequency, and optional per-turn traces. After setup you will see Claude Code usage metrics, cost per session, and optional per-turn traces in your OpenObserve dashboards. For [mcp observability](https://openobserve.ai/mcp-server/) and broader [llm observability](https://openobserve.ai/llm-observability/) coverage, see the linked platform pages.
 
 Claude Code exports three OTLP signals (**metrics**, **events**, and **traces**) and can send them straight to OpenObserve. There are two ways to set this up:
 
@@ -69,7 +72,7 @@ echo -n 'your-email:your-password' | base64
 ```
 
 :::note[Find your host and org]
-For **OpenObserve Cloud**, the host and organization are shown under **Ingestion → Custom → OpenTelemetry** in the UI. For **self-hosted**, the default host is `http://localhost:5080` and the default org is `default`.
+For **OpenObserve Cloud**, the host and organization are shown under **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** in the UI. For **self-hosted**, the default host is `http://localhost:5080` and the default org is `default`.
 :::
 
 #### 2. Configure Claude Code
@@ -131,7 +134,7 @@ Restart Claude Code (or open a new session) after changing settings.
 | `OTEL_EXPORTER_OTLP_HEADERS` | Comma-separated headers; include `Authorization` and a `stream-name` for events | `Authorization=Basic ...,stream-name=<your-stream>` |
 
 :::note[Where events land]
-The `stream-name` header names the **log and traces streams** that events and spans are written to (`<your-stream>` is any name you choose, e.g. `claude_code`). Metrics ignore it: they're stored as separate **metric streams** named after each metric (e.g. `claude_code.session.count`).
+The `stream-name` header names the **log and traces streams** that events and spans are written to (`<your-stream>` is any name you choose, e.g. `claude_code`). Metrics ignore it: they're stored as separate **metric streams** named after each metric, with dots replaced by underscores (e.g. `claude_code_session_count`).
 :::
 
 :::note[Traces are beta]
@@ -160,7 +163,7 @@ HTTP is simpler and works through most proxies; gRPC offers higher throughput. B
     ```
 
 3. In the OpenObserve UI:
-    - Open **Metrics** and look for streams prefixed `claude_code.` (e.g. `claude_code.token.usage`).
+    - Open **Metrics** and look for streams prefixed `claude_code_` (e.g. `claude_code_token_usage`).
     - Open **Logs**, select the `<your-stream>` stream, and you should see `claude_code.user_prompt` and `claude_code.api_request` events within a few seconds.
     - Open **Traces**, select the `<your-stream>` stream, and you should see per-turn `claude_code.interaction` spans.
 
@@ -1094,5 +1097,5 @@ if __name__ == "__main__":
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)
 

@@ -17,7 +17,7 @@ Trace every prediction request made to a Flowise chatflow by wrapping the REST A
 ## **Installation**
 
 ```bash
-pip install openobserve opentelemetry-sdk opentelemetry-exporter-otlp python-dotenv requests
+pip install openobserve-python-sdk opentelemetry-sdk opentelemetry-exporter-otlp python-dotenv requests
 ```
 
 ## **Configuration**
@@ -104,7 +104,7 @@ Each prediction call emits one `flowise.chatflow_predict` span:
 3. Click a trace to inspect the chatflow ID, question, and response length
 4. Filter by `span_status` = `ERROR` to find failed predictions
 
-![Flowise trace in OpenObserve](../../../images/integration/ai/flowise.png)
+![Flowise trace in OpenObserve, Waterfall view with the flowise.chatflow_predict span attributes](../../../images/integration/ai/flowise-v2.png)
 
 ## **Next Steps**
 

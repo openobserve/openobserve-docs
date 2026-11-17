@@ -3,15 +3,15 @@ title: Stream Details
 description: View and manage detailed stream settings in OpenObserve, including retention, query limits, schema, and usage stats via the Stream Details panel.
 ---
 
-After After you complete [data ingestion](streams-in-openobserve.md#ingest-data-into-stream), use **Stream Details** to view stream details and manage stream settings.
+After you complete [data ingestion](streams-in-openobserve.md#ingest-data-into-stream), use **Stream Details** to view stream details and manage stream settings.
 
 ## Overview 
 Use **Stream Details** to inspect schemas, apply sensitive-data redaction using regex patterns, set data retention and query limits, and configure ingestion options such as flatten level, storing original data, and enabling distinct values.
 
 :::note[Where to find it]
 1. Go to **Streams**.
-2. In the **Actions** column, select **Stream Details**.
-![stream details access](../../../images/stream-details-access.png) 
+2. In the **Actions** column, select the **Stream Detail** icon. The stream details open in a side panel titled with the stream name.
+![Streams list with the Stream Detail icon highlighted on a stream row](../../../images/stream-details-access-v2.png) 
 :::
 
 :::note[Who can access it]
@@ -20,38 +20,46 @@ User roles that have permission to update Streams can modify the stream settings
 
 
 ## Stream details
-The header cards in the **Stream Details** page shows high-level status for the selected stream:
+The header cards in the **Stream Details** panel show high-level status for the selected stream:
 
-- **Stream Name**: Name of the selected stream.
-![stream name](../../../images/stream-name.png) 
+- **Stream Name**: Name of the selected stream, shown as the panel title.
+![Stream Detail drawer header with the stream name](../../../images/stream-name-v2.png) 
 - **Events**: Total number of ingested events.
-![stream details](../../../images/stream-details.png)   
+![Stream Detail summary cards for Events, Ingested Data, Compressed Size and Index Size](../../../images/stream-details-v2.png)   
 - **Ingested Data**: Uncompressed size of the stored data.  
 - **Compressed Size**: Storage space used after compression.  
 - **Index Size**: Size of the tantivy files generated for full text search index. Other index types, such as KeyValue filters and hash partitions, do not affect this value.   
-![stream-start-end-time](../../../images/stream-start-end-time.png)
+
+:::note[Note]
+OpenObserve Cloud does not show the **Compressed Size** and **Index Size** cards.
+:::
+
+![Time range of the data in the stream, shown next to the drawer title](../../../images/stream-start-end-time-v2.png)
 - **Time range**: Start time is the timestamp of the oldest data and end time is the timestamp of the newest data. If the ingested data has a `_timestamp` field, it will be according to that. If the ingested data does not have a ` _timestamp` field, then the start time will be the oldest time of ingestion and end time will be the newest time of ingestion.  
 
 ## Schema Settings
 Inspect and manage the schema of a stream. <br>
 This tab allows you to review detected fields, assign index types, define user-defined schemas, and apply sensitive data redaction patterns. <br>
-![schema settings](../../../images/stream-details-schema-settings.png)
+![Schema Settings tab of the Stream Detail drawer listing fields with their type and index type](../../../images/stream-details-schema-settings-v2.png)
 <br>
 To learn more about Schema Settings, visit the [Schema Settings](https://openobserve.ai/docs/user-guide/data-processing/streams/schema-settings/) page. 
 
 
 ## Extended Retention
-![extended retention](../../../images/extended-retention.png)
+![Extended Retention tab with the extension banner and the Select Date picker](../../../images/extended-retention-v2.png)
 Allows you to retain specific segments of your stream data beyond the configured stream-level or global retention period. To learn more, see the [Extended Retention](https://openobserve.ai/docs/user-guide/data-processing/streams/extended-retention/) page.
+
+## Cross-Linking
+When cross-linking is enabled (`ZO_ENABLE_CROSS_LINKING=true`), logs streams show a **Cross-Linking** tab where you manage the stream's cross-links. To learn more, see [Cross-Linking](../../data-exploration/cross-linking.md).
 
 ## Configuration
 The **Configuration** tab provides options to configure stream-level limits and ingestion behavior.
-![stream-details-configuration](../../../images/stream-details-configuration.png)
+![Configuration tab with Data Retention (days), Max Query Range (hours), Flatten Level and the stream toggles](../../../images/stream-details-configuration-v2.png)
 
-### Data Retention in days
-Sets how long data is retained in this stream. If not configured, the global retention period applies. Default global is 3650 days.
+### Data Retention (days)
+Sets how long data is retained in this stream. If not configured, the global retention period applies. The global default is 3650 days, set by `ZO_COMPACT_DATA_RETENTION_DAYS`.
 
-### Max Query Range in hours
+### Max Query Range (hours)
 Sets the maximum time span allowed per query. This can help reduce query load. Note that this is stream and org specific.   
 
 - You can set a global value as the maximum query range, for all streams across all organizations using the following environment variable:  
@@ -73,12 +81,11 @@ If left blank, the stream inherits the global ZO_INGEST_FLATTEN_LEVEL. The UI di
 When you enable this toggle, OpenObserve assumes that all your data present in the stream is equally split and creates equal sized partitions between the start and end time. 
 
 ### Store Original Data
-Keeps the raw, original document alongside parsed fields.
+Keeps the raw, original document alongside parsed fields. This option is not shown for traces streams.
 Useful for audits and reprocessing. Increases storage because raw payloads are preserved.
 
 ### Enable Distinct Values
-Enables tracking of distinct values for fields to speed up filters and aggregations that rely on unique values.
-Improves responsiveness on high-cardinality fields. 
+Indexes the fields that dashboard variables read values from, so value lookups for those fields are served from the index instead of a full scan. On by default. To learn more, see [Distinct Values](distinct-values.md). 
 
 
 ## Troubleshooting

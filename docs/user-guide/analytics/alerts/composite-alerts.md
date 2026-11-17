@@ -45,7 +45,7 @@ A composite can reference between **2 and 10** children. The following alert typ
 
 ### Step 1: Open the form and select the Composite type
 
-1. Go to **Alerts** in the left sidebar.
+1. In the left navigation, go to **Reliability > All Alerts**.
 2. Click **New alert** in the top-right corner.
 3. In the **Alert Type** selector, choose **Composite**.
 
@@ -154,7 +154,7 @@ The UI makes `Use last state` explicit so you can distinguish a stale child from
 
 ## Edit a composite alert
 
-1. Go to **Alerts** in the left sidebar.
+1. In the left navigation, go to **Reliability > All Alerts**.
 2. Click the composite's name in the table to open its detail.
 3. Click **Edit**.
 

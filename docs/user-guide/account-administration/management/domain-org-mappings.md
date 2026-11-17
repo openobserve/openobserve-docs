@@ -30,7 +30,7 @@ If the mapped organization is not active, for example because it is scheduled fo
 ## Access the section
 
 1. Switch to the `_meta` organization using the organization selector in the top navigation bar.
-2. Go to **Management** > **Organization Parameters**.
+2. Go to **Settings** > **Organization Parameters**.
 3. Scroll to the **Domain to organization mappings** section.
 
 ## Add a mapping

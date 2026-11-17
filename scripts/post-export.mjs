@@ -80,8 +80,13 @@ const REDIRECT_PATHS = new Set([
   'user-guide/rum',
   'quickstart',
   'downloads',
-  'administration/maintenance/operator-guide/etcd',
-  'administration/maintenance/operator-guide/etcd-restore',
+  'user-guide/concepts',
+  'user-guide/streams',
+  'user-guide/account-administration/work-group',
+  'user-guide/data-processing/pipelines/use-pipelines',
+  'user-guide/data-exploration/metrics/file-access-time-metric',
+  'screenshots',
+  'user-guide/users',
 ]);
 
 /** Last commit date for a docs file, as YYYY-MM-DD; null outside a git checkout. */
@@ -135,8 +140,12 @@ const REDIRECTS = {
   'user-guide/rum': 'user-guide/data-exploration/rum',
   quickstart: 'getting-started',
   downloads: 'getting-started',
-  'administration/maintenance/operator-guide/etcd': 'administration/maintenance/storage-management/storage',
-  'administration/maintenance/operator-guide/etcd-restore': 'administration/maintenance/storage-management/storage',
+  'user-guide/concepts': 'user-guide',
+  'user-guide/streams': 'user-guide/data-processing/streams/streams-in-openobserve',
+  'user-guide/account-administration/work-group': 'user-guide/account-administration/work-group-v2',
+  'user-guide/data-processing/pipelines/use-pipelines': 'user-guide/data-processing/pipelines/create-and-use-real-time-pipeline',
+  'user-guide/data-exploration/metrics/file-access-time-metric': 'user-guide/data-exploration/metrics',
+  screenshots: 'features',
 };
 
 for (const [from, to] of Object.entries(REDIRECTS)) {

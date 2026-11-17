@@ -62,6 +62,10 @@ The browser limit is lower because each attempt reruns the whole journey on ever
 
 Controls when a failing check notifies you.
 
+:::note[Enterprise and Cloud]
+Notifications require OpenObserve Enterprise or OpenObserve Cloud. On the Open Source edition, a failing check is recorded and shown in the UI, but these settings send nothing.
+:::
+
 | Setting | Description | Default |
 |---------|-------------|---------|
 | **Alerted if test fails** | Consecutive failures before notifying | 1 |

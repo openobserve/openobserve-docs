@@ -10,12 +10,10 @@ OpenObserve provides comprehensive database monitoring integrations to collect d
 
 These database monitoring integrations enable database performance monitoring, query analysis, and database observability across your data infrastructure for SQL and NoSQL databases.
 
-![Data Sources](../../images/databases.png)
+![Databases tab on the Data sources page](../../images/databases-v2.png)
 
 ## Database Integration Guides
 
-- [PostgreSQL](postgresql.md)
-- [SnowFlake](snowflake.md)
 - [PostgreSQL](postgresql.md)
 - [Oracle Database](oracle.md)
 - [Snowflake](snowflake.md)

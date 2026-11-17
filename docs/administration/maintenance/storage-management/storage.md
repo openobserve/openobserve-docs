@@ -257,4 +257,4 @@ MySQL support has been removed in v0.70.0. Setting `ZO_META_STORE=mysql` stops O
 **Need some help?**
 
 - Join our [Community Slack](https://short.openobserve.ai/community) 
-- Or [Contact support](https://openobserve.ai/contactus/)
+- Or [Contact support](https://openobserve.ai/contact-us/)

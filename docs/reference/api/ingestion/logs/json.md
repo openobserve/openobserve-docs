@@ -97,7 +97,7 @@ Please note only records having 200 or less fields/columns will be considered fo
 
 > Applicable to open source version
 
-One can configure ZO_COLS_PER_RECORD_LIMIT to set desired value for allowed number of fields/columns per record.
+One can configure `ZO_COLS_PER_RECORD_LIMIT` (default `1000`) to set the allowed number of fields/columns per record.
 
 ## Flattening of the JSON structure
 
@@ -143,7 +143,7 @@ The default depth is `3`, but this limit can be configured via the `ZO_INGEST_FL
 
 ## Timestamp
 
-By default we add a field `_timestamp` for each record with the value of `NOW` in microseconds (unix epoch value). 
+By default we add a field `_timestamp` for each record with the value of `NOW` in microseconds (unix epoch value). Records older than `ZO_INGEST_ALLOWED_UPTO` hours (default `5`) or more than `ZO_INGEST_ALLOWED_IN_FUTURE` hours ahead (default `24`) are rejected.
 
 we support use of two fields to override the default value.
 

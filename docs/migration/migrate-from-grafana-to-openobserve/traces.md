@@ -52,10 +52,10 @@ exporters:
       insecure: true
 ```
 
-Copy the exact updated configuration from the **Data Sources UI** in OpenObserve.
+Copy the exact updated configuration from **Data > Data sources > Custom > Traces > OTEL Collector** in OpenObserve.
 
 
-![OpenObserve Data Sources - OTel Collector Traces](../../images/migration/lgtm/opentelemetry.png)
+![Data sources, Custom, Logs, OTEL Collector exporter config](../../images/migration/lgtm/opentelemetry-v2.png)
 
 
 :::tip[Send all signals through one exporter]
@@ -120,16 +120,16 @@ When you're ready, consider switching the SDKs themselves to OpenTelemetry - the
 
 1. Open the OpenObserve UI → **Traces** in the left sidebar.
 2. Select a trace stream and set a time range 
-3. Filter by `service.name` to find your services.
+3. Filter by `service_name` to find your services (OpenObserve stores the `service.name` resource attribute as `service_name`).
 4. Click into a trace to verify spans, durations, and attributes are intact.
 
-![OpenObserve Traces Explorer](../../images/migration/lgtm/trace-explorer.png)
+![Traces page with spans from several services](../../images/migration/lgtm/trace-explorer-v2.png)
 *OpenObserve Traces Explorer — verify traces are flowing after migration*
 
 
 
 
-![OpenObserve Trace Detail View](../../images/migration/lgtm/trace-detailed.png)
+![Trace details in the Waterfall view](../../images/migration/lgtm/trace-detailed-v2.png)
 *OpenObserve trace detail view showing spans and timing*
 
 ### Troubleshooting

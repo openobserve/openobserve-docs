@@ -25,8 +25,8 @@ config:
   O2_DEX_REDIRECT_URL: "https://openobserve.example.com/config/redirect"	# Should match to redirect uri specified in dex
   O2_CALLBACK_URL: "https://openobserve.example.com/web/cb"	# after sucessful token received from dex, user will be redirected to this page
   O2_DEX_SCOPES: "openid profile email groups offline_access"	# scopes to be fetched from dex
-  O2_DEX_GROUP_ATTRIBUTE: "ou"	# Maps user to OpenObserve organization.
-  O2_DEX_ROLE_ATTRIBUTE: "cn"	# User's role in the organization.
+  O2_DEX_LDAP_GROUP_ATTRIBUTE: "ou"	# Maps user to OpenObserve organization.
+  O2_DEX_LDAP_ROLE_ATTRIBUTE: "cn"	# User's role in the organization.
   O2_DEX_DEFAULT_ORG: "default"	# Default organization for users not belonging to any group in ldap
 ```
 

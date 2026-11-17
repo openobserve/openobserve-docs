@@ -3,24 +3,24 @@ title: Portkey
 description: Instrument Portkey gateway calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
-# **Portkey → OpenObserve**
+# Portkey → OpenObserve
 
 Automatically capture token usage, latency, and model metadata for every request routed through the Portkey AI gateway. Portkey exposes an OpenAI-compatible API, so instrumentation uses the standard OpenAI instrumentor pointed at the Portkey endpoint.
 
-## **Prerequisites**
+## Prerequisites
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Portkey](https://portkey.ai/) API key and a configured provider
 
-## **Installation**
+## Installation
 
 ```shell
-pip install openobserve-telemetry-sdk openinference-instrumentation-openai openai python-dotenv
+pip install openobserve-python-sdk openinference-instrumentation-openai openai python-dotenv
 ```
 
-## **Configuration**
+## Configuration
 
 Create a `.env` file in your project root:
 
@@ -32,7 +32,7 @@ PORTKEY_API_KEY=your-portkey-api-key
 OPENAI_API_KEY=your-openai-api-key
 ```
 
-## **Instrumentation**
+## Instrumentation
 
 Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Pass the Portkey API key and provider routing headers.
 
@@ -81,12 +81,11 @@ client = OpenAI(
 )
 ```
 
-## **What Gets Captured**
+## What Gets Captured
 
 | Attribute | Description |
 | ----- | ----- |
 | `llm_model_name` | Resolved model name (e.g. `gpt-4o-mini-2024-07-18`) |
-| `llm_request_parameters_model` | Requested model (e.g. `gpt-4o-mini`) |
 | `gen_ai_response_model` | Model that served the response |
 | `llm_system` | `openai` (the client library used) |
 | `llm_token_count_prompt` | Tokens in the prompt |
@@ -97,19 +96,19 @@ client = OpenAI(
 | `duration` | End-to-end request latency |
 | `span_status` | `OK` or error status |
 
-## **Viewing Traces**
+## Viewing Traces
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Click any span to inspect token counts, model, and latency
 3. Use `llm_model_name` to compare different providers routed through Portkey
 
-![Portkey trace in OpenObserve](../../../images/integration/ai/portkey.png)
+![Portkey trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/portkey-v2.png)
 
-## **Next Steps**
+## Next Steps
 
 With Portkey instrumented, every routed request is recorded in OpenObserve. From here you can compare latency and cost across providers, monitor fallback behaviour, and set alerts on error rates.
 
-## **Read More**
+## Read More
 
 - [LLM Observability Overview](../llm-applications.md)
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)

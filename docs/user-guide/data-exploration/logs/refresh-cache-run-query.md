@@ -26,29 +26,29 @@ In such cases, users can use Refresh Cache and Run Query to invalidate the old c
 It is available in both **Logs** and **Dashboards**.
 
 **Logs page**:
-![alt text](../../../images/logs-refresh-query.png)
+![Run query dropdown with Refresh Cache & Run Query](../../../images/logs-refresh-query-v2.png)
 
 1. Navigate to **Logs** in the left navigation panel.
 2. Select the required stream.
 3. Define your query in the query editor.
 4. Select your time range.
 5. Click the dropdown attached to the **Run query** button. 
-6. Select **Refresh Cache and Run Query**.
+6. Select **Refresh Cache & Run Query**.
 
 This clears the cache for the selected query range and reloads results using the latest ingested data.
 
 :::note[Note]
-When `ZO_AUTO_QUERY_ENABLED` is enabled, the **Run query** dropdown also exposes an **Auto Run** toggle alongside **Refresh Cache and Run Query**.
+When `ZO_AUTO_QUERY_ENABLED` is enabled, the **Run query** dropdown also shows **Turn on Auto Run** or **Turn off Auto Run** below **Refresh Cache & Run Query**. See [Auto Run](../auto-run-query.md).
 :::
 
 **Dashboard panels**:
-![dashboard-refresh-query](../../../images/dashboard-refresh-query.png)
+![Dashboard panel menu with Refresh Cache & Reload](../../../images/dashboard-refresh-query-v2.png)
 
 1. Navigate to **Dashboards** from the left navigation panel.
 2. Open the folder containing your dashboard.
 3. Select the desired dashboard.
 4. Locate the panel for which you want to refresh the cache.
-5. Open the panel configuration dropdown and select **Refresh Cache and Reload**.
+5. Open the panel configuration dropdown and select **Refresh Cache & Reload**.
 
 This removes any cached data for the query in that panel and re-executes the underlying query to fetch updated results.
 ::::

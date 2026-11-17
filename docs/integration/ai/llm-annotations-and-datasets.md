@@ -28,7 +28,7 @@ Annotations and Datasets are available in the Enterprise edition and OpenObserve
 O2_EVAL_ENABLED=true
 ```
 
-When enabled, **Discovery**, **Queues**, and **Datasets** appear under **AI > Annotate**. When disabled, these pages are hidden and their API endpoints are not registered.
+When enabled, **Discovery**, **Queues**, and **Datasets** appear under **AI Observability > Annotate**. When disabled, these pages are hidden and their API endpoints are not registered.
 
 See [Review reconciliation](#review-reconciliation) below for the `O2_LLM_REVIEW_RECONCILE_INTERVAL_SECS` flag that controls how queue review status stays in sync.
 
@@ -38,7 +38,7 @@ An Annotation Queue is a named review workflow. When you create a queue, you pin
 
 ### Create a queue
 
-Navigate to **AI > Annotate > Queues** and click **New Queue**.
+Navigate to **AI Observability > Annotate > Queues** and click **New Queue**.
 
 ![New Queue dialog showing pinned score configs and target dataset](images/create-queue.png)
 
@@ -86,7 +86,7 @@ A Dataset is a golden set of `input`/`expectedOutput` pairs you can use to bench
 
 ### Create a dataset
 
-Navigate to **AI > Annotate > Datasets** and click **New Dataset**.
+Navigate to **AI Observability > Annotate > Datasets** and click **New Dataset**.
 
 ![Datasets list page](images/create-dataset.png)
 

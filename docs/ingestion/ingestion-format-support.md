@@ -15,21 +15,23 @@ https://api.openobserve.ai/api/<organization_id>/<stream_id>/_json
 **Example:** 
 Ingest JSON-formatted Logs Using cURL
 ```
-curl https://api.openobserve.ai/api/<organization_id>/<stream_id>/_hec -i -u "root@example.com:Complexpass#123"  -d "@k8slogs_json.json" 
+curl https://api.openobserve.ai/api/<organization_id>/<stream_id>/_json -i -u "root@example.com:Complexpass#123"  -d "@k8slogs_json.json" 
 ```
 :::
 :::tab[Ingest HEC-formatted Logs]
 If your log files are in HEC format, use the following endpoint:
 
 ```
-https://api.openobserve.ai/api/<organization_id>/<stream_id>/_hec
+https://api.openobserve.ai/api/<organization_id>/_hec
 ```
+The endpoint has no stream segment: each event's `index` field names the stream, and events without one go to `_hec` (set by `ZO_INGEST_DEFAULT_HEC_STREAM`). For Splunk forwarders that authenticate with a Splunk HEC token, use the [Splunk HEC](logs/splunk-hec.md) endpoint instead.
+
 This ingestion method is useful for teams migrating from Splunk or using tools that generate logs in HEC format.
 
 **Example:**
 Ingest HEC-formatted Logs Using cURL
 ```
-curl https://api.openobserve.ai/api/<organization_id>/<stream_id>/_hec -i -u "root@example.com:Complexpass#123"  -d "@logs_hec.hec" 
+curl https://api.openobserve.ai/api/<organization_id>/_hec -i -u "root@example.com:Complexpass#123"  -d "@logs_hec.hec" 
 ```
 :::
 ::::

@@ -14,7 +14,7 @@ The integration flow is: **Google Cloud Logs → Log Router Sink → Pub/Sub →
 
 ## Steps to Integrate
 
-:::accordion[## Prerequisites]
+:::accordion[Prerequisites]
 - OpenObserve account ([Cloud](https://cloud.openobserve.ai/web/) or [Self-Hosted](../../../getting-started.md#self-hosted-installation))
 - A Google Cloud Platform (GCP) project with necessary IAM permissions
 - Basic knowledge of GCP Console or `gcloud` CLI
@@ -22,10 +22,10 @@ The integration flow is: **Google Cloud Logs → Log Router Sink → Pub/Sub →
 
 :::accordion[Step 1: Get OpenObserve Ingestion URL and API Key]
 
-1. In OpenObserve: go to **Data Sources → Recommended → GCP**
+1. In OpenObserve: go to **Data > Data sources > Recommended > Google Cloud Platform(GCP)**
 2. Copy the ingestion URL and API Key
 
-![Get OpenObserve GCP Endpoint](image.png)
+![Google Cloud Platform(GCP) on the Data sources page](image-v2.png)
 
 Example format:
 ```
@@ -125,5 +125,5 @@ gcloud pubsub topics add-iam-policy-binding my-log-topic \
 - Verify Log Router Sink filter matches the logs you expect.
 - Ensure the Log Router service account has **Pub/Sub Publisher** role.
 - Look in **Pub/Sub → Subscriptions → Metrics** to confirm messages are being delivered.
-- Check **OpenObserve ingestion page** for error responses.
+- Check the **Data > Data sources** page in OpenObserve: the first-event check names refused requests and their cause.
 

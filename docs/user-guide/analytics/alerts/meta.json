@@ -10,6 +10,8 @@
     "anomaly-detection",
     "downtimes",
     "import-export-alerts",
+    "alert-library",
+    "alert-calibration",
     "notification-dependencies"
   ]
 }

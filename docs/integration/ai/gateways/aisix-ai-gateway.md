@@ -4,22 +4,22 @@ metaTitle: Send AISIX AI Gateway traces to OpenObserve
 description: Send gateway-native AISIX traces to OpenObserve over OTLP/HTTP and inspect model, token, latency, and request-correlation metadata.
 ---
 
-# **AISIX AI Gateway → OpenObserve**
+# AISIX AI Gateway → OpenObserve
 
 [AISIX](https://github.com/api7/aisix) can export traces directly from the gateway to OpenObserve over OTLP/HTTP. This captures gateway requests, logical model calls, and provider attempts without adding an instrumentation library to every calling application.
 
 This guide uses AISIX 1.2.0 and OpenObserve 1.0.0.
 
-## **Prerequisites**
+## Prerequisites
 
 * AISIX 1.2.0 with a working model and API key
 * An [OpenObserve](https://openobserve.ai/) account, either Cloud or self-hosted
 * Your OpenObserve organization ID and ingestion `Authorization` header
 * The hostname that AISIX uses to reach OpenObserve
 
-In OpenObserve, open **Data Sources**, select **Traces**, and copy the OTLP/HTTP endpoint and authorization header for your organization.
+In OpenObserve, go to **Data** > **Data sources** > **Custom** > **Traces** > **OpenTelemetry** and copy the OTLP HTTP endpoint and authorization header for your organization.
 
-## **Configure the AISIX exporter**
+## Configure the AISIX exporter
 
 Add an observability exporter to your AISIX resources file. Keep the complete OTLP traces path, including `/v1/traces`, in `endpoint`.
 
@@ -51,7 +51,7 @@ Validate the resources and start or reload AISIX using your normal deployment wo
 aisix validate --resources /etc/aisix/resources.yaml
 ```
 
-## **Send a traced request**
+## Send a traced request
 
 Send a chat-completions request through an existing AISIX model. The optional `traceparent` header connects the gateway spans to an upstream distributed trace.
 
@@ -70,7 +70,7 @@ curl -i http://localhost:3000/v1/chat/completions \
 
 Record the `x-aisix-request-id` response header. It provides a direct correlation value when searching the exported spans.
 
-## **What gets captured**
+## What gets captured
 
 A successful chat-completions request can produce a gateway `SERVER` span, a logical model-call `CLIENT` span, and one or more provider-attempt `CLIENT` spans. Retries or fallback routing can therefore appear as additional attempts under the same logical call.
 
@@ -90,7 +90,7 @@ A successful chat-completions request can produce a gateway `SERVER` span, a log
 
 Attribute availability depends on the request type and the metadata returned by the upstream provider.
 
-## **View the trace in OpenObserve**
+## View the trace in OpenObserve
 
 1. In OpenObserve, go to **Traces**.
 2. Select the `aisix` stream.
@@ -101,21 +101,21 @@ If the caller supplied a valid W3C `traceparent` header, the AISIX gateway span 
 
 For the versioned setup used to validate this guide, OpenObserve displayed one `chat.completions` trace from `aisix-dp` with three connected spans and zero errors.
 
-## **Troubleshooting**
+## Troubleshooting
 
-### **OpenObserve returns 401**
+### OpenObserve returns 401
 
 Copy the complete `Authorization` header from the OpenObserve trace-ingestion page and confirm that the variable is available to the AISIX process. Do not commit the value to source control.
 
-### **The `aisix` stream does not appear**
+### The `aisix` stream does not appear
 
 Confirm that the endpoint contains your organization and the complete `/v1/traces` suffix. Also verify the `stream-name: aisix` header and send at least one request through AISIX after the exporter is loaded.
 
-### **No spans appear for a request**
+### No spans appear for a request
 
 Check the AISIX exporter logs, the configured sampling rate, network access from AISIX to OpenObserve, and the selected time range in the Traces view.
 
-## **Read More**
+## Read More
 
 - [AISIX observability exporters](https://docs.api7.ai/ai-gateway/observability/exporters)
 - [AISIX source repository](https://github.com/api7/aisix)

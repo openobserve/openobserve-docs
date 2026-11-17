@@ -31,11 +31,34 @@ const TONES: Record<string, string> = {
   purple: 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
 };
 
-function Icon({ item, className = '' }: { item: LandingLink; className?: string }) {
+/**
+ * `size` is the rendered size in px and must match the `size-*` class. The
+ * width/height attributes let the browser reserve the box before the icon
+ * loads, so the grid doesn't shift as icons arrive.
+ */
+function Icon({
+  item,
+  size,
+  className = '',
+}: {
+  item: LandingLink;
+  size: number;
+  className?: string;
+}) {
   const src = iconUrl(item.icon);
   if (!src) return null;
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt="" aria-hidden="true" loading="lazy" className={className} />;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      width={size}
+      height={size}
+      className={className}
+    />
+  );
 }
 
 const CARD =
@@ -80,7 +103,7 @@ export function Landing() {
                 clarityTitle={s.title}
                 className="flex flex-col items-center gap-2 rounded-xl border border-fd-border p-3 text-center text-xs transition-colors hover:border-[var(--oo-brand)]/40 hover:bg-fd-accent/40"
               >
-                <Icon item={s} className="size-7" />
+                <Icon item={s} size={28} className="size-7" />
                 <span className="leading-tight">{s.title}</span>
               </Anchor>
             ))}
@@ -125,7 +148,7 @@ export function Landing() {
                   TONES[p.tone ?? ''] ?? 'bg-fd-accent'
                 }`}
               >
-                <Icon item={p} className="size-5" />
+                <Icon item={p} size={20} className="size-5" />
               </span>
               <span>
                 <span className="block font-semibold">{p.title}</span>
@@ -143,7 +166,7 @@ export function Landing() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {tutorials.map((c) => (
             <Anchor key={c.title} href={c.href} clarityTitle={c.title} className={`${CARD} flex gap-3`}>
-              <Icon item={c} className="size-6 shrink-0" />
+              <Icon item={c} size={24} className="size-6 shrink-0" />
               <span>
                 <span className="block font-semibold">{c.title}</span>
                 <span className="mt-1 block text-sm text-fd-muted-foreground">{c.desc}</span>
@@ -158,7 +181,7 @@ export function Landing() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {concepts.map((c) => (
             <Anchor key={c.title} href={c.href} clarityTitle={c.title} className={`${CARD} flex gap-3`}>
-              <Icon item={c} className="size-6 shrink-0" />
+              <Icon item={c} size={24} className="size-6 shrink-0" />
               <span>
                 <span className="block font-semibold">{c.title}</span>
                 <span className="mt-1 block text-sm text-fd-muted-foreground">{c.desc}</span>
@@ -205,7 +228,7 @@ export function Landing() {
         <div className="grid gap-3 sm:grid-cols-3">
           {community.map((c) => (
             <Anchor key={c.title} href={c.href} clarityTitle={c.title} className={`${CARD} flex gap-3`}>
-              <Icon item={c} className="size-6 shrink-0" />
+              <Icon item={c} size={24} className="size-6 shrink-0" />
               <span>
                 <span className="block font-semibold">{c.title}</span>
                 <span className="mt-1 block text-sm text-fd-muted-foreground">{c.desc}</span>

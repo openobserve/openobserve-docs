@@ -17,7 +17,7 @@ Capture evaluation scores, latency, and metadata for every Ragas evaluation run.
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk ragas instructor python-dotenv
+pip install openobserve-python-sdk ragas instructor python-dotenv
 ```
 
 ## **Configuration**
@@ -128,7 +128,7 @@ Each evaluation wrapped in a span produces the following attributes. OpenObserve
 3. Click any span to inspect metric scores and the question being evaluated
 4. Use **Dashboards** to plot `ragas_faithfulness` over time and track RAG quality trends
 
-![Ragas trace in OpenObserve](../../../images/integration/ai/ragas.png)
+![Ragas trace in OpenObserve, Waterfall view with the ragas.evaluate span attributes](../../../images/integration/ai/ragas-v2.png)
 
 ## **Next Steps**
 

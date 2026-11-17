@@ -40,7 +40,7 @@ docker run -d --name openobserve \
   public.ecr.aws/zinclabs/openobserve:latest
 ```
 
-- Your **client token**, **RUM application id**, and **ingestion endpoint** from **Data → Data Sources → Real User Monitoring** in the OpenObserve UI.
+- Your **client token**, **RUM application id**, and **ingestion endpoint** from **Data → Data sources → Real User Monitoring** in the OpenObserve UI.
 
 ## Step 1 — Add the Gradle dependencies
 
@@ -153,7 +153,7 @@ Nothing is collected until tracking consent is `GRANTED`. If you show a consent 
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `clientToken` | String | — (required) | Ingestion credential from **Data → Data Sources → Real User Monitoring**. |
+| `clientToken` | String | — (required) | Ingestion credential from **Data → Data sources → Real User Monitoring**. |
 | `env` | String | — (required) | Environment tag, e.g. `production`, `staging`. |
 | `variant` | String | `""` | Build flavor / variant, optional. |
 | `service` | String | app package id | Service/app identifier used to group data. |
@@ -173,7 +173,7 @@ Nothing is collected until tracking consent is `GRANTED`. If you show a consent 
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `RumConfiguration.Builder(applicationId)` | String | — (required) | RUM application id from **Data → Data Sources → Real User Monitoring**. |
+| `RumConfiguration.Builder(applicationId)` | String | — (required) | RUM application id from **Data → Data sources → Real User Monitoring**. |
 | `useCustomEndpoint(url)` | String | — | Your OpenObserve instance base URL. |
 | `setSessionSampleRate(Float)` | Float 0–100 | `100` | Percentage of sessions to keep. |
 | `setTelemetrySampleRate(Float)` | Float 0–100 | — | Percentage of internal SDK telemetry to keep. |
@@ -443,7 +443,7 @@ The SDK targets minSdk 23 (some auto-instrumentation needs API 29), compiles aga
 
 ### Where do I get the client token and RUM application id?
 
-Both come from **Data → Data Sources → Real User Monitoring** in your OpenObserve instance. The client token authenticates ingestion and the RUM application id identifies your app in RUM. You pass the client token to Configuration.Builder and the application id to RumConfiguration.Builder, then point the RUM config's custom endpoint at your OpenObserve instance base URL with useCustomEndpoint.
+Both come from **Data → Data sources → Real User Monitoring** in your OpenObserve instance. The client token authenticates ingestion and the RUM application id identifies your app in RUM. You pass the client token to Configuration.Builder and the application id to RumConfiguration.Builder, then point the RUM config's custom endpoint at your OpenObserve instance base URL with useCustomEndpoint.
 
 ### How does the Android SDK track screens automatically?
 

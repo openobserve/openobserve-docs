@@ -7,7 +7,7 @@ description: "Extend the OpenObserve AI agent with organization-scoped custom to
 
 Custom AI Toolsets let you define organization-scoped tools and skills that the OpenObserve AI agent loads into its set of available capabilities, so the SRE Agent and AI Assistant can act on systems and knowledge specific to your environment.
 
-> **Enterprise feature.**
+> **Enterprise feature.** Self-hosted Enterprise edition only; not available in OpenObserve Cloud or the open-source edition.
 
 ## Overview
 
@@ -48,30 +48,30 @@ A `generic` toolset holds a free-form JSON configuration. Use it when the agent 
 
 ## Managing toolsets
 
-Manage toolsets from the OpenObserve UI under **Management > AI Toolsets**.
+Manage toolsets from the **AI Toolsets** page in the OpenObserve UI. The page has no entry in the **Settings** menu; open it at `https://<your-openobserve-host>/web/settings/ai_toolsets?org_identifier=<your-org>`.
 
 ### Create a toolset
 
-1. Go to **Management > AI Toolsets**.
-2. Click **Create**.
+1. Open the **AI Toolsets** page.
+2. Click **New AI Toolset**.
 3. Enter a **Name** for the toolset. The name must be unique within the organization.
-4. Select the **Kind**: `mcp`, `cli`, `skill`, or `generic`.
+4. Select the **Type**: **MCP Server**, **CLI Tool**, or **Skill**. The `generic` kind can only be created through the API.
 5. Optionally enter a **Description**.
 6. Fill in the kind-specific configuration. See [Toolset kinds](#toolset-kinds) for the fields each kind expects.
 7. Click **Save**.
 
 ### Edit a toolset
 
-1. Go to **Management > AI Toolsets**.
-2. Select the toolset you want to change.
+1. Open the **AI Toolsets** page.
+2. Click **Edit** on the toolset you want to change.
 3. Update the description or configuration. When you provide new configuration data, it fully replaces the existing configuration.
-4. Click **Save**.
+4. Click **Update**.
 
 ### Delete a toolset
 
-1. Go to **Management > AI Toolsets**.
-2. Select the toolset you want to remove.
-3. Click **Delete** and confirm. Deletion is permanent.
+1. Open the **AI Toolsets** page.
+2. Click **Delete** on the toolset you want to remove.
+3. Confirm. Deletion is permanent.
 
 ## How toolsets are used
 

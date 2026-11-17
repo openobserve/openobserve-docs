@@ -16,6 +16,11 @@ In OpenObserve, Dashboards are used to visualize and monitor both real-time and 
 - [Variable Dependencies in Dashboards](variables/variable-dependencies.md)
 - [Comparison Against in Dashboards](comparison-against-in-dashboards.md)
 - [Custom Charts](custom-charts/index.md)
+- [Folder Icons](folder-icons.md)
+- [TV Mode](tv-mode.md) and [TV Playlist](tv-playlist.md)
+- [Public Dashboards](public-dashboards.md)
+- [Annotation Sources](annotation-sources.md)
+- [Histogram Caching](histogram-caching.md)
 
 
 

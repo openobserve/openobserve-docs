@@ -172,7 +172,7 @@ Each `agent.run()` produces a tree of spans. The root span covers the full agent
 4. Use `gen_ai_request_model` to filter by model
 5. Filter by `span_status` = `ERROR` to find failed agent runs
 
-![Koog traces in OpenObserve](../../../images/integration/ai/koog.png)
+![Koog trace in OpenObserve, Waterfall view with the create_agent shop-agent span attributes](../../../images/integration/ai/koog-v2.png)
 
 ## **Next Steps**
 

@@ -75,7 +75,7 @@ For a detailed explanation of how the Tantivy result cache works, memory require
 Tantivy optimizes queries differently based on whether the field is full-text or secondary, and whether the query operates on a single stream or multiple streams. Using the right operator for each field type ensures the query is served from the index instead of scanning logs.
 
 :::note[Note]
-Tantivy index supports logs, metrics ,traces, and metadata stream.
+Tantivy index supports logs, metrics, traces, and metadata streams.
 :::
 
 ### Single-stream queries
@@ -404,7 +404,7 @@ The Tantivy result cache requires memory based on the number of entries and the 
 MAX_ENTRY_SIZE = 20KB
 MAX_ENTRIES = 10000
 
-Memory required = (20 × 10000) / 1024 = 195.315 MB
+Memory required = (20 × 10000) / 1024 = 195.3125 MB
 ```
 
 :::note[Note]

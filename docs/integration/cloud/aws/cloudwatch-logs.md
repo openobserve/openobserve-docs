@@ -26,14 +26,14 @@ This approach enables centralized log analysis, alerting, and visualization in O
 
 :::accordion[Step 1: Get OpenObserve Ingestion URL and Access Key]
 
-1. In OpenObserve: go to **Data Sources → Recommended → AWS**
+1. In OpenObserve: go to **Data > Data sources > Recommended > Amazon Web Services(AWS)**. The **Manual Configuration** block shows the HTTP endpoint and Access Key
 2. Copy the ingestion HTTP URL and Access Key
 
-    ![Fetch OpenObserve Ingestion URL](../../images/aws-integrations/vpc-flow/fetch-url.png)
+    ![Manual Configuration block with the HTTP endpoint and access key](../../images/aws-integrations/vpc-flow/fetch-url-v2.png)
 
 > Example format:
 > ```
-> https://<your-openobserve-domain>/aws/default/cloudwatch-logs/_kinesis_firehose
+> https://<your-openobserve-domain>/aws/<org_id>/cloudwatch_logs/_kinesis_firehose
 > ```
 :::
 
@@ -66,7 +66,7 @@ This approach enables centralized log analysis, alerting, and visualization in O
 
 1. Go to **Logs** → select your log stream → Set time range → Click **Run Query**
 
-    ![Verify Logs in OpenObserve](../../images/aws-integrations/cloudwatch-logs/cloudwatch-logs.png)
+    ![CloudWatch logs in the Logs page](../../images/aws-integrations/cloudwatch-logs/cloudwatch-logs-v2.png)
 :::
 
 :::accordion[Troubleshooting]
@@ -88,5 +88,5 @@ Check the following:
 
 **Start Streaming Fails after creating Subscription Filter**
 
-Check the IAM role attached to the filter has full acess to Kinesis Firehose.
+Check the IAM role attached to the filter has permission to write to the Kinesis Firehose delivery stream.
 :::

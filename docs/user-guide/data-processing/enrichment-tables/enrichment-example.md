@@ -125,13 +125,13 @@ access-control-max-age: 1728000
 
 ### Upload enrichment table
 
-Now let's setup our enrichment table. Go to the OpenObserve UI and click on the `Functions > enrichment tables`. Click on `Add enrichment table` button. Give it a name `protocols`, upload the CSV file and click on `Save`. 
+Now let's setup our enrichment table. Go to the OpenObserve UI and click on **Data > Enrichment Tables**. Click on the **New enrichment table** button. Give it a name `protocols`, upload the CSV file and click on `Save`. 
 
 ### Enrich the log stream
 
 Now that you have the data and the enrichment table set, lets head  over to logs page.
 
-Adde the below VRL function in the VRL function box and click on `Run query` button.
+Add the below VRL function in the VRL function box and click on `Run query` button.
 
 ```javascript lineNumbers title="VRL function"
 protocol, err = get_enrichment_table_record("protocols",

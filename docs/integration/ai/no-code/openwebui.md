@@ -9,7 +9,7 @@ Capture chat completion spans from your Open WebUI instance. Open WebUI is a sel
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * [Open WebUI](https://openwebui.com/) running (Docker recommended)
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
@@ -18,7 +18,7 @@ Capture chat completion spans from your Open WebUI instance. Open WebUI is a sel
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk python-dotenv requests
+pip install openobserve-python-sdk python-dotenv requests
 ```
 
 ## **Configuration**
@@ -102,7 +102,7 @@ print(content)
 3. Click any span to inspect the model, prompt, and response length
 4. Filter by `openwebui_model` to compare latency across models
 
-![Open WebUI trace in OpenObserve](../../../images/integration/ai/openwebui.png)
+![Open WebUI trace in OpenObserve, Waterfall view with the openwebui.chat_completion span attributes](../../../images/integration/ai/openwebui-v2.png)
 
 ## **Next Steps**
 

@@ -17,7 +17,7 @@ Automatically capture LLM calls, function invocations, and planner steps for eve
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk semantic-kernel python-dotenv
+pip install openobserve-python-sdk semantic-kernel python-dotenv
 ```
 
 ## **Configuration**
@@ -112,7 +112,7 @@ kernel.add_plugin(ObservabilityPlugin(), plugin_name="Observability")
 3. Click a span to inspect token counts, model, finish reason, and response ID
 4. Filter by `gen_ai_system` to isolate Semantic Kernel spans from other services
 
-![Semantic Kernel trace in OpenObserve](../../../images/integration/ai/semantic-kernel.png)
+![Semantic Kernel trace in OpenObserve, Waterfall view with the invoke_kernel_function span attributes](../../../images/integration/ai/semantic-kernel-v2.png)
 
 ## **Next Steps**
 

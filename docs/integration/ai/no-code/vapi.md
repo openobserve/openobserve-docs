@@ -9,7 +9,7 @@ Capture assistant metadata, request latency, and error status for every Vapi API
 
 ## **Prerequisites**
 
-* Python 3.8+
+* Python 3.9+
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * A [Vapi](https://vapi.ai/) account and private API key from [dashboard.vapi.ai](https://dashboard.vapi.ai)
@@ -17,7 +17,7 @@ Capture assistant metadata, request latency, and error status for every Vapi API
 ## **Installation**
 
 ```shell
-pip install openobserve-telemetry-sdk opentelemetry-api requests python-dotenv
+pip install openobserve-python-sdk opentelemetry-api requests python-dotenv
 ```
 
 ## **Configuration**
@@ -104,7 +104,7 @@ The Vapi private API key is found under **API Keys** in your Vapi dashboard. Use
 3. Click a `vapi.create_assistant` span to inspect the assistant ID and creation latency
 4. Filter by `span_status` = `ERROR` to identify failed API calls
 
-![Vapi API trace in OpenObserve](../../../images/integration/ai/vapi.png)
+![Vapi API trace in OpenObserve, Waterfall view with the vapi.create_assistant span attributes](../../../images/integration/ai/vapi-v2.png)
 
 ## **Next Steps**
 

@@ -18,9 +18,9 @@ For running OpenObserve in production and high availability mode, you need to pl
 4. Disk storage for caching and ingestion
 5. Storage capacity
 
-Capacity planing can be complex as the hardware requirements can vary based on the use case as well as the availability of hardware can vary.
+Capacity planning can be complex as the hardware requirements can vary based on the use case as well as the availability of hardware can vary.
 
-We have provided a capcity planning sheet that can help you plan for your OpenObserve cluster. It is based in infrastructure in AWS.
+We have provided a capacity planning sheet that can help you plan for your OpenObserve cluster. It is based on infrastructure in AWS.
 
 ## Capacity planning sheet
 
