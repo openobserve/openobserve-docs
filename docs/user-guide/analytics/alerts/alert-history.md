@@ -34,7 +34,7 @@ Each row represents one alert evaluation.
 - **Status**: The result of the alert evaluation.
 - **Retries**: Number of times the system retried alert delivery when the destination did not acknowledge it. The system retries up to three times. <br> **Note**: The environment variable `ZO_SCHEDULER_MAX_RETRIES` defines how many times the scheduler retries a failed execution.
 - **Condition**: The condition that was evaluated.
-- **Dedup**: Whether the notification was grouped by [deduplication](scheduled-alerts.md#deduplication).
+- **Suppression**: Why a notification was held back: "Suppressed as a repeat" by [suppress repeats](scheduled-alerts.md#suppress-repeats), or "suppressed by ack" when someone acknowledged the alert.
 - **Actions**: Opens the **Alert Execution Details** view, which includes:
 
     - **Evaluation Time**: The time taken to complete the alert evaluation.

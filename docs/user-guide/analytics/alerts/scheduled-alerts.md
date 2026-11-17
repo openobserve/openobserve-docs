@@ -1,6 +1,6 @@
 ---
 title: Scheduled Alerts
-description: "Create scheduled and SQL alerts in OpenObserve. Covers the condition builder, SQL mode, Compare with Past, deduplication, and advanced configuration."
+description: "Create scheduled and SQL alerts in OpenObserve. Covers the condition builder, SQL mode, Compare with Past, suppress repeats, and advanced configuration."
 ---
 
 ## Create a scheduled alert
@@ -74,6 +74,7 @@ Scroll down to the **Settings** section on the same **Alert Rules** tab:
 - **Destination**: Select one or more notification destinations. Click the refresh icon to reload, or **Add Destination** to create a new one.
 - **Creates Incident**: Toggle on to automatically create an incident when the alert triggers. Shown only when [incidents](../incidents/index.md) are enabled.
 - **Notify on recovery**: Send one message to the destinations when the alert stops firing. Optionally pick a **Recovery destination**, and set **Keep firing for** to wait before the alert recovers.
+- **Suppress repeats**: Notify once when the alert starts firing or changes level, instead of on every evaluation. Enterprise and Cloud only. See [Suppress repeats](#suppress-repeats).
 
 ![Settings section with Look back window, Cooldown period, Hold for, Destination, Creates Incident, Notify on recovery, Recovery destination and Keep firing for](../../../images/add-alert-settings-section-v2.png)
 
@@ -307,13 +308,6 @@ No. It runs one query per window. Frequency controls *when* the queries run; per
 
 The VRL function receives a flat array with all results mixed together. You cannot distinguish current from past window data.
 
-### Deduplication
-
-Group similar alerts to reduce notification noise.
-
-- **Group similar alerts by**: Select fields that identify similar alerts (e.g., `hostname`, `service`). Leave empty for auto-detection based on the query
-- **Consider alerts identical within**: Time window for grouping similar alerts (default: matches the check interval)
-
 ### Additional settings
 
 - **Template Override**: Select a custom notification template to override the default
@@ -321,6 +315,23 @@ Group similar alerts to reduce notification noise.
 - **Description**: Free-text description for the alert
 - **Row Template**: Customize the format of individual data rows in notifications. Toggle between **String** and **JSON** template types
 - **Priority**, **Tags**, and **On-call team**: Triage metadata. See [Advanced Alert Configuration](advanced-alert-configuration.md#alert-priority). **On-call team** appears only when on-call is enabled.
+
+---
+
+## Suppress repeats
+
+By default, an alert that keeps firing notifies again after each **Cooldown period**. To notify once per state change instead, turn on **Suppress repeats** in the **Settings** section of the **Alert Rules** tab. Its help text reads: "Notify once when the alert starts firing or changes level, not on every evaluation. Leave it off to keep getting reminders after each silence period."
+
+With the switch on:
+
+- The alert notifies when it starts firing and when its level changes, for example from warning to critical.
+- Repeat notifications at the same level are withheld. After the alert recovers, the next firing notifies again.
+- An alert that fires separately per group applies the same rule to each group.
+- Withheld notifications show **Suppressed as a repeat** in the **Suppression** column of the alert history.
+
+:::note[Note]
+**Suppress repeats** is available only in OpenObserve Enterprise and Cloud, and only for scheduled alerts. It is off by default.
+:::
 
 ---
 
@@ -338,7 +349,7 @@ Group similar alerts to reduce notification noise.
 - Start with a generous threshold and tune it down once you understand your data patterns. This prevents alert fatigue from overly sensitive conditions.
 - Use **Group by** fields in measure mode to create per-dimension alerts (e.g., per host) instead of creating separate alerts for each dimension.
 - Set a **Cooldown period** of at least 10 minutes to avoid notification storms during sustained incidents.
-- Use **Deduplication** in the Advanced tab to group related alerts and reduce noise.
+- Turn on **Suppress repeats** for alerts that stay firing for long periods, so each state change notifies only once.
 - Add a meaningful **Description** so on-call engineers understand the alert's purpose without investigating the configuration.
 - Use **Compare with Past** for alerts where relative change matters more than absolute values.
 
@@ -366,7 +377,7 @@ Group similar alerts to reduce notification noise.
 
 1. Increase the **Cooldown period** to reduce notification frequency.
 2. Raise the **Threshold** value to only alert on more significant conditions.
-3. Enable **Deduplication** in the Advanced tab.
+3. Turn on **Suppress repeats** in the **Settings** section (Enterprise and Cloud).
 4. Add more specific **Filters** to narrow the data the alert evaluates.
 
 ### Validation errors when saving
