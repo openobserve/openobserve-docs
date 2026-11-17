@@ -4,7 +4,7 @@ metaTitle: Logs Overview - Explore and Query Log Data in OpenObserve
 description: Explore log data in OpenObserve. View and filter logs by time and fields, run SQL queries, transform with VRL, save views, and schedule recurring searches.
 ---
 
-# Logs
+# Logs Overview
 
 ## Overview
 Logs are a type of stream in OpenObserve that record structured event data from applications, systems, or services. Each log entry includes a timestamp, message, and optional metadata fields such as severity, service name, or container details.

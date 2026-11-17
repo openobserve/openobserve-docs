@@ -4,7 +4,7 @@ metaTitle: Run Your First Log Search in OpenObserve
 description: "Run your first log search in OpenObserve: filter by stream and time range, switch between non-SQL and SQL mode, transform with VRL, and save views."
 ---
 
-# Logs
+# Logs in OpenObserve
 
 This page explains how to run your first log search in OpenObserve, set a time range, execute a query, apply VRL transformations, adjust display settings, and save or export the results. 
 
