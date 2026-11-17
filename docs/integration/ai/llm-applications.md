@@ -159,6 +159,28 @@ Every call is now captured as a trace span and exported to OpenObserve.
 
 Note: The **openobserve-python-sdk** is an optional thin wrapper around the standard OpenTelemetry Python SDK that simplifies setup and exporter configuration. If you already use OpenTelemetry, you can send telemetry directly to the OpenObserve OTLP endpoint without it.
 
+## Option C: Instrument with a coding agent
+
+Let a coding agent such as Claude Code, Cursor, or Codex add the instrumentation to your project.
+
+1. Go to **Data** > **Data sources** > **AI Integrations** and open your provider or framework.
+2. Open the **With a coding agent** tab.
+3. Optionally change the **Traces Stream Name**.
+4. Click **Download .env** and save it in your project root, so the token stays out of the chat.
+5. Copy the **Prompt** into your coding agent; this starts the check for the first span.
+6. Let the agent run one sample request. If no span arrives in 15 minutes, the status shows what went wrong.
+
+When the first span arrives, the tab runs the **AI data health** checks:
+
+| Check | What it flags |
+| ----- | ----- |
+| **Unpriced models** | Models without a price, whose spans count as $0. Shown only when model pricing is enabled. |
+| **Missing agent identity** | LLM spans without `gen_ai.agent.name`, which agent views miss. |
+| **Zero-duration spans** | LLM spans that report 0 ms, so latency reads too low. |
+| **Spans without session id** | LLM spans without `gen_ai.conversation.id`, which Sessions misses. |
+
+A failing check lists sample traces. After the agent fixes the code and runs another request, click **Check again**.
+
 ## What gets captured
 
 The `opentelemetry-instrumentation-openai` library attaches request, response, and token attributes to each span. OpenObserve stores attribute names with dots replaced by underscores, for example:
@@ -186,7 +208,7 @@ In addition, OpenObserve computes and stores the following token and cost fields
 | `gen_ai_usage_cost_output` | Float64 | Cost of output tokens |
 | `gen_ai_usage_cost` | Float64 | Total cost of the LLM call |
 
-The cost fields are filled from the span's own reported cost when it has one; otherwise [Model Pricing](model-pricing.md) calculates them from the model name and token counts (`ZO_MODEL_PRICING_ENABLED`, on by default). Spans with prompt caching also get `gen_ai_usage_cache_read_input_tokens`, `gen_ai_usage_cache_creation_input_tokens`, and matching `gen_ai_usage_cost_cache_*` fields.
+The cost fields are filled from the span's own reported cost when it has one; otherwise [Model Pricing](model-pricing.md) calculates them from the model name and token counts (`ZO_MODEL_PRICING_ENABLED`, on by default). A span whose model has no price keeps its token counts but gets no cost fields, rather than a zero cost. Spans with prompt caching also get `gen_ai_usage_cache_read_input_tokens`, `gen_ai_usage_cache_creation_input_tokens`, and matching `gen_ai_usage_cost_cache_*` fields.
 
 ## Viewing traces in OpenObserve
 
