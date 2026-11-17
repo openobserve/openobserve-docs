@@ -131,6 +131,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_COMPACT_MAX_GROUP_FILES               | 10000         | Maximum number of files allowed in a compaction group.                                         |
 | ZO_COMPACT_FILE_LIST_DELETED_BATCH_SIZE | 1000                       | Controls the batch size used when deleting entries from `file_list` during compaction and data retention.                                                                            |
 | ZO_COMPACT_RETENTION_ALLOWED_HOURS      | "" (empty, no restriction) | Specifies the UTC hours during which data retention jobs are allowed to start. Provide a comma-separated list of hours (e.g., `5,6,7,8` to allow retention between 05:00 and 08:00 UTC). |
+| ZO_DYNAMIC_PARTITION_STREAM_TYPES | "" | Comma-separated stream types (`logs`, `metrics`, `traces`) that the compactor classifies by volume. A stream whose last `ZO_DYNAMIC_PARTITION_WINDOW_DAYS` closed days each hold less than `ZO_COMPACT_MAX_FILE_SIZE` is merged by day from the next day on; a stream whose days each hold more goes back to hourly. The stream setting `dynamic_partition` overrides this per stream. Before downgrading to a version without this setting, set `ZO_<TYPE>_QUERY_RETENTION=daily` for these types, or queries miss the days already merged by day. |
+| ZO_DYNAMIC_PARTITION_WINDOW_DAYS | 7 | Number of closed days that must all agree before the classifier moves a stream. Minimum 3. A stream younger than this is not classified. |
 
 ## UI and Web
 | Environment Variable | Default Value | Description |
@@ -140,6 +142,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_BASE_URI | - | If OpenObserve is hosted under a subpath, set the path prefix. Use this for deployments with a Kubernetes NGINX ingress or any reverse proxy that serves OpenObserve under a subpath such as www.example.com/openobserve. |
 | ZO_SWAGGER_ENABLED | true | Generate SWAGGER API documentation by default. |
 | ZO_EXPERIMENTAL | false | Shows experimental features in the UI. In the Enterprise edition, `true` adds **AutoObserve** to the sidebar. |
+| ZO_SAMPLE_DATA_ONBOARDING_ENABLED | false | Greets a new user with a first-run welcome dialog that loads sample data in one click. When false, a new cloud user gets the full-page onboarding instead, and other builds show Home as usual. |
 
 ## Dashboard
 | Environment Variable                 | Default Value | Description                                       |
@@ -196,6 +199,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_ALERT_SCHEDULE_TIMEOUT           | 90     | The maximum expected time duration in seconds within which the processing of alert by the scheduler should be complete. If the processing of the alert is not complete within the timeframe, the alert will become available again for other schedulers to pick. |
 | ZO_SCHEDULER_WATCH_INTERVAL         | 30    | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by schedulers. |
 | ZO_ALERT_SCHEDULE_CONCURRENCY       | 50 | The number of scheduled jobs the the scheduler will pull at a time from the scheduler for processing |
+| ZO_ALERT_NOTIFICATION_TIMEOUT       | 30 | Total time limit in seconds for one notification request to a destination, including the connection. `0` uses the default of 30. |
 | ZO_CHROME_ENABLED                   | false  | When true, it looks for chromium executable. Required for dashboard reports. |
 | ZO_CHROME_PATH                      | -  | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
 | ZO_CHROME_CHECK_DEFAULT_PATH        | true | If false, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
@@ -280,6 +284,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_MEMORY_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the memory cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
 | ZO_DISK_CACHE_MAX_AGE_DAYS | 0 | Maximum age in days for files admitted into the disk cache. Files whose data is older than this value are skipped; queries read them directly from object storage instead of downloading them into the cache. Set to `0` to disable (no age limit, current behavior). |
 | ZO_FILE_DOWNLOAD_SYNC_MAX_SIZE | 1 | Files up to this size in MB that are missing from the querier cache are downloaded into the cache before a search runs, instead of being range-read from object storage. Larger files are downloaded in the background as before. Set to `0` to disable. |
+| ZO_OVERVIEW_CACHE_TTL | 30 | Number of seconds the organization overview response is cached per caller. `0` disables the cache. |
 
 
 ## HTTP TLS
@@ -385,6 +390,9 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_RUM_ORGANIZATION_IDENTIFIER | -             | Organization identifier used by RUM. |
 | ZO_RUM_API_VERSION             | -             | API version for RUM.                 |
 | ZO_RUM_INSECURE_HTTP           | false         | Allows HTTP for RUM endpoints.       |
+| ZO_SOURCEMAP_FILE_MAX_SIZE     | 50            | Maximum size in MB of one source map file in an upload. `0` means 50. |
+| ZO_SOURCEMAP_ZIP_MAX_SIZE      | 500           | Maximum total uncompressed size in MB of one source map upload. `0` means 500. |
+| ZO_SOURCEMAP_ZIP_MAX_ENTRIES   | 5000          | Maximum number of source map files in one upload. `0` means 5000. |
 
 
 ## Pipeline
@@ -409,6 +417,28 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_PIPELINE_MAX_RETRY_TIME_IN_HOURS         | 24            | Maximum retry time for pipeline exporters in hours.                                                                               |
 | ZO_PIPELINE_MAX_FILE_SIZE_ON_DISK_MB       | 256 | Maximum file size on disk for pipeline files in megabytes.                                                                        |
 | ZO_PIPELINE_MAX_FILE_RETENTION_TIME_SECONDS | 600           | Maximum retention time for pipeline files in seconds.                                                                             |
+
+## Workflow HTTP endpoints
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_WORKFLOW_HOOKS_ENABLED | true | Enterprise edition only. Enables HTTP endpoints that trigger workflows. |
+| ZO_WORKFLOW_HOOK_IP_RPM | 6000 | Requests per minute one client IP may send to workflow HTTP endpoints. |
+| ZO_WORKFLOW_HOOK_PREAUTH_SLOTS | 256 | Number of workflow HTTP endpoint requests read at once before authentication. |
+| ZO_WORKFLOW_HOOK_UNRESOLVED_IP_SLOTS | 16 | Pre-authentication slots shared by requests whose client IP is unknown. |
+| ZO_WORKFLOW_HOOK_ORG_RPM | 1200 | Workflow HTTP endpoint requests per minute per organization. |
+| ZO_WORKFLOW_HOOK_ORG_BYTES_PER_MIN | 16777216 | Workflow HTTP endpoint body bytes per minute per organization. |
+| ZO_WORKFLOW_HOOK_ORG_QUEUE_MAX | 1000 | Queued workflow HTTP runs allowed per organization. |
+| ZO_WORKFLOW_HOOK_ORG_CONCURRENCY | 2 | Workflow HTTP runs executing at once per organization. Cannot exceed `ZO_WORKFLOW_HOOK_CONCURRENCY`. |
+| ZO_WORKFLOW_HOOK_CONCURRENCY | 8 | Workflow HTTP runs executing at once per region. |
+| ZO_WORKFLOW_HOOK_RUN_TIMEOUT | 900 | Number of seconds a workflow HTTP run may take before it is cancelled. |
+| ZO_WORKFLOW_HOOK_QUEUE_TTL | 3600 | Number of seconds a workflow HTTP run may wait in the queue before it expires. |
+| ZO_WORKFLOW_HOOK_WORKER_DISABLED | false | When true, the workflow HTTP worker never runs on this node. |
+
+## Synthetics
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| ZO_SYNTHETICS_LEASE_BATCH_SIZE | 10 | Number of jobs the dispatcher leases per pool in one lease call. Must be greater than 0. |
+| ZO_SYNTHETICS_MAX_INFLIGHT_PER_TICK | 100 | Maximum number of jobs the dispatcher leases across all pools in one 2-second tick. Must be greater than 0. |
 
 ## Health Check
 | Environment Variable             | Default Value | Description                                                                     |
@@ -456,21 +486,12 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_TOKIO_CONSOLE_SERVER_PORT | 6699          | Port for the Tokio console server.                  |
 | ZO_TOKIO_CONSOLE_RETENTION    | 60            | Retention period in seconds for Tokio console data. |
 
-## Profiling
-| Environment Variable               | Default Value                                  | Description                                   |
-| ---------------------------------- | ---------------------------------------------- | --------------------------------------------- |
-| ZO_PROF_PPROF_ENABLED           | false                                          | Enables profiling with pprof-rs.              |
-| ZO_PROF_PPROF_PROTOBUF_ENABLED | false                                          | Exports pprof-rs profiles in protobuf format. |
-| ZO_PROF_PPROF_FLAMEGRAPH_PATH  | -                                              | Path to save flamegraph output.               |
-| ZO_PROF_PYROSCOPE_ENABLED       | false                                          | Enables profiling with pyroscope-rs.          |
-| ZO_PROF_PYROSCOPE_SERVER_URL   | `http://localhost:4040` | Pyroscope server URL.                         |
-| ZO_PROF_PYROSCOPE_PROJECT_NAME | openobserve                                    | Pyroscope project name.                       |
-
 ## Tantivy Index
 | Environment Variable                                  | Default Value | Description                                                              |
 | ----------------------------------------------------- | ------------- | ------------------------------------------------------------------------ |
 | ZO_INVERTED_INDEX_RESULT_CACHE_ENABLED           | false         | Enables Tantivy result cache.                                            |
 | ZO_INVERTED_INDEX_COUNT_OPTIMIZER_ENABLED        | true          | Enables inverted index count optimizer.                                  |
+| ZO_INVERTED_INDEX_LIKE_OPTIMIZER_ENABLED | true | Uses the inverted index for `col LIKE '%x%'` and `col ILIKE '%x%'` predicates. When false, these predicates are answered by scanning files. |
 
 
 ## MaxMind GeoIP
