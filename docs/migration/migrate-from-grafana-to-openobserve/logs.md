@@ -4,7 +4,7 @@ metaTitle: Migrate Logs from Loki (LGTM Stack) to OpenObserve
 description: "Migrate logs from Grafana Loki to OpenObserve: paths for Promtail, OTel Collector, Fluent Bit, Vector, Grafana Alloy, Kubernetes, and CloudWatch."
 ---
 
-# Migrating Logs
+# Migrating Logs from Loki
 
 ## Overview
 

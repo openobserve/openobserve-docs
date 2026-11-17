@@ -4,7 +4,7 @@ metaTitle: "Datadog vs OpenObserve - Architecture & Terminology"
 description: "How Datadog Agent, DogStatsD, and APM components map to OpenObserve: architecture comparison, terminology, and protocol compatibility."
 ---
 
-# Architecture & Terminology
+# Datadog vs OpenObserve: Architecture & Terminology
 
 ## Architecture: Datadog vs OpenObserve
 

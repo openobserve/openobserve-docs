@@ -4,7 +4,7 @@ metaTitle: Metrics in OpenObserve | OpenObserve
 description: "Collect, query, and visualize metrics at scale with OpenObserve: Prometheus remote-write, OTLP, PromQL and SQL, dashboards, and downsampling."
 ---
 
-# Metrics
+# Metric Monitoring
 
 OpenObserve provides comprehensive metrics collection, storage, and visualization capabilities for monitoring your applications and infrastructure performance in real-time.
 

@@ -4,7 +4,7 @@ metaTitle: "Migrate Metrics from Datadog to OpenObserve - Agent & OTel"
 description: "Migrate Datadog metrics to OpenObserve with the OpenTelemetry Collector. Covers DogStatsD, Agent forwarding, Kubernetes, CloudWatch, and Azure Monitor."
 ---
 
-# Migrating Metrics
+# Migrating Metrics from Datadog
 
 ## Overview
 

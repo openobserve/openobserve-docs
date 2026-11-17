@@ -4,7 +4,7 @@ metaTitle: Log Management Features - Collect, Search, and Analyze Logs
 description: "Collect, store, search, and analyze logs at scale with OpenObserve: multiple ingestion protocols, full-text and SQL search, and configurable retention."
 ---
 
-# Logs
+# Log Management
 
 OpenObserve provides powerful log management capabilities for collecting, storing, and analyzing log data from your applications and infrastructure.
 

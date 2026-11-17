@@ -4,6 +4,8 @@ metaTitle: Apply Filters to Dashboard Panels
 description: Filters narrow dashboard panel data using static list values, dynamic variables, and operators, combining conditions with AND or OR logic in nested groups.
 ---
 
+# Apply Filters to Dashboard Panels
+
 This guide provides instructions on how to apply filters to narrow the data shown in a dashboard panel by using fixed values, referencing dynamic variables, or combining multiple conditions with logical operators.
 
 ## When to Use Filters

@@ -4,7 +4,7 @@ metaTitle: "LGTM Stack vs OpenObserve - Architecture & Terminology"
 description: "How Loki, Grafana, Tempo, and Mimir map to OpenObserve: architecture comparison, terminology reference, and protocol compatibility for LGTM migrations."
 ---
 
-# Architecture & Terminology
+# LGTM Stack vs OpenObserve: Architecture & Terminology
 
 ## Architecture: LGTM vs OpenObserve
 
