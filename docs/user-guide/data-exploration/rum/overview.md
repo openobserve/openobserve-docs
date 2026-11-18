@@ -7,98 +7,98 @@ description: OpenObserve RUM captures real user sessions in production, recordin
 
 ## What is RUM?
 
-Real User Monitoring (RUM) is a comprehensive frontend monitoring solution that helps you understand how real users experience your application in production. Unlike synthetic monitoring, RUM captures actual user interactions, performance metrics, and errors as they happen in real-world conditions.
+Real User Monitoring (RUM) is a full frontend monitoring tool. It shows how real users experience your app in production. Synthetic monitoring uses scripted tests. RUM instead captures what real users do, how fast pages load, and which errors occur, as it happens.
 
 ## Why Use RUM?
 
-RUM provides critical insights into:
+RUM helps you see:
 
-- **Real-world performance**: See how your application performs across different devices, browsers, networks, and geographic locations
-- **User behavior**: Understand how users navigate and interact with your application
-- **Error tracking**: Catch frontend errors that don't appear in server logs
-- **Performance bottlenecks**: Identify slow pages, API calls, and resources that impact user experience
-- **Business impact**: Correlate technical metrics with user engagement and satisfaction
+- **Real-world performance**: See how your app performs across devices, browsers, networks, and locations.
+- **User behavior**: Learn how users move through and use your app.
+- **Error tracking**: Catch frontend errors that don't appear in server logs.
+- **Performance bottlenecks**: Find slow pages, API calls, and resources that hurt the user experience.
+- **Business impact**: Link technical metrics to user engagement and satisfaction.
 
 ## Key Features
 
-OpenObserve RUM provides four main categories of monitoring:
+OpenObserve RUM covers four main areas:
 
 ### 1. Performance Monitoring
-Track critical performance metrics to ensure your application is fast and responsive:
+Track key metrics to make sure your app is fast and responsive:
 
-- **Web Vitals**: Core Web Vitals (LCP, INP, CLS) and other performance metrics
-- **Page Load Performance**: Full page load time, time to first byte, DOM content loaded
-- **Resource Monitoring**: Track loading times for images, scripts, stylesheets, and other assets
-- **API Performance**: Monitor response times and success rates of API calls
-- **Long Tasks**: Identify JavaScript operations that block the main thread
+- **Web Vitals**: Core Web Vitals (LCP, INP, CLS) and other performance metrics.
+- **Page Load Performance**: Full page load time, time to first byte, and DOM content loaded.
+- **Resource Monitoring**: Track load times for images, scripts, stylesheets, and other assets.
+- **API Performance**: Monitor response times and success rates of API calls.
+- **Long Tasks**: Find JavaScript work that blocks the main thread.
 
 ### 2. Session Tracking
 Understand user sessions and behavior:
 
-- **Session Timeline**: Complete view of user activity from start to finish
-- **User Context**: Track user information, device, browser, location
-- **Session Duration**: Monitor how long users spend in your application
-- **Error Count per Session**: See which sessions encountered errors
-- **Geographic Distribution**: Understand where your users are located
+- **Session Timeline**: See all user activity from start to finish.
+- **User Context**: Track user details, device, browser, and location.
+- **Session Duration**: Monitor how long users spend in your app.
+- **Error Count per Session**: See which sessions had errors.
+- **Geographic Distribution**: See where your users are.
 
 ### 3. Error Tracking
-Capture and debug frontend errors effectively:
+Capture and debug frontend errors:
 
-- **Error Details**: Full error messages, stack traces, and context
-- **Error Frequency**: Track how often specific errors occur
-- **Error Impact**: See how many users are affected by each error
-- **Session Replay Integration**: Jump directly to session replay to see what led to the error
-- **Unhandled Errors**: Catch errors that would otherwise go unnoticed
+- **Error Details**: Get full error messages, stack traces, and context.
+- **Error Frequency**: Track how often each error occurs.
+- **Error Impact**: See how many users each error affects.
+- **Session Replay Integration**: Jump straight to session replay to see what led to the error.
+- **Unhandled Errors**: Catch errors that would otherwise go unnoticed.
 
 ### 4. Session Replay
 Debug issues by watching exactly what users did:
 
-- **Video-like Playback**: Watch user interactions as they happened
-- **Event Timeline**: See all clicks, scrolls, navigation, and form submissions
-- **Error Integration**: Jump to the moment an error occurred
-- **Privacy Controls**: Mask sensitive user input automatically
-- **Performance Context**: See performance metrics alongside user actions
+- **Video-like Playback**: Watch user actions as they happened.
+- **Event Timeline**: See all clicks, scrolls, page changes, and form submissions.
+- **Error Integration**: Jump to the moment an error occurred.
+- **Privacy Controls**: Mask sensitive user input automatically.
+- **Performance Context**: See performance metrics next to user actions.
 
 ## How It Works
 
-OpenObserve RUM works by adding a lightweight JavaScript library to your frontend application:
+To use OpenObserve RUM, you add a small JavaScript library to your frontend app. Then it works in four steps:
 
-1. **Data Collection**: The RUM SDK automatically collects performance metrics, errors, and user interactions
-2. **Data Transmission**: Data is sent to OpenObserve servers in real-time
-3. **Analysis**: OpenObserve processes and stores the data for analysis
+1. **Data Collection**: The RUM SDK automatically collects performance metrics, errors, and user actions.
+2. **Data Transmission**: The SDK sends data to OpenObserve servers in real time.
+3. **Analysis**: OpenObserve processes and stores the data for analysis.
 4. **Visualization**: Go to **Experience** > **RUM** in the left navigation. The page has four tabs:
 
-   - **Performance**: metrics and charts
-   - **Sessions**: the session list, with session replay for each session
-   - **Error Tracking**: aggregated error views
-   - **Source Maps**: upload source maps so stack traces show your original code
+   - **Performance**: View metrics and charts.
+   - **Sessions**: View the session list, with session replay for each session.
+   - **Error Tracking**: View errors grouped together.
+   - **Source Maps**: Upload source maps so stack traces show your original code.
 
 ## Privacy and Security
 
-OpenObserve RUM is designed with privacy in mind:
+OpenObserve RUM is built with privacy in mind:
 
-- **Configurable Privacy Levels**: Choose from `allow`, `mask-user-input`, or `mask` modes
-- **Input Masking**: Automatically hide sensitive form inputs
-- **Data Control**: Full control over what data is collected and stored
-- **Secure Transmission**: All data is transmitted securely
-- **Compliance**: Helps you meet GDPR and other privacy requirements
+- **Configurable Privacy Levels**: Choose from `allow`, `mask-user-input`, or `mask` modes.
+- **Input Masking**: Automatically hide sensitive form inputs.
+- **Data Control**: You control what data is collected and stored.
+- **Secure Transmission**: All data is sent securely.
+- **Compliance**: Helps you meet GDPR and other privacy rules.
 
 ## Getting Started
 
 To start using OpenObserve RUM:
 
-1. **Install the SDK**: Add the OpenObserve JavaScript libraries to your project
-2. **Configure**: Set up your application ID, client token, and options
-3. **Deploy**: Push your changes to production
-4. **Monitor**: Start viewing real user data in the OpenObserve dashboard
+1. **Install the SDK**: Add the OpenObserve JavaScript libraries to your project.
+2. **Configure**: Set your application ID, client token, and options.
+3. **Deploy**: Push your changes to production.
+4. **Monitor**: Start viewing real user data in the OpenObserve dashboard.
 
 See the [Setup Guide](./setup.md) for detailed installation instructions.
 
 ## What's Next?
 
-- [Setup Guide](./setup.md) - Install and configure RUM in your application
-- [Performance Monitoring](./performance-monitoring.md) - Learn about performance metrics and Web Vitals
-- [Session Tracking](./sessions.md) - Understand session data and user behavior
-- [Error Tracking](./error-tracking.md) - Track and debug frontend errors
-- [Session Replay](./session-replay.md) - Debug issues with session replay
-- [Metrics Reference](./metrics-reference.md) - Complete list of all metrics collected
+- [Setup Guide](./setup.md): Install and set up RUM in your app.
+- [Performance Monitoring](./performance-monitoring.md): Learn about performance metrics and Web Vitals.
+- [Session Tracking](./sessions.md): Understand session data and user behavior.
+- [Error Tracking](./error-tracking.md): Track and debug frontend errors.
+- [Session Replay](./session-replay.md): Debug issues with session replay.
+- [Metrics Reference](./metrics-reference.md): See the full list of metrics collected.

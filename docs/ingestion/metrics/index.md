@@ -6,13 +6,15 @@ description: "Ingest metrics into OpenObserve with Prometheus, the OpenTelemetry
 
 # Metrics Ingestion - Infrastructure & Application Monitoring
 
-OpenObserve supports multiple metrics ingestion methods for comprehensive infrastructure monitoring, application performance monitoring (APM), and observability. Collect and analyze metrics from Kubernetes, cloud platforms, servers, and applications using industry-standard protocols.
+You can send metrics to OpenObserve in several ways. Use them to watch your servers, apps, and Kubernetes clusters. Each method uses a standard protocol, so you can keep the tools you already run.
 
 ## Supported Metrics Ingestion Methods
 
-1. [Prometheus](prometheus.md) - Prometheus remote write for Kubernetes monitoring and time-series metrics
-1. [Vector](vector.md) - Host metrics through Prometheus remote write
-1. [OTLP / OTEL collector](../logs/otlp.md) - OpenTelemetry Collector for unified metrics collection
-1. [OBI (eBPF zero-code)](../traces/obi.md) - Automatic application RED metrics via eBPF, no code changes
-1. [Telegraf](telegraf.md) - System metrics and infrastructure monitoring agent
+Pick the method that fits your setup.
+
+1. [Prometheus](prometheus.md): Send time-series metrics with Prometheus remote write. This suits Kubernetes monitoring.
+1. [Vector](vector.md): Send host metrics through Prometheus remote write.
+1. [OTLP / OTEL collector](../logs/otlp.md): Use the OpenTelemetry Collector to collect all your metrics in one place.
+1. [OBI (eBPF zero-code)](../traces/obi.md): Get app RED metrics from eBPF. No code changes are needed.
+1. [Telegraf](telegraf.md): Run this agent to collect system and host metrics.
     

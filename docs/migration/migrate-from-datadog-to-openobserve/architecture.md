@@ -6,6 +6,8 @@ description: "How Datadog Agent, DogStatsD, and APM components map to OpenObserv
 
 # Datadog vs OpenObserve: Architecture & Terminology
 
+This page compares a Datadog setup with OpenObserve. It shows what changes when you move, how Datadog terms map to OpenObserve, and which protocols still work.
+
 ## Architecture: Datadog vs OpenObserve
 
 ### Before: Datadog
@@ -13,28 +15,28 @@ description: "How Datadog Agent, DogStatsD, and APM components map to OpenObserv
 A typical Datadog deployment looks like this:
 
 - **Datadog Agent** runs on every host (or as a DaemonSet on Kubernetes). It collects host metrics, integration metrics, logs, traces (via APM), and process data.
-- **DogStatsD**, embedded in the Agent on UDP port `8125`, accepts custom application metrics.
-- **APM tracers** (`dd-trace-java`, `dd-trace-py`, `dd-trace-go`, etc.) embedded in your apps send spans to the Agent over port `8126`.
-- The Agent ships everything to the **Datadog SaaS backend** via Datadog-proprietary HTTPS APIs.
-- **Dashboards, monitors, notebooks, and SLOs** are managed in the Datadog UI.
+- **DogStatsD** is built into the Agent on UDP port `8125`. It accepts custom app metrics.
+- **APM tracers** (`dd-trace-java`, `dd-trace-py`, `dd-trace-go`, etc.) run inside your apps. They send spans to the Agent over port `8126`.
+- The Agent ships everything to the **Datadog SaaS backend**. It uses Datadog's own HTTPS APIs.
+- You manage **dashboards, monitors, notebooks, and SLOs** in the Datadog UI.
 
-Components to operate: the Agent fleet, plus whatever shipping/log forwarders you've layered on top (Vector, Fluent Bit, custom forwarders). All ingestion and storage is owned by Datadog.
+Components to operate: the Agent fleet, plus any log forwarders you've added on top (Vector, Fluent Bit, custom forwarders). Datadog owns all ingestion and storage.
 
 ### After: OpenObserve
 
-The migration introduces an **OpenTelemetry Collector** as a translation layer in front of OpenObserve. The Collector accepts data in Datadog wire formats (DogStatsD, Datadog Agent API, Datadog APM) and exports it to OpenObserve in OTLP.
+The migration adds an **OpenTelemetry Collector** in front of OpenObserve. It acts as a translation layer. The Collector accepts data in Datadog wire formats (DogStatsD, Datadog Agent API, Datadog APM). It then exports that data to OpenObserve in OTLP.
 
-- **Datadog Agent** (optionally retained) continues to collect host and integration data, but now forwards to the local OTel Collector instead of Datadog SaaS.
-- **DogStatsD clients** in your apps emit metrics unchanged. The OTel Collector's `statsd` receiver listens on port `8125` just like the Datadog Agent did.
-- **APM tracers** continue to emit spans; the Collector's `datadog` receiver translates them into OTLP.
-- **OpenTelemetry Collector** translates everything into OTLP and exports to OpenObserve.
+- **Datadog Agent** (optional) still collects host and integration data. But it now forwards to the local OTel Collector instead of Datadog SaaS.
+- **DogStatsD clients** in your apps send metrics unchanged. The OTel Collector's `statsd` receiver listens on port `8125`, just like the Datadog Agent did.
+- **APM tracers** still send spans. The Collector's `datadog` receiver turns them into OTLP.
+- **OpenTelemetry Collector** turns everything into OTLP and exports it to OpenObserve.
 - **OpenObserve** stores everything as columnar Parquet in your own object storage (S3/GCS/Azure Blob/local disk).
 
-Components to operate: **2**, the OTel Collector and OpenObserve. The Datadog Agent can stay during migration or be replaced by the OTel Collector entirely.
+Components to operate: **2**, the OTel Collector and OpenObserve. The Datadog Agent can stay during migration. Or the OTel Collector can replace it fully.
 
 ### What Changes and What Doesn't
 
-**Your application code does not change.** DogStatsD calls, APM tracer instrumentation, and log emission stay exactly as they are. Only the destination endpoints change.
+**Your application code does not change.** DogStatsD calls, APM tracer setup, and log output stay exactly as they are. Only the destination endpoints change. The table below shows each layer.
 
 | Layer | Changes? | Details |
 |---|---|---|
@@ -47,7 +49,7 @@ Components to operate: **2**, the OTel Collector and OpenObserve. The Datadog Ag
 
 ## Terminology Mapping
 
-If you're coming from Datadog, most concepts have direct equivalents in OpenObserve. The mapping isn't always 1:1. Datadog has many product-named features that become generic capabilities in OpenObserve.
+If you're coming from Datadog, most concepts have a direct match in OpenObserve. The mapping isn't always 1:1. Datadog gives many features their own product names. In OpenObserve, these are general features.
 
 ### Concepts
 
@@ -73,7 +75,7 @@ If you're coming from Datadog, most concepts have direct equivalents in OpenObse
 
 ### Protocol Compatibility
 
-**OpenObserve can accept Datadog's wire formats through the OTel Collector**, and it natively speaks open ingestion protocols. You're not changing how data is collected; you're routing it through a translation layer.
+**OpenObserve can accept Datadog's wire formats through the OTel Collector.** It also speaks open ingestion protocols natively. You don't change how data is collected. You just route it through a translation layer.
 
 | Protocol | Datadog Endpoint | OpenObserve / Collector Endpoint |
 |---|---|---|
@@ -88,7 +90,7 @@ If you're coming from Datadog, most concepts have direct equivalents in OpenObse
 
 ### Metric Type Mapping
 
-Datadog and OpenTelemetry use different vocabularies for metric types. The OTel Collector handles the translation, but it helps to know what becomes what:
+Datadog and OpenTelemetry use different names for metric types. The OTel Collector handles the translation. Still, it helps to know what becomes what:
 
 | Datadog Type | OpenTelemetry Type | Notes |
 |---|---|---|
@@ -101,12 +103,12 @@ Datadog and OpenTelemetry use different vocabularies for metric types. The OTel 
 
 ## Next Steps
 
-- [Migrating Metrics](metrics.md): start with metrics, the most common Datadog signal
-- [Migrating Traces](traces.md): migrate Datadog APM to OTLP
-- [Migrating Logs](logs.md): migrate log sources from Datadog
+- [Migrating Metrics](metrics.md): Start with metrics, the most common Datadog signal.
+- [Migrating Traces](traces.md): Move Datadog APM to OTLP.
+- [Migrating Logs](logs.md): Move log sources from Datadog.
 
 
 ## Need Help?
 
-- Join our [Community Slack](https://short.openobserve.ai/community)
-- Or [Contact support](https://openobserve.ai/contact-us/)
+- Join our [Community Slack](https://short.openobserve.ai/community).
+- Or [Contact support](https://openobserve.ai/contact-us/).

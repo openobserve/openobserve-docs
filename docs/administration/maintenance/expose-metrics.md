@@ -5,17 +5,21 @@ description: Monitor OpenObserve using Prometheus metrics with global labels for
 
 # Monitoring OpenObserve
 
-OpenObserve exposes Prometheus metrics about itself that allow you to monitor OpenObserve. Every metric name has the `zo_` prefix, for example `zo_http_incoming_requests`.
+OpenObserve exposes Prometheus metrics about itself. You can use them to track its health and speed. Every metric name has the `zo_` prefix, for example `zo_http_incoming_requests`.
 
 endpoint: `/metrics`
 
 ## Global labels
 
-- cluster: `ZO_CLUSTER_NAME`
-- instance: `ZO_INSTANCE_NAME`
-- role: `ZO_NODE_ROLE`
+Every metric carries these labels. Each label takes its value from an environment variable.
+
+- cluster: `ZO_CLUSTER_NAME`.
+- instance: `ZO_INSTANCE_NAME`.
+- role: `ZO_NODE_ROLE`.
 
 ## Metrics
+
+The table below lists each metric by component. It shows the labels, the data type, and a short note.
 
 | component | metrics name                   | labels                              | data type | desc |
 |-----------|--------------------------------|-------------------------------------|-----------|------|

@@ -6,18 +6,20 @@ description: "Ingest logs into OpenObserve using OpenTelemetry, Vector, Filebeat
 
 # Log Ingestion - Centralized Logging & Log Management
 
-OpenObserve supports multiple log ingestion methods to collect, aggregate, and centralize logs from various sources. Whether you're using cloud-native log shippers, syslog forwarders, or custom application logging, OpenObserve provides flexible options for centralized log management and log aggregation.
+OpenObserve can collect logs from many sources and keep them in one place. You can use cloud-native log shippers, syslog forwarders, or your own app logging. Pick the method that fits your setup.
 
 ## Supported Log Ingestion Methods
 
-1. [otel-collector](otlp.md) - OpenTelemetry Collector for unified observability
-1. [Vector](vector.md) - High-performance log aggregation and routing
-1. [Filebeat](filebeat.md) - Lightweight log shipper for file-based log collection
-1. [Fluent-bit](fluent-bit.md) - Fast and lightweight log processor for cloud-native environments
-1. [Fluentd](fluentd.md) - Unified logging layer for log aggregation
-1. [Kinesis Firehose](kinesis-firehose.md) - AWS log streaming for cloud log ingestion
-1. [Splunk HEC](splunk-hec.md) - Splunk HTTP Event Collector endpoint for Splunk forwarders and HEC clients
-1. [Syslog](syslog.md) - Syslog alternatives (the built-in syslog server was removed in v0.16.0)
-1. [Python](python.md) - Python SDK for application log ingestion
-1. [Go](go.md) - Go SDK for structured logging
-1. [Curl](curl.md) - Direct HTTP log ingestion
+Each guide below shows how to send logs with one tool.
+
+1. [otel-collector](otlp.md): Use the OpenTelemetry Collector to send logs, metrics, and traces.
+1. [Vector](vector.md): Collect and route logs at high speed.
+1. [Filebeat](filebeat.md): Ship logs from files with a light agent.
+1. [Fluent-bit](fluent-bit.md): Process logs with a fast, light agent built for cloud-native setups.
+1. [Fluentd](fluentd.md): Use one logging layer to gather logs.
+1. [Kinesis Firehose](kinesis-firehose.md): Stream logs from AWS.
+1. [Splunk HEC](splunk-hec.md): Use the Splunk HTTP Event Collector endpoint with Splunk forwarders and HEC clients.
+1. [Syslog](syslog.md): See other ways to send syslog. The built-in syslog server was removed in v0.16.0.
+1. [Python](python.md): Send app logs with the Python SDK.
+1. [Go](go.md): Send structured logs with the Go SDK.
+1. [Curl](curl.md): Send logs straight over HTTP.

@@ -11,12 +11,12 @@ Performance monitoring helps you understand how fast your application loads and 
 
 Go to **Experience** > **RUM** and open the **Performance** tab. The Performance Summary dashboard is divided into four main sections:
 
-1. **Overview**: High-level performance metrics and session statistics
-2. **Vitals**: Core Web Vitals and user experience metrics
-3. **Errors**: Error tracking and monitoring
-4. **API**: API call performance and monitoring
+1. **Overview**: High-level performance metrics and session statistics.
+2. **Vitals**: Core Web Vitals and user experience metrics.
+3. **Errors**: Error tracking and monitoring.
+4. **API**: API call performance and monitoring.
 
-You can access these sections by clicking the respective tabs in the Performance view. The dashboards adapt to your data: panels whose fields your stream does not have are hidden, and mobile apps see mobile vitals (such as cold start, frozen frames, and crash-free sessions) instead of browser Web Vitals.
+Click a tab in the Performance view to open that section. The dashboards adapt to your data. Panels are hidden if your stream lacks their fields. Mobile apps see mobile vitals (such as cold start, frozen frames, and crash-free sessions) instead of browser Web Vitals.
 
 ## Overview Tab
 
@@ -26,25 +26,25 @@ The Overview tab provides a high-level view of your application's performance, i
 
 View the three Core Web Vitals at a glance:
 
-- **Largest Contentful Paint (LCP)**
-- **Interaction to Next Paint (INP)**
-- **Cumulative Layout Shift (CLS)**
+- **Largest Contentful Paint (LCP)**.
+- **Interaction to Next Paint (INP)**.
+- **Cumulative Layout Shift (CLS)**.
 
 These metrics help you understand the user experience quality of your application.
 
 ### Error Statistics
 
-- **Total Errors**: Total number of errors across all sessions
-- **Session with Errors**: Number of sessions that encountered at least one error
-- **Total Unhandled Errors**: Errors that weren't caught by error handlers
+- **Total Errors**: Total number of errors across all sessions.
+- **Session with Errors**: Number of sessions that encountered at least one error.
+- **Total Unhandled Errors**: Errors that weren't caught by error handlers.
 
 ### Session Statistics
 
-- **Total Sessions**: Number of user sessions in the selected time range
+- **Total Sessions**: Number of user sessions in the selected time range.
 
 ## Vitals Tab
 
-Web Vitals are user-centric performance metrics that measure real-world user experience. OpenObserve tracks all Core Web Vitals as defined by Google.
+Web Vitals are performance metrics that measure what real users experience. OpenObserve tracks all Core Web Vitals as defined by Google.
 
 ### Core Web Vitals
 
@@ -56,25 +56,25 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 
 **Good LCP scores**:
 
-- **Good**: ≤ 2.5 seconds
-- **Needs Improvement**: 2.5 - 4.0 seconds
-- **Poor**: > 4.0 seconds
+- **Good**: ≤ 2.5 seconds.
+- **Needs Improvement**: 2.5 - 4.0 seconds.
+- **Poor**: > 4.0 seconds.
 
 **What counts as LCP**:
 
-- `<img>` elements
-- `<image>` elements inside `<svg>`
-- `<video>` elements with poster images
-- Background images loaded via `url()`
-- Block-level elements containing text
+- `<img>` elements.
+- `<image>` elements inside `<svg>`.
+- `<video>` elements with poster images.
+- Background images loaded via `url()`.
+- Block-level elements containing text.
 
 **How to improve**:
 
-- Optimize and compress images
-- Preload important resources
-- Reduce server response times
-- Use a CDN
-- Remove render-blocking JavaScript and CSS
+- Optimize and compress images.
+- Preload important resources.
+- Reduce server response times.
+- Use a CDN.
+- Remove render-blocking JavaScript and CSS.
 
 #### Interaction to Next Paint (INP)
 
@@ -84,25 +84,25 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 
 **Good INP scores**:
 
-- **Good**: ≤ 200 milliseconds
-- **Needs Improvement**: 200 - 500 milliseconds
-- **Poor**: > 500 milliseconds
+- **Good**: ≤ 200 milliseconds.
+- **Needs Improvement**: 200 - 500 milliseconds.
+- **Poor**: > 500 milliseconds.
 
 **Common causes of poor INP**:
 
-- Long-running JavaScript tasks
-- Large JavaScript bundles
-- Heavy parsing and execution of scripts
-- Third-party scripts
+- Long-running JavaScript tasks.
+- Large JavaScript bundles.
+- Heavy parsing and execution of scripts.
+- Third-party scripts.
 
 **How to improve**:
 
-- Break up long tasks
-- Optimize JavaScript execution
-- Use web workers for heavy computations
-- Reduce JavaScript bundle size
-- Implement code splitting
-- Defer unused JavaScript
+- Break up long tasks.
+- Optimize JavaScript execution.
+- Use web workers for heavy computations.
+- Reduce JavaScript bundle size.
+- Use code splitting.
+- Defer unused JavaScript.
 
 #### Cumulative Layout Shift (CLS)
 
@@ -112,25 +112,25 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 
 **Good CLS scores**:
 
-- **Good**: ≤ 0.1
-- **Needs Improvement**: 0.1 - 0.25
-- **Poor**: > 0.25
+- **Good**: ≤ 0.1.
+- **Needs Improvement**: 0.1 - 0.25.
+- **Poor**: > 0.25.
 
 **Common causes of CLS**:
 
-- Images without dimensions
-- Ads, embeds, or iframes without dimensions
-- Dynamically injected content
-- Web fonts causing FOIT/FOUT
-- Actions waiting for network response before updating DOM
+- Images without dimensions.
+- Ads, embeds, or iframes without dimensions.
+- Dynamically injected content.
+- Web fonts causing FOIT/FOUT.
+- Actions waiting for network response before updating DOM.
 
 **How to improve**:
 
-- Always include width and height attributes on images and video elements
-- Reserve space for ads and embeds
-- Avoid inserting content above existing content
-- Use `font-display: optional` for web fonts
-- Preload fonts
+- Always include width and height attributes on images and video elements.
+- Reserve space for ads and embeds.
+- Avoid inserting content above existing content.
+- Use `font-display: optional` for web fonts.
+- Preload fonts.
 
 ### Additional Web Vitals
 
@@ -140,9 +140,9 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 
 **Good FCP scores**:
 
-- **Good**: ≤ 1.8 seconds
-- **Needs Improvement**: 1.8 - 3.0 seconds
-- **Poor**: > 3.0 seconds
+- **Good**: ≤ 1.8 seconds.
+- **Needs Improvement**: 1.8 - 3.0 seconds.
+- **Poor**: > 3.0 seconds.
 
 #### Time to First Byte (TTFB)
 
@@ -150,17 +150,17 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 
 **Good TTFB scores**:
 
-- **Good**: ≤ 800 milliseconds
-- **Needs Improvement**: 800 - 1800 milliseconds
-- **Poor**: > 1800 milliseconds
+- **Good**: ≤ 800 milliseconds.
+- **Needs Improvement**: 800 - 1800 milliseconds.
+- **Poor**: > 1800 milliseconds.
 
 **How to improve**:
 
-- Optimize server processing
-- Use a CDN
-- Implement caching
-- Reduce database query times
-- Use HTTP/2 or HTTP/3
+- Optimize server processing.
+- Use a CDN.
+- Use caching.
+- Reduce database query times.
+- Use HTTP/2 or HTTP/3.
 
 #### Time to Interactive (TTI)
 
@@ -168,9 +168,9 @@ Web Vitals are user-centric performance metrics that measure real-world user exp
 
 **Good TTI scores**:
 
-- **Good**: ≤ 3.8 seconds
-- **Needs Improvement**: 3.8 - 7.3 seconds
-- **Poor**: > 7.3 seconds
+- **Good**: ≤ 3.8 seconds.
+- **Needs Improvement**: 3.8 - 7.3 seconds.
+- **Poor**: > 7.3 seconds.
 
 ## Errors Tab
 
@@ -180,21 +180,21 @@ The Errors tab provides insights into frontend errors:
 
 A timeline chart showing error frequency over the selected time period. This helps you:
 
-- Identify error spikes
-- Correlate errors with deployments
-- Track error trends over time
+- Identify error spikes.
+- Correlate errors with deployments.
+- Track error trends over time.
 
 ### Top Error Views
 
 A table showing the most common errors, including:
 
-- **View URL**: The page where errors are occurring
-- **Error Count**: How many times each error occurred
+- **View URL**: The page where errors are occurring.
+- **Error Count**: How many times each error occurred.
 
 Click on any error to:
-- See detailed error information
-- View affected sessions
-- Jump to session replay to debug
+- See detailed error information.
+- View affected sessions.
+- Jump to session replay to debug.
 
 ## API Tab
 
@@ -211,9 +211,9 @@ Identifies the slowest API endpoints and resources:
 
 This helps you:
 
-- Identify slow API endpoints
-- Find performance bottlenecks
-- Prioritize optimization efforts
+- Identify slow API endpoints.
+- Find performance bottlenecks.
+- Prioritize optimization efforts.
 
 ### Top Heaviest Resources
 
@@ -226,9 +226,9 @@ Shows resources that transfer the most data:
 
 This helps you:
 
-- Identify large payloads
-- Optimize data transfer
-- Reduce bandwidth usage
+- Identify large payloads.
+- Optimize data transfer.
+- Reduce bandwidth usage.
 
 ### Top Error Resources
 
@@ -241,9 +241,9 @@ Lists API endpoints with the highest error rates:
 
 This helps you:
 
-- Identify failing API calls
-- Track API reliability
-- Debug integration issues
+- Identify failing API calls.
+- Track API reliability.
+- Debug integration issues.
 
 ## Filtering and Time Range
 
@@ -251,50 +251,50 @@ This helps you:
 
 Change the time range to analyze different periods:
 
-- **Past 15 Minutes**: Real-time monitoring
-- **Past Hour**: Recent performance
-- **Past 6 Hours**: Short-term trends
-- **Past 24 Hours**: Daily patterns
-- **Past 7 Days**: Weekly trends
-- **Past 30 Days**: Monthly analysis
-- **Custom Range**: Specify exact date/time range
+- **Past 15 Minutes**: Real-time monitoring.
+- **Past Hour**: Recent performance.
+- **Past 6 Hours**: Short-term trends.
+- **Past 24 Hours**: Daily patterns.
+- **Past 7 Days**: Weekly trends.
+- **Past 30 Days**: Monthly analysis.
+- **Custom Range**: Specify exact date/time range.
 
 ### Auto-Refresh
 
 Enable auto-refresh to monitor performance in real-time:
 
-- **Off**: Manual refresh only
-- **10s**: Refresh every 10 seconds
-- **30s**: Refresh every 30 seconds
-- **1m**: Refresh every minute
-- **5m**: Refresh every 5 minutes
+- **Off**: Manual refresh only.
+- **10s**: Refresh every 10 seconds.
+- **30s**: Refresh every 30 seconds.
+- **1m**: Refresh every minute.
+- **5m**: Refresh every 5 minutes.
 
 ### Filters
 
 Apply filters to narrow down your analysis:
 
-- **Service**: Filter by specific service name
-- **Env**: Filter by environment (production, staging, development)
-- **Version**: Filter by application version
+- **Service**: Filter by specific service name.
+- **Env**: Filter by environment (production, staging, development).
+- **Version**: Filter by application version.
 
 ## Performance Best Practices
 
 ### Monitoring Strategy
 
-1. **Set Baselines**: Establish baseline metrics for your application
-2. **Define Thresholds**: Set up alerts for when metrics exceed acceptable thresholds
-3. **Regular Review**: Review performance metrics weekly
-4. **Track Trends**: Monitor trends over time, not just absolute values
-5. **Correlate with Events**: Compare metrics before and after deployments
+1. **Set Baselines**: Establish baseline metrics for your application.
+2. **Define Thresholds**: Set up alerts for when metrics exceed acceptable thresholds.
+3. **Regular Review**: Review performance metrics weekly.
+4. **Track Trends**: Monitor trends over time, not just absolute values.
+5. **Correlate with Events**: Compare metrics before and after deployments.
 
 ### Optimization Workflow
 
-1. **Identify Issues**: Use the Performance dashboard to find slow areas
-2. **Prioritize**: Focus on metrics that impact the most users
-3. **Investigate**: Use Session Replay to understand user context
-4. **Optimize**: Make targeted improvements
-5. **Measure**: Verify improvements in the dashboard
-6. **Iterate**: Continue monitoring and improving
+1. **Identify Issues**: Use the Performance dashboard to find slow areas.
+2. **Prioritize**: Focus on metrics that impact the most users.
+3. **Investigate**: Use Session Replay to understand user context.
+4. **Optimize**: Make targeted improvements.
+5. **Measure**: Verify improvements in the dashboard.
+6. **Iterate**: Continue monitoring and improving.
 
 ### Common Performance Issues
 
@@ -312,10 +312,10 @@ Apply filters to narrow down your analysis:
 
 Performance metrics are typically shown as percentiles:
 
-- **p50 (Median)**: 50% of users experience this or better
-- **p75**: 75% of users experience this or better
-- **p95**: 95% of users experience this or better
-- **p99**: 99% of users experience this or better
+- **p50 (Median)**: 50% of users experience this or better.
+- **p75**: 75% of users experience this or better.
+- **p95**: 95% of users experience this or better.
+- **p99**: 99% of users experience this or better.
 
 Focus on p75 and p95 to ensure good experience for most users.
 
@@ -323,10 +323,10 @@ Focus on p75 and p95 to ensure good experience for most users.
 
 Performance can vary significantly by region due to:
 
-- Network latency
-- CDN coverage
-- Server location
-- Local infrastructure
+- Network latency.
+- CDN coverage.
+- Server location.
+- Local infrastructure.
 
 Use geographic filters to understand regional performance.
 
@@ -334,15 +334,15 @@ Use geographic filters to understand regional performance.
 
 Different devices and browsers have different capabilities:
 
-- Mobile devices are generally slower than desktop
-- Older browsers may have performance limitations
-- Different browsers implement features differently
+- Mobile devices are generally slower than desktop.
+- Older browsers may have performance limitations.
+- Different browsers implement features differently.
 
 Filter by device and browser to understand these differences.
 
 ## Next Steps
 
-- [Session Tracking](./sessions.md) - Learn about user sessions
-- [Error Tracking](./error-tracking.md) - Deep dive into error tracking
-- [Session Replay](./session-replay.md) - Use session replay for debugging
-- [Metrics Reference](./metrics-reference.md) - Complete list of all metrics
+- [Session Tracking](./sessions.md) - Learn about user sessions.
+- [Error Tracking](./error-tracking.md) - Deep dive into error tracking.
+- [Session Replay](./session-replay.md) - Use session replay for debugging.
+- [Metrics Reference](./metrics-reference.md) - Complete list of all metrics.

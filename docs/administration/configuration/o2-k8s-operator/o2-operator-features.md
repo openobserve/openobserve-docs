@@ -7,523 +7,525 @@ description: Manage OpenObserve Enterprise alerts, pipelines, functions, destina
 
 ## Overview
 
-The OpenObserve Kubernetes Operator provides a comprehensive set of features for managing OpenObserve Enterprise resources through Kubernetes-native Custom Resources. This document outlines all available features organized by category, including alerts, pipelines, functions, and configurations.
+The OpenObserve Kubernetes Operator lets you manage OpenObserve Enterprise resources as Kubernetes Custom Resources. You define alerts, pipelines, functions, and configs in YAML, and the operator keeps OpenObserve in sync. This page lists every feature, grouped by category.
 
 ## Core Features
 
 ### 🎯 Declarative Resource Management
-- **Native Kubernetes Integration**: Manage OpenObserve resources as standard Kubernetes Custom Resource Definitions (CRDs)
-- **GitOps Ready**: Full support for GitOps workflows with version control and automated deployments
-- **Infrastructure as Code**: Define and manage observability configurations alongside application deployments
-- **Multi-Instance Support**: Manage multiple OpenObserve instances from a single Kubernetes cluster
-- **Comprehensive Resource Types**: Manage alerts, alert templates, destinations, pipelines, functions, and configurations as code
+- **Native Kubernetes Integration**: Manage OpenObserve resources as standard Kubernetes Custom Resource Definitions (CRDs).
+- **GitOps Ready**: Use GitOps workflows with version control and automated deployments.
+- **Infrastructure as Code**: Define observability configs next to your app deployments.
+- **Multi-Instance Support**: Manage many OpenObserve instances from one Kubernetes cluster.
+- **Comprehensive Resource Types**: Manage alerts, alert templates, destinations, pipelines, functions, and configurations as code.
 
 ### 🔄 Automated Lifecycle Management
-- **Resource Synchronization**: Automatic sync between Kubernetes resources and OpenObserve configurations
-- **Status Tracking**: Real-time monitoring of resource sync status with detailed condition reporting
-- **Generation Tracking**: Tracks resource generations to ensure consistency between desired and actual states
-- **Finalizer Support**: Proper cleanup of OpenObserve resources when Kubernetes resources are deleted
-- **Resource Types**: Full lifecycle management for alerts, alert templates, destinations, pipelines, functions, and configurations
+- **Resource Synchronization**: Kubernetes resources and OpenObserve configs stay in sync automatically.
+- **Status Tracking**: See the sync status of each resource in real time, with detailed conditions.
+- **Generation Tracking**: Tracks resource generations so the actual state matches the desired state.
+- **Finalizer Support**: Cleans up OpenObserve resources when you delete the Kubernetes resources.
+- **Resource Types**: Manages the full lifecycle of alerts, alert templates, destinations, pipelines, functions, and configs.
 
 ## Custom Resource Definitions (CRDs)
 
+The operator adds six CRDs. Each one maps to a type of OpenObserve resource.
+
 ### 1. Config (o2config)
 
-Manages connection configurations to OpenObserve instances.
+Stores the connection details for an OpenObserve instance.
 
 **Key Features:**
-- **Secure Credential Management**: Credentials stored as Kubernetes Secrets
-- **Multiple Instance Support**: Configure connections to different OpenObserve environments (dev, test, prod)
-- **TLS Configuration**: Optional TLS verification settings
-- **Organization Scoping**: Organization-level configuration management
-- **Connection Validation**: Automatic validation of endpoint connectivity
+- **Secure Credential Management**: Credentials are stored as Kubernetes Secrets.
+- **Multiple Instance Support**: Connect to different OpenObserve environments, such as dev, test, and prod.
+- **TLS Configuration**: Turn TLS verification on or off.
+- **Organization Scoping**: Each config applies to one organization.
+- **Connection Validation**: Checks that the endpoint is reachable.
 
 **Configuration Options:**
-- `endpoint`: OpenObserve API endpoint URL
-- `organization`: Target organization name
-- `credentialsSecretRef`: Reference to Kubernetes Secret containing API tokens
-- `tlsVerify`: Enable/disable TLS certificate verification
+- `endpoint`: OpenObserve API endpoint URL.
+- `organization`: Target organization name.
+- `credentialsSecretRef`: Reference to Kubernetes Secret containing API tokens.
+- `tlsVerify`: Enable/disable TLS certificate verification.
 
 ### 2. Alert (o2alert)
 
-Manages alert definitions with comprehensive monitoring capabilities.
+Defines alerts that watch your data.
 
 **Key Features:**
 
 #### Query Capabilities
 - **Multiple Query Types**:
-  - Custom queries
-  - SQL-based queries
-  - PromQL queries for metrics
-- **Stream Support**: Works with logs, metrics, and traces
-- **Aggregation Functions**: Support for groupBy, having clauses, and various aggregation functions
-- **VRL Functions**: Vector Remap Language function support
-- **Multi-Time Range**: Compare data across different time windows
+  - Custom queries.
+  - SQL-based queries.
+  - PromQL queries for metrics.
+- **Stream Support**: Works with logs, metrics, and traces.
+- **Aggregation Functions**: Use groupBy, having clauses, and many aggregation functions.
+- **VRL Functions**: Use Vector Remap Language (VRL) functions.
+- **Multi-Time Range**: Compare data across time windows.
 
 #### Trigger Conditions
 - **Flexible Scheduling**:
-  - Frequency-based triggers (minutes, hours, days)
-  - Cron expression support
-  - Time window configuration (period)
+  - Frequency-based triggers (minutes, hours, days).
+  - Cron expression support.
+  - Time window configuration (period).
 - **Threshold Management**:
-  - Multiple comparison operators (=, !=, >=, <=, >, <)
-  - Configurable thresholds
-  - Silence periods to prevent alert fatigue
+  - Multiple comparison operators (=, !=, >=, <=, >, <).
+  - Set your own thresholds.
+  - Silence periods to cut down on alert noise.
 - **Advanced Options**:
-  - Timezone support
-  - Tolerance settings (toleranceInSecs)
-  - Time alignment options
+  - Timezone support.
+  - Tolerance settings (toleranceInSecs).
+  - Time alignment options.
 
 #### Alert Management
-- **Real-time Alerts**: Support for real-time alert processing
+- **Real-time Alerts**: Process alerts in real time.
 - **Deduplication**:
-  - Fingerprint-based deduplication
-  - Configurable time windows
-  - Custom fingerprint fields
+  - Fingerprint-based deduplication.
+  - Configurable time windows.
+  - Custom fingerprint fields.
 - **Context Enrichment**:
-  - Context attributes for additional metadata
-  - Row templates (String or JSON format)
-  - Custom template variables
+  - Context attributes for extra metadata.
+  - Row templates (String or JSON format).
+  - Custom template variables.
 
 #### Organization & Delivery
-- **Folder Organization**: Support for organizing alerts in folders
-- **Multiple Destinations**: Up to 10 destination channels per alert
+- **Folder Organization**: Group alerts in folders.
+- **Multiple Destinations**: Send each alert to up to 10 destination channels.
 - **Status Tracking**:
-  - Alert enablement status
-  - Last sync time
-  - OpenObserve alert ID tracking
+  - Alert enablement status.
+  - Last sync time.
+  - OpenObserve alert ID tracking.
 
 ### 3. AlertTemplate (o2alerttemplate, alerttemplate)
 
-Manages alert notification templates for formatting alert messages across different channels.
+Defines templates that format alert messages for each channel.
 
 **Key Features:**
 
 #### Template Management
 - **Multiple Template Types**:
-  - HTTP templates for webhooks (Slack, PagerDuty, etc.)
-  - Email templates for email notifications
-- **Template Variables**: Support for dynamic variables in templates
-- **Default Templates**: Mark templates as default for automatic use
-- **Organization Scoping**: Templates are created at the organization level
+  - HTTP templates for webhooks (Slack, PagerDuty, etc.).
+  - Email templates for email notifications.
+- **Template Variables**: Use dynamic variables in templates.
+- **Default Templates**: Mark a template as the default so it is used automatically.
+- **Organization Scoping**: Templates belong to an organization.
 
 #### Template Formatting
-- **Title Templates**: Dynamic titles with variable substitution
+- **Title Templates**: Build titles from variables.
 - **Body Templates**:
-  - JSON format for HTTP webhooks
-  - HTML/text format for emails
-  - Support for complex nested structures
+  - JSON format for HTTP webhooks.
+  - HTML/text format for emails.
+  - Nested structures are supported.
 - **Variable Placeholders**:
-  - `{alert_name}`: Name of the triggered alert
-  - `{stream_name}`: Source stream name
-  - `{severity}`: Alert severity level
-  - `{triggered_at}`: Timestamp when alert was triggered
-  - `{org_name}`: Organization name
-  - `{threshold}`: Configured threshold value
-  - Custom variables from alert context
+  - `{alert_name}`: Name of the triggered alert.
+  - `{stream_name}`: Source stream name.
+  - `{severity}`: Alert severity level.
+  - `{triggered_at}`: Timestamp when alert was triggered.
+  - `{org_name}`: Organization name.
+  - `{threshold}`: Configured threshold value.
+  - Custom variables from alert context.
 
 #### Use Cases
-- **Slack Notifications**: Formatted messages with blocks and markdown
-- **PagerDuty Integration**: Structured incident creation
-- **Email Alerts**: Rich HTML email notifications
-- **Custom Webhooks**: Tailored JSON payloads for any HTTP endpoint
-- **Microsoft Teams**: Adaptive cards and formatted messages
-- **Generic HTTP**: Flexible templates for any webhook service
+- **Slack Notifications**: Send formatted messages with blocks and markdown.
+- **PagerDuty Integration**: Create structured incidents.
+- **Email Alerts**: Send rich HTML emails.
+- **Custom Webhooks**: Send custom JSON payloads to any HTTP endpoint.
+- **Microsoft Teams**: Send adaptive cards and formatted messages.
+- **Generic HTTP**: Use flexible templates with any webhook service.
 
 ### 4. Destination (o2dest, o2destination)
 
-Manages destinations for both alerts and pipelines, defining where data and notifications are sent.
+Defines where alerts and pipelines send notifications and data.
 
 **Key Features:**
 
 #### Alert Destinations
 - **Destination Types**:
-  - HTTP webhooks (Slack, PagerDuty, custom endpoints)
-  - Email (SMTP) destinations
-  - SNS (Amazon Simple Notification Service)
-- **Template Integration**: Reference alert templates for message formatting
+  - HTTP webhooks (Slack, PagerDuty, custom endpoints).
+  - Email (SMTP) destinations.
+  - SNS (Amazon Simple Notification Service).
+- **Template Integration**: Point to an alert template to format messages.
 - **Authentication Support**:
-  - Bearer tokens
-  - API keys in headers
-  - Custom headers
-- **TLS Configuration**: Optional TLS certificate verification
+  - Bearer tokens.
+  - API keys in headers.
+  - Custom headers.
+- **TLS Configuration**: Optional TLS certificate verification.
 
 #### Pipeline Destinations
 - **Destination Types**:
-  - OpenObserve instances (for data replication)
+  - OpenObserve instances (for data replication).
   - Splunk
   - New Relic
   - Elasticsearch
   - Dynatrace
   - Datadog
-  - Custom HTTP endpoints
+  - Custom HTTP endpoints.
 - **Output Formats**:
-  - JSON (standard or nested event format)
-  - Elasticsearch bulk format
-  - Custom formats per destination type
-- **Metadata Support**: Additional metadata for destination configuration
+  - JSON (standard or nested event format).
+  - Elasticsearch bulk format.
+  - Custom formats per destination type.
+- **Metadata Support**: Add extra metadata to a destination.
 
 #### Configuration Options
 - **HTTP Configuration**:
-  - URL endpoint
-  - HTTP method (POST, PUT, GET)
-  - Custom headers
-  - Request timeout settings
+  - URL endpoint.
+  - HTTP method (POST, PUT, GET).
+  - Custom headers.
+  - Request timeout settings.
 - **Email Configuration**:
-  - Multiple recipient emails
-  - Template selection
+  - Multiple recipient emails.
+  - Template selection.
 - **SNS Configuration**:
-  - AWS region
+  - AWS region.
   - SNS Topic ARN
   - Action ID
 
 #### Advanced Features
-- **Skip TLS Verify**: Development/testing with self-signed certificates
-- **Category Detection**: Automatic categorization as alert or pipeline destination
-- **Error Handling**: Detailed error reporting and retry logic
-- **Status Tracking**: Real-time sync status with destination services
+- **Skip TLS Verify**: Use self-signed certificates for development and testing.
+- **Category Detection**: Each destination is marked as an alert or pipeline destination automatically.
+- **Error Handling**: Reports errors in detail and retries.
+- **Status Tracking**: Shows sync status with destination services in real time.
 
 ### 5. Function (o2function, o2func)
 
-Manages VRL (Vector Remap Language) transformation functions for data processing.
+Defines VRL (Vector Remap Language) functions that transform data.
 
 **Key Features:**
 
 #### Function Management
-- **VRL Support**: Write functions in Vector Remap Language for powerful data transformations
-- **Reusable Functions**: Create centralized functions that can be used across multiple pipelines
-- **Organization Scoping**: Functions are created at the organization level
-- **Name Validation**: Enforced naming patterns for consistency
+- **VRL Support**: Write functions in Vector Remap Language to transform data.
+- **Reusable Functions**: Write a function once and use it in many pipelines.
+- **Organization Scoping**: Functions belong to an organization.
+- **Name Validation**: Names must follow a set pattern.
 
 #### Testing & Validation
-- **Built-in Testing**: Define test cases with input and expected output
-- **Test Execution**: Automatic validation of function logic during deployment
-- **Error Reporting**: Detailed error messages for failed tests
-- **Multiple Test Cases**: Support for multiple test scenarios per function
+- **Built-in Testing**: Define test cases with input and expected output.
+- **Test Execution**: Function logic is tested automatically when you deploy.
+- **Error Reporting**: Failed tests show detailed error messages.
+- **Multiple Test Cases**: Add many test cases to each function.
 
 #### Use Cases
-- **Data Transformation**: Modify, enrich, or restructure log data
-- **Field Extraction**: Parse and extract fields from unstructured data
-- **Data Enrichment**: Add contextual information to events
-- **Format Conversion**: Convert between different data formats
-- **Filtering**: Implement complex filtering logic
-- **Aggregation**: Perform custom aggregations on data streams
+- **Data Transformation**: Change, enrich, or reshape log data.
+- **Field Extraction**: Parse and pull fields out of unstructured data.
+- **Data Enrichment**: Add context to events.
+- **Format Conversion**: Convert between data formats.
+- **Filtering**: Write complex filter logic.
+- **Aggregation**: Run custom aggregations on data streams.
 
 #### Integration
-- **Pipeline Integration**: Functions can be referenced in pipelines for data processing
-- **Stream Compatibility**: Works with logs, metrics, and traces
-- **Version Tracking**: Generation tracking for function updates
-- **Status Monitoring**: Real-time sync status with OpenObserve
+- **Pipeline Integration**: Pipelines can call functions to process data.
+- **Stream Compatibility**: Works with logs, metrics, and traces.
+- **Version Tracking**: Tracks generations as functions change.
+- **Status Monitoring**: Shows sync status with OpenObserve in real time.
 
 ### 6. Pipeline (o2pipeline)
 
-Manages data processing pipelines with advanced transformation capabilities.
+Defines pipelines that process and transform data.
 
 **Key Features:**
 
 #### Source Configuration
 - **Multiple Source Types**:
-  - Real-time data sources
-  - Scheduled/batch sources
-  - Query-based sources
-- **Stream Types**: Logs, metrics, and traces
+  - Real-time data sources.
+  - Scheduled/batch sources.
+  - Query-based sources.
+- **Stream Types**: Logs, metrics, and traces.
 - **Flexible Scheduling**:
-  - Cron expressions
-  - Frequency-based schedules
-  - Time-based triggers
+  - Cron expressions.
+  - Frequency-based schedules.
+  - Time-based triggers.
 
 #### Pipeline Processing
 - **Node-Based Architecture**:
-  - Modular node system for data processing
-  - Configurable node parameters
-  - Support for various transformation types
+  - Build pipelines from modular nodes.
+  - Set parameters on each node.
+  - Use many types of transforms.
 - **Edge Connections**:
-  - Define data flow between nodes
-  - Support for branching pipelines
-  - Multiple processing paths
+  - Define how data flows between nodes.
+  - Branch pipelines into more than one path.
+  - Multiple processing paths.
 
 #### Advanced Features
-- **Version Control**: Pipeline versioning support
-- **Pause/Resume**: Ability to pause pipelines at specific points
-- **Error Handling**: Detailed error tracking and reporting
-- **Delay Configuration**: Configurable processing delays
-- **Timezone Support**: Per-pipeline timezone configuration
+- **Version Control**: Pipelines have versions.
+- **Pause/Resume**: Pause pipelines at set points.
+- **Error Handling**: Tracks and reports errors in detail.
+- **Delay Configuration**: Set processing delays.
+- **Timezone Support**: Set a timezone for each pipeline.
 
 ## Deployment & Operations Features
 
 ### 🚀 Automated Deployment
-- **One-Command Deployment**: Simple deployment script with customizable options
-- **Image Configuration**: Support for custom container images and tags
-- **Namespace Management**: Flexible namespace configuration
-- **RBAC Setup**: Automatic creation of required roles and permissions
-- **ConfigMap-Based Configuration**: Centralized configuration management for operator behavior
+- **One-Command Deployment**: A simple deployment script with options you can change.
+- **Image Configuration**: Use your own container images and tags.
+- **Namespace Management**: Choose any namespace.
+- **RBAC Setup**: Creates the required roles and permissions for you.
+- **ConfigMap-Based Configuration**: One ConfigMap controls how the operator behaves.
 
 ### 🔐 Security Features
 - **Webhook Security**:
-  - Auto-generated TLS certificates for webhooks
-  - Certificate rotation support
-  - Secure admission control
+  - Auto-generated TLS certificates for webhooks.
+  - Certificates can be rotated.
+  - Secure admission control.
 - **Secret Management**:
-  - Kubernetes-native secret handling
-  - Credential isolation per namespace
+  - Kubernetes-native secret handling.
+  - Credential isolation per namespace.
 - **RBAC Controls**:
-  - Granular permission management
-  - Cluster and namespace-scoped roles
+  - Fine-grained permissions.
+  - Cluster and namespace-scoped roles.
 - **Container Security**:
-  - Runs as non-root user (UID 65534)
-  - Read-only root filesystem
-  - No privilege escalation allowed
-  - All capabilities dropped
-  - Seccomp profile enabled
+  - Runs as non-root user (UID 65534).
+  - Read-only root filesystem.
+  - No privilege escalation allowed.
+  - All capabilities dropped.
+  - Seccomp profile enabled.
 - **Pod Security**:
-  - Security context properly configured
-  - Resource limits enforced
-  - Temporary directory size limits
+  - The security context is set up correctly.
+  - Resource limits enforced.
+  - Temporary directory size limits.
 
 ### 📊 Monitoring & Observability
 - **Status Reporting**:
-  - Detailed condition tracking (Ready, Synced, Error states)
-  - Last sync timestamps
-  - Error messages and reasons
+  - Detailed condition tracking (Ready, Synced, Error states).
+  - Last sync timestamps.
+  - Error messages and reasons.
 - **Custom Printer Columns**:
-  - Quick status overview in kubectl output
-  - Key field visibility (Stream, Enabled, Ready, Age)
-- **Generation Tracking**: Version tracking for resource updates
+  - See status at a glance in kubectl output.
+  - Key field visibility (Stream, Enabled, Ready, Age).
+- **Generation Tracking**: Tracks versions as resources change.
 - **Health Probes**:
-  - Liveness probe at `/healthz` endpoint
-  - Readiness probe at `/readyz` endpoint
-  - Startup probe for graceful initialization
+  - Liveness probe at `/healthz` endpoint.
+  - Readiness probe at `/readyz` endpoint.
+  - Startup probe for a clean start.
 - **Metrics Endpoint**:
-  - Prometheus-compatible metrics at `/metrics` on port 8080
-  - Service annotations for automatic Prometheus discovery
-  - Operational metrics and controller performance data
+  - Prometheus-compatible metrics at `/metrics` on port 8080.
+  - Service annotations for automatic Prometheus discovery.
+  - Operational metrics and controller performance data.
 
 ## Advanced Capabilities
 
 ### 🔄 Reconciliation Features
-- **Continuous Reconciliation**: Ensures desired state matches actual state
-- **Error Recovery**: Automatic retry with exponential backoff
-- **Drift Detection**: Identifies and corrects configuration drift
-- **Resource Validation**: Pre-flight validation before applying changes
+- **Continuous Reconciliation**: Keeps the actual state in line with the desired state.
+- **Error Recovery**: Retries automatically with exponential backoff.
+- **Drift Detection**: Finds and fixes config drift.
+- **Resource Validation**: Checks changes before applying them.
 
 ### 🎛️ Operational Features
 - **Production-Ready Deployment**:
-  - Default high availability setup with 2 replicas
-  - Automatic leader election for active-passive operation
-  - Zero-downtime rolling updates
-  - Priority class for critical infrastructure components
-- **Dry Run Support**: Preview changes before applying
+  - High availability by default, with 2 replicas.
+  - Leader election runs automatically for active-passive mode.
+  - Zero-downtime rolling updates.
+  - A priority class for critical infrastructure parts.
+- **Dry Run Support**: Preview changes before applying them.
 - **Uninstall Management**:
-  - Complete cleanup with finalizer removal
-  - Ordered resource deletion (alerts, alert templates, destinations, pipelines, functions, configurations)
-  - Namespace cleanup
+  - Full cleanup, including finalizer removal.
+  - Ordered resource deletion (alerts, alert templates, destinations, pipelines, functions, configurations).
+  - Namespace cleanup.
 - **Multi-Environment Support**:
-  - Development, test, and production configurations
-  - Environment-specific templates
+  - Separate configs for development, test, and production.
+  - Environment-specific templates.
 - **Resource Management**:
-  - Configurable resource requests and limits
-  - Default: 200m CPU / 256Mi memory (requests), 1 CPU / 1Gi memory (limits)
-  - Horizontal scaling capabilities
+  - Set your own resource requests and limits.
+  - Default: 200m CPU / 256Mi memory (requests), 1 CPU / 1Gi memory (limits).
+  - Scale out by adding replicas.
 
 ### 🔧 Developer Features
-- **Sample Templates**: Comprehensive examples for all resource types (alerts, alert templates, destinations, pipelines, functions)
-- **Validation Webhooks**: Input validation at admission time
-- **Status Subresources**: Proper status update mechanisms
-- **Preserved Unknown Fields**: Future compatibility for API extensions
+- **Sample Templates**: Full examples for all resource types (alerts, alert templates, destinations, pipelines, functions).
+- **Validation Webhooks**: Checks input at admission time.
+- **Status Subresources**: Status updates use the status subresource.
+- **Preserved Unknown Fields**: Keeps unknown fields so future API changes still work.
 
 ## Integration Capabilities
 
 ### GitOps Integration
-- **Flux Compatibility**: Works with Flux CD for automated deployments
-- **ArgoCD Support**: Compatible with ArgoCD for application management
-- **Helm Integration**: Can be deployed via Helm charts
+- **Flux Compatibility**: Works with Flux CD for automated deployments.
+- **ArgoCD Support**: Works with ArgoCD to manage apps.
+- **Helm Integration**: Deploy with Helm charts.
 
 ### CI/CD Integration
-- **Pipeline Integration**: Integrates with CI/CD pipelines
-- **Automated Testing**: Support for automated configuration testing
-- **Version Control**: Full compatibility with Git workflows
+- **Pipeline Integration**: Works with CI/CD pipelines.
+- **Automated Testing**: Test configs automatically.
+- **Version Control**: Works with Git workflows.
 
 ## Resource Organization
 
 ### Namespace Support
-- **Multi-tenancy**: Isolate resources by namespace
-- **Cross-namespace References**: Support for referencing configs across namespaces
-- **Default Namespace**: Configurable default namespace for resources
+- **Multi-tenancy**: Isolate resources by namespace.
+- **Cross-namespace References**: Resources can point to configs in other namespaces.
+- **Default Namespace**: Set the default namespace for resources.
 
 ### Resource Relationships
-- **Config References**: Resources reference Config for connection details
-- **Dependency Management**: Proper handling of resource dependencies
-- **Cascading Updates**: Updates propagate through dependent resources
+- **Config References**: Resources reference Config for connection details.
+- **Dependency Management**: Handles dependencies between resources.
+- **Cascading Updates**: Updates flow through to dependent resources.
 
 ## Operational Excellence
 
 ### High Availability
-- **Stateless Operation**: Operator maintains no local state
-- **Horizontal Scaling**: Default deployment with 2 replicas for high availability
-- **Leader Election**: Proper coordination for multiple instances
-- **PodDisruptionBudget**: Ensures minimum availability during cluster maintenance
-- **Anti-Affinity Rules**: Spreads replicas across different nodes for fault tolerance
-- **Topology Spread Constraints**: Even distribution across availability zones
+- **Stateless Operation**: The operator keeps no local state.
+- **Horizontal Scaling**: Runs 2 replicas by default for high availability.
+- **Leader Election**: Coordinates multiple instances.
+- **PodDisruptionBudget**: Keeps a minimum number of pods up during cluster maintenance.
+- **Anti-Affinity Rules**: Spreads replicas across nodes so one node failure does not stop the operator.
+- **Topology Spread Constraints**: Spreads pods evenly across availability zones.
 
 ### Performance
-- **Efficient Reconciliation**: Optimized reconciliation loops
-- **Batch Processing**: Bulk operations where applicable
-- **Resource Caching**: Minimizes API calls to OpenObserve
-- **Configurable Concurrency**: Tune controller concurrency for each resource type
-- **Rate Limiting**: Configurable API rate limits to prevent overwhelming OpenObserve
-- **Connection Pooling**: Efficient HTTP connection management with configurable pools
+- **Efficient Reconciliation**: Reconciliation loops are tuned for speed.
+- **Batch Processing**: Uses bulk operations where it can.
+- **Resource Caching**: Cuts down on API calls to OpenObserve.
+- **Configurable Concurrency**: Tune controller concurrency for each resource type.
+- **Rate Limiting**: Set API rate limits so the operator does not overload OpenObserve.
+- **Connection Pooling**: Manages HTTP connections with pools you can tune.
 
 ### Performance Tuning Configuration
 
-The operator provides extensive performance tuning options via ConfigMap (`manifests/02-configmap.yaml`):
+You can tune the operator's performance in the ConfigMap (`manifests/02-configmap.yaml`). The settings are listed below:
 
 #### Controller Concurrency Settings
-- **ALERT_CONTROLLER_CONCURRENCY**: Controls parallel alert processing (default: 1, recommended: 1-20)
-- **TEMPLATE_CONTROLLER_CONCURRENCY**: Controls alert template processing (default: 1, recommended: 1-10)
-- **DESTINATION_CONTROLLER_CONCURRENCY**: Controls destination processing (default: 1, recommended: 1-20)
-- **PIPELINE_CONTROLLER_CONCURRENCY**: Controls pipeline processing (default: 1, recommended: 1-10)
-- **FUNCTION_CONTROLLER_CONCURRENCY**: Controls function processing (default: 1, recommended: 1-5)
-- **CONFIG_CONTROLLER_CONCURRENCY**: Controls configuration processing (default: 1, recommended: 1-3)
-- **DASHBOARD_CONTROLLER_CONCURRENCY**: Controls dashboard processing (default: 1, recommended: 1-10)
+- **ALERT_CONTROLLER_CONCURRENCY**: Controls parallel alert processing (default: 1, recommended: 1-20).
+- **TEMPLATE_CONTROLLER_CONCURRENCY**: Controls alert template processing (default: 1, recommended: 1-10).
+- **DESTINATION_CONTROLLER_CONCURRENCY**: Controls destination processing (default: 1, recommended: 1-20).
+- **PIPELINE_CONTROLLER_CONCURRENCY**: Controls pipeline processing (default: 1, recommended: 1-10).
+- **FUNCTION_CONTROLLER_CONCURRENCY**: Controls function processing (default: 1, recommended: 1-5).
+- **CONFIG_CONTROLLER_CONCURRENCY**: Controls configuration processing (default: 1, recommended: 1-3).
+- **DASHBOARD_CONTROLLER_CONCURRENCY**: Controls dashboard processing (default: 1, recommended: 1-10).
 
 #### API Rate Limiting
-- **O2_RATE_LIMIT_RPS**: Requests per second to OpenObserve API (default: 10, max: 100)
-- **O2_RATE_LIMIT_BURST**: Burst capacity for API requests (default: 20, max: 200)
+- **O2_RATE_LIMIT_RPS**: Requests per second to OpenObserve API (default: 10, max: 100).
+- **O2_RATE_LIMIT_BURST**: Burst capacity for API requests (default: 20, max: 200).
 
 #### HTTP Connection Pool Management
-- **O2_MAX_CONNS_PER_HOST**: Maximum concurrent connections per host (default: 10)
-- **O2_MAX_IDLE_CONNS**: Total maximum idle connections (default: 100)
-- **O2_MAX_IDLE_CONNS_PER_HOST**: Maximum idle connections per host (default: 10)
-- **O2_IDLE_CONN_TIMEOUT**: Idle connection timeout duration (default: 90s)
-- **O2_HTTP_TIMEOUT**: HTTP request timeout (default: 30s)
+- **O2_MAX_CONNS_PER_HOST**: Maximum concurrent connections per host (default: 10).
+- **O2_MAX_IDLE_CONNS**: Total maximum idle connections (default: 100).
+- **O2_MAX_IDLE_CONNS_PER_HOST**: Maximum idle connections per host (default: 10).
+- **O2_IDLE_CONN_TIMEOUT**: Idle connection timeout duration (default: 90s).
+- **O2_HTTP_TIMEOUT**: HTTP request timeout (default: 30s).
 
 #### Logging Configuration
-- **O2OPERATOR_LOG_LEVEL**: Operator log verbosity (options: debug, info, error; default: info)
+- **O2OPERATOR_LOG_LEVEL**: Operator log verbosity (options: debug, info, error; default: info).
 
 #### Optional Features
-- **SKIP_STREAM_VALIDATION**: Skip stream validation in webhooks when needed
+- **SKIP_STREAM_VALIDATION**: Skip stream validation in webhooks when needed.
 
 ### Maintenance
-- **Zero-Downtime Updates**: Rolling updates for operator upgrades
-- **Backward Compatibility**: API version compatibility management
-- **Migration Support**: Tools for migrating between versions
+- **Zero-Downtime Updates**: Upgrade the operator with rolling updates.
+- **Backward Compatibility**: Manages compatibility between API versions.
+- **Migration Support**: Tools to move between versions.
 
 ## Troubleshooting & Debugging
 
 ### Diagnostic Features
-- **Detailed Logging**: Comprehensive operator logs
-- **Event Recording**: Kubernetes events for important operations
-- **Status Conditions**: Detailed condition reporting for debugging
+- **Detailed Logging**: Full operator logs.
+- **Event Recording**: Records Kubernetes events for key operations.
+- **Status Conditions**: Detailed conditions help you debug.
 
 ### Documentation & Support
 - **Comprehensive Documentation**:
-  - API references
-  - Troubleshooting guides
-  - Deployment instructions
-- **Sample Configurations**: Ready-to-use examples for common scenarios
-- **Issue Tracking**: GitHub integration for bug reports and features
+  - API references.
+  - Troubleshooting guides.
+  - Deployment instructions.
+- **Sample Configurations**: Ready-to-use examples for common cases.
+- **Issue Tracking**: Use GitHub to report bugs and request features.
 
 ## Future-Ready Design
 
 ### Extensibility
-- **CRD Versioning**: Support for multiple API versions
-- **Custom Fields**: Preserved unknown fields for future extensions
-- **Plugin Architecture**: Designed for future plugin support
+- **CRD Versioning**: Supports more than one API version.
+- **Custom Fields**: Unknown fields are kept for future extensions.
+- **Plugin Architecture**: Built to support plugins later.
 
 ### Scalability
-- **Resource Limits**: Configurable limits (e.g., max 10 alert destinations)
-- **Pagination Support**: Ready for large-scale deployments
-- **Bulk Operations**: Designed for batch processing capabilities
+- **Resource Limits**: Set limits, for example a max of 10 alert destinations.
+- **Pagination Support**: Ready for large deployments.
+- **Bulk Operations**: Built for batch processing.
 
 ## 🚧 Development In-Progress
 
-The following features are currently under active development and will be available in upcoming releases:
+The features below are in active development. They will ship in upcoming releases.
 
 ### Enhanced Destination Features
 
-While the Destination CRD is now available with support for basic alert and pipeline destinations, the following enhanced features are planned:
+The Destination CRD is available now. It supports basic alert and pipeline destinations. We plan to add the features below.
 
 **Additional Destination Types (Coming Soon):**
 - **Alert Destinations**:
   - OpsGenie
   - Discord
   - Telegram
-  - Microsoft Teams (native integration)
-  - Webhooks with custom authentication schemes
+  - Microsoft Teams (native integration).
+  - Webhooks with custom authentication schemes.
 
 - **Advanced Features**:
-  - Alert routing rules
-  - Severity-based filtering
-  - Time-based routing (business hours, on-call schedules)
-  - Alert aggregation and batching
-  - Escalation policies
-  - Acknowledgment tracking
-  - Two-way integrations
-  - Rate limiting and throttling
-  - Delivery confirmation tracking
+  - Alert routing rules.
+  - Severity-based filtering.
+  - Time-based routing (business hours, on-call schedules).
+  - Alert aggregation and batching.
+  - Escalation policies.
+  - Acknowledgment tracking.
+  - Two-way integrations.
+  - Rate limiting and throttling.
+  - Delivery confirmation tracking.
 
 ### OpenObserveRemoteDestinations (o2remotedest)
 
-An advanced Custom Resource for managing complex remote data destinations beyond the current Destination capabilities.
+A planned Custom Resource for complex remote data destinations. It goes beyond what the current Destination CRD can do.
 
 **Planned Features:**
 - **Advanced Destination Types**:
-  - Object storage (S3, GCS, Azure Blob Storage)
-  - Message queues (Kafka, RabbitMQ, Amazon SQS, Azure Service Bus)
-  - Time-series databases (InfluxDB, Prometheus, VictoriaMetrics)
-  - Data warehouses (Snowflake, BigQuery, Redshift)
+  - Object storage (S3, GCS, Azure Blob Storage).
+  - Message queues (Kafka, RabbitMQ, Amazon SQS, Azure Service Bus).
+  - Time-series databases (InfluxDB, Prometheus, VictoriaMetrics).
+  - Data warehouses (Snowflake, BigQuery, Redshift).
   - Grafana Cloud
 
 - **Data Management**:
-  - Batch and streaming modes
-  - Data format conversion (JSON, Parquet, Avro, CSV)
-  - Compression options (gzip, snappy, zstd)
-  - Partitioning strategies
-  - Schema management
-  - Data retention policies
+  - Batch and streaming modes.
+  - Data format conversion (JSON, Parquet, Avro, CSV).
+  - Compression options (gzip, snappy, zstd).
+  - Partitioning strategies.
+  - Schema management.
+  - Data retention policies.
 
 - **Reliability Features**:
-  - Dead letter queue support
-  - Circuit breaker patterns
-  - Automatic retries with exponential backoff
-  - Connection pooling
-  - Health checks and monitoring
-  - Automatic failover to backup destinations
-  - Data buffering and queuing
+  - Dead letter queue support.
+  - Circuit breaker patterns.
+  - Automatic retries with exponential backoff.
+  - Connection pooling.
+  - Health checks and monitoring.
+  - Automatic failover to backup destinations.
+  - Data buffering and queuing.
 
 - **Security & Compliance**:
-  - End-to-end encryption
-  - Authentication mechanisms (OAuth2, API keys, mTLS, IAM roles)
-  - Data masking and PII redaction
-  - Audit logging for data transfers
-  - Compliance metadata tagging
-  - Data residency controls
+  - End-to-end encryption.
+  - Authentication mechanisms (OAuth2, API keys, mTLS, IAM roles).
+  - Data masking and PII redaction.
+  - Audit logging for data transfers.
+  - Compliance metadata tagging.
+  - Data residency controls.
 
 **Integration with Pipelines:**
-- Reference remote destinations in pipeline outputs
-- Share destinations across multiple pipelines
-- Conditional routing based on data attributes
-- Load balancing across multiple instances
-- Data replication and fan-out patterns
+- Reference remote destinations in pipeline outputs.
+- Share destinations across multiple pipelines.
+- Conditional routing based on data attributes.
+- Load balancing across multiple instances.
+- Data replication and fan-out patterns.
 
 
 ### Community Feedback
 
-We welcome community input on these upcoming features. Please share your use cases and requirements through:
-- GitHub Issues for feature requests [open an issue](https://github.com/openobserve/o2-k8s-operator/issues)
-- Community forums for discussions [Start the conversation →](https://short.openobserve.ai/community)
+We welcome your input on these upcoming features. Share your use cases and needs through:
+- GitHub Issues for feature requests [open an issue](https://github.com/openobserve/o2-k8s-operator/issues).
+- Community forums for discussions [Start the conversation →](https://short.openobserve.ai/community).
 
 ## Summary
 
-The OpenObserve Kubernetes Operator provides a robust, enterprise-ready solution for managing observability configurations at scale. With its comprehensive feature set, it enables teams to:
+The OpenObserve Kubernetes Operator helps you manage observability configs at scale. It is built for enterprise use. With it, teams can:
 
-- Implement GitOps workflows for observability
-- Maintain consistency across environments
-- Automate operational tasks with alerts, pipelines, and functions
-- Manage alert templates and destinations as code
-- Ensure security and compliance
-- Scale observability management efficiently
-- Transform and enrich data with VRL functions
-- Configure flexible notification channels and data routing
+- Use GitOps workflows for observability.
+- Keep environments consistent.
+- Automate operational tasks with alerts, pipelines, and functions.
+- Manage alert templates and destinations as code.
+- Meet security and compliance needs.
+- Scale observability management with less effort.
+- Transform and enrich data with VRL functions.
+- Configure flexible notification channels and data routing.
 
-Whether you're managing a single OpenObserve instance or orchestrating a complex multi-environment setup, the operator provides the tools and capabilities needed for success.
+The operator works for a single OpenObserve instance. It also works for a complex setup across many environments.
