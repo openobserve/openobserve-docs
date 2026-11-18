@@ -4,59 +4,55 @@ metaTitle: "Configuration File and Dynamic Reloading in OpenObserve"
 description: Learn how to use custom config paths and dynamic config reloading in OpenObserve to apply changes without restarts.
 ---
 
-This guide explains how to use custom configuration file locations and
-dynamic configuration reloading in OpenObserve to manage deployments
-without system restarts.
+This guide shows two features. First, you can load a config file from any path. Second, OpenObserve can reload some settings while it runs. Together, they let you change settings without a restart.
 
 ## Overview
 Earlier versions of OpenObserve only read the **.env** file from the current
-directory with no way to specify a different path. When running
-OpenObserve in different deployment modes (Kubernetes, virtual machines,
-and systemd services) existing frameworks require config files in
-specific locations. <br><br>
-Additionally, when configuration changes are needed, you need to restart
-the whole cluster or the system, which is expensive. They cause
-downtime, drop capacity and bandwidth, and you do not want to restart
-your whole cluster just to change a simple configuration like increasing
-an interval by 2 seconds.
+directory. You could not point to a different path. But OpenObserve runs in many
+deployment modes, such as Kubernetes, virtual machines, and systemd services.
+Existing frameworks often need config files in specific places. <br><br>
+Also, changing a setting used to mean restarting the whole cluster or system.
+Restarts are costly. They cause downtime and drop capacity and bandwidth. You do
+not want to restart your whole cluster just to make a small change, such as
+raising an interval by 2 seconds.
 <br><br>
-OpenObserve now provides a custom config file CLI argument (`-c` or
-`--config`) to specify config files at any location, and a Config Watcher
-that monitors the config file and automatically reloads specific
-configurations every 30 seconds without requiring a restart.
+OpenObserve now solves both problems. A custom config file CLI argument (`-c` or
+`--config`) lets you load a config file from any location. A Config Watcher
+checks the config file every 30 seconds. It reloads certain settings for you, with
+no restart needed.
 
 :::note[Who should use this]
 These features are for you if you:
 
--   Deploy OpenObserve on virtual machines (VMs)
--   Run OpenObserve as systemd services or system daemons
--   Use custom deployment frameworks without container orchestration tools like Kubernetes
--   Need to avoid expensive restarts that cause downtime
+-   Deploy OpenObserve on virtual machines (VMs).
+-   Run OpenObserve as systemd services or system daemons.
+-   Use custom deployment frameworks without container orchestration tools like Kubernetes.
+-   Need to avoid costly restarts that cause downtime.
 :::
 
 :::note[Who does NOT need this]
 You do not need these features if you:
 
--   Deploy OpenObserve in Kubernetes clusters
--   Use container orchestration platforms
+-   Deploy OpenObserve in Kubernetes clusters.
+-   Use container orchestration platforms.
 
 **Why Kubernetes users do not need this**
 <br>
 In Kubernetes deployments:
 
--   Configurations are managed through ConfigMaps, Secrets, and environment variables in YAML manifests
--   Any configuration change automatically triggers pod restarts and rollouts
--   Kubernetes handles configuration updates through its native mechanisms
--   The .env file pattern is not used in containerized deployments
+-   You manage settings through ConfigMaps, Secrets, and environment variables in YAML manifests.
+-   Any config change triggers pod restarts and rollouts on its own.
+-   Kubernetes handles config updates with its own built-in tools.
+-   Containerized deployments do not use the .env file pattern.
 :::
 
 ## Custom config file CLI argument
 
 ### What it does
-It adds a CLI argument to the OpenObserve binary that allows you to pass
-a path to a config file, adding flexibility to load environment
-variables from different files. Earlier versions strictly looked for the
-.env file in the current directory.
+It adds a CLI argument to the OpenObserve binary. You use it to pass
+the path to a config file. This lets you load environment variables from
+different files. Earlier versions only looked for the .env file in the
+current directory.
 
 ### How to use
 
@@ -74,29 +70,29 @@ variables from different files. Earlier versions strictly looked for the
 ## Dynamic configuration reload
 
 ### What it does
-It adds a job to watch the config file. The watcher monitors the config
-file and reloads the configuration if any changes are detected, allowing
-configuration updates without restarting OpenObserve.
+It adds a job that watches the config file. When the file changes, the
+watcher reloads the settings. You can update settings without restarting
+OpenObserve.
 
 ### How it works
 
--   Runs every 30 seconds by default (configurable via `ZO_CONFIG_WATCHER_INTERVAL` environment variable; `0` disables the watcher)
--   Watches the active config file (.env by default, or custom file if specified using `-c` flag)
--   Detects changes to configuration values
--   Automatically reloads changes for reloadable configurations only
--   If no config file exists, the watcher remains inactive
+-   It runs every 30 seconds by default. Set the `ZO_CONFIG_WATCHER_INTERVAL` environment variable to change this. A value of `0` turns off the watcher.
+-   It watches the active config file. This is .env by default, or your custom file if you set one with the `-c` flag.
+-   It detects changes to config values.
+-   It reloads changes only for settings that support reloading.
+-   If no config file exists, the watcher stays inactive.
 
 ### Workflow example
 
-1.  OpenObserve is running with a config file
-2.  Edit the config file and change a reloadable configuration (for example, stream stats interval from 2 to 5 seconds)
-3.  Wait up to 30 seconds
-4.  Change is applied automatically without any restart and downtime
+1.  OpenObserve is running with a config file.
+2.  Edit the config file and change a reloadable setting. For example, change the stream stats interval from 2 to 5 seconds.
+3.  Wait up to 30 seconds.
+4.  The change takes effect on its own, with no restart and no downtime.
 
 ### Limitation: Only specific configs are reloadable
 
-Any configuration not in the list below requires a full OpenObserve
-restart to take effect.
+Only the settings in the table below reload on the fly. Any other setting
+needs a full OpenObserve restart to take effect.
 
 ### Reloadable environment variables
 | Category | Environment Variables |

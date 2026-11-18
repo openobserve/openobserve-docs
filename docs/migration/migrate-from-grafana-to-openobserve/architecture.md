@@ -6,24 +6,26 @@ description: "How Loki, Grafana, Tempo, and Mimir map to OpenObserve: architectu
 
 # LGTM Stack vs OpenObserve: Architecture & Terminology
 
+This page compares the LGTM stack (Loki, Grafana, Tempo, Mimir) with OpenObserve. It shows what changes when you move, how terms map, and which protocols work as they are.
+
 ## Architecture: LGTM vs OpenObserve
 
 ### Before — LGTM Stack
 
 ![LGTM Stack telemetry flow](../../images/migration/lgtm/grafana-stack.png)
 
-**Components to operate: 6+** — Collector + Loki + Mimir + Tempo + Grafana + object storage (often with MinIO, RustFS, or separate S3 buckets per component). Each has its own Helm chart, config format, scaling knobs, and upgrade path.
+**Components to operate: 6+.** You run a Collector, Loki, Mimir, Tempo, Grafana, and object storage. Storage is often MinIO, RustFS, or a separate S3 bucket per component. Each one has its own Helm chart, config format, scaling knobs, and upgrade path.
 
 ### After — OpenObserve
 
 ![OpenObserve Stack telemetry flow](../../images/migration/lgtm/openobserve-stack.png)
 
-**Components to operate: 2** — Collector + OpenObserve. One Helm chart, one config, one storage backend, one upgrade path.
+**Components to operate: 2.** You run a Collector and OpenObserve. There is one Helm chart, one config, one storage backend, and one upgrade path.
 
 
 ### What Changes and What Doesn't
 
-The important thing to understand: **your data collection layer stays the same**. The applications, exporters, and agents that generate telemetry don't know or care whether the data ends up in Loki or OpenObserve. Only the destination endpoints change.
+The key point: **your data collection layer stays the same**. Your apps, exporters, and agents send telemetry the same way. They don't care if the data ends up in Loki or OpenObserve. Only the destination endpoints change. The table below shows each layer.
 
 | Layer | Changes? | Details |
 |---|---|---|
@@ -37,7 +39,7 @@ The important thing to understand: **your data collection layer stays the same**
 
 ## Terminology Mapping
 
-If you're coming from the LGTM stack, most concepts have direct equivalents in OpenObserve. The mapping isn't always 1:1 — some things are simpler in OpenObserve because there's less to name when everything lives in one system.
+If you're coming from the LGTM stack, most concepts have a direct match in OpenObserve. The mapping isn't always 1:1. Some things are simpler in OpenObserve, because there's less to name when it all lives in one system.
 
 ### Concepts
 
@@ -63,7 +65,7 @@ If you're coming from the LGTM stack, most concepts have direct equivalents in O
 
 ### Protocol Compatibility
 
-The key insight for migration: **OpenObserve speaks the same ingestion protocols your data sources already use**. You're not changing how data is collected — just where it's sent.
+The key point for migration: **OpenObserve speaks the same ingestion protocols your data sources already use**. You don't change how data is collected. You only change where it's sent.
 
 | Protocol | LGTM Endpoint | OpenObserve Endpoint |
 |---|---|---|
@@ -77,9 +79,9 @@ The key insight for migration: **OpenObserve speaks the same ingestion protocols
 
 ## Next Steps
 
-- [Migrating Metrics](metrics.md) — start with metrics, the simplest endpoint swap
-- [Migrating Traces](traces.md) — usually the easiest signal since most setups already use OTLP
-- [Migrating Logs](logs.md) — migrate log sources from Loki
+- [Migrating Metrics](metrics.md): Start with metrics. It is the simplest endpoint swap.
+- [Migrating Traces](traces.md): This is usually the easiest signal, since most setups already use OTLP.
+- [Migrating Logs](logs.md): Move your log sources from Loki.
 
 ---
 

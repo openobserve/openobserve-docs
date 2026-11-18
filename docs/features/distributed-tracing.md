@@ -5,11 +5,11 @@ description: "Track requests across microservices: OpenTelemetry-native ingestio
 
 # Distributed Tracing
 
-OpenObserve distributed tracing tracks requests as they flow through your microservices architecture, so you can identify performance bottlenecks and troubleshoot distributed systems.
+OpenObserve distributed tracing follows each request as it moves through your microservices. This helps you find slow spots and fix problems in distributed systems.
 
 ## Overview
 
-Distributed tracing in OpenObserve allows you to visualize the complete journey of requests across multiple services, understand service dependencies, and pinpoint the root cause of performance issues. Built for modern cloud-native applications, OpenObserve efficiently handles trace ingestion, correlation, and analysis at enterprise scale while maintaining exceptional query performance.
+With distributed tracing, you can see the full path of a request across many services. You can see how services depend on each other and find the root cause of slow requests. OpenObserve is built for cloud-native apps. It ingests, links, and analyzes traces at enterprise scale, and queries stay fast.
 
 ![Traces page](../images/features/traces-hero-v2.png)
 *Distributed Tracing overview page*
@@ -18,63 +18,63 @@ Distributed tracing in OpenObserve allows you to visualize the complete journey 
 
 ### Trace Ingestion
 
-- **OpenTelemetry Native**: Full support for OpenTelemetry protocol with automatic trace collection
+- **OpenTelemetry Native**: Full support for the OpenTelemetry protocol. Traces are collected automatically.
 
 ![OpenTelemetry Native](../images/features/traces-otel-support-v2.png)
 
-- **High Throughput**: Ingester nodes scale horizontally in HA mode to handle growing span volume
+- **High Throughput**: Ingester nodes scale out in HA mode to handle more spans as volume grows.
 
 ### Trace Structure & Data
 
-- **Hierarchical Spans**: Complete trace trees showing parent-child relationships between operations
+- **Hierarchical Spans**: See full trace trees that show parent-child links between operations.
 
 ![Hierarchical Spans](../images/features/trace-spans-v2.png)
 
-- **Rich Metadata**: Capture detailed span attributes, tags, and contextual information
+- **Rich Metadata**: Capture span attributes, tags, and context in detail.
 
 ![Rich Metadata](../images/features/traces-metadata-v2.png)
 
-- **Custom Instrumentation**: Support for manual and automatic instrumentation
+- **Custom Instrumentation**: Use manual or automatic instrumentation.
 
 ### Trace Analysis & Search
 
-- **Advanced Filtering**: Search traces by service, operation, duration, errors, and custom attributes
+- **Advanced Filtering**: Search traces by service, operation, duration, errors, and custom attributes.
 
 ![Trace Search](../images/features/trace-search-v2.png)
 
-- **Performance Profiling**: Identify slow operations and bottlenecks across your distributed system
+- **Performance Profiling**: Find slow operations and bottlenecks across your distributed system.
 
-- **Error Investigation**: Quickly locate and analyze failed requests and exceptions
+- **Error Investigation**: Quickly find and study failed requests and exceptions.
 
 ![Error Investigation](../images/features/trace-error-v2.png)
 
 
 ### Visualization & Insights
 
-- **Waterfall Views**: Interactive visualization showing span relationships and durations
+- **Waterfall Views**: See how spans relate and how long each one takes, in an interactive view.
 
 ![Traces waterfall view](../images/features/trace-timeline-v2.png)
 
-- **Flame Graph**, **Trace Graph** and **DAG**: Other views of a single trace (**DAG** appears for traces with LLM spans)
+- **Flame Graph**, **Trace Graph** and **DAG**: Other views of a single trace. **DAG** appears for traces with LLM spans.
 
-- **Spans**: Search and list individual spans across all traces
+- **Spans**: Search and list single spans across all traces.
 
-- **Service Graph** (Enterprise): See how your services call each other, with dependencies, throughput and error rates
+- **Service Graph** (Enterprise): See how your services call each other, with dependencies, throughput and error rates.
 
 ![Service Graph in Graph View with edges between the shop services and a tooltip showing requests, errors and error rate for checkout](../images/features/traces-service-map-v2.png)
 
-- **Service Catalog**: Every service sending traces, with latency, throughput and error rate
+- **Service Catalog**: See every service that sends traces, with latency, throughput and error rate.
 
 ### Storage & Performance
 
-- **Indexing**: Choose an **Index Type** per field (for example **Full text search** or **Secondary index**) in the stream's **Schema Settings**
+- **Indexing**: Choose an **Index Type** per field (for example **Full text search** or **Secondary index**) in the stream's **Schema Settings**.
 
 ![Index Type in the stream Schema Settings](../images/features/trace-settings-v2.png)
 
-- **Retention Management**: [Flexible retention policies](../user-guide/data-processing/streams/extended-retention.md) for cost-effective long-term storage
+- **Retention Management**: [Flexible retention policies](../user-guide/data-processing/streams/extended-retention.md) keep long-term storage low cost.
 
 ### Integration & Standards
-- **OpenTelemetry Ecosystem**: Full compatibility with OpenTelemetry collectors and instrumentation libraries
-- **Jaeger and Zipkin Compatibility**: Supports ingestion from Jaeger and Zipkin via OpenTelemetry Collector
-- **Kubernetes-Friendly:** Integrates into Kubernetes environments via OpenTelemetry Collector with support for service metadata enrichment.
-- **API Access**: REST APIs for programmatic trace access and analysis
+- **OpenTelemetry Ecosystem**: Works fully with OpenTelemetry collectors and instrumentation libraries.
+- **Jaeger and Zipkin Compatibility**: Ingest traces from Jaeger and Zipkin through the OpenTelemetry Collector.
+- **Kubernetes-Friendly:** Runs in Kubernetes through the OpenTelemetry Collector. It can add service metadata to your traces.
+- **API Access**: Use REST APIs to read and analyze traces from code.

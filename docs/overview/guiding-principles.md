@@ -5,63 +5,63 @@ description: "OpenObserve's core principles: instant value in minutes, self-heal
 
 # Our Principles
 
-We are building the best observability software in the world. These principles guide every decision we make:
+We are building the best observability software in the world. These six principles guide every choice we make. Each one is a goal you can hold us to.
 
 ## Instant Value
 
-**Get started in minutes, not hours**
+**Get started in minutes, not hours.**
 
-- Install or sign up in under two minutes
-- Begin ingesting data and gain insights immediately
-- Get started with zero configuration for common use cases
-- Gain immediate ROI on your time investment
+- Install or sign up in under two minutes.
+- Start sending data and see results right away.
+- Get started with zero setup for common use cases.
+- Get a quick return on the time you spend.
 
 ## Effortless Operations
 
-**Systems that manage themselves**
+**Systems that manage themselves.**
 
-- Self-healing and automatic recovery from issues
-- Simple scaling — as straightforward as adding nodes in an autoscaling group (in AWS) or changing the number of replicas (in Kubernetes)
-- No specialized database administration skills required
-- Worry-free upgrades and maintenance
-- Built-in reliability and stability
+- The system heals itself and recovers from issues on its own.
+- Scaling is simple. Add nodes to an autoscaling group (in AWS) or change the number of replicas (in Kubernetes).
+- You do not need special database admin skills.
+- Upgrades and upkeep are worry-free.
+- Reliability and stability are built in.
 
 ## Complete Observability
 
-**Everything you need in one platform**
+**Everything you need in one platform.**
 
-- Unified logs, metrics, and traces with correlation
-- Intuitive UI and powerful APIs
-- Feature-rich yet simple to use
-- Designed for scale
+- Logs, metrics, and traces live together and link to each other.
+- The UI is easy to learn, and the APIs are powerful.
+- It has many features but stays simple to use.
+- It is built for scale.
 
 ## Accessible Costs
 
-**Enterprise capabilities without enterprise pricing**
+**Enterprise features without enterprise pricing.**
 
-- Benefit from dramatically lower storage and operational costs
-- Get transparent pricing for both self-hosted and SaaS
-- Avoid surprise bills and cost spirals
-- Optimize your observability budget
+- Pay far less for storage and operations.
+- Get clear pricing for both self-hosted and SaaS.
+- Avoid surprise bills and costs that spiral.
+- Get more from your observability budget.
 
 ## Universal Usability
 
-**Built for everyone**
+**Built for everyone.**
 
-- Helps beginners accomplish complex tasks easily
-- Lets experts leverage existing skills and knowledge
-- Uses familiar interfaces and standard protocols
-- Offers a gentle learning curve with powerful advanced features
+- Beginners can do hard tasks with ease.
+- Experts can use the skills and knowledge they already have.
+- It uses familiar interfaces and standard protocols.
+- It is easy to learn and still has powerful advanced features.
 
 ## Real-World Performance
 
-**Optimized for actual usage patterns**
+**Tuned for how people really use it.**
 
-- High performance for common observability workloads
-- Smart tradeoffs that benefit the majority of users
-- Hardware-accelerated processing where it matters
-- Efficient scaling with your data growth
+- It runs fast on common observability workloads.
+- It makes smart tradeoffs that help most users.
+- It uses hardware speedups where they matter.
+- It scales well as your data grows.
 
 ---
 
-*These principles aren't just words — they're measurable commitments that drive our product development and user experience.*
+*These principles aren't just words. They are goals we measure, and they shape how we build the product and the user experience.*

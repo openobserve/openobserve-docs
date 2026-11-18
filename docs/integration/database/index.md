@@ -6,13 +6,15 @@ description: "Database monitoring integrations for MySQL, PostgreSQL, MongoDB, R
 
 # Database Monitoring & Performance Integration
 
-OpenObserve provides comprehensive database monitoring integrations to collect database metrics, logs, and performance data from popular relational databases (MySQL, PostgreSQL, Oracle) and NoSQL databases (MongoDB, Redis, Cassandra, DynamoDB). Monitor database performance, query optimization, and database health with unified observability.
+These guides show how to send database metrics, logs, and performance data to OpenObserve. They cover SQL databases such as MySQL, PostgreSQL, and Oracle. They also cover NoSQL databases such as MongoDB, Redis, Cassandra, and DynamoDB.
 
-These database monitoring integrations enable database performance monitoring, query analysis, and database observability across your data infrastructure for SQL and NoSQL databases.
+Use these integrations to track database health, speed, and slow queries. You see all of it in one place.
 
 ![Databases tab on the Data sources page](../../images/databases-v2.png)
 
 ## Database Integration Guides
+
+Pick your database to open its guide.
 
 - [PostgreSQL](postgresql.md)
 - [Oracle Database](oracle.md)

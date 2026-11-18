@@ -6,11 +6,13 @@ description: "Instrument AI orchestration and agent frameworks with OpenObserve.
 
 # AI Framework Observability Integrations
 
-OpenObserve provides deep observability for AI orchestration and agent frameworks. Automatically trace every chain execution, LLM call, tool invocation, retrieval step, and agent turn across the most popular AI frameworks via OpenTelemetry.
+These guides show how to trace AI and agent frameworks with OpenObserve. Each one uses OpenTelemetry. It traces every chain run, LLM call, tool call, retrieval step, and agent turn.
 
-These integrations capture token usage, latency per step, agent reasoning traces, and error details, giving you full visibility into complex multi-step AI workflows.
+You can see token usage, time per step, agent reasoning, and errors. This helps you follow each step of a multi-step AI workflow.
 
 ## Framework Integration Guides
+
+Pick your framework to open its guide.
 
 - [Agno](agno.md)
 - [Amazon Bedrock AgentCore](amazon-bedrock-agentcore.md)
