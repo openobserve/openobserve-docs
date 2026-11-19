@@ -7,12 +7,19 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+# The repository default token is read and write. This job only reads the config file and sets or
+# removes the "Invalid PR Title" label, so give it nothing more.
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: thehanimo/pr-title-checker@v1.4.3
+      # Pinned to a commit: this job runs on pull_request_target with a write token.
+      - uses: thehanimo/pr-title-checker@b69bc3a841cf4e3cfef2d822625d8c90a588e9da # v2.0.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           pass_on_octokit_error: false
