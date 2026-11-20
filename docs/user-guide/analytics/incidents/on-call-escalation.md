@@ -48,7 +48,7 @@ Only organization admins can change this setting.
 
 OpenObserve checks the account with Twilio before saving it, and saving requires your operator to have set `O2_MASTER_ENCRYPTION_KEY`. The auth token is stored encrypted and is never returned by the API. To change the account later, click **Update**; leave **Auth token** blank to keep the stored token. **Disconnect** removes the org account, after which pages use the deployment account if there is one, or email only.
 
-The page also shows whether **Call keys: 4 acknowledge, 6 resolve, 8 escalate** are available, which depends on `O2_TELEPHONY_CALLBACK_URL` (see below).
+The page also has a **Call keys** row. When `O2_TELEPHONY_CALLBACK_URL` is set (see below), it lists 4 acknowledge, 6 resolve, and 8 escalate; otherwise it shows the keys as not available, and people acknowledge from the link in their text.
 
 ![Settings, Telephony page showing No phone provider connected and the Connect Twilio action](images/telephony-settings.png)
 
@@ -88,7 +88,7 @@ Until the organization has a phone provider, the **Phone** card says so and page
 
 A voice page reads the alert aloud, then prompts: **"Press 4 to acknowledge, 6 to resolve, or 8 to escalate."**
 
-- **Press 4** acknowledges the page as you.
+- **Press 4** acknowledges the page as you. This is the same acknowledge as on the alert, incident, and on-call pages: it acknowledges the incident if the firing is in one, otherwise the firing, and stops every open page for it.
 - **Press 6** resolves the response.
 - **Press 8** escalates to the next level, then waits up to 8 seconds for the next rung's pages to go out and tells you if they did not.
 
