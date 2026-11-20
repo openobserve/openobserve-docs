@@ -20,7 +20,7 @@ Pick a category below to find the guide for your tool.
 
 - [AI Frameworks](ai/frameworks/index.md): Trace [LangChain](ai/frameworks/langchain.md), [CrewAI](ai/frameworks/crewai.md), [LlamaIndex](ai/frameworks/llamaindex.md), [AutoGen](ai/frameworks/autogen.md), and 30+ more.
 - [LLM Providers](ai/providers/index.md): Trace [OpenAI](ai/providers/openai.md), [Anthropic](ai/providers/anthropic.md), [Gemini](ai/providers/google-gemini.md), [Mistral](ai/providers/mistral.md), [Ollama](ai/providers/ollama.md), and more.
-- [AI Gateways](ai/gateways/index.md): Monitor [Portkey](ai/gateways/portkey.md), [LiteLLM Proxy](ai/gateways/litellm-proxy.md), [OpenRouter](ai/gateways/openrouter.md), [Kong](ai/gateways/kong-gateway.md), and more.
+- [AI Gateways](ai/gateways/index.md): Monitor [Portkey](ai/gateways/portkey.md), [LiteLLM Proxy](ai/gateways/litellm-proxy.md), [OpenRouter](ai/gateways/openrouter.md), [Kong AI Gateway](ai/gateways/kong-gateway.md), and more.
 - [No-Code AI Tools](ai/no-code/index.md): Monitor [n8n](ai/no-code/n8n.md), [Flowise](ai/no-code/flowise.md), [LangFlow](ai/no-code/langflow.md), [OpenWebUI](ai/no-code/openwebui.md), and more.
 - [AI Developer Tools](ai/tools/index.md): Connect [Promptfoo](ai/tools/promptfoo.md), [Milvus](ai/tools/milvus.md), [Firecrawl](ai/tools/firecrawl.md), [PostHog](ai/tools/posthog.md), and more.
 - [Model Context Protocol (MCP)](ai/mcp/index.md): Query OpenObserve from AI agents and IDEs.
