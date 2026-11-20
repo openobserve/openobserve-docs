@@ -10,6 +10,13 @@ import { Analytics, GtmNoScript } from '@/components/analytics';
 import { SiteStructuredData } from '@/components/structured-data';
 import SearchDialog from '@/components/search-dialog';
 import { AnnouncementBanner } from '@/components/announcement-banner';
+import {
+  DocsHeader,
+  DocsSidebar,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/docs-layout-slots';
 import { BASE_PATH, SITE_URL, SOCIAL_IMAGE } from '@/lib/constants';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
@@ -66,6 +73,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             tree={source.pageTree}
             {...baseOptions}
             sidebar={{ banner: <SidebarGetStarted />, footer: <SidebarPrivacyLink /> }}
+            // <nav> landmarks around the sidebar and the mobile header. See
+            // components/docs-layout-slots.tsx.
+            slots={{
+              header: DocsHeader,
+              sidebar: {
+                provider: SidebarProvider,
+                root: DocsSidebar,
+                trigger: SidebarTrigger,
+                useSidebar,
+              },
+            }}
           >
             {children}
           </DocsLayout>

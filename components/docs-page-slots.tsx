@@ -5,6 +5,11 @@ import { TOCScrollArea, useTOCItems } from 'fumadocs-ui/components/toc';
 import { TOCItem, TOCItems } from 'fumadocs-ui/components/toc/default';
 import { Container } from 'fumadocs-ui/layouts/docs/page/slots/container';
 import { Footer, type FooterProps } from 'fumadocs-ui/layouts/docs/page/slots/footer';
+import {
+  TOCPopover,
+  TOCProvider,
+  type TOCPopoverProps,
+} from 'fumadocs-ui/layouts/docs/page/slots/toc';
 
 /**
  * Landmark wrappers for DocsPage's `slots`. Fumadocs renders the page as a bare
@@ -29,6 +34,10 @@ export function PageContainer(props: ComponentProps<'article'>) {
  * H3, a skipped level. It is UI chrome, not part of the page's structure.
  * Mirrors fumadocs-ui/dist/layouts/docs/page/slots/toc.js (16.x); recheck it
  * on a Fumadocs upgrade.
+ *
+ * A <nav> where Fumadocs has a <div>, so the list sits in a navigation
+ * landmark; crawlers that score readability skip <nav> text. Same classes, and
+ * nothing styles the element by tag, so it renders identically.
  */
 export function PageTOC() {
   const items = useTOCItems();
@@ -36,8 +45,9 @@ export function PageTOC() {
     return <div id="nd-toc-placeholder" className="hidden xl:layout:[--fd-toc-width:268px]" />;
   }
   return (
-    <div
+    <nav
       id="nd-toc"
+      aria-label="Table of contents"
       className="sticky top-(--fd-docs-row-1) h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] flex flex-col [grid-area:toc] w-(--fd-toc-width) pt-12 pe-4 pb-2 xl:layout:[--fd-toc-width:268px] max-xl:hidden"
     >
       <p id="toc-title" className="inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground">
@@ -67,9 +77,26 @@ export function PageTOC() {
           ))}
         </TOCItems>
       </TOCScrollArea>
-    </div>
+    </nav>
   );
 }
+
+/**
+ * The collapsible "On this page" bar shown below the `xl` breakpoint, as
+ * Fumadocs draws it, inside a <nav>. Its trigger shows the page title, which
+ * otherwise ran straight into the article text. `display: contents` keeps the
+ * popover a direct grid item of #nd-docs-layout, so its sticky row and grid
+ * area are unchanged.
+ */
+export function PageTOCPopover(props: TOCPopoverProps) {
+  return (
+    <nav aria-label="Table of contents (compact)" className="contents">
+      <TOCPopover {...props} />
+    </nav>
+  );
+}
+
+export { TOCProvider };
 
 export function PageFooter(props: FooterProps) {
   return (
