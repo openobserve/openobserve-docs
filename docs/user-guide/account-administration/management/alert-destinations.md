@@ -9,6 +9,8 @@ In OpenObserve, **Destinations** define how and where alert notifications are de
 
 The **Destinations** section provides the following configuration options. Select a destination type to view configuration instructions.
 
+The **Jira** destination type creates a ticket in Jira Cloud or Jira Data Center when an alert fires. Select **Jira**, choose the **Jira Type**, enter the **Jira URL**, **Email** (Cloud only) and **API Token** (**Personal Access Token** on Data Center), and click **Connect**. Pick the **Project** and **Issue Type**, plus any **Required Jira Fields**. Repeat notifications and recovery add comments to the open ticket. Real-time alerts cannot use Jira, and the **Cooldown period** must be at least 10 minutes.
+
 :::::tabs
 ::::tab[Webhook]
 ## Webhook

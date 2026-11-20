@@ -185,6 +185,8 @@ Reanalysis reruns automatically when a new alert type joins the incident, when d
 
 ## Edit incident details
 
+To set the title of new incidents, enter a template in the **Incident Title** field of an alert that has **Creates Incident** enabled, for example `{service_name} errors on {host}`. Use `{field}` for values from the triggering row or its grouping keys, plus `{alert_name}`, `{stream_name}`, `{stream_type}`, `{org_name}`, `{alert_time}`, `{alert_start_time}`, `{alert_end_time}`, and context attributes. Missing variables show as `–`. If none resolve, OpenObserve uses the default title.
+
 - **Title**: Click the incident title in the header, edit it, and press Enter to save.
 - **Severity**: In the **Manage** panel, click a severity level:
 
