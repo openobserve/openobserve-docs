@@ -144,6 +144,8 @@ Moves the panel to a different tab.
 ![Move Panel to Another Tab dialog with the Errors tab selected](../../../../images/manage-panels-move-panel-to-another-tab-v2.png)  
 
 ## Data Analysis and Export   
+To see the rows a chart is drawn from, select **Show raw data** in the panel menu, and **Show chart** to switch back. On the View panel screen and in the panel editor, use the **Chart** / **Data** switch. The table shows up to 100,000 rows. Switching does not change the panel and resets on reload. It is not offered for table, logs, HTML, Markdown, alert list, and custom chart panels.
+
 ### Query Inspector
 Allows you to view the query, its start and end time, query type, and variables. To modify the query, select the **Edit Panel** option.  
 ![Query Inspector showing the original and executed SQL, start and end time, and variables](../../../../images/manage-panels-query-inspector-v2.png)
