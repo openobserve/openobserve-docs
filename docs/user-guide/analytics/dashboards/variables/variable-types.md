@@ -159,6 +159,51 @@ This variable lets you predefine a list of selectable values.
 - The values are injected into queries as-is. No validation or transformation is applied.
 :::
 
+## 5. Date
+
+This variable provides a date picker on the dashboard.
+
+**When to use:** When panels filter by a calendar date and users should pick the date instead of typing it.
+
+**Use Case:** You want users to pick a day and show only records from that day onwards, using `_timestamp >= $day`.
+
+:::note[Configuration]
+**General**:
+
+- **Type of variable**: Date
+- **Name**: day
+- **Label (optional)**: Day
+- **Default value (optional)**: `2026-10-30`
+- **Output date format**: Epoch microseconds (epochus)
+
+**Options**:
+
+- **Hide On Dashboard**: Disabled
+:::
+
+**Result**:
+
+- Users see a date picker labeled Day on the dashboard. They can pick another date or clear it.
+- All queries using `$day` receive 00:00 UTC of the selected date in epoch microseconds, `1793318400000000` for `2026-10-30`.
+
+**Output date format** options, shown for `2026-10-30`:
+
+| Option | Output |
+|--------|--------|
+| YYYY-MM-DD (iso) | `2026-10-30` (default) |
+| DD/MM/YYYY (dmy) | `30/10/2026` |
+| MM/DD/YYYY (mdy) | `10/30/2026` |
+| Epoch seconds (epoch) | `1793318400` |
+| Epoch milliseconds (epochms) | `1793318400000` |
+| Epoch microseconds (epochus) | `1793318400000000` |
+
+:::note[Note]
+- To use a different format in one place, write `${name:format}`, for example `${day:dmy}`.
+- The epoch formats always use 00:00 UTC of the selected date. There is no timezone setting.
+- A cleared picker gives an empty value.
+- The variable stores the date as `YYYY-MM-DD`, the same as a Textbox. A Textbox variable switched to Date keeps its queries working.
+:::
+
 
 
 
