@@ -1,12 +1,12 @@
 ---
 title: Kong AI Gateway
-metaTitle: Trace Kong AI Gateway requests in OpenObserve
+metaTitle: Kong AI Gateway
 description: Instrument Kong AI Gateway calls and send traces to OpenObserve via OpenTelemetry.
 ---
 
 # Kong AI Gateway → OpenObserve
 
-Automatically capture token usage, latency, and model metadata for every request routed through [Kong AI Gateway](https://developer.konghq.com/ai-gateway/). Kong AI Gateway serves an OpenAI-compatible API, so the standard OpenAI instrumentor captures spans with no additional configuration.
+Automatically capture token usage, latency, and model metadata for every request routed through Kong AI Gateway. Kong acts as a transparent OpenAI-compatible proxy, so the standard OpenAI instrumentor captures spans with no additional configuration.
 
 ## Prerequisites
 
@@ -89,7 +89,7 @@ KONG_GATEWAY_URL=http://localhost:8000/v1
 
 ## Instrumentation
 
-Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at your Kong AI Gateway URL. The gateway adds your OpenAI API key to each request, so the client passes a placeholder key.
+Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the Kong proxy URL. The gateway adds your OpenAI API key to each request, so the client passes a placeholder key.
 
 ```python
 from dotenv import load_dotenv
@@ -99,7 +99,7 @@ from openinference.instrumentation.openai import OpenAIInstrumentor
 from openobserve import openobserve_init
 
 OpenAIInstrumentor().instrument()
-openobserve_init(resource_attributes={"service.name": "kong-gateway"})
+openobserve_init()
 
 import os
 from openai import OpenAI
@@ -150,16 +150,14 @@ print(response.choices[0].message.content)
 
 1. Log in to OpenObserve and navigate to **Traces**
 2. Spans appear with `operation_name: ChatCompletion` and `llm_system: openai`
-3. Since Kong AI Gateway serves the OpenAI API format, spans look identical to direct OpenAI calls. Filter by `service_name = kong-gateway` to see Kong traffic separately
+3. Since Kong is a transparent proxy, spans look identical to direct OpenAI calls. Use `service_name` or a custom span attribute to tag Kong traffic separately
 4. Use `duration` to measure Kong proxy overhead versus direct API latency
 
-![Kong AI Gateway trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/kong-gateway-v2.png)
+![Kong Gateway trace in OpenObserve, Waterfall view with the ChatCompletion span attributes](../../../images/integration/ai/kong-gateway-v2.png)
 
 ## Next Steps
 
-With your application instrumented, every request it sends through Kong AI Gateway is recorded in OpenObserve. From here you can monitor latency per route, track token usage across models, and set alerts on error rates.
-
-On the gateway side, you can add models from other providers or attach [policies](https://developer.konghq.com/ai-gateway/policies/) such as rate limits by extending `kong.yml` and applying it again with kongctl. Requests keep the OpenAI format, so the instrumentation above doesn't change.
+With Kong AI Gateway instrumented, every proxied request is recorded in OpenObserve. From here you can monitor latency per route, track token usage across consumers, and set alerts on error rates.
 
 ## Read More
 
@@ -167,5 +165,3 @@ On the gateway side, you can add models from other providers or attach [policies
 - [Traces Ingestion with Python](../../../ingestion/traces/python.md)
 - [Exploring Traces in OpenObserve](../../../user-guide/data-exploration/traces/index.md)
 - [Building Dashboards](../../../user-guide/analytics/dashboards/index.md)
-- [Kong AI Gateway documentation](https://developer.konghq.com/ai-gateway/)
-- [kongctl documentation](https://developer.konghq.com/kongctl/)
