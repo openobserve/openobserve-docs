@@ -47,7 +47,7 @@ Click a collector to open its details, with **Overview**, **Metrics**, **Health*
 
 ![Fleet with its desired and stable versions above the collectors table](images/fleet-management-collectors.png)
 
-![Collector details with the Health tab open](images/fleet-management-collector-details.png)
+![Collector details with the Health tab open](images/fleet-management-collector-details-v2.png)
 
 ## Configurations
 

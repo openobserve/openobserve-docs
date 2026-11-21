@@ -21,7 +21,7 @@ Evaluation events go to the organization's own `triggers` stream, with a copy in
 :::
 
 ## How to interpret the Alert History table
-![Alert History page with one row per evaluation: timestamp, time range, duration, status, condition, retries and dedup](../../../images/alert-history-v2.png)
+![Alert History page with one row per evaluation: timestamp, time range, duration, status, condition, retries and suppression](../../../images/alert-history-v3.png)
 
 Each row represents one alert evaluation.
 

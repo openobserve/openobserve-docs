@@ -113,7 +113,7 @@ The **Advanced** tab provides additional configuration for scheduled alerts:
 - **Deduplication**: Group similar alerts by fingerprint fields and time window to reduce notification noise.
 - **Additional Settings**: Override notification templates, add context variables, set a description, customize row templates, and set a **Priority** and **Tags**. See [Advanced Alert Configuration](advanced-alert-configuration.md).
 
-![Advanced tab with Additional Settings (Template Override, Priority, Tags, Description, Row Template), Compare with Past and Deduplication](../../../images/add-alert-advanced-tab-v2.png)
+![Advanced tab with Additional Settings (Template Override, Priority, On-call team, Tags, Description, Row Template) and Compare with Past](../../../images/add-alert-advanced-tab-v3.png)
 
 ## Alert folders
 
