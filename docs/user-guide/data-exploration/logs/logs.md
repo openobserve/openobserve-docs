@@ -181,6 +181,31 @@ Click the **More Actions** menu (the three-bar icon) to access:
 
 The same menu also lets you create an alert from the current search, open **Explain Query** when SQL mode is on (see [Explain and Analyze Query](explain-analyze-query.md)), and, in Enterprise Edition, open **Search Inspect** when the search inspector is enabled.
 
+## Recent Searches
+
+The **Recent searches** drawer lists the queries you run on **Logs**, **Traces**, and **Metrics**, grouped under **Today**, **Yesterday**, and past dates. Open it from the **Recent searches** button in the search bar.
+
+Filter the list with chips:
+
+- **Scope**: the current page (for example **Logs**) or **All pages**.
+- **Status**: **Any status**, **Success**, **No results**, or **Error**.
+- **Starred**: a toggle that combines with any status.
+
+Each row shows the query, stream tags, a status dot, the time range, and the run count with its last-run time. Use the row actions to **Re-run now**, restore the original time, **Star** or **Unstar**, or open **More** to load without running, copy a link or the query, or delete the entry. The search box filters by query and stream name.
+
+A **No results** status marks Logs and Traces runs that returned zero rows; it is not set for Metrics. Entries recorded earlier show **Success**.
+
+The footer shows a `Showing N of M` count. Click **Clear my history** to delete entries; tick the checkbox to also remove starred entries.
+
+### Retention
+
+History is on by default. Starred entries are kept until you remove them; unstarred entries age out after the retention period.
+
+| Setting | Description | Default |
+|---|---|---|
+| `ZO_QUERY_HISTORY_ENABLED` | Records the queries you run; `false` stops collection. | `true` |
+| `ZO_QUERY_HISTORY_RETENTION_DAYS` | Days to keep unstarred entries. | `14` |
+
 ## Next Steps
 
 - To learn how to visualize logs, refer to the [Dashboards](../../analytics/dashboards/dashboards-in-openobserve.md) documentation.
