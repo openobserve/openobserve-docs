@@ -183,3 +183,25 @@ The analyze results help you understand query performance by showing:
 
 Compare row counts and execution times across operators to understand your query's behavior.
 
+## Analyze query profile
+
+The **Analyze** view now opens a graphical query profile instead of the indented execution tree. The Query Plan window header has a **View** switch with three modes:
+
+- **Plan** — the execution plan drawn as a graph of operator cards and dashed stage boxes. Edges carry row counts (the exchange edge also shows bytes over Flight). Pan, zoom, and **Fit to view**; **Fold plumbing operators** collapses repartition, coalesce, and projection operators onto the edges by default.
+- **Text** — the physical and logical plans as indented text. After a run, it also shows the `EXPLAIN ANALYZE` output as a table with one row per node (phase, address, and plan); **Copy** copies the rows as JSON.
+- **Analyze** — the profile described below.
+
+In the **Analyze** view, click **Run EXPLAIN ANALYZE** to run the query on every querier and ingester and measure each step.
+
+### Summary panel
+
+The summary panel is titled **Analyze results** and shows stat tiles for **Wall time**, **CPU across nodes**, **Result rows**, **Peak memory**, **Nodes**, and **Scanned** files and bytes. Below them are a per-**Clusters** table, **Query phases** (from `took_detail`), **CPU time by operator type**, **Hotspots**, and a **Nodes from dispatch** timeline that flags stragglers.
+
+### Detail panel
+
+Click an operator card to open its **Details** panel: a per-node table with **Skew (max / median)** plus **Timing**, **Pruning**, **Ratios**, and **Counters** metrics. For a remote scan, the panel shows one table per node grouped by cluster, switchable between **Returned to leader** (rows, bytes, fetch, decode) and **Read from storage** (files, cache hits, index).
+
+### Focus on one cluster or one node
+
+On a super cluster, click a cluster in the **Clusters** table or the node timeline to show only that cluster's part of the plan; click **Show all clusters** to go back. Click a node to show only that node's numbers, dimming the operators it did not run; click **Show all nodes** to restore the full view.
+
