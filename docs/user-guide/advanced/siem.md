@@ -8,6 +8,10 @@ description: "Build a SIEM platform on OpenObserve with threat detection, securi
 
 Build a complete SIEM (Security Information and Event Management) platform with OpenObserve for security monitoring, threat detection, and incident response. OpenObserve transforms from a high-performance observability platform into a robust SIEM solution for Security Operations Center (SOC) operations. By leveraging Petabyte-scale security data storage, powerful security pipelines, threat intelligence enrichment, SQL-based threat detection, and native incident management, you can build a complete SOC (Security Operations Center) for security monitoring, SIEM analytics, and threat hunting without the complexity of managing multiple disparate security tools.
 
+:::tip[Built-in Security solution]
+OpenObserve Enterprise (with the **Security (SIEM)** license feature) and Cloud include a built-in SIEM with Sigma detections, OCSF normalization, cases, threat intel, and UEBA. See [Security](../security/index.md). This page describes the manual approach with pipelines, enrichment tables, and SQL alerts.
+:::
+
 This SIEM implementation guide outlines the security architecture, security log ingestion strategies, threat detection rules, and security incident response required to use OpenObserve as a SIEM platform for enterprise security monitoring.
 
 ## **1. High-Level Architecture**
