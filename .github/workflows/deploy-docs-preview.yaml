@@ -12,6 +12,10 @@ on:
 
 jobs:
   deploy:
+    # Fork PRs get no OIDC token, so they could never deploy. Skipping them
+    # also keeps untrusted code off the self-hosted runner, where it could
+    # leave something behind for later jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: org-openobserve-standard-4
     permissions:
       id-token: write
@@ -52,16 +56,23 @@ jobs:
           echo "AWS CLI already installed."
         fi
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::325553860333:role/GitHubActionsRole
-        aws-region: us-east-2  # or your preferred region
-
+    # The build runs code from the PR, so it must finish before any AWS
+    # credentials exist in the job. Keep this step above "Configure AWS
+    # credentials".
     - name: Build static site
       run: |
         rm -rf out
         pnpm build
+
+    # DocsPreviewRole is for previews only. It can write to the preview bucket
+    # and nothing else, and its trust policy accepts only this repo's PR and
+    # manual runs. Never point this at GitHubActionsRole, which publishes
+    # prod docs and deploys the CMS.
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::325553860333:role/DocsPreviewRole
+        aws-region: us-east-2
 
     - name: Deploy to S3
       run: |
