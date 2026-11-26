@@ -13,6 +13,7 @@ Each guide uses an OpenInference or OpenTelemetry instrumentor for that provider
 ## LLM Provider Integration Guides
 
 - [Amazon Bedrock](amazon-bedrock.md).
+- [APIKO](apiko.md).
 - [Anthropic (Python)](anthropic.md).
 - [Anthropic (JavaScript)](anthropic-js.md).
 - [Azure AI Foundry](azure-ai-foundry.md).
