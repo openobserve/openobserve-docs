@@ -6,6 +6,10 @@ description: "OpenObserve's built-in SIEM: classify and normalize security logs 
 
 # Security
 
+:::note[Alpha]
+Security (SIEM) is available in **Alpha** on [OpenObserve Cloud](https://cloud.openobserve.ai). Enterprise support requires a license that includes the Security (SIEM) feature.
+:::
+
 Security is OpenObserve's built-in SIEM. It finds the security logs you already ingest, normalizes them to [OCSF](https://ocsf.io), runs [Sigma](https://sigmahq.io) rules against them as scheduled detections, and groups the firings into cases that your team triages to a verdict. It runs on the same streams, alerts, and incidents as the rest of OpenObserve, so there is no second data store to feed.
 
 :::info[Availability]
