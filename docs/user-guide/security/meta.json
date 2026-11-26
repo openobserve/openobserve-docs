@@ -1,0 +1,15 @@
+{
+  "title": "Security",
+  "pages": [
+    "index",
+    "data-sources",
+    "events",
+    "detections",
+    "alerts",
+    "cases",
+    "threat-intel",
+    "entities-and-ueba",
+    "mitre-attack",
+    "content"
+  ]
+}
