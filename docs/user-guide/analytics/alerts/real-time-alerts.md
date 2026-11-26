@@ -67,7 +67,7 @@ The **Advanced** tab provides additional options for real-time alerts. Click **A
 - **Priority** and **Tags**: Triage metadata. See [Advanced Alert Configuration](advanced-alert-configuration.md#alert-priority).
 
 :::note[Note]
-Compare with Past and Deduplication are available for scheduled alerts only. See [Scheduled Alerts](scheduled-alerts.md) for those features.
+**Compare with Past** and [**Suppress repeats**](scheduled-alerts.md#suppress-repeats) are available for scheduled alerts only. See [Scheduled Alerts](scheduled-alerts.md) for those features.
 :::
 
 ---

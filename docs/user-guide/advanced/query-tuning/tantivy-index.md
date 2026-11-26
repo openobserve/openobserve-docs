@@ -57,6 +57,7 @@ To enable Tantivy indexing, configure the following environment variable:
 | Environment Variable | Description | Default Value |
 |---------------------|-------------|---------------|
 | `ZO_ENABLE_INVERTED_INDEX` | Enables or disables Tantivy indexing | `true` |
+| `ZO_INVERTED_INDEX_LIKE_OPTIMIZER_ENABLED` | Uses the index for `LIKE '%x%'` and `ILIKE '%x%'` filters | `true` |
 :::
 :::accordion[Enable Tantivy result cache (optional)]
 ### Enable Tantivy result cache (optional)
@@ -131,6 +132,10 @@ WHERE match_all('ingress-nginx');
 ```
 :::
 
+:::note[LIKE patterns]
+`LIKE '%x%'` and `ILIKE '%x%'` use the index when `x` holds no `%` or `_`. On full-text fields, `x` must be one alphanumeric token in a top-level `AND`. Prefix (`'x%'`), suffix (`'%x'`) and `NOT LIKE` patterns scan files.
+:::
+
 #### Mixed scenarios
 
 When a query combines full-text and secondary fields, apply the best operator for each part.
@@ -169,7 +174,7 @@ WHERE body = 'error'
 WHERE match_all('error') AND kubernetes_namespace_name = 'ingress-nginx';
 
 -- Mixed: one side indexable, one not
-WHERE match_all('error') AND body LIKE '%error%';
+WHERE match_all('error') AND body LIKE 'error%';
 ```
 
 **OR behavior**
@@ -423,4 +428,6 @@ To confirm whether a query used the Tantivy inverted index:
 
     - If `idx_took` is greater than `0`, the query used the inverted index.
     - If `idx_took` is `0`, the query did not use the inverted index.
+
+To skip the index for one query, set `"use_index": false` in the search request body.
 

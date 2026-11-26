@@ -75,7 +75,7 @@ After a rule is saved, its detail page has a **Charts** tab that plots the value
 The **Alerting** tab configures what happens when anomalies are detected:
 
 - **Notifications** — enable or disable alert notifications
-- **Destination** — choose one or more destinations (Slack, email, webhook, etc.)
+- **Destination** — choose one or more destinations (Slack, email, webhook, [Jira](../../account-administration/management/alert-destinations.md), etc.). With Jira, each rule keeps one open issue, and a new anomaly adds a comment to it.
 - **Alert direction** — **Above or below**, **Above only**, or **Below only**: which side of the band can send an alert. Missing data always alerts.
 - **Window share** — alert only when enough recent buckets fall outside the band: **Fire at (%)** of the **Last N buckets**, recovering below **Recover below (%)**
 - **Priority** and **Tags** — triage metadata, as for other alerts

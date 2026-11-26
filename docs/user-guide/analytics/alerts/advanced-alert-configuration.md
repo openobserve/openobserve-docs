@@ -59,6 +59,8 @@ When a group's level changes (e.g. from `ok` to `critical`), OpenObserve records
 
 Groups that disappear from evaluation results do not immediately resolve. A group must be unseen for `K` times the alert's evaluation frequency (`ZO_ALERT_GROUP_DISAPPEARANCE_K`, default 3) before it is resolved to `ok`. After resolution, the state row is retained for a grace period (`ZO_ALERT_GROUP_REAP_GRACE_SECS`, default 3600 seconds) and then deleted. Transition history is kept regardless.
 
+With **Notify on recovery** turned on in the **Settings** section, each group sends its own resolved message when it recovers, while other groups keep firing. A group recovers when its value clears the threshold or when it disappears as described above, and **Keep firing for** applies per group. In the recovery template, `{recovery_reason}` is `cleared` or `disappeared`, and `{group.*}` variables name the group.
+
 ![Groups table of a multi-alert with each group's level, group value, since, last outcome and last notified level](images/alerts-4-0-5-v2.png)
 
 ### Viewing group details

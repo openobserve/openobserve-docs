@@ -41,7 +41,7 @@ You can override a card's function for individual metrics via the **gear (⚙) i
 
 Click **Drill down** on a card to open the metric's detail view. It shows a larger chart with **Compare to** (1 hour, 1 day or 1 week ago), **Forecast** (**Linear** or **Smoothed trend**) and, for histograms, **Exemplars**. Below the chart are three tabs:
 
-- **Breakdown**: one chart per label. Drill down into a label to see its values, then **Add to filter** or **Exclude** a value.
+- **Breakdown**: one chart per label. Drill down into a label to see its values, then **Add to filter** or **Exclude** a value. Sort values by **Average**, or by **Outlying** to rank the most unusual series first; clear outliers get an **Outlier** badge.
 - **Related**: other metrics that share labels with this one.
 - **Used in**: the dashboards, alerts, SLOs and scheduled pipelines that query this metric.
 
@@ -57,13 +57,13 @@ The left rail exposes three filter panels:
 
 ![the filter rail open on prefix grouping, showing prefix groups with counts](images/metrics-explorer-revamp-4-v2.png)
 
-The **Search metrics** box filters cards by name or help text. The **sort** control orders cards **A–Z**, **Z–A**, or by usage in **Dashboards** or **Alerts** (most used first). **With data** (selected by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics; select **All** to show every metric. A count below the grid shows how many cards are hidden.
+The **Search metrics** box filters cards by name or help text. The **sort** control orders cards **A–Z**, **Z–A**, or by usage in **Dashboards** or **Alerts** (most used first). Select **In dashboards**, **Has alerts** or **In SLOs** to show only metrics used there; with several selected, a metric must match all of them. **With data** (selected by default) hides cards whose queries returned no samples, keeping the grid clean of registered-but-unused metrics; select **All** to show every metric. A count below the grid shows how many cards are hidden.
 
 Use **Views** to save the current search, filters, sort, layout and time range as a named view, and to reopen, update or delete views. Saved views are shared with everyone in the organization.
 
 ### Label filter chips
 
-Click **Filter** to add a label matcher: select a label, an operator (`=` exact value, `!=` any other value, `=~` regex), and a value. Filters are combined with AND. Cards are then narrowed to metrics whose streams carry every selected label, so a `status=~"5.."` filter limits the grid to metrics that actually have a `status` label.
+Click **Filter** to add a label matcher: select a label, an operator (`=` exact value, `!=` any other value, `=~` regex, `!~` not matching a regex), and a value. Filters are combined with AND. To match alternatives, click **+ OR group**: a series matches when it matches any group. Click **not** to invert a group. Cards are then narrowed to metrics whose streams carry every selected label, so a `status=~"5.."` filter limits the grid to metrics that actually have a `status` label.
 
 ![the Filter label matcher with label, operator, and value selectors](images/metrics-explorer-revamp-5-v2.png)
 
