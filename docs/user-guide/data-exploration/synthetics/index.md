@@ -91,6 +91,8 @@ From the checks table you can:
 - **Edit**, **Trigger**, **Pause**, **Duplicate**, **Move**, or **Delete** a single check from its row
 - Select multiple checks to pause, enable, trigger, move, or delete them together
 
+When OpenObserve cannot reach the probe, your site is not tested, so the run shows as **Not measured** instead of as an outage. The badge reads **Not measured since** the time it started, the run timeline shows the run in gray, and the check's uptime and charts skip it. After such a run, OpenObserve schedules one extra run 60 seconds later.
+
 > **Tip**: A paused check cannot be triggered. Enable it first.
 
 ## Best practices
