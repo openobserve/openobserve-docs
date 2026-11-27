@@ -23,18 +23,18 @@ ZO_EXPERIMENTAL=true
 
 The value reaches the UI through the organization config endpoint (`/api/{org}/config`) as `experimental`. Once it is `true`, **AutoObserve** appears in the left navigation just above **Reliability** (the group that holds Alerts) and links to `/autoobserve`. The flag only controls the menu entry; in an enterprise build the `/autoobserve` page itself is always reachable by URL. The older `/auto-observe-2` path redirects to it.
 
-## Standard and Nerd views
+## Standard and Detailed views
 
-AutoObserve has two views, switched with the **Standard** / **Nerd** toggle in the top bar. Your choice is remembered in the browser, and a shared link can force a view with `?view=nerd`.
+AutoObserve has two views, switched with the **Standard** / **Detailed** toggle in the top bar. Your choice is remembered in the browser, and a shared link can force a view with `?view=nerd`.
 
 - **Standard** is the default view: a summary of this week's problems plus a **Suggestions** rail, with **History**, **Settings**, and **How it works** in the top bar.
-- **Nerd** is a tabbed workspace with **Issues**, **Coverage**, **Activity**, and **Policy** tabs.
+- **Detailed** is a tabbed workspace with **Issues**, **Coverage**, **Activity**, and **Policy** tabs.
 
 Approvals you make in one view show up in the other.
 
 ## Demo scenarios
 
-Because AutoObserve runs on demo data, the Standard view has a **Demo scenario** selector at the bottom of the page. You can also set it with the `?scenario=` query parameter. Switching scenario resets any approvals you made. The Nerd view always shows the **Demo week** scenario.
+Because AutoObserve runs on demo data, the Standard view has a **Demo scenario** selector at the bottom of the page. You can also set it with the `?scenario=` query parameter. Switching scenario resets any approvals you made. The Detailed view always shows the **Demo week** scenario.
 
 | Scenario | `?scenario=` | What it shows |
 |----------|--------------|---------------|
@@ -48,7 +48,7 @@ Because AutoObserve runs on demo data, the Standard view has a **Demo scenario**
 
 The **Issues** tab lists the incidents AutoObserve has raised, newest first and grouped by day. Columns are **Incident**, **Problem**, **Severity** (`P1`–`P4`), **Signal** (a sparkline), **Affected services**, **Started**, **Status**, and **Cause**.
 
-![AutoObserve Nerd view Issues tab with the incident table](images/autoobserve-issues-tab.png)
+![AutoObserve Detailed view Issues tab with the incident table](images/autoobserve-issues-tab.png)
 
 Use the toolbar to narrow the list:
 
