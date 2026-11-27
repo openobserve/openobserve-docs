@@ -305,7 +305,7 @@ Open `values.yaml`. Line numbers below match chart version `1.1.x`; if yours dif
 ```yaml
 auth:
   ZO_ROOT_USER_EMAIL: "your-email@example.com"
-  ZO_ROOT_USER_PASSWORD: "supercomplexpass12"     # change me
+  ZO_ROOT_USER_PASSWORD: "<YOUR_PASSWORD>"     # change me
 ```
 
 ## 6b. GCS HMAC credentials (~lines 185-186)
@@ -467,7 +467,7 @@ https://api.openobserve.ai/api/YOUR_ORG/default/_json \
 **For Self-Hosted Installation**:
 ```bash
 # Replace credentials with the values you set in Step 6a.
-curl -u "your-email@example.com:supercomplexpass12" \
+curl -u "your-email@example.com:<YOUR_PASSWORD>" \
 -H "Content-Type: application/json" \
 http://localhost:5080/api/default/default/_json \
 -d "@k8slog_json.json"

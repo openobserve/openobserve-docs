@@ -55,6 +55,8 @@ Choose self-hosted if you need:
 
 You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PASSWORD) on first startup only. They are not required for subsequent runs.
 
+In the commands below, replace `<YOUR_PASSWORD>` with a password of your own. It must be 8 to 128 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character, otherwise OpenObserve does not start.
+
 :::::tabs
 ::::tab[Windows]
 
@@ -67,14 +69,14 @@ You'll need to set root user credentials (ZO_ROOT_USER_EMAIL and ZO_ROOT_USER_PA
 ```cmd
 #command prompt
 set ZO_ROOT_USER_EMAIL=root@example.com
-set ZO_ROOT_USER_PASSWORD=Complexpass#123
+set ZO_ROOT_USER_PASSWORD=<YOUR_PASSWORD>
 openobserve.exe
 ```
 
 ```powershell
 #powershell
 $env:ZO_ROOT_USER_EMAIL="root@example.com"
-$env:ZO_ROOT_USER_PASSWORD="Complexpass#123"
+$env:ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>"
 .\openobserve.exe
 ```
 
@@ -90,7 +92,7 @@ You can set email and password based on your preference
 
 ```bash
 # Run OpenObserve
-ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="Complexpass#123" ./openobserve
+ZO_ROOT_USER_EMAIL="root@example.com" ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>" ./openobserve
 ```
 
 :::note[Note]
@@ -112,14 +114,14 @@ Docker images are available at:
 **Linux/macOS:**
 
 ```bash
-docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" o2cr.ai/openobserve/openobserve-enterprise:latest
+docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>" o2cr.ai/openobserve/openobserve-enterprise:latest
 ```
 
 **Windows:**
 
 ```cmd
 # Windows Command Prompt
-docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" -p 5080:5080 o2cr.ai/openobserve/openobserve-enterprise:latest
+docker run -d --name openobserve -v %cd%/openobserve-data:/data -e ZO_DATA_DIR="/data" -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>" -p 5080:5080 o2cr.ai/openobserve/openobserve-enterprise:latest
 ```
 
 **Docker Image Options:**
@@ -205,7 +207,7 @@ https://api.openobserve.ai/api/YOUR_ORG/default/_json \
 
 **For Self-Hosted Installation**:
 ```bash
-curl -u "root@example.com:Complexpass#123" \
+curl -u "root@example.com:<YOUR_PASSWORD>" \
 -H "Content-Type: application/json" \
 http://localhost:5080/api/default/default/_json \
 -d "@k8slog_json.json"

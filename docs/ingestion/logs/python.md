@@ -11,7 +11,7 @@ import base64, json
 import requests
 
 user = "root@example.com"
-password = "Complexpass#123"
+password = "<YOUR_PASSWORD>"
 bas64encoded_creds = base64.b64encode(bytes(user + ":" + password, "utf-8")).decode("utf-8")
 
 data = [{

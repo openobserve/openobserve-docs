@@ -29,13 +29,13 @@ Once integrated, OpenObserve RUM automatically captures:
 
 - An Apple app project — **iOS 12+**, tvOS 12+, macOS 12.6+, or watchOS 7+.
 - **Swift 5.9** and a recent **Xcode**.
-- An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough:
+- An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough (replace `<YOUR_PASSWORD>` with a password of your own):
 
 ```bash
 docker run -d --name openobserve \
   -p 5080:5080 \
   -e ZO_ROOT_USER_EMAIL="root@example.com" \
-  -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
+  -e ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>" \
   public.ecr.aws/zinclabs/openobserve:latest
 ```
 

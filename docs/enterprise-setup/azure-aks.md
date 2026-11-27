@@ -300,7 +300,7 @@ auth:
   AZURE_STORAGE_ACCOUNT_NAME: "<your storage account name>"
 ```
 
-Keep the default email/password for testing (`root@example.com` / `Complexpass#123`), or change them.
+Set `ZO_ROOT_USER_PASSWORD` in this section to a password of your own (shown as `<YOUR_PASSWORD>` in the commands below). The email `root@example.com` can stay for testing, or change it.
 
 ## 7b. Config section (~line 384 to 387)
 
@@ -406,7 +406,7 @@ openobserve-router-XXXXXXXXX-XXXXX       1/1     Running   0          5m
 kubectl --namespace $NAMESPACE port-forward svc/openobserve-router 5080:5080
 ```
 
-Leave the terminal running, then open `http://localhost:5080`. Log in with the credentials from Step 7a (default: `root@example.com` / `Complexpass#123`).
+Leave the terminal running, then open `http://localhost:5080`. Log in with the credentials from Step 7a (`root@example.com` and the password you set).
 
 :::accordion[Verify]
 
@@ -415,7 +415,7 @@ Leave the terminal running, then open `http://localhost:5080`. Log in with the c
 From a second terminal, send a synthetic record:
 
 ```bash
-curl -u 'root@example.com:Complexpass#123' \
+curl -u 'root@example.com:<YOUR_PASSWORD>' \
   -X POST 'http://localhost:5080/api/default/default/_json' \
   -H 'Content-Type: application/json' \
   -d '[{"level":"info","message":"hello from azure","timestamp":"2026-01-01T00:00:00Z"}]'
@@ -457,7 +457,7 @@ https://api.openobserve.ai/api/YOUR_ORG/default/_json \
 
 **For Self-Hosted Installation**:
 ```bash
-curl -u "root@example.com:Complexpass#123" \
+curl -u "root@example.com:<YOUR_PASSWORD>" \
 -H "Content-Type: application/json" \
 http://localhost:5080/api/default/default/_json \
 -d "@k8slog_json.json"

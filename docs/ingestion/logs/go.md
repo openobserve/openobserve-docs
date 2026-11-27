@@ -47,7 +47,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    req.SetBasicAuth("root@example.com", "Complexpass#123")
+    req.SetBasicAuth("root@example.com", "<YOUR_PASSWORD>")
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36")
 

@@ -79,7 +79,7 @@ You can keep the Datadog Agent running for metrics and APM (as described in the 
     Json_date_key _timestamp
     Json_date_format iso8601
     HTTP_User admin@example.com
-    HTTP_Passwd Complexpass#123
+    HTTP_Passwd <YOUR_PASSWORD>
     Header Content-Type application/json
 ```
 
@@ -107,7 +107,7 @@ Copy the exact Fluent Bit configuration from **Data > Data sources > Custom > Lo
   encoding.codec = "json"
   auth.strategy = "basic"
   auth.user = "admin@example.com"
-  auth.password = "Complexpass#123"
+  auth.password = "<YOUR_PASSWORD>"
   request.headers.Content-Type = "application/json"
 ```
 

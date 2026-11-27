@@ -63,7 +63,7 @@ This allows you to define the content and layout of the alert message.
     - **Headers (Optional)**: Add custom headers in key-value format. For example, authentication tokens or content type. For example, 
         ```
         Key: Authorization  
-        Value: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4GFzcy  
+        Value: Basic <your_base64_token>  
         ```
     - **Skip TLS Verify**: Enable this option if the endpoint uses self-signed certificates or if you want to bypass SSL verification.
 6. Click **Save** to create the Webhook destination.

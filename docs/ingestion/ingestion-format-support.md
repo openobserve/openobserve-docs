@@ -15,7 +15,7 @@ https://api.openobserve.ai/api/<organization_id>/<stream_id>/_json
 **Example:** 
 Ingest JSON-formatted Logs Using cURL
 ```
-curl https://api.openobserve.ai/api/<organization_id>/<stream_id>/_json -i -u "root@example.com:Complexpass#123"  -d "@k8slogs_json.json" 
+curl https://api.openobserve.ai/api/<organization_id>/<stream_id>/_json -i -u "root@example.com:<YOUR_PASSWORD>"  -d "@k8slogs_json.json" 
 ```
 :::
 :::tab[Ingest HEC-formatted Logs]
@@ -31,7 +31,7 @@ This ingestion method is useful for teams migrating from Splunk or using tools t
 **Example:**
 Ingest HEC-formatted Logs Using cURL
 ```
-curl https://api.openobserve.ai/api/<organization_id>/_hec -i -u "root@example.com:Complexpass#123"  -d "@logs_hec.hec" 
+curl https://api.openobserve.ai/api/<organization_id>/_hec -i -u "root@example.com:<YOUR_PASSWORD>"  -d "@logs_hec.hec" 
 ```
 :::
 ::::

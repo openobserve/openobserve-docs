@@ -37,6 +37,7 @@ Output to OpenObserve using prometheus remote write
      Content-Type = "application/x-protobuf"
      Content-Encoding = "snappy"
      X-Prometheus-Remote-Write-Version = "0.1.0"
-     Authorization = "Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM="
+     ## base64 of "email:password", e.g. echo -n 'root@example.com:<YOUR_PASSWORD>' | base64
+     Authorization = "Basic <your_base64_token>"
 
 ```

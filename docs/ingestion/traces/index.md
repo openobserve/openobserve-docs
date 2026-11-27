@@ -31,19 +31,19 @@ for credentials:
 
 ```
 userid: root@example.com
-password: Complexpass#123
+password: <YOUR_PASSWORD>
 ```
 
 ```shell
-echo -n 'root@example.com:Complexpass#123' | base64
+echo -n 'root@example.com:<YOUR_PASSWORD>' | base64
 ```
 
-`cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`
+`<your_base64_token>`
 
 Header should be:
 
 ```
-Authorization: Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
+Authorization: Basic <your_base64_token>
 ```
 
 **Data > Data sources > Custom > Traces** shows the endpoint and a ready-to-use `Authorization` header for your organization.

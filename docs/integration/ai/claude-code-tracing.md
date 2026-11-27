@@ -68,7 +68,7 @@ Generate the `Authorization` value, which is `Basic <base64(email:password)>`:
 
 ```bash
 echo -n 'your-email:your-password' | base64
-# cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
+# <your_base64_token>
 ```
 
 :::note[Find your host and org]
@@ -398,14 +398,14 @@ Enable tracing selectively by adding env vars to each project's `.claude/setting
 | `CC_OPENOBSERVE_DEBUG` | Set to `"true"` for verbose logging | No | `"false"` |
 | `CC_OPENOBSERVE_MAX_CHARS` | Max characters per text field before truncation | No | `20000` |
 
-**Generating the auth token.** The token is a Base64-encoded `email:password` string. For example, with `root@example.com` / `Complexpass#123`:
+**Generating the auth token.** The token is a Base64-encoded `email:password` string. For example, with `root@example.com` / `<YOUR_PASSWORD>`:
 
 ```bash
-echo -n "root@example.com:Complexpass#123" | base64
-# cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
+echo -n "root@example.com:<YOUR_PASSWORD>" | base64
+# <your_base64_token>
 ```
 
-Then set `OPENOBSERVE_AUTH_TOKEN` to `Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`.
+Then set `OPENOBSERVE_AUTH_TOKEN` to `Basic <your_base64_token>`.
 
 ### What gets exported
 

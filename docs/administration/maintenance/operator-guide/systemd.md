@@ -13,9 +13,11 @@ Install OpenObserve as a system service use systemd.
 
 ```toml
 ZO_ROOT_USER_EMAIL = "example@example.com"
-ZO_ROOT_USER_PASSWORD = "Example@123"
+ZO_ROOT_USER_PASSWORD = "<YOUR_PASSWORD>"
 ZO_DATA_DIR = "/data/openobserve"
 ```
+
+Replace `<YOUR_PASSWORD>` with a password of your own.
 
 ## Create systemd service file
 
