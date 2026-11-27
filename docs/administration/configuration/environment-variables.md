@@ -77,6 +77,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_FORMAT_STREAM_NAME_TO_LOWERCASE | true          | Converts stream names to lowercase.                          |
 | ZO_MEM_TABLE_STREAMS                 | -             | Comma-separated list of streams that use dedicated MemTables. |
 | ZO_INGEST_DEFAULT_HEC_STREAM        | -             | Default stream used for HEC ingestion.                       |
+| ZO_SERVICE_VERSIONS_ENABLED | false | Enables service versions: span stamping at ingest, the version registry flush and the service signals processor. `false` pauses all three and keeps stored rows and cursors; `true` resumes from the saved cursors. |
 
 ## File Management, WAL, and Memtable
 | Environment Variable | Default Value | Description |
@@ -129,6 +130,7 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_COMPACT_JOB_CLEAN_WAIT_TIME          | 7200          | Minimum age of finished jobs before cleanup in seconds.                                        |
 | ZO_COMPACT_PENDING_JOBS_METRIC_INTERVAL | 300           | Interval to publish pending job metrics in seconds.                                            |
 | ZO_COMPACT_MAX_GROUP_FILES               | 10000         | Maximum number of files allowed in a compaction group.                                         |
+| ZO_COMPACT_METRICS_MAX_GROUPS | 100 | Maximum sorted inputs one metrics merge opens at once. A closed hour holding more is pre-merged first. `0` disables the cap; other values below 10 are raised to 10. |
 | ZO_COMPACT_FILE_LIST_DELETED_BATCH_SIZE | 1000                       | Controls the batch size used when deleting entries from `file_list` during compaction and data retention.                                                                            |
 | ZO_COMPACT_RETENTION_ALLOWED_HOURS      | "" (empty, no restriction) | Specifies the UTC hours during which data retention jobs are allowed to start. Provide a comma-separated list of hours (e.g., `5,6,7,8` to allow retention between 05:00 and 08:00 UTC). |
 | ZO_DYNAMIC_PARTITION_STREAM_TYPES | "" | Comma-separated stream types (`logs`, `metrics`, `traces`) that the compactor classifies by volume. A stream whose last `ZO_DYNAMIC_PARTITION_WINDOW_DAYS` closed days each hold less than `ZO_COMPACT_MAX_FILE_SIZE` is merged by day from the next day on; a stream whose days each hold more goes back to hourly. The stream setting `dynamic_partition` overrides this per stream. Before downgrading to a version without this setting, set `ZO_<TYPE>_QUERY_RETENTION=daily` for these types, or queries miss the days already merged by day. |
@@ -200,6 +202,8 @@ In high-load environments, alerts or reports can run large, resource-intensive q
 | ZO_SCHEDULER_WATCH_INTERVAL         | 30    | The scheduler frequently watches if there are any scheduled jobs which are in processing state for more than the `ZO_ALERT_SCHEDULE_TIMEOUT`/`ZO_REPORT_SCHEDULE_TIMEOUT`, if so it increases their `retries` field by 1 and marks them as available for processing again by schedulers. |
 | ZO_ALERT_SCHEDULE_CONCURRENCY       | 50 | The number of scheduled jobs the the scheduler will pull at a time from the scheduler for processing |
 | ZO_ALERT_NOTIFICATION_TIMEOUT       | 30 | Total time limit in seconds for one notification request to a destination, including the connection. `0` uses the default of 30. |
+| ZO_ALERT_TRANSITIONS_RETENTION_DAYS | 97 | Enterprise edition only. Days to keep alert state changes. Alert calibration reads up to 90 days, so values below 97 shorten its history. `0` or less disables cleanup. |
+| ZO_INCIDENTS_JOIN_WINDOW_MINUTES | 240 | Minutes after an incident's first alert during which another alert can still join it by matching dimensions. Alerts already in the incident always rejoin it. `0` removes the time limit. |
 | ZO_CHROME_ENABLED                   | false  | When true, it looks for chromium executable. Required for dashboard reports. |
 | ZO_CHROME_PATH                      | -  | If chrome is enabled, custom chrome executable path can be specified. If not specified, it looks for chrome executable in default locations. If still not found, it automatically downloads a good known version of chromium. |
 | ZO_CHROME_CHECK_DEFAULT_PATH        | true | If false, it skips default locations (e.g. CHROME env, usual chrome file path etc.) when looking for chrome executable. |
@@ -582,6 +586,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_QUERY_GROUP_BASE_SPEED | 1024 | Baseline throughput per core for group operations. Unit is MB per second per core. |
 | ZO_MEMORY_CIRCUIT_BREAKER_ENABLED   | false         | Enables memory circuit breaker.                                                      |
 | ZO_MEMORY_CIRCUIT_BREAKER_RATIO     | 90            | Memory usage threshold percentage for circuit breaker.                               |
+| ZO_MEMORY_CIRCUIT_BREAKER_RELEASE_RATIO | 0 | A tripped memory circuit breaker releases once memory usage drops below this percentage of total memory. `0` means 5 points below `ZO_MEMORY_CIRCUIT_BREAKER_RATIO`, but not below half of it. It is always at least 1 point below the trip ratio. |
 | ZO_RESTRICTED_ROUTES_ON_EMPTY_DATA | false         | Redirects users to the ingestion page when no stream is found.                       |
 | ZO_QUERY_ON_STREAM_SELECTION        | true          | Triggers search based on a button click event.                                       |
 | ZO_RESULT_CACHE_ENABLED              | true          | Enables result cache for query results.                                              |
@@ -677,6 +682,12 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_CUSTOM_DOCS_URL        |            | Custom docs URL that will be used by the `docs` tab on the openobserve UI.              |
 | O2_CUSTOM_HIDE_MENUS      |          | Comma-separated menu items that should not be shown in the menu on openobserve UI. For example, `metrics,traces`. |
 | O2_LOG_PATTERNS_SIMILARITY_THRESHOLD | 0.3 | How strictly log patterns group logs, from 0.0 to 1.0. Lower values create more specific patterns; higher values merge more logs into general patterns. |
+| O2_SIEM_DETECTION_LOOKBACK_SECS | 1200 | Seconds each SIEM detection run re-checks before its window, so late events are still evaluated. A detection's `siem_lookback_minutes` attribute can only raise it. |
+| O2_SIEM_DETECTION_BACKFILL_HOURS | 24 | Longest unevaluated gap a SIEM detection fills after downtime or a re-enable, and the most history a detection created with backfill evaluates. `0` disables both. |
+| O2_SIEM_DETECTION_DEDUP_MAX_ROWS | 5000 | Maximum row fingerprints a SIEM detection remembers so a row is not alerted on twice. |
+| O2_ANOMALY_DATA_READINESS_RECHECK_SECS | 21600 | Delay in seconds before re-checking an anomaly detection config that waits for data and is younger than its training window. Values below 60 are raised to 60. |
+| O2_ANOMALY_EVAL_DELAY_SECS | 30 | Minimum age in seconds a bucket must reach after it closes before an anomaly detection run judges it. Raise it for pipelines with longer ingest delay. `0` judges up to now. Clamped to 0-3600. |
+| O2_ANOMALY_SLACK_THREADS_ENABLED | true | Threads anomaly alerts on Slack app destinations: a repeat fire replies to the first message, and a recovery replies and closes the thread. Turn it off before a rollback. |
 
 
 ## AI Integration
@@ -725,6 +736,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_INCIDENTS_RCA_ENABLED | false | Enables root cause analysis (RCA) for incidents to automatically identify potential causes using AI. |
 | O2_INCIDENTS_AUTO_RESOLVE_AFTER_MINUTES | 4320 | Time in minutes without new alerts after which incidents are automatically resolved. Default is 4320 (3 days). Set to -1 to disable auto-resolution. |
 | O2_INCIDENTS_RCA_TIMEOUT_SECS | 600 | Time limit in seconds for one RCA run. A run still going after this ends with a timeout unless the report was already submitted. `0` uses the default 600. |
+| O2_INCIDENT_MEMBERSHIP_CHECK | true | Checks whether a different alert that joins an open incident is about the same problem. An alert judged unrelated moves to an incident of its own. |
 
 ## Service Graph
 
@@ -736,6 +748,8 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_SERVICE_GRAPH_ENABLED | true | Runs the service graph rollup job for visualizing service dependencies and relationships from trace data. |
 | O2_SERVICE_GRAPH_INTERVAL_SECS | 60 | How often the service graph rollup job runs, in seconds. |
 | O2_SERVICE_GRAPH_FLUSH_SECS | 60 | Width of a service graph window in seconds. One sample is written per series per window. |
+| O2_SERVICE_SIGNALS_WINDOW_SECS | 300 | Rollup window of the service signals in seconds. Deploy markers are precise to one window. |
+| O2_SERVICE_SIGNALS_INTERVAL_SECS | 60 | How often in seconds the service signals job wakes to close due windows. |
 
 ## Service Streams
 
@@ -748,6 +762,46 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | O2_SERVICE_STREAMS_SAMPLE_RATE | 10 | Processes 1 out of every N streams per sample window. Set to 1 to process all streams. |
 | O2_SERVICE_STREAMS_MAX_STREAMS_PER_SERVICE | 50 | Maximum number of streams that can be associated with a single service to prevent unbounded growth. |
 | O2_SERVICE_STREAMS_SAMPLE_WINDOW_SECS | 300 | Time window in seconds (default: 5 minutes) for sampling and analyzing service stream correlations. |
+
+## AutoObserve
+
+> The following environment variables are available only in the Enterprise edition.
+
+
+| Environment Variable | Default Value | Description |
+|---------------------|---------------|-------------|
+| O2_AUTOOBSERVE_ENABLED | false | Enables the AutoObserve engine. When off, it runs no pass and no entity reads as protected. |
+| O2_AUTOOBSERVE_DECISIONS_ENABLED | false | Serves the AutoObserve decision routes: preview, dismiss or accept a suggestion or alert finding, undo, and list decisions in force. Needs `O2_AUTOOBSERVE_ENABLED`. |
+| O2_AUTOOBSERVE_SLOTS_PER_TICK | 50 | Run slots per engine tick, shared round-robin across organizations with run candidates. |
+| O2_AUTOOBSERVE_MAX_INVESTIGATION_MINUTES | 120 | Minutes an investigation started by the engine counts as running. After this, the entity can be investigated again. |
+| O2_AUTOOBSERVE_TICK_BUDGET_SECS | 240 | Seconds an engine tick can spend triaging organizations before it resumes with the next organization on the next tick. Keep it below the 300-second tick interval. |
+| O2_AUTOOBSERVE_POISON_AFTER | 3 | Consecutive triage failures on one signal before the engine records it as `triage_failed` and moves past it. |
+| O2_AUTOOBSERVE_LEARNING_HISTORY_DAYS | 15 | Days of usage the coverage summary reads back to tell which streams are still learning. |
+| O2_AUTOOBSERVE_LANE_INTERVAL_SECS | 0 | How often in seconds the engine's scheduler lane looks for its due row. `0` uses the alert scheduler interval. |
+| O2_AUTOOBSERVE_STREAM_SILENCE_ENABLED | true | Judges every stream for silence from the usage stream, in shadow mode: decision rows only, nothing pages or acts. |
+| O2_AUTOOBSERVE_STREAM_VOLUME_ENABLED | true | Judges every stream the silence watch judges for a sharp drop or rise in its 15-minute volume, in shadow mode. Needs the silence watch on. |
+| O2_AUTOOBSERVE_SOURCE_SILENCE_ENABLED | false | Watches the clusters, hosts and services of each busy stream for one that goes quiet while the stream keeps flowing, in shadow mode. Needs the silence watch on. |
+| O2_AUTOOBSERVE_SOURCE_SILENCE_SUGGESTIONS_ENABLED | false | Lists source-silence findings as AutoObserve suggestions, one per outage. Needs `O2_AUTOOBSERVE_SOURCE_SILENCE_ENABLED`. |
+| O2_AUTOOBSERVE_SOURCE_PRESENCE_ENABLED | false | Stores the daily presence per cluster, host and service seen by the source-silence watch, so a restart restores it without reading the streams again. Needs source silence on. |
+| O2_AUTOOBSERVE_PROBE_RULES_ENABLED | false | Judges synthetic checks in AutoObserve coverage by their service tags, host labels, and whether they can run and have run. |
+| O2_AUTOOBSERVE_HEARTBEAT_ENABLED | false | Finds recurring jobs from their success lines in logs streams and records a missing-line alert for each as a shadow suggestion. |
+| O2_AUTOOBSERVE_HEARTBEAT_SUGGEST | false | Shows the job heartbeat suggestions in the AutoObserve panel. Needs `O2_AUTOOBSERVE_HEARTBEAT_ENABLED`. |
+| O2_AUTOOBSERVE_COVERAGE_WATCHED_ONLY_ENABLED | false | Builds the coverage map from watched services only, and excludes the record that lists most of an organization's streams with no cluster or namespace. |
+| O2_AUTOOBSERVE_COVERAGE_ROUTES_ENABLED | false | Credits edge-proxy alerts grouped or filtered by host or upstream name to the backend services those requests reach, in coverage errors and latency. |
+| O2_AUTOOBSERVE_PAGING_ENABLED | false | Lets AutoObserve open an incident, page on-call and start the incident's analysis when a stream stops sending data, for organizations that turned paging on. |
+| O2_AUTOOBSERVE_PAGE_COHORT_GAP_SECS | 600 | Streams whose stops begin at most this many seconds apart, and whose services agree, share one incident and one page. `0` groups only stops that begin together. |
+| O2_AUTOOBSERVE_PAGE_COHORT_MAX_AGE_HOURS | 24 | Hours after an AutoObserve incident opens during which a stream that stops can still join it. |
+| O2_AUTOOBSERVE_PAGES_PER_DAY | 1 | Default page budget for organizations that set none: the most AutoObserve pages that reach a team in one `O2_AUTOOBSERVE_PAGE_BUDGET_WINDOW_HOURS` window. An organization's own setting overrides it. `0` reads as 1. |
+| O2_AUTOOBSERVE_PAGE_BUDGET_WINDOW_HOURS | 24 | Rolling window in hours over which the AutoObserve page budget counts pages. `0` reads as 1. |
+| O2_AUTOOBSERVE_CONTEXT_ENABLED | false | When an issue appears, asks what changed just before it and what it breaks, then shows the answers on the issue, its incident and in Slack. Needs `O2_AUTOOBSERVE_ENABLED`. |
+| O2_AUTOOBSERVE_CONTEXT_ORGS_PER_TICK | 50 | Organizations that ask for issue context in one engine tick. The rest ask in the next tick. Needs `O2_AUTOOBSERVE_CONTEXT_ENABLED`. |
+| O2_AUTOOBSERVE_QUIET_ENABLED | false | When a person marks an issue as wrong, holds that subject from notifying again for `O2_AUTOOBSERVE_QUIET_HOLD_DAYS`. Needs `O2_AUTOOBSERVE_ENABLED`. |
+| O2_AUTOOBSERVE_QUIET_HOLD_DAYS | 7 | Days a subject marked wrong stays quiet, counted from the verdict. Needs `O2_AUTOOBSERVE_QUIET_ENABLED`. |
+| O2_AUTOOBSERVE_FLEET_ENABLED | false | Shows collectors as a possible cause of an issue when they went offline or got a new configuration just before it. Needs `O2_AUTOOBSERVE_CONTEXT_ENABLED` and `O2_FLEET_ENABLED`. |
+| O2_AUTOOBSERVE_AI_EVIDENCE_ENABLED | false | Sends an issue's stored context to its incident's automatic analysis and shows the analysis's checked next step. Needs `O2_AUTOOBSERVE_CONTEXT_ENABLED`. |
+| O2_AUTOOBSERVE_AI_SECOND_RUNS_PER_DAY | 5 | Second runs of an incident's automatic analysis each organization can start per UTC day when the settled context changes. `0` starts none. Needs `O2_AUTOOBSERVE_AI_EVIDENCE_ENABLED`. |
+| O2_ALERT_CALIBRATION_DEFINITION_SKIPS_ENABLED | false | Lists alerts whose definition AutoObserve could not check as skipped in each calibration run. |
+| O2_SLACK_INSIGHTS_ENABLED | false | Lets people act on AutoObserve and alert calibration insights from Slack. Needs `O2_SLACK_ENABLED`, `O2_AUTOOBSERVE_ENABLED` and `O2_AUTOOBSERVE_DECISIONS_ENABLED`. |
 
 ## Removed settings
 
