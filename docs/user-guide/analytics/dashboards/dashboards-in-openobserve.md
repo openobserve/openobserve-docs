@@ -63,7 +63,7 @@ Dashboards can contain one or more Panels for visualizing various data points or
 A Panel displays a single visualization using one of the [supported chart types](#supported-chart-types-in-dashboards), based on specific data.
 
 :::note[Create Panels]
-To add a Panel inside a Dashboard, click the **Add Panel** button. <br>  
+To add a Panel inside a Dashboard, click the **Add panel** button. <br>  
 Each Panel displays one type of visualization. You can add multiple Panels to a Dashboard to represent different data.
 :::
 
@@ -111,6 +111,18 @@ The following charts are supported in Dashboards:
 32. Custom Chart
 
 The **Table** chart supports a pivot mode: add a **Pivot Field** (the **+P** button) to cross-tabulate data into columns (up to 3 pivot fields), with optional **Show Row Totals** / **Show Column Totals** (and sticky variants). **Transpose** and **Allow Dynamic Columns** are disabled while pivot mode is active. See [Pivot Table](config/pivot-table.md).
+
+The **Logs** chart shows a read-only log list from a custom SQL query, styled like the Logs page. Set the **Message field**, **Level field**, and **Time field**, the **Order** (**Newest first** or **Oldest first**), and turn on **Show time**, **Wrap lines**, or **Prettify JSON**. Expand a row to see its JSON.
+
+The **Box plot** chart draws one box per category, with min, quartiles, median, and max. Set **Whiskers** to **Min to max** or **1.5 × IQR**.
+
+Other chart options include:
+
+- **Y-axis soft min** and **Y-axis soft max** widen the axis but never hide data. **Y-axis hard min** and **Y-axis hard max** stop the axis exactly and cut off values beyond it.
+- Line, area, bar, and scatter charts: **Y-axis scale** (**Linear** or **Log**), **Y-axis label**, **Tooltip order**, **Line style**, **Stack mode** (**Percent** for 100% stacking), **Sort bars**, **Bar corner radius**, **Mark areas**, **Connect gaps up to (seconds)**, and **Size by** for bubble scatter charts.
+- Heatmaps: **Cell gap** and **Hide cells below**. Tables: **Row density**.
+
+Most options list a **Default** choice first that names the value you get. Pick it to clear the setting.
 
 ### Tabs
 Tabs help organize your Panels into different sections within a **Dashboard**. For example, use one Tab for Performance, another for Errors, and another for Traffic Analysis.

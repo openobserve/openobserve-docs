@@ -59,7 +59,7 @@ Deleting a dashboard also deletes its public links.
 
 ## View all public links in the organization
 
-On the **Dashboards** page, select **Public dashboards** to open a list of every public link in the organization. Search by name, dashboard or link URL, and use the same actions as in the dashboard's **Public links** panel. If you cannot view a link's dashboard, its URL shows as **No access**.
+On the **Dashboards** page, select **Public dashboards** in the **Folders** rail, below **Favorites**, to list every public link in the organization. Search by name, dashboard or link URL, and use the same actions as in the dashboard's **Public links** panel. If you cannot view a link's dashboard, its URL shows as **No access**.
 
 ![Public dashboards page listing every public link in the organization](images/public-dashboards-org-list.png)
 
