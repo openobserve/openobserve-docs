@@ -1,5 +1,5 @@
 ---
-title: Kong Gateway
+title: Kong AI Gateway
 metaTitle: Kong AI Gateway
 description: Instrument Kong AI Gateway calls and send traces to OpenObserve via OpenTelemetry.
 ---
@@ -11,7 +11,8 @@ Automatically capture token usage, latency, and model metadata for every request
 ## Prerequisites
 
 * Python 3.9+
-* Kong Gateway running in DB-less mode with an OpenAI proxy route (Docker recommended)
+* Kong AI Gateway 2.0 or later. If you'd like to set up a gateway, you can use [Kong Konnect](https://konghq.com/products/kong-konnect/register) and follow the quickstart script in Kong's [AI Gateway get started guide](https://developer.konghq.com/ai-gateway/get-started/), which runs the gateway in Docker on your machine.
+* [kongctl](https://developer.konghq.com/kongctl/), Kong's command-line tool for managing Konnect configuration
 * An [OpenObserve](https://openobserve.ai/) account (cloud or self-hosted)
 * Your OpenObserve **organisation ID** and **Base64-encoded auth token**
 * An OpenAI API key
@@ -24,31 +25,58 @@ pip install openobserve-python-sdk openinference-instrumentation-openai openai p
 
 ## Configuration
 
-Start Kong in DB-less mode with a declarative config that proxies to OpenAI:
+Kong AI Gateway connects to OpenAI through two entities: an AI Model Provider that stores your OpenAI API key, and an AI Model that your application calls. Define both in a kongctl configuration file:
 
 ```yaml
 # kong.yml
-_format_version: "3.0"
+ai_gateway_model_providers:
+  - ref: openai
+    ai_gateway: !lookup {id: !env AI_GATEWAY_ID}
+    name: openai
+    display_name: OpenAI
+    type: openai
+    config:
+      auth:
+        type: basic
+        headers:
+          - name: Authorization
+            value: !secret {source: !env OPENAI_AUTH_HEADER}
 
-services:
-  - name: openai-service
-    url: https://api.openai.com
-    routes:
-      - name: openai-route
+ai_gateway_models:
+  - ref: gpt-4o-mini
+    ai_gateway: !lookup {id: !env AI_GATEWAY_ID}
+    name: gpt-4o-mini
+    display_name: gpt-4o-mini
+    type: model
+    formats:
+      - type: openai
+    capabilities:
+      - generate
+    config:
+      route:
         paths:
-          - /openai
-        strip_path: true
+          - /v1
+    targets:
+      - name: gpt-4o-mini
+        provider: openai
+        config:
+          type: openai
 ```
+
+`!lookup` adds both entities to your existing gateway, and `!secret` reads your OpenAI API key from an environment variable, so the key stays out of the file. The AI Model's `name` is the value your application sends as `model`, and `targets[].name` is the OpenAI model that the gateway calls. With the `generate` capability, the gateway serves chat completions at `/v1/chat/completions`.
+
+The quickstart script prints `export` commands for `AI_GATEWAY_ID` and `KONNECT_TOKEN`. Run them in your terminal (for a gateway you already have, `kongctl get ai-gateways` lists its ID), then set your OpenAI API key and apply the file with kongctl:
 
 ```shell
-docker run -d --name kong \
-  -e KONG_DATABASE=off \
-  -e KONG_DECLARATIVE_CONFIG=/kong/declarative/kong.yml \
-  -e KONG_PROXY_LISTEN=0.0.0.0:8000 \
-  -v $(pwd)/kong.yml:/kong/declarative/kong.yml \
-  -p 8000:8000 \
-  kong:latest
+export OPENAI_AUTH_HEADER="Bearer <your-openai-api-key>"
+kongctl apply -f kong.yml --auto-approve --pat "$KONNECT_TOKEN"
 ```
+
+The gateway picks up the new configuration within a few seconds.
+
+:::tip
+Add an [AI Auth Strategy](https://developer.konghq.com/ai-gateway/entities/ai-auth-strategy/) to secure the gateway before you expose it beyond your machine.
+:::
 
 Create a `.env` file in your project root:
 
@@ -56,13 +84,12 @@ Create a `.env` file in your project root:
 OPENOBSERVE_URL=https://api.openobserve.ai/
 OPENOBSERVE_ORG=your_org_id
 OPENOBSERVE_AUTH_TOKEN=Basic <your_base64_token>
-OPENAI_API_KEY=your-openai-api-key
-KONG_GATEWAY_URL=http://localhost:8000/openai/v1
+KONG_GATEWAY_URL=http://localhost:8000/v1
 ```
 
 ## Instrumentation
 
-Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the Kong proxy URL and pass your OpenAI API key directly.
+Call `OpenAIInstrumentor().instrument()` **before** creating the OpenAI client. Point the client at the Kong proxy URL. The gateway adds your OpenAI API key to each request, so the client passes a placeholder key.
 
 ```python
 from dotenv import load_dotenv
@@ -78,8 +105,8 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ["OPENAI_API_KEY"],
-    base_url=os.environ.get("KONG_GATEWAY_URL", "http://localhost:8000/openai/v1"),
+    api_key="unused",  # placeholder: the gateway adds your OpenAI API key
+    base_url=os.environ.get("KONG_GATEWAY_URL", "http://localhost:8000/v1"),
 )
 
 response = client.chat.completions.create(
