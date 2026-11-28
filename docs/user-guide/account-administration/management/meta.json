@@ -13,6 +13,7 @@
     "nodes",
     "sso-domain-restrictions",
     "domain-org-mappings",
+    "domain-management",
     "sensitive-data-redaction",
     "correlation-settings",
     "lincense"
