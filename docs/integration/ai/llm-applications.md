@@ -181,6 +181,8 @@ When the first span arrives, the tab runs the **AI data health** checks:
 
 A failing check lists sample traces. After the agent fixes the code and runs another request, click **Check again**.
 
+![With a coding agent tab after the first span arrived, with the AI data health checks](../images/llm-applications/coding-agent-data-health.png)
+
 ## What gets captured
 
 The `opentelemetry-instrumentation-openai` library attaches request, response, and token attributes to each span. OpenObserve stores attribute names with dots replaced by underscores, for example:

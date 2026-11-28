@@ -76,7 +76,7 @@ Scroll down to the **Settings** section on the same **Alert Rules** tab:
 - **Notify on recovery**: Send one message to the destinations when the alert stops firing. Optionally pick a **Recovery destination**, and set **Keep firing for** to wait before the alert recovers.
 - **Suppress repeats**: Notify once when the alert starts firing or changes level, instead of on every evaluation. Enterprise and Cloud only. See [Suppress repeats](#suppress-repeats).
 
-![Settings section with Look back window, Cooldown period, Hold for, Destination, Creates Incident, Notify on recovery, Recovery destination and Keep firing for](../../../images/add-alert-settings-section-v2.png)
+![Settings section with Look back window, Cooldown period, Hold for, Destination, Creates Incident, Notify on recovery, Keep firing for and Suppress repeats](../../../images/add-alert-settings-section-v3.png)
 
 ### Step 7: Save
 
@@ -125,7 +125,7 @@ Scroll down to configure **Settings** (look back window, cooldown period, destin
 
 The **Advanced** tab provides additional options for scheduled alerts. Click **Advanced** next to the **Alert Rules** tab.
 
-![Advanced tab with Additional Settings (Template Override, Priority, Tags, Description, Row Template), Compare with Past and Deduplication](../../../images/add-alert-advanced-tab-v2.png)
+![Advanced tab with Additional Settings (Template Override, Priority, On-call team, Tags, Description, Row Template) and Compare with Past](../../../images/add-alert-advanced-tab-v3.png)
 
 ### Compare with past
 
