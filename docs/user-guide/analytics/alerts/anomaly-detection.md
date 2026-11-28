@@ -86,6 +86,18 @@ The **Alerting** tab configures what happens when anomalies are detected:
 Anomaly detection results are always written to the `_anomalies` stream, even when notifications are disabled. You can query this stream directly for analysis.
 :::
 
+### Anomaly alerts
+
+A value anomaly alert states what changed: a headline, the actual value, the expected range, and when it started. The default template shows **Expected**, **Change**, and **Started**, with no score field. An absence alert says "No data for this detector's query since HH:MM UTC".
+
+Each alert has a **View logs**, **View traces**, or **View metrics** button that opens the detector's data around the anomaly, and an **Open anomaly** button for the rule's detail page. The alert includes a chart of the expected band with anomalous points in red.
+
+On a Slack app destination, the alerts of one anomaly form one thread: repeats and the recovery are replies. Threads are on by default. Turn them off with `O2_ANOMALY_SLACK_THREADS_ENABLED=false`, and do so before you roll back to a release without Slack threads.
+
+On the **Charts** tab, a summary strip shows the current state, such as **Ongoing**, **Back in range**, or **In range**, with **Actual**, **Expected**, and **Change**, and a **View data** button. Click an anomalous point to see its values and a link such as **View logs for this window**.
+
+Logs, Traces, and Metrics opened from an anomaly show an **Opened from anomaly** banner with the detector's values and **Back to anomaly**. On Logs, switch between **Show aggregate** and **Show raw rows**.
+
 ### Status lifecycle
 
 Each anomaly detection rule progresses through a status lifecycle:

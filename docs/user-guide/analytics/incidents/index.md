@@ -38,6 +38,16 @@ OpenObserve groups related alert firings into incidents using intelligent correl
 
 Alerts from external systems such as Grafana or Prometheus Alertmanager can be correlated into incidents too. See [External Alert Sources](external-alert-sources.md).
 
+An alert already in an open incident rejoins that incident first. An incident opened by an alert with no dimensions takes only that alert's own firings. A different alert can join an incident only within `ZO_INCIDENTS_JOIN_WINDOW_MINUTES` (default `240`) of the incident's first alert.
+
+### Unrelated alerts
+
+When a different alert joins an open incident, OpenObserve checks whether it is about the same problem. It uses the alerts' firing history, the service graph, and workload evidence, and asks the AI SRE Agent when those cannot decide.
+
+An alert judged unrelated moves, with all its firings, to an incident of its own, and its **Activity** tab shows **Opened on its own**. If the alert is no longer firing, its new incident opens as resolved and sends no notification. The pair is remembered for 30 days, so the alert does not rejoin.
+
+The check is on by default. Turn it off with `O2_INCIDENT_MEMBERSHIP_CHECK=false`. See [Environment variables](../../../administration/configuration/environment-variables.md).
+
 ### Incident notifications
 
 When an alert has **Creates Incident** enabled, it no longer sends its regular notification. Instead, an incident notification is sent only when:
@@ -50,34 +60,24 @@ Repeated firings of the same alert are suppressed, which reduces notification no
 
 ### Incident detail tabs
 
-The incident detail view has these tabs, in this order by default: **Incident Analysis**, **Overview**, **Activity**, **Alert Graph**, **Alert Triggers**, **Logs**, **Metrics**, and **Traces**. It opens on the first tab. Drag a tab to reorder them; your order is remembered in this browser.
+The incident detail view has these tabs, in this order by default: **Incident Analysis**, **Report**, **Overview**, **Activity**, **Alert Graph**, **Alert Triggers**, **Logs**, **Metrics**, and **Traces**. It opens on the first tab. Drag a tab to reorder them; your order is remembered in this browser.
 
 ### Incident overview dashboard
 
-The **Overview** tab provides a real-time summary of the incident with five hero metric cards:
+The **Overview** tab shows a real-time summary of the incident, each fact once:
 
-- **Total Alerts** — total number of alert firings correlated to this incident
-- **Unique Alerts** — number of distinct alert rules that fired
-- **Affected Services** — count of services impacted
-- **Active Duration** — how long the incident has been active
-- **Alert Frequency** — rate of alert firings (per minute or per hour)
+- **Timeline**: **First firing**, **Peak**, **Latest firing**, **Active for** with the firing rate, **Last update**, and **Correlated by**.
+- **Dimensions**: the correlation dimensions that group alerts into this incident. **Services affected** lists each distinct service, linked to the service catalog and to the **Service graph** for the incident's time window.
+- **Alerts**: each alert in the incident with its firings drawn as bars on a shared time axis.
 
-Below the metrics, three panels provide additional context:
+![Incident detail Overview tab showing the Timeline, Dimensions and Alerts cards](../../../images/incident-detail-overview-rich-v3.png)
 
-- **Incident Timeline** — key milestones showing when the first alert was received, peak activity, and the latest alert
-- **Incident Details** — incident ID, name, correlation method, and creation/update timestamps
-- **Alert Activity chart** — a bar chart showing alert counts over time to visualize incident progression
+### Status and severity
 
-![Incident detail Overview tab showing hero metrics, incident timeline, alert activity chart, and management panel](../../../images/incident-detail-overview-rich-v2.png)
+Change the status and severity from the chips in the incident header. They work on every tab.
 
-### Manage panel
-
-The right side of the Overview tab contains the management panel:
-
-- **Status** — toggle between **Open**, **Acknowledged**, and **Resolved**
-- **Severity** — set priority from **P1 - Critical** to **P4 - Low**
-- **Dimensions** — view the correlation dimensions (key-value pairs) that group alerts into this incident
-- **Related Alerts** — list of all unique alert rules correlated to this incident with their firing counts
+- **Status**: **Open**, **Acknowledged**, or **Resolved**.
+- **Severity**: **P1** (critical) to **P4** (low).
 
 ### AI-powered root cause analysis
 
@@ -110,9 +110,9 @@ On the **Activity** tab, every status change, severity update, AI analysis event
 
 ### Alert triggers
 
-The **Alert Triggers** tab lists every alert firing correlated to the incident, showing the alert name, timestamp, and correlation reason. Click an alert row to view its details in the side panel.
+The **Alert Triggers** tab lists every alert firing correlated to the incident, with its **Alert Name**, **Labels**, and **Fired At** time. When a row has more labels than fit, hover **+N** to see them all. Click an alert row to view its details in the side panel.
 
-![Alert Triggers table showing correlated alerts with firing times and correlation reasons](../../../images/incident-detail-alert-triggers-v2.png)
+![Alert Triggers table listing each correlated alert with its firing time](../../../images/incident-detail-alert-triggers-v3.png)
 
 ### Alert graph
 
@@ -158,17 +158,17 @@ Correlated telemetry requires that your logs, metrics, and traces share common d
 
 1. Click any row in the incidents list to open the detail view.
 
-2. Open the **Overview** tab for hero metrics, the incident timeline, and the alert activity chart.
+2. Open the **Overview** tab for the timeline, dimensions, affected services, and alerts.
 
-3. Check the **Manage** panel on the right to see the current status, severity, dimensions, and related alerts.
+3. Check the status and severity chips in the incident header.
 
-4. Click the **Alert Triggers** tab to see every correlated alert firing and why it was grouped into this incident.
+4. Click the **Alert Triggers** tab to see every correlated alert firing and its labels.
 
 5. Use the **Incident Analysis** tab to run AI root cause analysis, check the **Activity** tab for the timeline and comments, or check the **Alert Graph** for a visual topology of alert relationships.
 
 6. Explore correlated data in the **Logs**, **Metrics**, or **Traces** tabs.
 
-7. Update the status using the **Manage** panel or header buttons:
+7. Update the status using the status chip or the header buttons:
     - **Acknowledge** — investigation has started
     - **Resolve** — incident is closed
     - **Reopen** — reactivate a resolved incident
@@ -188,7 +188,7 @@ Reanalysis reruns automatically when a new alert type joins the incident, when d
 To set the title of new incidents, enter a template in the **Incident Title** field of an alert that has **Creates Incident** enabled, for example `{service_name} errors on {host}`. Use `{field}` for values from the triggering row or its grouping keys, plus `{alert_name}`, `{stream_name}`, `{stream_type}`, `{org_name}`, `{alert_time}`, `{alert_start_time}`, `{alert_end_time}`, and context attributes. Missing variables show as `–`. If none resolve, OpenObserve uses the default title.
 
 - **Title**: Click the incident title in the header, edit it, and press Enter to save.
-- **Severity**: In the **Manage** panel, click a severity level:
+- **Severity**: Click the severity chip in the header and pick a level:
 
 | Severity | Description |
 |----------|-------------|

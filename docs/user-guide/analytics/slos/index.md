@@ -269,6 +269,11 @@ minutes. (A dual-query or PromQL count source runs two queries per chunk, one
 each for good and total; an alert-based SLI reads the evaluation ledger instead
 of running a search at all.)
 
+To bring in SLOs exported from this or another organization, select **Import**
+next to **New SLO**. On the **Import SLOs** page, choose the target folder, then
+give a URL, a file, or pasted JSON with one SLO or an array. Each SLO is created
+separately, and a failed one shows the reason.
+
 ## Reading an SLO
 
 Select any row in the list to open the detail page.

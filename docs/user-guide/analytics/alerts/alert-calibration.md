@@ -39,11 +39,11 @@ Each run applies these rules to every alert with run history in the window:
 
 | Rule | Flags an alert that | Needs at least | Suggested fix |
 |---|---|---|---|
-| **Failure** | Fails to evaluate repeatedly: at least 5 errors and 10% of its evaluations | 1 day | **Fix alert query** |
+| **Failure** | Fails to evaluate repeatedly: at least 5 errors and 10% of its evaluations | 1 day | **Review alert** |
 | **No destination** | Fires but has no destination to notify | 1 hour | **Attach destination** |
 | **Noise** | Fires often (20 or more times), returns to normal within about 5 minutes on average, and never led to an incident | 7 days | **Raise threshold**, **Lengthen evaluation window**, **Turn on suppress repeats** |
 | **Notification failed** | Fires, but its notifications keep failing to deliver: at least 3 failures and 5% of deliveries | 1 day | **Repair destination** |
-| **Silent** | Evaluated at least 500 times, with errors in under 10% of them, and never fired, not even while muted by a downtime | 30 days | **Review for deletion** |
+| **Silent** | Evaluated at least 500 times, with errors in under 10% of them, and never fired, not even while muted by a downtime | 30 days | **Review alert** |
 | **Scheduler lag** | (Cluster-wide) Alert evaluations started late or were skipped | none | **Scale the alert scheduler**: raise `ZO_ALERT_SCHEDULE_CONCURRENCY`, add alert nodes, or turn on `ZO_SCHEDULER_PER_MODULE_PULLERS` |
 
 **Scheduler lag** looks at the whole cluster, so it is shown only in the `_meta` organization.

@@ -25,17 +25,20 @@ A firing composite records a **Critical** level; a non-firing composite records 
 
 ### Eligible child types
 
-A composite can reference between **2 and 10** children. The following alert types can be children:
+A composite can reference between **2 and 10** children. Children must be non-composite alerts:
 
 - **Scheduled alerts** (SQL, PromQL, or builder-based)
 - **SLO alerts**
-- **Other composite alerts**, up to two levels of nesting
+
+A composite cannot be a child of another composite. The child picker does not offer composites, and saving a composite with a composite child fails with `child_is_composite`.
 
 > **Note**: A multi-alert child contributes its overall (rollup) state only — you cannot compose on individual groups of a multi-alert. Realtime alerts and anomaly-detection rules cannot yet be children.
 
+An older composite that still references another composite is paused the first time it is scheduled, and nothing is delivered. Remove the composite child, save, and enable it again.
+
 ## Prerequisites
 
-- At least two existing alerts (scheduled, SLO, or composite) to use as children
+- At least two existing scheduled or SLO alerts to use as children
 - At least one notification [destination](../../account-administration/management/alert-destinations.md) configured
 - Appropriate permissions to create alerts and to read every alert you want to reference
 
@@ -59,7 +62,7 @@ In the **Sub-alerts** section, click **Add alert** to add a child. Each child is
 
 - A **letter badge** (`A`, `B`, `C`, …) that identifies it in the expression.
 - A searchable dropdown to choose any eligible alert in your organization.
-- A type badge (**Scheduled**, **SLO**, or **Composite**) and a current level badge.
+- A type badge (**Scheduled** or **SLO**) and a current level badge.
 - An open-in-new link and a remove button.
 
 You must select between **2 and 10** children. A counter shows your progress (for example, `2 of 10 children`), and the **Add alert** button is disabled at 10.
@@ -121,7 +124,7 @@ Composite alerts reuse the standard alert settings:
 
 ### Step 7: Save
 
-Click **Save** at the bottom. The server validates the expression, resolves every child, and checks that the alert graph has no cycles and stays within the two-level nesting limit before saving.
+Click **Save** at the bottom. The server validates the expression, resolves every child, and checks that no child is a composite before saving.
 
 ---
 
