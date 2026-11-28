@@ -6,6 +6,7 @@
     "dashboards",
     "incidents",
     "reports",
-    "autoobserve"
+    "autoobserve",
+    "autoresolve"
   ]
 }
