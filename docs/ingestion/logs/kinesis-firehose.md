@@ -17,14 +17,14 @@ HTTP endpoint: https://api.openobserve.ai/aws/org_name/stream_name/_kinesis_fire
 Access key: vhgjleGFtcGxlLmNvbTo2eUNsSW1HZXV4S3hZanJi
 ```
 
-Access key is base64 encoded value of `userid:password`. e.g. If your user id is root@example.com and password is Complexpass#123 then the base64 encoded value is 
+Access key is base64 encoded value of `userid:password`. e.g. If your user id is root@example.com and password is `<YOUR_PASSWORD>` then the base64 encoded value is 
 
 ```bash
-echo -n 'root@example.com:Complexpass#123' | base64
+echo -n 'root@example.com:<YOUR_PASSWORD>' | base64
 ```
  which will give you
 
- `cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=`
+ `<your_base64_token>`
 
 The Firehose sends this value in the `X-Amz-Firehose-Access-Key` header. **Data > Data sources > Custom > Logs > Kinesis Firehose** shows the endpoint and access key for your organization, ready to copy.
 

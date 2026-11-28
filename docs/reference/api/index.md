@@ -19,8 +19,10 @@ Authorization: Basic base64("username:password")
 For example:
 
 ```
-Authorization: Basic YWRtaW46Q29tcGxleHBhc3MjMTIz
+Authorization: Basic <your_base64_token>
 ```
+
+Build the token with `echo -n 'email:password' | base64`, using your own email and password.
 
 Make sure that you are sending the requests over HTTPS.
 

@@ -30,13 +30,13 @@ Once integrated, OpenObserve RUM automatically captures:
   - **minSdk 23** or higher (some auto-instrumentation requires API 29).
   - **compileSdk 36**.
   - **Kotlin 2.0.21** and **Java 11** source/target compatibility.
-- An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough:
+- An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough (replace `<YOUR_PASSWORD>` with a password of your own):
 
 ```bash
 docker run -d --name openobserve \
   -p 5080:5080 \
   -e ZO_ROOT_USER_EMAIL="root@example.com" \
-  -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
+  -e ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>" \
   public.ecr.aws/zinclabs/openobserve:latest
 ```
 

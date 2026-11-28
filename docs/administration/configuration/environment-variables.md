@@ -530,7 +530,7 @@ When set to false, nodes rely on slower failure detection mechanisms and continu
 | ZO_USAGE_BATCH_SIZE        | 2000  | How many requests should be batched before flushing the usage data from memory to disk.    |
 | ZO_USAGE_REPORTING_MODE    | local  | Local mode means the usage will be reported only in the internal cluster of ZO_USAGE_ORG. remote mode means that the usage reporting will be ingested to the remote target. both ingests the usage reports both to internal and remote target. |
 | ZO_USAGE_REPORTING_URL     | `http://localhost:5080/api/_meta/usage/_json` | In case of remote or both value of ZO_USAGE_REPORTING_MODE, this URL is used to post the usage reports to remote target.  |
-| ZO_USAGE_REPORTING_CREDS   | -  | The credentials required to send along with the post request to the ZO_USAGE_REPORTING_URL. E.g. - Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4UGFzcyMxMjM=.  |
+| ZO_USAGE_REPORTING_CREDS   | -  | The credentials required to send along with the post request to the ZO_USAGE_REPORTING_URL. E.g. - `Basic <your_base64_token>`.  |
 | ZO_USAGE_PUBLISH_INTERVAL  | 60 | Duration in seconds after the last reporting usage will be published. |
 
 ## SMTP

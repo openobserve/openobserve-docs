@@ -19,14 +19,14 @@ A simple and lightweight Python SDK for exporting OpenTelemetry logs, metrics, a
 
 **Generate auth token:**
 ```bash
-echo -n "root@example.com:Complexpass#123" | base64
-# Output: cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
+echo -n "root@example.com:<YOUR_PASSWORD>" | base64
+# Output: <your_base64_token>
 ```
 
 **Set environment variables:**
 ```bash
 # OpenObserve Configuration (Required)
-export OPENOBSERVE_AUTH_TOKEN="Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM="
+export OPENOBSERVE_AUTH_TOKEN="Basic <your_base64_token>"
 
 # Optional OpenObserve settings (defaults shown)
 export OPENOBSERVE_URL="http://localhost:5080"

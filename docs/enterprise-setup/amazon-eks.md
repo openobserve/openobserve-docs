@@ -347,7 +347,7 @@ yq -i ".config.ZO_S3_REGION_NAME = \"$AWS_REGION\""   values.yaml
 
 # 3. Root user. CHANGE BOTH before running in any non-throwaway environment
 yq -i '.auth.ZO_ROOT_USER_EMAIL    = "you@yourcompany.com"' values.yaml
-yq -i '.auth.ZO_ROOT_USER_PASSWORD = "ChangeMe#123"'       values.yaml
+yq -i '.auth.ZO_ROOT_USER_PASSWORD = "<YOUR_PASSWORD>"'       values.yaml
 
 # 4. (Optional) RBAC and SSO. OpenFGA (RBAC) is on by default; Dex (SSO) is off
 yq -i '.enterprise.openfga.enabled = true' values.yaml
@@ -491,7 +491,7 @@ Leave the terminal running, then open `http://localhost:5080`. Log in with the e
 From a second terminal, send a synthetic record:
 
 ```bash
-curl -u 'you@yourcompany.com:ChangeMe#123' \
+curl -u 'you@yourcompany.com:<YOUR_PASSWORD>' \
   -X POST 'http://localhost:5080/api/default/default/_json' \
   -H 'Content-Type: application/json' \
   -d '[{"level":"info","message":"hello from eks"}]'
@@ -533,7 +533,7 @@ https://api.openobserve.ai/api/YOUR_ORG/default/_json \
 
 **For Self-Hosted Installation**:
 ```bash
-curl -u "you@yourcompany.com:ChangeMe#123" \
+curl -u "you@yourcompany.com:<YOUR_PASSWORD>" \
 -H "Content-Type: application/json" \
 http://localhost:5080/api/default/default/_json \
 -d "@k8slog_json.json"

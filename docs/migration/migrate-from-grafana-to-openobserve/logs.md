@@ -67,7 +67,7 @@ clients:
   - url: http://openobserve:5080/api/{org}/loki/api/v1/push
     basic_auth:
       username: admin@example.com
-      password: Complexpass#123
+      password: <YOUR_PASSWORD>
 ```
 
 Replace `{org}` with your OpenObserve organization name (e.g. `default`). OpenObserve writes Loki pushes to the stream named in the `o2_stream_name` label (or `stream_name`); without that label they go to the `default` stream. Add it as a static label in Promtail if you want a different stream.
@@ -102,7 +102,7 @@ logs:
         - url: http://openobserve:5080/api/default/loki/api/v1/push
           basic_auth:
             username: admin@example.com
-            password: Complexpass#123
+            password: <YOUR_PASSWORD>
 ```
 Or replace with [OpenObserve Collector](https://github.com/openobserve/openobserve-helm-chart/blob/main/charts/openobserve-collector/README.md).
 

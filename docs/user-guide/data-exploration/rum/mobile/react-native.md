@@ -27,13 +27,13 @@ Once integrated, OpenObserve RUM automatically captures:
 ## Prerequisites
 
 - A React Native app (`react >= 16.13.1`, `react-native >= 0.63.4 < 1.0`).
-- An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough:
+- An OpenObserve instance — [OpenObserve Cloud](https://cloud.openobserve.ai) or self-hosted. For local testing, one container is enough (replace `<YOUR_PASSWORD>` with a password of your own):
 
 ```bash
 docker run -d --name openobserve \
   -p 5080:5080 \
   -e ZO_ROOT_USER_EMAIL="root@example.com" \
-  -e ZO_ROOT_USER_PASSWORD="Complexpass#123" \
+  -e ZO_ROOT_USER_PASSWORD="<YOUR_PASSWORD>" \
   public.ecr.aws/zinclabs/openobserve:latest
 ```
 

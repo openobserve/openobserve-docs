@@ -57,8 +57,8 @@ Send credentials and the destination stream as OTLP headers:
 Generate the `Authorization` value from your credentials:
 
 ```shell
-echo -n 'root@example.com:Complexpass#123' | base64
-# -> cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=
+echo -n 'root@example.com:<YOUR_PASSWORD>' | base64
+# -> <your_base64_token>
 ```
 
 You can also copy a ready-made endpoint and `Authorization` header from **Data > Data sources > Custom > Traces** (and **Metrics**) in the OpenObserve UI.
@@ -82,7 +82,7 @@ stringData:
   # Comma-separated key=value pairs consumed as OTEL_EXPORTER_OTLP_HEADERS.
   #   Authorization=Basic <base64 email:password>  -> OpenObserve auth
   #   stream-name=default                           -> target OpenObserve stream
-  otlp-headers: "Authorization=Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=,stream-name=default"
+  otlp-headers: "Authorization=Basic <your_base64_token>,stream-name=default"
 ```
 
 ### 2. Create the Helm values
@@ -193,7 +193,7 @@ docker run --rm --privileged --pid=host \
   -e OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="https://<your-openobserve-host>/api/<your-org>/v1/traces" \
   -e OTEL_EXPORTER_OTLP_METRICS_ENDPOINT="https://<your-openobserve-host>/api/<your-org>/v1/metrics" \
   -e OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf" \
-  -e OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM=,stream-name=default" \
+  -e OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic <your_base64_token>,stream-name=default" \
   ghcr.io/open-telemetry/opentelemetry-ebpf-instrumentation/ebpf-instrument:v0.9.0
 ```
 

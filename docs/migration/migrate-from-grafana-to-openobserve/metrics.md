@@ -110,7 +110,7 @@ metrics:
         - url: http://openobserve:5080/api/{org_id}/prometheus/api/v1/write
           basic_auth:
             username: admin@example.com
-            password: Complexpass#123
+            password: <YOUR_PASSWORD>
 ```
 
 
@@ -147,7 +147,7 @@ If you deployed Prometheus via the `kube-prometheus-stack` Helm chart with `remo
 ```bash
 kubectl create secret generic openobserve-secret \
   --from-literal=username=admin@example.com \
-  --from-literal=password=Complexpass#123 \
+  --from-literal=password=<YOUR_PASSWORD> \
   -n monitoring
 ```
 
